@@ -1,16 +1,13 @@
-# ─────────────────────────────────────────────────────────────────────────────
-# client.config.yml — the ONLY file you edit to onboard a new client.
-# Everything else is generated from what you list here.
-# ─────────────────────────────────────────────────────────────────────────────
 
 client:
-  name: "<Client Name>"           # e.g. "Acme Corp"
-  slug: "<client-slug>"           # e.g. "acme-corp" (lowercase, kebab-case)
-  industry: ""                    # e.g. "B2B SaaS, logistics"
+  name: "<The Society for Collegiate Leadership & Achievement >"      
+  slug: "<the-scla>"          
+  industry: "higher education / education services industry"                   
   primary_contact:
     name: ""
     email: ""
     role: ""
+    website: "https://www.thescla.org"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SOURCES — where the client's information currently lives.
