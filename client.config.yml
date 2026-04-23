@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# client.config.yml — the ONLY file you edit to onboard a new client.
+# Everything else is generated from what you list here.
+# ─────────────────────────────────────────────────────────────────────────────
+
+client:
+  name: "<Client Name>"           # e.g. "Acme Corp"
+  slug: "<client-slug>"           # e.g. "acme-corp" (lowercase, kebab-case)
+  industry: ""                    # e.g. "B2B SaaS, logistics"
+  primary_contact:
+    name: ""
+    email: ""
+    role: ""
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SOURCES — where the client's information currently lives.
+# The `ingestor` agent reads this list and populates client/_raw/.
+# ─────────────────────────────────────────────────────────────────────────────
+sources:
+  # Public web properties (the ingestor will crawl + snapshot these to markdown)
+  websites:
+    - url: "https://example.com"
+      crawl_depth: 2              # 0 = single page, 2 = default
+      include_assets: true        # download logos, images, PDFs linked from pages
+
+  # Documents (paths relative to client/_raw/docs/inbox/, or direct URLs)
+  docs:
+    - path: "inbox/"              # drop files here before running /ingest
+    - url: ""                     # public Google Doc / Notion / PDF URL
+
+  # Code repositories (optional — surfaces README + architecture signals)
+  repos: []
+    # - url: "https://github.com/client/app"
+
+  # Shared drives / workspaces (manual export recommended; list for tracking)
+  drives: []
+    # - label: "Google Drive — Marketing"
+    #   export_path: "inbox/drive-marketing-export.zip"
+
+  # Workflow artifacts (Slack exports, ticket dumps, Looms, meeting notes)
+  artifacts: []
+    # - label: "Slack #general export"
+    #   path: "inbox/slack-export-2026-04.zip"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TARGETS — what you want at the end of onboarding.
+# Toggle stages off to skip them.
+# ─────────────────────────────────────────────────────────────────────────────
+targets:
+  knowledge_base: true
+  brand_guide: true
+  workflow_map: true
+  automation_opportunities: true
+  source_of_truth: true
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COLLAB — where the finished source of truth will live for the client's team.
+# (Used by `source-of-truth-curator` to generate a README pointing there.)
+# ─────────────────────────────────────────────────────────────────────────────
+collab:
+  canonical_home: ""              # e.g. "Notion workspace URL" or "internal wiki"
+  channels:
+    - name: "slack"
+      handle: ""                  # e.g. "#client-acme"
