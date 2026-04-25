@@ -35,9 +35,16 @@ sources:
     #   export_path: "inbox/drive-marketing-export.zip"
 
   # Workflow artifacts (Slack exports, ticket dumps, Looms, meeting notes)
-  artifacts: []
-    # - label: "Slack #general export"
-    #   path: "inbox/slack-export-2026-04.zip"
+  # NOTE: files below were loaded manually into _raw/artifacts/inbox/ on 2026-04-24
+  artifacts:
+    - label: "Community Team Mondays — 2026-04-06 (Gemini notes)"
+      path: "inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md"
+    - label: "Community Team Mondays — 2026-04-13 (Gemini notes)"
+      path: "inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md"
+    - label: "Community Team Mondays — 2026-04-20 (Gemini notes)"
+      path: "inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md"
+    - label: "Stakeholder tooling inventory"
+      path: "inbox/stakeholder-notes.md"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TARGETS — what you want at the end of onboarding.
