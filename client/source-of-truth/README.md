@@ -18,7 +18,7 @@ The Society for Collegiate Leadership & Achievement (SCLA) is the leading Colleg
 These three items are already decided. Execution is the only thing standing between the team and a meaningfully lighter workload.
 
 **1. Claude-generated MJML email templates (P0 — blocking weekly cadence)**
-The weekly news has been stalled for weeks because MJML conversion requires Sean. Amy sends Kierra 3 sample MJML files; Kierra feeds them to Claude Pro; Claude produces a reusable template; Sean only implements, not authors.
+The weekly news has been stalled for weeks because MJML conversion requires Sean/Shawn. Amy sends Kierra 3 sample MJML files; Kierra feeds them to Claude Pro; Claude produces a reusable template; Sean only implements, not authors. This removes the single point of failure that has prevented a consistent weekly rhythm.
 Full details: [automation-opportunities.md — item 1](../workflows/automation-opportunities.md)
 
 **2. Community Google Drive → Claude knowledge base → dashboard (P0 — already decided)**
@@ -48,17 +48,17 @@ Full details: [automation-opportunities.md — item 3](../workflows/automation-o
 
 | Directory | What it covers |
 |---|---|
-| [client/brand/](../brand/brand-guide.md) | Voice, tone, visual identity guidelines |
+| [client/brand/](../brand/brand-guide.md) | Voice, tone, and visual identity guidelines |
 | [client/knowledge-base/](../knowledge-base/glossary.md) | Glossary, people directory, products and services, FAQs |
-| [client/workflows/](../workflows/current-state.md) | Current-state workflow maps, pain points, automation opportunities |
+| [client/workflows/](../workflows/current-state.md) | Current-state workflow maps, pain points, and automation opportunities |
 
 ---
 
 ## Key dates on the horizon
 
-- **August 1, 2026** — Focus Modes launch on the new dashboard (content owned by Anushka Gupta)
 - **May 26–27, 2026** — University of Phoenix event (500+ attendees; Jenna Heath confirming Zoom license capacity)
 - **June 2026** — Current contract milestone; Amy has confirmed the team is staying
+- **August 1, 2026** — Focus Modes launch on the new dashboard (content owned by Anushka Gupta)
 
 ---
 

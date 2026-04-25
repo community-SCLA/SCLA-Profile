@@ -7,64 +7,79 @@ confidence: medium
 
 > This page is the team's — edit it freely. Generated on first pass from the onboarding pipeline; no longer auto-regenerated.
 
-# Charter
+# Charter — SCLA Community Team
+
+---
 
 ## Mission
 
-SCLA empowers students to excel academically and professionally, celebrating achievement, fostering personal growth, and providing the tools, connections, and credentials needed to build successful, purpose-driven careers.
+SCLA's stated mission, sourced from the organization's public materials:
 
-*source: [client/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md) — verbatim from search-index snippet for https://www.thescla.org/mission-history*
+> "The Society for Collegiate Leadership & Achievement (SCLA) is the leading College-to-Career Honor Society that empowers students to excel academically and professionally, celebrating achievement, fostering personal growth, and providing the tools, connections, and credentials needed to build successful, purpose-driven careers."
 
-The community team's role within that mission: be the human layer. The platform delivers tools; the team delivers belonging, accountability, and expert guidance that no AI can replicate.
+*source: [client/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+
+The community team's role inside that mission: build and sustain the human layer that makes the platform feel like a community. Every event we host, every member we onboard, and every piece of content we produce is in service of that promise.
 
 ---
 
 ## Vision
 
-A college-to-career community where every student — regardless of school rank or background — gets the career-readiness support that campus career services have failed to provide at scale.
+What we are building toward (synthesized from Apr 6, 13, and 20 meeting discussions):
 
-> "The target students are those needing foundational career readiness [...] campus career services are 'dropping the ball bad,' failing to provide necessary support to many students who desperately need it."
+A robust, peer-driven community where students at any college — including community colleges and trade schools historically underserved by campus career services — can find foundational career readiness, professional connections, and a clear path from student to professional. The platform is not a one-size-fits-all experience: Focus Modes will let each member enter at the level they need, whether that is resume basics or advanced personal branding.
 
-*source: [Apr 6 meeting notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md) — Iman Lomax and Zeketra Grandy*
+> "The real need and revenue opportunity lie with underrepresented students in community colleges or trade schools who are underexposed to professional concepts."
+
+*source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md) — Iman Lomax*
 
 ---
 
 ## Values
 
-These values are drawn from language the team used in April 2026 meetings. Refine the wording as a team — the underlying commitments are real.
+These values are drawn from language the team used across three consecutive Monday meetings. They reflect how this team actually operates.
 
-**Human-first.** AI tools and automation exist to free the team up for deeper human connection, not to replace it. Amy confirmed on Apr 20: "The aim of these improvements is to enable more events, deeper content, and better support, ensuring human support is available if an AI tool encounters issues."
+**Show up for underrepresented students.**
+The team agrees that campus career services are "dropping the ball bad" for many students. SCLA exists to close that gap — especially for community college and trade school students who need foundational career readiness most.
 
-**Equity over prestige.** The greatest opportunity lies with underrepresented students who lack foundational career resources, not with high-achieving students at well-resourced schools. The Academy is being opened to all students, not just Honors-level members.
+*source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md) — Iman Lomax and Zeketra Grandy*
 
-**Build in public (internally).** Decisions get documented. Playbooks get shared. Work lands in the community Google Drive so institutional knowledge survives personnel changes. Kierra on Apr 20: "the importance of preserving institutional knowledge of the work that has been completed."
+**Human support is not optional.**
+AI tools augment the team; they do not replace it. Amy's commitment, Apr 20: "The aim of these improvements is to enable more events, deeper content, and better focus, ensuring human support is available if an AI tool encounters issues."
 
-**Consistency over urgency.** A weekly news rhythm matters more than any single announcement. A solid onboarding experience matters more than rapid member acquisition. Zeketra on Apr 20: "the focus should have been on strengthening the product and creating a solid foundation for existing members."
+*source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
 
-**Honest about what we don't know.** When students feel misled about paid content, the community erodes. Clear communication about what is free vs. paid is a non-negotiable.
+**Document everything.**
+Institutional knowledge must survive personnel changes. Kierra's Drive-to-Claude pipeline and the SOP creation effort both reflect the same principle: if it is not written down, it does not exist for the next person.
+
+*source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+
+**Name problems and fix them fast.**
+Three weeks of meetings show a consistent pattern: the team identifies a pain point, proposes a solution, and takes a concrete step by the next meeting. That culture is a competitive advantage — protect it.
+
+**Consistency over urgency.**
+A weekly news rhythm that ships every week matters more than any single announcement. A solid onboarding experience matters more than fast member acquisition. Zeketra, Apr 20: "the focus should have been on strengthening the product and creating a solid foundation for existing members."
+
+*source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+
+**Celebrate each other.**
+The Mars Rover morning music tradition, check-ins on pets and birthdays, and Amy calling the group "magical" are not distractions from the work. They are the reason people want to do hard work together.
 
 ---
 
-## What success looks like this quarter (Q2 2026)
+## This quarter's definition of success (Q2 2026)
 
-| Goal | Owner | Status |
-|---|---|---|
-| Weekly news ships on a consistent cadence (4+ consecutive weeks without Sean on the critical path) | Kierra Woekel, Zeketra Grandy | In progress — MJML template work started Apr 20 |
-| Member Journey playbook merged and presented to Amy for leadership review | Zeketra Grandy, Alyssa Phillips | In progress — Zeketra has 60-day conversion playbook + 30-day onboarding draft |
-| Community Google Drive populated; Claude ingestion live | Kierra Woekel | Blocked — team needs to drop documents in Drive |
-| Champions Ambassador project scoped (playbook outline, reward structure draft) | Yesse Ordonez | In progress — accepted pseudo lead role Apr 13 |
-| Focus Modes content ready for August 1 launch | Anushka Gupta | In progress — content build assigned Apr 20 |
-| Claude Pro account acquired and operational | Amy Westby, Kierra Woekel | Decided Apr 6; confirmed Apr 20; verify account is live |
-| Orientation baseline survey designed and piloted | TODO: needs input — owner not assigned | Decided Apr 6; no owner confirmed |
-| Course catalog meeting scheduled; timeline defined | Amy Westby | Proposed Apr 13; status unknown |
+Success this quarter means all five of the following are true by June 30:
 
----
+1. **Weekly News ships consistently.** Four or more consecutive weeks of the weekly announcements email going out on schedule, without Sean/Shawn on the critical path for template authoring.
 
-## The four pillars (SCLA organizational)
+2. **The Member Journey funnel is documented.** Zeketra and Alyssa's merged onboarding document lives in the community Google Drive, reviewed by Kierra, and presented to Amy. Jenna and Iman's info session materials are in the same Drive as SOPs.
 
-SCLA's website references "4 Pillars" in the mission-history page title. The names of those pillars are not available from current source material.
+3. **The community Google Drive is the single source of truth.** Every active project document lives there. Team members can find any document without asking Amy or Kierra where it is.
 
-TODO: needs input — export https://www.thescla.org/mission-history and add the four pillars by name to this section.
+4. **Focus Modes content is on track for August 1.** Anushka's content build is at least 50% complete, with a clear production schedule in the Team Projects tracker.
+
+5. **The team stays together.** Contracts are renewed or transitioned to a stable arrangement that keeps the current crew in place through Q3.
 
 ---
 
@@ -78,7 +93,17 @@ TODO: needs input — export https://www.thescla.org/mission-history and add the
 | Founded | March 2015 (first member); 2012–2014 research phase |
 | Founder | Pat Sidhu |
 | Headquarters | 1775 Tysons Blvd, 5th Floor, Tysons, VA 22102 |
-| Leadership contact (for community team) | Chuck (last name: TODO: needs input) |
-| Tech team contact | Sean/Shawn (spelling inconsistency — confirm full name) |
+| Leadership contact (for community team) | Chuck (full name: TODO: needs input) |
+| Tech team primary contact | Sean/Shawn (spelling inconsistency — confirm full name) |
 
 *source: [client/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+
+---
+
+## TODO: needs input
+
+- Confirm the four SCLA organizational pillars by name (referenced in page title "Mission & History | SCLA's 4 Pillars & Growth" but source page not yet scraped). Export: https://www.thescla.org/mission-history
+- Confirm whether "From Campus to Career" is the official tagline. See [brand/TODOS.md](../brand/TODOS.md).
+- Add Chuck's full name and title.
+- Add Sean/Shawn's full name (spelling varies between Apr 6 and Apr 20 notes).
+- Confirm who will own the orientation baseline survey (decided Apr 6; no owner assigned).
