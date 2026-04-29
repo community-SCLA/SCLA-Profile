@@ -1,0 +1,9 @@
+# Project repos are tracked as submodules — never track their contents directly
+projects/scla-dashboard/.next/
+projects/scla-dashboard/scla-dashboard/.next/
+projects/scla-dashboard/scla-dashboard/node_modules/
+projects/scla-dashboard/scla-dashboard/.env.local
+projects/scla-dashboard/scla-dashboard/service-account.json
+
+# OS
+.DS_Store

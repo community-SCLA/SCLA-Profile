@@ -1,0 +1,7 @@
+[submodule "projects/scla-dashboard"]
+	path = projects/scla-dashboard
+	url = https://github.com/community-SCLA/scla-dashboard.git
+
+[submodule "projects/scla-profile"]
+	path = projects/scla-profile
+	url = https://github.com/community-SCLA/SCLA-Profile.git
