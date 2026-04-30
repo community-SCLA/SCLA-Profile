@@ -26,6 +26,12 @@ inside `client/_raw/`.
    - `sources.artifacts[]` → copy into `client/_raw/artifacts/` preserving filenames
    - `sources.drives[]` → read from `export_path`, unzip into `client/_raw/docs/`
 
+   **Always auto-scan inboxes regardless of config entries:**
+   - Scan `client/_raw/artifacts/inbox/` for any non-placeholder files (ignore `.gitkeep`).
+     Process every file found, even if `sources.artifacts` is empty. The config list is for
+     labeling; the inbox is the source of truth for what to ingest.
+   - Scan `client/_raw/docs/inbox/` similarly. Process any files present.
+
 2. For every file you write, append a one-line entry to `client/_raw/MANIFEST.md`:
    ```
    | YYYY-MM-DD | <source url or path> | <local path in _raw/> | <bytes> |

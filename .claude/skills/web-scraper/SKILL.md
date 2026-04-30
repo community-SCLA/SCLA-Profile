@@ -45,6 +45,30 @@ Called by the `ingestor` agent for every entry in
   and suggest the human export the page manually.
 - **robots.txt disallow** → respect it. Log skipped paths.
 
+## Egress-blocked environments
+
+Claude's sandbox blocks most external domains via an egress proxy that returns
+HTTP 403 with body `"Host not in allowlist"`. This is a sandbox-side constraint
+— changing the User-Agent, using Playwright, or whitelisting the client's IP
+will not help.
+
+**Preferred path (Option B):** Run the web-scraper from a machine outside the
+sandbox (developer laptop, CI runner with open egress). Commit the resulting
+`client/_raw/web/` files and re-run downstream stages from within the sandbox.
+
+**Fallback (Option A — slow):** Export priority pages manually via browser
+("Save as..." HTML or PDF), drop into `client/_raw/docs/inbox/`, re-run
+`/ingest`. Use only when Option B is not available.
+
+**Fallback of last resort:** If both options are unavailable, attempt a Google
+search index snapshot. Use `WebSearch` to collect snippet text for priority
+pages. Write results to `client/_raw/web/<host>/index.md` with frontmatter:
+```yaml
+fetch_status: 403_BLOCKED
+note: "Content sourced from Google search snippets only. Low confidence."
+```
+Downstream agents must treat this file as `confidence: low`.
+
 ## Rules
 
 - One file per page. Never concatenate.

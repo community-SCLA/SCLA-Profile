@@ -18,8 +18,16 @@ Orchestrates the full onboarding pipeline for the client defined in
 
 ## Steps
 
-1. **Pre-flight**: read `client.config.yml`. Confirm `client.name` and
-   `client.slug` are filled in. If not, ask the user to fill them and stop.
+1. **Pre-flight**: read `client.config.yml`. Check each of the following and
+   stop with a clear message if any critical field fails:
+
+   | Field | Check | Severity |
+   |---|---|---|
+   | `client.name` | non-empty | Error — stop |
+   | `client.slug` | non-empty, no angle brackets | Error — stop |
+   | `sources.websites[*].url` | not `example.com`, not empty string | Error — stop |
+   | `primary_contact.email` | non-empty | Warning — ask to proceed |
+   | `collab.canonical_home` | non-empty | Warning before Stage 5 only |
 
 2. **Stage 1 — Ingest.**
    - Invoke the `ingestor` sub-agent.

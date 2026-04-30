@@ -21,9 +21,10 @@ sources:
       include_assets: true        # download logos, images, PDFs linked from pages
 
   # Documents (paths relative to client/_raw/docs/inbox/, or direct URLs)
+  # Drop files into client/_raw/docs/inbox/ — the ingestor scans it automatically.
+  # Add url entries only if you have a public Google Doc, Notion page, or PDF URL.
   docs:
-    - path: "inbox/"              # drop files here before running /ingest
-    - url: ""                     # public Google Doc / Notion / PDF URL
+    - path: "inbox/"
 
   # Code repositories (optional — surfaces README + architecture signals)
   repos: []
