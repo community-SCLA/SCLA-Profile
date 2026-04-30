@@ -5,5 +5,8 @@ projects/scla-dashboard/scla-dashboard/node_modules/
 projects/scla-dashboard/scla-dashboard/.env.local
 projects/scla-dashboard/scla-dashboard/service-account.json
 
+# Claude Code
+.claude/settings.local.json
+
 # OS
 .DS_Store

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git config user.email | grep -q 'community@thescla.org' && echo '{\"systemMessage\": \"✓ Authenticated as community-SCLA (community@thescla.org)\"}' || echo '{\"systemMessage\": \"⚠️ WARNING: This workspace is configured for community-SCLA. Git user is not set to community@thescla.org. Run: git config user.email community@thescla.org and git config user.name \\\"SCLA Community\\\"\"}'"
+          }
+        ]
+      }
+    ]
+  }
+}
