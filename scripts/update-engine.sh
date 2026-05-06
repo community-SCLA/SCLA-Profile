@@ -8,7 +8,7 @@
 #
 # Configuration:
 #   UPSTREAM_TEMPLATE_URL   HTTPS or SSH URL to the template repo
-#                           (default: https://github.com/community-SCLA/client-onboarding)
+#                           (default: https://github.com/community-scla/scla-profile)
 #   UPSTREAM_BRANCH         Branch to pull from (default: main)
 #
 # Safety:
@@ -17,7 +17,7 @@
 
 set -euo pipefail
 
-UPSTREAM="${UPSTREAM_TEMPLATE_URL:-https://github.com/community-SCLA/client-onboarding}"
+UPSTREAM="${UPSTREAM_TEMPLATE_URL:-https://github.com/community-scla/scla-profile}"
 UPSTREAM_BRANCH="${UPSTREAM_BRANCH:-main}"
 
 # Engine paths we sync (everything else — including client/ — is left alone)
@@ -40,7 +40,7 @@ fi
 # Refuse to run if this IS the template repo (avoid self-sync)
 if [[ -f TEMPLATE.md ]] && grep -q "This is the Template Repo" TEMPLATE.md 2>/dev/null; then
   remote_url="$(git config --get remote.origin.url 2>/dev/null || true)"
-  if [[ "$remote_url" == *"client-onboarding"* ]]; then
+  if [[ "$remote_url" == *"scla-profile"* || "$remote_url" == *"client-onboarding"* ]]; then
     echo "⚠️  This appears to be the template repo itself. Nothing to do." >&2
     exit 0
   fi

@@ -26,8 +26,10 @@ Reports a dashboard of onboarding progress.
    - ⚠️ = file exists, `confidence: low` OR has TODOs
    - ❌ = file missing
 
-3. **Confidence gates**: compare each stage's frontmatter `confidence:` to
-   the minimum set in `client.config.yml` → `gates.*`. Flag any that fail.
+3. **Confidence gates**: if `client.config.yml` has a `gates:` block, compare
+   each stage's frontmatter `confidence:` to the minimum set there
+   (e.g. `gates.knowledge_base: medium`) and flag any that fail. If no
+   `gates:` block exists, skip this check.
 
 4. **Open TODOs**: grep `client/` for `TODO: needs input` and count per file.
    Print top 10 files with counts.
