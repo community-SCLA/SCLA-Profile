@@ -1,16 +1,16 @@
-# Claude Project Context — Client Onboarding
+# Claude Project Context — SCLA Knowledge Base
 
-You are operating inside a **client onboarding workspace**. Every session, your
-goal is to move the client one step closer to having a complete, living source
-of truth their team can work from.
+You are operating inside the **SCLA knowledge base workspace**. Every session, your
+goal is to move SCLA one step closer to having a complete, living source
+of truth the team can work from.
 
 ---
 
 ## The contract
 
-1. **Client inputs** live in `client.config.yml` (URLs, doc paths, repos).
-2. **Raw scrapes** go to `client/_raw/` — never edit these by hand.
-3. **Structured outputs** go to `client/{knowledge-base,brand,workflows,source-of-truth}/`.
+1. **SCLA inputs** live in `scla.config.yml` (URLs, doc paths, repos).
+2. **Raw scrapes** go to `scla/_raw/` — never edit these by hand.
+3. **Structured outputs** go to `scla/{knowledge-base,brand,operations,source-of-truth}/`.
 4. **Every output file** starts with the frontmatter:
    ```yaml
    ---
@@ -29,15 +29,15 @@ of truth their team can work from.
 
 | Stage | Agent | Reads | Writes |
 |---|---|---|---|
-| 1. Ingest | `ingestor` | `client.config.yml` | `client/_raw/**` |
-| 2. Brand | `brand-analyst` | `client/_raw/web/`, `client/_raw/assets/` | `client/brand/**` |
-| 3. Knowledge | `knowledge-architect` | `client/_raw/docs/`, `client/_raw/web/` | `client/knowledge-base/**` |
-| 4. Workflows | `workflow-mapper` | `client/_raw/artifacts/`, `client/_raw/docs/` | `client/workflows/**` |
-| 5. Curate | `source-of-truth-curator` | all of `client/**` | `client/source-of-truth/**` |
+| 1. Ingest | `ingestor` | `scla.config.yml` | `scla/_raw/**` |
+| 2. Brand | `brand-analyst` | `scla/_raw/web/`, `scla/_raw/assets/`, `scla/source-of-truth/mission.md`, `scla/source-of-truth/voice-decisions.md` | `scla/brand/**` |
+| 3. Knowledge | `knowledge-architect` | `scla/_raw/docs/`, `scla/_raw/web/`, `scla/source-of-truth/program-names.md`, `scla/source-of-truth/decisions-log.md` | `scla/knowledge-base/**`, `scla/programs/**`, `scla/members/**`, `scla/partnerships/**` |
+| 4. Workflows | `workflow-mapper` | `scla/_raw/artifacts/`, `scla/_raw/docs/`, `scla/source-of-truth/decisions-log.md` | `scla/operations/**` |
+| 5. Curate | `source-of-truth-curator` | all of `scla/**` | `scla/source-of-truth/**` (merge-only) + merges `kb-deltas.md` into `knowledge-base/` |
 
 Each stage is an **idempotent overwrite**: re-running regenerates the stage's
-outputs from scratch based on the latest `_raw/` contents. Users edit only in
-`client/source-of-truth/` (which is never overwritten after first generation).
+outputs from scratch based on the latest `_raw/` contents. Human edits live only in
+`scla/source-of-truth/` (which is write-protected on re-runs via PROPOSED_CHANGES.md).
 
 ---
 
@@ -57,7 +57,7 @@ This project uses the context-mode plugin. The pipeline ingests large volumes of
 |------|-----|
 | Crawl websites, run shell commands (any output >20 lines) | `ctx_batch_execute` |
 | Search across indexed content, follow-up questions | `ctx_search` |
-| Fetch external URLs (client website, docs) | `ctx_fetch_and_index` |
+| Fetch external URLs (SCLA website, docs) | `ctx_fetch_and_index` |
 | Analyze a file's contents | `ctx_execute_file` |
 | Direct file edits | `Read` + `Edit`/`Write` as normal |
 
@@ -67,17 +67,19 @@ Do NOT use raw `Bash` for web scraping or commands that produce large output. Do
 
 ## Working rules for Claude
 
-- **Never fabricate client facts.** If `_raw/` doesn't contain evidence for a
+- **Never fabricate SCLA facts.** If `scla/_raw/` doesn't contain evidence for a
   claim, mark the field `TODO: needs input` with a comment explaining what
   you need.
 - **Prefer quoting over paraphrasing** in the knowledge base. Include
-  `source:` links back into `_raw/` for traceability.
+  `source:` links back into `scla/_raw/` for traceability.
 - **Flag automation opportunities inline.** Any time you see repeated manual
-  steps in `_raw/artifacts/`, open a `workflows/automation-opportunities.md`
+  steps in `scla/_raw/artifacts/`, open a `scla/operations/automation-opportunities.md`
   entry.
 - **One agent, one directory.** Don't have the `brand-analyst` write to
-  `knowledge-base/`. Cross-references go through `source-of-truth-curator`.
-- **Collaborate, don't own.** The goal is a workspace the *client's team*
+  `knowledge-base/`. Exception: `knowledge-architect` writes to `knowledge-base/`,
+  `programs/`, `members/`, and `partnerships/` — all are knowledge outputs.
+  Cross-references go through `source-of-truth-curator`.
+- **Collaborate, don't own.** The goal is a workspace the *SCLA team*
   runs day-to-day. Write for them, not for Claude.
 
 ---
@@ -85,12 +87,16 @@ Do NOT use raw `Bash` for web scraping or commands that produce large output. Do
 ## Directory cheat sheet
 
 ```
-client/_raw/web/              ← scraped HTML/markdown of the client's sites
-client/_raw/docs/             ← imported Google Docs, PDFs, Notion exports
-client/_raw/assets/           ← logos, screenshots, brand PDFs
-client/_raw/artifacts/        ← Slack exports, tickets, meeting notes, Looms
-client/knowledge-base/        ← structured wiki (glossary, people, products…)
-client/brand/                 ← voice, visual identity, tokens, asset index
-client/workflows/             ← current state, pain points, automation opps
-client/source-of-truth/       ← charter, decision log, team handbook (owned by client)
+scla/_raw/web/              ← scraped HTML/markdown of thescla.org
+scla/_raw/docs/             ← imported Google Docs, PDFs, Notion exports
+scla/_raw/assets/           ← logos, screenshots, brand PDFs
+scla/_raw/artifacts/        ← Gemini meeting notes, Slack exports, stakeholder docs
+scla/knowledge-base/        ← SCLA history, FAQs, glossary
+scla/brand/                 ← voice, visual identity, tokens, asset index
+scla/operations/            ← team structure, workflows, SOPs, automation ops
+scla/programs/              ← program details and overviews
+scla/members/               ← member journey, pledge process, onboarding
+scla/partnerships/          ← partner profiles and relationship data
+scla/source-of-truth/       ← mission, program names, voice decisions, decisions log, team handbook
+scla/projects/              ← active project work (grants, campaigns, programs, content)
 ```

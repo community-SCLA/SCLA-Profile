@@ -1,10 +1,10 @@
-# Client Onboarding Template
+# SCLA Knowledge Base
 
 > 🧱 **This is a GitHub Template repo, not a working client project.**
 > **Don't put real client data here.** Press **"Use this template"** to spin up
 > a fresh private repo for each client. See [TEMPLATE.md](./TEMPLATE.md).
 
-A plug-and-play Claude Code workspace for onboarding a new client end-to-end:
+A plug-and-play Claude Code workspace for building the SCLA knowledge base end-to-end:
 **scrape** their scattered sources → **structure** them into a knowledge base →
 **codify** their brand → **map** their workflows → **ship** them a living
 source of truth their team can collaborate in.
@@ -18,7 +18,7 @@ first. It assumes no prior Claude Code / agents / GitHub-template knowledge.
 
 ```
                     ┌─────────────────────────────────────────┐
-                    │       client.config.yml (you edit)      │
+                    │       scla.config.yml (you edit)      │
                     │  sites · docs · drives · repos · tools  │
                     └────────────────────┬────────────────────┘
                                          │
@@ -34,7 +34,7 @@ first. It assumes no prior Claude Code / agents / GitHub-template knowledge.
   └─────┬─────┘      └─────┬─────┘     └──────┬──────┘   └──────┬─────┘
         │                  │                  │                 │
         ▼                  ▼                  ▼                 ▼
-  client/_raw/        client/brand/    client/knowledge-   client/workflows/
+  scla/_raw/        scla/brand/    scla/knowledge-   scla/workflows/
   (scraped source)   (guide + tokens)        base/         (current state +
                                            (wiki)          automation opps)
         │                  │                  │                 │
@@ -45,7 +45,7 @@ first. It assumes no prior Claude Code / agents / GitHub-template knowledge.
                        │ curator  agent         │
                        └───────────┬────────────┘
                                    ▼
-                       client/source-of-truth/
+                       scla/source-of-truth/
                        (charter · decisions · handbook)
 ```
 
@@ -59,7 +59,7 @@ Nothing is magic — it's markdown all the way down.
 ```
 .
 ├── CLAUDE.md                 ← Project-wide context Claude loads every session
-├── client.config.yml         ← Per-client inputs: sources, targets, contacts
+├── scla.config.yml         ← Per-client inputs: sources, targets, contacts
 │
 ├── .claude/                  ← The plug-and-play engine
 │   ├── settings.json         ← Permissions + hooks
@@ -67,7 +67,7 @@ Nothing is magic — it's markdown all the way down.
 │   ├── commands/             ← 6 slash commands (/onboard, /ingest, /brand…)
 │   └── skills/               ← 4 reusable capabilities (scraper, extractor…)
 │
-├── client/                   ← Everything produced for this client
+├── scla/                   ← Everything produced for this client
 │   ├── _raw/                 ← Untouched scraped inputs (audit trail)
 │   ├── knowledge-base/       ← Structured wiki: glossary, people, products
 │   ├── brand/                ← Brand guide: voice, visual identity, tokens
@@ -87,14 +87,14 @@ Nothing is magic — it's markdown all the way down.
 
 1. On GitHub, click **"Use this template" → "Create a new repository"**.
 2. Name it `<client-slug>-onboarding`, set it to **Private**.
-3. Clone locally, edit `client.config.yml`, open Claude Code, run `/onboard`.
+3. Clone locally, edit `scla.config.yml`, open Claude Code, run `/onboard`.
 
 **Local alternative (no GitHub):**
 
 ```bash
 ./scripts/bootstrap.sh acme-corp
 cd ../acme-corp-onboarding
-$EDITOR client.config.yml
+$EDITOR scla.config.yml
 # open Claude Code here:
 /onboard
 ```
@@ -109,7 +109,7 @@ pausing at each phase so you can review. Run any phase on its own with
 ./scripts/update-engine.sh     # pulls the latest .claude/, templates/, scripts/
 ```
 
-This never touches `client/` or `client.config.yml`. See
+This never touches `scla/` or `scla.config.yml`. See
 [scripts/update-engine.sh](./scripts/update-engine.sh).
 
 ---
@@ -119,10 +119,10 @@ This never touches `client/` or `client.config.yml`. See
 | Property | How it shows up |
 |---|---|
 | **Composable** | Each agent does one job and writes to one directory. Swap any agent, the pipeline still runs. |
-| **Inspectable** | All outputs are markdown in `client/`. No databases, no opaque state. |
+| **Inspectable** | All outputs are markdown in `scla/`. No databases, no opaque state. |
 | **Resumable** | Re-running `/onboard` picks up where you left off via `/status`. |
 | **Forkable** | `bootstrap.sh` clones the template into a fresh repo per client. |
-| **Collaborative** | `client/source-of-truth/` is designed to be the team's daily-driver wiki. |
+| **Collaborative** | `scla/source-of-truth/` is designed to be the team's daily-driver wiki. |
 
 ---
 
