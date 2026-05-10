@@ -49,6 +49,22 @@ outputs from scratch based on the latest `_raw/` contents. Users edit only in
 
 ---
 
+## Context mode
+
+This project uses the context-mode plugin. The pipeline ingests large volumes of web pages and documents — route all of it through context-mode to keep raw output out of the conversation context.
+
+| Task | Use |
+|------|-----|
+| Crawl websites, run shell commands (any output >20 lines) | `ctx_batch_execute` |
+| Search across indexed content, follow-up questions | `ctx_search` |
+| Fetch external URLs (client website, docs) | `ctx_fetch_and_index` |
+| Analyze a file's contents | `ctx_execute_file` |
+| Direct file edits | `Read` + `Edit`/`Write` as normal |
+
+Do NOT use raw `Bash` for web scraping or commands that produce large output. Do NOT use `WebFetch` directly — route through `ctx_fetch_and_index`. Pipeline agents (`ingestor`, `brand-analyst`, etc.) must use context-mode for all fetches and command output.
+
+---
+
 ## Working rules for Claude
 
 - **Never fabricate client facts.** If `_raw/` doesn't contain evidence for a
