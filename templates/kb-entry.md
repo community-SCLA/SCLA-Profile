@@ -7,7 +7,7 @@ confidence: low | medium | high
 
 # <Entity name>
 
-> One-sentence definition. Written in the client's own voice where possible.
+> One-sentence definition. Written in SCLA's own voice where possible.
 
 ## What it is
 
@@ -33,4 +33,4 @@ A short paragraph. Quote the source where you can:
 
 ## Open questions
 
-- TODO: needs input — <specific question the client needs to answer>
+- TODO: needs input — <specific question SCLA needs to answer>

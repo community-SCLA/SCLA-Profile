@@ -8,7 +8,7 @@ Reports a dashboard of onboarding progress.
 
 ## What to check and report
 
-1. **Config**: is `client.config.yml` filled in? (`client.name`, `client.slug`
+1. **Config**: is `scla.config.yml` filled in? (`scla.name`, `scla.slug`
    non-empty, at least one source listed).
 
 2. **Stage completion** — for each stage, check if its target files exist
@@ -16,22 +16,22 @@ Reports a dashboard of onboarding progress.
 
    | Stage | File(s) that must exist | Indicator |
    |---|---|---|
-   | Ingest | `client/_raw/MANIFEST.md` with ≥1 entry | ✅ / ⚠️ / ❌ |
-   | Brand | `client/brand/brand-guide.md` | ✅ / ⚠️ / ❌ |
-   | KB | `client/knowledge-base/index.md` | ✅ / ⚠️ / ❌ |
-   | Workflows | `client/workflows/current-state.md` | ✅ / ⚠️ / ❌ |
-   | Source of Truth | `client/source-of-truth/README.md` | ✅ / ⚠️ / ❌ |
+   | Ingest | `scla/_raw/MANIFEST.md` with ≥1 entry | ✅ / ⚠️ / ❌ |
+   | Brand | `scla/brand/brand-guide.md` | ✅ / ⚠️ / ❌ |
+   | KB | `scla/knowledge-base/index.md` | ✅ / ⚠️ / ❌ |
+   | Workflows | `scla/workflows/current-state.md` | ✅ / ⚠️ / ❌ |
+   | Source of Truth | `scla/source-of-truth/README.md` | ✅ / ⚠️ / ❌ |
 
    - ✅ = file exists, `confidence: medium|high`
    - ⚠️ = file exists, `confidence: low` OR has TODOs
    - ❌ = file missing
 
-3. **Confidence gates**: if `client.config.yml` has a `gates:` block, compare
+3. **Confidence gates**: if `scla.config.yml` has a `gates:` block, compare
    each stage's frontmatter `confidence:` to the minimum set there
    (e.g. `gates.knowledge_base: medium`) and flag any that fail. If no
    `gates:` block exists, skip this check.
 
-4. **Open TODOs**: grep `client/` for `TODO: needs input` and count per file.
+4. **Open TODOs**: grep `scla/` for `TODO: needs input` and count per file.
    Print top 10 files with counts.
 
 5. **Next action**: suggest what to run next (e.g. "Run `/brand` — ingest is
@@ -40,7 +40,7 @@ Reports a dashboard of onboarding progress.
 ## Output format
 
 ```
-📊 Onboarding status — <client.name>
+📊 Onboarding status — <scla.name>
 
   Ingest          ✅  (12 files, 0 errors)
   Brand           ⚠️  (confidence: low — only homepage ingested)
@@ -49,8 +49,8 @@ Reports a dashboard of onboarding progress.
   Source of Truth ❌  (not generated yet)
 
   Open TODOs: 14
-    client/knowledge-base/people-and-teams.md  (6)
-    client/brand/voice-and-tone.md             (4)
+    scla/knowledge-base/people-and-teams.md  (6)
+    scla/brand/voice-and-tone.md             (4)
     ...
 
   👉 Suggested next: /workflows (after adding Slack export to _raw/artifacts/)

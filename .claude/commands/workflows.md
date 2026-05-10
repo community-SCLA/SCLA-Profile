@@ -8,16 +8,16 @@ Runs the `workflow-mapper` sub-agent.
 
 ## What it does
 
-Reads `client/_raw/artifacts/` (Slack exports, tickets, meeting notes, runbooks)
+Reads `scla/_raw/artifacts/` (Slack exports, tickets, meeting notes, runbooks)
 and produces:
 
-- `client/workflows/current-state.md` — one section per recurring workflow
-- `client/workflows/automation-opportunities.md` — prioritized table
-- `client/workflows/ship-fast-playbook.md` — top 5 recommendations
+- `scla/workflows/current-state.md` — one section per recurring workflow
+- `scla/workflows/automation-opportunities.md` — prioritized table
+- `scla/workflows/ship-fast-playbook.md` — top 5 recommendations
 
 ## Prerequisites
 
-- `/ingest` has run and `client/_raw/artifacts/` has at least one artifact.
+- `/ingest` has run and `scla/_raw/artifacts/` has at least one artifact.
 - Ideally `/kb` has also run so the mapper can reference `systems-and-tools.md`.
 
 ## Heuristics it applies
@@ -30,8 +30,8 @@ and produces:
 ## Output format
 
 Every opportunity row includes priority (P0/P1/P2) and effort (S/M/L/XL)
-so the client's team can triage.
+so SCLA's team can triage.
 
 ## Re-running
 
-**Overwrites** `client/workflows/`. Safe — regenerated from artifacts.
+**Overwrites** `scla/workflows/`. Safe — regenerated from artifacts.

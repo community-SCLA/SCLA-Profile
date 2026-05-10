@@ -1,5 +1,5 @@
 ---
-description: Build the client's internal knowledge base (glossary, people, products, FAQs) from scraped docs.
+description: Build SCLA's internal knowledge base (glossary, people, products, FAQs) from scraped docs.
 ---
 
 # /kb
@@ -8,8 +8,8 @@ Runs the `knowledge-architect` sub-agent.
 
 ## What it does
 
-Reads `client/_raw/docs/` and `client/_raw/web/` and produces a structured wiki
-in `client/knowledge-base/`:
+Reads `scla/_raw/docs/` and `scla/_raw/web/` and produces a structured wiki
+in `scla/knowledge-base/`:
 
 | File | Contents |
 |---|---|
@@ -33,5 +33,5 @@ in `client/knowledge-base/`:
 
 ## Re-running
 
-**Overwrites** `client/knowledge-base/`. Safe because everything is regenerated
+**Overwrites** `scla/knowledge-base/`. Safe because everything is regenerated
 from `_raw/`.

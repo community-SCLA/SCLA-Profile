@@ -2,16 +2,16 @@
 
 Every artifact an agent produces has a template here. Agents don't invent
 new structures; they copy the template, fill it in from `_raw/`, and save
-the result under `client/`.
+the result under `scla/`.
 
 ## Templates
 
 | Template | Used by | Output location |
 |---|---|---|
-| `kb-entry.md` | `knowledge-architect` | `client/knowledge-base/*.md` |
-| `brand-guide.md` | `brand-analyst` | `client/brand/brand-guide.md` |
-| `workflow.md` | `workflow-mapper` | sections in `client/workflows/current-state.md` |
-| `automation-opportunity.md` | `workflow-mapper` | rows/sections in `client/workflows/automation-opportunities.md` |
+| `kb-entry.md` | `knowledge-architect` | `scla/knowledge-base/*.md` |
+| `brand-guide.md` | `brand-analyst` | `scla/brand/brand-guide.md` |
+| `workflow.md` | `workflow-mapper` | sections in `scla/workflows/current-state.md` |
+| `automation-opportunity.md` | `workflow-mapper` | rows/sections in `scla/workflows/automation-opportunities.md` |
 
 ## Rules
 

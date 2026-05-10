@@ -1,5 +1,5 @@
 ---
-source: client/_raw/web/** + client/_raw/assets/**
+source: scla/_raw/web/** + scla/_raw/assets/**
 generated_by: brand-analyst
 last_updated: YYYY-MM-DD
 confidence: low | medium | high
@@ -7,7 +7,7 @@ confidence: low | medium | high
 
 # <Client Name> Brand Guide
 
-> One-paragraph "what this brand is about" — derived from the client's
+> One-paragraph "what this brand is about" — derived from SCLA's
 > homepage hero copy and About page.
 
 ## Table of contents
@@ -27,7 +27,7 @@ confidence: low | medium | high
 
 ## Common mistakes
 
-Issues found in `_raw/` where the client's own material contradicts itself
+Issues found in `_raw/` where SCLA's own material contradicts itself
 or drifts off-brand:
 
 - **<issue>** — found on [page A](../_raw/web/...) vs. [page B](../_raw/web/...).
