@@ -1,18 +1,29 @@
 ## Current Priorities
 
-### Next Up: Run the Pipeline
-The pipeline infrastructure is complete. The knowledge base has not been built yet.
+### Pipeline Status (as of May 2026)
+Stages 1–5 were run and live on the `claude/onboard-flow-WoTCI` branch. **Not yet merged into main.** Current main has only the ingest manifest.
 
-**Step 1** — Run `/ingest` to crawl thescla.org and populate `client/_raw/web/`
-**Step 2** — Drop any existing SCLA docs (PDFs, exports) into `client/_raw/docs/inbox/`
-**Step 3** — Run `/onboard` to execute all five stages end-to-end
-**Step 4** — Review `client/source-of-truth/` and fill in gaps that require human input (per `HANDOFF.md`)
+**Immediate next step:** Merge the `claude/onboard-flow-WoTCI` branch into main, then re-run the pipeline with the documents already provided in `client/_raw/docs/inbox/`.
 
-### Open Questions
-- Are there Slack exports or Google Drive docs to include in the initial ingest?
-- Is the thescla.org crawl depth of 2 sufficient, or should it go deeper?
+### Website Access
+thescla.org returned HTTP 403 during the original ingest — use **Playwright MCP** to browse the site directly when re-running `/ingest`. This bypasses the block and produces real page content instead of Google search snippets. All KB content is currently `confidence: low` for this reason.
 
-### Not Started Yet
-- Figma/brand assets import
-- Workflow mapping (needs Slack or ticket data)
-- Automation opportunity review
+**Priority pages to scrape with Playwright:**
+- https://www.thescla.org/mission-history
+- https://www.thescla.org/leadership-team
+- https://www.thescla.org/benefits
+- https://www.thescla.org/program
+- https://www.thescla.org/the-scla-difference
+
+### Open Gaps
+- Leadership team names and bios (leadership page was blocked in original run)
+- Internal org chart — who reports to whom beyond Amy as lead
+- CRM / member database details (app.thescla.org is auth-gated)
+- Slack channel structure — which channels are process-relevant
+
+### Q2 2026 Team Priorities (not pipeline-specific)
+These are the community team's active work items this quarter (by June 30):
+1. Weekly News shipping consistently — 4+ consecutive weeks, no single point of failure
+2. Member Journey onboarding doc finalized — Zeketra + Alyssa → Kierra review → Amy presentation
+3. Community Google Drive as the single source of truth for all project docs
+4. Focus Modes content at 50% (Anushka) with clear production schedule toward August 1 launch
