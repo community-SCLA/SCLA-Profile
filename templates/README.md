@@ -6,12 +6,23 @@ the result under `scla/`.
 
 ## Templates
 
+### Pipeline templates (agent-generated, frontmatter required)
+
 | Template | Used by | Output location |
 |---|---|---|
 | `kb-entry.md` | `knowledge-architect` | `scla/knowledge-base/*.md` |
 | `brand-guide.md` | `brand-analyst` | `scla/brand/brand-guide.md` |
-| `workflow.md` | `workflow-mapper` | sections in `scla/workflows/current-state.md` |
-| `automation-opportunity.md` | `workflow-mapper` | rows/sections in `scla/workflows/automation-opportunities.md` |
+| `workflow.md` | `workflow-mapper` | sections in `scla/operations/current-state.md` |
+| `automation-opportunity.md` | `workflow-mapper` | rows/sections in `scla/operations/automation-opportunities.md` |
+
+### Project templates (human-managed, not overwritten by pipeline)
+
+| Template | Used by | Output location |
+|---|---|---|
+| `project-grant.md` | `/project grant` command | `scla/projects/grants/` |
+| `project-campaign.md` | `/project campaign` command | `scla/projects/campaigns/` |
+| `project-content.md` | `/project content` command | `scla/projects/content/` |
+| `project-program.md` | `/project program` command | `scla/projects/programs/` |
 
 ## Rules
 

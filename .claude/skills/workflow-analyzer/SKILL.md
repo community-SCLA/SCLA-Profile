@@ -19,8 +19,8 @@ patterns:
     handoffs: 3         # how many people touch it on average
     avg_cycle_time_hours: 72
     evidence:
-      - "client/_raw/artifacts/slack-general-2026-04.md:L1240"
-      - "client/_raw/artifacts/linear-export-2026-04.csv:R78"
+      - "scla/_raw/artifacts/slack-general-2026-04.md:L1240"
+      - "scla/_raw/artifacts/linear-export-2026-04.csv:R78"
     automation_classification:
       - type: "integration"            # copy-paste between tools
         signal: "message-template copied from Slack to Linear description 11/14 times"
@@ -43,7 +43,7 @@ patterns:
 
 ## Process
 
-1. Walk `client/_raw/artifacts/`. Parse each file by type:
+1. Walk `scla/_raw/artifacts/`. Parse each file by type:
    - Slack exports (JSON or MD) → threaded messages
    - Ticket CSVs → rows
    - Meeting notes (MD) → sections

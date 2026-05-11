@@ -6,7 +6,7 @@ description: Extract colors, typography, logos, and voice samples from scraped w
 # brand-extractor
 
 Low-level scanner that the `brand-analyst` agent delegates to when it needs
-raw signal from `client/_raw/`.
+raw signal from `scla/_raw/`.
 
 ## What it produces
 
@@ -26,12 +26,12 @@ typography:
       - "body text"
       - "headings"
 logos:
-  - path: "client/_raw/assets/web/acme.com/logo.svg"
+  - path: "scla/_raw/assets/web/acme.com/logo.svg"
     variant: "primary"
     has_dark_variant: true
 voice_samples:
   - sentence: "We ship tools our customers actually want to use."
-    source: "client/_raw/web/acme.com/about.md"
+    source: "scla/_raw/web/acme.com/about.md"
     tone_signals: ["earnest", "plain", "first-person plural"]
 ```
 

@@ -1,17 +1,17 @@
 ---
 name: web-scraper
-description: Crawl a public website and snapshot each page to markdown under client/_raw/web/. Use when ingesting items from sources.websites in client.config.yml.
+description: Crawl a public website and snapshot each page to markdown under scla/_raw/web/. Use when ingesting items from sources.websites in scla.config.yml.
 ---
 
 # web-scraper
 
 Fetches a client's public web properties and writes one markdown file per page
-into `client/_raw/web/<host>/<path>.md`, preserving site structure.
+into `scla/_raw/web/<host>/<path>.md`, preserving site structure.
 
 ## When to use
 
 Called by the `ingestor` agent for every entry in
-`client.config.yml` → `sources.websites`.
+`scla.config.yml` → `sources.websites`.
 
 ## How it works
 
@@ -23,7 +23,7 @@ Called by the `ingestor` agent for every entry in
 4. Recurse until `crawl_depth` is exhausted or the queue is empty.
 5. For each page, write:
    ```
-   client/_raw/web/<host>/<slug>.md
+   scla/_raw/web/<host>/<slug>.md
    ```
    with frontmatter:
    ```yaml
@@ -35,12 +35,12 @@ Called by the `ingestor` agent for every entry in
    ---
    ```
 6. If `include_assets: true`, download images/PDFs linked from the page into
-   `client/_raw/assets/web/<host>/` and add a row to
-   `client/_raw/MANIFEST.md`.
+   `scla/_raw/assets/web/<host>/` and add a row to
+   `scla/_raw/MANIFEST.md`.
 
 ## Failure modes
 
-- **403 / 429** → log to `client/_raw/INGEST_ERRORS.md`, continue.
+- **403 / 429** → log to `scla/_raw/INGEST_ERRORS.md`, continue.
 - **JS-heavy SPA** → `WebFetch` may return skeleton HTML. Note this in errors
   and suggest the human export the page manually.
 - **robots.txt disallow** → respect it. Log skipped paths.
