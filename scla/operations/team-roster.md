@@ -1,15 +1,14 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
-generated_by: knowledge-architect
-last_updated: 2026-04-23
-confidence: low
+source: scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+generated_by: source-of-truth-curator
+last_updated: 2026-05-11
+confidence: medium
 ---
 
 # People
 
 > Named individuals and teams found in available source material.
-
-Only one individual is named in the available Google search-index snapshot. The leadership team page (https://www.thescla.org/leadership-team) and the NAB application page (https://www.thescla.org/nab-apply) exist but could not be scraped. All other people entries are stubs pending a real scrape.
+> Community team entries are sourced from April 2026 meeting notes (medium confidence). Exec/web entries remain low confidence pending scrape of https://www.thescla.org/leadership-team.
 
 ---
 
@@ -23,35 +22,64 @@ Only one individual is named in the available Google search-index snapshot. The 
 
 — *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
 
-> "Founded: 2012-2014 (development); first member welcomed March 2015 — Founder: Pat Sidhu"
-
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
-
 ### Open questions
 
 - TODO: needs input — What is Pat Sidhu's current title and day-to-day role? Is Pat Sidhu still active leadership?
-- TODO: needs input — Were there co-founders? The snippet uses "Founders, led by Pat Sidhu," implying others. Source: https://www.thescla.org/mission-history (not yet scraped).
+- TODO: needs input — Were there co-founders? The snippet uses "Founders, led by Pat Sidhu," implying others.
 
 ---
 
 ## Leadership Team
 
-The SCLA website has a dedicated leadership team page at https://www.thescla.org/leadership-team. It could not be scraped. No names, titles, or bios are available beyond Pat Sidhu.
+The SCLA website has a dedicated leadership team page at https://www.thescla.org/leadership-team. It could not be scraped.
 
-TODO: needs input — export https://www.thescla.org/leadership-team and add each person as a subsection here with: name, title, team, contact/LinkedIn, areas of responsibility.
+**Known leadership (from meeting notes):**
+
+| Name | Role | Notes |
+|---|---|---|
+| Chuck | Amy's boss; leadership team | Receives weekly updates from Amy; has a simplified Chuck-specific Google Sheet |
+| Brian | CFO | New; Amy wants community team to meet him |
+
+TODO: needs input — export https://www.thescla.org/leadership-team for full roster.
 
 ---
 
 ## National Advisory Board (NAB)
 
-An advisory body with an application page at https://www.thescla.org/nab-apply. No member names or structure are available from the snippet.
+An advisory body with an application page at https://www.thescla.org/nab-apply. No member names available.
 
-TODO: needs input — who sits on the NAB, how many members, what is their remit, and who chairs it? See also [glossary.md#nab](./glossary.md#nab). Source: https://www.thescla.org/nab-apply (not yet scraped).
+TODO: needs input — confirm NAB membership, remit, and chair.
 
 ---
 
-## Functional Teams
+## Community Team (Monday Meetings)
 
-No internal team structure is documented in available source material.
+Sources: Apr 6, 13, 20 2026 Community Team Monday meeting notes.
 
-TODO: needs input — provide an org chart or list of internal teams (e.g., Marketing, Technology, Partnerships, Member Success) with team leads and responsibilities.
+| Name | Email | Role / Focus |
+|---|---|---|
+| Amy Westby | awestby@thescla.org | Community team lead; sets agenda; sends weekly leadership updates to Chuck/Shawn |
+| Kierra Woekel | kwoekel@thescla.org | Emerging "tech CTO"; built Team Projects tracker; owns Claude Pro + Drive KB; SOP org lead |
+| Zeketra Grandy | zgrandy@thescla.org | Weekly announcements (Canva); Member Conversion Program (60-day playbook); member journey onboarding |
+| Alyssa Phillips | aphillips@thescla.org | Project management; member journey onboarding co-owner (with Zeketra) |
+| Yesse Ordonez | yordonez@thescla.org | Member support catchall; Champions Ambassador project lead |
+| Jenna Heath | jheath@thescla.org | Event hosting (150+ attendees); info session (pledge funnel) |
+| Iman Lomax | ilomax@thescla.org | Pledge project outreach; talent cards; info sessions (with Jenna) |
+| Mayeth Gueta | mgueta@thescla.org | Course catalog (sent to Nollie for design) |
+| Cindy Rariza | crariza@thescla.org | Micro-internships |
+| Anushka Gupta | agupta@thescla.org | Focus Modes content (Aug 1 launch) |
+
+---
+
+## Adjacent Staff (not in Monday meetings)
+
+| Name | Role | Notes |
+|---|---|---|
+| Chuck | Leadership team / Amy's boss | Receives weekly updates |
+| Sean / Shawn | Tech team; MJML email conversion | **Spelling inconsistent (Sean = Apr 6; Shawn = Apr 20) — same person assumed until confirmed** |
+| Aman | Champions Ambassador co-owner; info session co-owner | Works with Yesse and Jenna |
+| Annie | Videography | Uses Heygen + Synthesia for course production |
+| Nollie | Design finalization | Receives course catalog from Mayeth |
+| Joshua Todd | Unknown | Flagged in Slack; Amy's action item to investigate |
+| Boris, Victor | Existing team | Amy wants to introduce to community team |
+| Brian | CFO (new) | Amy wants community team to meet him |

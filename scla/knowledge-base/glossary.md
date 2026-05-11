@@ -1,8 +1,8 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
-generated_by: knowledge-architect
-last_updated: 2026-04-23
-confidence: low
+source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+generated_by: source-of-truth-curator
+last_updated: 2026-05-11
+confidence: medium
 ---
 
 # Glossary
@@ -192,3 +192,67 @@ TODO: needs input — what are the stated differentiators? Source page: https://
 SCLA's stated organizational pillars. Names of the four pillars are not available from snippets.
 
 TODO: needs input — what are the 4 pillars by name? Source page: https://www.thescla.org/mission-history (not yet scraped).
+
+---
+
+## Internal Jargon (from April 2026 meeting notes)
+
+*Source: Community Team Monday meeting notes. Confidence: medium.*
+
+---
+
+## Canvas (Canva tracker)
+
+- **Canonical form:** canvas (lowercase when referring to the tool; "Canva canvas" for clarity)
+- **What it is:** A Canva document used as a project tracker or reporting surface — NOT a whiteboard app or PM tool.
+
+Two specific canvases exist:
+- **Team Projects tracker** — single source of truth for all action items (built by Kierra)
+- **Community weekly sync canvas** — weekly bullet updates for leadership reporting (built by Kierra)
+
+**Do not confuse** "canvas" with Canva-the-design-tool or any external PM product.
+
+---
+
+## Tech Team
+
+- **Canonical form:** the tech team
+- **What it is:** A 3-person startup crew distinct from the community team. Includes Sean/Shawn. Handles platform engineering and MJML email coding. Described as having "zero documentation."
+- **Do not confuse** with "the community team" (the 10 Monday-meeting attendees).
+
+---
+
+## Community Team
+
+- **Canonical form:** the community team
+- **What it is:** The 10-person team that attends Community Team Mondays. Led by Amy Westby. Distinct from the tech team and leadership team.
+
+---
+
+## Focus Modes
+
+- **Canonical form:** Focus Modes
+- **What it is:** A dashboard filter system that categorizes members by persona (e.g., "career transitioner," "newbie"). Aug 1, 2026 launch. Content owned by Anushka Gupta. Mocked in Figma.
+- **Do not confuse** with meditation, productivity focus modes, or any third-party tool.
+
+---
+
+## The Grand Project
+
+- **Canonical form:** none confirmed — informal label only
+- **What it is:** Amy Westby's term (Apr 20) for the Member Journey umbrella project.
+- **Preferred term:** Member Journey
+
+---
+
+## OG Tracker
+
+- **Canonical form:** OG tracker
+- **What it is:** Amy's personal Google Sheet used before the Team Projects tracker (Canva) was established. Still exists but the Canva tracker is now the team-wide standard.
+
+---
+
+## Flying the Plane While Building It
+
+- **What it is:** Zeketra Grandy's phrase (Apr 20) critiquing an acquisition-first strategy that prioritizes member volume before onboarding/support infrastructure is ready.
+- **Context:** Used when discussing Member Journey gaps and onboarding capacity.

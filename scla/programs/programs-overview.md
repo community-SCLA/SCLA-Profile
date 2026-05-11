@@ -1,8 +1,8 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
-generated_by: knowledge-architect
-last_updated: 2026-04-23
-confidence: low
+source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+generated_by: source-of-truth-curator
+last_updated: 2026-05-11
+confidence: medium
 ---
 
 # Products and Services
@@ -157,3 +157,111 @@ TODO: needs input — who authors the blog, what is the publishing cadence, and 
 A shop subdomain exists at https://shop.thescla.org/ (returned HTTP 403 during ingest). Products and pricing are unknown.
 
 TODO: needs input — export https://shop.thescla.org/ to determine what merchandise or additional products SCLA sells.
+
+---
+
+## Programs from April 2026 Meeting Notes
+
+*Source: Community Team Monday meeting notes (Apr 6, 13, 20, 2026). Confidence: medium.*
+
+---
+
+### Member Journey
+
+The umbrella funnel project covering the full member lifecycle.
+
+**Stages:** Pledge → Info Session → Orientation → 30-day Onboarding → Member Support
+
+**Owners:** Zeketra Grandy (onboarding) + Alyssa Phillips (project management)
+**Amy reference:** "the grand project"
+
+---
+
+### Member Conversion Program
+
+A 60-day playbook authored by Zeketra Grandy (written accidentally while refining AI prompts). Covers converting pledges to active, engaged members.
+
+**Owner:** Zeketra Grandy
+
+---
+
+### Champions Ambassador Program
+
+An ambassador program for SCLA members with playbooks and reward structures. Challenge: monetary reward variability across colleges.
+
+**Owner:** Yesse Ordonez (with Aman)
+
+---
+
+### Honors Community
+
+SCLA tier for students with GPA 3.0+. Positioned as "VIP, prestigious level."
+
+TODO: needs input — confirm official name and whether this is a separate product or a membership tier label.
+
+---
+
+### SCA Academy
+
+A tier being opened to all students (not just high-GPA). Foundational career-readiness focus. Differentiator vs. top-school students.
+
+TODO: needs input — confirm official name ("SCA Academy" vs. "SCLA Academy") and whether this is separate from or nested within the membership model.
+
+---
+
+### Advisor Subcommittees
+
+Three subcommittees under the advisor structure:
+1. **AI**
+2. **Chapter Engagement**
+3. **Assessment Impact**
+
+Zeketra Grandy participates in at least one.
+
+---
+
+### Prospectus
+
+A sales-team master document being built in Notebook LM by Kierra to replace the multi-attachment approach previously used.
+
+**Owner:** Kierra Woekel
+
+---
+
+### Nonprofit + Workforce Development Grant
+
+An adjacent entity running a scholarship component associated with a workforce-development grant. Yesse Ordonez is interested in the scholarship aspect.
+
+TODO: needs input — what is the formal name of this entity? Is it a separate 501(c)(3)?
+
+---
+
+### Resume Builder (AI-powered)
+
+An existing platform feature. Needs content and tech upgrades. A PRD is required.
+
+TODO: needs input — who owns the PRD? Amy flagged it as needed but no owner assigned as of Apr 20.
+
+---
+
+### Interview Tool
+
+An existing platform feature. Referenced as a tool one member opted out of using.
+
+TODO: needs input — what is the official name? Where does a member access it?
+
+---
+
+### SCCLA Benefit Hub
+
+A member benefit hub (hotel discounts, partner perks, etc.). Example: $90/night hotel rate. No one currently owns promotion of this benefit.
+
+**Suggested next step (per automation-opportunities.md):** Pin a weekly benefit highlight in a dedicated Slack channel via scheduled message.
+
+---
+
+### Course Catalog
+
+61–62 career courses planned. Approximately 2 complete (Google, Microsoft). Mayeth Gueta owns catalog; Nollie handles design finalization.
+
+**Owner:** Mayeth Gueta
