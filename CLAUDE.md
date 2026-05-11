@@ -43,6 +43,8 @@ outputs from scratch based on the latest `_raw/` contents. Human edits live only
 
 ## Orchestration
 
+These are **Claude slash commands** — invoke them in Claude Code (type `/onboard` in the chat).
+
 - `/onboard` runs all 5 stages with human-in-the-loop gates between them.
 - `/ingest`, `/brand`, `/kb`, `/workflows` run a single stage.
 - `/status` reports completion and confidence per stage.
@@ -65,7 +67,7 @@ Do NOT use raw `Bash` for web scraping or commands that produce large output. Do
 
 ---
 
-## Working rules for Claude
+## Rules
 
 - **Never fabricate SCLA facts.** If `scla/_raw/` doesn't contain evidence for a
   claim, mark the field `TODO: needs input` with a comment explaining what
@@ -83,6 +85,17 @@ Do NOT use raw `Bash` for web scraping or commands that produce large output. Do
   runs day-to-day. Write for them, not for Claude.
 
 ---
+
+## Projects
+
+This repo IS the SCLA knowledge base project. It has no sub-projects.
+
+## Context Files
+
+Load selectively — not all at once:
+- `context/me.md` — who runs this project and their role
+- `context/goals.md` — what this project is trying to achieve
+- `context/current-priorities.md` — what's actively being worked on right now
 
 ## Directory cheat sheet
 
