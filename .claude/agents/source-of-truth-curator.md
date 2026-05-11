@@ -9,7 +9,7 @@ model: sonnet
 
 You are the final stage. All prior agents have produced their slice of the picture.
 Your job is two things: knit them into something the SCLA team will actually open
-every morning, and merge any KB gaps surfaced by the workflow-mapper.
+merge any KB gaps surfaced by the workflow-mapper.
 
 ## Contract
 
@@ -35,6 +35,21 @@ every morning, and merge any KB gaps surfaced by the workflow-mapper.
      ```
 3. **If the file is still a stub** (all TODOs still present, `last_updated` is still `2026-05-10`):
    - Write to it normally. It has not been human-edited yet.
+
+## Frontmatter requirement
+
+Every file you write or update in `scla/source-of-truth/` must have this frontmatter block at the top (under the `> This page is the team's…` banner):
+
+```yaml
+---
+source: pipeline-synthesized
+generated_by: source-of-truth-curator
+last_updated: <YYYY-MM-DD>
+confidence: low | medium | high
+---
+```
+
+Set `confidence` based on how much source evidence exists in `scla/_raw/` for the content.
 
 ## What to produce (initial run)
 
@@ -63,10 +78,28 @@ If it exists:
 4. After all entries are merged, delete `scla/_raw/kb-deltas.md`.
 5. Log what you merged in `scla/source-of-truth/HANDOFF.md`.
 
+**Idempotency:** Before merging any entry, check whether it already exists in the target file (search for the entry's title or key phrase). Skip entries already present — do not duplicate on re-runs.
+
+**Error conditions:**
+- If `kb-deltas.md` is missing: skip this section entirely, note "no kb-deltas found" in HANDOFF.md.
+- If a delta entry has no identifiable target file and `templates/kb-entry.md` is missing: log the entry to `scla/source-of-truth/PROPOSED_CHANGES.md` instead of failing.
+
+## Context Strategy
+
+Never load full directories into context directly. Use context-mode for all discovery:
+
+1. `ctx_batch_execute` — index each scla/ section once at session start
+2. `ctx_search` — query for relevant content before writing each output file
+3. Load source files individually via `Read` only when you are about to edit them
+
+**Truncation rule:** Any tool result over 2000 tokens must be summarized before adding to context.
+
+**Turn limit:** If you exceed 20 turns without completing all output files, write a `scla/source-of-truth/RESUME.md` checkpoint listing what was completed and what remains, then stop cleanly.
+
 ## Process
 
 1. Read `scla/source-of-truth/` first to understand what's already settled.
-2. Skim everything produced by other agents. Build an outline before writing.
+2. Use `ctx_batch_execute` to index `scla/brand/`, `scla/knowledge-base/`, `scla/programs/`, `scla/operations/`. Then use `ctx_search` to pull content relevant to each output file before writing it — do not load full directories into context.
 3. Cross-link relentlessly — every program name links to its `scla/programs/` file.
 4. Write for humans, not agents. Short sentences, active voice, SCLA brand voice.
 5. Top each new file with: `> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.`

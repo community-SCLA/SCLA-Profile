@@ -1,15 +1,39 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: medium
 ---
 
+> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
+
 # Products and Services
 
 > What SCLA offers to students, campuses, and employers.
 
-All content is derived from Google search-index snippets. Full product details require scraping https://www.thescla.org/benefits, https://www.thescla.org/program, and https://www.thescla.org/the-scla-difference.
+---
+
+## Program framework: C2C
+
+Every SCLA program is organized around three pillars — **Connections, Credentials, Career**. See [credentials-framework.md](./credentials-framework.md) for the full framework including the Durable Skills competency map, Credential Central plans, and external alignment (NACE, AACRAO, Global Skills Network).
+
+---
+
+## Program directory (detailed pages)
+
+| Program | File | Description |
+|---|---|---|
+| SCLA Leadership Program | [scla-leadership-program.md](./scla-leadership-program.md) | 5-step credentialed journey (True Colors → SMART Goals → Peer Connections → Career Connections → Certification) |
+| Career Readiness Accelerator | [career-readiness-accelerator.md](./career-readiness-accelerator.md) | 5-week Launchpad — inner work to outward career success |
+| Course Catalog | [course-catalog.md](./course-catalog.md) | All courses: Brand You, Hidden Job Market, Leader of the Future, partner courses, 2026 roadmap |
+| Credentials Framework | [credentials-framework.md](./credentials-framework.md) | XPs → Badges → Certifications, Credential Central, Durable Skills Framework |
+| Community Platform | [../knowledge-base/community-platform.md](../knowledge-base/community-platform.md) | theCOMMUNITY.com — channels, cohorts, events, partner perks |
+
+---
+
+## Products and services (membership tiers)
+
+All content below is derived from Google search-index snippets and April 2026 meeting notes. Full product details require scraping https://www.thescla.org/benefits, https://www.thescla.org/program, and https://www.thescla.org/the-scla-difference.
 
 ---
 
