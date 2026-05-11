@@ -15,7 +15,7 @@ Give the SCLA Community Team a living knowledge base they can actually use day-t
 4. Focus Modes content is on track for August 1 — Anushka's content build at least 50% complete with a clear production schedule
 
 ### What Success Looks Like for This Repo
-- `client/source-of-truth/` is the first place a new team member reads on Day 1
-- `client/brand/` has enough to write a campaign brief without opening Figma or asking Amy
-- `client/knowledge-base/` answers the most common "what is X?" and "who does Y?" questions
+- `scla/source-of-truth/` is the first place a new team member reads on Day 1
+- `scla/brand/` has enough to write a campaign brief without opening Figma or asking Amy
+- `scla/knowledge-base/` answers the most common "what is X?" and "who does Y?" questions
 - The pipeline can be re-run as SCLA evolves (new meeting notes, new Drive exports, updated website)

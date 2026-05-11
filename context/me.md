@@ -47,4 +47,4 @@ Ten people driving member engagement, onboarding, content, and events. The tech 
 
 `scla-profile` is the community team's internal knowledge base. It captures SCLA's brand identity, org knowledge, workflows, and a source of truth the whole team can work from — built from the website, meeting notes, and stakeholder input via an automated pipeline.
 
-Pipeline outputs live in `client/`. Human-maintained context lives here in `context/`.
+Pipeline outputs live in `scla/`. Human-maintained context lives here in `context/`.
