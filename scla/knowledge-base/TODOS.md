@@ -1,47 +1,38 @@
 ---
-source: scla/_raw/INGEST_ERRORS.md
+source: scla/_raw/INGEST_ERRORS.md, scla/_raw/web/ (HTML exports)
 generated_by: knowledge-architect
-last_updated: 2026-04-23
+last_updated: 2026-05-13
 confidence: high
 ---
 
 # Knowledge Base TODOs
 
-> This file lists every gap in the SCLA knowledge base and the exact source material needed to close each gap. Resolve these in priority order.
-
-The root cause of all gaps: the ingest stage was blocked by a sandbox egress proxy. No pages from thescla.org were directly scraped. All KB content is derived from Google search-index snippets only. See [`scla/_raw/INGEST_ERRORS.md`](../_raw/INGEST_ERRORS.md) for the full error log.
-
----
-
-## How to fix this
-
-**Option A (recommended):** On a machine outside this sandbox, use a browser to export each priority page below as a PDF or "Save as..." HTML file. Drop the files into `scla/_raw/docs/inbox/` and re-run `/ingest` then `/kb`.
-
-**Option B:** Run the ingestor from an environment with open egress (developer laptop, CI runner) and commit the resulting files under `scla/_raw/web/` and `scla/_raw/assets/`.
+Updated 2026-05-13: HTML exports processed. Most priority pages are now resolved.
+Remaining gaps require internal documents from SCLA staff.
 
 ---
 
-## Priority pages to export (in order)
+## Priority pages — status after 2026-05-13 HTML extraction
 
 These are the pages that will close the most gaps in the fewest exports.
 
-| Priority | URL | What it unlocks |
+| Priority | URL | Status |
 |---|---|---|
-| 1 | https://www.thescla.org/ | Full home page content, headline messaging, current member/campus stats |
-| 2 | https://www.thescla.org/benefits | Complete benefits list; needed to verify and expand [products-services.md](./products-services.md) |
-| 3 | https://www.thescla.org/mission-history | The 4 Pillars by name; full founding story; timeline beyond what snippets provide |
-| 4 | https://www.thescla.org/leadership-team | Names, titles, and bios for all current leaders; needed to populate [people.md](./people.md) |
-| 5 | https://www.thescla.org/faq | Verbatim member FAQ; needed to replace stub entries in [faqs.md](./faqs.md) |
-| 6 | https://www.thescla.org/administrator-faq | Institution-facing FAQ; hosting cost, reporting, invitation workflow |
-| 7 | https://www.thescla.org/program | Full Career Readiness Certification curriculum; ISPI full name and description |
-| 8 | https://www.thescla.org/the-scla-difference | SCLA's stated competitive differentiators |
-| 9 | https://www.thescla.org/membership-eligibility | Exact eligibility criteria beyond GPA minimum |
-| 10 | https://www.thescla.org/start-a-chapter | Chapter start process; cost to institution; chapter officer roles |
-| 11 | https://www.thescla.org/nab-apply | NAB full name confirmation; member list; application criteria |
-| 12 | https://www.thescla.org/online-membership | Online membership pricing and any feature differences from on-campus |
-| 13 | https://shop.thescla.org/ | Product catalog; merchandise and additional revenue lines |
-| 14 | https://www.thescla.org/blog (index + posts) | Blog authorship, publishing cadence, content themes |
-| 15 | https://www.thescla.org/contact-us | Official contact details; support channels; team contacts |
+| 1 | https://www.thescla.org/ | ✓ Done — voice/brand updated |
+| 2 | https://www.thescla.org/benefits | ✓ Done — products-services.md populated |
+| 3 | https://www.thescla.org/mission-history | ✓ Done — 4 Pillars, founding story, timeline in glossary.md |
+| 4 | https://www.thescla.org/leadership-team | ✓ Done — people.md created (24 staff from platform panel) |
+| 5 | https://www.thescla.org/faq | ✓ Done — faqs.md replaced with verbatim content |
+| 6 | https://www.thescla.org/administrator-faq | ✓ Done — admin FAQ section in faqs.md |
+| 7 | https://www.thescla.org/program | ✓ Done — Career Readiness Certification in glossary + products-services.md |
+| 8 | https://www.thescla.org/the-scla-difference | ✓ Done — differentiators in products-services.md |
+| 9 | https://www.thescla.org/membership-eligibility | ✓ Done — GPA, credit hours, invitation model in products-services.md |
+| 10 | https://www.thescla.org/start-a-chapter | ✓ Done — chapter model in products-services.md |
+| 11 | https://www.thescla.org/nab-apply | ✓ Done — NAB in glossary.md + people.md (Kristen Cooper as contact) |
+| 12 | https://www.thescla.org/online-membership | ✓ Done — online membership section in products-services.md |
+| 13 | https://shop.thescla.org/ | Still open — no HTML export available |
+| 14 | https://www.thescla.org/blog (index + posts) | ✓ Partial — blog titles and 2 post bodies used for voice corpus |
+| 15 | https://www.thescla.org/contact-us | Still open — no HTML export available |
 
 ---
 
@@ -61,33 +52,33 @@ Beyond the public website, the following internal materials would significantly 
 
 ---
 
-## Specific open questions per KB file
+## Remaining open questions (needs staff input)
 
 ### glossary.md
-- What does ISPI stand for?
-- What are the 4 Pillars by name?
-- What does the NAB (National Advisory Board) do?
-- What accrediting body issued the Career Readiness Certification accreditation?
-- Is "The SCLA Difference" an official internal term or just a page name?
+- ~~What does ISPI stand for?~~ ✓ Innovation Strengths Preference Indicator™
+- ~~What are the 4 Pillars by name?~~ ✓ Credentials & Connections, Health & Wellness, Personal Finance Literacy, Work and Life Skills
+- ~~What does the NAB do?~~ ✓ Defined in glossary.md (3 duties, $2k stipend, ~4 hrs/year)
+- **What accrediting body issued the Career Readiness Certification?** — still open
+- ~~Is "The SCLA Difference" an official term?~~ ✓ It is a named page and concept used throughout the site
 
 ### people.md
-- Is Pat Sidhu still in an active executive role?
-- Who are the co-founders (snippet implies multiple)?
-- Who are all current leadership team members (names, titles, responsibilities)?
-- Who chairs or staffs the NAB?
-- Who is the primary contact for new institutional partnerships?
+- **Is Pat Sidhu still in an active executive role?** — platform lists him as staff but title unclear
+- **Who are the co-founders beyond Pat Sidhu?** — Mission & History page implies multiple founders
+- **Formal job titles for most staff** — platform admin panel shows "Staff Member" for most; actual titles needed
+- **Who chairs the NAB?** — Kristen Cooper is VP University Relations (contact), not confirmed as chair
+- ~~Who is the primary contact for institutional partnerships?~~ ✓ Kristen Cooper (kcooper@thescla.org)
 
 ### products-services.md
-- Does the $95 fee recur or is it a one-time lifetime fee?
-- Who pays the $95 — the student or the institution?
-- Are there membership tiers with different benefit levels?
-- Does online membership cost the same as on-campus membership?
-- What is the formal process for an institution to become a partner campus?
-- What does the shop at shop.thescla.org sell?
+- **Does the $95 fee recur or is it one-time?** — FAQ confirms fee exists but renewal model not stated
+- **Are there payment plan options?** — SCLA Difference mentions "flat or payment options"
+- ~~Who pays the $95?~~ ✓ The student pays; institution = free
+- **Online membership pricing** — not explicitly stated as $95 or different
+- **What does shop.thescla.org sell?** — no HTML export available
 
 ### faqs.md
-- All verbatim member FAQ content from https://www.thescla.org/faq
-- All verbatim administrator FAQ content from https://www.thescla.org/administrator-faq
+- ~~Verbatim member FAQ~~ ✓ Populated from HTML export
+- ~~Verbatim administrator FAQ~~ ✓ Populated from HTML export
+- **"I cannot afford the membership fee" answer** — question is in FAQ but answer may need verification
 
 ---
 

@@ -1,16 +1,16 @@
 ---
 source: scla/_raw/web/www.thescla.org/index.md
 generated_by: brand-analyst
-last_updated: 2026-04-23
-confidence: low
+last_updated: 2026-05-13
+confidence: medium
 ---
 
 # The Society for Collegiate Leadership & Achievement — Brand Guide
 
-> NOTE: This scaffold was generated from Google search-index snippets only.
-> The direct website scrape failed (HTTP 403 — sandbox egress blocked).
-> All sections marked `TODO: needs input` must be completed before this guide
-> is used in production. See `scla/brand/TODOS.md` for the prioritized input list.
+> NOTE: This guide was initially generated from Google search-index snippets and has been updated
+> with content from full HTML exports of thescla.org (scraped 2026-04-23).
+> Sections still marked `TODO: needs input` require brand assets or internal documents not available
+> from public web pages. See `scla/brand/TODOS.md` for the prioritized input list.
 
 ## What this brand is about
 
@@ -35,7 +35,7 @@ pending real page exports or client-supplied brand materials.
 ## At a glance
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Organization name | The Society for Collegiate Leadership & Achievement |
 | Common short form | SCLA |
 | Page title (from search index) | "SCLA Honor Society \| From Campus to Career" |
@@ -48,31 +48,39 @@ pending real page exports or client-supplied brand materials.
 | Primary color | `TODO: needs input — no CSS or brand assets available` |
 | Headline font | `TODO: needs input — no CSS or brand assets available` |
 | Tone, in three words | `TODO: needs input — insufficient authentic copy for reliable characterization` |
-| Tagline (if any) | "From Campus to Career" — appears in page title; confirm whether this is the official tagline |
+| Tagline | "From Campus to Career" — confirmed. Appears in homepage page title ("SCLA Honor Society \| From Campus to Career") and used as the core mission framing throughout the website: "SCLA exists to help students transition successfully from campus to career." (What Is The SCLA HTML) |
 
 ## Common mistakes
 
-Full contradiction analysis requires real page content. The items below are
-potential inconsistencies flagged from the search-index snippets for review
-once full content is available.
+The items below are resolved or updated based on full HTML page exports (scraped 2026-04-23).
 
-- **"SCLA" vs. "The SCLA"** — The page title uses "SCLA Honor Society" (no
-  article). The blog post title discovered via the search index reads "What Is The
-  SCLA?" (with definite article). The `client.config.yml` slug is `the-scla`.
-  Establish whether "The SCLA" or "SCLA" is correct for running prose.
-  Source: `scla/_raw/web/www.thescla.org/index.md`, `client.config.yml`.
+- **"SCLA" vs. "The SCLA" — RESOLVED: use "The SCLA" in prose.** The blog page
+  title is "What Is The SCLA?" and the body copy of that page uses "The SCLA" with
+  a capital "The" throughout. The benefits page header reads "The Society for
+  Collegiate Leadership & Achievement (SCLA) is more than an honor society." In
+  running prose, write "The SCLA" (capital T). In headlines and brand mark usage,
+  "SCLA" alone is acceptable (e.g., "SCLA Honor Society" in the page title).
+  Source: `What Is The SCLA HTML`, `SCLA Benefits HTML`.
 
-- **"Honor Society" capitalization** — The search-index page title uses "Honor
-  Society" (title case); the mission-history snippet body uses "honor society"
-  (lowercase). Confirm the house style rule and apply it consistently across
-  all materials.
-  Source: `scla/_raw/web/www.thescla.org/index.md`.
+- **"Honor Society" capitalization — RESOLVED: capitalize both words.** All
+  scraped page titles and body copy consistently use "Honor Society" (title case):
+  "SCLA Honor Society," "an accredited collegiate leadership honor society" appears
+  only in a descriptive phrase mid-sentence (lowercase per standard grammar rules
+  when not used as a proper title). The proper noun form "Honor Society" should
+  always be capitalized. Source: `SCLA Honor Society HTML`, `What Is The SCLA HTML`.
+
+- **"College-to-Career" vs. "Campus to Career"** — These are two distinct phrases
+  that serve different purposes. "College-to-Career Honor Society" is SCLA's
+  self-applied category label (proper noun phrase). "From Campus to Career" is
+  the tagline. Do not conflate them. Source: `What Is The SCLA HTML`,
+  `SCLA Honor Society HTML`.
 
 - **GPA thresholds in member communications** — Two thresholds exist (3.0
   undergraduate, 3.4 graduate). Confirm that membership invitation emails
   and eligibility pages state both clearly and separately so students are
   not confused about which applies to them.
-  Source: `scla/_raw/web/www.thescla.org/index.md`.
+  Source: `scla/_raw/web/www.thescla.org/index.md` (snippet only — thresholds
+  not confirmed in full HTML exports).
 
 ## How to use this guide
 

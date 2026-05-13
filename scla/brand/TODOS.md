@@ -1,46 +1,28 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/INGEST_ERRORS.md
+source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/INGEST_ERRORS.md, scla/_raw/web/ (HTML exports)
 generated_by: brand-analyst
-last_updated: 2026-04-23
-confidence: low
+last_updated: 2026-05-13
+confidence: medium
 ---
 
 # Brand Guide — Open TODOs
 
-This file lists exactly what SCLA staff must provide to upgrade the brand
-guide from `confidence: low` to `confidence: high`. Items are ordered by
-impact — completing item 1 unblocks the most downstream work.
+Updated 2026-05-13: HTML exports scraped from thescla.org were processed.
+Priorities 1, 4, and 5 are resolved. Priorities 2 and 3 still require files
+from SCLA staff.
 
 ---
 
-## Priority 1 — Full website copy (unblocks voice, tone, common mistakes)
+## ~~Priority 1 — Full website copy~~ ✓ RESOLVED (2026-05-13)
 
-The ingest stage was blocked from reaching thescla.org by a sandbox proxy.
-No page body text was retrieved — only Google search-index snippets.
+HTML exports were processed from `scla/_raw/web/`. The following was completed:
 
-**What to provide:** Export the pages below as PDF or plain-text HTML and
-drop into `scla/_raw/docs/inbox/`, then re-run `/ingest` and `/brand`.
+- voice-and-tone.md: 21 verbatim copy samples added, all 5 voice axes updated to `medium` confidence
+- "Write this, not that" table fully populated (6 examples)
+- "Phrases to avoid" list expanded
+- brand-guide.md common mistakes section updated with confirmed name/article rules
 
-| Priority | Page URL |
-|---|---|
-| 1 | https://www.thescla.org/ (homepage) |
-| 2 | https://www.thescla.org/benefits |
-| 3 | https://www.thescla.org/the-scla-difference |
-| 4 | https://www.thescla.org/mission-history |
-| 5 | https://www.thescla.org/program |
-| 6 | https://www.thescla.org/faq |
-| 7 | https://www.thescla.org/membership-eligibility |
-| 8 | https://www.thescla.org/start-a-chapter |
-| 9 | https://www.thescla.org/contact-us |
-| 10 | https://www.thescla.org/leadership-team |
-| 11 | https://www.thescla.org/administrator-faq |
-| 12 | https://www.thescla.org/online-membership |
-| 13 | https://www.thescla.org/blog (index + 3–5 individual posts) |
-
-**What it unlocks:** voice-and-tone.md axis ratings (low → medium or high),
-expanded "sounds like us" sample corpus (from 5 snippets to 30+), "write
-this, not that" table, "phrases to avoid" list, common-mistakes section in
-brand-guide.md.
+**Remaining from this priority:** contact-us page not scraped (no HTML export available).
 
 ---
 
@@ -75,35 +57,25 @@ currently `TODO`.
 
 ---
 
-## Priority 4 — Tagline confirmation
+## ~~Priority 4 — Tagline confirmation~~ ✓ RESOLVED (2026-05-13)
 
-The page title in the search index reads "SCLA Honor Society | From Campus
-to Career," which suggests "From Campus to Career" is the official tagline.
-This has not been confirmed from a primary source.
+Confirmed from HTML exports: "From Campus to Career" is the official tagline.
+Appears in homepage title and used as core mission framing throughout the site.
+Updated in brand-guide.md `At a glance` section.
 
-**What to provide:** Confirm in writing:
-1. Is "From Campus to Career" the official tagline?
-2. In which contexts should it appear (email signatures, social profiles,
-   printed materials, website hero only)?
-
-**What it unlocks:** brand-guide.md "At a glance" tagline field.
+**Still open:** Which contexts to use it in (email signatures, print, hero only) — needs SCLA staff confirmation.
 
 ---
 
-## Priority 5 — Name and article style (unblocks common mistakes)
+## ~~Priority 5 — Name and article style~~ ✓ RESOLVED (2026-05-13)
 
-Two forms of the short name appear in available snippets: "SCLA" (page
-title) and "The SCLA" (blog post title "What Is The SCLA?"). Capitalization
-of "Honor Society" also varies between snippets ("Honor Society" vs.
-"honor society").
+Confirmed from HTML exports:
 
-**What to provide:** Confirm the correct:
-1. Article usage — "SCLA" or "The SCLA" in running prose
-2. Capitalization rule — "Honor Society" or "honor society"
-3. Long-form vs. abbreviation — when to write the full name vs. "SCLA"
+1. **Article usage** — "The SCLA" (capital T) in running prose
+2. **Capitalization** — "Honor Society" is always capitalized as a proper noun
+3. **Long-form** — "The Society for Collegiate Leadership & Achievement" on first reference in formal documents; "The SCLA" or "SCLA" thereafter
 
-**What it unlocks:** voice-and-tone.md "phrases to avoid" section,
-common-mistakes section in brand-guide.md.
+Updated in brand-guide.md `Common mistakes` section.
 
 ---
 
