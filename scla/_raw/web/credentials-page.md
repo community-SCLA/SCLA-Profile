@@ -1,0 +1,111 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - generic [ref=e8]:
+        - button [ref=e10]:
+          - img [ref=e11]
+        - toolbar [ref=e16]:
+          - button [ref=e18]:
+            - img [ref=e19]
+          - generic [ref=e22]:
+            - button [ref=e23]:
+              - img [ref=e24]
+            - button [ref=e29]:
+              - img [ref=e30]
+            - button [ref=e34]:
+              - img [ref=e35]
+            - link [ref=e38] [cursor=pointer]:
+              - /url: https://shop.thescla.org/
+              - img [ref=e39]
+      - generic [ref=e42]:
+        - heading "Search" [level=2] [ref=e43]
+        - paragraph [ref=e44]: Search for a page or record
+    - generic [ref=e45]:
+      - banner [ref=e46]:
+        - generic [ref=e48]:
+          - img "Logo" [ref=e50]
+          - generic [ref=e52]:
+            - text: The Society for Collegiate
+            - text: Leadership & Achievement
+        - generic [ref=e53]:
+          - button "Toggle theme" [ref=e55] [cursor=pointer]:
+            - img
+            - generic [ref=e56]: Toggle theme
+          - button "View Notifications (21 unread) 2 1" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]: View Notifications (21 unread)
+            - generic [ref=e60]:
+              - img
+            - generic [ref=e65]:
+              - generic [ref=e67]: "2"
+              - generic [ref=e69]: "1"
+          - button "View Streaks 0" [ref=e72] [cursor=pointer]:
+            - generic [ref=e73]: View Streaks
+            - img
+            - generic [ref=e79]: "0"
+          - button "View XP 0" [ref=e82] [cursor=pointer]:
+            - generic [ref=e83]: View XP
+            - img
+            - generic [ref=e89]: "0"
+          - button "Kierra Woekel" [ref=e90] [cursor=pointer]:
+            - img "Kierra Woekel" [ref=e92]
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - heading "Credentials Wallet" [level=1] [ref=e96]
+            - generic [ref=e97]: Your credentials wallet securely stores your certificates, badges, and milestones earned through courses, activities, and accomplishments on the platform. Easily showcase your progress, verify your skills, and share your achievements with employers, peers, or on social media. It’s your personal record of growth — organized, verifiable, and always accessible.
+          - generic [ref=e99]:
+            - generic [ref=e100]: Share your Wallet
+            - generic [ref=e101]:
+              - button "Share on LinkedIn" [ref=e102] [cursor=pointer]:
+                - img [ref=e103]
+              - button "Share on X" [ref=e106] [cursor=pointer]:
+                - img [ref=e107]
+              - link "Share on Reddit" [ref=e111] [cursor=pointer]:
+                - /url: https://reddit.com/submit?url=https://app.thescla.org/web/public/wallet/01KKBEM029WXDG3KKB0GAM06E2&title=My Credentials Wallet
+                - img [ref=e112]
+              - button "Share on Facebook" [ref=e115] [cursor=pointer]:
+                - img [ref=e116]
+        - navigation "breadcrumb" [ref=e120]:
+          - list [ref=e121]:
+            - listitem [ref=e122]:
+              - link "Home" [ref=e123] [cursor=pointer]:
+                - /url: /member
+            - listitem [ref=e124]:
+              - img [ref=e125]
+            - listitem [ref=e127]: Credentials Wallet
+        - main [ref=e128]:
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - img "Kierra Woekel" [ref=e132]
+              - generic [ref=e133]:
+                - generic [ref=e134]: Kierra Woekel
+                - generic [ref=e135]: 1 Credentials
+            - generic [ref=e136]:
+              - button "Privacy" [ref=e137] [cursor=pointer]:
+                - img
+                - text: Privacy
+              - link "Public page" [ref=e138] [cursor=pointer]:
+                - /url: https://app.thescla.org/web/public/wallet/01KKBEM029WXDG3KKB0GAM06E2
+                - button "Public page" [ref=e139]:
+                  - img
+                  - text: Public page
+          - generic [ref=e143] [cursor=pointer]:
+            - generic [ref=e145]:
+              - img
+              - text: Badge
+            - img "Conversation Starter" [ref=e147]
+            - generic [ref=e148]:
+              - generic [ref=e149]: Conversation Starter
+              - generic [ref=e150]: Send at least 10 messages in the platform’s chat or discussion system.
+          - generic [ref=e151]:
+            - heading "College Credits" [level=2] [ref=e152]
+            - generic [ref=e153]: Recommended credits to be earned by completing credit bearing courses, activities, or tracks.
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - generic [ref=e159]:
+                  - img
+                - generic [ref=e160]: You have not earned any credits yet
+              - link "Start Earning Credits" [ref=e162] [cursor=pointer]:
+                - /url: /member/learning
+                - button "Start Earning Credits" [ref=e163]
+  - region "Notifications alt+T"
