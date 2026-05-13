@@ -12,33 +12,16 @@
       "Bash(mkdir:*)",
       "Bash(ls:*)",
       "Bash(find:*)",
-      "Bash(cat:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
       "Bash(git status)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(./scripts/*)"
+      "Bash(git rm:*)",
+      "Bash(./sync.sh)"
     ],
     "deny": [
-      "Bash(rm -rf:*)",
-      "Bash(git push --force:*)",
-      "Write(client/_raw/**)"
-    ]
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/stamp-frontmatter.sh \"$CLAUDE_TOOL_FILE_PATH\" 2>/dev/null || true"
-          }
-        ]
-      }
+      "Bash(git push --force:*)"
     ]
   }
 }
