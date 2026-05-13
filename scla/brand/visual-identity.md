@@ -1,49 +1,43 @@
 ---
-source: scla/_raw/assets/ , scla/_raw/web/www.thescla.org/index.md
+source: Google Drive — Orientation Slides .pptx (jheath@thescla.org, updated 2026-05-11)
 generated_by: brand-analyst
-last_updated: 2026-04-23
-confidence: low
+last_updated: 2026-05-13
+confidence: medium
 ---
 
 # SCLA Visual Identity
 
-> NOTE: Confidence is LOW. No logo files, brand PDFs, hero images, color
-> samples, CSS stylesheets, or typography specimens are present in
-> `scla/_raw/assets/` or `scla/_raw/web/`. The ingest stage was blocked
-> from reaching thescla.org (HTTP 403). Every field below is a placeholder.
-> Do not use any value from this file in production until confirmed by SCLA.
+> Source: Colors and typography extracted from the current Orientation Slides deck
+> (Drive file ID: `12MXTvGlvN-nEkOXHx1nU2VKaVAPwTBn3`), the most recently updated
+> branded SCLA presentation. Confidence is MEDIUM — values are derived from applied
+> styles in production slides, not a formal brand guidelines document.
+> TODO: confirm with SCLA staff and cross-check against thescla.org CSS.
 
 ## Colors
 
-TODO: needs input — Provide the primary and secondary color palette with
-hex codes. Preferred sources in order:
-1. A brand guidelines PDF (drop into `scla/_raw/assets/` and re-run `/brand`)
-2. Exported CSS from thescla.org (browser DevTools > computed styles, copy
-   the relevant `color` and `background-color` declarations)
-3. A screenshot of the live homepage with color picker readings noted
-
 | Role | Name | Hex | Usage |
-|---|---|---|---|
-| Primary | `TODO` | `TODO` | `TODO` |
-| Secondary | `TODO` | `TODO` | `TODO` |
-| Accent | `TODO` | `TODO` | `TODO` |
-| Background | `TODO` | `TODO` | `TODO` |
-| Body text | `TODO` | `TODO` | `TODO` |
-| Link / interactive | `TODO` | `TODO` | `TODO` |
+| --- | --- | --- | --- |
+| Primary | Deep Navy | `#002060` | Headers, primary backgrounds, dominant slide color |
+| Dark background | Dark Navy | `#0D2437` | Dark slide backgrounds, section dividers |
+| Dark background alt | Navy | `#00205A` | Alternate dark backgrounds |
+| Supporting | Mid Navy | `#334F7C` | Supporting elements, secondary backgrounds |
+| Supporting alt | Steel Blue | `#2F5597` | Secondary text, supporting color |
+| Accent | Gold | `#FFC000` | CTAs, highlights, accent elements |
+| Neutral | Medium Gray | `#888888` | Secondary text, captions |
+| Light | Near White | `#F2F2F2` | Light backgrounds |
+| Base | White | `#FFFFFF` | Default background |
+| Base | Black | `#000000` | Default body text |
 
 ## Typography
 
-TODO: needs input — Provide font families, weights, and usage rules.
-Preferred sources: brand guidelines PDF, or inspect `font-family` declarations
-in thescla.org's CSS.
+| Role | Family | Weight | Notes |
+| --- | --- | --- | --- |
+| Headline / Brand | Proxima Nova | Extrabold / Bold | Primary brand font — appears 290x in slides; intentional branded choice |
+| Body / Fallback | Arial | Regular / Bold | Theme default; used throughout alongside Proxima Nova |
+| Fallback | Calibri | Regular | Office default fallback |
 
-| Role | Family | Weight | Size guidance |
-|---|---|---|---|
-| Headline (H1) | `TODO` | `TODO` | `TODO` |
-| Subheadline (H2–H3) | `TODO` | `TODO` | `TODO` |
-| Body | `TODO` | `TODO` | `TODO` |
-| Caption / label | `TODO` | `TODO` | `TODO` |
-| Button / CTA | `TODO` | `TODO` | `TODO` |
+> TODO: Confirm whether Proxima Nova is licensed org-wide or only in presentation assets.
+> TODO: Verify font usage on thescla.org (may use a web font variant of Proxima Nova or substitute).
 
 ## Logo variants
 

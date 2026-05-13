@@ -1,0 +1,791 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e5]:
+      - link "Skip to content" [ref=e6] [cursor=pointer]:
+        - /url: "#main-content"
+      - generic [ref=e13]:
+        - link "The Society for Collegiate Leadership & Achievement Logo" [ref=e17] [cursor=pointer]:
+          - /url: //www.thescla.org/?hsLang=en
+          - img "The Society for Collegiate Leadership & Achievement Logo" [ref=e18]
+        - navigation "Navigation Menu" [ref=e21]:
+          - menu [ref=e22]:
+            - menuitem "About" [ref=e23] [cursor=pointer]
+            - menu [ref=e24]:
+              - menuitem "Mission & History" [ref=e25] [cursor=pointer]
+              - menuitem "National Advisory Board" [ref=e26] [cursor=pointer]
+              - menuitem "Student Advisory Board" [ref=e27] [cursor=pointer]
+              - menuitem "Executive Advisory Board" [ref=e28] [cursor=pointer]
+              - menuitem "CEO Unscripted" [ref=e29] [cursor=pointer]
+              - menuitem "Contact Us" [ref=e30] [cursor=pointer]
+              - menuitem "Blog" [ref=e31] [cursor=pointer]
+            - menuitem "Membership" [ref=e32] [cursor=pointer]
+            - menu [ref=e33]:
+              - menuitem "Benefits" [ref=e34] [cursor=pointer]
+              - menuitem "Program" [ref=e35] [cursor=pointer]
+              - menuitem "Eligibility" [ref=e36] [cursor=pointer]
+              - menuitem "Testimonials" [ref=e37] [cursor=pointer]
+            - menuitem "Chapters" [ref=e38] [cursor=pointer]
+            - menu [ref=e39]:
+              - menuitem "On-Campus Members" [ref=e40] [cursor=pointer]
+              - menuitem "Online Membership" [ref=e41] [cursor=pointer]
+              - menuitem "Start A Chapter" [ref=e42] [cursor=pointer]
+            - menuitem "Administrators" [ref=e43] [cursor=pointer]
+            - menu [ref=e44]:
+              - menuitem "Why SCLA?" [ref=e45] [cursor=pointer]
+              - menuitem "The SCLA Difference" [ref=e46] [cursor=pointer]
+              - menuitem "Impact Reporting" [ref=e47] [cursor=pointer]
+              - menuitem "Administrator FAQ" [ref=e48] [cursor=pointer]
+              - menuitem "Get Involved" [ref=e49] [cursor=pointer]
+            - menuitem "FAQ" [ref=e50] [cursor=pointer]
+            - menuitem "Shop" [ref=e51] [cursor=pointer]
+        - generic [ref=e52]:
+          - link "Member Sign In" [ref=e54] [cursor=pointer]:
+            - /url: https://members.thescla.org/users/sign_in?locale=en
+            - img [ref=e55]
+            - text: Member Sign In
+          - button "Enter your code" [ref=e61] [cursor=pointer]
+    - main [ref=e66]:
+      - generic [ref=e70]:
+        - generic [ref=e79]:
+          - generic [ref=e81]:
+            - heading "HONOR. PREPARE. SUCCEED." [level=1] [ref=e82]:
+              - generic [ref=e83]: HONOR.
+              - generic [ref=e84]: PREPARE.
+              - generic [ref=e85]: SUCCEED.
+            - generic [ref=e86]: Empowering You to Build a Career That Matters
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - generic [ref=e91]: Received your invitation? Enter your code.
+                - textbox [ref=e93]
+              - generic [ref=e94]:
+                - button "Accept your invitation" [ref=e96] [cursor=pointer]
+                - link "No Code? Check Eligibility" [ref=e97] [cursor=pointer]:
+                  - /url: https://www.thescla.org/membership-eligibility
+                  - text: No Code? Check Eligibility
+                  - img [ref=e99]
+            - generic [ref=e101]:
+              - img "USA Today Logo" [ref=e102]
+              - text: Featured in USA Today for pairing honor recognition with real-world preparation
+          - generic [ref=e104]:
+            - generic [ref=e106]:
+              - generic [ref=e111]:
+                - generic [ref=e112]:
+                  - img [ref=e114]
+                  - img [ref=e116]
+                  - img [ref=e118]
+                  - img [ref=e120]
+                - generic [ref=e121]:
+                  - paragraph [ref=e122]: SCLA’s programs are guided by a
+                  - heading [level=3] [ref=e123]: National Advisory Board of Directors
+                  - link [ref=e124] [cursor=pointer]:
+                    - /url: https://www.thescla.org/nationaladvisoryboard?hsLang=en
+                    - text: Meet the Advisory Board
+                    - img [ref=e126]
+                - generic [ref=e128]:
+                  - img [ref=e130]
+                  - img [ref=e132]
+                  - img [ref=e134]
+                  - img [ref=e136]
+              - tabpanel [ref=e137]:
+                - generic [ref=e140]:
+                  - generic [ref=e141]:
+                    - img "SCLA Rd2 13" [ref=e143]
+                    - img "SCLA 2" [ref=e145]
+                    - img "SCLA 4" [ref=e147]
+                    - img "SCLA Rd2 14" [ref=e149]
+                  - generic [ref=e150]:
+                    - img "SCLA Pic 4" [ref=e152]
+                    - img "SCLA Rd2 14-1" [ref=e154]
+                    - img "SCLA 11" [ref=e156]
+                    - img "SCLA Rd2 9" [ref=e158]
+                  - generic [ref=e159]:
+                    - img "SCLA 12" [ref=e161]
+                    - generic [ref=e163]:
+                      - heading "Why Students Accept Their Invitation" [level=2] [ref=e164]
+                      - button [ref=e165] [cursor=pointer]:
+                        - img [ref=e168]
+                      - paragraph [ref=e170]: Play (60 seconds)
+                      - paragraph [ref=e171]:
+                        - text: Beyond recognition.
+                        - text: Real career tools.
+                    - img "SCLA Rd2 15" [ref=e173]
+              - tabpanel [ref=e174]:
+                - generic [ref=e177]:
+                  - img [ref=e178]
+                  - generic [ref=e179]:
+                    - paragraph [ref=e180]: Damola Adamolekun
+                    - paragraph [ref=e181]: CEO, Red Lobster
+                  - generic [ref=e182]:
+                    - heading [level=3] [ref=e183]: CEO Unscripted
+                    - paragraph [ref=e184]: Lessons They’d Give Their College Self
+                    - link [ref=e185] [cursor=pointer]:
+                      - /url: https://www.thescla.org/ceo-unscripted?hsLang=en
+                      - text: Meet the CEOs
+                      - img [ref=e187]
+                  - img [ref=e189]
+              - tabpanel [ref=e190]:
+                - generic [ref=e194]:
+                  - generic [ref=e195]:
+                    - img [ref=e197]
+                    - img [ref=e199]
+                    - img [ref=e201]
+                    - img [ref=e203]
+                  - generic [ref=e204]:
+                    - paragraph [ref=e205]: SCLA’s programs are guided by a
+                    - heading [level=3] [ref=e206]: National Advisory Board of Directors
+                    - link [ref=e207] [cursor=pointer]:
+                      - /url: https://www.thescla.org/nationaladvisoryboard?hsLang=en
+                      - text: Meet the Advisory Board
+                      - img [ref=e209]
+                  - generic [ref=e211]:
+                    - img [ref=e213]
+                    - img [ref=e215]
+                    - img [ref=e217]
+                    - img [ref=e219]
+              - generic [ref=e223]:
+                - generic [ref=e224]:
+                  - img [ref=e226]
+                  - img [ref=e228]
+                  - img [ref=e230]
+                  - img [ref=e232]
+                - generic [ref=e233]:
+                  - img [ref=e235]
+                  - img [ref=e237]
+                  - img [ref=e239]
+                  - img [ref=e241]
+                - generic [ref=e242]:
+                  - img [ref=e244]
+                  - generic [ref=e246]:
+                    - heading [level=2] [ref=e247]: Why Students Accept Their Invitation
+                    - button [ref=e248] [cursor=pointer]:
+                      - img [ref=e251]
+                    - paragraph [ref=e253]: Play (60 seconds)
+                    - paragraph [ref=e254]: Beyond recognition. Real career tools.
+                  - img [ref=e256]
+              - generic [ref=e260]:
+                - img [ref=e261]
+                - generic [ref=e262]:
+                  - paragraph [ref=e263]: Damola Adamolekun
+                  - paragraph [ref=e264]: CEO, Red Lobster
+                - generic [ref=e265]:
+                  - heading [level=3] [ref=e266]: CEO Unscripted
+                  - paragraph [ref=e267]: Lessons They’d Give Their College Self
+                  - link [ref=e268] [cursor=pointer]:
+                    - /url: https://www.thescla.org/ceo-unscripted?hsLang=en
+                    - text: Meet the CEOs
+                    - img [ref=e270]
+                - img [ref=e272]
+              - generic [ref=e277]:
+                - generic [ref=e278]:
+                  - img [ref=e280]
+                  - img [ref=e282]
+                  - img [ref=e284]
+                  - img [ref=e286]
+                - generic [ref=e287]:
+                  - paragraph [ref=e288]: SCLA’s programs are guided by a
+                  - heading [level=3] [ref=e289]: National Advisory Board of Directors
+                  - link [ref=e290] [cursor=pointer]:
+                    - /url: https://www.thescla.org/nationaladvisoryboard?hsLang=en
+                    - text: Meet the Advisory Board
+                    - img [ref=e292]
+                - generic [ref=e294]:
+                  - img [ref=e296]
+                  - img [ref=e298]
+                  - img [ref=e300]
+                  - img [ref=e302]
+            - tablist [ref=e303]:
+              - tab "1 of 3" [selected] [ref=e304] [cursor=pointer]: "1"
+              - tab "2 of 3" [ref=e305] [cursor=pointer]: "2"
+              - tab "3 of 3" [ref=e306] [cursor=pointer]: "3"
+        - generic [ref=e316]:
+          - img "honor__society" [ref=e319]
+          - generic [ref=e321]:
+            - heading "Built for Your Career, Not Just a Line on Your Résumé" [level=2] [ref=e322]
+            - generic [ref=e323]:
+              - paragraph [ref=e324]: SCLA pairs academic recognition with real career tools—AI‑powered resources, accredited programs and direct access to industry leaders—so you can accelerate your career and build a future that matters.
+              - list [ref=e325]:
+                - listitem [ref=e326]:
+                  - strong [ref=e327]: "Develop Skills:"
+                  - text: AI Career Hub with résumé builder and guided career chats; an accredited Career Readiness Certification; certifications from leaders like Google and Microsoft (coming soon); and the ISPI strengths assessment (a $150 value).
+                - listitem [ref=e328]:
+                  - strong [ref=e329]: "Expand Opportunities:"
+                  - text: Scholarship opportunities, personalized
+                  - strong [ref=e330]
+                  - text: letters of recommendation upon certification, a growing employer network and the ability to earn college credit (how credits apply varies by campus).
+                - listitem [ref=e331]:
+                  - strong [ref=e332]: "Build Connections:"
+                  - text: Smart networking via AI‑powered peer matching, access to C‑suite voices through the CEO Speaker Series and a nationwide community across 850+ campuses and 125,000+ members.
+            - link "Learn more" [ref=e334] [cursor=pointer]:
+              - /url: https://www.thescla.org/benefits?hsLang=en
+              - text: Learn more
+              - img [ref=e335]
+        - generic [ref=e344]:
+          - generic [ref=e345]:
+            - heading "Connected across the nation" [level=2] [ref=e346]
+            - paragraph [ref=e348]: Join a trusted network spanning over 850 campuses, connecting thousands of high-achieving individuals with the resources, support, and connections you need to succeed.
+          - generic [ref=e349]:
+            - generic [ref=e351]:
+              - generic [ref=e353]:
+                - heading "#1" [level=3] [ref=e354]
+                - text: College-to-Career Honor Society
+              - generic [ref=e356]:
+                - heading "400+" [level=3] [ref=e357]
+                - text: Professional mentors
+              - generic [ref=e359]:
+                - heading "125K+" [level=3] [ref=e360]
+                - text: Members
+              - generic [ref=e362]:
+                - heading "850+" [level=3] [ref=e363]
+                - text: Campuses
+            - img "map_usa" [ref=e366]
+        - generic [ref=e374]:
+          - heading "How Does Your SCLA Membership Work for You?" [level=2] [ref=e376]
+          - generic [ref=e377]:
+            - generic [ref=e379]:
+              - text: "01"
+              - heading "Start with Honor— Recognition" [level=3] [ref=e381]:
+                - text: Start with Honor—
+                - text: Recognition
+              - paragraph [ref=e383]:
+                - generic [ref=e384]: You’ve earned it. Your SCLA membership starts with recognition for academic excellence, available only to students who meet the GPA requirement.
+            - generic [ref=e386]:
+              - text: "02"
+              - heading "build your skills" [level=3] [ref=e388]:
+                - text: build your
+                - text: skills
+              - paragraph [ref=e390]: Develop your skills. Access our AI‑powered Career Hub with résumé builder, guided career chats, an accredited Career Readiness Certification and a $150 ISPI strengths assessment.
+            - generic [ref=e392]:
+              - text: "03"
+              - heading "expand your network" [level=3] [ref=e394]:
+                - text: expand your
+                - text: network
+              - paragraph [ref=e396]: AI matching connects you with peers, leaders and our 125,000+ members across 850 campuses.
+            - generic [ref=e398]:
+              - text: "04"
+              - heading "Launch your career" [level=3] [ref=e400]:
+                - text: Launch your
+                - text: career
+              - paragraph [ref=e402]: Launch your career. Use our job board and internships, connect with our employer network.
+        - generic [ref=e412]:
+          - button "Previous" [ref=e413] [cursor=pointer]
+          - generic [ref=e415]:
+            - generic [ref=e419]:
+              - button [ref=e423] [cursor=pointer]:
+                - img [ref=e424]
+              - generic [ref=e429]:
+                - heading [level=2] [ref=e430]: What our members are saying
+                - generic [ref=e431]:
+                  - blockquote [ref=e432]:
+                    - img [ref=e433]
+                    - generic [ref=e435]: SCLA has given me the confidence and opportunities to pursue my goals, showing me that it’s never too late to succeed. The connections and skills I’ve gained have opened doors in my career and inspired me to lead by example for my children.
+                    - img [ref=e436]
+                  - generic [ref=e438]:
+                    - generic [ref=e439]: Serita Armstead
+                    - generic [ref=e440]: University of North Texas at Dallas
+                - link [ref=e442] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e443]
+            - generic [ref=e448]:
+              - button [ref=e452] [cursor=pointer]:
+                - img [ref=e453]
+              - generic [ref=e458]:
+                - heading "What our members are saying" [level=2] [ref=e459]
+                - generic [ref=e460]:
+                  - blockquote [ref=e461]:
+                    - img [ref=e462]
+                    - paragraph [ref=e464]: SCLA has helped me grow both personally and professionally by providing the resources and community support I need to achieve my goals. It’s given me the tools to become a stronger leader to continue guiding and supporting others.
+                    - img [ref=e465]
+                  - generic [ref=e467]:
+                    - generic [ref=e468]: Ravyn Rooney
+                    - generic [ref=e469]: University of Kentucky
+                - link "See more" [ref=e471] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e472]
+            - generic [ref=e477]:
+              - button [ref=e481] [cursor=pointer]:
+                - img [ref=e482]
+              - generic [ref=e487]:
+                - heading [level=2] [ref=e488]: What our members are saying
+                - generic [ref=e489]:
+                  - blockquote [ref=e490]:
+                    - img [ref=e491]
+                    - text: SCLA has given me the drive and support I needed to succeed. The connections I’ve made and the encouragement from SCLA members have helped me stay focused on building a future that my children can be proud of.
+                    - img [ref=e493]
+                  - generic [ref=e495]:
+                    - generic [ref=e496]: Latoia Edison
+                    - generic [ref=e497]: Strayer University
+                - link [ref=e499] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e500]
+            - generic [ref=e505]:
+              - button [ref=e509] [cursor=pointer]:
+                - img [ref=e510]
+              - generic [ref=e515]:
+                - heading [level=2] [ref=e516]: What our members are saying
+                - generic [ref=e517]:
+                  - blockquote [ref=e518]:
+                    - img [ref=e519]
+                    - paragraph [ref=e522]: SCLA has shaped me into knowing what I want to do with my life … helping me narrow things down and stick to what matters most. Once you have confidence, it feels like you can do anything you set your mind to.
+                    - img [ref=e523]
+                  - generic [ref=e525]:
+                    - generic [ref=e526]: Alyssa Greene
+                    - generic [ref=e527]: Florida State University
+                - link [ref=e529] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e530]
+            - generic [ref=e535]:
+              - button [ref=e539] [cursor=pointer]:
+                - img [ref=e540]
+              - generic [ref=e545]:
+                - heading [level=2] [ref=e546]: What our members are saying
+                - generic [ref=e547]:
+                  - blockquote [ref=e548]:
+                    - img [ref=e549]
+                    - paragraph [ref=e552]: Being part of SCLA has given me the flexibility to balance college and work while providing opportunities, resources, and connections that help students like me achieve their goals.
+                    - img [ref=e553]
+                  - generic [ref=e555]:
+                    - generic [ref=e556]: Brandon Grace
+                    - generic [ref=e557]: Kentucky Community and Technical College System
+                - link [ref=e559] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e560]
+            - generic [ref=e565]:
+              - button [ref=e569] [cursor=pointer]:
+                - img [ref=e570]
+              - generic [ref=e575]:
+                - heading [level=2] [ref=e576]: What our members are saying
+                - generic [ref=e577]:
+                  - blockquote [ref=e578]:
+                    - img [ref=e579]
+                    - text: SCLA has helped me balance a full-time job and school while pursuing higher education. They’ve provided the support, flexibility, and resources I need to achieve my goals and prepare for my future.
+                    - img [ref=e581]
+                  - generic [ref=e583]:
+                    - generic [ref=e584]: Carmen LaMesa
+                    - generic [ref=e585]: St. Johns River State College
+                - link [ref=e587] [cursor=pointer]:
+                  - /url: ""
+                  - text: See more
+                  - img [ref=e588]
+            - generic [ref=e593]:
+              - button [ref=e597] [cursor=pointer]:
+                - img [ref=e598]
+              - generic [ref=e603]:
+                - heading [level=2] [ref=e604]: What our members are saying
+                - generic [ref=e605]:
+                  - blockquote [ref=e606]:
+                    - img [ref=e607]
+                    - text: SCLA has given me the networking and support to develop meaningful questions, investigate them, and pursue my goal of becoming a leader in academia. It’s helped me grow and given me the courage to achieve my goals.
+                    - img [ref=e609]
+                  - generic [ref=e611]:
+                    - generic [ref=e612]: Cobe Wilson
+                    - generic [ref=e613]: New Mexico State University
+                - link [ref=e615] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e616]
+            - generic [ref=e621]:
+              - button [ref=e625] [cursor=pointer]:
+                - img [ref=e626]
+              - generic [ref=e631]:
+                - heading [level=2] [ref=e632]: What our members are saying
+                - generic [ref=e633]:
+                  - blockquote [ref=e634]:
+                    - img [ref=e635]
+                    - text: SCLA has helped me grow as a leader, improve my speaking skills, and build the confidence to pursue my goals. It has provided me with the opportunities, connections, and tools I need to make a positive impact in my community and beyond.
+                    - img [ref=e637]
+                  - generic [ref=e639]:
+                    - generic [ref=e640]: Kylie Harrison
+                    - generic [ref=e641]: East Tennessee State University
+                - link [ref=e643] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e644]
+            - generic [ref=e649]:
+              - button [ref=e653] [cursor=pointer]:
+                - img [ref=e654]
+              - generic [ref=e659]:
+                - heading [level=2] [ref=e660]: What our members are saying
+                - generic [ref=e661]:
+                  - blockquote [ref=e662]:
+                    - img [ref=e663]
+                    - text: SCLA has given me the tools to thrive by building my confidence, leadership, and resilience. It’s helping me prepare to support others in my career, just as I was supported as an athlete.
+                    - img [ref=e665]
+                  - generic [ref=e667]:
+                    - generic [ref=e668]: Mia Thornton
+                    - generic [ref=e669]: University of Alabama - Tuscaloosa
+                - link [ref=e671] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e672]
+            - generic [ref=e677]:
+              - button [ref=e681] [cursor=pointer]:
+                - img [ref=e682]
+              - generic [ref=e687]:
+                - heading [level=2] [ref=e688]: What our members are saying
+                - generic [ref=e689]:
+                  - blockquote [ref=e690]:
+                    - img [ref=e691]
+                    - generic [ref=e693]: SCLA has given me the confidence and opportunities to pursue my goals, showing me that it’s never too late to succeed. The connections and skills I’ve gained have opened doors in my career and inspired me to lead by example for my children.
+                    - img [ref=e694]
+                  - generic [ref=e696]:
+                    - generic [ref=e697]: Serita Armstead
+                    - generic [ref=e698]: University of North Texas at Dallas
+                - link [ref=e700] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e701]
+            - generic [ref=e706]:
+              - button [ref=e710] [cursor=pointer]:
+                - img [ref=e711]
+              - generic [ref=e716]:
+                - heading [level=2] [ref=e717]: What our members are saying
+                - generic [ref=e718]:
+                  - blockquote [ref=e719]:
+                    - img [ref=e720]
+                    - paragraph [ref=e722]: SCLA has helped me grow both personally and professionally by providing the resources and community support I need to achieve my goals. It’s given me the tools to become a stronger leader to continue guiding and supporting others.
+                    - img [ref=e723]
+                  - generic [ref=e725]:
+                    - generic [ref=e726]: Ravyn Rooney
+                    - generic [ref=e727]: University of Kentucky
+                - link [ref=e729] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e730]
+            - generic [ref=e735]:
+              - button [ref=e739] [cursor=pointer]:
+                - img [ref=e740]
+              - generic [ref=e745]:
+                - heading [level=2] [ref=e746]: What our members are saying
+                - generic [ref=e747]:
+                  - blockquote [ref=e748]:
+                    - img [ref=e749]
+                    - text: SCLA has given me the drive and support I needed to succeed. The connections I’ve made and the encouragement from SCLA members have helped me stay focused on building a future that my children can be proud of.
+                    - img [ref=e751]
+                  - generic [ref=e753]:
+                    - generic [ref=e754]: Latoia Edison
+                    - generic [ref=e755]: Strayer University
+                - link [ref=e757] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e758]
+            - generic [ref=e763]:
+              - button [ref=e767] [cursor=pointer]:
+                - img [ref=e768]
+              - generic [ref=e773]:
+                - heading [level=2] [ref=e774]: What our members are saying
+                - generic [ref=e775]:
+                  - blockquote [ref=e776]:
+                    - img [ref=e777]
+                    - paragraph [ref=e780]: SCLA has shaped me into knowing what I want to do with my life … helping me narrow things down and stick to what matters most. Once you have confidence, it feels like you can do anything you set your mind to.
+                    - img [ref=e781]
+                  - generic [ref=e783]:
+                    - generic [ref=e784]: Alyssa Greene
+                    - generic [ref=e785]: Florida State University
+                - link [ref=e787] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e788]
+            - generic [ref=e793]:
+              - button [ref=e797] [cursor=pointer]:
+                - img [ref=e798]
+              - generic [ref=e803]:
+                - heading [level=2] [ref=e804]: What our members are saying
+                - generic [ref=e805]:
+                  - blockquote [ref=e806]:
+                    - img [ref=e807]
+                    - paragraph [ref=e810]: Being part of SCLA has given me the flexibility to balance college and work while providing opportunities, resources, and connections that help students like me achieve their goals.
+                    - img [ref=e811]
+                  - generic [ref=e813]:
+                    - generic [ref=e814]: Brandon Grace
+                    - generic [ref=e815]: Kentucky Community and Technical College System
+                - link [ref=e817] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e818]
+            - generic [ref=e823]:
+              - button [ref=e827] [cursor=pointer]:
+                - img [ref=e828]
+              - generic [ref=e833]:
+                - heading [level=2] [ref=e834]: What our members are saying
+                - generic [ref=e835]:
+                  - blockquote [ref=e836]:
+                    - img [ref=e837]
+                    - text: SCLA has helped me balance a full-time job and school while pursuing higher education. They’ve provided the support, flexibility, and resources I need to achieve my goals and prepare for my future.
+                    - img [ref=e839]
+                  - generic [ref=e841]:
+                    - generic [ref=e842]: Carmen LaMesa
+                    - generic [ref=e843]: St. Johns River State College
+                - link [ref=e845] [cursor=pointer]:
+                  - /url: ""
+                  - text: See more
+                  - img [ref=e846]
+            - generic [ref=e851]:
+              - button [ref=e855] [cursor=pointer]:
+                - img [ref=e856]
+              - generic [ref=e861]:
+                - heading [level=2] [ref=e862]: What our members are saying
+                - generic [ref=e863]:
+                  - blockquote [ref=e864]:
+                    - img [ref=e865]
+                    - text: SCLA has given me the networking and support to develop meaningful questions, investigate them, and pursue my goal of becoming a leader in academia. It’s helped me grow and given me the courage to achieve my goals.
+                    - img [ref=e867]
+                  - generic [ref=e869]:
+                    - generic [ref=e870]: Cobe Wilson
+                    - generic [ref=e871]: New Mexico State University
+                - link [ref=e873] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e874]
+            - generic [ref=e879]:
+              - button [ref=e883] [cursor=pointer]:
+                - img [ref=e884]
+              - generic [ref=e889]:
+                - heading [level=2] [ref=e890]: What our members are saying
+                - generic [ref=e891]:
+                  - blockquote [ref=e892]:
+                    - img [ref=e893]
+                    - text: SCLA has helped me grow as a leader, improve my speaking skills, and build the confidence to pursue my goals. It has provided me with the opportunities, connections, and tools I need to make a positive impact in my community and beyond.
+                    - img [ref=e895]
+                  - generic [ref=e897]:
+                    - generic [ref=e898]: Kylie Harrison
+                    - generic [ref=e899]: East Tennessee State University
+                - link [ref=e901] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e902]
+            - generic [ref=e907]:
+              - button [ref=e911] [cursor=pointer]:
+                - img [ref=e912]
+              - generic [ref=e917]:
+                - heading [level=2] [ref=e918]: What our members are saying
+                - generic [ref=e919]:
+                  - blockquote [ref=e920]:
+                    - img [ref=e921]
+                    - text: SCLA has given me the tools to thrive by building my confidence, leadership, and resilience. It’s helping me prepare to support others in my career, just as I was supported as an athlete.
+                    - img [ref=e923]
+                  - generic [ref=e925]:
+                    - generic [ref=e926]: Mia Thornton
+                    - generic [ref=e927]: University of Alabama - Tuscaloosa
+                - link [ref=e929] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e930]
+            - generic [ref=e935]:
+              - button [ref=e939] [cursor=pointer]:
+                - img [ref=e940]
+              - generic [ref=e945]:
+                - heading [level=2] [ref=e946]: What our members are saying
+                - generic [ref=e947]:
+                  - blockquote [ref=e948]:
+                    - img [ref=e949]
+                    - generic [ref=e951]: SCLA has given me the confidence and opportunities to pursue my goals, showing me that it’s never too late to succeed. The connections and skills I’ve gained have opened doors in my career and inspired me to lead by example for my children.
+                    - img [ref=e952]
+                  - generic [ref=e954]:
+                    - generic [ref=e955]: Serita Armstead
+                    - generic [ref=e956]: University of North Texas at Dallas
+                - link [ref=e958] [cursor=pointer]:
+                  - /url: https://www.thescla.org/testimonials?hsLang=en
+                  - text: See more
+                  - img [ref=e959]
+          - button "Next" [ref=e961] [cursor=pointer]
+        - generic [ref=e971]:
+          - generic [ref=e973]:
+            - text: Featured in USA Today
+            - link "THE FUTURE OF HONOR SOCIETIES IS ABOUT MORE THAN RECOGNITION" [ref=e974] [cursor=pointer]:
+              - /url: https://www.thescla.org/blog/a-new-standard-of-excellence-scla-featured-in-usa-today?hsLang=en
+              - heading "THE FUTURE OF HONOR SOCIETIES IS ABOUT MORE THAN RECOGNITION" [level=2] [ref=e975]
+            - paragraph [ref=e977]: In a recent USA Today feature on the future of honor societies, SCLA was highlighted for pairing academic recognition with structured preparation, meaningful connections, and real-world outcomes that help students move forward with confidence.
+            - link "Read the story" [ref=e979] [cursor=pointer]:
+              - /url: https://www.thescla.org/blog/a-new-standard-of-excellence-scla-featured-in-usa-today?hsLang=en
+              - text: Read the story
+              - img [ref=e980]
+          - generic [ref=e983]:
+            - img "usa-img" [ref=e984]
+            - generic:
+              - img "usa-today"
+        - generic [ref=e994]:
+          - generic [ref=e995]:
+            - heading "frequently asked questions" [level=2] [ref=e996]:
+              - text: frequently asked
+              - text: questions
+            - generic [ref=e997]:
+              - generic [ref=e998]:
+                - button "What is SCLA?" [ref=e999] [cursor=pointer]:
+                  - text: What is SCLA?
+                  - img [ref=e1001]
+                - paragraph [ref=e1005]: The Society for Collegiate Leadership & Achievement (SCLA) is an accredited honor society that pairs recognition with real career tools. We celebrate academic excellence and empower students with AI‑powered resources, certified programming and access to industry leaders, ensuring you can move confidently from campus to career. With over 125,000+ members at 850+ campuses, SCLA is your platform to stand out, develop your skills and accelerate your career.
+              - generic [ref=e1006]:
+                - button "What are the benefits?" [ref=e1007] [cursor=pointer]:
+                  - text: What are the benefits?
+                  - img [ref=e1009]
+                - generic:
+                  - generic:
+                    - paragraph [ref=e1011]: "SCLA membership offers far more than recognition. Benefits include:"
+                    - list [ref=e1012]:
+                      - listitem [level=1] [ref=e1013]: "AI‑powered Career Hub: résumé builder and guided career chats."
+                      - listitem [level=1] [ref=e1014]: Accredited Career Readiness Certification and the ISPI strengths assessment.
+                      - listitem [level=1] [ref=e1015]: Scholarships, personalised letters of recommendation and college credit.
+                      - listitem [level=1] [ref=e1016]: Smart networking via AI matching, C‑suite voices and a community across 850+ campuses.
+                      - listitem [level=1] [ref=e1017]:
+                        - paragraph [ref=e1018]: Exclusive job board, internships and employer connections.
+                    - paragraph [ref=e1019]:
+                      - generic [ref=e1020]:
+                        - text: Explore more on our
+                        - link "Benefits" [ref=e1021] [cursor=pointer]:
+                          - /url: /benefits?hsLang=en
+                        - text: page.
+              - generic [ref=e1022]:
+                - button "Is there a fee?" [ref=e1023] [cursor=pointer]:
+                  - text: Is there a fee?
+                  - img [ref=e1025]
+                - paragraph [ref=e1027]:
+                  - text: Yes, there is a
+                  - strong [ref=e1028]: one-time membership fee of $95
+                  - text: ", which unlocks access to all SCLA benefits, resources, and exclusive opportunities. This includes programs that award career credentials, college credit, and invaluable professional connections."
+              - generic [ref=e1029]:
+                - button "How was I nominated? How are you affiliated with my university?" [ref=e1030] [cursor=pointer]:
+                  - text: How was I nominated? How are you affiliated with my university?
+                  - img [ref=e1032]
+                - paragraph [ref=e1034]: You were invited to join SCLA because you’ve demonstrated academic excellence by meeting our GPA requirement. While SCLA is an independent organization, we partner with colleges nationwide to identify high-achieving students like you. Your invitation is your opportunity to join a distinguished network of leaders.
+              - generic [ref=e1035]:
+                - button "What does my membership go to?" [ref=e1036] [cursor=pointer]:
+                  - text: What does my membership go to?
+                  - img [ref=e1038]
+                - generic:
+                  - generic:
+                    - paragraph [ref=e1040]: "Your $95 fee supports:"
+                    - list [ref=e1041]:
+                      - listitem [level=1] [ref=e1042]:
+                        - text: Development of
+                        - strong [ref=e1043]: career readiness programs
+                        - text: and certifications.
+                      - listitem [level=1] [ref=e1044]:
+                        - text: Maintenance of our
+                        - strong [ref=e1045]: networking platforms and mentorship connections.
+                      - listitem [level=1] [ref=e1046]:
+                        - text: Funding for
+                        - strong [ref=e1047]: scholarships
+                        - text: and other member benefits.
+                      - listitem [level=1] [ref=e1048]:
+                        - text: Access to a
+                        - strong [ref=e1049]: comprehensive library of professional development resources.
+            - link "See FAQ" [ref=e1051] [cursor=pointer]:
+              - /url: https://www.thescla.org/faq?hsLang=en
+          - img "faq-2" [ref=e1054]
+        - generic [ref=e1064]:
+          - heading "Ready to Get Started?" [level=2] [ref=e1065]
+          - paragraph [ref=e1067]: Your journey begins here. Enter your invitation code to access exclusive recognition, career-ready certifications, and resources designed to help you reach your goals.
+          - generic [ref=e1068]:
+            - generic [ref=e1071]:
+              - textbox [ref=e1074]
+              - button "Submit" [ref=e1077] [cursor=pointer]
+            - generic [ref=e1078]: OR
+            - link "Apply to join" [ref=e1080] [cursor=pointer]:
+              - /url: https://app.thescla.org/interest
+          - paragraph [ref=e1082]: Only select “Apply to Join” if you have not received an invite code.
+        - generic [ref=e1090]:
+          - generic [ref=e1091]:
+            - heading "The SCLA Success Center" [level=2] [ref=e1092]
+            - paragraph [ref=e1094]: Your source for leadership insights, career tools, and resources to excel in academics and beyond.
+          - generic [ref=e1095]:
+            - link "Featured SCLA Launches Structured Career Readiness Certification Program for 2026 to Prepare College Students for the Modern Workforce Feb 18, 2026" [ref=e1097] [cursor=pointer]:
+              - /url: https://www.thescla.org/blog/scla-launches-structured-career-readiness-certification-program-for-2026-to-prepare-college-students-for-the-modern-workforce?hsLang=en
+              - generic [ref=e1099]:
+                - text: Featured
+                - heading "SCLA Launches Structured Career Readiness Certification Program for 2026 to Prepare College Students for the Modern Workforce" [level=2] [ref=e1100]
+                - time [ref=e1101]: Feb 18, 2026
+            - 'link "Featured A New Standard of Excellence: SCLA Featured in USA Today Dec 17, 2025" [ref=e1103] [cursor=pointer]':
+              - /url: https://www.thescla.org/blog/a-new-standard-of-excellence-scla-featured-in-usa-today?hsLang=en
+              - generic [ref=e1105]:
+                - text: Featured
+                - 'heading "A New Standard of Excellence: SCLA Featured in USA Today" [level=2] [ref=e1106]'
+                - time [ref=e1107]: Dec 17, 2025
+            - link "Featured Red Lobster’s CEO Talks Leadership, Risk, and Making Big Moves Jul 29, 2025" [ref=e1109] [cursor=pointer]:
+              - /url: https://www.thescla.org/blog/red-lobsters-ceo-talks-leadership-risk-and-making-big-moves?hsLang=en
+              - generic [ref=e1111]:
+                - text: Featured
+                - heading "Red Lobster’s CEO Talks Leadership, Risk, and Making Big Moves" [level=2] [ref=e1112]
+                - time [ref=e1113]: Jul 29, 2025
+    - contentinfo [ref=e1115]:
+      - generic [ref=e1118]:
+        - generic [ref=e1119]:
+          - generic [ref=e1121]:
+            - heading "About SCLA" [level=2] [ref=e1122]
+            - generic [ref=e1123]:
+              - paragraph [ref=e1124]: The Society for Collegiate Leadership & Achievement (SCLA) honors student success and empowers the next generation of leaders with real-world skills and connections.
+              - paragraph [ref=e1125]:
+                - link "Learn More About SCLA" [ref=e1127] [cursor=pointer]:
+                  - /url: https://info.thescla.org/mission-history?hsLang=en
+          - generic [ref=e1129]:
+            - heading "Quick Links" [level=2] [ref=e1130]
+            - list [ref=e1131]:
+              - listitem [ref=e1132]:
+                - link "About SCLA" [ref=e1133] [cursor=pointer]:
+                  - /url: https://www.thescla.org/mission-history?hsLang=en
+              - listitem [ref=e1134]:
+                - link "Program" [ref=e1135] [cursor=pointer]:
+                  - /url: https://www.thescla.org/program?hsLang=en
+              - listitem [ref=e1136]:
+                - link "Membership Benefits" [ref=e1137] [cursor=pointer]:
+                  - /url: https://www.thescla.org/benefits?hsLang=en
+              - listitem [ref=e1138]:
+                - link "FAQ" [ref=e1139] [cursor=pointer]:
+                  - /url: https://www.thescla.org/faq?hsLang=en
+          - generic [ref=e1141]:
+            - heading "Get in Touch" [level=2] [ref=e1142]
+            - list [ref=e1143]:
+              - listitem [ref=e1144]:
+                - paragraph [ref=e1145]:
+                  - strong [ref=e1146]: "Address:"
+                  - text: 1775 Tysons Blvd 5th Floor, Tysons, VA 22102
+              - listitem [ref=e1147]:
+                - paragraph [ref=e1148]:
+                  - strong [ref=e1149]: "Contact us:"
+                  - link "Send A Message" [ref=e1151] [cursor=pointer]:
+                    - /url: https://info.thescla.org/contact-us?hsLang=en
+              - listitem [ref=e1152]:
+                - paragraph [ref=e1153]:
+                  - strong [ref=e1154]: "Phone:"
+                  - link "(202) 769-5000" [ref=e1155] [cursor=pointer]:
+                    - /url: tel:(202)%20769-5000
+            - list [ref=e1157]:
+              - listitem [ref=e1158]:
+                - link [ref=e1159] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/the-society-for-collegiate-leadership-%26-achievement
+                  - img [ref=e1160]
+              - listitem [ref=e1162]:
+                - link [ref=e1163] [cursor=pointer]:
+                  - /url: https://www.instagram.com/the_scla
+                  - img [ref=e1164]
+              - listitem [ref=e1168]:
+                - link [ref=e1169] [cursor=pointer]:
+                  - /url: https://www.facebook.com/thescla
+                  - img [ref=e1170]
+              - listitem [ref=e1172]:
+                - link [ref=e1173] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@TheSCLA/videos
+                  - img [ref=e1174]
+        - paragraph [ref=e1178]:
+          - text: Copyright © 2026 The Society for Collegiate Leadership & Achievement. All Rights Reserved. | SCLA is a recognized honor society and leadership organization. Membership is by invitation only. |
+          - link "Privacy Policy" [ref=e1179] [cursor=pointer]:
+            - /url: https://info.thescla.org/privacypolicy?hsLang=en
+          - text: "|"
+          - link "Terms of Service" [ref=e1180] [cursor=pointer]:
+            - /url: https://info.thescla.org/terms?hsLang=en
+  - generic [ref=e1181] [cursor=pointer]:
+    - generic [ref=e1183]:
+      - img "Trustindex" [ref=e1185]
+      - generic [ref=e1186]: Trusted Site
+    - generic [ref=e1188]:
+      - text: Verified by
+      - strong [ref=e1189]: Trustindex
+  - region "Chat Widget" [ref=e1190]:
+    - iframe [ref=e1191]:
+      - button "Open live chat" [ref=f8e5]:
+        - img [ref=f8e8]
+        - img [ref=f8e15]
