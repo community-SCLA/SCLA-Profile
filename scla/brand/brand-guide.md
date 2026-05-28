@@ -1,30 +1,12 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
+source: Google Drive — SCLA Brand Guide (community@thescla.org, updated 2026-05-13)
 generated_by: brand-analyst
-last_updated: 2026-05-13
-confidence: medium
+last_updated: 2026-05-28
 ---
 
 # The Society for Collegiate Leadership & Achievement — Brand Guide
 
-> NOTE: This guide was initially generated from Google search-index snippets and has been updated
-> with content from full HTML exports of thescla.org (scraped 2026-04-23).
-> Sections still marked `TODO: needs input` require brand assets or internal documents not available
-> from public web pages. See `scla/brand/TODOS.md` for the prioritized input list.
-
-## What this brand is about
-
-SCLA describes itself as "the leading College-to-Career Honor Society" that
-"empowers students to excel academically and professionally, celebrating
-achievement, fostering personal growth, and providing tools, connections, and
-credentials needed to build successful, purpose-driven careers."
-(Source: `scla/_raw/web/www.thescla.org/index.md` — Google search snippet for
-https://www.thescla.org/mission-history)
-
-This positioning — academic recognition paired with practical career tools at
-scale (100,000+ members, 850+ campuses) — is the only confirmed framing
-available. All other brand characterizations in this guide are placeholders
-pending real page exports or client-supplied brand materials.
+> Source: Google Drive "SCLA Brand Guide" in the Branding & Communications folder.
 
 ## Table of contents
 
@@ -38,53 +20,48 @@ pending real page exports or client-supplied brand materials.
 | --- | --- |
 | Organization name | The Society for Collegiate Leadership & Achievement |
 | Common short form | SCLA |
-| Page title (from search index) | "SCLA Honor Society \| From Campus to Career" |
+| Tagline | "From Campus to Career" |
+| Category label | College-to-Career Honor Society |
 | Industry | Higher education / education services |
 | Website | https://www.thescla.org |
 | Founded | March 2015 (first member welcomed); 2012–2014 development phase |
 | Founder | Pat Sidhu |
 | Scale | 100,000+ members, 850+ partner campuses |
 | Headquarters | 1775 Tysons Blvd, 5th Floor, Tysons, VA 22102 |
-| Primary color | `TODO: needs input — no CSS or brand assets available` |
-| Headline font | `TODO: needs input — no CSS or brand assets available` |
-| Tone, in three words | `TODO: needs input — insufficient authentic copy for reliable characterization` |
-| Tagline | "From Campus to Career" — confirmed. Appears in homepage page title ("SCLA Honor Society \| From Campus to Career") and used as the core mission framing throughout the website: "SCLA exists to help students transition successfully from campus to career." (What Is The SCLA HTML) |
+| Primary color | Deep Navy `#002060` |
+| Headline font | Proxima Nova (Extrabold / Bold) |
+| Tone, in three words | Supportive, plain, earnest |
 
-## Common mistakes
+## Naming & usage rules
 
-The items below are resolved or updated based on full HTML page exports (scraped 2026-04-23).
+1. **"The SCLA" — always use the article.** In running prose, write "The SCLA" with a capital T. In headlines and brand marks, "SCLA" alone is acceptable (e.g., "SCLA Honor Society"). Never drop the article in body copy.
+   - Correct: "The SCLA is more than an honor society."
+   - Incorrect: "SCLA is more than an honor society."
 
-- **"SCLA" vs. "The SCLA" — RESOLVED: use "The SCLA" in prose.** The blog page
-  title is "What Is The SCLA?" and the body copy of that page uses "The SCLA" with
-  a capital "The" throughout. The benefits page header reads "The Society for
-  Collegiate Leadership & Achievement (SCLA) is more than an honor society." In
-  running prose, write "The SCLA" (capital T). In headlines and brand mark usage,
-  "SCLA" alone is acceptable (e.g., "SCLA Honor Society" in the page title).
-  Source: `What Is The SCLA HTML`, `SCLA Benefits HTML`.
+2. **"Honor Society" — always capitalize both words.** When referring to SCLA's designation, "Honor Society" is treated as a proper noun and must be capitalized.
+   - Correct: "SCLA Honor Society"
+   - Incorrect: "SCLA honor society"
 
-- **"Honor Society" capitalization — RESOLVED: capitalize both words.** All
-  scraped page titles and body copy consistently use "Honor Society" (title case):
-  "SCLA Honor Society," "an accredited collegiate leadership honor society" appears
-  only in a descriptive phrase mid-sentence (lowercase per standard grammar rules
-  when not used as a proper title). The proper noun form "Honor Society" should
-  always be capitalized. Source: `SCLA Honor Society HTML`, `What Is The SCLA HTML`.
+3. **"College-to-Career" vs. "From Campus to Career" — distinct phrases, distinct purposes.**
+   - "College-to-Career Honor Society" is SCLA's category label — use it to describe what type of organization SCLA is.
+   - "From Campus to Career" is SCLA's tagline — use it in mission framing and brand positioning.
+   - Do not use them interchangeably.
 
-- **"College-to-Career" vs. "Campus to Career"** — These are two distinct phrases
-  that serve different purposes. "College-to-Career Honor Society" is SCLA's
-  self-applied category label (proper noun phrase). "From Campus to Career" is
-  the tagline. Do not conflate them. Source: `What Is The SCLA HTML`,
-  `SCLA Honor Society HTML`.
+4. **GPA thresholds — always state both separately.** Two eligibility thresholds exist: 3.0 for undergraduate students, 3.4 for graduate students. Always state both clearly in member-facing communications.
 
-- **GPA thresholds in member communications** — Two thresholds exist (3.0
-  undergraduate, 3.4 graduate). Confirm that membership invitation emails
-  and eligibility pages state both clearly and separately so students are
-  not confused about which applies to them.
-  Source: `scla/_raw/web/www.thescla.org/index.md` (snippet only — thresholds
-  not confirmed in full HTML exports).
+## What makes SCLA different
+
+Unlike traditional honor societies that primarily recognize GPA, SCLA combines academic recognition with structured career readiness certification, leadership development, and access to a national professional network. Rather than being a passive membership, SCLA is designed as an active development experience.
+
+Key differentiators:
+
+- Free for colleges and universities. Period.
+- Invitation-only membership based on rigorous GPA requirements
+- Three membership pillars: Recognition for Excellence, Skills for Success, Connections for the Future
+- Combines prestige with practical career tools
 
 ## How to use this guide
 
-- For marketing copy: start with [`voice-and-tone.md`](./voice-and-tone.md).
-- For design work: start with [`visual-identity.md`](./visual-identity.md).
-- For every logo and image: check [`assets/index.md`](./assets/index.md).
-- To upgrade confidence from low to high: see [`TODOS.md`](./TODOS.md).
+- For writing and copy: See [Voice and Tone](./voice-and-tone.md).
+- For design and visual decisions: See [Visual Identity](./visual-identity.md).
+- For logo and image files: See [Asset Index](./assets/index.md).

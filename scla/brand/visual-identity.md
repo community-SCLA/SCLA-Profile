@@ -1,17 +1,12 @@
 ---
-source: Google Drive — Orientation Slides .pptx (jheath@thescla.org, updated 2026-05-11)
+source: Google Drive — SCLA Visual Identity Guide (community@thescla.org, updated 2026-05-13)
 generated_by: brand-analyst
-last_updated: 2026-05-13
-confidence: medium
+last_updated: 2026-05-28
 ---
 
 # SCLA Visual Identity
 
-> Source: Colors and typography extracted from the current Orientation Slides deck
-> (Drive file ID: `12MXTvGlvN-nEkOXHx1nU2VKaVAPwTBn3`), the most recently updated
-> branded SCLA presentation. Confidence is MEDIUM — values are derived from applied
-> styles in production slides, not a formal brand guidelines document.
-> TODO: confirm with SCLA staff and cross-check against thescla.org CSS.
+> Source: Google Drive "SCLA Visual Identity" in the Branding & Communications folder.
 
 ## Colors
 
@@ -28,95 +23,91 @@ confidence: medium
 | Base | White | `#FFFFFF` | Default background |
 | Base | Black | `#000000` | Default body text |
 
+### Color usage principles
+
+- Deep Navy is the dominant brand color. Lead with it.
+- Gold is an accent only — use it sparingly and with intention (CTAs, highlights, key callouts).
+- Do not use light backgrounds as the primary frame for brand-forward materials. Navy backgrounds project authority and prestige.
+- Maintain sufficient contrast between text and background for accessibility (minimum 4.5:1 ratio for body text).
+
 ## Typography
 
 | Role | Family | Weight | Notes |
 | --- | --- | --- | --- |
-| Headline / Brand | Proxima Nova | Extrabold / Bold | Primary brand font — appears 290x in slides; intentional branded choice |
-| Body / Fallback | Arial | Regular / Bold | Theme default; used throughout alongside Proxima Nova |
-| Fallback | Calibri | Regular | Office default fallback |
+| Headline / Brand | Proxima Nova | Extrabold / Bold | Primary brand font for all headlines, display text, and brand-forward elements |
+| Body / Supporting | Arial | Regular / Bold | Used alongside Proxima Nova for body copy, slide content, and supporting text |
+| Fallback | Calibri | Regular | Office default fallback only — not for intentional brand use |
 
-> TODO: Confirm whether Proxima Nova is licensed org-wide or only in presentation assets.
-> TODO: Verify font usage on thescla.org (may use a web font variant of Proxima Nova or substitute).
+### Typography usage guidance
+
+- Proxima Nova should lead all brand communications wherever possible.
+- Arial is appropriate for documents, email, and contexts where Proxima Nova is unavailable.
+- Do not substitute decorative or display fonts not listed here.
+- Confirm whether Proxima Nova is licensed org-wide or only in presentation assets before expanding use to new formats.
 
 ## Logo variants
 
-TODO: needs input — Provide logo files (SVG preferred, PNG fallback) for
-each variant. Drop files into `scla/_raw/assets/` and re-run `/brand` to
-auto-populate the asset index.
+The following logo variants should exist for all brand-approved use cases. See [Asset Index](./assets/index.md) for available files.
 
-Expected variants (confirm with SCLA):
-- Primary lockup: full wordmark + crest/icon, on light background
-- Reversed lockup: full wordmark + crest/icon, on dark/colored background
-- Icon / mark only: for favicon, app icon, social profile avatar
-- Monochrome black: single-color version for print on white
-- Monochrome white: single-color version for dark background print
+| Variant | Use |
+| --- | --- |
+| Primary lockup | Full wordmark + crest/icon on light background |
+| Reversed lockup | Full wordmark + crest/icon on dark or colored background |
+| Icon / mark only | Favicon, app icon, social profile avatar |
+| Monochrome black | Single-color version for print on white |
+| Monochrome white | Single-color version for dark background print |
 
-Minimum safe sizes, clear-space rules (usually expressed as a multiple of
-the logo's x-height or cap height), and prohibited treatments (stretching,
-recoloring, drop shadows) should be documented here once logo files are
-reviewed.
+### Logo rules
+
+- Do not stretch, recolor, or apply drop shadows to the logo.
+- Maintain clear space around the logo at all times.
+- Use the reversed lockup on dark navy or gold backgrounds only.
 
 ## Imagery style
 
-TODO: needs input — Describe the approved photographic and illustrative
-style. SCLA staff should answer the following:
-
-1. Do you use real student photography, stock photography, illustration,
-   or a mix?
-2. What setting / context is preferred — campus environment, professional
-   office, a mix?
-3. What is the emotional register — aspirational and polished, candid and
-   authentic, documentary?
-4. Are there approved stock image vendors or internal photo libraries?
-5. Are there any subject-matter restrictions (no competitor logos visible
-   in photos, specific diversity and inclusion representation guidelines)?
+- Prioritize imagery that reflects real, diverse college students in professional and campus contexts.
+- Tone should be aspirational and polished — not overly staged or stock-photo generic.
+- Avoid imagery that looks passive or disconnected. SCLA's brand is active and forward-moving.
+- When in doubt, choose imagery that reinforces the "campus to career" journey.
 
 ## Design tokens
-
-The blocks below are intentionally empty. They will be populated once color
-and typography values are confirmed by SCLA. Do not substitute placeholder
-values in production code.
 
 ### YAML tokens
 
 ```yaml
 # SCLA design tokens
-# Status: INCOMPLETE — awaiting confirmed values from client
-# Last attempted: 2026-04-23
 colors:
-  primary:    "TODO"  # TODO: needs input — hex code from brand guidelines
-  secondary:  "TODO"  # TODO: needs input
-  accent:     "TODO"  # TODO: needs input
-  background: "TODO"  # TODO: needs input
-  text:       "TODO"  # TODO: needs input
-  link:       "TODO"  # TODO: needs input
+  primary:    "#002060"   # Deep Navy
+  secondary:  "#334F7C"   # Mid Navy
+  accent:     "#FFC000"   # Gold
+  background: "#FFFFFF"   # White
+  text:       "#000000"   # Black
+  link:       "TODO"      # not specified in brand guide — confirm with team
 
 typography:
-  font_headline: "TODO"  # TODO: needs input — family name (e.g. "Inter")
-  font_body:     "TODO"  # TODO: needs input
-  weight_regular: "TODO" # TODO: needs input — e.g. 400
-  weight_semibold: "TODO"
-  weight_bold:   "TODO"  # TODO: needs input — e.g. 700
+  font_headline:      "Proxima Nova"
+  font_body:          "Arial"
+  weight_regular:     400
+  weight_semibold:    600
+  weight_bold:        700
 ```
 
 ### CSS custom properties
 
 ```css
 /* SCLA design tokens */
-/* Status: INCOMPLETE — all values are placeholders; do not ship */
 :root {
-  --color-primary:      TODO; /* TODO: needs input */
-  --color-secondary:    TODO;
-  --color-accent:       TODO;
-  --color-background:   TODO;
-  --color-text:         TODO;
-  --color-link:         TODO;
+  --color-primary:      #002060;   /* Deep Navy */
+  --color-secondary:    #334F7C;   /* Mid Navy */
+  --color-accent:       #FFC000;   /* Gold */
+  --color-background:   #FFFFFF;
+  --color-text:         #000000;
+  --color-link:         TODO;      /* not specified in brand guide */
 
-  --font-headline:      TODO; /* TODO: needs input */
-  --font-body:          TODO;
-  --font-weight-regular:  TODO;
-  --font-weight-semibold: TODO;
-  --font-weight-bold:     TODO;
+  --font-headline:      "Proxima Nova", Arial, sans-serif;
+  --font-body:          Arial, sans-serif;
+  --font-weight-regular:  400;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
 }
 ```
