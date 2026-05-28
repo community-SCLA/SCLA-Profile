@@ -14,16 +14,15 @@ Drop logo files, icons, brand PDFs, approved photography, or swatch files into `
 
 | Filename | Kind | Recommended use | Background requirements |
 |---|---|---|---|
-| — | — | — | — |
+| `SCLA-Logo.svg` | Primary lockup — full horizontal (gold crest + two-row black wordmark) | General brand use, headers, presentations | Light / white background; transparent SVG |
 
-## Needed assets
+## Still needed
 
 | Priority | Asset | Format | Notes |
 |---|---|---|---|
-| 1 | Primary logo (color, on light background) | SVG + PNG @2x | Must-have for any design work |
-| 2 | Logo on dark/colored background (reversed) | SVG + PNG @2x | Needed for dark hero banners, apparel |
-| 3 | Icon / mark only | SVG + PNG @2x | Favicon, social profile images, app icon |
-| 4 | Monochrome logo (black) | SVG | Print on white, single-color use |
-| 5 | Monochrome logo (white) | SVG | Print on dark backgrounds |
-| 6 | Approved typeface files or license references | OTF/TTF or URL | Required if using Proxima Nova outside presentations |
-| 7 | Approved photography samples | JPG/PNG | Reference imagery for future campaigns |
+| 1 | Logo on dark/colored background (reversed) | SVG + PNG @2x | Needed for dark hero banners, apparel, dark-mode contexts |
+| 2 | Icon / mark only (crest only) | SVG + PNG @2x | Favicon, social profile images, app icon |
+| 3 | Monochrome logo (black) | SVG | Print on white, single-color use |
+| 4 | Monochrome logo (white) | SVG | Print on dark backgrounds |
+| 5 | Approved typeface files or license references | OTF/TTF or URL | Required if using Proxima Nova outside presentations |
+| 6 | Approved photography samples | JPG/PNG | Reference imagery for future campaigns |
