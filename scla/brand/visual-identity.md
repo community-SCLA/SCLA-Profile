@@ -2,13 +2,11 @@
 source: Google Drive — SCLA Visual Identity Guide (community@thescla.org, updated 2026-05-13)
 generated_by: brand-analyst
 last_updated: 2026-05-28
-confidence: high
 ---
 
 # SCLA Visual Identity
 
-> Source: Google Drive "SCLA Visual Identity" in the Branding & Communications folder (confirmed 2026-05-28).
-> Values were derived from the SCLA Orientation Slides deck and are reflected in the Drive brand guide as the current standard.
+> Source: Google Drive "SCLA Visual Identity" in the Branding & Communications folder.
 
 ## Colors
 
@@ -77,7 +75,7 @@ The following logo variants should exist for all brand-approved use cases. See [
 ### YAML tokens
 
 ```yaml
-# SCLA design tokens — confirmed 2026-05-28
+# SCLA design tokens
 colors:
   primary:    "#002060"   # Deep Navy
   secondary:  "#334F7C"   # Mid Navy
@@ -97,7 +95,7 @@ typography:
 ### CSS custom properties
 
 ```css
-/* SCLA design tokens — confirmed 2026-05-28 */
+/* SCLA design tokens */
 :root {
   --color-primary:      #002060;   /* Deep Navy */
   --color-secondary:    #334F7C;   /* Mid Navy */

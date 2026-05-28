@@ -2,13 +2,11 @@
 source: Google Drive — SCLA Brand Guide (community@thescla.org, updated 2026-05-13)
 generated_by: brand-analyst
 last_updated: 2026-05-28
-confidence: high
 ---
 
 # The Society for Collegiate Leadership & Achievement — Brand Guide
 
-> Source: Google Drive "SCLA Brand Guide" in the Branding & Communications folder (confirmed 2026-05-28).
-> All facts in this file are directly quoted or paraphrased from that document.
+> Source: Google Drive "SCLA Brand Guide" in the Branding & Communications folder.
 
 ## Table of contents
 

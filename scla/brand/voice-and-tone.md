@@ -2,13 +2,11 @@
 source: Google Drive — SCLA Voice & Tone Guide (community@thescla.org, updated 2026-05-13)
 generated_by: brand-analyst
 last_updated: 2026-05-28
-confidence: high
 ---
 
 # SCLA Voice and Tone
 
-> Source: Google Drive "SCLA Voice & Tone" in the Branding & Communications folder (confirmed 2026-05-28).
-> Supplemented with verbatim copy from thescla.org full HTML exports (scraped 2026-04-23).
+> Source: Google Drive "SCLA Voice & Tone" in the Branding & Communications folder. Supplemented with verbatim copy from thescla.org.
 
 ## Who we're talking to
 
