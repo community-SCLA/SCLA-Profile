@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/INGEST_ERRORS.md, scla/_raw/web/ (HTML exports)
+source: https://www.thescla.org; (ingest scratch, removed)
 generated_by: brand-analyst
 last_updated: 2026-05-13
 confidence: medium
@@ -15,7 +15,7 @@ from SCLA staff.
 
 ## ~~Priority 1 — Full website copy~~ ✓ RESOLVED (2026-05-13)
 
-HTML exports were processed from `scla/_raw/web/`. The following was completed:
+HTML exports were processed from `https://www.thescla.org`. The following was completed:
 
 - voice-and-tone.md: 21 verbatim copy samples added, all 5 voice axes updated to `medium` confidence
 - "Write this, not that" table fully populated (6 examples)
@@ -28,9 +28,9 @@ HTML exports were processed from `scla/_raw/web/`. The following was completed:
 
 ## Priority 2 — Logo files (unblocks visual identity, asset index)
 
-No logo or icon files exist in `scla/_raw/assets/`.
+No logo or icon files exist in `scla/brand/assets/`.
 
-**What to provide:** Drop into `scla/_raw/assets/`:
+**What to provide:** Drop into `scla/brand/assets/`:
 - Primary logo SVG (color, on light background)
 - Primary logo SVG (reversed / on dark background)
 - Icon / mark only SVG (for favicon and social avatar)
@@ -43,7 +43,7 @@ background rules), visual-identity.md logo variants section.
 
 ## Priority 3 — Brand guidelines PDF or style guide (unblocks visual identity)
 
-No brand PDF is present in `scla/_raw/assets/` or `scla/_raw/docs/`.
+No brand PDF is present in `scla/brand/assets/` or `(removed — ingest scratch)`.
 
 **What to provide:** Any existing document specifying:
 - Primary and secondary color palette with hex codes

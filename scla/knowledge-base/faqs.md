@@ -1,7 +1,7 @@
 ---
-source:
-  - scla/_raw/web/SCLA FAQ ｜ Membership, Benefits & How to Join (4_23_2026 3：42：39 PM).html
-  - scla/_raw/web/Administrator FAQ ｜ Hosting, Reporting, Cost (4_23_2026 3：43：13 PM).html
+source: 
+  - https://www.thescla.org FAQ ｜ Membership, Benefits & How to Join (4_23_2026 3：42：39 PM).html
+  - https://www.thescla.org FAQ ｜ Hosting, Reporting, Cost (4_23_2026 3：43：13 PM).html
 generated_by: knowledge-curator
 last_updated: 2026-05-13
 confidence: high

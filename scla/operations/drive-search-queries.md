@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+source: Community Team Mondays notes Apr 2026 (archived externally)
 generated_by: workflow-mapper
 last_updated: 2026-04-24
 confidence: high
@@ -22,7 +22,7 @@ picking the top 5 and iterating from the first-pass results.
 
 | # | Query string | Why it matters | Expected artifact | Enriches |
 |---|---|---|---|---|
-| 1 | `member journey` | The funnel (Pledge → Info session → Orientation → Onboarding → Member support) is the core product loop but has no written spec in `_raw/`. | Slide deck, Figma export, process doc | `current-state.md` funnel; `kb/programs/` |
+| 1 | `member journey` | The funnel (Pledge → Info session → Orientation → Onboarding → Member support) is the core product loop but has no written spec in `(removed — ingest scratch)`. | Slide deck, Figma export, process doc | `current-state.md` funnel; `kb/programs/` |
 | 2 | `60-day playbook` OR `30-day onboarding` | Zeketra explicitly called out "an accidentally robust 60-day playbook for the Member Conversion Program and a full 30-day onboarding process." High-value, named artifact. | Google Doc | `current-state.md` onboarding |
 | 3 | `Champions Ambassador` OR `ambassador program` | Yesse's new project — budget considerations, reward structures, playbook drafts. Named but content lives outside notes. | Doc + research notes | `kb/programs/`; new workflow |
 | 4 | `focus modes` OR `dashboard mockup` | Figma doc for Aug 1 launch. Drives AI resume builder gating + content strategy. | Figma link, spec doc | Automation opp #5; product roadmap |
@@ -68,6 +68,6 @@ doc). Results will tell us whether to widen into Tier 2 or re-focus.
 - Any concern about sensitive content (scholarship recipients, partner
   contracts with NDAs) so I can exclude those from raw capture.
 
-Once confirmed, results will land in `scla/_raw/docs/inbox/` with
+Once confirmed, results will land in `(removed — ingest scratch)` with
 source URLs preserved in frontmatter, and Stage 4 can be re-run against
 the fuller corpus.

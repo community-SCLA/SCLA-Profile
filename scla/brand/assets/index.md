@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/assets/
+source: scla/brand/assets/
 generated_by: brand-analyst
 last_updated: 2026-04-23
 confidence: low
@@ -7,21 +7,21 @@ confidence: low
 
 # SCLA Asset Index
 
-> NOTE: Confidence is LOW. The `scla/_raw/assets/` directory contains only
+> NOTE: Confidence is LOW. The `scla/brand/assets/` directory contains only
 > a `.gitkeep` placeholder. No logos, images, brand PDFs, or icon files were
 > retrieved during the ingest stage (HTTP 403 blocked all fetches from
 > thescla.org). This index is empty until assets are supplied by SCLA staff.
 
 ## How to add assets
 
-1. Drop files into `scla/_raw/assets/` (logos, icons, brand PDFs,
+1. Drop files into `scla/brand/assets/` (logos, icons, brand PDFs,
    approved photography, swatch files, etc.).
 2. Re-run Stage 2 (`/brand`) to regenerate this index and populate
    `visual-identity.md` with confirmed color, typography, and logo values.
 
 ## Current asset inventory
 
-No assets are currently registered. Zero files in `scla/_raw/assets/`
+No assets are currently registered. Zero files in `scla/brand/assets/`
 (confirmed 2026-04-23).
 
 The table below shows the schema that will be used once files are provided.

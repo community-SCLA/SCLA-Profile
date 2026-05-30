@@ -1,3 +1,0 @@
-[    2706ms] [LOG] Video player script loaded @ https://48603975.fs1.hubspotusercontent-na1.net/hubfs/48603975/hub_generated/template_assets/1/210681756071/1778692918541/template_video-player.js:0
-[    2714ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://www.thescla.org/%7B%7Bitem.video%7D%7D:0
-[    4507ms] [WARNING] [quick-fetch] quickFetchScript was not included or running in Node.js environment. Falling back to stubbed implementation. @ https://static.hsappstatic.net/conversations-visitor-ui/static-1.29087/bundles/visitor.js:0

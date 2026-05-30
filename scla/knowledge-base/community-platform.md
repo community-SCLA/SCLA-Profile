@@ -1,5 +1,5 @@
 ---
-source: docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Community-Engagement-__channels.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Ed-Content-Development-__-Leader-of-the-Future.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Communications--Comms__Community-Communications_2026_PRD.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Events__Events_2026_PRD.md
+source: docs/_archive/source-dumps/community-learning/community-engagement/channels.md; docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/comms/community-communications-2026-prd.md; docs/_archive/source-dumps/community-learning/events/events-2026-prd.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: high
@@ -167,7 +167,7 @@ TODO: needs input — get the live perks directory link and form URL from the te
 
 ## Communications cadence
 
-See [Community Communications PRD 2026](../../docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Communications--Comms__Community-Communications_2026_PRD.md) for full detail.
+See [Community Communications PRD 2026](../../docs/_archive/source-dumps/community-learning/comms/community-communications-2026-prd.md) for full detail.
 
 ### Weekly templates
 

@@ -38,7 +38,7 @@ Run date: 2026-05-11. This file summarizes what was done, what still needs human
 | Tools (Team Projects tracker, weekly sync canvas, OG tracker, Notebook LM, Perplexity, Figma, Manis, Heygen/Synthesia, Google Analytics, Google Groups, LinkedIn) | `scla/operations/team-roster.md` tools section (see also `scla/source-of-truth/team-handbook.md`) |
 | Terminology/jargon (canvas, tech team, community team, Focus Modes, the grand project, OG tracker, flying the plane while building it) | `scla/knowledge-base/glossary.md` |
 
-**Note:** `scla/_raw/kb-deltas.md` deletion was attempted but the pipeline agent does not have `rm` permission in this environment. The file should be manually deleted or the user can run: `rm scla/_raw/kb-deltas.md` from the terminal.
+**Note:** `(removed — ingest scratch)` deletion was attempted but the pipeline agent does not have `rm` permission in this environment. The file should be manually deleted or the user can run: `(removed — ingest scratch)` from the terminal.
 
 ---
 

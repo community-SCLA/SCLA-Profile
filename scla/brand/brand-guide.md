@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
+source: https://www.thescla.org
 generated_by: brand-analyst
 last_updated: 2026-05-13
 confidence: medium
@@ -18,7 +18,7 @@ SCLA describes itself as "the leading College-to-Career Honor Society" that
 "empowers students to excel academically and professionally, celebrating
 achievement, fostering personal growth, and providing tools, connections, and
 credentials needed to build successful, purpose-driven careers."
-(Source: `scla/_raw/web/www.thescla.org/index.md` — Google search snippet for
+(Source: `https://www.thescla.org` — Google search snippet for
 https://www.thescla.org/mission-history)
 
 This positioning — academic recognition paired with practical career tools at
@@ -79,7 +79,7 @@ The items below are resolved or updated based on full HTML page exports (scraped
   undergraduate, 3.4 graduate). Confirm that membership invitation emails
   and eligibility pages state both clearly and separately so students are
   not confused about which applies to them.
-  Source: `scla/_raw/web/www.thescla.org/index.md` (snippet only — thresholds
+  Source: `https://www.thescla.org` (snippet only — thresholds
   not confirmed in full HTML exports).
 
 ## How to use this guide

@@ -1,5 +1,5 @@
 ---
-source: docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Ed-Content-Development-__-Leader-of-the-Future.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Learning-Frameworks__Durable-Skills-Framework-and-Sub-Competency-Map-2026_SCLA.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Learning-Frameworks__SCLA-C2C-Framework_2026.md
+source: docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/learning-frameworks/durable-skills-framework-and-sub-competency-map-2026-scla.md; docs/_archive/source-dumps/community-learning/learning-frameworks/scla-c2c-framework-2026.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: medium
@@ -25,7 +25,7 @@ Every SCLA program is organized around three pillars:
 
 The [SCLA Leadership Program](./scla-leadership-program.md) maps directly to this: Steps 1–3 are Connections, Step 5 is Credentials, Step 4 is Career.
 
-Source: `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Learning-Frameworks__SCLA-C2C-Framework_2026.md`
+Source: `docs/_archive/source-dumps/community-learning/learning-frameworks/scla-c2c-framework-2026.md`
 
 ---
 
@@ -68,7 +68,7 @@ A student-facing portal that guides learners from completion to showcasing crede
 
 The academic backbone behind SCLA's credential design. Five core competencies — each with four sub-competencies — aligned to what 21st-century employers actually need.
 
-Source: `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Learning-Frameworks__Durable-Skills-Framework-and-Sub-Competency-Map-2026_SCLA.md`
+Source: `docs/_archive/source-dumps/community-learning/learning-frameworks/durable-skills-framework-and-sub-competency-map-2026-scla.md`
 
 ### Initiative
 

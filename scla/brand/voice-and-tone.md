@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
+source: https://www.thescla.org
 generated_by: brand-analyst
 last_updated: 2026-05-13
 confidence: medium
@@ -30,7 +30,7 @@ Each axis shows a spectrum. Positions are now based on real page copy from full 
 These are verbatim sentences sourced from full HTML page exports (scraped 2026-04-23).
 Original five samples from search-index snippets are preserved; 15 new samples added below.
 
-### From search-index snippets (source: `scla/_raw/web/www.thescla.org/index.md`)
+### From search-index snippets (source: `https://www.thescla.org`)
 
 1. "The Society for Collegiate Leadership & Achievement (SCLA) is the leading
    College-to-Career Honor Society."
@@ -159,7 +159,7 @@ The following blog post titles were discovered via search index. They suggest
 a student-facing, practical, and accessible editorial voice — but titles alone
 are insufficient to confirm tone.
 
-Source: `scla/_raw/web/www.thescla.org/index.md`
+Source: `https://www.thescla.org`
 
 | Title | Signal |
 | --- | --- |

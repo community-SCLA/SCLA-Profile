@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/stakeholder-notes.md
+source: Community Team Mondays notes Apr 2026 (archived externally); stakeholder notes (archived externally)
 generated_by: workflow-mapper
 last_updated: 2026-04-24
 confidence: medium
@@ -40,12 +40,12 @@ proposals stick to tools already in play.
 Sean/Shawn has been a bottleneck across every meeting read. Apr 6:
 
 > "Zeketra Grandy has successfully created the content in Canva for weekly announcements, but the team is waiting for Sean to convert them into MJML email templates for use in campaigns, preventing a consistent rhythm from starting."
-> *source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 6 notes (archived externally — not in repo)*
 
 Apr 20 recorded the decided path:
 
 > "Kierra Woekel offered to use Claude to build an MJML template based on three desirable samples, which would then be provided to the tech team for implementation. Amy Westby agreed to work with Kierra Woekel offline to execute this plan."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 **Proposed shape**
 
@@ -84,7 +84,7 @@ Apr 20 established the decided pipeline:
 And on SOPs:
 
 > "Kierra Woekel responded that they do not have a template but explained that Amy Westby and they are planning to use a Claude Pro account to scrape all information, create a knowledge base, and then automate the creation of a suitable structure."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 Stability angle (Apr 20):
 
@@ -123,7 +123,7 @@ asking; team stops re-asking Amy where documents live.
 Apr 6:
 
 > "Kierra Woekel, Amy Westby, and Yesse Ordonez are continuing to work offline on developing a system to triage incoming emails, which could involve creating an app script in Google to automate rerouting based on keywords or partners. Kierra Woekel confirmed that the Google Groups issue is a glitch, and while granting access manually is possible, they are looking for the permanent solution that the groups feature would provide."
-> *source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 6 notes (archived externally — not in repo)*
 
 **Proposed shape**
 
@@ -159,7 +159,7 @@ the top 80% of patterns.
 Apr 6:
 
 > "Kierra Woekel has been developing a free Gemini-based AI agent to host in Slack that can summarize threads, pull action items, autogenerate weekly summaries, and help locate resources."
-> *source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 6 notes (archived externally — not in repo)*
 
 Apr 6 decision:
 
@@ -197,7 +197,7 @@ Community Team Mondays already aligned on the previous week.
 Apr 20:
 
 > "Kierra Woekel offered the idea of an AI agent that could translate a student's duties into outcome-driven language, similar to a skills file they developed for another organization. Zeketra Grandy agreed, suggesting students should input their duties and target job description to ask the AI to determine transferable skills and help communicate them effectively. Kierra Woekel proposed using Claude's user-friendly interface to create a pop-up guiding the student through a back-and-forth conversation to extract information, rather than just filling out boxes."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2026_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 Zeketra confirmed the content problem (not just UI):
 

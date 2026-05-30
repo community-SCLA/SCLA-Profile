@@ -1,5 +1,5 @@
 ---
-source: docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Career-Courses-__Job-Readiness-Content-__SCLA-Leadership-Program---Tech-notes.md
+source: docs/_archive/source-dumps/community-learning/career-courses/job-readiness/scla-leadership-program-tech-notes.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: high

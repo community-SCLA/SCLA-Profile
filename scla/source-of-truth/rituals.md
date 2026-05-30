@@ -1,5 +1,5 @@
 ---
-source: client/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md | client/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md | client/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+source: Community Team Mondays notes Apr 2026 (archived externally)
 generated_by: source-of-truth-curator
 last_updated: 2026-04-25
 confidence: medium
@@ -54,7 +54,7 @@ Amy compiles project updates, events, new courses, and customer feedback from th
 
 **What good looks like:** Leadership gets a visual, scannable update in under 5 minutes of reading. No individual needs to explain the same status twice.
 
-*source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+*source: Apr 13 notes (archived externally — not in repo)*
 
 ---
 
@@ -71,7 +71,7 @@ Amy compiles project updates, events, new courses, and customer feedback from th
 **What happens:**
 Each team member keeps their project rows current (status, assignee, blockers). Kierra and Alyssa maintain the tracker structure. Amy screenshots it for leadership updates. This is the decided single source of truth for all action items.
 
-*source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+*source: Apr 13 notes (archived externally — not in repo)*
 
 ---
 
@@ -93,7 +93,7 @@ Each team member keeps their project rows current (status, assignee, blockers). 
 
 See also: [automation-opportunities.md — item 1](../workflows/automation-opportunities.md)
 
-*source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md), [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+*source: Apr 6 notes (archived externally — not in repo), Apr 20 notes (archived externally — not in repo)*
 
 ---
 
@@ -115,7 +115,7 @@ Jenna, Iman, and Aman host information sessions for prospective SCLA members. Th
 
 > "a potentially larger event on May 26th/27th with the University of Phoenix could draw over 500 attendees, necessitating a discussion about acquiring a larger Zoom license."
 
-*source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+*source: Apr 13 notes (archived externally — not in repo)*
 
 ---
 
@@ -132,7 +132,7 @@ After the info session, new members move through a structured 30-day onboarding 
 
 > "Zeketra Grandy announced that they had accidentally created a solid foundation, which turned into a playbook for the conversion program and a full 30-day onboarding process."
 
-*source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+*source: Apr 13 notes (archived externally — not in repo)*
 
 ---
 
@@ -150,7 +150,7 @@ Inspired by the NASA Mars Rover teams, who start each day with a wake-up song ch
 
 > "Amy Westby shared details from the documentary Good Night Oppy, explaining that NASA's Mars mission teams start their day by playing a wake-up song [...] They suggested implementing a similar tradition for the team."
 
-*source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+*source: Apr 6 notes (archived externally — not in repo)*
 
 ---
 

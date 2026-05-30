@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md
+source: Community Team Mondays notes Apr 2026 (archived externally)
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: medium
@@ -20,7 +20,7 @@ confidence: medium
 
 > "Founders, led by Pat Sidhu, researched students' evolving needs" (2012–2014)
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 ### Open questions
 

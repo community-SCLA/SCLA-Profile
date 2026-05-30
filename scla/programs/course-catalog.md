@@ -1,5 +1,5 @@
 ---
-source: docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Career-Courses-__Course-Title-Brand-You.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Career-Courses-__Hidden-Job-Market-for-Graduates.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Ed-Content-Development-__-Leader-of-the-Future.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Learning-Strategy--Metrics__Education_SCLA_2026.md
+source: docs/_archive/source-dumps/community-learning/career-courses/course-title-brand-you.md; docs/_archive/source-dumps/community-learning/career-courses/hidden-job-market-for-graduates.md; docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/learning-strategy/education-scla-2026.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: high
@@ -60,7 +60,7 @@ Career course focused on the truth that most jobs are filled through relationshi
 - Strategy 2: TODO: needs input
 - Strategy 3: Build a strong LinkedIn profile that works 24/7 — connect with 2nd-degree contacts at target companies, send personalized notes, post 1x/week to build visibility
 
-Source: `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Career-Courses-__Hidden-Job-Market-for-Graduates.md`
+Source: `docs/_archive/source-dumps/community-learning/career-courses/hidden-job-market-for-graduates.md`
 
 ---
 
@@ -144,7 +144,7 @@ Based on the Leader of the Future framework and Education Strategy 2026:
 - **4+ courses/series per month** targeted for 2026 catalog cadence.
 - **Micro-dosed content** alongside full courses for members who can't commit to a full program.
 
-Source: `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Learning-Strategy--Metrics__Education_SCLA_2026.md`
+Source: `docs/_archive/source-dumps/community-learning/learning-strategy/education-scla-2026.md`
 
 ---
 

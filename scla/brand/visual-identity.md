@@ -1,5 +1,5 @@
 ---
-source: Google Drive — Orientation Slides .pptx (jheath@thescla.org, updated 2026-05-11)
+source: Google Drive — Orientation Slides .pptx (jheath@thescla.org; updated 2026-05-11)
 generated_by: brand-analyst
 last_updated: 2026-05-13
 confidence: medium
@@ -42,7 +42,7 @@ confidence: medium
 ## Logo variants
 
 TODO: needs input — Provide logo files (SVG preferred, PNG fallback) for
-each variant. Drop files into `scla/_raw/assets/` and re-run `/brand` to
+each variant. Drop files into `scla/brand/assets/` and re-run `/brand` to
 auto-populate the asset index.
 
 Expected variants (confirm with SCLA):

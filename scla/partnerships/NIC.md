@@ -1,5 +1,5 @@
 ---
-source: docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Partners-SCLA__NIC-and-SCLA__Comms-SCLA_NIC.md
+source: docs/_archive/source-dumps/community-learning/partners/nic/comms-scla-nic.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: high
@@ -66,8 +66,8 @@ TODO: needs input — no internal SCLA contact for this partnership named in sou
 
 ## Source documents
 
-- `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Partners-SCLA__NIC-and-SCLA__Comms-SCLA_NIC.md` — the NIC email notice sent to Fellows
-- `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Partners-SCLA__NIC-and-SCLA__NIC_Innovation_PDF.md` — Innovation and AI content PDF (extract separately if needed)
+- `docs/_archive/source-dumps/community-learning/partners/nic/comms-scla-nic.md` — the NIC email notice sent to Fellows
+- `docs/_archive/source-dumps/community-learning/partners/nic/nic-innovation-pdf.md` — Innovation and AI content PDF (extract separately if needed)
 
 ---
 

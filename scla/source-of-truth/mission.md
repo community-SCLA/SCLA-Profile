@@ -9,7 +9,7 @@ confidence: medium
 
 **Mission:** TODO: needs input — write the official SCLA mission statement here.
 *Pipeline context (low confidence — from web snippets only):* SCLA describes itself as "the leading College-to-Career Honor Society" that "empowers students to excel academically and professionally, celebrating achievement, fostering personal growth, and providing tools, connections, and credentials needed to build successful, purpose-driven careers."
-Source: `scla/_raw/web/www.thescla.org/index.md` (search snippet for https://www.thescla.org/mission-history)
+Source: `https://www.thescla.org` (search snippet for https://www.thescla.org/mission-history)
 
 **Vision:** TODO: needs input — write the vision statement here.
 *Pipeline context:* Tagline "From Campus to Career" appears in the page title ("SCLA Honor Society | From Campus to Career") — confirm whether this is the official tagline or just an SEO phrase.

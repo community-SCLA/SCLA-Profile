@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/stakeholder-notes.md
+source: Community Team Mondays notes Apr 2026 (archived externally); stakeholder notes (archived externally)
 generated_by: workflow-mapper
 last_updated: 2026-04-24
 confidence: medium
@@ -35,13 +35,13 @@ exists even though the client didn't name it as a tool.
 1. Attendees join Zoom — tool: `Zoom` — actor: `Community team (10)`
 2. Gemini auto-takes notes — tool: `Gemini / Google Meet notes`
 3. Notes auto-posted, action items captured in "Suggested next steps" section — tool: `Gemini`
-4. Manual upload of notes to repo `_raw/artifacts/inbox/` — tool: `git`, `GitHub` — actor: `Kierra Woekel`
+4. Manual upload of notes to repo `(removed — ingest scratch)` — tool: `git`, `GitHub` — actor: `Kierra Woekel`
 5. Action items to be propagated to Team Projects tracker — currently manual — tool: `Canva canvas` — actor: `individual owners`
 
 ### Pain points
 
 > "Amy Westby stated that the primary goal of the meeting was to discuss projects and bring order to the current workflow, which has been chaotic but productive."
-> *source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 13 notes (archived externally — not in repo)*
 
 ### Related automation opportunities
 
@@ -65,7 +65,7 @@ exists even though the client didn't name it as a tool.
 ### Pain points
 
 > "These notes would then be used by Amy Westby to update Chuck, Shawn, and the leadership team weekly on project progress, allowing for better coordination with other integrated teams."
-> *source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 13 notes (archived externally — not in repo)*
 
 Amy wants this more visual — screenshot-driven.
 
@@ -99,10 +99,10 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "Kierra Woekel's provided HTML code for the news required additional revision in Perplexity because it did not work immediately due to CSS code issues that can arise depending on the rendering location."
-> *source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 13 notes (archived externally — not in repo)*
 
 > "configuration barriers, particularly with email communications, due to Shawn's specific requirements for the MJML code used for email templates."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 ### Related automation opportunities
 
@@ -134,10 +134,10 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "Zeketra Grandy explained that they are holding off on publishing the documents until they merge their work with Alyssa's to avoid conflicting documents, and they plan to seek Kierra Woekel's guidance on where the completed version should reside."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 > "Jenna Heath mentioned they did not have access to the community Google Drive and requested access. Kierra Woekel provided a troubleshooting tip, noting that if the browser is signed into a non-SCA Google account, access will be blocked, and suggested creating separate Chrome profiles as a hack."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 ### Related automation opportunities
 
@@ -162,7 +162,7 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "the Google group issue with Sean is ongoing due to a known Google error message."
-> *source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 6 notes (archived externally — not in repo)*
 
 ### Related automation opportunities
 
@@ -188,10 +188,10 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "the organization has 61 or 62 courses, all of which require syllabi and coding, and stressed the need for further work on the database to manage the content."
-> *source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 6 notes (archived externally — not in repo)*
 
 > "they may need to hire an additional person to focus on building the courses due to the amount of work involved"
-> *source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 13 notes (archived externally — not in repo)*
 
 ### Related automation opportunities
 
@@ -215,7 +215,7 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "Kierra Woekel raised the issue of having multiple locations for tracking tasks and advocated for a single, centralized workflow to avoid spreading effort across different canvases and documents."
-> *source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 13 notes (archived externally — not in repo)*
 
 > "Amy Westby confirmed they use two main Google Sheets, their personal 'OG' tracker and a simpler one for Chuck, in addition to the project tracker canvas."
 
@@ -237,10 +237,10 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "the tech team is a small startup crew of three people focused on building sustainable long-term solutions, not just one-off fixes."
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 > "Amy Westby emphasized the need for a better process or tool for managing the change log, future requests, and backlog"
-> *source: [Apr 20 notes](../_raw/artifacts/inbox/Community%20Team%20Mondays%20-%202026_04_20%2016_00%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 20 notes (archived externally — not in repo)*
 
 ### Related automation opportunities
 
@@ -264,7 +264,7 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "a potentially larger event on May 26th/27th with the University of Phoenix could draw over 500 attendees, necessitating a discussion about acquiring a larger Zoom license."
-> *source: [Apr 13 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_13%2015_55%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 13 notes (archived externally — not in repo)*
 
 `TODO: needs input — confirm Zoom license upgrade status before May 26.`
 
@@ -286,7 +286,7 @@ Amy wants this more visual — screenshot-driven.
 ### Pain points
 
 > "they currently have many asynchronous relationships where the company provides a project and the organization handles all mediation and grading. The goal is to establish deeper, more formal partnerships where companies might run channels, be guest speakers, or collaborate on 'behind-the-scenes' tours."
-> *source: [Apr 6 notes](../_raw/artifacts/inbox/Copy%20of%20Community%20Team%20Mondays%20-%202026_04_06%2015_56%20CDT%20-%20Notes%20by%20Gemini.md)*
+> *source: Apr 6 notes (archived externally — not in repo)*
 
 ---
 
@@ -294,7 +294,7 @@ Amy wants this more visual — screenshot-driven.
 
 - **Chapter operations** — nothing in the meeting notes about NAB reviews,
   chapter approvals, or campus administrator onboarding. KB references
-  these but `_raw/` has no evidence. Targeted Drive search required.
+  these but `(removed — ingest scratch)` has no evidence. Targeted Drive search required.
 - **Shop / fulfillment** (`shop.thescla.org`) — not mentioned in any meeting.
 - **CEO Speaker Series** — not mentioned.
 - **Member renewals** — contracts expire June; Zeketra surfaced maintenance

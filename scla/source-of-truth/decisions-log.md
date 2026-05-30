@@ -10,7 +10,7 @@ confidence: high
 Running log of notable team decisions. Append new entries at the top.
 
 ## 2026-05-11 — Stage 5 source-of-truth curation completed
-**Decision:** Pipeline source-of-truth-curator agent ran Stage 5: supplemented all 5 stub files with pipeline outputs, created `onboarding.md` and `HANDOFF.md`, merged `scla/_raw/kb-deltas.md` into knowledge-base and operations files.
+**Decision:** Pipeline source-of-truth-curator agent ran Stage 5: supplemented all 5 stub files with pipeline outputs, created `onboarding.md` and `HANDOFF.md`, merged `(removed — ingest scratch)` into knowledge-base and operations files.
 **Rationale:** Converts pipeline-generated content into a usable starting point for the SCLA team without overwriting the manual stubs.
 **Owner:** source-of-truth-curator agent (pipeline)
 

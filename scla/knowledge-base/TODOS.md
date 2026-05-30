@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/INGEST_ERRORS.md, scla/_raw/web/ (HTML exports)
+source: (ingest scratch, removed); https://www.thescla.org
 generated_by: knowledge-architect
 last_updated: 2026-05-13
 confidence: high

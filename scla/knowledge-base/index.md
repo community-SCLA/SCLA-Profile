@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md
+source: https://www.thescla.org
 generated_by: knowledge-architect
 last_updated: 2026-04-23
 confidence: low
@@ -13,7 +13,7 @@ confidence: low
 
 > "The Society for Collegiate Leadership & Achievement (SCLA) is the leading College-to-Career Honor Society. SCLA empowers students to excel academically and professionally, celebrating achievement, fostering personal growth, and providing the tools, connections, and credentials needed to build successful, purpose-driven careers."
 >
-> — *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+> — *source: [https://www.thescla.org](https://www.thescla.org)*
 
 Key figures (from search-index snapshot):
 
@@ -51,4 +51,4 @@ Key figures (from search-index snapshot):
 
 ## Confidence notice
 
-This knowledge base was built from Google search-index snippets only. The full SCLA website returned HTTP 403 during the ingest stage. See [`scla/_raw/INGEST_ERRORS.md`](../_raw/INGEST_ERRORS.md) for full details. Every page is marked **confidence: low** until a human exports the priority pages listed in [TODOS.md](./TODOS.md) and re-runs `/kb`.
+This knowledge base was built from Google search-index snippets only. The full SCLA website returned HTTP 403 during the ingest stage (the original ingest-error log was scratch and is no longer kept in the repo). Every page is marked **confidence: low** until a human exports the priority pages listed in [TODOS.md](./TODOS.md) and re-runs `/kb`.

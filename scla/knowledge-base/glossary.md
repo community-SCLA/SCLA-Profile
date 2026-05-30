@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md, scla/_raw/web/＞Mission & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html, scla/_raw/web/SCLA Program ｜ Career Readiness & College Credit (4_23_2026 3：40：23 PM).html, scla/_raw/web/SCLA Career Readiness Certification - The SCLA (4_23_2026 4：12：58 PM).html, scla/_raw/web/SCLA ｜ Apply to Join Our National Advisory Board (4_23_2026 3：42：11 PM).html, scla/_raw/web/From Campus to Career： Understanding the ISPI Strengths Assessment (4_23_2026 3：49：16 PM).html, scla/_raw/web/Assessments - The SCLA (4_23_2026 4：20：49 PM).html
+source: https://www.thescla.org; Community Team Mondays notes Apr 2026 (archived externally)
 generated_by: knowledge-curator
 last_updated: 2026-05-13
 confidence: high
@@ -25,7 +25,7 @@ All definitions are derived from Google search-index snippets. Terms marked **TO
 
 > "The Society for Collegiate Leadership & Achievement (SCLA), the leading College-to-Career Honor Society, empowers students to excel academically and professionally. We celebrate achievement, foster personal growth, and provide the tools, connections, and credentials needed to build successful, purpose-driven careers. In 2014, SCLA was founded with a mission to take a holistic approach to student success. From 2012 to 2014, SCLA's founders, led by Pat Sidhu, worked tirelessly to better understand these challenges."
 
-— *source: scla/_raw/web/＞Mission & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
+— *source: https://www.thescla.org & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
 
 **Related:** [products-services.md](./products-services.md), [people.md](./people.md)
 
@@ -40,7 +40,7 @@ SCLA's self-applied category label. Distinguishes it from purely academic honor 
 
 > "SCLA is the leading College-to-Career Honor Society that empowers students to excel academically and professionally..."
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 ---
 
@@ -66,7 +66,7 @@ A selective, compensated advisory group of higher education professionals who pr
 **Other benefits:** National recognition, CEUs, professional network access, leadership credential
 **NAB contact:** Kristen Cooper, Vice President of University Relations (941-713-2584)
 
-— *source: scla/_raw/web/SCLA ｜ Apply to Join Our National Advisory Board (4_23_2026 3：42：11 PM).html*
+— *source: https://www.thescla.org ｜ Apply to Join Our National Advisory Board (4_23_2026 3：42：11 PM).html*
 
 TODO: needs input — current number of seats/members on the board; who chairs it.
 
@@ -96,7 +96,7 @@ ISPI is designed to help students identify their natural behavioral tendencies a
 
 > "The ISPI strengths assessment is a structured development tool designed to help students identify their natural behavioral tendencies and leadership patterns… ISPI focuses on application. It's not about labeling you—it's about equipping you."
 
-— *source: scla/_raw/web/From Campus to Career： Understanding the ISPI Strengths Assessment (4_23_2026 3：49：16 PM).html*
+— *source: https://www.thescla.org Campus to Career： Understanding the ISPI Strengths Assessment (4_23_2026 3：49：16 PM).html*
 
 TODO: needs input — is ISPI a proprietary SCLA tool or licensed from a third party?
 
@@ -111,7 +111,7 @@ A campus-based unit of SCLA. Students at a partner institution who join SCLA par
 
 > "Start an SCLA Chapter | Lead & Earn Experience" (page title)
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 TODO: needs input — chapter governance structure, officer roles, and how chapters are chartered. Source page: https://www.thescla.org/start-a-chapter (not yet scraped).
 
@@ -128,7 +128,7 @@ A membership pathway for students who do not have an on-campus chapter. Provides
 
 > "Students without an on-campus chapter can join through online membership. Same honors and opportunities as on-campus chapters."
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 **Related:** [products-services.md#online-membership](./products-services.md#online-membership)
 
@@ -159,7 +159,7 @@ The first and foundational step in a member's SCLA program journey. It is a 5-se
 
 > "Begin your journey with the Career Readiness Certification, an exclusive opportunity to build skills, gain recognition, and earn college credit—all included with your membership."
 
-— *source: scla/_raw/web/SCLA Program ｜ Career Readiness & College Credit (4_23_2026 3：40：23 PM).html; scla/_raw/web/SCLA Career Readiness Certification - The SCLA (4_23_2026 4：12：58 PM).html*
+— *source: https://www.thescla.org Program ｜ Career Readiness & College Credit (4_23_2026 3：40：23 PM).html; https://www.thescla.org Career Readiness Certification - The SCLA (4_23_2026 4：12：58 PM).html*
 
 TODO: needs input — which accrediting body certifies the program? How many college credit hours are awarded?
 
@@ -174,7 +174,7 @@ A member-facing platform feature providing resume building and guided career con
 
 > "AI-powered Career Hub with resume builder and guided career chats"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 TODO: needs input — is this a proprietary tool or a third-party integration? Where is it accessed (members.thescla.org, app.thescla.org)? Source: https://www.thescla.org/benefits (not yet scraped).
 
@@ -189,7 +189,7 @@ A networking and professional development benefit giving members access to C-sui
 
 > "CEO Speaker Series (C-suite voices)"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 TODO: needs input — how often does this run, who organizes it, and is it live or recorded?
 
@@ -204,7 +204,7 @@ Colleges and universities that have a formal relationship with SCLA allowing the
 
 > "SCLA identifies high-achieving students meeting GPA requirements and partners with colleges nationwide."
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 TODO: needs input — what is the formal agreement between SCLA and a partner campus? Is there a cost to the institution?
 
@@ -248,7 +248,7 @@ SCLA's holistic framework for student success, introduced at founding in 2014. T
 
 > "At the heart of its program are the 4 Pillars of Career Success: Credentials & Connections, Health & Wellness, Personal Finance Literacy, Work and Life Skills. This comprehensive framework ensures that students are equipped not only with academic achievements but also with the real-world skills and connections needed to thrive."
 
-— *source: scla/_raw/web/＞Mission & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
+— *source: https://www.thescla.org & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/www.thescla.org/index.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_06 15_56 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Copy of Community Team Mondays - 2026_04_13 15_55 CDT - Notes by Gemini.md, scla/_raw/artifacts/inbox/Community Team Mondays - 2026_04_20 16_00 CDT - Notes by Gemini.md, docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA
+source: https://www.thescla.org; Community Team Mondays notes Apr 2026 (archived externally); docs/_archive/source-dumps/community-learning/
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: medium
@@ -45,13 +45,13 @@ The core offering. Students at a [partner campus](./glossary.md#partner-campus) 
 
 > "GPA requirement: 3.0 minimum (undergraduate), 3.4 minimum (graduate) on a 4.0 scale. Students must maintain good academic standing with their institution. Invitation-based: students are invited because they have demonstrated academic excellence."
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 ### Pricing
 
 > "One-time membership fee: $95"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 ### What members get
 
@@ -59,19 +59,19 @@ The core offering. Students at a [partner campus](./glossary.md#partner-campus) 
 
 > "Accredited Career Readiness Certification, ISPI strengths assessment, 550+ skill development videos, Personalized letter of recommendation upon certification, Opportunity to earn college credit"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 **Networking & Professional Connections**
 
 > "AI-powered Career Hub with resume builder and guided career chats, Smart networking via AI-powered peer matching, CEO Speaker Series (C-suite voices), Nationwide community across 850+ campuses and 100K+ members, Mentorship connections"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 **Financial & Academic Benefits**
 
 > "Scholarship opportunities, Exclusive job board and internship opportunities, Employer network connections"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 ### Open questions
 
@@ -89,7 +89,7 @@ For students at campuses without an on-campus SCLA chapter.
 
 > "Students without an on-campus chapter can join through online membership. Same honors and opportunities as on-campus chapters. Personal online development platform, 550+ skill videos, webinars, mentor connections."
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 - Page: https://www.thescla.org/online-membership
 - URL variant: https://www.thescla.org/online_membership?locale=en
@@ -108,7 +108,7 @@ Colleges and universities can host an SCLA chapter, enabling them to recognize a
 
 > "Start an SCLA Chapter | Lead & Earn Experience" (page title)
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 TODO: needs input — What is the process and cost for an institution to start a chapter? What does the chapter lead role involve? Source: https://www.thescla.org/start-a-chapter (not yet scraped).
 
@@ -122,7 +122,7 @@ An accredited certification that SCLA members can earn. Tied to the ISPI strengt
 
 > "Accredited Career Readiness Certification ... Personalized letter of recommendation upon certification ... Opportunity to earn college credit"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 - Blog post: "Career Readiness Certification: What It Is and Why It Matters" (2026-02-13) — https://www.thescla.org/blog
 - Blog post: "From Campus to Career: Understanding the ISPI Strengths Assessment" (2026-02-09) — https://www.thescla.org/blog
@@ -140,7 +140,7 @@ A platform feature available to SCLA members.
 
 > "AI-powered Career Hub with resume builder and guided career chats ... Smart networking via AI-powered peer matching"
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 Blog posts referencing this capability:
 - "Using AI Career Chat to Explore Career Paths You Never Considered" (2026-04-09)
@@ -170,7 +170,7 @@ SCLA publishes career and leadership content at https://www.thescla.org/blog. Bl
 | 2025-04-02 | The Power of Mentorship: How to Find and Work with Career Mentors |
 | (date unknown) | What Is The SCLA? |
 
-— *source: [scla/_raw/web/www.thescla.org/index.md](../_raw/web/www.thescla.org/index.md)*
+— *source: [https://www.thescla.org](https://www.thescla.org)*
 
 TODO: needs input — who authors the blog, what is the publishing cadence, and is it used for SEO, member engagement, or both?
 

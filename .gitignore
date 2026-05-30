@@ -1,19 +1,11 @@
-# Ingest scratch — agents write here, don't track every binary
-client/_raw/docs/inbox/_processed/
-client/_raw/artifacts/inbox/_processed/
-
-# Large binary originals preserved alongside converted markdown
-client/_raw/docs/_originals/
+# MCP / tooling scratch — never commit
+.playwright-mcp/
 
 # OS/editor
 .DS_Store
 *.swp
 .idea/
 .vscode/
-
-# Marker file — present when source-of-truth has been generated
-# (keep it in git so re-runs respect the "do not overwrite" rule)
-!client/source-of-truth/.source-of-truth-generated
 
 # Node (if the team adds tooling later)
 node_modules/

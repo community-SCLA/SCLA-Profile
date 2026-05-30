@@ -1,5 +1,5 @@
 ---
-source: docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Career-Courses-__Career-Readiness-Accelerator-Outline--Syllabus-.md
+source: docs/_archive/source-dumps/community-learning/career-courses/career-readiness-accelerator-outline-syllabus.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
 confidence: high
@@ -46,7 +46,7 @@ Prime your mindset for success. Foundation module: understanding that attitude a
 
 ### Subsequent Modules (Weeks 2–5)
 
-TODO: needs input — full syllabi for Weeks 2–5 not yet extracted from staging. Source doc: `docs/drive-staging/Community-Team-Folder__Community--Learning-SCLA__Career-Courses-__Career-Readiness-Accelerator-Outline--Syllabus-.md`
+TODO: needs input — full syllabi for Weeks 2–5 not yet extracted from staging. Source doc: `docs/_archive/source-dumps/community-learning/career-courses/career-readiness-accelerator-outline-syllabus.md`
 
 Based on the program framework, expected topics include:
 - Personal brand and professional identity

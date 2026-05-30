@@ -1,13 +1,13 @@
 ---
-source:
-  - scla/_raw/web/SCLA Benefits ｜ Recognition, Certifications, Network (4_23_2026 3：40：04 PM).html
-  - scla/_raw/web/SCLA Program ｜ Career Readiness & College Credit (4_23_2026 3：40：23 PM).html
-  - scla/_raw/web/SCLA Membership Eligibility ｜ GPA & Requirements (4_23_2026 3：41：26 PM).html
-  - scla/_raw/web/Online SCLA Membership ｜ Join from Any Campus (4_23_2026 3：41：06 PM).html
-  - scla/_raw/web/Start an SCLA Chapter ｜ Lead & Earn Experience (4_23_2026 3：41：49 PM).html
-  - scla/_raw/web/SCLA Honor Society ｜ From Campus to Career (4_23_2026 3：38：06 PM).html
-  - scla/_raw/web/The SCLA Difference ｜ Value for Students & Schools (4_23_2026 3：39：26 PM).html
-  - scla/_raw/web/Earn College Credit Through Your SCLA Membership - The SCLA (4_23_2026 3：54：20 PM).html
+source: 
+  - https://www.thescla.org Benefits ｜ Recognition, Certifications, Network (4_23_2026 3：40：04 PM).html
+  - https://www.thescla.org Program ｜ Career Readiness & College Credit (4_23_2026 3：40：23 PM).html
+  - https://www.thescla.org Membership Eligibility ｜ GPA & Requirements (4_23_2026 3：41：26 PM).html
+  - https://www.thescla.org SCLA Membership ｜ Join from Any Campus (4_23_2026 3：41：06 PM).html
+  - https://www.thescla.org an SCLA Chapter ｜ Lead & Earn Experience (4_23_2026 3：41：49 PM).html
+  - https://www.thescla.org Honor Society ｜ From Campus to Career (4_23_2026 3：38：06 PM).html
+  - https://www.thescla.org SCLA Difference ｜ Value for Students & Schools (4_23_2026 3：39：26 PM).html
+  - https://www.thescla.org College Credit Through Your SCLA Membership - The SCLA (4_23_2026 3：54：20 PM).html
 generated_by: knowledge-curator
 last_updated: 2026-05-13
 confidence: high

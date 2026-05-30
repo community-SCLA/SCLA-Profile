@@ -1,5 +1,5 @@
 ---
-source: scla/_raw/web/Staff - The SCLA (4_23_2026 4：18：37 PM).html, scla/_raw/web/＞Mission & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html, scla/_raw/web/SCLA ｜ Apply to Join Our National Advisory Board (4_23_2026 3：42：11 PM).html, scla/_raw/web/Kierra Woekel - The SCLA (4_23_2026 4：12：28 PM).html
+source: https://www.thescla.org
 generated_by: knowledge-curator
 last_updated: 2026-05-13
 confidence: high

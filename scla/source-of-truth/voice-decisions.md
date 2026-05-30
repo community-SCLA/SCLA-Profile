@@ -30,7 +30,7 @@ Sourced from `scla/brand/voice-and-tone.md`. These are hypotheses from web snipp
 ## Examples of on-brand copy
 
 The following are verbatim sentences from Google search-index snippets. They are the only confirmed SCLA copy available at this time.
-Source: `scla/_raw/web/www.thescla.org/index.md`
+Source: `https://www.thescla.org`
 
 1. "The Society for Collegiate Leadership & Achievement (SCLA) is the leading College-to-Career Honor Society."
 
