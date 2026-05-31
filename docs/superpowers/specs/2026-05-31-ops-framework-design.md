@@ -39,12 +39,12 @@ Evaluated the AIS-OS ops framework against the SCLA-Profile repo. ~60% of the fr
 
 | # | Domain | Description |
 |---|---|---|
-| 1 | Community Platform | The primary member-facing platform (Skool) |
+| 1 | Community Platform | The primary member-facing platform (custom channels within scla website) |
 | 2 | Communication | Internal comms and external member messaging (Slack, Gmail) |
-| 3 | Content & Design | Asset creation and design tooling (Canva, Google Drive) |
+| 3 | Content & Design | Asset creation and design tooling (Claude Designm Canva) |
 | 4 | Knowledge / Files | Document storage and shared team knowledge (Google Drive, Notion) |
-| 5 | Task & Project Tracking | Where work is tracked and owned (Canva tracker) |
-| 6 | Email & Member Outreach | Broadcast email and outreach tooling (Gmail, GoHighLevel) |
+| 5 | Task & Project Tracking | Where work is tracked and owned (Notion) |
+| 6 | Email & Member Outreach | Broadcast email and outreach tooling (Gmail, custom MJML email tamplates in SCLA dashboard) |
 | 7 | Membership Tracking | Member sign-ups, engagement metrics, quarterly/annual goals |
 
 **Companion rule:** When a new tool is wired, also save `references/{tool}-api.md` (endpoints, auth flow, common queries). Research once, reference forever. `/kb-audit` checks for this.
