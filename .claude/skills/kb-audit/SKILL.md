@@ -33,11 +33,11 @@ Read `connections.md` at repo root. If missing, score Reach as 0 and flag with 4
 
 | Criterion | Pts | How to detect |
 |---|---|---|
-| Domain coverage | 10 | Count rows in connections.md where "Claude can reach?" = Yes. 1.4 pts each, round to nearest 0.5, cap 10. |
+| Reachable tool rows | 10 | Count rows in connections.md where "Claude can reach?" = Yes. 1.4 pts each, round to nearest 0.5, cap 10. (A tool appearing in multiple domains counts once per row — this is intentional, not double-counting.) |
 | Reference doc per connected tool | 5 | For each reachable tool, check for `references/{tool}-api.md`. −1 per missing. Floor 0. |
 | Auth / pipeline freshness | 5 | Count rows where Auth state = `needs-auth` or `expired`. −1 each. Floor 0. |
 | `connections.md` populated | 3 | 0 if missing; 1 if sparse (<3 rows filled); 2 if most rows filled; 3 if all rows filled |
-| At least one writable connection | 2 | Any row where Mechanism ≠ `not connected` and system can write (send message, post update, create doc). 0 if all read-only. |
+| At least one writable connection | 2 | Any row where Mechanism = `mcp` — assume MCP tools are writable (send, post, create). If all rows are `not connected` or `script`/`export`/`key+ref` with no write capability noted, score 0. |
 
 ### Skills (25 pts) — "Are there reusable workflows installed?"
 
@@ -84,7 +84,7 @@ For each criterion that scored below its maximum:
 |---|---|
 | `connections.md` missing entirely | 4× |
 | CLAUDE.md missing or thin (<200 words) | 3× |
-| ≤2 domains reachable | 3× |
+| ≤2 domains reachable (only applies when connections.md exists) | 3× |
 | 0 skills installed | 2× |
 | No decisions log entry within 30 days | 2× |
 | All connections read-only | 2× |
@@ -93,11 +93,15 @@ For each criterion that scored below its maximum:
 
 Sort by leverage descending. Take top 3. Write one concrete next-step for each:
 - Missing `connections.md` → "Create `connections.md` at repo root using the schema in `docs/superpowers/specs/2026-05-31-ops-framework-design.md`."
+- CLAUDE.md thin (<200 words) → "Expand CLAUDE.md to document org identity, project structure, key rules, and context file locations (target >200 words)."
+- context/ files missing → "Create `context/me.md`, `context/goals.md`, and `context/current-priorities.md` with org identity and current focus."
+- Brand/voice undocumented → "Create `scla/brand/voice-and-tone.md` capturing the org's writing register and communication style."
 - No reference doc for a connected tool → "Create `references/{tool}-api.md` documenting endpoints, auth flow, and common queries."
 - No custom skill → "Create `.claude/skills/{name}/SKILL.md` with YAML frontmatter (name + description) and execution steps."
 - No agent → "Create `.claude/agents/{name}.md` for a repeatable multi-step task."
 - Stale decisions log → "Append a dated entry to `scla/source-of-truth/decisions-log.md`."
-- No writable connection → "Configure write scope for an existing MCP (e.g. Slack send, Gmail draft, Notion create page)."
+- No writable connection → "Confirm at least one MCP tool in `connections.md` has `mechanism: mcp` — MCP connections are writable by default."
+- Templates folder empty → "Add at least one template to `templates/` (e.g. copy `templates/project-grant.md` pattern for a new content type)."
 
 ### Step 4: Print report
 
@@ -121,6 +125,7 @@ Maintenance   {bar}  {n}/25  {label}
 
 ## Strengths
 - {1–3 bullets from highest-scoring criteria}
+(If all dimensions score 0, omit this section and write: "No strengths yet — this is Stage 0. Start with the gaps below.")
 
 ## Top 3 Gaps (ranked by leverage)
 1. **{gap name}** (−{pts} × {multiplier}×) → {concrete next step}
