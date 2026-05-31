@@ -2,11 +2,11 @@
 
 Registry of every system SCLA runs on. Two views in one document:
 - **Team view:** What systems does SCLA operate?
-- **AI view:** Which can Claude reach right now, and how?
+- **AI view:** Which can Claude reach as of the last check date, and how?
 
 Update this file whenever a new tool is wired. When adding a reachable tool, also save `references/{tool}-api.md` (endpoints, auth flow, common queries — researched once, referenced forever). `/kb-audit` checks for this.
 
-| # | Domain | System | Purpose | Claude can reach? | Mechanism | Auth state | Last checked |
+| Domain # | Domain | System | Purpose | Claude can reach? | Mechanism | Auth state | Last checked |
 |---|---|---|---|---|---|---|---|
 | 1 | Community Platform | SCLA website (custom channels) | Member-facing community hub | No | not connected | — | — |
 | 2 | Communication | Slack | Internal team comms | Yes | mcp | active | 2026-05-31 |
