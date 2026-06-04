@@ -45,9 +45,11 @@ pending real page exports or client-supplied brand materials.
 | Founder | Pat Sidhu |
 | Scale | 100,000+ members, 850+ partner campuses |
 | Headquarters | 1775 Tysons Blvd, 5th Floor, Tysons, VA 22102 |
-| Primary color | `TODO: needs input — no CSS or brand assets available` |
-| Headline font | `TODO: needs input — no CSS or brand assets available` |
-| Tone, in three words | `TODO: needs input — insufficient authentic copy for reliable characterization` |
+| Primary color | `#0d2437` (Dark Navy) — confirmed from thescla.org production CSS, June 2026 |
+| Accent color | `#eaab2d` (Yellow) — CTA buttons and highlights |
+| Secondary color | `#3393d6` (Blue) — H3–H6, links, accents |
+| Headline font | Proxima Nova — self-hosted + Adobe Typekit; weights 100–900 all loaded |
+| Tone, in three words | Empowering, plain-spoken, human — see `voice-and-tone.md` for full axis ratings |
 | Tagline | "From Campus to Career" — confirmed. Appears in homepage page title ("SCLA Honor Society \| From Campus to Career") and used as the core mission framing throughout the website: "SCLA exists to help students transition successfully from campus to career." (What Is The SCLA HTML) |
 
 ## Common mistakes
