@@ -1,0 +1,472 @@
+{
+  "version": "2.0",
+  "config": {
+    "minConfidenceScore": 3,
+    "showMatchReasons": true,
+    "maxSkillsToShow": 3
+  },
+  "scoring": {
+    "keyword": 2,
+    "keywordPattern": 3,
+    "pathPattern": 4,
+    "directoryMatch": 5,
+    "intentPattern": 4,
+    "contentPattern": 3,
+    "contextPattern": 2
+  },
+  "directoryMappings": {
+    "projects": "application-tailor",
+    "scheduled-tasks": "execution-planner",
+    ".claude/skills": "execution-planner",
+    ".claude/hooks": "execution-planner"
+  },
+  "skills": {
+    "execution-planner": {
+      "description": "Audits multi-step build plans and enforces token-efficient execution.",
+      "priority": 10,
+      "triggers": {
+        "keywords": [
+          "build", "automate", "script", "set up", "implement", "plan",
+          "hook", "workflow", "wire up", "install", "configure", "schedule",
+          "cron", "automation", "pipeline", "deploy", "ci/cd"
+        ],
+        "keywordPatterns": [
+          "\\bplan this\\b",
+          "\\bset this up\\b",
+          "\\bbuild.*script\\b",
+          "\\bautomat\\w+\\b",
+          "\\bwire.*up\\b",
+          "\\bset up.*workflow\\b"
+        ],
+        "intentPatterns": [
+          "(?:help me|can you).{0,20}(?:build|create|set up|automate|implement)",
+          "(?:i want to|i need to).{0,20}(?:build|automate|set up|create|implement)",
+          "(?:how do i|how should i).{0,20}(?:build|set up|automate|create)"
+        ],
+        "pathPatterns": [
+          "**/*.sh",
+          ".claude/hooks/**",
+          "**/*.json",
+          "**/*.yaml",
+          "**/*.yml"
+        ]
+      },
+      "relatedSkills": ["notion-spec-to-implementation"]
+    },
+
+    "notion-knowledge-capture": {
+      "description": "Saves conversation insights and decisions to Notion.",
+      "priority": 8,
+      "triggers": {
+        "keywords": [
+          "save to notion", "save this", "capture this", "document this",
+          "add to notion", "log this", "write to notion", "record this",
+          "add to wiki", "save to wiki", "note this down"
+        ],
+        "keywordPatterns": [
+          "\\bsave.{0,15}notion\\b",
+          "\\bcapture.{0,15}(?:this|to notion)\\b",
+          "\\bdocument.{0,15}(?:this|conversation|decision)\\b",
+          "\\bnotion.{0,15}(?:page|wiki|database)\\b"
+        ],
+        "intentPatterns": [
+          "(?:save|capture|document|write|add|log).{0,20}(?:notion|wiki|notes?)",
+          "(?:this should|let's|can you).{0,20}(?:be|go).{0,10}(?:notion|wiki|notes?)"
+        ],
+        "contextPatterns": [
+          "for future reference",
+          "remember this",
+          "keep track of"
+        ]
+      },
+      "relatedSkills": ["notion-spec-to-implementation"]
+    },
+
+    "notion-spec-to-implementation": {
+      "description": "Turns Notion specs into concrete Claude-executable tasks.",
+      "priority": 8,
+      "triggers": {
+        "keywords": [
+          "notion spec", "spec page", "implementation tasks", "turn this into",
+          "break down", "breakdown", "task list", "acceptance criteria",
+          "implementation plan", "create tasks from"
+        ],
+        "keywordPatterns": [
+          "\\bnotion.{0,20}spec\\b",
+          "\\bspec.{0,20}notion\\b",
+          "\\bturn.{0,20}(?:spec|this|page).{0,20}(?:into|task)\\b",
+          "\\bbreak.{0,10}down.{0,20}(?:spec|page|this)\\b"
+        ],
+        "intentPatterns": [
+          "(?:turn|convert|break).{0,20}(?:spec|this|notion|page).{0,20}(?:into|to|tasks?|implementation)",
+          "(?:create|generate).{0,20}(?:tasks?|implementation).{0,20}(?:from|spec|notion)"
+        ]
+      },
+      "relatedSkills": ["execution-planner", "notion-knowledge-capture"]
+    },
+
+
+    "daily-job-scout": {
+      "description": "Scrapes job boards for matching roles and adds to Notion tracker.",
+      "priority": 8,
+      "triggers": {
+        "keywords": [
+          "job search", "job scout", "find jobs", "job boards",
+          "linkedin jobs", "new jobs", "job listings", "job tracker",
+          "job hunt", "jobs today", "scrape jobs"
+        ],
+        "keywordPatterns": [
+          "\\bjob.{0,10}(?:search|scout|board|listing|hunt|find)\\b",
+          "\\bfind.{0,10}job\\b",
+          "\\bjob.{0,10}notion\\b"
+        ],
+        "intentPatterns": [
+          "(?:find|search|look for|scout).{0,20}(?:jobs?|roles?|positions?|openings?)",
+          "(?:run|trigger).{0,10}(?:job scout|daily scout|job search)"
+        ],
+        "pathPatterns": [
+          "scheduled-tasks/daily-job-scout/**"
+        ]
+      },
+      "relatedSkills": ["application-tailor", "weekly-pipeline-review"]
+    },
+
+    "application-tailor": {
+      "description": "Tailors cover letters and resumes for a specific job application.",
+      "priority": 9,
+      "triggers": {
+        "keywords": [
+          "cover letter", "tailor", "resume", "apply", "application",
+          "job posting", "customize resume", "tailor my resume",
+          "write cover letter", "apply for"
+        ],
+        "keywordPatterns": [
+          "\\bcover.{0,5}letter\\b",
+          "\\btailor.{0,15}(?:resume|application|cover)\\b",
+          "\\bresume.{0,15}(?:tailor|customize|update|for this)\\b",
+          "\\bapply.{0,10}(?:for|to).{0,20}job\\b"
+        ],
+        "intentPatterns": [
+          "(?:write|create|generate|tailor|customize).{0,20}(?:cover letter|resume|application)",
+          "(?:help me|can you).{0,20}(?:apply|tailor|customize).{0,20}(?:job|role|position)"
+        ]
+      },
+      "relatedSkills": ["interview-prep", "daily-job-scout"]
+    },
+
+    "interview-prep": {
+      "description": "Generates full interview prep with company research, questions, and STAR stories.",
+      "priority": 9,
+      "triggers": {
+        "keywords": [
+          "interview", "interview prep", "prepare for interview",
+          "company research", "behavioral questions", "star stories",
+          "star method", "interview questions", "mock interview"
+        ],
+        "keywordPatterns": [
+          "\\binterview.{0,15}(?:prep|prepare|ready|questions?)\\b",
+          "\\bprepare.{0,10}(?:for|interview)\\b",
+          "\\bstar.{0,10}(?:stories|method|examples?)\\b",
+          "\\bcompany.{0,10}research\\b"
+        ],
+        "intentPatterns": [
+          "(?:prep|prepare|get ready).{0,20}(?:for|interview)",
+          "(?:help me|i have).{0,20}interview.{0,20}(?:tomorrow|monday|tuesday|wednesday|thursday|friday|soon|next week)"
+        ]
+      },
+      "relatedSkills": ["application-tailor"]
+    },
+
+    "follow-up-tracker": {
+      "description": "Checks applications needing follow-up and drafts follow-up messages.",
+      "priority": 7,
+      "triggers": {
+        "keywords": [
+          "follow up", "follow-up", "check in", "no response",
+          "heard back", "waiting to hear", "follow up email",
+          "application status", "check applications"
+        ],
+        "keywordPatterns": [
+          "\\bfollow.{0,5}up\\b",
+          "\\bno.{0,5}response\\b",
+          "\\bcheck.{0,10}(?:in|applications?)\\b",
+          "\\bwaiting.{0,10}(?:to hear|for response)\\b"
+        ],
+        "intentPatterns": [
+          "(?:follow up|check in).{0,20}(?:application|job|company)",
+          "(?:haven't|have not).{0,20}(?:heard|received).{0,20}(?:back|response)"
+        ]
+      },
+      "relatedSkills": ["daily-job-scout", "weekly-pipeline-review"]
+    },
+
+    "weekly-pipeline-review": {
+      "description": "Full job pipeline snapshot — counts by status, action items, health metrics.",
+      "priority": 7,
+      "triggers": {
+        "keywords": [
+          "pipeline", "pipeline review", "job pipeline",
+          "application summary", "how many applications",
+          "pipeline status", "job search summary", "weekly review"
+        ],
+        "keywordPatterns": [
+          "\\bpipeline\\b",
+          "\\bweekly.{0,10}(?:review|summary|pipeline)\\b",
+          "\\bapplication.{0,10}(?:summary|status|count|pipeline)\\b",
+          "\\bhow.{0,10}(?:many|is|are).{0,10}(?:applications?|jobs?|pipeline)\\b"
+        ],
+        "intentPatterns": [
+          "(?:review|check|show|run).{0,20}(?:pipeline|applications?|job search status)",
+          "(?:how is|how's|status of).{0,20}(?:pipeline|job search|applications?)"
+        ]
+      },
+      "relatedSkills": ["follow-up-tracker", "daily-job-scout"]
+    },
+
+    "b2b-messaging": {
+      "description": "Framework for content that speaks to business buyers.",
+      "priority": 6,
+      "triggers": {
+        "keywords": [
+          "b2b", "business buyer", "wholesale", "enterprise",
+          "business message", "b2b copy", "b2b email", "pitch deck",
+          "sales email", "outreach email", "business outreach"
+        ],
+        "keywordPatterns": [
+          "\\bb2b\\b",
+          "\\bbusiness.{0,10}(?:buyer|message|copy|email|outreach)\\b",
+          "\\bwholesale.{0,10}(?:email|message|pitch|copy)\\b"
+        ],
+        "intentPatterns": [
+          "(?:write|draft|create).{0,20}(?:b2b|business|wholesale|enterprise).{0,20}(?:email|message|copy|pitch)",
+          "(?:message|email|pitch).{0,20}(?:business|wholesale|b2b).{0,20}(?:buyer|client|customer)"
+        ]
+      },
+      "relatedSkills": ["content-review", "cold-email"]
+    },
+
+    "content-review": {
+      "description": "4-check marketing content review: Clarity, Tone, CTA, Audience Fit.",
+      "priority": 6,
+      "triggers": {
+        "keywords": [
+          "review this", "check this", "review content", "content check",
+          "proofread", "review my copy", "does this work", "feedback on this",
+          "review email", "review post", "check my copy"
+        ],
+        "keywordPatterns": [
+          "\\breview.{0,10}(?:this|content|copy|email|post|message)\\b",
+          "\\bcheck.{0,10}(?:this|content|copy|email)\\b",
+          "\\bfeedback.{0,15}(?:on|this|copy|content)\\b"
+        ],
+        "intentPatterns": [
+          "(?:can you|please).{0,20}(?:review|check|proofread|give feedback).{0,20}(?:this|content|copy|email)",
+          "(?:does|is).{0,20}this.{0,20}(?:sound|look|work|read).{0,10}(?:good|ok|right|well)"
+        ]
+      },
+      "relatedSkills": ["b2b-messaging", "copywriting"]
+    },
+
+    "weekly-ops-audit": {
+      "description": "Audit of the agent harness — hook health, permission drift, budget hits.",
+      "priority": 8,
+      "triggers": {
+        "keywords": [
+          "ops audit", "run ops audit", "system audit", "hook health",
+          "permission drift", "agent health", "audit harness", "check hooks"
+        ],
+        "keywordPatterns": [
+          "\\bops.{0,5}audit\\b",
+          "\\baudit.{0,10}(?:ops|system|harness|hooks?)\\b",
+          "\\bhook.{0,10}health\\b"
+        ],
+        "intentPatterns": [
+          "(?:run|do|trigger).{0,10}(?:ops audit|system audit|weekly audit)",
+          "(?:check|audit).{0,20}(?:hooks?|permissions?|system|harness)"
+        ]
+      }
+    },
+
+    "session-tool-budget-reset": {
+      "description": "Diagnose and clear stale budget_halt or session counters.",
+      "priority": 9,
+      "triggers": {
+        "keywords": [
+          "budget halt", "budget_halt", "tool limit", "tool budget",
+          "blocked", "session stale", "tool calls blocked",
+          "hitting limit", "too many tools", "doctor.sh", "reset session"
+        ],
+        "keywordPatterns": [
+          "\\bbudget.{0,5}halt\\b",
+          "\\btool.{0,10}(?:limit|budget|blocked|stale)\\b",
+          "\\bsession.{0,10}(?:stale|reset|counter)\\b",
+          "\\bblocked.{0,10}(?:tool|budget|session)\\b"
+        ],
+        "intentPatterns": [
+          "(?:tool calls?|tools?).{0,20}(?:blocked|not working|failing|limit)",
+          "(?:reset|clear|fix).{0,20}(?:session|budget|tool limit|counters?)"
+        ]
+      }
+    },
+
+    "seo-audit": {
+      "description": "Comprehensive SEO audit of a site or page.",
+      "priority": 6,
+      "triggers": {
+        "keywords": [
+          "seo audit", "seo check", "site audit", "seo", "search ranking",
+          "meta tags", "page speed", "core web vitals", "backlinks",
+          "keyword ranking", "organic traffic"
+        ],
+        "keywordPatterns": [
+          "\\bseo.{0,10}(?:audit|check|review|fix|improve)\\b",
+          "\\baudit.{0,10}seo\\b",
+          "\\bsearch.{0,10}(?:ranking|visibility|engine|optimization)\\b"
+        ],
+        "intentPatterns": [
+          "(?:audit|check|improve|fix).{0,20}(?:seo|search ranking|organic|meta)",
+          "(?:why is|why am i|how to).{0,20}(?:ranking|rank|seo|search)"
+        ]
+      },
+      "relatedSkills": ["content-strategy", "ai-seo"]
+    },
+
+    "email-sequence": {
+      "description": "Design and draft multi-step email sequences.",
+      "priority": 6,
+      "triggers": {
+        "keywords": [
+          "email sequence", "drip campaign", "email series", "nurture sequence",
+          "welcome sequence", "onboarding emails", "email flow",
+          "email automation", "newsletter sequence"
+        ],
+        "keywordPatterns": [
+          "\\bemail.{0,10}(?:sequence|series|flow|automation|drip|nurture)\\b",
+          "\\bdrip.{0,10}(?:campaign|email|sequence)\\b",
+          "\\bnurture.{0,10}(?:email|sequence|campaign)\\b"
+        ],
+        "intentPatterns": [
+          "(?:create|write|build|design).{0,20}(?:email sequence|drip campaign|email series|nurture)",
+          "(?:set up|automate).{0,20}(?:email|emails).{0,20}(?:sequence|flow|series)"
+        ]
+      },
+      "relatedSkills": ["content-review", "b2b-messaging"]
+    },
+
+    "copywriting": {
+      "description": "High-conversion marketing copy.",
+      "priority": 5,
+      "triggers": {
+        "keywords": [
+          "copy", "copywriting", "headline", "tagline", "landing page copy",
+          "ad copy", "product description", "write copy", "sales copy",
+          "persuasive copy", "hero copy"
+        ],
+        "keywordPatterns": [
+          "\\bcopy(?:writing)?\\b",
+          "\\bheadline\\b",
+          "\\btagline\\b",
+          "\\bad.{0,5}copy\\b",
+          "\\blanding.{0,5}page.{0,10}copy\\b"
+        ],
+        "intentPatterns": [
+          "(?:write|create|draft).{0,20}(?:copy|headline|tagline|description|landing page)",
+          "(?:help me|can you).{0,20}write.{0,20}(?:copy|headline|ad|landing)"
+        ]
+      },
+      "relatedSkills": ["content-review", "b2b-messaging"]
+    },
+
+    "content-strategy": {
+      "description": "Plan editorial calendar, content pillars, and distribution.",
+      "priority": 5,
+      "triggers": {
+        "keywords": [
+          "content strategy", "content plan", "editorial calendar",
+          "content pillars", "content calendar", "content roadmap",
+          "blog strategy", "content marketing"
+        ],
+        "keywordPatterns": [
+          "\\bcontent.{0,10}(?:strategy|plan|calendar|roadmap|pillar)\\b",
+          "\\beditorial.{0,10}calendar\\b"
+        ],
+        "intentPatterns": [
+          "(?:plan|build|create|develop).{0,20}(?:content strategy|content plan|editorial calendar)",
+          "(?:what content|content ideas|content topics).{0,20}(?:should|can|for)"
+        ]
+      },
+      "relatedSkills": ["seo-audit", "ai-seo", "copywriting"]
+    },
+
+    "paid-ads": {
+      "description": "Paid advertising strategy and ad copy for Meta, Google, etc.",
+      "priority": 5,
+      "triggers": {
+        "keywords": [
+          "paid ads", "facebook ads", "meta ads", "google ads",
+          "ad campaign", "ppc", "cpa", "roas", "ad creative",
+          "ad copy", "ad targeting", "run ads"
+        ],
+        "keywordPatterns": [
+          "\\bpaid.{0,5}ads?\\b",
+          "\\bfacebook.{0,5}ads?\\b",
+          "\\bmeta.{0,5}ads?\\b",
+          "\\bgoogle.{0,5}ads?\\b",
+          "\\bppc\\b",
+          "\\broad\\b"
+        ],
+        "intentPatterns": [
+          "(?:run|create|set up|launch).{0,20}(?:ads?|campaign|paid)",
+          "(?:help me|can you).{0,20}(?:paid ads?|facebook ads?|google ads?|ppc)"
+        ]
+      },
+      "relatedSkills": ["ad-creative", "copywriting"]
+    },
+
+    "social-content": {
+      "description": "Social media content creation and scheduling strategy.",
+      "priority": 5,
+      "triggers": {
+        "keywords": [
+          "social media", "instagram", "twitter", "linkedin post",
+          "social post", "tiktok", "social content", "caption",
+          "post ideas", "social calendar"
+        ],
+        "keywordPatterns": [
+          "\\bsocial.{0,10}(?:media|post|content|calendar)\\b",
+          "\\binstagram.{0,10}(?:post|caption|story|content)\\b",
+          "\\blinkedin.{0,10}(?:post|content|article)\\b",
+          "\\btiktok\\b"
+        ],
+        "intentPatterns": [
+          "(?:write|create|draft).{0,20}(?:social|instagram|linkedin|twitter|tiktok).{0,20}(?:post|content|caption)",
+          "(?:post ideas|content ideas).{0,20}(?:for|social|instagram|linkedin)"
+        ]
+      },
+      "relatedSkills": ["copywriting", "content-strategy"]
+    },
+
+    "lead-magnets": {
+      "description": "Lead magnet strategy and creation.",
+      "priority": 5,
+      "triggers": {
+        "keywords": [
+          "lead magnet", "freebie", "opt-in", "email list",
+          "grow my list", "list building", "lead gen",
+          "free guide", "free checklist", "download"
+        ],
+        "keywordPatterns": [
+          "\\blead.{0,5}magnet\\b",
+          "\\bopt.{0,5}in\\b",
+          "\\bfreebie\\b",
+          "\\blist.{0,10}(?:building|grow|email)\\b"
+        ],
+        "intentPatterns": [
+          "(?:create|build|design).{0,20}(?:lead magnet|freebie|opt-in|free guide)",
+          "(?:grow|build).{0,20}(?:email list|list|subscribers?)"
+        ]
+      },
+      "relatedSkills": ["email-sequence", "content-strategy"]
+    }
+  }
+}
