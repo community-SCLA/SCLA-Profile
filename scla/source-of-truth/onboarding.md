@@ -75,7 +75,7 @@ Key rules:
 ## Ongoing — First 30 days
 
 - [ ] Introduce yourself to adjacent staff: Chuck, Aman, Annie, Nollie (they are not in Monday meetings but cross-reference frequently)
-- [ ] Read `scla/source-of-truth/decisions-log.md` to understand recent decisions and why
+- [ ] Read `decisions/log.md` to understand recent decisions and why
 - [ ] Read `scla/source-of-truth/voice-decisions.md` — know how SCLA communicates before writing any member-facing copy
 - [ ] If you author any new program playbook or SOP: drop it in Community Drive, ping Kierra
 - [ ] Get familiar with the **Honors Community** vs. **SCA Academy** tiers — different member audiences, different framing

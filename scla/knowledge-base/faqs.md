@@ -64,6 +64,7 @@ For students at campuses without an SCLA chapter, online membership is available
 
 ### What are the eligibility requirements?
 
+<!-- Eligibility facts canonical: scla/knowledge-base/products-services.md — update there first, then mirror here. -->
 To join, you must:
 
 - Be enrolled as an undergraduate or graduate student at an accredited institution

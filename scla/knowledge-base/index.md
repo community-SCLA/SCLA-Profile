@@ -11,20 +11,12 @@ confidence: low
 
 ## What is SCLA?
 
-> "The Society for Collegiate Leadership & Achievement (SCLA) is the leading College-to-Career Honor Society. SCLA empowers students to excel academically and professionally, celebrating achievement, fostering personal growth, and providing the tools, connections, and credentials needed to build successful, purpose-driven careers."
->
-> — *source: [https://www.thescla.org](https://www.thescla.org)*
+The leading College-to-Career Honor Society — 100,000+ members, 850+ partner campuses.
 
-Key figures (from search-index snapshot):
-
-- 100,000+ members
-- 850+ partner campuses
-- Founded: 2012-2014 (development); first member welcomed March 2015
-- Founder: Pat Sidhu
+> Canonical identity statement and org facts (founding, founder, HQ, values): [scla/source-of-truth/charter.md](../source-of-truth/charter.md)
 
 **Industry:** Higher education / education services
 **Website:** https://www.thescla.org
-**Address:** 1775 Tysons Blvd, 5th Floor, Tysons, VA 22102
 
 ---
 

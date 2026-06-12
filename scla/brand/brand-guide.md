@@ -10,16 +10,12 @@ confidence: medium
 > NOTE: This guide was initially generated from Google search-index snippets and has been updated
 > with content from full HTML exports of thescla.org (scraped 2026-04-23).
 > Sections still marked `TODO: needs input` require brand assets or internal documents not available
-> from public web pages. See `scla/brand/TODOS.md` for the prioritized input list.
+> from public web pages. Pending inputs: logo SVG files and brand guidelines PDF from SCLA staff.
 
 ## What this brand is about
 
-SCLA describes itself as "the leading College-to-Career Honor Society" that
-"empowers students to excel academically and professionally, celebrating
-achievement, fostering personal growth, and providing tools, connections, and
-credentials needed to build successful, purpose-driven careers."
-(Source: `https://www.thescla.org` — Google search snippet for
-https://www.thescla.org/mission-history)
+SCLA describes itself as "the leading College-to-Career Honor Society."
+Canonical identity statement: `scla/source-of-truth/charter.md`.
 
 This positioning — academic recognition paired with practical career tools at
 scale (100,000+ members, 850+ campuses) — is the only confirmed framing
@@ -41,10 +37,7 @@ pending real page exports or client-supplied brand materials.
 | Page title (from search index) | "SCLA Honor Society \| From Campus to Career" |
 | Industry | Higher education / education services |
 | Website | https://www.thescla.org |
-| Founded | March 2015 (first member welcomed); 2012–2014 development phase |
-| Founder | Pat Sidhu |
-| Scale | 100,000+ members, 850+ partner campuses |
-| Headquarters | 1775 Tysons Blvd, 5th Floor, Tysons, VA 22102 |
+| Org facts (founded, founder, scale, HQ) | See `scla/source-of-truth/charter.md` (canonical) |
 | Primary color | `#0d2437` (Dark Navy) — confirmed from thescla.org production CSS, June 2026 |
 | Accent color | `#eaab2d` (Yellow) — CTA buttons and highlights |
 | Secondary color | `#3393d6` (Blue) — H3–H6, links, accents |

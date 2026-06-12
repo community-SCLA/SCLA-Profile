@@ -58,19 +58,9 @@ def merge_hooks(settings: dict, node: str) -> dict:
 
     # PreToolUse
     add_hook("PreToolUse", ".*", hook_cmd("pre-tool.sh"))
-    add_hook("PreToolUse", "Write|Edit", hook_cmd("gsd-prompt-guard.js", True, node), 5)
-    add_hook("PreToolUse", "Write|Edit", hook_cmd("gsd-read-guard.js", True, node), 5)
-    add_hook("PreToolUse", "Write|Edit", hook_cmd("gsd-workflow-guard.js", True, node), 5)
-    add_hook("PreToolUse", "Bash", f'bash \"{HOOKS_DIR}/gsd-validate-commit.sh\"')
 
     # PostToolUse
     add_hook("PostToolUse", ".*", hook_cmd("post-tool.sh"))
-    add_hook("PostToolUse", "Bash|Edit|Write|MultiEdit|Agent|Task",
-             hook_cmd("gsd-context-monitor.js", True, node))
-    add_hook("PostToolUse", "Read",
-             hook_cmd("gsd-read-injection-scanner.js", True, node))
-    add_hook("PostToolUse", "Write|Edit",
-             f'bash \"{HOOKS_DIR}/gsd-phase-boundary.sh\"')
 
     # Stop
     add_hook("Stop", ".*", hook_cmd("stop.sh"))
@@ -78,8 +68,6 @@ def merge_hooks(settings: dict, node: str) -> dict:
 
     # SessionStart
     add_hook("SessionStart", "*", "echo '{\"continue\": true, \"suppressOutput\": true}'")
-    add_hook("SessionStart", "*", hook_cmd("gsd-check-update.js", True, node))
-    add_hook("SessionStart", "*", f'bash \"{HOOKS_DIR}/gsd-session-state.sh\"')
     add_hook("SessionStart", "*", hook_cmd("context-mode-cache-heal.mjs", True, node))
 
     return settings

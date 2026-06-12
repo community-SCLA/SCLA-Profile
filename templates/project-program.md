@@ -57,4 +57,4 @@ What do participants get out of it?
 ## Related
 
 - Existing KB entry (if any): `scla/programs/<related>.md`
-- Prior decisions: `scla/source-of-truth/decisions-log.md#<anchor>`
+- Prior decisions: `decisions/log.md#<anchor>`

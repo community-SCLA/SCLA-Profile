@@ -79,7 +79,7 @@ confident and asking the user only for the rest. Files that contain placeholders
 - `scheduled-tasks/example-task/README.md` — launchd label username
 
 Do not fill placeholders inside instructional/example files — leave
-`EXPANSIONS.md`, `GUARDRAILS.md`, `REVIEW.md`, and the `.claude/skills/` files
+`GOVERNANCE.md`, `REVIEW.md`, and the `.claude/skills/` files
 as-is. Their brackets are documentation, not the owner's data.
 
 The placeholder values you will need:
@@ -108,7 +108,7 @@ root:
 ```bash
 grep -rnE '\[YOUR_[A-Za-z_]*\]|\[TIMEZONE\]|\[DATE\]|\[ONE_LINE_SUMMARY[^\]]*\]|\[TOOLS_YOU_USE[^\]]*\]|\[FOCUS_AREA_[0-9][^\]]*\]' . \
   --include='*.md' \
-  | grep -vE '\.git/|_archive/|_templates/|EXPANSIONS\.md|GUARDRAILS\.md|REVIEW\.md|\.claude/skills/'
+  | grep -vE '\.git/|_archive/|_templates/|GOVERNANCE\.md|REVIEW\.md|\.claude/skills/'
 ```
 
 - If it returns **nothing** → every owner placeholder is filled. Continue to commit.

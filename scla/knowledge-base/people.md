@@ -48,6 +48,8 @@ TODO: needs input — formal titles for Amy Westby, Greg Brisco, Brian Chamberli
 
 ## Community Team / Staff (from platform admin panel)
 
+*Platform-account snapshot only (system roles, status, creation dates). For who does what on the community team, the canonical roster is [scla/operations/team-roster.md](../operations/team-roster.md).*
+
 The staff panel showed 30 records across 2 pages. The following were visible in the scraped snapshot (page 1, 20 records shown):
 
 | Name | Email | System Role | Status | Created |

@@ -1,131 +1,102 @@
-# [YOUR_NAME] Ops — Navigation Map
-**[YOUR_NAME] | [YOUR_FOCUS_AREAS]**
-Last updated: [DATE]
+# SCLA Profile — Navigation Map
+**The Society for Collegiate Leadership & Achievement — knowledge base atlas**
+Last updated: 2026-06-11
 
-> This file is the visual index of the entire repo. It does not load content — it routes.
-> Claude: read this when you need to find something. Don't load what you don't need.
+> This file routes; it does not load content. Find your target below, load that one file, stop.
 
 ---
 
 ## Session Boot
 
 ```
-Every session → Load context/me.md first, always.
-Then identify task → load ONE entry from Task Routing below.
+Every session → load context/me.md (org summary + working prefs).
+Then identify the task → load ONE target from Task Routing.
 Stop. Do not load more.
 ```
+
+Dynamic session memory lives in `.remember/` (gitignored, local-only — handoffs, daily logs). It is not part of the curated KB.
 
 ---
 
 ## Task Routing
 
-| I need to... | Load this | Notes |
-|---|---|---|
-| Write in [YOUR_NAME]'s voice | `context/me.md` | Already loaded in boot |
-| *Your project 1 — replace with e.g. "Client: Acme"* | `projects/<your-folder>/CLAUDE.md` | |
-| *Your project 2 — replace with e.g. "Job search"* | `projects/<your-folder>/CLAUDE.md` | |
-| Start a new project from scratch | Run `/new-from-template` | Defaults to the generic skeleton |
-| Run a scheduled task | `scheduled-tasks/<name>/` — that task's file only | One at a time |
-| Debug an integration | `connections.md` | |
-| Look up an endpoint ID | `endpoints.md` | |
-| Review architectural decisions | `decisions/log.md` | |
-| Work on a skill | See Skills Registry | Invoke via `Skill("name")` |
+| I need to... | Load this |
+| --- | --- |
+| Know what SCLA is / org facts | `scla/source-of-truth/charter.md` (canonical) |
+| Check current goals or priorities | `context/goals.md`, `context/current-priorities.md` |
+| Look up brand colors, logo, type | `scla/brand/visual-identity.md` |
+| Write in SCLA's voice | `scla/brand/voice-and-tone.md` |
+| Check brand naming/tagline facts | `scla/brand/brand-guide.md` |
+| Find a team member or role | `scla/operations/team-roster.md` |
+| Answer a member-facing question | `scla/knowledge-base/faqs.md` |
+| Look up a program | `scla/programs/programs-overview.md` |
+| Work on a grant | `scla/projects/grants/` (one folder per grant + RFP briefs) |
+| Work on video production | `scla/projects/video-production/CLAUDE.md` |
+| Review past decisions | `decisions/log.md` |
+| Debug an integration | `connections.md` |
+| Look up an endpoint ID | `endpoints.md` |
+| Start a new project | `templates/` + `/new-from-template` |
+| Trace a fact to its source | `docs/_archive/source-dumps/README.md` (index only) |
 
 ---
 
 ## File Map
 
+### Root
+```
+CLAUDE.md          ← entry point: routing + rules one-liners
+MAP.md             ← this file
+GOVERNANCE.md      ← rulebook: hard stops, folder/commit discipline, growth rules
+connections.md     ← active integrations: tool, method, auth, status
+endpoints.md       ← known IDs (repo, org URLs); unknowns marked TODO: needs input
+decisions/log.md   ← append-only decisions log
+scla.config.yml    ← org metadata + ingest configuration
+sync.sh            ← commit + push + parent-submodule update (main branch only)
+```
+
 ### Identity & Context
 ```
 context/
-├── me.md               ← WHO [YOUR_NAME] IS — voice, tone, comm style, working prefs
-├── goals.md            ← Career targets, priorities, hard requirements
-├── work.md             ← Current employment status and availability
-└── archives/           ← Superseded context files
+├── me.md                   ← session boot: org one-liner, brief roster, working prefs
+├── goals.md                ← Q2 2026 goals + success criteria (working copy)
+└── current-priorities.md   ← active work
 ```
 
-### Memory (Session Recall)
+### SCLA Knowledge
 ```
-memory/
-├── MEMORY.md           ← Index. Start here.
-├── overview.md         ← Big picture: world + current quarter priorities
-└── glossary.md         ← Acronyms, shorthand, project paths
-```
-
-### Operations
-```
-connections.md          ← Every active integration: tool, connection method, auth, status
-endpoints.md            ← Frequently used IDs: databases, folders, channels
-decisions/
-└── log.md              ← Append-only: architectural and strategic decisions
-```
-
-### Projects
-Each project uses the generic lean standard folder (from `_templates/project-skeleton/`).
-Build a new one with `/new-from-template`; ingest an existing repo with `/ingest-project`.
-```
-projects/
-├── [project-1]/
-│   ├── CLAUDE.md        ← entry: purpose, status, how to work here
-│   ├── context/         ← overview.md, people.md, decisions.md
-│   ├── planning/        ← roadmap.md (milestones/status)
-│   ├── _inbox/          ← unsorted ingested content → triage to empty
-│   └── _archive/        ← raw source + INGEST-LEDGER.md — NEVER read directly
-└── example-project/    ← Template example — replace with real projects
-    └── CLAUDE.md
+scla/
+├── brand/                  ← visual-identity.md (colors/type, canonical), voice-and-tone.md,
+│                             brand-guide.md, assets/ (SVG logos + index.md)
+├── knowledge-base/         ← index.md (AI-facing org summary), glossary.md, people.md,
+│                             products-services.md, faqs.md, community-platform.md
+├── operations/             ← team-roster.md (canonical roster), current-state.md,
+│                             pain-points.md, automation-opportunities.md
+├── source-of-truth/        ← TEAM-OWNED: charter.md (canonical org facts), mission.md,
+│                             team-handbook.md, onboarding.md, rituals.md,
+│                             program-names.md, voice-decisions.md
+├── programs/               ← programs-overview.md, course-catalog.md, credentials-framework.md,
+│                             scla-leadership-program.md, career-readiness-accelerator.md
+├── partnerships/           ← NIC.md
+└── projects/               ← grants/ (new-grant.sh scaffolder), video-production/
 ```
 
-### Automations
+### Operations & Tooling
 ```
-scheduled-tasks/
-├── _config/            ← Shared config
-├── _lib/               ← Shared library code
-├── weekly-ops-audit/   ← Runs every Friday — repo health + skills sync
-└── example-task/       ← Template stub — replace with real tasks
-```
-
-### Skills
-```
-skills/
-├── README.md           ← Skills registry — invoke via Skill("name")
-├── sync.py             ← Auto-syncs ~/.claude/registry.json → README.md
-└── new-from-template/
+hooks/             ← live Claude Code hooks: skill-eval (routing), pre/post-tool + stop
+                     (tool-budget logging), doctor.sh, cache-heal, worktree cleanup,
+                     skill-rules.json (routing registry — implemented skills only)
+scripts/           ← setup.sh, merge-settings.py, lint-refs.sh (repo health linter)
+.claude/skills/    ← ingest, kb-audit, new-from-template, onboard
+templates/         ← project-campaign / content / grant / program scaffolds
+audits/            ← kb-audit score snapshots
+_inbox/            ← ingest staging (INGEST_MANIFEST.md triggers /ingest)
+_archive/          ← superseded root files, orphaned docs (dated names)
+docs/_archive/     ← raw Drive source dumps — provenance only, never load by default
 ```
 
-### Templates (Reusable Shapes)
-```
-_templates/
-├── project-skeleton/   ← DEFAULT project shape (generic, best-practice) — copied by /new-from-template
-├── _examples/          ← Opt-in domain blueprints (lead-gen framework, four-phase roadmap)
-└── new-from-template.py ← Fills [KEY] placeholders for the opt-in domain templates
-```
+---
 
-### Scripts & Utilities
-```
-scripts/
-├── setup.sh            ← Optional: copies hooks + merges settings (run after /onboard)
-├── merge-settings.py   ← Merges hooks + safety rules into ~/.claude/settings.json
-├── auto-sync.sh        ← Git auto-sync utility
-└── notion-mcp.sh       ← Starts the Notion MCP server
-```
+## Not here (by design)
 
-### Tool Artifacts (Never Read Directly)
-```
-_tools/
-└── graphify/
-    └── GRAPH_REPORT.md  ← 12MB+. NEVER read directly. Use: graphify query / graphify path
-
-projects/*/_archive/      ← Per-project: raw ingested source + INGEST-LEDGER.md.
-                            NEVER read in a normal session. Exists only to prove
-                            completeness and recover mistaken prunes.
-```
-
-### Hooks
-```
-hooks/                  ← Claude Code hook scripts — copied to ~/.claude/hooks/ by setup.sh
-```
-
-### Config
-```
-.claude/settings.json   ← Claude Code tool config + PreToolUse hooks (project-level)
-```
+- `references/`, `scheduled-tasks/` — don't exist yet; create when real content exists (see GOVERNANCE.md "Future homes").
+- Raw source material — only in `docs/_archive/source-dumps/`, reached via `source:` citations.
