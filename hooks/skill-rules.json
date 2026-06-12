@@ -91,30 +91,6 @@
           "(?:i want to|i need to|help me).{0,20}(?:start|create).{0,20}project"
         ]
       }
-    },
-
-    "onboard": {
-      "description": "Interactive wizard that personalizes this ops template for a new owner. Fills [PLACEHOLDER] values across the repo.",
-      "priority": 10,
-      "triggers": {
-        "keywords": [
-          "onboard", "set up repo", "personalize", "fill placeholders",
-          "just cloned", "new owner", "setup wizard", "configure repo",
-          "initialize repo", "first time setup"
-        ],
-        "keywordPatterns": [
-          "\\bonboard\\b",
-          "\\bplaceholder\\b",
-          "\\bjust.{0,10}cloned\\b",
-          "\\bset.{0,10}up.{0,10}repo\\b",
-          "\\bpersonalize.{0,10}(?:repo|template)\\b"
-        ],
-        "intentPatterns": [
-          "(?:just|i just|i've just).{0,20}cloned",
-          "(?:set up|configure|personalize|initialize).{0,20}(?:repo|template|ops repo)",
-          "(?:fill|replace).{0,20}placeholder"
-        ]
-      }
     }
   }
 }
