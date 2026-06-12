@@ -47,6 +47,8 @@ The core offering. Students at a [partner campus](./glossary.md#partner-campus) 
 
 — *source: [https://www.thescla.org](https://www.thescla.org)*
 
+Full eligibility criteria (canonical, incl. credit-hour requirements): [products-services.md](../knowledge-base/products-services.md)
+
 ### Pricing
 
 > "One-time membership fee: $95"

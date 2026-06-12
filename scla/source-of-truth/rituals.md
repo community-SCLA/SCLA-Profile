@@ -31,7 +31,7 @@ Recurring meetings, reviews, and practices that keep the team aligned. Add new r
 1. Warm-up — team check-in (music, weekend updates, personal moments). Not optional — this is the culture.
 2. Project updates — each owner gives a quick status on their active work.
 3. Blockers — surfaces anything stopping progress.
-4. Decisions — notable decisions made here get logged in [decisions-log.md](./decisions-log.md).
+4. Decisions — notable decisions made here get logged in [decisions/log.md](../../decisions/log.md).
 5. Action items — Gemini's "Suggested next steps" section captures owners and tasks; these get migrated to the Team Projects tracker.
 
 **What good looks like:** Everyone arrives having dropped their status update in the community weekly sync canvas. Amy can compile the leadership update in under 15 minutes after the meeting. Action items move to the Team Projects tracker the same day.

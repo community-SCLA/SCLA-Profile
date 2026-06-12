@@ -302,4 +302,4 @@ Amy wants this more visual — screenshot-driven.
 - **CRM / advisor tools** — mentioned as "in the tech team's build" (Apr 20)
   but no current-state workflow.
 
-These gaps are the core reason for the [Drive search queries](./drive-search-queries.md).
+These gaps are the core reason for the [Drive search queries](../../_archive/drive-search-queries-pre-2026-06-11.md).

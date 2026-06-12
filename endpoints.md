@@ -3,6 +3,8 @@
 Frequently used IDs, URLs, and paths across all automations and sessions.
 Update here first — scripts and skills should read from here, not from hardcoded values.
 
+> **Do not invent IDs — unknown values stay `TODO: needs input` until confirmed.**
+
 > **Related:** Auth methods and connection status → `connections.md`
 
 ---
@@ -11,8 +13,8 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 | Name | Type | ID | Used By |
 |---|---|---|---|
-| [Page Name] | Page | `[32-char UUID with hyphens]` | [task-name] |
-| [Database Name] | Database | *(add ID)* | [task-name] |
+| TODO: needs input | Page | `TODO: needs input` | TODO: needs input |
+| TODO: needs input | Database | `TODO: needs input` | TODO: needs input |
 
 > To find a Notion database ID: open the DB in browser → copy the 32-char string from the URL before the `?`.
 > Format with hyphens: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
@@ -23,7 +25,7 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 | Name | Type | ID / URL | Used By |
 |---|---|---|---|
-| *(add folders as you reference them regularly)* | | | |
+| TODO: needs input | Folder | `TODO: needs input` | TODO: needs input |
 
 ---
 
@@ -31,20 +33,43 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 | Name | Path | Notes |
 |---|---|---|
-| This repo | `[YOUR_USERNAME]/[YOUR_REPO]` | Main branch: `main` |
+| This repo | `community-SCLA/SCLA-Profile` | Main branch: `main` |
 
 ---
 
-## Other Services
+## Slack
 
-| Service | Name | ID / URL | Used By |
+| Name | Type | ID | Used By |
 |---|---|---|---|
-| [Slack] | [Channel name] | [channel ID] | [task-name] |
+| TODO: needs input | Channel | `TODO: needs input` | TODO: needs input |
+
+---
+
+## Gmail
+
+| Name | Type | ID / Address | Used By |
+|---|---|---|---|
+| TODO: needs input | Label / Filter | `TODO: needs input` | TODO: needs input |
+
+---
+
+## Canva
+
+| Name | Type | ID | Used By |
+|---|---|---|---|
+| TODO: needs input | Team / Folder | `TODO: needs input` | TODO: needs input |
+
+---
+
+## Figma
+
+| Name | Type | ID | Used By |
+|---|---|---|---|
+| TODO: needs input | File / Project | `TODO: needs input` | TODO: needs input |
 
 ---
 
 ## Notes
 
 - IDs belong here, not hardcoded in scripts — makes rotation and auditing easy.
-- The weekly-ops-audit scans scripts for hardcoded UUIDs and flags any not registered here.
-- Last verified: [DATE]
+- Last verified: TODO: needs input

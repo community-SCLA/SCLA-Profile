@@ -69,6 +69,8 @@ The Mars Rover morning music tradition, check-ins on pets and birthdays, and Amy
 
 ## This quarter's definition of success (Q2 2026)
 
+*(Team copy. Condensed working copy for session use: [context/goals.md](../../context/goals.md).)*
+
 Success this quarter means all five of the following are true by June 30:
 
 1. **Weekly News ships consistently.** Four or more consecutive weeks of the weekly announcements email going out on schedule, without Sean/Shawn on the critical path for template authoring.
@@ -103,7 +105,7 @@ Success this quarter means all five of the following are true by June 30:
 ## TODO: needs input
 
 - Confirm the four SCLA organizational pillars by name (referenced in page title "Mission & History | SCLA's 4 Pillars & Growth" but source page not yet scraped). Export: https://www.thescla.org/mission-history
-- Confirm whether "From Campus to Career" is the official tagline. See [brand/TODOS.md](../brand/TODOS.md).
+- ~~Confirm whether "From Campus to Career" is the official tagline~~ — Confirmed. Source: `scla/brand/brand-guide.md` (homepage page title + site mission framing, full HTML exports).
 - Add Chuck's full name and title.
 - Add Sean/Shawn's full name (spelling varies between Apr 6 and Apr 20 notes).
 - Confirm who will own the orientation baseline survey (decided Apr 6; no owner assigned).

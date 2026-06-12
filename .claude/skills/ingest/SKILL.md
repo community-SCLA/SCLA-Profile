@@ -147,7 +147,7 @@ produced errors, stop and report to the user before committing.
    ```bash
    grep -rnE '\[YOUR_[A-Za-z_]*\]|\[TIMEZONE\]|\[DATE\]|\[ONE_LINE_SUMMARY[^\]]*\]|\[TOOLS_YOU_USE[^\]]*\]|\[FOCUS_AREA_[0-9][^\]]*\]' . \
      --include='*.md' \
-     | grep -vE '\.git/|_archive/|_templates/|EXPANSIONS\.md|GUARDRAILS\.md|REVIEW\.md|\.claude/skills/'
+     | grep -vE '\.git/|_archive/|_templates/|GOVERNANCE\.md|REVIEW\.md|\.claude/skills/'
    ```
 
    If it returns hits, fill them before committing.
