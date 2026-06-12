@@ -18,14 +18,13 @@ All definitions are derived from Google search-index snippets. Terms marked **TO
 - **Canonical form:** SCLA
 - **Full name:** The Society for Collegiate Leadership & Achievement
 - **Also seen as:** "The SCLA", "SCLA Honor Society", "SCLA – Accredited Collegiate Leadership Honor Society"
-- **Founded:** 2014 (research phase began 2012)
-- **Founder:** Pat Sidhu (led founding team)
-- **First member:** March 2015
 - **Confidence:** high
 
-> "The Society for Collegiate Leadership & Achievement (SCLA), the leading College-to-Career Honor Society, empowers students to excel academically and professionally. We celebrate achievement, foster personal growth, and provide the tools, connections, and credentials needed to build successful, purpose-driven careers. In 2014, SCLA was founded with a mission to take a holistic approach to student success. From 2012 to 2014, SCLA's founders, led by Pat Sidhu, worked tirelessly to better understand these challenges."
+> "The Society for Collegiate Leadership & Achievement (SCLA), the leading College-to-Career Honor Society, empowers students to excel academically and professionally."
 
 — *source: https://www.thescla.org & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
+
+Canonical identity statement and founding facts (dates, founder): [scla/source-of-truth/charter.md](../source-of-truth/charter.md)
 
 **Related:** [products-services.md](./products-services.md), [people.md](./people.md)
 

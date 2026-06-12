@@ -36,6 +36,7 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 ### SCLA Brand
 - Primary gold: `#F1B32E`
 - Primary blue: `#55A4DD`
+- TODO [TEAM DECISION]: these hex values conflict with the production-CSS brand system in `scla/brand/visual-identity.md` (gold `#eaab2d`, blue `#3393d6`). Confirm which set is correct for video before the next render batch; update this project's templates and guide when decided.
 - Voice: Warm, professional, encouraging. No jargon. Active voice. Target audience: college students 18–24.
 
 ### Critical Rules

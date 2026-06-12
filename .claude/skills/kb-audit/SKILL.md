@@ -24,7 +24,7 @@ Run `date +%Y-%m-%d` to get today's date for the report header.
 | CLAUDE.md is substantive (>200 words) | 5 | Read CLAUDE.md and count words |
 | `context/` has all three core files or equivalent | 5 | Glob `context/*.md` — expect me.md, goals.md, current-priorities.md or equivalent |
 | Brand / voice is documented | 5 | Check `scla/brand/` or equivalent for ≥1 voice or tone file |
-| Decisions log has ≥1 entry | 5 | Check `scla/source-of-truth/decisions-log.md` or any file matching `*decisions*` |
+| Decisions log has ≥1 entry | 5 | Check `decisions/log.md` or any file matching `*decisions*` |
 | No major TODO stubs in source-of-truth | 5 | Grep `TODO: needs input` in `scla/source-of-truth/` — deduct 1 pt per stub found, floor 0 |
 
 ### Reach (25 pts) — "What can Claude actually access live?"
@@ -54,7 +54,7 @@ Canonical defaults (don't count as custom): `onboard`, `audit`, `kb-audit`, `lev
 | Criterion | Pts | How to detect |
 |---|---|---|
 | Skills modified within 30 days | 10 | Run `git log --since=30.days --oneline -- .claude/skills/`. Any output = 10 pts. |
-| Decisions log has entry within 30 days | 10 | Run `git log --since=30.days --oneline -- scla/source-of-truth/decisions-log.md`. Any output = 10 pts. If no git result, check most recent `## YYYY-MM-DD` heading in the file. |
+| Decisions log has entry within 30 days | 10 | Run `git log --since=30.days --oneline -- decisions/log.md`. Any output = 10 pts. If no git result, check most recent `## YYYY-MM-DD` heading in the file. |
 | Templates folder populated | 5 | Glob `templates/*.md` — ≥1 file = 5 pts. |
 
 ## Execution
@@ -65,7 +65,7 @@ Read these paths (targeted reads only — do not load `docs/_archive/`):
 - `CLAUDE.md` — word count and identity check
 - `context/` — list files
 - `scla/brand/` — list files, look for voice or tone file
-- `scla/source-of-truth/decisions-log.md` — first 20 lines to confirm entries exist
+- `decisions/log.md` — first 20 lines to confirm entries exist
 - `connections.md` — full read
 - `.claude/skills/` — list subdirectories and read each SKILL.md frontmatter only
 - `.claude/agents/` — list files (if directory exists)
@@ -99,7 +99,7 @@ Sort by leverage descending. Take top 3. Write one concrete next-step for each:
 - No reference doc for a connected tool → "Create `references/{tool}-api.md` documenting endpoints, auth flow, and common queries."
 - No custom skill → "Create `.claude/skills/{name}/SKILL.md` with YAML frontmatter (name + description) and execution steps."
 - No agent → "Create `.claude/agents/{name}.md` for a repeatable multi-step task."
-- Stale decisions log → "Append a dated entry to `scla/source-of-truth/decisions-log.md`."
+- Stale decisions log → "Append a dated entry to `decisions/log.md`."
 - No writable connection → "Confirm at least one MCP tool in `connections.md` has `mechanism: mcp` — MCP connections are writable by default."
 - Templates folder empty → "Add at least one template to `templates/` (e.g. copy `templates/project-grant.md` pattern for a new content type)."
 

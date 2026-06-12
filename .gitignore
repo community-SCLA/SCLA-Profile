@@ -9,3 +9,7 @@
 
 # Node (if the team adds tooling later)
 node_modules/
+
+# credentials
+.env
+!.env.example

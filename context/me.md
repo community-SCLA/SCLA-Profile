@@ -2,20 +2,18 @@
 
 ## Organization
 
-**The Society for Collegiate Leadership & Achievement (SCLA)** is the leading College-to-Career Honor Society. SCLA empowers students to excel academically and professionally, celebrating achievement, fostering personal growth, and providing the tools, connections, and credentials needed to build successful, purpose-driven careers.
+**The Society for Collegiate Leadership & Achievement (SCLA)** is the leading College-to-Career Honor Society — 100,000+ members, 850+ partner campuses.
+
+> Canonical org facts (full identity statement, founding, founder, HQ): [scla/source-of-truth/charter.md](../scla/source-of-truth/charter.md)
 
 - **Website:** https://www.thescla.org
 - **Contact:** community@thescla.org
-- **HQ:** 1775 Tysons Blvd, 5th Floor, Tysons, VA 22102
-- **Scale:** 100,000+ members, 850+ partner campuses
-- **Founded:** March 2015 (research phase 2012–2014)
-- **Founder:** Pat Sidhu
 
 ## The Community Team
 
 The community team's role: build and sustain the human layer that makes SCLA feel like a community. Every event, every member onboarded, and every piece of content produced is in service of that promise.
 
-Key people on the community team:
+Key people on the community team (brief boot list — canonical roster with emails and full roles: [scla/operations/team-roster.md](../scla/operations/team-roster.md)):
 - **Amy** — Team lead
 - **Kierra** — Community operations, Claude/AI tooling, Drive-to-Claude pipeline owner
 - **Zeketra Grandy** — Member journey and onboarding
@@ -32,9 +30,4 @@ Traditional college students AND underrepresented students at community colleges
 
 ## Team Values (as practiced)
 
-- Show up for underrepresented students
-- Human support is not optional — AI augments, doesn't replace
-- Document everything — institutional knowledge must survive personnel changes
-- Name problems and fix them fast
-- Consistency over urgency
-- Celebrate each other
+Six values, from "Show up for underrepresented students" to "Celebrate each other" — full sourced statements in [scla/source-of-truth/charter.md](../scla/source-of-truth/charter.md).

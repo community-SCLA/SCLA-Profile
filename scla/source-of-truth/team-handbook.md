@@ -9,6 +9,8 @@ confidence: medium
 
 ## The team
 
+*Primary roster: [scla/operations/team-roster.md](../operations/team-roster.md). The copy below is kept so this handbook reads standalone for onboarding — when they disagree, the primary roster wins.*
+
 Ten people on the Community Team (Monday meetings). Plus adjacent staff who interact with the team regularly.
 
 ### Community Team (Monday meeting attendees)

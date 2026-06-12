@@ -1,6 +1,12 @@
 # SCLA Profile — Company Knowledge Base
 
-This project is the living knowledge base for **The Society for Collegiate Leadership & Achievement (SCLA)**. It contains brand, workflows, and source-of-truth documentation for the organization.
+This repo is the living knowledge base for **The Society for Collegiate Leadership & Achievement (SCLA)**: brand, workflows, and source-of-truth documentation. This file is routing only — load targets, not content.
+
+| Root companion | When to read it |
+| --- | --- |
+| `MAP.md` | Find where any fact or task lives — the repo atlas |
+| `GOVERNANCE.md` | The rulebook: hard stops, folder discipline, commit prefixes, growth rules |
+| `decisions/log.md` | Why structural and strategic choices were made (append-only) |
 
 ---
 
@@ -10,7 +16,7 @@ Load these selectively as needed — not all at once.
 
 | File | What's in it |
 | --- | --- |
-| `context/me.md` | What SCLA is, who we serve, org identity |
+| `context/me.md` | What SCLA is, who we serve, org identity (boot summary — canonical facts live in `scla/source-of-truth/charter.md`) |
 | `context/goals.md` | What we're trying to accomplish |
 | `context/current-priorities.md` | Active work and near-term focus |
 
@@ -22,12 +28,11 @@ Load these selectively as needed — not all at once.
 | --- | --- | --- |
 | Brand | `scla/brand/` | Voice, tone, visual identity, brand guide |
 | Knowledge Base | `scla/knowledge-base/` | Glossary, people, products & services, FAQs |
-| Operations | `scla/operations/` | How the team operates, pain points, automation opps |
-| Source of Truth | `scla/source-of-truth/` | Charter, decisions log, team handbook, onboarding |
+| Operations | `scla/operations/` | Team roster, how the team operates, pain points, automation opps |
+| Source of Truth | `scla/source-of-truth/` | Charter, team handbook, onboarding — **team-owned** |
 | Programs | `scla/programs/` | Program documentation |
 | Partnerships | `scla/partnerships/` | Partner orgs (e.g. NIC) |
-| Projects | `scla/projects/` | Active project tracking (grants live here) |
-| Grants | `docs/grants/` | Grant briefs and RFP working docs |
+| Projects | `scla/projects/` | Active project tracking — grants (briefs + RFP working docs), video production |
 | Templates | `templates/` | Reusable project/content/grant templates |
 
 ---
@@ -54,8 +59,10 @@ curated pages above stay traceable. It is ~2 MB of source material with one file
 
 ## Rules
 
-- **Never fabricate SCLA facts.** If it's not in the files, mark it `TODO: needs input`.
-- **Prefer quoting over paraphrasing.** Keep traceability to source documents. Cite into `docs/_archive/source-dumps/` (see Provenance above), not deleted ingest paths.
-- **`scla/source-of-truth/` is team-owned.** Treat it as authoritative. Don't overwrite without explicit instruction.
+One-liners — full text and rationale in `GOVERNANCE.md`.
+
+- **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
+- **Prefer quoting over paraphrasing** — cite into `docs/_archive/source-dumps/`.
+- **`scla/source-of-truth/` is team-owned** — don't overwrite without explicit instruction.
 - **Credentials go in `.env` only** — never hardcoded.
-- **`sync.sh`** handles git sync to the parent workspace submodule — run it to push local changes up.
+- **Log structural changes** in `decisions/log.md`; push with `./sync.sh`.

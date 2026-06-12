@@ -27,7 +27,7 @@ confidence: high
 
 > "Membership in SCLA is a distinction for undergraduate and graduate students whose academic success demonstrates their commitment and drive."
 
-Requirements (from Eligibility page):
+Requirements (from Eligibility page — canonical owner of eligibility criteria; update here first, then sync `faqs.md` and `programs-overview.md`):
 
 - Enrollment as an undergraduate or graduate student at an accredited institution
 - 12+ undergraduate credit hours completed, or 9+ graduate credit hours

@@ -39,10 +39,6 @@ find "$HOME/.claude/hooks" -type f -exec \
 echo "→ Updating global Claude settings..."
 python3 "$REPO_DIR/scripts/merge-settings.py"
 
-# ── 3. Refresh skills doc index ───────────────────────────────────────────────
-echo "→ Refreshing skills index..."
-python3 "$REPO_DIR/skills/sync.py" --write 2>/dev/null || true
-
 echo ""
 echo "╔══════════════════════════════════════════╗"
 echo "║  Setup complete!                        ║"
