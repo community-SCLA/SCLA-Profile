@@ -71,7 +71,7 @@ scla/
 │                             products-services.md, faqs.md, community-platform.md
 ├── operations/             ← team-roster.md (canonical roster), current-state.md,
 │                             pain-points.md, automation-opportunities.md
-├── source-of-truth/        ← TEAM-OWNED: charter.md (canonical org facts), mission.md,
+├── source-of-truth/        ← charter.md (canonical org facts), mission.md,
 │                             team-handbook.md, onboarding.md, rituals.md,
 │                             program-names.md, voice-decisions.md
 ├── programs/               ← programs-overview.md, course-catalog.md, credentials-framework.md,
