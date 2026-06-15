@@ -1,13 +1,18 @@
 ---
 source: manual
 generated_by: source-of-truth-curator
-last_updated: 2026-06-11
+last_updated: 2026-06-12
 confidence: high
 ---
 
 # SCLA Decisions Log
 
 Running log of notable team decisions. Append new entries at the top.
+
+## 2026-06-12 — Structure audit: routing fixes + `references/` created
+**Decision:** Ran `/kb-audit` (scored 85/100, Stage 2; saved to `audits/audit-2026-06-12.md`) and fixed the routing/health defects it surfaced. Archived the stale `_inbox/INGEST_MANIFEST.md` (generated 2026-06-10, pre-restructure) to `_archive/INGEST_MANIFEST-pre-2026-06-11.md` so `/ingest` can't auto-fire on an already-organized repo. Repaired `scripts/lint-refs.sh` to exit 0 honestly: added `.remember/` to skip-paths, excluded `decisions/log.md` from the stale-path check (its migration entry legitimately cites the old path), and excluded `.svg` art files from the legacy-hex check. Corrected bare-filename backticks in GOVERNANCE.md to full paths, fixed a stale spec path in the kb-audit skill, removed a duplicate logo (`scla/brand/SCLA-Logo.svg`; identical copy kept in `assets/`), and listed `knowledge-base/TODOS.md` in MAP.md. Created the `references/` directory with `references/notion-api.md` as the first connected-tool reference; added it to the approved root layout and routing tables.
+**Rationale:** The framework was structurally sound but its own linter was failing and the ingest trigger was primed to re-fire — both erode the "routes effectively" guarantee. `references/` was the highest-leverage audit gap (six MCP tools wired, zero references).
+**Owner:** Kierra Woekel (executed by Claude)
 
 ## 2026-06-11 — Repo restructure: one-question-one-file framework completed
 **Decision:** Converged root docs into single question-owners: GUARDRAILS.md + EXPANSIONS.md merged into GOVERNANCE.md (originals archived in `_archive/` with dated names); MAP.md rewritten as an SCLA-real atlas; CLAUDE.md cut to routing only. This log moved `scla/source-of-truth/decisions-log.md` → `decisions/log.md` (framework-standard path, history preserved via `git mv`). Duplicated facts (identity, roster, goals, voice) trimmed to one canonical owner each with pointers; canonical-owner table lives in GOVERNANCE.md.
