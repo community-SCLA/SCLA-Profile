@@ -39,7 +39,7 @@ Every fact has exactly one home; every other mention is a quote + pointer.
 - `context/me.md` keeps a one-line org summary and brief name list — session boot needs it without extra loads.
 - `scla/source-of-truth/team-handbook.md` keeps its roster copy for standalone onboarding context (header notes the primary roster).
 - `scla/source-of-truth/charter.md` keeps the Q2 2026 success criteria (canonical copy; working copy is `context/goals.md`).
-- `scla/knowledge-base/faqs.md` keeps self-contained member-facing answers (it feeds AI triage); eligibility facts mirror `products-services.md` (canonical).
+- `scla/knowledge-base/faqs.md` keeps self-contained member-facing answers (it feeds AI triage); eligibility facts mirror `scla/knowledge-base/products-services.md` (canonical).
 - `scla/knowledge-base/people.md` keeps the platform admin-panel snapshot — unique account data, not a roster copy.
 
 ---
@@ -52,8 +52,8 @@ What is actually enforced by tooling today — nothing aspirational:
 - `hooks/skill-eval.sh` + `hooks/skill-rules.json` — skill routing on every prompt.
   The registry lists **implemented skills only**; routing to phantom skills is the
   framework's collapse failure mode.
-- `hooks/pre-tool.sh` / `post-tool.sh` / `stop.sh` — tool-budget logging.
-- `hooks/doctor.sh`, `context-mode-cache-heal.mjs`, `cleanup-worktrees.sh` — self-healing.
+- `hooks/pre-tool.sh` / `hooks/post-tool.sh` / `hooks/stop.sh` — tool-budget logging.
+- `hooks/doctor.sh`, `hooks/context-mode-cache-heal.mjs`, `hooks/cleanup-worktrees.sh` — self-healing.
 - `scripts/lint-refs.sh` — repo health linter (manual run; see Health Checks).
 
 ---
@@ -63,7 +63,7 @@ What is actually enforced by tooling today — nothing aspirational:
 Files: `CLAUDE.md`, `MAP.md`, `GOVERNANCE.md`, `connections.md`, `endpoints.md`,
 `scla.config.yml`, `sync.sh`, `.gitignore`.
 Directories: `.claude`, `_archive`, `_inbox`, `audits`, `context`, `decisions`, `docs`,
-`hooks`, `scla`, `scripts`, `templates` (plus gitignored `.remember/`).
+`hooks`, `references`, `scla`, `scripts`, `templates` (plus gitignored `.remember/`).
 
 Anything new at root needs a decisions-log entry first.
 
@@ -100,8 +100,9 @@ commit separately with prefix `structure:`.
 | `.claude/agents/` | A repeatable multi-step research/writing task emerges |
 | Scoped `CLAUDE.md` in a sub-area | A sub-project (major grant, new program) needs isolated context |
 
-**Future homes:** `references/` and `scheduled-tasks/` are intentionally absent. Create
-each only with its first real content, and log the creation.
+**Future homes:** `scheduled-tasks/` is intentionally absent. Create it only with its
+first real content, and log the creation. (`references/` now exists — add a
+`{tool}-api.md` per connected tool as integrations are wired.)
 
 ---
 
@@ -109,7 +110,7 @@ each only with its first real content, and log the creation.
 
 Run `bash scripts/lint-refs.sh` before any `structure:` commit and after any move/rename.
 It verifies: referenced paths exist, root word budgets hold (CLAUDE.md ≤600, MAP.md ≤700,
-GOVERNANCE.md ≤1000), no stale `decisions-log.md` paths, no template placeholders, critical
+GOVERNANCE.md ≤1000), no stale decisions-log.md paths, no template placeholders, critical
 files present, no stale brand hex values. Exit 0 = healthy.
 
 ---
