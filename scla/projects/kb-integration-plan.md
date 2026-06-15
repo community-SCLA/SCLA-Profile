@@ -120,7 +120,7 @@ Numbered flows:
 
 This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing reaches `faqs.md` without a human merge.
 
-**Unanswered questions** (when no staff reply ever comes) get appended to `scla/knowledge-base/pending-answers.md` weekly — matches the existing `TODOS.md` convention.
+**Unanswered questions** (when no staff reply ever comes) get appended to `scla/knowledge-base/pending-answers.md` weekly — matches the existing `scla/knowledge-base/TODOS.md` convention.
 
 ---
 
