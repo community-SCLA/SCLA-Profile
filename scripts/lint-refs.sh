@@ -19,7 +19,7 @@ filter_archives() { grep -v "^\./docs/_archive/" | grep -v "^docs/_archive/"; }
 # ── 1. Backtick path references in root governance files exist on disk ──────
 echo "[1/6] Backtick path references resolve"
 # Documented future homes + intentional non-paths (see GOVERNANCE.md "Future homes" / "What NOT to add")
-SKIP_PATHS="references/ scheduled-tasks/ .claude/agents/ scla/operations/sops/ notes/ misc/ tmp/ .env .env.example inbox/"
+SKIP_PATHS="references/ scheduled-tasks/ .claude/agents/ scla/operations/sops/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/"
 REF_FAIL=0
 for f in CLAUDE.md MAP.md GOVERNANCE.md; do
   while IFS= read -r ref; do
@@ -49,8 +49,9 @@ check_budget GOVERNANCE.md 1000
 
 # ── 3. No stale decisions-log paths ──────────────────────────────────────────
 echo "[3/6] No references to old decisions-log path"
+# decisions/log.md is excluded: its migration entry legitimately records the old path.
 HITS=$(grep -rn "${EXCLUDES[@]}" -e "source-of-truth/decisions-log" -e "](\./decisions-log" . 2>/dev/null |
-       filter_archives | grep -v "scripts/lint-refs.sh" || true)
+       filter_archives | grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" || true)
 if [ -n "$HITS" ]; then warn "stale decisions-log references:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 4. No template placeholders ──────────────────────────────────────────────
@@ -74,11 +75,13 @@ done
 
 # ── 6. Stale brand hex values ────────────────────────────────────────────────
 echo "[6/6] No stray legacy hex values outside flagged locations"
-# Allowed: assets/index.md (describes SVG file contents) and scla/projects/video-production/
+# Intent: catch legacy hex hardcoded in docs, not in the actual art. Allowed:
+# .svg files (the logo source art legitimately carries these colors),
+# assets/index.md (describes the SVG file contents), and scla/projects/video-production/
 # (carries a TODO [TEAM DECISION] flag until the team picks the canonical set).
 HITS=$(grep -rni "${EXCLUDES[@]}" -e "#F1B32E" -e "#55A4DD" . 2>/dev/null | filter_archives |
-       grep -v "scla/brand/assets/index.md" | grep -v "scla/projects/video-production/" |
-       grep -v "scripts/lint-refs.sh" || true)
+       grep -v '\.svg:' | grep -v "scla/brand/assets/index.md" |
+       grep -v "scla/projects/video-production/" | grep -v "scripts/lint-refs.sh" || true)
 if [ -n "$HITS" ]; then warn "legacy hex values found:"$'\n'"$HITS"; else ok "none found"; fi
 
 echo
