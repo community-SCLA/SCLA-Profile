@@ -32,6 +32,7 @@ Dynamic session memory lives in `.remember/` (gitignored, local-only — handoff
 | Look up a program | `scla/programs/programs-overview.md` |
 | Work on a grant | `scla/projects/grants/` (one folder per grant + RFP briefs) |
 | Work on video production | `scla/projects/video-production/CLAUDE.md` |
+| Member support operating model | `scla/projects/member-support-integration.md` |
 | Review past decisions | `decisions/log.md` |
 | Debug an integration | `connections.md` |
 | Learn how a tool connects (endpoints, auth, queries) | `references/{tool}-api.md` |

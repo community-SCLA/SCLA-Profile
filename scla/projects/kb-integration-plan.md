@@ -4,7 +4,9 @@
 
 `scla/knowledge-base/faqs.md` is now the curated source of truth for member-facing answers, organized into 6 routes (GENERAL, MEMBERSHIP, PAYMENTS, PROGRAMS, ACCOUNT, ADMINISTRATOR) and authored with explicit `<!-- route: -->` tags. Today it lives only as a markdown file the staff reads. The team's pain points are concrete: email triage is manual (`scla/operations/current-state.md`), Google Groups workarounds are broken (`scla/operations/pain-points.md`), and a "Slack AI agent" and "Apps Script email triage" are already on the wish list (`scla/operations/automation-opportunities.md`, items #3 and #4). The member dashboard is custom code we can edit, the AMA channel lives on the website, and the team operates in Google Workspace + Slack.
 
-This plan describes how to plug `faqs.md` into three surfaces — Gmail, the website (member dashboard), and Slack — and how to feed every real exchange back into the repo so the knowledge base grows on its own. Stack choice: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the glue, **GitHub** as the system of record.
+This plan describes how to plug `faqs.md` into four surfaces — Gmail, the website (member dashboard), Slack, and the member **portal/dashboard messaging** system — and how to feed every real exchange back into the repo so the knowledge base grows on its own. Stack choice: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the glue, **GitHub** as the system of record.
+
+> **Cross-channel dedup/merge** (a member contacts support on both email and dashboard about the same issue) is owned by the **case/queue layer**, not by this KB plan. See `scla/projects/member-support-integration.md` for the unified operating model.
 
 Decisions locked in:
 - Dashboard stack: custom React/Next we can edit → embed a native widget
