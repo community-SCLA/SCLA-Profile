@@ -1,9 +1,3 @@
----
-source:
-  - docs/_archive/source-dumps/community-learning/member-support/scla-membership-team-two-tier-communication-sop.md
-last_updated: 2026-06-16
-version: 2.0
----
 
 # SCLA Member Support System — Integration Spec
 
@@ -18,9 +12,9 @@ version: 2.0
 This spec defines the full member support system: a unified queue that consolidates every inbound channel, an AI-assisted triage and answering layer grounded in `faqs.md`, and a feedback loop that continuously grows the knowledge base from real member interactions. It covers the operating model (who owns what and how SLAs work) and the technical surfaces (Gmail, website/dashboard chat, Slack, and the future member portal).
 
 Current team pain points this directly addresses:
-- Email triage is manual (`scla/operations/current-state.md`)
-- Google Groups workarounds are broken (`scla/operations/pain-points.md`)
-- A "Slack AI agent" and "Apps Script email triage" are already on the automation wish list (`scla/operations/automation-opportunities.md`, items #3 and #4)
+- Email triage is manual 
+- No single source of truth for FAQ's (spread across multiple Google docs.)
+- Q's submitted across multiple surfaces and not captured into a centralized DB.
 
 Stack: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the glue for email and Slack, a **Cloud Function** for the chat backend, **GitHub** as the system of record for all answer content.
 
@@ -77,7 +71,7 @@ Numbered flows:
 
 ### ① Intake
 
-Gmail (`community@thescla.org`), the website chat widget, Slack, and the member portal all converge into a single unified queue. Each inbound message becomes a **case** with a case ID, a timestamp, a source label, and an SLA clock. If the same person contacts support on two different channels about the same issue within a 48-hour window, the queue platform merges those into one case — the member sees one coherent thread; the team works one ticket.
+Gmail, the website chat widget, Slack, and the member portal all converge into a single unified queue. Each inbound message becomes a **case** with a case ID, a timestamp, a source label, and an SLA clock. If the same person contacts support on two different channels about the same issue within a 48-hour window, the queue platform merges those into one case — the member sees one coherent thread; the team works one ticket.
 
 ### ② Triage
 
