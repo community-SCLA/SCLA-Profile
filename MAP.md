@@ -36,7 +36,7 @@ Dynamic session memory lives in `.remember/` (gitignored, local-only — handoff
 | Debug an integration | `connections.md` |
 | Look up an endpoint ID | `endpoints.md` |
 | Start a new project | `templates/` + `/new-from-template` |
-| Trace a fact to its source | `docs/_archive/source-dumps/README.md` (index only) |
+| Trace a fact to its source | `_archive/source-dumps/README.md` (index only) |
 
 ---
 
@@ -91,8 +91,7 @@ scripts/           ← setup.sh, merge-settings.py, lint-refs.sh (repo health li
 templates/         ← project-campaign / content / grant / program scaffolds
 audits/            ← kb-audit score snapshots
 _inbox/            ← ingest staging (INGEST_MANIFEST.md triggers /ingest)
-_archive/          ← superseded root files, orphaned docs (dated names)
-docs/_archive/     ← raw Drive source dumps — provenance only, never load by default
+_archive/          ← superseded framework docs (dated names) + source-dumps/ (raw Drive exports — provenance only, never load by default)
 ```
 
 ---
@@ -100,4 +99,4 @@ docs/_archive/     ← raw Drive source dumps — provenance only, never load by
 ## Not here (by design)
 
 - `references/`, `scheduled-tasks/` — don't exist yet; create when real content exists (see GOVERNANCE.md "Future homes").
-- Raw source material — only in `docs/_archive/source-dumps/`, reached via `source:` citations.
+- Raw source material — only in `_archive/source-dumps/`, reached via `source:` citations.

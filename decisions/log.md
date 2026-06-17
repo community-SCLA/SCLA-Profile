@@ -9,6 +9,11 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-06-17 — Archive consolidation: docs/ removed, source-dumps moved to _archive/
+**Decision:** Eliminated the `docs/` root folder entirely. `docs/` existed solely as a wrapper around `docs/_archive/source-dumps/` — it had no other purpose and created a confusing second archive location alongside the already-approved root `_archive/`. Moved `source-dumps/` directly into `_archive/source-dumps/`. Updated all references in CLAUDE.md, MAP.md, GOVERNANCE.md, and `hooks/governance-check.sh`. Removed `docs` from the approved root layout in both GOVERNANCE.md and the governance hook. Note: the 2026-06-16 decisions log entry references the old path `docs/_archive/source-dumps/community-learning/member-support/...`; the canonical path is now `_archive/source-dumps/community-learning/member-support/...`.
+**Rationale:** One archive location (`_archive/`) with a clear subfolder (`source-dumps/`) is less confusing than two archive paths with different names. Raw exports now live at `_archive/source-dumps/` and are covered by the existing "never load by default" rule in CLAUDE.md.
+**Owner:** SCLA Community Team (executed by Claude)
+
 ## 2026-06-17 — Governance hooks added: structural enforcement for new files and folders
 **Decision:** Created `hooks/governance-check.sh` and registered all hooks in `.claude/settings.json`. The governance hook fires as a PreToolUse check on Write and Bash tool calls and enforces six rules from GOVERNANCE.md: (1) banned directory names (`notes/`, `misc/`, `tmp/`, `inbox/`); (2) new root-level items must be in the approved layout; (3) no parallel decisions log files; (4) CLAUDE.md only at root or under `scla/projects/`; (5) future-home placeholders (`scheduled-tasks/`, `sops/`) require real content; (6) `_archive` not `archive` naming. Also wired the previously-orphaned `pre-tool.sh`, `post-tool.sh`, `stop.sh`, and `skill-eval.sh` hooks into `settings.json` — they were documented in GOVERNANCE.md as hard stops but were not registered.
 **Rationale:** The governance rules existed in GOVERNANCE.md but nothing enforced them at the moment of creation. Now structural violations are blocked before they land in the repo rather than caught in a manual lint-refs run.
