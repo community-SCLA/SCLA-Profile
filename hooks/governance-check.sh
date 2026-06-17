@@ -76,7 +76,7 @@ normalise() {
 APPROVED_ROOT=(
   CLAUDE.md MAP.md GOVERNANCE.md connections.md endpoints.md
   scla.config.yml sync.sh .gitignore
-  .claude _archive _inbox audits context decisions docs hooks
+  .claude _archive _inbox audits context decisions hooks
   references scla scripts templates .remember .env
 )
 

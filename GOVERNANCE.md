@@ -12,7 +12,7 @@ The single rulebook. Merges the former GUARDRAILS.md and EXPANSIONS.md (archived
 1. **Never fabricate SCLA facts.** If it's not in the files, mark it `TODO: needs input`.
    No guessed numbers, names, dates, or quotes — ever.
 2. **Prefer quoting over paraphrasing.** Keep traceability: cite into
-   `docs/_archive/source-dumps/` (never into deleted ingest paths).
+   `_archive/source-dumps/` (never into deleted ingest paths).
 3. **`scla/source-of-truth/` is team-owned.** Treat it as authoritative. Surgical edits
    (pointers, confirmed-fact updates, dedup trims) are allowed only when each change is
    named explicitly in the commit message. Never rewrite wholesale without instruction.
@@ -62,8 +62,8 @@ What is actually enforced by tooling today — nothing aspirational:
 
 Files: `CLAUDE.md`, `MAP.md`, `GOVERNANCE.md`, `connections.md`, `endpoints.md`,
 `scla.config.yml`, `sync.sh`, `.gitignore`.
-Directories: `.claude`, `_archive`, `_inbox`, `audits`, `context`, `decisions`, `docs`,
-`hooks`, `scla`, `scripts`, `templates` (plus gitignored `.remember/`).
+Directories: `.claude`, `_archive`, `_inbox`, `audits`, `context`, `decisions`,
+`hooks`, `references`, `scla`, `scripts`, `templates` (plus gitignored `.remember/`).
 
 Anything new at root needs a decisions-log entry first.
 
@@ -83,7 +83,7 @@ reflect actual behavior only; never silently remove a rule — replace it with a
 commit separately with prefix `structure:`.
 
 **What NOT to add:**
-- Raw Drive exports into `scla/` or anywhere live — interpreted facts only; raw goes to `docs/_archive/source-dumps/`.
+- Raw Drive exports into `scla/` or anywhere live — interpreted facts only; raw goes to `_archive/source-dumps/`.
 - `notes/`, `misc/`, `tmp/` folders — graveyards.
 - Pre-created empty folders — structure reflects actual usage, not hoped-for usage.
 - A second `CLAUDE.md` at root or a parallel decisions file — one log: `decisions/log.md`.

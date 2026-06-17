@@ -39,13 +39,13 @@ Load these selectively as needed — not all at once.
 
 ## Provenance — do not load by default
 
-`docs/_archive/source-dumps/` holds **raw, unedited Google Drive exports** kept only so the
+`_archive/source-dumps/` holds **raw, unedited Google Drive exports** kept only so the
 curated pages above stay traceable. It is ~2 MB of source material with one file per Drive doc.
 
 - **Do not read these files into context** unless you are tracing a specific citation.
 - Start from the curated `scla/` pages; follow a `source:` link into the archive only when you
   need the underlying detail.
-- The index at `docs/_archive/source-dumps/README.md` maps each slug to its original Drive path.
+- The index at `_archive/source-dumps/README.md` maps each slug to its original Drive path.
 
 ---
 
@@ -62,7 +62,7 @@ curated pages above stay traceable. It is ~2 MB of source material with one file
 One-liners — full text and rationale in `GOVERNANCE.md`.
 
 - **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
-- **Prefer quoting over paraphrasing** — cite into `docs/_archive/source-dumps/`.
+- **Prefer quoting over paraphrasing** — cite into `_archive/source-dumps/`.
 - **`scla/source-of-truth/` is team-owned** — don't overwrite without explicit instruction.
 - **Credentials go in `.env` only** — never hardcoded.
 - **Log structural changes** in `decisions/log.md`; push with `./sync.sh`.
