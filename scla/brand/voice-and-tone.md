@@ -32,7 +32,7 @@ Original five samples from search-index snippets are preserved; 15 new samples a
 
 ### From search-index snippets (source: `https://www.thescla.org`)
 
-*Samples 1–2 are the org identity statement — canonical owner: `scla/source-of-truth/charter.md`. If the wording changes there, update these samples.*
+*Samples 1–2 are the org identity statement — canonical owner: `_archive/source-of-truth/charter.md`. If the wording changes there, update these samples.*
 
 1. "The Society for Collegiate Leadership & Achievement (SCLA) is the leading
    College-to-Career Honor Society."

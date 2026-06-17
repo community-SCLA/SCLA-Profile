@@ -13,7 +13,7 @@ version: 2.0
 
 ## Context
 
-`scla/knowledge-base/faqs.md` is the curated source of truth for member-facing answers, organized across six routes with explicit `<!-- route: -->` tags. Today, member support is manual and siloed: email triage happens by hand, Google Groups workarounds are unreliable, and questions arriving on different channels are handled inconsistently — sometimes by the wrong person, sometimes after too long a delay. The result is unpredictable response times, duplicated effort, and institutional knowledge that lives in inboxes rather than a shared base.
+`scla/member-support/faqs.md` is the curated source of truth for member-facing answers, organized across six routes with explicit `<!-- route: -->` tags. Today, member support is manual and siloed: email triage happens by hand, Google Groups workarounds are unreliable, and questions arriving on different channels are handled inconsistently — sometimes by the wrong person, sometimes after too long a delay. The result is unpredictable response times, duplicated effort, and institutional knowledge that lives in inboxes rather than a shared base.
 
 This spec defines the full member support system: a unified queue that consolidates every inbound channel, an AI-assisted triage and answering layer grounded in `faqs.md`, and a feedback loop that continuously grows the knowledge base from real member interactions. It covers the operating model (who owns what and how SLAs work) and the technical surfaces (Gmail, website/dashboard chat, Slack, and the future member portal).
 
@@ -32,7 +32,7 @@ Stack: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the gl
   INTAKE SURFACES                QUEUE LAYER             KNOWLEDGE BASE
   ─────────────────────         ─────────────          ────────────────────────
                                                         SCLA-Profile repo
-  Gmail ───────────────┐                              scla/knowledge-base/
+  Gmail ───────────────┐                              scla/member-support/
   Website chat ────────┼──▶  unified case queue  ◀─── faqs.md  (source of truth)
   Slack /askscla ──────┤     (route + tier tags)            │
   Member portal ───────┘            │                       │ (1) push → build
@@ -149,7 +149,7 @@ The majority of inbound member contact arrives by email today. This surface is a
 | Path | Purpose |
 |---|---|
 | `integrations/gmail-apps-script/Code.gs` | Main handler, trigger registration, Gemini call, label management |
-| `integrations/gmail-apps-script/prompts/system.md` | Grounded prompt (uses `faqs.json` + voice from `scla/source-of-truth/voice-decisions.md`) |
+| `integrations/gmail-apps-script/prompts/system.md` | Grounded prompt (uses `faqs.json` + voice from `_archive/source-of-truth/voice-decisions.md`) |
 | `integrations/gmail-apps-script/README.md` | Deploy instructions, Script Property key names |
 
 Update `endpoints.md`: Gmail label IDs, Apps Script project ID. Gemini API key goes in Script Properties — never in the repo.
@@ -269,7 +269,7 @@ How each surface writes to it:
   - Opens a PR titled `kb: harvest N new Q&As from <sources>`, labeled `kb-harvest`, assigned to Amy (backup: Kierra)
 - Staff reviews the PR diff. Merging = canonical. The publish workflow fires on merge, rebuilding `faqs.json` and propagating to all surfaces within 5 minutes.
 
-**Unanswered questions** — cases where no staff reply ever arrives — are appended weekly to `scla/knowledge-base/pending-answers.md` so they surface as explicit knowledge gaps, not silent failures.
+**Unanswered questions** — cases where no staff reply ever arrives — are appended weekly to `scla/member-support/pending-answers.md` so they surface as explicit knowledge gaps, not silent failures.
 
 This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing reaches `faqs.md` without a human merge decision.
 
@@ -294,7 +294,7 @@ This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing re
 | `scripts/harvest-from-sheet.js` | Reads capture queue, opens KB PRs |
 | `.github/workflows/publish-faqs.yml` | Runs build + Drive upload on push to `main` |
 | `.github/workflows/harvest-faqs.yml` | Nightly harvester (06:00 UTC) |
-| `scla/knowledge-base/pending-answers.md` | Unanswered-question overflow file |
+| `scla/member-support/pending-answers.md` | Unanswered-question overflow file |
 
 **Modified:**
 
@@ -317,8 +317,8 @@ This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing re
 | Asset | How it's reused |
 |---|---|
 | `faqs.md` frontmatter `route_map` | Fed directly to Gemini as routing rules; no hand-coded routing logic needed |
-| `scla/source-of-truth/voice-decisions.md` | Dropped into the system prompt so all surfaces sound like SCLA |
-| `scla/knowledge-base/glossary.md` | Included as Gemini context so the AI knows internal acronyms |
+| `_archive/source-of-truth/voice-decisions.md` | Dropped into the system prompt so all surfaces sound like SCLA |
+| `scla/member-support/glossary.md` | Included as Gemini context so the AI knows internal acronyms |
 | Existing MCP connections (Gmail, Slack, Drive) | Used for local dev and manual ops; production traffic goes through Apps Script + Cloud Function with service-account auth |
 | `sync.sh` pattern | The publish workflow follows the same "main branch only, push, update workspace submodule" convention |
 
@@ -377,7 +377,7 @@ Each phase ships independently and can be paused without breaking prior phases.
 | # | Question | Proposed default |
 |---|---|---|
 | 1 | **Queue platform** — which tool hosts the unified case queue (Help Scout, Front, Zendesk, or a custom Sheet-based tracker)? | Decide before Phase A |
-| 2 | **Drive folder for `faqs.json`** — new `SCLA/knowledge-base/published/` folder, or drop into an existing one? | Create new folder |
+| 2 | **Drive folder for `faqs.json`** — new `SCLA/member-support/published/` folder, or drop into an existing one? | Create new folder |
 | 3 | **Capture queue Sheet** — new Sheet titled `KB Capture Queue` in Community Drive, or extend an existing tracker? | Create new Sheet |
 | 4 | **Gemini project** — does the team have an existing Google AI Studio / Vertex project, or does one need to be created? | Confirm before Phase A |
 | 5 | **`kb-harvest` PR reviewer** — Amy as default, Kierra as backup | Confirm with team |

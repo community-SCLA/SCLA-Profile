@@ -204,4 +204,4 @@ Phase 1 (Weeks 1–2) priorities:
 - [community-platform.md](./community-platform.md) — this file
 - [programs/scla-leadership-program.md](../programs/scla-leadership-program.md) — the credentialed program that feeds into community
 - [operations/team-roster.md](../operations/team-roster.md) — community team handles
-- [source-of-truth/onboarding.md](../source-of-truth/onboarding.md) — first-week checklist for new team members
+- [_archive/source-of-truth/onboarding.md](../../_archive/source-of-truth/onboarding.md) — first-week checklist for new team members (archived provenance)

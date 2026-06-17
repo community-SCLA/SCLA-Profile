@@ -158,4 +158,4 @@ To drive credential completion, the education team is building:
 
 - [course-catalog.md](./course-catalog.md) — all courses that feed into credentials
 - [scla-leadership-program.md](./scla-leadership-program.md) — the primary credentialed program
-- [knowledge-base/products-and-services.md](../knowledge-base/products-and-services.md) — Career Readiness Certification as a member benefit
+- [member-support/products-and-services.md](../member-support/products-and-services.md) — Career Readiness Certification as a member benefit

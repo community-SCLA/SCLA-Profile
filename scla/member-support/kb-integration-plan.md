@@ -2,7 +2,7 @@
 
 ## Context
 
-`scla/knowledge-base/faqs.md` is now the curated source of truth for member-facing answers, organized into 6 routes (GENERAL, MEMBERSHIP, PAYMENTS, PROGRAMS, ACCOUNT, ADMINISTRATOR) and authored with explicit `<!-- route: -->` tags. Today it lives only as a markdown file the staff reads. The team's pain points are concrete: email triage is manual (`scla/operations/current-state.md`), Google Groups workarounds are broken (`scla/operations/pain-points.md`), and a "Slack AI agent" and "Apps Script email triage" are already on the wish list (`scla/operations/automation-opportunities.md`, items #3 and #4). The member dashboard is custom code we can edit, the AMA channel lives on the website, and the team operates in Google Workspace + Slack.
+`scla/member-support/faqs.md` is now the curated source of truth for member-facing answers, organized into 6 routes (GENERAL, MEMBERSHIP, PAYMENTS, PROGRAMS, ACCOUNT, ADMINISTRATOR) and authored with explicit `<!-- route: -->` tags. Today it lives only as a markdown file the staff reads. The team's pain points are concrete: email triage is manual (`scla/operations/current-state.md`), Google Groups workarounds are broken (`scla/operations/pain-points.md`), and a "Slack AI agent" and "Apps Script email triage" are already on the wish list (`scla/operations/automation-opportunities.md`, items #3 and #4). The member dashboard is custom code we can edit, the AMA channel lives on the website, and the team operates in Google Workspace + Slack.
 
 This plan describes how to plug `faqs.md` into four surfaces — Gmail, the website (member dashboard), Slack, and the member **portal/dashboard messaging** system — and how to feed every real exchange back into the repo so the knowledge base grows on its own. Stack choice: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the glue, **GitHub** as the system of record.
 
@@ -20,7 +20,7 @@ Decisions locked in:
 ```
                 ┌──────────────────────────────────────────┐
                 │   SCLA-Profile repo (this repo, GitHub)  │
-                │   scla/knowledge-base/faqs.md  (truth)   │
+                │   scla/member-support/faqs.md  (truth)   │
                 └───────────────┬──────────────────────────┘
                                 │ (1) publish on push
                 ▼                                            ▲
@@ -61,7 +61,7 @@ Numbered flows:
 
 **Key files / endpoints to create**
 - `integrations/gmail-apps-script/Code.gs` — main handler
-- `integrations/gmail-apps-script/prompts/system.md` — grounded prompt (uses faqs.json + voice from `scla/source-of-truth/voice-decisions.md`)
+- `integrations/gmail-apps-script/prompts/system.md` — grounded prompt (uses faqs.json + voice from `_archive/source-of-truth/voice-decisions.md`)
 - Populate `endpoints.md`: Gmail label IDs, Apps Script project ID, Gemini API key in Script Properties (NOT in repo, per CLAUDE.md credential rule)
 
 **Why Apps Script over a custom backend:** native Gmail access, no hosting cost, lives where the team already operates. Matches automation opportunity #3.
@@ -122,7 +122,7 @@ Numbered flows:
 
 This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing reaches `faqs.md` without a human merge.
 
-**Unanswered questions** (when no staff reply ever comes) get appended to `scla/knowledge-base/pending-answers.md` weekly — matches the existing `scla/knowledge-base/TODOS.md` convention.
+**Unanswered questions** (when no staff reply ever comes) get appended to `scla/member-support/pending-answers.md` weekly — matches the existing `scla/member-support/TODOS.md` convention.
 
 ---
 
@@ -137,7 +137,7 @@ This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing 
 - `scripts/harvest-from-sheet.js` — nightly harvester that opens KB PRs
 - `.github/workflows/publish-faqs.yml` — runs build + Drive upload on push to main
 - `.github/workflows/harvest-faqs.yml` — nightly harvester
-- `scla/knowledge-base/pending-answers.md` — overflow file for unanswered questions
+- `scla/member-support/pending-answers.md` — overflow file for unanswered questions
 
 **Modified:**
 - `endpoints.md` — fill in Gmail label IDs, Slack channel/app IDs, Drive folder ID, Cloud Function URL, Sheet ID (all TODO today)
@@ -152,8 +152,8 @@ This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing 
 ## Reuse already in place — don't rebuild
 
 - `faqs.md` frontmatter `route_map` — feed it straight to Gemini as routing rules; no hand-coded routing logic needed
-- `scla/source-of-truth/voice-decisions.md` — drop into the system prompt so all three surfaces sound like SCLA
-- `scla/knowledge-base/glossary.md` — include as context so the AI knows internal acronyms
+- `_archive/source-of-truth/voice-decisions.md` — drop into the system prompt so all three surfaces sound like SCLA
+- `scla/member-support/glossary.md` — include as context so the AI knows internal acronyms
 - `sync.sh` — the publish workflow follows the same "main branch only, push, update workspace" pattern
 - Existing MCP connections (Gmail, Slack, Drive) — used for local dev & manual ops; production traffic goes through Apps Script + Cloud Function with service-account auth
 
@@ -197,7 +197,7 @@ This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing 
 
 ## Open questions to resolve before implementation
 
-1. **Drive folder for `faqs.json`** — create a new `SCLA/knowledge-base/published/` folder, or drop into an existing one?
+1. **Drive folder for `faqs.json`** — create a new `SCLA/member-support/published/` folder, or drop into an existing one?
 2. **Capture queue Sheet** — new Sheet titled `KB Capture Queue` in Community Drive, or extend an existing tracker?
 3. **Gemini project** — does the team have an existing Google AI Studio / Vertex project, or does one need to be created?
 4. **Who owns `kb-harvest` PR review?** — proposed: Amy default, Kierra backup.

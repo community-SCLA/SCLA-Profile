@@ -98,4 +98,4 @@ The flagship credentialed program for SCLA members. Built around three core obje
 
 - [programs-overview.md](./programs-overview.md) — full program list
 - [credentials-framework.md](./credentials-framework.md) — how credentials and badges are structured
-- [source-of-truth/program-names.md](../source-of-truth/program-names.md) — canonical names
+- [_archive/source-of-truth/program-names.md](../../_archive/source-of-truth/program-names.md) — canonical names (archived provenance)

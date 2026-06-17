@@ -22,13 +22,13 @@ Dynamic session memory lives in `.remember/` (gitignored, local-only — handoff
 
 | I need to... | Load this |
 | --- | --- |
-| Know what SCLA is / org facts | `scla/source-of-truth/charter.md` (canonical) |
+| Know what SCLA is / org facts | `_archive/source-of-truth/charter.md` (archived provenance) |
 | Check current goals or priorities | `context/goals.md`, `context/current-priorities.md` |
 | Look up brand colors, logo, type | `scla/brand/visual-identity.md` |
 | Write in SCLA's voice | `scla/brand/voice-and-tone.md` |
 | Check brand naming/tagline facts | `scla/brand/brand-guide.md` |
 | Find a team member or role | `scla/operations/team-roster.md` |
-| Answer a member-facing question | `scla/knowledge-base/faqs.md` |
+| Answer a member-facing question | `scla/member-support/faqs.md` |
 | Look up a program | `scla/programs/programs-overview.md` |
 | Work on a grant | `scla/projects/grants/` (one folder per grant + RFP briefs) |
 | Work on video production | `scla/projects/video-production/CLAUDE.md` |
@@ -67,14 +67,12 @@ context/
 scla/
 ├── brand/                  ← visual-identity.md (colors/type, canonical), voice-and-tone.md,
 │                             brand-guide.md, assets/ (SVG logos + index.md)
-├── knowledge-base/         ← index.md (AI-facing org summary), glossary.md, people.md,
+├── member-support/         ← index.md (AI-facing org summary), glossary.md, people.md,
 │                             products-services.md, faqs.md, community-platform.md,
-│                             TODOS.md (gap tracker — pages still needing staff input)
+│                             TODOS.md (gap tracker), kb-integration-plan.md,
+│                             member-support-integration.md
 ├── operations/             ← team-roster.md (canonical roster), current-state.md,
 │                             pain-points.md, automation-opportunities.md
-├── source-of-truth/        ← TEAM-OWNED: charter.md (canonical org facts), mission.md,
-│                             team-handbook.md, onboarding.md, rituals.md,
-│                             program-names.md, voice-decisions.md
 ├── programs/               ← programs-overview.md, course-catalog.md, credentials-framework.md,
 │                             scla-leadership-program.md, career-readiness-accelerator.md
 ├── partnerships/           ← NIC.md
@@ -91,7 +89,9 @@ scripts/           ← setup.sh, merge-settings.py, lint-refs.sh (repo health li
 templates/         ← project-campaign / content / grant / program scaffolds
 audits/            ← kb-audit score snapshots
 _inbox/            ← ingest staging (INGEST_MANIFEST.md triggers /ingest)
-_archive/          ← superseded framework docs (dated names) + source-dumps/ (raw Drive exports — provenance only, never load by default)
+_archive/          ← superseded framework docs (dated names) + source-dumps/ (raw Drive exports —
+                     provenance only, never load by default) + source-of-truth/ (archived charter,
+                     handbook, onboarding — read-only provenance)
 ```
 
 ---
