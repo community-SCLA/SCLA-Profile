@@ -69,8 +69,7 @@ scla/
 │                             brand-guide.md, assets/ (SVG logos + index.md)
 ├── member-support/         ← index.md (AI-facing org summary), glossary.md, people.md,
 │                             products-services.md, faqs.md, community-platform.md,
-│                             TODOS.md (gap tracker), kb-integration-plan.md,
-│                             member-support-integration.md
+│                             kb-integration-plan.md, member-support-integration.md
 ├── operations/             ← team-roster.md (canonical roster), current-state.md,
 │                             pain-points.md, automation-opportunities.md
 ├── programs/               ← programs-overview.md, course-catalog.md, credentials-framework.md,
@@ -91,7 +90,8 @@ audits/            ← kb-audit score snapshots
 _inbox/            ← ingest staging (INGEST_MANIFEST.md triggers /ingest)
 _archive/          ← superseded framework docs (dated names) + source-dumps/ (raw Drive exports —
                      provenance only, never load by default) + source-of-truth/ (archived charter,
-                     handbook, onboarding — read-only provenance)
+                     handbook, onboarding — read-only provenance) + member-support/TODOS.md
+                     (archived gap tracker)
 ```
 
 ---
