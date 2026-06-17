@@ -82,4 +82,4 @@ The items below are resolved or updated based on full HTML page exports (scraped
 - For marketing copy: start with [`voice-and-tone.md`](./voice-and-tone.md).
 - For design work: start with [`visual-identity.md`](./visual-identity.md).
 - For every logo and image: check [`assets/index.md`](./assets/index.md).
-- To upgrade confidence from low to high: see [`TODOS.md`](./TODOS.md).
+- To upgrade confidence from low to high: see [`TODOS.md`](../../_archive/member-support/TODOS.md).
