@@ -15,7 +15,7 @@ confidence: medium
 ## What this brand is about
 
 SCLA describes itself as "the leading College-to-Career Honor Society."
-Canonical identity statement: `scla/source-of-truth/charter.md`.
+Canonical identity statement: `_archive/source-of-truth/charter.md`.
 
 This positioning — academic recognition paired with practical career tools at
 scale (100,000+ members, 850+ campuses) — is the only confirmed framing
@@ -37,7 +37,7 @@ pending real page exports or client-supplied brand materials.
 | Page title (from search index) | "SCLA Honor Society \| From Campus to Career" |
 | Industry | Higher education / education services |
 | Website | https://www.thescla.org |
-| Org facts (founded, founder, scale, HQ) | See `scla/source-of-truth/charter.md` (canonical) |
+| Org facts (founded, founder, scale, HQ) | See `_archive/source-of-truth/charter.md` (canonical) |
 | Primary color | `#0d2437` (Dark Navy) — confirmed from thescla.org production CSS, June 2026 |
 | Accent color | `#eaab2d` (Yellow) — CTA buttons and highlights |
 | Secondary color | `#3393d6` (Blue) — H3–H6, links, accents |

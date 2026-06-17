@@ -24,7 +24,7 @@ All definitions are derived from Google search-index snippets. Terms marked **TO
 
 — *source: https://www.thescla.org & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
 
-Canonical identity statement and founding facts (dates, founder): [scla/source-of-truth/charter.md](../source-of-truth/charter.md)
+Canonical identity statement and founding facts (dates, founder): [_archive/source-of-truth/charter.md](../../_archive/source-of-truth/charter.md) (archived provenance)
 
 **Related:** [products-services.md](./products-services.md), [people.md](./people.md)
 

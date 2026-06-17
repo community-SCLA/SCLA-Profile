@@ -16,7 +16,7 @@ Load these selectively as needed — not all at once.
 
 | File | What's in it |
 | --- | --- |
-| `context/me.md` | What SCLA is, who we serve, org identity (boot summary — canonical facts live in `scla/source-of-truth/charter.md`) |
+| `context/me.md` | What SCLA is, who we serve, org identity (boot summary — canonical facts live in `_archive/source-of-truth/charter.md`) |
 | `context/goals.md` | What we're trying to accomplish |
 | `context/current-priorities.md` | Active work and near-term focus |
 
@@ -27,9 +27,8 @@ Load these selectively as needed — not all at once.
 | Area | Path | Purpose |
 | --- | --- | --- |
 | Brand | `scla/brand/` | Voice, tone, visual identity, brand guide |
-| Knowledge Base | `scla/knowledge-base/` | Glossary, people, products & services, FAQs |
+| Member Support | `scla/member-support/` | Glossary, people, products & services, FAQs, member support integration |
 | Operations | `scla/operations/` | Team roster, how the team operates, pain points, automation opps |
-| Source of Truth | `scla/source-of-truth/` | Charter, team handbook, onboarding — **team-owned** |
 | Programs | `scla/programs/` | Program documentation |
 | Partnerships | `scla/partnerships/` | Partner orgs (e.g. NIC) |
 | Projects | `scla/projects/` | Active project tracking — grants (briefs + RFP working docs), video production |
@@ -63,6 +62,6 @@ One-liners — full text and rationale in `GOVERNANCE.md`.
 
 - **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
 - **Prefer quoting over paraphrasing** — cite into `_archive/source-dumps/`.
-- **`scla/source-of-truth/` is team-owned** — don't overwrite without explicit instruction.
+- **`_archive/source-of-truth/` is archived** — read-only provenance; do not edit or move back.
 - **Credentials go in `.env` only** — never hardcoded.
 - **Log structural changes** in `decisions/log.md`; push with `./sync.sh`.

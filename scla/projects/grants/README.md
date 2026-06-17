@@ -10,9 +10,9 @@ Active grant applications, funder research, and award tracking.
 
 ## Key sources to reference
 
-- `scla/source-of-truth/mission.md` — mission statement and success criteria
-- `scla/source-of-truth/program-names.md` — canonical program names (use these exactly)
-- `scla/knowledge-base/` — SCLA history, FAQs, and org facts
+- `_archive/source-of-truth/mission.md` — mission statement and success criteria (archived provenance)
+- `_archive/source-of-truth/program-names.md` — canonical program names (use these exactly; archived provenance)
+- `scla/member-support/` — SCLA history, FAQs, and org facts
 
 ## Status lifecycle
 

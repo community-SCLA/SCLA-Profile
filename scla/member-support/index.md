@@ -13,7 +13,7 @@ confidence: low
 
 The leading College-to-Career Honor Society — 100,000+ members, 850+ partner campuses.
 
-> Canonical identity statement and org facts (founding, founder, HQ, values): [scla/source-of-truth/charter.md](../source-of-truth/charter.md)
+> Canonical identity statement and org facts (founding, founder, HQ, values): [_archive/source-of-truth/charter.md](../../_archive/source-of-truth/charter.md) (archived provenance)
 
 **Industry:** Higher education / education services
 **Website:** https://www.thescla.org

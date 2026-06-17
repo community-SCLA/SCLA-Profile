@@ -27,7 +27,7 @@ Every SCLA program is organized around three pillars — **Connections, Credenti
 | Career Readiness Accelerator | [career-readiness-accelerator.md](./career-readiness-accelerator.md) | 5-week Launchpad — inner work to outward career success |
 | Course Catalog | [course-catalog.md](./course-catalog.md) | All courses: Brand You, Hidden Job Market, Leader of the Future, partner courses, 2026 roadmap |
 | Credentials Framework | [credentials-framework.md](./credentials-framework.md) | XPs → Badges → Certifications, Credential Central, Durable Skills Framework |
-| Community Platform | [../knowledge-base/community-platform.md](../knowledge-base/community-platform.md) | theCOMMUNITY.com — channels, cohorts, events, partner perks |
+| Community Platform | [../member-support/community-platform.md](../member-support/community-platform.md) | theCOMMUNITY.com — channels, cohorts, events, partner perks |
 
 ---
 
@@ -47,7 +47,7 @@ The core offering. Students at a [partner campus](./glossary.md#partner-campus) 
 
 — *source: [https://www.thescla.org](https://www.thescla.org)*
 
-Full eligibility criteria (canonical, incl. credit-hour requirements): [products-services.md](../knowledge-base/products-services.md)
+Full eligibility criteria (canonical, incl. credit-hour requirements): [products-services.md](../member-support/products-services.md)
 
 ### Pricing
 
