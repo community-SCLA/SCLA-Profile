@@ -10,7 +10,7 @@ confidence: medium
 > NOTE: This guide was initially generated from Google search-index snippets and has been updated
 > with content from full HTML exports of thescla.org (scraped 2026-04-23).
 > Sections still marked `TODO: needs input` require brand assets or internal documents not available
-> from public web pages. See `scla/brand/TODOS.md` for the prioritized input list.
+> from public web pages. Pending inputs: logo SVG files and brand guidelines PDF from SCLA staff.
 
 ## What this brand is about
 

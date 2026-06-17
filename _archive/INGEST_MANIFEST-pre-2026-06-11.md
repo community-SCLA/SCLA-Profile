@@ -199,7 +199,6 @@ Generated: 2026-06-10 17:36:15
 - docs/superpowers/plans/2026-05-31-ops-framework.md (17.5 KB)
 - docs/superpowers/specs/2026-05-31-ops-framework-design.md (9.5 KB)
 - scla.config.yml (817 B)
-- scla/brand/TODOS.md (3.4 KB)
 - scla/brand/assets/.gitkeep (0 B)
 - scla/brand/assets/index.md (2.0 KB)
 - scla/brand/brand-guide.md (4.8 KB)

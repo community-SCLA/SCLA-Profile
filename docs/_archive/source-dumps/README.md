@@ -67,6 +67,7 @@ readable slug to that original path.
 | `community-learning/learning-strategy/education-scla-2026.md` | Community Team Folder/Community & Learning SCLA/Learning Strategy & Metrics/Education_SCLA_2026.pdf |
 | `community-learning/learning-strategy/focus-modes.md` | Community Team Folder/Community & Learning SCLA/Learning Strategy & Metrics/Focus Modes.docx |
 | `community-learning/member-support/scla-membership-team-two-tier-communication-sop.md` | Community Team Folder/Community & Learning SCLA/Member Support /SCLA MEMBERSHIP TEAM TWO-TIER COMMUNICATION SOP.docx |
+| `community-learning/member-support/member-support-plan-spec.md` | Internal spec document uploaded 2026-06-16 (not a Drive export) — reconciled in `scla/projects/member-support-integration.md` |
 | `community-learning/membership-journey-today.md` | Community Team Folder/Community & Learning SCLA/Membership Journey Today .docx |
 | `community-learning/micro-internships/1-ideas-zone/forage.md` | Community Team Folder/Community & Learning SCLA/Micro Internships/1.  Ideas Zone/Forage.pdf |
 | `community-learning/micro-internships/2-project-roadmap-mi/micro-internships.md` | Community Team Folder/Community & Learning SCLA/Micro Internships/2.  Project Roadmap_MI/Micro-Internships.docx |

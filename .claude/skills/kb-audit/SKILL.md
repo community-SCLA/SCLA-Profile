@@ -92,7 +92,7 @@ For each criterion that scored below its maximum:
 | All others | 1× |
 
 Sort by leverage descending. Take top 3. Write one concrete next-step for each:
-- Missing `connections.md` → "Create `connections.md` at repo root using the schema in `docs/superpowers/specs/2026-05-31-ops-framework-design.md`."
+- Missing `connections.md` → "Create `connections.md` at repo root using the schema in `_archive/2026-05-31-ops-framework-design-spec.md`."
 - CLAUDE.md thin (<200 words) → "Expand CLAUDE.md to document org identity, project structure, key rules, and context file locations (target >200 words)."
 - context/ files missing → "Create `context/me.md`, `context/goals.md`, and `context/current-priorities.md` with org identity and current focus."
 - Brand/voice undocumented → "Create `scla/brand/voice-and-tone.md` capturing the org's writing register and communication style."

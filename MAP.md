@@ -68,7 +68,8 @@ scla/
 ├── brand/                  ← visual-identity.md (colors/type, canonical), voice-and-tone.md,
 │                             brand-guide.md, assets/ (SVG logos + index.md)
 ├── knowledge-base/         ← index.md (AI-facing org summary), glossary.md, people.md,
-│                             products-services.md, faqs.md, community-platform.md
+│                             products-services.md, faqs.md, community-platform.md,
+│                             TODOS.md (gap tracker — pages still needing staff input)
 ├── operations/             ← team-roster.md (canonical roster), current-state.md,
 │                             pain-points.md, automation-opportunities.md
 ├── source-of-truth/        ← TEAM-OWNED: charter.md (canonical org facts), mission.md,

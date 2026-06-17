@@ -39,7 +39,7 @@ Every fact has exactly one home; every other mention is a quote + pointer.
 - `context/me.md` keeps a one-line org summary and brief name list — session boot needs it without extra loads.
 - `scla/source-of-truth/team-handbook.md` keeps its roster copy for standalone onboarding context (header notes the primary roster).
 - `scla/source-of-truth/charter.md` keeps the Q2 2026 success criteria (team-owned copy; working copy is `context/goals.md`).
-- `scla/knowledge-base/faqs.md` keeps self-contained member-facing answers (it feeds AI triage); eligibility facts mirror `products-services.md` (canonical).
+- `scla/knowledge-base/faqs.md` keeps self-contained member-facing answers (it feeds AI triage); eligibility facts mirror `scla/knowledge-base/products-services.md` (canonical).
 - `scla/knowledge-base/people.md` keeps the platform admin-panel snapshot — unique account data, not a roster copy.
 
 ---
@@ -52,8 +52,8 @@ What is actually enforced by tooling today — nothing aspirational:
 - `hooks/skill-eval.sh` + `hooks/skill-rules.json` — skill routing on every prompt.
   The registry lists **implemented skills only**; routing to phantom skills is the
   framework's collapse failure mode.
-- `hooks/pre-tool.sh` / `post-tool.sh` / `stop.sh` — tool-budget logging.
-- `hooks/doctor.sh`, `context-mode-cache-heal.mjs`, `cleanup-worktrees.sh` — self-healing.
+- `hooks/pre-tool.sh` / `hooks/post-tool.sh` / `hooks/stop.sh` — tool-budget logging.
+- `hooks/doctor.sh`, `hooks/context-mode-cache-heal.mjs`, `hooks/cleanup-worktrees.sh` — self-healing.
 - `scripts/lint-refs.sh` — repo health linter (manual run; see Health Checks).
 
 ---
