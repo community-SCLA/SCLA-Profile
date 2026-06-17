@@ -9,7 +9,7 @@
 
 `scla/member-support/faqs.md` is the curated source of truth for member-facing answers, organized across six routes with explicit `<!-- route: -->` tags. Today, member support is manual and siloed: email triage happens by hand, Google Groups workarounds are unreliable, and questions arriving on different channels are handled inconsistently — sometimes by the wrong person, sometimes after too long a delay. The result is unpredictable response times, duplicated effort, and institutional knowledge that lives in inboxes rather than a shared base.
 
-This spec defines the full member support system: a unified queue that consolidates every inbound channel, an AI-assisted triage and answering layer grounded in `faqs.md`, and a feedback loop that continuously grows the knowledge base from real member interactions. It covers the operating model (who owns what and how SLAs work) and the technical surfaces (Gmail, website/dashboard chat, Slack, and the future member portal).
+This spec defines the full member support system: a unified queue that consolidates every inbound channel, an AI-assisted triage and answering layer grounded in `faqs.md`, and a feedback loop that continuously grows the FAQ from real member interactions. It covers the operating model (who owns what and how SLAs work) and the technical surfaces (Gmail, website/dashboard chat, Slack, and the future member portal).
 
 Current team pain points this directly addresses:
 - Email triage is manual 
@@ -23,7 +23,7 @@ Stack: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the gl
 ## Architecture at a glance
 
 ```
-  INTAKE SURFACES                QUEUE LAYER             KNOWLEDGE BASE
+  INTAKE SURFACES                QUEUE LAYER             FAQ LIBRARY
   ─────────────────────         ─────────────          ────────────────────────
                                                         SCLA-Profile repo
   Gmail ───────────────┐                              scla/member-support/
@@ -50,7 +50,9 @@ Stack: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the gl
          │                          │ (4) nightly harvester
          │                          ▼
          │               PR bot opens PR against faqs.md
-         │               Staff reviews → merges → loop closes
+         │               + posts Q&As to #faq-review Slack channel
+         │               Staff approves/amends/rejects in Slack
+         │               → Slack bot merges or amends PR via GitHub API
          └────────────── faqs.json republished to all surfaces
 ```
 
@@ -58,7 +60,7 @@ Numbered flows:
 1. On every push to `main`, GitHub Actions converts `faqs.md` → `faqs.json` and uploads to Drive. All surfaces read from this single artifact.
 2. Each surface sends member queries to Gemini with `faqs.json` as grounded context. High-confidence answers reply automatically (draft-only mode until validated per surface). Low-confidence routes to the correct human.
 3. When a staff member replies, the channel's harvester captures the thread and records the Q&A pair in the capture queue Sheet.
-4. A nightly GitHub Action opens a PR appending new Q&A pairs to `faqs.md` under the correct route. Staff review → merge → next publish cycle makes the new answer canonical on all surfaces.
+4. A nightly GitHub Action opens one PR per new Q&A pair in `faqs.md` and posts a Slack card to `#faq-review` with **Approve / Amend / Reject** buttons. A staff member's Slack response triggers `github-bridge.js` to merge, push a correction, or close the PR via the GitHub API — no Git knowledge required. Each approved PR republishes the FAQ to all surfaces within 5 minutes.
 
 ---
 
@@ -98,10 +100,10 @@ Route + Tier together determine which template set applies and which team handle
 
 The AI layer queries Gemini with the member's question plus `faqs.json` as system context. Gemini returns `(answer, confidence, route)` or `(needs_human, route)`:
 
-- **Confidence ≥ 0.8:** a reply draft is generated from the KB. During the validation period (first two weeks per surface), this stays as a staff-reviewed draft before sending. After validation, auto-send is enabled for that route.
-- **Confidence < 0.8:** the case is routed to the correct human with the question, the route tag, and any partial KB context Gemini found.
+- **Confidence ≥ 0.8:** a reply draft is generated from the FAQ. During the validation period (first two weeks per surface), this stays as a staff-reviewed draft before sending. After validation, auto-send is enabled for that route.
+- **Confidence < 0.8:** the case is routed to the correct human with the question, the route tag, and any partial FAQ context Gemini found.
 
-All answers are grounded in `faqs.md`. If no KB answer exists, the case is flagged as a `gap` — the team is never put in the position of guessing.
+All answers are grounded in `faqs.md`. If no FAQ answer exists, the case is flagged as a `gap` — the team is never put in the position of guessing.
 
 ### ④ Resolve
 
@@ -109,10 +111,10 @@ The 24-business-hour SLA clock runs from the moment a case is created until it i
 
 | Route | Escalation owner |
 |---|---|
-| `account` | Technical team (Kierra) |
-| `payments` | Finance / Amy |
+| `account` | Technical team |
+| `payments` | Finance team |
 | `programs` | Community team |
-| `membership` | Membership team (Yesse) |
+| `membership` | Membership team |
 | `general` | Any available staff |
 | `administrator` | Community lead |
 
@@ -120,7 +122,13 @@ At 18 business hours, unresolved cases surface in `#community-team` Slack as an 
 
 ### ⑤ Learn
 
-Every resolved case — and every staff-written reply — is harvested into the capture queue. A nightly job opens a PR adding new Q&A pairs to `faqs.md`. Staff review and merge. The moment the PR merges, the publish workflow fires: `faqs.json` is rebuilt and propagated to all surfaces. The next identical question gets answered from the KB automatically — without anyone touching a file.
+Every resolved case — and every staff-written reply — is harvested into the capture queue. A nightly job opens a PR adding new Q&A pairs to `faqs.md` and posts each pair to the `#faq-review` Slack channel. Staff never need to touch GitHub: they review the proposed Q&A directly in Slack and respond with one of three controls:
+
+- **`✅ Approve`** — the Slack bot merges the PR as-is via the GitHub API.
+- **`✏️ Amend [corrected answer]`** — the bot pushes the corrected text as a new commit on the PR branch, then merges.
+- **`❌ Reject`** — the bot closes the PR without merging; the Q&A pair is flagged in the capture queue for follow-up.
+
+The moment a PR merges, the publish workflow fires: `faqs.json` is rebuilt and propagated to all surfaces within 5 minutes. The next identical question gets answered from the FAQ automatically — without anyone touching a file or opening GitHub.
 
 ---
 
@@ -169,7 +177,7 @@ The member dashboard and the AMA channel page are where active members go first.
 
 | Path | Purpose |
 |---|---|
-| `integrations/chat-backend/index.js` | Cloud Function (Node.js), lives in this repo so it ships with the KB |
+| `integrations/chat-backend/index.js` | Cloud Function (Node.js) |
 | `integrations/chat-backend/README.md` | Deploy instructions, env var names |
 | `<dashboard repo>/components/SclaSupportChat.tsx` | Follow-up PR in the dashboard repo (referenced here for completeness) |
 
@@ -183,7 +191,7 @@ Two modes, shipping in order:
 - Slack app with one slash command `/askscla <question>` available in every channel.
 - Backed by the same Cloud Function from Surface 2 — one backend, multiple surfaces.
 - Returns the answer in-thread with message actions: `👍 correct` / `👎 wrong` / `📝 add correction`.
-- `👎` or `📝` routes the exchange directly into the capture queue with the staff correction attached. Because staff already know the right answer when they thumbs-down, this is the fastest path to growing the KB.
+- `👎` or `📝` routes the exchange directly into the capture queue with the staff correction attached. Because staff already know the right answer when they thumbs-down, this is the fastest path to growing the FAQ.
 
 **Passive: `#member-questions-inbox` monitoring (ships behind a feature flag)**
 - The team already forwards member emails to a Slack channel for visibility.
@@ -197,8 +205,9 @@ Slack ships before Gmail auto-reply and the public chat widget because blast rad
 
 | Path | Purpose |
 |---|---|
-| `integrations/slack-app/manifest.json` | Slack app manifest, slash command definition |
-| `integrations/slack-app/handler.js` | Event routing, message-action handler, capture-queue writes |
+| `integrations/slack-app/manifest.json` | Slack app manifest, slash command + interactivity definition |
+| `integrations/slack-app/handler.js` | Event routing, `/askscla` handler, capture-queue writes |
+| `integrations/slack-app/github-bridge.js` | Handles Approve/Amend/Reject button payloads; calls GitHub API to merge, push correction, or close PR |
 | `integrations/slack-app/README.md` | Install instructions, credential locations |
 
 ---
@@ -234,7 +243,7 @@ The queue layer is the routing and SLA backbone beneath all four surfaces. It is
 | `owner` | Functional role (not a named person) |
 | `ai_answer` | Gemini draft, if generated |
 | `confidence` | Gemini confidence score |
-| `resolution_source` | `kb-auto \| staff-reply \| escalated` |
+| `resolution_source` | `faq-auto \| staff-reply \| escalated` |
 
 **Cross-channel dedup:** when the same email address opens cases via two different channels within 48 hours on a similar topic, the queue platform merges them. The member sees one reply thread; the capture queue gets one row; the SLA clock does not reset on merge.
 
@@ -257,13 +266,24 @@ How each surface writes to it:
 
 **Nightly harvester** (GitHub Action in this repo, runs 06:00 UTC):
 - Reads the Sheet (service-account credentials stored as a GitHub secret — never in the repo)
-- For each row with `status=harvested` not yet promoted:
-  - Appends the Q&A pair under the correct `<!-- route: X -->` block in `faqs.md`
-  - Tags with `<!-- source: gmail|chat|slack, captured: YYYY-MM-DD -->` for provenance
-  - Opens a PR titled `kb: harvest N new Q&As from <sources>`, labeled `kb-harvest`, assigned to Amy (backup: Kierra)
-- Staff reviews the PR diff. Merging = canonical. The publish workflow fires on merge, rebuilding `faqs.json` and propagating to all surfaces within 5 minutes.
+- For each row with `status=harvested` not yet promoted, opens **one GitHub PR per Q&A pair** (not a nightly batch), then posts a Slack card to `#faq-review`:
+  - The card shows the question, the proposed answer, and the source (`gmail` / `chat` / `slack`)
+  - The entry in `faqs.md` is tagged `<!-- qa-id: {uuid} source: X captured: YYYY-MM-DD -->` so the Amend handler can locate the exact line
+  - The card includes three [Block Kit](https://api.slack.com/block-kit) action buttons: **Approve**, **Amend**, **Reject**
 
-**Unanswered questions** — cases where no staff reply ever arrives — are appended weekly to `scla/member-support/pending-answers.md` so they surface as explicit knowledge gaps, not silent failures.
+**Why one PR per Q&A?** Each Slack card maps 1:1 to one PR — no partial-batch state to track. Staff can action items at their own pace; each resolved PR goes live independently within 5 minutes.
+
+**Slack-based review flow — how it works technically (no GitHub access needed):**
+- **Approve** — staff clicks the button. Slack sends an action payload to the `github-bridge.js` endpoint (verified via Slack signing secret). The bridge calls `POST /repos/{owner}/{repo}/pulls/{number}/merge` using a GitHub token stored as a Cloud Function environment variable. The Slack card updates to "Approved ✅ by [name]".
+- **Amend** — staff clicks the button. The bridge calls `views.open` to show a Slack modal pre-filled with the current answer. Staff edits and submits. On `view_submission`, the bridge fetches `faqs.md` from the PR branch via the GitHub Contents API, locates the `<!-- qa-id: {uuid} -->` marker, replaces only that answer block, PUTs the file back (GitHub requires the file's current SHA in the request), then merges the PR.
+- **Reject** — staff clicks the button. The bridge calls `PATCH /repos/{owner}/{repo}/pulls/{number}` with `{"state": "closed"}`, marks the capture queue row `status: rejected`, and updates the card to "Rejected ❌ — flagged for follow-up".
+- If no action is taken within 48 hours, the card is re-notified once. After 72 hours, the PR is labelled `needs-attention` and a summary surfaces in `#community-team`.
+
+**Slack app requirements:** Interactivity enabled with the bridge's Cloud Function URL as the Request URL; `chat:write` and `views:open` OAuth scopes. Slack signing secret and GitHub token (scoped to `contents:write` + `pull_requests:write`) both stored as Cloud Function environment variables — never in the repo.
+
+The publish workflow fires on merge, rebuilding `faqs.json` and propagating to all surfaces within 5 minutes.
+
+**Unanswered questions** — cases where no staff reply ever arrives — are appended weekly to `scla/member-support/pending-answers.md` so they surface as explicit FAQ gaps, not silent failures.
 
 This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing reaches `faqs.md` without a human merge decision.
 
@@ -285,7 +305,7 @@ This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing re
 | `integrations/slack-app/handler.js` | Slash command + passive listener |
 | `integrations/slack-app/README.md` | Install + credential notes |
 | `scripts/build-faqs-json.js` | Converts `faqs.md` → `faqs.json` artifact |
-| `scripts/harvest-from-sheet.js` | Reads capture queue, opens KB PRs |
+| `scripts/harvest-from-sheet.js` | Reads capture queue, opens one GitHub PR per new Q&A, posts to `#faq-review` Slack |
 | `.github/workflows/publish-faqs.yml` | Runs build + Drive upload on push to `main` |
 | `.github/workflows/harvest-faqs.yml` | Nightly harvester (06:00 UTC) |
 | `scla/member-support/pending-answers.md` | Unanswered-question overflow file |
@@ -330,23 +350,24 @@ Each phase ships independently and can be paused without breaking prior phases.
 **Phase B — Slack `/askscla` (Week 2)**
 - Internal-only blast radius; staff test answer quality before any member sees AI replies
 - Two weeks of `/askscla` usage validates Gemini answer accuracy route by route
-- `👎` feedback from staff starts populating the capture queue and seeding the KB immediately
+- `👎` feedback from staff starts populating the capture queue and seeding the FAQ immediately
 
 **Phase C — Gmail draft-only mode (Weeks 3–4)**
 - Apps Script generates drafts; staff review and send each one manually
 - Zero risk of a bad auto-reply reaching a member
 - After 2 weeks: if staff approve > 90% of drafts unchanged per route, flip `AUTO_SEND_ENABLED` for that route
-- Full harvest loop live: staff replies populate the capture queue, nightly harvester opens KB PRs
+- Full harvest loop live: staff replies populate the capture queue, nightly harvester opens FAQ PRs reviewed via Slack
 
 **Phase D — Website chat widget (Weeks 5–6)**
 - Launch as opt-in beta on the AMA channel page only
 - Expand to the full member dashboard after one week of clean operation
 - Backed by the same Cloud Function already validated in Phase B
 
-**Phase E — Nightly harvester PRs (continuous from Week 2)**
+**Phase E — Nightly harvester + Slack FAQ review (continuous from Week 2)**
 - Runs from the moment the capture queue has data
-- Proposed: one weekly staff slot (Monday morning) to review `kb-harvest` PRs
-- Merging a PR closes the loop: new answers are live on all surfaces within 5 minutes
+- Each nightly run opens one GitHub PR per new Q&A pair and posts it to `#faq-review` in Slack with **Approve / Amend / Reject** buttons
+- Staff action in Slack triggers the GitHub bot to merge, correct, or close — no GitHub access needed
+- An approved PR closes the loop: the new answer is live on all surfaces within 5 minutes
 
 ---
 
@@ -360,9 +381,9 @@ Each phase ships independently and can be paused without breaking prior phases.
 
 **Phase D:** open the dashboard chat widget. Ask 3 known questions + 1 unknown. Confirm correct answers for the known ones; confirm the unknown creates a case and returns the right holding message. Check DevTools: POST to the Cloud Function logs the exchange, capture queue gets a new row.
 
-**Phase E:** after one week of capture queue activity, confirm a `kb: harvest N new Q&As` PR exists. Review the diff — Q&A pairs should land under the correct route blocks with provenance tags. Merge → confirm `faqs.json` in Drive updates within 5 minutes.
+**Phase E:** after one week of capture queue activity, confirm Slack cards appear in `#faq-review`. Click **Approve** on one. Confirm the corresponding GitHub PR is merged automatically and `faqs.json` in Drive updates within 5 minutes. Click **Amend** on a second card, edit the answer, submit — confirm the PR branch receives a new commit with the corrected text before merging.
 
-**End-to-end smoke test:** send a brand-new question to `community@thescla.org`. Staff answers it. 24 hours later, ask the same question via `/askscla` and the website chat — both should answer correctly from the KB without anyone having manually edited `faqs.md`.
+**End-to-end smoke test:** send a brand-new question to `community@thescla.org`. Staff answers it. 24 hours later, ask the same question via `/askscla` and the website chat — both should answer correctly from the FAQ without anyone having manually edited `faqs.md`.
 
 ---
 
@@ -372,8 +393,8 @@ Each phase ships independently and can be paused without breaking prior phases.
 |---|---|---|
 | 1 | **Queue platform** — which tool hosts the unified case queue (Help Scout, Front, Zendesk, or a custom Sheet-based tracker)? | Decide before Phase A |
 | 2 | **Drive folder for `faqs.json`** — new `SCLA/member-support/published/` folder, or drop into an existing one? | Create new folder |
-| 3 | **Capture queue Sheet** — new Sheet titled `KB Capture Queue` in Community Drive, or extend an existing tracker? | Create new Sheet |
+| 3 | **Capture queue Sheet** — new Sheet titled `FAQ Capture Queue` in Community Drive, or extend an existing tracker? | Create new Sheet |
 | 4 | **Gemini project** — does the team have an existing Google AI Studio / Vertex project, or does one need to be created? | Confirm before Phase A |
-| 5 | **`kb-harvest` PR reviewer** — Amy as default, Kierra as backup | Confirm with team |
+| 5 | **`#faq-review` Slack channel** — which channel hosts FAQ review posts, and which staff role owns triage of unapproved items after 72 hours? | Confirm with team |
 | 6 | **Gmail confidence threshold** — proposed 0.8 for auto-send; tune after first 50 drafts in Phase C | Start at 0.8 |
 | 7 | **Portal auth token format** — needed before Surface 4 can be wired up | Defer until portal timeline is known |
