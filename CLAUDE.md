@@ -29,7 +29,7 @@ Load these selectively as needed — not all at once.
 | Brand | `scla/brand/` | Voice, tone, visual identity, brand guide |
 | Knowledge Base | `scla/knowledge-base/` | Glossary, people, products & services, FAQs |
 | Operations | `scla/operations/` | Team roster, how the team operates, pain points, automation opps |
-| Source of Truth | `scla/source-of-truth/` | Charter, team handbook, onboarding |
+| Source of Truth | `scla/source-of-truth/` | Charter, team handbook, onboarding — **team-owned** |
 | Programs | `scla/programs/` | Program documentation |
 | Partnerships | `scla/partnerships/` | Partner orgs (e.g. NIC) |
 | Projects | `scla/projects/` | Active project tracking — grants (briefs + RFP working docs), video production |
@@ -63,6 +63,6 @@ One-liners — full text and rationale in `GOVERNANCE.md`.
 
 - **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
 - **Prefer quoting over paraphrasing** — cite into `docs/_archive/source-dumps/`.
-- **`scla/source-of-truth/` is authoritative** — surgical edits only; name each change explicitly in the commit message.
+- **`scla/source-of-truth/` is team-owned** — don't overwrite without explicit instruction.
 - **Credentials go in `.env` only** — never hardcoded.
 - **Log structural changes** in `decisions/log.md`; push with `./sync.sh`.

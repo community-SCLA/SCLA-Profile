@@ -13,9 +13,9 @@ The single rulebook. Merges the former GUARDRAILS.md and EXPANSIONS.md (archived
    No guessed numbers, names, dates, or quotes — ever.
 2. **Prefer quoting over paraphrasing.** Keep traceability: cite into
    `docs/_archive/source-dumps/` (never into deleted ingest paths).
-3. **`scla/source-of-truth/` is authoritative.** Surgical edits (pointers, confirmed-fact
-   updates, dedup trims) are allowed only when each change is named explicitly in the
-   commit message. Never rewrite wholesale without instruction.
+3. **`scla/source-of-truth/` is team-owned.** Treat it as authoritative. Surgical edits
+   (pointers, confirmed-fact updates, dedup trims) are allowed only when each change is
+   named explicitly in the commit message. Never rewrite wholesale without instruction.
 4. **Credentials go in `.env` only** — never hardcoded in any tracked file.
 5. **Log structural changes** in `decisions/log.md` (append-only) and push with `./sync.sh`
    (main branch only).
@@ -38,7 +38,7 @@ Every fact has exactly one home; every other mention is a quote + pointer.
 **Documented exceptions** (intentional copies, do not "fix"):
 - `context/me.md` keeps a one-line org summary and brief name list — session boot needs it without extra loads.
 - `scla/source-of-truth/team-handbook.md` keeps its roster copy for standalone onboarding context (header notes the primary roster).
-- `scla/source-of-truth/charter.md` keeps the Q2 2026 success criteria (canonical copy; working copy is `context/goals.md`).
+- `scla/source-of-truth/charter.md` keeps the Q2 2026 success criteria (team-owned copy; working copy is `context/goals.md`).
 - `scla/knowledge-base/faqs.md` keeps self-contained member-facing answers (it feeds AI triage); eligibility facts mirror `scla/knowledge-base/products-services.md` (canonical).
 - `scla/knowledge-base/people.md` keeps the platform admin-panel snapshot — unique account data, not a roster copy.
 
@@ -63,7 +63,7 @@ What is actually enforced by tooling today — nothing aspirational:
 Files: `CLAUDE.md`, `MAP.md`, `GOVERNANCE.md`, `connections.md`, `endpoints.md`,
 `scla.config.yml`, `sync.sh`, `.gitignore`.
 Directories: `.claude`, `_archive`, `_inbox`, `audits`, `context`, `decisions`, `docs`,
-`hooks`, `references`, `scla`, `scripts`, `templates` (plus gitignored `.remember/`).
+`hooks`, `scla`, `scripts`, `templates` (plus gitignored `.remember/`).
 
 Anything new at root needs a decisions-log entry first.
 
@@ -100,9 +100,8 @@ commit separately with prefix `structure:`.
 | `.claude/agents/` | A repeatable multi-step research/writing task emerges |
 | Scoped `CLAUDE.md` in a sub-area | A sub-project (major grant, new program) needs isolated context |
 
-**Future homes:** `scheduled-tasks/` is intentionally absent. Create it only with its
-first real content, and log the creation. (`references/` now exists — add a
-`{tool}-api.md` per connected tool as integrations are wired.)
+**Future homes:** `references/` and `scheduled-tasks/` are intentionally absent. Create
+each only with its first real content, and log the creation.
 
 ---
 
@@ -110,7 +109,7 @@ first real content, and log the creation. (`references/` now exists — add a
 
 Run `bash scripts/lint-refs.sh` before any `structure:` commit and after any move/rename.
 It verifies: referenced paths exist, root word budgets hold (CLAUDE.md ≤600, MAP.md ≤700,
-GOVERNANCE.md ≤1000), no stale decisions-log.md paths, no template placeholders, critical
+GOVERNANCE.md ≤1000), no stale `decisions-log.md` paths, no template placeholders, critical
 files present, no stale brand hex values. Exit 0 = healthy.
 
 ---

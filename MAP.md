@@ -32,10 +32,8 @@ Dynamic session memory lives in `.remember/` (gitignored, local-only — handoff
 | Look up a program | `scla/programs/programs-overview.md` |
 | Work on a grant | `scla/projects/grants/` (one folder per grant + RFP briefs) |
 | Work on video production | `scla/projects/video-production/CLAUDE.md` |
-| Member support operating model | `scla/projects/member-support-integration.md` |
 | Review past decisions | `decisions/log.md` |
 | Debug an integration | `connections.md` |
-| Learn how a tool connects (endpoints, auth, queries) | `references/{tool}-api.md` |
 | Look up an endpoint ID | `endpoints.md` |
 | Start a new project | `templates/` + `/new-from-template` |
 | Trace a fact to its source | `docs/_archive/source-dumps/README.md` (index only) |
@@ -74,7 +72,7 @@ scla/
 │                             TODOS.md (gap tracker — pages still needing staff input)
 ├── operations/             ← team-roster.md (canonical roster), current-state.md,
 │                             pain-points.md, automation-opportunities.md
-├── source-of-truth/        ← charter.md (canonical org facts), mission.md,
+├── source-of-truth/        ← TEAM-OWNED: charter.md (canonical org facts), mission.md,
 │                             team-handbook.md, onboarding.md, rituals.md,
 │                             program-names.md, voice-decisions.md
 ├── programs/               ← programs-overview.md, course-catalog.md, credentials-framework.md,
@@ -90,7 +88,6 @@ hooks/             ← live Claude Code hooks: skill-eval (routing), pre/post-to
                      skill-rules.json (routing registry — implemented skills only)
 scripts/           ← setup.sh, merge-settings.py, lint-refs.sh (repo health linter)
 .claude/skills/    ← ingest, kb-audit, new-from-template, onboard
-references/        ← per-tool integration references ({tool}-api.md) for connected MCP tools
 templates/         ← project-campaign / content / grant / program scaffolds
 audits/            ← kb-audit score snapshots
 _inbox/            ← ingest staging (INGEST_MANIFEST.md triggers /ingest)
@@ -102,5 +99,5 @@ docs/_archive/     ← raw Drive source dumps — provenance only, never load by
 
 ## Not here (by design)
 
-- `scheduled-tasks/` — doesn't exist yet; create when a real recurring automation exists (see GOVERNANCE.md "Future homes").
+- `references/`, `scheduled-tasks/` — don't exist yet; create when real content exists (see GOVERNANCE.md "Future homes").
 - Raw source material — only in `docs/_archive/source-dumps/`, reached via `source:` citations.

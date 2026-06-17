@@ -18,6 +18,7 @@ Running log of notable team decisions. Append new entries at the top.
 **Rationale:** The framework was structurally sound but its own linter was failing and the ingest trigger was primed to re-fire — both erode the "routes effectively" guarantee. `references/` was the highest-leverage audit gap (six MCP tools wired, zero references).
 **Owner:** Kierra Woekel (executed by Claude)
 
+
 ## 2026-06-11 — Repo restructure: one-question-one-file framework completed
 **Decision:** Converged root docs into single question-owners: GUARDRAILS.md + EXPANSIONS.md merged into GOVERNANCE.md (originals archived in `_archive/` with dated names); MAP.md rewritten as an SCLA-real atlas; CLAUDE.md cut to routing only. This log moved `scla/source-of-truth/decisions-log.md` → `decisions/log.md` (framework-standard path, history preserved via `git mv`). Duplicated facts (identity, roster, goals, voice) trimmed to one canonical owner each with pointers; canonical-owner table lives in GOVERNANCE.md.
 **Rationale:** The repo was a half-finished framework install — placeholder navigation, governance describing nonexistent enforcement, and 10 duplication clusters drifting independently. One canonical home per fact keeps copies from contradicting each other.
