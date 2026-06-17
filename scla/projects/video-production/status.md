@@ -10,7 +10,7 @@
 
 ### Synthesia
 - [ ] Verify subscription tier (Enterprise required for bulk volume)
-- [ ] Create SCLA Brand Kit (logo, gold `#F1B32E`, blue `#55A4DD`, fonts)
+- [ ] Create SCLA Brand Kit (logo, gold `#eaab2d`, blue `#3393d6`, fonts)
 - [ ] Create/select SCLA course avatar
 - [ ] Build 3 master templates: Course Video · Certificate Video · Learning Activity
 - [ ] Test bulk CSV import with 3 sample scripts

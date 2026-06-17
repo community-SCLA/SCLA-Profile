@@ -24,7 +24,7 @@ Run this checklist on every video before uploading to Wistia. Human review is re
 - [ ] Avatar lip sync is accurate throughout — no obvious mismatches
 - [ ] B-roll / motion graphics appear at correct moments
 - [ ] No frozen frames or rendering artifacts
-- [ ] SCLA branding visible (logo, colors `#F1B32E` / `#55A4DD`)
+- [ ] SCLA branding visible (logo, colors `#eaab2d` / `#3393d6`)
 - [ ] Text overlays are readable and correctly spelled
 
 ### Accessibility
