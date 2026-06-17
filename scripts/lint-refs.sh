@@ -19,7 +19,7 @@ filter_archives() { grep -v "^\./docs/_archive/" | grep -v "^docs/_archive/"; }
 # ── 1. Backtick path references in root governance files exist on disk ──────
 echo "[1/6] Backtick path references resolve"
 # Documented future homes + intentional non-paths (see GOVERNANCE.md "Future homes" / "What NOT to add")
-SKIP_PATHS="references/ scheduled-tasks/ .claude/agents/ scla/operations/sops/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/"
+SKIP_PATHS="references/ scheduled-tasks/ .claude/agents/ scla/operations/sops/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/ decisions-log.md"
 REF_FAIL=0
 for f in CLAUDE.md MAP.md GOVERNANCE.md; do
   while IFS= read -r ref; do

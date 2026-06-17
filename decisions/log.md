@@ -9,6 +9,11 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-06-17 — Governance hooks added: structural enforcement for new files and folders
+**Decision:** Created `hooks/governance-check.sh` and registered all hooks in `.claude/settings.json`. The governance hook fires as a PreToolUse check on Write and Bash tool calls and enforces six rules from GOVERNANCE.md: (1) banned directory names (`notes/`, `misc/`, `tmp/`, `inbox/`); (2) new root-level items must be in the approved layout; (3) no parallel decisions log files; (4) CLAUDE.md only at root or under `scla/projects/`; (5) future-home placeholders (`scheduled-tasks/`, `sops/`) require real content; (6) `_archive` not `archive` naming. Also wired the previously-orphaned `pre-tool.sh`, `post-tool.sh`, `stop.sh`, and `skill-eval.sh` hooks into `settings.json` — they were documented in GOVERNANCE.md as hard stops but were not registered.
+**Rationale:** The governance rules existed in GOVERNANCE.md but nothing enforced them at the moment of creation. Now structural violations are blocked before they land in the repo rather than caught in a manual lint-refs run.
+**Owner:** SCLA Community Team (executed by Claude)
+
 ## 2026-06-16 — Member Support System: unified operating spec adopted
 **Decision:** Reconciled the independently-authored Member Support Spec with the FAQ knowledge-base system into a single unified operating flow. Adopted a five-stage model — Intake, Triage, Answer, Resolve, Learn — documented in `scla/projects/member-support-integration.md`. Three explicit decisions made: (1) answer content canon stays in `faqs.md` in GitHub, not GDrive; (2) one AI router selected at implementation time, not two competing routers; (3) dashboard/platform messaging added as a fourth intake channel with cross-channel dedup/merge owned by the case layer. Settled open questions: canonical support email = `membership@thescla.org`; SLA = 24 business hours; Tier 1 = non-member/pre-payment, Tier 2 = active member/portal; system-of-record split = case state (case tool) / answer content (GitHub). Original spec archived at `docs/_archive/source-dumps/community-learning/member-support/member-support-plan-spec.md`.
 **Owner:** SCLA Community Team (executed by Claude)
