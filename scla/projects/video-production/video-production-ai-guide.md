@@ -127,7 +127,7 @@ Claude will return a scene-by-scene script with B-roll markers. **Human review r
 First time only (one-time setup per course style):
 1. Log into Synthesia → **New Video** → **Choose Template**
 2. Pick an educational/training template that matches your style sheet
-3. Set brand colors (SCLA gold `#F1B32E`, blue `#55A4DD`)
+3. Set brand colors (SCLA gold `#eaab2d`, blue `#3393d6`)
 4. Select your preferred avatar (stock avatar, or upload a custom one)
 5. Save as a **Brand Kit** — this becomes the reusable template for all course videos
 
@@ -409,7 +409,7 @@ Complete these once to enable all workflows above:
 
 ### Synthesia Setup
 - [ ] Log in and verify subscription tier (confirm Enterprise for bulk production)
-- [ ] Create SCLA Brand Kit: upload logo, set colors (`#F1B32E`, `#55A4DD`), set fonts
+- [ ] Create SCLA Brand Kit: upload logo, set colors (`#eaab2d`, `#3393d6`), set fonts
 - [ ] Create or import an SCLA course avatar (custom from video recording, or select stock)
 - [ ] Build 3 master templates: Course Video, Certificate Video, Learning Activity
 - [ ] Test bulk CSV import with 3 sample scripts → verify output quality
