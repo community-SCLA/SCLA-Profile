@@ -2,7 +2,6 @@
 source: https://www.thescla.org; Community Team Mondays notes Apr 2026 (archived externally)
 generated_by: knowledge-curator
 last_updated: 2026-05-13
-confidence: high
 ---
 
 # Glossary
@@ -18,7 +17,6 @@ All definitions are derived from Google search-index snippets. Terms marked **TO
 - **Canonical form:** SCLA
 - **Full name:** The Society for Collegiate Leadership & Achievement
 - **Also seen as:** "The SCLA", "SCLA Honor Society", "SCLA – Accredited Collegiate Leadership Honor Society"
-- **Confidence:** high
 
 > "The Society for Collegiate Leadership & Achievement (SCLA), the leading College-to-Career Honor Society, empowers students to excel academically and professionally."
 
@@ -48,7 +46,6 @@ SCLA's self-applied category label. Distinguishes it from purely academic honor 
 - **Canonical form:** NAB
 - **Full name:** National Advisory Board
 - **Apply page:** [thescla.org/nab-apply](https://www.thescla.org/nab-apply)
-- **Confidence:** high
 
 A selective, compensated advisory group of higher education professionals who provide strategic input on SCLA's programming. Members are drawn from academic, administrative, and student-facing campus roles.
 
@@ -78,7 +75,6 @@ TODO: needs input — current number of seats/members on the board; who chairs i
 - **Canonical form:** ISPI
 - **Full name:** Innovation Strengths Preference Indicator™
 - **Also seen as:** "ISPI strengths assessment"
-- **Confidence:** high
 
 A structured strengths assessment integrated into SCLA's member experience. It is listed in SCLA's assessments library with 3 sections and 64 questions.
 
@@ -138,7 +134,6 @@ A membership pathway for students who do not have an on-campus chapter. Provides
 - **Canonical form:** Career Readiness Certification
 - **Also seen as:** "Accredited Career Readiness Certification", "SCLA Career Readiness Certification", "Professional Readiness Program"
 - **XP value:** 315 XP upon completion
-- **Confidence:** high
 
 The first and foundational step in a member's SCLA program journey. It is a 5-section, self-paced online program (~4 hours, 22 lessons) that awards a certificate of completion, college credit (at no additional cost), and 315 XP.
 
@@ -236,7 +231,6 @@ TODO: needs input — what are the stated differentiators? Source page: https://
 - **Canonical form:** 4 Pillars
 - **Full name:** 4 Pillars of Career Success
 - **Seen in:** Mission & History page (https://www.thescla.org/mission-history)
-- **Confidence:** high
 
 SCLA's holistic framework for student success, introduced at founding in 2014. The four pillars are:
 
@@ -253,7 +247,7 @@ SCLA's holistic framework for student success, introduced at founding in 2014. T
 
 ## Internal Jargon (from April 2026 meeting notes)
 
-*Source: Community Team Monday meeting notes. Confidence: medium.*
+*Source: Community Team Monday meeting notes.*
 
 ---
 

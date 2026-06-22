@@ -2,7 +2,6 @@
 source: docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/learning-frameworks/durable-skills-framework-and-sub-competency-map-2026-scla.md; docs/_archive/source-dumps/community-learning/learning-frameworks/scla-c2c-framework-2026.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
-confidence: medium
 ---
 
 > This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.

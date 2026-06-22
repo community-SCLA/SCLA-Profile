@@ -2,7 +2,6 @@
 source: https://www.thescla.org
 generated_by: knowledge-architect
 last_updated: 2026-04-23
-confidence: low
 ---
 
 # SCLA Knowledge Base — Start Here

@@ -2,7 +2,6 @@
 source: docs/_archive/source-dumps/community-learning/community-engagement/channels.md; docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/comms/community-communications-2026-prd.md; docs/_archive/source-dumps/community-learning/events/events-2026-prd.md
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
-confidence: high
 ---
 
 > This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.

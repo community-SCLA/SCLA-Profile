@@ -2,13 +2,12 @@
 source: Community Team Mondays notes Apr 2026 (archived externally)
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
-confidence: medium
 ---
 
 # People
 
 > Named individuals and teams found in available source material.
-> Community team entries are sourced from April 2026 meeting notes (medium confidence). Exec/web entries remain low confidence pending scrape of https://www.thescla.org/leadership-team.
+> Community team entries are sourced from April 2026 meeting notes. Exec/web entries remain pending scrape of https://www.thescla.org/leadership-team.
 
 ---
 

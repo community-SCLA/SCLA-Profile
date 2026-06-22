@@ -2,7 +2,6 @@
 source: https://www.thescla.org
 generated_by: brand-analyst
 last_updated: 2026-05-13
-confidence: medium
 ---
 
 # The Society for Collegiate Leadership & Achievement — Brand Guide

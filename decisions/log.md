@@ -2,7 +2,6 @@
 source: manual
 generated_by: source-of-truth-curator
 last_updated: 2026-06-12
-confidence: high
 ---
 
 # SCLA Decisions Log

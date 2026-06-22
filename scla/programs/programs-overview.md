@@ -2,7 +2,6 @@
 source: https://www.thescla.org; Community Team Mondays notes Apr 2026 (archived externally); docs/_archive/source-dumps/community-learning/
 generated_by: source-of-truth-curator
 last_updated: 2026-05-11
-confidence: medium
 ---
 
 > This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
@@ -188,7 +187,7 @@ TODO: needs input — export https://shop.thescla.org/ to determine what merchan
 
 ## Programs from April 2026 Meeting Notes
 
-*Source: Community Team Monday meeting notes (Apr 6, 13, 20, 2026). Confidence: medium.*
+*Source: Community Team Monday meeting notes (Apr 6, 13, 20, 2026).*
 
 ---
 

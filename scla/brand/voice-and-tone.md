@@ -2,12 +2,11 @@
 source: https://www.thescla.org
 generated_by: brand-analyst
 last_updated: 2026-05-13
-confidence: medium
 ---
 
 # SCLA Voice and Tone
 
-> NOTE: Confidence is MEDIUM. This file has been updated with content from full HTML exports
+> NOTE: This file has been updated with content from full HTML exports
 > of the SCLA website (scraped 2026-04-23): homepage, benefits page, "The SCLA Difference" page,
 > "What Is The SCLA?" blog post, two full blog posts (Personal Brand, LinkedIn), blog index, and
 > the mission/history page. Voice axis ratings are now supported by real page copy. Remaining
@@ -17,13 +16,13 @@ confidence: medium
 
 Each axis shows a spectrum. Positions are now based on real page copy from full HTML exports.
 
-| Axis | Position | Supporting evidence | Confidence |
-| --- | --- | --- | --- |
-| Formal ↔ Casual | Leans casual with professional grounding | Blog copy uses contractions, parenthetical humor ("Without Being Awkward"), and direct address ("you're not alone," "here's the truth"). Marketing copy is professional but never stiff. | medium |
-| Technical ↔ Plain | Plain | Consumer-facing throughout: "career-ready skill development," "resume builder," "step-by-step." No jargon. Blog posts explain terms before using them (e.g., defines "personal brand" before the first subheading). | medium |
-| Earnest ↔ Playful | Earnest with occasional levity | Core mission copy is earnest: "purpose-driven careers," "celebrating achievement." Blog titles show willingness to be playful: "Without Being Awkward," "Your Secret Weapon," "No Joke." Humor is light — never sarcastic. | medium |
-| Authoritative ↔ Supportive | Supportive | Consistently positions SCLA as an enabler, not a gatekeeper: "your platform," "tools needed to build," "help you succeed." Addresses student anxieties head-on ("you're not alone," "you don't need years of experience"). | medium |
-| Institutional ↔ Human | Human, not institutional | Blog voice is direct and personal. Sentences are short. Acknowledges student doubts: "If you're in college and feel unsure about using LinkedIn, you're not alone." Marketing pages use "you" and "your" throughout. | medium |
+| Axis | Position | Supporting evidence |
+| --- | --- | --- |
+| Formal ↔ Casual | Leans casual with professional grounding | Blog copy uses contractions, parenthetical humor ("Without Being Awkward"), and direct address ("you're not alone," "here's the truth"). Marketing copy is professional but never stiff. |
+| Technical ↔ Plain | Plain | Consumer-facing throughout: "career-ready skill development," "resume builder," "step-by-step." No jargon. Blog posts explain terms before using them (e.g., defines "personal brand" before the first subheading). |
+| Earnest ↔ Playful | Earnest with occasional levity | Core mission copy is earnest: "purpose-driven careers," "celebrating achievement." Blog titles show willingness to be playful: "Without Being Awkward," "Your Secret Weapon," "No Joke." Humor is light — never sarcastic. |
+| Authoritative ↔ Supportive | Supportive | Consistently positions SCLA as an enabler, not a gatekeeper: "your platform," "tools needed to build," "help you succeed." Addresses student anxieties head-on ("you're not alone," "you don't need years of experience"). |
+| Institutional ↔ Human | Human, not institutional | Blog voice is direct and personal. Sentences are short. Acknowledges student doubts: "If you're in college and feel unsure about using LinkedIn, you're not alone." Marketing pages use "you" and "your" throughout. |
 
 ## "Sounds like us" — confirmed copy samples
 
@@ -155,7 +154,7 @@ Patterns drawn from observed copy across all scraped pages.
 | "Free for colleges and universities. Period." | "There are no fees for colleges or universities" | Short declarative sentences are on-brand; long qualifications dilute impact |
 | "from campus to career" | "post-graduation success" | Tagline language should be used consistently; institutional synonyms drift from brand voice |
 
-## Blog title signals (supplementary, low confidence)
+## Blog title signals (supplementary)
 
 The following blog post titles were discovered via search index. They suggest
 a student-facing, practical, and accessible editorial voice — but titles alone

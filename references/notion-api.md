@@ -2,7 +2,6 @@
 source: Notion MCP integration (claude.ai account-level)
 generated_by: kb-audit reference scaffold
 last_updated: 2026-06-12
-confidence: high
 ---
 
 # Notion — Integration Reference

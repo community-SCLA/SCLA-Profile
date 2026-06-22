@@ -2,7 +2,6 @@
 source: Community Team Mondays notes Apr 2026 (archived externally); stakeholder notes (archived externally)
 generated_by: workflow-mapper
 last_updated: 2026-04-24
-confidence: medium
 ---
 
 # SCLA — Automation Opportunities

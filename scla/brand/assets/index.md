@@ -2,7 +2,6 @@
 source: scla/brand/assets/
 generated_by: brand-analyst
 last_updated: 2026-06-04
-confidence: high
 ---
 
 # SCLA Asset Index
