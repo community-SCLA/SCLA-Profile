@@ -59,12 +59,12 @@ read is noted. Current-voice evidence (verbatim site copy) appears in the sample
 
 | Axis | Position | Notes |
 | --- | --- | --- |
-| Formal ↔ Casual | Leans casual with professional grounding | Unchanged. Contractions, direct address, light humor — never stiff or legalistic. |
-| Technical ↔ Plain | Plain | Unchanged. Consumer-facing throughout; define terms before using them. |
-| Earnest ↔ Playful | Earnest with deliberate wordplay | **Nudged toward playful.** Earnest core, but lean into the kind of confident wordplay our inspiration brands use ("Secret Weapon," "Cutting Through the Noise"). Humor is warm, never sarcastic. |
-| Authoritative ↔ Supportive | Supportive *with high expectations* | **Reframed (pillar 1).** Still an enabler, not a gatekeeper — but we name a high bar and express belief that members will clear it. Supportive ≠ low-expectations. |
+| Formal ↔ Casual | Leans casual with professional grounding | Contractions, direct address, light humor — never stiff or legalistic. |
+| Technical ↔ Plain | Plain | Consumer-facing throughout; define terms before using them. |
+| Earnest ↔ Playful | Earnest with deliberate wordplay | Earnest core, but lean into the kind of confident wordplay our inspiration brands use ("Secret Weapon," "Cutting Through the Noise"). Humor is warm, never sarcastic. |
+| Authoritative ↔ Supportive | Supportive *with high expectations* | Still an enabler, not a gatekeeper — but we name a high bar and express belief that members will clear it. Supportive ≠ low-expectations. |
 | Institutional ↔ Human | Human, not institutional | Unchanged. Short sentences, real talk, acknowledges doubts, "you"/"your" throughout. |
-| Solo ↔ Communal | **Communal** | **New axis (pillar 3).** Default to "we" and "your people." Frame achievement as something that happens inside the society, not alone. |
+| Solo ↔ Communal | Default to "we" and "your people." Frame achievement as something that happens inside the society, not alone. |
 
 ---
 
