@@ -13,7 +13,7 @@ Update this file whenever a new tool is wired. When adding a reachable tool, als
 | 2 | Communication | Gmail | External email + member messaging | Yes | mcp | active | 2026-05-31 |
 | 3 | Content & Design | Canva | Design assets, team projects tracker | Yes | mcp | active | 2026-05-31 |
 | 3 | Content & Design | Figma | UI and visual design mockups | Yes | mcp | active | 2026-05-31 |
-| 4 | Knowledge / Files | Google Drive | Shared team docs, source material | Yes | mcp | active | 2026-05-31 |
+| 4 | Knowledge / Files | Google Drive | Shared team docs, source material | Yes | mcp · script | active | 2026-06-23 |
 | 4 | Knowledge / Files | Notion | Knowledge base, project documentation | Yes | mcp | active | 2026-05-31 |
 | 5 | Task & Project Tracking | Notion | Work tracking and ownership | Yes | mcp | active | 2026-05-31 |
 | 6 | Email & Member Outreach | Gmail | Broadcast email, member comms | Yes | mcp | active | 2026-05-31 |
@@ -29,3 +29,4 @@ Update this file whenever a new tool is wired. When adding a reachable tool, als
 - MCP connections are configured at the claude.ai account level, not in local `.mcp.json`.
 - Membership Tracking system is TBD — update this row when the tracking system is identified.
 - When a tool moves from `not connected` to connected, create `references/{tool}-api.md`.
+- Google Drive has two paths on one account: `mcp` for read, plus a `script` write-back — a one-way Git→Drive mirror that publishes curated `scla/` pages as Google Docs on every push to `main` (Git is source of truth; Drive edits are overwritten). See `references/google-drive-api.md` and `.github/workflows/drive-sync.yml`.
