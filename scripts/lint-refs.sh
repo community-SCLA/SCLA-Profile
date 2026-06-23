@@ -17,7 +17,7 @@ EXCLUDES=(--exclude-dir=_archive --exclude-dir=.git --exclude-dir=.remember --ex
 filter_archives() { grep -v "^\./docs/_archive/" | grep -v "^docs/_archive/"; }
 
 # ── 1. Backtick path references in root governance files exist on disk ──────
-echo "[1/6] Backtick path references resolve"
+echo "[1/7] Backtick path references resolve"
 # Documented future homes + intentional non-paths (see GOVERNANCE.md "Future homes" / "What NOT to add")
 SKIP_PATHS="references/ scheduled-tasks/ .claude/agents/ scla/operations/sops/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/ decisions-log.md"
 REF_FAIL=0
@@ -37,7 +37,7 @@ done
 [ "$REF_FAIL" -eq 0 ] && ok "all backtick paths in CLAUDE.md / MAP.md / GOVERNANCE.md exist"
 
 # ── 2. Word budgets ──────────────────────────────────────────────────────────
-echo "[2/6] Root word budgets (CLAUDE<=600 MAP<=700 GOVERNANCE<=1000)"
+echo "[2/7] Root word budgets (CLAUDE<=600 MAP<=700 GOVERNANCE<=1000)"
 check_budget() {
   local file=$1 limit=$2 words
   words=$(wc -w < "$file")
@@ -48,25 +48,25 @@ check_budget MAP.md 700
 check_budget GOVERNANCE.md 1000
 
 # ── 3. No stale decisions-log paths ──────────────────────────────────────────
-echo "[3/6] No references to old decisions-log path"
+echo "[3/7] No references to old decisions-log path"
 # decisions/log.md is excluded: its migration entry legitimately records the old path.
 HITS=$(grep -rn "${EXCLUDES[@]}" -e "source-of-truth/decisions-log" -e "](\./decisions-log" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" || true)
 if [ -n "$HITS" ]; then warn "stale decisions-log references:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 4. No template placeholders ──────────────────────────────────────────────
-echo "[4/6] No unfilled template placeholders"
+echo "[4/7] No unfilled template placeholders"
 # .claude/skills excluded: the onboard/ingest wizards use placeholder strings as instructions.
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=.claude -e "\[YOUR_" -e "\[project-1\]" -e "\[DATE\]" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" || true)
 if [ -n "$HITS" ]; then warn "template placeholders found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 5. Critical files exist ──────────────────────────────────────────────────
-echo "[5/6] Critical files present"
+echo "[5/7] Critical files present"
 CRITICAL="CLAUDE.md MAP.md GOVERNANCE.md connections.md endpoints.md scla.config.yml sync.sh .gitignore
 context/me.md context/goals.md context/current-priorities.md decisions/log.md
-scla/source-of-truth/charter.md scla/brand/visual-identity.md scla/brand/voice-and-tone.md
-scla/operations/team-roster.md scla/knowledge-base/faqs.md hooks/skill-rules.json"
+scla/brand/visual-identity.md scla/brand/voice-and-tone.md
+scla/operations/team-roster.md scla/member-support/faqs.md hooks/skill-rules.json"
 MISSING=0
 for f in $CRITICAL; do
   if [ ! -f "$f" ]; then warn "critical file missing: $f"; MISSING=1; fi
@@ -74,7 +74,7 @@ done
 [ "$MISSING" -eq 0 ] && ok "all critical files present"
 
 # ── 6. Stale brand hex values ────────────────────────────────────────────────
-echo "[6/6] No stray legacy hex values outside flagged locations"
+echo "[6/7] No stray legacy hex values outside flagged locations"
 # Intent: catch legacy hex hardcoded in docs, not in the actual art. Allowed:
 # .svg files (the logo source art legitimately carries these colors),
 # assets/index.md (describes the SVG file contents), and scla/projects/video-production/
@@ -83,6 +83,22 @@ HITS=$(grep -rni "${EXCLUDES[@]}" -e "#F1B32E" -e "#55A4DD" . 2>/dev/null | filt
        grep -v '\.svg:' | grep -v "scla/brand/assets/index.md" |
        grep -v "scla/projects/video-production/" | grep -v "scripts/lint-refs.sh" || true)
 if [ -n "$HITS" ]; then warn "legacy hex values found:"$'\n'"$HITS"; else ok "none found"; fi
+
+# ── 7. No archive routing pointers ───────────────────────────────────────────
+echo "[7/7] No '_archive/source-of-truth/' routing pointers in live KB"
+# Rule: _archive/ is read-only provenance, never a canonical owner / routing target.
+# Flag backtick-quoted `_archive/source-of-truth/...` pointers in the routing/governance
+# files and the live KB. Allowed and NOT flagged:
+#   - `source:` / `Source:` provenance citation lines (traceability)
+#   - `_archive/source-dumps/` paths (raw Drive exports, reached via citations)
+#   - decisions/log.md (its history legitimately cites old/archived paths)
+#   - scripts/lint-refs.sh (this file)
+HITS=$(grep -rn "${EXCLUDES[@]}" -e '`_archive/source-of-truth/' \
+         CLAUDE.md MAP.md GOVERNANCE.md scla context 2>/dev/null |
+       filter_archives |
+       grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" |
+       grep -viE '^[^:]*:[0-9]+:[[:space:]]*source:' || true)
+if [ -n "$HITS" ]; then warn "archive routing pointers found (route to live owner instead):"$'\n'"$HITS"; else ok "none found"; fi
 
 echo
 if [ "$WARNINGS" -gt 0 ]; then

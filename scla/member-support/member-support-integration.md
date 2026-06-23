@@ -1,20 +1,7 @@
 
 # SCLA Member Support System — Integration Spec
 
-**Date:** June 16, 2026 · **Status:** Proposed · **Owner:** SCLA Community Team
-
----
-
-## Context
-
-`scla/member-support/faqs.md` is the curated source of truth for member-facing answers, organized across six routes with explicit `<!-- route: -->` tags. Today, member support is manual and siloed: email triage happens by hand, Google Groups workarounds are unreliable, and questions arriving on different channels are handled inconsistently — sometimes by the wrong person, sometimes after too long a delay. The result is unpredictable response times, duplicated effort, and institutional knowledge that lives in inboxes rather than a shared base.
-
-This spec defines the full member support system: a unified queue that consolidates every inbound channel, an AI-assisted triage and answering layer grounded in `faqs.md`, and a feedback loop that continuously grows the FAQ from real member interactions. It covers the operating model (who owns what and how SLAs work) and the technical surfaces (Gmail, website/dashboard chat, Slack, and the future member portal).
-
-Current team pain points this directly addresses:
-- Email triage is manual 
-- No single source of truth for FAQ's (spread across multiple Google docs.)
-- Q's submitted across multiple surfaces and not captured into a centralized DB.
+The full member support system: a unified queue consolidating every inbound channel, an AI-assisted triage/answer layer grounded in `scla/member-support/faqs.md` (the curated source of truth, organized across six routes with `<!-- route: -->` tags), and a feedback loop that grows the FAQ from real member interactions. Covers the operating model (ownership, SLAs) and the technical surfaces (Gmail, website/dashboard chat, Slack, future member portal).
 
 Stack: **Google Workspace + Gemini** for the AI layer, **Apps Script** as the glue for email and Slack, a **Cloud Function** for the chat backend, **GitHub** as the system of record for all answer content.
 
@@ -134,7 +121,7 @@ The moment a PR merges, the publish workflow fires: `faqs.json` is rebuilt and p
 
 ## Surface 1 — Gmail (`community@thescla.org`)
 
-The majority of inbound member contact arrives by email today. This surface is also the highest-risk for auto-reply errors, so it ships in draft-only mode first and advances to auto-send route by route.
+Ships in draft-only mode first, advancing to auto-send route by route.
 
 **What to build:**
 - Apps Script project bound to the `community@thescla.org` inbox.
@@ -151,7 +138,7 @@ The majority of inbound member contact arrives by email today. This surface is a
 | Path | Purpose |
 |---|---|
 | `integrations/gmail-apps-script/Code.gs` | Main handler, trigger registration, Gemini call, label management |
-| `integrations/gmail-apps-script/prompts/system.md` | Grounded prompt (uses `faqs.json` + voice from `_archive/source-of-truth/voice-decisions.md`) |
+| `integrations/gmail-apps-script/prompts/system.md` | Grounded prompt (uses `faqs.json` + voice from `scla/brand/voice-and-tone.md`) |
 | `integrations/gmail-apps-script/README.md` | Deploy instructions, Script Property key names |
 
 Update `endpoints.md`: Gmail label IDs, Apps Script project ID. Gemini API key goes in Script Properties — never in the repo.
@@ -160,7 +147,7 @@ Update `endpoints.md`: Gmail label IDs, Apps Script project ID. Gemini API key g
 
 ## Surface 2 — Website / Member Dashboard chat
 
-The member dashboard and the AMA channel page are where active members go first. A native chat widget answers questions without requiring the member to open an email thread.
+A native chat widget on the member dashboard and AMA channel page.
 
 **What to build:**
 - React component `<SclaSupportChat />` mounted on the member dashboard and the AMA channel page.
@@ -170,8 +157,6 @@ The member dashboard and the AMA channel page are where active members go first.
   - Streams the reply back to the widget
   - If `needs_human`: opens a case in the capture queue, returns to the member: "I've sent this to a staff member — expect a reply within one business day"
   - Logs every exchange (question, AI answer, thumbs up/down feedback) to the capture queue Sheet
-
-**Why native widget over a third-party (Intercom, Drift):** the dashboard is custom code we control, there are no per-seat SaaS costs, and every transcript stays inside Google Workspace where the harvester can read it.
 
 **Key files to create:**
 
@@ -191,15 +176,15 @@ Two modes, shipping in order:
 - Slack app with one slash command `/askscla <question>` available in every channel.
 - Backed by the same Cloud Function from Surface 2 — one backend, multiple surfaces.
 - Returns the answer in-thread with message actions: `👍 correct` / `👎 wrong` / `📝 add correction`.
-- `👎` or `📝` routes the exchange directly into the capture queue with the staff correction attached. Because staff already know the right answer when they thumbs-down, this is the fastest path to growing the FAQ.
+- `👎` or `📝` routes the exchange directly into the capture queue with the staff correction attached.
 
 **Passive: `#member-questions-inbox` monitoring (ships behind a feature flag)**
-- The team already forwards member emails to a Slack channel for visibility.
+- The team forwards member emails to a Slack channel for visibility.
 - With this flag on: the Slack app posts a threaded Gemini draft in response to each forwarded message.
 - Staff reply `/approve` to send the draft as-is, or edit and reply `/approve` to send their version.
 - The staff edit becomes a gold-standard `staff_answer` row in the capture queue.
 
-Slack ships before Gmail auto-reply and the public chat widget because blast radius is internal only — two weeks of `/askscla` usage validates Gemini answer quality route by route before any member sees it.
+Slack ships first (internal blast radius only) — two weeks of `/askscla` usage validates Gemini answer quality route by route before any member sees it.
 
 **Key files to create:**
 
@@ -271,7 +256,7 @@ How each surface writes to it:
   - The entry in `faqs.md` is tagged `<!-- qa-id: {uuid} source: X captured: YYYY-MM-DD -->` so the Amend handler can locate the exact line
   - The card includes three [Block Kit](https://api.slack.com/block-kit) action buttons: **Approve**, **Amend**, **Reject**
 
-**Why one PR per Q&A?** Each Slack card maps 1:1 to one PR — no partial-batch state to track. Staff can action items at their own pace; each resolved PR goes live independently within 5 minutes.
+One PR per Q&A: each Slack card maps 1:1 to one PR, so there is no partial-batch state to track; each resolved PR goes live independently within 5 minutes.
 
 **Slack-based review flow — how it works technically (no GitHub access needed):**
 - **Approve** — staff clicks the button. Slack sends an action payload to the `github-bridge.js` endpoint (verified via Slack signing secret). The bridge calls `POST /repos/{owner}/{repo}/pulls/{number}/merge` using a GitHub token stored as a Cloud Function environment variable. The Slack card updates to "Approved ✅ by [name]".
@@ -331,7 +316,7 @@ This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing re
 | Asset | How it's reused |
 |---|---|
 | `faqs.md` frontmatter `route_map` | Fed directly to Gemini as routing rules; no hand-coded routing logic needed |
-| `_archive/source-of-truth/voice-decisions.md` | Dropped into the system prompt so all surfaces sound like SCLA |
+| `scla/brand/voice-and-tone.md` | Dropped into the system prompt so all surfaces sound like SCLA |
 | `scla/member-support/glossary.md` | Included as Gemini context so the AI knows internal acronyms |
 | Existing MCP connections (Gmail, Slack, Drive) | Used for local dev and manual ops; production traffic goes through Apps Script + Cloud Function with service-account auth |
 | `sync.sh` pattern | The publish workflow follows the same "main branch only, push, update workspace submodule" convention |

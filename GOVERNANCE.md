@@ -13,11 +13,18 @@ The single rulebook. Merges the former GUARDRAILS.md and EXPANSIONS.md (archived
    No guessed numbers, names, dates, or quotes — ever.
 2. **Prefer quoting over paraphrasing.** Keep traceability: cite into
    `_archive/source-dumps/` (never into deleted ingest paths).
-3. **`_archive/source-of-truth/` is archived provenance.** Do not edit or relocate. It is
-   read-only historical record; canonical org facts now live in `context/me.md` (session
-   boot) and `context/goals.md` (working copy).
-4. **Credentials go in `.env` only** — never hardcoded in any tracked file.
-5. **Log structural changes** in `decisions/log.md` (append-only) and push with `./sync.sh`
+3. **Never route to the archive.** `_archive/` is read-only provenance. Never list an
+   `_archive/` path as a canonical owner, routing target, "see also", or "load this"
+   pointer. It is a historical record only — canonical org facts live in `context/me.md`
+   (identity) and `context/goals.md` (goals). Do not edit or relocate archived files.
+   Follow a `source:` citation into `_archive/source-dumps/` ONLY when explicitly tracing
+   a fact's provenance.
+4. **Reference pages stay lean.** Pages under `scla/` and `context/` carry current-state
+   facts only. The why / what-changed / history of a decision lives in `decisions/log.md` —
+   never narrate rationale, status-date-owner metadata, or change history inside a
+   reference page.
+5. **Credentials go in `.env` only** — never hardcoded in any tracked file.
+6. **Log structural changes** in `decisions/log.md` (append-only) and push with `./sync.sh`
    (main branch only).
 
 ---
@@ -28,17 +35,16 @@ Every fact has exactly one home; every other mention is a quote + pointer.
 
 | Question | Canonical file |
 | --- | --- |
-| What is SCLA? (identity, scale, values) | `_archive/source-of-truth/charter.md` (archived provenance) |
-| Current goals / success criteria | `context/goals.md` (working copy; charter keeps team copy) |
+| What is SCLA? (identity, scale, values) | `context/me.md` (canonical live owner) |
+| Current goals / success criteria | `context/goals.md` |
 | Who's on the team | `scla/operations/team-roster.md` |
 | Brand colors / type / logo | `scla/brand/visual-identity.md` |
 | Voice and tone | `scla/brand/voice-and-tone.md` |
 | Why we decided X | `decisions/log.md` |
 
 **Documented exceptions** (intentional copies, do not "fix"):
-- `context/me.md` keeps a one-line org summary and brief name list — session boot needs it without extra loads.
-- `_archive/source-of-truth/team-handbook.md` keeps its roster copy for standalone onboarding context (archived — read-only).
-- `_archive/source-of-truth/charter.md` keeps the Q2 2026 success criteria (archived — working copy is `context/goals.md`).
+- `context/me.md` is the canonical live org-identity owner and carries a brief name list — session boot needs it without extra loads.
+- The archived team-handbook and charter (in the read-only source-of-truth archive) carry a frozen roster copy and the original success criteria. These are provenance, NOT routing targets — the live owners are `scla/operations/team-roster.md` and `context/goals.md`. Reach the archive only to trace provenance.
 - `scla/member-support/faqs.md` keeps self-contained member-facing answers (it feeds AI triage); eligibility facts mirror `scla/member-support/products-services.md` (canonical).
 - `scla/member-support/people.md` keeps the platform admin-panel snapshot — unique account data, not a roster copy.
 
@@ -110,7 +116,8 @@ each only with its first real content, and log the creation.
 Run `bash scripts/lint-refs.sh` before any `structure:` commit and after any move/rename.
 It verifies: referenced paths exist, root word budgets hold (CLAUDE.md ≤600, MAP.md ≤700,
 GOVERNANCE.md ≤1000), no stale `decisions-log.md` paths, no template placeholders, critical
-files present, no stale brand hex values. Exit 0 = healthy.
+files present, no stale brand hex values, and no archived source-of-truth routing
+pointers in the live KB. Exit 0 = healthy.
 
 ---
 

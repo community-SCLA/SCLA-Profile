@@ -1,9 +1,7 @@
 # AI-Powered Video Production Guide
 ## SCLA · Synthesia + HeyGen + Wistia + Claude
 
-**Last updated:** 2026-06-04  
-**Applies to:** All SCLA video production workflows  
-**Subscription status:** Synthesia ✓ · HeyGen ✓ · Wistia ✓
+**Active subscriptions:** Synthesia ✓ · HeyGen ✓ · Wistia ✓
 
 ---
 
@@ -546,6 +544,4 @@ Rather than trying to automate everything at once, here's a practical sequence:
 
 ---
 
-*This guide should be treated as a living document. Update it as vendor features change, as new workflows are discovered, and as SCLA's production volume scales.*
-
-*Source: SCLA video production planning document (Google Doc), Synthesia platform research, HeyGen platform research, Wistia platform research — compiled June 2026.*
+*Source: SCLA video production planning document (Google Doc), Synthesia/HeyGen/Wistia platform research.*

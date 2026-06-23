@@ -1,11 +1,6 @@
 ---
 source: docs/_archive/source-dumps/community-learning/career-courses/course-title-brand-you.md; docs/_archive/source-dumps/community-learning/career-courses/hidden-job-market-for-graduates.md; docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/learning-strategy/education-scla-2026.md
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: high
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # SCLA Course Catalog
 

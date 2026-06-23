@@ -1,11 +1,6 @@
 ---
 source: docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/learning-frameworks/durable-skills-framework-and-sub-competency-map-2026-scla.md; docs/_archive/source-dumps/community-learning/learning-frameworks/scla-c2c-framework-2026.md
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: medium
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # SCLA Credentials Framework
 
@@ -158,4 +153,4 @@ To drive credential completion, the education team is building:
 
 - [course-catalog.md](./course-catalog.md) — all courses that feed into credentials
 - [scla-leadership-program.md](./scla-leadership-program.md) — the primary credentialed program
-- [member-support/products-and-services.md](../member-support/products-and-services.md) — Career Readiness Certification as a member benefit
+- [member-support/products-services.md](../member-support/products-services.md) — Career Readiness Certification as a member benefit
