@@ -1,9 +1,6 @@
 ---
 source: internal
-generated_by: claude-proposal-writer
-last_updated: 2026-05-11
-confidence: high
-status: DRAFT — 4 blockers require human input before submission (search CONFIRM)
+status: DRAFT — blockers require human input before submission (search CONFIRM)
 ---
 
 # Innovation Concept Narrative

@@ -1,25 +1,12 @@
 ---
 source: Community Team Mondays notes Apr 2026 (archived externally); stakeholder notes (archived externally)
-generated_by: workflow-mapper
-last_updated: 2026-04-24
-confidence: medium
 ---
 
 # SCLA — Current-State Workflows
 
-Ten workflows observed across three consecutive Community Team Monday
-meetings (Apr 6, 13, 20). Claims are cited to meeting notes; thin
-evidence is marked `TODO: needs input`.
+Ten workflows mapped from Community Team Monday meetings (Apr 6, 13, 20). Thin evidence is marked `TODO: needs input`.
 
-**Scope note — stakeholder-inventory correction:** the stakeholder
-inventory captured the client's self-description as "no project/task
-tracking." The meeting notes show a different picture. The team uses a
-**Team Projects tracker** (a Canva canvas, built by Kierra Woekel),
-plus a **Community weekly sync canvas** and two Google Sheets ("OG
-tracker" + a simpler Chuck tracker). As of Apr 13, the team
-**decided** the Canva Team Projects tracker is the single source of
-truth for action items. This is recorded here because the workflow
-exists even though the client didn't name it as a tool.
+**Tracking tools:** the team uses a **Team Projects tracker** (Canva canvas, built by Kierra Woekel) — the single source of truth for action items as of Apr 13 — plus a **Community weekly sync canvas** and two Google Sheets ("OG tracker" + a simpler Chuck tracker).
 
 ---
 
@@ -302,4 +289,4 @@ Amy wants this more visual — screenshot-driven.
 - **CRM / advisor tools** — mentioned as "in the tech team's build" (Apr 20)
   but no current-state workflow.
 
-These gaps are the core reason for the [Drive search queries](../../_archive/drive-search-queries-pre-2026-06-11.md).
+These gaps require a targeted Drive search to fill.

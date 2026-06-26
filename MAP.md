@@ -22,7 +22,7 @@ Dynamic session memory lives in `.remember/` (gitignored, local-only — handoff
 
 | I need to... | Load this |
 | --- | --- |
-| Know what SCLA is / org facts | `_archive/source-of-truth/charter.md` (archived provenance) |
+| Know what SCLA is / org facts | `context/me.md` (canonical live owner) |
 | Check current goals or priorities | `context/goals.md`, `context/current-priorities.md` |
 | Look up brand colors, logo, type | `scla/brand/visual-identity.md` |
 | Write in SCLA's voice | `scla/brand/voice-and-tone.md` |

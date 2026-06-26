@@ -1,16 +1,11 @@
 ---
 source: thescla.org live CSS (template_custom.min.css, template_theme-overrides.min.css, inline styles)
-generated_by: brand-analyst
-last_updated: 2026-06-04
-confidence: high
 ---
 
 # SCLA Visual Identity
 
-> Source: Values extracted directly from production CSS at thescla.org (June 2026).
-> Previous version was derived from Orientation Slides (confidence: medium) and contained
-> several discrepancies — notably the primary color (`#002060` in slides vs. `#0d2437` on web).
-> The web CSS is now the source of truth. Slide deck colors are preserved as a note below.
+> Source: values extracted directly from production CSS at thescla.org (June 2026), the source
+> of truth for digital work. Slide-deck colors are preserved as a note below.
 > TODO: obtain a formal brand guidelines document to resolve any remaining slide/web divergence.
 
 ## Colors

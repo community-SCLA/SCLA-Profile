@@ -1,8 +1,5 @@
 ---
 source: https://www.thescla.org
-generated_by: knowledge-curator
-last_updated: 2026-05-13
-confidence: high
 ---
 
 # SCLA People & Leadership

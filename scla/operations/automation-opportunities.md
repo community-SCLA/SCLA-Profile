@@ -1,23 +1,12 @@
 ---
 source: Community Team Mondays notes Apr 2026 (archived externally); stakeholder notes (archived externally)
-generated_by: workflow-mapper
-last_updated: 2026-04-24
-confidence: medium
 ---
 
 # SCLA — Automation Opportunities
 
-Derived from three consecutive Community Team Mondays (Apr 6, 13, 20, 2026)
-plus the stakeholder tooling inventory. Priorities reflect what the team
-has already *said out loud* that they want, plus inferred high-leverage
-patterns. **Several of these are not speculative — the team has already
-decided to do them.** The job is execution, not persuasion.
+Derived from Community Team Mondays (Apr 6, 13, 20, 2026) plus the stakeholder tooling inventory.
 
-Tool lens: Slack, Gmail, Google Drive, Zoom, Claude Pro (just acquired,
-appetite for MCP). The team also uses Canva heavily (trackers + design),
-Google Sheets (Amy's personal "OG" tracker + Chuck tracker), Notebook LM,
-Perplexity, Figma, Heygen/Synthesia. No Notion, no Jira, no Airtable —
-proposals stick to tools already in play.
+Tools in play (proposals stick to these): Slack, Gmail, Google Drive, Zoom, Claude Pro (MCP), Canva (trackers + design), Google Sheets (Amy's "OG" tracker + Chuck tracker), Notebook LM, Perplexity, Figma, Heygen/Synthesia. No Notion, Jira, or Airtable.
 
 ---
 
@@ -35,17 +24,7 @@ proposals stick to tools already in play.
 | **Priority** | P0 (blocking weekly cadence) |
 | **Dependencies** | 3 sample MJML source files from Amy; Claude Pro access; Canva export of current design |
 
-**Why this matters**
-
-Sean/Shawn has been a bottleneck across every meeting read. Apr 6:
-
-> "Zeketra Grandy has successfully created the content in Canva for weekly announcements, but the team is waiting for Sean to convert them into MJML email templates for use in campaigns, preventing a consistent rhythm from starting."
-> *source: Apr 6 notes (archived externally — not in repo)*
-
-Apr 20 recorded the decided path:
-
-> "Kierra Woekel offered to use Claude to build an MJML template based on three desirable samples, which would then be provided to the tech team for implementation. Amy Westby agreed to work with Kierra Woekel offline to execute this plan."
-> *source: Apr 20 notes (archived externally — not in repo)*
+**Status:** decided (Apr 20). Kierra builds an MJML template from three sample files and hands it to the tech team for implementation, routing around Sean/Shawn's MJML conversion bottleneck.
 
 **Proposed shape**
 
@@ -75,20 +54,7 @@ weeks without Sean being on the critical path for authoring.
 | **Priority** | P0 (already decided + teammate waiting) |
 | **Dependencies** | Everyone actually dropping work into the community Drive; Kierra ingestion workflow |
 
-**Why this matters**
-
-Apr 20 established the decided pipeline:
-
-> "Kierra Woekel reiterated the request for team members to drop their work into the community Google Drive and ping them so they can feed it to Claude for the dashboard."
-
-And on SOPs:
-
-> "Kierra Woekel responded that they do not have a template but explained that Amy Westby and they are planning to use a Claude Pro account to scrape all information, create a knowledge base, and then automate the creation of a suitable structure."
-> *source: Apr 20 notes (archived externally — not in repo)*
-
-Stability angle (Apr 20):
-
-> "Kierra Woekel also noted the importance of preserving institutional knowledge of the work that has been completed."
+**Status:** decided (Apr 20). Team members drop work into the community Google Drive; Kierra feeds it to a Claude Pro account that scrapes it, builds a knowledge base, and surfaces it on the dashboard — also preserving institutional knowledge.
 
 **Proposed shape**
 
@@ -118,12 +84,7 @@ asking; team stops re-asking Amy where documents live.
 | **Priority** | P1 (team already sketching offline) |
 | **Dependencies** | Gmail admin access; partner keyword list |
 
-**Why this matters**
-
-Apr 6:
-
-> "Kierra Woekel, Amy Westby, and Yesse Ordonez are continuing to work offline on developing a system to triage incoming emails, which could involve creating an app script in Google to automate rerouting based on keywords or partners. Kierra Woekel confirmed that the Google Groups issue is a glitch, and while granting access manually is possible, they are looking for the permanent solution that the groups feature would provide."
-> *source: Apr 6 notes (archived externally — not in repo)*
+**Status:** in progress offline (Kierra, Amy, Yesse). Apps Script to reroute incoming email by keyword/partner, replacing manual access grants used to work around a Google Groups glitch.
 
 **Proposed shape**
 
@@ -154,16 +115,7 @@ the top 80% of patterns.
 | **Priority** | P1 |
 | **Dependencies** | Slack app install; Claude Pro (done) |
 
-**Why this matters**
-
-Apr 6:
-
-> "Kierra Woekel has been developing a free Gemini-based AI agent to host in Slack that can summarize threads, pull action items, autogenerate weekly summaries, and help locate resources."
-> *source: Apr 6 notes (archived externally — not in repo)*
-
-Apr 6 decision:
-
-> "Kierra Woekel suggested that the best investment would be to upgrade their Claude account to a paid Claude Pro level for approximately $17 a month, as this would open up MCP calls and allow for greater functionality, potentially serving as a replacement for the requested native Slack AI bot."
+**Status:** Kierra prototyped a Gemini-based Slack agent (thread summaries, action items, weekly summaries, resource lookup); the team upgraded to Claude Pro (~$17/mo, MCP) as the path forward.
 
 **Proposed shape**
 
@@ -192,16 +144,7 @@ Community Team Mondays already aligned on the previous week.
 | **Priority** | P1 |
 | **Dependencies** | PRD (Amy flagged as needed); tech team capacity; Sean/Chuck prioritization |
 
-**Why this matters**
-
-Apr 20:
-
-> "Kierra Woekel offered the idea of an AI agent that could translate a student's duties into outcome-driven language, similar to a skills file they developed for another organization. Zeketra Grandy agreed, suggesting students should input their duties and target job description to ask the AI to determine transferable skills and help communicate them effectively. Kierra Woekel proposed using Claude's user-friendly interface to create a pop-up guiding the student through a back-and-forth conversation to extract information, rather than just filling out boxes."
-> *source: Apr 20 notes (archived externally — not in repo)*
-
-Zeketra confirmed the content problem (not just UI):
-
-> "many students struggle with the content itself, specifically identifying transferable skills and knowing what words to write."
+**Status:** proposed (Apr 20). A conversational AI agent that takes a student's duties + target job description and outputs transferable skills as outcome-driven language. Addresses a content problem (students struggle to identify transferable skills and word them), not just UI.
 
 **Proposed shape**
 
@@ -237,9 +180,7 @@ stops evaporating into meeting-notes history.
 
 ### 7. Change log / feature request backlog tool
 
-Apr 20:
-
-> "Amy Westby emphasized the need for a better process or tool for managing the change log, future requests, and backlog, which would allow the team to document input from the field. They suggested that Sean, the team, and Chuck could prioritize the rollout of changes based on this documentation, noting the communication differences between Sean's zero documentation and the team's extensive documentation."
+Need flagged Apr 20: a tool to manage the change log, future requests, and backlog, so Sean, the team, and Chuck can prioritize rollouts from documented field input.
 
 **Proposed shape:** a structured Google Doc (or Claude-curated one) with
 columns {source, category, severity, proposed-fix, status}. Weekly
@@ -249,25 +190,13 @@ Claude digest highlights unprocessed items before the Monday meeting.
 
 ### 8. Google Analytics → member journey drop-off dashboard
 
-Apr 20:
-
-> "Kierra Woekel suggested analyzing Google Analytics data to identify where members are dropping off in the current client journey."
-
-Context for scale: 15,000 onboarded since Dec 1; 30,000 members since
-Jul 1; 317 refunds (~1%). Data exists — it just isn't being mined.
+Analyze Google Analytics to find where members drop off in the journey (flagged Apr 20). Scale: 15,000 onboarded since Dec 1; 30,000 members since Jul 1; 317 refunds (~1%). Data exists but isn't being mined.
 
 ---
 
 ### 9. Course production pipeline (Heygen + Synthesia + Claude script drafting)
 
-Apr 13:
-
-> "they may need to hire an additional person to focus on building the courses due to the amount of work involved, even with tools like Hey Gen and Synthesia for videography help from Annie."
-
-Only 2 of 61–62 courses exist. Heygen and Synthesia are already in use.
-Claude can draft lesson scripts, quiz items, and syllabus outlines from
-the course catalog (Mayeth's work). Ask Claude to do the "first 70%"
-before Annie's videography step.
+Only 2 of 61–62 courses exist; hiring an additional course-builder was raised Apr 13. Heygen and Synthesia are already in use (Annie). Claude can draft lesson scripts, quiz items, and syllabus outlines from the course catalog (Mayeth's work) — the "first 70%" before Annie's videography step.
 
 ---
 

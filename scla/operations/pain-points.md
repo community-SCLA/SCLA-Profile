@@ -1,15 +1,10 @@
 ---
 source: Community Team Mondays notes Apr 2026 (archived externally)
-generated_by: workflow-mapper
-last_updated: 2026-04-24
-confidence: medium
 ---
 
 # SCLA — Pain Points
 
-Prioritized by: (a) frequency across the three meetings, (b) whether a
-fix is within the community team's control, (c) rough estimate of
-hours-saved-per-week or risk avoided.
+Prioritized by frequency across the three Apr 2026 meetings, whether a fix is within the community team's control, and rough hours-saved/risk-avoided.
 
 ---
 
@@ -164,17 +159,4 @@ Tech-team bug. Noted, no recurrence in later meetings — status unclear.
 
 ### 11. Tool utilization varies per member
 
-Example member said they only wanted the async component, not the resume
-builder or interview tool. Not a pain point per se — but a signal that
-focus-modes gating (Aug 1 launch) is the right product direction.
-
----
-
-## Meta-pattern: this team is solving its own pain points in real time
-
-Three weeks of meetings show a consistent pattern: the team names a
-problem, proposes a solution (often Kierra-led), and by the next meeting
-has taken a small concrete step. The risk isn't that problems go
-unidentified — it's that ambition outpaces the two-person
-tech-automation capacity of Kierra + Claude Pro. Prioritization + single
-source of truth for owned next-steps is the highest-leverage meta-fix.
+Example member wanted only the async component, not the resume builder or interview tool — a signal that focus-modes gating (Aug 1 launch) is the right product direction.

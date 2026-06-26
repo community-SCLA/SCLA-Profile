@@ -1,11 +1,6 @@
 ---
 source: docs/_archive/source-dumps/community-learning/community-engagement/channels.md; docs/_archive/source-dumps/community-learning/ed-content/leader-of-the-future.md; docs/_archive/source-dumps/community-learning/comms/community-communications-2026-prd.md; docs/_archive/source-dumps/community-learning/events/events-2026-prd.md
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: high
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # SCLA Community Platform
 
@@ -201,7 +196,5 @@ Phase 1 (Weeks 1–2) priorities:
 
 ## Related
 
-- [community-platform.md](./community-platform.md) — this file
 - [programs/scla-leadership-program.md](../programs/scla-leadership-program.md) — the credentialed program that feeds into community
 - [operations/team-roster.md](../operations/team-roster.md) — community team handles
-- [_archive/source-of-truth/onboarding.md](../../_archive/source-of-truth/onboarding.md) — first-week checklist for new team members (archived provenance)

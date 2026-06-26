@@ -16,7 +16,7 @@ Load these selectively as needed — not all at once.
 
 | File | What's in it |
 | --- | --- |
-| `context/me.md` | What SCLA is, who we serve, org identity (boot summary — canonical facts live in `_archive/source-of-truth/charter.md`) |
+| `context/me.md` | What SCLA is, who we serve, org identity (canonical live owner) |
 | `context/goals.md` | What we're trying to accomplish |
 | `context/current-priorities.md` | Active work and near-term focus |
 
@@ -41,7 +41,7 @@ Load these selectively as needed — not all at once.
 `_archive/source-dumps/` holds **raw, unedited Google Drive exports** kept only so the
 curated pages above stay traceable. It is ~2 MB of source material with one file per Drive doc.
 
-- **Do not read these files into context** unless you are tracing a specific citation.
+- **Do not read these files into context, and never route to `_archive/` as a place to load canonical info** unless you are tracing a specific citation.
 - Start from the curated `scla/` pages; follow a `source:` link into the archive only when you
   need the underlying detail.
 - The index at `_archive/source-dumps/README.md` maps each slug to its original Drive path.
@@ -62,6 +62,7 @@ One-liners — full text and rationale in `GOVERNANCE.md`.
 
 - **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
 - **Prefer quoting over paraphrasing** — cite into `_archive/source-dumps/`.
-- **`_archive/source-of-truth/` is archived** — read-only provenance; do not edit or move back.
+- **Never route to the archive** — `_archive/` is read-only provenance, never a canonical owner, routing target, or "load this" pointer. Follow a `source:` citation into `_archive/source-dumps/` only when explicitly tracing provenance.
+- **Reference pages stay lean** — pages under `scla/` and `context/` carry current-state facts only; why/history/status-metadata lives in `decisions/log.md`.
 - **Credentials go in `.env` only** — never hardcoded.
 - **Log structural changes** in `decisions/log.md`; push with `./sync.sh`.
