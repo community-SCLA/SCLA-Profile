@@ -1,8 +1,5 @@
 ---
 source: internal
-generated_by: claude-proposal-writer
-last_updated: 2026-05-11
-confidence: high
 status: DRAFT — items marked CONFIRM require tech team input before submission
 ---
 

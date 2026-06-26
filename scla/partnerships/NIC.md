@@ -1,11 +1,6 @@
 ---
 source: docs/_archive/source-dumps/community-learning/partners/nic/comms-scla-nic.md
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: high
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # NIC / CGHS Partnership
 
@@ -73,5 +68,4 @@ TODO: needs input — no internal SCLA contact for this partnership named in sou
 
 ## Related
 
-- [SGA.md](./SGA.md) — Student Government Association partnership
 - [programs/credentials-framework.md](../programs/credentials-framework.md) — how academic credits align to SCLA's credential framework

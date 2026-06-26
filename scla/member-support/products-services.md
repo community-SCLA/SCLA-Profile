@@ -8,9 +8,6 @@ source:
   - https://www.thescla.org Honor Society ｜ From Campus to Career (4_23_2026 3：38：06 PM).html
   - https://www.thescla.org SCLA Difference ｜ Value for Students & Schools (4_23_2026 3：39：26 PM).html
   - https://www.thescla.org College Credit Through Your SCLA Membership - The SCLA (4_23_2026 3：54：20 PM).html
-generated_by: knowledge-curator
-last_updated: 2026-05-13
-confidence: high
 ---
 
 # SCLA Products & Services

@@ -1,11 +1,6 @@
 ---
 source: docs/_archive/source-dumps/community-learning/career-courses/career-readiness-accelerator-outline-syllabus.md
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: high
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # Career Readiness Accelerator
 

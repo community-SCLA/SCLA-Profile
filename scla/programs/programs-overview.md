@@ -1,11 +1,6 @@
 ---
 source: https://www.thescla.org; Community Team Mondays notes Apr 2026 (archived externally); docs/_archive/source-dumps/community-learning/
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: medium
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # Products and Services
 

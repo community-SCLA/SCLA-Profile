@@ -1,6 +1,5 @@
 # Video Production Pipeline — Status
 
-**Last updated:** 2026-06-04  
 **Current phase:** Pre-production setup  
 **Owner:** TODO
 

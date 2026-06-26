@@ -1,23 +1,16 @@
 ---
 source: https://www.thescla.org
-generated_by: brand-analyst
-last_updated: 2026-06-22
-confidence: medium
-voice_refresh: 2026-06-22
 ---
 
 # SCLA Voice and Tone
 
-> NOTE: Confidence is MEDIUM for the *current-voice* evidence (verbatim site copy, scraped
-> 2026-04-23). The **2026-06-22 voice refresh** below (the three-pillar spine, revised axes,
-> and target phrasings) is an intentional brand direction approved by the SCLA Community Team,
-> informed by external inspiration accounts — not a description of copy already on the site.
-> Target phrasings are **illustrative drafts**, clearly labeled, never to be cited as existing
-> SCLA copy. Rationale and the inspiration scan live in `decisions/log.md` (2026-06-22 entry).
+> The three-pillar spine, voice axes, and target phrasings below are the approved brand
+> direction. Target phrasings are **illustrative drafts** — never cite them as existing SCLA
+> copy. Verbatim site copy appears under "confirmed current copy."
 
 ---
 
-## The spine — three pillars (2026-06-22)
+## The spine — three pillars
 
 Everything SCLA writes should carry at least one of these, and never contradict any of them.
 They are the "through lines" pulled from the brands we admire, tuned to who SCLA already is.
@@ -54,9 +47,6 @@ network is theirs. Belonging is what turns recognition into momentum.
 
 ## Voice axes
 
-Positions reflect the **2026-06-22 direction**. Where the refresh moved a position, the prior
-read is noted. Current-voice evidence (verbatim site copy) appears in the samples below.
-
 | Axis | Position | Notes |
 | --- | --- | --- |
 | Formal ↔ Casual | Leans casual with professional grounding | Contractions, direct address, light humor — never stiff or legalistic. |
@@ -68,7 +58,7 @@ read is noted. Current-voice evidence (verbatim site copy) appears in the sample
 
 ---
 
-## Target voice — illustrative phrasings (2026-06-22)
+## Target voice — illustrative phrasings
 
 > ⚠️ **These are drafts that MODEL the three pillars — not existing SCLA copy.** Use them as a
 > tuning fork when writing new copy. Do not quote them as if they already appear on the site.
@@ -91,14 +81,12 @@ read is noted. Current-voice evidence (verbatim site copy) appears in the sample
 
 ## "Sounds like us" — confirmed current copy (baseline)
 
-These are verbatim sentences from full HTML page exports (scraped 2026-04-23). They are the
-**current** voice we are evolving from — accurate, but lighter on community/belonging and on the
-insider-playbook candor the refresh adds. Keep them as evidence; new copy should keep their
-plainness and human directness while layering in the three pillars.
+Verbatim sentences from full HTML page exports (scraped 2026-04-23) — the current voice. New
+copy should keep their plainness and human directness while layering in the three pillars.
 
-### Org identity (canonical owner: `_archive/source-of-truth/charter.md`)
+### Org identity (canonical owner: `context/me.md`)
 
-*If the wording changes there, update samples 1–2.*
+*If the org identity wording changes there, update samples 1–2.*
 
 1. "The Society for Collegiate Leadership & Achievement (SCLA) is the leading
    College-to-Career Honor Society." — (homepage)
@@ -180,9 +168,8 @@ plainness and human directness while layering in the three pillars.
 
 ## Editorial signals (current blog, supplementary)
 
-Existing blog titles already gesture toward pillars 1–2 (direct address, practical framing,
-confident phrases). They under-index on pillar 3 (community/belonging) — a gap the refresh
-intentionally fills.
+Existing blog titles gesture toward pillars 1–2 (direct address, practical framing, confident
+phrases) and under-index on pillar 3 (community/belonging).
 
 Source: `https://www.thescla.org`
 

@@ -1,11 +1,6 @@
 ---
 source: docs/_archive/source-dumps/community-learning/career-courses/job-readiness/scla-leadership-program-tech-notes.md
-generated_by: source-of-truth-curator
-last_updated: 2026-05-11
-confidence: high
 ---
-
-> This page is the team's — edit it freely. Pipeline-assisted; human-maintained going forward.
 
 # SCLA Leadership Program
 
@@ -98,4 +93,3 @@ The flagship credentialed program for SCLA members. Built around three core obje
 
 - [programs-overview.md](./programs-overview.md) — full program list
 - [credentials-framework.md](./credentials-framework.md) — how credentials and badges are structured
-- [_archive/source-of-truth/program-names.md](../../_archive/source-of-truth/program-names.md) — canonical names (archived provenance)

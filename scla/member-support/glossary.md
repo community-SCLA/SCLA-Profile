@@ -1,15 +1,10 @@
 ---
 source: https://www.thescla.org; Community Team Mondays notes Apr 2026 (archived externally)
-generated_by: knowledge-curator
-last_updated: 2026-05-13
-confidence: high
 ---
 
 # Glossary
 
-> Every acronym, product code-name, and internal term found in available source material.
-
-All definitions are derived from Google search-index snippets. Terms marked **TODO** could not be defined from available evidence.
+> Every acronym, product code-name, and internal term. Terms marked **TODO** could not be defined from available evidence.
 
 ---
 
@@ -24,7 +19,7 @@ All definitions are derived from Google search-index snippets. Terms marked **TO
 
 — *source: https://www.thescla.org & History ｜ SCLA's 4 Pillars & Growth (4_23_2026 3：38：37 PM).html*
 
-Canonical identity statement and founding facts (dates, founder): [_archive/source-of-truth/charter.md](../../_archive/source-of-truth/charter.md) (archived provenance)
+Org identity and founding facts (dates, founder): [context/me.md](../../context/me.md).
 
 **Related:** [products-services.md](./products-services.md), [people.md](./people.md)
 
