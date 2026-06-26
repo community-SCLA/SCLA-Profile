@@ -19,23 +19,6 @@ marked `TODO: needs input` await brand assets (logo SVGs, brand guidelines PDF).
 - [Visual Identity](./visual-identity.md)
 - [Asset Index](./assets/index.md)
 
-## At a glance
-
-| Field | Value |
-| --- | --- |
-| Organization name | The Society for Collegiate Leadership & Achievement |
-| Common short form | SCLA |
-| Page title (from search index) | "SCLA Honor Society \| From Campus to Career" |
-| Industry | Higher education / education services |
-| Website | https://www.thescla.org |
-| Org facts (founded, founder, scale, HQ) | See `context/me.md` (canonical) |
-| Primary color | `#0d2437` (Dark Navy) — confirmed from thescla.org production CSS, June 2026 |
-| Accent color | `#eaab2d` (Yellow) — CTA buttons and highlights |
-| Secondary color | `#3393d6` (Blue) — H3–H6, links, accents |
-| Headline font | Proxima Nova — self-hosted + Adobe Typekit; weights 100–900 all loaded |
-| Tone, in three words | Empowering, plain-spoken, human — see `voice-and-tone.md` for full axis ratings |
-| Tagline | "From Campus to Career" — confirmed. Appears in homepage page title ("SCLA Honor Society \| From Campus to Career") and used as the core mission framing throughout the website: "SCLA exists to help students transition successfully from campus to career." (What Is The SCLA HTML) |
-
 ## Common mistakes
 
 - **"SCLA" vs. "The SCLA" — use "The SCLA" in prose.** The blog page
