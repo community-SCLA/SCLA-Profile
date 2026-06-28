@@ -121,6 +121,16 @@ pointers in the live KB. Exit 0 = healthy.
 
 ---
 
+## Branch Naming
+
+Format: `DD-MM-YYYY-<short-description>` (e.g. `28-06-2026-update-voice-tone`)
+
+- Date-first keeps branches chronologically sortable
+- Description: lowercase, hyphen-separated, ≤ 5 words
+- Example: `28-06-2026-add-grant-brief-template`
+
+---
+
 ## Commit Discipline
 
 | Prefix | Use for |
