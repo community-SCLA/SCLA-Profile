@@ -32,7 +32,7 @@ Community Team Drive/
 ├── 01 Learning (CIAO)/
 │   ├── Course Catalog/
 │   │   ├── AI & Technology/          (AI101–AI306, 9 files)
-│   │   ├── Career & Job Search/      (CAR101–106, Hidden Job Market, Interview Video, 8 files)
+│   │   ├── Career & Job Search/      (Career Development Skills, LinkedIn & Personal Brand Toolkit, CAR101–106, Hidden Job Market, Interview Video, 10 files)
 │   │   ├── Networking/               (NET101, NET201–202, 3 files)
 │   │   ├── Communication/            (COM101–102, 2 files)
 │   │   ├── Leadership/               (LDR101, 102, 201–203, 5 files)
@@ -53,9 +53,8 @@ Community Team Drive/
 │   │   ├── Career Readiness Accelerator Outline Syllabus
 │   │   ├── CRA101 – SCLA Career Readiness Accelerator
 │   │   ├── CRA201 – SCLA Career Readiness Certification
-│   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026  ⚠️ DUPLICATE (see below)
+│   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026  
 │   │   ├── CRA302 – 18 Actionable Strategies
-│   │   └── CRC101 – Career Readiness Certification Syllabus     ⚠️ OVERLAP (see below)
 │   ├── LinkedIn & Personal Brand Toolkit/
 │   │   └── (11 files: define brand, optimize profile, playbook, sleuthing tips,
 │   │         escape workbook, 6 ways to grow network, LinkedIn success database,
@@ -268,7 +267,7 @@ Community Team Drive/
 This is a structural reorganization of the live Community Team Google Drive Folder
 1. Create the top-level initiative folders 
 2. Move existing files into their new homes
-4. Move stale files per the dispositions above (Archive vs. remove)
+4. Move stale files per the dispositions (Archive vs. remove)
 
 ---
 ## What Is Missing Entirely (move to TODO to be created later)
@@ -283,62 +282,32 @@ This is a structural reorganization of the live Community Team Google Drive Fold
 
 ---
 
-### Confirmed duplicates
-
-2. **Two "Events" folders.** `Member Engagement/Events/` holds only a single shortcut
-   ("The BIG Celebration Script") that duplicates one already in `Events/Celebration/`.
-   - **Disposition:** collapse `Member Engagement/Events/` into the top-level `Events/`.
+### Resolve before restructuring
 3. **"The BIG Celebration Script" cross-posted** as a shortcut in both
    `Member Engagement/Events/` and `Events/Celebration/`.
-   - **Disposition:** keep one home (`Events/Celebration/`).
+   ->colapse and keep one home (`Engagement/Events`)
 
 ### Stale / misfiled (in active folders, not archived)
 
 4. **ARCHIVE-labeled files in an active folder** — `Events/Info Session/` holds
    `ARCHIVE SCLA Info Session Deck` (shortcut) and `ARCHIVE Info Session Slides .pptx`
-   alongside the active `MAY2026 SCLA Info Session`. → move to `_Archived/` or remove.
-5. **`Events/Celebration/` looks post-event** — script, PPT, agenda, comms, and a
-   "The Big Celebration DRAFT" shortcut, all dated May 2026. Confirm the event is done,
-   then archive the batch. Also resolve the DRAFT-vs-final ambiguity
-   ("The Big Celebration DRAFT" vs. "The BIG Celebration Script").
-6. **`IMG_8674.MOV` (109 MB) loose in `Events/Orientation/`** — unnamed raw video among
-   orientation docs. → name/relocate or remove.
+   alongside the active `MAY2026 SCLA Info Session`. → move to `_Archived/` 
+
+6. **importance of community.MOV (109 MB) loose in `Events/Orientation/`** → relocate to community engagement folder
 7. **Draft emails in `Events/Orientation/`** — "Follow Up Orientation Email DRAFT" and
-   "Reminder Email DRAFT." Confirm still in use vs. superseded by the Orientation SOP.
+   "Reminder Email DRAFT."  still in use vs. superseded by the Orientation SOP.
 
-### Structural flag — new "Career Development" tree
-
-8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27). Sampled folders
-   are all empty. Its topics (Networking, Leadership Skills, Communication, Emotional
-   Intelligence, Public Speaking, Personal Branding, Goal Setting, Critical Thinking…)
-   **overlap the course-catalog topics** the brief files under `01 Learning (CIAO) /
-   Course Catalog`. This is currently a **competing parallel taxonomy** for the same
-   content. Decide whether "Career Development" *becomes* the course-catalog home (replacing
-   the `01 Learning` catalog layout) or duplicates it.
-
-### Similarly named / relevance checks
 
 9. **`CRA301: Career Readiness Accelerator Syllabus`** sits **loose at the Drive root**
-   instead of under Education/Career Readiness. The other CRA/CRC docs flagged in this brief
-   are no longer present (cleaned up). Confirm CRA301 is not a second cut of the loose
-   **`SCLA Career Toolkit.pdf`**; file both.
-10. **"What kind of learner are you in this moment"** (root shortcut) vs. this brief's
-    standalone "What Kind of Learner Are You Right Now" — almost certainly the same piece
-    under two titles. Confirm one source.
-11. **`Education & Learning Programs/` is nearly empty** — only "AI Assessment Sample" + a
-    "WORKSHOP PROPOSAL." Learning content appears to be migrating into `Career Development`
-    instead, reinforcing finding #8.
+   instead of under Education/Career Readiness. Confirm CRA301 is not a duplicate version and archive if it is, and if it is not, move to be under Education/Career Readiness.
+
 12. **~10 loose shortcuts at the Drive root** (Community & Learning SCLA, Marketing SCLA,
     Ed Metrics, Chapter Interns, Compelling Parts of Member's Area, Example: Branded SCLA
     Course Catalog, Dashboard Drive Through Recording, Pledge Project Outreach Scripts,
     SCLA_Swag_Incentive_Program_Proposal). Several point outside the Community Team Folder;
-    none are filed into an initiative folder. Each needs a keep-and-file vs. remove decision.
+    -> move shared links to nest under relevant file hierarchy
 
-### Resolve before restructuring
 
-- **Career Development vs. 01 Learning taxonomy (#8)** — these cannot both be the home for
-  course topics.
-- **Career Passport format (#1)** — collapse each RFP to one file so a duplicate isn't
-  carried into the new structure.
+
 
 
