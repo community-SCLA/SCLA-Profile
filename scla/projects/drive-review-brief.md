@@ -3,7 +3,7 @@ type: program
 status: draft
 owner: Kierra
 created: 2026-06-24
-last_updated: 2026-06-26
+last_updated: 2026-06-28
 ---
 
 # Plan: Proposed Google Drive Folder Hierarchy for the Community Team Folder
@@ -286,5 +286,78 @@ This is a structural reorganization of the live Google Drive
 5. **Info Session SOP** — slide materials exist but no formatted SOP doc
 6. **Champions & Ambassador program** — Notion page exists; no Drive content
 7. **Automation templates** — Comms PRD defines what to build but no templates yet
+
+---
+
+## Additional Findings — Live Drive Review (2026-06-28)
+
+A full walk of the live **Community Team Folder** (every active subfolder; `_Archived/`
+ignored) after the recent cleanup. Findings flag items to confirm **before** any files are
+moved. Two items should be settled first — see "Resolve before restructuring" at the end.
+
+### Confirmed duplicates
+
+1. **Career Passport RFP docs — 2 documents stored as 4 files** (`Grants/Career Passport/`).
+   Each RFP doc exists twice — once as a Google Doc, once as a raw `.md`:
+   - `rfp-1980-innovation-concept-narrative.md` (Doc) **=** `…-narrative.md` (markdown) —
+     read both, content is identical (one is a Doc conversion of the other).
+   - `rfp-1980-pilot-readiness-package.md` (Doc) **=** `…-package.md` (markdown) — same pattern.
+   - **Disposition:** keep one format per doc; remove the other. This is the exact
+     duplicate-drift risk the brief warns about.
+2. **Two "Events" folders.** `Member Engagement/Events/` holds only a single shortcut
+   ("The BIG Celebration Script") that duplicates one already in `Events/Celebration/`.
+   - **Disposition:** collapse `Member Engagement/Events/` into the top-level `Events/`.
+3. **"The BIG Celebration Script" cross-posted** as a shortcut in both
+   `Member Engagement/Events/` and `Events/Celebration/`.
+   - **Disposition:** keep one home (`Events/Celebration/`).
+
+### Stale / misfiled (in active folders, not archived)
+
+4. **ARCHIVE-labeled files in an active folder** — `Events/Info Session/` holds
+   `ARCHIVE SCLA Info Session Deck` (shortcut) and `ARCHIVE Info Session Slides .pptx`
+   alongside the active `MAY2026 SCLA Info Session`. → move to `_Archived/` or remove.
+5. **`Events/Celebration/` looks post-event** — script, PPT, agenda, comms, and a
+   "The Big Celebration DRAFT" shortcut, all dated May 2026. Confirm the event is done,
+   then archive the batch. Also resolve the DRAFT-vs-final ambiguity
+   ("The Big Celebration DRAFT" vs. "The BIG Celebration Script").
+6. **`IMG_8674.MOV` (109 MB) loose in `Events/Orientation/`** — unnamed raw video among
+   orientation docs. → name/relocate or remove.
+7. **Draft emails in `Events/Orientation/`** — "Follow Up Orientation Email DRAFT" and
+   "Reminder Email DRAFT." Confirm still in use vs. superseded by the Orientation SOP.
+
+### Structural flag — new "Career Development" tree
+
+8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27). Sampled folders
+   are all empty. Its topics (Networking, Leadership Skills, Communication, Emotional
+   Intelligence, Public Speaking, Personal Branding, Goal Setting, Critical Thinking…)
+   **overlap the course-catalog topics** the brief files under `01 Learning (CIAO) /
+   Course Catalog`. This is currently a **competing parallel taxonomy** for the same
+   content. Decide whether "Career Development" *becomes* the course-catalog home (replacing
+   the `01 Learning` catalog layout) or duplicates it.
+
+### Similarly named / relevance checks
+
+9. **`CRA301: Career Readiness Accelerator Syllabus`** sits **loose at the Drive root**
+   instead of under Education/Career Readiness. The other CRA/CRC docs flagged in this brief
+   are no longer present (cleaned up). Confirm CRA301 is not a second cut of the loose
+   **`SCLA Career Toolkit.pdf`**; file both.
+10. **"What kind of learner are you in this moment"** (root shortcut) vs. this brief's
+    standalone "What Kind of Learner Are You Right Now" — almost certainly the same piece
+    under two titles. Confirm one source.
+11. **`Education & Learning Programs/` is nearly empty** — only "AI Assessment Sample" + a
+    "WORKSHOP PROPOSAL." Learning content appears to be migrating into `Career Development`
+    instead, reinforcing finding #8.
+12. **~10 loose shortcuts at the Drive root** (Community & Learning SCLA, Marketing SCLA,
+    Ed Metrics, Chapter Interns, Compelling Parts of Member's Area, Example: Branded SCLA
+    Course Catalog, Dashboard Drive Through Recording, Pledge Project Outreach Scripts,
+    SCLA_Swag_Incentive_Program_Proposal). Several point outside the Community Team Folder;
+    none are filed into an initiative folder. Each needs a keep-and-file vs. remove decision.
+
+### Resolve before restructuring
+
+- **Career Development vs. 01 Learning taxonomy (#8)** — these cannot both be the home for
+  course topics.
+- **Career Passport format (#1)** — collapse each RFP to one file so a duplicate isn't
+  carried into the new structure.
 
 
