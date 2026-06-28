@@ -194,18 +194,12 @@ Community Team Drive/
 │   ├── Member Support/
 │   │   ├── Member Support Plan Spec (June 2026)
 │   │   └── Membership Team Two-Tier Communication SOP
-│   ├── Info Sessions/                               
-│   │   ├── SCLA Info Session Deck
-│   │   ├── SCLA Info Session (marketing version)
-│   │   └── SCLA Information Deck
 │   ├── Templates & Tools/
 │   │   ├── Amy's Test Content (SCLA Learning Program Template)
 │   ├── Info Sessions/
 │   │   ├── SCLA Info Session Deck (community-learning version)  
 │   │   ├── SCLA Info Session (marketing version)                
 │   │   └── SCLA Information Deck (general)
-│   ├── Templates & Tools/
-│   │   ├── SCLA Learning Program Template (Amy's test content)
 │   │   └── Community Manager Bios
 │   └── Frontline/
 │       └── Frontline Forward
@@ -271,7 +265,7 @@ Community Team Drive/
 
 ## Implementation
 
-This is a structural reorganization of the live Google Drive 
+This is a structural reorganization of the live Community Team Google Drive Folder
 1. Create the top-level initiative folders 
 2. Move existing files into their new homes
 4. Move stale files per the dispositions above (Archive vs. remove)
@@ -289,21 +283,8 @@ This is a structural reorganization of the live Google Drive
 
 ---
 
-## Additional Findings — Live Drive Review (2026-06-28)
-
-A full walk of the live **Community Team Folder** (every active subfolder; `_Archived/`
-ignored) after the recent cleanup. Findings flag items to confirm **before** any files are
-moved. Two items should be settled first — see "Resolve before restructuring" at the end.
-
 ### Confirmed duplicates
 
-1. **Career Passport RFP docs — 2 documents stored as 4 files** (`Grants/Career Passport/`).
-   Each RFP doc exists twice — once as a Google Doc, once as a raw `.md`:
-   - `rfp-1980-innovation-concept-narrative.md` (Doc) **=** `…-narrative.md` (markdown) —
-     read both, content is identical (one is a Doc conversion of the other).
-   - `rfp-1980-pilot-readiness-package.md` (Doc) **=** `…-package.md` (markdown) — same pattern.
-   - **Disposition:** keep one format per doc; remove the other. This is the exact
-     duplicate-drift risk the brief warns about.
 2. **Two "Events" folders.** `Member Engagement/Events/` holds only a single shortcut
    ("The BIG Celebration Script") that duplicates one already in `Events/Celebration/`.
    - **Disposition:** collapse `Member Engagement/Events/` into the top-level `Events/`.
