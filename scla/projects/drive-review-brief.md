@@ -9,7 +9,7 @@ last_updated: 2026-06-28
 # Plan: Proposed Google Drive Folder Hierarchy for the Community Team Folder
 ## Overview
 
-This is a **proposal only** — no files will be moved until approved. The goal is a clean, initiative-aligned Drive structure where every document has exactly one home and stale content is visibly separated from active content.
+This is a **proposal only** — no files will be moved until approved, but tool calls to do rearch allowed. The goal is to identofy all files, including shared, deduplicate, archive stale and create a clean, initiative-aligned Drive structure where every document has exactly one home.
 
 ## Context
 
