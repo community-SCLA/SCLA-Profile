@@ -29,7 +29,6 @@ targets:
   brand_guide: true
   workflow_map: true
   automation_opportunities: true
-  source_of_truth: true
 
 collab:
   canonical_home: ""
@@ -42,4 +41,3 @@ gates:
   brand: medium
   knowledge_base: medium
   workflows: low
-  source_of_truth: low
