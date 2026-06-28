@@ -6,8 +6,7 @@ created: 2026-06-24
 last_updated: 2026-06-26
 ---
 
-# Plan: Proposed Google Drive Folder Hierarchy
-
+# Plan: Proposed Google Drive Folder Hierarchy for the Community Team Folder
 ## Overview
 
 This is a **proposal only** — no files will be moved until approved. The goal is a clean, initiative-aligned Drive structure where every document has exactly one home and stale content is visibly separated from active content.
