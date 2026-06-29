@@ -3,7 +3,7 @@ type: program
 status: draft
 owner: Kierra
 created: 2026-06-24
-last_updated: 2026-06-28
+last_updated: 2026-06-29
 ---
 
 # Plan: Proposed Google Drive Folder Hierarchy for the Community Team Folder
@@ -20,7 +20,7 @@ The current Drive is unstructured — 173 documents spread across ad-hoc folders
 - **Organize by Topic/Initiative, not by Type.** Documents are filed by what they're *about* (their initiative), not by their *format*. There is no standalone "Syllabus" or "Video" folder — a syllabus lives with its course topic (e.g., a Career Readiness syllabus lives under `01 Learning (CIAO)/Career Readiness Program/`). To find something, go to the topic, not the file type.
 - **Cross-posting** means putting the same document — or a copy/shortcut of it — in more than one folder so it appears in multiple places. We do **not** do this: each document has exactly one home. Duplicated copies drift out of sync (someone edits one, the other goes stale), which is the exact duplicate problem this cleanup is fixing. If a doc is relevant to two initiatives, it still lives in one folder; reference it elsewhere with a link, not a second copy.
 - **Folder depth vs. version retention.** "No nesting beyond 3 levels" limits how many folders deep you click — it says nothing about saving v4 or v5 of a file. Version handling is separate: keep the current canonical version active and move clearly superseded versions to `_Archive/`.
-- **Remove vs. Archive** Archive = keep but set aside. The doc is no longer active but may have reference or historical value (past weekly updates, superseded versions). Move it to the folder's `_Archive/` subfolder. Remove = remove entirely. The doc has no future reference value
+- **Remove vs. Archive** Archive = keep but set aside. The doc is no longer active but may have reference or historical value (past weekly updates, superseded versions). Move it to the folder's `_Archive/` subfolder. Remove = remove entirely. The doc has no future reference value.
 
 ---
 
@@ -35,10 +35,6 @@ Community Team Drive/
 │   │   ├── Career & Job Search/      (CAR101–106, Hidden Job Market, Interview Video, 8 files)
 │   │   ├── Networking/               (NET101, NET201–202, 3 files)
 │   │   ├── Communication/            (COM101–102, 2 files)
-│   │   ├── Leadership/               (LDR101, 102, 201–203, 5 files)
-│   │   ├── Career & Job Search/      (CAR101–106 + Hidden Job Market, Interview Video — 8 files)
-│   │   ├── Networking/               (NET101, NET201–202, 3 files)
-│   │   ├── Communication/            (COM101–102, 2 files)
 │   │   ├── Leadership/               (LDR101–102, LDR201–203, 5 files)
 │   │   ├── Psychology & EQ/          (PSY101–109, 9 files)
 │   │   ├── Learning Skills/          (LRN101–104, 4 files)
@@ -48,56 +44,30 @@ Community Team Drive/
 │   │   ├── Entrepreneurship/         (ENT101–102, 2 files)
 │   │   ├── Assessments/              (ASM101–104, PSY102 self-assessment, 5 files)
 │   │   ├── Seasonal Cohorts/         (SPR101 Q2 Reset, 1 file)
-│   │   └── Master Catalog/           (ed-prospectus-ed-vault-scla-2026.md, 1 file)
-│   ├── Career Readiness Program/
-│   │   ├── Career Readiness Accelerator Outline Syllabus
-│   │   ├── CRA101 – SCLA Career Readiness Accelerator
-│   │   ├── CRA201 – SCLA Career Readiness Certification
-│   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026  ⚠️ DUPLICATE (see below)
-│   │   ├── CRA302 – 18 Actionable Strategies
-│   │   └── CRC101 – Career Readiness Certification Syllabus     ⚠️ OVERLAP (see below)
-│   ├── LinkedIn & Personal Brand Toolkit/
-│   │   └── (11 files: define brand, optimize profile, playbook, sleuthing tips,
-│   │         escape workbook, 6 ways to grow network, LinkedIn success database,
-│   │         activate network, supercharge bio, peer connections, Sophie's challenge)
-│   ├── Partner Courses/
-│   │   ├── Identity Leadership (IDL)/   (idl-content-from-lxp.md)
-│   │   └── ISPI/                        (script-three-archetypes-of-innovation.md,
-│   │                                     new-readiness-course-video-needs.md)
-│   ├── Wellness Center (Q3 — Not Started)/
-│   │   └── wellness-center-framework-draft.md
-│   └── Job Readiness Steps (True Colors Series)/
-│       └── (step-one through step-four, 4 True Colors video scripts,
-│             welcome videos, SMART Goals, peer-connections, career-connections,
-│             SCLA Career Hub, SCLA Leadership Program Tech Notes — 16 files)
-│   │   ├── Assessments/              (ASM101–104 + PSY102 self-assessment, 5 files)
-│   │   ├── Seasonal Cohorts/         (SPR101 Q2 Reset, 1 file)
-│   │   └── Master Catalog/           (ed-prospectus-ed-vault-scla-2026, 1 file)
+│   │   └── Master Catalog/           (Ed Prospectus/Ed Vault SCLA 2026, 1 file)
 │   ├── Career Readiness Program/
 │   │   ├── Career Readiness Accelerator Outline & Syllabus
 │   │   ├── CRA101 – SCLA Career Readiness Accelerator
 │   │   ├── CRA201 – SCLA Career Readiness Certification
-│   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026  
+│   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026    ⚠️ see Confirmed Duplicates #1
 │   │   ├── CRA302 – 18 Actionable Strategies
-│   │   └── CRC101 – Career Readiness Certification Syllabus     
+│   │   └── CRC101 – Career Readiness Certification Syllabus        ⚠️ see Confirmed Duplicates #1
 │   ├── LinkedIn & Personal Brand Toolkit/
 │   │   └── (11 files: Define Your Personal Brand, Optimize LinkedIn Profile,
 │   │         LinkedIn Profile Playbook, Sleuthing Tips, Escape Personal
 │   │         Branding Workbook, 6 Ways to Grow Your Network, LinkedIn
 │   │         Success Database, Activate Your Network, Supercharge Your
 │   │         LinkedIn Bio, Peer Connections Templates, Sophie's Challenge)
-│   │                                                             
 │   ├── Partner Courses/
-│   │   ├── Identity Leadership (IDL)/   (idl-content-from-lxp)
+│   │   ├── Identity Leadership (IDL)/   (IDL Content from LXP)
 │   │   └── ISPI/                        (Three Archetypes of Innovation script,
 │   │                                     New Readiness Course Video Needs)
 │   ├── Wellness Center — Q3 Not Started/
 │   │   └── Wellness Center Framework DRAFT
 │   └── Job Readiness Steps (True Colors Series)/
-│       └── (Step One–Four True Colors video scripts, welcome videos,
-│             SMART Goals, peer-connections, career-connections,
+│       └── (step-one through step-four, 4 True Colors video scripts,
+│             welcome videos, SMART Goals, peer-connections, career-connections,
 │             SCLA Career Hub, SCLA Leadership Program Tech Notes — 16 files)
-│                                                                  
 │
 ├── 02 Foundation/
 │   ├── Frameworks/
@@ -114,8 +84,7 @@ Community Team Drive/
 │   │   ├── OGC Member Survey (Feb 2026)
 │   │   └── Focus Group Module Suggestions (ranked by member input)
 │   └── _Archive/
-│       └── ed-update-feb2026.md  (superseded by Education SCLA 2026)
-│       └── ed-update-feb2026  (superseded by Education SCLA 2026)
+│       └── Ed Update Feb 2026  (superseded by Education SCLA 2026)
 │
 ├── 03 Communications/
 │   ├── Active/
@@ -124,21 +93,6 @@ Community Team Drive/
 │   ├── Standalone Content/
 │   │   ├── The Case for Doing Less for Your Community  (newsletter-ready)
 │   │   └── What Kind of Learner Are You Right Now      (newsletter-ready)
-│   └── _Archive/
-│       └── Weekly Updates 2026/
-│           ├── Friday Update 02-27-26
-│           ├── LT Community & Learning Team Update 03-13-2026
-│           ├── Weekly Sync 03-20-2026
-│           ├── Weekly Sync 03-27-2026
-│           └── Team Update 05-04-2026
-│
-├── 04 Micro-Internships/
-│   ├── Program Roadmap/
-│   │   └── micro-internships.md
-│   ├── Partner Ideas/
-│   │   └── forage.md (Forage partnership)
-│   │   ├── The Case for Doing Less for Your Community   (newsletter-ready)
-│   │   └── What Kind of Learner Are You Right Now       (newsletter-ready)
 │   └── _Archive/
 │       └── Weekly Updates 2026/
 │           ├── Friday Update 02-27-26
@@ -170,19 +124,7 @@ Community Team Drive/
 │   │   ├── National University Binder v2
 │   │   ├── SGA Presentation (4-7-25)
 │   │   └── Stedman Graham Live Handoff Script
-│   ├── Leadership Development Coaching Initiative Pilot (DRAFT)
-│   └── _Archive/
-│       └── (NIC and Voyije → TRASH, not archived — see Stale section)
-│
-├── 06 Accreditation & Credibility/
-│   └── [Reserved — no active docs yet]
-│       Note: CRA/CRC certification syllabi live in 01 Learning (CIAO).
-│       This folder is for platform-level credentialing docs
-│       (Credly/Accredible setup, issuer agreements) once created.
-│       ├── NIC/
-│       │   ├── Comms SCLA-NIC
-│       │   └── NIC Innovation PDF
-│       └── Voyije Program Wrap 2026
+│   └── Leadership Development Coaching Initiative Pilot (DRAFT)
 │
 ├── 06 Accreditation & Credibility/
 │   └── [Reserved — no active docs yet]
@@ -194,16 +136,10 @@ Community Team Drive/
 │   ├── Member Support/
 │   │   ├── Member Support Plan Spec (June 2026)
 │   │   └── Membership Team Two-Tier Communication SOP
-│   ├── Info Sessions/                               
-│   │   ├── SCLA Info Session Deck
-│   │   ├── SCLA Info Session (marketing version)
-│   │   └── SCLA Information Deck
-│   ├── Templates & Tools/
-│   │   ├── Amy's Test Content (SCLA Learning Program Template)
 │   ├── Info Sessions/
-│   │   ├── SCLA Info Session Deck (community-learning version)  
-│   │   ├── SCLA Info Session (marketing version)                
-│   │   └── SCLA Information Deck (general)
+│   │   ├── SCLA Info Session Deck (community-learning version)
+│   │   └── SCLA Info Session (marketing version)
+│   │   [SCLA Information Deck lives in _Marketing & Brand/ — one home only]
 │   ├── Templates & Tools/
 │   │   ├── SCLA Learning Program Template (Amy's test content)
 │   │   └── Community Manager Bios
@@ -212,12 +148,9 @@ Community Team Drive/
 │
 ├── 08 Member Engagement/
 │   ├── Member Journey & Onboarding/
-│   │   ├── Membership Journey Today (current state doc)
-│   │   ├── The BIG Welcome — Onboarding 2026 
+│   │   ├── Membership Journey Today
+│   │   ├── The BIG Welcome — Onboarding 2026
 │   │   ├── The BIG Welcome — FINAL
-│   │   ├── Membership Journey Today  (current-state reference doc)
-│   │   ├── The BIG Welcome — Onboarding 2026               
-│   │   ├── The BIG Welcome — FINAL                         
 │   │   ├── SCLA Orientation Script
 │   │   ├── TL;DR Highlights (03-23-26)
 │   │   └── _Archive/
@@ -235,8 +168,6 @@ Community Team Drive/
 │
 ├── 09 Advisor Community/
 │   └── [Empty — no Drive content exists for this initiative]
-│       Note: Advisory board structure, recruitment process, and
-│       communications all need to be created from scratch.
 │       Advisory board structure, recruitment process, and communications
 │       all need to be created from scratch.
 │
@@ -249,13 +180,13 @@ Community Team Drive/
 
 ## What Is Clearly Current (keep as active)
 
-- All 60+ course syllabi in `prospectus-syllabi/` — these are the content production backlog
+- All 60+ course syllabi in `Course Catalog/` — these are the content production backlog
 - `community-communications-2026-prd.md` — automation spec
 - `events/events-2026-prd.md` — event planning source of truth
 - `micro-internships/` all 9 files — active program
 - `member-support/member-support-plan-spec.md` — just uploaded June 16
-- `learning-frameworks/` all files — active frameworks
-- `learning-strategy/focus-modes.md` — active for Aug 1 launch
+- `Frameworks/` all files — active frameworks
+- `focus-modes.md` — active for Aug 1 launch
 - SGA partner folder (5 files) — active partnership
 
 ## What Is Clearly Stale
@@ -264,19 +195,20 @@ Community Team Drive/
 
 **Trash** (no future reference value):
 
-- NIC folder (2 files) — wind-down complete
-- `voyije-program-wrap-2026-2.md` — program completed
+- NIC folder (2 files: Comms SCLA-NIC, NIC Innovation PDF) — wind-down complete
+- Voyije Program Wrap 2026 — program completed
 
 ---
 
 ## Implementation
 
-This is a structural reorganization of the live Google Drive 
-1. Create the top-level initiative folders 
+This is a structural reorganization of the live Google Drive.
+1. Create the top-level initiative folders
 2. Move existing files into their new homes
-4. Move stale files per the dispositions above (Archive vs. remove)
+3. Move stale files per the dispositions above (Archive vs. remove)
 
 ---
+
 ## What Is Missing Entirely (move to TODO to be created later)
 
 1. **Cybersecurity course** — Notion project exists; no Drive doc
@@ -304,9 +236,11 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
    - `rfp-1980-pilot-readiness-package.md` (Doc) **=** `…-package.md` (markdown) — same pattern.
    - **Disposition:** keep one format per doc; remove the other. This is the exact
      duplicate-drift risk the brief warns about.
+
 2. **Two "Events" folders.** `Member Engagement/Events/` holds only a single shortcut
    ("The BIG Celebration Script") that duplicates one already in `Events/Celebration/`.
    - **Disposition:** collapse `Member Engagement/Events/` into the top-level `Events/`.
+
 3. **"The BIG Celebration Script" cross-posted** as a shortcut in both
    `Member Engagement/Events/` and `Events/Celebration/`.
    - **Disposition:** keep one home (`Events/Celebration/`).
@@ -316,48 +250,49 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
 4. **ARCHIVE-labeled files in an active folder** — `Events/Info Session/` holds
    `ARCHIVE SCLA Info Session Deck` (shortcut) and `ARCHIVE Info Session Slides .pptx`
    alongside the active `MAY2026 SCLA Info Session`. → move to `_Archived/` or remove.
+
 5. **`Events/Celebration/` looks post-event** — script, PPT, agenda, comms, and a
    "The Big Celebration DRAFT" shortcut, all dated May 2026. Confirm the event is done,
    then archive the batch. Also resolve the DRAFT-vs-final ambiguity
    ("The Big Celebration DRAFT" vs. "The BIG Celebration Script").
+
 6. **`IMG_8674.MOV` (109 MB) loose in `Events/Orientation/`** — unnamed raw video among
    orientation docs. → name/relocate or remove.
+
 7. **Draft emails in `Events/Orientation/`** — "Follow Up Orientation Email DRAFT" and
    "Reminder Email DRAFT." Confirm still in use vs. superseded by the Orientation SOP.
 
 ### Structural flag — new "Career Development" tree
 
-8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27). Sampled folders
-   are all empty. Its topics (Networking, Leadership Skills, Communication, Emotional
-   Intelligence, Public Speaking, Personal Branding, Goal Setting, Critical Thinking…)
-   **overlap the course-catalog topics** the brief files under `01 Learning (CIAO) /
-   Course Catalog`. This is currently a **competing parallel taxonomy** for the same
-   content. Decide whether "Career Development" *becomes* the course-catalog home (replacing
-   the `01 Learning` catalog layout) or duplicates it.
+8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27, all empty).
+   Its topics duplicate the `01 Learning (CIAO)/Course Catalog/` taxonomy already built
+   into this proposal.
+   - **Recommendation:** Delete the empty `Career Development/` tree. The `01 Learning`
+     catalog is the designed home; standing up a parallel empty structure creates the same
+     fragmentation this cleanup is fixing. `Education & Learning Programs/` (nearly empty —
+     one AI Assessment Sample and one Workshop Proposal) should also be dissolved: file the
+     assessment under `01 Learning/Course Catalog/Assessments/` and the Workshop Proposal
+     under `02 Foundation/Strategy/` or trash it if it's one-off.
 
 ### Similarly named / relevance checks
 
-9. **`CRA301: Career Readiness Accelerator Syllabus`** sits **loose at the Drive root**
-   instead of under Education/Career Readiness. The other CRA/CRC docs flagged in this brief
-   are no longer present (cleaned up). Confirm CRA301 is not a second cut of the loose
-   **`SCLA Career Toolkit.pdf`**; file both.
-10. **"What kind of learner are you in this moment"** (root shortcut) vs. this brief's
-    standalone "What Kind of Learner Are You Right Now" — almost certainly the same piece
-    under two titles. Confirm one source.
-11. **`Education & Learning Programs/` is nearly empty** — only "AI Assessment Sample" + a
-    "WORKSHOP PROPOSAL." Learning content appears to be migrating into `Career Development`
-    instead, reinforcing finding #8.
-12. **~10 loose shortcuts at the Drive root** (Community & Learning SCLA, Marketing SCLA,
-    Ed Metrics, Chapter Interns, Compelling Parts of Member's Area, Example: Branded SCLA
-    Course Catalog, Dashboard Drive Through Recording, Pledge Project Outreach Scripts,
-    SCLA_Swag_Incentive_Program_Proposal). Several point outside the Community Team Folder;
-    none are filed into an initiative folder. Each needs a keep-and-file vs. remove decision.
+9. **`CRA301` loose at the Drive root** — misfiled; move it into
+   `01 Learning (CIAO)/Career Readiness Program/`. Check whether `SCLA Career Toolkit.pdf`
+   (also loose at root) is a compiled student-facing resource (→ Career Readiness Program)
+   or a marketing asset (→ `_Marketing & Brand/`), then file it accordingly.
+   **`CRC101 – Career Readiness Certification Syllabus`** overlaps with the CRA201
+   certification track in name — open both docs and confirm: if they're the same syllabus,
+   keep CRA201 and trash CRC101; if they're distinct, keep both.
+
+10. **"What Kind of Learner Are You Right Now" vs. "What kind of learner are you in this
+    moment"** — treat as the same piece. File under `03 Communications/Standalone Content/`
+    using the display title already in this brief; delete the root shortcut.
 
 ### Resolve before restructuring
 
-- **Career Development vs. 01 Learning taxonomy (#8)** — these cannot both be the home for
-  course topics.
-- **Career Passport format (#1)** — collapse each RFP to one file so a duplicate isn't
-  carried into the new structure.
+Two hard blockers — everything else can proceed around them:
 
-
+- **`Career Development/` deletion (#8)** — confirm with Kierra that the empty folder tree
+  is safe to delete (no one is actively populating it) before the restructure begins.
+- **Career Passport format (#1)** — open each RFP pair, pick Google Doc or markdown,
+  remove the other. Do this before moving files so duplicates aren't carried forward.
