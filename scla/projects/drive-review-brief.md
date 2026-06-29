@@ -55,10 +55,6 @@ Community Team Drive/
 │   │   ├── CRA201 – SCLA Career Readiness Certification
 │   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026  
 │   │   ├── CRA302 – 18 Actionable Strategies
-│   ├── LinkedIn & Personal Brand Toolkit/
-│   │   └── (11 files: define brand, optimize profile, playbook, sleuthing tips,
-│   │         escape workbook, 6 ways to grow network, LinkedIn success database,
-│   │         activate network, supercharge bio, peer connections, Sophie's challenge)
 │   ├── Partner Courses/
 │   │   ├── Identity Leadership (IDL)/   (idl-content-from-lxp.md)
 │   │   └── ISPI/                        (script-three-archetypes-of-innovation.md,
