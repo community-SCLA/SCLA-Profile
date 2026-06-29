@@ -50,7 +50,6 @@ Community Team Drive/
 │   │   ├── CRA101 – SCLA Career Readiness Accelerator
 │   │   ├── CRA201 – SCLA Career Readiness Certification
 │   │   ├── CRA301 – Career Readiness Accelerator Syllabus 2026    ⚠️ see Confirmed Duplicates #1
-│   │   ├── CRA301 – SCLA Career Readiness Certification (ISPI™)   ⚠️ see Confirmed Duplicates #1
 │   │   ├── CRA302 – 18 Actionable Strategies
 │   │   └── CRC101 – Career Readiness Certification Syllabus        ⚠️ see Confirmed Duplicates #1
 │   ├── LinkedIn & Personal Brand Toolkit/
@@ -66,11 +65,9 @@ Community Team Drive/
 │   ├── Wellness Center — Q3 Not Started/
 │   │   └── Wellness Center Framework DRAFT
 │   └── Job Readiness Steps (True Colors Series)/
-│       └── (Step One–Four True Colors video scripts ×4, welcome videos ×2,
-│             SMART Goals ×2, Peer Connections Templates, Career Connections
-│             Templates, Four Things You Should Do to Win on LinkedIn,
-│             SCLA Career Hub, SCLA Leadership Program Tech Notes,
-│             Step One Overview, Step Three, Step Four — 18 files)
+│       └── (step-one through step-four, 4 True Colors video scripts,
+│             welcome videos, SMART Goals, peer-connections, career-connections,
+│             SCLA Career Hub, SCLA Leadership Program Tech Notes — 16 files)
 │
 ├── 02 Foundation/
 │   ├── Frameworks/
@@ -95,9 +92,7 @@ Community Team Drive/
 │   │   └── Channels Documentation
 │   ├── Standalone Content/
 │   │   ├── The Case for Doing Less for Your Community  (newsletter-ready)
-│   │   └── What Kind of Learner Are You Right Now      (newsletter-ready;
-│   │         Drive source title: "What kind of learner are you in this moment"
-│   │         — confirmed same doc, see resolved finding #10)
+│   │   └── What Kind of Learner Are You Right Now      (newsletter-ready)
 │   └── _Archive/
 │       └── Weekly Updates 2026/
 │           ├── Friday Update 02-27-26
@@ -234,19 +229,7 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
 
 ### Confirmed duplicates
 
-1. **CRA301 numbering collision — two distinct docs share the same course code.**
-   - `CRA301 – Career Readiness Accelerator Syllabus 2026` (one doc)
-   - `CRA301 – SCLA Career Readiness Certification (ISPI™)` (a different doc)
-   - Also: `CRA301` sits **loose at the Drive root** rather than under Career Readiness
-     Program — confirm this loose copy is one of the two above, not a third.
-   - **Disposition:** Renumber one doc (e.g., promote the ISPI variant to CRA302 and
-     shift the existing CRA302 accordingly, or assign a new unused code). Confirm which
-     is the authoritative syllabus before restructuring.
-   - **Related:** `CRC101 – Career Readiness Certification Syllabus` overlaps in scope
-     with the CRA201 certification track — confirm whether these are distinct products
-     or the same syllabus under two names.
-
-2. **Career Passport RFP docs — 2 documents stored as 4 files** (`Grants/Career Passport/`).
+1. **Career Passport RFP docs — 2 documents stored as 4 files** (`Grants/Career Passport/`).
    Each RFP doc exists twice — once as a Google Doc, once as a raw `.md`:
    - `rfp-1980-innovation-concept-narrative.md` (Doc) **=** `…-narrative.md` (markdown) —
      read both, content is identical (one is a Doc conversion of the other).
@@ -254,34 +237,34 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
    - **Disposition:** keep one format per doc; remove the other. This is the exact
      duplicate-drift risk the brief warns about.
 
-3. **Two "Events" folders.** `Member Engagement/Events/` holds only a single shortcut
+2. **Two "Events" folders.** `Member Engagement/Events/` holds only a single shortcut
    ("The BIG Celebration Script") that duplicates one already in `Events/Celebration/`.
    - **Disposition:** collapse `Member Engagement/Events/` into the top-level `Events/`.
 
-4. **"The BIG Celebration Script" cross-posted** as a shortcut in both
+3. **"The BIG Celebration Script" cross-posted** as a shortcut in both
    `Member Engagement/Events/` and `Events/Celebration/`.
    - **Disposition:** keep one home (`Events/Celebration/`).
 
 ### Stale / misfiled (in active folders, not archived)
 
-5. **ARCHIVE-labeled files in an active folder** — `Events/Info Session/` holds
+4. **ARCHIVE-labeled files in an active folder** — `Events/Info Session/` holds
    `ARCHIVE SCLA Info Session Deck` (shortcut) and `ARCHIVE Info Session Slides .pptx`
    alongside the active `MAY2026 SCLA Info Session`. → move to `_Archived/` or remove.
 
-6. **`Events/Celebration/` looks post-event** — script, PPT, agenda, comms, and a
+5. **`Events/Celebration/` looks post-event** — script, PPT, agenda, comms, and a
    "The Big Celebration DRAFT" shortcut, all dated May 2026. Confirm the event is done,
    then archive the batch. Also resolve the DRAFT-vs-final ambiguity
    ("The Big Celebration DRAFT" vs. "The BIG Celebration Script").
 
-7. **`IMG_8674.MOV` (109 MB) loose in `Events/Orientation/`** — unnamed raw video among
+6. **`IMG_8674.MOV` (109 MB) loose in `Events/Orientation/`** — unnamed raw video among
    orientation docs. → name/relocate or remove.
 
-8. **Draft emails in `Events/Orientation/`** — "Follow Up Orientation Email DRAFT" and
+7. **Draft emails in `Events/Orientation/`** — "Follow Up Orientation Email DRAFT" and
    "Reminder Email DRAFT." Confirm still in use vs. superseded by the Orientation SOP.
 
 ### Structural flag — new "Career Development" tree
 
-9. **`Career Development/` = 40 empty skill folders** (created 2026-06-27). Sampled folders
+8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27). Sampled folders
    are all empty. Its topics (Networking, Leadership Skills, Communication, Emotional
    Intelligence, Public Speaking, Personal Branding, Goal Setting, Critical Thinking…)
    **overlap the course-catalog topics** the brief files under `01 Learning (CIAO) /
@@ -291,20 +274,21 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
 
 ### Similarly named / relevance checks
 
-10. **"What kind of learner are you in this moment" title discrepancy — RESOLVED.**
-    Drive source title is "What kind of learner are you in this moment"; the brief shorthand
-    "What Kind of Learner Are You Right Now" refers to the same document. The root shortcut
-    and the doc are the same piece. Canonical home: `03 Communications/Standalone Content/`.
-    Display title TBD (confirm with Kierra).
+9. **`CRA301: Career Readiness Accelerator Syllabus`** sits **loose at the Drive root**
+   instead of under Education/Career Readiness. Confirm CRA301 is not a second cut of the
+   loose **`SCLA Career Toolkit.pdf`**; file both. Also confirm whether `CRC101 – Career
+   Readiness Certification Syllabus` is a distinct product from the CRA201 certification
+   track or the same syllabus under two names.
 
-11. **`SCLA Career Toolkit.pdf` loose at root** — confirm whether this is a second cut of
-    `CRA301` or a standalone resource, then file it under Career Readiness Program or trash.
+10. **"What Kind of Learner Are You Right Now"** (brief title) vs. **"What kind of learner
+    are you in this moment"** (root shortcut) — almost certainly the same piece under two
+    titles. Confirm one source and one canonical display title before filing.
 
-12. **`Education & Learning Programs/` is nearly empty** — only "AI Assessment Sample" + a
+11. **`Education & Learning Programs/` is nearly empty** — only "AI Assessment Sample" + a
     "WORKSHOP PROPOSAL." Learning content appears to be migrating into `Career Development`
-    instead, reinforcing finding #9.
+    instead, reinforcing finding #8.
 
-13. **~10 loose shortcuts at the Drive root** — needs a keep-and-file vs. remove decision
+12. **~10 loose shortcuts at the Drive root** — needs a keep-and-file vs. remove decision
     for each:
     - Community & Learning SCLA (shortcut to folder — remove once restructured)
     - Marketing SCLA (shortcut to folder — remove once restructured)
@@ -318,7 +302,7 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
 
 ### Resolve before restructuring
 
-- **Career Development vs. 01 Learning taxonomy (#9)** — these cannot both be the home for
+- **Career Development vs. 01 Learning taxonomy (#8)** — these cannot both be the home for
   course topics.
-- **CRA301 numbering collision (#1)** — resolve which doc keeps the CRA301 code before
-  any files move.
+- **Career Passport format (#1)** — collapse each RFP to one file so a duplicate isn't
+  carried into the new structure.
