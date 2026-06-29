@@ -264,45 +264,35 @@ moved. Two items should be settled first — see "Resolve before restructuring" 
 
 ### Structural flag — new "Career Development" tree
 
-8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27). Sampled folders
-   are all empty. Its topics (Networking, Leadership Skills, Communication, Emotional
-   Intelligence, Public Speaking, Personal Branding, Goal Setting, Critical Thinking…)
-   **overlap the course-catalog topics** the brief files under `01 Learning (CIAO) /
-   Course Catalog`. This is currently a **competing parallel taxonomy** for the same
-   content. Decide whether "Career Development" *becomes* the course-catalog home (replacing
-   the `01 Learning` catalog layout) or duplicates it.
+8. **`Career Development/` = 40 empty skill folders** (created 2026-06-27, all empty).
+   Its topics duplicate the `01 Learning (CIAO)/Course Catalog/` taxonomy already built
+   into this proposal.
+   - **Recommendation:** Delete the empty `Career Development/` tree. The `01 Learning`
+     catalog is the designed home; standing up a parallel empty structure creates the same
+     fragmentation this cleanup is fixing. `Education & Learning Programs/` (nearly empty —
+     one AI Assessment Sample and one Workshop Proposal) should also be dissolved: file the
+     assessment under `01 Learning/Course Catalog/Assessments/` and the Workshop Proposal
+     under `02 Foundation/Strategy/` or trash it if it's one-off.
 
 ### Similarly named / relevance checks
 
-9. **`CRA301: Career Readiness Accelerator Syllabus`** sits **loose at the Drive root**
-   instead of under Education/Career Readiness. Confirm CRA301 is not a second cut of the
-   loose **`SCLA Career Toolkit.pdf`**; file both. Also confirm whether `CRC101 – Career
-   Readiness Certification Syllabus` is a distinct product from the CRA201 certification
-   track or the same syllabus under two names.
+9. **`CRA301` loose at the Drive root** — misfiled; move it into
+   `01 Learning (CIAO)/Career Readiness Program/`. Check whether `SCLA Career Toolkit.pdf`
+   (also loose at root) is a compiled student-facing resource (→ Career Readiness Program)
+   or a marketing asset (→ `_Marketing & Brand/`), then file it accordingly.
+   **`CRC101 – Career Readiness Certification Syllabus`** overlaps with the CRA201
+   certification track in name — open both docs and confirm: if they're the same syllabus,
+   keep CRA201 and trash CRC101; if they're distinct, keep both.
 
-10. **"What Kind of Learner Are You Right Now"** (brief title) vs. **"What kind of learner
-    are you in this moment"** (root shortcut) — almost certainly the same piece under two
-    titles. Confirm one source and one canonical display title before filing.
-
-11. **`Education & Learning Programs/` is nearly empty** — only "AI Assessment Sample" + a
-    "WORKSHOP PROPOSAL." Learning content appears to be migrating into `Career Development`
-    instead, reinforcing finding #8.
-
-12. **~10 loose shortcuts at the Drive root** — needs a keep-and-file vs. remove decision
-    for each:
-    - Community & Learning SCLA (shortcut to folder — remove once restructured)
-    - Marketing SCLA (shortcut to folder — remove once restructured)
-    - Ed Metrics (file — confirm owner and file or remove)
-    - Chapter Interns (file — confirm owner and file or remove)
-    - Compelling Parts of Member's Area (confirm relevance)
-    - Example: Branded SCLA Course Catalog (confirm relevance)
-    - Dashboard Drive Through Recording (confirm if still needed)
-    - Pledge Project Outreach Scripts (file → `08 Member Engagement/Pledge Project/`)
-    - SCLA Swag Incentive Program Proposal (confirm owner and initiative, then file)
+10. **"What Kind of Learner Are You Right Now" vs. "What kind of learner are you in this
+    moment"** — treat as the same piece. File under `03 Communications/Standalone Content/`
+    using the display title already in this brief; delete the root shortcut.
 
 ### Resolve before restructuring
 
-- **Career Development vs. 01 Learning taxonomy (#8)** — these cannot both be the home for
-  course topics.
-- **Career Passport format (#1)** — collapse each RFP to one file so a duplicate isn't
-  carried into the new structure.
+Two hard blockers — everything else can proceed around them:
+
+- **`Career Development/` deletion (#8)** — confirm with Kierra that the empty folder tree
+  is safe to delete (no one is actively populating it) before the restructure begins.
+- **Career Passport format (#1)** — open each RFP pair, pick Google Doc or markdown,
+  remove the other. Do this before moving files so duplicates aren't carried forward.
