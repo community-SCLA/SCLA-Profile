@@ -29,4 +29,4 @@ Update this file whenever a new tool is wired. When adding a reachable tool, als
 - MCP connections are configured at the claude.ai account level, not in local `.mcp.json`.
 - Membership Tracking system is TBD — update this row when the tracking system is identified.
 - When a tool moves from `not connected` to connected, create `references/{tool}-api.md`.
-- Google Drive has two paths on one account: `mcp` for read, plus a `script` write-back — a one-way Git→Drive mirror that publishes curated `scla/` pages as Google Docs on every push to `main` (Git is source of truth; Drive edits are overwritten). See `references/google-drive-api.md` and `.github/workflows/drive-sync.yml`.
+- Google Drive has two paths on one account: `mcp` for read, plus a `script` write-back — a one-way Git→Drive mirror that publishes curated content-folder pages as Google Docs on every push to `main` (Git is source of truth; Drive edits are overwritten). See `references/google-drive-api.md` and `.github/workflows/drive-sync.yml`.
