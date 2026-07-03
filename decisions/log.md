@@ -83,3 +83,9 @@ Running log of notable team decisions. Append new entries at the top.
 **Decision:** Migrated from generic template to SCLA-native structure. Renamed all `scla/` references to `scla/`. Separated programs, members, operations, partnerships into first-class directories.
 **Rationale:** Generic template naming created confusion; SCLA-specific structure makes the knowledge base faster to navigate and easier for agents to target.
 **Owner:** Kierra Woekel
+
+## 2026-07-03 — Documented Early Career Boost lesson script & video style
+**Decision:** Reverse-engineered the lesson script and video style from the live Early Career Boost track (app.thescla.org, read-only via the learn API) to enable HeyGen video production from course material. Added `scla/programs/early-career-boost-video-style.md` (findings + style patterns) and `templates/heygen-lesson-script.md` (reusable Style-B production template).
+**Rationale:** Most lessons ship a drafted "video script" but only ~4 are produced to video (Wistia). Standardizing on the newer structured "Style B" spec (Video asset + Full video script with inline `[On screen:]`/`[Graphic:]` cues + shot list) lets us generate consistent scripts for HeyGen from any lesson's written material. Presenter voice is "Ann," a career coach.
+**Owner:** Amy Westby
+**Source:** Live platform observation, Early Career Boost
