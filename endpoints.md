@@ -9,6 +9,19 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 ---
 
+## Google Drive
+
+| Name | Type | ID / URL | Used By |
+|---|---|---|---|
+| Git→Drive mirror target | Folder | `TODO: needs input` | `.github/workflows/drive-sync.yml` (Git→Drive sync) |
+
+> **Git→Drive mirror config** (see `references/google-drive-api.md`):
+> - GitHub **variable** `GDRIVE_TARGET` = `<rclone-remote>:<folder>`, e.g. `gdrive:SCLA-Profile`.
+> - GitHub **secret** `RCLONE_CONF_BASE64` = base64 of an `rclone.conf` authorized as `community@thescla.org`.
+> - Folder ID above: open the target folder in Drive → copy the string after `/folders/` in the URL. Stays `TODO: needs input` until confirmed.
+
+---
+
 ## GitHub
 
 | Name | Path | Notes |
@@ -20,7 +33,8 @@ Update here first — scripts and skills should read from here, not from hardcod
 ## Notes
 
 - IDs belong here, not hardcoded in scripts — makes rotation and auditing easy.
-- No IDs registered yet for Notion, Google Drive, Slack, Gmail, Canva, or Figma —
+- No IDs registered yet for Notion, Slack, Gmail, Canva, or Figma —
   add a section per service when its first real ID lands (DB IDs: 32-char string
   from the URL before the `?`, hyphenated `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`).
+- Google Drive: mirror target folder ID pending (see section above).
 - Last verified: 2026-07-03
