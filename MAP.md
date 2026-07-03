@@ -32,6 +32,7 @@ Dynamic session memory lives in `.remember/` (gitignored, local-only — handoff
 | Look up a program | `scla/programs/programs-overview.md` |
 | Work on a grant | `scla/projects/grants/` (one folder per grant + RFP briefs) |
 | Work on video production | `scla/projects/video-production/CLAUDE.md` |
+| Write a HeyGen lesson video script | `templates/heygen-lesson-script.md` (style: `scla/programs/early-career-boost-video-style.md`) |
 | Review past decisions | `decisions/log.md` |
 | Debug an integration | `connections.md` |
 | Look up an endpoint ID | `endpoints.md` |
