@@ -1,67 +1,40 @@
 # SCLA Profile — Company Knowledge Base
 
-This repo is the living knowledge base for **The Society for Collegiate Leadership & Achievement (SCLA)**: brand, workflows, and source-of-truth documentation. This file is routing only — load targets, not content.
+**Session boot:** match the task below, load the ONE file it names, stop.
+No matching row? Open that folder's README.md hub (every multi-file folder has one) — never the whole folder.
 
-| Root companion | When to read it |
+## Task Routing
+
+| Task | Load |
 | --- | --- |
-| `MAP.md` | Find where any fact or task lives — the repo atlas |
-| `GOVERNANCE.md` | The rulebook: hard stops, folder discipline, commit prefixes, growth rules |
-| `decisions/log.md` | Why structural and strategic choices were made (append-only) |
+| SCLA facts — identity, scale, mission | `context/me.md` |
+| Goals, priorities | `context/goals.md` |
+| Brand colors, logo, type | `brand/visual-identity.md` |
+| Voice & tone | `brand/voice-and-tone.md` |
+| Naming, tagline | `brand/brand-guide.md` |
+| Team member or role | `operations/team-roster.md` |
+| Member-facing answer | `member-support/faqs.md` |
+| Look up a program | `programs/programs-overview.md` |
+| Develop a program | `programs/README.md` |
+| Partner org | `partnerships/NIC.md` |
+| Grant work | `projects/grants/` |
+| Video production | `projects/video-production/CLAUDE.md` |
+| HeyGen lesson script | `projects/video-production/templates/heygen-lesson-script.md` |
+| Start a new project | `/new-from-template` |
+| Where a fact lives | `MAP.md` |
+| Structural change (read first) | `GOVERNANCE.md` |
+| Why a decision was made | `decisions/log.md` |
+| Integrations, endpoint IDs | `connections.md` · `endpoints.md` |
 
----
+## Hard Rules
 
-## Context Files
-
-Load these selectively as needed — not all at once.
-
-| File | What's in it |
-| --- | --- |
-| `context/me.md` | What SCLA is, who we serve, org identity (boot summary — canonical facts live in `_archive/source-of-truth/charter.md`) |
-| `context/goals.md` | What we're trying to accomplish |
-| `context/current-priorities.md` | Active work and near-term focus |
-
----
-
-## Projects
-
-| Area | Path | Purpose |
-| --- | --- | --- |
-| Brand | `scla/brand/` | Voice, tone, visual identity, brand guide |
-| Member Support | `scla/member-support/` | Glossary, people, products & services, FAQs, member support integration |
-| Operations | `scla/operations/` | Team roster, how the team operates, pain points, automation opps |
-| Programs | `scla/programs/` | Program documentation |
-| Partnerships | `scla/partnerships/` | Partner orgs (e.g. NIC) |
-| Projects | `scla/projects/` | Active project tracking — grants (briefs + RFP working docs), video production |
-| Templates | `templates/` | Reusable project/content/grant templates |
-
----
-
-## Provenance — do not load by default
-
-`_archive/source-dumps/` holds **raw, unedited Google Drive exports** kept only so the
-curated pages above stay traceable. It is ~2 MB of source material with one file per Drive doc.
-
-- **Do not read these files into context** unless you are tracing a specific citation.
-- Start from the curated `scla/` pages; follow a `source:` link into the archive only when you
-  need the underlying detail.
-- The index at `_archive/source-dumps/README.md` maps each slug to its original Drive path.
-
----
+Full rulebook and all other rules: `GOVERNANCE.md`.
+These two bind every session:
+- **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
+- **Never load or route to `_archive/`**
 
 ## Sync
 
 ```bash
-./sync.sh   # must be on main branch; commits, pushes, and updates workspace submodule
+./sync.sh   # main branch only; commits, pushes, updates workspace submodule
 ```
-
----
-
-## Rules
-
-One-liners — full text and rationale in `GOVERNANCE.md`.
-
-- **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
-- **Prefer quoting over paraphrasing** — cite into `_archive/source-dumps/`.
-- **`_archive/source-of-truth/` is archived** — read-only provenance; do not edit or move back.
-- **Credentials go in `.env` only** — never hardcoded.
-- **Log structural changes** in `decisions/log.md`; push with `./sync.sh`.

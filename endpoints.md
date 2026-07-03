@@ -9,18 +9,6 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 ---
 
-## Notion
-
-| Name | Type | ID | Used By |
-|---|---|---|---|
-| TODO: needs input | Page | `TODO: needs input` | TODO: needs input |
-| TODO: needs input | Database | `TODO: needs input` | TODO: needs input |
-
-> To find a Notion database ID: open the DB in browser → copy the 32-char string from the URL before the `?`.
-> Format with hyphens: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
-
----
-
 ## Google Drive
 
 | Name | Type | ID / URL | Used By |
@@ -42,39 +30,11 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 ---
 
-## Slack
-
-| Name | Type | ID | Used By |
-|---|---|---|---|
-| TODO: needs input | Channel | `TODO: needs input` | TODO: needs input |
-
----
-
-## Gmail
-
-| Name | Type | ID / Address | Used By |
-|---|---|---|---|
-| TODO: needs input | Label / Filter | `TODO: needs input` | TODO: needs input |
-
----
-
-## Canva
-
-| Name | Type | ID | Used By |
-|---|---|---|---|
-| TODO: needs input | Team / Folder | `TODO: needs input` | TODO: needs input |
-
----
-
-## Figma
-
-| Name | Type | ID | Used By |
-|---|---|---|---|
-| TODO: needs input | File / Project | `TODO: needs input` | TODO: needs input |
-
----
-
 ## Notes
 
 - IDs belong here, not hardcoded in scripts — makes rotation and auditing easy.
-- Last verified: TODO: needs input
+- No IDs registered yet for Notion, Slack, Gmail, Canva, or Figma —
+  add a section per service when its first real ID lands (DB IDs: 32-char string
+  from the URL before the `?`, hyphenated `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`).
+- Google Drive: mirror target folder ID pending (see section above).
+- Last verified: 2026-07-03

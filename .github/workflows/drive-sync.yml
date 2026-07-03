@@ -1,16 +1,25 @@
 name: Drive sync (Git → Google Drive)
 
 # One-way mirror: Git is the source of truth, Google Drive follows.
-# On every push to main that touches scla/, convert the curated Markdown to .docx
-# and rclone-sync it into a Drive folder, where each .docx imports as a Google Doc.
-# Editing the synced Docs in Drive does NOT flow back — those edits are overwritten
-# on the next run. See decisions/log.md and references/google-drive-api.md.
+# On every push to main that touches a curated content folder, convert the curated
+# Markdown to .docx and rclone-sync it into a Drive folder, where each .docx imports
+# as a Google Doc. Editing the synced Docs in Drive does NOT flow back — those edits
+# are overwritten on the next run. See decisions/log.md and references/google-drive-api.md.
 
 on:
   push:
     branches: [main]
     paths:
-      - 'scla/**'
+      - 'brand/**'
+      - 'context/**'
+      - 'member-support/**'
+      - 'operations/**'
+      - 'partnerships/**'
+      - 'programs/**'
+      - 'projects/**'
+      - 'decisions/**'
+      - 'references/**'
+      - 'templates/**'
       - 'scripts/build-docx.sh'
       - '.github/workflows/drive-sync.yml'
   workflow_dispatch:        # allow manual runs (e.g. first end-to-end test)
@@ -36,8 +45,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc rclone
 
-      - name: Build .docx from scla/ Markdown
-        run: scripts/build-docx.sh scla build
+      - name: Build .docx from curated Markdown
+        run: scripts/build-docx.sh build
 
       - name: Write rclone config from secret
         run: |

@@ -15,15 +15,17 @@ Drive is used two ways, both pointed at the same account:
 | Direction | Mechanism | Purpose |
 |---|---|---|
 | Drive → Claude (read) | `mcp` | Read shared team docs / trace source material |
-| Git → Drive (write-back) | `script` (GitHub Action + rclone) | Publish curated `scla/` pages into Drive as Google Docs |
+| Git → Drive (write-back) | `script` (GitHub Action + rclone) | Publish curated content-folder pages into Drive as Google Docs |
 
 ## Git → Drive mirror (the write-back path)
 
-One-way mirror, **Git is the source of truth**. On every push to `main` touching `scla/`,
+One-way mirror, **Git is the source of truth**. On every push to `main` touching a curated
+content folder (`brand/`, `context/`, `member-support/`, `operations/`, `partnerships/`,
+`programs/`, `projects/`, `decisions/`, `references/`, `templates/`),
 `.github/workflows/drive-sync.yml` runs:
 
-1. `scripts/build-docx.sh` converts `scla/**/*.md` → parallel `.docx` tree under `build/`
-   (pandoc; YAML frontmatter parsed as metadata, not rendered).
+1. `scripts/build-docx.sh` converts each folder's `**/*.md` → parallel `.docx` tree under
+   `build/` (pandoc; YAML frontmatter parsed as metadata, not rendered).
 2. `rclone sync build/ <GDRIVE_TARGET>/ --drive-import-formats docx --drive-use-trash
    --create-empty-src-dirs` uploads each `.docx`; Drive imports it as a native Google Doc.
 
@@ -40,7 +42,7 @@ Properties to remember:
 | rclone remote | name set in the rclone config (e.g. `gdrive`); target folder in `vars.GDRIVE_TARGET`, form `gdrive:SCLA-Profile` |
 | Auth secret | GitHub repo secret `RCLONE_CONF_BASE64` — base64 of an `rclone.conf` authorized as `community@thescla.org` (OAuth refresh token) |
 | Target folder | human-readable name + ID in `endpoints.md` → Google Drive section |
-| Trigger | `push` to `main`, `paths: scla/**`; plus `workflow_dispatch` (with `dry_run`) |
+| Trigger | `push` to `main` touching a curated content folder; plus `workflow_dispatch` (with `dry_run`) |
 
 ### Regenerating the auth secret
 1. Locally: `rclone config` → new remote, type `drive`, scope `drive`, authorize as

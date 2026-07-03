@@ -19,7 +19,7 @@ last_updated: YYYY-MM-DD
 
 ## Voice notes
 
-Reference `scla/source-of-truth/voice-decisions.md` before writing.
+Reference `brand/voice-and-tone.md` before writing.
 
 Key constraints for this piece:
 - <constraint 1>
