@@ -8,7 +8,7 @@ last_updated: YYYY-MM-DD
 
 # HeyGen Lesson Script — <Lesson Title>
 
-Turn any SCLA lesson's course material into a produce-ready video script in SCLA's house style. Derived from the Early Career Boost track — see [`scla/programs/early-career-boost-video-style.md`](../scla/programs/early-career-boost-video-style.md) for the rationale and examples.
+Turn any SCLA lesson's course material into a produce-ready video script in SCLA's house style. Derived from the Early Career Boost track — see [`programs/early-career-boost-video-style.md`](../programs/early-career-boost-video-style.md) for the rationale and examples.
 
 > **Presenter:** Ann — a warm, encouraging career coach speaking directly to an early-career learner. Keep that voice throughout.
 > **Target length:** 5–7 minutes (~450–650 spoken words).

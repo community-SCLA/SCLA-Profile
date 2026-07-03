@@ -9,6 +9,11 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-03 — Restructure wrap-up: scla/ un-nested to root; routing tiers formalized
+**Decision:** (1) Completed the un-nesting of the `scla/` wrapper: `brand/`, `member-support/`, `partnerships/`, `programs/`, `projects/` moved to root via git renames (history preserved); deleted the three empty `scla/operations/` stubs (automation-opportunities, current-state, pain-points — 0 lines each) and created `operations/team-roster.md` as the canonical roster stub (`TODO: needs input`). (2) Formalized a three-tier routing model, documented under "Routing tiers" in MAP.md: root `CLAUDE.md` task router → folder-hub `README.md` in every live folder with 3+ files → scoped `CLAUDE.md` under `projects/*` only. (3) Standardized the hub filename to `README.md`: renamed `member-support/index.md` and `brand/assets/index.md`; `projects/` and `projects/grants/` already complied. `programs/programs-overview.md` stays as the programs hub — its program-directory table is canonical content, so no duplicate hub file was created. Updated the CLAUDE.md no-matching-row fallback, GOVERNANCE.md Growth Guide, brand-guide asset links, and the lint-refs.sh hex allowlist. `bash scripts/lint-refs.sh` exits 0.
+**Rationale:** The `scla/` wrapper added a path segment with no meaning inside a repo already named SCLA-Profile. With CLAUDE.md as the only router, multi-file folders (member-support has 8 files) were reachable only through one leaf; a consistently named hub layer gives agents a one-hop redirect and gives humans a rendered landing page per folder on GitHub (`README.md` auto-renders; `index.md` does not).
+**Owner:** SCLA Community Team (executed by Claude)
+
 ## 2026-06-28 — Branch naming convention added to GOVERNANCE.md
 **Decision:** Added a "Branch Naming" section to `GOVERNANCE.md` specifying the format `DD-MM-YYYY-<short-description>` for all branches (e.g. `28-06-2026-update-voice-tone`). Description should be lowercase, hyphen-separated, ≤ 5 words.
 **Rationale:** Standardizes branch names across contributors for chronological sortability and clarity.

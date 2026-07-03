@@ -18,32 +18,6 @@
     ".claude/skills": "kb-audit"
   },
   "skills": {
-    "ingest": {
-      "description": "Organizes existing repo content into the ops framework structure. Fires automatically when _inbox/INGEST_MANIFEST.md is detected.",
-      "priority": 9,
-      "triggers": {
-        "keywords": [
-          "ingest", "import content", "organize content", "consolidate",
-          "ingest manifest", "bring in files", "stage content", "inbox"
-        ],
-        "keywordPatterns": [
-          "\\bingest\\b",
-          "\\b_inbox\\b",
-          "\\bINGEST_MANIFEST\\b",
-          "\\bimport.{0,15}content\\b",
-          "\\borganize.{0,15}content\\b"
-        ],
-        "intentPatterns": [
-          "(?:run|trigger|start).{0,20}ingest",
-          "(?:bring in|import|consolidate).{0,20}(?:content|files|docs)"
-        ],
-        "pathPatterns": [
-          "_inbox/**",
-          "_inbox/INGEST_MANIFEST.md"
-        ]
-      }
-    },
-
     "kb-audit": {
       "description": "Audits the knowledge base, scores the repo on four dimensions (/100), and surfaces top-3 gaps. Read-only except for the optional audit save.",
       "priority": 8,
@@ -66,7 +40,7 @@
         ],
         "pathPatterns": [
           "audits/**",
-          "scla/knowledge-base/**"
+          "member-support/**"
         ]
       }
     },
@@ -89,30 +63,6 @@
         "intentPatterns": [
           "(?:start|create|set up|scaffold).{0,20}(?:new project|project folder|from template)",
           "(?:i want to|i need to|help me).{0,20}(?:start|create).{0,20}project"
-        ]
-      }
-    },
-
-    "onboard": {
-      "description": "Interactive wizard that personalizes this ops template for a new owner. Fills [PLACEHOLDER] values across the repo.",
-      "priority": 10,
-      "triggers": {
-        "keywords": [
-          "onboard", "set up repo", "personalize", "fill placeholders",
-          "just cloned", "new owner", "setup wizard", "configure repo",
-          "initialize repo", "first time setup"
-        ],
-        "keywordPatterns": [
-          "\\bonboard\\b",
-          "\\bplaceholder\\b",
-          "\\bjust.{0,10}cloned\\b",
-          "\\bset.{0,10}up.{0,10}repo\\b",
-          "\\bpersonalize.{0,10}(?:repo|template)\\b"
-        ],
-        "intentPatterns": [
-          "(?:just|i just|i've just).{0,20}cloned",
-          "(?:set up|configure|personalize|initialize).{0,20}(?:repo|template|ops repo)",
-          "(?:fill|replace).{0,20}placeholder"
         ]
       }
     }

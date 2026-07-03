@@ -26,7 +26,7 @@ block() {
 # ── Extract candidate paths from the tool call ───────────────────────────────
 extract_paths() {
   case "$TOOL_NAME" in
-    Write)
+    Write|Edit)
       echo "$INPUT" | python3 -c "
 import sys, json
 d = json.load(sys.stdin)
@@ -75,9 +75,10 @@ normalise() {
 # ── Approved root-level names ─────────────────────────────────────────────────
 APPROVED_ROOT=(
   CLAUDE.md MAP.md GOVERNANCE.md connections.md endpoints.md
-  scla.config.yml sync.sh .gitignore
-  .claude _archive _inbox audits context decisions hooks
-  references scla scripts templates .remember .env
+  scla.config.yml sync.sh .gitignore .mcp.json
+  .claude .devcontainer _archive audits brand context decisions hooks
+  member-support operations partnerships programs projects
+  references scripts templates .remember .env
 )
 
 is_approved_root() {
@@ -100,6 +101,15 @@ check_path() {
 
   rel_path="${abs_path#$REPO_ROOT/}"
 
+  # ── Rule 0: _archive/ is read-only provenance ────────────────────────────
+  # Existing archived files must never be edited or overwritten. Adding a NEW
+  # file (retiring content into the archive) is allowed.
+  if [[ ("$rel_path" == "_archive" || "$rel_path" == _archive/*) && -e "$abs_path" ]]; then
+    block "'$rel_path' already exists inside _archive/ — read-only provenance. \
+Never edit or overwrite archived files. \
+See GOVERNANCE.md — 'Never route to the archive'."
+  fi
+
   # Skip paths that already exist — we only gate creation of new items
   [[ -e "$abs_path" ]] && return 0
 
@@ -120,14 +130,15 @@ See GOVERNANCE.md — 'What NOT to add'."
     esac
   done
 
-  # ── Rule 2: New root-level items must be in the approved layout ──────────
-  if [[ "$rel_path" != */* ]]; then
-    if ! is_approved_root "$rel_path"; then
-      block "New root-level item '$rel_path' is not in the approved layout. \
+  # ── Rule 2: Every new path must live under an approved root item ─────────
+  # Gates root-level additions AND nested paths whose first segment is not an
+  # approved directory (e.g. re-creating a retired scla/ tree).
+  if ! is_approved_root "${PARTS[0]}"; then
+    block "New path '$rel_path' is outside the approved root layout \
+(first segment '${PARTS[0]}' not approved). \
 Root additions require a decisions/log.md entry first. \
 Approved root items: ${APPROVED_ROOT[*]}. \
 See GOVERNANCE.md — 'Approved Root Layout'."
-    fi
   fi
 
   # ── Rule 3: No parallel decisions log ────────────────────────────────────
@@ -136,11 +147,11 @@ See GOVERNANCE.md — 'Approved Root Layout'."
 See GOVERNANCE.md — 'Canonical Owners'."
   fi
 
-  # ── Rule 4: CLAUDE.md only at root or inside scla/projects/ ─────────────
+  # ── Rule 4: CLAUDE.md only at root or inside projects/ ──────────────────
   if [[ "$basename" == "CLAUDE.md" && "$rel_path" != "CLAUDE.md" ]]; then
-    if [[ "$rel_path" != scla/projects/* && "$rel_path" != .claude/* ]]; then
+    if [[ "$rel_path" != projects/* && "$rel_path" != .claude/* ]]; then
       block "A new CLAUDE.md at '$rel_path' is not approved. \
-Scoped CLAUDE.md files are only allowed under scla/projects/ for major sub-projects. \
+Scoped CLAUDE.md files are only allowed under projects/ for major sub-projects. \
 See GOVERNANCE.md — 'Growth Guide'."
     fi
   fi

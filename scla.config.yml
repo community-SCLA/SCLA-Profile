@@ -2,42 +2,4 @@ scla:
   name: "The Society for Collegiate Leadership & Achievement"
   slug: "the-scla"
   industry: "higher education / education services industry"
-  primary_contact:
-    name: "Kierra Woekel"
-    email: "community@thescla.org"
-    role: "Tech and Organization Lead"
-    website: "https://www.thescla.org"
-
-sources:
-  websites:
-    - url: "https://www.thescla.org"
-      crawl_depth: 2
-      include_assets: true
-
-  docs:
-    - path: "inbox/"
-    - url: ""
-
-  repos: []
-
-  drives: []
-
-  artifacts: []
-
-targets:
-  knowledge_base: true
-  brand_guide: true
-  workflow_map: true
-  automation_opportunities: true
-
-collab:
-  canonical_home: ""
-  channels:
-    - name: "slack"
-      handle: ""
-
-gates:
-  ingest: medium
-  brand: medium
-  knowledge_base: medium
-  workflows: low
+  website: "https://www.thescla.org"

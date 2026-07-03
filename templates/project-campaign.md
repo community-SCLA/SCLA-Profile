@@ -40,7 +40,7 @@ What does success look like? (e.g., 50 new member signups, 20% email open rate)
 
 **CTA**: <specific call to action>
 
-Refer to `scla/source-of-truth/voice-decisions.md` for locked brand voice rules.
+Refer to `brand/voice-and-tone.md` for locked brand voice rules.
 
 ## Assets needed
 

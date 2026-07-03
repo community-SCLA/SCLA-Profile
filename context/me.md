@@ -2,7 +2,7 @@
 
 ## Organization
 
-**The Society for Collegiate Leadership & Achievement (SCLA)** is the leading College-to-Career Honor Society — 100,000+ members, 850+ partner campuses. Founded 2014 (founding team led by Pat Sidhu, who researched student needs 2012–2014). A 501(c)(3) nonprofit. Tagline: "From Campus to Career."
+**The Society for Collegiate Leadership & Achievement (SCLA)** is the leading College-to-Career Honor Society — 100,000+ members, 850+ partner campuses. Founded 2014. 
 
 ## Mission
 
@@ -10,10 +10,7 @@ Build a robust, peer-driven community where students at any college — includin
 
 - **Website:** https://www.thescla.org
 
-## The Community Team
-
-The community team's role: build and sustain the human layer that makes SCLA feel like a community. Every event, every member onboarded, and every piece of content produced is in service of that promise.
 
 ## Who SCLA Serves
 
-Traditional college students AND underrepresented students at community colleges and trade schools who are underserved by campus career services. The latter is the real growth opportunity.
+Traditional college students, underrepresented students at community colleges and trade schools who are underserved by campus career services as well as non-traditional students who are in a career pivot. 

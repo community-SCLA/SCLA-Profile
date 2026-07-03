@@ -10,7 +10,7 @@ last_updated: YYYY-MM-DD
 
 > One-line summary: what this program is, who it serves, current stage.
 
-**Canonical name**: Check `scla/source-of-truth/program-names.md` before finalizing. Add here once locked.
+**Canonical name**: Check `programs/programs-overview.md` before finalizing. Add here once locked.
 
 ## Purpose
 
@@ -56,5 +56,5 @@ What do participants get out of it?
 
 ## Related
 
-- Existing KB entry (if any): `scla/programs/<related>.md`
+- Existing KB entry (if any): `programs/<related>.md`
 - Prior decisions: `decisions/log.md#<anchor>`

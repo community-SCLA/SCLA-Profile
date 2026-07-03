@@ -23,9 +23,9 @@ Run `date +%Y-%m-%d` to get today's date for the report header.
 |---|---|---|
 | CLAUDE.md is substantive (>200 words) | 5 | Read CLAUDE.md and count words |
 | `context/` has all three core files or equivalent | 5 | Glob `context/*.md` — expect me.md, goals.md, current-priorities.md or equivalent |
-| Brand / voice is documented | 5 | Check `scla/brand/` or equivalent for ≥1 voice or tone file |
+| Brand / voice is documented | 5 | Check `brand/` or equivalent for ≥1 voice or tone file |
 | Decisions log has ≥1 entry | 5 | Check `decisions/log.md` or any file matching `*decisions*` |
-| No major TODO stubs in source-of-truth | 5 | Grep `TODO: needs input` in `scla/source-of-truth/` — deduct 1 pt per stub found, floor 0 |
+| No major TODO stubs in source-of-truth | 5 | Grep `TODO: needs input` in `context/` and `operations/` — deduct 1 pt per stub found, floor 0 |
 
 ### Reach (25 pts) — "What can Claude actually access live?"
 
@@ -64,7 +64,7 @@ Canonical defaults (don't count as custom): `onboard`, `audit`, `kb-audit`, `lev
 Read these paths (targeted reads only — do not load `docs/_archive/`):
 - `CLAUDE.md` — word count and identity check
 - `context/` — list files
-- `scla/brand/` — list files, look for voice or tone file
+- `brand/` — list files, look for voice or tone file
 - `decisions/log.md` — first 20 lines to confirm entries exist
 - `connections.md` — full read
 - `.claude/skills/` — list subdirectories and read each SKILL.md frontmatter only
@@ -95,7 +95,7 @@ Sort by leverage descending. Take top 3. Write one concrete next-step for each:
 - Missing `connections.md` → "Create `connections.md` at repo root using the schema in `_archive/2026-05-31-ops-framework-design-spec.md`."
 - CLAUDE.md thin (<200 words) → "Expand CLAUDE.md to document org identity, project structure, key rules, and context file locations (target >200 words)."
 - context/ files missing → "Create `context/me.md`, `context/goals.md`, and `context/current-priorities.md` with org identity and current focus."
-- Brand/voice undocumented → "Create `scla/brand/voice-and-tone.md` capturing the org's writing register and communication style."
+- Brand/voice undocumented → "Create `brand/voice-and-tone.md` capturing the org's writing register and communication style."
 - No reference doc for a connected tool → "Create `references/{tool}-api.md` documenting endpoints, auth flow, and common queries."
 - No custom skill → "Create `.claude/skills/{name}/SKILL.md` with YAML frontmatter (name + description) and execution steps."
 - No agent → "Create `.claude/agents/{name}.md` for a repeatable multi-step task."
@@ -145,7 +145,7 @@ After printing, ask: "Save this audit to `audits/audit-{date}.md`?" If yes, writ
 ## Implementation rules
 
 1. **Read-only by default.** Never modify CLAUDE.md, skills, agents, connections.md, or any project files. Only writable side effect is the optional audit save.
-2. **Flexible path detection.** Don't penalize non-canonical names if equivalent intent is present. `voice-decisions.md` in `scla/brand/` counts as brand/voice documentation.
+2. **Flexible path detection.** Don't penalize non-canonical names if equivalent intent is present. `voice-decisions.md` in `brand/` counts as brand/voice documentation.
 3. **Be honest, not generous.** A 90/100 is rare. Most setups land 40–70 on first run.
 4. **Speed over thoroughness.** Read targeted files. Don't load the full archive. Under 60 seconds.
 5. **Don't suggest skills that don't exist** in this Claude Code session.

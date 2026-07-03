@@ -2,8 +2,4 @@
 
 ## Active Work
 
-| Priority | Owner | What | Status |
-|---|---|---|---|
-
-
-## Knowledge Base TODOs
+TODO: needs input — current active work items (priority, owner, status).
