@@ -1,13 +1,18 @@
 ---
 source: manual
 generated_by: source-of-truth-curator
-last_updated: 2026-06-12
+last_updated: 2026-07-03
 confidence: high
 ---
 
 # SCLA Decisions Log
 
 Running log of notable team decisions. Append new entries at the top.
+
+## 2026-07-03 — Context-efficiency pass: @-import boot, context merge, programs/ subfolders
+**Decision:** (1) Root `CLAUDE.md` now inlines org identity via `@context/me.md` import instead of instructing a session-boot file read (one fewer tool round-trip per session; `me.md` stays the canonical file). (2) Merged `context/current-priorities.md` (21 words, stub) into `context/goals.md` — one routing target for goals + priorities; lint critical-file list and kb-audit criteria updated. (3) Collapsed `endpoints.md` to sections with real values only (GitHub) — the six all-`TODO` service tables violated "structure reflects actual usage"; sections return when a first real ID lands. (4) Moved `member-support/kb-integration-plan.md` → `projects/kb-integration-plan.md` (it is a build plan, not current-state reference — GOVERNANCE rule 4). (5) Added `templates/README.md` hub; partnerships routing row now points at `partnerships/NIC.md` directly. (6) `programs/` gained a `README.md` hub and a scoped `CLAUDE.md`; one-subfolder-per-program model adopted, starting with `programs/early-career-boost/` (holds `video-style.md`, ex `early-career-boost-video-style.md`); hook rule 4 + GOVERNANCE + MAP tier 3 now allow scoped CLAUDE.md under `programs/` as well as `projects/`. (7) Moved `templates/heygen-lesson-script.md` → `projects/video-production/templates/` alongside the other video script templates; routing row and video-production CLAUDE.md updated.
+**Rationale:** Only auto-loaded context costs tokens every session — root file placement doesn't. So the pass kept root as-is and instead cut standing-context waste (boot read, stub double-load, placeholder tables) and fixed tier-2 consistency (hub coverage, one-file routing targets). Program docs get room to grow per-program without flattening `programs/` into a mixed pile.
+**Owner:** SCLA Community Team (executed by Claude)
 
 ## 2026-07-03 — Restructure wrap-up: scla/ un-nested to root; routing tiers formalized
 **Decision:** (1) Completed the un-nesting of the `scla/` wrapper: `brand/`, `member-support/`, `partnerships/`, `programs/`, `projects/` moved to root via git renames (history preserved); deleted the three empty `scla/operations/` stubs (automation-opportunities, current-state, pain-points — 0 lines each) and created `operations/team-roster.md` as the canonical roster stub (`TODO: needs input`). (2) Formalized a three-tier routing model, documented under "Routing tiers" in MAP.md: root `CLAUDE.md` task router → folder-hub `README.md` in every live folder with 3+ files → scoped `CLAUDE.md` under `projects/*` only. (3) Standardized the hub filename to `README.md`: renamed `member-support/index.md` and `brand/assets/index.md`; `projects/` and `projects/grants/` already complied. `programs/programs-overview.md` stays as the programs hub — its program-directory table is canonical content, so no duplicate hub file was created. Updated the CLAUDE.md no-matching-row fallback, GOVERNANCE.md Growth Guide, brand-guide asset links, and the lint-refs.sh hex allowlist. `bash scripts/lint-refs.sh` exits 0.

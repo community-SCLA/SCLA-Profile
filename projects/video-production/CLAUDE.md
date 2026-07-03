@@ -14,6 +14,7 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 |---|---|
 | `video-production-ai-guide.md` | Master instructional guide — workflows, tool routing, setup checklist, pricing |
 | `status.md` | Live production status — setup progress, active work, blockers |
+| `templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (Style B; derived from Early Career Boost — see `programs/early-career-boost/video-style.md`) |
 | `templates/course-script-prompt.md` | Ready-to-use Claude prompt for course/certificate videos |
 | `templates/social-script-prompt.md` | Ready-to-use Claude prompt for social media videos |
 | `templates/batch-csv-template.md` | CSV format specs for Synthesia and HeyGen bulk generation |

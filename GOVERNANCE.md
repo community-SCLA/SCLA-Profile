@@ -34,7 +34,7 @@ Every fact has exactly one home; every other mention is a quote + pointer.
 | Question | Canonical file |
 | --- | --- |
 | What is SCLA? (identity, scale, values) | `context/me.md` |
-| Current goals / success criteria | `context/goals.md` |
+| Current goals / priorities / success criteria | `context/goals.md` |
 | Who's on the team | `operations/team-roster.md` |
 | Brand colors / type / logo | `brand/visual-identity.md` |
 | Voice and tone | `brand/voice-and-tone.md` |
@@ -57,7 +57,7 @@ What is actually enforced by tooling today — nothing aspirational:
   editing or overwriting anything in `_archive/`; banned directory names
   (`notes/`, `misc/`, `tmp/`, `inbox/`); any new path whose first segment is
   outside the Approved Root Layout; parallel decisions logs; scoped `CLAUDE.md`
-  outside `projects/`; empty future-home placeholder dirs; `archive` instead of
+  outside `projects/` and `programs/`; empty future-home placeholder dirs; `archive` instead of
   `_archive`.
 - `.claude/settings.json` — tool permissions; `git push --force` denied.
 - `hooks/skill-eval.sh` + `hooks/skill-rules.json` — skill routing on every prompt.
@@ -111,7 +111,7 @@ commit separately with prefix `structure:`.
 | `scheduled-tasks/` | The team has a real recurring automation (none yet) |
 | `operations/sops/` | A recurring process gets handed to someone new |
 | `.claude/agents/` | A repeatable multi-step research/writing task emerges |
-| Scoped `CLAUDE.md` under `projects/` | A sub-project needs isolated context |
+| Scoped `CLAUDE.md` under `projects/` or `programs/` | A sub-scope needs isolated context |
 | Folder-hub README.md | A live folder reaches 3+ files (see MAP.md "Routing tiers") |
 
 Create each only with its first real content, log the creation, and add new roots to

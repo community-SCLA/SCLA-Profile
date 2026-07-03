@@ -22,7 +22,7 @@ Run `date +%Y-%m-%d` to get today's date for the report header.
 | Criterion | Pts | How to detect |
 |---|---|---|
 | CLAUDE.md is substantive (>200 words) | 5 | Read CLAUDE.md and count words |
-| `context/` has all three core files or equivalent | 5 | Glob `context/*.md` — expect me.md, goals.md, current-priorities.md or equivalent |
+| `context/` has both core files or equivalent | 5 | Glob `context/*.md` — expect me.md and goals.md (goals + current priorities) or equivalent |
 | Brand / voice is documented | 5 | Check `brand/` or equivalent for ≥1 voice or tone file |
 | Decisions log has ≥1 entry | 5 | Check `decisions/log.md` or any file matching `*decisions*` |
 | No major TODO stubs in source-of-truth | 5 | Grep `TODO: needs input` in `context/` and `operations/` — deduct 1 pt per stub found, floor 0 |
@@ -94,7 +94,7 @@ For each criterion that scored below its maximum:
 Sort by leverage descending. Take top 3. Write one concrete next-step for each:
 - Missing `connections.md` → "Create `connections.md` at repo root using the schema in `_archive/2026-05-31-ops-framework-design-spec.md`."
 - CLAUDE.md thin (<200 words) → "Expand CLAUDE.md to document org identity, project structure, key rules, and context file locations (target >200 words)."
-- context/ files missing → "Create `context/me.md`, `context/goals.md`, and `context/current-priorities.md` with org identity and current focus."
+- context/ files missing → "Create `context/me.md` and `context/goals.md` (goals + current priorities) with org identity and current focus."
 - Brand/voice undocumented → "Create `brand/voice-and-tone.md` capturing the org's writing register and communication style."
 - No reference doc for a connected tool → "Create `references/{tool}-api.md` documenting endpoints, auth flow, and common queries."
 - No custom skill → "Create `.claude/skills/{name}/SKILL.md` with YAML frontmatter (name + description) and execution steps."

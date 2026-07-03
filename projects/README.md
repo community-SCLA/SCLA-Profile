@@ -10,6 +10,14 @@ Human-managed work in progress. **The pipeline does not touch this directory** â
 | `campaigns/` | Outreach, recruitment, and marketing campaigns |
 | `content/` | Newsletters, social posts, blog drafts, and content series |
 | `programs/` | Active program development (**not** the KB reference at `../programs/`) |
+| `video-production/` | AI video pipeline (scoped `CLAUDE.md`, script templates, status) |
+
+## Standalone briefs
+
+| File | What it is |
+|---|---|
+| `drive-review-brief.md` | Google Drive review brief |
+| `kb-integration-plan.md` | Plan: wire `member-support/faqs.md` into Gmail / website / Slack / portal |
 
 ## File naming
 

@@ -147,11 +147,11 @@ See GOVERNANCE.md — 'Approved Root Layout'."
 See GOVERNANCE.md — 'Canonical Owners'."
   fi
 
-  # ── Rule 4: CLAUDE.md only at root or inside projects/ ──────────────────
+  # ── Rule 4: CLAUDE.md only at root, inside projects/, or programs/ ──────
   if [[ "$basename" == "CLAUDE.md" && "$rel_path" != "CLAUDE.md" ]]; then
-    if [[ "$rel_path" != projects/* && "$rel_path" != .claude/* ]]; then
+    if [[ "$rel_path" != projects/* && "$rel_path" != programs/* && "$rel_path" != .claude/* ]]; then
       block "A new CLAUDE.md at '$rel_path' is not approved. \
-Scoped CLAUDE.md files are only allowed under projects/ for major sub-projects. \
+Scoped CLAUDE.md files are only allowed under projects/ and programs/ for major sub-projects. \
 See GOVERNANCE.md — 'Growth Guide'."
     fi
   fi

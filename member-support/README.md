@@ -11,8 +11,9 @@ Member-facing support content for SCLA. Org identity: [context/me.md](../context
 | [products-services.md](./products-services.md) | Membership tiers, chapter model, and member benefits (canonical eligibility facts) |
 | [faqs.md](./faqs.md) | Recurring questions about membership and administration (canonical member answers) |
 | [community-platform.md](./community-platform.md) | theCOMMUNITY.com channels, cohorts, events |
-| [kb-integration-plan.md](./kb-integration-plan.md) | Wiring the FAQ KB into Gmail / website / Slack / portal |
 | [member-support-integration.md](./member-support-integration.md) | Unified case/queue operating model (Intake → Triage → Answer → Resolve → Learn) |
+
+Related project (build plan, not reference): [projects/kb-integration-plan.md](../projects/kb-integration-plan.md) — wiring the FAQ KB into Gmail / website / Slack / portal.
 
 ## Reading order for day one
 
