@@ -106,9 +106,9 @@ Full list: 175+ supported. See HeyGen docs for complete codes.
 
 ```csv
 source_video_url,target_language_code,output_title,translation_mode
-"https://wistia.com/medias/abc123","es","Course 1 - Video 1 (Spanish)","hyperrealistic"
-"https://wistia.com/medias/abc123","pt","Course 1 - Video 1 (Portuguese)","hyperrealistic"
-"https://wistia.com/medias/abc123","fr","Course 1 - Video 1 (French)","audio_dubbing"
+"https://host.example.com/media/abc123","es","Course 1 - Video 1 (Spanish)","hyperrealistic"
+"https://host.example.com/media/abc123","pt","Course 1 - Video 1 (Portuguese)","hyperrealistic"
+"https://host.example.com/media/abc123","fr","Course 1 - Video 1 (French)","audio_dubbing"
 ```
 
 ### Translation Mode Notes
@@ -118,14 +118,14 @@ source_video_url,target_language_code,output_title,translation_mode
 
 ---
 
-## Wistia Bulk Upload Metadata CSV
+## Hosting Platform Bulk Upload Metadata CSV
 
-For setting metadata when batch-uploading to Wistia via API or Zapier.
+For setting metadata when batch-uploading finished videos to the hosting platform via API or Zapier. Column names are platform-neutral — map them to whatever host SCLA lands on.
 
 ### Column Structure
 
 ```csv
-file_path,wistia_project_id,title,description,tags
+file_path,hosting_project_id,title,description,tags
 ```
 
 ### Example Row
@@ -134,10 +134,10 @@ file_path,wistia_project_id,title,description,tags
 "/exports/course1-video1.mp4","abc123xyz","Leadership Foundations: What is Leadership","An introduction to core leadership concepts for college students. Covers definitions, examples, and self-assessment.","leadership,foundations,course1,introduction,college"
 ```
 
-### Claude Prompt for Wistia Metadata
+### Claude Prompt for Upload Metadata
 
 ```
-Generate Wistia upload metadata for [N] course videos.
+Generate hosting-platform upload metadata for [N] course videos.
 Course: [NAME]
 
 For each video, provide:

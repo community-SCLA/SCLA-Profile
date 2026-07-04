@@ -2,9 +2,9 @@
 
 ## What This Project Is
 
-This project defines SCLA's AI-powered video production pipeline using Synthesia, HeyGen, and Wistia. It is the operational playbook for producing 16–30 hours of video per month at scale.
+This project defines SCLA's AI-powered video production pipeline using Synthesia and HeyGen. It is the operational playbook for producing 16–30 hours of video per month at scale.
 
-**Active subscriptions:** Synthesia · HeyGen · Wistia
+**Active subscriptions:** Synthesia · HeyGen
 
 ---
 
@@ -28,9 +28,9 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 ### Tool Routing (Don't Mix These Up)
 - **Synthesia** → course videos and certificate videos (5–15 min, structured, consistent avatar)
 - **HeyGen** → learning activities, social media, translations, screen recording voiceover (<3 min or multilingual)
-- **Wistia** → ALL finished videos land here; it is the single hosting/analytics layer
+- **Hosting / analytics** → `TODO: needs input` — where finished videos are hosted and measured is not yet decided (previously Wistia; SCLA is no longer standardizing on it).
 
-**Web UI vs. code path (HeyGen):** For one-off or visually-designed videos, use the HeyGen web UI. For repeatable batch course rendering from finalized scripts, use `heygen-pipeline/` (HeyGen API automation). Both feed Wistia.
+**Web UI vs. code path (HeyGen):** For one-off or visually-designed videos, use the HeyGen web UI. For repeatable batch course rendering from finalized scripts, use `heygen-pipeline/` (HeyGen API automation).
 
 ### Scale Reality
 - Peak months (Jun/Jul/Aug/Nov): **30 hours = 1,800 min/month**
@@ -57,8 +57,8 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 |---|---|---|
 | Synthesia account | TODO | Confirm Enterprise tier |
 | HeyGen account | TODO | Confirm plan + API key |
-| Wistia account | TODO | Confirm API key location |
-| Zapier automations | TODO | HeyGen→Wistia zap owner |
+| Hosting/analytics | TODO | Platform not yet decided (see Tool Routing) |
+| Zapier automations | TODO | HeyGen→hosting zap owner |
 
 ---
 

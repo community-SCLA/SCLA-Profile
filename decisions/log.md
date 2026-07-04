@@ -110,3 +110,9 @@ Running log of notable team decisions. Append new entries at the top.
 **Rationale:** Most lessons ship a drafted "video script" but only ~4 are produced to video (Wistia). Standardizing on the newer structured "Style B" spec (Video asset + Full video script with inline `[On screen:]`/`[Graphic:]` cues + shot list) lets us generate consistent scripts for HeyGen from any lesson's written material. Presenter voice is "Ann," a career coach.
 **Owner:** Amy Westby
 **Source:** Live platform observation, Early Career Boost
+
+## 2026-07-04 — Video templates made program-agnostic; Wistia removed from workflow
+**Decision:** De-hardwired the two HeyGen script templates (`templates/heygen-lesson-script.md`, `templates/heygen-narration-prompt.md`) so presenter/persona, target length, audience, and narrative arc are per-program fill-in parameters rather than fixed to Early Career Boost's "Ann the coach / 5–7 min / myth-bust arc." Style B structure and SCLA brand voice remain the only constants; Early Career Boost keeps its specifics in `programs/early-career-boost/video-style.md` as the worked example. Separately, removed Wistia as the mandated hosting/analytics layer across `projects/video-production/CLAUDE.md`, `status.md`, `qa-checklist.md`, and `batch-csv-template.md` — hosting/analytics platform is now `TODO: needs input`.
+**Rationale:** Each program has different video length and presenter needs, so hard-wiring one program's assumptions into shared templates blocked reuse. SCLA is no longer standardizing on Wistia, so mandating it in the workflow docs no longer reflects reality; genericized to a platform-neutral "hosting platform" pending the decision. The observed fact that current lessons are hosted on Wistia (`sclc.wistia.com`) is left intact in `programs/early-career-boost/video-style.md` as a real observation, not a mandate.
+**Owner:** Amy Westby (executed by Claude)
+**Source:** Working session, 2026-07-04
