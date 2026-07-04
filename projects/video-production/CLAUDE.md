@@ -12,13 +12,14 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 
 | File | Purpose |
 |---|---|
-| `video-production-ai-guide.md` | Master instructional guide — workflows, tool routing, setup checklist, pricing |
 | `status.md` | Live production status — setup progress, active work, blockers |
 | `templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (Style B; derived from Early Career Boost — see `programs/early-career-boost/video-style.md`) |
-| `templates/course-script-prompt.md` | Ready-to-use Claude prompt for course/certificate videos |
+| `templates/course-script-prompt.md` | Ready-to-use Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
+| `templates/heygen-narration-prompt.md` | Ready-to-use Claude prompt for plain narration → `heygen-pipeline/` code path (no cues to strip) |
 | `templates/social-script-prompt.md` | Ready-to-use Claude prompt for social media videos |
 | `templates/batch-csv-template.md` | CSV format specs for Synthesia and HeyGen bulk generation |
 | `templates/qa-checklist.md` | Video QA checklist for human review step |
+| `heygen-pipeline/` | Code path for HeyGen production — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 
 ---
 
@@ -28,6 +29,8 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 - **Synthesia** → course videos and certificate videos (5–15 min, structured, consistent avatar)
 - **HeyGen** → learning activities, social media, translations, screen recording voiceover (<3 min or multilingual)
 - **Wistia** → ALL finished videos land here; it is the single hosting/analytics layer
+
+**Web UI vs. code path (HeyGen):** For one-off or visually-designed videos, use the HeyGen web UI. For repeatable batch course rendering from finalized scripts, use `heygen-pipeline/` (HeyGen API automation). Both feed Wistia.
 
 ### Scale Reality
 - Peak months (Jun/Jul/Aug/Nov): **30 hours = 1,800 min/month**

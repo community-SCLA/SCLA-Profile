@@ -1,0 +1,8 @@
+.env
+output/
+state.json
+avatar_update_progress.json
+__pycache__/
+.browser-data/
+screenshots/
+.DS_Store

@@ -1,0 +1,23 @@
+{
+  "avatar": {
+    "id": "YOUR_HEYGEN_AVATAR_ID",
+    "name": "Your Avatar Name"
+  },
+  "voice": {
+    "id": "YOUR_HEYGEN_VOICE_ID",
+    "settings": {
+      "speed": 1.0
+    }
+  },
+  "pipeline": {
+    "max_chunk_words": 200,
+    "concurrent_limit": 3
+  },
+  "lessons": {
+    "1.0": {
+      "title": "Introduction to Your Course",
+      "source": "local",
+      "file": "scripts/example-lesson.txt"
+    }
+  }
+}

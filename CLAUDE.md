@@ -20,6 +20,7 @@ No matching row? Open that folder's README.md hub (every multi-file folder has o
 | Grant work | `projects/grants/` |
 | Video production | `projects/video-production/CLAUDE.md` |
 | HeyGen lesson script | `projects/video-production/templates/heygen-lesson-script.md` |
+| Render HeyGen videos (code) | `projects/video-production/heygen-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Where a fact lives | `MAP.md` |
 | Structural change (read first) | `GOVERNANCE.md` |

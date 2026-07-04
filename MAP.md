@@ -51,7 +51,8 @@ partnerships/           ← NIC.md
 
 projects/               ← grants/ (one folder per grant, new-grant.sh scaffolder),
                           video-production/ (scoped CLAUDE.md + templates/, incl.
-                          heygen-lesson-script.md), kb-integration-plan.md
+                          heygen-lesson-script.md; heygen-pipeline/ = HeyGen API
+                          render code), kb-integration-plan.md
                           (FAQ→surfaces wiring plan), drive-review-brief.md
 ```
 

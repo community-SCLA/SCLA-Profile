@@ -88,3 +88,7 @@ Turn any SCLA lesson's course material into a produce-ready video script in SCLA
 - [ ] Length ≈ 5–7 min (~450–650 words).
 - [ ] **No citation residue** (`aspeninstitute+1`, `indeed+1`, etc.) or double/trailing spaces.
 - [ ] Any SCLA fact in the script is real — if it's not in the source material, mark `TODO: needs input`, don't invent it.
+
+## To render via the code pipeline
+
+To batch-render this in HeyGen via [`heygen-pipeline/`](../heygen-pipeline/CLAUDE.md): copy **only the spoken narration** from section 3 into a plain `.txt` in `heygen-pipeline/scripts/` — drop every `[On screen:]`/`[Graphic:]` cue, heading, and the shot list (those guide the human building visuals, not the avatar). Then point a lesson at the file in `config.json`.
