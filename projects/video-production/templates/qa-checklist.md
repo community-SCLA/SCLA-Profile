@@ -1,6 +1,6 @@
 # Video QA Checklist
 
-Run this checklist on every video before uploading to Wistia. Human review is required — this step cannot be skipped or automated.
+Run this checklist on every video before publishing to the hosting platform. Human review is required — this step cannot be skipped or automated.
 
 ---
 
@@ -28,7 +28,7 @@ Run this checklist on every video before uploading to Wistia. Human review is re
 - [ ] Text overlays are readable and correctly spelled
 
 ### Accessibility
-- [ ] Captions will be auto-generated on Wistia upload (verify after upload)
+- [ ] Captions are generated on upload to the hosting platform (verify after upload)
 - [ ] No critical information conveyed by color alone
 - [ ] Speaker pace is appropriate (not too fast for comprehension)
 
@@ -72,7 +72,7 @@ Run this checklist on every video before uploading to Wistia. Human review is re
 
 ## QA Sign-Off
 
-Before uploading to Wistia, record completion:
+Before publishing to the hosting platform, record completion:
 
 | Field | Value |
 |---|---|

@@ -24,20 +24,17 @@
 - [ ] Test Video Agent with 3 prompts
 - [ ] Contact HeyGen sales re: education pricing
 
-### Wistia
-- [ ] Confirm storage plan for expected volume
-- [ ] Create Channels: Courses · Certificate Programs · Social · Company Tour
-- [ ] Set up folder hierarchy matching content structure
-- [ ] Configure player branding (SCLA colors, logo)
-- [ ] Connect HubSpot (if applicable)
-- [ ] Generate API key
-- [ ] Test embed codes in course platform
+### Hosting / analytics (platform TBD)
+- [ ] Decide hosting/analytics platform — previously Wistia; SCLA is no longer standardizing on it
+- [ ] Once chosen: set up channel/folder structure matching content
+- [ ] Once chosen: configure player branding (SCLA colors, logo)
+- [ ] Once chosen: generate API key and test embed codes in the course platform
 
 ### Zapier Automations
-- [ ] Zap 1: HeyGen video complete → upload MP4 to Wistia
-- [ ] Zap 2: Wistia upload complete → Slack #video-production notification
+- [ ] Zap 1: HeyGen video complete → upload MP4 to hosting platform
+- [ ] Zap 2: Hosting upload complete → Slack #video-production notification
 - [ ] Zap 3: Google Sheet row added → HeyGen batch trigger (optional)
-- [ ] Zap 4: HeyGen translation complete → Wistia with language tag (optional)
+- [ ] Zap 4: HeyGen translation complete → hosting platform with language tag (optional)
 
 ### Claude Prompt Library
 - [ ] Share course-script-prompt.md with all content creators
@@ -53,14 +50,14 @@
 *(nothing in progress — setup phase)*
 
 ### First 5 AI Videos (Month 1 Goal)
-| Video | Course | Script Status | Render Status | Wistia Status |
+| Video | Course | Script Status | Render Status | Published |
 |---|---|---|---|---|
 | TBD | TBD | — | — | — |
 
 ### Blockers
 - [ ] Enterprise tier confirmation (Synthesia) — needed before batch production
 - [ ] Voice clone recording not yet done
-- [ ] Wistia channel structure not yet created
+- [ ] Hosting/analytics platform not yet decided
 
 ---
 
@@ -81,4 +78,3 @@
 |---|---|---|---|
 | — | Synthesia | — | — |
 | — | HeyGen | — | — |
-| — | Wistia | — | — |
