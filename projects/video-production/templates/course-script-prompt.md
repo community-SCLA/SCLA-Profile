@@ -13,18 +13,18 @@ Use this prompt in Claude to generate scene-by-scene scripts for course and cert
 ```
 I'm creating a training video for an SCLA course called [COURSE NAME].
 
-Audience: SCLA college student members, ages 18–24, preparing for [TOPIC/CAREER AREA].
+Audience: [SCLA MEMBER SEGEMENT] [TOPIC/CAREER AREA].
 Video number: [NUMBER] of [TOTAL] in this course.
 Video title: [TITLE]
 Target duration: [X] minutes
 Style: AI avatar with B-roll and motion graphics
 
 Structure each video as:
-1. Hook / Problem Statement (30 sec) — open with a relatable challenge or question
-2. Key Concept Explanation (60–90 sec) — clear, jargon-free explanation
-3. Practical Example or Story (60–90 sec) — concrete, real-world application
-4. Key Takeaways (30 sec) — 2–3 bullet-point summary
-5. Call to Action (15 sec) — what to do or think about next
+1. Hook / Problem Statement — open with a relatable challenge or question
+2. Key Concept Explanation — clear, jargon-free explanation
+3. Practical Example or Story — concrete, real-world application
+4. Key Takeaways — 2–3 bullet-point summary
+5. Call to Action — what to do or think about next
 
 Tone: Warm, professional, encouraging. Active voice. No jargon.
 Format: Write each section as a separate paragraph. 

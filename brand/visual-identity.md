@@ -1,12 +1,4 @@
----
-source: thescla.org live CSS (template_custom.min.css, template_theme-overrides.min.css, inline styles)
----
-
 # SCLA Visual Identity
-
-> Source: values extracted directly from production CSS at thescla.org (June 2026), the source
-> of truth for digital work. Slide-deck colors are preserved as a note below.
-> TODO: obtain a formal brand guidelines document to resolve any remaining slide/web divergence.
 
 ## Colors
 
