@@ -2,7 +2,7 @@
  * Community Team Drive — Folder Refactor
  * ======================================
  * Restructures the SCLA "Community Team" Google Drive folder to match the
- * hierarchy in scla/projects/drive-review-brief.md:
+ * hierarchy in projects/drive-review-brief.md:
  *   - Organize by Topic/Initiative, not by Type
  *   - Exactly one home per document (no cross-posting / shortcut duplicates)
  *   - Max 3 folder levels; superseded versions go to a sibling _Archive/

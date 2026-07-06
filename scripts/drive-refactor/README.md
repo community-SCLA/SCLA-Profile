@@ -2,7 +2,7 @@
 
 `community-team-folder-refactor.gs` restructures the live **Community Team**
 Google Drive folder to match the hierarchy in
-[`scla/projects/drive-review-brief.md`](../../scla/projects/drive-review-brief.md).
+[`projects/drive-review-brief.md`](../../projects/drive-review-brief.md).
 
 It builds the 9 initiative folders + `_Marketing & Brand`, routes every named
 document into its single home, archives superseded/`ARCHIVE`-labeled files into
