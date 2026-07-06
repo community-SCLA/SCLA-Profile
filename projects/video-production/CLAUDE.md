@@ -1,67 +1,41 @@
 # Video Production Pipeline — Claude Context
 
-## What This Project Is
-
-This project defines SCLA's AI-powered video production pipeline using Synthesia and HeyGen. It is the operational playbook for producing 16–30 hours of video per month at scale.
+SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hours of video per month at scale.
 
 **Active subscriptions:** Synthesia · HeyGen
-
----
 
 ## Files in This Project
 
 | File | Purpose |
 |---|---|
-| `status.md` | Live production status — setup progress, active work, blockers |
-| `templates/heygen-lesson-script.md` | HeyGen lesson script scaffold — program-agnostic (fill-in presenter, length, structure). Early Career Boost is one worked example: `programs/early-career-boost/video-style.md` |
-| `templates/course-script-prompt.md` | Ready-to-use Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
-| `templates/heygen-narration-prompt.md` | Ready-to-use Claude prompt for plain narration → `heygen-pipeline/` code path (no cues to strip) |
-| `templates/social-script-prompt.md` | Ready-to-use Claude prompt for social media videos |
-| `templates/batch-csv-template.md` | CSV format specs for Synthesia and HeyGen bulk generation |
-| `templates/qa-checklist.md` | Video QA checklist for human review step |
-| `heygen-pipeline/` | Code path for HeyGen production — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
+| `status.md` | Live production status — setup checklist, owner, accounts, blockers |
+| `templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (program-agnostic). Worked example: `programs/early-career-boost/video-style.md` |
+| `templates/course-script-prompt.md` | Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
+| `templates/heygen-narration-prompt.md` | Claude prompt for plain narration → `heygen-pipeline/` (no cues to strip) |
+| `templates/social-script-prompt.md` | Claude prompt for social media videos |
+| `templates/batch-csv-template.md` | CSV specs for Synthesia + HeyGen bulk generation |
+| `templates/qa-checklist.md` | Video QA checklist for the human review step |
+| `heygen-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 
----
+## Tool Routing (Don't Mix These Up)
 
-## Key Context for Claude
+- **Synthesia** → course + certificate videos (5–15 min, structured, consistent avatar)
+- **HeyGen** → learning activities, social, translations, screen-recording voiceover (<3 min or multilingual)
+- **HeyGen web UI vs. code path** → web UI for one-off/visually-designed videos; `heygen-pipeline/` for repeatable batch rendering from finalized scripts
+- **Hosting / analytics** → `TODO: not yet decided` (previously Wistia; SCLA is no longer standardizing on it)
 
-### Tool Routing (Don't Mix These Up)
-- **Synthesia** → course videos and certificate videos (5–15 min, structured, consistent avatar)
-- **HeyGen** → learning activities, social media, translations, screen recording voiceover (<3 min or multilingual)
-- **Hosting / analytics** → `TODO: needs input` — where finished videos are hosted and measured is not yet decided (previously Wistia; SCLA is no longer standardizing on it).
+Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Enterprise** tier; HeyGen Business/Enterprise with weekly credit monitoring.
 
-**Web UI vs. code path (HeyGen):** For one-off or visually-designed videos, use the HeyGen web UI. For repeatable batch course rendering from finalized scripts, use `heygen-pipeline/` (HeyGen API automation).
+## Critical Rules
 
-### Scale Reality
-- Peak months (Jun/Jul/Aug/Nov): **30 hours = 1,800 min/month**
-- This requires **Enterprise tier** on Synthesia for unlimited minutes
-- HeyGen Business or Enterprise for volume; monitor credit burndown weekly
-
-### SCLA Brand
-- Primary gold: `#eaab2d`
-- Primary blue: `#3393d6`
-- Source of truth: `brand/visual-identity.md` (production CSS audit). Previous template values (`#F1B32E`, `#55A4DD`) were slide-deck colors; web CSS takes precedence.
-- Voice: Warm, professional, encouraging. No jargon. Active voice. Target audience: college students 18–24.
-
-### Critical Rules
 - **Never fabricate SCLA course content** — always work from provided outlines/source material
-- **Always flag scripts for human approval** before production commences — never send directly to render
-- **Don't include FERPA/PII data** in any prompts sent to AI tools
-- Script approval → video render is a manual gate, not an automated step
+- **Always flag scripts for human approval** before render — script → render is a manual gate, never automated
+- **No FERPA/PII data** in any prompt sent to an AI tool
 
----
+## Brand
 
-## Production Contacts
-
-| Role | Contact | Notes |
-|---|---|---|
-| Synthesia account | TODO | Confirm Enterprise tier |
-| HeyGen account | TODO | Confirm plan + API key |
-| Hosting/analytics | TODO | Platform not yet decided (see Tool Routing) |
-| Zapier automations | TODO | HeyGen→hosting zap owner |
-
----
+Source of truth: `brand/visual-identity.md` (colors, logo, type) and `brand/voice-and-tone.md` (voice). Do not restate hex values here — they drift. Audience: college students 18–24.
 
 ## Current Phase
 
-See `status.md` for live progress on setup checklist and active production.
+See `status.md`.
