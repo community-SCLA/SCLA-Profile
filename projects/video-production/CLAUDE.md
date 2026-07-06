@@ -13,7 +13,7 @@ This project defines SCLA's AI-powered video production pipeline using Synthesia
 | File | Purpose |
 |---|---|
 | `status.md` | Live production status — setup progress, active work, blockers |
-| `templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (Style B; derived from Early Career Boost — see `programs/early-career-boost/video-style.md`) |
+| `templates/heygen-lesson-script.md` | HeyGen lesson script scaffold — program-agnostic (fill-in presenter, length, structure). Early Career Boost is one worked example: `programs/early-career-boost/video-style.md` |
 | `templates/course-script-prompt.md` | Ready-to-use Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
 | `templates/heygen-narration-prompt.md` | Ready-to-use Claude prompt for plain narration → `heygen-pipeline/` code path (no cues to strip) |
 | `templates/social-script-prompt.md` | Ready-to-use Claude prompt for social media videos |

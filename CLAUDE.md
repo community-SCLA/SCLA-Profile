@@ -31,11 +31,5 @@ No matching row? Open that folder's README.md hub (every multi-file folder has o
 
 Full rulebook and all other rules: `GOVERNANCE.md`.
 These two bind every session:
-- **Never fabricate SCLA facts** — if it's not in the files, mark it `TODO: needs input`.
+
 - **Never load or route to `_archive/`**
-
-## Sync
-
-```bash
-./sync.sh   # main branch only; commits, pushes, updates workspace submodule
-```

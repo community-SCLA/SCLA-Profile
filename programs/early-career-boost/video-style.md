@@ -101,5 +101,5 @@ The reverse-engineering payoff — how written lesson material becomes the spoke
 ## How to use this
 
 1. Take any lesson's written material (objective + key points + the tool/activity it feeds).
-2. Run it through [`projects/video-production/templates/heygen-lesson-script.md`](../../projects/video-production/templates/heygen-lesson-script.md), which encodes the Style B structure and the voice rules above.
+2. Run it through [`projects/video-production/templates/heygen-lesson-script.md`](../../projects/video-production/templates/heygen-lesson-script.md), supplying this track's specifics (below) as the template's program parameters.
 3. Keep Ann's coaching voice, 5–7 min length, and the `[On screen:]` / `[Graphic:]` cue convention so the shot list drops straight into HeyGen.

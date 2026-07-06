@@ -13,7 +13,7 @@ Use this prompt in Claude to generate scene-by-scene scripts for course and cert
 ```
 I'm creating a training video for an SCLA course called [COURSE NAME].
 
-Audience: [SCLA MEMBER SEGEMENT] [TOPIC/CAREER AREA].
+Audience: [SCLA MEMBER SEGMENT] [TOPIC/CAREER AREA].
 Video number: [NUMBER] of [TOTAL] in this course.
 Video title: [TITLE]
 Target duration: [X] minutes
@@ -27,7 +27,7 @@ Structure each video as:
 5. Call to Action — what to do or think about next
 
 Tone: Warm, professional, encouraging. Active voice. No jargon.
-Format: Write each section as a separate paragraph. 
+Format: Write each section as a separate paragraph.
 Mark [B-ROLL: description] anywhere motion graphics or visuals should appear.
 Keep each paragraph to approximately 30 seconds of speaking time (75–90 words).
 Do NOT include stage directions, speaker names, or timestamps.
