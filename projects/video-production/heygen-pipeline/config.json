@@ -1,10 +1,10 @@
 {
   "avatar": {
-    "id": "YOUR_HEYGEN_AVATAR_ID",
-    "name": "Your Avatar Name"
+    "id": "b04699c54ba843d4b3018caae5847932",
+    "name": "Ann"
   },
   "voice": {
-    "id": "YOUR_HEYGEN_VOICE_ID",
+    "id": "80cc120dfa1d4bc2ab8d8140f3ac7d90",
     "settings": {
       "speed": 1.0
     }
@@ -18,6 +18,11 @@
       "title": "Introduction to Your Course",
       "source": "local",
       "file": "scripts/example-lesson.txt"
+    },
+    "3.5": {
+      "title": "Better Decisions Come From Better Criteria",
+      "source": "local",
+      "file": "scripts/better-decisions-come-from-better-criteria_early-career-boost_2026-07-06.txt"
     }
   }
 }

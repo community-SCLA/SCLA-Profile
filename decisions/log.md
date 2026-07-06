@@ -1,13 +1,18 @@
 ---
 source: manual
 generated_by: source-of-truth-curator
-last_updated: 2026-07-03
+last_updated: 2026-07-06
 confidence: high
 ---
 
 # SCLA Decisions Log
 
 Running log of notable team decisions. Append new entries at the top.
+
+## 2026-07-06 — Video library organized by program under video-production
+**Decision:** Added `projects/video-production/videos/` — a curated library holding finished lesson videos and the approved scripts that produced them, one subfolder per program (`early-career-boost/`, `career-readiness-accelerator/`, `scla-leadership-program/`, slugs matching `programs/`). Both the approved narration `.txt` and its rendered `.mp4` live together in the program folder. Naming convention: `<section>_<program>_<date>` (kebab-case section, program slug, ISO date; underscores between the three parts, hyphens inside a part, lowercase, no spaces/`+`) — a video and its script share one stem so they sort adjacent. Documented the convention and the pipeline→library handoff in `videos/README.md` (folder hub), and added a `videos/` row to the project `CLAUDE.md` Files table. The render pipeline still stages output in its own `heygen-pipeline/output/videos/`; approved files are renamed and moved into the library manually (no code change this pass).
+**Rationale:** Production is scaling to high volume across multiple programs; a flat output folder with `lesson-{id}-part-{n}.mp4` names doesn't say which program or section a video serves. Per-program folders + section-based naming make the library browsable and unambiguous, and keeping the approved script beside its video preserves the source→output link. Left the pipeline's staging output untouched because videos also come from the HeyGen web UI — the library is the shared destination for both paths, filed manually at the approval gate.
+**Owner:** SCLA Community Team (executed by Claude)
 
 ## 2026-07-03 — HeyGen production pipeline folded into video-production
 **Decision:** Incorporated a HeyGen API automation project (the code path that turns `.txt` lesson scripts into rendered avatar MP4s) into `projects/video-production/`, making the folder cohesive across its three layers (strategy → authoring → production). (1) Renamed the incoming `heygen-studio-template/` → `heygen-pipeline/` — it is a runnable tool, and "template" collided with `templates/` and the `new-from-template` skill. (2) Wired the previously-orphan folder into all routers: root `CLAUDE.md` task row ("Render HeyGen videos (code)"), project `CLAUDE.md` Files table + a "Web UI vs. code path" routing note, and `MAP.md`. (3) Documented the authoring→production handoff: the pipeline consumes plain narration only, so `heygen-lesson-script.md` (rich doc with `[On screen:]` cues + shot list) needs its section-3 narration extracted to a `.txt` — noted in both the template's checklist and the pipeline's CLAUDE.md. (4) Cleanup: deleted `video-production-ai-guide.html` (unreferenced 1312-line stale render of the 547-line `.md`; markdown is the single source of truth), removed `output/audio/` (pipeline makes no audio — HeyGen does voice+video in one call), removed `.DS_Store`/`__pycache__` junk and added `.DS_Store` to the pipeline `.gitignore`, and fixed a misleading `config.json.example` error string in `generate_videos.py`. `bash scripts/lint-refs.sh` exits 0.

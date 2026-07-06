@@ -16,6 +16,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `templates/batch-csv-template.md` | CSV specs for Synthesia + HeyGen bulk generation |
 | `templates/qa-checklist.md` | Video QA checklist for the human review step |
 | `heygen-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
+| `videos/` | Curated library — finished videos + approved scripts, one folder per program. Naming convention in its `README.md`. |
 
 ## Tool Routing (Don't Mix These Up)
 
