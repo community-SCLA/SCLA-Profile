@@ -1,0 +1,450 @@
+<title>Early Career Boost — Welcome</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ============================================================
+     SCLA · Early Career Boost — Mini-Syllabus welcome video
+     HyperFrames-style: a single, self-contained, programmable
+     HTML motion-graphics composition. No avatar, no narrator —
+     kinetic typography sequenced on a JS timeline.
+     Brand tokens: brand/visual-identity.md (thescla.org prod CSS)
+     ============================================================ */
+
+  :root {
+    --navy:        #0d2437;  /* primary dark ground / headings   */
+    --navy-deep:   #0a1e2f;  /* deepest ground / footer          */
+    --blue:        #3393d6;  /* secondary accent, subheads, fill */
+    --yellow:      #eaab2d;  /* single bold accent — CTA / key    */
+    --ink:         #292f35;  /* body copy on light                */
+    --paper:       #f6f6f9;  /* light scene ground                */
+    --white:       #ffffff;
+    --border:      rgba(255,255,255,.14);
+    --radius:      12px;
+    /* a neutral biased toward the brand blue, not a flat grey */
+    --mist:        #9fb4c8;
+    --font: "Proxima Nova", "Montserrat", system-ui, -apple-system,
+            "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #06131f;
+    color: var(--white);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+    padding: clamp(8px, 3vw, 40px);
+  }
+
+  /* ---- Player shell ------------------------------------------------ */
+  .player { width: min(100%, 1180px); }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    container-type: size;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background:
+      radial-gradient(120% 90% at 78% 8%, #12324c 0%, rgba(18,50,76,0) 55%),
+      radial-gradient(90% 80% at 10% 100%, #0e2a40 0%, rgba(14,42,64,0) 60%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.7),
+                0 0 0 1px rgba(255,255,255,.05) inset;
+  }
+
+  /* ambient drifting glow — subtle, never gimmicky */
+  .glow {
+    position: absolute; border-radius: 50%;
+    filter: blur(40px); opacity: .5; pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  .glow.a { width: 42cqw; height: 42cqw; left: -8cqw; top: -12cqw;
+    background: radial-gradient(circle, rgba(51,147,214,.55), transparent 70%);
+    animation: drift1 22s ease-in-out infinite; }
+  .glow.b { width: 34cqw; height: 34cqw; right: -6cqw; bottom: -10cqw;
+    background: radial-gradient(circle, rgba(234,171,45,.30), transparent 70%);
+    animation: drift2 26s ease-in-out infinite; }
+  @keyframes drift1 { 50% { transform: translate(6cqw, 8cqw) scale(1.12); } }
+  @keyframes drift2 { 50% { transform: translate(-5cqw,-6cqw) scale(1.15); } }
+
+  /* ---- Persistent chrome ------------------------------------------ */
+  .brandmark {
+    position: absolute; top: 4.2cqh; left: 4.4cqw; z-index: 6;
+    display: flex; align-items: center; gap: 1.4cqw;
+    font-weight: 800; letter-spacing: .18em; font-size: 2.4cqh;
+  }
+  .brandmark .dot {
+    width: 2.4cqh; height: 2.4cqh; border-radius: 3px;
+    background: var(--yellow);
+    box-shadow: 0 0 0 4px rgba(234,171,45,.18);
+  }
+  .brandmark small { color: var(--mist); font-weight: 600; letter-spacing:.02em; }
+
+  .eyebrow-fixed {
+    position: absolute; top: 4.6cqh; right: 4.4cqw; z-index: 6;
+    font-size: 1.9cqh; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--blue); font-weight: 700;
+  }
+
+  /* ---- Scenes ------------------------------------------------------ */
+  .scene {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 9cqw;
+    opacity: 0; visibility: hidden;
+    transition: opacity .6s ease;
+  }
+  .scene.light {
+    background:
+      radial-gradient(100% 120% at 100% 0%, #ffffff 0%, var(--paper) 60%);
+    color: var(--ink);
+  }
+  .scene.active { opacity: 1; visibility: visible; }
+
+  /* staggered entrance for children marked .anim */
+  .anim {
+    opacity: 0; transform: translateY(1.6cqh);
+    transition: opacity .7s cubic-bezier(.2,.7,.2,1),
+                transform .7s cubic-bezier(.2,.7,.2,1);
+  }
+  .scene.active .anim { opacity: 1; transform: none; }
+  .scene.active .anim:nth-child(1) { transition-delay: .10s; }
+  .scene.active .anim:nth-child(2) { transition-delay: .24s; }
+  .scene.active .anim:nth-child(3) { transition-delay: .38s; }
+  .scene.active .anim:nth-child(4) { transition-delay: .52s; }
+  .scene.active .anim:nth-child(5) { transition-delay: .66s; }
+
+  /* ---- Typography inside stage ------------------------------------ */
+  .eyebrow {
+    font-size: 2.1cqh; letter-spacing: .24em; text-transform: uppercase;
+    font-weight: 700; color: var(--blue); margin-bottom: 2.4cqh;
+  }
+  .scene.light .eyebrow { color: var(--blue); }
+
+  h1 {
+    font-weight: 900; line-height: .98; letter-spacing: -.015em;
+    font-size: 9.4cqh; text-wrap: balance; max-width: 20ch;
+  }
+  h2 {
+    font-weight: 900; line-height: 1.0; letter-spacing: -.01em;
+    font-size: 7.2cqh; text-wrap: balance; max-width: 22ch;
+  }
+  .lede {
+    font-size: 3.2cqh; line-height: 1.4; font-weight: 400;
+    color: var(--mist); max-width: 34ch; margin-top: 3cqh;
+  }
+  .scene.light .lede { color: #4a5560; }
+  .hl { color: var(--yellow); }
+  .hl-blue { color: var(--blue); font-weight: 700; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 1.2cqw;
+    align-self: flex-start;
+    padding: 1.5cqh 2.6cqw; border-radius: 999px;
+    font-size: 2.2cqh; font-weight: 600;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.05); color: var(--white);
+    margin-top: 4cqh;
+  }
+  .pill .tick {
+    width: 2.6cqh; height: 2.6cqh; border-radius: 50%;
+    background: var(--yellow); color: var(--navy);
+    display: grid; place-items: center; font-weight: 900; font-size: 1.7cqh;
+  }
+
+  /* milestone row (scene 2) */
+  .milestones { display: flex; gap: 1.4cqw; margin-top: 4cqh; }
+  .milestones .m {
+    width: 4.4cqh; height: 4.4cqh; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.25);
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 2cqh; color: var(--mist);
+  }
+  .milestones .m.done {
+    background: var(--blue); border-color: var(--blue); color: var(--white);
+  }
+  .milestones .m.now {
+    border-color: var(--yellow); color: var(--yellow);
+    box-shadow: 0 0 0 4px rgba(234,171,45,.18);
+  }
+
+  /* card (scene 3) */
+  .cards { display: flex; gap: 2.4cqw; margin-top: 4cqh; flex-wrap: wrap; }
+  .card {
+    background: var(--white); color: var(--navy);
+    border-radius: var(--radius); padding: 3cqh 2.6cqw;
+    min-width: 26cqw; box-shadow: 0 12px 30px -14px rgba(13,36,55,.35);
+    border: 1px solid rgba(13,36,55,.06);
+  }
+  .card .ic {
+    width: 6cqh; height: 6cqh; border-radius: 10px; margin-bottom: 2cqh;
+    background: linear-gradient(150deg, var(--blue), #1f6fae);
+    display: grid; place-items: center;
+  }
+  .card .ic.y { background: linear-gradient(150deg, var(--yellow), #cf9016); }
+  .card .ic svg { width: 3.4cqh; height: 3.4cqh; }
+  .card h3 { font-size: 2.9cqh; font-weight: 800; margin-bottom: 1cqh; }
+  .card p  { font-size: 2.1cqh; line-height: 1.35; color: #55606b; }
+
+  /* question chips (scene 4) */
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2cqh 2.4cqw;
+    margin-top: 4.4cqh; max-width: 74cqw; }
+  .chip {
+    display: flex; align-items: center; gap: 1.6cqw;
+    padding: 2.2cqh 2.4cqw; border-radius: var(--radius);
+    background: rgba(255,255,255,.055);
+    border: 1px solid var(--border);
+    font-size: 2.5cqh; font-weight: 600; line-height: 1.2;
+  }
+  .chip .q {
+    flex: none; width: 4.6cqh; height: 4.6cqh; border-radius: 8px;
+    background: rgba(51,147,214,.16); color: var(--blue);
+    display: grid; place-items: center; font-weight: 900; font-size: 2.3cqh;
+  }
+
+  /* commitment (scene 5) */
+  .two-tools { display: flex; gap: 2cqw; margin-top: 4cqh; }
+  .tool {
+    flex: 1; padding: 2.6cqh 2.2cqw; border-radius: var(--radius);
+    border: 1px solid var(--border); background: rgba(255,255,255,.05);
+    font-size: 2.3cqh; font-weight: 600; display: flex; align-items: center;
+    gap: 1.4cqw; max-width: 30cqw;
+  }
+  .tool b { color: var(--white); }
+  .tool span.k {
+    flex: none; width: 3.4cqh; height: 3.4cqh; border-radius: 7px;
+    background: var(--yellow); color: var(--navy);
+    display: grid; place-items: center; font-weight: 900; font-size: 2cqh;
+  }
+
+  /* closing (scene 6) */
+  .scene.close { align-items: flex-start; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 1.4cqw;
+    margin-top: 4.4cqh; align-self: flex-start;
+    padding: 2.2cqh 3.4cqw; border-radius: 999px;
+    background: var(--yellow); color: var(--navy);
+    font-weight: 800; font-size: 3cqh; letter-spacing: -.01em;
+  }
+  .cta svg { width: 3cqh; height: 3cqh; }
+
+  /* ---- Progress bar = platform progress motif = scrubber ---------- */
+  .progress-wrap {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 7;
+    height: 1.4cqh; background: rgba(255,255,255,.10);
+  }
+  .progress {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--blue), #57b0ee);
+    box-shadow: 0 0 18px rgba(51,147,214,.6);
+  }
+
+  /* ---- Replay control --------------------------------------------- */
+  .replay {
+    position: absolute; inset: 0; z-index: 8;
+    display: none; place-items: center;
+    background: rgba(6,19,31,.55); backdrop-filter: blur(3px);
+    cursor: pointer; border: 0; color: var(--white);
+    font-family: var(--font);
+  }
+  .replay.show { display: grid; }
+  .replay .btn {
+    display: flex; align-items: center; gap: 1.4cqw;
+    padding: 2.2cqh 3.4cqw; border-radius: 999px;
+    background: var(--white); color: var(--navy);
+    font-weight: 800; font-size: 2.8cqh;
+    box-shadow: 0 16px 40px -16px rgba(0,0,0,.6);
+  }
+  .replay svg { width: 3cqh; height: 3cqh; }
+
+  /* caption under player */
+  .cap {
+    margin-top: 14px; color: var(--mist); font-size: 13px;
+    display: flex; justify-content: space-between; gap: 16px;
+    flex-wrap: wrap; letter-spacing: .01em;
+  }
+  .cap b { color: #d6e2ee; font-weight: 700; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim { transition: opacity .3s ease; transform: none; }
+    .glow { animation: none; }
+    .scene.active .anim { transform: none; }
+  }
+</style>
+
+<div class="player">
+  <div class="stage" id="stage" role="img"
+       aria-label="Early Career Boost welcome video by SCLA">
+
+    <div class="glow a"></div>
+    <div class="glow b"></div>
+
+    <div class="brandmark"><span class="dot"></span>SCLA <small>&nbsp;/&nbsp;honor society</small></div>
+    <div class="eyebrow-fixed">Early Career Boost</div>
+
+    <!-- Scene 1 — Welcome -->
+    <section class="scene" data-scene="0">
+      <div class="eyebrow anim">Welcome</div>
+      <h1 class="anim">Welcome to <span class="hl">Early&nbsp;Career&nbsp;Boost</span></h1>
+      <p class="lede anim">For learners exploring their future, making early-career
+        decisions, or figuring out what comes next.</p>
+      <div class="pill anim"><span class="tick">✦</span> Part of your Career Accelerator journey</div>
+    </section>
+
+    <!-- Scene 2 — Progress -->
+    <section class="scene" data-scene="1">
+      <div class="eyebrow anim">Your journey</div>
+      <h2 class="anim">Every step builds your <span class="hl-blue">career foundation</span>.</h2>
+      <p class="lede anim">Think of each one as checking off a key milestone —
+        and a progress bar shows exactly where you are and what's ahead.</p>
+      <div class="milestones anim">
+        <div class="m done">✓</div>
+        <div class="m now">◉</div>
+        <div class="m">3</div>
+        <div class="m">4</div>
+        <div class="m">5</div>
+      </div>
+    </section>
+
+    <!-- Scene 3 — Tools & support (light) -->
+    <section class="scene light" data-scene="2">
+      <div class="eyebrow anim">Tools &amp; support</div>
+      <h2 class="anim">Simple tools, help whenever you need it.</h2>
+      <div class="cards">
+        <div class="card anim">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 20l-5-2V4l5 2 6-2 5 2v14l-5-2-6 2z"/>
+              <path d="M9 6v14M15 4v14"/></svg>
+          </div>
+          <h3>Career Mapping Tool</h3>
+          <p>Explore different pathways and see where each one could lead.</p>
+        </div>
+        <div class="card anim">
+          <div class="ic y">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0d2437" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Help, on demand</h3>
+          <p>Click-throughs, reflections &amp; uploads — plus <b style="color:#0d2437">#questionsupport</b> anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 4 — What you'll learn -->
+    <section class="scene" data-scene="3">
+      <div class="eyebrow anim">What you'll learn</div>
+      <h2 class="anim">A fulfilling career starts with the right <span class="hl">mindset</span>.</h2>
+      <div class="chips">
+        <div class="chip anim"><span class="q">?</span>What makes a dream job today?</div>
+        <div class="chip anim"><span class="q">?</span>Do dream jobs even exist anymore?</div>
+        <div class="chip anim"><span class="q">?</span>Which skills matter most in an AI world?</div>
+        <div class="chip anim"><span class="q">?</span>How do you actually move forward?</div>
+      </div>
+    </section>
+
+    <!-- Scene 5 — Career commitment -->
+    <section class="scene" data-scene="4">
+      <div class="eyebrow anim">Your first step</div>
+      <h2 class="anim">Make your <span class="hl">Career Commitment</span> statement.</h2>
+      <p class="lede anim">Because career development isn't just about thinking —
+        it's about doing. Submit it as step one.</p>
+      <div class="two-tools anim">
+        <div class="tool"><span class="k">1</span><span>In your <b>Workbook</b></span></div>
+        <div class="tool"><span class="k">2</span><span>Or the <b>AI&nbsp;Career&nbsp;Commitment</b> tool</span></div>
+      </div>
+    </section>
+
+    <!-- Scene 6 — Close -->
+    <section class="scene close" data-scene="5">
+      <div class="eyebrow anim">You're ready</div>
+      <h1 class="anim">Complete activities.<br>Check off milestones.<br><span class="hl">Build real skills.</span></h1>
+      <div class="cta anim">Let's get started
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0d2437" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </section>
+
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+
+    <button class="replay" id="replay" aria-label="Replay video">
+      <span class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0d2437" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        Replay
+      </span>
+    </button>
+  </div>
+
+  <div class="cap">
+    <span><b>Early Career Boost — Mini-Syllabus</b> · welcome / program intro</span>
+    <span>SCLA · HyperFrames-style motion graphics · brand: thescla.org</span>
+  </div>
+</div>
+
+<script>
+(() => {
+  // Scene timeline (ms). Durations tuned to the narration beats.
+  const scenes = [...document.querySelectorAll('.scene')];
+  const marks  = [0, 11000, 22000, 34000, 47000, 59000];
+  const END    = 71000;
+
+  const progress = document.getElementById('progress');
+  const replay   = document.getElementById('replay');
+  const stage    = document.getElementById('stage');
+
+  let start = null, raf = null, done = false;
+
+  function activate(i) {
+    scenes.forEach((s, k) => s.classList.toggle('active', k === i));
+  }
+
+  function frame(t) {
+    if (start === null) start = t;
+    const el = t - start;
+
+    // progress bar
+    progress.style.width = Math.min(100, (el / END) * 100) + '%';
+
+    // pick current scene
+    let idx = 0;
+    for (let i = 0; i < marks.length; i++) if (el >= marks[i]) idx = i;
+    activate(idx);
+
+    if (el >= END) { finish(); return; }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function finish() {
+    done = true;
+    progress.style.width = '100%';
+    replay.classList.add('show');
+    cancelAnimationFrame(raf);
+  }
+
+  function play() {
+    done = false; start = null;
+    replay.classList.remove('show');
+    cancelAnimationFrame(raf);
+    activate(0);
+    raf = requestAnimationFrame(frame);
+  }
+
+  replay.addEventListener('click', play);
+  // click stage to replay once finished
+  stage.addEventListener('click', () => { if (done) play(); });
+
+  play();
+})();
+</script>
