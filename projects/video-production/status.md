@@ -1,6 +1,6 @@
 # Video Production Pipeline — Status
 
-**Current phase:** Pre-production setup  
+**Current phase:** Illustrated pipeline live (design system + voice + flow shipped 2026-07-07); first lesson build is the next step  
 **Owner:** TODO
 
 ---
@@ -55,8 +55,9 @@
 | TBD | TBD | — | — | — |
 
 ### Blockers
-- [ ] Enterprise tier confirmation (Synthesia) — needed before batch production
-- [ ] Voice clone recording not yet done
+- [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `heygen-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.
+- [ ] Enterprise tier confirmation (Synthesia) — only if long-form avatar courses survive re-evaluation
+- [ ] Voice clone recording not yet done (avatar path)
 - [ ] Hosting/analytics platform not yet decided
 
 ---
