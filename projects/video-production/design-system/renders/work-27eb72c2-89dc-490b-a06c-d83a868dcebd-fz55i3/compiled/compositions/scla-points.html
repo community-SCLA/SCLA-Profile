@@ -1,0 +1,244 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Section label","default":"Why decisions feel hard"},
+    {"id":"heading","type":"string","label":"Heading","default":"Four pressure traps"},
+    {"id":"point1","type":"string","label":"Point 1","default":"Deciding under pressure"},
+    {"id":"point2","type":"string","label":"Point 2","default":"Comparing yourself to others"},
+    {"id":"point3","type":"string","label":"Point 3","default":"Fixating on one factor, like salary or prestige"},
+    {"id":"point4","type":"string","label":"Point 4 (empty to hide)","default":"Staying the course only because of sunk costs"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"02 / KEY POINTS"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+        }
+        .kp-bg {
+          position: absolute;
+          inset: 0;
+          background: #f6f6f9;
+          background-image:
+            linear-gradient(rgba(51, 147, 214, 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(51, 147, 214, 0.07) 1px, transparent 1px);
+          background-size: 120px 120px;
+        }
+        #kp-ghost-ring {
+          position: absolute;
+          left: -320px;
+          bottom: -380px;
+          width: 900px;
+          height: 1020px;
+          border-radius: 50%;
+          border: 3px solid rgba(51, 147, 214, 0.16);
+        }
+        #kp-ghost-ring-2 {
+          position: absolute;
+          left: -220px;
+          bottom: -300px;
+          width: 660px;
+          height: 780px;
+          border-radius: 50%;
+          border: 2px solid rgba(234, 171, 45, 0.2);
+        }
+        #kp-rail {
+          position: absolute;
+          right: 84px;
+          top: 120px;
+          bottom: 120px;
+          width: 2px;
+          background: #cccedf;
+          transform-origin: center top;
+        }
+        #kp-rail-label {
+          position: absolute;
+          right: 44px;
+          top: 120px;
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+          writing-mode: vertical-rl;
+        }
+        #kp-head {
+          position: absolute;
+          left: 120px;
+          top: 110px;
+          width: 1400px;
+        }
+        #kp-label-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #kp-tick {
+          width: 46px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #kp-label {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #kp-heading {
+          margin-top: 18px;
+          font-size: 68px;
+          font-weight: 900;
+          color: #0d2437;
+          line-height: 1.08;
+        }
+        #kp-list {
+          position: absolute;
+          left: 120px;
+          top: 370px;
+          width: 1480px;
+          display: flex;
+          flex-direction: column;
+        }
+        .kp-item {
+          display: flex;
+          align-items: center;
+          gap: 36px;
+          padding: 30px 0;
+          border-bottom: 2px solid #cccedf;
+        }
+        .kp-num {
+          flex: none;
+          width: 74px;
+          height: 74px;
+          border-radius: 50%;
+          background: #eaab2d;
+          color: #0d2437;
+          font-size: 32px;
+          font-weight: 900;
+          display: grid;
+          place-items: center;
+        }
+        .kp-text {
+          font-size: 36px;
+          font-weight: 400;
+          color: #292f35;
+        }
+        #kp-index {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scla-points" data-width="1920" data-height="1080" data-duration="8">
+        <div class="kp-bg"></div>
+        <div id="kp-ghost-ring" data-layout-allow-overflow></div>
+        <div id="kp-ghost-ring-2" data-layout-allow-overflow></div>
+        <div id="kp-rail"></div>
+        <div id="kp-rail-label">SCLA · Lesson System</div>
+        <div id="kp-head">
+          <div id="kp-label-row">
+            <div id="kp-tick"></div>
+            <div id="kp-label">Why decisions feel hard</div>
+          </div>
+          <h2 id="kp-heading">Four pressure traps</h2>
+        </div>
+        <div id="kp-list">
+          <div class="kp-item" id="kp-item-1">
+            <div class="kp-num">1</div>
+            <div class="kp-text" id="kp-text-1">Deciding under pressure</div>
+          </div>
+          <div class="kp-item" id="kp-item-2">
+            <div class="kp-num">2</div>
+            <div class="kp-text" id="kp-text-2">Comparing yourself to others</div>
+          </div>
+          <div class="kp-item" id="kp-item-3">
+            <div class="kp-num">3</div>
+            <div class="kp-text" id="kp-text-3">Fixating on one factor, like salary or prestige</div>
+          </div>
+          <div class="kp-item" id="kp-item-4">
+            <div class="kp-num">4</div>
+            <div class="kp-text" id="kp-text-4">Staying the course only because of sunk costs</div>
+          </div>
+        </div>
+        <div id="kp-index">02 / KEY POINTS</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            label: "Why decisions feel hard",
+            heading: "Four pressure traps",
+            point1: "Deciding under pressure",
+            point2: "Comparing yourself to others",
+            point3: "Fixating on one factor, like salary or prestige",
+            point4: "Staying the course only because of sunk costs",
+            sceneIndex: "02 / KEY POINTS",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("kp-label").textContent = vars.label;
+          document.getElementById("kp-heading").textContent = vars.heading;
+          document.getElementById("kp-index").textContent = vars.sceneIndex;
+          const points = [vars.point1, vars.point2, vars.point3, vars.point4];
+          points.forEach(function (p, i) {
+            const item = document.getElementById("kp-item-" + (i + 1));
+            if (p && String(p).trim() !== "") {
+              document.getElementById("kp-text-" + (i + 1)).textContent = p;
+            } else {
+              item.remove();
+            }
+          });
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#kp-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1);
+          tl.fromTo("#kp-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+          tl.fromTo("#kp-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.35);
+          tl.fromTo("#kp-rail", { scaleY: 0 }, { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, 0.3);
+          tl.fromTo("#kp-rail-label", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.8);
+          const items = gsap.utils.toArray(".kp-item");
+          items.forEach(function (item, i) {
+            tl.fromTo(
+              item,
+              { opacity: 0, x: 70 },
+              { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" },
+              0.85 + i * 0.55,
+            );
+            const num = item.querySelector(".kp-num");
+            tl.fromTo(num, { scale: 0.4 }, { scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.9 + i * 0.55);
+          });
+          tl.fromTo("#kp-index", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.2);
+          tl.fromTo("#kp-ghost-ring", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+          tl.fromTo("#kp-ghost-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
+          tl.fromTo("#kp-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut", repeat: 0 }, 1.4);
+          tl.fromTo("#kp-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.9, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
+          window.__timelines["scla-points"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -45,6 +45,18 @@ Run this checklist on every video before publishing to the hosting platform. Hum
 
 ---
 
+## Illustrated Video QA (HyperFrames / design-system)
+
+- [ ] `npm run check` passes with 0 errors (lint + validate + inspect)
+- [ ] Snapshot frames at each scene midpoint reviewed by a human
+- [ ] Design tokens match `design-system/frame.md` — no off-palette colors, Proxima Nova renders (not a fallback sans)
+- [ ] Narration voice matches the pinned voice in `frame.md` (no silent provider drift)
+- [ ] On-screen text is synced to the narration (right words visible while spoken)
+- [ ] Video teaches with sound OFF — on-screen text carries the key moves
+- [ ] Scene templates instantiated via variables, not forked copies
+
+---
+
 ## Translation QA (Multilingual Videos)
 
 - [ ] Translated audio sounds natural — not robotic or stilted

@@ -84,13 +84,13 @@ Narration:
 
 Once approved, the narration is ready to render:
 
-1. Save it as a plain `.txt` in [`../heygen-pipeline/scripts/`](../heygen-pipeline/scripts/) — e.g. `lesson-1.0.txt`.
+1. Save it as a plain `.txt` directly in [`../videos/<program-slug>/`](../videos/README.md) — its permanent curated home — named per that folder's convention, e.g. `lesson-1.0_early-career-boost_2026-07-06.txt`.
 2. Add the lesson to `heygen-pipeline/config.json` under `lessons`:
    ```json
    "1.0": {
      "title": "Your Lesson Title",
      "source": "local",
-     "file": "scripts/lesson-1.0.txt"
+     "file": "../videos/early-career-boost/lesson-1.0_early-career-boost_2026-07-06.txt"
    }
    ```
 3. Dry-run to preview chunking: `python generate_videos.py --lesson 1.0 --dry-run`

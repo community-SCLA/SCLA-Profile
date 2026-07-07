@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>SCLA Lesson System — Demo Reel</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      /* Sub-comp slots stretch to fill the root. */
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      SCLA Lesson System — demo reel.
+      Six reusable scene templates in sequence, filled with real (approved) content from
+      the Early Career Boost lesson "Better Decisions Come From Better Criteria".
+      This file doubles as the living style guide AND the instantiation pattern to copy
+      for lesson builds: slot + data-variable-values per scene. Design tokens: frame.md.
+    -->
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="48">
+      <div
+        id="el-title"
+        data-composition-id="scla-title"
+        data-composition-src="compositions/scla-title.html"
+        data-variable-values='{"eyebrow":"Early Career Boost","title":"Better Decisions Come From Better Criteria","meta":"3 min","sceneIndex":"01 / TITLE"}'
+        data-start="0"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-points"
+        data-composition-id="scla-points"
+        data-composition-src="compositions/scla-points.html"
+        data-variable-values='{"label":"Why decisions feel hard","heading":"Four pressure traps","point1":"Deciding under pressure","point2":"Comparing yourself to others","point3":"Fixating on one factor, like salary or prestige","point4":"Staying the course only because of sunk costs","sceneIndex":"02 / KEY POINTS"}'
+        data-start="8"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-steps"
+        data-composition-id="scla-steps"
+        data-composition-src="compositions/scla-steps.html"
+        data-variable-values='{"label":"The shift","heading":"From pressure to process","step1":"Define success for the next 3–5 years","step2":"Broaden your options","step3":"Compare with your criteria","step4":"Notice what you still don&#39;t know","sceneIndex":"03 / PROCESS"}'
+        data-start="16"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-quote"
+        data-composition-id="scla-quote"
+        data-composition-src="compositions/scla-quote.html"
+        data-variable-values='{"quote":"Better decisions become possible when you shift from pressure to process.","attribution":"SCLA · Early Career Boost","role":"Better Decisions Come From Better Criteria","sceneIndex":"04 / QUOTE"}'
+        data-start="24"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-stat"
+        data-composition-id="scla-stat"
+        data-composition-src="compositions/scla-stat.html"
+        data-variable-values='{"value":5,"prefix":"","suffix":"","statLabel":"Paths to list — not just one","context":"If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide.","sceneIndex":"05 / STAT"}'
+        data-start="32"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-outro"
+        data-composition-id="scla-outro"
+        data-composition-src="compositions/scla-outro.html"
+        data-variable-values='{"cta":"Open your career map","next":"Use your criteria to compare real paths — not just the loudest option.","url":"thescla.org","sceneIndex":"06 / NEXT STEP"}'
+        data-start="40"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      // Root timeline stays empty — all animation lives in the scene sub-compositions.
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

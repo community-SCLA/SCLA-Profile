@@ -15,14 +15,17 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `templates/social-script-prompt.md` | Claude prompt for social media videos |
 | `templates/batch-csv-template.md` | CSV specs for Synthesia + HeyGen bulk generation |
 | `templates/qa-checklist.md` | Video QA checklist for the human review step |
+| `design-system/` | **SCLA video design system** — six branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
 | `heygen-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 | `videos/` | Curated library — finished videos + approved scripts, one folder per program. Naming convention in its `README.md`. |
+| `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.agents/skills/`) — separate tool from `heygen-pipeline/`, for authoring HTML video compositions directly. |
 
 ## Tool Routing (Don't Mix These Up)
 
-- **Synthesia** → course + certificate videos (5–15 min, structured, consistent avatar)
-- **HeyGen** → learning activities, social, translations, screen-recording voiceover (<3 min or multilingual)
+- **Illustrated lesson videos (default for concept lessons, frameworks, processes)** → HyperFrames via `design-system/` — brand-owned motion graphics + pinned TTS voice, no per-minute avatar credits
+- **HeyGen (avatar)** → translations/multilingual, quick-turn social talking heads, true human-presence moments
 - **HeyGen web UI vs. code path** → web UI for one-off/visually-designed videos; `heygen-pipeline/` for repeatable batch rendering from finalized scripts
+- **Synthesia** → long-form avatar courses — under re-evaluation (setup never completed; decide before any Enterprise commitment)
 - **Hosting / analytics** → `TODO: not yet decided` (previously Wistia; SCLA is no longer standardizing on it)
 
 Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Enterprise** tier; HeyGen Business/Enterprise with weekly credit monitoring.

@@ -100,4 +100,4 @@ The steps below are **one sample arc** — swap or reorder them to fit your prog
 
 ## To render via the code pipeline
 
-Copy **only the spoken narration** from section 3 into a plain `.txt` in `heygen-pipeline/scripts/` — drop every cue, heading, and the shot list (those guide the human building visuals, not the avatar). Then point a lesson at the file in `config.json`. See [`heygen-pipeline/CLAUDE.md`](../heygen-pipeline/CLAUDE.md).
+Copy **only the spoken narration** from section 3 into a plain `.txt` saved directly in `videos/<program-slug>/` — drop every cue, heading, and the shot list (those guide the human building visuals, not the avatar). Then point a lesson at the file in `heygen-pipeline/config.json`. See [`heygen-pipeline/CLAUDE.md`](../heygen-pipeline/CLAUDE.md).

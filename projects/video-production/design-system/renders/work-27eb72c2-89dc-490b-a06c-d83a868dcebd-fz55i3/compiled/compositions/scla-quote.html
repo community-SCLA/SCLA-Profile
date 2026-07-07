@@ -1,0 +1,203 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"quote","type":"string","label":"Quote","default":"Better decisions become possible when you shift from pressure to process."},
+    {"id":"attribution","type":"string","label":"Attribution","default":"SCLA · Early Career Boost"},
+    {"id":"role","type":"string","label":"Attribution sub-line","default":"Better Decisions Come From Better Criteria"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"04 / QUOTE"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+        }
+        .q-bg {
+          position: absolute;
+          inset: 0;
+          background: #f6f6f9;
+          background-image: radial-gradient(rgba(51, 147, 214, 0.12) 2px, transparent 2px);
+          background-size: 72px 72px;
+        }
+        #q-ring {
+          position: absolute;
+          right: -260px;
+          bottom: -320px;
+          width: 820px;
+          height: 940px;
+          border-radius: 50%;
+          border: 3px solid rgba(234, 171, 45, 0.35);
+        }
+        #q-ring-2 {
+          position: absolute;
+          right: -180px;
+          bottom: -240px;
+          width: 620px;
+          height: 720px;
+          border-radius: 50%;
+          border: 2px solid rgba(51, 147, 214, 0.28);
+        }
+        #q-card {
+          position: absolute;
+          left: 120px;
+          top: 150px;
+          width: 1360px;
+          height: 780px;
+          background: #0d2437;
+          border-radius: 12px;
+          box-shadow: 0 24px 80px rgba(13, 36, 55, 0.28);
+        }
+        #q-card-edge {
+          position: absolute;
+          left: 120px;
+          top: 150px;
+          width: 10px;
+          height: 780px;
+          background: #eaab2d;
+          border-radius: 12px 0 0 12px;
+          transform-origin: center top;
+        }
+        #q-glyph {
+          position: absolute;
+          left: 190px;
+          top: 130px;
+          font-size: 300px;
+          font-weight: 900;
+          color: #eaab2d;
+          line-height: 1;
+        }
+        #q-text {
+          position: absolute;
+          left: 220px;
+          top: 400px;
+          width: 1160px;
+          font-size: 58px;
+          font-weight: 700;
+          line-height: 1.28;
+          color: #ffffff;
+          text-wrap: balance;
+        }
+        #q-attr-row {
+          position: absolute;
+          left: 220px;
+          top: 770px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+        }
+        #q-attr-rule {
+          width: 60px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #q-attr {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #eaab2d;
+        }
+        #q-role {
+          position: absolute;
+          left: 302px;
+          top: 812px;
+          font-size: 22px;
+          font-weight: 400;
+          color: #bcd3e4;
+        }
+        #q-index {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #q-brandline {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scla-quote" data-width="1920" data-height="1080" data-duration="8">
+        <div class="q-bg"></div>
+        <div id="q-ring" data-layout-allow-overflow></div>
+        <div id="q-ring-2" data-layout-allow-overflow></div>
+        <div id="q-card"></div>
+        <div id="q-card-edge"></div>
+        <div id="q-glyph">&ldquo;</div>
+        <div id="q-text">Better decisions become possible when you shift from pressure to process.</div>
+        <div id="q-attr-row">
+          <div id="q-attr-rule"></div>
+          <div id="q-attr">SCLA · Early Career Boost</div>
+        </div>
+        <div id="q-role">Better Decisions Come From Better Criteria</div>
+        <div id="q-index">04 / QUOTE</div>
+        <div id="q-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            quote: "Better decisions become possible when you shift from pressure to process.",
+            attribution: "SCLA · Early Career Boost",
+            role: "Better Decisions Come From Better Criteria",
+            sceneIndex: "04 / QUOTE",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("q-text").textContent = vars.quote;
+          document.getElementById("q-attr").textContent = vars.attribution;
+          document.getElementById("q-role").textContent = vars.role;
+          document.getElementById("q-index").textContent = vars.sceneIndex;
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#q-card", { opacity: 0, y: 80, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: "power3.out" }, 0.1);
+          tl.fromTo("#q-card-edge", { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.inOut" }, 0.5);
+          tl.fromTo("#q-glyph", { opacity: 0, scale: 0.5, rotation: -12 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.65, ease: "back.out(1.4)" }, 0.55);
+          tl.fromTo(
+            "#q-text",
+            { opacity: 0, y: 54, clipPath: "inset(0% 0% 100% 0%)" },
+            { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "power4.out" },
+            0.8,
+          );
+          tl.fromTo("#q-attr-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 1.45);
+          tl.fromTo("#q-attr", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.55);
+          tl.fromTo("#q-role", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.7);
+          tl.fromTo(["#q-index", "#q-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.5);
+          tl.fromTo("#q-ring", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.2);
+          tl.fromTo("#q-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.35);
+          tl.fromTo("#q-ring", { scale: 1 }, { scale: 1.04, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.5);
+          tl.fromTo("#q-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.6, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
+          window.__timelines["scla-quote"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

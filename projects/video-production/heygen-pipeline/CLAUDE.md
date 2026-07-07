@@ -10,9 +10,11 @@ Automated course video pipeline that turns lesson scripts into avatar-narrated v
 
 This folder is the **code path** for HeyGen production — use it for repeatable, batch course rendering. For one-off or visually-designed videos, use the HeyGen web UI. Routing across all tools lives in `../CLAUDE.md`.
 
-**Upstream (authoring):** scripts here start life in `../templates/heygen-lesson-script.md`. That template produces a rich doc — body copy, `[On screen:]` / `[Graphic:]` cues, and a shot list. This pipeline consumes **plain narration only**: copy just the spoken lines from section 3 of the script into a `.txt` in `scripts/`, dropping all cues, headings, and the shot list. Cues are for the human building visuals in HeyGen, not for the avatar to read.
+**Upstream (authoring):** scripts here start life in `../templates/heygen-lesson-script.md`. That template produces a rich doc — body copy, `[On screen:]` / `[Graphic:]` cues, and a shot list. This pipeline consumes **plain narration only**: copy just the spoken lines from section 3 of the script into a `.txt`, dropping all cues, headings, and the shot list. Cues are for the human building visuals in HeyGen, not for the avatar to read.
 
-**Downstream (hosting):** finished MP4s land in `output/videos/` — upload them to Wistia (SCLA's hosting/analytics layer).
+Once a narration script is approved, save it directly into its program's folder under `../videos/<program-slug>/` — the same curated home the finished video will land in — and point `config.json` at it there (e.g. `../videos/early-career-boost/lesson-1.0_early-career-boost_2026-07-06.txt`). This is a single source of truth: the pipeline reads the script from its permanent home instead of a separate staging copy, so nothing needs moving except the rendered `.mp4` at the end. The local `scripts/` folder is reserved for `example-lesson.txt`, the generic onboarding demo used by the Quick Start below — not real production content.
+
+**Downstream (hosting):** finished MP4s land in `output/videos/` — once approved, rename per the [`videos/README.md`](../videos/README.md) convention and move into `../videos/<program-slug>/` alongside the script that's already there.
 
 ## Quick Start
 
@@ -64,12 +66,12 @@ Edit the `lessons` section in `config.json`:
   "1.0": {
     "title": "My First Lesson",
     "source": "local",
-    "file": "scripts/my-lesson.txt"
+    "file": "../videos/<program-slug>/lesson-1.0_<program-slug>_2026-07-06.txt"
   }
 }
 ```
 
-For local files, drop your `.txt` scripts in the `scripts/` folder. For Google Docs, use `"source": "google_doc"` with a `"doc_id"`.
+For local files, save the approved `.txt` script into `../videos/<program-slug>/` (its permanent home — see "Where This Fits SCLA's Video Pipeline" above), not into this folder. For Google Docs, use `"source": "google_doc"` with a `"doc_id"`.
 
 ### 5. Test with a dry run
 
@@ -141,7 +143,9 @@ All settings live in `config.json`:
 | Voice settings | `config.json → voice.settings` | Speed (and other HeyGen voice options) |
 | Chunk size | `config.json → pipeline.max_chunk_words` | Max words per chunk |
 | Concurrent limit | `config.json → pipeline.concurrent_limit` | Parallel video requests |
-| Lessons | `config.json → lessons` | Your course structure |
+| Lessons | `config.json → lessons` | Your course structure — `file` points into `../videos/<program-slug>/`, not a local `scripts/` copy |
+
+**Lesson key convention:** `<section>.<position>` — the platform's section number and the lesson's position within that section's component list, per the program's `video-style.md` outline (e.g. `programs/early-career-boost/video-style.md`). Example: `"3.5"` = Section 3, 5th lesson-only component listed.
 
 ## Supplementary Scripts
 
