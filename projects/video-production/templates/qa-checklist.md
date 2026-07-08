@@ -1,6 +1,6 @@
 # Video QA Checklist
 
-Run this checklist on every video before publishing to the hosting platform. Human review is required — this step cannot be skipped or automated.
+Run this checklist on every video before publishing to Wistia. Human review is required — this step cannot be skipped or automated.
 
 ---
 
@@ -28,7 +28,7 @@ Run this checklist on every video before publishing to the hosting platform. Hum
 - [ ] Text overlays are readable and correctly spelled
 
 ### Accessibility
-- [ ] Captions are generated on upload to the hosting platform (verify after upload)
+- [ ] Captions are generated on upload to Wistia (verify after upload)
 - [ ] No critical information conveyed by color alone
 - [ ] Speaker pace is appropriate (not too fast for comprehension)
 
@@ -48,13 +48,20 @@ Run this checklist on every video before publishing to the hosting platform. Hum
 ## Illustrated Video QA (HyperFrames / design-system)
 
 - [ ] `npm run check` passes with 0 errors (lint + validate + inspect)
-- [ ] Snapshot frames at each scene midpoint reviewed by a human
+- [ ] Frames reviewed by a human at **several points per scene** (start, mid, late) — one midpoint still can't reveal a stagnant frame
 - [ ] Design tokens match `design-system/frame.md` — no off-palette colors, Proxima Nova renders (not a fallback sans)
 - [ ] Narration voice matches the pinned voice in `frame.md` (no silent provider drift)
 - [ ] On-screen text is synced to the narration (right words visible while spoken)
 - [ ] Video teaches with sound OFF — on-screen text carries the key moves
 - [ ] Scene templates instantiated via variables, not forked copies
 - [ ] One style package throughout — every scene's `theme` variable matches the assigned package (summit/horizon/cadence), no mixed looks
+
+### Animacy & illustration (`frame.md` → "Every scene earns its seconds")
+- [ ] **No stagnant frame beyond ~2s** — every scene keeps developing across its full duration; no title card or slide parked static over ongoing narration
+- [ ] **Reveals hit the spoken cue** — enumerated items appear as the narration says them (`pointCues` / `stepCues` mapped from word timings), not on an even timer
+- [ ] **Illustration depicts the narration** — each scene *shows* the idea, not just labels it; nothing generic that ignores the sentence being spoken
+- [ ] **Statements aren't quotes** — quotation treatment (`scla-quote`) only on a **named person's** words; program/SCLA theses use `scla-statement`
+- [ ] **Numerals read right** — scene index is small in the lower-right; any large numeral is a genuine stat or the spoken step, never a slide number or a bare cardinal
 
 ---
 
@@ -85,7 +92,7 @@ Run this checklist on every video before publishing to the hosting platform. Hum
 
 ## QA Sign-Off
 
-Before publishing to the hosting platform, record completion:
+Before publishing to Wistia, record completion:
 
 | Field | Value |
 |---|---|

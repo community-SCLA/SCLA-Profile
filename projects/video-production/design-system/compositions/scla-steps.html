@@ -9,7 +9,8 @@
     {"id":"step3","type":"string","label":"Step 3","default":"Compare with your criteria"},
     {"id":"step4","type":"string","label":"Step 4 (empty to hide)","default":"Notice what you still don&apos;t know"},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / PROCESS"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""}
   ]'
 >
   <head>
@@ -149,7 +150,7 @@
         #st-cap-4 { left: 1440px; }
         #st-index {
           position: absolute;
-          left: 120px;
+          right: 120px;
           bottom: 58px;
           font-size: 20px;
           font-weight: 700;
@@ -159,7 +160,7 @@
         }
         #st-brandline {
           position: absolute;
-          right: 120px;
+          left: 120px;
           bottom: 58px;
           font-size: 19px;
           font-weight: 700;
@@ -218,6 +219,7 @@
             step4: "Notice what you still don't know",
             sceneIndex: "03 / PROCESS",
             theme: "summit",
+            stepCues: "",
           };
           const vars = Object.assign(
             {},
@@ -252,8 +254,15 @@
           tl.fromTo("#st-ghost-num", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.6);
           tl.fromTo("#st-track", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.9);
           tl.fromTo("#st-track-fill", { scaleX: 0 }, { scaleX: 1, duration: 2.4, ease: "power2.inOut" }, 1.1);
+          // Explicit activation cues (local seconds) fire each step node/caption the
+          // moment the narration reaches that step ("first… second… third…"). Empty →
+          // default even spread. frame.md → "Reveal on the spoken cue, not on a timer".
+          const stepCues = String(vars.stepCues || "")
+            .split(",")
+            .map(function (s) { return Number(s.trim()); })
+            .filter(function (v) { return !isNaN(v); });
           for (let i = 0; i < visible; i++) {
-            const at = 1.15 + i * 0.62;
+            const at = stepCues.length ? Math.max(0.4, stepCues[i]) : 1.15 + i * 0.62;
             tl.fromTo(
               "#st-node-" + (i + 1),
               { opacity: 0, scale: 0.4 },

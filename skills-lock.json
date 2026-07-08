@@ -109,6 +109,12 @@
       "skillPath": "skills/remotion-to-hyperframes/SKILL.md",
       "computedHash": "bddd2720d403d329750ff75f3dcb31db1161b6fe3e4e26b4758ba17ae3332951"
     },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
+    },
     "slideshow": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",

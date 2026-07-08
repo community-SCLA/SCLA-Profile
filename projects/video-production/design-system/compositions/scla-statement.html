@@ -1,0 +1,188 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"kicker","type":"string","label":"Kicker / eyebrow label","default":"The shift"},
+    {"id":"statement","type":"string","label":"Statement line (a program thesis — NOT a quote)","default":"Better decisions become possible when you shift from pressure to process."},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      STATEMENT CARD — use for a bold thesis line authored by SCLA or the program.
+      This is NOT a quote: no quotation glyph, no person attribution. If the line is
+      attributed to a named human, use scla-quote.html instead. (frame.md → "Scene
+      index & numerals" → "Quotes are for humans; program lines are statements".)
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .sm-bg {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(120% 140% at 30% 40%, #0d2437 0%, #0a1e2f 80%);
+        }
+        .sm-ring {
+          position: absolute;
+          border-radius: 50%;
+        }
+        #sm-ring-1 { right: -280px; bottom: -320px; width: 820px; height: 940px; border: 3px solid rgba(51, 147, 214, 0.32); }
+        #sm-ring-2 { right: -190px; bottom: -240px; width: 620px; height: 720px; border: 2px solid rgba(234, 171, 45, 0.26); }
+        #sm-ring-3 { right: -110px; bottom: -170px; width: 440px; height: 520px; border: 2px solid rgba(255, 255, 255, 0.14); }
+        .sm-corner {
+          position: absolute;
+          width: 34px;
+          height: 34px;
+          border: 3px solid rgba(255, 255, 255, 0.24);
+        }
+        #sm-corner-tl { left: 60px; top: 60px; border-right: none; border-bottom: none; }
+        #sm-corner-br { right: 60px; bottom: 60px; border-left: none; border-top: none; }
+        #sm-block {
+          position: absolute;
+          left: 120px;
+          top: 300px;
+          width: 1500px;
+        }
+        #sm-rule {
+          width: 148px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #sm-kicker {
+          margin-top: 26px;
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #eaab2d;
+        }
+        #sm-statement {
+          margin-top: 28px;
+          font-size: 72px;
+          line-height: 1.16;
+          font-weight: 900;
+          color: #ffffff;
+          text-wrap: balance;
+        }
+        #sm-underline {
+          margin-top: 40px;
+          width: 460px;
+          height: 3px;
+          background: rgba(51, 147, 214, 0.65);
+          transform-origin: left center;
+        }
+        #sm-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(188, 211, 228, 0.7);
+        }
+        #sm-brandline {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(188, 211, 228, 0.55);
+        }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .sm-bg { background: radial-gradient(140% 120% at 50% 92%, #0d2437 0%, #0a1e2f 76%); }
+        #root[data-theme="horizon"] #sm-ring-1 { right: auto; bottom: auto; left: -280px; top: -340px; border-color: rgba(51, 147, 214, 0.3); }
+        #root[data-theme="horizon"] #sm-ring-2 { right: auto; bottom: auto; left: -190px; top: -250px; border-color: rgba(255, 255, 255, 0.16); }
+        #root[data-theme="horizon"] #sm-ring-3 { right: auto; bottom: auto; left: -110px; top: -170px; border-color: rgba(51, 147, 214, 0.2); }
+        #root[data-theme="horizon"] #sm-rule { background: #3393d6; }
+        #root[data-theme="horizon"] #sm-kicker { color: #bcd3e4; }
+        #root[data-theme="horizon"] #sm-underline { background: rgba(234, 171, 45, 0.55); }
+        #root[data-theme="horizon"] .sm-corner { border-color: rgba(51, 147, 214, 0.4); }
+        #root[data-theme="cadence"] .sm-bg { background: radial-gradient(130% 130% at 78% 18%, #0d2437 0%, #0a1e2f 74%); }
+        #root[data-theme="cadence"] .sm-bg::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #eaab2d; }
+        #root[data-theme="cadence"] #sm-ring-1 { border-color: rgba(234, 171, 45, 0.32); }
+        #root[data-theme="cadence"] #sm-ring-3 { border-color: rgba(234, 171, 45, 0.22); }
+        #root[data-theme="cadence"] #sm-rule { width: 220px; }
+        #root[data-theme="cadence"] #sm-underline { background: #eaab2d; }
+        #root[data-theme="cadence"] .sm-corner { border-color: rgba(234, 171, 45, 0.5); }
+      </style>
+
+      <div id="root" data-composition-id="scla-statement" data-width="1920" data-height="1080" data-duration="8">
+        <div class="sm-bg"></div>
+        <div class="sm-ring" id="sm-ring-1" data-layout-allow-overflow></div>
+        <div class="sm-ring" id="sm-ring-2" data-layout-allow-overflow></div>
+        <div class="sm-ring" id="sm-ring-3" data-layout-allow-overflow></div>
+        <div class="sm-corner" id="sm-corner-tl"></div>
+        <div class="sm-corner" id="sm-corner-br"></div>
+        <div id="sm-block">
+          <div id="sm-rule"></div>
+          <div id="sm-kicker">The shift</div>
+          <h2 id="sm-statement">Better decisions become possible when you shift from pressure to process.</h2>
+          <div id="sm-underline"></div>
+        </div>
+        <div id="sm-brandline">SCLA · Lesson System</div>
+        <div id="sm-index" data-layout-allow-occlusion>03 / STATEMENT</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            kicker: "The shift",
+            statement: "Better decisions become possible when you shift from pressure to process.",
+            sceneIndex: "03 / STATEMENT",
+            theme: "summit",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("sm-kicker").textContent = vars.kicker;
+          document.getElementById("sm-statement").textContent = vars.statement;
+          document.getElementById("sm-index").textContent = vars.sceneIndex;
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#sm-ring-1", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0);
+          tl.fromTo("#sm-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.15);
+          tl.fromTo("#sm-ring-3", { opacity: 0, scale: 0.88 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.3);
+          tl.fromTo(["#sm-corner-tl", "#sm-corner-br"], { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0.25);
+          tl.fromTo("#sm-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out" }, 0.3);
+          tl.fromTo("#sm-kicker", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.45);
+          // Second beat: the statement resolves upward with a clip reveal so the frame
+          // is still developing after the entrance — not a static hold.
+          tl.fromTo(
+            "#sm-statement",
+            { opacity: 0, y: 60, clipPath: "inset(0% 0% 100% 0%)" },
+            { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.95, ease: "power4.out" },
+            0.65,
+          );
+          tl.fromTo("#sm-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 1.5);
+          tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 1.4);
+          // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
+          tl.fromTo("#sm-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
+          tl.fromTo("#sm-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);
+          window.__timelines["scla-statement"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

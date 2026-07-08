@@ -2,15 +2,21 @@
 <html
   lang="en"
   data-composition-variables='[
-    {"id":"quote","type":"string","label":"Quote","default":"Better decisions become possible when you shift from pressure to process."},
-    {"id":"attribution","type":"string","label":"Attribution","default":"SCLA · Early Career Boost"},
-    {"id":"role","type":"string","label":"Attribution sub-line","default":"Better Decisions Come From Better Criteria"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"04 / QUOTE"},
+    {"id":"quote","type":"string","label":"Quote (words a NAMED person actually said)","default":"I picked my criteria before I compared a single option — that one change made the whole decision easier."},
+    {"id":"speaker","type":"string","label":"Speaker name (a named person — required)","default":"Alex Rivera"},
+    {"id":"speakerRole","type":"string","label":"Speaker role / affiliation","default":"Illustrative placeholder — replace with a real attributed quote"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / QUOTE"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
   ]'
 >
   <head>
     <meta charset="UTF-8" />
+    <!--
+      QUOTE CARD — use ONLY for words attributed to a NAMED person. A thesis line
+      authored by SCLA or the program is NOT a quote: use scla-statement.html
+      instead (no quote glyph, no attribution). See frame.md → "Scene index &
+      numerals" → "Quotes are for humans; program lines are statements".
+    -->
   </head>
   <body>
     <template>
@@ -122,7 +128,7 @@
         }
         #q-index {
           position: absolute;
-          left: 120px;
+          right: 120px;
           bottom: 58px;
           font-size: 20px;
           font-weight: 700;
@@ -132,7 +138,7 @@
         }
         #q-brandline {
           position: absolute;
-          right: 120px;
+          left: 120px;
           bottom: 58px;
           font-size: 19px;
           font-weight: 700;
@@ -162,23 +168,23 @@
         <div id="q-card"></div>
         <div id="q-card-edge"></div>
         <div id="q-glyph">&ldquo;</div>
-        <div id="q-text">Better decisions become possible when you shift from pressure to process.</div>
+        <div id="q-text">I picked my criteria before I compared a single option — that one change made the whole decision easier.</div>
         <div id="q-attr-row">
           <div id="q-attr-rule"></div>
-          <div id="q-attr">SCLA · Early Career Boost</div>
+          <div id="q-attr">Alex Rivera</div>
         </div>
-        <div id="q-role">Better Decisions Come From Better Criteria</div>
-        <div id="q-index">04 / QUOTE</div>
+        <div id="q-role">Illustrative placeholder — replace with a real attributed quote</div>
+        <div id="q-index">05 / QUOTE</div>
         <div id="q-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>
         (function () {
           const defaults = {
-            quote: "Better decisions become possible when you shift from pressure to process.",
-            attribution: "SCLA · Early Career Boost",
-            role: "Better Decisions Come From Better Criteria",
-            sceneIndex: "04 / QUOTE",
+            quote: "I picked my criteria before I compared a single option — that one change made the whole decision easier.",
+            speaker: "Alex Rivera",
+            speakerRole: "Illustrative placeholder — replace with a real attributed quote",
+            sceneIndex: "05 / QUOTE",
             theme: "summit",
           };
           const vars = Object.assign(
@@ -188,8 +194,8 @@
           );
           document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("q-text").textContent = vars.quote;
-          document.getElementById("q-attr").textContent = vars.attribution;
-          document.getElementById("q-role").textContent = vars.role;
+          document.getElementById("q-attr").textContent = vars.speaker;
+          document.getElementById("q-role").textContent = vars.speakerRole;
           document.getElementById("q-index").textContent = vars.sceneIndex;
 
           window.__timelines = window.__timelines || {};

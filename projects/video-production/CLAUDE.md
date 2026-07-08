@@ -2,7 +2,7 @@
 
 SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hours of video per month at scale.
 
-**Active subscriptions:** Synthesia · HeyGen
+**Active subscriptions:** Synthesia · HeyGen · Wistia
 
 ## Files in This Project
 
@@ -24,12 +24,13 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 
 ## Tool Routing (Don't Mix These Up)
 
+- **Produce a video end to end (local)** → `/produce-video` — the one-call orchestrator that walks the full pipeline (script → build → bake → render → verify → file → archive) from a Notion row or a raw script, stopping only at the two human gates. This is the render-capable half the cloud queue routine can't run.
 - **Video requests from the team** → the Notion queue (`notion-queue.md`) — the default intake; "work the video queue" means processing its rows
 - **Illustrated lesson videos (default for concept lessons, frameworks, processes)** → HyperFrames via `design-system/` — brand-owned motion graphics + pinned TTS voice, no per-minute avatar credits; one of three style packages per video (`design-system/frame.md` → "Style packages")
 - **HeyGen (avatar)** → translations/multilingual, quick-turn social talking heads, true human-presence moments
 - **HeyGen web UI vs. code path** → web UI for one-off/visually-designed videos; `heygen-pipeline/` for repeatable batch rendering from finalized scripts
 - **Synthesia** → long-form avatar courses — under re-evaluation (setup never completed; decide before any Enterprise commitment)
-- **Hosting / analytics** → `TODO: not yet decided` (previously Wistia; SCLA is no longer standardizing on it)
+- **Hosting / analytics** → **Wistia** (`sclc.wistia.com`) — the delivered MP4 is uploaded to Wistia at the publish gate; the Wistia URL goes in the Notion **Final video** field. Rendered MP4s are **not committed to the repo** (only the approved `.txt` script is tracked).
 
 Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Enterprise** tier; HeyGen Business/Enterprise with weekly credit monitoring.
 

@@ -13,6 +13,14 @@
 >
   <head>
     <meta charset="UTF-8" />
+    <!--
+      STAT HIGHLIGHT — use ONLY when a single number IS the point the narration is
+      making (a measured quantity, a percentage, a count that lands as a stat).
+      Pair the numeral with a clear label/unit so it never reads as a slide number.
+      An enumeration the narration reads aloud ("list three to five paths",
+      "first… second…") is NOT a stat — illustrate it with scla-points / scla-steps,
+      items arriving on cue. frame.md → "Scene index & numerals".
+    -->
   </head>
   <body>
     <template>
@@ -157,9 +165,9 @@
         #root[data-theme="cadence"] #sh-stat-rule { width: 140px; background: #eaab2d; }
       </style>
 
-      <div id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8">
+      <div id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow>
         <div class="sh-bg"></div>
-        <div id="sh-panel">
+        <div id="sh-panel" data-layout-allow-overflow>
           <div id="sh-panel-ring" data-layout-allow-overflow></div>
           <div id="sh-panel-ring-2" data-layout-allow-overflow></div>
         </div>

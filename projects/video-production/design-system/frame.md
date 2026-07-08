@@ -76,6 +76,64 @@ strokes (blue on light ≤14%, gold/white on navy ≤18%), breathing slowly. Use
 marks, a scene-index label (`01 / TITLE`), a tracked `SCLA · <program>` caption,
 hairline rules. 8–10 elements per scene; two of them decorative.
 
+## Every scene earns its seconds — the animacy rules
+
+The frame is never allowed to sit still. A scene that finishes its entrance and
+then holds a static image while the narration keeps talking is a **defect**, not
+a style choice. These are hard rules, checked at the QA gate.
+
+- **No stagnant frame beyond ~2s.** Once a scene's opening beat lands, something
+  must keep resolving — the next item, an illustration, a highlight, a figure —
+  timed to what the narration is saying *right now*. If nothing can happen for
+  the next few seconds, the scene is too long: split it into more scenes.
+- **Reveal on the spoken cue, not on a timer.** When the narration enumerates
+  ("the answers people reach for are X, Y, Z…", "first… second… third…"), each
+  item enters the moment it is spoken. Pull cue times from the scene's word
+  timings (`assets/voice/transcript.json`) and pass them to the template's cue
+  variable (`pointCues` / `stepCues`, local seconds). Even spreads are a fallback,
+  never the goal.
+- **Title cards are short.** A title card holds only for the opening line. If the
+  intro narration continues into content (listing, contrasting, framing the
+  problem), that content is its own reveal scene — do not park the title over it.
+- **Long beats get sub-reveals.** Any scene longer than ~8s must stage content
+  across its whole duration (progressive bullets, a building diagram, a moving
+  illustration), never one entrance then ambient drift. Ring-breath is texture,
+  not motion.
+
+## Illustration over text — depict what's being said
+
+On-screen text is the floor. The frame should *show* the idea, not just label it,
+and the illustration must be a literal, indicative picture of what the narration
+is describing at that moment.
+
+- **Match the picture to the words.** Narration about mapping a career path → draw
+  a map/path and trace it. "You might be thinking what sounds good" → a figure
+  thinking, entering on the cue. Concrete moves listed aloud → each move gets its
+  own icon/illustration arriving on its cue. A generic card that doesn't reflect
+  the sentence being spoken is a miss.
+- **Go beyond type.** Build illustrations from the house language — SVG line-art,
+  the oval-ring motif, `logo-shape.svg`, simple animated diagrams (paths,
+  comparison scales, a magnifier, nodes/networks, a thinking figure). All
+  CSS/SVG + GSAP: deterministic, seek-safe, no raster assets required.
+- **Bespoke illustrated scenes are the expectation**, not the exception, for any
+  narration that describes something concrete. Templates are the structural
+  floor (see "Scene templates"), not a ceiling — follow this spec, don't fork them.
+
+## Scene index & numerals
+
+- **The scene index lives only in the lower-right corner** — small, muted, tracked
+  uppercase (`05 / BROADEN`). Never anywhere else, never large. It is metadata.
+- **A large numeral is reserved for meaning, never deck position.** Use a hero
+  numeral only when (a) it is a genuine stat the narration is making the point of
+  (`scla-stat`), or (b) it is the step the narration is currently on in an
+  enumerated process (`scla-steps`) — and then it tracks the *spoken* step, not
+  the scene's position in the lesson. A lone cardinal with a thin label reads as a
+  slide number: if the number isn't the message, don't make it the hero.
+- **Quotes are for humans; program lines are statements.** The quotation-mark
+  treatment (`scla-quote`) is only for words attributed to a **named person**. A
+  thesis authored by SCLA or the program is not a quote — present it as a bold
+  statement (`scla-statement`): no quote glyph, no person attribution.
+
 ## Color discipline
 
 Gold is the single voltage — CTA fills, the count-up numeral, one rule per scene.
@@ -108,15 +166,20 @@ Reusable sub-compositions in `compositions/` — instantiate via
 
 | Template | File | Canvas | Use for |
 | --- | --- | --- | --- |
-| Lesson title card | `scla-title.html` | Navy | Opening any lesson |
-| Key-point build | `scla-points.html` | Light | Up to 4 points, staggered |
-| Process / steps | `scla-steps.html` | Light | Sequential frameworks, up to 4 steps |
-| Quote card | `scla-quote.html` | Navy card on light | The lesson's central line |
-| Stat highlight | `scla-stat.html` | Split navy/light | One number that matters |
+| Lesson title card | `scla-title.html` | Navy | Opening line only — keep it short, never park it over content |
+| Key-point build | `scla-points.html` | Light | Up to 4 points, one per spoken cue (`pointCues`) |
+| Process / steps | `scla-steps.html` | Light | Sequential frameworks, up to 4 steps, activated on the spoken step (`stepCues`) |
+| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote |
+| Quote card | `scla-quote.html` | Navy card on light | A line attributed to a **named person** only |
+| Stat highlight | `scla-stat.html` | Split navy/light | One number that is genuinely the point — not an enumeration |
 | CTA outro | `scla-outro.html` | Navy | Next step + wordmark close |
 
-`index.html` at the project root is the demo reel — all six templates in
-sequence with real Early Career Boost lesson content. Treat it as the living
+Templates are the **structural floor** — they guarantee the brand, the tokens,
+and seek-safe timing. They do not exempt a scene from the animacy and
+illustration rules above: instantiate them with cue-synced reveals, and reach
+for bespoke illustrated scenes whenever the narration describes something
+concrete. `index.html` at the project root is the demo reel — all seven templates
+in sequence with real Early Career Boost lesson content. Treat it as the living
 style guide; render it after any template change.
 
 ## Style packages
@@ -142,7 +205,7 @@ Package rules:
 - Assignment: the requester picks in the Notion queue; on "No preference",
   rotate `summit → horizon → cadence` by the program's delivered illustrated
   video count (count mod 3).
-- A new package = a new `data-theme` override block in **all six** templates
+- A new package = a new `data-theme` override block in **all seven** templates
   plus a row here. Never fork a template to make a look.
 
 ## Tone (from brand/voice-and-tone.md)

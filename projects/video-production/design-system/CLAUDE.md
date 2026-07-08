@@ -1,8 +1,11 @@
 # SCLA Video Design System — HyperFrames project
 
-The brand-owned illustrated-video system for SCLA lesson videos. Six reusable
-scene templates + design tokens + a pinned narration voice, so every lesson video
-is assembly, not invention. Decision record: `decisions/log.md` (2026-07-07).
+The brand-owned illustrated-video system for SCLA lesson videos. Seven reusable
+scene templates + design tokens + a pinned narration voice give every lesson a
+brand-true starting point — but the templates are the **structural floor, not a
+ceiling**: the frame must stay alive and *illustrate what's being said*, not park
+static text (`frame.md` → "Every scene earns its seconds" + "Illustration over
+text"). Decision record: `decisions/log.md` (2026-07-07, revamped 2026-07-08).
 
 **Read `frame.md` first** — it is the design spec (normative tokens + frame rules).
 For HyperFrames authoring mechanics, start at the `/hyperframes` skill and let it
@@ -55,11 +58,29 @@ remounts it to 512 MB on start (`.devcontainer/devcontainer.json`
    in `data-variable-values`) — one package per video, assignment rule in
    `frame.md` → "Style packages". Bespoke scenes are welcome — follow `frame.md`,
    don't fork the templates.
+
+   **Make every scene move (the animacy rules — `frame.md`).** These are graded at QA:
+   - **Map the narration to reveal cues.** Read `assets/voice/transcript.json`; for any
+     scene where the narration enumerates, compute the local-second time each item is
+     spoken and pass it in `pointCues` (`scla-points`) / `stepCues` (`scla-steps`).
+     Items appear *on the word*, not on an even timer. Even spread is a fallback.
+   - **No stagnant frame beyond ~2s.** If a beat runs long with nothing left to reveal,
+     split it into more scenes rather than parking static text. Title cards hold only
+     for the opening line — never over content the narration is still building.
+   - **Illustrate what's said.** Text is the floor; draw the thing (a path/map, a
+     thinking figure, a comparison, per-item icons entering on cue). Author bespoke
+     illustrated scenes for any narration that describes something concrete.
+   - **Statement vs. quote.** A program/SCLA thesis is `scla-statement` (bold,
+     unattributed). `scla-quote` is only for a **named person's** words.
+   - **Numerals & index.** Scene index stays small in the lower-right. A hero numeral
+     is only a real stat (`scla-stat`) or the spoken step (`scla-steps`) — never deck
+     position, never a bare cardinal that reads as a slide number.
 5. **Check + eyeball:** `npm run check`, then `snapshot` at each scene midpoint.
 
    > **⚠ Render ignores sub-comp `data-variable-values`.** `hyperframes render`
-   > (0.7.38–**0.7.42**, probe-verified 2026-07-08; upstream report drafted in
-   > `upstream-issue-render-variables.md`) leaves `getVariables()` empty inside sub-compositions, so every
+   > (0.7.38–**0.7.42**, probe-verified 2026-07-08; filed upstream as
+   > [heygen-com/hyperframes#2064](https://github.com/heygen-com/hyperframes/issues/2064))
+   > leaves `getVariables()` empty inside sub-compositions, so every
    > scene renders its template's **JS-side `defaults`**, not the per-scene values you
    > passed in `index.html`. `preview`/`snapshot` inject correctly, so a lesson looks
    > right in snapshots but renders as fallback content (silent, exit 0). **Before
@@ -100,6 +121,11 @@ word timestamps, which removes the transcribe step above.
 
 ## Rules
 
+- **The frame never sits still.** No stagnant slide beyond ~2s; enumerations reveal
+  on the spoken cue; illustrate what's said, don't just label it; statements aren't
+  quotes; the scene index stays small in the lower-right. Full spec + the failures
+  that motivated these: `frame.md` → "Every scene earns its seconds", "Illustration
+  over text", "Scene index & numerals".
 - Templates are instantiated with variables, never forked. A recurring new need
   = a new `scla-*.html` template here, added to `frame.md`'s table.
 - Every template carries the three style packages (`theme` variable:

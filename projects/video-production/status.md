@@ -24,17 +24,17 @@
 - [ ] Test Video Agent with 3 prompts
 - [ ] Contact HeyGen sales re: education pricing
 
-### Hosting / analytics (platform TBD)
-- [ ] Decide hosting/analytics platform — previously Wistia; SCLA is no longer standardizing on it
-- [ ] Once chosen: set up channel/folder structure matching content
-- [ ] Once chosen: configure player branding (SCLA colors, logo)
-- [ ] Once chosen: generate API key and test embed codes in the course platform
+### Hosting / analytics (Wistia)
+- [x] Decide hosting/analytics platform — **Wistia** (`sclc.wistia.com`); decided 2026-07-08 (`decisions/log.md`)
+- [ ] Set up channel/folder structure matching content
+- [ ] Configure player branding (SCLA colors, logo)
+- [ ] Generate API key and test embed codes in the course platform
 
 ### Zapier Automations
-- [ ] Zap 1: HeyGen video complete → upload MP4 to hosting platform
-- [ ] Zap 2: Hosting upload complete → Slack #video-production notification
+- [ ] Zap 1: HeyGen video complete → upload MP4 to Wistia
+- [ ] Zap 2: Wistia upload complete → Slack #video-production notification
 - [ ] Zap 3: Google Sheet row added → HeyGen batch trigger (optional)
-- [ ] Zap 4: HeyGen translation complete → hosting platform with language tag (optional)
+- [ ] Zap 4: HeyGen translation complete → Wistia with language tag (optional)
 
 ### Claude Prompt Library
 - [ ] Share course-script-prompt.md with all content creators
@@ -58,7 +58,6 @@
 - [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `heygen-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.
 - [ ] Enterprise tier confirmation (Synthesia) — only if long-form avatar courses survive re-evaluation
 - [ ] Voice clone recording not yet done (avatar path)
-- [ ] Hosting/analytics platform not yet decided
 
 ---
 

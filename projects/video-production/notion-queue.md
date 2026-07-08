@@ -13,7 +13,7 @@ works the queue end-to-end; humans hold exactly two gates (script approval, QA).
 
 | # | Status | Moved by | What happens |
 |---|---|---|---|
-| 1 | Requested | Team member | Create a row; fill Program, Video type, Due date, and **Script status** (Needs drafting · Provided as-is · Provided, needs refinement). Paste source material into the page body under a `## Source material` heading. If you already have a script, paste it under `## Provided script` and set Script status accordingly; put any change requests under `## Refinement notes`. Never leave source material out — Claude must not invent SCLA content. |
+| 1 | Requested | Team member | Create a row; fill Program, Video type, Due date, and **Script status** (Needs drafting · Provided as-is · Provided, needs refinement). Paste source material into the page body under a `## Source material` heading. If you already have a script — even a rough draft — paste it under `## Provided script` and set Script status accordingly (a rough draft you want Claude to tighten = **Provided, needs refinement**); put any change requests under `## Refinement notes`. Never leave source material out — Claude must not invent SCLA content. |
 | 2 | Script drafting | Claude | Read Script status, the page body, **and Notes** before acting. **Needs drafting:** draft narration from the source material using the matching template in `templates/`. **Provided as-is:** don't redraft — file the provided script verbatim. **Provided, needs refinement:** refine the provided script per `## Refinement notes` + Notes, don't rewrite from scratch. In all three cases save to `videos/<program-slug>/` (naming: `videos/README.md`), set **Script location**, and paste the result into the page for review. |
 | 3 | Script awaiting approval | Claude | Set when the draft/script is posted. Requester (or program owner) edits/comments directly on the page. |
 | ↺ | Revision requested | Requester | Requester wants changes after reading the draft. Claude picks this row up, re-drafts from the page's current text + `## Refinement notes` + Notes, re-saves to the repo, and returns the row to **Script awaiting approval**. Loops until approved. |
@@ -21,7 +21,7 @@ works the queue end-to-end; humans hold exactly two gates (script approval, QA).
 | 5 | In production | Claude | **First, sync the approved script:** copy the approved text from the Notion page back over the repo `.txt` — after approval the page is the source of truth, and production must render what was approved, not the pre-edit draft. Then build by Video type: **Illustrated** — per-lesson build workspace at `lessons/<script-stem>/` per `design-system/CLAUDE.md`, in the assigned style package (`frame.md` → "Style packages"), `npm run check`, scene-midpoint snapshots posted to the page. **HeyGen avatar** — `heygen-pipeline/`. **Social clip** — draft with `templates/social-script-prompt.md`, then build on the illustrated or HeyGen path per the row. |
 | 6 | QA review | Claude → human | Claude sets the status and posts snapshots/render; a human runs `templates/qa-checklist.md` (illustrated section) and records sign-off in **QA reviewer**. |
 | 7 | Approved to publish | **Human only** | The mandatory QA gate — never automated. |
-| 8 | Delivered | Claude | Final MP4 rendered, renamed to the script stem, filed in `videos/<program-slug>/` (committed), linked in **Final video** (GitHub URL of the `.mp4`, until a hosting platform is decided), **Delivered date** set. Then retire the build workspace: `bash scripts/archive-lesson.sh <script-stem>` (moves it to `lessons/_archive/<stem>/`, local-only — see `lessons/README.md`). |
+| 8 | Delivered | Claude | Final MP4 rendered and renamed to the script stem, then **uploaded to Wistia** — the `.mp4` is not committed to the repo; the approved `.txt` script stays in `videos/<program-slug>/` as the source of truth. Set **Final video** to the Wistia share/embed URL and set **Delivered date**. Then retire the build workspace: `bash scripts/archive-lesson.sh <script-stem>` (moves it to `lessons/_archive/<stem>/`, local-only — see `lessons/README.md`). |
 
 Blocked (any stage): set Status = Blocked and say why in Notes. To resume, a human moves the row back to the status it should re-enter at and clears the blocker note.
 
@@ -76,7 +76,7 @@ Name: **SCLA Video Production Queue**
 | Target length | Select | ≤1 min · 1–3 min · 3–5 min · 5+ min |
 | Source link | URL | Optional link to source doc; primary source material goes in the page body |
 | Script location | Rich text | Repo path once drafted, e.g. `videos/early-career-boost/<stem>.txt` |
-| Final video | URL | Link to the delivered MP4 (GitHub URL of the repo file until a hosting platform is decided) |
+| Final video | URL | Wistia share/embed URL of the delivered video (hosted on Wistia, not committed to the repo) |
 | Notes | Rich text | Blockers, context. Change requests belong in the page body under `## Refinement notes`, not here — Notes is scanned but the page body is where the work happens. |
 
 Properties marked *(v2)* are spec'd here but **not yet created in Notion** — this
@@ -99,7 +99,7 @@ needs tracking:
 | Approved script | `videos/<program-slug>/<stem>.txt` | tracked |
 | Build workspace (while in production) | `lessons/<stem>/` | gitignored |
 | Snapshots / draft / progress | the row's Notion page | Notion |
-| Final video | `videos/<program-slug>/<stem>.mp4` + **Final video** URL | tracked |
+| Final video | **Wistia** (upload) + Wistia URL in the row's **Final video** field | not in git |
 | Retired workspace (after Delivered) | `lessons/_archive/<stem>/` | gitignored |
 
 ## Automation — how the queue runs without micromanagement
