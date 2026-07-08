@@ -7,7 +7,8 @@
     {"id":"suffix","type":"string","label":"Suffix (after the number)","default":""},
     {"id":"statLabel","type":"string","label":"Stat label","default":"Paths to list — not just one"},
     {"id":"context","type":"string","label":"Context sentence","default":"If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide."},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / STAT"}
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / STAT"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
   ]'
 >
   <head>
@@ -25,7 +26,7 @@
           position: absolute;
           inset: 0;
           overflow: hidden;
-          font-family: "proxima-nova", "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+          font-family: "proxima-nova", system-ui, sans-serif;
         }
         .sh-bg {
           position: absolute;
@@ -142,6 +143,18 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .sh-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
+        #root[data-theme="horizon"] #sh-panel { background: radial-gradient(150% 130% at 35% 92%, #0d2437 0%, #0a1e2f 80%); }
+        #root[data-theme="horizon"] #sh-panel-ring { border-color: rgba(255, 255, 255, 0.2); }
+        #root[data-theme="horizon"] #sh-number { color: #ffffff; }
+        #root[data-theme="horizon"] #sh-stat-rule { background: #eaab2d; }
+        #root[data-theme="horizon"] #sh-bar-fill { background: #3393d6; }
+        #root[data-theme="cadence"] .sh-bg { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] #sh-panel { background: radial-gradient(130% 120% at 70% 20%, #0d2437 0%, #0a1e2f 82%); }
+        #root[data-theme="cadence"] #sh-panel::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 10px; background: #eaab2d; }
+        #root[data-theme="cadence"] #sh-panel-ring-2 { border-color: rgba(234, 171, 45, 0.4); }
+        #root[data-theme="cadence"] #sh-stat-rule { width: 140px; background: #eaab2d; }
       </style>
 
       <div id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8">
@@ -173,12 +186,14 @@
             context:
               "If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide.",
             sceneIndex: "05 / STAT",
+            theme: "summit",
           };
           const vars = Object.assign(
             {},
             defaults,
             window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
           );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("sh-stat-label").textContent = vars.statLabel;
           document.getElementById("sh-context").textContent = vars.context;
           document.getElementById("sh-index").textContent = vars.sceneIndex;

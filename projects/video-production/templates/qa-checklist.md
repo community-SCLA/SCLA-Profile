@@ -54,6 +54,7 @@ Run this checklist on every video before publishing to the hosting platform. Hum
 - [ ] On-screen text is synced to the narration (right words visible while spoken)
 - [ ] Video teaches with sound OFF — on-screen text carries the key moves
 - [ ] Scene templates instantiated via variables, not forked copies
+- [ ] One style package throughout — every scene's `theme` variable matches the assigned package (summit/horizon/cadence), no mixed looks
 
 ---
 

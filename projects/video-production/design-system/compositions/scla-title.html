@@ -5,7 +5,8 @@
     {"id":"eyebrow","type":"string","label":"Program name","default":"Early Career Boost"},
     {"id":"title","type":"string","label":"Lesson title","default":"Better Decisions Come From Better Criteria"},
     {"id":"meta","type":"string","label":"Meta line","default":"3 min"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"01 / TITLE"}
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"01 / TITLE"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
   ]'
 >
   <head>
@@ -24,7 +25,7 @@
           position: absolute;
           inset: 0;
           overflow: hidden;
-          font-family: "proxima-nova", "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+          font-family: "proxima-nova", system-ui, sans-serif;
         }
         .t-bg {
           position: absolute;
@@ -116,6 +117,21 @@
           text-transform: uppercase;
           color: rgba(188, 211, 228, 0.7);
         }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .t-bg { background: radial-gradient(140% 120% at 50% 92%, #0d2437 0%, #0a1e2f 76%); }
+        #root[data-theme="horizon"] #t-ring-1 { right: auto; top: auto; left: -260px; bottom: -220px; border-color: rgba(51, 147, 214, 0.38); }
+        #root[data-theme="horizon"] #t-ring-2 { right: auto; top: auto; left: -150px; bottom: -120px; border-color: rgba(255, 255, 255, 0.16); }
+        #root[data-theme="horizon"] #t-ring-3 { right: auto; top: auto; left: -40px; bottom: -20px; border-color: rgba(51, 147, 214, 0.2); }
+        #root[data-theme="horizon"] #t-rule { background: #3393d6; }
+        #root[data-theme="horizon"] #t-eyebrow { color: #bcd3e4; }
+        #root[data-theme="horizon"] .t-corner { border-color: rgba(51, 147, 214, 0.4); }
+        #root[data-theme="cadence"] .t-bg { background: radial-gradient(130% 130% at 78% 18%, #0d2437 0%, #0a1e2f 74%); }
+        #root[data-theme="cadence"] .t-bg::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #eaab2d; }
+        #root[data-theme="cadence"] #t-ring-1 { border-color: rgba(234, 171, 45, 0.32); }
+        #root[data-theme="cadence"] #t-ring-2 { border-color: rgba(255, 255, 255, 0.16); }
+        #root[data-theme="cadence"] #t-ring-3 { border-color: rgba(234, 171, 45, 0.22); }
+        #root[data-theme="cadence"] #t-rule { width: 220px; }
+        #root[data-theme="cadence"] .t-corner { border-color: rgba(234, 171, 45, 0.5); }
       </style>
 
       <div id="root" data-composition-id="scla-title" data-width="1920" data-height="1080" data-duration="8">
@@ -145,12 +161,14 @@
             title: "Better Decisions Come From Better Criteria",
             meta: "3 min",
             sceneIndex: "01 / TITLE",
+            theme: "summit",
           };
           const vars = Object.assign(
             {},
             defaults,
             window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
           );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("t-eyebrow").textContent = vars.eyebrow;
           document.getElementById("t-title").textContent = vars.title;
           document.getElementById("t-meta").textContent = vars.meta;

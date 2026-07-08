@@ -18,7 +18,7 @@ colors:
 typography:
   display: "proxima-nova" # Vendored woff2 in assets/fonts/ (from SCLA's Adobe kit ysq3rar)
   body: "proxima-nova"
-  fallback: "'Proxima Nova', 'Avenir Next', Avenir, 'Segoe UI', system-ui, sans-serif"
+  fallback: "'Proxima Nova', system-ui, sans-serif"
   weights: [400, 700, 900] # The kit ships exactly these three — no 300/600 on video
   scale:
     display: "96-120px / 900" # Lesson titles
@@ -32,7 +32,7 @@ spacing:
   radius-card: "12px"
   radius-pill: "100px"
 components:
-  cta-pill: "background gold, text #ffffff 700, padding 26px 64px, radius 100px"
+  cta-label: "gold text 900 with leading → arrow, no fill/pill — video CTAs aren't clickable, so never style them as buttons"
   chip: "2px blue border, transparent fill, blue text, radius 100px"
   step-node: "120px circle, 4px navy ring, gold fill on activation, navy 900 number"
   point-marker: "74px circle, gold fill, navy 900 number"
@@ -118,6 +118,32 @@ Reusable sub-compositions in `compositions/` — instantiate via
 `index.html` at the project root is the demo reel — all six templates in
 sequence with real Early Career Boost lesson content. Treat it as the living
 style guide; render it after any template change.
+
+## Style packages
+
+Three sanctioned looks, so lesson videos read as one brand without being
+visually identical. Every scene template takes a `theme` variable
+(default `summit`); the template stamps it as `data-theme` on `#root` and the
+override CSS keys off `#root[data-theme="..."]`.
+
+| Package | Character | Signature moves |
+| --- | --- | --- |
+| `summit` | The house default — gold-led | Glow upper-left on navy, rings top-right, grid texture, gold rules and markers |
+| `horizon` | Calm, editorial — blue-led | Glow rises from the bottom edge of navy canvases, dot-field texture on light, blue rules/edges, outlined point markers, gold demoted to one note per scene |
+| `cadence` | Bold, high-energy — gold-forward | Gold edge bars (pseudo-elements), stronger grids, navy header panel on the steps scene, navy/gold inverted markers, wider rules |
+
+Package rules:
+
+- **One package per video**, set via `theme` on every scene slot — never mix
+  looks within a lesson.
+- Packages are **CSS-only overrides**; GSAP timelines are identical across
+  packages (determinism and timing untouched). Palette stays exactly the
+  frontmatter — a package re-weights the same tokens, never adds hues.
+- Assignment: the requester picks in the Notion queue; on "No preference",
+  rotate `summit → horizon → cadence` by the program's delivered illustrated
+  video count (count mod 3).
+- A new package = a new `data-theme` override block in **all six** templates
+  plus a row here. Never fork a template to make a look.
 
 ## Tone (from brand/voice-and-tone.md)
 

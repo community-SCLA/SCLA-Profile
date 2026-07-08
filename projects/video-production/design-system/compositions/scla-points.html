@@ -8,7 +8,9 @@
     {"id":"point2","type":"string","label":"Point 2","default":"Comparing yourself to others"},
     {"id":"point3","type":"string","label":"Point 3","default":"Fixating on one factor, like salary or prestige"},
     {"id":"point4","type":"string","label":"Point 4 (empty to hide)","default":"Staying the course only because of sunk costs"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"02 / KEY POINTS"}
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"02 / KEY POINTS"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"pointCues","type":"string","label":"Per-point reveal times, local sec, comma-separated (empty = default spread)","default":""}
   ]'
 >
   <head>
@@ -26,7 +28,7 @@
           position: absolute;
           inset: 0;
           overflow: hidden;
-          font-family: "proxima-nova", "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+          font-family: "proxima-nova", system-ui, sans-serif;
         }
         .kp-bg {
           position: absolute;
@@ -148,6 +150,17 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .kp-bg { background: #ffffff; background-image: radial-gradient(rgba(51, 147, 214, 0.12) 2px, transparent 2px); background-size: 72px 72px; }
+        #root[data-theme="horizon"] #kp-ghost-ring { left: auto; bottom: auto; right: -320px; top: -420px; border-color: rgba(51, 147, 214, 0.14); }
+        #root[data-theme="horizon"] #kp-ghost-ring-2 { left: auto; bottom: auto; right: -200px; top: -320px; border-color: rgba(234, 171, 45, 0.16); }
+        #root[data-theme="horizon"] #kp-tick { background: #3393d6; }
+        #root[data-theme="horizon"] .kp-num { background: #ffffff; border: 3px solid #3393d6; color: #0d2437; }
+        #root[data-theme="cadence"] .kp-bg { background: #ffffff; background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] #kp-tick { width: 70px; }
+        #root[data-theme="cadence"] .kp-num { background: #0d2437; color: #eaab2d; }
+        #root[data-theme="cadence"] #kp-rail { background: #eaab2d; }
+        #root[data-theme="cadence"] .kp-item { border-bottom-color: #e5eff6; }
       </style>
 
       <div id="root" data-composition-id="scla-points" data-width="1920" data-height="1080" data-duration="8">
@@ -194,12 +207,15 @@
             point3: "Fixating on one factor, like salary or prestige",
             point4: "Staying the course only because of sunk costs",
             sceneIndex: "02 / KEY POINTS",
+            theme: "summit",
+            pointCues: "",
           };
           const vars = Object.assign(
             {},
             defaults,
             window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
           );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("kp-label").textContent = vars.label;
           document.getElementById("kp-heading").textContent = vars.heading;
           document.getElementById("kp-index").textContent = vars.sceneIndex;
@@ -221,15 +237,22 @@
           tl.fromTo("#kp-rail", { scaleY: 0 }, { scaleY: 1, duration: 0.8, ease: "power2.inOut" }, 0.3);
           tl.fromTo("#kp-rail-label", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.8);
           const items = gsap.utils.toArray(".kp-item");
+          // Explicit reveal cues (local seconds) sync each bullet to the moment
+          // the narration says it. Empty/absent → default even spread.
+          const cues = String(vars.pointCues || "")
+            .split(",")
+            .map(function (s) { return Number(s.trim()); })
+            .filter(function (v) { return !isNaN(v); });
           items.forEach(function (item, i) {
+            const at = cues.length ? Math.max(0.4, cues[i]) : 0.85 + i * 0.55;
             tl.fromTo(
               item,
               { opacity: 0, x: 70 },
               { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" },
-              0.85 + i * 0.55,
+              at,
             );
             const num = item.querySelector(".kp-num");
-            tl.fromTo(num, { scale: 0.4 }, { scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.9 + i * 0.55);
+            tl.fromTo(num, { scale: 0.4 }, { scale: 1, duration: 0.5, ease: "back.out(1.6)" }, at + 0.05);
           });
           tl.fromTo("#kp-index", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.2);
           tl.fromTo("#kp-ghost-ring", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);

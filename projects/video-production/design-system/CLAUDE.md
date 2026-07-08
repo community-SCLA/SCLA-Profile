@@ -28,6 +28,13 @@ npx hyperframes snapshot --at <t1,t2,...>   # frame stills for eyeball review
 npm run render   # MP4 — only after the human QA gate
 ```
 
+If `validate` fails with a headless-Chrome `Network.enable timed out`: the
+codespace mounts `/dev/shm` at 64 MB and Chrome needs ≥256 MB. The devcontainer
+remounts it to 512 MB on start (`.devcontainer/devcontainer.json`
+`postStartCommand`); if it still fails, run
+`sudo mount -o remount,size=512M /dev/shm` manually. Pinned CLI is 0.7.42
+(`package.json`); copy that pin into new lesson workspaces.
+
 ## Building a lesson video (the scale recipe)
 
 1. **Approved script first** — the existing gate is unchanged: narration `.txt`
@@ -44,11 +51,35 @@ npm run render   # MP4 — only after the human QA gate
 4. **Assemble** `index.html`: one slot per beat using the scene templates with
    `data-variable-values` (copy the pattern from this project's demo reel), sized
    to the narration's word timings; `<audio>` for narration sits at the host root.
-   Bespoke scenes are welcome — follow `frame.md`, don't fork the templates.
+   Set the video's **style package** on every scene (`"theme":"summit|horizon|cadence"`
+   in `data-variable-values`) — one package per video, assignment rule in
+   `frame.md` → "Style packages". Bespoke scenes are welcome — follow `frame.md`,
+   don't fork the templates.
 5. **Check + eyeball:** `npm run check`, then `snapshot` at each scene midpoint.
+
+   > **⚠ Render ignores sub-comp `data-variable-values`.** `hyperframes render`
+   > (0.7.38–**0.7.42**, probe-verified 2026-07-08; upstream report drafted in
+   > `upstream-issue-render-variables.md`) leaves `getVariables()` empty inside sub-compositions, so every
+   > scene renders its template's **JS-side `defaults`**, not the per-scene values you
+   > passed in `index.html`. `preview`/`snapshot` inject correctly, so a lesson looks
+   > right in snapshots but renders as fallback content (silent, exit 0). **Before
+   > rendering, bake each scene's real content into that scene file's `defaults`
+   > object.** For a template mounted more than once (e.g. `scla-points`), make one
+   > per-instance file per mount, each with a unique `data-composition-id` +
+   > `window.__timelines[...]` key. Keep `data-variable-values` for preview parity.
+   > Worked example: `../lessons/mini-syllabus_early-career-boost_2026-07-06/`.
 6. **Human QA gate** — `../templates/qa-checklist.md` (illustrated section). Never skip.
-7. **Render + file:** `npm run render`, rename the MP4 to the script's stem, move
-   it next to its script in `../videos/<program-slug>/`.
+7. **Render + file:** kill any stale `hyperframes preview` servers first (leftover
+   servers have cross-contaminated renders). `npm run render`, then **verify the MP4
+   by extracting real frames** (`ffmpeg -ss <t> -i out.mp4 -frames:v 1 frame.png`) and
+   eyeballing scene content — snapshots can't catch the render/preview variable gap
+   above. Rename the MP4 to the script's stem, move it next to its script in
+   `../videos/<program-slug>/`.
+8. **Archive the workspace:** once the MP4 is filed (and, for queue videos, the
+   Notion row is Delivered), run `bash scripts/archive-lesson.sh <script-stem>`
+   from the repo root. It moves `lessons/<stem>/` to `lessons/_archive/<stem>/`
+   pruned of caches — re-renderable later, invisible to git (all of `lessons/`
+   is gitignored; see `../lessons/README.md`).
 
 Edits later cost one scene, not a full re-render: change the sub-comp or its
 variables, re-check, re-render.
@@ -71,6 +102,9 @@ word timestamps, which removes the transcribe step above.
 
 - Templates are instantiated with variables, never forked. A recurring new need
   = a new `scla-*.html` template here, added to `frame.md`'s table.
+- Every template carries the three style packages (`theme` variable:
+  `summit`/`horizon`/`cadence`) as CSS-only `data-theme` override blocks —
+  timelines stay identical across packages. Full spec: `frame.md` → "Style packages".
 - Every timed element: `data-start`, `data-duration`, `data-track-index`,
   `class="clip"`. One paused GSAP timeline per composition on `window.__timelines`.
 - Deterministic only — no clocks, no `Math.random`, no `repeat: -1`, no network fetches.

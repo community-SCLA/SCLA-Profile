@@ -20,3 +20,10 @@ node_modules/
 # Python cache
 __pycache__/
 *.pyc
+
+# Video production — per-lesson HyperFrames build workspaces (HTML sources,
+# caches, renders). Local-only: active builds live in lessons/<stem>/, delivered
+# ones move to lessons/_archive/<stem>/ (see that folder's README.md).
+# Final deliverables live in projects/video-production/videos/ (tracked).
+projects/video-production/lessons/*
+!projects/video-production/lessons/README.md

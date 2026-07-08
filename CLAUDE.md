@@ -19,6 +19,8 @@ No matching row? Open that folder's README.md hub (every multi-file folder has o
 | Partner org | `partnerships/NIC.md` |
 | Grant work | `projects/grants/` |
 | Video production | `projects/video-production/CLAUDE.md` |
+| Video request queue (Notion) | `projects/video-production/notion-queue.md` |
+| Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
 | HeyGen lesson script | `projects/video-production/templates/heygen-lesson-script.md` |
 | Render HeyGen videos (code) | `projects/video-production/heygen-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |

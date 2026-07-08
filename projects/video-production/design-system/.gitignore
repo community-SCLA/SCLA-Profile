@@ -1,0 +1,11 @@
+# Generated build/preview artifacts — the tracked sources are the .html
+# compositions, frame.md, assets/, and configs. Everything below is
+# reproducible from them.
+node_modules/
+renders/
+snapshots/
+output/
+.hyperframes/
+.thumbnails/
+.waveform-cache/
+*.log

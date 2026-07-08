@@ -1,4 +1,6 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {}
+  "features": {},
+  // /dev/shm defaults to 64 MB; headless Chrome (hyperframes validate/render) needs >=256 MB
+  "postStartCommand": "sudo mount -o remount,size=512M /dev/shm || true"
 }

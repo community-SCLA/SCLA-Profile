@@ -5,7 +5,8 @@
     {"id":"quote","type":"string","label":"Quote","default":"Better decisions become possible when you shift from pressure to process."},
     {"id":"attribution","type":"string","label":"Attribution","default":"SCLA · Early Career Boost"},
     {"id":"role","type":"string","label":"Attribution sub-line","default":"Better Decisions Come From Better Criteria"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"04 / QUOTE"}
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"04 / QUOTE"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
   ]'
 >
   <head>
@@ -23,7 +24,7 @@
           position: absolute;
           inset: 0;
           overflow: hidden;
-          font-family: "proxima-nova", "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+          font-family: "proxima-nova", system-ui, sans-serif;
         }
         .q-bg {
           position: absolute;
@@ -139,6 +140,19 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .q-bg { background: #f6f6f9; background-image: none; }
+        #root[data-theme="horizon"] #q-ring { right: auto; bottom: auto; left: -280px; top: -340px; border-color: rgba(51, 147, 214, 0.3); }
+        #root[data-theme="horizon"] #q-ring-2 { right: auto; bottom: auto; left: -190px; top: -250px; border-color: rgba(234, 171, 45, 0.2); }
+        #root[data-theme="horizon"] #q-card-edge { background: #3393d6; }
+        #root[data-theme="horizon"] #q-glyph { color: #bcd3e4; }
+        #root[data-theme="horizon"] #q-attr-rule { background: #3393d6; }
+        #root[data-theme="horizon"] #q-attr { color: #3393d6; }
+        #root[data-theme="cadence"] .q-bg { background: #ffffff; background-image: linear-gradient(rgba(51, 147, 214, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.08) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] #q-card { box-shadow: 0 30px 90px rgba(13, 36, 55, 0.36); }
+        #root[data-theme="cadence"] #q-card-edge { width: 16px; }
+        #root[data-theme="cadence"] #q-ring { border-color: rgba(234, 171, 45, 0.4); }
+        #root[data-theme="cadence"] #q-ring-2 { border-width: 3px; }
       </style>
 
       <div id="root" data-composition-id="scla-quote" data-width="1920" data-height="1080" data-duration="8">
@@ -165,12 +179,14 @@
             attribution: "SCLA · Early Career Boost",
             role: "Better Decisions Come From Better Criteria",
             sceneIndex: "04 / QUOTE",
+            theme: "summit",
           };
           const vars = Object.assign(
             {},
             defaults,
             window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
           );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("q-text").textContent = vars.quote;
           document.getElementById("q-attr").textContent = vars.attribution;
           document.getElementById("q-role").textContent = vars.role;
