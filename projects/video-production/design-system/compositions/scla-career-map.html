@@ -1,0 +1,287 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Section label","default":"Step 3 — Compare"},
+    {"id":"heading","type":"string","label":"Heading","default":"Which one fits what matters to you?"},
+    {"id":"startLabel","type":"string","label":"Start node title","default":"You, today"},
+    {"id":"startSub","type":"string","label":"Start node subtitle","default":"Your criteria"},
+    {"id":"path1","type":"string","label":"Path 1 title (top)","default":"Path A"},
+    {"id":"fit1","type":"string","label":"Path 1 fit line","default":"Fits 2 of 5"},
+    {"id":"path2","type":"string","label":"Path 2 title (middle)","default":"Path B"},
+    {"id":"fit2","type":"string","label":"Path 2 fit line","default":"Fits 4 of 5"},
+    {"id":"path3","type":"string","label":"Path 3 title (bottom)","default":"Path C"},
+    {"id":"fit3","type":"string","label":"Path 3 fit line","default":"Fits 1 of 5"},
+    {"id":"bestLabel","type":"string","label":"Best-fit node title","default":"Best fit"},
+    {"id":"bestSub","type":"string","label":"Best-fit node subtitle","default":"Matches what matters"},
+    {"id":"winner","type":"string","label":"Winning path the gold route runs through (1 | 2 | 3)","default":"2"},
+    {"id":"mapCue","type":"string","label":"Local sec when the winning route is traced","default":"5.0"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"09 / COMPARE"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      TEMPLATE — decision map. A start node fans out to three candidate paths
+      against a criteria axis; on mapCue a gold route traces through the winning
+      path (winner variable) to the best-fitting option while the losers fade.
+      Use for "compare options against your criteria" beats. All SVG/CSS + GSAP,
+      seek-safe. frame.md → "Illustration over text — draw a map/path and trace it".
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .cm-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+        }
+        .cm-bg::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px);
+          background-size: 72px 72px;
+        }
+        #cm-head {
+          position: absolute;
+          left: 120px;
+          top: 120px;
+          width: 1500px;
+        }
+        #cm-label-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #cm-tick {
+          width: 46px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #cm-label {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #cm-heading {
+          margin-top: 16px;
+          font-size: 60px;
+          font-weight: 900;
+          color: #0d2437;
+          line-height: 1.08;
+        }
+        #cm-stage {
+          position: absolute;
+          left: 120px;
+          top: 380px;
+          width: 1680px;
+          height: 560px;
+        }
+        #cm-svg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .cm-node {
+          position: absolute;
+          width: 300px;
+          padding: 26px 30px;
+          border-radius: 14px;
+          border: 2px solid #cccedf;
+          background: #f6f6f9;
+        }
+        .cm-node .cm-role {
+          font-size: 34px;
+          font-weight: 900;
+          color: #0d2437;
+        }
+        .cm-node .cm-fit {
+          margin-top: 10px;
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #cm-node-start {
+          left: 0;
+          top: 220px;
+          width: 260px;
+          background: #0d2437;
+          border-color: #0d2437;
+        }
+        #cm-node-start .cm-role { color: #ffffff; }
+        #cm-node-start .cm-fit { color: #bcd3e4; }
+        #cm-node-1 { left: 560px; top: 0; }
+        #cm-node-2 { left: 560px; top: 210px; }
+        #cm-node-3 { left: 560px; top: 420px; }
+        #cm-node-best {
+          left: 1240px;
+          top: 205px;
+          width: 340px;
+          border-color: #eaab2d;
+          background: #fff;
+          box-shadow: 0 0 0 6px rgba(234, 171, 45, 0.16);
+        }
+        #cm-node-best .cm-fit { color: #b07d10; }
+        #cm-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #cm-brandline {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* Style packages — visual layer only; timeline identical */
+        #root[data-theme="horizon"] #cm-tick { background: #3393d6; }
+        #root[data-theme="cadence"] #cm-tick { width: 70px; }
+        #root[data-theme="cadence"] .cm-bg::after { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+      </style>
+
+      <div id="root" data-composition-id="scla-career-map" data-width="1920" data-height="1080" data-duration="12">
+        <div class="cm-bg"></div>
+        <div id="cm-head">
+          <div id="cm-label-row">
+            <div id="cm-tick"></div>
+            <div id="cm-label">Step 3 — Compare</div>
+          </div>
+          <h2 id="cm-heading">Which one fits what matters to you?</h2>
+        </div>
+        <div id="cm-stage">
+          <svg id="cm-svg" viewBox="0 0 1680 560" preserveAspectRatio="none" fill="none">
+            <path id="cm-edge-1" d="M260 300 C 420 300, 420 100, 560 100" stroke="#cccedf" stroke-width="4" />
+            <path id="cm-edge-2" d="M260 300 C 420 300, 420 300, 560 300" stroke="#cccedf" stroke-width="4" />
+            <path id="cm-edge-3" d="M260 300 C 420 300, 420 500, 560 500" stroke="#cccedf" stroke-width="4" />
+            <path id="cm-route" d="M260 300 C 420 300, 420 300, 560 300 L 860 300 C 1020 300, 1080 300, 1240 300" stroke="#eaab2d" stroke-width="7" stroke-linecap="round" />
+          </svg>
+          <div class="cm-node" id="cm-node-start"><div class="cm-role" id="cm-start-role">You, today</div><div class="cm-fit" id="cm-start-sub">Your criteria</div></div>
+          <div class="cm-node" id="cm-node-1"><div class="cm-role" id="cm-role-1">Path A</div><div class="cm-fit" id="cm-fit-1">Fits 2 of 5</div></div>
+          <div class="cm-node" id="cm-node-2"><div class="cm-role" id="cm-role-2">Path B</div><div class="cm-fit" id="cm-fit-2">Fits 4 of 5</div></div>
+          <div class="cm-node" id="cm-node-3"><div class="cm-role" id="cm-role-3">Path C</div><div class="cm-fit" id="cm-fit-3">Fits 1 of 5</div></div>
+          <div class="cm-node" id="cm-node-best"><div class="cm-role" id="cm-best-role">Best fit</div><div class="cm-fit" id="cm-best-sub">Matches what matters</div></div>
+        </div>
+        <div id="cm-index" data-layout-allow-occlusion>09 / COMPARE</div>
+        <div id="cm-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            label: "Step 3 — Compare",
+            heading: "Which one fits what matters to you?",
+            startLabel: "You, today",
+            startSub: "Your criteria",
+            path1: "Path A",
+            fit1: "Fits 2 of 5",
+            path2: "Path B",
+            fit2: "Fits 4 of 5",
+            path3: "Path C",
+            fit3: "Fits 1 of 5",
+            bestLabel: "Best fit",
+            bestSub: "Matches what matters",
+            winner: "2",
+            mapCue: "5.0",
+            sceneIndex: "09 / COMPARE",
+            theme: "summit",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("cm-label").textContent = vars.label;
+          document.getElementById("cm-heading").textContent = vars.heading;
+          document.getElementById("cm-index").textContent = vars.sceneIndex;
+          document.getElementById("cm-start-role").textContent = vars.startLabel;
+          document.getElementById("cm-start-sub").textContent = vars.startSub;
+          document.getElementById("cm-role-1").textContent = vars.path1;
+          document.getElementById("cm-fit-1").textContent = vars.fit1;
+          document.getElementById("cm-role-2").textContent = vars.path2;
+          document.getElementById("cm-fit-2").textContent = vars.fit2;
+          document.getElementById("cm-role-3").textContent = vars.path3;
+          document.getElementById("cm-fit-3").textContent = vars.fit3;
+          document.getElementById("cm-best-role").textContent = vars.bestLabel;
+          document.getElementById("cm-best-sub").textContent = vars.bestSub;
+          const mapAt = Math.max(1.0, Number(vars.mapCue) || 5.0);
+          const winner = ["1", "2", "3"].indexOf(String(vars.winner).trim()) >= 0 ? String(vars.winner).trim() : "2";
+
+          // The gold route's geometry follows the winner: through the top (y100),
+          // middle (y300), or bottom (y500) path node, then into the best-fit node
+          // (vertical center ≈ y300 at x1240).
+          const routes = {
+            "1": "M260 300 C 420 300, 420 100, 560 100 L 860 100 C 1020 100, 1080 300, 1240 300",
+            "2": "M260 300 C 420 300, 420 300, 560 300 L 860 300 C 1020 300, 1080 300, 1240 300",
+            "3": "M260 300 C 420 300, 420 500, 560 500 L 860 500 C 1020 500, 1080 300, 1240 300",
+          };
+          const route = document.getElementById("cm-route");
+          route.setAttribute("d", routes[winner]);
+          const losers = ["#cm-node-1", "#cm-node-2", "#cm-node-3"].filter(function (sel) {
+            return sel !== "#cm-node-" + winner;
+          });
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#cm-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1);
+          tl.fromTo("#cm-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+          tl.fromTo("#cm-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.35);
+          tl.fromTo("#cm-node-start", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 0.6);
+          // Candidate edges draw out, then the three option nodes arrive.
+          ["#cm-edge-1", "#cm-edge-2", "#cm-edge-3"].forEach(function (sel, i) {
+            const path = document.querySelector(sel);
+            const len = path.getTotalLength();
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+            tl.fromTo(sel, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 0.9 + i * 0.18);
+          });
+          tl.fromTo("#cm-node-1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.4);
+          tl.fromTo("#cm-node-2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.6);
+          tl.fromTo("#cm-node-3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.8);
+          tl.fromTo(["#cm-index", "#cm-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.4);
+
+          // On the cue, the gold route traces from you → winning option → best fit.
+          const rlen = route.getTotalLength();
+          route.style.strokeDasharray = rlen;
+          route.style.strokeDashoffset = rlen;
+          route.style.opacity = 0;
+          tl.set("#cm-route", { opacity: 1 }, mapAt - 0.01);
+          tl.fromTo("#cm-route", { strokeDashoffset: rlen }, { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, mapAt);
+          // De-emphasize the losing options as the winner resolves.
+          tl.to(losers, { opacity: 0.4, duration: 0.6 }, mapAt + 0.3);
+          tl.fromTo("#cm-node-best", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, mapAt + 1.1);
+          window.__timelines["scla-career-map"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

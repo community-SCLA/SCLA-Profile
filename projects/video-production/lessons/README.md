@@ -39,7 +39,7 @@ delivered, archive it.
 | Artifact | Home | In git? |
 |---|---|---|
 | Approved narration script `.txt` | `../videos/<program-slug>/` | Yes |
-| Final `.mp4` | `../videos/<program-slug>/` (+ linked on the Notion row) | Yes |
+| Final `.mp4` | `../videos/<program-slug>/` (+ linked on the Notion row) | No — gitignored; the Wistia upload is the durable copy |
 | QA snapshots / progress | Posted to the video's Notion page | No (Notion) |
 | Scene HTML + build sources | `lessons/<stem>/` → `lessons/_archive/<stem>/` after delivery | No (local) |
 | Scene *templates* (reusable) | `../design-system/compositions/` | Yes |

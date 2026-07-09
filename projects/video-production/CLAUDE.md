@@ -16,7 +16,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `templates/social-script-prompt.md` | Claude prompt for social media videos |
 | `templates/batch-csv-template.md` | CSV specs for Synthesia + HeyGen bulk generation |
 | `templates/qa-checklist.md` | Video QA checklist for the human review step |
-| `design-system/` | **SCLA video design system** — six branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
+| `design-system/` | **SCLA video design system** — nine branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
 | `heygen-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 | `lessons/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production; delivered builds move to `lessons/_archive/<stem>/` via `scripts/archive-lesson.sh`. See its `README.md`. |
 | `videos/` | Curated library — finished videos + approved scripts, one folder per program. Naming convention in its `README.md`. |
@@ -24,7 +24,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 
 ## Tool Routing (Don't Mix These Up)
 
-- **Produce a video end to end (local)** → `/produce-video` — the one-call orchestrator that walks the full pipeline (script → build → bake → render → verify → file → archive) from a Notion row or a raw script, stopping only at the two human gates. This is the render-capable half the cloud queue routine can't run.
+- **Produce a video end to end (local)** → `/produce-video` — the one-call orchestrator that walks the full pipeline (script → build → render → verify → file → archive) from a Notion row or a raw script, stopping only at the two human gates. This is the render-capable half the cloud queue routine can't run.
 - **Video requests from the team** → the Notion queue (`notion-queue.md`) — the default intake; "work the video queue" means processing its rows
 - **Illustrated lesson videos (default for concept lessons, frameworks, processes)** → HyperFrames via `design-system/` — brand-owned motion graphics + pinned TTS voice, no per-minute avatar credits; one of three style packages per video (`design-system/frame.md` → "Style packages")
 - **HeyGen (avatar)** → translations/multilingual, quick-turn social talking heads, true human-presence moments

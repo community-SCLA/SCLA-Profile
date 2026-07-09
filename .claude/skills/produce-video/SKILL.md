@@ -1,6 +1,6 @@
 ---
 name: produce-video
-description: Run the full illustrated-video production loop locally, end to end, in one call — from a raw script/`.txt` handed directly or info given straight in conversation — so you never re-prompt each step. Drafts/refines/files the script, builds the HyperFrames lesson in its style package, bakes scene defaults, checks, renders, frame-verifies the MP4, files it, and archives the workspace. Stops only at the two mandatory human gates (script approval, QA). Use for "produce this video", "make the video from this script", or "run the illustrated pipeline locally".
+description: Run the full illustrated-video production loop locally, end to end, in one call — from a raw script/`.txt` handed directly or info given straight in conversation — so you never re-prompt each step. Drafts/refines/files the script, builds the HyperFrames lesson in its style package, checks, renders, frame-verifies the MP4, files it, and archives the workspace. Stops only at the two mandatory human gates (script approval, QA). Use for "produce this video", "make the video from this script", or "run the illustrated pipeline locally".
 ---
 
 # produce-video — local illustrated-video pipeline orchestrator
@@ -40,13 +40,20 @@ with the user; there's no external system to sync.
 Preflight, from repo root:
 
 ```bash
-date +%Y-%m-%d                                    # today's date for the stem
-pkill -f "hyperframes preview" 2>/dev/null || true # stale preview servers cross-contaminate renders
-cat /proc/mounts | grep /dev/shm                  # need ≥256M for headless Chrome validate/render
+date +%Y-%m-%d                                      # today's date for the stem
+pkill -f "hyperframes[ ]preview" 2>/dev/null || true # stale preview servers cross-contaminate renders
+cat /proc/mounts | grep /dev/shm                    # need ≥256M for headless Chrome validate/render
 ```
 
+**The bracket in the pkill pattern is load-bearing.** `pkill -f "hyperframes preview"`
+(no bracket) matches the command line of the very shell running it and kills it —
+the command chain dies instantly with exit 144 and nothing after the pkill runs.
+The bracketed pattern still matches real preview servers but never itself.
+
 If `/dev/shm` is under ~256M: `sudo mount -o remount,size=512M /dev/shm`
-(the devcontainer normally does this on start). Confirm the CLI pin (0.7.42) matches
+(the devcontainer tries this on start but can fail silently; a 64M `/dev/shm`
+makes headless Chrome hang or die mid-render). Confirm the CLI pin (0.7.45 —
+never older; ≤0.7.44 silently renders template defaults, upstream #2064) matches
 `design-system/package.json` before init.
 
 Then announce the plan: which video(s), and that you'll pause at the two gates.
@@ -92,7 +99,7 @@ Voice is pinned (`frame.md` → `voice:`) — don't re-decide it.
 
 ### Step 4 — Assemble + pick the style package
 
-Build `index.html`: one scene slot per beat from the seven templates, sized to the word
+Build `index.html`: one scene slot per beat from the nine templates, sized to the word
 timings, `<audio>` narration at the host root. Copy the demo-reel pattern from
 `../design-system/index.html`.
 
@@ -110,27 +117,25 @@ The templates are the floor, not the finish. Before you size a scene:
   `scla-quote` is only a **named person's** words.
 - **Numerals** — scene index small, lower-right; a hero numeral is only a real stat or
   the spoken step, never deck position.
+- **Cut on sentence ends, ≥0.05s after the last word** (`frame.md` → "Scene
+  boundaries, padding & endings") — boundaries come from `transcript.json`; never
+  mid-sentence; questions keep their inflection; the final scene outlives the
+  narration (`ffprobe` the wav) and holds its text ≥1s — never end on a bare frame.
+- **Vary the motion** — pick reveals from `frame.md` → "Motion rotation" (don't
+  invent effects from scratch); rotate list forms between consecutive scenes;
+  statements >~6s get `emphasis`/`emphasisCues`; opening enumerations get a
+  `scla-chips` scene right after the title.
+- **Script the lists to land.** When drafting/refining (Step 1), spoken
+  enumerations should resolve rather than trail off — end them as a question
+  ("…mentorship, or growth?") or a closing item, so the scene can cut cleanly
+  after the inflection.
 
 **Style package** — one per video, on every scene. Use the user's pick. If they
 don't have one, count that program's delivered `.mp4` files with a matching
 illustrated script stem in `videos/<program-slug>/` and rotate summit → horizon
 → cadence (count mod 3); tell the user which one you picked and why.
 
-### Step 5 — Bake scene defaults (the render/variable fix — do not skip)
-
-`hyperframes render` (0.7.38–0.7.42) leaves `getVariables()` empty inside
-sub-compositions, so each scene renders its template's **JS-side `defaults`**, not
-the `data-variable-values` you passed in `index.html`. Preview/snapshot inject
-correctly, so it looks right in snapshots but renders as silent fallback content
-(exit 0). Filed upstream: heygen-com/hyperframes#2064.
-
-Before rendering, bake each scene's real content into that scene file's `defaults`
-object. For any template mounted more than once (e.g. `scla-points`), make one
-per-instance file per mount, each with a unique `data-composition-id` +
-`window.__timelines[...]` key. Keep `data-variable-values` for preview parity.
-Worked example: `lessons/mini-syllabus_early-career-boost_2026-07-06/`.
-
-### Step 6 — Check + snapshot → QA gate
+### Step 5 — Check + snapshot → QA gate
 
 ```bash
 npm run check                                  # lint + validate + inspect — always
@@ -142,21 +147,22 @@ Fix anything `check` flags before proceeding.
 **→ QA GATE.** Show the snapshots to the user and hand off `templates/qa-checklist.md`
 (illustrated section). Stop here — resume only when they sign off.
 
-### Step 7 — Render, frame-verify, file
+### Step 6 — Render, frame-verify, file
 
 ```bash
-pkill -f "hyperframes preview" 2>/dev/null || true   # again — stale servers contaminate renders
+pkill -f "hyperframes[ ]preview" 2>/dev/null || true   # again — stale servers contaminate renders (keep the bracket!)
 npm run render
-# frame-verify: snapshots can't catch the render/variable gap — check the actual MP4
-ffmpeg -ss <t> -i out.mp4 -frames:v 1 /tmp/frame.png   # one per scene; eyeball real content
+# frame-verify the actual MP4 — cheap insurance against regressions
+ffmpeg -ss <t> -i renders/<name>.mp4 -frames:v 1 /tmp/frame.png   # one per scene midpoint; eyeball real content
 ```
 
-If a frame shows fallback content, return to Step 5 — a scene's defaults weren't baked.
+If a frame shows a template's default content instead of this lesson's, the CLI pin
+regressed below 0.7.45 (upstream #2064) — fix the pin, don't hand-bake.
 Once verified, rename the MP4 to `<stem>` and move it beside its script in
 `../videos/<program-slug>/`. Upload to Wistia (title = stem); the `.mp4` is **not**
 committed.
 
-### Step 8 — Archive the workspace
+### Step 7 — Archive the workspace
 
 ```bash
 cd <repo-root>
@@ -168,4 +174,5 @@ bash scripts/archive-lesson.sh <stem>   # → lessons/_archive/<stem>/ (gitignor
 Report per video: stem, style package, gate outcomes, and the Wistia URL (or that
 upload is pending). Drafted/approved scripts get committed to `main` per the repo's
 PR flow. If a HyperFrames bug bit this run and isn't already filed, write it up and
-file it upstream before ending (see the render gap in Step 5 as the template).
+file it upstream before ending (heygen-com/hyperframes#2064 is the model: minimal
+repro, versions probed, workaround stated).

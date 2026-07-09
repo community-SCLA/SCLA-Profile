@@ -16,8 +16,8 @@ route; the composition contract lives in `/hyperframes-core`.
 | Path | What it is |
 |---|---|
 | `frame.md` | Design spec — SCLA tokens adapted to the video frame. Brand truth stays in `brand/`. |
-| `compositions/scla-*.html` | The six scene templates (sub-compositions with variables) — see table in `frame.md` |
-| `index.html` | Demo reel: all six templates with real approved-lesson content. Living style guide. |
+| `compositions/scla-*.html` | The nine scene templates (sub-compositions with variables) — see table in `frame.md` |
+| `index.html` | Demo reel: all nine templates with real approved-lesson content. Living style guide. |
 | `assets/brand/` | SCLA logo SVGs (copied from `brand/assets/`) |
 | `assets/fonts/` | Self-hosted Proxima Nova woff2 (400/700/900, from SCLA's Adobe kit) |
 | `voice-auditions/` | Kokoro voice samples generated from approved script lines — listen and re-decide anytime |
@@ -31,12 +31,15 @@ npx hyperframes snapshot --at <t1,t2,...>   # frame stills for eyeball review
 npm run render   # MP4 — only after the human QA gate
 ```
 
-If `validate` fails with a headless-Chrome `Network.enable timed out`: the
-codespace mounts `/dev/shm` at 64 MB and Chrome needs ≥256 MB. The devcontainer
-remounts it to 512 MB on start (`.devcontainer/devcontainer.json`
-`postStartCommand`); if it still fails, run
-`sudo mount -o remount,size=512M /dev/shm` manually. Pinned CLI is 0.7.42
-(`package.json`); copy that pin into new lesson workspaces.
+If `validate`/`render` fails, hangs, or dies with an odd exit code (e.g. 144):
+check `grep /dev/shm /proc/mounts` first — the codespace mounts `/dev/shm` at
+64 MB and headless Chrome needs ≥256 MB. The devcontainer's `postStartCommand`
+remounts it to 512 MB but can fail silently; fix with
+`sudo mount -o remount,size=512M /dev/shm`. Pinned CLI is **0.7.45**
+(`package.json`); copy that pin into new lesson workspaces. Never pin below
+0.7.45 — earlier versions silently render every sub-comp scene as its template
+defaults (upstream heygen-com/hyperframes#2064, fixed in 0.7.45; probe-verified
+2026-07-09).
 
 ## Building a lesson video (the scale recipe)
 
@@ -70,6 +73,17 @@ remounts it to 512 MB on start (`.devcontainer/devcontainer.json`
    - **Illustrate what's said.** Text is the floor; draw the thing (a path/map, a
      thinking figure, a comparison, per-item icons entering on cue). Author bespoke
      illustrated scenes for any narration that describes something concrete.
+   - **Cut on sentence ends with ≥0.05s of air.** Scene boundaries come from the
+     transcript, not round numbers: never cut mid-word/mid-sentence, wait ≥0.05s
+     after the scene's last word ends (longer after a question — let the
+     inflection land), and the final scene must outlive the narration
+     (`ffprobe` the wav) holding its text ≥1s. Full spec: `frame.md` → "Scene
+     boundaries, padding & endings".
+   - **Vary reveals + emphasize spoken words.** Rotate list forms (`scla-chips`
+     pop/slide, `scla-points`, grid cascade — see `frame.md` → "Motion rotation");
+     statements >~6s carry `emphasis`/`emphasisCues`; the opening enumeration gets
+     its own `scla-chips` scene right after the title; `scla-steps` overview only
+     when the narration enumerates the steps.
    - **Statement vs. quote.** A program/SCLA thesis is `scla-statement` (bold,
      unattributed). `scla-quote` is only for a **named person's** words.
    - **Numerals & index.** Scene index stays small in the lower-right. A hero numeral
@@ -77,25 +91,21 @@ remounts it to 512 MB on start (`.devcontainer/devcontainer.json`
      position, never a bare cardinal that reads as a slide number.
 5. **Check + eyeball:** `npm run check`, then `snapshot` at each scene midpoint.
 
-   > **⚠ Render ignores sub-comp `data-variable-values`.** `hyperframes render`
-   > (0.7.38–**0.7.42**, probe-verified 2026-07-08; filed upstream as
-   > [heygen-com/hyperframes#2064](https://github.com/heygen-com/hyperframes/issues/2064))
-   > leaves `getVariables()` empty inside sub-compositions, so every
-   > scene renders its template's **JS-side `defaults`**, not the per-scene values you
-   > passed in `index.html`. `preview`/`snapshot` inject correctly, so a lesson looks
-   > right in snapshots but renders as fallback content (silent, exit 0). **Before
-   > rendering, bake each scene's real content into that scene file's `defaults`
-   > object.** For a template mounted more than once (e.g. `scla-points`), make one
-   > per-instance file per mount, each with a unique `data-composition-id` +
-   > `window.__timelines[...]` key. Keep `data-variable-values` for preview parity.
-   > Worked example: `../lessons/mini-syllabus_early-career-boost_2026-07-06/`.
+   > History: on CLI ≤0.7.44 render ignored sub-comp `data-variable-values`
+   > (heygen-com/hyperframes#2064), which forced a manual "bake defaults" step and
+   > per-instance template copies. **Fixed in 0.7.45** (probe-verified 2026-07-09:
+   > injection, multi-mount, and per-mount seeking all correct). No baking needed —
+   > `data-variable-values` in `index.html` is the single source of scene content,
+   > and one template file can be mounted many times.
 6. **Human QA gate** — `../templates/qa-checklist.md` (illustrated section). Never skip.
-7. **Render + file:** kill any stale `hyperframes preview` servers first (leftover
-   servers have cross-contaminated renders). `npm run render`, then **verify the MP4
-   by extracting real frames** (`ffmpeg -ss <t> -i out.mp4 -frames:v 1 frame.png`) and
-   eyeballing scene content — snapshots can't catch the render/preview variable gap
-   above. Rename the MP4 to the script's stem, move it next to its script in
-   `../videos/<program-slug>/`.
+7. **Render + file:** kill any stale preview servers first — use exactly
+   `pkill -f "hyperframes[ ]preview" || true` (the bracket keeps the pattern from
+   matching your own shell's command line; the unbracketed form **kills the shell
+   that runs it**, exit 144, before the render starts). Then `npm run render` and
+   **verify the MP4 by extracting real frames**
+   (`ffmpeg -ss <t> -i out.mp4 -frames:v 1 frame.png`) at each scene midpoint and
+   eyeballing scene content. Rename the MP4 to the script's stem, move it next to
+   its script in `../videos/<program-slug>/`.
 8. **Archive the workspace:** once the MP4 is filed (and, for queue videos, the
    Notion row is Delivered), run `bash scripts/archive-lesson.sh <script-stem>`
    from the repo root. It moves `lessons/<stem>/` to `lessons/_archive/<stem>/`
@@ -126,6 +136,14 @@ word timestamps, which removes the transcribe step above.
   quotes; the scene index stays small in the lower-right. Full spec + the failures
   that motivated these: `frame.md` → "Every scene earns its seconds", "Illustration
   over text", "Scene index & numerals".
+- **Cuts follow the transcript.** Sentence-aligned boundaries, ≥0.05s of air after
+  the last word, questions keep their inflection, and the video ends on a populated
+  final scene that outlives the audio — never a bare frame. Spec: `frame.md` →
+  "Scene boundaries, padding & endings".
+- **Motion comes from the rotation.** Before building any bespoke effect, pick
+  recipes from `frame.md` → "Motion rotation" (named rules/blueprints in
+  `.agents/skills/` + registry blocks) and vary reveal forms between consecutive
+  list scenes. A twice-used bespoke scene becomes a template here.
 - Templates are instantiated with variables, never forked. A recurring new need
   = a new `scla-*.html` template here, added to `frame.md`'s table.
 - Every template carries the three style packages (`theme` variable:

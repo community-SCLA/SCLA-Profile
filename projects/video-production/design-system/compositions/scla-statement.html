@@ -4,6 +4,8 @@
   data-composition-variables='[
     {"id":"kicker","type":"string","label":"Kicker / eyebrow label","default":"The shift"},
     {"id":"statement","type":"string","label":"Statement line (a program thesis — NOT a quote)","default":"Better decisions become possible when you shift from pressure to process."},
+    {"id":"emphasis","type":"string","label":"Comma-separated single words to emphasize on cue (matched case/punctuation-insensitive, in order)","default":""},
+    {"id":"emphasisCues","type":"string","label":"Per-word emphasis times, local sec, comma-separated (one per emphasis word)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
   ]'
@@ -79,6 +81,14 @@
           color: #ffffff;
           text-wrap: balance;
         }
+        .sm-word {
+          display: inline-block;
+          transform-origin: 50% 80%;
+          background-image: linear-gradient(#eaab2d, #eaab2d);
+          background-repeat: no-repeat;
+          background-position: 0 94%;
+          background-size: 0% 6px;
+        }
         #sm-underline {
           margin-top: 40px;
           width: 460px;
@@ -146,6 +156,8 @@
           const defaults = {
             kicker: "The shift",
             statement: "Better decisions become possible when you shift from pressure to process.",
+            emphasis: "",
+            emphasisCues: "",
             sceneIndex: "03 / STATEMENT",
             theme: "summit",
           };
@@ -156,8 +168,24 @@
           );
           document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("sm-kicker").textContent = vars.kicker;
-          document.getElementById("sm-statement").textContent = vars.statement;
           document.getElementById("sm-index").textContent = vars.sceneIndex;
+
+          // Statement is split into word spans so individual words can be
+          // emphasized on their spoken cue (frame.md → "Kinetic word emphasis").
+          const stmtEl = document.getElementById("sm-statement");
+          stmtEl.textContent = "";
+          const wordEls = [];
+          String(vars.statement).split(/\s+/).forEach(function (w, i) {
+            if (!w) return;
+            if (wordEls.length) stmtEl.appendChild(document.createTextNode(" "));
+            const span = document.createElement("span");
+            span.className = "sm-word";
+            // Momentary neighbor-bleed during the emphasis pop is intentional layering.
+            span.setAttribute("data-layout-allow-overlap", "");
+            span.textContent = w;
+            stmtEl.appendChild(span);
+            wordEls.push(span);
+          });
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
@@ -176,6 +204,31 @@
             0.65,
           );
           tl.fromTo("#sm-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 1.5);
+          // Kinetic word emphasis: each listed word pops (scale + gold) the moment
+          // it is spoken, then settles back — keeps long statements alive on cue.
+          const norm = function (s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ""); };
+          const emphWords = String(vars.emphasis || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+          const emphCues = String(vars.emphasisCues || "")
+            .split(",")
+            .map(function (s) { return Number(s.trim()); })
+            .filter(function (v) { return !isNaN(v); });
+          let searchFrom = 0;
+          emphWords.forEach(function (w, i) {
+            if (emphCues[i] === undefined) return;
+            let el = null;
+            for (let j = searchFrom; j < wordEls.length; j++) {
+              if (norm(wordEls[j].textContent) === norm(w)) { el = wordEls[j]; searchFrom = j + 1; break; }
+            }
+            if (!el) return;
+            const at = Math.max(0.2, emphCues[i]);
+            tl.fromTo(
+              el,
+              { scale: 1, color: "#ffffff", backgroundSize: "0% 6px" },
+              { scale: 1.06, color: "#eaab2d", backgroundSize: "100% 6px", duration: 0.3, ease: "power3.out" },
+              at,
+            );
+            tl.to(el, { scale: 1, color: "#ffffff", backgroundSize: "0% 6px", duration: 0.45, ease: "power2.out" }, at + 0.75);
+          });
           tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 1.4);
           // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
           tl.fromTo("#sm-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);

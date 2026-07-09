@@ -1,6 +1,6 @@
 # Video Production Pipeline — Status
 
-**Current phase:** Illustrated pipeline live (design system + voice + flow shipped 2026-07-07); first lesson build is the next step  
+**Current phase:** Illustrated pipeline live and delivering (first video shipped; pipeline overhauled 2026-07-09 — CLI 0.7.45 removed the manual bake step, renders now come straight from `index.html` scene values)  
 **Owner:** TODO
 
 ---
@@ -47,12 +47,15 @@
 ## Production Status
 
 ### Active Work
-*(nothing in progress — setup phase)*
+- **Build Direction Before You Build a Plan** (Early Career Boost) — assembled in `lessons/`, pre-QA
+- **Better Decisions Come From Better Criteria** (Early Career Boost) — script approved + narration generated; assembly not started (also serves as design-system demo-reel content)
 
 ### First 5 AI Videos (Month 1 Goal)
 | Video | Course | Script Status | Render Status | Published |
 |---|---|---|---|---|
-| TBD | TBD | — | — | — |
+| Mini Syllabus | Early Career Boost | Approved | Delivered (`videos/early-career-boost/`, workspace archived) | Wistia pending |
+| Build Direction Before You Build a Plan | Early Career Boost | Approved | Pre-QA | — |
+| Better Decisions Come From Better Criteria | Early Career Boost | Approved | Not assembled | — |
 
 ### Blockers
 - [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `heygen-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.

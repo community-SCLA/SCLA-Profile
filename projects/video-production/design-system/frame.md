@@ -99,6 +99,35 @@ a style choice. These are hard rules, checked at the QA gate.
   across its whole duration (progressive bullets, a building diagram, a moving
   illustration), never one entrance then ambient drift. Ring-breath is texture,
   not motion.
+- **Kinetic word emphasis on cue.** When a held line's key words are spoken
+  ("…more *thoughtful*, less *reactive*, and *grounded*…"), each word pops on its
+  timestamp — scale ~1.14 + gold flash, then settles (`scla-statement` →
+  `emphasis`/`emphasisCues`). Any statement scene longer than ~6s must carry
+  emphasis cues; a bare held sentence is a stagnation defect.
+
+## Scene boundaries, padding & endings — the pacing rules
+
+Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
+
+- **Boundaries land on sentence ends.** Never cut mid-word or mid-sentence; the
+  sentence that opens a thought belongs to the scene that illustrates it. If a
+  sentence straddles a planned cut, move the boundary — don't split the sentence.
+- **≥0.05s of air after the last word.** A scene may not cut until at least
+  0.05s after its final spoken word's `end` time. Cutting at or before the word's
+  end (the old builds cut up to 0.36s *early*, mid-word) is a defect.
+- **Questions keep their inflection.** When a scene ends on a question, the cut
+  waits for the rise to finish — pad after the question mark, and prefer scripting
+  spoken lists to resolve as a question ("…mentorship, or growth?") rather than
+  trail off.
+- **The video never ends on an empty frame.** The final scene must (a) start no
+  later than the last sentence, (b) extend past the narration's true end
+  (`ffprobe` the wav — don't trust the planned total), and (c) hold its full
+  text content ≥1s after the last word. Root duration = final scene end,
+  exactly. Audio outliving the last clip, or a bare-canvas tail, fails QA.
+- **The opening enumeration gets its own scene.** When the intro narration lists
+  things ("the right job, the right major, the right city…"), cut off the title
+  card at the setup clause and land those words in a kinetic list scene
+  (`scla-chips`, reveal on each phrase's cue). The title never squats on a list.
 
 ## Illustration over text — depict what's being said
 
@@ -118,6 +147,22 @@ is describing at that moment.
 - **Bespoke illustrated scenes are the expectation**, not the exception, for any
   narration that describes something concrete. Templates are the structural
   floor (see "Scene templates"), not a ceiling — follow this spec, don't fork them.
+- **Start bespoke from a named recipe, never from scratch.** Before authoring a
+  bespoke scene, check the "Motion rotation" table below and the registry
+  (`npx hyperframes add <name>`) — the chip-cluster and route-trace scenes that
+  slowed the first builds were both documented recipes (`spring-pop-entrance`,
+  `svg-path-draw`). A bespoke scene used (or likely to be used) twice gets
+  promoted to a `scla-*.html` template here.
+- **Vary the list language.** `scla-points`' numbered build is one form among
+  several, not the default. Rotate across: chip/word clusters flashing on cue
+  (`scla-chips` pop), words sliding in from different angles (`scla-chips`
+  slide), grid/card cascade, kinetic type beats, per-item icons. Two consecutive
+  enumeration scenes must not reuse the same reveal form when another fits.
+- **A steps overview only when the narration enumerates it.** Showing all N steps
+  of a process (`scla-steps`) is allowed only at a moment the narration actually
+  lists them. If the audio introduces steps one at a time ("First, define…"),
+  give each step its own scene — hero the spoken step, never preview the rest
+  on a timer.
 
 ## Scene index & numerals
 
@@ -169,16 +214,18 @@ Reusable sub-compositions in `compositions/` — instantiate via
 | Lesson title card | `scla-title.html` | Navy | Opening line only — keep it short, never park it over content |
 | Key-point build | `scla-points.html` | Light | Up to 4 points, one per spoken cue (`pointCues`) |
 | Process / steps | `scla-steps.html` | Light | Sequential frameworks, up to 4 steps, activated on the spoken step (`stepCues`) |
-| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote |
+| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. Key words pop on cue (`emphasis`/`emphasisCues`) — required on statements >~6s |
+| Chip / word cluster | `scla-chips.html` | Light | Fast spoken lists (up to 8 items) as pill chips flashing on cue (`chips`/`chipCues`); `reveal:"slide"` = angles variant. Also the post-title opening-enumeration scene |
+| Career / route map | `scla-career-map.html` | Light | Comparing paths/options: 3 candidate paths draw on, gold route traces to the winner on `mapCue` (`winner` picks it) |
 | Quote card | `scla-quote.html` | Navy card on light | A line attributed to a **named person** only |
 | Stat highlight | `scla-stat.html` | Split navy/light | One number that is genuinely the point — not an enumeration |
-| CTA outro | `scla-outro.html` | Navy | Next step + wordmark close |
+| CTA outro | `scla-outro.html` | Navy | Next step + wordmark close — must hold ≥1s past the last spoken word |
 
 Templates are the **structural floor** — they guarantee the brand, the tokens,
 and seek-safe timing. They do not exempt a scene from the animacy and
 illustration rules above: instantiate them with cue-synced reveals, and reach
 for bespoke illustrated scenes whenever the narration describes something
-concrete. `index.html` at the project root is the demo reel — all seven templates
+concrete. `index.html` at the project root is the demo reel — all nine templates
 in sequence with real Early Career Boost lesson content. Treat it as the living
 style guide; render it after any template change.
 
@@ -205,8 +252,43 @@ Package rules:
 - Assignment: the requester picks in the Notion queue; on "No preference",
   rotate `summit → horizon → cadence` by the program's delivered illustrated
   video count (count mod 3).
-- A new package = a new `data-theme` override block in **all seven** templates
+- A new package = a new `data-theme` override block in **all nine** templates
   plus a row here. Never fork a template to make a look.
+
+## Motion rotation — the sanctioned arsenal
+
+Curated from the full HyperFrames skill pack + registry (surveyed 2026-07-09) so
+every lesson can vary its motion without re-researching. Each entry names the
+recipe to start from — read the rule/blueprint file (in `.agents/skills/`) before
+building; never reinvent one of these from scratch. Compose 2–4 per scene, max.
+
+| Need | Recipe (skill · rule/blueprint) | Notes |
+| --- | --- | --- |
+| Word pops/glows as it's spoken | `hyperframes-animation` · `asr-keyword-glow` (karaoke variant) | Built into `scla-statement` `emphasisCues`; use rule directly for bespoke |
+| Highlight sweep / hand-drawn circle / scribble underline on a word | `hyperframes-animation` · `css-marker-patterns` | 5 pure-CSS marker emphases, timed to the word's start |
+| Pill/chip cluster popping on cues | `hyperframes-animation` · `spring-pop-entrance` (staggered pills) | Built into `scla-chips`; ≤0.5s stagger cap |
+| List/tiles beyond a numbered build | `hyperframes-animation` blueprint · `grid-card-assemble` | Cards/pills/list-lines cascade into a grid or vertical list |
+| Phrase-by-phrase kinetic type | `hyperframes-animation` blueprint · `kinetic-type-beats`; also `techniques.md` §4 per-word slide-in | For beats where the words ARE the visual |
+| Route/path/diagram traces itself | `hyperframes-animation` · `svg-path-draw` (stagger multi-path ~70–80%) | Built into `scla-career-map`; also arrows, brand-mark draws |
+| Element travels along a path | `hyperframes-keyframes` · Path travel (GSAP MotionPath) | Figure/marker moving along a drawn route |
+| Count-up / stat with graphic | `hyperframes-animation` · `counting-dynamic-scale` + `stat-bars-and-fills` | Pair with `scla-stat` |
+| Zoom/pan focus inside a scene | `hyperframes-animation` · `coordinate-target-zoom`, `multi-phase-camera`, `depth-of-field-blur` | Camera moves beat-to-beat inside one long scene |
+| Two-option comparison | `hyperframes-animation` blueprint · `comparison-split` | Mirrored tilt cards + pill badges |
+| Concept/network diagram | `hyperframes-animation` · `avatar-cloud-network`; blueprint `constellation-hub` | Nodes ring a center, connectors draw |
+| Agenda / stations overview | `hyperframes-animation` blueprint · `spatial-pan-stations` | One camera traverses labeled stations |
+| Iris/mask reveal | `hyperframes-keyframes` · Clip/mask reveal | Clip-path reveals for image/diagram entrances |
+| Element hand-off between beats | `hyperframes-animation` · `scale-swap-transition`, `card-morph-anchor` | Seek-safe within-scene "cuts" |
+| Scene-to-scene transitions | `hyperframes-animation` · `transitions/catalog.md` | Brand-safe picks: push, blur-through/dissolve, circle iris. Skip glitch/VHS/burn |
+| Flowchart / decision tree | registry block `flowchart` / `flowchart-vertical` (`npx hyperframes add`) | SVG connector diagrams |
+| Chart / data visual | registry block `data-chart` | Restyle with frontmatter tokens |
+| Per-word caption styling reference | `hyperframes-media` · `references/captions/motion.md` + `authoring.md` | Karaoke baseline, emphasis pattern-breaks |
+
+**Doctrine (from `faceless-explainer` → `motion-language.md`, binding here):** smooth
+`power3`-family eases over bouncy ones by default; every scene keeps resolving in
+its back half, timed to the VO; velocity-matched seam cuts; no lazy breathing as
+the only motion. **Off-limits for lessons:** WebGPU liquid-glass blocks, VFX/glitch
+packs, social-platform overlays (`instagram-follow` etc.) — off-brand or
+non-deterministic-friendly.
 
 ## Tone (from brand/voice-and-tone.md)
 

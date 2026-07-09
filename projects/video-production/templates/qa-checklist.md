@@ -63,6 +63,14 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 - [ ] **Statements aren't quotes** — quotation treatment (`scla-quote`) only on a **named person's** words; program/SCLA theses use `scla-statement`
 - [ ] **Numerals read right** — scene index is small in the lower-right; any large numeral is a genuine stat or the spoken step, never a slide number or a bare cardinal
 
+### Pacing, cuts & endings (`frame.md` → "Scene boundaries, padding & endings")
+- [ ] **Every cut lands ≥0.05s after the scene's last spoken word ends** — verify against `transcript.json`; no scene cuts mid-word or mid-sentence
+- [ ] **Questions finish their inflection** before the cut (extra air after a question mark)
+- [ ] **The video ends on populated content** — final scene outlives the narration (check the wav's true duration with `ffprobe`) and holds its text ≥1s after the last word; no bare-canvas tail, no clipped audio
+- [ ] **Opening enumeration has its own scene** — the title card is off before the narration starts listing; listed items land as a kinetic reveal on their cues
+- [ ] **Reveal forms vary** — consecutive list scenes use different forms (chips pop / slide-in / numbered points / grid); a steps overview appears only where the narration enumerates the steps
+- [ ] **Statements ≥~6s carry word emphasis** — key words pop on their spoken cue (`emphasis`/`emphasisCues`), no bare held sentence
+
 ---
 
 ## Translation QA (Multilingual Videos)

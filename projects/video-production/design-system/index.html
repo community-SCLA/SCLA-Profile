@@ -40,18 +40,21 @@
   <body>
     <!--
       SCLA Lesson System — demo reel.
-      All seven reusable scene templates in sequence, filled with illustrative content from
+      All nine reusable scene templates in sequence, filled with illustrative content from
       the Early Career Boost lesson "Better Decisions Come From Better Criteria".
       This file doubles as the living style guide AND the instantiation pattern to copy
       for lesson builds: slot + data-variable-values per scene. Design tokens: frame.md.
 
-      Two patterns this reel demonstrates (frame.md → animacy rules):
+      Patterns this reel demonstrates (frame.md → animacy + pacing rules):
         • the program thesis is a STATEMENT (scla-statement), not a quote; the quote card
           (scla-quote) is reserved for a NAMED person's words;
-        • lists reveal one item per cue — pointCues / stepCues carry local-second times
-          that in production come from the narration word timings (transcript.json).
+        • lists reveal one item per cue — pointCues / stepCues / chipCues / emphasisCues
+          carry local-second times that in production come from transcript.json;
+        • list variety — the same lesson rotates a numbered build (scla-points), a chip
+          cluster (scla-chips), and a traced comparison map (scla-career-map);
+        • kinetic word emphasis — the statement's key words pop on their spoken cue.
     -->
-    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="56">
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="78">
       <div
         id="el-title"
         data-composition-id="scla-title"
@@ -80,9 +83,21 @@
         id="el-statement"
         data-composition-id="scla-statement"
         data-composition-src="compositions/scla-statement.html"
-        data-variable-values='{"kicker":"The shift","statement":"Better decisions become possible when you shift from pressure to process.","sceneIndex":"03 / STATEMENT"}'
+        data-variable-values='{"kicker":"The shift","statement":"Better decisions become possible when you shift from pressure to process.","emphasis":"pressure,process","emphasisCues":"2.6,3.7","sceneIndex":"03 / STATEMENT"}'
         data-start="16"
         data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-chips"
+        data-composition-id="scla-chips"
+        data-composition-src="compositions/scla-chips.html"
+        data-variable-values='{"label":"Step 1 — Define success","heading":"What matters most, the next 3–5 years?","chips":"Learning,Security,Income,Flexibility,Meaning,Mentorship,Growth","chipCues":"1.4,2.1,2.8,3.5,4.2,4.9,5.6","accentIndex":"5","reveal":"pop","sceneIndex":"04 / DEFINE"}'
+        data-start="24"
+        data-duration="10"
         data-track-index="1"
         data-width="1920"
         data-height="1080"
@@ -92,9 +107,21 @@
         id="el-steps"
         data-composition-id="scla-steps"
         data-composition-src="compositions/scla-steps.html"
-        data-variable-values='{"label":"The process","heading":"Four moves, in order","step1":"Define success for the next 3–5 years","step2":"Broaden your options","step3":"Compare with your criteria","step4":"Notice what you still don&#39;t know","sceneIndex":"04 / PROCESS","stepCues":"1.2,2.6,4.0,5.4"}'
-        data-start="24"
+        data-variable-values='{"label":"The process","heading":"Four moves, in order","step1":"Define success for the next 3–5 years","step2":"Broaden your options","step3":"Compare with your criteria","step4":"Notice what you still don&#39;t know","sceneIndex":"05 / PROCESS","stepCues":"1.2,2.6,4.0,5.4"}'
+        data-start="34"
         data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-career-map"
+        data-composition-id="scla-career-map"
+        data-composition-src="compositions/scla-career-map.html"
+        data-variable-values='{"label":"Step 3 — Compare","heading":"Which one fits what matters to you?","path1":"Path A","fit1":"Fits 2 of 5","path2":"Path B","fit2":"Fits 4 of 5","path3":"Path C","fit3":"Fits 1 of 5","winner":"2","mapCue":"6.0","sceneIndex":"06 / COMPARE"}'
+        data-start="42"
+        data-duration="12"
         data-track-index="1"
         data-width="1920"
         data-height="1080"
@@ -104,8 +131,8 @@
         id="el-quote"
         data-composition-id="scla-quote"
         data-composition-src="compositions/scla-quote.html"
-        data-variable-values='{"quote":"I picked my criteria before I compared a single option — that one change made the whole decision easier.","speaker":"Alex Rivera","speakerRole":"Illustrative placeholder — replace with a real attributed quote","sceneIndex":"05 / QUOTE"}'
-        data-start="32"
+        data-variable-values='{"quote":"I picked my criteria before I compared a single option — that one change made the whole decision easier.","speaker":"Alex Rivera","speakerRole":"Illustrative placeholder — replace with a real attributed quote","sceneIndex":"07 / QUOTE"}'
+        data-start="54"
         data-duration="8"
         data-track-index="1"
         data-width="1920"
@@ -116,8 +143,8 @@
         id="el-stat"
         data-composition-id="scla-stat"
         data-composition-src="compositions/scla-stat.html"
-        data-variable-values='{"value":5,"prefix":"","suffix":"","statLabel":"Years your criteria should cover","context":"Define what success means for the next three to five years — then judge every option against that, not against whatever sounds impressive today.","sceneIndex":"06 / STAT"}'
-        data-start="40"
+        data-variable-values='{"value":5,"prefix":"","suffix":"","statLabel":"Years your criteria should cover","context":"Define what success means for the next three to five years — then judge every option against that, not against whatever sounds impressive today.","sceneIndex":"08 / STAT"}'
+        data-start="62"
         data-duration="8"
         data-track-index="1"
         data-width="1920"
@@ -128,8 +155,8 @@
         id="el-outro"
         data-composition-id="scla-outro"
         data-composition-src="compositions/scla-outro.html"
-        data-variable-values='{"cta":"Open your career map","next":"Use your criteria to compare real paths — not just the loudest option.","url":"thescla.org","sceneIndex":"07 / NEXT STEP"}'
-        data-start="48"
+        data-variable-values='{"cta":"Open your career map","next":"Use your criteria to compare real paths — not just the loudest option.","url":"thescla.org","sceneIndex":"09 / NEXT STEP"}'
+        data-start="70"
         data-duration="8"
         data-track-index="1"
         data-width="1920"

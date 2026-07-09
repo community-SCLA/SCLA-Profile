@@ -37,7 +37,7 @@ fi
 for junk in node_modules .thumbnails .waveform-cache .hyperframes snapshots renders output; do
   rm -rf "$SRC/$junk"
 done
-find "$SRC" -maxdepth 1 -name '*.log' -delete
+find "$SRC" -name '*.log' -delete   # includes assets/voice/tts.log, transcribe.log
 
 mkdir -p "$LESSONS/_archive"
 mv "$SRC" "$DEST"

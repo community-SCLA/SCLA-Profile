@@ -1,0 +1,241 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Section label","default":"Step 1 — Define success"},
+    {"id":"heading","type":"string","label":"Heading","default":"What matters most, the next 3–5 years?"},
+    {"id":"chips","type":"string","label":"Chip texts, comma-separated (up to 8)","default":"Learning,Security,Income,Flexibility,Meaning,Mentorship,Growth"},
+    {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (empty = default stagger)","default":""},
+    {"id":"accentIndex","type":"string","label":"1-based index of the gold-accent chip (empty = none)","default":""},
+    {"id":"reveal","type":"string","label":"Chip entrance (pop | slide)","default":"pop"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"07 / DEFINE"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      TEMPLATE — kinetic word-field / chip cluster on a light canvas. Use when the
+      narration rattles off a list of words too fast/too many for scla-points
+      (criteria, options, values, traits — up to 8 chips). Each chip flashes in on
+      its spoken cue (chipCues); reveal="slide" makes chips enter from alternating
+      angles for extra variety. frame.md → "Illustration over text" + "Reveal on cue".
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .cc-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+        }
+        .cc-bg::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px);
+          background-size: 72px 72px;
+        }
+        #cc-ghost-ring {
+          position: absolute;
+          right: -300px;
+          top: -380px;
+          width: 860px;
+          height: 980px;
+          border-radius: 50%;
+          border: 3px solid rgba(51, 147, 214, 0.12);
+        }
+        #cc-ghost-ring-2 {
+          position: absolute;
+          right: -200px;
+          top: -300px;
+          width: 620px;
+          height: 720px;
+          border-radius: 50%;
+          border: 2px solid rgba(234, 171, 45, 0.14);
+        }
+        #cc-head {
+          position: absolute;
+          left: 120px;
+          top: 130px;
+          width: 1500px;
+        }
+        #cc-label-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #cc-tick {
+          width: 46px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #cc-label {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #cc-heading {
+          margin-top: 18px;
+          font-size: 64px;
+          font-weight: 900;
+          color: #0d2437;
+          line-height: 1.08;
+        }
+        #cc-field {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          top: 470px;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: flex-start;
+          gap: 26px 30px;
+        }
+        .cc-chip {
+          padding: 22px 46px;
+          border-radius: 100px;
+          border: 3px solid #3393d6;
+          color: #0d2437;
+          background: #ffffff;
+          font-size: 44px;
+          font-weight: 700;
+        }
+        .cc-chip.cc-accent {
+          border-color: #eaab2d;
+        }
+        #cc-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #cc-brandline {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* Style packages — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .cc-bg { background: #ffffff; }
+        #root[data-theme="horizon"] #cc-tick { background: #3393d6; }
+        #root[data-theme="horizon"] .cc-chip { border-color: #3393d6; }
+        #root[data-theme="horizon"] .cc-chip.cc-accent { border-color: #3393d6; }
+        #root[data-theme="cadence"] .cc-bg { background: #ffffff; }
+        #root[data-theme="cadence"] .cc-bg::after { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] #cc-tick { width: 70px; }
+        #root[data-theme="cadence"] .cc-chip { border-color: #0d2437; }
+        #root[data-theme="cadence"] .cc-chip.cc-accent { border-color: #eaab2d; }
+      </style>
+
+      <div id="root" data-composition-id="scla-chips" data-width="1920" data-height="1080" data-duration="10">
+        <div class="cc-bg"></div>
+        <div id="cc-ghost-ring" data-layout-allow-overflow></div>
+        <div id="cc-ghost-ring-2" data-layout-allow-overflow></div>
+        <div id="cc-head">
+          <div id="cc-label-row">
+            <div id="cc-tick"></div>
+            <div id="cc-label">Step 1 — Define success</div>
+          </div>
+          <h2 id="cc-heading">What matters most, the next 3–5 years?</h2>
+        </div>
+        <div id="cc-field"></div>
+        <div id="cc-index" data-layout-allow-occlusion>07 / DEFINE</div>
+        <div id="cc-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            label: "Step 1 — Define success",
+            heading: "What matters most, the next 3–5 years?",
+            chips: "Learning,Security,Income,Flexibility,Meaning,Mentorship,Growth",
+            chipCues: "",
+            accentIndex: "",
+            reveal: "pop",
+            sceneIndex: "07 / DEFINE",
+            theme: "summit",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("cc-label").textContent = vars.label;
+          document.getElementById("cc-heading").textContent = vars.heading;
+          document.getElementById("cc-index").textContent = vars.sceneIndex;
+
+          // Build the chip field from the variable (textContent only), before the timeline.
+          const chipTexts = String(vars.chips || "")
+            .split(",")
+            .map(function (s) { return s.trim(); })
+            .filter(function (s) { return s !== ""; })
+            .slice(0, 8);
+          const accentIdx = parseInt(String(vars.accentIndex || "").trim(), 10); // 1-based
+          const field = document.getElementById("cc-field");
+          chipTexts.forEach(function (text, i) {
+            const chip = document.createElement("div");
+            chip.className = "cc-chip" + (i + 1 === accentIdx ? " cc-accent" : "");
+            chip.id = "cc-chip-" + (i + 1);
+            chip.textContent = text;
+            field.appendChild(chip);
+          });
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#cc-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1);
+          tl.fromTo("#cc-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+          tl.fromTo("#cc-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.35);
+          tl.fromTo("#cc-ghost-ring", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+          tl.fromTo("#cc-ghost-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
+
+          const chips = gsap.utils.toArray(".cc-chip");
+          const cues = String(vars.chipCues || "")
+            .split(",")
+            .map(function (s) { return Number(s.trim()); })
+            .filter(function (v) { return !isNaN(v); });
+          const mode = vars.reveal === "slide" ? "slide" : "pop";
+          chips.forEach(function (chip, i) {
+            const at = i < cues.length ? Math.max(0.4, cues[i]) : 1.4 + i * 0.5;
+            let from = { opacity: 0, scale: 0.5, y: 24 };
+            let to = { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" };
+            if (mode === "slide") {
+              // Chips enter alternating from different angles.
+              from = i % 3 === 0 ? { opacity: 0, x: -90 } : i % 3 === 1 ? { opacity: 0, x: 90 } : { opacity: 0, y: -70 };
+              to = { opacity: 1, x: 0, y: 0, duration: 0.55, ease: "power3.out" };
+            }
+            tl.fromTo(chip, from, to, at);
+          });
+          tl.fromTo(["#cc-index", "#cc-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.2);
+          tl.fromTo("#cc-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut" }, 1.4);
+          tl.fromTo("#cc-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
+          window.__timelines["scla-chips"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
