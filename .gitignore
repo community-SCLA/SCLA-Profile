@@ -22,10 +22,13 @@ __pycache__/
 *.pyc
 
 # Video production — per-lesson HyperFrames build workspaces (HTML sources,
-# caches, renders). Local-only: active builds live in lessons/<stem>/, delivered
-# ones move to lessons/_archive/<stem>/ (see that folder's README.md).
-# Approved scripts live in projects/video-production/videos/ (tracked); rendered
-# videos are hosted on Wistia, not committed (decisions/log.md, 2026-07-08).
-projects/video-production/lessons/*
-!projects/video-production/lessons/README.md
-projects/video-production/videos/**/*.mp4
+# caches, renders). Local-only: active builds live in renders-hyperframes/<stem>/,
+# delivered ones move to renders-hyperframes/_archive/<stem>/ (see that folder's
+# README.md). Approved scripts live in projects/video-production/lesson-scripts/
+# (tracked); rendered videos are hosted on Wistia, not committed
+# (decisions/log.md, 2026-07-08).
+projects/video-production/renders-hyperframes/*
+!projects/video-production/renders-hyperframes/README.md
+projects/video-production/lesson-scripts/**/*.mp4
+projects/video-production/renders-mov/*
+!projects/video-production/renders-mov/.gitkeep

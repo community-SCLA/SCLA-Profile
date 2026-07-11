@@ -47,6 +47,8 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 
 ## Illustrated Video QA (HyperFrames / design-system)
 
+- [ ] Deterministic gates green on this exact render: `render-qa/preflight.py` (pre-render) and `render-qa/verify_render.py` (post-render) both exit 0; every scene carries `data-anchor-end` (timing is compiled, never hand-typed)
+- [ ] `/adversarial-qa` gauntlet cleared — every launched lane returned PASS on this exact render; lane reports attached to this review
 - [ ] `npm run check` passes with 0 errors (lint + validate + inspect)
 - [ ] Frames reviewed by a human at **several points per scene** (start, mid, late) — one midpoint still can't reveal a stagnant frame
 - [ ] Design tokens match `design-system/frame.md` — no off-palette colors, Proxima Nova renders (not a fallback sans)
@@ -64,7 +66,7 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 - [ ] **Numerals read right** — scene index is small in the lower-right; any large numeral is a genuine stat or the spoken step, never a slide number or a bare cardinal
 
 ### Pacing, cuts & endings (`frame.md` → "Scene boundaries, padding & endings")
-- [ ] **Every cut lands ≥0.05s after the scene's last spoken word ends** — verify against `transcript.json`; no scene cuts mid-word or mid-sentence
+- [ ] **Every cut lands ≥0.5s after the scene's last spoken word ends** — verify against `transcript.json`; no scene cuts mid-word or mid-sentence
 - [ ] **Questions finish their inflection** before the cut (extra air after a question mark)
 - [ ] **The video ends on populated content** — final scene outlives the narration (check the wav's true duration with `ffprobe`) and holds its text ≥1s after the last word; no bare-canvas tail, no clipped audio
 - [ ] **Opening enumeration has its own scene** — the title card is off before the narration starts listing; listed items land as a kinetic reveal on their cues

@@ -14,14 +14,14 @@ works the queue end-to-end; humans hold exactly two gates (script approval, QA).
 | # | Status | Moved by | What happens |
 |---|---|---|---|
 | 1 | Requested | Team member | Create a row; fill Program, Video type, Due date, and **Script status** (Needs drafting · Provided as-is · Provided, needs refinement). Paste source material into the page body under a `## Source material` heading. If you already have a script — even a rough draft — paste it under `## Provided script` and set Script status accordingly (a rough draft you want Claude to tighten = **Provided, needs refinement**); put any change requests under `## Refinement notes`. Never leave source material out — Claude must not invent SCLA content. |
-| 2 | Script drafting | Claude | Read Script status, the page body, **and Notes** before acting. **Needs drafting:** draft narration from the source material using the matching template in `templates/`. **Provided as-is:** don't redraft — file the provided script verbatim. **Provided, needs refinement:** refine the provided script per `## Refinement notes` + Notes, don't rewrite from scratch. In all three cases save to `videos/<program-slug>/` (naming: `videos/README.md`), set **Script location**, and paste the result into the page for review. |
+| 2 | Script drafting | Claude | Read Script status, the page body, **and Notes** before acting. **Needs drafting:** draft narration from the source material using the matching template in `script-templates/`. **Provided as-is:** don't redraft — file the provided script verbatim. **Provided, needs refinement:** refine the provided script per `## Refinement notes` + Notes, don't rewrite from scratch. In all three cases save to `lesson-scripts/<program-slug>/` (naming: `lesson-scripts/README.md`), set **Script location**, and paste the result into the page for review. |
 | 3 | Script awaiting approval | Claude | Set when the draft/script is posted. Requester (or program owner) edits/comments directly on the page. |
 | ↺ | Revision requested | Requester | Requester wants changes after reading the draft. Claude picks this row up, re-drafts from the page's current text + `## Refinement notes` + Notes, re-saves to the repo, and returns the row to **Script awaiting approval**. Loops until approved. |
 | 4 | Script approved | **Human only** | The mandatory script gate — never automated. |
-| 5 | In production | Claude | **First, sync the approved script:** copy the approved text from the Notion page back over the repo `.txt` — after approval the page is the source of truth, and production must render what was approved, not the pre-edit draft. Then build by Video type: **Illustrated** — per-lesson build workspace at `lessons/<script-stem>/` per `design-system/CLAUDE.md`, in the assigned style package (`frame.md` → "Style packages"), `npm run check`, scene-midpoint snapshots posted to the page. **HeyGen avatar** — `heygen-pipeline/`. **Social clip** — draft with `templates/social-script-prompt.md`, then build on the illustrated or HeyGen path per the row. |
-| 6 | QA review | Claude → human | Claude sets the status and posts snapshots/render; a human runs `templates/qa-checklist.md` (illustrated section) and records sign-off in **QA reviewer**. |
+| 5 | In production | Claude | **First, sync the approved script:** copy the approved text from the Notion page back over the repo `.txt` — after approval the page is the source of truth, and production must render what was approved, not the pre-edit draft. Then build by Video type: **Illustrated** — per-lesson build workspace at `renders-hyperframes/<script-stem>/` per `design-system/CLAUDE.md`, in the assigned style package (`frame.md` → "Style packages"), `npm run check`, scene-midpoint snapshots posted to the page. **HeyGen avatar** — `avatar-pipeline/`. **Social clip** — draft with `script-templates/social-script-prompt.md`, then build on the illustrated or HeyGen path per the row. |
+| 6 | QA review | Claude → human | Claude sets the status and posts snapshots/render; a human runs `script-templates/qa-checklist.md` (illustrated section) and records sign-off in **QA reviewer**. |
 | 7 | Approved to publish | **Human only** | The mandatory QA gate — never automated. |
-| 8 | Delivered | Claude | Final MP4 rendered and renamed to the script stem, then **uploaded to Wistia** — the `.mp4` is not committed to the repo; the approved `.txt` script stays in `videos/<program-slug>/` as the source of truth. Set **Final video** to the Wistia share/embed URL and set **Delivered date**. Then retire the build workspace: `bash scripts/archive-lesson.sh <script-stem>` (moves it to `lessons/_archive/<stem>/`, local-only — see `lessons/README.md`). |
+| 8 | Delivered | Claude | Final MP4 rendered and renamed to the script stem, then **uploaded to Wistia** — the `.mp4` is not committed to the repo; the approved `.txt` script stays in `lesson-scripts/<program-slug>/` as the source of truth. Set **Final video** to the Wistia share/embed URL and set **Delivered date**. Then retire the build workspace: `bash scripts/archive-lesson.sh <script-stem>` (moves it to `renders-hyperframes/_archive/<stem>/`, local-only — see `renders-hyperframes/README.md`). |
 
 Blocked (any stage): set Status = Blocked and say why in Notes. To resume, a human moves the row back to the status it should re-enter at and clears the blocker note.
 
@@ -43,11 +43,11 @@ Blocked (any stage): set Status = Blocked and say why in Notes. To resume, a hum
    every endpoint (see `design-system/CLAUDE.md` → "Upgrade path"). Set any HeyGen
    row to Blocked citing the key issue rather than leaving it stuck in production.
 6. **Program = Other:** there's no program slug, so file to
-   `videos/other/<request-slug>/` and set Script location explicitly. Flag in
+   `lesson-scripts/other/<request-slug>/` and set Script location explicitly. Flag in
    Notes so a human can refile if the video belongs to a real program.
 7. Style package: use the row's pick; on "No preference (rotate)", count only that
    program's delivered `.mp4` files that have a matching illustrated script stem in
-   `videos/<program-slug>/` (ignore loose scripts and HeyGen deliveries) and take
+   `lesson-scripts/<program-slug>/` (ignore loose scripts and HeyGen deliveries) and take
    summit → horizon → cadence in order (count mod 3). Record the chosen package on
    the row so two same-program videos in flight at once don't collide on the count.
 8. Post progress on the Notion page (script text, snapshot images, blockers) —
@@ -75,7 +75,7 @@ Name: **SCLA Video Production Queue**
 | Requested date *(v2)* | Created time | Built-in Notion property — surfaces cycle time next to Delivered date |
 | Target length | Select | ≤1 min · 1–3 min · 3–5 min · 5+ min |
 | Source link | URL | Optional link to source doc; primary source material goes in the page body |
-| Script location | Rich text | Repo path once drafted, e.g. `videos/early-career-boost/<stem>.txt` |
+| Script location | Rich text | Repo path once drafted, e.g. `lesson-scripts/early-career-boost/<stem>.txt` |
 | Final video | URL | Wistia share/embed URL of the delivered video (hosted on Wistia, not committed to the repo) |
 | Notes | Rich text | Blockers, context. Change requests belong in the page body under `## Refinement notes`, not here — Notes is scanned but the page body is where the work happens. |
 
@@ -96,11 +96,11 @@ needs tracking:
 
 | Artifact | Location | Git? |
 |---|---|---|
-| Approved script | `videos/<program-slug>/<stem>.txt` | tracked |
-| Build workspace (while in production) | `lessons/<stem>/` | gitignored |
+| Approved script | `lesson-scripts/<program-slug>/<stem>.txt` | tracked |
+| Build workspace (while in production) | `renders-hyperframes/<stem>/` | gitignored |
 | Snapshots / draft / progress | the row's Notion page | Notion |
 | Final video | **Wistia** (upload) + Wistia URL in the row's **Final video** field | not in git |
-| Retired workspace (after Delivered) | `lessons/_archive/<stem>/` | gitignored |
+| Retired workspace (after Delivered) | `renders-hyperframes/_archive/<stem>/` | gitignored |
 
 ## Automation — how the queue runs without micromanagement
 

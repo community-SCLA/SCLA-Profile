@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 # archive-lesson.sh — retire a delivered lesson build workspace.
 #
-# Moves projects/video-production/lessons/<stem>/ to lessons/_archive/<stem>/
-# and prunes regenerable bulk (node_modules, caches, snapshots, renders, logs),
-# leaving a re-renderable source tree (HTML + frame.md + assets + configs).
+# Moves projects/video-production/renders-hyperframes/<stem>/ to
+# renders-hyperframes/_archive/<stem>/ and prunes regenerable bulk
+# (node_modules, caches, snapshots, renders, logs), leaving a
+# re-renderable source tree (HTML + frame.md + assets + configs).
 #
 # Usage:  bash scripts/archive-lesson.sh <script-stem>
-# Run AFTER the final MP4 is verified and filed in videos/<program-slug>/.
+# Run AFTER the final MP4 is verified and filed in lesson-scripts/<program-slug>/.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LESSONS="$REPO_ROOT/projects/video-production/lessons"
-VIDEOS="$REPO_ROOT/projects/video-production/videos"
+LESSONS="$REPO_ROOT/projects/video-production/renders-hyperframes"
+VIDEOS="$REPO_ROOT/projects/video-production/lesson-scripts"
 
 STEM="${1:-}"
 if [[ -z "$STEM" ]]; then
@@ -29,7 +30,7 @@ DEST="$LESSONS/_archive/$STEM"
 
 # Safety: the deliverable must be filed before its workspace is retired.
 if ! find "$VIDEOS" -mindepth 2 -name "$STEM.mp4" | grep -q .; then
-  echo "No $STEM.mp4 found under videos/<program-slug>/ — file the final render first." >&2
+  echo "No $STEM.mp4 found under lesson-scripts/<program-slug>/ — file the final render first." >&2
   exit 1
 fi
 
@@ -42,5 +43,5 @@ find "$SRC" -name '*.log' -delete   # includes assets/voice/tts.log, transcribe.
 mkdir -p "$LESSONS/_archive"
 mv "$SRC" "$DEST"
 
-echo "Archived: lessons/_archive/$STEM ($(du -sh "$DEST" | cut -f1))"
+echo "Archived: renders-hyperframes/_archive/$STEM ($(du -sh "$DEST" | cut -f1))"
 echo "To re-render later: cd into it, npm install, npm run render."

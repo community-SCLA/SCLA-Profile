@@ -112,7 +112,7 @@ LESSONS = CONFIG["lessons"]
 BASE_DIR = Path(__file__).parent
 OUTPUT_DIR = BASE_DIR / "output"
 SCRIPTS_DIR = OUTPUT_DIR / "scripts"
-VIDEOS_DIR = OUTPUT_DIR / "videos"
+VIDEOS_DIR = BASE_DIR.parent / "renders-mov"
 STATE_FILE = BASE_DIR / "state.json"
 
 

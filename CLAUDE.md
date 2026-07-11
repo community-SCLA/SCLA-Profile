@@ -22,8 +22,8 @@ No matching row? Open that folder's README.md hub (every multi-file folder has o
 | Produce a video end to end (local, one call) | `/produce-video` |
 | Video request queue (Notion) | `projects/video-production/notion-queue.md` |
 | Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
-| HeyGen lesson script | `projects/video-production/templates/heygen-lesson-script.md` |
-| Render HeyGen videos (code) | `projects/video-production/heygen-pipeline/CLAUDE.md` |
+| HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
+| Render HeyGen videos (code) | `projects/video-production/avatar-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Where a fact lives | `MAP.md` |
 | Structural change (read first) | `GOVERNANCE.md` |
@@ -36,3 +36,9 @@ Full rulebook and all other rules: `GOVERNANCE.md`.
 These two bind every session:
 
 - **Never load or route to `_archive/`**
+
+## Tool usage discipline (context budget)
+- Read files with the Read tool, not `cat`/`head`/`tail`. Read specific line ranges when you know roughly where to look.
+- Use plain `ls` scoped to ONE directory. No `ls -la`, no recursive/whole-tree listings.
+- Use Grep/Glob for searching, not `find` or `grep` in Bash.
+- Never re-read a file already read this session.

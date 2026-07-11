@@ -1,0 +1,93 @@
+LESSON CAPTURE — Early Career Boost
+Component type: lesson
+Section: 3 — How to Make Quality Career Decisions
+Name: Using the Career Map Tool
+Source: https://app.thescla.org/admin/learning/programs/early-career-boost (Edit view)
+Captured: 2026-07-10
+Note: Curriculum references two videos, an attached worksheet (PDF), and inline images. Text captured verbatim from the lesson editor.
+
+===== CURRICULUM =====
+
+[▶ VIDEO] How to Use the Career Mapping Tool
+
+Link to Video: How to Use the Career Mapping Tool
+
+Part 1 – Start your career map
+
+Open the Career Mapping Tool from your course or dashboard.
+
+On the landing screen, look for the section titled "Map your career." This page explains that the tool will help you build a personalized roadmap based on your goals and preferences.
+
+Click the button to begin mapping your career (for example, "Start," "Get started," or similar, depending on your LMS setup).
+
+Part 2 – Choose your career approach
+
+On the "Choose your career paths" screen, select up to three career approaches that fit your aspirations and values. The options may include: Traditional path, Fast track, Entrepreneurial, Work‑life balance, Location independent, and Social impact.
+
+Click on the tile(s) for the approaches that resonate most with you. You can select one, two, or three.
+
+Once you've made your choices, click the button to continue (for example, "Next" or "Continue").
+
+Part 3 – Complete your profile and experience
+
+On the profile section, fill in the requested information about yourself so the tool can tailor your career map. This may include your name, preferred industry, and general background.
+
+In the "Your experience" area, upload or select a resume if requested. This helps the tool align your map with your current skills and experience.
+
+Part 4 – Customize your selected paths
+
+For each career approach you selected, you can optionally add more details such as target industries and specific goals.
+
+When you're finished customizing, click the button to generate or update your career map.
+
+Part 5 – Generate or regenerate your career map
+
+When you select "Regenerate career map" or a similar option, a confirmation message will appear explaining that your old career approaches and jobs will be removed
+
+If you are sure you want to create a new map, click "Regenerate"; if not, click "Cancel."
+
+Part 6 – Review your generated career map
+
+When your map is ready, you'll see a summary that tells you how many paths and jobs were generated (for example, "You have generated your career map with one path containing three jobs").
+
+Click "Show more" or similar links to expand details about each path and job if you want a deeper look.
+
+Part 7 – Select your preferred path
+
+On the "Choose your career path" screen, review the list of generated paths and their quick stats (such as number of roles, industry, or focus like "goal‑oriented" or "work‑life balance").
+
+Confirm your selection by clicking "Select this path," "Select and continue," or the equivalent button.
+
+Part 8 – Explore your career map details
+
+On the Career Map overview page, review your personalized roadmap, including the time frame (for example, 2026–2030), preferred industry, and five‑year goal.
+
+Repeat this for each job in your path to understand how responsibilities and expectations grow over time.
+
+[▶ VIDEO] Lesson · Using the Career Map tool to boost your next decision
+
+Now that you have used the tool and found some new career ideas, it's time to turn those career criteria into a side-by-side view and put your career options into practice.   The Career Map is a simple way to see your options side by side instead of agonizing over them one at a time. Plot each option you are considering on two axes:
+
+[ATTACHMENT — PDF]
+Career_Map_Quadrant_Worksheet_SCLA_Early Career Boost.pdf
+pdf ⋅ 37 KB
+
+The value isn't the score. It's what you notice while scoring — "huh, the safe option is weak on everything I said mattered most." That noticing is the point.
+
+Horizontal — Personal fit & energy: How well does this match what you are good at and what energizes you? (Use your themes from the previous activity.)
+
+Vertical — Long-term value/career capital: How much does this build skills, connections, credentials, and options you will value later?
+
+Four zones emerge:
+
+Prioritize (high fit, high value): pursue these first.
+
+Explore (high value, uncertain fit): promising but unproven — worth a cheap test.
+
+Enjoy / Side (high fit, lower value): great energy, keep as a backup or a side pursuit.
+
+Park (low fit, low value): set these aside without guilt.
+
+Seeing your options mapped out does two things at once: it widens your frame (you consider more than one path), and it applies consistent criteria to all of them.
+
+[IMAGE]

@@ -1,6 +1,6 @@
 # HyperFrames Skills — Reference
 
-Local skill pack for authoring HyperFrames video compositions (HTML → rendered MP4/WebM/MOV), installed via `npx skills add heygen-com/hyperframes`. Lives at `.agents/skills/` in the repo root. This is a **separate tool from `heygen-pipeline/`** — HyperFrames authors standalone HTML compositions you can edit/diff/commit locally; `heygen-pipeline/` is the Python batch-render path for finalized `.txt` scripts. See `CLAUDE.md`'s Tool Routing section for how Synthesia/HeyGen web UI/heygen-pipeline/HyperFrames relate.
+Local skill pack for authoring HyperFrames video compositions (HTML → rendered MP4/WebM/MOV), installed via `npx skills add heygen-com/hyperframes`. Lives at `.agents/skills/` in the repo root. This is a **separate tool from `avatar-pipeline/`** — HyperFrames authors standalone HTML compositions you can edit/diff/commit locally; `avatar-pipeline/` is the Python batch-render path for finalized `.txt` scripts. See `CLAUDE.md`'s Tool Routing section for how Synthesia/HeyGen web UI/avatar-pipeline/HyperFrames relate.
 
 21 skills total, in 5 layers. You'll almost always start at the top layer and let it hand off — you rarely need to invoke layers 3–5 by name yourself.
 

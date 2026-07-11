@@ -1,0 +1,128 @@
+LESSON CAPTURE — Early Career Boost
+Component type: lesson
+Section: 3 — How to Make Quality Career Decisions
+Name: How to Make Strong Career Decisions
+Source: https://app.thescla.org/admin/learning/programs/early-career-boost (Edit view)
+Captured: 2026-07-10
+Note: Curriculum includes a video with script and an AI-coach activity. Text captured verbatim from the lesson editor.
+
+===== CURRICULUM =====
+
+The Career Decision-Making Process
+
+Strong career decisions share a few habits. Keep these in mind as you use the map:
+
+Generate more options first. Before evaluating anything, push yourself to list more paths than you feel comfortable with. The best option is often one you had not considered.
+
+Rate options against your criteria, not your mood. Give each option a quick score on each of your 3–7 factors. Numbers are not magic, but they surface disagreements between your head and your gut.
+
+Reduce your biggest uncertainty cheaply. You rarely need certainty — you need to lower the risk on the one assumption that matters most. A single informational interview or a weekend project can do that.
+
+Expect to be wrong, and build in a review date. Good decisions are revisited, not carved in stone
+
+[▶ VIDEO] Lesson · How to Make Strong Career Decisions
+Script
+
+What might a good career decision process look like? A common approach is to make a pro and con list, but you can do much better. Pro and con lists can make it easy to give too much weight to an unimportant factor. More importantly, they don't encourage you to make use of the most powerful decision-making methods, which can greatly improve the quality of your decisions.
+
+In this next section, we present a step-by-step process for making your next career decision.
+
+Career decisions usually involve significant uncertainty. If you sometimes feel stressed or anxious, this is normal. We can't make your next decision easy, but if you work through this process, we think you'll be more likely to avoid common mistakes and take the best next step you can.
+
+Now that you are armed with a solid career map and research in your field, and you have set a goal or purpose statement for yourself, what is next?  How do you use this information to make career decisions?
+
+If you're facing a decision like 'which offer should I accept?', 'where should I apply?' or 'which graduate major should I pursue?', you sometimes need to talk it out or gain others' ideas.
+
+When making career decisions, most people don't use a process at all. But this is a mistake because we are not naturally good at making complex decisions.  If you just "go with your gut," you're likely to miss something.
+
+Though this process won't tell you what to do, it can make sure you're in the best possible position to make your decision.
+
+1. Clarify your decision.  First, make sure you have a clear idea of exactly what decision you want to make. Are you choosing between two specific offers, deciding which medium-term options to focus on, or something else? By when do you need to decide? Also note that this process is geared towards choosing between a list of specific options.
+
+2. Write out your most important priorities. Once you're clear about the next decision you need to make, write out your 4-7 most important priorities in making the decision. When making decisions, people usually focus on a too-narrow set of goals.  They include the following:
+
+Career capital — does this option significantly accelerate you towards your longer-term career goals, or otherwise open up lots of good options?
+
+Impact potential — how pressing is the problem addressed, and how large a contribution might the typical person in this career make to the problem (in expectation)?
+
+Personal fit — compared to the typical person in this career in the long-term, how productive do you expect to be?
+
+Personal satisfaction — how would this path satisfy other important personal priorities that aren't already covered?
+
+Exploration value — might this path be an outstanding long-term option that you're uncertain about and can test out?
+
+The factors you focus on depend on the decision you're making and your career stage. If you're earlier in your career and comparing longer-term options, you'll probably mainly focus on impact potential, personal satisfaction, and fit. If you're comparing next steps (rather than longer-term options) and are early in your career, then focus on career capital, exploration value, and fit. If you're later in your career and comparing next steps, you'd focus more on immediate impact and fit.
+
+You can also try to make the factors more specific based on your situation. What type of career capital is most valuable? What signals best predict impact in the areas you're focused on? What exactly are your priorities in personal satisfaction? On the latter, it's important to try to be honest, even about your least noble motivations, or otherwise the path won't be sustainable.
+
+3. Generate more options. One of the most serious mistakes in making career decisions is considering too few options.   Some research suggests that even just considering one extra option can improve satisfaction with outcomes. You probably already have some options in mind, but here the challenge is to generate even more.
+
+One way to generate options is to use the priorities from the step before. What options might best help you achieve those priorities? For example, what might be the best option for career capital, job satisfaction, and so on? You can generate longer-term options using our lists of impactful skills to build impacful longer-term career paths.
+
+Here are some prompts for working forwards:
+
+Speak to your friends, those working on interesting problems, and people you admire, and ask about what might be a good fit for you.
+
+Check out the jobs listed on job boards — do any of them seem interesting?
+
+What options might you be unusually good at?
+
+What options might help you learn the most?
+
+What 'open doors' are available right now? These are interesting opportunities you've come across that might not be available in the future.
+
+4. Rank your options. Now that you've got your options on the table, put them in a rough order according to how well they satisfy the factors you wrote down at step two. Don't worry too much about accuracy – we just want to get a rough idea at this stage to make it easier to do the next couple of steps.
+
+5. List your key uncertainties. Try to identify the information that is most likely to change your ranking. The questions people most commonly ask us are often not actually decision-relevant. Frequently, people focus on big picture questions that are too hard to settle, so thinking about them is unlikely to change their ranking. It's also easy to get lost ruminating on the wide range of issues that can be relevant. Try to focus on the most relevant questions. Some useful questions to consider include:
+
+How could you most easily rule out your top option?
+
+If you had to decide your career tomorrow for the rest of your life, what would you do today?
+
+What were you most uncertain about in making your ranking? Do any of those uncertainties seem easy to resolve?
+
+6. Go and investigate. Not every decision in life deserves serious research, but career decisions do. We often find people get stuck analyzing their options when it would be better to go and gather information or test out their options. When investigating your options, we find it useful to think of a ladder of tests that go in ascending order of cost, and aim to settle the key uncertainties you've identified. Here's an example of a ladder of tests:
+
+Read relevant career reviews and do some Google searches to learn the basics (1-2h).
+
+Then the next most useful thing you can usually do is to speak to someone in the area. The right person can give you more up-to-date, personalized information than you'll be able to find in writing (2h).
+
+Speak to three more people who work in the area and read one or two books (20h). You could also consider speaking to a careers adviser who specializes in this area. During this, also find out the most effective way for you to enter the area, given your background. Bear in mind that when you're talking to these people, they are also informally interviewing you.
+
+Now look for a project that might take 1-4 weeks of work, such as applying for jobs, volunteering in a related role, or starting a blog on the policy area you want to focus on. If you've done the previous step, you'll know what's best.
+
+Only now consider taking on a 2-to 24-month commitment, such as a work placement, internship, or graduate study. At this point, being offered a trial position with an organization for a couple of months can actually be an advantage, because it means both parties will make an effort to quickly assess your fit.
+
+One of the most useful, but often neglected, steps is to simply apply to lots of jobs. We often find people wondering whether one path is better than another, when, if they'd applied, it would have been obvious which to choose. If you're lucky, at some point in these investigations, your next step will become clear.   Another rule of thumb is that the higher the stakes of the decision, the more time it's worth investing in investigating.
+
+The aim is not confidence. You will likely always be uncertain about many aspects of your career. Instead, the aim is to find the best possible ranking using low-cost tests and basic research. Once you've done that, the most efficient way to learn more is probably to pick an option and try it out.
+
+7. Make your final assessment. When you've finished investigating, it's time to make a decision. Here are some more decision-making tips to help improve your ranking accuracy.
+
+8.  Check your gut intuition.  After you've finished your assessments, take a break, and re-rank your options. Once you've made a ranking, notice if your gut intuition feels uneasy about something. You can't simply go with your gut to make good career decisions, but you shouldn't ignore your gut either. Your intuition is good at aspects of the decision where you've had lots of opportunity to practice with relatively quick feedback, such as whether the other people involved are trustworthy.  If your gut feels uneasy, try to pinpoint why you're having that reaction, and whether it makes sense to go with your gut or not in this instance. The ideal of good decision-making is to combine intuitive and systematic methods and use the best aspects of each. It's also a good idea to sleep on it. This may help you process the information. It also reduces the chance that you'll be unduly influenced by your mood at that moment.
+
+9. Make your best guess, and then prepare to adapt. At some point, you'll need to make a decision. If you're lucky, one of your options will be clearly better than the others. Otherwise, the decision will be tough. Don't be too hard on yourself: the aim is to make the best choice you can, given the evidence available. If you've been through the process above, then you have put yourself in a position to make a well-considered decision.
+
+10. Take action. Once your plan is set, it's time to focus on execution. How to execute is not the main focus of this article, but here are some further resources.
+
+Here is the whole thing as a repeatable, five-step loop you can run for any career choice — which internship, which major, which offer, which next move:
+
+Clarify the decision. What exactly are you choosing, and by when? Vague decisions produce vague answers.
+
+Widen your options. Generate more possibilities before narrowing. Ask "what else?" at least twice.
+
+Set your criteria. Write down the 3–7 factors that truly matter (fit, energy, career capital, impact, satisfaction, and any practical constraints).
+
+Test your assumptions. Identify your biggest uncertainty and run a cheap experiment to reduce it.
+
+Decide & commit — then review. Make the call, act on it, and set a date to check in and adjust.
+
+Because it is a loop, not a one-time event, it works with the fact that you will learn things you cannot know now. That is the whole idea.
+
+AI-Activity:  AI Career Decision Coach
+
+It's your turn again. Bring a real decision you are facing — big or small — to your AI Career Decision Coach. It will walk you through the five-step process, one step at a time, and help you apply your own criteria. Come with something specific: "Should I apply for this internship?" works far better than "What should I do with my life?"
+
+Starter Prompt
+
+"You're my SCLA Career Decision Coach. Walk me through a real career decision using this process: (1) help me set and rank my criteria, (2) push me to generate more options than I came in with, (3) map options against criteria, (4) identify my single biggest uncertainty, and (5) suggest one cheap way to test it before I commit. Ask me one step at a time and don't let me skip widening my options. My decision is: [describe your decision]. My draft criteria and energy patterns from earlier are: [paste your notes]. Start with step 1."

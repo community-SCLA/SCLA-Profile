@@ -7,7 +7,8 @@
     {"id":"emphasis","type":"string","label":"Comma-separated single words to emphasize on cue (matched case/punctuation-insensitive, in order)","default":""},
     {"id":"emphasisCues","type":"string","label":"Per-word emphasis times, local sec, comma-separated (one per emphasis word)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
   ]'
 >
   <head>
@@ -160,6 +161,7 @@
             emphasisCues: "",
             sceneIndex: "03 / STATEMENT",
             theme: "summit",
+            sceneDuration: "10",
           };
           const vars = Object.assign(
             {},
@@ -189,10 +191,11 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#sm-ring-1", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0);
-          tl.fromTo("#sm-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.15);
-          tl.fromTo("#sm-ring-3", { opacity: 0, scale: 0.88 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.3);
-          tl.fromTo(["#sm-corner-tl", "#sm-corner-br"], { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0.25);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo("#sm-ring-1", { opacity: 0.5, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0);
+          tl.fromTo("#sm-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.15);
+          tl.fromTo("#sm-ring-3", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.3);
+          tl.fromTo(["#sm-corner-tl", "#sm-corner-br"], { opacity: 0.55 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
           tl.fromTo("#sm-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out" }, 0.3);
           tl.fromTo("#sm-kicker", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.45);
           // Second beat: the statement resolves upward with a clip reveal so the frame
@@ -229,10 +232,33 @@
             );
             tl.to(el, { scale: 1, color: "#ffffff", backgroundSize: "0% 6px", duration: 0.45, ease: "power2.out" }, at + 0.75);
           });
-          tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 1.4);
+          tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0);
           // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
           tl.fromTo("#sm-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
           tl.fromTo("#sm-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);
+          // Late-phase resolve: the statement block drifts up slowly across the
+          // back half and the underline re-sweeps, so a long statement hold never
+          // reads as a dead frame (frame.md ~2s rule).
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          if (sceneDur > 7.5) {
+            tl.fromTo("#sm-statement", { y: 0 }, { y: -12, duration: sceneDur * 0.4, ease: "sine.inOut" },
+              sceneDur * 0.55);
+            tl.fromTo("#sm-underline", { transformOrigin: "left center", scaleX: 1 },
+              { scaleX: 1.12, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 },
+              sceneDur * 0.72);
+          }
+          // Reading ripples: statements whose first emphasis cue lands late used
+          // to freeze for 4-6s after the entrance settled (four dead holds
+          // confirmed 2026-07-10). A soft wave travels across the words every
+          // ~2.3s until the first cue takes over — the eye follows the line
+          // as it is read. y-only: no clash with emphasis (scale/color).
+          const firstCue = emphCues.length ? Math.min.apply(null, emphCues) : sceneDur * 0.55;
+          if (wordEls.length && firstCue > 4.6) {
+            for (let rt = 2.3; rt < firstCue - 0.8; rt += 2.3) {
+              tl.fromTo(wordEls, { y: 0 }, { y: -4, duration: 0.4, ease: "sine.inOut",
+                stagger: 0.035, yoyo: true, repeat: 1 }, rt);
+            }
+          }
           window.__timelines["scla-statement"] = tl;
         })();
       </script>

@@ -47,18 +47,18 @@
 ## Production Status
 
 ### Active Work
-- **Build Direction Before You Build a Plan** (Early Career Boost) — assembled in `lessons/`, pre-QA
+- **Build Direction Before You Build a Plan** (Early Career Boost) — assembled in `renders-hyperframes/`, pre-QA
 - **Better Decisions Come From Better Criteria** (Early Career Boost) — script approved + narration generated; assembly not started (also serves as design-system demo-reel content)
 
 ### First 5 AI Videos (Month 1 Goal)
 | Video | Course | Script Status | Render Status | Published |
 |---|---|---|---|---|
-| Mini Syllabus | Early Career Boost | Approved | Delivered (`videos/early-career-boost/`, workspace archived) | Wistia pending |
+| Mini Syllabus | Early Career Boost | Approved | Delivered (`lesson-scripts/early-career-boost/`, workspace archived) | Wistia pending |
 | Build Direction Before You Build a Plan | Early Career Boost | Approved | Pre-QA | — |
 | Better Decisions Come From Better Criteria | Early Career Boost | Approved | Not assembled | — |
 
 ### Blockers
-- [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `heygen-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.
+- [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `avatar-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.
 - [ ] Enterprise tier confirmation (Synthesia) — only if long-form avatar courses survive re-evaluation
 - [ ] Voice clone recording not yet done (avatar path)
 

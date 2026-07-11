@@ -4,7 +4,7 @@ source: Live platform — app.thescla.org/member/programs/early-career-boost (ob
 
 # Early Career Boost — Lesson Script & Video Style
 
-How SCLA's lesson videos and scripts are built, reverse-engineered from the **Early Career Boost** track so we can generate HeyGen scripts directly from course material. Companion template: [`projects/video-production/templates/heygen-lesson-script.md`](../../projects/video-production/templates/heygen-lesson-script.md).
+How SCLA's lesson videos and scripts are built, reverse-engineered from the **Early Career Boost** track so we can generate HeyGen scripts directly from course material. Companion template: [`projects/video-production/script-templates/heygen-lesson-script.md`](../../projects/video-production/script-templates/heygen-lesson-script.md).
 
 > Method: read every section and lesson in the live member app through the platform's `learn` API (read-only, nothing edited). Polls, forms, and the AI-chat component were skipped per scope. Lesson bodies are TipTap rich-text docs; the "script" lives *inside* the lesson body as dedicated blocks.
 
@@ -101,5 +101,5 @@ The reverse-engineering payoff — how written lesson material becomes the spoke
 ## How to use this
 
 1. Take any lesson's written material (objective + key points + the tool/activity it feeds).
-2. Run it through [`projects/video-production/templates/heygen-lesson-script.md`](../../projects/video-production/templates/heygen-lesson-script.md), supplying this track's specifics (below) as the template's program parameters.
+2. Run it through [`projects/video-production/script-templates/heygen-lesson-script.md`](../../projects/video-production/script-templates/heygen-lesson-script.md), supplying this track's specifics (below) as the template's program parameters.
 3. Keep Ann's coaching voice, 5–7 min length, and the `[On screen:]` / `[Graphic:]` cue convention so the shot list drops straight into HeyGen.

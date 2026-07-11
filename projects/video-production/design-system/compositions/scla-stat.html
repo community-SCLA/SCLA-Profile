@@ -8,7 +8,8 @@
     {"id":"statLabel","type":"string","label":"Stat label","default":"Paths to list — not just one"},
     {"id":"context","type":"string","label":"Context sentence","default":"If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide."},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / STAT"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"8"}
   ]'
 >
   <head>
@@ -195,6 +196,7 @@
               "If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide.",
             sceneIndex: "05 / STAT",
             theme: "summit",
+            sceneDuration: "8",
           };
           const vars = Object.assign(
             {},
@@ -216,7 +218,8 @@
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
           tl.fromTo("#sh-panel", { xPercent: -100 }, { xPercent: 0, duration: 0.7, ease: "power3.out" }, 0);
-          tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0 }, { opacity: 1, duration: 0.8, stagger: 0.15 }, 0.5);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0.5 }, { opacity: 1, duration: 0.8, stagger: 0.15 }, 0.5);
           tl.fromTo("#sh-number", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.55);
           // Deterministic count-up: tween a proxy on the timeline; formatting happens in onUpdate.
           const proxy = { v: 0 };
@@ -239,8 +242,11 @@
           tl.fromTo("#sh-context", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 1.05);
           tl.fromTo("#sh-bar", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.5);
           tl.fromTo("#sh-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, 1.6);
-          tl.fromTo("#sh-index", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.6);
+          tl.fromTo("#sh-index", { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
           tl.fromTo("#sh-panel-ring", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
+          // Late-phase resolve: the stat re-marks itself once during the hold.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 8);
+          tl.fromTo("#sh-number", { scale: 1 }, { scale: 1.03, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, sceneDur * 0.7);
           window.__timelines["scla-stat"] = tl;
         })();
       </script>

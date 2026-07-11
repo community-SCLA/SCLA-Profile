@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "permissions": {
+"permissions": {
     "allow": [
       "Read",
       "Write",
@@ -11,7 +11,6 @@
       "WebSearch",
       "Bash(mkdir:*)",
       "Bash(ls:*)",
-      "Bash(find:*)",
       "Bash(git status)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -26,8 +25,17 @@
       "mcp__claude_ai_Slack__slack_read_channel",
       "mcp__plugin_playwright_playwright__browser_navigate"
     ],
+    "ask": [
+      "Bash(find:*)",
+      "Bash(ls -la:*)",
+      "Bash(ls -al:*)",
+      "Bash(ls -R:*)"
+    ],
     "deny": [
-      "Bash(git push --force:*)"
+      "Bash(git push --force:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)"
     ]
   },
   "skillOverrides": {
@@ -71,6 +79,17 @@
           {
             "type": "command",
             "command": "bash hooks/post-tool.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "c=$(jq -r \".tool_input.command // \\\"\\\"\"); if printf \"%s\" \"$c\" | grep -Eq \"(^|[;&|]) *([A-Z_]+=[^ ]* )*(npm run render|npx (--yes )?hyperframes(@[^ ]*)?( lambda)? render)\"; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"RENDER GATE (automated hook): a HyperFrames render command just ran. Before filing, uploading, or presenting this cut at the human QA gate, run the /adversarial-qa FULL GAUNTLET on the rendered MP4 \\u2014 spawn all four lanes (qa-timing, qa-layout, qa-facts, qa-presence) in parallel. Release rule: all four must PASS; one FAIL blocks the cut; any fix + re-render voids every prior clear and requires re-running all four lanes.\"}}'; fi",
+            "timeout": 10,
+            "statusMessage": "Checking for HyperFrames render \u2192 adversarial-qa gate"
           }
         ]
       }

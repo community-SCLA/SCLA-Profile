@@ -6,7 +6,8 @@
     {"id":"speaker","type":"string","label":"Speaker name (a named person — required)","default":"Alex Rivera"},
     {"id":"speakerRole","type":"string","label":"Speaker role / affiliation","default":"Illustrative placeholder — replace with a real attributed quote"},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / QUOTE"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"8"}
   ]'
 >
   <head>
@@ -186,6 +187,7 @@
             speakerRole: "Illustrative placeholder — replace with a real attributed quote",
             sceneIndex: "05 / QUOTE",
             theme: "summit",
+            sceneDuration: "8",
           };
           const vars = Object.assign(
             {},
@@ -212,11 +214,15 @@
           tl.fromTo("#q-attr-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 1.45);
           tl.fromTo("#q-attr", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.55);
           tl.fromTo("#q-role", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.7);
-          tl.fromTo(["#q-index", "#q-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.5);
-          tl.fromTo("#q-ring", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.2);
-          tl.fromTo("#q-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.35);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo(["#q-index", "#q-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          tl.fromTo("#q-ring", { opacity: 0.5, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.2);
+          tl.fromTo("#q-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.35);
           tl.fromTo("#q-ring", { scale: 1 }, { scale: 1.04, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.5);
           tl.fromTo("#q-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.6, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
+          // Late-phase resolve: the card drifts up slowly through the back half.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 8);
+          tl.fromTo("#q-card", { y: 0 }, { y: -8, duration: sceneDur * 0.35, ease: "sine.inOut" }, sceneDur * 0.55);
           window.__timelines["scla-quote"] = tl;
         })();
       </script>

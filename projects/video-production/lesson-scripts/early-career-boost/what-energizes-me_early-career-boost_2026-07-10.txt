@@ -1,0 +1,57 @@
+LESSON CAPTURE — Early Career Boost
+Component type: lesson
+Section: 2 — Clarify Your Direction
+Name: Early Career Boost – What Energizes Me?
+Source: https://app.thescla.org/admin/learning/programs/early-career-boost (Edit view)
+Captured: 2026-07-10
+Note: Curriculum references an attached worksheet (PDF) and an AI-coach activity. Text captured verbatim from the lesson editor.
+
+===== CURRICULUM =====
+
+Early Career Boost – What Energizes Me?
+
+The criteria about jobs in the previous lesson tells you what generally makes work good. This lesson gets specific to you: what actually gives you energy versus what drains it.
+
+This is more reliable than asking "what am I passionate about?" As we learned, passion is a vague, high-pressure question. Energy is observable. You already have data — you've had classes, jobs, projects, volunteer roles, and group work. Some of it left you buzzing. Some of it left you flat. That pattern is a signal.
+
+As you complete the next activity, keep these two columns in mind.
+
+[ATTACHMENT — PDF]
+Energizing_Work_Worksheet_SCLA_Early Career Boost.pdf
+pdf ⋅ 39 KB
+
+You are not looking for a single lightning-bolt answer. You are looking for patterns. Two or three recurring themes are more than enough to start pointing a direction.
+
+You're also not looking for a job title. You're looking for the ingredients of work that fits you — the raw material for direction. When you're early in your career, it can be hard to name what actually energizes you at work or in school. You may have tried different classes, jobs, or projects, but the patterns are not always obvious.
+
+This activity is designed to help you see those patterns more clearly.
+
+By looking at several real experiences side by side, and using an AI coach to analyze them, you'll start to notice:
+
+the kinds of tasks and projects that feel most engaging for you
+
+the ways you naturally like to contribute (for example: organizing, creating, helping, solving, analyzing)
+
+early clues about roles or paths that might be worth exploring next.
+
+Think of this as a structured conversation about what actually gives you energy—not what you think you "should" enjoy. The goal is not to lock you into one path. The goal is to give you better language and insight so future career decisions feel more grounded and less random.
+
+AI-Activity: What Energizes Me
+
+It's your turn to dig into what energizes you and turn reflection into something concrete.  This is also a great way to practice using AI.  Have a short conversation with your AI Energy Coach. It will ask you a few questions about moments you have felt most engaged, then reflect back the patterns it hears.
+
+How to do this activity:
+
+Open the AI Coach in the next section.
+
+Paste the starter prompt below - or create your own, then answer its follow-up questions honestly. The more specific your examples, the better the insight.
+
+When you're done, save the summary it produces to your notes.
+
+"Help me figure out what energizes me at work or school. Ask me one question at a time about times I've felt engaged, capable, or in flow, and after a few questions, summarize the two or three patterns you notice."
+
+OR
+
+"You're my SCLA career coach. Help me identify what energizes me at work. I'm going to describe a few experiences — classes, jobs, projects, or roles — and how each one made me feel. Ask me one question at a time. After we've covered 3–4 experiences, summarize the patterns you see: the types of tasks, problems, and environments that energize me, and the ones that drain me. Keep it specific and practical — I want raw material for career direction, not personality-test labels. Start by asking me about my first experience."
+
+Be specific and honest — the more real your examples, the more useful the reflection. This activity uses AI.  Try it out.  You can end the conversation at any time by saying "end conversation."

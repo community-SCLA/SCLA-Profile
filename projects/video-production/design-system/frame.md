@@ -104,16 +104,46 @@ a style choice. These are hard rules, checked at the QA gate.
   timestamp — scale ~1.14 + gold flash, then settles (`scla-statement` →
   `emphasis`/`emphasisCues`). Any statement scene longer than ~6s must carry
   emphasis cues; a bare held sentence is a stagnation defect.
+- **Furniture paints at t=0.** The scene's frame furniture — canvas texture,
+  ghost rings, corner marks, scene index, brandline — is visible on the very
+  first frame of every scene (entrances may settle it from ~50% opacity to
+  full, never from nothing). Only *content* animates in. A bare-canvas flash
+  at a cut is a defect; renders before 2026-07-10 shipped white flashes at
+  scene entrances because furniture entered at 1.2–1.6s.
+- **Late-phase resolve.** Every template carries a quiet second wave sized to
+  its `sceneDuration` variable (compiler-maintained): content re-marks itself
+  — chip/point/node cascades, statement drift, route-node pulses — in the back
+  half of long holds, so no scene can produce a pixel-static stretch ≥5s while
+  narration speaks. This is layered *on top of* cue reveals, never instead of
+  them; `check_presence.py` trips deterministically at 5s (warns at 3s).
 
 ## Scene boundaries, padding & endings — the pacing rules
+
+**Timing numbers are compiled, never hand-typed.** The author declares anchors;
+`projects/video-production/render-qa/compile_timeline.py` computes every number
+from `assets/voice/transcript.json` (the authoring contract, normative):
+
+- Every scene slot carries `data-anchor-end="<the scene's last spoken phrase>"`
+  — verbatim words from the transcript (punctuation/case ignored).
+- Every cue variable is anchored by phrases, not seconds:
+  `data-cue-anchors='{"chipCues":["phrase", …], "pointCues":[…],
+  "stepCues":[…], "emphasisCues":[…], "mapCue":"phrase"}'` — one phrase per
+  item, pulled from the transcript text, in spoken order.
+- The compiler owns `data-start`/`data-duration`, all numeric cue values,
+  `sceneDuration`, the `<audio>` duration, and the root duration — and it
+  inserts the boundary silence itself (narration has only 30–60ms of natural
+  sentence gap; the compiler pads to 0.6s air + 0.15s lead, 0.9s after a
+  question, measured 2026-07-10). Hand-editing any of these numbers is a
+  defect; re-run the compiler instead. `render-qa/preflight.py` re-derives
+  everything and fails the build on any drift.
 
 Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
 
 - **Boundaries land on sentence ends.** Never cut mid-word or mid-sentence; the
   sentence that opens a thought belongs to the scene that illustrates it. If a
   sentence straddles a planned cut, move the boundary — don't split the sentence.
-- **≥0.05s of air after the last word.** A scene may not cut until at least
-  0.05s after its final spoken word's `end` time. Cutting at or before the word's
+- **≥0.5s of air after the last word.** A scene may not cut until at least
+  0.5s after its final spoken word's `end` time. Cutting at or before the word's
   end (the old builds cut up to 0.36s *early*, mid-word) is a defect.
 - **Questions keep their inflection.** When a scene ends on a question, the cut
   waits for the rise to finish — pad after the question mark, and prefer scripting

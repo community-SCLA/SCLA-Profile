@@ -10,6 +10,7 @@
     {"id":"step4","type":"string","label":"Step 4 (empty to hide)","default":"Notice what you still don&apos;t know"},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / PROCESS"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
     {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""}
   ]'
 >
@@ -219,6 +220,7 @@
             step4: "Notice what you still don't know",
             sceneIndex: "03 / PROCESS",
             theme: "summit",
+            sceneDuration: "10",
             stepCues: "",
           };
           const vars = Object.assign(
@@ -282,7 +284,19 @@
               at + 0.22,
             );
           }
-          tl.fromTo(["#st-index", "#st-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.4);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo(["#st-index", "#st-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          // Late-phase resolve: step nodes re-mark in a quiet cascade on long
+          // holds so the scene never ends on a dead tail (frame.md ~2s rule).
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          if (sceneDur > 7.5 && visible > 0) {
+            const lastCue = stepCues.length ? Math.max.apply(null, stepCues) : 0;
+            [0.6, 0.84].forEach(function (frac) {
+              tl.fromTo('[id^="st-node-"]', { y: 0 }, { y: -8, duration: 0.45, ease: "sine.inOut",
+                stagger: 0.12, yoyo: true, repeat: 1 },
+                Math.max(2.4, lastCue + 1.4, sceneDur * frac));
+            });
+          }
           window.__timelines["scla-steps"] = tl;
         })();
       </script>

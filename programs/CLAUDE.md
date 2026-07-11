@@ -8,4 +8,4 @@ Rules for work in this folder:
 - **Reference pages carry current-state facts only** — rationale, history, and status metadata go to `decisions/log.md`.
 - **One subfolder per program**, named by program slug (e.g. `early-career-boost/`). Create it with its first real content file, then add it to `README.md`.
 - **Never fabricate program facts** — unknowns stay `TODO: needs input`.
-- **Video production for program content** is a project, not a program doc: workflow in `projects/video-production/CLAUDE.md`, HeyGen script template at `projects/video-production/templates/heygen-lesson-script.md`.
+- **Video production for program content** is a project, not a program doc: workflow in `projects/video-production/CLAUDE.md`, HeyGen script template at `projects/video-production/script-templates/heygen-lesson-script.md`.

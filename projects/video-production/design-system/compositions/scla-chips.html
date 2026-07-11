@@ -9,7 +9,8 @@
     {"id":"accentIndex","type":"string","label":"1-based index of the gold-accent chip (empty = none)","default":""},
     {"id":"reveal","type":"string","label":"Chip entrance (pop | slide)","default":"pop"},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"07 / DEFINE"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"}
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
   ]'
 >
   <head>
@@ -178,6 +179,7 @@
             reveal: "pop",
             sceneIndex: "07 / DEFINE",
             theme: "summit",
+            sceneDuration: "10",
           };
           const vars = Object.assign(
             {},
@@ -210,8 +212,10 @@
           tl.fromTo("#cc-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1);
           tl.fromTo("#cc-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
           tl.fromTo("#cc-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.35);
-          tl.fromTo("#cc-ghost-ring", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
-          tl.fromTo("#cc-ghost-ring-2", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut):
+          // rings settle from half-visible, never from nothing.
+          tl.fromTo("#cc-ghost-ring", { opacity: 0.5, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+          tl.fromTo("#cc-ghost-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
 
           const chips = gsap.utils.toArray(".cc-chip");
           const cues = String(vars.chipCues || "")
@@ -230,9 +234,20 @@
             }
             tl.fromTo(chip, from, to, at);
           });
-          tl.fromTo(["#cc-index", "#cc-brandline"], { opacity: 0 }, { opacity: 1, duration: 0.5 }, 1.2);
+          tl.fromTo(["#cc-index", "#cc-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
           tl.fromTo("#cc-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut" }, 1.4);
           tl.fromTo("#cc-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
+          // Late-phase resolve (frame.md — the frame keeps resolving after the
+          // last cue): chips re-mark themselves in a quiet cascade on long holds.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          if (sceneDur > 7.5 && chips.length) {
+            const lastCue = cues.length ? Math.max.apply(null, cues) : 0;
+            [0.6, 0.84].forEach(function (frac) {
+              tl.fromTo(chips, { y: 0 }, { y: -9, scale: 1.03, duration: 0.45, ease: "sine.inOut",
+                stagger: 0.1, yoyo: true, repeat: 1 },
+                Math.max(2.4, lastCue + 1.2, sceneDur * frac));
+            });
+          }
           window.__timelines["scla-chips"] = tl;
         })();
       </script>

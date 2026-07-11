@@ -50,8 +50,8 @@ programs/               ← README.md (folder hub), CLAUDE.md (scoped context),
 partnerships/           ← NIC.md
 
 projects/               ← grants/ (one folder per grant, new-grant.sh scaffolder),
-                          video-production/ (scoped CLAUDE.md + templates/, incl.
-                          heygen-lesson-script.md; heygen-pipeline/ = HeyGen API
+                          video-production/ (scoped CLAUDE.md + script-templates/, incl.
+                          heygen-lesson-script.md; avatar-pipeline/ = HeyGen API
                           render code), kb-integration-plan.md
                           (FAQ→surfaces wiring plan), drive-review-brief.md
 ```
@@ -66,7 +66,7 @@ hooks/             ← live Claude Code hooks: governance-check.sh (structural
 scripts/           ← lint-refs.sh (health linter), setup.sh, merge-settings.py
 .claude/skills/    ← kb-audit, new-from-template
 templates/         ← project scaffolds (grant/campaign/content/program) + README.md hub;
-                     video script templates live in projects/video-production/templates/
+                     video script templates live in projects/video-production/script-templates/
 references/        ← per-connected-tool API notes (notion-api.md)
 audits/            ← kb-audit score snapshots
 _archive/          ← read-only provenance: source-dumps/ (raw Drive exports,

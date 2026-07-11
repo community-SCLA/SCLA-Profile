@@ -1,0 +1,96 @@
+LESSON CAPTURE — Early Career Boost
+Component type: lesson
+Section: 4 — BONUS: How to Career Plan for the AI-Era?
+Name: Do Not Just Ask What AI Replaces. Ask What It Changes.
+Source: https://app.thescla.org/admin/learning/programs/early-career-boost (Edit view)
+Captured: 2026-07-10
+Note: Curriculum includes a video with script (with on-screen graphic/design notes) and an AI-coach activity. Text captured verbatim from the lesson editor.
+
+===== CURRICULUM =====
+
+Do Not Just Ask What AI Replaces. Ask What It Changes.
+
+The most useful question about AI and your career is not "will it replace my job?" It is "how will it change my job?" Most roles are not deleted by new technology — they are reshaped. The tasks shift, the tools change, and the people who thrive are the ones who adapt what they focus on.
+
+A practical way to think about any role you are considering:
+
+What tasks in this role might AI do faster or cheaper? Assume those get automated or accelerated.
+
+What becomes more valuable as a result? Usually the judgment, relationships, creativity, and oversight around those tasks.
+
+How would I position myself toward that more-valuable part? That is your AI-era edge.
+
+Example: AI can draft a first pass of almost any document. That makes the drafting less scarce — and makes the person who knows what is worth saying, who can judge quality, and who owns the relationship with the audience more valuable. Aim yourself at that part.
+
+[▶ VIDEO] Lesson · Your Career in an AI World
+Script
+
+You are starting your career at a time when AI is moving quickly into many parts of work and learning.
+
+That can feel exciting, but it can also feel unsettling. People often ask: Will AI take jobs? Will it replace entry-level work? Will it make my path harder?
+
+Those are understandable questions. But for career planning, a more useful question is this: how can I become more valuable in a world where AI exists?
+
+[On screen: Split path graphic. Left side: "Compete with AI on routine tasks." Right side: "Use AI to amplify human strengths." The right side is highlighted.]
+
+AI is especially strong at speed, repetition, summarization, and generating first drafts. It can help gather information, organize notes, suggest ideas, and automate parts of a workflow.
+
+But there are still things that depend heavily on people: judgment, trust, communication, collaboration, ethical choices, context, and understanding what actually matters in a given situation.
+
+[Graphic: Durable skills stack appears: communication, critical thinking, adaptability, teamwork, judgment, initiative.]
+
+That means early-career learners do not need to panic. But they do need to adapt.
+
+The strongest mindset is not "I need to beat AI." It is "I need to learn how to work with tools while strengthening the human abilities that tools do not replace easily."
+
+In practical terms, that could mean learning how to use AI to support research, draft ideas, analyze information, or prepare for interviews. It could also mean practicing how to check AI output, improve it, and apply it responsibly.
+
+[On screen: A workflow appears: "Human question → AI draft → Human review → Better output."]
+
+In this module, you will explore how AI might influence the fields you are considering. Then you will identify one durable skill or one AI-supported habit you want to build. Finally, you will create a small 30-day experiment.
+
+The point is not to become an expert overnight. The point is to stop seeing AI only as a threat and start seeing it as a context you can learn inside.
+
+Your career will likely change many times. If you can learn how to adapt, use tools wisely, and keep developing human strengths, you will be better prepared than someone who only relies on static knowledge.
+
+Graphics and design notes
+
+Split path graphic: compete with AI versus work with AI.
+
+Durable skills stack.
+
+Human plus AI workflow card.
+
+Field scan graphic showing tasks that are assisted, automated, and still human-centered.
+
+AI-Activity: How AI Can Boost Your Work
+
+The scary question is "will AI replace my job?" It's also the least useful one, because it's mostly out of your hands and points to fear rather than action.
+
+The better question: "How is AI changing the work I want to do, and where does that create an opening for me?"
+
+When a tool makes part of a job cheap, it usually makes the surrounding work more valuable and often creates entirely new work. The person who spots that shift early — and gets good at the newly-valuable part — is in a far stronger position than the person waiting to find out if they're safe.
+
+So run your field through that lens: What's getting easier here? What becomes more valuable as a result? What could I do now that wasn't possible or needed a year ago? Curiosity beats dread — and it's a lot more useful.
+
+Let's make it concrete for your path.
+
+How to do this activity:
+
+Open the AI Coach [link to embedded AI chat].
+
+Bring the direction or field you identified earlier in the track.
+
+Paste the prompt below and work through the feedback.
+
+Save 2–3 concrete ideas — a skill to build, a tool to try, an emerging angle worth watching.
+
+Starter Prompts -(paste or adapt):
+
+"Here's a paragraph I wrote: [paste]. Give me three specific ways to make it stronger and clearer, keep my voice, and explain the reasoning so I can learn — don't just rewrite it for me."
+
+OR
+
+"You're my SCLA career coach. I'm early in my career and interested in [your field/direction]. Help me think through how AI is changing this kind of work. Specifically: (1) which parts are getting easier or automated, (2) which human skills are becoming more valuable as a result, and (3) 2–3 concrete things I could learn or do in the next few months to position myself well. Be specific and practical, and skip the doom — I want openings, not warnings."
+
+👉 You can't control how AI changes work, but you can decide to build judgment, range, and tool-fluency — and to look for the openings instead of the threats. That's a career-era advantage, not just a survival move.
