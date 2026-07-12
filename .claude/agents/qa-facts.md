@@ -44,8 +44,12 @@ End with exactly this structure:
 
 ```
 VERDICT: PASS | FAIL
-| severity | claim | finding | source evidence |
+| severity | defect-class | claim | finding | source evidence |
 ```
 
 severity: BLOCKER (unsupported/contradicted claim, missing source) or NOTE.
 Any BLOCKER ⇒ VERDICT: FAIL. Evidence = quoted source line (or "NO SOURCE").
+defect-class: a short, stable kebab-case slug naming the failure class (e.g.
+`fabricated-claim`, `unfiled-source`, `drifted-quote`). Reuse the same slug
+across renders for the same class — the snag-log retirement ledger tallies
+occurrences by it.

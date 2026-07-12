@@ -54,8 +54,12 @@ End with exactly this structure:
 
 ```
 VERDICT: PASS | FAIL
-| severity | t / range | finding | evidence |
+| severity | defect-class | t / range | finding | evidence |
 ```
 
 severity: BLOCKER (bare/default/dead frame, coverage hole, clipped audio) or
 NOTE. Any BLOCKER ⇒ VERDICT: FAIL. Evidence = frame path or slot attributes.
+defect-class: a short, stable kebab-case slug naming the failure class (e.g.
+`blank-flash`, `dead-hold`, `template-default-frame`). Reuse the same slug
+across renders for the same class — the snag-log retirement ledger tallies
+occurrences by it.

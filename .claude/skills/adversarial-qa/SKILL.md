@@ -91,9 +91,15 @@ the human QA gate still follows a clean gauntlet and is never replaced by it.
    fixed — pre-briefing a reviewer defeats the adversarial design. Checker
    output is machine evidence and is exempt from that rule.
 4. Collect the verdicts. Every lane replies with `VERDICT: PASS|FAIL` plus a
-   findings table (severity, scene/timestamp, description, evidence path).
+   findings table (severity, defect-class, scene/timestamp, description, evidence
+   path). The `defect-class` slug is what the snag-log retirement ledger tallies.
 5. Apply the release rule. On FAIL: fix, re-render, GOTO 1. On all-PASS: hand
    the lane reports to the human at the QA gate as supporting evidence.
+6. Record the outcome in `projects/video-production/render-qa/snag-log.md`. On any
+   FAIL, add each blocking finding to this session's entry as a `[defect]` line
+   with a `Caught-by: <lane> (<defect-class>)` note, and update the retirement
+   ledger (increment/reset the per-template tally per the log's own instructions).
+   This is what makes gauntlet retirement evidence-driven — see `snag-loop-design.md`.
 
 ## Bundled checkers (deterministic — the orchestrator runs them; lanes read the output)
 

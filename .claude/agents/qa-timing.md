@@ -58,9 +58,13 @@ End with exactly this structure:
 
 ```
 VERDICT: PASS | FAIL
-| severity | scene / t | finding | evidence |
+| severity | defect-class | scene / t | finding | evidence |
 ```
 
 severity: BLOCKER (violates a hard rule) or NOTE (drift within tolerance worth
 a look). Any BLOCKER ⇒ VERDICT: FAIL. Cite evidence as a file path or a
 transcript quote with timestamps — a finding without evidence is not a finding.
+defect-class: a short, stable kebab-case slug naming the failure class (e.g.
+`dup-word-anchor`, `uncued-reveal`, `boundary-mid-word`). Reuse the same slug
+across renders for the same class — the snag-log retirement ledger tallies
+occurrences by it.
