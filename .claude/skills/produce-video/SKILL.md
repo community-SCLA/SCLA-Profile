@@ -56,6 +56,11 @@ makes headless Chrome hang or die mid-render). Confirm the CLI pin (0.7.45 —
 never older; ≤0.7.44 silently renders template defaults, upstream #2064) matches
 `design-system/package.json` before init.
 
+Then read `projects/video-production/render-qa/snag-log.md` — scan the open
+retirement-ledger rows and the last few session entries and surface the known
+snags relevant to this build, so you avoid re-hitting them this run (this is the
+active-input half of the self-improvement loop).
+
 Then announce the plan: which video(s), and that you'll pause at the two gates.
 
 ### Step 1 — Script (draft / refine / verbatim) → approval gate
@@ -193,3 +198,16 @@ upload is pending). Drafted/approved scripts get committed to `main` per the rep
 PR flow. If a HyperFrames bug bit this run and isn't already filed, write it up and
 file it upstream before ending (heygen-com/hyperframes#2064 is the model: minimal
 repro, versions probed, workaround stated).
+
+**Snag retro (self-improvement loop) — do this before ending.** Append this
+session's retro to `projects/video-production/render-qa/snag-log.md`: every snag
+the run hit, each tagged `[env]/[tooling]/[authoring]/[upstream]/[defect]` with
+its resolution and rough time cost, plus a `Caught-by:` line for any gauntlet
+lane that FAILed (carry its `defect-class`). Then update the retirement ledger —
+increment the per-template clean-render tally for any open-with-fix snag class
+this render did not re-trip, and reset to zero any class that recurred. A lane
+becomes retirement-eligible only once its fix holds 5 clean renders on every one
+of the 9 templates; nominate it in the ledger, but the actual retirement is a
+human call logged in `decisions/log.md`. The upstream bug-filing above is the
+follow-through for the `[upstream]` tag. The render hook reminds you of this
+step, but it's owned here — do it even if the hook is silenced.
