@@ -6,7 +6,7 @@ Re-download Videos from HeyGen
 After upgrading your videos to a new motion engine (using heygen_update.py),
 HeyGen re-renders the videos in-place using the same video ID. This script
 polls each video's status and downloads the newly rendered version, overwriting
-the old files in ../renders-mov/.
+the old files in output/videos/.
 
 You only need this script after running heygen_update.py. For normal video
 generation, generate_videos.py handles downloading automatically.
@@ -34,7 +34,7 @@ HEYGEN_API_KEY = os.getenv("HEYGEN_API_KEY")
 
 # File paths (relative to this script)
 STATE_FILE = Path(__file__).parent / "state.json"
-VIDEOS_DIR = Path(__file__).parent.parent / "renders-mov"
+VIDEOS_DIR = Path(__file__).parent / "output" / "videos"
 
 # How many videos to download at the same time
 CONCURRENT_DOWNLOADS = 3

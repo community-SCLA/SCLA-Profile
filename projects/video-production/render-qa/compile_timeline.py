@@ -14,7 +14,7 @@ Authoring contract (in index.html):
   - every scene slot carries  data-anchor-end="<last spoken phrase of the scene>"
     (verbatim words from transcript.json; punctuation/case ignored)
   - scenes with reveal cues carry  data-cue-anchors='{"chipCues":["phrase",...],
-    "pointCues":[...], "stepCues":[...], "emphasisCues":[...], "mapCue":"phrase"}'
+    "pointCues":[...], "stepCues":[...], "mapCue":"phrase"}'
   - hand-written data-start / data-duration / numeric cues are placeholders;
     this tool owns them.
 
@@ -62,8 +62,8 @@ LEAD = 0.15          # silence before the next scene's first word
 FINAL_HOLD = 1.1     # final scene holds past the last word (1.0 rule + 0.1)
 AUDIO_TAIL = 0.05    # root must outlive the audio by at least this
 MAX_EXTRA_AIR = 0.9  # cap on surplus silence assigned to air-after
-CUE_KEYS = ("pointCues", "stepCues", "chipCues", "emphasisCues", "mapCue")
-LIST_PAIRS = {"chipCues": "chips", "emphasisCues": "emphasis"}
+CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue")
+LIST_PAIRS = {"chipCues": "chips"}
 
 
 def insert_silences(wav_path: Path, transcript_path: Path, insertions):

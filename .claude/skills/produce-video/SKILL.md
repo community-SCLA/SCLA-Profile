@@ -25,6 +25,8 @@ render them.
 
 1. **Never cross a human gate.** Script approval and QA are human-only — stop,
    post what's needed, hand control back. Don't self-approve to keep the run going.
+   Exception: a script already logged with a Refined date (and no Rendered date)
+   in `refinement-log.md` is treated as pre-approved — see Step 1's fast path.
 2. **Never fabricate SCLA content.** Draft only from provided source material; no
    FERPA/PII in any prompt. No source material given for a script that needs
    drafting → stop and say so.
@@ -65,7 +67,27 @@ Then announce the plan: which video(s), and that you'll pause at the two gates.
 
 ### Step 1 — Script (draft / refine / verbatim) → approval gate
 
-Determine the script's status by asking the user:
+**If the request names an existing script (a stem, a program+section, or a path
+under `lesson-scripts/`), check that program's row in
+`projects/video-production/lesson-scripts/refinement-log.md` before asking the
+user anything:**
+
+- **Refined date filled, Rendered empty** — the drafting/refinement work is
+  already done and the log's Refined date counts as approval. Skip the SCRIPT
+  GATE entirely — don't redraft, re-refine, or ask the user to re-approve — and
+  go straight to Step 2 with the file as it sits in `lesson-scripts/<program-slug>/`.
+  Tell the user which script you're proceeding with and why (log shows it refined
+  and unrendered) so the skip is visible, not silent.
+- **Rendered filled** — already produced. Flag this to the user instead of
+  re-running the pipeline; don't silently re-render.
+- **Refined blank (still a raw capture)** — needs the refinement pass below
+  before it can hit the gate. If the log also flags an open question (e.g. "does
+  this lesson need a video at all"), surface that to the user before drafting.
+- **Stem isn't in the log** — fall back to asking the user which of the three
+  cases below applies, same as any new script.
+
+Otherwise, or for anything the log doesn't resolve, determine the script's
+status by asking the user:
 
 - **Needs drafting** — draft narration from the source material using the matching
   `script-templates/` prompt (lesson → `heygen-lesson-script.md`; narration → `heygen-narration-prompt.md`;
@@ -73,6 +95,22 @@ Determine the script's status by asking the user:
   headings, or shot list.
 - **Provided as-is** — file verbatim, do not redraft.
 - **Provided, needs refinement** — refine per `## Refinement notes` + Notes; don't rewrite.
+
+**Refining is not compressing.** Strip structural capture noise hard — `LESSON
+CAPTURE` headers, `[VIDEO]`/`[IMAGE]` markers, on-screen-graphic notes, duplicated
+paragraphs, and inserted stat/survey tangents not in the source's own phrasing.
+But never cut a callback to what the viewer already built, named, or worked on —
+a named tool, a specific criterion, "Module N," their own purpose statement. Keep
+it specific; don't genericize it into a vague summary line ("In Module 2 you
+learned to compare options" is a worse read than "In Module 2 you learned the
+five criteria and built a repeatable way to compare options" — the concrete
+version is what makes a closing/recap lesson feel earned). When source content is
+an enumerated list (qualities, achievements, skills), keep every item or fold in
+true synonyms — don't quietly drop one while condensing prose around it.
+
+After drafting or refining a script that's tracked in `refinement-log.md`, update
+its row (Refined date, and open questions resolved) so the log stays the fast-path
+source of truth.
 
 Set the **stem** = `<section>_<program-slug>_<YYYY-MM-DD>` (naming: `lesson-scripts/README.md`)
 and save to `projects/video-production/lesson-scripts/<program-slug>/<stem>.txt`
@@ -131,8 +169,9 @@ The templates are the floor, not the finish. Before you size a scene:
   the spoken step, never deck position.
 - **Vary the motion** — pick reveals from `frame.md` → "Motion rotation" (don't
   invent effects from scratch); rotate list forms between consecutive scenes;
-  statements >~6s get `emphasis` + anchored `emphasisCues`; opening enumerations
-  get a `scla-chips` scene right after the title.
+  opening enumerations get a `scla-chips` scene right after the title.
+  `scla-statement` has no per-word emphasis — its built-in reading ripple +
+  late-phase resolve keeps long holds alive.
 - **Script the lists to land.** When drafting/refining (Step 1), spoken
   enumerations should resolve rather than trail off — end them as a question
   ("…mentorship, or growth?") or a closing item, so the scene can cut cleanly
@@ -176,13 +215,20 @@ default content instead of this lesson's, the CLI pin regressed below 0.7.45
 
 With `verify_render.py` green, run the **full `/adversarial-qa` gauntlet** on
 the MP4 — all four lanes in parallel, fed the shared `qa/frames/` evidence and
-the checker JSON. Release rule: the deterministic gate and every lane PASS or
-the cut is blocked; on a fix + re-render, re-run per the skill's scoped
+the checker JSON. This call is the enforcement: the settings.json render hook
+that used to auto-inject this reminder is now off by default, so nothing else
+will prompt you to do it. Release rule: the deterministic gate and every lane
+PASS or the cut is blocked; on a fix + re-render, re-run per the skill's scoped
 voiding rule (timing/audio/structure fix → all four again). Only a clean
 gauntlet proceeds to filing.
-Once verified, rename the MP4 to `<stem>` and move it beside its script in
-`../lesson-scripts/<program-slug>/`. Upload to Wistia (title = stem); the `.mp4` is **not**
-committed.
+Once verified, rename the MP4 to `<section>_<program>_<today's-date>` — same
+section/program as the script's stem, but today's date (the render date), not the
+script's approval date — and move it to `../renders-mp4/<program-slug>/`. Upload to
+Wistia (title = the new stem); the `.mp4` is **not** committed.
+
+If the script's stem is tracked in `lesson-scripts/refinement-log.md`, fill in its
+Rendered date + MP4/Wistia location now — that's what lets the next run of this
+skill know the script is done rather than re-offering it.
 
 ### Step 7 — Archive the workspace
 

@@ -99,11 +99,11 @@ a style choice. These are hard rules, checked at the QA gate.
   across its whole duration (progressive bullets, a building diagram, a moving
   illustration), never one entrance then ambient drift. Ring-breath is texture,
   not motion.
-- **Kinetic word emphasis on cue.** When a held line's key words are spoken
-  ("…more *thoughtful*, less *reactive*, and *grounded*…"), each word pops on its
-  timestamp — scale ~1.14 + gold flash, then settles (`scla-statement` →
-  `emphasis`/`emphasisCues`). Any statement scene longer than ~6s must carry
-  emphasis cues; a bare held sentence is a stagnation defect.
+- **No per-word emphasis.** `scla-statement` no longer supports timed per-word
+  pop/underline (`emphasis`/`emphasisCues` — removed 2026-07-11; the cue timing
+  never landed cleanly against the transcript). Statement scenes >~6s stay alive
+  via the template's built-in reading ripple + late-phase resolve instead —
+  no per-scene authoring needed.
 - **Furniture paints at t=0.** The scene's frame furniture — canvas texture,
   ghost rings, corner marks, scene index, brandline — is visible on the very
   first frame of every scene (entrances may settle it from ~50% opacity to
@@ -127,7 +127,7 @@ from `assets/voice/transcript.json` (the authoring contract, normative):
   — verbatim words from the transcript (punctuation/case ignored).
 - Every cue variable is anchored by phrases, not seconds:
   `data-cue-anchors='{"chipCues":["phrase", …], "pointCues":[…],
-  "stepCues":[…], "emphasisCues":[…], "mapCue":"phrase"}'` — one phrase per
+  "stepCues":[…], "mapCue":"phrase"}'` — one phrase per
   item, pulled from the transcript text, in spoken order.
 - The compiler owns `data-start`/`data-duration`, all numeric cue values,
   `sceneDuration`, the `<audio>` duration, and the root duration — and it
@@ -244,7 +244,7 @@ Reusable sub-compositions in `compositions/` — instantiate via
 | Lesson title card | `scla-title.html` | Navy | Opening line only — keep it short, never park it over content |
 | Key-point build | `scla-points.html` | Light | Up to 4 points, one per spoken cue (`pointCues`) |
 | Process / steps | `scla-steps.html` | Light | Sequential frameworks, up to 4 steps, activated on the spoken step (`stepCues`) |
-| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. Key words pop on cue (`emphasis`/`emphasisCues`) — required on statements >~6s |
+| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. Long holds stay alive via a built-in reading ripple + late-phase resolve (no per-word emphasis) |
 | Chip / word cluster | `scla-chips.html` | Light | Fast spoken lists (up to 8 items) as pill chips flashing on cue (`chips`/`chipCues`); `reveal:"slide"` = angles variant. Also the post-title opening-enumeration scene |
 | Career / route map | `scla-career-map.html` | Light | Comparing paths/options: 3 candidate paths draw on, gold route traces to the winner on `mapCue` (`winner` picks it) |
 | Quote card | `scla-quote.html` | Navy card on light | A line attributed to a **named person** only |
@@ -294,7 +294,7 @@ building; never reinvent one of these from scratch. Compose 2–4 per scene, max
 
 | Need | Recipe (skill · rule/blueprint) | Notes |
 | --- | --- | --- |
-| Word pops/glows as it's spoken | `hyperframes-animation` · `asr-keyword-glow` (karaoke variant) | Built into `scla-statement` `emphasisCues`; use rule directly for bespoke |
+| Word pops/glows as it's spoken | `hyperframes-animation` · `asr-keyword-glow` (karaoke variant) | Not built into any template (removed from `scla-statement` 2026-07-11); use the rule directly for a bespoke scene |
 | Highlight sweep / hand-drawn circle / scribble underline on a word | `hyperframes-animation` · `css-marker-patterns` | 5 pure-CSS marker emphases, timed to the word's start |
 | Pill/chip cluster popping on cues | `hyperframes-animation` · `spring-pop-entrance` (staggered pills) | Built into `scla-chips`; ≤0.5s stagger cap |
 | List/tiles beyond a numbered build | `hyperframes-animation` blueprint · `grid-card-assemble` | Cards/pills/list-lines cascade into a grid or vertical list |

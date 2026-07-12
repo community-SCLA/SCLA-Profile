@@ -14,7 +14,7 @@ This folder is the **code path** for HeyGen production — use it for repeatable
 
 Once a narration script is approved, save it directly into its program's folder under `../lesson-scripts/<program-slug>/` — the curated home for the approved script (the rendered video goes to Wistia, not here) — and point `config.json` at it there (e.g. `../lesson-scripts/early-career-boost/lesson-1.0_early-career-boost_2026-07-06.txt`). This is a single source of truth: the pipeline reads the script from its permanent home instead of a separate staging copy, so nothing needs moving except the rendered `.mp4` at the end. The local `scripts/` folder is reserved for `example-lesson.txt`, the generic onboarding demo used by the Quick Start below — not real production content.
 
-**Downstream (hosting):** finished MP4s land in `../renders-mov/` — once approved and QA-passed, rename per the [`lesson-scripts/README.md`](../lesson-scripts/README.md) convention and **upload to Wistia** (`sclc.wistia.com`); put the Wistia URL in the Notion row's **Final video** field. The `.mp4` is not committed to the repo — only the approved `.txt` script lives in `../lesson-scripts/<program-slug>/`.
+**Downstream (hosting):** finished MP4s land in `output/videos/` (self-contained, gitignored) — once approved and QA-passed, rename per the [`lesson-scripts/README.md`](../lesson-scripts/README.md) convention and **upload to Wistia** (`sclc.wistia.com`); put the Wistia URL in the Notion row's **Final video** field. The `.mp4` is not committed to the repo — only the approved `.txt` script lives in `../lesson-scripts/<program-slug>/`.
 
 ## Quick Start
 
@@ -185,7 +185,7 @@ Claude Code can help you customize and extend this pipeline. Here are some thing
 ```
 output/
   scripts/         # Exported and split text files
-../renders-mov/    # Downloaded HeyGen MP4 files
+  videos/          # Downloaded HeyGen MP4 files
 ```
 
 ## Troubleshooting

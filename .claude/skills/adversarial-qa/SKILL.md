@@ -68,9 +68,12 @@ the human QA gate still follows a clean gauntlet and is never replaced by it.
   deterministic pre-render, so Lanes 01/02/04 add nothing before an MP4 exists.
 - **Full gauntlet (post-render)** — after every render, before the human QA
   gate: `render-qa/verify_render.py` first, then all four lanes against the MP4
-  + shared evidence. This is not optional and not memory-dependent: a
-  PostToolUse hook in `.claude/settings.json` detects every HyperFrames render
-  command and injects this requirement into the session automatically.
+  + shared evidence. This is not optional. A PostToolUse hook in
+  `.claude/settings.json` can inject this requirement automatically after any
+  HyperFrames render command, but it's **disabled by default**
+  (`QA_GAUNTLET_HOOK_DISABLED=1`) — don't rely on it firing. `/produce-video`
+  Step 6 calls the gauntlet explicitly for this reason; any other caller must
+  do the same.
 
 ## How to run it
 

@@ -71,7 +71,7 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 - [ ] **The video ends on populated content** — final scene outlives the narration (check the wav's true duration with `ffprobe`) and holds its text ≥1s after the last word; no bare-canvas tail, no clipped audio
 - [ ] **Opening enumeration has its own scene** — the title card is off before the narration starts listing; listed items land as a kinetic reveal on their cues
 - [ ] **Reveal forms vary** — consecutive list scenes use different forms (chips pop / slide-in / numbered points / grid); a steps overview appears only where the narration enumerates the steps
-- [ ] **Statements ≥~6s carry word emphasis** — key words pop on their spoken cue (`emphasis`/`emphasisCues`), no bare held sentence
+- [ ] **Statements ≥~6s don't sit static** — no per-word emphasis; the template's built-in reading ripple + late-phase resolve should be enough, no bare held sentence
 
 ---
 

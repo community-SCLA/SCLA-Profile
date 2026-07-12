@@ -7,12 +7,12 @@
 # re-renderable source tree (HTML + frame.md + assets + configs).
 #
 # Usage:  bash scripts/archive-lesson.sh <script-stem>
-# Run AFTER the final MP4 is verified and filed in lesson-scripts/<program-slug>/.
+# Run AFTER the final MP4 is verified and filed in renders-mp4/<program-slug>/.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LESSONS="$REPO_ROOT/projects/video-production/renders-hyperframes"
-VIDEOS="$REPO_ROOT/projects/video-production/lesson-scripts"
+VIDEOS="$REPO_ROOT/projects/video-production/renders-mp4"
 
 STEM="${1:-}"
 if [[ -z "$STEM" ]]; then
@@ -29,8 +29,12 @@ DEST="$LESSONS/_archive/$STEM"
 [[ -e "$DEST" ]] && { echo "$DEST already exists — refusing to overwrite an archived build" >&2; exit 1; }
 
 # Safety: the deliverable must be filed before its workspace is retired.
-if ! find "$VIDEOS" -mindepth 2 -name "$STEM.mp4" | grep -q .; then
-  echo "No $STEM.mp4 found under lesson-scripts/<program-slug>/ — file the final render first." >&2
+# The filed MP4 keeps the script's section+program but swaps in the render date,
+# so match by that prefix rather than the exact script stem (which carries the
+# script's own date).
+BASE="${STEM%_*}"
+if ! find "$VIDEOS" -mindepth 2 -name "${BASE}_*.mp4" | grep -q .; then
+  echo "No ${BASE}_*.mp4 found under renders-mp4/<program-slug>/ — file the final render first." >&2
   exit 1
 fi
 

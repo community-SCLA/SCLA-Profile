@@ -20,7 +20,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `avatar-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 | `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production; delivered builds move to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh`. See its `README.md`. |
 | `lesson-scripts/` | Curated library — approved narration scripts, one folder per program (the rendered video goes to Wistia, not here). Naming convention in its `README.md`. |
-| `renders-mov/` | Local staging for finished avatar-rendered MP4s (gitignored) — `avatar-pipeline/generate_videos.py` downloads here before the Wistia upload. |
+| `renders-mp4/` | Local staging for finished **HyperFrames-rendered** MP4s (gitignored), one folder per program mirroring `lesson-scripts/` — viewable locally before the Wistia upload, named with the render date. See its `README.md`. Avatar-rendered MP4s stage separately, in `avatar-pipeline/output/videos/`. |
 | `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.agents/skills/`) — separate tool from `avatar-pipeline/`, for authoring HTML video compositions directly. |
 
 ## Tool Routing (Don't Mix These Up)
@@ -31,7 +31,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 - **HeyGen (avatar)** → translations/multilingual, quick-turn social talking heads, true human-presence moments
 - **HeyGen web UI vs. code path** → web UI for one-off/visually-designed videos; `avatar-pipeline/` for repeatable batch rendering from finalized scripts
 - **Synthesia** → long-form avatar courses — under re-evaluation (setup never completed; decide before any Enterprise commitment)
-- **Hosting / analytics** → **Wistia** (`sclc.wistia.com`) — the delivered MP4 is uploaded to Wistia at the publish gate; the Wistia URL goes in the Notion **Final video** field. Rendered MP4s are **not committed to the repo** (only the approved `.txt` script is tracked).
+- **Hosting / analytics** → **Wistia** (`sclc.wistia.com`) — the delivered MP4 is uploaded to Wistia at the publish gate; the Wistia URL goes in the Notion **Final video** field. Before upload, finished MP4s stage locally so they're viewable: HyperFrames renders in `renders-mp4/<program-slug>/`, avatar renders in `avatar-pipeline/output/videos/`. Rendered MP4s are **not committed to the repo** (only the approved `.txt` script is tracked).
 
 Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Enterprise** tier; HeyGen Business/Enterprise with weekly credit monitoring.
 

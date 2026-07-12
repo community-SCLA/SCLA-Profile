@@ -46,7 +46,7 @@ orchestrator already ran (machine evidence, not builder claims).
    items are NOT actually enumerated by the narration inside that scene's time
    range. The narration is the contract; the frame may not preview it.
 4. **Entrance drift (render mode)** — pick the 4–5 highest-risk cues (first
-   item of each enumeration, each emphasis word) and check frames at cue−0.3s
+   item of each enumeration) and check frames at cue−0.3s
    and cue+0.4s — use `qa/frames/` where the times line up, extract extras with
    `ffmpeg -ss <t> -i <mp4> -frames:v 1 <scratch>/t<t>.png` where they don't.
    The element must be absent before and present after. Read the frames; do not

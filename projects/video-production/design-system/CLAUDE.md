@@ -79,11 +79,12 @@ defaults (upstream heygen-com/hyperframes#2064, fixed in 0.7.45; probe-verified
      a thinking figure, a comparison, per-item icons entering on cue). Author
      bespoke illustrated scenes for any narration that describes something
      concrete — and give them the same anchor attributes.
-   - **Vary reveals + emphasize spoken words.** Rotate list forms (`scla-chips`
-     pop/slide, `scla-points`, grid cascade — `frame.md` → "Motion rotation");
-     statements >~6s carry `emphasis` + anchored `emphasisCues`; the opening
-     enumeration gets its own `scla-chips` scene right after the title;
-     `scla-steps` overview only when the narration enumerates the steps.
+   - **Vary reveals.** Rotate list forms (`scla-chips` pop/slide, `scla-points`,
+     grid cascade — `frame.md` → "Motion rotation"); the opening enumeration
+     gets its own `scla-chips` scene right after the title; `scla-steps`
+     overview only when the narration enumerates the steps. `scla-statement`
+     has no per-word emphasis — its built-in reading ripple + late-phase
+     resolve keeps long holds alive without per-scene authoring.
    - **Statement vs. quote.** A program/SCLA thesis is `scla-statement` (bold,
      unattributed). `scla-quote` is only for a **named person's** words.
    - **Numerals & index.** Scene index stays small in the lower-right. A hero

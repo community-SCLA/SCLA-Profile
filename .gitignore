@@ -30,5 +30,4 @@ __pycache__/
 projects/video-production/renders-hyperframes/*
 !projects/video-production/renders-hyperframes/README.md
 projects/video-production/lesson-scripts/**/*.mp4
-projects/video-production/renders-mov/*
-!projects/video-production/renders-mov/.gitkeep
+projects/video-production/renders-mp4/**/*.mp4
