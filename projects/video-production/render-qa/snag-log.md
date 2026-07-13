@@ -13,6 +13,12 @@ pipeline overhaul record).
   2026-07-10). Use translate-only pulses; the y-nudge pattern renders clean.
 - [env] `npx hyperframes tts` can resolve a Python without `kokoro_onnx` — set
   `HYPERFRAMES_PYTHON` to the interpreter that has it (also in /produce-video Step 0).
+- [upstream] hyperframes ≥0.7.56 removed `tts --provider` (kokoro is the only
+  built-in engine now) — run `tts` without it; `--voice`/`--speed` still work.
+  The /produce-video Step 2 command block predates this (2026-07-13).
+- [authoring] whisper emits em-dash compounds as ONE token (`buzzwords—just`);
+  anchor/cue phrases can't match inside them — quote the compound verbatim from
+  the transcript, or pick a phrase that clears it (2026-07-13).
 
 Resolved structurally (no longer live, kept for pattern-matching): zero-gap
 padding non-convergence (compile_timeline keys shifts by word index since
@@ -20,6 +26,15 @@ padding non-convergence (compile_timeline keys shifts by word index since
 bare-canvas entrance flashes (furniture paints at t=0 in all 9 templates).
 
 ## Session notes
+
+### 2026-07-13 · finding-creating-a-career-purpose-statement (first post-refactor run)
+- [upstream] `tts --provider` flag rejected by CLI 0.7.56 (flag removed upstream;
+  kokoro is the sole built-in engine) → dropped the flag. ~3 min. Skill Step 2
+  command block needs the same edit.
+- [observation] whisper transcript reads "I am honest enough" where the script
+  says "Specific enough" (~24s) — no script-vs-transcript gate exists to catch
+  TTS misreads; flagged for human QA listen. Full run report:
+  `oversight-brief_first-post-refactor-run_2026-07-13.md`.
 
 ### 2026-07-12 · career-building_early-career-boost (seed)
 - [env] `npx hyperframes tts` resolved the wrong Python; `kokoro_onnx` was missing
