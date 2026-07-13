@@ -50,9 +50,12 @@ d['$SESSION_ID'] = $CURRENT_COUNT
 json.dump(d, open(f, 'w'), indent=2)
 " 2>/dev/null
 
-# Read budget thresholds
-MAX_CALLS=$(python3 -c "import json; d=json.load(open('$BUDGET_FILE')); print(d['session']['max_tool_calls'])" 2>/dev/null || echo "80")
-WARN_CALLS=$(python3 -c "import json; d=json.load(open('$BUDGET_FILE')); print(d['session']['warn_at_tool_calls'])" 2>/dev/null || echo "60")
+# Read budget thresholds. Defaults raised 80->500 / 60->350 (2026-07-13): a full
+# /produce-video run (authoring + compile + preflight + render + verify + filing)
+# legitimately needs 150-300 calls; the 80-call hard block killed video sessions
+# mid-build and forced context-losing restarts. 500 still guards runaway loops.
+MAX_CALLS=$(python3 -c "import json; d=json.load(open('$BUDGET_FILE')); print(d['session']['max_tool_calls'])" 2>/dev/null || echo "500")
+WARN_CALLS=$(python3 -c "import json; d=json.load(open('$BUDGET_FILE')); print(d['session']['warn_at_tool_calls'])" 2>/dev/null || echo "350")
 
 # Hard limit: block and log
 if [ "$CURRENT_COUNT" -ge "$MAX_CALLS" ]; then

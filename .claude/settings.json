@@ -15,100 +15,16 @@
       "Bash(cp *)",
       "Bash(python3 *)",
       "Bash(./sync.sh)",
-      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
-      "mcp__plugin_context-mode_context-mode__ctx_search",
-      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
-      "mcp__claude_ai_Slack__slack_search_channels",
-      "mcp__claude_ai_Slack__slack_read_channel",
-      "mcp__plugin_playwright_playwright__browser_navigate"
-    ],
-    "ask": [
-      "Bash(find:*)"
-    ],
-    "deny": [
-      "Bash(git push --force:*)",
+      "Bash(find:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
       "Bash(tail:*)"
-    ]
+    ],
+    "ask": [],
+    "deny": []
   },
   "skillOverrides": {
     "onboard": "off"
-  },
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash hooks/skill-eval.sh"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash hooks/pre-tool.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash hooks/governance-check.sh"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash hooks/post-tool.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "c=$(jq -r \".tool_input.command // \\\"\\\"\"); if printf \"%s\" \"$c\" | grep -Eq \"(^|[;&|]) *([A-Z_]+=[^ ]* )*(npm run render|npx (--yes )?hyperframes(@[^ ]*)?( lambda)? render)\"; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"RENDER GATE (automated hook): a HyperFrames render command just ran. Before filing, uploading, or presenting this cut at the human QA gate, run the /adversarial-qa FULL GAUNTLET on the rendered MP4 \\u2014 spawn all four lanes (qa-timing, qa-layout, qa-facts, qa-presence) in parallel. Release rule: all four must PASS; one FAIL blocks the cut; any fix + re-render voids every prior clear and requires re-running all four lanes.\"}}'; fi",
-            "timeout": 10,
-            "statusMessage": "Checking for HyperFrames render \u2192 adversarial-qa gate"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [ \"${VIDEO_SNAG_RETRO_HOOK_DISABLED:-0}\" = \"1\" ]; then exit 0; fi; c=$(jq -r \".tool_input.command // \\\"\\\"\"); if printf \"%s\" \"$c\" | grep -Eq \"(^|[;&|]) *([A-Z_]+=[^ ]* )*(npm run render|npx (--yes )?hyperframes(@[^ ]*)?( lambda)? render)\"; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"SNAG RETRO (automated hook): a HyperFrames render ran this session. Before you end the session \\u2014 after QA \\u2014 append a retro entry to projects/video-production/render-qa/snag-log.md: every snag this session hit, each tagged [env]/[tooling]/[authoring]/[upstream]/[defect] with its resolution and rough time cost, plus a Caught-by: line naming any gauntlet lane that FAILed and its defect-class. Then update the retirement ledger for any snag class that recurs (per-template clean tally; a lane is retirement-eligible only after its fix holds 5 clean renders on every template).\"}}'; fi",
-            "timeout": 10,
-            "statusMessage": "Render detected → write snag-log retro before session end (set VIDEO_SNAG_RETRO_HOOK_DISABLED=1 to silence)"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash hooks/stop.sh"
-          }
-        ]
-      }
-    ]
   },
   "enabledPlugins": {
     "superpowers@superpowers-dev": true
