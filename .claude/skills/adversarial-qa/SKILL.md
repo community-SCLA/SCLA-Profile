@@ -1,6 +1,6 @@
 ---
 name: adversarial-qa
-description: On-demand adversarial deep audit for SCLA video builds — four independent reviewer lanes (Timing, Layout, Facts, Presence) try to break a cut. NOT part of the default /produce-video run (deterministic gates + builder self-review + the human QA gate cover it). Invoke only when the user explicitly asks ("QA the render", "try to break it", "run the gauntlet", "adversarial review") or as escalation when a human rejects a cut and the cause isn't obvious.
+description: On-demand adversarial deep audit for SCLA video builds — four independent reviewer lanes (Timing, Layout, Facts, Presence) try to break a cut. NOT part of the default /render-lessons run (deterministic gates + builder self-review + the human hyperframe gate and MP4 review cover it). Invoke only when the user explicitly asks ("QA the render", "try to break it", "run the gauntlet", "adversarial review") or as escalation when a human rejects a cut and the cause isn't obvious.
 ---
 
 # adversarial-qa — try to break the render (escalation tool)
@@ -34,8 +34,8 @@ already rejects.
 | 03 Facts | `qa-facts` | MISMATCH — script claim vs source | script `.txt` vs source material |
 | 04 Presence | `qa-presence` | GAPS — empty/default/dead frames | checker JSON + frames |
 
-Lane 03 (Facts) can also run alone at script stage — /produce-video Step 1 uses
-it that way for scripts drafted from source material, since facts are a property
+Lane 03 (Facts) can also run alone at script stage — /refine-scripts uses
+it that way for scripts drafted/refined from source material, since facts are a property
 of the script, not the render.
 
 ## How to run it
