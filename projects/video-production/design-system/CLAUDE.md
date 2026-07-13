@@ -9,8 +9,9 @@ Decision record: repo-root `decisions/log.md` (2026-07-07, revamped 2026-07-08).
 
 **Read `frame.md` first** — it is the design spec (normative tokens + frame
 rules + the anchor/timing contract + templates + style packages + motion
-rotation). **The build sequence and every command are owned by `/produce-video`**
-— this file does not restate them. For HyperFrames authoring mechanics, the
+rotation). **The build sequence and every command are owned by `/render-lessons`**
+(`/produce-video` is the one-call dispatcher over it and `/refine-scripts`) —
+this file does not restate them. For HyperFrames authoring mechanics, the
 composition contract lives in `/hyperframes-core`.
 
 ## What's here
@@ -33,7 +34,7 @@ npm run render   # re-render the demo reel after template changes
 ```
 
 Environment landmines (pkill bracket, /dev/shm size, CLI pin 0.7.45+/#2064,
-HYPERFRAMES_PYTHON) are documented once, in `/produce-video` Step 0.
+HYPERFRAMES_PYTHON) are documented once, in `/render-lessons` Phase BUILD Step B0.
 
 ## Template rules
 
@@ -69,6 +70,6 @@ word timestamps, which removes the transcribe step.
 
 Quality is enforced by the deterministic gates
 (`../render-qa/{compile_timeline,preflight,verify_render}.py`), the builder's
-frame review, and the **human QA gate** on the rendered MP4 — see
-`/produce-video` Steps 5–6. `/adversarial-qa` (four cold-context reviewer
+frame review, and the two human checkpoints — the hyperframe preview gate
+before any MP4, and MP4 review before Wistia — see `/render-lessons`. `/adversarial-qa` (four cold-context reviewer
 lanes) is an on-demand escalation, not a standing per-render gauntlet.

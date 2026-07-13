@@ -92,6 +92,12 @@ check("stem resolves to lesson-scripts/<slug>/<stem>.txt",
       and found.parent.name == "early-career-boost")
 check("malformed stem (no 3 parts) returns None",
       locate_script(ws.parent / "just-one-part", scripts_root=root) is None)
+refined_dir = root / "early-career-boost" / "refined"
+refined_dir.mkdir()
+(refined_dir / f"{STEM}.txt").write_text(SCRIPT)
+check("refined/ copy wins over program root",
+      locate_script(ws, scripts_root=root).parent.name == "refined")
+(refined_dir / f"{STEM}.txt").unlink()
 
 print("== gate: clean match passes ==")
 sec = check_script_match(ws, scripts_root=root)

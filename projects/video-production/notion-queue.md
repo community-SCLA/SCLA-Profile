@@ -1,5 +1,14 @@
 # Video Request Queue (Notion)
 
+> **⚠️ RETIRED AS INTAKE — 2026-07-13.** Do not work this queue as a request
+> pipeline. Scripts now enter as `.txt` files at `lesson-scripts/<program-slug>/`
+> root and flow through `/refine-scripts` → `/render-lessons` (see
+> `../CLAUDE.md` → Tool Routing). Notion's remaining role — Wistia-link ledger
+> for delivered lessons, and the fate of the "SCLA video queue worker" polling
+> routine (`endpoints.md` → "Claude Code routines") — is an **open decision**;
+> until it lands, the Wistia URL is recorded in `lesson-scripts/refinement-log.md`
+> and this file is kept only as the description of the old flow.
+
 The team-facing intake for video production. Anyone at SCLA requests a video by
 adding a row to the Notion queue — no Claude Code required. A Claude session
 works the queue end-to-end; humans hold exactly two gates (script approval, QA).

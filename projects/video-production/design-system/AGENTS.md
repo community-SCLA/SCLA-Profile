@@ -5,10 +5,11 @@
 **Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.
 
 **This is SCLA's illustrated-lesson design-system project.** Every SCLA
-lesson/program video is produced by **`/produce-video`** — the one-call pipeline
-that owns the build sequence and every command (script → build → render → verify →
-file). Start there; do not route SCLA lesson videos into generic HyperFrames
-workflow skills.
+lesson/program video runs through the two-skill pipeline: **`/refine-scripts`**
+(raw script → `refined/`) and **`/render-lessons`** (refined script → hyperframe
+→ human preview gate → MP4; owns the build sequence and every command).
+`/produce-video` is the one-call dispatcher over both. Start there; do not
+route SCLA lesson videos into generic HyperFrames workflow skills.
 
 - **Design contract:** `frame.md` in this folder — normative tokens, frame/animacy
   rules, the anchor/timing contract, the nine scene templates, and the style
@@ -17,8 +18,8 @@ workflow skills.
   contract), `/hyperframes-animation`, `/hyperframes-creative`, `/hyperframes-cli`,
   `/hyperframes-media`, `/hyperframes-registry`.
 - **Deep QA:** `/adversarial-qa` — on-demand adversarial audit (four cold-context
-  reviewer lanes), an escalation only; the deterministic gates + human QA gate in
-  `/produce-video` are the standing quality bar.
+  reviewer lanes), an escalation only; the deterministic gates + the human
+  hyperframe gate in `/render-lessons` are the standing quality bar.
 
 > **Tailwind v4 projects** (`hyperframes init --tailwind`): see `/hyperframes-core` → `references/tailwind.md`.
 

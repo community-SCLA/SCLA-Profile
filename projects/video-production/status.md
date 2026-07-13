@@ -25,7 +25,7 @@
 - [ ] Contact HeyGen sales re: education pricing
 
 ### Hosting / analytics (Wistia)
-- [x] Decide hosting/analytics platform — **Wistia** (`sclc.wistia.com`); decided 2026-07-08 (`decisions/log.md`)
+- [x] Decide hosting/analytics platform — **Wistia** (account URL: `endpoints.md` → "Wistia"); decided 2026-07-08 (`decisions/log.md`)
 - [ ] Set up channel/folder structure matching content
 - [ ] Configure player branding (SCLA colors, logo)
 - [ ] Generate API key and test embed codes in the course platform

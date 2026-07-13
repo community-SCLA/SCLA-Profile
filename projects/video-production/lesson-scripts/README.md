@@ -1,19 +1,32 @@
-# Lesson Scripts — organized by program
+# Lesson Scripts — organized by program, state = folder
 
-Approved narration **scripts**, filed one folder per program. This is the curated library and single source of truth for scripts — a script lands here as soon as it's approved. The rendered video does **not** live here: finished MP4s are uploaded to **Wistia** (`sclc.wistia.com`) and are not committed to the repo (see [`decisions/log.md`](../../../decisions/log.md), 2026-07-08). The Wistia link is recorded on the video's Notion queue row (**Final video** field). This folder tracks the durable source (the `.txt`); Wistia holds the build output.
+Narration **scripts**, one folder per program. The rendered video does **not**
+live here: finished MP4s are uploaded to **Wistia** (account + auth status:
+repo-root `endpoints.md` → "Wistia") and are not committed to the repo (see
+[`decisions/log.md`](../../../decisions/log.md), 2026-07-08). This folder
+tracks the durable source (the `.txt`); Wistia holds the build output.
 
-**Before rendering a script, check [`refinement-log.md`](refinement-log.md)** — it tracks each script's created/refined/rendered dates so agents can tell which `.txt` files are actually render-ready vs. still raw platform captures.
-
-## Structure
+## Structure — a script's location IS its state
 
 ```
 lesson-scripts/
   <program-slug>/
-    <section>_<program>_<date>.txt    ← approved narration script (tracked)
-                                       ← video → Wistia (not in git); link on the Notion row
+    <stem>.txt            ← RAW intake — /refine-scripts' queue; do not render
+    refined/<stem>.txt    ← refined + facts-checked — /render-lessons' BUILD queue
+                            and the open human review buffer (edit/veto any time)
+    rendered/<stem>.txt   ← published — MP4 filed in ../renders-mp4/ and on Wistia
 ```
 
-One subfolder per program; the slug matches its folder in [`programs/`](../../../programs/). Live programs:
+Between `refined/` and `rendered/` a lesson's in-flight state lives outside
+this folder: a `../renders-hyperframes/<stem>/` workspace = built, waiting at
+the human **hyperframe gate**; an MP4 in `../renders-mp4/<program-slug>/` =
+shipped, waiting at human **MP4 review**. No table needs consulting —
+[`refinement-log.md`](refinement-log.md) is a ledger (history for humans),
+never a decision input.
+
+Create `refined/`/`rendered/` with their first file (`mkdir -p`), not ahead of
+need. One subfolder per program; the slug matches its folder in
+[`programs/`](../../../programs/). Live programs:
 
 | Folder | Program |
 |---|---|
@@ -21,7 +34,9 @@ One subfolder per program; the slug matches its folder in [`programs/`](../../..
 | `career-readiness-accelerator/` | Career Readiness Accelerator |
 | `scla-leadership-program/` | SCLA Leadership Program |
 
-Add a new folder only when a program actually starts producing videos — match the `programs/` slug, and log it in [`decisions/log.md`](../../../decisions/log.md) per [GOVERNANCE.md](../../../GOVERNANCE.md).
+Add a new program folder only when it actually starts producing videos —
+match the `programs/` slug and log it in `decisions/log.md` per
+[GOVERNANCE.md](../../../GOVERNANCE.md).
 
 ## Naming convention
 
@@ -31,23 +46,35 @@ Add a new folder only when a program actually starts producing videos — match 
 
 - **section** — the course section the video teaches, kebab-case: `brand-you-intro`, `smart-goals`, `hidden-job-market-1`.
 - **program** — the program slug, matching the folder name: `early-career-boost`.
-- **date** — production/render date, ISO `YYYY-MM-DD`.
+- **date** — for the `.txt`: capture/approval date; the stem stays unchanged as the file moves between state folders.
 
-Underscores separate the three parts; hyphens go *inside* a part. The rendered video reuses the script's section and program, but **swaps the date for
-the render date** — not the script's approval date — so a video rendered well after
-its script was approved doesn't carry a stale date. Source and deliverable stay
-traceable by section+program even when the dates differ:
+Underscores separate the three parts; hyphens go *inside* a part. The rendered
+video reuses section+program but **swaps the date for the render date**, so a
+video rendered well after its script doesn't carry a stale date — source and
+deliverable stay traceable by section+program:
 
 ```
-smart-goals_scla-leadership-program_2026-07-06.txt   ← here, in git (approved 07-06)
-smart-goals_scla-leadership-program_2026-07-11        ← Wistia video title (rendered 07-11)
+smart-goals_scla-leadership-program_2026-07-06.txt   ← refined/ (approved 07-06)
+smart-goals_scla-leadership-program_2026-07-11        ← MP4 stem + Wistia title (rendered 07-11)
 ```
 
 Lowercase throughout. No spaces, no `+`, no capitals — keeps filenames safe across shells, URLs, and Wistia titles.
 
-## How scripts and videos land here
+## How scripts move
 
-- **The script comes first.** Once narration is approved (script → render is a manual gate — see `../CLAUDE.md`), save it directly here as `<section>_<program>_<date>.txt` — this is its permanent home. `avatar-pipeline/config.json` points at the file here to render it.
-- **The rendered video goes to Wistia, not here — it never lands in this folder.** Both build paths produce an MP4 locally in their own staging spot first: the [avatar pipeline](../avatar-pipeline/CLAUDE.md) downloads to `avatar-pipeline/output/videos/`; HyperFrames renders file to [`../renders-mp4/<program-slug>/`](../renders-mp4/README.md) (named with the render date, not the script's date — see that folder's README). At the publish gate, upload from there to Wistia (title = the filed MP4's stem) and paste the Wistia URL into the Notion row's **Final video** field. `.gitignore` also blocks `lesson-scripts/**/*.mp4` as a backstop.
+- **In:** a raw capture or draft lands at the program root. `/refine-scripts`
+  drains roots into `refined/` (one subagent per script + qa-facts pass);
+  scripts with open human questions stay at root with a ledger note.
+- **Through:** `/render-lessons` BUILD drains `refined/` into hyperframe
+  workspaces and stops at the human hyperframe gate; SHIP (per stem, on human
+  go) renders + files the MP4 into [`../renders-mp4/`](../renders-mp4/README.md)
+  for human MP4 review.
+- **Out:** PUBLISH (per stem, on human go) uploads to Wistia, records the URL
+  in the ledger, and `git mv`s the `.txt` to `rendered/`.
+- The avatar path ([`../avatar-pipeline/`](../avatar-pipeline/CLAUDE.md))
+  reads scripts from `refined/` via `config.json` and stages its MP4s in
+  `avatar-pipeline/output/videos/`.
 
-The `.txt` here is the plain spoken narration (no cues, no shot list) — the same text the avatar read. See [`script-templates/heygen-narration-prompt.md`](../script-templates/heygen-narration-prompt.md) for producing it.
+The `.txt` is plain spoken narration only (no cues, no shot list). Refinement
+rules live in `/refine-scripts`; drafting prompt templates in
+[`../script-templates/`](../script-templates/).

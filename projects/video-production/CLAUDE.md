@@ -9,7 +9,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | File | Purpose |
 |---|---|
 | `status.md` | Live production status — setup checklist, owner, accounts, blockers |
-| `notion-queue.md` | **Team-facing intake** — the Notion video request queue: flow, status gates, database schema. How non-Claude-Code team members request videos and how a session works the queue. |
+| `notion-queue.md` | Notion queue doc — **retired as intake 2026-07-13** (scripts now enter at `lesson-scripts/<program-slug>/` root). Notion's remaining role (Wistia-link ledger, routine fate) is an open decision; the file documents the old flow until that lands. |
 | `script-templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (program-agnostic). Worked example: `programs/early-career-boost/video-style.md` |
 | `script-templates/course-script-prompt.md` | Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
 | `script-templates/heygen-narration-prompt.md` | Claude prompt for plain narration → `avatar-pipeline/` (no cues to strip) |
@@ -19,27 +19,32 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `design-system/` | **SCLA video design system** — nine branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
 | `avatar-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 | `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production; delivered builds move to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh`. See its `README.md`. |
-| `lesson-scripts/` | Curated library — approved narration scripts, one folder per program (the rendered video goes to Wistia, not here). Naming convention in its `README.md`. |
+| `lesson-scripts/` | Curated script library, one folder per program — **a script's folder is its state**: raw at root → `refined/` → `rendered/` (the video itself goes to Wistia, not here). Naming + state semantics in its `README.md`; `refinement-log.md` is the human-facing ledger. |
 | `renders-mp4/` | Local staging for finished **HyperFrames-rendered** MP4s (gitignored), one folder per program mirroring `lesson-scripts/` — viewable locally before the Wistia upload, named with the render date. See its `README.md`. Avatar-rendered MP4s stage separately, in `avatar-pipeline/output/videos/`. |
 | `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.agents/skills/`) — separate tool from `avatar-pipeline/`, for authoring HTML video compositions directly. |
 
 ## Tool Routing (Don't Mix These Up)
 
-- **Produce a video end to end (local)** → `/produce-video` — the one-call orchestrator that walks the full pipeline (script → build → render → verify → file → archive) from a Notion row or a raw script, stopping only at the two human gates. This is the render-capable half the cloud queue routine can't run.
-- **Video requests from the team** → the Notion queue (`notion-queue.md`) — the default intake; "work the video queue" means processing its rows
+- **Produce a video end to end (local)** → `/produce-video` — the thin dispatcher over the two workhorse skills: `/refine-scripts` (raw script → `refined/`, one cold subagent per script) then `/render-lessons` BUILD (refined script → HyperFrames workspace, one cold subagent per video). It always stops at the hyperframe gate; `ship <stem>` and `publish <stem>` are explicit human calls into `/render-lessons`.
+- **Script/lesson state** → the folder it sits in (`lesson-scripts/README.md`) — raw at program root, `refined/`, workspace at the hyperframe gate, MP4 at review, `rendered/`. `refinement-log.md` is a ledger, never a decision input.
+- **Notion intake** → retired as intake 2026-07-13; scripts enter as `.txt` files at `lesson-scripts/<program-slug>/` root. What remains in Notion (Wistia-link ledger, the polling routine's fate) is an open decision — until settled, `notion-queue.md` describes the old flow and the Wistia URL lives in `refinement-log.md`.
 - **Illustrated lesson videos (default for concept lessons, frameworks, processes)** → HyperFrames via `design-system/` — brand-owned motion graphics + pinned TTS voice, no per-minute avatar credits; one of three style packages per video (`design-system/frame.md` → "Style packages")
 - **HeyGen (avatar)** → translations/multilingual, quick-turn social talking heads, true human-presence moments
 - **HeyGen web UI vs. code path** → web UI for one-off/visually-designed videos; `avatar-pipeline/` for repeatable batch rendering from finalized scripts
 - **Synthesia** → long-form avatar courses — under re-evaluation (setup never completed; decide before any Enterprise commitment)
-- **Hosting / analytics** → **Wistia** (`sclc.wistia.com`) — the delivered MP4 is uploaded to Wistia at the publish gate; the Wistia URL goes in the Notion **Final video** field. Before upload, finished MP4s stage locally so they're viewable: HyperFrames renders in `renders-mp4/<program-slug>/`, avatar renders in `avatar-pipeline/output/videos/`. Rendered MP4s are **not committed to the repo** (only the approved `.txt` script is tracked).
+- **Hosting / analytics** → **Wistia** (account, upload mechanics, auth status: repo-root `endpoints.md` → "Wistia") — the human-reviewed MP4 is uploaded at `/render-lessons` PUBLISH; the URL is recorded in `refinement-log.md`. Before upload, finished MP4s stage locally so they're viewable: HyperFrames renders in `renders-mp4/<program-slug>/`, avatar renders in `avatar-pipeline/output/videos/`. Rendered MP4s are **not committed to the repo** (only the `.txt` script is tracked).
 
 Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Enterprise** tier; HeyGen Business/Enterprise with weekly credit monitoring.
 
 ## Critical Rules
 
 - **Never fabricate SCLA course content** — always work from provided outlines/source material
-- **Always flag scripts for human approval** before render — script → render is a manual gate, never automated
-- **QA model (2026-07-13)** — deterministic gates (`render-qa/preflight.py` pre-render, `render-qa/verify_render.py` post-render) must pass, the builder reviews the `qa/frames/` dump, and the human QA gate reviews the rendered MP4. `/adversarial-qa` (four cold-context reviewer lanes) is an on-demand deep audit — run it when a cut resists diagnosis or the user asks to "try to break it", not on every render. Facts are checked once at script stage (`/produce-video` Step 1), not per render
+- **Two human checkpoints (2026-07-13, replaces the old script/QA gates — see `decisions/log.md`):**
+  1. **HYPERFRAME GATE** — a human previews every built hyperframe before it may become an MP4. Hyperframe → MP4 runs only on an explicit `ship <stem>`. **No automation ever takes a script to an MP4 in one shot.**
+  2. **MP4 REVIEW** — a human watches every filed MP4 before Wistia. Upload runs only on an explicit `publish <stem>`.
+  Script approval is **async, not blocking**: `refined/` is an open review buffer (edit/veto any time), guarded by the mandatory qa-facts pass at refinement and the script-vs-transcript diff gate in `preflight.py`. Never self-approve either checkpoint.
+- **QA model (2026-07-13)** — deterministic gates (`render-qa/preflight.py` pre-render, `render-qa/verify_render.py` post-render) must pass and the builder reviews the `qa/frames/` dump before each human checkpoint. `/adversarial-qa` (four cold-context reviewer lanes) is an on-demand deep audit — run it when a cut resists diagnosis or the user asks to "try to break it", not on every render. Facts are checked once at script stage (`/refine-scripts`), not per render
+- **Self-improvement loop (2026-07-13)** — every render/build session ends by prepending an entry to `render-qa/snag-log.md` per its header rules (hook-enforced): sessions read **only the latest entry**, unresolved items roll forward until fixed, and a non-empty Open list leads the close-out report so the human is notified every session
 - **No FERPA/PII data** in any prompt sent to an AI tool
 
 ## Brand

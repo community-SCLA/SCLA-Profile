@@ -87,13 +87,19 @@ def diff_script_transcript(script_toks, heard_toks):
 
 
 def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
-    """Workspace dir name is the script stem <section>_<program-slug>_<date>;
-    the approved script is lesson-scripts/<program-slug>/<stem>.txt."""
+    """Workspace dir name is the script stem <section>_<program-slug>_<date>.
+    Scripts live in state folders (location = lifecycle state):
+    refined/ (render queue) is the normal home while a build exists; root is
+    raw intake; rendered/ covers re-verification of a shipped lesson."""
     parts = ws.name.split("_")
     if len(parts) != 3:
         return None
-    candidate = scripts_root / parts[1] / f"{ws.name}.txt"
-    return candidate if candidate.is_file() else None
+    program = scripts_root / parts[1]
+    for sub in ("refined", "", "rendered"):
+        candidate = program / sub / f"{ws.name}.txt"
+        if candidate.is_file():
+            return candidate
+    return None
 
 
 def check_script_match(ws: Path, script_path=None, scripts_root=LESSON_SCRIPTS):

@@ -1,40 +1,67 @@
-# Snag log — render-session memory
+# Snag log — rolling render-session memory
 
-Cross-session memory for SCLA video production. `/produce-video` Step 0 reads
-**Known snags** before building; Step 7 appends anything new. Keep it small and
-actionable — this is a checklist, not a ledger. History lives in the dated
-session notes below (append-only). Sibling: `BUILD-LOG.md` (the 2026-07-10
-pipeline overhaul record).
+**Read rule: ONLY the latest entry** — the first `## ` section below (use Read
+with a line limit; never load the whole file). Every entry is self-contained:
+its **Open** list carries every unresolved item forward, so the newest entry
+is always the complete current state. Everything under it is append-only trail.
 
-## Known snags — read before building
+**Write rule** (every `/refine-scripts` / `/render-lessons` close-out;
+hook-enforced after any render): **prepend** a new dated entry with three parts:
 
-- [upstream] Idle pulses that animate `scale` + SVG `opacity` together can leave
-  ghost/double-draw artifacts in the streaming encode (seen on scla-career-map,
-  2026-07-10). Use translate-only pulses; the y-nudge pattern renders clean.
-- [env] `npx hyperframes tts` can resolve a Python without `kokoro_onnx` — set
-  `HYPERFRAMES_PYTHON` to the interpreter that has it (also in /produce-video Step 0).
-- [upstream] hyperframes ≥0.7.56 removed `tts --provider` (kokoro is the only
-  built-in engine now) — run `tts` without it; `--voice`/`--speed` still work.
-  The /produce-video Step 2 command block predates this (2026-07-13).
-- [authoring] whisper emits em-dash compounds as ONE token (`buzzwords—just`);
-  anchor/cue phrases can't match inside them — quote the compound verbatim from
-  the transcript, or pick a phrase that clears it (2026-07-13).
+- **Open** — copy each still-unresolved item from the previous entry verbatim
+  (keep its `since YYYY-MM-DD`), add anything this session found but couldn't
+  fix. **If this list is non-empty, the close-out report to the human must
+  lead with it** — the human is notified every session until an item dies.
+  An item is closed by fixing it; it then simply doesn't appear again.
+- **Fixed this session** — snags hit and resolved, tagged
+  `[env]/[tooling]/[authoring]/[upstream]/[defect]`, with resolution + time cost.
+- **Promoted to docs** — durable lessons do NOT accumulate here: fix the owning
+  doc (the skill's command block, `frame.md`, a preflight/verify check) in the
+  same session and note where it went. The doc is the memory; this log is the
+  trail that proves the loop ran.
 
-Resolved structurally (no longer live, kept for pattern-matching): zero-gap
-padding non-convergence (compile_timeline keys shifts by word index since
-2026-07-13); hand-typed timing drift (compiler owns all numbers since 2026-07-10);
-bare-canvas entrance flashes (furniture paints at t=0 in all 9 templates).
+Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
-## Session notes
+## 2026-07-13 · pipeline v3 — folder-state model, three-phase render-lessons (no render this session)
+
+**Open:**
+- [owner] `better-decisions` release blocked: the lesson body/outline was never
+  filed as source material, so the facts lane cannot verify its framework
+  (since 2026-07-10).
+- [owner] Unattended build phases still prompt for permissions: `npm`, `npx`,
+  `pkill`, `sudo mount`, `ffmpeg`, `ffprobe`, `bash scripts/archive-lesson.sh`
+  are not in `.claude/settings.json` allow (since 2026-07-13).
+- [env] claude-mem plugin worker can go unreachable; its PreToolUse hook then
+  hard-blocks the Read tool (workaround: allowlisted Bash) (since 2026-07-13).
+- [upstream] scale+SVG-opacity streaming-encode ghost (scla-career-map,
+  2026-07-10) still not filed upstream — repro evidence retained in the
+  archived workspace; the translate-only rule is already promoted
+  (since 2026-07-10).
+- [owner] `mini-syllabus` MP4 delivered 2026-07-08 but its Wistia upload/URL
+  was never confirmed — ledger row says `TODO: needs input` (since 2026-07-13).
+
+**Fixed this session:** none hit — docs/skills restructure only, no build or render.
+
+**Promoted to docs:** the former standing "Known snags" list now lives where
+builders actually read: pkill bracket, /dev/shm ≥256M, CLI pin 0.7.45+/#2064,
+`HYPERFRAMES_PYTHON` → `/render-lessons` B0; `tts` without `--provider`
+(removed in 0.7.56), whisper em-dash compound tokens, translate-only idle
+pulses → `/render-lessons` Build sequence. Resolved-structurally classes
+(hand-typed timing, zero-gap padding, bare-canvas flashes) are owned by the
+compiler/templates since 2026-07-10..13.
+
+---
+
+## Trail (older entries + pre-v3 session notes, append-only)
 
 ### 2026-07-13 · finding-creating-a-career-purpose-statement (first post-refactor run)
 - [upstream] `tts --provider` flag rejected by CLI 0.7.56 (flag removed upstream;
-  kokoro is the sole built-in engine) → dropped the flag. ~3 min. Skill Step 2
-  command block needs the same edit.
+  kokoro is the sole built-in engine) → dropped the flag. ~3 min. Skill command
+  block updated (now in /render-lessons Build sequence).
 - [observation] whisper transcript reads "I am honest enough" where the script
-  says "Specific enough" (~24s) — no script-vs-transcript gate exists to catch
-  TTS misreads; flagged for human QA listen. Full run report:
-  `oversight-brief_first-post-refactor-run_2026-07-13.md`.
+  says "Specific enough" (~24s) — resolved: base.en cross-check proved the audio
+  correct (transcription mishear, not a TTS misread); drove the script-vs-transcript
+  diff gate now in preflight.py. Full run report: `BUILD-LOG.md` (2026-07-13 run).
 
 ### 2026-07-12 · career-building_early-career-boost (seed)
 - [env] `npx hyperframes tts` resolved the wrong Python; `kokoro_onnx` was missing

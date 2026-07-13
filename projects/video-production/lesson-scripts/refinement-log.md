@@ -1,38 +1,39 @@
-# Lesson Script Refinement Log
+# Lesson Script Ledger
 
-Tracks each script's lifecycle — **captured → refined → rendered** — so an agent can tell at a glance which `.txt` files in this folder are actually safe to hand to HyperFrames, without re-reading every file to check.
-
-## How to read this
+**Ledger, not state machine (since 2026-07-13).** A script's *state* is the
+folder it sits in — root = raw, `refined/` = render-ready, `rendered/` =
+published, with in-flight builds visible as `../renders-hyperframes/<stem>/`
+workspaces and filed MP4s in `../renders-mp4/` (see `README.md`). **Never read
+this table to decide what to refine, build, ship, or publish.** It is the
+human-facing history: dates, locations, Wistia URLs, and notes (including
+open questions that make `/refine-scripts` skip a raw script).
 
 | Column | Meaning |
 |---|---|
-| **Created** | Date the lesson was captured from the SCLA platform (from the raw capture's `Captured:` header, or the filename's date suffix before refinement stripped the header) |
-| **Refined** | Date raw-capture artifacts (`LESSON CAPTURE` metadata, `[IMAGE]`/`[VIDEO]` markers, chart-description prose, duplicated lines) were converted into clean spoken narration. **Blank = still raw — do not render.** |
-| **Rendered** | Date + location if an MP4 already exists (`../renders-mp4/` or Wistia) |
-| **Ready to render?** | ✅ only when Refined is filled in *and* Rendered is empty. Rendered scripts are done; raw scripts need the refinement pass first (style + process: `../script-templates/course-script-prompt.md`, worked example below). |
+| **Created** | Date the lesson was captured from the SCLA platform |
+| **Refined** | Date the refinement pass produced the `refined/` copy |
+| **Rendered** | Render date + MP4/Wistia location once shipped/published |
+| **Notes** | Open questions, blockers, anything a human should know |
 
-Update this table whenever a script is refined or rendered — it's the fast-path check so agents don't have to open every `.txt` to find out.
+Skills append/update rows at their close-out (`/refine-scripts`,
+`/render-lessons` SHIP + PUBLISH); staleness here can't break the pipeline.
 
 ## early-career-boost
 
-| Script | Created | Refined | Rendered | Ready to render? |
+| Script | Created | Refined | Rendered | Notes |
 |---|---|---|---|---|
-| `mini-syllabus_..._2026-07-06.txt` | 2026-07-06 | 2026-07-06 (authored clean, no capture pass needed) | 2026-07-08 → `../renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-07-06.mp4` | Already rendered — skip |
-| `better-decisions-come-from-better-criteria_..._2026-07-06.txt` | 2026-07-06 | 2026-07-06 (authored clean) | — | ✅ |
-| `build-direction-before-you-build-a-plan_..._2026-07-07.txt` | 2026-07-07 | 2026-07-07 (authored clean) | — | ✅ |
-| `what-makes-for-a-dream-job_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `career-building-is-a-repeatable-process_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `do-not-just-ask-what-ai-replaces_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `finding-creating-a-career-purpose-statement_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `how-to-make-strong-career-decisions_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `skills-for-the-ai-era-future_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `using-the-career-map-tool_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | ✅ |
-| `early-career-boost-resources_..._2026-07-10.txt` | 2026-07-10 | — *(still a raw capture)* | — | ⛔ Not ready — see note below |
-| `what-energizes-me_..._2026-07-10.txt` | 2026-07-10 | — *(still a raw capture)* | — | ⛔ Not ready |
-
-**Open questions on the two raw files:**
-- `early-career-boost-resources` — this lesson is just a pointer to an attached references PDF, not taught content. Worth confirming with a human whether it needs a video at all before spending a refinement pass on it.
-- `what-energizes-me` — references an attached worksheet PDF and an AI-coach activity; refine using the same process as the seven scripts above (strip `LESSON CAPTURE` header, `[IMAGE]`/`[VIDEO]` markers, condense to ~580 words of second-person narration).
+| `mini-syllabus_..._2026-07-06.txt` | 2026-07-06 | 2026-07-06 (authored clean) | 2026-07-08 → `../renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-07-06.mp4` | in `rendered/`; Wistia URL `TODO: needs input` (upload was pending at migration) |
+| `better-decisions-come-from-better-criteria_..._2026-07-06.txt` | 2026-07-06 | 2026-07-06 (authored clean) | — | in `refined/`; build workspace live. **Facts provenance blocker:** lesson body/outline never filed as source — needs owner input before ship |
+| `build-direction-before-you-build-a-plan_..._2026-07-07.txt` | 2026-07-07 | 2026-07-07 (authored clean) | — | in `refined/`; build workspace live |
+| `what-makes-for-a-dream-job_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
+| `career-building-is-a-repeatable-process_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/`; build workspace live (horizon) |
+| `do-not-just-ask-what-ai-replaces_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
+| `finding-creating-a-career-purpose-statement_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/`; build workspace live (horizon), two verified MP4 renders in the workspace awaiting the new gate flow |
+| `how-to-make-strong-career-decisions_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
+| `skills-for-the-ai-era-future_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
+| `using-the-career-map-tool_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
+| `early-career-boost-resources_..._2026-07-10.txt` | 2026-07-10 | — | — | raw, at root. **Open question — skip in /refine-scripts:** lesson is just a pointer to an attached references PDF; does it need a video at all? |
+| `what-energizes-me_..._2026-07-10.txt` | 2026-07-10 | — | — | raw, at root; references a worksheet PDF + AI-coach activity — refine per `/refine-scripts` rules (~580 words, second person) |
 
 ## career-readiness-accelerator
 
