@@ -65,6 +65,10 @@ What is actually enforced by tooling today — nothing aspirational:
 - `hooks/pre-tool.sh` / `hooks/post-tool.sh` / `hooks/stop.sh` — tool-budget logging.
 - `hooks/doctor.sh`, `hooks/context-mode-cache-heal.mjs`, `hooks/cleanup-worktrees.sh` — self-healing.
 - `scripts/lint-refs.sh` — repo health linter (manual run; see Health Checks).
+- Registration split: project `.claude/settings.json` carries only the video
+  snag-retro render reminder; the governance/budget/self-healing hooks above are
+  registered in **global** `~/.claude/settings.json` — a fresh clone has no rails
+  until they are re-registered there.
 
 ---
 
