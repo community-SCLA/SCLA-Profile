@@ -86,8 +86,10 @@ cd projects/video-production/renders-hyperframes
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <stem> --example=blank --non-interactive
 # copy frame.md, compositions/, assets/ in from ../design-system/
 cd <stem>
+# init generates a CLAUDE.md routing to generic skills this repo deleted — replace it:
+printf '# Build workspace. Sequence + commands: /produce-video. Design contract: ../../design-system/frame.md\n' > CLAUDE.md
 npx hyperframes tts "$(cat ../../lesson-scripts/<program-slug>/<stem>.txt)" \
-  --provider kokoro --voice af_heart --speed 0.95 -o assets/voice/narration.wav
+  --voice af_heart --speed 0.95 -o assets/voice/narration.wav
 npx hyperframes transcribe assets/voice/narration.wav --model small.en
 ```
 
@@ -100,8 +102,9 @@ two mechanics that most often go wrong:
   on every scene slot and `data-cue-anchors='{"chipCues":[…],…}'` with verbatim
   transcript phrases; placeholder numbers are fine — the compiler owns them all.
 - **One style package per video** (`theme` on every scene). Use the user's pick;
-  otherwise rotate summit → horizon → cadence by the program's delivered
-  illustrated-video count (count mod 3), and say which you picked.
+  otherwise rotate summit → horizon → cadence by the program's **started-build**
+  count — rule + count definition in `frame.md` → "Style packages" — and say
+  which you picked.
 
 **Compile + gate** (from the workspace):
 
