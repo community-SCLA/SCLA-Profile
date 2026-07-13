@@ -66,5 +66,5 @@ a look). Any BLOCKER ⇒ VERDICT: FAIL. Cite evidence as a file path or a
 transcript quote with timestamps — a finding without evidence is not a finding.
 defect-class: a short, stable kebab-case slug naming the failure class (e.g.
 `dup-word-anchor`, `uncued-reveal`, `boundary-mid-word`). Reuse the same slug
-across renders for the same class — the snag-log retirement ledger tallies
-occurrences by it.
+across renders for the same class so recurring failures are trackable in the
+snag log.

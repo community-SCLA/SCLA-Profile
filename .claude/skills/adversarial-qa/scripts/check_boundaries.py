@@ -53,7 +53,8 @@ def parse_scenes(index_html: str):
         tag = m.group(0)
 
         def attr(name):
-            a = re.search(rf'{name}="([^"]*)"', tag)
+            # (?<![\w-]) keeps `id` from matching inside `data-hf-id` etc.
+            a = re.search(rf'(?<![\w-]){name}="([^"]*)"', tag)
             return a.group(1) if a else None
 
         start, dur = attr("data-start"), attr("data-duration")

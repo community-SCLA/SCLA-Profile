@@ -1,259 +1,163 @@
 ---
 name: produce-video
-description: Run the full illustrated-video production loop locally, end to end, in one call — from a raw script/`.txt` handed directly or info given straight in conversation — so you never re-prompt each step. Drafts/refines/files the script, builds the HyperFrames lesson in its style package, checks, renders, frame-verifies the MP4, files it, and archives the workspace. Stops only at the two mandatory human gates (script approval, QA). Use for "produce this video", "make the video from this script", or "run the illustrated pipeline locally".
+description: SCLA's one-call illustrated-lesson pipeline — THE workflow for any SCLA lesson/program video, from raw script text, a `.txt`, or a `lesson-scripts/` stem. Drafts/refines and fact-checks the script, then after one human approval builds, renders, verifies, and files the MP4 in a single unattended run, stopping only at the final human QA gate. Always use this for SCLA lesson videos — never route them into generic hyperframes workflow skills (faceless-explainer, general-video, etc.).
 ---
 
-# produce-video — local illustrated-video pipeline orchestrator
+# produce-video — the SCLA illustrated-video pipeline
 
-## Overview
+**This file owns the build sequence and every command.** Design decisions live
+elsewhere and are not restated here: `projects/video-production/design-system/frame.md`
+is the design contract (tokens, animacy rules, anchor/timing contract, templates,
+style packages, motion rotation) — read it while assembling;
+`design-system/CLAUDE.md` covers only what's in that folder and the voice decision.
 
-This is the **local-container orchestrator** for SCLA's illustrated-video pipeline.
-It sequences the existing build recipe — `projects/video-production/design-system/CLAUDE.md`
-(the 8-step HyperFrames build, voice, style packages, the render/variable gap) —
-into a single run so you don't run a prompt per step. Read it as you hit each
-phase; this skill only handles sequencing, the two human gates, and the render
-landmines below.
+**Two human gates, nothing else stops the run:**
+1. **SCRIPT GATE** — the human approves the narration text (Step 1).
+2. **QA GATE** — the human reviews the rendered MP4 (Step 6).
 
-**Why local:** rendering needs the local HyperFrames toolchain (headless Chrome,
-ffmpeg) that isn't available in a hosted/cloud session.
+Everything between the gates is machine work: build → compile → preflight →
+check → render → verify. Never self-approve a gate. Never fabricate SCLA
+content — draft only from provided source material; no FERPA/PII in any prompt.
+No source material for a script that needs drafting → stop and say so.
 
-**Scope:** the illustrated (HyperFrames) path only. HeyGen avatar videos stay
-blocked (API key 403 — see `design-system/CLAUDE.md` → "Upgrade path"); don't
-render them.
-
-## Two hard rules this skill never breaks
-
-1. **Never cross a human gate.** Script approval and QA are human-only — stop,
-   post what's needed, hand control back. Don't self-approve to keep the run going.
-   Exception: a script already logged with a Refined date (and no Rendered date)
-   in `refinement-log.md` is treated as pre-approved — see Step 1's fast path.
-2. **Never fabricate SCLA content.** Draft only from provided source material; no
-   FERPA/PII in any prompt. No source material given for a script that needs
-   drafting → stop and say so.
-
-## Workflow
-
-### Step 0 — Preflight
-
-The entry point is whatever the user hands you directly in conversation — a
-`.txt` path or raw script text. The human gates below are direct check-ins
-with the user; there's no external system to sync.
-
-Preflight, from repo root:
+## Step 0 — Preflight (~1 min)
 
 ```bash
-date +%Y-%m-%d                                      # today's date for the stem
-pkill -f "hyperframes[ ]preview" 2>/dev/null || true # stale preview servers cross-contaminate renders
-cat /proc/mounts | grep /dev/shm                    # need ≥256M for headless Chrome validate/render
+date +%Y-%m-%d                                       # today's date for the stem
+pkill -f "hyperframes[ ]preview" 2>/dev/null || true # stale previews contaminate renders
+grep /dev/shm /proc/mounts                           # need >=256M for headless Chrome
 ```
 
-**The bracket in the pkill pattern is load-bearing.** `pkill -f "hyperframes preview"`
-(no bracket) matches the command line of the very shell running it and kills it —
-the command chain dies instantly with exit 144 and nothing after the pkill runs.
-The bracketed pattern still matches real preview servers but never itself.
-
-If `/dev/shm` is under ~256M: `sudo mount -o remount,size=512M /dev/shm`
-(the devcontainer tries this on start but can fail silently; a 64M `/dev/shm`
-makes headless Chrome hang or die mid-render). Confirm the CLI pin (0.7.45 —
-never older; ≤0.7.44 silently renders template defaults, upstream #2064) matches
-`design-system/package.json` before init.
-
-Then read `projects/video-production/render-qa/snag-log.md` — scan the open
-retirement-ledger rows and the last few session entries and surface the known
-snags relevant to this build, so you avoid re-hitting them this run (this is the
-active-input half of the self-improvement loop).
+- **Keep the bracket in the pkill pattern.** The unbracketed form matches its own
+  shell and kills it (exit 144) before anything after it runs.
+- `/dev/shm` under ~256M → `sudo mount -o remount,size=512M /dev/shm` (the
+  devcontainer remount can fail silently; 64M hangs Chrome mid-render).
+- CLI pin: `design-system/package.json` pins hyperframes **0.7.45+** — never
+  older (<=0.7.44 silently renders template defaults, upstream #2064). If a
+  rendered frame ever shows template-default content, fix the pin, don't hand-bake.
+- If `npx hyperframes tts` fails on a missing `kokoro_onnx`, it resolved the
+  wrong Python — set `HYPERFRAMES_PYTHON` to an interpreter that has it
+  (`findPython()` respects it).
+- Read the **Known snags** list at the top of
+  `projects/video-production/render-qa/snag-log.md` and avoid re-hitting them.
 
 Then announce the plan: which video(s), and that you'll pause at the two gates.
 
-### Step 1 — Script (draft / refine / verbatim) → approval gate
+## Step 1 — Script → SCRIPT GATE
 
-**If the request names an existing script (a stem, a program+section, or a path
-under `lesson-scripts/`), check that program's row in
-`projects/video-production/lesson-scripts/refinement-log.md` before asking the
-user anything:**
+**Fast path:** if the request names a script tracked in
+`projects/video-production/lesson-scripts/refinement-log.md`, that row decides:
 
-- **Refined date filled, Rendered empty** — the drafting/refinement work is
-  already done and the log's Refined date counts as approval. Skip the SCRIPT
-  GATE entirely — don't redraft, re-refine, or ask the user to re-approve — and
-  go straight to Step 2 with the file as it sits in `lesson-scripts/<program-slug>/`.
-  Tell the user which script you're proceeding with and why (log shows it refined
-  and unrendered) so the skip is visible, not silent.
-- **Rendered filled** — already produced. Flag this to the user instead of
-  re-running the pipeline; don't silently re-render.
-- **Refined blank (still a raw capture)** — needs the refinement pass below
-  before it can hit the gate. If the log also flags an open question (e.g. "does
-  this lesson need a video at all"), surface that to the user before drafting.
-- **Stem isn't in the log** — fall back to asking the user which of the three
-  cases below applies, same as any new script.
+- **Refined filled, Rendered empty** → pre-approved. Skip the gate, go to Step 2
+  with the file as it sits; tell the user you're doing so and why.
+- **Rendered filled** → already produced; flag instead of re-rendering.
+- **Refined blank** → run the refinement pass below first.
+- **Not in the log** → ask which case applies (draft / verbatim / refine), or
+  infer it from what was handed over.
 
-Otherwise, or for anything the log doesn't resolve, determine the script's
-status by asking the user:
+**Drafting/refining rules** (full prompt templates in `script-templates/`):
+- Strip capture noise hard (`LESSON CAPTURE` headers, `[IMAGE]`/`[VIDEO]`
+  markers, duplicated paragraphs, inserted stat tangents) — but **never cut a
+  callback to what the viewer already built or named** (a named tool, "Module N",
+  their purpose statement), and keep enumerated source lists complete.
+- The `.txt` is plain spoken lines only — no cues, headings, or shot lists.
+- Spoken enumerations should resolve (end on a question or closing item), so
+  scenes can cut cleanly.
 
-- **Needs drafting** — draft narration from the source material using the matching
-  `script-templates/` prompt (lesson → `heygen-lesson-script.md`; narration → `heygen-narration-prompt.md`;
-  social → `social-script-prompt.md`). The `.txt` is plain spoken lines only — no cues,
-  headings, or shot list.
-- **Provided as-is** — file verbatim, do not redraft.
-- **Provided, needs refinement** — refine per `## Refinement notes` + Notes; don't rewrite.
+**Facts check (here, not per render).** Facts are a property of the script:
+if you drafted or refined it, verify every claim, name, list, and framework
+against the source material before showing it to the human — spawn the
+`qa-facts` agent for an independent pass when the script was drafted from
+source docs. A verbatim user-provided script skips this (the human owns it).
+Re-renders never re-check facts.
 
-**Refining is not compressing.** Strip structural capture noise hard — `LESSON
-CAPTURE` headers, `[VIDEO]`/`[IMAGE]` markers, on-screen-graphic notes, duplicated
-paragraphs, and inserted stat/survey tangents not in the source's own phrasing.
-But never cut a callback to what the viewer already built, named, or worked on —
-a named tool, a specific criterion, "Module N," their own purpose statement. Keep
-it specific; don't genericize it into a vague summary line ("In Module 2 you
-learned to compare options" is a worse read than "In Module 2 you learned the
-five criteria and built a repeatable way to compare options" — the concrete
-version is what makes a closing/recap lesson feel earned). When source content is
-an enumerated list (qualities, achievements, skills), keep every item or fold in
-true synonyms — don't quietly drop one while condensing prose around it.
+Save as `<section>_<program-slug>_<YYYY-MM-DD>.txt` under
+`lesson-scripts/<program-slug>/` (naming: `lesson-scripts/README.md`), update the
+refinement-log row, then **→ SCRIPT GATE**: show the script, stop, resume on
+approval. After approval, copy the approved text back over the repo `.txt` —
+production renders what was approved.
 
-After drafting or refining a script that's tracked in `refinement-log.md`, update
-its row (Refined date, and open questions resolved) so the log stays the fast-path
-source of truth.
+## Steps 2–5 — Build (no stops)
 
-Set the **stem** = `<section>_<program-slug>_<YYYY-MM-DD>` (naming: `lesson-scripts/README.md`)
-and save to `projects/video-production/lesson-scripts/<program-slug>/<stem>.txt`
-(Program = Other → `lesson-scripts/other/<request-slug>/`, flag in Notes).
-
-**→ SCRIPT GATE.** Show the script to the user for approval. Stop here — resume
-only when they approve. Revision requests loop back through this step.
-
-### Step 2 — Sync the approved text
-
-After approval, **the user's approved text is the source of truth.** Copy it back
-over the repo `.txt` so production renders what was approved, not the pre-edit draft.
-
-### Step 3 — Workspace + narration
-
-Follow `design-system/CLAUDE.md` → "Building a lesson video" steps 2–3:
+**Workspace + narration** (voice is pinned in `frame.md` → `voice:`):
 
 ```bash
 cd projects/video-production/renders-hyperframes
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <stem> --example=blank --non-interactive
-# copy in frame.md, compositions/, assets/ from ../design-system/
+# copy frame.md, compositions/, assets/ in from ../design-system/
 cd <stem>
 npx hyperframes tts "$(cat ../../lesson-scripts/<program-slug>/<stem>.txt)" \
   --provider kokoro --voice af_heart --speed 0.95 -o assets/voice/narration.wav
 npx hyperframes transcribe assets/voice/narration.wav --model small.en
 ```
 
-Voice is pinned (`frame.md` → `voice:`) — don't re-decide it.
+**Assemble `index.html`** — one scene slot per beat from the nine templates
+(copy the demo-reel pattern from `../design-system/index.html`), `<audio>` at
+the host root. Read `frame.md` and follow its animacy + illustration rules; the
+two mechanics that most often go wrong:
 
-### Step 4 — Assemble + pick the style package
+- **Never type a timing number.** Set `data-anchor-end="<last spoken phrase>"`
+  on every scene slot and `data-cue-anchors='{"chipCues":[…],…}'` with verbatim
+  transcript phrases; placeholder numbers are fine — the compiler owns them all.
+- **One style package per video** (`theme` on every scene). Use the user's pick;
+  otherwise rotate summit → horizon → cadence by the program's delivered
+  illustrated-video count (count mod 3), and say which you picked.
 
-Build `index.html`: one scene slot per beat from the nine templates, sized to the word
-timings, `<audio>` narration at the host root. Copy the demo-reel pattern from
-`../design-system/index.html`.
-
-**Never type a timing number — declare anchors; the compiler owns the numbers.**
-On every scene slot set `data-anchor-end="<the scene's last spoken phrase>"`
-and, for every cue variable, `data-cue-anchors='{"chipCues":["phrase",…],…}'`
-with verbatim transcript phrases in spoken order. Placeholder numbers are fine;
-`compile_timeline.py` (Step 5) computes boundaries, cue seconds, silence
-padding, and durations from `transcript.json`. Full contract: `frame.md` →
-"Scene boundaries, padding & endings".
-
-**Make every scene move — the animacy rules (`design-system/frame.md`; graded at QA).**
-The templates are the floor, not the finish. Before you size a scene:
-
-- **No stagnant frame beyond ~2s.** A long beat with nothing left to reveal is too
-  long — split it. Title cards hold only for the opening line, never over content.
-  (Templates carry a built-in late-phase resolve as a backstop, not a substitute.)
-- **Illustrate what's said** — draw the thing (path/map, thinking figure, comparison,
-  per-item icons on cue); author bespoke illustrated scenes for concrete narration
-  — and give them the same anchor attributes.
-- **Statement vs. quote** — a program thesis is `scla-statement` (bold, unattributed);
-  `scla-quote` is only a **named person's** words.
-- **Numerals** — scene index small, lower-right; a hero numeral is only a real stat or
-  the spoken step, never deck position.
-- **Vary the motion** — pick reveals from `frame.md` → "Motion rotation" (don't
-  invent effects from scratch); rotate list forms between consecutive scenes;
-  opening enumerations get a `scla-chips` scene right after the title.
-  `scla-statement` has no per-word emphasis — its built-in reading ripple +
-  late-phase resolve keeps long holds alive.
-- **Script the lists to land.** When drafting/refining (Step 1), spoken
-  enumerations should resolve rather than trail off — end them as a question
-  ("…mentorship, or growth?") or a closing item, so the scene can cut cleanly
-  after the inflection.
-
-**Style package** — one per video, on every scene. Use the user's pick. If they
-don't have one, count that program's delivered `.mp4` files with a matching
-illustrated script stem in `lesson-scripts/<program-slug>/` and rotate summit → horizon
-→ cadence (count mod 3); tell the user which one you picked and why.
-
-### Step 5 — Compile + preflight + check + plan audit → QA gate
+**Compile + gate** (from the workspace):
 
 ```bash
-python3 ../../render-qa/compile_timeline.py . --apply   # boundaries, cues, silence padding — all from the transcript
-python3 ../../render-qa/preflight.py .                  # deterministic gate: drift + pacing rules + coverage + theme
-npm run check                                          # lint + validate + inspect — always
-npx hyperframes snapshot --at <scene-midpoints>        # stills for eyeball review
+python3 ../../render-qa/compile_timeline.py . --apply  # boundaries, cues, padding — all from the transcript
+python3 ../../render-qa/preflight.py .                 # deterministic gate — exit 0 or fix
+npm run check                                          # lint + validate + inspect
 ```
 
-If the compiler can't resolve an anchor it names the scene and the transcript
-window — fix the anchor phrase, never the numbers. With preflight green, run
-the **`/adversarial-qa` plan audit** — now just **Lane 03 (Facts)**; timing,
-coverage, and presence-static hunting are fully deterministic pre-render. Fix
-and re-audit until clear.
+If the compiler can't resolve an anchor it names the scene and transcript
+window — fix the phrase, never the numbers. Loop until all three are green,
+then render. **There is no human stop here.**
 
-**→ QA GATE.** Show the snapshots and the lane reports to the user and hand off
-`script-templates/qa-checklist.md` (illustrated section). Stop here — resume only when
-they sign off.
-
-### Step 6 — Render, frame-verify, file
+## Step 6 — Render + verify → QA GATE
 
 ```bash
-pkill -f "hyperframes[ ]preview" 2>/dev/null || true   # again — stale servers contaminate renders (keep the bracket!)
+pkill -f "hyperframes[ ]preview" 2>/dev/null || true   # again (keep the bracket)
 npm run render
-python3 ../../render-qa/verify_render.py .   # container truth + presence v2 + shared frame dump (qa/frames/) — must exit 0
+python3 ../../render-qa/verify_render.py .             # container truth + presence v2 + frame dump → qa/frames/ — must exit 0
 ```
 
-Eyeball a few of the dumped frames yourself. If a frame shows a template's
-default content instead of this lesson's, the CLI pin regressed below 0.7.45
-(upstream #2064) — fix the pin, don't hand-bake.
+**Self-review before the gate:** look at the dumped frames in `qa/frames/`
+(3 per scene) against the transcript — reveals land on the right words, every
+frame depicts its sentence, nothing clipped or off-brand. Fix + re-render until
+you'd ship it. This replaces the old four-agent gauntlet as the default check;
+the deterministic gates catch timing/coverage/presence, your eyeball catches
+judgment. **Escalation only:** if the human rejects a cut and the cause isn't
+obvious, or they ask to "try to break it", run `/adversarial-qa`.
 
-With `verify_render.py` green, run the **full `/adversarial-qa` gauntlet** on
-the MP4 — all four lanes in parallel, fed the shared `qa/frames/` evidence and
-the checker JSON. This call is the enforcement: the settings.json render hook
-that used to auto-inject this reminder is now off by default, so nothing else
-will prompt you to do it. Release rule: the deterministic gate and every lane
-PASS or the cut is blocked; on a fix + re-render, re-run per the skill's scoped
-voiding rule (timing/audio/structure fix → all four again). Only a clean
-gauntlet proceeds to filing.
-Once verified, rename the MP4 to `<section>_<program>_<today's-date>` — same
-section/program as the script's stem, but today's date (the render date), not the
-script's approval date — and move it to `../renders-mp4/<program-slug>/`. Upload to
-Wistia (title = the new stem); the `.mp4` is **not** committed.
+**→ QA GATE.** Present: the MP4 path, a few key frames, the preflight/verify
+summaries, and `script-templates/qa-checklist.md` (illustrated section). Stop;
+resume on sign-off.
 
-If the script's stem is tracked in `lesson-scripts/refinement-log.md`, fill in its
-Rendered date + MP4/Wistia location now — that's what lets the next run of this
-skill know the script is done rather than re-offering it.
+**File it:** rename to `<section>_<program>_<render-date>` and move to
+`../renders-mp4/<program-slug>/`; upload to Wistia (title = stem; the `.mp4` is
+never committed); fill the refinement-log row's Rendered date + location.
 
-### Step 7 — Archive the workspace
+## Producing several videos in one session (batch)
+
+The refinement-log fast path makes batch runs natural: every script whose row
+shows Refined-filled / Rendered-empty is pre-approved, so Steps 2-6 loop per
+script with no human stop until each cut's QA gate. Run them sequentially
+(renders are ~7 min each and share the toolchain); present each finished MP4 at
+its own QA gate as it lands rather than holding all of them to the end. Budget:
+one build costs roughly 150-300 tool calls and the session cap is 500
+(`hooks/pre-tool.sh`) — for more than 2 videos, split sessions or raise the cap
+via `~/.claude/budget.json` and say so in the close-out report.
+
+## Step 7 — Close out
 
 ```bash
-cd <repo-root>
-bash scripts/archive-lesson.sh <stem>   # → renders-hyperframes/_archive/<stem>/ (gitignored)
+cd <repo-root> && bash scripts/archive-lesson.sh <stem>   # workspace → _archive (gitignored)
 ```
 
-## Closing out
-
-Report per video: stem, style package, gate outcomes, and the Wistia URL (or that
-upload is pending). Drafted/approved scripts get committed to `main` per the repo's
-PR flow. If a HyperFrames bug bit this run and isn't already filed, write it up and
-file it upstream before ending (heygen-com/hyperframes#2064 is the model: minimal
-repro, versions probed, workaround stated).
-
-**Snag retro (self-improvement loop) — do this before ending.** Append this
-session's retro to `projects/video-production/render-qa/snag-log.md`: every snag
-the run hit, each tagged `[env]/[tooling]/[authoring]/[upstream]/[defect]` with
-its resolution and rough time cost, plus a `Caught-by:` line for any gauntlet
-lane that FAILed (carry its `defect-class`). Then update the retirement ledger —
-increment the per-template clean-render tally for any open-with-fix snag class
-this render did not re-trip, and reset to zero any class that recurred. A lane
-becomes retirement-eligible only once its fix holds 5 clean renders on every one
-of the 9 templates; nominate it in the ledger, but the actual retirement is a
-human call logged in `decisions/log.md`. The upstream bug-filing above is the
-follow-through for the `[upstream]` tag. The render hook reminds you of this
-step, but it's owned here — do it even if the hook is silenced.
+Report per video: stem, style package, gate outcomes, Wistia URL (or pending).
+Commit drafted/approved scripts per the repo flow. If the run hit a snag worth
+remembering, append one line to the **Known snags** list in
+`render-qa/snag-log.md` (and a dated session note below it); file any new
+HyperFrames bug upstream before ending (hyperframes#2064 is the model repro).

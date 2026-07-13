@@ -59,5 +59,4 @@ severity: BLOCKER (clipped/unreadable/off-brand) or NOTE. Any BLOCKER ⇒
 VERDICT: FAIL. Evidence = the frame file path.
 defect-class: a short, stable kebab-case slug naming the failure class (e.g.
 `card-overflow`, `token-drift`, `label-collision`). Reuse the same slug across
-renders for the same class — the snag-log retirement ledger tallies occurrences
-by it.
+renders for the same class so recurring failures are trackable in the snag log.
