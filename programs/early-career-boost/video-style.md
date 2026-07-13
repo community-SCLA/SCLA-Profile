@@ -29,7 +29,7 @@ Typical lesson runs **1–8 min** of study time; a section is **~20–50 min**.
 
 ## Current video state (why we need HeyGen)
 
-- **Videos are hosted on Wistia** (`sclc.wistia.com`).
+- **Videos are hosted on Wistia** (account URL: repo-root `endpoints.md` → "Wistia").
 - **Only ~4 lessons are actually produced** to video today: Mini-Syllabus, Using the Career Mapping Tool (×2 clips), How to Make Strong Career Decisions.
 - **Most lessons are text + a drafted "video script" that has never been produced.** That gap is exactly what HeyGen fills.
 - Navigation gate: learners **must watch the video and scroll to the bottom** before the "Continue" button unlocks (`nextDisabled: scroll_to_bottom`). Every lesson with a video slot expects a video to exist.
