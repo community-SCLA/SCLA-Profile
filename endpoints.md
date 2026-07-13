@@ -22,6 +22,20 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 ---
 
+## Wistia
+
+| Name | Type | ID / URL | Used By |
+|---|---|---|---|
+| SCLA Wistia account | Account | https://sclc.wistia.com | lesson-video hosting + analytics — `/render-lessons` PUBLISH, `avatar-pipeline/` delivery |
+| Lesson videos project/folder | Project | `TODO: needs input` | where uploaded lessons are filed in Wistia |
+| Upload API token | — | `TODO: needs input` (goes in `.env` as `WISTIA_API_TOKEN`, never here) | not wired — until then, uploads are manual via the web UI (`connections.md`: not connected) |
+
+> Video title = the filed MP4 stem `<section>_<program-slug>_<render-date>`.
+> The Wistia URL of a published lesson is recorded in
+> `projects/video-production/lesson-scripts/refinement-log.md` (ledger row).
+
+---
+
 ## GitHub
 
 | Name | Path | Notes |

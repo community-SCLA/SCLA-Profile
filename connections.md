@@ -17,6 +17,7 @@ Update this file whenever a new tool is wired. When adding a reachable tool, als
 | 4 | Knowledge / Files | Notion | Knowledge base, project documentation | Yes | mcp | active | 2026-05-31 |
 | 5 | Task & Project Tracking | Notion | Work tracking and ownership | Yes | mcp | active | 2026-05-31 |
 | 6 | Email & Member Outreach | Gmail | Broadcast email, member comms | Yes | mcp | active | 2026-05-31 |
+| 3 | Content & Design | Wistia | Lesson-video hosting + analytics (`endpoints.md` → "Wistia") | No | not connected — uploads manual via web UI | — | 2026-07-13 |
 | 6 | Email & Member Outreach | MJML dashboard (SCLA) | Custom email template system | No | not connected | — | — |
 | 7 | Membership Tracking | (TBD) | Member sign-ups, engagement, quarterly/annual goals | No | not connected | — | — |
 
