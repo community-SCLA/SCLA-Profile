@@ -24,7 +24,7 @@ type (`illustrated` or `avatar`), and a scratch dir.
 
 1. **Render mode — run the monitor first** (skip if the orchestrator handed you
    its JSON):
-   `python3 .claude/skills/adversarial-qa/scripts/check_presence.py <mp4> <scratch> --workspace <workspace>`
+   `python3 projects/video-production/render-qa/check_presence.py <mp4> <scratch> --workspace <workspace>`
    v2 samples 2 fps + the exact final frame and flags near-blank frames
    (stddev + content-pixel count), pixel-static stagnation (≥5s = violation,
    3–5s = warning **you** adjudicate against the animacy rules), and audio

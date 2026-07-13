@@ -30,8 +30,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import ffprobe_duration, parse_scenes
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-CHECK_PRESENCE = REPO_ROOT / ".claude/skills/adversarial-qa/scripts/check_presence.py"
+CHECK_PRESENCE = Path(__file__).resolve().parent / "check_presence.py"
 DUR_TOL = 0.15
 
 

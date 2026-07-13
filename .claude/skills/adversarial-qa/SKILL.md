@@ -16,7 +16,8 @@ the deterministic checkers plus the builder's frame review and the human QA gate
 Run the machine checks before spending any agent tokens:
 
 - **Pre-render:** `projects/video-production/render-qa/preflight.py <workspace>`
-  — anchor/cue drift, boundary rules, clip coverage, theme consistency.
+  — anchor/cue drift, boundary rules, clip coverage, theme consistency,
+  approved-script-vs-transcript fidelity.
 - **Post-render:** `render-qa/verify_render.py <workspace> [mp4]` — container
   truth, presence v2 (blank frames, stagnation, audio-vs-video), and the shared
   frame evidence (`<workspace>/qa/frames/`, 3 stills per scene) all lanes read.
@@ -64,9 +65,9 @@ follows and is never replaced by this audit.
 
 ## Bundled checkers (evidence generators, not the verdict)
 
-- `scripts/check_boundaries.py <workspace>` — per-scene last-word air vs the
+- `projects/video-production/render-qa/check_boundaries.py <workspace>` — per-scene last-word air vs the
   0.5s rule, mid-word/mid-sentence cuts, question air, final-scene hold. `--json`.
-- `scripts/check_presence.py <video.mp4> <outdir> [--workspace <ws>]` — v2:
+- `projects/video-production/render-qa/check_presence.py <video.mp4> <outdir> [--workspace <ws>]` — v2:
   near-blank frames, pixel-static stagnation, audio-outliving-video;
   `--workspace` enables entrance-grace + transcript-aware stagnation. `--json`.
 - `render-qa/{compile_timeline,preflight,verify_render}.py` — the compiler and

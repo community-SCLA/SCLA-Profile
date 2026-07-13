@@ -28,7 +28,7 @@ orchestrator already ran (machine evidence, not builder claims).
 1. **Boundary + cue drift** — run the deterministic pair first (skip any the
    orchestrator already gave you output for):
    `python3 projects/video-production/render-qa/compile_timeline.py <workspace> --check`
-   `python3 .claude/skills/adversarial-qa/scripts/check_boundaries.py <workspace>`
+   `python3 projects/video-production/render-qa/check_boundaries.py <workspace>`
    The compiler re-derives every boundary and cue from the scene anchors
    (`data-anchor-end` / `data-cue-anchors`) and fails on any drift; the
    boundary checker independently enforces the air/mid-word/question/final-hold

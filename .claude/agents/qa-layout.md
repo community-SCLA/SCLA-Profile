@@ -23,7 +23,7 @@ scratch dir for frames.
 
 1. **Get frames.** Render mode: the shared evidence dir `<workspace>/qa/frames/`
    already holds 3 full-res stills per scene (early/mid/late, written by
-   `pipeline/verify_render.py`) — read those first, and extract extra frames
+   `projects/video-production/render-qa/verify_render.py`) — read those first, and extract extra frames
    with `ffmpeg -ss <t> -i <mp4> -frames:v 1 <scratch>/s<t>.png` only where you
    need a moment the dump misses. Plan mode: run
    `HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes snapshot --at <times>` in the
