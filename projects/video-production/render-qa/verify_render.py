@@ -108,9 +108,11 @@ def main():
                 ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
                  "-ss", f"{t:.2f}", "-i", str(mp4), "-frames:v", "1",
                  str(frames_dir / name)], check=False)
-            extracted.append(name)
+            if (frames_dir / name).is_file() and (frames_dir / name).stat().st_size > 0:
+                extracted.append(name)
     sections["frames"] = {"pass": len(extracted) == 3 * len(scenes),
                           "output": f"{len(extracted)} frames -> {frames_dir}"}
+    failed |= len(extracted) != 3 * len(scenes)
 
     verdict = "FAIL" if failed else "PASS"
     if as_json:

@@ -67,8 +67,14 @@ LIST_PAIRS = {"chipCues": "chips"}
 
 
 def insert_silences(wav_path: Path, transcript_path: Path, insertions):
-    """Insert silence into the wav at the given (time, seconds) points and
-    shift transcript timestamps. Backs up originals once (.pre-pad.wav/.json)."""
+    """Insert silence into the wav at the given (word_idx, time, seconds) points
+    and shift transcript timestamps. Shift is keyed by word index, not time
+    value: at a zero-natural-gap boundary the last word of one scene and the
+    first word of the next can share the exact same timestamp, and a
+    time-keyed shift would move both together, leaving the gap at 0 forever
+    (see snag-log 2026-07-12, "padding did not converge"). Indexing by word
+    guarantees only words at/after the cut shift. Backs up originals once
+    (.pre-pad.wav/.json)."""
     for suffix, p in (("wav", wav_path), ("json", transcript_path)):
         bak = p.with_name(p.stem + ".pre-pad." + suffix)
         if not bak.exists():
@@ -82,29 +88,30 @@ def insert_silences(wav_path: Path, transcript_path: Path, insertions):
 
     out, pos, shift = bytearray(), 0, 0.0
     words = json.loads(transcript_path.read_text())
-    shifts = []  # (original_time, cumulative_shift_after)
-    for t, dur in sorted(insertions):
+    shifts = []  # (first_shifted_word_idx, cumulative_shift_after)
+    for word_idx, t, dur in sorted(insertions, key=lambda ins: ins[1]):
         cut = int(round(t * rate)) * bpf
         out += frames[pos:cut]
         out += b"\x00" * (int(round(dur * rate)) * bpf)
         pos = cut
         shift += dur
-        shifts.append((t, shift))
+        shifts.append((word_idx, shift))
     out += frames[pos:]
 
     with wave.open(str(wav_path), "wb") as w:
         w.setparams(params)
         w.writeframes(bytes(out))
 
-    def shifted(x):
+    def shift_for(idx):
         s = 0.0
-        for t, cum in shifts:
-            if x >= t:
+        for boundary_idx, cum in shifts:
+            if idx >= boundary_idx:
                 s = cum
-        return round(x + s, 3)
+        return s
 
-    for w_ in words:
-        w_["start"], w_["end"] = shifted(w_["start"]), shifted(w_["end"])
+    for i, w_ in enumerate(words):
+        s = shift_for(i)
+        w_["start"], w_["end"] = round(w_["start"] + s, 3), round(w_["end"] + s, 3)
     transcript_path.write_text(json.dumps(words, indent=2))
     return len(out) // bpf / rate
 
@@ -155,7 +162,8 @@ def compute(ws: Path):
             if natural < need - 1e-9:
                 # insert in the middle of the existing natural gap
                 at = sc["end_word"]["end"] + max(natural, 0) / 2
-                insertions.append((round(at, 3), round(need - natural, 3)))
+                insertions.append((sc["last_word_idx"] + 1, round(at, 3),
+                                   round(need - natural, 3)))
     return {"scenes": scenes, "words": words, "insertions": insertions,
             "html": html, "index_path": index_path}, problems
 
@@ -237,7 +245,7 @@ def main():
                        None, as_json, mode="padding")
         else:
             problems.append(
-                f"narration needs {sum(d for _, d in plan['insertions']):.2f}s of "
+                f"narration needs {sum(d for *_, d in plan['insertions']):.2f}s of "
                 f"boundary silence at {len(plan['insertions'])} points "
                 f"(run --apply): {plan['insertions']}")
 

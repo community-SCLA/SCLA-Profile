@@ -5,8 +5,8 @@ builds: hand-typed scene boundaries and cue times reconciled against the
 narration *after* the fact (26 boundary violations, mid-word cuts, a backfired
 transcript "repair", emergency silence padding, 14 cue-phrase mismatches).
 The inversion: **authors declare anchors (phrases from the transcript);
-these tools compute every number.** Used by `design-system/CLAUDE.md` steps
-5/7, `/produce-video` steps 5–6, and `/adversarial-qa`.
+these tools compute every number.** Used by `/produce-video` Steps 5–6 and
+`/adversarial-qa`; the authoring contract lives in `design-system/frame.md`.
 
 | Tool | When | What it does |
 | --- | --- | --- |

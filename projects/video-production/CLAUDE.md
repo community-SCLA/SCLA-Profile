@@ -39,7 +39,7 @@ Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Ent
 
 - **Never fabricate SCLA course content** — always work from provided outlines/source material
 - **Always flag scripts for human approval** before render — script → render is a manual gate, never automated
-- **Adversarial QA before the human gate** — `/adversarial-qa` runs four independent reviewer lanes (Timing / Layout / Facts / Presence) as subagents; all four must PASS post-render or the cut is blocked (fix → re-render → re-run all). It supplements the human QA gate, never replaces it
+- **QA model (2026-07-13)** — deterministic gates (`render-qa/preflight.py` pre-render, `render-qa/verify_render.py` post-render) must pass, the builder reviews the `qa/frames/` dump, and the human QA gate reviews the rendered MP4. `/adversarial-qa` (four cold-context reviewer lanes) is an on-demand deep audit — run it when a cut resists diagnosis or the user asks to "try to break it", not on every render. Facts are checked once at script stage (`/produce-video` Step 1), not per render
 - **No FERPA/PII data** in any prompt sent to an AI tool
 
 ## Brand

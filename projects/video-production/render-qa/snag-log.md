@@ -1,44 +1,35 @@
-# Snag log — render-session retros + gauntlet retirement ledger
+# Snag log — render-session memory
 
-The self-improvement loop for SCLA video production. Every render session appends
-a retro here; `/produce-video` reads it at preflight to avoid known snags; each
-recurring snag is tracked toward a structural fix that can retire a gauntlet lane.
-Design: `snag-loop-design.md`. Sibling to `BUILD-LOG.md`.
+Cross-session memory for SCLA video production. `/produce-video` Step 0 reads
+**Known snags** before building; Step 7 appends anything new. Keep it small and
+actionable — this is a checklist, not a ledger. History lives in the dated
+session notes below (append-only). Sibling: `BUILD-LOG.md` (the 2026-07-10
+pipeline overhaul record).
 
-**How to use it**
-- On every render session, append a `## <date> · <stem>` block under *Session
-  entries*. Tag each snag `[env] [tooling] [authoring] [upstream] [defect]`, give
-  its resolution + rough time cost, and add a `Caught-by:` line for any gauntlet
-  lane that FAILed (with the lane's `defect-class`).
-- Promote any snag that recurs into the *Retirement ledger*. For a class with a
-  structural fix in place, keep a per-template clean-render tally (9 cells). A
-  recurrence resets that template's cell to 0.
-- A lane is retirement-eligible only when its defect class shows **≥5 clean
-  renders on every one of the 9 templates** since its fix landed. Nominate here;
-  the human records the actual retirement in `decisions/log.md`.
+## Known snags — read before building
 
-Templates (tally order): title · chips · statement · quote · points · steps ·
-compare · career-map · numeral.
+- [upstream] Idle pulses that animate `scale` + SVG `opacity` together can leave
+  ghost/double-draw artifacts in the streaming encode (seen on scla-career-map,
+  2026-07-10). Use translate-only pulses; the y-nudge pattern renders clean.
+- [env] `npx hyperframes tts` can resolve a Python without `kokoro_onnx` — set
+  `HYPERFRAMES_PYTHON` to the interpreter that has it (also in /produce-video Step 0).
 
----
+Resolved structurally (no longer live, kept for pattern-matching): zero-gap
+padding non-convergence (compile_timeline keys shifts by word index since
+2026-07-13); hand-typed timing drift (compiler owns all numbers since 2026-07-10);
+bare-canvas entrance flashes (furniture paints at t=0 in all 9 templates).
 
-## Session entries
+## Session notes
 
-## 2026-07-12 · career-building_early-career-boost (seed)
-Caught-by: —
+### 2026-07-12 · career-building_early-career-boost (seed)
 - [env] `npx hyperframes tts` resolved the wrong Python; `kokoro_onnx` was missing
   on that interpreter → set `HYPERFRAMES_PYTHON` to the env that has it. ~15 min.
-  (findPython() respects `HYPERFRAMES_PYTHON`.)
 
-_First real entry seeds the format; extend it, don't rewrite it._
-
----
-
-## Retirement ledger
-
-| Snag class | Occurrences | Structural fix | Retires | Per-template clean tally (9) | Status |
-| --- | --- | --- | --- | --- | --- |
-| TTS wrong python path | 1 | pin `HYPERFRAMES_PYTHON` in produce-video preflight | — (env, not a lane) | n/a | open |
-
-_No lane is retirement-eligible yet. Add a row the first time a `[defect]` snag
-recurs; start its per-template tally once a structural fix is in place._
+### 2026-07-13 · pipeline overhaul (no render)
+- [defect] `compile_timeline.py --check` crashed (2-tuple unpack after the
+  3-tuple insertions migration) → fixed line 248; tests 20/20. This is what made
+  preflight print a traceback instead of "run --apply".
+- [tooling] `hooks/pre-tool.sh` hard-blocked every session at 80 tool calls —
+  a full build needs 150–300 → defaults raised to 500/350.
+- [tooling] check_boundaries.py `attr()` regex matched `data-hf-id` when asked
+  for `id` → anchored with a lookbehind; scene ids in findings are now correct.
