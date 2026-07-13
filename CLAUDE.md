@@ -19,8 +19,10 @@ No matching row? Open that folder's README.md hub (every multi-file folder has o
 | Partner org | `partnerships/NIC.md` |
 | Grant work | `projects/grants/` |
 | Video production | `projects/video-production/CLAUDE.md` |
-| Produce a video end to end (local, one call) | `/produce-video` |
-| Video request queue (Notion) | `projects/video-production/notion-queue.md` |
+| Produce a video (one call; stops at the hyperframe gate) | `/produce-video` |
+| Refine raw lesson scripts (batch) | `/refine-scripts` |
+| Build / ship / publish lesson videos | `/render-lessons` |
+| Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/notion-queue.md` |
 | Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
 | HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
 | Render HeyGen videos (code) | `projects/video-production/avatar-pipeline/CLAUDE.md` |
