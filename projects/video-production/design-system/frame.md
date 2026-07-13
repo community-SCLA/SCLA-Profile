@@ -43,7 +43,7 @@ motion:
   ambient: "oval rings breathe scale 1→1.05 over 3-4s, finite yoyo repeats sized to the scene"
   ban: "repeat: -1 (use finite counts), linear full-screen gradients on navy (H.264 banding — use radial)"
 voice:
-  provider: kokoro # Pinned — see CLAUDE.md "Narration voice" for the decision + upgrade path
+  provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Decision + upgrade path: CLAUDE.md "Narration voice"
   voice_id: af_heart
   speed: 0.95
 ---
@@ -280,8 +280,11 @@ Package rules:
   packages (determinism and timing untouched). Palette stays exactly the
   frontmatter — a package re-weights the same tokens, never adds hues.
 - Assignment: the requester picks in the Notion queue; on "No preference",
-  rotate `summit → horizon → cadence` by the program's delivered illustrated
-  video count (count mod 3).
+  rotate `summit → horizon → cadence` by the program's **started-build** count
+  (count mod 3) — every workspace ever created for the program, whether live in
+  `../renders-hyperframes/`, archived, or delivered. An in-flight build claims
+  its theme immediately; counting deliveries let consecutive videos ship in the
+  same look.
 - A new package = a new `data-theme` override block in **all nine** templates
   plus a row here. Never fork a template to make a look.
 

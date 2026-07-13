@@ -42,8 +42,12 @@
       SCLA Lesson System — demo reel.
       All nine reusable scene templates in sequence, filled with illustrative content from
       the Early Career Boost lesson "Better Decisions Come From Better Criteria".
-      This file doubles as the living style guide AND the instantiation pattern to copy
-      for lesson builds: slot + data-variable-values per scene. Design tokens: frame.md.
+      This file is the living style guide — render it after any template change.
+      It is NOT the timing pattern to copy for lesson builds: it predates the anchor
+      contract (numeric cues, no data-anchor-end / data-cue-anchors, no <audio> at
+      root). For a production build, copy the most recent lesson build's index.html
+      (anchors only — compile_timeline.py owns every number; /produce-video Steps 2–5).
+      Design tokens: frame.md.
 
       Patterns this reel demonstrates (frame.md → animacy + pacing rules):
         • the program thesis is a STATEMENT (scla-statement), not a quote; the quote card

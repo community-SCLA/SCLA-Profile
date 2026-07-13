@@ -111,16 +111,16 @@ Whisper tokenizes speech across em-dashes as single words (`artifact—a`, `buzz
 
 Legend: `██` = the only two human stops · `⚠` = issue found this run (see §3).
 
-## 5. Recommendations (highest leverage first)
+## 5. Recommendations (highest leverage first) — all 8 approved & implemented 2026-07-13
 
-1. **Restore the snag-retro hook** in project `.claude/settings.json` (its test already exists — make `test_retro_hook.sh` pass again). Without it the self-improvement loop depends on the model remembering; that's the failure mode the hook existed to remove.
-2. **Add a script-vs-transcript diff gate** to `compile_timeline.py` or `preflight.py` — fuzzy word-diff of `transcript.json` against the approved `.txt`; fail above a small threshold. Catches TTS misreads (§3.6), which today only a human ear can catch.
-3. **Neutralize the generated workspace CLAUDE.md** — add a post-init step to the skill (overwrite it with two lines pointing back at `/produce-video` + `design-system/CLAUDE.md`), since upstream regenerates it every init.
-4. **Fix rotation to count builds, not deliveries** (§3.4) — one-line rule change in `frame.md`.
-5. **Update the skill's TTS command** (drop `--provider`) and consider pinning the CLI minor version in the skill text less specifically than command flags — flags belong to `--help`, not docs.
-6. **Retrofit or re-label the demo reel** (§3.5) so the "copy this" comment points at an anchored example.
-7. **Fix the stale `pipeline/` path** in `qa-layout.md`; move `check_boundaries.py`/`check_presence.py` into `render-qa/` (the always-on home) and have adversarial-qa import from there, not the reverse.
-8. **Commit a project-level hooks block** (or document the global dependency) so a fresh clone keeps the budget + governance rails.
+1. ✅ **Restore the snag-retro hook** in project `.claude/settings.json` (its test already exists — make `test_retro_hook.sh` pass again). Without it the self-improvement loop depends on the model remembering; that's the failure mode the hook existed to remove. *Done — `test_retro_hook.sh` passing 4/4. Root cause pinned in the process: `32ce4d0` ("consolidate render hooks") is the commit that dropped the hooks block — it deleted the whole stack and never added back the guarded reminder it promised; the guarded SNAG RETRO hook was restored from `32ce4d0^`, alone, matching the consolidation intent.*
+2. ✅ **Add a script-vs-transcript diff gate** to `compile_timeline.py` or `preflight.py` — fuzzy word-diff of `transcript.json` against the approved `.txt`; fail above a small threshold. Catches TTS misreads (§3.6), which today only a human ear can catch. *Done — new threshold-based check in `preflight.py` (auto-locates the approved `.txt` from the stem, `--script` override, warns-and-skips if absent), with tests.*
+3. ✅ **Neutralize the generated workspace CLAUDE.md** — add a post-init step to the skill (overwrite it with two lines pointing back at `/produce-video` + `design-system/CLAUDE.md`), since upstream regenerates it every init. *Done — one `printf` line added to the skill's Step 2 block.*
+4. ✅ **Fix rotation to count builds, not deliveries** (§3.4) — one-line rule change in `frame.md`. *Done — `frame.md` "Style packages" now counts started builds (live + archived + delivered); skill points at frame.md instead of restating the rule.*
+5. ✅ **Update the skill's TTS command** (drop `--provider`) and consider pinning the CLI minor version in the skill text less specifically than command flags — flags belong to `--help`, not docs. *Done — flag dropped in the skill; `frame.md` voice pin now states `provider:` is an engine pin, not a CLI flag.*
+6. ✅ **Retrofit or re-label the demo reel** (§3.5) so the "copy this" comment points at an anchored example. *Done — re-labeled: the header comment now says it is the style guide, NOT the timing pattern, and points at the most recent lesson build.*
+7. ✅ **Fix the stale `pipeline/` path** in `qa-layout.md`; move `check_boundaries.py`/`check_presence.py` into `render-qa/` (the always-on home) and have adversarial-qa import from there, not the reverse. *Done — checkers moved, all live references updated.*
+8. ✅ **Commit a project-level hooks block** (or document the global dependency) so a fresh clone keeps the budget + governance rails. *Done — project settings carries the snag-retro hook (rec 1); the global-registration dependency for the governance/budget hooks is now documented in `GOVERNANCE.md` → Hard Stops.*
 
 ## 6. Model fit per pipeline step
 
@@ -139,4 +139,105 @@ The pipeline is mostly deterministic scripts; model intelligence only matters at
 **Practical default:** run `/produce-video` on Sonnet 5, with the scene-assembly step being the reason to upgrade a given run to Opus/Fable (e.g., a lesson needing many bespoke illustrated scenes rather than template instantiation).
 
 ---
-*Written during the run; render/verify section finalized at completion. Snag §3.3 appended to `snag-log.md` per Step 7.*
+
+## 7. Proposal — split `/produce-video` into two gateless skills
+
+*Direction from the owner (2026-07-13): separate the pipeline's components into skills and remove the two human gates — a refinement skill that drains unrefined scripts into a `refined/` folder per program, and a render skill that includes the outcome checks. This section is the recommended shape; not yet implemented.*
+
+### 7.1 Recommended shape: two workhorse skills + a thin dispatcher
+
+| Skill | Job | Stops? |
+|---|---|---|
+| **`/refine-scripts`** | Drain every raw `.txt` sitting at `lesson-scripts/<program-slug>/` root: strip capture noise (keep the "what you already built" callbacks), run the mandatory `qa-facts` pass on anything drafted/refined, write the result to `lesson-scripts/<program-slug>/refined/`, update the ledger row. Already-clean scripts just get the facts pass + move. | Never |
+| **`/render-lessons`** | Drain `lesson-scripts/<program-slug>/refined/`: per script, the whole machine sequence — env preflight, init + neutralize workspace CLAUDE.md, TTS, transcribe, assemble (anchors only), compile, `preflight.py` (now including the script-vs-transcript diff gate), `npm run check`, render, `verify_render.py`, builder frame self-review — then file the MP4 + QA packet, upload to Wistia, move the script to `rendered/`, fill the ledger, archive the workspace, append snags. | Never |
+| **`/produce-video`** | Becomes a ~20-line dispatcher: run `/refine-scripts`, then `/render-lessons`. Keeps the one-call entry point, the root CLAUDE.md routing row, and the Notion-queue habit intact. Every command lives in exactly one skill — no duplication. | Never |
+
+**Why a dispatcher rather than deleting `/produce-video`:** "produce this video end to end" stays a natural request, and three docs route to that name. Retiring it buys nothing; a dispatcher costs ~20 lines and zero drift risk (it restates no commands).
+
+### 7.2 State lives in the folder, the log becomes a ledger
+
+```
+lesson-scripts/<program-slug>/          ← raw intake (refinement queue)
+lesson-scripts/<program-slug>/refined/  ← render queue + open human review buffer
+lesson-scripts/<program-slug>/rendered/ ← done (MP4 filed + uploaded)
+```
+
+A script's location *is* its state; both skills are idempotent queue-drains ("refine whatever sits at root", "render whatever sits in refined/"), so batch behavior falls out for free and no session ever needs to cross-check a table to know what's safe to render. `refinement-log.md` stays — but demoted from state machine to ledger (dates, render location, Wistia URL, notes like the two open questions on the raw captures).
+
+**Migration on day one:** the 8 refined-unrendered early-career-boost scripts move to `refined/`, `mini-syllabus` (delivered) to `rendered/`, the 2 raw captures stay at root — with their open questions noted in the ledger so `/refine-scripts` knows `early-career-boost-resources` needs a human answer ("does a pointer-to-a-PDF lesson need a video at all?") and skips it rather than refining it blind.
+
+### 7.3 What replaces the two human gates
+
+| Removed gate | Replaced by |
+|---|---|
+| SCRIPT GATE (blocking approval of narration) | (a) The mandatory `qa-facts` pass inside `/refine-scripts` — facts stay a property of the script, checked once. (b) `refined/` as an **open review buffer**: a human can read, edit, or delete anything sitting there at any time before a render session drains it — review becomes possible-any-time instead of required-every-time. (c) The new script-vs-transcript diff gate guarantees the narration that renders is the text that sat in `refined/`. |
+| QA GATE (blocking MP4 sign-off) | The deterministic post-render stack that §1–2 just proved out — `verify_render.py` container truth + presence v2, plus builder frame self-review — with a **QA packet** (verify summary + `qa/frames/` stills) filed next to every MP4. Human review becomes an async spot-check of `renders-mp4/` / Wistia; a rejection escalates to `/adversarial-qa` + re-render + Wistia replace. |
+
+Two things to say plainly:
+
+- **This requires amending a standing critical rule.** `projects/video-production/CLAUDE.md` says *"Always flag scripts for human approval before render — script → render is a manual gate, never automated."* Implementing this proposal rewrites that rule (approval becomes async-auditable rather than blocking) and needs its own `decisions/log.md` entry. That's the owner's call to make — this proposal is the formal ask.
+- **Wistia upload is the one outward-facing step.** Recommendation: keep it in the unattended run (it's hosting/staging, and a bad cut is recoverable by re-render + replace), but the *member-facing publish* — pasting the Wistia URL into the Notion row's Final-video field — is where I'd keep the human's async check landing, since that's the moment students can see it.
+
+**Residual risk, honestly stated:** this run's §3.6 showed the class of defect only a human ear caught before — the diff gate now closes the TTS-misread half of it deterministically, and the transcription-mishear half proved to be gate noise, not a content defect. What has **no** deterministic backstop is taste (a technically-clean scene that reads wrong). The builder self-review plus async spot-checks of the first several unattended deliveries is the honest mitigation; the two gray-zone stagnation warnings in §2 are exactly the kind of judgment call that will now ship without a human seeing it first.
+
+### 7.4 Implementation checklist (when approved)
+
+1. Create `.claude/skills/refine-scripts/` and `.claude/skills/render-lessons/`; shrink `/produce-video` to the dispatcher. Split the current SKILL.md content along the Step 1 / Steps 0+2–7 seam — the commands are already written.
+2. **By hand** (lint-refs won't flag drift here): `skills-lock.json`, `design-system/AGENTS.md`, and `hooks/skill-rules.json` (the registry lists implemented skills only).
+3. Create the `refined/`/`rendered/` folders with the migration above; update `lesson-scripts/README.md` (naming + folder semantics) and the `refinement-log.md` header (ledger, not state).
+4. Rewrite the two gate rules in `projects/video-production/CLAUDE.md` (+ the root CLAUDE.md routing rows for the two new skills) and log the gate-removal decision in `decisions/log.md`.
+5. Update `notion-queue.md` status gates to match (request → refined → rendered → published, with the human check at publish).
+6. Budget note: 8 scripts × 150–300 calls ≫ the 500-call session cap — `/render-lessons` should chunk (≤2–3 videos per session) or the cap gets raised in `~/.claude/budget.json` per run; say which in the close-out.
+7. Model fit per §6 stands: `/refine-scripts` wants the strong model (Fable/Opus — brand voice + facts); `/render-lessons` runs fine on Sonnet with the scene-assembly step as the upgrade trigger.
+
+### 7.5 Pipeline map after the change
+
+```
+              ┌──────────────────────────────────────────────────────────────┐
+              │   /produce-video  (thin dispatcher: refine ── then ── render) │
+              │   — or call either skill directly —                           │
+              └──────────────────────────────────────────────────────────────┘
+
+  /refine-scripts  (batch, no stops)
+ ┌───────────────────────────────────────────────────────────────────────────┐
+ │  drain lesson-scripts/<program>/*.txt (raw intake)                        │
+ │    strip capture noise · keep built-artifact callbacks · plain spoken     │
+ │    lines only · qa-facts agent pass (drafted/refined scripts)             │
+ │    open questions (pointer-only lessons etc.) → ledger note, skip         │
+ │        ▼                                                                  │
+ │  write → lesson-scripts/<program>/refined/   +  ledger row (Refined date) │
+ └───────────────────────────────┬───────────────────────────────────────────┘
+                                 ▼
+      ░░ refined/ = open review buffer — human may edit/veto ANY time; ░░
+      ░░ nothing blocks, nothing waits                                 ░░
+                                 ▼
+  /render-lessons  (batch ≤2–3/session, no stops; loops per script)
+ ┌───────────────────────────────────────────────────────────────────────────┐
+ │  env preflight (shm · pkill bracket · CLI pin · snag-log Known list)      │
+ │  init workspace ─► overwrite generated CLAUDE.md ─► copy design-system    │
+ │  tts (kokoro af_heart, no --provider) ─► transcribe (small.en)            │
+ │  assemble index.html — anchors ONLY (pattern: newest lesson build)        │
+ │        ▼                                                                  │
+ │  compile_timeline.py --apply      ◄─ owns every number                    │
+ │  preflight.py — drift · boundaries · coverage · variables ·               │
+ │                 script-vs-transcript diff (NEW — closes §3.6)             │
+ │  npm run check                                    ── each: exit 0 or loop │
+ │  npm run render ─► verify_render.py (container truth · presence v2 ·     │
+ │                                      qa/frames/ dump)                     │
+ │  builder self-review of qa/frames/  (adversarial-qa = escalation only)    │
+ │        ▼                                                                  │
+ │  file MP4 + QA packet → renders-mp4/<program>/ ─► Wistia upload           │
+ │  move script refined/ → rendered/ · ledger Rendered date                  │
+ │  archive-lesson.sh · snag-log append (hook-enforced again)                │
+ └───────────────────────────────┬───────────────────────────────────────────┘
+                                 ▼
+      ░░ async human involvement (non-blocking):                        ░░
+      ░░  • spot-check MP4 / QA packet / Wistia                         ░░
+      ░░  • paste Wistia URL → Notion "Final video" (the publish check) ░░
+      ░░  • rejection → /adversarial-qa → fix → re-render → re-upload   ░░
+```
+
+Legend: `░░` = async human touchpoints (replacing the two `██` blocking gates in §4) · every box between them is machine work.
+
+---
+*Written during the run; render/verify section finalized at completion. Snag §3.3 appended to `snag-log.md` per Step 7. §5 statuses + §7 proposal added later the same day, after the owner approved all eight recommendations and requested the gate-removal proposal.*
