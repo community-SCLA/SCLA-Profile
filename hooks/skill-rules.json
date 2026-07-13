@@ -45,6 +45,44 @@
       }
     },
 
+    "refine-scripts": {
+      "description": "Drains raw lesson scripts at lesson-scripts/<program>/ root into refined/ — one cold subagent per script + qa-facts pass. Never renders.",
+      "priority": 8,
+      "triggers": {
+        "keywords": [
+          "refine scripts", "refine the scripts", "refine lesson scripts",
+          "script refinement", "drain raw scripts", "refinement queue"
+        ],
+        "keywordPatterns": [
+          "\\brefine.{0,15}(?:script|lesson)s?\\b",
+          "\\bscript.{0,10}refin"
+        ],
+        "pathPatterns": [
+          "projects/video-production/lesson-scripts/**"
+        ]
+      }
+    },
+
+    "render-lessons": {
+      "description": "Builds HyperFrames workspaces from refined/ scripts (stops at the human hyperframe gate) and ships approved hyperframes to MP4/Wistia on explicit 'ship <stem>'.",
+      "priority": 8,
+      "triggers": {
+        "keywords": [
+          "render lessons", "render the lessons", "build lesson videos",
+          "render queue", "ship the video", "render refined scripts"
+        ],
+        "keywordPatterns": [
+          "\\brender.{0,15}lessons?\\b",
+          "\\bship\\b.{0,30}_(?:early-career-boost|career-readiness-accelerator|scla-leadership-program)_",
+          "\\bbuild.{0,15}(?:lesson|hyperframe)"
+        ],
+        "pathPatterns": [
+          "projects/video-production/renders-hyperframes/**",
+          "projects/video-production/renders-mp4/**"
+        ]
+      }
+    },
+
     "new-from-template": {
       "description": "Creates a new project folder under projects/ using a greenfield template skeleton.",
       "priority": 7,
