@@ -32,7 +32,7 @@ Skills append/update rows at their close-out (`/refine-scripts`,
 | `how-to-make-strong-career-decisions_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
 | `skills-for-the-ai-era-future_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
 | `using-the-career-map-tool_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
-| `early-career-boost-resources_..._2026-07-10.txt` | 2026-07-10 | — | — | raw, at root. **Open question — skip in /refine-scripts:** lesson is just a pointer to an attached references PDF; does it need a video at all? |
+| `early-career-boost-resources_..._2026-07-10.txt` | 2026-07-10 | — | **RETIRED 2026-07-14** — no video | Owner decided (2026-07-14) the lesson is a pointer to an attached references PDF and needs no video; moved to `early-career-boost/_archive/`. Closes the prior open question. |
 | `what-energizes-me_..._2026-07-10.txt` | 2026-07-10 | 2026-07-14 | — | in `refined/` (647→447 words; source thin on narration, faithful over padded). qa-facts **PASS**. NOTE: opening "the five conditions" traces cross-lesson to `what-makes-for-a-dream-job` / "Five Criteria of Engaging Work" (not stated in this lesson's own raw) — defensible, no change; revisit if the criteria lesson is recut to a different count |
 
 ## career-readiness-accelerator
