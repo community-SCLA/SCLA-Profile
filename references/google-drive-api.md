@@ -7,8 +7,8 @@ confidence: high
 
 # Google Drive — Integration Reference
 
-Researched-once reference for the Google Drive connection registered in `connections.md`
-(domain 4 Knowledge/Files). Concrete folder IDs live in `endpoints.md`, never hardcoded here.
+Researched-once reference for the Google Drive integration registered in `endpoints.md`
+(Knowledge/Files). Concrete folder IDs live in `endpoints.md`, never hardcoded here.
 
 Drive is used two ways, both pointed at the same account:
 

@@ -16,8 +16,7 @@ Where everything lives, and why it exists. Task routing lives in `CLAUDE.md`; ru
 CLAUDE.md          ← entry point: task routing + the two session-binding rules
 MAP.md             ← this file: the atlas
 GOVERNANCE.md      ← the single rulebook
-connections.md     ← HOW we connect: every system, mechanism, auth state
-endpoints.md       ← WHICH IDs: URLs, database and folder IDs
+endpoints.md       ← the single integration registry: IDs, URLs, and each service's inline connection status
 scla.config.yml    ← org metadata (name, slug, industry, website)
 sync.sh            ← commit + push + parent-submodule update (main branch only)
 decisions/log.md   ← append-only decisions log

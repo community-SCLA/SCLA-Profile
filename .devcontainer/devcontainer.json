@@ -1,6 +1,13 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {},
+  // HyperFrames Studio preview (npm run dev / scripts/preview.sh) serves on :3002
+  "forwardPorts": [3002],
+  "portsAttributes": {
+    "3002": { "label": "HyperFrames Studio", "onAutoForward": "openBrowser" }
+  },
+  // Infisical CLI = secrets source of truth (injected at runtime via scripts/with-secrets.sh; never written to .env)
+  "postCreateCommand": "curl -1sLf 'https://artifacts-cli.infisical.com/setup.deb.sh' | sudo -E bash && sudo apt-get install -y infisical",
   // /dev/shm defaults to 64 MB; headless Chrome (hyperframes validate/render) needs >=256 MB
   "postStartCommand": "sudo mount -o remount,size=512M /dev/shm || true"
 }

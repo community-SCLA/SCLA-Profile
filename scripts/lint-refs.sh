@@ -63,7 +63,7 @@ if [ -n "$HITS" ]; then warn "template placeholders found:"$'\n'"$HITS"; else ok
 
 # ── 5. Critical files exist ──────────────────────────────────────────────────
 echo "[5/9] Critical files present"
-CRITICAL="CLAUDE.md MAP.md GOVERNANCE.md connections.md endpoints.md scla.config.yml sync.sh .gitignore
+CRITICAL="CLAUDE.md MAP.md GOVERNANCE.md endpoints.md scla.config.yml sync.sh .gitignore
 context/me.md context/goals.md decisions/log.md
 brand/visual-identity.md brand/voice-and-tone.md
 operations/team-roster.md member-support/faqs.md hooks/skill-rules.json"

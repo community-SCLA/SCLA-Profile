@@ -74,7 +74,7 @@ What is actually enforced by tooling today — nothing aspirational:
 
 ## Approved Root Layout
 
-Files: `CLAUDE.md`, `MAP.md`, `GOVERNANCE.md`, `connections.md`, `endpoints.md`,
+Files: `CLAUDE.md`, `MAP.md`, `GOVERNANCE.md`, `endpoints.md`,
 `scla.config.yml`, `sync.sh`, `.gitignore`, `.mcp.json`.
 Directories: `.claude`, `.devcontainer`, `_archive`, `audits`, `brand`, `context`,
 `decisions`, `hooks`, `member-support`, `operations`, `partnerships`, `programs`,
@@ -111,7 +111,7 @@ commit separately with prefix `structure:`.
 
 | Add | When |
 | --- | --- |
-| `references/{tool}-api.md` | A new tool is wired in `connections.md` |
+| `references/{tool}-api.md` | A new tool is wired in `endpoints.md` |
 | `scheduled-tasks/` | The team has a real recurring automation (none yet) |
 | `operations/sops/` | A recurring process gets handed to someone new |
 | `.claude/agents/` | A repeatable multi-step research/writing task emerges |
@@ -150,7 +150,7 @@ Format: `DD-MM-YYYY-<short-description>` — lowercase, hyphen-separated, ≤ 5 
 | `skill:` | Adding or modifying `.claude/skills/` |
 | `structure:` | Moves, folder changes, CLAUDE.md/MAP.md/GOVERNANCE.md edits |
 | `project:` | Changes inside `projects/` |
-| `endpoints:` | `connections.md` or `endpoints.md` |
+| `endpoints:` | `endpoints.md` |
 | `fix:` | Bug fixes in scripts or hooks |
 | `docs:` | Audits, decisions log, references |
 

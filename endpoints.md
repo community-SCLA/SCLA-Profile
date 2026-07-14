@@ -5,7 +5,8 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 > **Do not invent IDs — unknown values stay `TODO: needs input` until confirmed.**
 
-> **Related:** Auth methods and connection status → `connections.md`
+> Each integration's connection status (reachable? auth?) is noted inline in its
+> section below — `endpoints.md` is the single integration registry.
 
 ---
 
@@ -28,11 +29,34 @@ Update here first — scripts and skills should read from here, not from hardcod
 |---|---|---|---|
 | SCLA Wistia account | Account | https://sclc.wistia.com | lesson-video hosting + analytics — `/render-lessons` PUBLISH, `avatar-pipeline/` delivery |
 | Lesson videos project/folder | Project | `TODO: needs input` | where uploaded lessons are filed in Wistia |
-| Upload API token | — | `TODO: needs input` (goes in `.env` as `WISTIA_API_TOKEN`, never here) | not wired — until then, uploads are manual via the web UI (`connections.md`: not connected) |
+| Upload API token | — | in **Infisical** (project `scla-projects-n-joy`, env `dev` — see the Infisical section below); never in `.env`, this file, or the repo | injected at `/render-lessons` PUBLISH via `scripts/with-secrets.sh`; exact secret name confirmed once the machine identity has project access |
 
 > Video title = the filed MP4 stem `<section>_<program-slug>_<render-date>`.
 > The Wistia URL of a published lesson is recorded in
 > `projects/video-production/lesson-scripts/refinement-log.md` (ledger row).
+
+---
+
+## Infisical (secrets manager — source of truth for ALL secrets)
+
+Secrets live **only** in Infisical and are injected at runtime by the CLI —
+**never written to `.env`, this file, or the repo.** No `infisical export` path.
+
+| Name | ID / value | Notes |
+|---|---|---|
+| Project | `scla-projects-n-joy` · `eea9b546-3f30-45d8-a9b9-a6ede93e3a71` | the SCLA secrets project |
+| Environment | `dev` | default env for injection |
+| Machine-identity auth | Codespaces repo secrets `INFISICAL_CLIENT_ID` + `INFISICAL_SECRET_KEY` | universal-auth; the CLI logs in with these — the values are never in the repo |
+
+**Injection:** `scripts/with-secrets.sh <command> [args…]` logs in with the
+machine identity and runs the command under `infisical run`, so every secret in
+the project/env is present as an env var for that process only. Override the
+project/env with `INFISICAL_PROJECT_ID` / `INFISICAL_ENV`. CLI is provisioned by
+`.devcontainer/devcontainer.json` (`postCreateCommand`).
+
+> **Access pending (owner action):** the machine identity must be assigned to
+> the `scla-projects-n-joy` project with read on `dev` — until then the CLI
+> authenticates but every read returns `403 Forbidden`.
 
 ---
 

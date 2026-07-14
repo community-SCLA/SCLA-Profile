@@ -73,3 +73,9 @@ Report per script: stem, before/after word counts, facts verdict, skipped-with-
 question items. `refined/` is now the render queue — remind the human they can
 read/edit/delete anything there at any time before a `/render-lessons` run
 drains it; nothing blocks on them.
+
+Any **skipped-with-question item is owner-actionable** — **ask the human
+directly** what to do with it (AskUserQuestion when the session is interactive),
+don't just list it and move on. If a snag rolled forward to
+`render-qa/snag-log.md`'s Open list, surface it the same way per its header
+rules — the human should never have to open the log.

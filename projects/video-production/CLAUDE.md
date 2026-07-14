@@ -9,6 +9,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | File | Purpose |
 |---|---|
 | `status.md` | Live production status — setup checklist, owner, accounts, blockers |
+| `PIPELINE-MAP.md` | **Human reference** — the live annotated flow map of the lesson-video pipeline (skills, folders, the two checkpoints). Not loaded by agents; update it whenever the pipeline flow changes. |
 | `notion-queue.md` | Notion queue doc — **retired as intake 2026-07-13** (scripts now enter at `lesson-scripts/<program-slug>/` root). Notion's remaining role (Wistia-link ledger, routine fate) is an open decision; the file documents the old flow until that lands. |
 | `script-templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (program-agnostic). Worked example: `programs/early-career-boost/video-style.md` |
 | `script-templates/course-script-prompt.md` | Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
@@ -44,7 +45,7 @@ Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Ent
   2. **MP4 REVIEW** — a human watches every filed MP4 before Wistia. Upload runs only on an explicit `publish <stem>`.
   Script approval is **async, not blocking**: `refined/` is an open review buffer (edit/veto any time), guarded by the mandatory qa-facts pass at refinement and the script-vs-transcript diff gate in `preflight.py`. Never self-approve either checkpoint.
 - **QA model (2026-07-13)** — deterministic gates (`render-qa/preflight.py` pre-render, `render-qa/verify_render.py` post-render) must pass and the builder reviews the `qa/frames/` dump before each human checkpoint. `/adversarial-qa` (four cold-context reviewer lanes) is an on-demand deep audit — run it when a cut resists diagnosis or the user asks to "try to break it", not on every render. Facts are checked once at script stage (`/refine-scripts`), not per render
-- **Self-improvement loop (2026-07-13)** — every render/build session ends by prepending an entry to `render-qa/snag-log.md` per its header rules (hook-enforced): sessions read **only the latest entry**, unresolved items roll forward until fixed, and a non-empty Open list leads the close-out report so the human is notified every session
+- **Self-improvement loop (2026-07-13, ask-model 2026-07-14)** — every render/build session ends by prepending an entry to `render-qa/snag-log.md` per its header rules (hook-enforced): sessions read **only the latest entry**; unresolved items are **owner-actionable by definition** (the agent fixes anything it can in-session, never rolls fixable work forward), and a non-empty Open list means the session **asks the human directly** to resolve each item at close-out (AskUserQuestion when interactive) — you are never asked to go read the log
 - **No FERPA/PII data** in any prompt sent to an AI tool
 
 ## Brand

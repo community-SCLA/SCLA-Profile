@@ -74,7 +74,7 @@ normalise() {
 
 # ── Approved root-level names ─────────────────────────────────────────────────
 APPROVED_ROOT=(
-  CLAUDE.md MAP.md GOVERNANCE.md connections.md endpoints.md
+  CLAUDE.md MAP.md GOVERNANCE.md endpoints.md
   scla.config.yml sync.sh .gitignore .mcp.json
   .claude .devcontainer _archive audits brand context decisions hooks
   member-support operations partnerships programs projects

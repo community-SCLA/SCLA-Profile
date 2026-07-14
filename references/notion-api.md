@@ -6,8 +6,8 @@ last_updated: 2026-06-12
 
 # Notion — Integration Reference
 
-Researched-once reference for the Notion connection registered in `connections.md`
-(domains 4 Knowledge/Files and 5 Task & Project Tracking — one MCP, two use cases).
+Researched-once reference for the Notion integration registered in `endpoints.md`
+(Knowledge/Files + Task & Project Tracking — one MCP, two use cases).
 Concrete page/database IDs live in `endpoints.md`, never hardcoded here.
 
 ## Connection
@@ -15,7 +15,7 @@ Concrete page/database IDs live in `endpoints.md`, never hardcoded here.
 | Field | Value |
 |---|---|
 | Mechanism | `mcp` (configured at the claude.ai account level, not in local `.mcp.json`) |
-| Auth state | `active` (last checked 2026-05-31 — see `connections.md`) |
+| Auth state | `active` (MCP, configured at the claude.ai account level) |
 | Writable | Yes — MCP tools can create and update pages, databases, and comments |
 
 ## Available operations (MCP tools)

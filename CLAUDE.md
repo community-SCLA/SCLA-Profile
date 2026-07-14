@@ -30,7 +30,7 @@ No matching row? Open that folder's README.md hub (every multi-file folder has o
 | Where a fact lives | `MAP.md` |
 | Structural change (read first) | `GOVERNANCE.md` |
 | Why a decision was made | `decisions/log.md` |
-| Integrations, endpoint IDs | `connections.md` · `endpoints.md` |
+| Integrations, endpoint IDs | `endpoints.md` |
 
 ## Hard Rules
 

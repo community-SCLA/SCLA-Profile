@@ -141,7 +141,7 @@ Then **stop and hand the human the gate**, per video: stem, theme, scene
 count, and how to watch it —
 
 ```bash
-cd projects/video-production/renders-hyperframes/<stem> && npm run dev   # background it; long-running
+bash scripts/preview.sh <stem>   # Studio on :3002, auto-forwarded + opens; background it; long-running
 ```
 
 State plainly: "Built and gate-clean. Nothing renders until you approve —
@@ -199,8 +199,12 @@ rules in its header: new snags tagged `[env]/[tooling]/[authoring]/[upstream]/[d
 with resolution + time cost, **Open items carried forward verbatim from the
 previous entry until actually fixed**, and durable lessons promoted into the
 owning doc (this SKILL, `frame.md`, or preflight/verify checks) in the same
-session — the doc is the memory, the log is the trail. **If the new entry's
-Open list is non-empty, the close-out report must lead with it** — the human
-gets notified every session until each item is fixed. File any new HyperFrames
-bug upstream before ending (hyperframes#2064 is the model repro). Report per
+session — the doc is the memory, the log is the trail. **Open items are
+owner-actionable by definition** — anything you could fix yourself (code,
+config, a retry, filing an upstream bug), fix this session; never roll
+agent-fixable work forward. **If the new entry's Open list is non-empty, ASK
+the human directly at close-out to resolve each item** (AskUserQuestion when
+the session is interactive) — do not just file them in the log for the human to
+find. File any new HyperFrames bug upstream before ending (hyperframes#2064 is
+the model repro). Report per
 video: stem, theme, phase reached, gate outcomes, Wistia URL (or pending).

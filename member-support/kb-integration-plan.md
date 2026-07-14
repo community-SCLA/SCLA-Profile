@@ -133,7 +133,7 @@ This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing 
 
 **Modified:**
 - `endpoints.md` — fill in Gmail label IDs, Slack channel/app IDs, Drive folder ID, Cloud Function URL, Sheet ID (all TODO today)
-- `connections.md` — flip Gmail/Slack/Drive entries from "MCP only" to "MCP + Apps Script", add Gemini row
+- `endpoints.md` — record Gmail/Slack/Drive connection status as "MCP + Apps Script"; add Gemini + Cloud Function entries (endpoints.md is the single integration registry; connections.md retired 2026-07-14)
 - `operations/automation-opportunities.md` — mark items #3 (email triage) and #4 (Slack agent) as in-progress with links to the new dirs
 
 **Outside this repo (referenced, not built here):**
