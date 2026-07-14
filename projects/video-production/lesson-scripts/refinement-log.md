@@ -33,7 +33,7 @@ Skills append/update rows at their close-out (`/refine-scripts`,
 | `skills-for-the-ai-era-future_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
 | `using-the-career-map-tool_..._2026-07-10.txt` | 2026-07-10 | 2026-07-12 | — | in `refined/` |
 | `early-career-boost-resources_..._2026-07-10.txt` | 2026-07-10 | — | — | raw, at root. **Open question — skip in /refine-scripts:** lesson is just a pointer to an attached references PDF; does it need a video at all? |
-| `what-energizes-me_..._2026-07-10.txt` | 2026-07-10 | — | — | raw, at root; references a worksheet PDF + AI-coach activity — refine per `/refine-scripts` rules (~580 words, second person) |
+| `what-energizes-me_..._2026-07-10.txt` | 2026-07-10 | 2026-07-14 | — | in `refined/` (647→447 words; source thin on narration, faithful over padded). qa-facts **PASS**. NOTE: opening "the five conditions" traces cross-lesson to `what-makes-for-a-dream-job` / "Five Criteria of Engaging Work" (not stated in this lesson's own raw) — defensible, no change; revisit if the criteria lesson is recut to a different count |
 
 ## career-readiness-accelerator
 
