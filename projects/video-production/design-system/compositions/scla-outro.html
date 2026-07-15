@@ -187,9 +187,14 @@
           tl.fromTo("#o-ring-r2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.35);
           tl.fromTo("#o-ring-l1", { scale: 1 }, { scale: 1.05, duration: 3.1, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.4);
           tl.fromTo("#o-ring-r1", { scale: 1 }, { scale: 1.04, duration: 2.7, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.7);
-          // Late-phase resolve: the CTA re-marks itself once during the hold.
-          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 7);
-          tl.fromTo("#o-cta", { scale: 1 }, { scale: 1.03, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, sceneDur * 0.68);
+          // Depth-drift (2026-07-14): the left and right ring pairs drift in opposite
+          // directions across the whole scene — translate-only decorative parallax. The
+          // settled lockup/CTA stay static (animacy rule); this is texture, not a re-mark.
+          const sdur = Math.max(4, Number(vars.sceneDuration) || 8);
+          tl.to(["#o-ring-l1", "#o-ring-l2"], { x: 28, y: 16, duration: sdur, ease: "sine.inOut" }, 0);
+          tl.to(["#o-ring-r1", "#o-ring-r2"], { x: -26, y: -14, duration: sdur, ease: "sine.inOut" }, 0);
+          // (Removed late-phase CTA re-mark — owner decision 2026-07-14. Settled
+          // CTA stays put; No-Dead-Frames is covered by entrances/exits.)
           window.__timelines["scla-outro"] = tl;
         })();
       </script>

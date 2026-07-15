@@ -35,14 +35,26 @@
         position: absolute;
         inset: 0;
       }
+      /* Host-root progress rail (frame.md → "Host-root progress rail") — spans the whole
+         runtime, above the scenes. A completion indicator, not scene motion. */
+      #hf-rail-track {
+        position: absolute; left: 120px; right: 120px; bottom: 40px; height: 4px;
+        background: rgba(204, 206, 223, 0.35); border-radius: 100px; z-index: 50;
+      }
+      #hf-rail-fill {
+        position: absolute; left: 120px; right: 120px; bottom: 40px; height: 4px;
+        background: #eaab2d; border-radius: 100px; z-index: 51;
+        transform-origin: left center; transform: scaleX(0);
+      }
     </style>
   </head>
   <body>
     <!--
       SCLA Lesson System — demo reel.
-      All nine reusable scene templates in sequence, filled with illustrative content from
-      the Early Career Boost lesson "Better Decisions Come From Better Criteria".
-      This file is the living style guide — render it after any template change.
+      The reusable scene templates in sequence, filled with illustrative content from
+      the Early Career Boost lesson "Better Decisions Come From Better Criteria", plus
+      the host-root progress rail. This file is the living style guide — render it after
+      any template change.
       It is NOT the timing pattern to copy for lesson builds: it predates the anchor
       contract (numeric cues, no data-anchor-end / data-cue-anchors, no <audio> at
       root). For a production build, copy the most recent lesson build's index.html
@@ -57,7 +69,7 @@
         • list variety — the same lesson rotates a numbered build (scla-points), a chip
           cluster (scla-chips), and a traced comparison map (scla-career-map).
     -->
-    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="78">
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="98">
       <div
         id="el-title"
         data-composition-id="scla-title"
@@ -155,22 +167,57 @@
       ></div>
 
       <div
-        id="el-outro"
-        data-composition-id="scla-outro"
-        data-composition-src="compositions/scla-outro.html"
-        data-variable-values='{"cta":"Open your career map","next":"Use your criteria to compare real paths — not just the loudest option.","url":"thescla.org","sceneIndex":"09 / NEXT STEP"}'
+        id="el-condition"
+        data-composition-id="scla-condition"
+        data-composition-src="compositions/scla-condition.html"
+        data-variable-values='{"num":"1","kicker":"Criterion one","heading":"Work you can grow in","total":"5","chips":"Learning,Real feedback,Room to stretch","chipCues":"2.4,3.6,4.8","icon":"growth","sceneIndex":"09 / CRITERION"}'
         data-start="70"
         data-duration="8"
         data-track-index="1"
         data-width="1920"
         data-height="1080"
       ></div>
+
+      <div
+        id="el-morph"
+        data-composition-id="scla-morph"
+        data-composition-src="compositions/scla-morph.html"
+        data-variable-values='{"kicker":"Flip the order","aTitle":"Pick the destination","aSub":"choose the job first","bTitle":"Get clear on good work","bSub":"define what you optimize for","winner":"b","winnerAfter":"Clarity first, destination second","actions":"A,B,morph,note,note","notes":"The options stop looking equally scary|They start sorting themselves out","pointCues":"1.6,3.2,5.2,8.0,10.4","sceneIndex":"10 / FLIP"}'
+        data-start="78"
+        data-duration="12"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="el-outro"
+        data-composition-id="scla-outro"
+        data-composition-src="compositions/scla-outro.html"
+        data-variable-values='{"cta":"Open your career map","next":"Use your criteria to compare real paths — not just the loudest option.","url":"thescla.org","sceneIndex":"11 / NEXT STEP"}'
+        data-start="90"
+        data-duration="8"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div id="hf-rail-track"></div>
+      <div id="hf-rail-fill"></div>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
-      // Root timeline stays empty — all animation lives in the scene sub-compositions.
-      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // Root timeline drives ONLY the host-root progress rail (scene motion lives in the
+      // sub-compositions). Its span is read from the root's data-duration at load, so the
+      // rail stays proportional and deterministic — no hand-typed total, no clock.
+      (function () {
+        var root = document.getElementById("root");
+        var total = parseFloat(root.getAttribute("data-duration")) || 1;
+        var tl = gsap.timeline({ paused: true });
+        tl.fromTo("#hf-rail-fill", { scaleX: 0 }, { scaleX: 1, duration: total, ease: "none" }, 0);
+        window.__timelines["main"] = tl;
+      })();
     </script>
   </body>
 </html>

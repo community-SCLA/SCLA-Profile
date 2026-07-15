@@ -4,6 +4,8 @@
   data-composition-variables='[
     {"id":"kicker","type":"string","label":"Kicker / eyebrow label","default":"The shift"},
     {"id":"statement","type":"string","label":"Statement line (a program thesis — NOT a quote)","default":"Better decisions become possible when you shift from pressure to process."},
+    {"id":"lines","type":"string","label":"Supporting bullet lines under the statement, pipe-separated (empty = none). Prefix a line with \"» \" to make it an indented continuation of the point above (no bullet).","default":""},
+    {"id":"pointCues","type":"string","label":"Per-supporting-line reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
@@ -91,6 +93,15 @@
           background: rgba(51, 147, 214, 0.65);
           transform-origin: left center;
         }
+        /* Supporting lines (opt-in via `lines`): one balanced left-aligned column that sits
+           right under the statement regardless of wrap count (never stranded at the bottom).
+           A rationed gold dot marks each new point; a line authored with a leading "» " is a
+           wrapped continuation of the point above — no dot, text indented to align under it. */
+        #sm-lines { margin-top: 40px; }
+        .sm-line { display: flex; align-items: flex-start; gap: 24px; font-size: 48px; font-weight: 400; line-height: 1.38; color: #bcd3e4; margin-bottom: 20px; }
+        .sm-line .bull { flex: 0 0 16px; width: 16px; height: 16px; margin-top: 18px; border-radius: 50%; background: #eaab2d; }
+        .sm-line.cont .bull { background: transparent; }
+        .sm-line .txt { flex: 1 1 auto; }
         #sm-index {
           position: absolute;
           right: 120px;
@@ -120,6 +131,8 @@
         #root[data-theme="horizon"] #sm-kicker { color: #bcd3e4; }
         #root[data-theme="horizon"] #sm-underline { background: rgba(234, 171, 45, 0.55); }
         #root[data-theme="horizon"] .sm-corner { border-color: rgba(51, 147, 214, 0.4); }
+        #root[data-theme="horizon"] .sm-line .bull { background: #3393d6; }
+        #root[data-theme="horizon"] .sm-line.cont .bull { background: transparent; }
         #root[data-theme="cadence"] .sm-bg { background: radial-gradient(130% 130% at 78% 18%, #0d2437 0%, #0a1e2f 74%); }
         #root[data-theme="cadence"] .sm-bg::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #eaab2d; }
         #root[data-theme="cadence"] #sm-ring-1 { border-color: rgba(234, 171, 45, 0.32); }
@@ -141,6 +154,7 @@
           <div id="sm-kicker">The shift</div>
           <h2 id="sm-statement">Better decisions become possible when you shift from pressure to process.</h2>
           <div id="sm-underline"></div>
+          <div id="sm-lines"></div>
         </div>
         <div id="sm-brandline">SCLA · Lesson System</div>
         <div id="sm-index" data-layout-allow-occlusion>03 / STATEMENT</div>
@@ -151,6 +165,8 @@
           const defaults = {
             kicker: "The shift",
             statement: "Better decisions become possible when you shift from pressure to process.",
+            lines: "",
+            pointCues: "",
             sceneIndex: "03 / STATEMENT",
             theme: "summit",
             sceneDuration: "10",
@@ -164,8 +180,9 @@
           document.getElementById("sm-kicker").textContent = vars.kicker;
           document.getElementById("sm-index").textContent = vars.sceneIndex;
 
-          // Statement is split into word spans so the reading ripple (below)
-          // can wave individual words during long holds.
+          // Statement is split into word spans for layout parity with earlier
+          // cuts (the reading-ripple animation that used them was removed
+          // 2026-07-14; the spans are now purely structural).
           const stmtEl = document.getElementById("sm-statement");
           stmtEl.textContent = "";
           const wordEls = [];
@@ -174,11 +191,36 @@
             if (wordEls.length) stmtEl.appendChild(document.createTextNode(" "));
             const span = document.createElement("span");
             span.className = "sm-word";
-            // Momentary neighbor-bleed during the reading ripple is intentional layering.
+            // Overlap permission retained; the reading ripple that needed it was removed.
             span.setAttribute("data-layout-allow-overlap", "");
             span.textContent = w;
             stmtEl.appendChild(span);
             wordEls.push(span);
+          });
+
+          // Supporting lines (opt-in). Each renders as a gold-bullet point; a "» " prefix
+          // makes it an indented continuation (no bullet) of the point above. When any lines
+          // are present the decorative underline stands down — the lines are the content
+          // that develops the frame instead.
+          const lines = String(vars.lines || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
+          const lineCues = String(vars.pointCues || "").split(",").map(function (s) { return parseFloat(s); }).filter(function (v) { return !isNaN(v); });
+          const lineEls = [];
+          const lineHost = document.getElementById("sm-lines");
+          if (lines.length) document.getElementById("sm-underline").style.display = "none";
+          lines.forEach(function (t) {
+            const cont = /^»\s*/.test(t);
+            const text = t.replace(/^»\s*/, "");
+            const row = document.createElement("div");
+            row.className = cont ? "sm-line cont" : "sm-line";
+            const bull = document.createElement("span");
+            bull.className = "bull";
+            const txt = document.createElement("span");
+            txt.className = "txt";
+            txt.textContent = text;
+            row.appendChild(bull);
+            row.appendChild(txt);
+            lineHost.appendChild(row);
+            lineEls.push(row);
           });
 
           window.__timelines = window.__timelines || {};
@@ -198,33 +240,28 @@
             { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.95, ease: "power4.out" },
             0.65,
           );
-          tl.fromTo("#sm-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 1.5);
+          if (!lines.length) tl.fromTo("#sm-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 1.5);
+          // Supporting lines resolve one per spoken cue (a real staged beat covering the hold —
+          // never in-place re-animation of settled text).
+          lineEls.forEach(function (el, i) {
+            const at = i < lineCues.length ? lineCues[i] : 1.4 + i * 1.2;
+            tl.fromTo(el, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, at);
+          });
           tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0);
           // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
           tl.fromTo("#sm-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
           tl.fromTo("#sm-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);
-          // Late-phase resolve: the statement block drifts up slowly across the
-          // back half and the underline re-sweeps, so a long statement hold never
-          // reads as a dead frame (frame.md ~2s rule).
-          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
-          if (sceneDur > 7.5) {
-            tl.fromTo("#sm-statement", { y: 0 }, { y: -12, duration: sceneDur * 0.4, ease: "sine.inOut" },
-              sceneDur * 0.55);
-            tl.fromTo("#sm-underline", { transformOrigin: "left center", scaleX: 1 },
-              { scaleX: 1.12, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 },
-              sceneDur * 0.72);
-          }
-          // Reading ripples: long statement holds used to freeze for 4-6s after
-          // the entrance settled (four dead holds confirmed 2026-07-10). A soft
-          // wave travels across the words every ~2.3s until the late-phase
-          // resolve takes over — the eye follows the line as it is read.
-          const rippleEnd = sceneDur * 0.55;
-          if (wordEls.length && rippleEnd > 4.6) {
-            for (let rt = 2.3; rt < rippleEnd - 0.8; rt += 2.3) {
-              tl.fromTo(wordEls, { y: 0 }, { y: -4, duration: 0.4, ease: "sine.inOut",
-                stagger: 0.035, yoyo: true, repeat: 1 }, rt);
-            }
-          }
+          // Depth-drift (2026-07-14): the ghost rings drift at different rates across the whole
+          // scene — translate-only decorative parallax. Foreground text stays static (animacy
+          // rule); this is texture, not a keep-alive re-mark, and never covers a dead hold.
+          const sdur = Math.max(4, Number(vars.sceneDuration) || 10);
+          tl.to("#sm-ring-1", { x: 30, y: 18, duration: sdur, ease: "sine.inOut" }, 0);
+          tl.to("#sm-ring-2", { x: -24, y: -12, duration: sdur, ease: "sine.inOut" }, 0);
+          tl.to("#sm-ring-3", { x: 16, y: 10, duration: sdur, ease: "sine.inOut" }, 0);
+          // (Removed late-phase resolve + reading ripples — owner decision
+          // 2026-07-14. Settled text and furniture stay put; No-Dead-Frames is
+          // covered by scene entrances and cued supporting lines, never by
+          // re-animating on-screen elements.)
           window.__timelines["scla-statement"] = tl;
         })();
       </script>

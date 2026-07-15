@@ -99,41 +99,67 @@ a style choice. These are hard rules, checked at the QA gate.
   across its whole duration (progressive bullets, a building diagram, a moving
   illustration), never one entrance then ambient drift. Ring-breath is texture,
   not motion.
-- **No per-word emphasis.** `scla-statement` no longer supports timed per-word
-  pop/underline (`emphasis`/`emphasisCues` — removed 2026-07-11; the cue timing
-  never landed cleanly against the transcript). Statement scenes >~6s stay alive
-  via the template's built-in reading ripple + late-phase resolve instead —
-  no per-scene authoring needed.
+- **No per-word emphasis, and no in-place "keep-alive" motion.** `scla-statement`
+  does not support timed per-word pop/underline (`emphasis`/`emphasisCues` —
+  removed 2026-07-11; the cue timing never landed cleanly against the transcript).
+  The old reading-ripple + late-phase-resolve keep-alive was also removed
+  (owner decision 2026-07-14): settled text and furniture never wobble, drift, or
+  re-mark in place to satisfy the animacy rules. A statement scene that would
+  otherwise hold static past ~5s is too long — split it, or give it a real staged
+  beat (below), never in-place motion.
 - **Furniture paints at t=0.** The scene's frame furniture — canvas texture,
   ghost rings, corner marks, scene index, brandline — is visible on the very
   first frame of every scene (entrances may settle it from ~50% opacity to
   full, never from nothing). Only *content* animates in. A bare-canvas flash
   at a cut is a defect; renders before 2026-07-10 shipped white flashes at
   scene entrances because furniture entered at 1.2–1.6s.
-- **Late-phase resolve.** Every template carries a quiet second wave sized to
-  its `sceneDuration` variable (compiler-maintained): content re-marks itself
-  — chip/point/node cascades, statement drift, route-node pulses — in the back
-  half of long holds, so no scene can produce a pixel-static stretch ≥5s while
-  narration speaks. This is layered *on top of* cue reveals, never instead of
-  them; `check_presence.py` trips deterministically at 5s (warns at 3s).
+- **Cover long holds with staged content, never in-place re-animation.** No
+  scene may produce a pixel-static stretch ≥5s while narration speaks —
+  `check_presence.py` trips deterministically at 5s (warns at 3s). The cover is
+  always a *new* beat: the next cued item, an illustration or figure that enters
+  (and may leave) on what is being said, or splitting an over-long scene into
+  more scenes. Re-animating elements already on screen — drifting, bobbing, or
+  re-marking settled text / rows / chips / nodes — is **not** an allowed cover
+  (the built-in "late-phase resolve" that did this was removed 2026-07-14).
+  Ambient ring-breath is texture, not motion, and never counts toward this rule.
+- **Depth-drift is texture, not a cover (2026-07-14).** The navy hero templates
+  (`scla-title`, `scla-statement`, `scla-outro`, `scla-quote`, `scla-stat`) drift
+  their ghost-ring / glow / grid *background* layers at different rates across the
+  whole scene — translate-only 2.5D parallax (CSS/GSAP, never Three.js), a few px,
+  finite `sine.inOut`. It enriches the static navy cards but, like ring-breath, is
+  decorative: the foreground text stays put and depth-drift **never** satisfies the
+  ≥5s rule. A real hold is still covered by a new cued beat (the statement's
+  supporting `lines`, the next item, or splitting the scene).
+- **The progress rail is a completion indicator, not animacy.** The host-root gold
+  rail (below) advances proportionally across the whole runtime, but at video scale
+  it moves far too little per second to register as motion — `check_presence`
+  ignores it. It never counts toward the ≥5s rule; scene animacy always comes from
+  the sub-compositions.
 
 ## Scene boundaries, padding & endings — the pacing rules
 
-**Timing numbers are compiled, never hand-typed.** The author declares anchors;
-`projects/video-production/render-qa/compile_timeline.py` computes every number
-from `assets/voice/transcript.json` (the authoring contract, normative):
+**Timing numbers are compiled, never hand-typed.** The author declares text;
+the toolchain computes every number (authoring contract, normative):
 
-- Every scene slot carries `data-anchor-end="<the scene's last spoken phrase>"`
-  — verbatim words from the transcript (punctuation/case ignored).
+- **Narration is synthesized per scene** (`render-qa/synth_narration.py`,
+  2026-07-14 — see `decisions/log.md`): every scene slot carries
+  `data-narration="<its verbatim span of the refined script>"` (split only at
+  sentence ends; HTML-escape inner double quotes as `&quot;`). The tool
+  verifies the concatenation against the refined script before any TTS, then
+  builds `narration.wav` from per-scene clips with REAL boundary silence
+  (0.3s air + 0.15s lead, 0.45s air after a question) and writes the
+  sample-exact boundary manifest `assets/voice/scene-times.json`.
+  `data-anchor-end` is legacy-only (pre-manifest workspaces): never author it
+  on a new build — the old single-take + inserted-silence flow spliced words
+  mid-decay and is retired.
 - Every cue variable is anchored by phrases, not seconds:
   `data-cue-anchors='{"chipCues":["phrase", …], "pointCues":[…],
   "stepCues":[…], "mapCue":"phrase"}'` — one phrase per
-  item, pulled from the transcript text, in spoken order.
-- The compiler owns `data-start`/`data-duration`, all numeric cue values,
-  `sceneDuration`, the `<audio>` duration, and the root duration — and it
-  inserts the boundary silence itself (narration has only 30–60ms of natural
-  sentence gap; the compiler pads to 0.6s air + 0.15s lead, 0.9s after a
-  question, measured 2026-07-10). Hand-editing any of these numbers is a
+  item, pulled from the Whisper transcript text, in spoken order.
+- `compile_timeline.py` owns `data-start`/`data-duration`, all numeric cue
+  values, `sceneDuration`, the `<audio>` duration, and the root duration —
+  boundaries come from the synthesis manifest; cue times from
+  `assets/voice/transcript.json`. Hand-editing any of these numbers is a
   defect; re-run the compiler instead. `render-qa/preflight.py` re-derives
   everything and fails the build on any drift.
 
@@ -142,8 +168,8 @@ Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
 - **Boundaries land on sentence ends.** Never cut mid-word or mid-sentence; the
   sentence that opens a thought belongs to the scene that illustrates it. If a
   sentence straddles a planned cut, move the boundary — don't split the sentence.
-- **≥0.5s of air after the last word.** A scene may not cut until at least
-  0.5s after its final spoken word's `end` time. Cutting at or before the word's
+- **≥0.2s of air after the last word.** A scene may not cut until at least
+  0.2s after its final spoken word's `end` time. Cutting at or before the word's
   end (the old builds cut up to 0.36s *early*, mid-word) is a defect.
 - **Questions keep their inflection.** When a scene ends on a question, the cut
   waits for the rise to finish — pad after the question mark, and prefer scripting
@@ -244,20 +270,69 @@ Reusable sub-compositions in `compositions/` — instantiate via
 | Lesson title card | `scla-title.html` | Navy | Opening line only — keep it short, never park it over content |
 | Key-point build | `scla-points.html` | Light | Up to 4 points, one per spoken cue (`pointCues`) |
 | Process / steps | `scla-steps.html` | Light | Sequential frameworks, up to 4 steps, activated on the spoken step (`stepCues`) |
-| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. Long holds stay alive via a built-in reading ripple + late-phase resolve (no per-word emphasis) |
+| Condition / principle | `scla-condition.html` | Light | One item of an enumerated set the narration introduces one at a time (condition/principle/pillar N of M): number badge + progress dots, heading, detail chips on cue (`chipCues`), and a **living icon** hero on the right (`icon`). Split an enumerated set into one of these per item, not a timed 5-row list |
+| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. No per-word emphasis and no in-place keep-alive — keep statement scenes short or split them. Optional supporting `lines` (gold-bullet column, revealed on `pointCues`) develop the thesis without a second scene (see the animacy rules) |
 | Chip / word cluster | `scla-chips.html` | Light | Fast spoken lists (up to 8 items) as pill chips flashing on cue (`chips`/`chipCues`); `reveal:"slide"` = angles variant. Also the post-title opening-enumeration scene |
-| Career / route map | `scla-career-map.html` | Light | Comparing paths/options: 3 candidate paths draw on, gold route traces to the winner on `mapCue` (`winner` picks it) |
+| Career / route map | `scla-career-map.html` | Light | Comparing 3 paths/options against criteria: 3 candidate paths draw on, gold route traces to the winner on `mapCue` (`winner` picks it) |
+| Morph hand-off | `scla-morph.html` | Light | A **two-option** comparison where the winner re-flows on cue (FLIP-style): unlearn-X-do-Y, before→after, wrong-vs-right, reorder-the-priority. Cards A/B enter, then the `winner` rises + turns gold (may relabel via `winnerAfter`); `actions`/`pointCues` sequence the beats. Not a 3-way route map |
 | Quote card | `scla-quote.html` | Navy card on light | A line attributed to a **named person** only |
-| Stat highlight | `scla-stat.html` | Split navy/light | One number that is genuinely the point — not an enumeration |
+| Stat highlight | `scla-stat.html` | Split navy/light | One number that is genuinely the point — not an enumeration. Optional `ring:"on"` pairs the count-up with a filling closed-circle gauge |
 | CTA outro | `scla-outro.html` | Navy | Next step + wordmark close — must hold ≥1s past the last spoken word |
 
 Templates are the **structural floor** — they guarantee the brand, the tokens,
 and seek-safe timing. They do not exempt a scene from the animacy and
 illustration rules above: instantiate them with cue-synced reveals, and reach
 for bespoke illustrated scenes whenever the narration describes something
-concrete. `index.html` at the project root is the demo reel — all nine templates
+concrete. `index.html` at the project root is the demo reel — the templates
 in sequence with real Early Career Boost lesson content. Treat it as the living
 style guide; render it after any template change.
+
+## Living icon library
+
+Brand-native SVG line-art icons, drawn on with GSAP `strokeDashoffset` as the
+narration names the thing, gold accent popping last. **Built into
+`scla-condition` and reserved for it** (owner decision 2026-07-14 — "icons are
+novel, not on every frame"): the icon is that scene's hero illustration on the
+right, one per condition/principle. Do **not** add decorative icons to other
+scenes. A bespoke scene may reuse a geometry below when a beat genuinely wants
+an icon, but the same discipline applies — sparing, and drawn on the cue.
+
+- **Geometry contract.** `viewBox="0 0 96 96"`, `fill="none"`, `stroke-width="4"`,
+  round caps/joins. Every drawn path/stroke gets `pathLength="100"` so the draw-on
+  is uniform (`strokeDasharray "100 100"`, `strokeDashoffset 100 → 0`, ~0.55s
+  `power3.out`, ~0.13s stagger). Main stroke `navy` (`#0d2437`; use `#ffffff` on a
+  navy canvas), accent stroke/fill `gold` (`#eaab2d`). Solid dots pop with one
+  `back.out`. **Rings are closed full circles** — the old 5/8 open-arc "signature"
+  was dropped 2026-07-14.
+- **Canonical set** (the `d` values live in `scla-condition.html`'s `ICONS` map —
+  edit there, mirror here): `compass`, `pressure` (clock), `insight` (bulb),
+  `salary` (tag), `mentorship` + `mentorship2` (two-people, variant recolored so
+  adjacent scenes read distinct), `growth` (line chart), `target`, `question`,
+  `examine` (magnifier), `done` (check). Closed-circle ring shared by
+  compass/pressure/target/question/done: `M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z`.
+- Adding an icon = a new entry in that `ICONS` map + a name here. Keep the set
+  small and on-language (line-art, oval-ring family); don't open a clip-art floodgate.
+
+## Host-root progress rail
+
+A thin brand-gold rail that advances across the **whole runtime** — a completion
+indicator (a documented watch-through lever), never scene motion. It lives at the
+**host root** (`index.html`), not in any sub-composition, because it must span
+every scene. Every build carries it (the `/render-lessons` "Assemble `index.html`
+FIRST" step wires it in; there is no scaffold file to inherit from — the newest
+build is the copy pattern).
+
+- **DOM** (inside `#root`, after the scene clips, before the `<audio>`): a faint
+  full-width track `#hf-rail-track` and a gold fill `#hf-rail-fill`
+  (`transform-origin:left center; transform:scaleX(0)`), ~4px tall, bottom edge
+  inside the safe margin, clear of the scene index and the outro lockup. Track
+  `#cccedf` (white-tint on navy); fill `#eaab2d`.
+- **Drive** (host `<script>`, the root `"main"` timeline — the slot the demo reel
+  left empty): read the span from the compiler-owned `#root data-duration` at load
+  and `fromTo("#hf-rail-fill", {scaleX:0}, {scaleX:1, duration: total, ease:"none"}, 0)`.
+  Proportional and deterministic — no hand-typed total, no clock. The rail is not a
+  scene clip (no `data-composition-src`), so the deterministic gates ignore it; it
+  does not participate in scene coverage and never satisfies `check_presence`.
 
 ## Style packages
 
@@ -304,7 +379,11 @@ building; never reinvent one of these from scratch. Compose 2–4 per scene, max
 | Phrase-by-phrase kinetic type | `hyperframes-animation` blueprint · `kinetic-type-beats`; also `techniques.md` §4 per-word slide-in | For beats where the words ARE the visual |
 | Route/path/diagram traces itself | `hyperframes-animation` · `svg-path-draw` (stagger multi-path ~70–80%) | Built into `scla-career-map`; also arrows, brand-mark draws |
 | Element travels along a path | `hyperframes-keyframes` · Path travel (GSAP MotionPath) | Figure/marker moving along a drawn route |
-| Count-up / stat with graphic | `hyperframes-animation` · `counting-dynamic-scale` + `stat-bars-and-fills` | Pair with `scla-stat` |
+| Count-up / stat with graphic | `hyperframes-animation` · `counting-dynamic-scale` + `stat-bars-and-fills` | Pair with `scla-stat` (built-in bar; `ring:"on"` adds a filling closed-circle gauge) |
+| Living icon draws on as it's named | brand-native SVG line-art · `strokeDashoffset` draw-on, gold accent pops last (`back.out`) | Built into `scla-condition`; geometry set in "Living icon library" below. Reserved for the condition/principle hero — not sprinkled on other scenes |
+| Two-option A→B morph (FLIP hand-off) | `hyperframes-animation` · `card-morph-anchor` / `scale-swap-transition` | Built into `scla-morph`: winner re-flows to top, grows, turns gold, may relabel. Seek-safe x/y/scale tweens |
+| Many items gather into one cluster | `hyperframes-keyframes` · FLIP (recorded start/end → numeric x/y/scale) | The pilot's "five conditions gather into a ring" beat. Bespoke; anchor to the closing cue, tween-only |
+| Depth-drift parallax on a navy hero | translate-only 2.5D drift on background layers (CSS/GSAP, **no Three.js**) | Built into the navy templates (title/statement/outro/quote/stat). Texture, not an animacy cover |
 | Zoom/pan focus inside a scene | `hyperframes-animation` · `coordinate-target-zoom`, `multi-phase-camera`, `depth-of-field-blur` | Camera moves beat-to-beat inside one long scene |
 | Two-option comparison | `hyperframes-animation` blueprint · `comparison-split` | Mirrored tilt cards + pill badges |
 | Concept/network diagram | `hyperframes-animation` · `avatar-cloud-network`; blueprint `constellation-hub` | Nodes ring a center, connectors draw |

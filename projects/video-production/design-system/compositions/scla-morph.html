@@ -1,0 +1,170 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"kicker","type":"string","label":"Eyebrow (e.g. Flip the order)","default":"Flip the order"},
+    {"id":"aTitle","type":"string","label":"Card A title","default":"Pick the destination"},
+    {"id":"aSub","type":"string","label":"Card A subtitle","default":"choose the job first"},
+    {"id":"bTitle","type":"string","label":"Card B title","default":"Know what you optimize for"},
+    {"id":"bSub","type":"string","label":"Card B subtitle","default":"define good work first"},
+    {"id":"winner","type":"string","label":"Winning card after morph (a | b)","default":"b"},
+    {"id":"winnerAfter","type":"string","label":"Relabel winner title after morph (blank keeps title)","default":""},
+    {"id":"actions","type":"string","label":"Comma list, one per cue: A | B | morph | note","default":"A,B,morph,note,note,note"},
+    {"id":"notes","type":"string","label":"Pipe-separated caption lines consumed by note actions","default":""},
+    {"id":"pointCues","type":"string","label":"Per-action reveal times, local sec, comma-separated (compiler-owned)","default":""},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / FLIP"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained)","default":"12"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      MORPH HAND-OFF — a two-option comparison where the on-screen elements RE-FLOW on a
+      spoken cue (FLIP-style), never a cross-fade. Use for "unlearn X, do Y" / before→after /
+      wrong-vs-right / reorder-the-priority beats. Cards A and B enter on their cue; on the
+      "morph" action the winner (winner:a|b) rises to the top, grows, and turns gold — and may
+      relabel its title (winnerAfter) — while the loser drops and dims. Supporting "note"
+      captions land on the right on later cues. For a 3-way "compare paths against criteria"
+      with a route trace, use scla-career-map instead. Seek-safe: explicit x/y/scale tweens on
+      the paused timeline. Cue key: pointCues (one entry per action).
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .mp-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+          background-image:
+            linear-gradient(rgba(51, 147, 214, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(51, 147, 214, 0.06) 1px, transparent 1px);
+          background-size: 120px 120px;
+        }
+        #mp-ghost { position: absolute; right: -220px; top: -200px; width: 720px; height: 720px; border-radius: 50%; border: 2px solid rgba(51, 147, 214, 0.1); }
+        .mp-corner { position: absolute; width: 34px; height: 34px; border: 3px solid rgba(13, 36, 55, 0.18); }
+        #mp-corner-tl { left: 60px; top: 60px; border-right: none; border-bottom: none; }
+        #mp-corner-br { right: 60px; bottom: 60px; border-left: none; border-top: none; }
+        #mp-kicker { position: absolute; left: 160px; top: 170px; font-size: 26px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #3393d6; }
+        #mp-rule { position: absolute; left: 162px; top: 226px; width: 120px; height: 4px; background: #eaab2d; transform-origin: left center; }
+        .card { position: absolute; left: 160px; width: 900px; height: 210px; border-radius: 12px; background: #f6f6f9; border: 2px solid #cccedf; padding: 40px 46px; box-sizing: border-box; }
+        .card .ct { font-size: 46px; font-weight: 900; color: #0d2437; line-height: 1.08; }
+        .card .cs { font-size: 30px; font-weight: 400; color: #5f6f96; margin-top: 14px; }
+        /* Number markers are circular (owner decision 2026-07-14 — not square corner tabs). */
+        .card .cn { position: absolute; left: -26px; top: -26px; width: 66px; height: 66px; border-radius: 50%; background: #0d2437; color: #fff; font-size: 30px; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px #ffffff; }
+        #cardA { top: 300px; }
+        #cardB { top: 560px; }
+        .card.win { border-color: #eaab2d; background: #fff; box-shadow: 0 0 0 4px rgba(234, 171, 45, 0.18); }
+        .card.win .cn { background: #eaab2d; color: #0d2437; }
+        #mp-notes { position: absolute; left: 1140px; top: 320px; width: 620px; }
+        .mp-note { font-size: 34px; font-weight: 700; color: #292f35; line-height: 1.3; margin-bottom: 26px; padding-left: 34px; position: relative; }
+        .mp-note::before { content: ""; position: absolute; left: 0; top: 16px; width: 18px; height: 18px; border-radius: 50%; background: #eaab2d; }
+        #mp-index { position: absolute; right: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
+        #mp-brandline { position: absolute; left: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .mp-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
+        #root[data-theme="horizon"] #mp-rule { background: #3393d6; }
+        #root[data-theme="horizon"] .card.win { border-color: #3393d6; box-shadow: 0 0 0 4px rgba(51, 147, 214, 0.18); }
+        #root[data-theme="horizon"] .mp-note::before { background: #3393d6; }
+        #root[data-theme="cadence"] .mp-bg { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] .mp-bg::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #eaab2d; }
+        #root[data-theme="cadence"] #mp-rule { width: 170px; }
+        #root[data-theme="cadence"] .card .cn { background: #eaab2d; color: #0d2437; }
+      </style>
+
+      <div id="root" data-composition-id="scla-morph" data-width="1920" data-height="1080" data-duration="12" data-layout-allow-overflow>
+        <div class="mp-bg"></div>
+        <div id="mp-ghost" data-layout-allow-overflow></div>
+        <div class="mp-corner" id="mp-corner-tl"></div>
+        <div class="mp-corner" id="mp-corner-br"></div>
+        <div id="mp-kicker">Flip the order</div>
+        <div id="mp-rule"></div>
+        <div class="card" id="cardA"><div class="cn" id="cnA">1</div><div class="ct" id="ctA">Pick the destination</div><div class="cs" id="csA">choose the job first</div></div>
+        <div class="card" id="cardB"><div class="cn" id="cnB">2</div><div class="ct" id="ctB">Know what you optimize for</div><div class="cs" id="csB">define good work first</div></div>
+        <div id="mp-notes"></div>
+        <div id="mp-index" data-layout-allow-occlusion>03 / FLIP</div>
+        <div id="mp-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          var defaults = {
+            kicker: "Flip the order", aTitle: "Pick the destination", aSub: "choose the job first",
+            bTitle: "Know what you optimize for", bSub: "define good work first", winner: "b", winnerAfter: "",
+            actions: "A,B,morph,note,note,note", notes: "", pointCues: "",
+            sceneIndex: "03 / FLIP", theme: "summit", sceneDuration: "12",
+          };
+          var vars = Object.assign({}, defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {});
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("mp-kicker").textContent = vars.kicker;
+          document.getElementById("ctA").textContent = vars.aTitle;
+          document.getElementById("csA").textContent = vars.aSub;
+          document.getElementById("ctB").textContent = vars.bTitle;
+          document.getElementById("csB").textContent = vars.bSub;
+          document.getElementById("mp-index").textContent = vars.sceneIndex;
+
+          var TOP = 300, BOT = 560;
+          var cardA = document.getElementById("cardA"), cardB = document.getElementById("cardB");
+          var notes = String(vars.notes || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
+          var noteEls = [];
+          var nhost = document.getElementById("mp-notes");
+          notes.forEach(function (t) { var d = document.createElement("div"); d.className = "mp-note"; d.textContent = t; nhost.appendChild(d); noteEls.push(d); });
+          var actions = String(vars.actions).split(",").map(function (s) { return s.trim(); });
+          var cueArr = String(vars.pointCues || "").split(",").map(function (s) { return parseFloat(s); }).filter(function (v) { return !isNaN(v); });
+
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo("#mp-ghost", { opacity: 0.4 }, { opacity: 1, duration: 0.7 }, 0);
+          tl.fromTo(["#mp-corner-tl", "#mp-corner-br", "#mp-index", "#mp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          tl.fromTo("#mp-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+          tl.fromTo("#mp-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.5);
+          // cards hidden until their cue
+          gsap.set([cardA, cardB], { opacity: 0, y: 0 });
+
+          var noteIdx = 0;
+          actions.forEach(function (act, i) {
+            var at = i < cueArr.length ? cueArr[i] : 2 + i * 2.5;
+            if (act === "A") tl.fromTo(cardA, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, at);
+            else if (act === "B") tl.fromTo(cardB, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, at);
+            else if (act === "morph") {
+              // FLIP reorder: winner rises to TOP and grows+gold; loser drops to BOT and dims.
+              var winEl = vars.winner === "a" ? cardA : cardB;
+              var loseEl = vars.winner === "a" ? cardB : cardA;
+              var winIsBottom = winEl === cardB;
+              // winner ends at TOP, loser ends at BOT. If the winner started at the
+              // bottom the two swap slots; if the winner is already on top, only the
+              // emphasis (scale/gold vs dim) changes — no repositioning.
+              tl.to(winEl, { y: winIsBottom ? TOP - BOT : 0, scale: 1.06, duration: 0.7, ease: "power4.inOut" }, at);
+              tl.to(loseEl, { y: winIsBottom ? BOT - TOP : 0, scale: 0.94, opacity: 0.55, duration: 0.7, ease: "power4.inOut" }, at);
+              tl.add(function () { winEl.classList.add("win"); }, at + 0.35);
+              if (vars.winnerAfter) {
+                var ctEl = winEl.querySelector(".ct");
+                tl.to(ctEl, { opacity: 0, duration: 0.25, ease: "power1.in" }, at + 0.4);
+                tl.add(function () { ctEl.textContent = vars.winnerAfter; }, at + 0.68);
+                tl.to(ctEl, { opacity: 1, duration: 0.3, ease: "power1.out", overwrite: "auto" }, at + 0.72);
+              }
+            } else if (act === "note") {
+              var el = noteEls[noteIdx++];
+              if (el) tl.fromTo(el, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, at);
+            }
+          });
+          window.__timelines["scla-morph"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

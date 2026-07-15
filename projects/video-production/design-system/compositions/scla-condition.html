@@ -1,0 +1,213 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"num","type":"string","label":"Condition / principle number","default":"1"},
+    {"id":"kicker","type":"string","label":"Eyebrow (e.g. Condition one)","default":"Condition one"},
+    {"id":"heading","type":"string","label":"Condition heading","default":"Engaging work"},
+    {"id":"total","type":"string","label":"How many in the set (progress dots)","default":"5"},
+    {"id":"chips","type":"string","label":"Comma list of detail chips (up to 4)","default":"Variety,Clear tasks,Real feedback,Freedom"},
+    {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (compiler-owned)","default":""},
+    {"id":"icon","type":"string","label":"Living icon name (see frame.md icon library)","default":"compass"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"09 / ENGAGING"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained)","default":"8"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      CONDITION / PRINCIPLE CARD — one item of an enumerated set (condition N of M,
+      principle N of M, pillar N of M) that the narration introduces one at a time.
+      Left-aligned text column (number badge, eyebrow, heading, detail chips on their
+      spoken cue) with a brand-native LIVING ICON as the hero illustration on the right.
+      Progress dots show which of the set this is. Living icons are reserved for this
+      template (owner decision 2026-07-14 — "novel, not on every frame"); do not sprinkle
+      them onto other scenes. Icon geometry set + rules: frame.md → "Living icon library".
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .cd-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+          background-image:
+            linear-gradient(rgba(51, 147, 214, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(51, 147, 214, 0.06) 1px, transparent 1px);
+          background-size: 120px 120px;
+        }
+        #cd-ghost {
+          position: absolute;
+          left: -180px;
+          bottom: -220px;
+          width: 680px;
+          height: 680px;
+          border-radius: 50%;
+          border: 2px solid rgba(51, 147, 214, 0.1);
+        }
+        .cd-corner {
+          position: absolute;
+          width: 34px;
+          height: 34px;
+          border: 3px solid rgba(13, 36, 55, 0.18);
+        }
+        #cd-corner-tl { left: 60px; top: 60px; border-right: none; border-bottom: none; }
+        #cd-corner-br { right: 60px; bottom: 60px; border-left: none; border-top: none; }
+        #cd-progress { position: absolute; left: 160px; top: 180px; display: flex; gap: 16px; }
+        .pdot { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #cccedf; box-sizing: border-box; }
+        .pdot.on { background: #eaab2d; border-color: #eaab2d; }
+        /* Text is a clean left-aligned column; the living icon is the hero on the RIGHT. */
+        #cd-num {
+          position: absolute; left: 160px; top: 292px; width: 84px; height: 84px; border-radius: 50%;
+          background: #0d2437; color: #eaab2d; font-size: 44px; font-weight: 900;
+          display: flex; align-items: center; justify-content: center;
+        }
+        #cd-kicker {
+          position: absolute; left: 272px; top: 302px; font-size: 26px; font-weight: 700;
+          letter-spacing: 0.16em; text-transform: uppercase; color: #3393d6;
+        }
+        #cd-rule { position: absolute; left: 274px; top: 356px; width: 120px; height: 4px; background: #eaab2d; transform-origin: left center; }
+        #cd-heading { position: absolute; left: 160px; top: 408px; width: 1060px; font-size: 84px; font-weight: 900; color: #0d2437; line-height: 1.06; }
+        #cd-chips { position: absolute; left: 160px; top: 652px; width: 1120px; display: flex; flex-wrap: wrap; gap: 22px; }
+        .chip { padding: 20px 38px; border: 2px solid #3393d6; border-radius: 100px; font-size: 36px; font-weight: 700; color: #0d2437; white-space: nowrap; background: #ffffff; }
+        #cd-iconwrap { position: absolute; left: 1370px; top: 378px; width: 300px; height: 300px; }
+        #cd-iconwrap svg { width: 300px; height: 300px; }
+        #cd-index { position: absolute; right: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
+        #cd-brandline { position: absolute; left: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .cd-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
+        #root[data-theme="horizon"] #cd-num { background: transparent; border: 3px solid #0d2437; color: #0d2437; box-sizing: border-box; }
+        #root[data-theme="horizon"] #cd-rule { background: #3393d6; }
+        #root[data-theme="horizon"] .chip { border-color: #98a4cc; }
+        #root[data-theme="cadence"] .cd-bg { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] .cd-bg::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #eaab2d; }
+        #root[data-theme="cadence"] #cd-num { background: #eaab2d; color: #0d2437; }
+        #root[data-theme="cadence"] #cd-rule { width: 170px; }
+        #root[data-theme="cadence"] .chip { border-color: #0d2437; }
+      </style>
+
+      <div id="root" data-composition-id="scla-condition" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow>
+        <div class="cd-bg"></div>
+        <div id="cd-ghost" data-layout-allow-overflow></div>
+        <div class="cd-corner" id="cd-corner-tl"></div>
+        <div class="cd-corner" id="cd-corner-br"></div>
+        <div id="cd-progress"></div>
+        <div id="cd-num">1</div>
+        <div id="cd-iconwrap"><svg viewBox="0 0 96 96" fill="none"></svg></div>
+        <div id="cd-kicker">Condition one</div>
+        <div id="cd-rule"></div>
+        <div id="cd-heading">Engaging work</div>
+        <div id="cd-chips"></div>
+        <div id="cd-index" data-layout-allow-occlusion>09 / ENGAGING</div>
+        <div id="cd-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          // Canonical living-icon library — brand-native SVG line-art (frame.md → "Living icon
+          // library"). Rings are CLOSED full circles (owner decision 2026-07-14, drops the old
+          // 5/8 open-arc signature). gd:true paints a stroke/fill in gold; fill:true is a solid dot.
+          var RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z"; // closed circle, r32 @ (48,48)
+          var ICONS = {
+            compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+            pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+            insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
+            salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
+            mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
+            mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
+            growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
+            target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
+            question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
+            examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
+            done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] }
+          };
+          var defaults = {
+            num: "1", kicker: "Condition one", heading: "Engaging work", total: "5",
+            chips: "Variety,Clear tasks,Real feedback,Freedom", chipCues: "", icon: "compass",
+            sceneIndex: "09 / ENGAGING", theme: "summit", sceneDuration: "8",
+          };
+          var vars = Object.assign({}, defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {});
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("cd-num").textContent = vars.num;
+          document.getElementById("cd-kicker").textContent = vars.kicker;
+          document.getElementById("cd-heading").textContent = vars.heading;
+          document.getElementById("cd-index").textContent = vars.sceneIndex;
+
+          // progress dots (which of the set)
+          var n = parseInt(vars.num, 10) || 1;
+          var total = Math.max(n, parseInt(vars.total, 10) || 5);
+          var phost = document.getElementById("cd-progress");
+          for (var k = 1; k <= total; k++) {
+            var dot = document.createElement("div");
+            dot.className = "pdot" + (k <= n ? " on" : "");
+            phost.appendChild(dot);
+          }
+
+          // build the living icon from the geometry library
+          var svg = document.querySelector("#cd-iconwrap svg");
+          var draws = [], dots = [];
+          var ic = ICONS[vars.icon] || ICONS.compass;
+          var strokeMain = "#0d2437";
+          (ic.paths || []).forEach(function (p) {
+            var el = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            el.setAttribute("d", p.d); el.setAttribute("fill", "none");
+            el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
+            el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
+            el.setAttribute("pathLength", "100"); svg.appendChild(el); draws.push(el);
+          });
+          (ic.circles || []).forEach(function (c) {
+            var el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
+            if (c.fill) {
+              el.setAttribute("fill", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke", "none"); dots.push(el);
+            } else {
+              el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain);
+              el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); draws.push(el);
+            }
+            svg.appendChild(el);
+          });
+
+          var chips = String(vars.chips).split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+          var cueArr = String(vars.chipCues || "").split(",").map(function (s) { return parseFloat(s); }).filter(function (v) { return !isNaN(v); });
+          var chipEls = [];
+          var chost = document.getElementById("cd-chips");
+          chips.forEach(function (t) { var d = document.createElement("div"); d.className = "chip"; d.textContent = t; chost.appendChild(d); chipEls.push(d); });
+
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo("#cd-ghost", { opacity: 0.4 }, { opacity: 1, duration: 0.7 }, 0);
+          tl.fromTo(["#cd-corner-tl", "#cd-corner-br", "#cd-index", "#cd-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          tl.fromTo(".pdot", { opacity: 0, scale: 0.6, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.06 }, 0.2);
+          tl.fromTo("#cd-num", { opacity: 0, scale: 0.6, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.35);
+          tl.fromTo("#cd-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, 0.4);
+          tl.fromTo("#cd-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.5);
+          tl.fromTo("#cd-heading", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.5);
+          // living icon draws on (strokeDashoffset), gold accents/dots pop last
+          if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.7);
+          if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.4);
+          // detail chips reveal on their spoken cue
+          chipEls.forEach(function (el, i) {
+            var at = i < cueArr.length ? cueArr[i] : 2.2 + i * 0.9;
+            tl.fromTo(el, { opacity: 0, y: 26, scale: 0.9, transformOrigin: "left center" }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, at);
+          });
+          window.__timelines["scla-condition"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

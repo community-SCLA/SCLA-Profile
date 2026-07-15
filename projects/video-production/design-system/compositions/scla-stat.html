@@ -6,6 +6,7 @@
     {"id":"prefix","type":"string","label":"Prefix (before the number)","default":""},
     {"id":"suffix","type":"string","label":"Suffix (after the number)","default":""},
     {"id":"statLabel","type":"string","label":"Stat label","default":"Paths to list — not just one"},
+    {"id":"ring","type":"string","label":"Ring gauge mode: \"on\" pairs the count-up with a filling closed-circle gauge (empty = split-panel default)","default":""},
     {"id":"context","type":"string","label":"Context sentence","default":"If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide."},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / STAT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
@@ -152,6 +153,19 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* Ring gauge (opt-in via ring:"on"). A CLOSED full circle (owner decision
+           2026-07-14 — no open arcs): a faint track with a gold fill that draws on
+           clockwise from the top as the number counts up. Hidden in the default
+           split-panel layout; when on, the number + label re-center inside the ring
+           and the right-hand proportional bar stands down (the ring is that visual). */
+        #sh-ring-wrap { position: absolute; left: 130px; top: 190px; width: 560px; height: 560px; display: none; }
+        #sh-ring-wrap svg { position: absolute; inset: 0; }
+        #root[data-ring="on"] #sh-ring-wrap { display: block; }
+        #root[data-ring="on"] #sh-number { left: 130px; top: 330px; width: 560px; text-align: center; font-size: 150px; }
+        #root[data-ring="on"] #sh-stat-rule { display: none; }
+        #root[data-ring="on"] #sh-stat-label { left: 130px; top: 588px; width: 560px; text-align: center; }
+        #root[data-ring="on"] #sh-bar,
+        #root[data-ring="on"] #sh-bar-fill { display: none; }
         /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .sh-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
         #root[data-theme="horizon"] #sh-panel { background: radial-gradient(150% 130% at 35% 92%, #0d2437 0%, #0a1e2f 80%); }
@@ -171,6 +185,12 @@
         <div id="sh-panel" data-layout-allow-overflow>
           <div id="sh-panel-ring" data-layout-allow-overflow></div>
           <div id="sh-panel-ring-2" data-layout-allow-overflow></div>
+        </div>
+        <div id="sh-ring-wrap" data-layout-allow-overflow>
+          <svg viewBox="0 0 560 560" fill="none">
+            <path id="sh-ring-track" d="" stroke="rgba(255,255,255,0.14)" stroke-width="16" stroke-linecap="round"></path>
+            <path id="sh-ring-fill" d="" stroke="#eaab2d" stroke-width="16" stroke-linecap="round" pathLength="100"></path>
+          </svg>
         </div>
         <div id="sh-number">5</div>
         <div id="sh-stat-rule"></div>
@@ -208,6 +228,18 @@
           document.getElementById("sh-context").textContent = vars.context;
           document.getElementById("sh-index").textContent = vars.sceneIndex;
 
+          // Ring gauge mode (opt-in). Build the closed-circle track + fill geometry.
+          const ringOn = String(vars.ring || "").trim().toLowerCase() === "on";
+          if (ringOn) {
+            document.getElementById("root").setAttribute("data-ring", "on");
+            const cx = 280, cy = 280, r = 210;
+            const circle =
+              "M " + cx + " " + (cy - r) + " A " + r + " " + r + " 0 1 1 " + cx + " " + (cy + r) +
+              " A " + r + " " + r + " 0 1 1 " + cx + " " + (cy - r) + " Z";
+            document.getElementById("sh-ring-track").setAttribute("d", circle);
+            document.getElementById("sh-ring-fill").setAttribute("d", circle);
+          }
+
           const target = Number(vars.value) || 0;
           const numberEl = document.getElementById("sh-number");
           const fmt = function (n) {
@@ -220,6 +252,11 @@
           tl.fromTo("#sh-panel", { xPercent: -100 }, { xPercent: 0, duration: 0.7, ease: "power3.out" }, 0);
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
           tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0.5 }, { opacity: 1, duration: 0.8, stagger: 0.15 }, 0.5);
+          if (ringOn) {
+            tl.fromTo("#sh-ring-track", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.4);
+            // Gold fill draws on across the same window the number counts up.
+            tl.fromTo("#sh-ring-fill", { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.out" }, 0.7);
+          }
           tl.fromTo("#sh-number", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.55);
           // Deterministic count-up: tween a proxy on the timeline; formatting happens in onUpdate.
           const proxy = { v: 0 };
@@ -244,9 +281,13 @@
           tl.fromTo("#sh-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, 1.6);
           tl.fromTo("#sh-index", { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
           tl.fromTo("#sh-panel-ring", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
-          // Late-phase resolve: the stat re-marks itself once during the hold.
-          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 8);
-          tl.fromTo("#sh-number", { scale: 1 }, { scale: 1.03, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, sceneDur * 0.7);
+          // Depth-drift (2026-07-14): the two panel rings drift at different rates across
+          // the whole scene — translate-only decorative parallax on the background layer.
+          // The foreground number/label stay static (animacy rule); this is texture, not a
+          // keep-alive re-mark, and never counts toward No-Dead-Frames.
+          const sdur = Math.max(4, Number(vars.sceneDuration) || 8);
+          tl.to("#sh-panel-ring", { x: 26, y: 16, duration: sdur, ease: "sine.inOut" }, 0);
+          tl.to("#sh-panel-ring-2", { x: -20, y: -12, duration: sdur, ease: "sine.inOut" }, 0);
           window.__timelines["scla-stat"] = tl;
         })();
       </script>

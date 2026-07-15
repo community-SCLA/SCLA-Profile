@@ -10,6 +10,8 @@
     {"id":"reveal","type":"string","label":"Chip entrance (pop | slide)","default":"pop"},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"07 / DEFINE"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
+    {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
   ]'
 >
@@ -140,6 +142,19 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* Sub-beats — narration-synced live line (dead-hold fix, 2026-07-14).
+           One beat visible at a time; absent unless subBeats is set. */
+        .cc-subbeat {
+          position: absolute;
+          left: 160px;
+          right: 160px;
+          bottom: 132px;
+          text-align: center;
+          font-size: 30px;
+          font-weight: 700;
+          color: #0d2437;
+          opacity: 0;
+        }
         /* Style packages — visual layer only; timeline identical */
         #root[data-theme="horizon"] .cc-bg { background: #ffffff; }
         #root[data-theme="horizon"] #cc-tick { background: #3393d6; }
@@ -237,15 +252,28 @@
           tl.fromTo(["#cc-index", "#cc-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
           tl.fromTo("#cc-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut" }, 1.4);
           tl.fromTo("#cc-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
-          // Late-phase resolve (frame.md — the frame keeps resolving after the
-          // last cue): chips re-mark themselves in a quiet cascade on long holds.
-          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
-          if (sceneDur > 7.5 && chips.length) {
-            const lastCue = cues.length ? Math.max.apply(null, cues) : 0;
-            [0.6, 0.84].forEach(function (frac) {
-              tl.fromTo(chips, { y: 0 }, { y: -9, scale: 1.03, duration: 0.45, ease: "sine.inOut",
-                stagger: 0.1, yoyo: true, repeat: 1 },
-                Math.max(2.4, lastCue + 1.2, sceneDur * frac));
+          // (Removed late-phase chip re-marks — owner decision 2026-07-14.
+          // Settled chips stay put; chip entrances + ambient ghost-ring motion
+          // above cover No-Dead-Frames.)
+          // Sub-beats: a cued live line that swaps text on each spoken cue —
+          // covers narration spans between primary reveals (dead-hold fix,
+          // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,
+          // no timeline impact. Seek-safe: tween-only swaps, no .call().
+          const subBeats = String(vars.subBeats || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
+          const subCues = String(vars.subCues || "").split(",").map(function (s) { return Number(s.trim()); }).filter(function (v) { return !isNaN(v); });
+          if (subBeats.length && subCues.length === subBeats.length) {
+            subBeats.forEach(function (text, i) {
+              const el = document.createElement("div");
+              el.className = "cc-subbeat";
+              el.setAttribute("data-layout-allow-occlusion", "");
+              el.textContent = text;
+              document.getElementById("root").appendChild(el);
+              const at = Math.max(0.4, subCues[i]);
+              tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at);
+              if (i + 1 < subBeats.length) {
+                const out = Math.max(at + 0.5, Math.max(0.4, subCues[i + 1]) - 0.35);
+                tl.to(el, { opacity: 0, y: -18, duration: 0.3, ease: "power2.in" }, out);
+              }
             });
           }
           window.__timelines["scla-chips"] = tl;
