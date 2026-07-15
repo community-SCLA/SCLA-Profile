@@ -162,6 +162,15 @@
               if (el) tl.fromTo(el, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, at);
             }
           });
+          // (No pre-cue keep-alives or note re-marks — owner decision 2026-07-14,
+          // REAFFIRMED 2026-07-15 after an unauthorized restoration. Long holds are
+          // covered by staged beats: `actions` cues or a scene split.)
+          // Ambient drift (2026-07-15 animacy regression fix): the ghost circle
+          // drifts in finite translate-only sine yoyo cycles across the whole scene —
+          // background texture only. (Cards are left alone — FLIP owns their y/scale.)
+          var sdur = Math.max(4, parseFloat(vars.sceneDuration) || 12);
+          tl.fromTo("#mp-ghost", { x: 0, y: 0 }, { x: 24, y: 14, duration: 3.2, ease: "sine.inOut",
+            yoyo: true, repeat: Math.max(1, Math.ceil(sdur / 3.2) - 1) }, 0);
           window.__timelines["scla-morph"] = tl;
         })();
       </script>

@@ -1,7 +1,8 @@
 # Video Production Pipeline — Status
 
-**Current phase:** Illustrated pipeline live and delivering (first video shipped; pipeline overhauled 2026-07-09 — CLI 0.7.45 removed the manual bake step, renders now come straight from `index.html` scene values)  
-**Owner:** TODO
+**Current phase:** Illustrated pipeline live and delivering — 2 lessons published to Wistia, 2 more at MP4 review (per-scene narration synthesis landed 2026-07-14; the 5 piloted design-system upgrades promoted 2026-07-15)  
+**Owner:** TODO  
+**Last refreshed:** 2026-07-15 (pipeline review session)
 
 ---
 
@@ -47,15 +48,21 @@
 ## Production Status
 
 ### Active Work
-- **Build Direction Before You Build a Plan** (Early Career Boost) — assembled in `renders-hyperframes/`, pre-QA
-- **Better Decisions Come From Better Criteria** (Early Career Boost) — script approved + narration generated; assembly not started (also serves as design-system demo-reel content)
+- **Do Not Just Ask What AI Replaces** + **Finding/Creating a Career Purpose Statement** (Early Career Boost) — MP4s filed (verify PASS) but **owner-vetoed**: they carry the banned in-place text motion (decision 2026-07-15); need re-author + re-render on the stripped templates, back through the normal gates
+- **Career-Building Is a Repeatable Process** (Early Career Boost) — live on Wistia but **publish disputed** (gate-bypass claim uncorroborated, close-out never ran) and carries the vetoed text motion — recommendation: take down + re-cut; owner ruling needed, see `refinement-log.md` row + snag-log
+- **Build Direction Before You Build a Plan** (Early Career Boost) — workspace at the hyperframe gate
+- **Better Decisions Come From Better Criteria** (Early Career Boost) — workspace built; **facts-provenance blocker** (lesson body/outline never filed as source — needs owner input before ship). An unlogged render attempt was aborted 2026-07-15
 
-### First 5 AI Videos (Month 1 Goal)
-| Video | Course | Script Status | Render Status | Published |
-|---|---|---|---|---|
-| Mini Syllabus | Early Career Boost | Approved | Delivered (`lesson-scripts/early-career-boost/`, workspace archived) | Wistia pending |
-| Build Direction Before You Build a Plan | Early Career Boost | Approved | Pre-QA | — |
-| Better Decisions Come From Better Criteria | Early Career Boost | Approved | Not assembled | — |
+### Illustrated Lesson Videos (Early Career Boost)
+| Video | Script | Render | Published |
+|---|---|---|---|
+| Mini Syllabus | Approved | Delivered 2026-07-08 (workspace archived) | Wistia pending (URL `TODO` since migration) |
+| What Makes for a Dream Job | Approved | 2026-07-15, verify PASS (pilot for the 5 promoted upgrades) | **Wistia** `6g95getfl2` (owner waived MP4-review gate) |
+| Career-Building Is a Repeatable Process | Approved | 2026-07-15, verify PASS | **Wistia** `zyr1fq35t7` — ⚠ publish disputed (see Active Work) |
+| Do Not Just Ask What AI Replaces | Approved | 2026-07-15, verify PASS (0 warnings) | at MP4 review |
+| Finding/Creating a Career Purpose Statement | Approved | 2026-07-15, verify PASS | at MP4 review |
+| Build Direction Before You Build a Plan | Approved | at hyperframe gate | — |
+| Better Decisions Come From Better Criteria | Approved | blocked (facts provenance) | — |
 
 ### Blockers
 - [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `avatar-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.

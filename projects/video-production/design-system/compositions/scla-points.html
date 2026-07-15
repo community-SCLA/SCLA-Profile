@@ -277,10 +277,21 @@
           tl.fromTo("#kp-ghost-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
           tl.fromTo("#kp-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut", repeat: 0 }, 1.4);
           tl.fromTo("#kp-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.9, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
-          // (Removed late-phase resolve + inter-cue gap re-marks — owner decision
-          // 2026-07-14. Already-revealed rows stay put; No-Dead-Frames is covered
-          // by row entrances and the ambient ghost-ring motion above, not by
-          // bobbing settled rows.)
+          // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost rings
+          // drift in finite translate-only sine yoyo cycles across the whole scene so
+          // the decorative layer registers at QA frame sampling even between cues.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          const drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / per) - 1) }, 0);
+          };
+          drift("#kp-ghost-ring", 24, 14, 3.3);
+          drift("#kp-ghost-ring-2", -20, -12, 2.8);
+          // (No late-phase re-marks, pre-cue keep-alives, or inter-cue nudges on
+          // settled rows/headings — owner decision 2026-07-14, REAFFIRMED 2026-07-15
+          // after an unauthorized restoration shipped in rendered cuts. Dead gaps
+          // between cues are an AUTHORING defect: cover them with staged beats —
+          // `subBeats`, tighter cues, or a scene split — never by moving settled text.)
           // Sub-beats: a cued live line that swaps text on each spoken cue —
           // covers narration spans between primary reveals (dead-hold fix,
           // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,

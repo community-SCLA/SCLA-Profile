@@ -198,15 +198,21 @@
           // Ambient breath for the rest of the 8s window (finite repeats, seek-safe)
           tl.fromTo("#t-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.3);
           tl.fromTo("#t-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
-          // Depth-drift (2026-07-14): the concentric ghost rings drift at different rates across
-          // the whole scene — translate-only decorative parallax on the navy hero. Foreground
-          // title stays static (animacy rule); this is texture, never a keep-alive re-mark.
+          // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): translate-only
+          // decorative parallax in finite sine yoyo cycles sized to register at QA frame
+          // sampling. (The promoted single whole-scene glide moved ~1px/s — pixel-identical
+          // between 0.5s samples — and stagnated long holds: render regression 2026-07-15.)
           const sdur = Math.max(4, Number(vars.sceneDuration) || 8);
-          tl.to("#t-ring-1", { x: 30, y: 18, duration: sdur, ease: "sine.inOut" }, 0);
-          tl.to("#t-ring-2", { x: -24, y: -12, duration: sdur, ease: "sine.inOut" }, 0);
-          tl.to("#t-ring-3", { x: 16, y: 10, duration: sdur, ease: "sine.inOut" }, 0);
-          // (Removed late-phase title-block scale — owner decision 2026-07-14.
-          // Settled elements stay put; No-Dead-Frames is covered by entrances/exits.)
+          const drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
+          };
+          drift("#t-ring-1", 30, 18, 3.4);
+          drift("#t-ring-2", -24, -12, 2.9);
+          drift("#t-ring-3", 16, 10, 2.5);
+          // (No late-phase title-block motion — owner decision 2026-07-14,
+          // REAFFIRMED 2026-07-15 after an unauthorized restoration. Settled
+          // elements stay put; long holds are an authoring problem, not a tween.)
           window.__timelines["scla-title"] = tl;
         })();
       </script>

@@ -47,7 +47,7 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 
 ## Illustrated Video QA (HyperFrames / design-system)
 
-- [ ] Deterministic gates green on this exact render: `render-qa/preflight.py` (pre-render) and `render-qa/verify_render.py` (post-render) both exit 0; every scene carries `data-anchor-end` (timing is compiled, never hand-typed)
+- [ ] Deterministic gates green on this exact render: `render-qa/preflight.py` (pre-render) and `render-qa/verify_render.py` (post-render) both exit 0; every scene carries `data-narration` and boundaries come from the `synth_narration.py` manifest (`assets/voice/scene-times.json`) — timing is compiled, never hand-typed; `data-anchor-end` is legacy-only and never authored on new builds (per-scene synthesis decision, 2026-07-14)
 - [ ] Builder frame review done on this exact render — `qa/frames/` dump (3 stills per scene) checked against the transcript; if an `/adversarial-qa` deep audit was run, every launched lane returned PASS and reports are attached
 - [ ] `npm run check` passes with 0 errors (lint + validate + inspect)
 - [ ] Frames reviewed by a human at **several points per scene** (start, mid, late) — one midpoint still can't reveal a stagnant frame

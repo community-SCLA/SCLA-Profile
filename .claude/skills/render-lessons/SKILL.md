@@ -16,8 +16,12 @@ build subagent reads it while assembling; nothing from it is restated here.
    become an MP4. Hyperframe → MP4 is a manual human decision, never automated.
 2. **MP4 REVIEW** — a human watches every filed MP4 before it may go to Wistia.
 
-`refined/` is an open review buffer (a human may edit or veto any script
-there, any time — nothing waits on them); everything else between the
+`refined/` is your finalize-before-build buffer — it holds only scripts not
+yet built (edit or veto any of them there, any time *before* you invoke
+BUILD). The moment a build is gate-clean, its script moves `refined/ →
+rendered/` (B3), so `refined/` always shows exactly what's left to build and
+parallel BUILD sessions see a shrinking queue; the human hyperframe gate then
+reviews the built workspace, not the script. Everything else between the
 checkpoints is machine work behind deterministic gates. BUILD may not render;
 SHIP may not run without the human naming the stem after the preview; PUBLISH
 may not run without the human naming the stem after watching the MP4. Never
@@ -26,11 +30,15 @@ self-approve. Never fabricate SCLA content; no FERPA/PII in any prompt.
 **State is the folder:**
 
 ```
-lesson-scripts/<program-slug>/refined/   BUILD's queue
+lesson-scripts/<program-slug>/refined/   BUILD's queue — scripts not yet built
 renders-hyperframes/<stem>/              built — sitting at the HYPERFRAME GATE
+lesson-scripts/<program-slug>/rendered/  its script, moved here once the build is gate-clean (B3)
 renders-mp4/<program-slug>/<stem>.mp4    shipped — sitting at MP4 REVIEW
-lesson-scripts/<program-slug>/rendered/  published (MP4 on Wistia, books closed)
 ```
+
+(`rendered/` means "a gate-clean build exists for this script," not
+"published." Publishing to Wistia closes the books but no longer moves the
+file — B3 already did.)
 
 ---
 
@@ -58,10 +66,14 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 
 ### B1 — Queue and batch
 
-- Queue = every `*.txt` in each `lesson-scripts/<program-slug>/refined/`
-  **minus** stems that already have a `renders-hyperframes/<stem>/` workspace
-  (those are already built and waiting at the gate — never rebuild one without
-  being asked; point the human at its preview instead).
+- Queue = every `*.txt` in each `lesson-scripts/<program-slug>/refined/`. A
+  gate-clean build moves its script out to `rendered/` (B3), so `refined/`
+  already holds only un-built scripts. The workspace check stays as a guard:
+  if a stem still in `refined/` somehow already has a
+  `renders-hyperframes/<stem>/` workspace, it's built and waiting at the gate —
+  skip it (never rebuild one without being asked; point the human at its
+  preview instead). This is also what makes parallel BUILD sessions safe —
+  neither rebuilds a stem that already has a workspace.
 - **Batch cap: ≤3 builds per session.** One build costs ~150–300 tool calls in
   its subagent; the per-session budget is 500 (`hooks/pre-tool.sh`). Each
   subagent carries its own context and budget — that's why builds are
@@ -121,6 +133,10 @@ animacy + illustration rules. Standing landmines:
   the transcript or pick a phrase that clears it.
 - Idle pulses: translate-only (the y-nudge pattern). Animating `scale` + SVG
   `opacity` together ghosts in the streaming encode.
+- Never qualify a bespoke sub-comp root by its own class/attribute (e.g. a
+  `#root.navy` selector): it renders unstyled under composition scoping even
+  though it passes every static check. Style bespoke roots with a plain
+  `#root` block or a child wrapper. (Promoted 2026-07-14; landed 2026-07-15.)
 
 **Synthesize per scene, then compile + gates** (from the workspace — loop
 until all green). `synth_narration.py` verifies data-narration against the
@@ -153,11 +169,27 @@ trust exit codes you produced, not subagent prose:
 python3 projects/video-production/render-qa/preflight.py projects/video-production/renders-hyperframes/<stem>
 ```
 
-Then **stop and hand the human the gate**, per video: stem, theme, scene
-count, and how to watch it —
+**Once your independent preflight exits 0**, the build is gate-clean and the
+script has done its job in the queue — move it out so `refined/` shows only
+what's left to build (do this only after exit 0; a failed build leaves the
+script in `refined/`):
 
 ```bash
-bash scripts/preview.sh <stem>   # Studio on :3002, auto-forwarded + opens; background it; long-running
+git mv projects/video-production/lesson-scripts/<program-slug>/refined/<stem>.txt \
+       projects/video-production/lesson-scripts/<program-slug>/rendered/<stem>.txt
+```
+
+Then **stop and hand the human the gate**, per video: stem, theme, scene
+count, and how to watch it. **Never print `<stem>` as a placeholder** — give
+the literal, copy-pasteable command with that video's actual stem filled in,
+one fenced command per video built this session (even when there's only one):
+
+```bash
+bash scripts/preview.sh career-building-is-a-repeatable-process_early-career-boost_2026-07-10
+```
+
+```bash
+bash scripts/preview.sh what-makes-for-a-dream-job_early-career-boost_2026-07-10
 ```
 
 State plainly: "Built and gate-clean. Nothing renders until you approve —
@@ -204,7 +236,8 @@ Trigger: the human explicitly names the stem after MP4 review ("publish X").
 2. Record the Wistia URL in the ledger row (`refinement-log.md`). (Where the
    URL additionally lands in Notion is an open decision, 2026-07-13 — until
    settled, the ledger row is the link's home.)
-3. `git mv` the script `refined/` → `rendered/` — the lesson is now done.
+3. The script already moved `refined/ → rendered/` at the hyperframe gate (B3),
+   so no move here — just confirm it's in `rendered/`. The lesson is now done.
 4. `cd <repo-root> && bash scripts/archive-lesson.sh <stem>` (refuses if the
    MP4 isn't filed).
 

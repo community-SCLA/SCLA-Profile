@@ -99,14 +99,15 @@ a style choice. These are hard rules, checked at the QA gate.
   across its whole duration (progressive bullets, a building diagram, a moving
   illustration), never one entrance then ambient drift. Ring-breath is texture,
   not motion.
-- **No per-word emphasis, and no in-place "keep-alive" motion.** `scla-statement`
-  does not support timed per-word pop/underline (`emphasis`/`emphasisCues` —
-  removed 2026-07-11; the cue timing never landed cleanly against the transcript).
-  The old reading-ripple + late-phase-resolve keep-alive was also removed
-  (owner decision 2026-07-14): settled text and furniture never wobble, drift, or
-  re-mark in place to satisfy the animacy rules. A statement scene that would
-  otherwise hold static past ~5s is too long — split it, or give it a real staged
-  beat (below), never in-place motion.
+- **No per-word emphasis, and no in-place "keep-alive" motion of settled
+  content.** `scla-statement` does not support timed per-word pop/underline
+  (`emphasis`/`emphasisCues` — removed 2026-07-11). Settled text, chips, rows,
+  nodes, numbers, and CTAs never wobble, drift, ripple, or re-mark in place —
+  owner decision 2026-07-14, **reaffirmed 2026-07-15** after an unauthorized
+  restoration shipped in rendered cuts (the owner saw "text jumping around"
+  and vetoed it on sight). A scene that would hold pixel-static past ~5s is an
+  AUTHORING defect: split it, add cued items / supporting `lines` / `subBeats`,
+  or shorten the narration span — never re-animate what has settled.
 - **Furniture paints at t=0.** The scene's frame furniture — canvas texture,
   ghost rings, corner marks, scene index, brandline — is visible on the very
   first frame of every scene (entrances may settle it from ~50% opacity to
@@ -116,20 +117,25 @@ a style choice. These are hard rules, checked at the QA gate.
 - **Cover long holds with staged content, never in-place re-animation.** No
   scene may produce a pixel-static stretch ≥5s while narration speaks —
   `check_presence.py` trips deterministically at 5s (warns at 3s). The cover is
-  always a *new* beat: the next cued item, an illustration or figure that enters
-  (and may leave) on what is being said, or splitting an over-long scene into
-  more scenes. Re-animating elements already on screen — drifting, bobbing, or
-  re-marking settled text / rows / chips / nodes — is **not** an allowed cover
-  (the built-in "late-phase resolve" that did this was removed 2026-07-14).
-  Ambient ring-breath is texture, not motion, and never counts toward this rule.
-- **Depth-drift is texture, not a cover (2026-07-14).** The navy hero templates
-  (`scla-title`, `scla-statement`, `scla-outro`, `scla-quote`, `scla-stat`) drift
-  their ghost-ring / glow / grid *background* layers at different rates across the
-  whole scene — translate-only 2.5D parallax (CSS/GSAP, never Three.js), a few px,
-  finite `sine.inOut`. It enriches the static navy cards but, like ring-breath, is
-  decorative: the foreground text stays put and depth-drift **never** satisfies the
-  ≥5s rule. A real hold is still covered by a new cued beat (the statement's
-  supporting `lines`, the next item, or splitting the scene).
+  always a *new* beat: the next cued item, an illustration or figure that
+  enters (and may leave) on what is being said, a `subBeats` live line, or
+  splitting an over-long scene into more scenes. The background depth-drift
+  cycles (below) add pixel-level texture on templates with a decorative layer,
+  but they are NOT the cover and never license a long hold: if a scene only
+  passes the gate because its background moves, it is still a dead scene —
+  re-author it. (A 2026-07-15 attempt to satisfy the gate with text
+  ripples/re-marks instead of re-authoring was vetoed by the owner.)
+- **Depth-drift runs in finite yoyo cycles (2026-07-14; re-tuned 2026-07-15).**
+  The navy hero templates (`scla-title`, `scla-statement`, `scla-outro`,
+  `scla-quote`, `scla-stat`) — and the light templates' ghost layers — drift
+  their *background* layers at different rates: translate-only 2.5D parallax
+  (CSS/GSAP, never Three.js), 16–30px amplitude on a ~2.5–3.4s `sine.inOut`
+  yoyo period, repeated (finitely) to cover the whole scene. The original
+  single whole-scene glide moved ~1px/s and was pixel-identical between QA
+  samples — that regression froze six scenes on the first promoted render.
+  Depth-drift is still decorative texture: it guarantees pixel-level animacy at
+  the sampler, but a real narrative hold is covered by a new cued beat (the
+  statement's supporting `lines`, the next item, or splitting the scene).
 - **The progress rail is a completion indicator, not animacy.** The host-root gold
   rail (below) advances proportionally across the whole runtime, but at video scale
   it moves far too little per second to register as motion — `check_presence`
@@ -270,8 +276,9 @@ Reusable sub-compositions in `compositions/` — instantiate via
 | Lesson title card | `scla-title.html` | Navy | Opening line only — keep it short, never park it over content |
 | Key-point build | `scla-points.html` | Light | Up to 4 points, one per spoken cue (`pointCues`) |
 | Process / steps | `scla-steps.html` | Light | Sequential frameworks, up to 4 steps, activated on the spoken step (`stepCues`) |
+| Cycle / loop | `scla-loop.html` | Light | A **repeating** process the narration frames as a loop — up to 4 numbered nodes ride the oval-ring motif (12/3/6/9 o'clock), the gold arc draws clockwise, an arrowhead closes step 4 → 1. Same variable/cue contract as `scla-steps` (`stepCues`); reach for it over `scla-steps` only when the audio actually says the process repeats/cycles |
 | Condition / principle | `scla-condition.html` | Light | One item of an enumerated set the narration introduces one at a time (condition/principle/pillar N of M): number badge + progress dots, heading, detail chips on cue (`chipCues`), and a **living icon** hero on the right (`icon`). Split an enumerated set into one of these per item, not a timed 5-row list |
-| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. No per-word emphasis and no in-place keep-alive — keep statement scenes short or split them. Optional supporting `lines` (gold-bullet column, revealed on `pointCues`) develop the thesis without a second scene (see the animacy rules) |
+| Statement card | `scla-statement.html` | Navy | A program/SCLA thesis line — bold, **unattributed**. Not a quote. No per-word emphasis and no in-place keep-alive (reaffirmed 2026-07-15) — keep statement scenes short or split them. Optional supporting `lines` (gold-bullet column, revealed on `pointCues`) develop the thesis without a second scene (see the animacy rules) |
 | Chip / word cluster | `scla-chips.html` | Light | Fast spoken lists (up to 8 items) as pill chips flashing on cue (`chips`/`chipCues`); `reveal:"slide"` = angles variant. Also the post-title opening-enumeration scene |
 | Career / route map | `scla-career-map.html` | Light | Comparing 3 paths/options against criteria: 3 candidate paths draw on, gold route traces to the winner on `mapCue` (`winner` picks it) |
 | Morph hand-off | `scla-morph.html` | Light | A **two-option** comparison where the winner re-flows on cue (FLIP-style): unlearn-X-do-Y, before→after, wrong-vs-right, reorder-the-priority. Cards A/B enter, then the `winner` rises + turns gold (may relabel via `winnerAfter`); `actions`/`pointCues` sequence the beats. Not a 3-way route map |
@@ -290,12 +297,26 @@ style guide; render it after any template change.
 ## Living icon library
 
 Brand-native SVG line-art icons, drawn on with GSAP `strokeDashoffset` as the
-narration names the thing, gold accent popping last. **Built into
-`scla-condition` and reserved for it** (owner decision 2026-07-14 — "icons are
-novel, not on every frame"): the icon is that scene's hero illustration on the
-right, one per condition/principle. Do **not** add decorative icons to other
-scenes. A bespoke scene may reuse a geometry below when a beat genuinely wants
-an icon, but the same discipline applies — sparing, and drawn on the cue.
+narration names the thing, gold accent popping last. **The home of the living
+icon is `scla-condition`** — its hero illustration on the right, one per
+condition/principle. The governing discipline (owner decision 2026-07-14,
+**scope widened 2026-07-15**) is *"icons are novel, not on every frame"*, **not**
+"condition-only": a living icon may also appear on a genuinely single-focus beat
+of another template, as long as it stays sparing, on-language, one hero per
+scene, and drawn on the cue.
+
+- `scla-statement` and `scla-steps` now carry an **optional `icon` variable**
+  (empty by default → no icon, scene unchanged). On `scla-statement` the icon is
+  a hero on the right (white main stroke on the navy canvas) and the text column
+  narrows to clear it; on `scla-steps` it sits in the header panel's top-right and
+  **replaces the ghost numeral**. Added 2026-07-15 for the career-purpose lesson
+  (question / structure / write-it beats).
+- An enumerated set the narration walks one at a time is still best split into one
+  `scla-condition` card per item (each with its own icon), **not** given icons in a
+  single multi-row scene — see the `scla-condition` row and "Split an enumerated
+  set into one of these per item".
+- Still forbidden: an icon on *every* frame, or a decorative icon that doesn't
+  illustrate what the beat is about. Novelty is the point.
 
 - **Geometry contract.** `viewBox="0 0 96 96"`, `fill="none"`, `stroke-width="4"`,
   round caps/joins. Every drawn path/stroke gets `pathLength="100"` so the draw-on
@@ -305,7 +326,10 @@ an icon, but the same discipline applies — sparing, and drawn on the cue.
   `back.out`. **Rings are closed full circles** — the old 5/8 open-arc "signature"
   was dropped 2026-07-14.
 - **Canonical set** (the `d` values live in `scla-condition.html`'s `ICONS` map —
-  edit there, mirror here): `compass`, `pressure` (clock), `insight` (bulb),
+  it is the source of truth; the same map is mirrored verbatim into
+  `scla-statement.html` and `scla-steps.html` for their optional `icon` slot, and
+  into this doc. Edit `scla-condition` first, then keep the two mirrors in sync):
+  `compass`, `pressure` (clock), `insight` (bulb),
   `salary` (tag), `mentorship` + `mentorship2` (two-people, variant recolored so
   adjacent scenes read distinct), `growth` (line chart), `target`, `question`,
   `examine` (magnifier), `done` (check). Closed-circle ring shared by
@@ -377,13 +401,15 @@ building; never reinvent one of these from scratch. Compose 2–4 per scene, max
 | Pill/chip cluster popping on cues | `hyperframes-animation` · `spring-pop-entrance` (staggered pills) | Built into `scla-chips`; ≤0.5s stagger cap |
 | List/tiles beyond a numbered build | `hyperframes-animation` blueprint · `grid-card-assemble` | Cards/pills/list-lines cascade into a grid or vertical list |
 | Phrase-by-phrase kinetic type | `hyperframes-animation` blueprint · `kinetic-type-beats`; also `techniques.md` §4 per-word slide-in | For beats where the words ARE the visual |
+| Text-trail / weight-step kinetic type (upgrade) | `hyperframes-keyframes` · text trails; weight steps across the self-hosted 400/700/900 only (Proxima Nova is **not** a variable font — no VF interpolation) | **Adopted 2026-07-15.** Higher-energy type for "the words ARE the visual" beats (`scla-statement`, `scla-title`, bespoke). Staged entrance/beat motion only — never idle re-animation of settled text (animacy ban, reaffirmed 2026-07-15) |
 | Route/path/diagram traces itself | `hyperframes-animation` · `svg-path-draw` (stagger multi-path ~70–80%) | Built into `scla-career-map`; also arrows, brand-mark draws |
+| One shape morphs into another (SVG shape morph) | `hyperframes-keyframes` · SVG morph — morph pairs must share compatible path structure (asset prep per pair) | **Adopted 2026-07-15.** A cued transformation beat (seed→tree, ✕→✓): shows change/progress more vividly than a cut. Use sparingly — one morph per scene max, on-cue, seek-safe; never as idle motion |
 | Element travels along a path | `hyperframes-keyframes` · Path travel (GSAP MotionPath) | Figure/marker moving along a drawn route |
 | Count-up / stat with graphic | `hyperframes-animation` · `counting-dynamic-scale` + `stat-bars-and-fills` | Pair with `scla-stat` (built-in bar; `ring:"on"` adds a filling closed-circle gauge) |
 | Living icon draws on as it's named | brand-native SVG line-art · `strokeDashoffset` draw-on, gold accent pops last (`back.out`) | Built into `scla-condition`; geometry set in "Living icon library" below. Reserved for the condition/principle hero — not sprinkled on other scenes |
 | Two-option A→B morph (FLIP hand-off) | `hyperframes-animation` · `card-morph-anchor` / `scale-swap-transition` | Built into `scla-morph`: winner re-flows to top, grows, turns gold, may relabel. Seek-safe x/y/scale tweens |
 | Many items gather into one cluster | `hyperframes-keyframes` · FLIP (recorded start/end → numeric x/y/scale) | The pilot's "five conditions gather into a ring" beat. Bespoke; anchor to the closing cue, tween-only |
-| Depth-drift parallax on a navy hero | translate-only 2.5D drift on background layers (CSS/GSAP, **no Three.js**) | Built into the navy templates (title/statement/outro/quote/stat). Texture, not an animacy cover |
+| Depth-drift parallax on a navy hero | translate-only 2.5D drift on background layers, finite `sine.inOut` yoyo cycles (~2.5–3.4s period, 16–30px) (CSS/GSAP, **no Three.js**) | Built into the navy templates (title/statement/outro/quote/stat). Texture that also guarantees pixel-level animacy at QA sampling (re-tuned 2026-07-15) |
 | Zoom/pan focus inside a scene | `hyperframes-animation` · `coordinate-target-zoom`, `multi-phase-camera`, `depth-of-field-blur` | Camera moves beat-to-beat inside one long scene |
 | Two-option comparison | `hyperframes-animation` blueprint · `comparison-split` | Mirrored tilt cards + pill badges |
 | Concept/network diagram | `hyperframes-animation` · `avatar-cloud-network`; blueprint `constellation-hub` | Nodes ring a center, connectors draw |

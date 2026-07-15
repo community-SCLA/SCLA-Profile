@@ -35,6 +35,17 @@ Update here first — scripts and skills should read from here, not from hardcod
 > The Wistia URL of a published lesson is recorded in
 > `projects/video-production/lesson-scripts/refinement-log.md` (ledger row).
 
+> **Token scope — verified 2026-07-15:** the `WISTIA_API` token in Infisical is
+> **read+write but NOT delete**. Probed live: `GET /account.json` → 200,
+> `GET /medias/zyr1fq35t7.json` → 200, but **every `DELETE /medias/*.json` → 401**
+> (reproduced via `api_password` query param *and* `Authorization: Bearer`, even
+> against a bogus id — so it is a permission-scope rejection, not an auth-method or
+> resource issue; Wistia returns 401 for an operation above the token's permission
+> tier). Uploads/publishes work; **media deletion does not.** To delete media
+> (e.g. the owner-approved take-down of `zyr1fq35t7`) the `WISTIA_API` secret must
+> be rotated to a token minted with **read-write-delete-all-data** permission in
+> the Wistia account settings — an owner action (needs Wistia admin).
+
 ---
 
 ## Infisical (secrets manager — source of truth for ALL secrets)
@@ -46,7 +57,7 @@ Secrets live **only** in Infisical and are injected at runtime by the CLI —
 |---|---|---|
 | Project | `scla-projects-n-joy` · `eea9b546-3f30-45d8-a9b9-a6ede93e3a71` | the SCLA secrets project |
 | Environment | `dev` | default env for injection |
-| Machine-identity auth | Codespaces repo secrets `INFISICAL_CLIENT_ID` + `INFISICAL_SECRET_KEY` | universal-auth; the CLI logs in with these — the values are never in the repo |
+| Machine-identity auth | Codespaces repo secrets `INFISICAL_CLIENT_ID` + `INFISICAL_SECRET_KEY` | universal-auth; the CLI logs in with these — the values are never in the repo. Identity **`SCLA-PROJECTS`** (`identityId 12f0b20a-2ac1-44f6-902c-cb8ef121d210`, client-id `9f0c3057-aed5-4e16-8606-08e24aed92f6`) — this is the identity the video pipeline authenticates as. |
 
 **Injection:** `scripts/with-secrets.sh <command> [args…]` logs in with the
 machine identity and runs the command under `infisical run`, so every secret in
@@ -54,8 +65,16 @@ the project/env is present as an env var for that process only. Override the
 project/env with `INFISICAL_PROJECT_ID` / `INFISICAL_ENV`. CLI is provisioned by
 `.devcontainer/devcontainer.json` (`postCreateCommand`).
 
-> **Verified 2026-07-14:** machine identity has read access on `scla-projects-n-joy` / `dev` —
-> `scripts/with-secrets.sh` successfully injects secrets, including `WISTIA_API`.
+> **Verified 2026-07-15:** Infisical is healthy — the reported HTTP 401 is **not**
+> Infisical's. Identity `SCLA-PROJECTS` logs in (universal-auth, exit 0) and
+> `scripts/with-secrets.sh` injects both project secrets (`WISTIA_API`,
+> `HEYGEN_API_KEY`) on `scla-projects-n-joy` / `dev`; the injection line
+> "Injecting 2 Infisical secrets" is success, not failure. The 401 the owner hit
+> comes from **Wistia** rejecting a `DELETE` — see the Wistia section. The right
+> machine identity is being called and it is authorized.
+> (Earlier states for the record: 2026-07-14 endpoints note "read access";
+> decision-log 2026-07-14 "authenticates but reads 403, blocked pending owner
+> assigning the identity to the project" — that block is now cleared.)
 
 ---
 
@@ -93,4 +112,4 @@ project/env with `INFISICAL_PROJECT_ID` / `INFISICAL_ENV`. CLI is provisioned by
   add a section per service when its first real ID lands (DB IDs: 32-char string
   from the URL before the `?`, hyphenated `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`).
 - Google Drive: mirror target folder ID pending (see section above).
-- Last verified: 2026-07-08
+- Last verified: 2026-07-15 (Infisical machine identity + Wistia token scope)

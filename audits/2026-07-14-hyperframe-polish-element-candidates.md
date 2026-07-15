@@ -1,7 +1,10 @@
 # HyperFrames Element Candidates for a More Polished, Engaging Lesson Stack — 2026-07-14
 
-**Type:** Proposal / survey (not yet adopted). A menu of HyperFrames capabilities the SCLA illustrated-lesson stack does **not** yet use, evaluated for polish and engagement.
-**Status:** Reconstructed fresh — a prior session discussed this but nothing was persisted, so this is a new survey from first principles, not a transcript recovery.
+**Type:** Proposal / survey. A menu of HyperFrames capabilities the SCLA illustrated-lesson stack did **not** yet use, evaluated for polish and engagement.
+**Status (updated 2026-07-15):** Ruled on in two rounds — see `decisions/log.md` 2026-07-14 (pilot) and 2026-07-15 (promotion).
+- **Adopted (7):** #2 progress rail · #4 living icons (brand-native SVG substituted for Lottie) · #5 FLIP hand-off (as `scla-morph`) · #8 depth-drift parallax · #9 stat rings — promoted 2026-07-15 — plus, ruled later the same day after the review surfaced them: #6 SVG shape morph and #7 text-trail kinetic type (weight steps limited to the self-hosted 400/700/900; no VF interpolation) — both as sanctioned arsenal recipes in `frame.md`, staged-beat motion only under the reaffirmed animacy ban.
+- **Explicitly deferred:** #1 open captions and #3 ambient audio bed (out of the promotion's scope — they touch the render pipeline, gates, and the sound-off decision); #10 lower-thirds (owner passed over it 2026-07-15; revisit if attributed quotes become common); cursor demos (parked below).
+**Original status note:** Reconstructed fresh — a prior session discussed this but nothing was persisted, so this is a new survey from first principles, not a transcript recovery.
 **Scope:** The illustrated path only (`design-system/`, the nine `scla-*` templates). Avatar-pipeline untouched.
 **Owner decision needed** before any of this reaches `frame.md`'s motion-rotation table — this is a candidate list, not a change.
 

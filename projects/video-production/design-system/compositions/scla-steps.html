@@ -13,7 +13,8 @@
     {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
     {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""}
+    {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""},
+    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none). Replaces the ghost numeral when set.","default":""}
   ]'
 >
   <head>
@@ -184,6 +185,12 @@
           color: #0d2437;
           opacity: 0;
         }
+        /* Optional living icon (opt-in via `icon`; frame.md → "Living icon library").
+           Sits in the header panel's top-right and REPLACES the ghost numeral when set;
+           absent by default so step scenes without an icon are unchanged. */
+        #st-iconwrap { position: absolute; right: 130px; top: 86px; width: 150px; height: 150px; display: none; }
+        #st-iconwrap svg { width: 150px; height: 150px; }
+        #root[data-has-icon="1"] #st-ghost-num { display: none; }
         /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] #st-panel { background: #f6f6f9; }
         #root[data-theme="horizon"] .st-bg::after { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); }
@@ -203,6 +210,7 @@
         <div class="st-bg"></div>
         <div id="st-panel"></div>
         <div id="st-ghost-num" data-layout-allow-overflow data-layout-allow-occlusion>4</div>
+        <div id="st-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
         <div id="st-head">
           <div id="st-label-row">
             <div id="st-tick"></div>
@@ -237,6 +245,7 @@
             theme: "summit",
             sceneDuration: "10",
             stepCues: "",
+            icon: "",
           };
           const vars = Object.assign(
             {},
@@ -301,8 +310,16 @@
           }
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
           tl.fromTo(["#st-index", "#st-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
-          // (Removed late-phase step-node re-marks — owner decision 2026-07-14.
-          // Settled nodes stay put; scene entrances cover No-Dead-Frames.)
+          // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost numeral
+          // drifts horizontally in finite translate-only sine yoyo cycles across the
+          // whole scene (x-only — its entrance owns y) so the decorative layer registers
+          // at QA frame sampling even between cues.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          tl.fromTo("#st-ghost-num", { x: 0 }, { x: 20, duration: 3.2, ease: "sine.inOut",
+            yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);
+          // (No pre-cue keep-alives or late-phase node re-marks — owner decision
+          // 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized restoration.
+          // Long holds are covered by staged beats: `subBeats`, cues, or a split.)
           // Sub-beats: a cued live line that swaps text on each spoken cue —
           // covers narration spans between primary reveals (dead-hold fix,
           // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,
@@ -323,6 +340,56 @@
                 tl.to(el, { opacity: 0, y: -18, duration: 0.3, ease: "power2.in" }, out);
               }
             });
+          }
+          // Optional living icon in the header panel (opt-in via `icon`; owner decision
+          // 2026-07-15 — living icons may appear on single-focus step scenes, still
+          // sparing and drawn on the cue). Geometry MIRRORED from scla-condition.html's
+          // ICONS map (the canonical source; frame.md → "Living icon library" — keep in
+          // sync). Main stroke follows the panel: navy on the light panel, white on the
+          // navy cadence panel; gold accents/dots pop last.
+          const iconName = String(vars.icon || "").trim();
+          if (iconName) {
+            const RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z";
+            const ICONS = {
+              compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+              pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+              insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
+              salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
+              mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
+              mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
+              growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
+              target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
+              question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
+              examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
+              done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] },
+            };
+            const ic = ICONS[iconName];
+            if (ic) {
+              const svg = document.querySelector("#st-iconwrap svg");
+              const strokeMain = String(vars.theme) === "cadence" ? "#ffffff" : "#0d2437";
+              const draws = [], dots = [];
+              (ic.paths || []).forEach(function (p) {
+                const el = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                el.setAttribute("d", p.d); el.setAttribute("fill", "none");
+                el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
+                el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
+                el.setAttribute("pathLength", "100"); svg.appendChild(el); draws.push(el);
+              });
+              (ic.circles || []).forEach(function (c) {
+                const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
+                if (c.fill) { el.setAttribute("fill", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke", "none"); dots.push(el); }
+                else { el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); draws.push(el); }
+                svg.appendChild(el);
+              });
+              document.getElementById("root").setAttribute("data-has-icon", "1");
+              document.getElementById("st-iconwrap").style.display = "block";
+              // Draw on after the header panel lands (~0.7s), gold accents/dots pop last.
+              if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.75);
+              if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.45);
+              // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).
+              tl.fromTo("#st-iconwrap", { x: 0, y: 0 }, { x: 0, y: -8, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 2.7) - 1) }, 0);
+            }
           }
           window.__timelines["scla-steps"] = tl;
         })();

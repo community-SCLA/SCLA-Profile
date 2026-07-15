@@ -21,6 +21,7 @@ for the qa-timing lane, not the whole verdict — cue-to-word alignment and
 on-screen entrance timing still need judgment against real frames.
 """
 
+import html
 import json
 import re
 import subprocess
@@ -65,6 +66,7 @@ def parse_scenes(index_html: str):
             "comp": attr("data-composition-id") or "?",
             "start": float(start),
             "end": float(start) + float(dur),
+            "narration": attr("data-narration") or "",
         })
     scenes.sort(key=lambda s: s["start"])
     root = re.search(r'id="root"[^>]*data-duration="([\d.]+)"', index_html)
@@ -125,7 +127,14 @@ def main():
         last = max(in_scene, key=lambda w: w["end"])
         spoken_end = manifest[i]["end"] if manifest else last["end"]
         gap = round(sc["end"] - spoken_end, 3)
-        text = last["text"].strip()
+        # Whether a scene ends mid-sentence is a property of its SCRIPT span
+        # (data-narration), not the whisper transcript: whisper can drift the next
+        # scene's first word (start AND end) into this window and be picked as a
+        # spurious "last word" (e.g. a split landing on "…in. | Second,"). The
+        # script text is authoritative, so read the sentence terminator from it and
+        # fall back to whisper only when a scene carries no data-narration.
+        script_text = html.unescape(sc.get("narration", "")).strip()
+        text = script_text.split()[-1] if script_text else last["text"].strip()
         sentence_end = bool(re.search(r"[.!?][\"')\]]*$", text))
         # question flag: the manifest (script punctuation) is authoritative —
         # whisper sometimes hears a rising statement as "?" and vice versa

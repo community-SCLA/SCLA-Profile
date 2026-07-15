@@ -1,0 +1,349 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Section label","default":"In practice, a simple loop"},
+    {"id":"heading","type":"string","label":"Heading","default":"Human and AI, together"},
+    {"id":"step1","type":"string","label":"Step 1","default":"A human question"},
+    {"id":"step2","type":"string","label":"Step 2","default":"An AI draft"},
+    {"id":"step3","type":"string","label":"Step 3","default":"A human review"},
+    {"id":"step4","type":"string","label":"Step 4 (empty to hide)","default":"A better result than either alone"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"12 / THE LOOP"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
+    {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
+    {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .lp-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+        }
+        .lp-bg::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(51, 147, 214, 0.14) 2px, transparent 2px);
+          background-size: 64px 64px;
+        }
+        #lp-panel {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          height: 320px;
+          background: #f0f2f9;
+          border-bottom: 2px solid #cccedf;
+        }
+        #lp-ghost-num {
+          position: absolute;
+          right: 60px;
+          top: -60px;
+          font-size: 380px;
+          font-weight: 900;
+          color: rgba(51, 147, 214, 0.12);
+          line-height: 1;
+        }
+        #lp-head {
+          position: absolute;
+          left: 120px;
+          top: 84px;
+        }
+        #lp-label-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #lp-tick {
+          width: 46px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #lp-label {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #lp-heading {
+          margin-top: 16px;
+          font-size: 66px;
+          font-weight: 900;
+          color: #0d2437;
+          line-height: 1.08;
+        }
+        /* The ring — SCLA's house oval motif, doing double duty as the cycle track.
+           Full-frame SVG behind the nodes; the gold arc draws clockwise and an
+           arrowhead on the upper-left segment closes step 4 back to step 1. */
+        #lp-ring {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+        }
+        .lp-track { fill: none; stroke: #cccedf; stroke-width: 4; opacity: 0; }
+        .lp-fill {
+          fill: none;
+          stroke: #3393d6;
+          stroke-width: 4;
+          stroke-linecap: round;
+          stroke-dasharray: 100 100;
+          stroke-dashoffset: 100;
+        }
+        .lp-arrow { fill: #eaab2d; opacity: 0; }
+        .lp-node {
+          position: absolute;
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 4px solid #0d2437;
+          display: grid;
+          place-items: center;
+          font-size: 44px;
+          font-weight: 900;
+          color: #0d2437;
+        }
+        .lp-node .lp-node-fill {
+          position: absolute;
+          inset: -4px;
+          border-radius: 50%;
+          background: #eaab2d;
+        }
+        .lp-node span {
+          position: relative;
+        }
+        .lp-caption {
+          position: absolute;
+          width: 320px;
+          font-size: 28px;
+          font-weight: 700;
+          color: #292f35;
+          line-height: 1.3;
+        }
+        /* Nodes ride the ellipse at 12 / 3 / 6 / 9 o'clock; captions radiate outward. */
+        #lp-node-1 { left: 900px; top: 440px; }
+        #lp-node-2 { left: 1180px; top: 580px; }
+        #lp-node-3 { left: 900px; top: 720px; }
+        #lp-node-4 { left: 620px; top: 580px; }
+        #lp-cap-1 { left: 800px; top: 360px; text-align: center; }
+        #lp-cap-2 { left: 1320px; top: 598px; text-align: left; }
+        #lp-cap-3 { left: 800px; top: 855px; text-align: center; }
+        #lp-cap-4 { left: 280px; top: 598px; text-align: right; }
+        #lp-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #lp-brandline {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 19px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* Sub-beats — narration-synced live line (mirrors scla-steps; dead-hold fix).
+           One beat visible at a time; absent unless subBeats is set. */
+        .lp-subbeat {
+          position: absolute;
+          left: 160px;
+          right: 160px;
+          bottom: 132px;
+          text-align: center;
+          font-size: 30px;
+          font-weight: 700;
+          color: #0d2437;
+          opacity: 0;
+        }
+        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] #lp-panel { background: #f6f6f9; }
+        #root[data-theme="horizon"] .lp-bg::after { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); }
+        #root[data-theme="horizon"] #lp-tick { background: #3393d6; }
+        #root[data-theme="horizon"] #lp-ghost-num { color: rgba(234, 171, 45, 0.14); }
+        #root[data-theme="horizon"] .lp-node .lp-node-fill { background: #3393d6; }
+        #root[data-theme="horizon"] .lp-node span { color: #ffffff; }
+        #root[data-theme="cadence"] #lp-panel { background: radial-gradient(140% 160% at 24% 30%, #0d2437 0%, #0a1e2f 80%); border-bottom: 4px solid #eaab2d; }
+        #root[data-theme="cadence"] #lp-label { color: #eaab2d; }
+        #root[data-theme="cadence"] #lp-tick { background: #3393d6; }
+        #root[data-theme="cadence"] #lp-heading { color: #ffffff; }
+        #root[data-theme="cadence"] #lp-ghost-num { color: rgba(234, 171, 45, 0.18); }
+        #root[data-theme="cadence"] .lp-fill { stroke: #eaab2d; }
+      </style>
+
+      <div id="root" data-composition-id="scla-loop" data-width="1920" data-height="1080" data-duration="8">
+        <div class="lp-bg"></div>
+        <div id="lp-panel"></div>
+        <div id="lp-ghost-num" data-layout-allow-overflow data-layout-allow-occlusion>4</div>
+        <div id="lp-head">
+          <div id="lp-label-row">
+            <div id="lp-tick"></div>
+            <div id="lp-label" data-layout-allow-occlusion>In practice, a simple loop</div>
+          </div>
+          <h2 id="lp-heading" data-layout-allow-occlusion>Human and AI, together</h2>
+        </div>
+        <svg id="lp-ring" viewBox="0 0 1920 1080" data-layout-allow-occlusion>
+          <path class="lp-track" d="M 960 500 A 280 140 0 0 1 1240 640 A 280 140 0 0 1 960 780 A 280 140 0 0 1 680 640 A 280 140 0 0 1 960 500 Z" />
+          <path id="lp-fill" class="lp-fill" pathLength="100" d="M 960 500 A 280 140 0 0 1 1240 640 A 280 140 0 0 1 960 780 A 280 140 0 0 1 680 640 A 280 140 0 0 1 960 500 Z" />
+          <polygon id="lp-arrow" class="lp-arrow" points="798,528 770,518 766,542" />
+        </svg>
+        <div class="lp-node" id="lp-node-1"><div class="lp-node-fill"></div><span>1</span></div>
+        <div class="lp-node" id="lp-node-2"><div class="lp-node-fill"></div><span>2</span></div>
+        <div class="lp-node" id="lp-node-3"><div class="lp-node-fill"></div><span>3</span></div>
+        <div class="lp-node" id="lp-node-4"><div class="lp-node-fill"></div><span>4</span></div>
+        <div class="lp-caption" id="lp-cap-1">A human question</div>
+        <div class="lp-caption" id="lp-cap-2">An AI draft</div>
+        <div class="lp-caption" id="lp-cap-3">A human review</div>
+        <div class="lp-caption" id="lp-cap-4">A better result than either alone</div>
+        <div id="lp-index" data-layout-allow-occlusion>12 / THE LOOP</div>
+        <div id="lp-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            label: "In practice, a simple loop",
+            heading: "Human and AI, together",
+            step1: "A human question",
+            step2: "An AI draft",
+            step3: "A human review",
+            step4: "A better result than either alone",
+            sceneIndex: "12 / THE LOOP",
+            theme: "summit",
+            sceneDuration: "10",
+            stepCues: "",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("lp-label").textContent = vars.label;
+          document.getElementById("lp-heading").textContent = vars.heading;
+          document.getElementById("lp-index").textContent = vars.sceneIndex;
+          const steps = [vars.step1, vars.step2, vars.step3, vars.step4];
+          let visible = 0;
+          steps.forEach(function (s, i) {
+            const node = document.getElementById("lp-node-" + (i + 1));
+            const cap = document.getElementById("lp-cap-" + (i + 1));
+            if (s && String(s).trim() !== "") {
+              cap.textContent = s;
+              visible += 1;
+            } else {
+              node.remove();
+              cap.remove();
+            }
+          });
+          document.getElementById("lp-ghost-num").textContent = String(visible);
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#lp-panel", { yPercent: -100 }, { yPercent: 0, duration: 0.7, ease: "power3.out" }, 0);
+          tl.fromTo("#lp-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.3);
+          tl.fromTo("#lp-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+          tl.fromTo("#lp-heading", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.45);
+          tl.fromTo("#lp-ghost-num", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 0.55);
+          tl.fromTo(".lp-track", { opacity: 0 }, { opacity: 1, duration: 0.35 }, 0.8);
+          // Explicit activation cues (local seconds) fire each node/caption the moment
+          // the narration reaches that step. Empty → default even spread. The gold arc
+          // draws clockwise to arrive at the last node as it activates, then the
+          // arrowhead closes the loop 4 → 1. frame.md → "Reveal on the spoken cue".
+          const stepCues = String(vars.stepCues || "")
+            .split(",")
+            .map(function (s) { return Number(s.trim()); })
+            .filter(function (v) { return !isNaN(v); });
+          const at = [];
+          for (let i = 0; i < visible; i++) {
+            at.push(stepCues.length ? Math.max(0.4, stepCues[i]) : 1.0 + i * 0.46);
+          }
+          const lastAt = visible ? at[visible - 1] : 1.0;
+          const drawDur = Math.max(1.4, lastAt + 0.3 - 1.0);
+          tl.fromTo("#lp-fill", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: drawDur, ease: "power2.inOut" }, 1.0);
+          for (let i = 0; i < visible; i++) {
+            tl.fromTo(
+              "#lp-node-" + (i + 1),
+              { opacity: 0, scale: 0.4 },
+              { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" },
+              at[i],
+            );
+            tl.fromTo(
+              "#lp-node-" + (i + 1) + " .lp-node-fill",
+              { scale: 0, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 0.38, ease: "power3.out" },
+              at[i] + 0.14,
+            );
+            tl.fromTo(
+              "#lp-cap-" + (i + 1),
+              { opacity: 0, y: 28 },
+              { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" },
+              at[i] + 0.18,
+            );
+          }
+          // The loop closes: the return arrowhead fades in on the upper-left segment
+          // after the final node. Opacity-only — scaling an SVG polygon whose coords sit
+          // far from the origin translates it under GSAP's transform model.
+          tl.fromTo("#lp-arrow", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, lastAt + 0.4);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          tl.fromTo(["#lp-index", "#lp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          // Ambient drift cycles (mirrors scla-steps): the ghost numeral drifts
+          // horizontally in finite translate-only sine yoyo cycles across the whole
+          // scene (x-only — its entrance owns y) so the decorative layer registers at
+          // QA frame sampling even between cues.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          tl.fromTo("#lp-ghost-num", { x: 0 }, { x: 20, duration: 3.2, ease: "sine.inOut",
+            yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);
+          // Sub-beats: a cued live line that swaps text on each spoken cue — covers
+          // narration spans between primary reveals (mirrors scla-steps). Empty subBeats
+          // (the default) = no DOM, no timeline impact. Seek-safe: tween-only swaps.
+          const subBeats = String(vars.subBeats || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
+          const subCues = String(vars.subCues || "").split(",").map(function (s) { return Number(s.trim()); }).filter(function (v) { return !isNaN(v); });
+          if (subBeats.length && subCues.length === subBeats.length) {
+            subBeats.forEach(function (text, i) {
+              const el = document.createElement("div");
+              el.className = "lp-subbeat";
+              el.setAttribute("data-layout-allow-occlusion", "");
+              el.textContent = text;
+              document.getElementById("root").appendChild(el);
+              const cueAt = Math.max(0.4, subCues[i]);
+              tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, cueAt);
+              if (i + 1 < subBeats.length) {
+                const out = Math.max(cueAt + 0.5, Math.max(0.4, subCues[i + 1]) - 0.35);
+                tl.to(el, { opacity: 0, y: -18, duration: 0.3, ease: "power2.in" }, out);
+              }
+            });
+          }
+          window.__timelines["scla-loop"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

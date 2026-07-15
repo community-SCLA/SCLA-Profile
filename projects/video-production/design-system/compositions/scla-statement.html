@@ -8,7 +8,8 @@
     {"id":"pointCues","type":"string","label":"Per-supporting-line reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
+    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none)","default":""}
   ]'
 >
   <head>
@@ -122,6 +123,12 @@
           text-transform: uppercase;
           color: rgba(188, 211, 228, 0.55);
         }
+        /* Optional living-icon hero on the right (opt-in via `icon`; frame.md → "Living
+           icon library"). Absent by default — statement scenes without an icon are
+           unchanged. When present the text block narrows to reserve the right column. */
+        #sm-iconwrap { position: absolute; left: 1400px; top: 392px; width: 300px; height: 300px; display: none; }
+        #sm-iconwrap svg { width: 300px; height: 300px; }
+        #root[data-has-icon="1"] #sm-block { width: 1180px; }
         /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .sm-bg { background: radial-gradient(140% 120% at 50% 92%, #0d2437 0%, #0a1e2f 76%); }
         #root[data-theme="horizon"] #sm-ring-1 { right: auto; bottom: auto; left: -280px; top: -340px; border-color: rgba(51, 147, 214, 0.3); }
@@ -156,6 +163,7 @@
           <div id="sm-underline"></div>
           <div id="sm-lines"></div>
         </div>
+        <div id="sm-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
         <div id="sm-brandline">SCLA · Lesson System</div>
         <div id="sm-index" data-layout-allow-occlusion>03 / STATEMENT</div>
       </div>
@@ -170,6 +178,7 @@
             sceneIndex: "03 / STATEMENT",
             theme: "summit",
             sceneDuration: "10",
+            icon: "",
           };
           const vars = Object.assign(
             {},
@@ -182,7 +191,7 @@
 
           // Statement is split into word spans for layout parity with earlier
           // cuts (the reading-ripple animation that used them was removed
-          // 2026-07-14; the spans are now purely structural).
+          // 2026-07-14 and again 2026-07-15; the spans are purely structural).
           const stmtEl = document.getElementById("sm-statement");
           stmtEl.textContent = "";
           const wordEls = [];
@@ -251,17 +260,72 @@
           // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
           tl.fromTo("#sm-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
           tl.fromTo("#sm-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);
-          // Depth-drift (2026-07-14): the ghost rings drift at different rates across the whole
-          // scene — translate-only decorative parallax. Foreground text stays static (animacy
-          // rule); this is texture, not a keep-alive re-mark, and never covers a dead hold.
+          // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the ghost
+          // rings drift at different rates — translate-only decorative parallax in
+          // finite sine yoyo cycles sized to register at QA frame sampling. (The
+          // promoted single whole-scene glide moved ~1px/s — pixel-identical between
+          // 0.5s samples — and stagnated every long hold: render regression 2026-07-15.)
           const sdur = Math.max(4, Number(vars.sceneDuration) || 10);
-          tl.to("#sm-ring-1", { x: 30, y: 18, duration: sdur, ease: "sine.inOut" }, 0);
-          tl.to("#sm-ring-2", { x: -24, y: -12, duration: sdur, ease: "sine.inOut" }, 0);
-          tl.to("#sm-ring-3", { x: 16, y: 10, duration: sdur, ease: "sine.inOut" }, 0);
-          // (Removed late-phase resolve + reading ripples — owner decision
-          // 2026-07-14. Settled text and furniture stay put; No-Dead-Frames is
-          // covered by scene entrances and cued supporting lines, never by
-          // re-animating on-screen elements.)
+          const drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
+          };
+          drift("#sm-ring-1", 30, 18, 3.4);
+          drift("#sm-ring-2", -24, -12, 2.9);
+          drift("#sm-ring-3", 16, 10, 2.5);
+          // Optional living-icon hero (opt-in via `icon`; owner decision 2026-07-15 —
+          // living icons may appear on single-focus statement beats, still sparing and
+          // drawn on the cue). Geometry MIRRORED from scla-condition.html's ICONS map
+          // (the canonical source; frame.md → "Living icon library" — keep in sync).
+          // Navy canvas → white main stroke, gold accents/dots pop last.
+          const iconName = String(vars.icon || "").trim();
+          if (iconName) {
+            const RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z";
+            const ICONS = {
+              compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+              pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+              insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
+              salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
+              mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
+              mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
+              growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
+              target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
+              question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
+              examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
+              done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] },
+            };
+            const ic = ICONS[iconName];
+            if (ic) {
+              const svg = document.querySelector("#sm-iconwrap svg");
+              const strokeMain = "#ffffff"; // statement canvas is always navy
+              const draws = [], dots = [];
+              (ic.paths || []).forEach(function (p) {
+                const el = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                el.setAttribute("d", p.d); el.setAttribute("fill", "none");
+                el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
+                el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
+                el.setAttribute("pathLength", "100"); svg.appendChild(el); draws.push(el);
+              });
+              (ic.circles || []).forEach(function (c) {
+                const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
+                if (c.fill) { el.setAttribute("fill", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke", "none"); dots.push(el); }
+                else { el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); draws.push(el); }
+                svg.appendChild(el);
+              });
+              document.getElementById("root").setAttribute("data-has-icon", "1");
+              document.getElementById("sm-iconwrap").style.display = "block";
+              if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.7);
+              if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.4);
+              // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).
+              tl.fromTo("#sm-iconwrap", { x: 0, y: 0 }, { x: 0, y: -10, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sdur / 2.7) - 1) }, 0);
+            }
+          }
+          // (No reading ripple, late-phase resolve, or any in-place motion of the
+          // settled statement/underline — owner decision 2026-07-14, REAFFIRMED
+          // 2026-07-15 after an unauthorized restoration shipped in rendered cuts.
+          // Long holds are covered by staged beats: supporting `lines`, a shorter
+          // statement, or a scene split — never by re-animating settled text.)
           window.__timelines["scla-statement"] = tl;
         })();
       </script>

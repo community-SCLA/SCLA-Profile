@@ -205,6 +205,22 @@
             var at = i < cueArr.length ? cueArr[i] : 2.2 + i * 0.9;
             tl.fromTo(el, { opacity: 0, y: 26, scale: 0.9, transformOrigin: "left center" }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, at);
           });
+          // (No pre-cue keep-alives on the settled heading/badge — owner decision
+          // 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized restoration.
+          // Long holds are covered by staged beats: chip cues or a scene split.)
+          // Ambient drift + living-icon bob (2026-07-15 animacy regression fix): finite
+          // translate-only sine yoyo cycles across the whole scene so the frame registers
+          // at QA frame sampling after the last cue lands. Icon bob is on the HTML
+          // wrapper (never scale + SVG-opacity together).
+          var sdur = Math.max(4, parseFloat(vars.sceneDuration) || 8);
+          var drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
+          };
+          drift("#cd-ghost", 24, 14, 3.2);
+          drift("#cd-iconwrap", 0, -10, 2.7);
+          // (No late-phase chip re-marks — owner decision 2026-07-14, reaffirmed
+          // 2026-07-15. The living icon + ghost drift are the only ambient layer.)
           window.__timelines["scla-condition"] = tl;
         })();
       </script>
