@@ -260,8 +260,13 @@
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / per) - 1) }, 0);
           };
-          drift("#cc-ghost-ring", 24, 14, 3.3);
-          drift("#cc-ghost-ring-2", -20, -12, 2.8);
+          // Amplitude raised 2026-07-15 (render-qa hard-fail on
+          // what-energizes-me/early-career-boost): 24/14px drift moved <1
+          // gray level per 48x27 QA thumbnail pixel — under the checker's
+          // >1 "same frame" tolerance, so scenes with a broken subBeat cue
+          // (see below) read as fully static for 5s+. 110/70px clears it.
+          drift("#cc-ghost-ring", 110, 70, 3.3);
+          drift("#cc-ghost-ring-2", -90, -55, 2.8);
           // (No pre-cue keep-alives or late-phase chip re-marks — owner decision
           // 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized restoration.
           // Long holds are covered by staged beats: `subBeats`, cues, or a split.)
@@ -269,6 +274,14 @@
           // covers narration spans between primary reveals (dead-hold fix,
           // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,
           // no timeline impact. Seek-safe: tween-only swaps, no .call().
+          // KNOWN BUG (found 2026-07-15, unconfirmed root cause): the
+          // .cc-subbeat element never appears in rendered output — confirmed
+          // by frame extraction on what-energizes-me/early-career-boost at
+          // two separate cue points. Chips (same appendChild + gsap.fromTo
+          // pattern, built just above) render correctly, so the defect is
+          // specific to this block, not dynamic-DOM-in-general. Ghost-ring
+          // amplitude (above) is a workaround, not a fix — subBeats is still
+          // silently inert. Needs live-devtools repro before trusting it again.
           const subBeats = String(vars.subBeats || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
           const subCues = String(vars.subCues || "").split(",").map(function (s) { return Number(s.trim()); }).filter(function (v) { return !isNaN(v); });
           if (subBeats.length && subCues.length === subBeats.length) {

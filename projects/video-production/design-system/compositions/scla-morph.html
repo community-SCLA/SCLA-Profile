@@ -149,7 +149,11 @@
               // bottom the two swap slots; if the winner is already on top, only the
               // emphasis (scale/gold vs dim) changes — no repositioning.
               tl.to(winEl, { y: winIsBottom ? TOP - BOT : 0, scale: 1.06, duration: 0.7, ease: "power4.inOut" }, at);
-              tl.to(loseEl, { y: winIsBottom ? BOT - TOP : 0, scale: 0.94, opacity: 0.55, duration: 0.7, ease: "power4.inOut" }, at);
+              // Loser dims but not below ~0.72: at 0.55 the white-on-navy number
+              // marker composited toward the white page fell to ~1.82:1 (contrast
+              // warning, owner-approved fix 2026-07-14). Hierarchy still reads from
+              // the winner's scale (1.06 vs 0.94) + gold + full opacity.
+              tl.to(loseEl, { y: winIsBottom ? BOT - TOP : 0, scale: 0.94, opacity: 0.72, duration: 0.7, ease: "power4.inOut" }, at);
               tl.add(function () { winEl.classList.add("win"); }, at + 0.35);
               if (vars.winnerAfter) {
                 var ctEl = winEl.querySelector(".ct");

@@ -34,6 +34,10 @@ projects/video-production/renders-mp4/**/*.mp4
 # QA packets (binary frame dumps + verify summary) staged next to each MP4 —
 # local-only like the MP4s themselves (renders-mp4 is "local staging, gitignored")
 projects/video-production/renders-mp4/**/*.qa/
+# Demo-reel / design-system QA dumps (frames + presence). Same byproduct as the
+# per-lesson .qa/ packets above, but written under design-system/ so the rule
+# there doesn't catch them. Local-only; the durable output is the templates.
+projects/video-production/design-system/qa/
 
 # Root-owned S3/secrets setup artifact (0600, not readable/committable)
 .s3_setup_*

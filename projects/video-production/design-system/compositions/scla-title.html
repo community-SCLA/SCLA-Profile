@@ -207,9 +207,12 @@
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
           };
-          drift("#t-ring-1", 30, 18, 3.4);
-          drift("#t-ring-2", -24, -12, 2.9);
-          drift("#t-ring-3", 16, 10, 2.5);
+          // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
+          // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
+          // thumbnail px → read static at frame sampling. ~110/70px clears it.
+          drift("#t-ring-1", 120, 72, 3.4);
+          drift("#t-ring-2", -100, -52, 2.9);
+          drift("#t-ring-3", 70, 44, 2.5);
           // (No late-phase title-block motion — owner decision 2026-07-14,
           // REAFFIRMED 2026-07-15 after an unauthorized restoration. Settled
           // elements stay put; long holds are an authoring problem, not a tween.)

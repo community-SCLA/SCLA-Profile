@@ -197,8 +197,11 @@
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
           };
-          drift(["#o-ring-l1", "#o-ring-l2"], 28, 16, 3.4);
-          drift(["#o-ring-r1", "#o-ring-r2"], -26, -14, 2.9);
+          // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
+          // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
+          // thumbnail px → read static at frame sampling. ~110/70px clears it.
+          drift(["#o-ring-l1", "#o-ring-l2"], 115, 66, 3.4);
+          drift(["#o-ring-r1", "#o-ring-r2"], -108, -58, 2.9);
           // (No CTA re-marks — owner decision 2026-07-14, REAFFIRMED 2026-07-15
           // after an unauthorized restoration. The settled CTA stays put; ring
           // drift above is the only ambient layer.)

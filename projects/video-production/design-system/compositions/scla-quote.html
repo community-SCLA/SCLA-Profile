@@ -230,8 +230,11 @@
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
           };
-          drift("#q-ring", 26, -16, 3.3);
-          drift("#q-ring-2", -22, 12, 2.8);
+          // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
+          // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
+          // thumbnail px → read static at frame sampling. ~110/70px clears it.
+          drift("#q-ring", 110, -70, 3.3);
+          drift("#q-ring-2", -92, 52, 2.8);
           // (No late-phase card drift or any in-place motion of the settled card —
           // owner decision 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized
           // restoration. Long quote holds are covered by staged beats or a split.)

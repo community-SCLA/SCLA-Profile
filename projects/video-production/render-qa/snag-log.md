@@ -29,6 +29,122 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-15 · SHIP+PUBLISH `what-energizes-me`; demo reel re-rendered; fixed navy depth-drift under-registering at QA sampling
+
+`/render-lessons SHIP what-energizes-me_early-career-boost_2026-07-10`, then owner-directed PUBLISH
+and a demo-reel render, all in one session.
+
+**SHIP.** Owner approved the hyperframe gate. Workspace already held three renders from the
+build/preview loop; newest (`..._18-24-45.mp4`, 15.9 MB, 163.6s) post-dated `index.html` (17:55)
+with no source file newer than it, so I **did not re-render** — verified the existing cut instead of
+burning ~7 min. `verify_render.py` → **PASS** (container 163.63s video / 163.65s audio, presence 328
+frames 0 violations). Cold vision subagent frame self-review → **PASS** (all 18 summit scenes depict
+their sentence, on-cue, no clip/placeholder/dead/ghost; scenes 03 & 07 FLIP morphs resolve cleanly).
+Filed `renders-mp4/early-career-boost/what-energizes-me_early-career-boost_2026-07-15.mp4` + `.qa/`
+packet (verify-summary + 54 frames); ledger row 36 updated.
+
+**PUBLISH.** Owner directed publish + waived MP4 review on the record. Uploaded via headless API
+(`upload.wistia.com`, `WISTIA_API` from Infisical) to Wistia **"Early Career Boost"** (id `10733647`);
+hashedId **`of5caanz21`**, https://sclc.wistia.com/medias/of5caanz21, duration 163.648s. Ledger row 36
+= published + URL; script `git mv` `refined/`→`rendered/`; workspace archived via `archive-lesson.sh`.
+
+**Demo reel.** Owner said render it. `npm run check` clean (0 lint, 46 text els pass WCAG AA — the
+`scla-steps` label contrast now clears, so that prior Open item is resolved). Included the two
+uncommitted template fixes (`scla-chips` ghost-ring amplitude + subBeats bug note; `scla-morph` loser
+opacity 0.55→0.72 for contrast). Rendered `design-system_2026-07-15_19-04-01.mp4` (6.8 MB, 1m46s,
+silent style-guide reel). `verify_render.py` → FAIL, but it's a lesson gate run on a SILENT reel
+("no audio stream" + "while narration speaks" thresholds are N/A). Substantive signal is real: a 5.5s
+pixel-static region at 64–69.5s (**`scla-stat`**, 62–70s) plus gray-zone static tails on `scla-quote`
+(50–62s) and `scla-steps`. Root cause (diagnosed, NOT yet fixed — see Open): the 2026-07-15 depth-drift
+amplitude re-tune landed on `scla-chips` ONLY (24/14→110/70px, after proving 24/14 moved <1 gray level
+per 48×27 QA thumbnail px). All five navy depth-drift heroes still sit at 16–30px — under the checker's
+registration threshold — so a narration-timed pure-hold navy scene would go static and fail the gate.
+
+**Open:**
+- [owner] **`scla-chips` `subBeats` renders inert** ([defect], found 2026-07-15) — the `.cc-subbeat`
+  element never appears in rendered output (confirmed at two cue points on `what-energizes-me`), though
+  chips built the same appendChild+gsap.fromTo way render fine. Ghost-ring amplitude is a workaround,
+  not a fix; `subBeats` is silently unusable until repro'd in live devtools. Needs a live-devtools/
+  upstream repro session — decide whether to prioritize it or leave `subBeats` marked unusable
+  (since 2026-07-15).
+- [owner] **Who/what rendered `better-decisions`?** Provenance-blocked, never at the gate;
+  aborted temp render dir preserved as evidence. Decide: provide the lesson body/outline to
+  clear its facts blocker, or park the workspace (since 2026-07-15).
+- [owner] **Wistia publish/credential audit trail** — no entry records who cleared the
+  earlier "reads 403" state or ran the earlier unlogged Wistia publishes; the disputed
+  `career-building` cut `zyr1fq35t7` is now **404/gone** (an out-of-band delete — the `WISTIA_API`
+  token still lacks delete scope). Audit question stands (since 2026-07-15).
+- [owner] **HeyGen API key still 403s** — blocks the pinned-voice upgrade path and
+  `avatar-pipeline/` (since 2026-07-07).
+
+**Fixed this session:**
+- [authoring] **Navy depth-drift amplitude raised to the QA-registering band** (owner-approved at
+  close-out). Bumped all 5 navy heroes from 16–30px to ~85–120px translate (`scla-title`,
+  `scla-statement`: 120/72, 100/52, 70/44; `scla-outro`: 115/66, 108/58; `scla-quote`: 110/70, 92/52;
+  `scla-stat`: 110/68, 84/52), each with an inline note pointing at the chips finding. `npm run check`
+  clean → re-rendered the reel (`design-system_2026-07-15_21-10-31.mp4`) → `verify_render.py` presence
+  **PASS, 0 violations** (the prior 5.5s hard-static on `scla-quote` cleared). Eyeballed title/statement/
+  quote frames: 110/70px reads as gentle corner parallax, on-brand, not distracting. ~15 min incl. two
+  reel renders. NOTE: 3 residual gray-zone (3–5s) warnings remain on `scla-career-map` (a LIGHT
+  template, not a navy hero — no depth-drift; cue-driven in real lessons) and a `scla-chips` tail —
+  within the checker's "lane judges" tolerance on a silent reel, not gate failures.
+- [tooling] Avoided a redundant ~7-min re-render on SHIP by mtime-checking source vs. newest render
+  (no source file post-dated the existing cut) — verified the existing MP4 instead. No cost.
+- [authoring] Cleared the stale **`scla-steps` contrast** Open item: `npm run check` confirms the label
+  now passes WCAG AA (46/46 text elements) — already resolved in the template, only the log lagged. Dropped.
+- [authoring] Cleared the stale **SKILL PUBLISH web-UI** Open item: the `/render-lessons` PUBLISH block
+  (lines 188–195) already documents the headless `upload.wistia.com` API flow and marks the web-UI flow
+  retired. Was already fixed in the prior publish session; the Open item just wasn't cleared. Dropped.
+
+**Promoted to docs:**
+- `frame.md` depth-drift row (line ~419): "16–30px" → "~85–120px" with the reason (small amplitudes
+  move <1 gray level per 48×27 QA thumbnail px and read static), plus a note that all heroes were
+  raised to the registering band 2026-07-15. The spec is now empirically correct.
+
+## 2026-07-15 · BUILD: `what-energizes-me` built gate-clean to the hyperframe gate (career-map skipped per owner)
+
+`/render-lessons BUILD`. Queue was 2 (refined minus already-built): `using-the-career-map-tool`
+and `what-energizes-me`. Owner said "skip career map for now", so only `what-energizes-me` built.
+Started-build count for early-career-boost = 9 (7 live + 2 archived) → theme `summit` (9 mod 3 = 0).
+One cold general-purpose build subagent, all-template approach following the newest gate-clean
+reference (`skills-for-the-ai-era-future`): 18 scenes, two living icons (`examine`, `done`) on
+single-focus beats. Gates green — compile_timeline PASS, orchestrator's independent preflight
+re-run PASS (exit 0, 0 boundary violations, theme=summit all scenes, script_match 438/438 =
+0.00%), `npm run check` exit 0. No render (correct — BUILD stops at the gate). Preview served on
+:3002; handed the owner the gate. Nothing owed on this build but the human ship decision.
+
+**Open:**
+- [owner] **`scla-steps` contrast warnings (label 2.99:1, ghost numeral 1.12:1)** — surfaced
+  by `npm run check` on this build at t≈118s; warnings only (gate passed), and template-owned
+  so a single build can't fix them without forking. The ghost numeral is intentionally faint;
+  the section label at 2.99:1 sits just under AA-large. A design-token decision on the label —
+  fold into the already-owed demo-reel re-render if you want it addressed (since 2026-07-15).
+- [owner] **SKILL PUBLISH step still describes the retired no-token web-UI flow** —
+  headless API upload is now proven a second time this session; the `/render-lessons` PUBLISH
+  block still says "the upload itself is the human's move in the web UI." Edit was previously
+  held as agent self-modification of the governing skill — needs owner OK or explicit direction
+  to correct it (since 2026-07-15). **Asked at close-out this session.**
+- [owner] **Who/what rendered `better-decisions`?** Provenance-blocked, never at the gate;
+  aborted temp render dir preserved as evidence. Decide: provide the lesson body/outline to
+  clear its facts blocker, or park the workspace (since 2026-07-15).
+- [owner] **Wistia publish/credential audit trail** — no entry records who cleared the
+  earlier "reads 403" state or ran the earlier unlogged Wistia publishes; the disputed
+  `career-building` cut `zyr1fq35t7` is now **404/gone** (a delete happened out-of-band — the
+  `WISTIA_API` token still lacks delete scope, so this was an owner/web-UI or rotated-token
+  action, unlogged). Audit question stands (since 2026-07-15).
+- [owner] **Demo-reel render still owed** before the next *ship* (style guide has drifted
+  ahead of the templates: animacy re-tune + `scla-statement`/`scla-steps` icon slots). Say
+  the word and it renders (since 2026-07-15).
+- [owner] **HeyGen API key still 403s** — blocks the pinned-voice upgrade path and
+  `avatar-pipeline/` (since 2026-07-07).
+
+**Fixed this session:**
+- Nothing broke. Clean single-build run; no snags hit.
+
+**Promoted to docs:**
+- None this session (no durable authoring/env lesson emerged — the one new item is an
+  owner-side design-token decision, logged Open above, not a doc fix).
+
 ## 2026-07-15 · Owner-directed PUBLISH of the three early-career-boost cuts to Wistia (MP4-review gate waived, on the record)
 
 Owner invoked `/render-lessons SHIP` for `do-not-just-ask-what-ai-replaces`,
