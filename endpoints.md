@@ -29,7 +29,7 @@ Update here first — scripts and skills should read from here, not from hardcod
 |---|---|---|---|
 | SCLA Wistia account | Account | https://sclc.wistia.com | lesson-video hosting + analytics — `/render-lessons` PUBLISH, `avatar-pipeline/` delivery |
 | Lesson videos project/folder | Project | `TODO: needs input` | where uploaded lessons are filed in Wistia |
-| Upload API token | — | in **Infisical** (project `scla-projects-n-joy`, env `dev` — see the Infisical section below); never in `.env`, this file, or the repo | injected at `/render-lessons` PUBLISH via `scripts/with-secrets.sh`; exact secret name confirmed once the machine identity has project access |
+| Upload API token | — | in **Infisical** (project `scla-projects-n-joy`, env `dev`, secret name `WISTIA_API` — see the Infisical section below); never in `.env`, this file, or the repo | injected at `/render-lessons` PUBLISH via `scripts/with-secrets.sh` |
 
 > Video title = the filed MP4 stem `<section>_<program-slug>_<render-date>`.
 > The Wistia URL of a published lesson is recorded in
@@ -54,9 +54,8 @@ the project/env is present as an env var for that process only. Override the
 project/env with `INFISICAL_PROJECT_ID` / `INFISICAL_ENV`. CLI is provisioned by
 `.devcontainer/devcontainer.json` (`postCreateCommand`).
 
-> **Access pending (owner action):** the machine identity must be assigned to
-> the `scla-projects-n-joy` project with read on `dev` — until then the CLI
-> authenticates but every read returns `403 Forbidden`.
+> **Verified 2026-07-14:** machine identity has read access on `scla-projects-n-joy` / `dev` —
+> `scripts/with-secrets.sh` successfully injects secrets, including `WISTIA_API`.
 
 ---
 
