@@ -58,12 +58,56 @@ LESSON_SCRIPTS = Path(__file__).resolve().parent.parent / "lesson-scripts"
 DASH_RE = re.compile(r"[‒–—―/-]+")
 
 
+_NUM_UNITS = {
+    "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+    "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+    "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16,
+    "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20, "thirty": 30,
+    "forty": 40, "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90,
+}
+_NUM_SCALES = {"hundred": 100, "thousand": 1000, "million": 1000000, "billion": 1000000000}
+
+
+def _fold_number_words(toks):
+    """Collapse runs of spelled-out cardinal number words into a single digit
+    token ('eighty thousand' -> '80000', 'forty' -> '40'). Applied SYMMETRICALLY
+    to both the script and the transcript, so it only ever removes number-FORMAT
+    noise (whisper writes spoken numbers as digits: '80,000' -> norm '80000';
+    small numbers like 'one' it keeps as a word) — value fidelity is preserved
+    because a genuine misread lands on different digits and still mismatches.
+    Non-number words are untouched."""
+    out, i, n = [], 0, len(toks)
+    while i < n:
+        j, total, current, saw = i, 0, 0, False
+        while j < n and (toks[j] in _NUM_UNITS or toks[j] in _NUM_SCALES):
+            w = toks[j]
+            if w in _NUM_UNITS:
+                current += _NUM_UNITS[w]
+            elif w == "hundred":
+                current = (current or 1) * 100
+            else:  # thousand / million / billion
+                total += (current or 1) * _NUM_SCALES[w]
+                current = 0
+            saw = True
+            j += 1
+        if saw:
+            out.append(str(total + current))
+            i = j
+        else:
+            out.append(toks[i])
+            i += 1
+    return out
+
+
 def tokenize_for_diff(text: str):
     """Lowercase word tokens for the script-vs-transcript diff. Em/en-dash,
     hyphen and slash compounds split into separate tokens first (whisper emits
-    'buzzwords—just' as one token); punctuation then stripped per token."""
-    return [t for t in (norm_token(w)
-                        for w in DASH_RE.sub(" ", text.lower()).split()) if t]
+    'buzzwords—just' as one token); punctuation then stripped per token; spelled
+    cardinal numbers folded to digits so 'eighty thousand' == whisper's '80,000'
+    (number-heavy stat lessons otherwise trip the fidelity gate on pure format)."""
+    return _fold_number_words(
+        [t for t in (norm_token(w)
+                     for w in DASH_RE.sub(" ", text.lower()).split()) if t])
 
 
 def diff_script_transcript(script_toks, heard_toks):

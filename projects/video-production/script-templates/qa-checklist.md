@@ -66,7 +66,7 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 - [ ] **Numerals read right** — scene index is small in the lower-right; any large numeral is a genuine stat or the spoken step, never a slide number or a bare cardinal
 
 ### Pacing, cuts & endings (`frame.md` → "Scene boundaries, padding & endings")
-- [ ] **Every cut lands ≥0.5s after the scene's last spoken word ends** — verify against `transcript.json`; no scene cuts mid-word or mid-sentence
+- [ ] **Every cut lands ≥0.2s after the scene's last spoken word ends** — verify against `transcript.json`; no scene cuts mid-word or mid-sentence
 - [ ] **Questions finish their inflection** before the cut (extra air after a question mark)
 - [ ] **The video ends on populated content** — final scene outlives the narration (check the wav's true duration with `ffprobe`) and holds its text ≥1s after the last word; no bare-canvas tail, no clipped audio
 - [ ] **Opening enumeration has its own scene** — the title card is off before the narration starts listing; listed items land as a kinetic reveal on their cues

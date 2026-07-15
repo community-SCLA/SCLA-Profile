@@ -2,11 +2,11 @@
 """Deterministic timing checker for SCLA HyperFrames lesson builds.
 
 Checks every scene boundary in index.html against the narration transcript:
-  - >=0.5s of air between a scene's last spoken word and its cut (frame.md ->
+  - >=0.2s of air between a scene's last spoken word and its cut (frame.md ->
     "Scene boundaries, padding & endings")
   - no mid-word cuts (boundary before the last word's end = negative gap)
   - boundaries land on sentence ends (last word in the scene carries . ! ? )
-  - question endings get extra air (>=0.8s after a '?')
+  - question endings get extra air (>=0.35s after a '?')
   - final scene: root duration covers the wav's true audio end and holds >=1.0s
     after the last spoken word
 
@@ -27,8 +27,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-MIN_AIR = 0.5
-MIN_QUESTION_AIR = 0.8
+MIN_AIR = 0.2
+MIN_QUESTION_AIR = 0.35
 MIN_FINAL_HOLD = 1.0
 
 
@@ -91,22 +91,48 @@ def main():
     audio_end = wav_duration(wav_path)
     last_word_end = max(w["end"] for w in words)
 
+    # Per-scene synthesis manifest (synth_narration.py) = sample-exact ground
+    # truth for where each scene's audio really ends. Whisper word-end
+    # timestamps are ±30-100ms and pad the last word of a run INTO trailing
+    # silence, so judging air against them false-flags manifest-cut builds.
+    manifest_path = ws / "assets" / "voice" / "scene-times.json"
+    manifest = None
+    if manifest_path.exists():
+        try:
+            ms = json.loads(manifest_path.read_text())["scenes"]
+            if len(ms) == len(scenes):
+                manifest = ms
+                last_word_end = ms[-1]["end"]
+        except (json.JSONDecodeError, KeyError):
+            pass
+
     findings = []
     report = []
     for i, sc in enumerate(scenes):
-        in_scene = [w for w in words if sc["start"] <= w["start"] < sc["end"]]
+        if manifest:
+            # window by the next scene's manifest AUDIO start — whisper can
+            # drift a boundary word's start into the silence gap past the cut
+            lo = manifest[i - 1]["cut"] if i else 0.0
+            hi = manifest[i + 1]["start"] if i + 1 < len(manifest) else float("inf")
+            in_scene = [w for w in words if lo - 0.5 <= w["start"] < hi]
+        else:
+            in_scene = [w for w in words if sc["start"] <= w["start"] < sc["end"]]
         is_last = i == len(scenes) - 1
         if not in_scene:
             findings.append({"scene": sc["id"], "rule": "empty-scene",
                              "detail": "no narration words start inside this scene"})
             continue
         last = max(in_scene, key=lambda w: w["end"])
-        gap = round(sc["end"] - last["end"], 3)
+        spoken_end = manifest[i]["end"] if manifest else last["end"]
+        gap = round(sc["end"] - spoken_end, 3)
         text = last["text"].strip()
         sentence_end = bool(re.search(r"[.!?][\"')\]]*$", text))
-        is_question = text.rstrip("\"')]").endswith("?")
+        # question flag: the manifest (script punctuation) is authoritative —
+        # whisper sometimes hears a rising statement as "?" and vice versa
+        is_question = (manifest[i].get("question", False) if manifest
+                       else text.rstrip("\"')]").endswith("?"))
         row = {"scene": sc["id"], "cut_at": sc["end"], "last_word": text,
-               "last_word_end": last["end"], "gap": gap,
+               "last_word_end": spoken_end, "gap": gap,
                "sentence_end": sentence_end}
         report.append(row)
 

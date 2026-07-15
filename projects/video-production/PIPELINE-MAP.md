@@ -51,9 +51,13 @@ session days later — no context carries over, nothing bloats.
                                  │   /render-lessons  BUILD   (≤3 per session, one cold
                                  │   subagent each; strong model for illustration-heavy)
                                  │   • init workspace + copy design-system (frame.md, 9 templates)
-                                 │   • TTS (kokoro) → transcribe (whisper) → assemble index.html
-                                 │     using ANCHOR PHRASES only — never a typed timing number
-                                 │   • compile_timeline.py owns every number
+                                 │   • assemble index.html: per-scene data-narration (verbatim
+                                 │     script spans) + CUE PHRASES — never a typed timing number
+                                 │   • synth_narration.py: one kokoro clip PER SCENE, concatenated
+                                 │     with real boundary silence (sample-exact manifest; replaced
+                                 │     the single-take + inserted-silence flow 2026-07-14)
+                                 │   • transcribe (whisper, cues only) → compile_timeline.py owns
+                                 │     every number (boundaries from the manifest)
                                  │   • preflight.py (incl. script-vs-transcript diff) + npm run check
                                  │   • NO RENDER in this phase
                                  ▼

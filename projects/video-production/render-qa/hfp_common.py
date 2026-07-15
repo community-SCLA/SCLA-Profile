@@ -7,6 +7,7 @@ duplicate words like "process." on 2026-07-10 is deliberately not used here),
 and scene-slot parsing/rewriting for HyperFrames index.html files.
 """
 
+import html
 import json
 import re
 import subprocess
@@ -92,13 +93,26 @@ def set_attr(tag: str, name: str, value: str, quote: str = '"'):
     return re.sub(pattern, lambda m: m.group(1) + quote + value + quote, tag, count=1)
 
 
+def _load_json_attr(raw):
+    """json.loads a raw attribute value, HTML-unescaping entity-encoded quotes
+    first. Returns None for a missing/empty attribute."""
+    if not raw:
+        return None
+    return json.loads(html.unescape(raw))
+
+
 def parse_scenes(index_html: str):
     """All scene slots in document order, with their raw tag text."""
     scenes = []
     for m in SCENE_TAG_RE.finditer(index_html):
         tag = m.group(0)
         vv = get_attr(tag, "data-variable-values")
+        narration = get_attr(tag, "data-narration")
         scenes.append({
+            # per-scene narration text (verbatim script span; HTML-escaped in
+            # the attribute — &quot; for inner double quotes). None = legacy
+            # single-take authoring.
+            "narration": html.unescape(narration) if narration else None,
             "tag": tag,
             "span": m.span(),
             "id": get_attr(tag, "id") or get_attr(tag, "data-composition-id") or "?",
@@ -106,8 +120,12 @@ def parse_scenes(index_html: str):
             "start": float(get_attr(tag, "data-start") or "nan"),
             "duration": float(get_attr(tag, "data-duration") or "nan"),
             "anchor_end": get_attr(tag, "data-anchor-end"),
-            "cue_anchors": json.loads(get_attr(tag, "data-cue-anchors")) if get_attr(tag, "data-cue-anchors") else None,
-            "variables": json.loads(vv) if vv else {},
+            # HTML-unescape before json.loads: a double-quote-wrapped attribute
+            # entity-encodes its inner quotes as &quot; (any browser/preview
+            # serialize pass emits this). No-op on the single-quote+literal form
+            # the writer emits, so both encodings parse. (snag 2026-07-14)
+            "cue_anchors": _load_json_attr(get_attr(tag, "data-cue-anchors")),
+            "variables": _load_json_attr(vv) or {},
         })
     return scenes
 
