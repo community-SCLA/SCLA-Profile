@@ -98,32 +98,48 @@ HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <stem> --example=blank --non-inte
 cd <stem>
 # init regenerates a CLAUDE.md routing to skills this repo deleted — replace it:
 printf '# Build workspace. Sequence + commands: /render-lessons. Design contract: ../../design-system/frame.md\n' > CLAUDE.md
-npx hyperframes tts "$(cat ../../lesson-scripts/<program-slug>/refined/<stem>.txt)" \
-  --voice af_heart --speed 0.95 -o assets/voice/narration.wav   # no --provider (removed in 0.7.56)
-npx hyperframes transcribe assets/voice/narration.wav --model small.en
 ```
 
-**Assemble `index.html`** — one scene slot per beat from the nine templates
-(pattern: the **newest lesson build**, not the demo reel — its header comment
-says so), `<audio>` at the host root. Follow `frame.md`'s animacy +
-illustration rules. Standing landmines:
+**Assemble `index.html` FIRST** — one scene slot per beat from the design-system
+templates (pattern: the **newest lesson build**, not the demo reel — its
+header comment says so), `<audio>` at the host root. Follow `frame.md`'s
+animacy + illustration rules. Standing landmines:
 
-- **Never type a timing number.** `data-anchor-end="<last spoken phrase>"` on
-  every scene slot, `data-cue-anchors='{"chipCues":[…],…}'` with **verbatim
-  transcript phrases**; placeholder numbers everywhere — the compiler owns them.
-- Whisper emits em-dash compounds as ONE token (`buzzwords—just`): an anchor
+- **Add the host-root progress rail to every build** (`frame.md` → "Host-root
+  progress rail"). Inside `#root`, after the scene clips and before the `<audio>`,
+  add `#hf-rail-track` + `#hf-rail-fill`; drive it from the root `"main"` timeline
+  (`scaleX 0→1`, `duration` = the compiler-owned `#root data-duration`, `ease:"none"`).
+  It is not a scene clip, so it stays out of scene coverage and the gates ignore it.
+- **Never type a timing number.** Every scene slot carries
+  `data-narration="<its verbatim span of the refined script>"` (HTML-escape
+  inner double quotes as `&quot;`; split only at sentence ends) and, where it
+  has reveals, `data-cue-anchors='{"chipCues":[…],…}'`; placeholder numbers
+  everywhere — the compiler owns them. `data-anchor-end` is legacy-only: the
+  per-scene manifest owns boundaries now; do not author it on new builds.
+- Whisper emits em-dash compounds as ONE token (`buzzwords—just`): a CUE
   phrase can't start or end *inside* one — quote the compound verbatim from
   the transcript or pick a phrase that clears it.
 - Idle pulses: translate-only (the y-nudge pattern). Animating `scale` + SVG
   `opacity` together ghosts in the streaming encode.
 
-**Compile + gates** (from the workspace — loop until all three green):
+**Synthesize per scene, then compile + gates** (from the workspace — loop
+until all green). `synth_narration.py` verifies data-narration against the
+refined script BEFORE any TTS, synthesizes one Kokoro clip per scene (cached —
+edits only re-synthesize changed scenes), and concatenates with REAL boundary
+silence; never hand-run single-take `hyperframes tts` for a lesson (the
+old insert-silence flow spliced words — decisions/log.md 2026-07-14):
 
 ```bash
-python3 ../../render-qa/compile_timeline.py . --apply  # owns ALL numbers
+python3 ../../render-qa/synth_narration.py .           # per-scene TTS -> narration.wav + scene-times.json
+npx hyperframes transcribe assets/voice/narration.wav --model small.en  # cues + script gate still read Whisper
+python3 ../../render-qa/compile_timeline.py . --apply  # owns ALL numbers (boundaries from the manifest)
 python3 ../../render-qa/preflight.py .                 # incl. script-vs-transcript diff — exit 0 or fix
 npm run check                                          # lint + validate + inspect
 ```
+
+Edited a scene's narration or reordered scenes? Re-run the same four commands
+in order — synth re-does only the changed clips, and a stale transcript fails
+loudly instead of misaligning.
 
 An unresolvable anchor error names the scene and transcript window — fix the
 phrase, never the numbers. **Stop here. No render in this phase.**
