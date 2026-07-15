@@ -29,6 +29,59 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-15 · Owner-directed PUBLISH of the three early-career-boost cuts to Wistia (MP4-review gate waived, on the record)
+
+Owner invoked `/render-lessons SHIP` for `do-not-just-ask-what-ai-replaces`,
+`career-building-is-a-repeatable-process`, `finding-creating-a-career-purpose-statement`,
+then immediately corrected ("STOP! These are already complete — they just need to be
+uploaded to wistia"): the three 2026-07-15 MP4s in `renders-mp4/early-career-boost/` are
+the final cuts, no re-render owed. I had started one `npm run render` (do-not-just-ask)
+under the initial SHIP reading — **stopped it via TaskStop** the moment the owner
+corrected; the filed MP4s are untouched (render writes to the workspace `out/`, not
+`renders-mp4/`). Uploaded all three to the existing Wistia **"Early Career Boost"** project
+(id `10733647` / hashedId `miuwd520zj`) via headless API (`upload.wistia.com`, `WISTIA_API`
+from Infisical) — all `queued`→`processing`, project media 3→6. Hashed ids: do-not-just-ask
+`n18la37w3o`, career-building `lsgkfzu60w`, finding-creating `cnmkchs5dt`. Owner explicitly
+directed the upload and **waived the MP4-review gate** — recorded here and in the ledger so
+this batch's authorization is on the record (unlike the earlier disputed publishes). Ledger
+rows 29–31 updated with URLs + published status; `endpoints.md` Wistia project row filled in.
+
+**Open:**
+- [owner] **SKILL PUBLISH step still describes the retired no-token web-UI flow** —
+  headless API upload is now proven a second time this session; the `/render-lessons`
+  PUBLISH block still says "the upload itself is the human's move in the web UI." Edit was
+  previously held as agent self-modification of the governing skill — needs owner OK or
+  explicit direction to correct it (since 2026-07-15). **Asked at close-out this session.**
+- [owner] **Who/what rendered `better-decisions`?** Provenance-blocked, never at the gate;
+  aborted temp render dir preserved as evidence. Decide: provide the lesson body/outline to
+  clear its facts blocker, or park the workspace (since 2026-07-15).
+- [owner] **Wistia publish/credential audit trail** — no entry records who cleared the
+  earlier "reads 403" state or ran the earlier unlogged Wistia publishes; the disputed
+  `career-building` cut `zyr1fq35t7` is now **404/gone** (a delete happened out-of-band — the
+  `WISTIA_API` token still lacks delete scope, so this was an owner/web-UI or rotated-token
+  action, unlogged). Audit question stands (since 2026-07-15).
+- [owner] **Demo-reel render still owed** before the next *ship* (style guide has drifted
+  ahead of the templates: animacy re-tune + `scla-statement`/`scla-steps` icon slots). Say
+  the word and it renders (since 2026-07-15).
+- [owner] **HeyGen API key still 403s** — blocks the pinned-voice upgrade path and
+  `avatar-pipeline/` (since 2026-07-07).
+
+**Fixed this session:**
+- `[tooling]` **Wistia "Lesson-videos project id = TODO" closed for early-career-boost.**
+  Found the existing "Early Career Boost" project (id `10733647`) via `GET /v1/projects.json`
+  and filed all three there instead of the account default; recorded the id in `endpoints.md`
+  and the ledger. Confirmed the three stems were not already present (no duplicates) and that
+  the superseded `zyr1fq35t7` is 404. ~5 min.
+- `[authoring]` **Misread the initial `SHIP` as needing a re-render.** Owner clarified the
+  MP4s were already final; caught after one render start, stopped cleanly with no wasted
+  output on the filed artifacts. ~2 min.
+
+**Promoted to docs:**
+- `endpoints.md` → Wistia: "Lesson videos project/folder" row now records the per-program
+  filing model and the Early Career Boost project id (was `TODO: needs input`).
+- `refinement-log.md` rows 29–31: the three cuts marked **published 2026-07-15** with Wistia
+  URLs and the owner-directed / gate-waived authorization noted.
+
 ## 2026-07-15 · Living-icon slot added to `scla-statement`/`scla-steps`; `finding-creating` gets icons "where relevant"; `check_boundaries` reads sentence-end from the script
 
 Owner asked to add icons to the gate-pending `finding-creating-a-career-purpose-statement`
@@ -587,6 +640,67 @@ scratchpad `pilot-brief.md`; per-scene map: workspace `PILOT-NOTES.md`.
 - Re-render procedure (restore from `.pre-pad` before `--apply` so new timing
   constants apply cleanly, never double-pad) is now proven; the `.pre-pad`
   backup contract is already documented in `compile_timeline.py:insert_silences`.
+
+## 2026-07-14 · BUILD batch — 3 early-career-boost hyperframes to the gate (no render)
+
+Built and gate-cleaned three workspaces (do-not-just-ask… · cadence · 12 scenes;
+how-to-make-strong-career-decisions · summit · 15; skills-for-the-ai-era-future ·
+horizon · 19). All three PASS on independent preflight; sitting at the HYPERFRAME
+GATE. 3 of 6 queued built (batch cap); 3 left for next run.
+
+**Why this run was slow (owner asked):** ~50 min wall-clock, three causes —
+(1) *cold toolchain*: the container shipped without the TTS/transcribe deps, so
+the first build paid a one-time install tax before any voice existed (see Open);
+(2) *builds are inherently heavy + strictly sequential*: each is ~3 min of TTS +
+Whisper transcription + an assemble→compile→preflight→check loop of 150–300 tool
+calls, and they share `/dev/shm` so they cannot run in parallel; (3) *one
+subagent stalled*: build 3 yielded mid-build waiting on a background step instead
+of driving to gate-clean, costing an orchestrator resume round-trip.
+
+**Open:**
+- [owner] Devcontainer image ships **without the TTS/transcribe toolchain** —
+  `kokoro-onnx`+`soundfile` (Kokoro TTS) and `ffmpeg` (Whisper transcribe) were
+  both absent. Installed in-session, but they vanish on container rebuild and the
+  first build of every fresh container re-pays the install tax. Bake into the
+  devcontainer image (or a `postCreate` step) to kill the recurring cost
+  (since 2026-07-14).
+- [owner] `better-decisions` release blocked: the lesson body/outline was never
+  filed as source material, so the facts lane cannot verify its framework
+  (since 2026-07-10).
+- [owner] Unattended build phases still prompt for permissions: `npm`, `npx`,
+  `pkill`, `sudo mount`, `ffmpeg`, `ffprobe`, `bash scripts/archive-lesson.sh`
+  are not in `.claude/settings.json` allow (since 2026-07-13).
+- [env] claude-mem plugin worker can go unreachable; its PreToolUse hook then
+  hard-blocks the Read tool (workaround: allowlisted Bash) (since 2026-07-13).
+- [upstream] scale+SVG-opacity streaming-encode ghost (scla-career-map,
+  2026-07-10) still not filed upstream — repro evidence retained in the
+  archived workspace; the translate-only rule is already promoted
+  (since 2026-07-10).
+- [owner] `mini-syllabus` MP4 delivered 2026-07-08 but its Wistia upload/URL
+  was never confirmed — ledger row says `TODO: needs input` (since 2026-07-13).
+- [owner] Contrast **warning** (non-blocking) in the shared `scla-morph.html`
+  card-A subtitle: `#cnA 1.82:1` at t≈10.3s. Lives in a shared template
+  (frame.md says don't fork) — a design-system owner should lift the subtitle
+  colour, not a single build (since 2026-07-14).
+
+**Fixed this session:**
+- [env] `hyperframes tts` failed on missing `kokoro_onnx` → `pip install
+  kokoro-onnx soundfile`, ran TTS with `HYPERFRAMES_PYTHON` pointed at the
+  interpreter that now has it. (Recurs on fresh container — see Open.)
+- [env] `hyperframes transcribe` failed with no `ffmpeg` → `sudo apt-get install
+  -y ffmpeg`. (Recurs on fresh container — see Open.)
+- [authoring] Build 2 chip labels with internal commas (`"Vague in, vague out"`)
+  split into extra chips and failed the count-vs-cue check → reworded. Rule
+  promoted to `frame.md` (cue-anchor contract).
+- [tooling] Build 3 subagent yielded mid-build ("Awaiting the Monitor event")
+  instead of driving to gate-clean → resumed via SendMessage; completed clean.
+
+**Promoted to docs:** reveal-cue chip/step labels may not contain an internal
+comma (splits the element list, fails preflight's count-vs-cue check) →
+`frame.md` cue-anchor contract. The three slowness causes above are recorded
+here as the trail; the durable fix (bake deps into the image) is the Open item.
+
+---
 
 ## 2026-07-13 · pipeline v3 — folder-state model, three-phase render-lessons (no render this session)
 

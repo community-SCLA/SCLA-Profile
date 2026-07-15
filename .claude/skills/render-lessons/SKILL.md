@@ -80,10 +80,13 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
   delegated, not run inline. More queued than 3 → say so and leave the rest
   for the next run.
 - Style package: the human's pick if given; otherwise rotate
-  summit → horizon → cadence by the program's **started-build** count (rule +
-  count definition: `frame.md` → "Style packages"). The orchestrator computes
-  the theme per queued video (consecutive builds in one batch keep rotating)
-  and passes it to the subagent. Say which was picked.
+  summit → horizon → cadence by the program's **started-build** count —
+  `count(*.txt in lesson-scripts/<program-slug>/rendered/) mod 3` (rule:
+  `frame.md` → "Style packages"). Never scan `_archive/` for this — `rendered/`
+  already holds every gate-clean build's script, so it covers delivered +
+  at-gate builds. The orchestrator computes the theme per queued video
+  (consecutive builds in one batch keep rotating) and passes it to the subagent.
+  Say which was picked.
 
 ### B2 — One cold build subagent per video
 

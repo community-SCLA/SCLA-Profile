@@ -28,7 +28,7 @@ Update here first — scripts and skills should read from here, not from hardcod
 | Name | Type | ID / URL | Used By |
 |---|---|---|---|
 | SCLA Wistia account | Account | https://sclc.wistia.com | lesson-video hosting + analytics — `/render-lessons` PUBLISH, `avatar-pipeline/` delivery |
-| Lesson videos project/folder | Project | `TODO: needs input` | where uploaded lessons are filed in Wistia |
+| Lesson videos project/folder | Project | filed per-program; **Early Career Boost** = id `10733647` / hashedId `miuwd520zj` | where uploaded lessons are filed in Wistia (one Wistia project per program) |
 | Upload API token | — | in **Infisical** (project `scla-projects-n-joy`, env `dev`, secret name `WISTIA_API` — see the Infisical section below); never in `.env`, this file, or the repo | injected at `/render-lessons` PUBLISH via `scripts/with-secrets.sh` |
 
 > Video title = the filed MP4 stem `<section>_<program-slug>_<render-date>`.

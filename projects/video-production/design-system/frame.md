@@ -162,6 +162,10 @@ the toolchain computes every number (authoring contract, normative):
   `data-cue-anchors='{"chipCues":["phrase", …], "pointCues":[…],
   "stepCues":[…], "mapCue":"phrase"}'` — one phrase per
   item, pulled from the Whisper transcript text, in spoken order.
+- A reveal-cue **chip/step label may not contain an internal comma** — the
+  template splits comma-separated values into separate elements, so a comma
+  inflates the element count and fails preflight's count-vs-cue check. Reword
+  (or use `&amp;`) instead of a comma inside one chip/step.
 - `compile_timeline.py` owns `data-start`/`data-duration`, all numeric cue
   values, `sceneDuration`, the `<audio>` duration, and the root duration —
   boundaries come from the synthesis manifest; cue times from
@@ -380,10 +384,13 @@ Package rules:
   frontmatter — a package re-weights the same tokens, never adds hues.
 - Assignment: the requester picks in the Notion queue; on "No preference",
   rotate `summit → horizon → cadence` by the program's **started-build** count
-  (count mod 3) — every workspace ever created for the program, whether live in
-  `../renders-hyperframes/`, archived, or delivered. An in-flight build claims
-  its theme immediately; counting deliveries let consecutive videos ship in the
-  same look.
+  (count mod 3) — the number of `*.txt` in the program's
+  `lesson-scripts/<program-slug>/rendered/`. Every gate-clean build's script
+  lands there at B3, so this count covers delivered **and** at-gate builds
+  without ever scanning `_archive/` (which the hard rules forbid routing to).
+  An in-flight build claims its theme immediately — consecutive builds in one
+  batch keep incrementing the count locally; counting deliveries lets
+  consecutive videos ship in the same look.
 - A new package = a new `data-theme` override block in **all nine** templates
   plus a row here. Never fork a template to make a look.
 
