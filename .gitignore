@@ -31,3 +31,6 @@ projects/video-production/renders-hyperframes/*
 !projects/video-production/renders-hyperframes/README.md
 projects/video-production/lesson-scripts/**/*.mp4
 projects/video-production/renders-mp4/**/*.mp4
+
+# Root-owned S3/secrets setup artifact (0600, not readable/committable)
+.s3_setup_*
