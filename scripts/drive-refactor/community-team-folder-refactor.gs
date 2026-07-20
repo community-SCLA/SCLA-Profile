@@ -120,7 +120,9 @@ var FOLDER_TREE = {
   '06 Accreditation & Credibility': {},
   '07 Team Operations': {
     'Member Support': {},
-    'Info Sessions': {},
+    'Info Sessions': {
+      '_Archive': {}   // holds the ARCHIVE-labeled Info Session files (Finding #4)
+    },
     'Templates & Tools': {},
     'Frontline': {}
   },
@@ -444,13 +446,18 @@ function doMove_(file, destPath, folderIndex, label) {
     record_('ERROR', file.getName(), 'destination not in tree: ' + destPath);
     return;
   }
-  // Already home? (single-parent check)
-  var parents = file.getParents();
-  if (parents.hasNext()) {
-    var p = parents.next();
-    if (!parents.hasNext() && p.getName() === target.getName()) {
-      record_('SKIP (already home)', file.getName(), destPath);
-      return;
+  // Already home? Compare by folder ID, not name: several folders share a name
+  // (e.g. the four _Archive folders), so a name check can wrongly skip a file
+  // that lives in a *different* same-named folder. A __virtual target doesn't
+  // exist yet, so nothing can already be home there.
+  if (!target.__virtual) {
+    var parents = file.getParents();
+    if (parents.hasNext()) {
+      var p = parents.next();
+      if (!parents.hasNext() && p.getId() === target.getId()) {
+        record_('SKIP (already home)', file.getName(), destPath);
+        return;
+      }
     }
   }
   if (DRY_RUN || target.__virtual) {
@@ -476,16 +483,15 @@ function record_(action, item, detail) {
 function log_(msg) { Logger.log(msg); }
 
 function writeReport_() {
-  var sheetName = 'Drive Refactor Log';
+  // Keep the dry-run and executed logs in separate sheets so a dry run never
+  // opens and clears the report from a real execute() (matches the README).
+  var sheetName = DRY_RUN ? 'Drive Refactor Log (DRY RUN)' : 'Drive Refactor Log';
   var ss;
   var files = DriveApp.getFilesByName(sheetName);
   if (files.hasNext()) {
     ss = SpreadsheetApp.open(files.next());
-  } else if (!DRY_RUN) {
-    ss = SpreadsheetApp.create(sheetName);
   } else {
-    // Dry run with no existing sheet: still create one so reviewers can read it.
-    ss = SpreadsheetApp.create(sheetName + ' (DRY RUN)');
+    ss = SpreadsheetApp.create(sheetName);
   }
   var sheet = ss.getSheets()[0];
   sheet.clearContents();
