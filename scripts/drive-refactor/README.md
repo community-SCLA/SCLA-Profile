@@ -1,158 +1,90 @@
-# Community Team Drive — Folder Refactor (Google Apps Script)
+# Community Team Drive — Folder Refactor v2 (Google Apps Script)
 
-`community-team-folder-refactor.gs` restructures the live **Community Team**
-Google Drive folder to match the hierarchy in
-[`projects/drive-review-brief.md`](../../projects/drive-review-brief.md).
+`community-team-folder-refactor.gs` consolidates the live **Community Team
+Folder** *and* the four legacy shared drives ("Community & Learning SCLA",
+"Marketing SCLA", "Chapter Interns", "Accreditation SCLA") plus the standalone
+shared files into one canonical tree.
 
-It builds the 9 initiative folders + `_Marketing & Brand`, routes every named
-document into its single home, archives superseded/`ARCHIVE`-labeled files into
-the right `_Archive/` subfolder, and trashes the items marked stale (NIC, Voyije).
+**The map of where everything goes — and why — is
+[`ANNOTATED-WORKTREE.md`](./ANNOTATED-WORKTREE.md).** Read it first; it is the
+authority this script implements. It was built from a complete live inventory
+(2026-07-20, ~500 items), content-verification of every suspected duplicate,
+and three adversarial reviews (taxonomy, feasibility, completeness).
 
-## Deploy & run
+## What's different from v1
 
-You don't "deploy" this as a web app — it's a script you run a couple of times
-from the Apps Script editor. Pick **Option A (editor, ~5 min, recommended)** for a
-one-time cleanup, or **Option B (clasp CLI)** if you'd rather keep it in this repo
-and push from your terminal.
+| | v1 | v2 |
+|---|---|---|
+| Scope | Community Team folder only | + 4 shared drives + standalone shared files |
+| Routing | name substrings | **file-ID first** (names here have trailing spaces & twins); name rules only for post-inventory files |
+| Trash | name-match, throws for non-owned files | ID-only, content-verified, capability-gated; blocked items staged in `_PENDING-OWNER-TRASH/` + owner worklist |
+| Shortcuts | ignored | tri-policy: collapse (target routed) / keep-as-pointer (target unreachable but alive) / dead-flag (never silently deleted) |
+| Ownership | assumed movable | dry run **predicts** MOVE vs OWNER-BLOCKED per item via the Drive API; move failures fall back to a pointer shortcut; CT folder is shared with all content owners first |
+| Folders | pre-created tree | **lazy creation** — a folder exists only once something lands in it (no empty placeholders) |
+| 6-min limit | re-run manually | checkpoints (chunked in Script Properties), self-scheduling resume trigger, LockService, batched Sheet logging, backoff retries |
 
-### Before you start — prerequisites
+## Setup (Apps Script editor)
 
-- A Google account that can **edit** the Community Team Drive folder *and* every
-  file being moved. Moving a file you can view-but-not-edit will fail — run as an
-  account with Manager/Content-manager access to the Shared Drive (or the folder
-  owner if it's in My Drive).
-- The **folder ID**. Open the Community Team folder in Drive; the URL looks like
-  `https://drive.google.com/drive/folders/`**`1AbC...XyZ`** — copy the bold part.
+1. [script.google.com](https://script.google.com) → **New project**, name it
+   `Community Team Drive Refactor`, paste the whole `.gs` file.
+2. **Enable the Drive advanced service**: left sidebar → **Services (+)** →
+   **Drive API** → Add. (Without it the script still runs, but the dry run
+   can't predict owner-blocked items — it assumes optimistically.)
+3. The folder/file IDs are already baked in from the 2026-07-20 inventory —
+   `ROOT_FOLDER_ID` is the Community Team Folder. Nothing to paste.
+4. Run **as community@thescla.org** (owner of the Community Team Folder).
 
-### Option A — Apps Script editor (recommended)
+## Run order
 
-1. Go to **[script.google.com](https://script.google.com)** → **New project**.
-2. Rename it (top-left) to e.g. `Community Team Drive Refactor`.
-3. Delete the default `function myFunction() {}` in `Code.gs`, then paste in the
-   entire contents of `community-team-folder-refactor.gs`. Click **Save** (💾).
-4. Near the top, set:
-   ```js
-   var ROOT_FOLDER_ID = '1AbC...XyZ'; // ← your folder ID from above
-   ```
-   Save again.
-5. **Dry run first.** In the function dropdown (toolbar, next to ▶ Run) choose
-   **`dryRun`** → click **Run**.
-   - The first run triggers an **authorization** prompt. Click **Review
-     permissions** → choose your account → on the "Google hasn't verified this
-     app" screen click **Advanced** → **Go to (project name) — unsafe** →
-     **Allow**. (This is expected for a personal script you wrote; the scopes it
-     requests are Drive + Sheets, listed under [Authorization scopes](#authorization-scopes).)
-   - `dryRun` changes **nothing**. It writes the full plan to the
-     **Execution log** (View → Logs, or `Ctrl/Cmd+Enter`) *and* to a Google Sheet
-     named **"Drive Refactor Log (DRY RUN)"** in your Drive.
-6. **Review the plan.** Open that Sheet. Every row is one planned action
-   (`CREATE FOLDER`, `MOVE`, `ARCHIVE`, `TRASH`, `SKIP`, `UNMATCHED`, `ERROR`).
-   - Any **`UNMATCHED`** row is a file no rule caught. Add a line to `MOVE_RULES`
-     in the script — `{ match: '<part of the file name>', dest: 'Folder/Path' }` —
-     save, and run `dryRun` again. Repeat until the plan reads the way you want.
-7. **Execute for real.** Switch the dropdown to **`execute`** → **Run**. It
-   creates the folders, moves files into their single home, archives the
-   `ARCHIVE`-labeled files, and trashes the stale ones. Results are written to a
-   **"Drive Refactor Log"** Sheet.
-8. **Verify.** Open the Community Team folder and spot-check a few moves. Trashed
-   items sit in Drive Trash (recoverable ~30 days) if anything looks wrong.
+1. **`dryRun()`** — changes nothing. First run triggers the auth prompt
+   (Drive + Sheets + Triggers scopes; "unverified app" → Advanced → Allow).
+   Writes **"Drive Refactor Log (DRY RUN)"** Sheet: one row per item with the
+   *predicted* outcome — `MOVE`, `MOVE FOLDER`, `KEEP-AS-POINTER`,
+   `COLLAPSE-SHORTCUT`, `OWNER-BLOCKED (predicted)`, `TRASH (predicted)`,
+   `TRASH-BLOCKED (predicted)`, `RENAME`, `ARCHIVE`, `DEAD-OR-INVISIBLE`,
+   `UNMATCHED`, `SKIP (already home)`.
+2. **Review the Sheet.** `UNMATCHED` rows = files created after the inventory —
+   add an `ID_ROUTES` entry (or let a NAME_RULE catch it) and re-`dryRun()`.
+   Check the **OWNER WORKLIST** tab for expected blocks.
+3. **`execute()`** — applies the plan. Long runs checkpoint at ~4.5 min and
+   resume themselves via a one-minute trigger; just let it finish (watch the
+   "Drive Refactor Log" Sheet grow). Idempotent — a re-run after a clean run
+   is all `SKIP (already home)`.
+4. **Work the OWNER WORKLIST** tab: `MOVE-BLOCKED` / `TRASH-BLOCKED` rows list
+   what each owner (awestby@, ilomax@, jheath@, yordonez@…) must move, trash,
+   or transfer. Items owned by **personal gmail accounts** cannot be
+   transferred into the org — recreate/copy those (noted in the worktree §6).
+5. **`reset()`** — clears checkpoints + resume triggers for a fresh full pass.
 
-> Tip: `execute()` is idempotent. If you add more rules and run it again, files
-> already in place are reported as `SKIP (already home)` and nothing is disturbed.
+## Safety
 
-### Option B — clasp CLI (keep it in this repo)
+- `dryRun()` never writes to Drive. Trash is 30-day recoverable and only ever
+  by explicit, content-verified file ID — two entries additionally require a
+  byte-size match with their twin before trashing (else they archive).
+- Non-owner trash never throws: blocked items are staged into
+  `_PENDING-OWNER-TRASH/` for the owner to empty.
+- Shortcuts with unreachable targets are **flagged, never deleted** — a throw
+  can't distinguish "target deleted" from "target not shared with us".
+- Shared drive roots and standalone shared files are never moved (impossible
+  for a non-owner) — they get organized pointer shortcuts; each emptied legacy
+  drive gets a `MOVED — see Community Team Folder` marker.
+- Google-Forms "(File responses)" trees move **intact** — forms bind by ID, so
+  submissions keep flowing regardless of folder location.
 
-Use this if you want to edit the `.gs` in your editor and push it to Apps Script
-from the terminal.
+## clasp (optional)
 
-```bash
-# 1. Install Google's Apps Script CLI (one time)
-npm install -g @google/clasp
+Same as v1: `clasp create --type standalone` in this folder, `clasp push`,
+`clasp open`. Don't commit `.clasp.json` / `.clasprc.json`. If you use clasp,
+also commit an `appsscript.json` with the Drive advanced service enabled:
 
-# 2. Log in (opens a browser for Google auth)
-clasp login
-
-# 3. From this folder, create a standalone Apps Script project
-cd scripts/drive-refactor
-clasp create --type standalone --title "Community Team Drive Refactor"
-#   → writes .clasp.json (the script ID) and appsscript.json here.
-#     Do NOT commit .clasp.json — it's gitignored below.
-
-# 4. clasp expects a .js/.gs extension it recognizes; push the source
-clasp push
-
-# 5. Open the project in the browser to set ROOT_FOLDER_ID and run
-clasp open
+```json
+{
+  "timeZone": "America/New_York",
+  "dependencies": {
+    "enabledAdvancedServices": [
+      { "userSymbol": "Drive", "serviceId": "drive", "version": "v2" }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
 ```
-
-Then in the opened editor, set `ROOT_FOLDER_ID`, and run `dryRun` → review →
-`execute` exactly as in Option A (steps 4–8). You can also run headless once the
-folder ID is set:
-
-```bash
-clasp run dryRun     # requires enabling the Apps Script API + a GCP project
-clasp run execute
-```
-
-`clasp run` needs the Apps Script API turned on
-(<https://script.google.com/home/usersettings>) and a standard GCP project linked
-to the script; if that's more setup than you want, just use `clasp open` and click
-**Run** in the editor.
-
-Add a gitignore entry so clasp's local credentials/IDs don't get committed:
-
-```
-# scripts/drive-refactor/.gitignore
-.clasp.json
-.clasprc.json
-```
-
-### Authorization scopes
-
-The script asks for these the first time you run it:
-
-| Scope | Why |
-| --- | --- |
-| `https://www.googleapis.com/auth/drive` | Create folders, move files, trash stale files |
-| `https://www.googleapis.com/auth/spreadsheets` | Write the "Drive Refactor Log" report Sheet |
-
-Apps Script infers them automatically — you don't declare them by hand. If you
-want to pin them explicitly for `clasp`, add an `oauthScopes` array to
-`appsscript.json`.
-
-### Troubleshooting
-
-| Symptom | Fix |
-| --- | --- |
-| `Set ROOT_FOLDER_ID ...` thrown immediately | You didn't replace the placeholder folder ID. |
-| `Access denied` / `does not have permission` on a move | Run as an account with **edit** rights to that file / the Shared Drive. |
-| A file landed in `UNMATCHED` | Its Drive name differs from the brief — add a `MOVE_RULES` entry and re-run `dryRun`. |
-| `destination not in tree: ...` (ERROR row) | A rule's `dest` path has a typo — it must exactly match a path in `FOLDER_TREE`. |
-| "Exceeded maximum execution time" (6-min limit) | Large Drives can time out. Re-run — it's idempotent and picks up where it left off; or temporarily narrow the run. |
-| Want to undo `execute()` | Trashed files are in Drive Trash (~30 days). Moves can be reversed by re-running with adjusted rules, or manually. There is no automatic rollback — that's why `dryRun()` comes first. |
-
-## How routing works
-
-| Layer | What it does |
-| --- | --- |
-| `FOLDER_TREE` | The target hierarchy. Folders are find-or-created (idempotent). |
-| `TRASH_RULES` | Sent to Drive trash (recoverable ~30 days). |
-| `ARCHIVE_RULES` | Moved into a destination `_Archive/` subfolder. |
-| `MOVE_RULES` | Explicit `name-substring/regex → destination`. First match wins. |
-| `COURSE_CODE_MAP` | Fallback: files named `AI101…`, `CAR103…`, `CRA201…` route by prefix. |
-
-`MOVE_RULES` is evaluated **before** the course-code router, so specific
-overrides (e.g. `PSY102 self-assessment` → Assessments) win over the generic
-`PSY → Psychology & EQ` prefix rule.
-
-## Safety notes
-
-- **`dryRun()` changes nothing** — always run it first and review the Sheet.
-- Each file gets **exactly one home**: `file.moveTo()` detaches it from all other
-  parents, which also collapses the cross-posted shortcut duplicates the brief flags.
-- The script is **idempotent** — a second run after a clean run is a no-op
-  (`SKIP (already home)`).
-- Trash is recoverable for ~30 days; nothing is permanently deleted.
-- Matching is by file **name**, so rename-drift in Drive can leave a file
-  `UNMATCHED`. That's intentional — it surfaces in the log instead of being
-  guessed into the wrong folder.
