@@ -43,23 +43,20 @@ motion:
   ambient: "oval rings breathe scale 1→1.05 over 3-4s, finite yoyo repeats sized to the scene"
   ban: "repeat: -1 (use finite counts), linear full-screen gradients on navy (H.264 banding — use radial)"
 voice:
-  # TODO(heygen-swap): pinned TARGET engine is HeyGen starfish TTS — it returns
-  #   native word timestamps, which drops the Whisper transcribe step (see
-  #   render-qa/compile_timeline.py + preflight.py, grep TODO(heygen-swap)).
-  #   Cost finding 2026-07-22: ~1 HeyGen credit per ~10s line; quota 15000.
-  #   Voice CHOSEN 2026-07-22: Ann — Professional (continuity with avatar
-  #   presenter "Ann"). Other auditioned candidates, for the record: Narrative
-  #   Nora 3ad72945…, Claire Lawson 5f745b3d…, June 68dedac4…, Catherine 3682592b….
-  #   Voice is now pinned below; the remaining diff-session work is CODE only:
-  #   repoint synth_narration.py at the HeyGen provider + emit the native words
-  #   file, then flip USE_HEYGEN_WORDS in compile_timeline.py + preflight.py in
-  #   lockstep. Until that lands the `fallback` block below (Kokoro af_heart) is
-  #   what ACTUALLY renders — do not remove it.
-  provider: heygen           # TODO(heygen-swap): target only; fallback.provider is live until USE_HEYGEN_WORDS flips
-  voice_id: 2e4de8a01f3b4e9c96794045e2f12779  # Ann — Professional (chosen 2026-07-22)
+  # HeyGen swap LANDED 2026-07-22 (see decisions/log.md): synth_narration.py
+  #   defaults to this HeyGen starfish voice and provider — it returns native
+  #   word timestamps with the synthesis (assets/voice/narration.words.json),
+  #   so the separate Whisper transcribe pass no longer runs on new builds.
+  #   Cost: ~1 HeyGen credit per ~10s line; quota 15000. Voice changed
+  #   2026-07-22 to Oxana (owner pick); it replaces Ann — Professional, which
+  #   is retired from this pipeline. Approved alternate: Seema — Professional
+  #   166aa8d7acd1495a839d34024ccb1505. Both support locale en-US and neither
+  #   supports pause tags — pace with sentence structure, not <break>.
+  provider: heygen           # ACTIVE — synth_narration.py's default
+  voice_id: 442360a3e0894fbd85024ff64cc2b928  # Oxana, en-US (chosen 2026-07-22)
   speed: 0.95
-  fallback: # ACTIVE — Kokoro is what renders today, until the HeyGen swap lands
-    provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Decision + upgrade path: CLAUDE.md "Narration voice"
+  fallback: # manual escape hatch — `synth_narration.py <ws> --provider kokoro`
+    provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Needs `npx hyperframes transcribe` after (no native word timestamps)
     voice_id: af_heart
     speed: 0.95
 ---
@@ -174,6 +171,13 @@ the toolchain computes every number (authoring contract, normative):
   `data-anchor-end` is legacy-only (pre-manifest workspaces): never author it
   on a new build — the old single-take + inserted-silence flow spliced words
   mid-decay and is retired.
+- **Word timings come from HeyGen natively (2026-07-22)** — the default
+  `--provider heygen` path writes `assets/voice/narration.words.json`
+  (already shifted to whole-file absolute time), so `npx hyperframes
+  transcribe` no longer runs on new builds; `compile_timeline.py`,
+  `preflight.py`, and `check_boundaries.py` all detect and prefer this file
+  automatically. `--provider kokoro` (manual fallback) still has no native
+  timestamps and needs the transcribe step, same as before.
 - Every cue variable is anchored by phrases, not seconds:
   `data-cue-anchors='{"chipCues":["phrase", …], "pointCues":[…],
   "stepCues":[…], "mapCue":"phrase"}'` — one phrase per

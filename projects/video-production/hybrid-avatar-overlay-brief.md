@@ -39,11 +39,15 @@ timing bridge — real work, gated like any other lesson video.
    full-frame with lower-third overlays) — this is the main creative call.
 3. **Bridge the timing.** Overlays must land on the words that motivate them.
    The avatar MP4's narration timing isn't authored by us, so derive it:
-   transcribe the rendered avatar clip (`npx hyperframes transcribe`, the same
-   Whisper step the illustrated path already uses) to get word timings, then
-   anchor each cue to its phrase. (Check whether HeyGen can return caption/word
-   timestamps for the avatar render directly — if so, prefer that over Whisper,
-   same as the TTS-swap entry in `decisions/log.md`, 2026-07-22.)
+   transcribe the rendered avatar clip (`npx hyperframes transcribe`, the
+   Whisper step the illustrated path used before the 2026-07-22 TTS swap) to
+   get word timings, then anchor each cue to its phrase. **Prefer HeyGen's own
+   word timestamps if reachable for the avatar render** (the illustrated
+   path's `synth_narration.py` now gets these natively from HeyGen starfish —
+   see `decisions/log.md` 2026-07-22 — but the avatar path calls HeyGen
+   differently, via `avatar-pipeline/`, and it isn't confirmed whether that
+   call surfaces word timestamps the same way; check before assuming Whisper
+   is still needed here).
 4. **Gate it** through the existing render-qa stack (`preflight.py`,
    `verify_render.py`, and `qa-presence`, which already checks avatar-visible
    -throughout on avatar videos), then the human hyperframe gate → MP4 review →

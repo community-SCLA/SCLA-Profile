@@ -82,23 +82,27 @@ CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue", "subCues")
 # cue key -> (list variable it must match 1:1, separator of that variable)
 LIST_PAIRS = {"chipCues": ("chips", ","), "subCues": ("subBeats", "|")}
 
-# TODO(heygen-swap): the illustrated pipeline is moving its TTS from local Kokoro
-#   to HeyGen starfish (see design-system/frame.md voice: + decisions/log.md
-#   2026-07-22). HeyGen returns NATIVE per-word timestamps from
-#   .claude/skills/hyperframes-media/scripts/heygen-tts.mjs (--words →
-#   assets/voice/narration.words.json, flat [{id,text,start,end}]), so the
-#   separate Whisper `npx hyperframes transcribe` pass is DROPPED. The words file
-#   is the same flat shape load_transcript() already consumes (text/start/end;
-#   the extra `id` is ignored). Default stays Whisper until the diff session:
-#   flip USE_HEYGEN_WORDS to True AND repoint synth_narration.py at the HeyGen
-#   provider. CAVEAT (not a pure flag flip): in per-scene mode synth_narration.py
-#   concatenates per-clip audio with inserted boundary silence, so per-clip
-#   HeyGen timestamps must be shifted by each clip's placement in the concat
-#   (scene-times.json manifest) to become the whole-file absolute times that
-#   Whisper produces today. See the consumption branch in compute() and the
-#   diff-session note in decisions/log.md 2026-07-22.
-USE_HEYGEN_WORDS = False  # TODO(heygen-swap): flip to True once the voice is pinned
-HEYGEN_WORDS_FILE = "narration.words.json"  # heygen-tts.mjs --words output
+# HeyGen swap (landed 2026-07-22, see decisions/log.md): synth_narration.py's
+#   default provider is now HeyGen starfish, whose native per-word timestamps
+#   (returned with the synthesis, via heygen-tts.mjs) it writes to
+#   assets/voice/narration.words.json — already shifted from per-clip-relative
+#   to whole-file-absolute (trim offset + concat placement) by synth_narration.py
+#   itself, so this is the same flat text/start/end shape load_transcript()
+#   already consumes (the extra `id` is ignored). --provider kokoro workspaces
+#   still produce transcript.json via `npx hyperframes transcribe` instead —
+#   detected per-workspace by which file is on disk (same idiom as
+#   load_manifest()'s per-scene-vs-legacy detection below), NOT a global flag:
+#   a hardcoded switch would either crash every kokoro/legacy workspace (no
+#   narration.words.json to load) or silently skip the fidelity gate on them.
+HEYGEN_WORDS_FILE = "narration.words.json"  # synth_narration.py / heygen-tts.mjs output
+
+
+def words_path_for(ws: Path):
+    """Whichever transcript exists for this workspace — HeyGen's native words
+    file if synth_narration.py wrote one, else the Whisper transcript.json."""
+    voice_dir = ws / "assets" / "voice"
+    heygen = voice_dir / HEYGEN_WORDS_FILE
+    return heygen if heygen.is_file() else voice_dir / "transcript.json"
 
 
 def _fade_edges(seg, chan, fade, fade_in, fade_out):
@@ -225,15 +229,11 @@ def compute(ws: Path):
         single-take flow."""
     index_path = ws / "index.html"
     html = index_path.read_text()
-    # TODO(heygen-swap): word timings are Whisper today; HeyGen supplies them
-    #   natively (no transcribe pass). Same flat text/start/end shape either way,
-    #   so this is the only consumption site that changes here. Default path
-    #   (flag off) is unchanged — see USE_HEYGEN_WORDS note at top of file.
-    voice_dir = ws / "assets" / "voice"
-    if USE_HEYGEN_WORDS:
-        words = load_transcript(voice_dir / HEYGEN_WORDS_FILE)
-    else:
-        words = load_transcript(voice_dir / "transcript.json")
+    # Word timings: HeyGen's native narration.words.json by default (no
+    # transcribe pass needed), Whisper's transcript.json for --provider
+    # kokoro workspaces. Same flat text/start/end shape either way — see
+    # words_path_for() note at top of file.
+    words = load_transcript(words_path_for(ws))
     scenes = parse_scenes(html)
     problems = []
 

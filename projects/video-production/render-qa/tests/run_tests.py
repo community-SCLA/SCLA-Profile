@@ -197,12 +197,26 @@ def make_manifest_workspace():
              'The answer is &quot;a simple process.&quot;']  # &quot; unescape trap
     make_clip(clips / "scene-01.wav", 0.10, 1.0, 0.30)
     make_clip(clips / "scene-02.wav", 0.05, 1.0, 0.20)
+    # Clip-relative HeyGen word timestamps (heygen is the default provider —
+    # a cache hit still needs these on disk, same as the wav itself, or
+    # synth_narration.py dies loudly rather than silently reusing a clip with
+    # no words). Values just need to sit inside each clip's voiced window.
+    (clips / "scene-01.words.json").write_text(json.dumps([
+        {"text": "Do", "start": 0.15, "end": 0.35},
+        {"text": "you", "start": 0.40, "end": 0.60},
+        {"text": "care?", "start": 0.65, "end": 1.05}]))
+    (clips / "scene-02.words.json").write_text(json.dumps([
+        {"text": "a", "start": 0.20, "end": 0.35},
+        {"text": "simple", "start": 0.40, "end": 0.70},
+        {"text": "process.", "start": 0.75, "end": 1.00}]))
     import html as _html
     entries = []
+    provider, speed = sn.DEFAULT_PROVIDER, sn.DEFAULT_SPEED
+    voice = sn.DEFAULT_VOICE[provider]
     for i, t in enumerate(texts, start=1):
         raw = _html.unescape(t)
         sha = hashlib.sha1(
-            f"{sn.DEFAULT_VOICE}|{sn.DEFAULT_SPEED}|{raw}".encode()).hexdigest()[:16]
+            f"{provider}|{voice}|{speed}|{raw}".encode()).hexdigest()[:16]
         entries.append({"clip": f"scenes/scene-{i:02d}.wav", "sha": sha})
     (TMP / "assets" / "voice" / "scene-times.json").write_text(
         json.dumps({"scenes": entries}))
@@ -248,14 +262,17 @@ g0, g1 = int((s1["end"] + 0.05) * 24000), int((s2["start"] - 0.05) * 24000)
 check("gap is real silence", max(abs(x) for x in smp[g0:g1]) == 0)
 
 print("== e2e: compile_timeline manifest mode ==")
-# transcript for the synthesized wav: words inside each manifest window
+# Whole-file absolute words for the synthesized wav, inside each manifest
+# window — overwrites what synth_narration.py itself derived from the
+# fixture per-clip words.json files, since compute() prefers
+# narration.words.json (HeyGen path) over transcript.json when present.
 tr = [W("Do", s1["start"] + 0.05, s1["start"] + 0.3),
       W("you", s1["start"] + 0.3, s1["start"] + 0.6),
       W("care?", s1["start"] + 0.6, s1["end"] - 0.02),
       W("a", s2["start"] + 0.05, s2["start"] + 0.3),
       W("simple", s2["start"] + 0.3, s2["start"] + 0.7),
       W("process.", s2["start"] + 0.7, s2["end"] - 0.02)]
-(ws / "assets/voice/transcript.json").write_text(json.dumps(tr))
+(ws / "assets/voice/narration.words.json").write_text(json.dumps(tr))
 r = compile_run(ws, "--apply", "--json")
 check("manifest apply exits 0 (no data-anchor-end needed)", r.returncode == 0,
       r.stdout + r.stderr)

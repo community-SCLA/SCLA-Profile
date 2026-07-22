@@ -13,8 +13,11 @@ Checks every scene boundary in index.html against the narration transcript:
 Usage:
     check_boundaries.py <workspace-dir> [--json]
 
-Expects <workspace>/index.html and <workspace>/assets/voice/transcript.json;
-uses ffprobe on assets/voice/narration.wav when present.
+Expects <workspace>/index.html and either assets/voice/narration.words.json
+(HeyGen native word timestamps, synth_narration.py's default provider) or
+assets/voice/transcript.json (Whisper, --provider kokoro workspaces) — same
+per-workspace detection as compile_timeline.words_path_for(). Uses ffprobe on
+assets/voice/narration.wav when present.
 
 Exit code 1 when any violation is found. This script is an evidence generator
 for the qa-timing lane, not the whole verdict — cue-to-word alignment and
@@ -31,6 +34,16 @@ from pathlib import Path
 MIN_AIR = 0.2
 MIN_QUESTION_AIR = 0.35
 MIN_FINAL_HOLD = 1.0
+HEYGEN_WORDS_FILE = "narration.words.json"  # synth_narration.py / heygen-tts.mjs output
+
+
+def words_path_for(ws: Path):
+    """Whichever transcript exists for this workspace — HeyGen's native words
+    file if synth_narration.py wrote one, else the Whisper transcript.json.
+    Mirrors compile_timeline.words_path_for()."""
+    voice_dir = ws / "assets" / "voice"
+    heygen = voice_dir / HEYGEN_WORDS_FILE
+    return heygen if heygen.is_file() else voice_dir / "transcript.json"
 
 
 def wav_duration(path: Path):
@@ -82,7 +95,7 @@ def main():
         sys.exit(2)
     ws = Path(args[0])
     index_path = ws / "index.html"
-    transcript_path = ws / "assets" / "voice" / "transcript.json"
+    transcript_path = words_path_for(ws)
     wav_path = ws / "assets" / "voice" / "narration.wav"
     if not index_path.exists() or not transcript_path.exists():
         print(f"missing {index_path} or {transcript_path}", file=sys.stderr)

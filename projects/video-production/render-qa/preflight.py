@@ -47,17 +47,20 @@ from hfp_common import ffprobe_duration, norm_token, parse_scenes
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
 TOL = 0.002
 
-# TODO(heygen-swap): when the illustrated pipeline's TTS moves to HeyGen starfish
-#   (native word timestamps, see compile_timeline.py + design-system/frame.md
-#   voice: + decisions/log.md 2026-07-22), the Whisper transcript.json is
-#   replaced by assets/voice/narration.words.json emitted by heygen-tts.mjs
-#   (--words, flat [{id,text,start,end}]). Flip this IN LOCKSTEP with
-#   compile_timeline.USE_HEYGEN_WORDS. Note: HeyGen words are the exact
-#   synthesized text (no Whisper mishears), so script_match becomes a near-exact
-#   check — the RATE_WARN/RATE_FAIL/RUN_FAIL thresholds below still pass as-is
-#   (strictly better) and may optionally be tightened in the diff session.
-USE_HEYGEN_WORDS = False  # TODO(heygen-swap): flip to True once the voice is pinned
-HEYGEN_WORDS_FILE = "narration.words.json"  # heygen-tts.mjs --words output
+# HeyGen swap (landed 2026-07-22, see decisions/log.md, same detection idiom
+#   as compile_timeline.words_path_for()): the illustrated pipeline's default
+#   TTS is HeyGen starfish, so this check reads assets/voice/narration.words.json
+#   (native word timestamps, synth_narration.py) when present, else falls back
+#   to Whisper's transcript.json (--provider kokoro workspaces). Detected
+#   per-workspace by which file is on disk, not a global flag — a hardcoded
+#   switch would silently skip the fidelity gate on every kokoro workspace
+#   (narration.words.json never exists there, and the "file missing" branch
+#   below is a WARN+skip, not a failure). Note: HeyGen words are the exact
+#   synthesized text (no Whisper mishears), so script_match is a near-exact
+#   check on HeyGen workspaces — the RATE_WARN/RATE_FAIL/RUN_FAIL thresholds
+#   below still pass as-is (strictly better) and were left untightened;
+#   revisit if HeyGen-path noise ever shows up in practice.
+HEYGEN_WORDS_FILE = "narration.words.json"  # synth_narration.py / heygen-tts.mjs output
 
 # script_match thresholds — whisper small.en's known noise floor is ~1 mishear
 # per ~360 words (~0.3%), so the gate is threshold-based, never exact-match.
@@ -175,10 +178,11 @@ def check_script_match(ws: Path, script_path=None, scripts_root=LESSON_SCRIPTS):
     if not script_path.is_file():
         return {"pass": False,
                 "output": f"--script {script_path} does not exist"}
-    # TODO(heygen-swap): native HeyGen words file replaces the Whisper transcript
-    #   here when USE_HEYGEN_WORDS is on. Same flat text/start/end shape.
-    tr_path = ws / "assets/voice" / (HEYGEN_WORDS_FILE if USE_HEYGEN_WORDS
-                                     else "transcript.json")
+    # Native HeyGen words file if synth_narration.py wrote one, else the
+    # Whisper transcript.json (--provider kokoro workspaces). Same flat
+    # text/start/end shape either way.
+    heygen_words = ws / "assets/voice" / HEYGEN_WORDS_FILE
+    tr_path = heygen_words if heygen_words.is_file() else ws / "assets/voice/transcript.json"
     if not tr_path.is_file():
         return {"pass": True, "output":
                 f"WARN: {tr_path} missing — script-vs-transcript check "

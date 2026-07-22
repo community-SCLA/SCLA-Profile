@@ -1,5 +1,6 @@
 # MCP / tooling scratch — never commit
 .playwright-mcp/
+_scratch/
 
 # Drive-sync build artifacts (generated .docx; see scripts/build-docx.sh)
 build/

@@ -1,6 +1,6 @@
 ---
 name: render-lessons
-description: Build, ship, and publish SCLA lesson videos from refined scripts, in three explicitly separate phases. BUILD drains lesson-scripts/<program-slug>/refined/ into HyperFrames workspaces (one cold subagent per video, ≤3 per session) and STOPS at the HYPERFRAME GATE — a human previews every hyperframe before any MP4 exists. SHIP ("ship <stem>") renders + verifies + files the MP4 locally and STOPS at MP4 REVIEW. PUBLISH ("publish <stem>") uploads the reviewed MP4 to Wistia and closes the books. No automation ever takes a script to an MP4 in one shot, and no MP4 reaches Wistia unwatched. Downstream half of the SCLA lesson pipeline (dispatcher: /produce-video; upstream: /refine-scripts).
+description: Build and ship SCLA lesson videos from refined scripts, in two phases. BUILD drains lesson-scripts/<program-slug>/refined/ into HyperFrames workspaces (one cold subagent per video, ≤3 per session) and STOPS at the HYPERFRAME GATE — a human previews every hyperframe before any MP4 exists. SHIP ("ship <stem>") is the only other human trigger: once granted, it renders, verifies, files the MP4, and uploads it to Wistia in one uninterrupted pass — no second human review before publish (gate removed 2026-07-22, decisions/log.md). Downstream half of the SCLA lesson pipeline (dispatcher: /produce-video; upstream: /refine-scripts).
 ---
 
 # render-lessons — refined script → hyperframe → (gate) → MP4 → (review) → Wistia
@@ -10,22 +10,24 @@ design contract (tokens, animacy rules, anchor/timing contract, templates,
 style packages) is `projects/video-production/design-system/frame.md` — the
 build subagent reads it while assembling; nothing from it is restated here.
 
-**TWO HUMAN CHECKPOINTS, both blocking, both explicit:**
+**ONE HUMAN CHECKPOINT, blocking, explicit:**
 
 1. **HYPERFRAME GATE** — a human previews every built hyperframe before it may
    become an MP4. Hyperframe → MP4 is a manual human decision, never automated.
-2. **MP4 REVIEW** — a human watches every filed MP4 before it may go to Wistia.
 
 `refined/` is your finalize-before-build buffer — it holds only scripts not
 yet built (edit or veto any of them there, any time *before* you invoke
 BUILD). The moment a build is gate-clean, its script moves `refined/ →
 rendered/` (B3), so `refined/` always shows exactly what's left to build and
 parallel BUILD sessions see a shrinking queue; the human hyperframe gate then
-reviews the built workspace, not the script. Everything else between the
-checkpoints is machine work behind deterministic gates. BUILD may not render;
-SHIP may not run without the human naming the stem after the preview; PUBLISH
-may not run without the human naming the stem after watching the MP4. Never
-self-approve. Never fabricate SCLA content; no FERPA/PII in any prompt.
+reviews the built workspace, not the script. Everything on either side of that
+gate is machine work behind deterministic gates: BUILD may not render; SHIP may
+not run without the human naming the stem after the preview — but once
+granted, SHIP runs render → verify → file → Wistia upload to completion with no
+second human look (MP4 REVIEW gate removed 2026-07-22, decisions/log.md; from
+here on the deterministic `verify_render.py` gate plus builder frame
+self-review are the quality bar). Never self-approve the hyperframe gate.
+Never fabricate SCLA content; no FERPA/PII in any prompt.
 
 **State is the folder:**
 
@@ -35,7 +37,7 @@ lesson-scripts/<program-slug>/refined/   BUILD's queue — scripts not yet built
                                          queue — NOT built here; see B1)
 renders-hyperframes/<stem>/              built — sitting at the HYPERFRAME GATE
 lesson-scripts/<program-slug>/rendered/  its script, moved here once the build is gate-clean (B3)
-renders-mp4/<program-slug>/hyperframes/<stem>.mp4   shipped — sitting at MP4 REVIEW
+renders-mp4/<program-slug>/hyperframes/<stem>.mp4   shipped — filed locally, then published to Wistia in the same pass
 ```
 
 (`rendered/` means "a gate-clean build exists for this script," not
@@ -149,17 +151,28 @@ animacy + illustration rules. Standing landmines:
 
 **Synthesize per scene, then compile + gates** (from the workspace — loop
 until all green). `synth_narration.py` verifies data-narration against the
-refined script BEFORE any TTS, synthesizes one Kokoro clip per scene (cached —
+refined script BEFORE any TTS, synthesizes one clip per scene (cached —
 edits only re-synthesize changed scenes), and concatenates with REAL boundary
 silence; never hand-run single-take `hyperframes tts` for a lesson (the
-old insert-silence flow spliced words — decisions/log.md 2026-07-14):
+old insert-silence flow spliced words — decisions/log.md 2026-07-14). Default
+provider is **HeyGen starfish** (2026-07-22 — needs `$HEYGEN_API_KEY`, so run
+under `scripts/with-secrets.sh` from the repo root) — it returns native word
+timestamps with the synthesis, so the Whisper transcribe step is **skipped**:
 
 ```bash
-python3 ../../render-qa/synth_narration.py .           # per-scene TTS -> narration.wav + scene-times.json
-npx hyperframes transcribe assets/voice/narration.wav --model small.en  # cues + script gate still read Whisper
-python3 ../../render-qa/compile_timeline.py . --apply  # owns ALL numbers (boundaries from the manifest)
+../../../../scripts/with-secrets.sh python3 ../../render-qa/synth_narration.py .   # per-scene HeyGen TTS -> narration.wav + scene-times.json + narration.words.json
+python3 ../../render-qa/compile_timeline.py . --apply  # owns ALL numbers (boundaries + cues from the manifest + HeyGen words)
 python3 ../../render-qa/preflight.py .                 # incl. script-vs-transcript diff — exit 0 or fix
 npm run check                                          # lint + validate + inspect
+```
+
+Only if you deliberately fall back to `--provider kokoro` (no HeyGen
+credential, or a HeyGen outage) does the old Whisper step come back — insert
+it between synth and compile:
+
+```bash
+python3 ../../render-qa/synth_narration.py . --provider kokoro
+npx hyperframes transcribe assets/voice/narration.wav --model small.en  # cues + script gate read Whisper on the kokoro path only
 ```
 
 Edited a scene's narration or reordered scenes? Re-run the same four commands
@@ -211,6 +224,10 @@ workspace *is* the pending state.
 
 Trigger: the human explicitly names the stem after reviewing the preview
 ("ship X", "approved, render X"). Approval of one stem covers only that stem.
+Once granted, SHIP runs to completion — render, verify, file, publish to
+Wistia, archive — with no second human checkpoint (MP4 REVIEW / PUBLISH gate
+removed 2026-07-22, decisions/log.md; this used to be a separate phase gated
+on its own "publish <stem>" trigger).
 
 ```bash
 pkill -f "hyperframes[ ]preview" 2>/dev/null || true   # previews contaminate renders
@@ -223,35 +240,34 @@ python3 ../../render-qa/verify_render.py .              # container truth + pres
 transcript — reveals land on their words, every frame depicts its sentence,
 nothing clipped or off-brand. If your context is already heavy, delegate this
 to one vision-capable subagent (paths only: `qa/frames/`, `transcript.json`).
-Escalation only: `/adversarial-qa` when a cut resists diagnosis or the human
-asks to break it.
+This is the last quality gate before Wistia now — if `verify_render.py` isn't
+exit 0 or frame self-review isn't clean, fix and re-render; never file or
+publish a build that hasn't passed both. Escalation only: `/adversarial-qa`
+when a cut resists diagnosis or the human asks to break it.
 
-**File it, then stop:** rename the MP4 to the **script stem with the date
-swapped to the render date** — convention-agnostic, so `m1_<title>_<render-date>`
-for the newer scheme or `<section>_<program-slug>_<render-date>` for the older —
-and move it to `../renders-mp4/<program-slug>/hyperframes/` (the illustrated
+**File it:** rename the MP4 to the **script stem with the date swapped to the
+render date** — convention-agnostic, so `m1_<title>_<render-date>` for the
+newer scheme or `<section>_<program-slug>_<render-date>` for the older — and
+move it to `../renders-mp4/<program-slug>/hyperframes/` (the illustrated
 subfolder; the avatar path files to `…/<program-slug>/avatar/`) with its QA
-packet (verify summary + `qa/frames/`); fill the ledger row's Rendered date + location.
-**→ MP4 REVIEW:** hand the human the MP4 path, a few key frames, and the
-verify summary (`script-templates/qa-checklist.md`, illustrated section, is
-the watch guide). The workspace stays live until PUBLISH — a rejection here
-means fix → re-render → re-verify, not a rebuild from scratch.
+packet (verify summary + `qa/frames/`); fill the ledger row's Rendered date +
+location.
 
-## Phase PUBLISH — only after the human has watched the filed MP4
+**Then publish, in the same pass — no pause for approval:**
 
-Trigger: the human explicitly names the stem after MP4 review ("publish X").
-
-1. Upload the MP4 to Wistia — account, upload mechanics, and auth status live
-   in root `endpoints.md` → "Wistia" (title = the filed stem; the `.mp4` is
-   never committed). While Wistia has no wired API token, the upload itself is
-   the human's move in the web UI — stage everything, then ask for the URL back.
-2. Record the Wistia URL in the ledger row (`refinement-log.md`). (Where the
-   URL additionally lands in Notion is an open decision, 2026-07-13 — until
-   settled, the ledger row is the link's home.)
-3. The script already moved `refined/ → rendered/` at the hyperframe gate (B3),
-   so no move here — just confirm it's in `rendered/`. The lesson is now done.
+1. `bash scripts/wistia-upload.sh <mp4-path> <program-slug>` — headless upload
+   (account, project IDs, and token status live in root `endpoints.md` →
+   "Wistia"; title = the filed stem; the `.mp4` is never committed to the repo).
+2. Record the returned Wistia URL in the ledger row (`refinement-log.md`).
+   (Where the URL additionally lands in Notion is an open decision, 2026-07-13
+   — until settled, the ledger row is the link's home.)
+3. The script already moved `refined/ → rendered/` at the hyperframe gate (B3)
+   — just confirm it's in `rendered/`. The lesson is now done.
 4. `cd <repo-root> && bash scripts/archive-lesson.sh <stem>` (refuses if the
    MP4 isn't filed).
+
+Report the Wistia URL to the human as confirmation of what happened, not as a
+request for permission — approving the hyperframe already authorized this.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 

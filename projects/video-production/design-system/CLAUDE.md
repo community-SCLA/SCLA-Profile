@@ -52,19 +52,24 @@ HYPERFRAMES_PYTHON) are documented once, in `/render-lessons` Phase BUILD Step B
   (the composited render discards everything outside it).
 - No FERPA/PII in any prompt or composition. Never fabricate SCLA course content.
 
-## Narration voice — decided 2026-07-07
+## Narration voice — HeyGen starfish, live since 2026-07-22
 
-**Kokoro `af_heart` @ 0.95 speed** (local engine, no credits, no API key).
-Chosen against `af_nova`, `af_sky`, `am_adam` — samples in `voice-auditions/`.
-Warm American female read; keeps voice continuity with the HeyGen avatar
-presenter ("Ann") used by `../avatar-pipeline/`.
+**HeyGen "Oxana" (en-US) `442360a3e0894fbd85024ff64cc2b928` @ 0.95 speed** —
+`render-qa/synth_narration.py`'s default provider and voice (owner pick,
+2026-07-22; it replaced Ann — Professional, now retired from this pipeline).
+Approved alternate: **Seema — Professional** `166aa8d7acd1495a839d34024ccb1505`,
+via `--voice`. Neither voice supports pause tags — pace narration with sentence
+structure. Returns native per-word timestamps with the
+synthesis, so the Whisper transcribe step no longer runs on new builds (see
+`frame.md` → "voice" frontmatter + "Narration is synthesized per scene", and
+`decisions/log.md` 2026-07-22). Superseded 2026-07-07's Kokoro `af_heart`
+decision once the 2026-07-21 HeyGen key rotation cleared the 403 that had
+blocked this path.
 
-**Upgrade path:** the HeyGen API key currently returns 403 on every endpoint
-(no API permission on the space — also blocks `../avatar-pipeline/`). Once fixed
-(`npx hyperframes auth login`, or a key with API access), audition HeyGen
-starfish voices (`node .claude/skills/hyperframes-media/scripts/heygen-tts.mjs --list`)
-and update `frame.md` → `voice:` in one place. HeyGen TTS also returns native
-word timestamps, which removes the transcribe step.
+**Manual fallback:** `synth_narration.py <ws> --provider kokoro` still works
+(local engine, no credits/API key, samples in `voice-auditions/`) — it has no
+native word timestamps, so chain `npx hyperframes transcribe` after it, same
+as the pre-2026-07-22 flow.
 
 ## QA model (2026-07-13)
 

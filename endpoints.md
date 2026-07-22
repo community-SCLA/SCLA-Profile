@@ -54,14 +54,14 @@ Update here first — scripts and skills should read from here, not from hardcod
 |---|---|---|---|
 | API key | — | in **Infisical** (project `scla-projects-n-joy`, env `dev`, secret name `HEYGEN_API_KEY`) — never in `.env`, this file, or the repo | `avatar-pipeline/` renders, HeyGen TTS path in `hyperframes-media` |
 
-> **Status — verified live 2026-07-21:** key rotated (previous key returned 403
-> "Ask your Space Admin" on every endpoint — see `decisions/log.md` 2026-07-15,
-> `projects/video-production/status.md` blockers). Injected via
-> `scripts/with-secrets.sh` and probed against `GET /v2/user/remaining_quota`
-> with header `X-Api-Key` → **200**, `remaining_quota: 15000` (`api: 15000, seat: 1,
-> plan_credit: 1000`). Note: that endpoint is HeyGen's **legacy v2** API, sunsetting
-> 2026-10-31 per its own response — new integration work should target
-> `GET /v3/users/me` instead (https://developers.heygen.com/reference).
+> **Status — verified live 2026-07-22:** key healthy, both endpoints return 200.
+> `GET /v3/users/me` (current) → account `skca@thescla.org`, wallet balance
+> **$249.87**. `GET /v2/user/remaining_quota` (legacy, sunsetting 2026-10-31) →
+> `remaining_quota: 14992` (`api: 14992, seat: 1, plan_credit: 1000`) — down from
+> 15000 on 2026-07-21, consistent with normal render usage since. Injected via
+> `scripts/with-secrets.sh`, header `X-Api-Key`. Key rotated 2026-07-21 (previous
+> key returned 403 "Ask your Space Admin" on every endpoint — see
+> `decisions/log.md` 2026-07-15, `projects/video-production/status.md` blockers).
 > `avatar-pipeline/` renders and the HeyGen TTS path are unblocked.
 
 ---
