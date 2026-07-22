@@ -1,0 +1,35 @@
+Welcome back. Last video we talked about the future-you resume — a resume built around the role you want next, not just everything you've done so far.
+
+Now let's actually build one, using two things together: our Resume Builder Tool, and a four-part lens for rewriting your bullets. By the end you'll see how a vague task like "managed orientation sessions" becomes a clear impact statement that backs up your Next Move Statement.
+
+Start with the lens. Any strong mid-career bullet can usually answer four questions. Responsibility — what were you expected to do? Action — what did you actually do? Measurable outcome — what changed as a result? And scope — how big was the impact, and who was involved?
+
+Apply those four and you move from "I did tasks" to "I created results." From "I had a job" to "I handled responsibility and scope." That shift is what helps managers, sponsors, and hiring committees see you as ready for the next role. And you don't need perfect numbers or formal KPIs on every bullet — approximate outcomes count. Reduced time. Improved satisfaction. Expanded reach.
+
+Now open the Resume Builder Tool. You'll see the main upload or text area. Upload your current resume, or paste in the bullets you want to work on.
+
+For this example, let's take a simple, real-world bullet: "Managed orientation sessions for new hires." It tells us what you did, but not what difference it made, how often you did it, or how many people it touched.
+
+Next, run it through the AI rewrite. Behind the scenes, we're asking the AI to look for all four — responsibility, action, measurable outcome, and scope. Let's see what that might look like.
+
+Here's one possible rewrite: "Led quarterly orientation sessions for cohorts of 30 to 40 new hires, implementing a new feedback loop that increased post-orientation satisfaction scores by 18 percent and reduced onboarding confusion reports by 25 percent."
+
+Look at what changed in that example. We now know how often the sessions ran — quarterly. We know the scope — cohorts of 30 to 40. We see the action — a new feedback loop. And we see measurable outcomes — higher satisfaction, fewer confusion reports. Same basic responsibility. Now it reads as leadership.
+
+That rewrite is a starting point, not the final version. Three things to do with it.
+
+Check accuracy. Do the frequency, the numbers, the outcomes reflect what actually happened? If you didn't run sessions quarterly, change it. If you don't have exact percentages, adjust the language — "improved satisfaction scores based on post-orientation feedback." Honest, credible impact. Never exaggeration.
+
+Align the tone with your voice and your field. In higher education or non-profits you might prefer "enhanced the new-hire onboarding experience" over "crushed onboarding KPIs."
+
+Keep the four-part structure intact — responsibility, action, outcome, and scope all still visible. If you're unsure, ask yourself: if someone read only this one bullet, would they understand what I did, how well I did it, and at what level of responsibility? If the answer is yes, you're in good shape.
+
+Last piece: choosing which rewritten bullets to bring forward, based on your Next Move Statement. Think about your three possible paths.
+
+Promotion in your current lane — prioritize leadership, scope, and strategic decisions. The times you took charge, influenced direction, or owned outcomes beyond your formal title. Those bullets say: I'm already operating at the next level.
+
+Lateral move to a different role or department — highlight transferable skills and cross-functional projects. Collaboration across teams, diverse stakeholders, moving between domains. Those say: I can bring my skills into new contexts and succeed.
+
+Redesign of your current role — focus on process improvements, role evolution, and innovation. Where you changed how work gets done or reshaped your own responsibilities. Those say: I've already started redesigning this role; now I'm formalizing it.
+
+Don't try to perfect everything at once. Pick the three to five strongest bullets — the ones that line up with your chosen path, reflect your true impact and strengths, and help people see the future-you your Next Move Statement describes. Those become your headline stories on your resume and your profile.

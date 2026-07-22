@@ -1,0 +1,21 @@
+Lesson: Mod 4 — Strategic Networking for Your Next Play
+Title: Visibility Actions: What Are They and How to Practice Them?
+
+SCRIPT PENDING — do not refine or build.
+
+In the source compile ("Videos_ Mid-Career Momentum.md"), this row's script cell
+holds a verbatim copy of the "Who Will Walk this Next Life Chapter Experience
+with You?" reflection activity — a paste error, not this lesson's content. That
+body now lives in its correct file:
+  m4_who-will-walk-this-next-life-chapter-experience-with-you_2026-07-22.txt
+
+This lesson still needs its own script. Per the video-production critical rule,
+never fabricate SCLA course content — the source outline must supply it. What
+the title implies and the surrounding modules leave unclaimed:
+
+  - what a "visibility action" is (vs. outreach, which Mod 3 covers)
+  - concrete examples members can practice at mid-career
+  - how visibility connects back to the Next Move Statement
+  - a practice cadence / small-experiment framing
+
+Replace this whole file with the real narration when it arrives.
