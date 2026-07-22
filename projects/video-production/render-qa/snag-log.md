@@ -29,6 +29,139 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-22 · /refine-scripts drained mid-career-momentum: 12 refined, 1 skipped
+
+First batch for a second program. 13 raw captures at `lesson-scripts/mid-career-momentum/` root
+→ 12 in `refined/`, 1 skipped with an open question. One cold subagent per script, then a
+`qa-facts` pass per refined copy. Per-script word counts, verdicts and every open item are in
+`lesson-scripts/refinement-log.md`; raw originals preserved at commit `85bdad6` before removal.
+
+**Systemic finding — refiners pad toward the word target by inventing content.** Nine of thirteen
+subagents added unsourced lines, every one of them citing a `brand/voice-and-tone.md` pillar as
+justification — most often pillar 3 (communal), producing near-identical fabricated closers
+("you're not doing this alone", "a room full of people at the same stage", "bring your drafts back
+to your people here"). Others invented statistics ("in about four seconds"), definitions the source
+never gives, cohort-behavior claims, and evaluative aphorisms. Each was caught on report and sent
+back; all cuts verified. Two second-order effects worth naming: agents patterned off *each other's*
+in-flight refinements from this same batch, propagating the drift, and several wrote to land exactly
+on ~580 words. The `qa-facts` pass then caught a distinct second class the refiners' own reports had
+missed — **hedge-stripping**: "many"→"most", "often"→deleted, "a few things"→"three things",
+"guide"→"decide", "one of the most powerful"→"does more work than any other". Same failure mode
+(unearned confidence), invisible to the writer, reliably caught by a cold reader.
+
+**Promoted to docs:** none yet — the fix belongs in `.claude/skills/refine-scripts/SKILL.md`, whose
+Refinement rules state the ~580-word figure as a "working target" without ever saying it must never
+be reached by adding content, and whose voice instruction doesn't scope voice work to *how source
+lines are said*. Left for the owner rather than edited mid-batch, since the skill is shared with
+`/produce-video` and the wording change should be deliberate. **This is the one agent-fixable item
+I did not fix this session** — flagging it as a deliberate deferral, not an oversight.
+
+**Open:**
+- [owner] **`m4_visibility-actions` is a duplicate body** ([authoring], found 2026-07-22) — the raw
+  carries its own `NOTE FOR REVIEW`, and a diff confirms its body is the same script as
+  `m4_who-will-walk...` modulo header and list formatting. It never defines or demonstrates a
+  visibility action. Skipped, still raw at program root. Decide: retire the stem as a duplicate, or
+  capture the real visibility-actions lesson — Module 4 currently has no lesson teaching its own
+  title concept (since 2026-07-22).
+- [owner] **Career-transition taxonomy is self-contradictory across Module 1 and Module 2**
+  ([authoring], found 2026-07-22) — raw m1 says "three common paths" (L8, L34) but its title and
+  enumeration give four, and its labels don't match their own definitions ("Reinvention" = promotion
+  in place, "Rebuild" = lateral move, "Pivot" = role redesign). m2's resume-builder lesson then
+  teaches three paths under the *other* names (promotion / lateral / role redesign). Both
+  refinements are correct against their own raws, so no agent can reconcile them without fabricating
+  course content. A learner hits the collision directly. Rule on the canonical taxonomy
+  (since 2026-07-22).
+- [owner] **Module 5 recap asserts four things the program never taught** ([authoring], found
+  2026-07-22) — all four are in the raw, so they are inherited, not refinement defects: (1) "In
+  Module 4, you gauged your confidence with AI" — no confidence-gauge activity exists anywhere, and
+  the line displaces M4's actual relationships/visibility content; (2) "Outcome. Visibility.
+  Relationships. Results." presented as a reusable framework — taught nowhere, and it collides with
+  the real four-part lens (Responsibility → Action → Measurable outcome → Scope) the learner actually
+  practiced; (3) "The Career Accelerator has more tracks, more tools, and a member community" — the
+  KB program of record is *Career Readiness Accelerator*, a single 5-week Launchpad, and the
+  community is a separate entity (theCOMMUNITY.com); (4) "you sent at least one real message" —
+  Module 3 only asks learners to *craft* messages ("drafted" would fix it). Closing lesson, so these
+  are the last thing a learner hears (since 2026-07-22).
+- [owner] **Three refined scripts carry inline `TODO: needs input` lines** ([authoring], found
+  2026-07-22) — `m1_four-kinds`, `m2_discover-experiences`, `m2_rewrite-your-linkedin`. This is the
+  skill's prescribed marker for content the source doesn't supply, but the files feed TTS verbatim,
+  so **a build would speak them aloud**. Answer the three questions (Forced Reinvention's missing
+  definition; the four formula parts the source names but never defines; whether the LinkedIn lesson
+  follows the resume lesson in the published sequence) before any `/render-lessons` run on those
+  stems (since 2026-07-22).
+- [owner] **`mid-career-momentum` has no filed curriculum source** ([authoring], found 2026-07-22) —
+  `programs/` has no folder for it, so each raw capture is its own self-attesting source of record
+  and every `qa-facts` pass flagged the same gap: the program has no independent fact floor. File the
+  curriculum outline, or accept that facts passes here can only check internal consistency
+  (since 2026-07-22).
+- [owner] **Resume Builder Tool's "AI rewrite feature" is undocumented** ([authoring], found
+  2026-07-22) — `m2_using-the-resume-builder-tool...` narrates a UI walkthrough ("you'll see the main
+  upload or text area", "run the bullet through the AI rewrite feature") of a capability no filed SCLA
+  product doc describes; `programs/programs-overview.md` L260-264 says the tool "needs content and
+  tech upgrades. A PRD is required." Confirm the feature and screen exist in the live product before
+  this renders (since 2026-07-22).
+- [owner] **Sample figures will read as SCLA data if rendered as stat cards** ([defect], found
+  2026-07-22) — three m2 scripts speak illustrative resume metrics (30% / 20% onboarding, and 18% /
+  25% / cohorts of 30–40 / quarterly). All are sourced and all are now explicitly framed as example
+  copy *in narration* — but the framing lives only in the spoken line. Watch for these at the
+  hyperframe gate; a standalone stat card strips the qualifier (since 2026-07-22).
+- [owner] **Two mid-career lessons are half-length** ([authoring], found 2026-07-22) —
+  `m1_the-value-of-building-mid-career-momentum` (184 words, ~75s; the title promises the *value* of
+  momentum but the body only maps three paths) and `m4_bonus-skills-for-the-ai-era` (275 words). The
+  latter is marked "adapted from Early Career Boost" and its ancestor carries three beats this
+  adaptation drops. Nothing was invented to pad either. Decide: capture the missing sections, import
+  and re-frame the ancestor's beats, or ship short (since 2026-07-22).
+- [owner] **`early-career-boost/refined/using-the-career-map-tool_...` was never actually refined**
+  ([authoring], found 2026-07-22) — it still carries a full `LESSON CAPTURE` header plus `[▶ VIDEO]`,
+  `[ATTACHMENT — PDF]` and `[IMAGE]` markers, i.e. a raw capture filed straight into `refined/`. The
+  ledger records it as refined 2026-07-12. It sits in the `/render-lessons` queue in that state.
+  Decide: re-run it through `/refine-scripts`, or confirm it is intentionally parked
+  (since 2026-07-22).
+- [owner] **`/refine-scripts` SKILL.md wording invites the padding failure above** ([defect], found
+  2026-07-22) — see "Promoted to docs". Two edits would close it: state that the ~580-word target is
+  never a reason to add content, and scope voice work to how source lines are said rather than which
+  beats exist. Deferred to the owner because the skill is shared with `/produce-video`
+  (since 2026-07-22).
+- [owner] **Superseded audio-wrong mini-syllabus `2ilh1o6c4g` still live** in the Wistia ECB folder
+  ([tooling], found 2026-07-22) — replaced by `nj4n0073vn`. Token can't delete; archive it on Wistia
+  as you did the earlier old-header copies (since 2026-07-22).
+- [owner] **mini-syllabus legacy comps have low animacy** ([defect], found 2026-07-22) — presence gate
+  hard-fails on false positives (frames verified correct). Decide: commission a proper re-animation of
+  the bespoke `scla-points-*` / `scla-steps` / `scla-outro` comps (bring them to the 2026-07-15 motion
+  standard), or accept these minimal layouts as-is and tune the presence detector's light-frame /
+  low-amplitude thresholds so it stops false-flagging them (since 2026-07-22).
+- [owner] **`scla-chips` `subBeats` renders inert** ([defect], found 2026-07-15) — `.cc-subbeat` never
+  appears in rendered output; `subBeats` silently unusable until repro'd in live devtools. Decide whether
+  to prioritize or leave marked unusable (since 2026-07-15).
+- [owner] **Who/what rendered `better-decisions`?** Provenance-blocked, never at the gate. Provide the
+  lesson body/outline to clear its facts blocker, or park the workspace (since 2026-07-15).
+- [owner] **Wistia publish/credential audit trail** — no entry records who cleared the earlier "reads
+  403" state or ran the earlier unlogged publishes; `WISTIA_API` token still lacks delete scope, so
+  superseded medias can only be archived (owner) not deleted (since 2026-07-15).
+- [owner] **HeyGen API key still 403s** — blocks the pinned-voice upgrade path and `avatar-pipeline/`
+  (since 2026-07-07).
+
+**Fixed this session:**
+- [authoring] **Nine refined scripts carried invented content** — caught on subagent report, each sent
+  back with the specific unsourced lines named; all cuts verified in the follow-up reports. ~9 round
+  trips.
+- [authoring] **Six scripts carried hedge-stripping / quantifier escalation** — caught by the `qa-facts`
+  pass (3 FAIL verdicts with blockers, plus notes on 3 PASS verdicts), all reverted to source wording.
+  Includes one meaning inversion in the closing lesson: dropping "just" from "You didn't just take a
+  course" made it flatly false and would have contradicted the specified burned-in lower-third. ~6
+  round trips.
+- [authoring] **`m1_four-kinds` asked learners to choose an unchoosable path** — the refinement had
+  standardized on "four" everywhere including the choice-set instruction, while its own text defines
+  Forced Reinvention as "not of your own doing". Taxonomy stays four; the choosing instruction is back
+  to the source's three.
+- [process] **Raw captures committed before removal** — the drain removes raws from the program root,
+  but every open question above cites raw line numbers, and the files were untracked. Committed at
+  `85bdad6` first so the pre-drain state is recoverable.
+
+**Promoted to docs:** nothing this session — see the deferral note above; the one durable lesson
+(word-target and voice-scope wording in `refine-scripts/SKILL.md`) is in the Open list as an owner
+decision rather than an unlogged edit.
+
 ## 2026-07-22 · mini-syllabus AUDIO re-voice "Early Career Boost" → "Career Accelerator"; legacy build rebuilt on per-scene pipeline
 
 Follow-up to the 2026-07-21 bulk header re-brand: the owner confirmed "Career Accelerator" is the
