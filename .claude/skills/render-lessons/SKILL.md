@@ -31,9 +31,11 @@ self-approve. Never fabricate SCLA content; no FERPA/PII in any prompt.
 
 ```
 lesson-scripts/<program-slug>/refined/   BUILD's queue — scripts not yet built
+                                         (refined/avatar/ is the HeyGen avatar
+                                         queue — NOT built here; see B1)
 renders-hyperframes/<stem>/              built — sitting at the HYPERFRAME GATE
 lesson-scripts/<program-slug>/rendered/  its script, moved here once the build is gate-clean (B3)
-renders-mp4/<program-slug>/<stem>.mp4    shipped — sitting at MP4 REVIEW
+renders-mp4/<program-slug>/hyperframes/<stem>.mp4   shipped — sitting at MP4 REVIEW
 ```
 
 (`rendered/` means "a gate-clean build exists for this script," not
@@ -66,7 +68,11 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 
 ### B1 — Queue and batch
 
-- Queue = every `*.txt` in each `lesson-scripts/<program-slug>/refined/`. A
+- Queue = every `*.txt` at the **`refined/` root only** — NOT the
+  `refined/avatar/` subfolder, which is the HeyGen avatar-render queue
+  (`avatar-pipeline/`) and must never become a HyperFrames build (that would
+  double-render one lesson two ways). Use a non-recursive list (`ls
+  …/refined/*.txt`), not a recursive `find`. A
   gate-clean build moves its script out to `rendered/` (B3), so `refined/`
   already holds only un-built scripts. The workspace check stays as a guard:
   if a stem still in `refined/` somehow already has a
@@ -220,9 +226,12 @@ to one vision-capable subagent (paths only: `qa/frames/`, `transcript.json`).
 Escalation only: `/adversarial-qa` when a cut resists diagnosis or the human
 asks to break it.
 
-**File it, then stop:** rename the MP4 to `<section>_<program-slug>_<render-date>`
-and move it to `../renders-mp4/<program-slug>/` with its QA packet (verify
-summary + `qa/frames/`); fill the ledger row's Rendered date + location.
+**File it, then stop:** rename the MP4 to the **script stem with the date
+swapped to the render date** — convention-agnostic, so `m1_<title>_<render-date>`
+for the newer scheme or `<section>_<program-slug>_<render-date>` for the older —
+and move it to `../renders-mp4/<program-slug>/hyperframes/` (the illustrated
+subfolder; the avatar path files to `…/<program-slug>/avatar/`) with its QA
+packet (verify summary + `qa/frames/`); fill the ledger row's Rendered date + location.
 **→ MP4 REVIEW:** hand the human the MP4 path, a few key frames, and the
 verify summary (`script-templates/qa-checklist.md`, illustrated section, is
 the watch guide). The workspace stays live until PUBLISH — a rejection here

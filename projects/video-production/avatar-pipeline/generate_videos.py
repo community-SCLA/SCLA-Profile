@@ -27,11 +27,13 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import date
 from pathlib import Path
 
 import requests
@@ -77,6 +79,10 @@ def load_config():
     if not lessons:
         errors.append("  - Add at least one lesson to config.json")
 
+    program_slug = config.get("program_slug", "")
+    if not program_slug or "YOUR_" in program_slug:
+        errors.append('  - Set program_slug in config.json (kebab-case, matches lesson-scripts/<program-slug>/, e.g. "mid-career-momentum")')
+
     if errors:
         print("[ERROR] config.json has placeholder values that need to be filled in:")
         for e in errors:
@@ -108,12 +114,54 @@ HEYGEN_CONCURRENT_LIMIT = PIPELINE.get("concurrent_limit", 3)
 # Lesson data from config.json
 LESSONS = CONFIG["lessons"]
 
+# Program identity — the render lands in renders-mp4/<program_slug>/avatar/ and
+# its filename uses the program's lessons (see finalize_lesson).
+PROGRAM_NAME = CONFIG.get("program", "")
+PROGRAM_SLUG = CONFIG["program_slug"]
+
 # Output directories (relative to this script's location)
 BASE_DIR = Path(__file__).parent
 OUTPUT_DIR = BASE_DIR / "output"
 SCRIPTS_DIR = OUTPUT_DIR / "scripts"
-VIDEOS_DIR = OUTPUT_DIR / "videos"
+VIDEOS_DIR = OUTPUT_DIR / "videos"          # per-chunk intermediates (resumable)
 STATE_FILE = BASE_DIR / "state.json"
+
+# Finished, human-facing renders stage per program alongside the illustrated
+# (HyperFrames) renders — one folder per program, split by render path:
+#   renders-mp4/<program-slug>/avatar/      ← this pipeline (HeyGen talking-head)
+#   renders-mp4/<program-slug>/hyperframes/ ← illustrated path (/render-lessons)
+RENDERS_MP4_DIR = (BASE_DIR / ".." / "renders-mp4").resolve()
+AVATAR_RENDERS_DIR = RENDERS_MP4_DIR / PROGRAM_SLUG / "avatar"
+
+
+def slugify(text):
+    """Kebab-case a title for a filename: lowercase, spaces/underscores → -,
+    drop anything that isn't a-z 0-9 or -, collapse repeats. Hyphens live
+    *inside* a name part; underscores separate the three stem parts."""
+    text = text.lower().strip()
+    text = re.sub(r"[\s_]+", "-", text)
+    text = re.sub(r"[^a-z0-9-]", "", text)
+    text = re.sub(r"-{2,}", "-", text).strip("-")
+    return text
+
+
+def lesson_module(lesson_id, lesson_info):
+    """Module number for the filename's m<#> prefix. Explicit `module` in
+    config wins; otherwise fall back to the lesson key's integer part
+    (e.g. '3.5' → '3')."""
+    module = lesson_info.get("module")
+    if module is not None:
+        return str(module)
+    return lesson_id.split(".")[0]
+
+
+def render_stem(lesson_id, lesson_info):
+    """The MP4 stem + Wistia title: m<#>_<title-slug>_<render-date>.
+    Render date is today (the file records when it was rendered, not the
+    script's approval date) — matches the repo naming rule."""
+    module = lesson_module(lesson_id, lesson_info)
+    title_slug = slugify(lesson_info.get("title", f"lesson-{lesson_id}"))
+    return f"m{module}_{title_slug}_{date.today().isoformat()}"
 
 
 # ── State Management ─────────────────────────────────────────────────────
@@ -284,9 +332,12 @@ def lookup_avatar(state):
         print(f"  Using cached avatar_id: {state['avatar_id']}")
         return state["avatar_id"]
 
-    # Search for the avatar by name via the HeyGen API
+    # Search for the avatar by name via the HeyGen API.
+    # v3 avatars are two calls deep: /v3/avatars lists groups (characters),
+    # /v3/avatars/looks?group_id=... lists that group's looks — a look's `id`
+    # is the avatar_id POST /v3/videos actually expects.
     print(f"  Looking up avatar: {HEYGEN_AVATAR_NAME}...")
-    url = "https://api.heygen.com/v2/avatars"
+    url = "https://api.heygen.com/v3/avatars"
     headers = {"X-Api-Key": HEYGEN_API_KEY, "Accept": "application/json"}
 
     resp = requests.get(url, headers=headers, timeout=30)
@@ -294,22 +345,33 @@ def lookup_avatar(state):
         print(f"  [ERROR] HeyGen avatars API error {resp.status_code}: {resp.text[:200]}")
         return None
 
-    data = resp.json()
-    avatars = data.get("data", {}).get("avatars", [])
+    groups = resp.json().get("data", [])
 
-    for avatar in avatars:
-        if HEYGEN_AVATAR_NAME.lower() in avatar.get("avatar_name", "").lower():
-            avatar_id = avatar["avatar_id"]
+    for group in groups:
+        if HEYGEN_AVATAR_NAME.lower() in group.get("name", "").lower():
+            group_id = group["id"]
+            looks_resp = requests.get(
+                "https://api.heygen.com/v3/avatars/looks",
+                headers=headers, params={"group_id": group_id}, timeout=30,
+            )
+            if looks_resp.status_code != 200:
+                print(f"  [ERROR] HeyGen avatar looks API error {looks_resp.status_code}: {looks_resp.text[:200]}")
+                return None
+            looks = looks_resp.json().get("data", [])
+            if not looks:
+                print(f"  [ERROR] Avatar group '{group['name']}' has no looks.")
+                return None
+            avatar_id = looks[0]["id"]
             state["avatar_id"] = avatar_id
             save_state(state)
-            print(f"  Found avatar: {avatar['avatar_name']} -> {avatar_id}")
+            print(f"  Found avatar: {group['name']} -> {avatar_id}")
             return avatar_id
 
     # If we didn't find it, show what's available so the user can fix config
     print(f"  [ERROR] Avatar '{HEYGEN_AVATAR_NAME}' not found.")
     print(f"  Available avatars in your account:")
-    for a in avatars[:10]:
-        print(f"    - {a.get('avatar_name', 'unnamed')} ({a.get('avatar_id', '?')})")
+    for g in groups[:10]:
+        print(f"    - {g.get('name', 'unnamed')} ({g.get('id', '?')})")
     print(f"  Update avatar.id and avatar.name in config.json with one of these.")
     return None
 
@@ -321,7 +383,7 @@ def list_voices():
         return
 
     print("Fetching HeyGen voices...")
-    url = "https://api.heygen.com/v2/voices"
+    url = "https://api.heygen.com/v3/voices"
     headers = {"X-Api-Key": HEYGEN_API_KEY, "Accept": "application/json"}
 
     resp = requests.get(url, headers=headers, timeout=30)
@@ -329,7 +391,7 @@ def list_voices():
         print(f"[ERROR] HeyGen voices API error {resp.status_code}: {resp.text[:200]}")
         return
 
-    voices = resp.json().get("data", {}).get("voices", [])
+    voices = resp.json().get("data", [])
     if not voices:
         print("No voices found.")
         return
@@ -350,31 +412,24 @@ def list_voices():
 def create_heygen_video(avatar_id, input_text, title):
     """Create an avatar video in HeyGen from script text using a HeyGen voice."""
     print(f"  Creating HeyGen video: {title}...")
-    url = "https://api.heygen.com/v2/video/generate"
+    url = "https://api.heygen.com/v3/videos"
     headers = {
         "X-Api-Key": HEYGEN_API_KEY,
         "Content-Type": "application/json",
     }
-    voice = {
-        "type": "text",
-        "input_text": input_text,
-        "voice_id": HEYGEN_VOICE_ID,
-    }
-    # Apply optional voice settings (e.g. speed) from config.json
-    voice.update(HEYGEN_VOICE_SETTINGS)
 
     payload = {
-        "video_inputs": [{
-            "character": {
-                "type": "avatar",
-                "avatar_id": avatar_id,
-                "avatar_style": "normal",
-            },
-            "voice": voice,
-        }],
-        "dimension": {"width": 1920, "height": 1080},
+        "type": "avatar",
+        "avatar_id": avatar_id,
+        "script": input_text,
+        "voice_id": HEYGEN_VOICE_ID,
+        "resolution": "1080p",
+        "aspect_ratio": "16:9",
         "title": title,
     }
+    # Apply optional voice settings (e.g. speed) from config.json
+    if HEYGEN_VOICE_SETTINGS:
+        payload["voice_settings"] = HEYGEN_VOICE_SETTINGS
 
     resp = requests.post(url, headers=headers, json=payload, timeout=60)
     if resp.status_code != 200:
@@ -394,7 +449,7 @@ def poll_video_status(video_id, timeout=1200):
     HeyGen renders videos asynchronously. This function checks every 30
     seconds until the video is completed, failed, or times out (20 min).
     """
-    url = f"https://api.heygen.com/v1/video_status.get?video_id={video_id}"
+    url = f"https://api.heygen.com/v3/videos/{video_id}"
     headers = {"X-Api-Key": HEYGEN_API_KEY, "Accept": "application/json"}
 
     start = time.time()
@@ -414,7 +469,7 @@ def poll_video_status(video_id, timeout=1200):
             print(f"  Video completed in {elapsed}s: {video_url}")
             return video_url
         elif status == "failed":
-            error = data.get("error", "unknown")
+            error = data.get("failure_message") or data.get("failure_code", "unknown")
             print(f"  [ERROR] Video failed after {elapsed}s: {error}")
             return None
         else:
@@ -503,6 +558,54 @@ def poll_and_download_chunk(lesson_id, chunk_state, state):
     return (part, chunk_state["video_status"] == "completed")
 
 
+def finalize_lesson(lesson_id, lesson_info, lesson_state, state):
+    """Assemble a lesson's completed chunk MP4s into ONE titled render and file
+    it at renders-mp4/<program-slug>/avatar/<stem>.mp4 (stem = m<#>_<title>_<date>).
+
+    HeyGen returns one clip per ~200-word chunk; the deliverable is one video per
+    lesson, so we concatenate the chunks in order. Returns the final path, or None
+    if any chunk is still incomplete (nothing to assemble yet — e.g. under
+    --max-parts, or a mid-run state)."""
+    chunks = sorted(lesson_state.get("chunks", []), key=lambda c: c["part"])
+    parts = []
+    for cs in chunks:
+        if cs.get("video_status") != "completed" or not cs.get("video_file"):
+            print(f"  [finalize] Part {cs.get('part')} not completed — skipping assembly.")
+            return None
+        p = Path(cs["video_file"])
+        if not p.is_file():
+            print(f"  [finalize] Missing chunk file {p} — skipping assembly.")
+            return None
+        parts.append(p)
+    if not parts:
+        return None
+
+    AVATAR_RENDERS_DIR.mkdir(parents=True, exist_ok=True)
+    final_path = AVATAR_RENDERS_DIR / f"{render_stem(lesson_id, lesson_info)}.mp4"
+
+    if len(parts) == 1:
+        shutil.copy2(parts[0], final_path)
+    else:
+        # ffmpeg concat demuxer, stream-copy — every chunk is the same HeyGen
+        # avatar/codec, so no re-encode is needed.
+        listfile = VIDEOS_DIR / f"concat-{lesson_id}.txt"
+        listfile.write_text(
+            "".join(f"file '{p.resolve()}'\n" for p in parts), encoding="utf-8")
+        result = subprocess.run(
+            ["ffmpeg", "-y", "-f", "concat", "-safe", "0",
+             "-i", str(listfile), "-c", "copy", str(final_path)],
+            capture_output=True, text=True)
+        listfile.unlink(missing_ok=True)
+        if result.returncode != 0:
+            print(f"  [finalize] ffmpeg concat failed:\n{result.stderr[-800:]}")
+            return None
+
+    lesson_state["final_video"] = str(final_path)
+    save_state(state)
+    print(f"  [finalize] Filed render → renders-mp4/{PROGRAM_SLUG}/avatar/{final_path.name}")
+    return final_path
+
+
 def process_lesson(lesson_id, state, avatar_id, dry_run=False, max_parts=None):
     """Process a single lesson through the full pipeline."""
     lesson_info = LESSONS[lesson_id]
@@ -564,6 +667,7 @@ def process_lesson(lesson_id, state, avatar_id, dry_run=False, max_parts=None):
 
     if not todo:
         print("\n  All parts already completed.")
+        finalize_lesson(lesson_id, lesson_info, lesson_state, state)
         return True
 
     total_batches = (len(todo) + HEYGEN_CONCURRENT_LIMIT - 1) // HEYGEN_CONCURRENT_LIMIT
@@ -637,7 +741,10 @@ def process_lesson(lesson_id, state, avatar_id, dry_run=False, max_parts=None):
     if all_failed:
         print(f"  Video failures: {all_failed}")
 
-    return len(all_submit_failures) == 0 and all_failed == 0
+    success = len(all_submit_failures) == 0 and all_failed == 0
+    if success:
+        finalize_lesson(lesson_id, lesson_info, lesson_state, state)
+    return success
 
 
 def show_status(state):

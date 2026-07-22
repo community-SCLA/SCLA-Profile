@@ -82,6 +82,24 @@ CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue", "subCues")
 # cue key -> (list variable it must match 1:1, separator of that variable)
 LIST_PAIRS = {"chipCues": ("chips", ","), "subCues": ("subBeats", "|")}
 
+# TODO(heygen-swap): the illustrated pipeline is moving its TTS from local Kokoro
+#   to HeyGen starfish (see design-system/frame.md voice: + decisions/log.md
+#   2026-07-22). HeyGen returns NATIVE per-word timestamps from
+#   .claude/skills/hyperframes-media/scripts/heygen-tts.mjs (--words →
+#   assets/voice/narration.words.json, flat [{id,text,start,end}]), so the
+#   separate Whisper `npx hyperframes transcribe` pass is DROPPED. The words file
+#   is the same flat shape load_transcript() already consumes (text/start/end;
+#   the extra `id` is ignored). Default stays Whisper until the diff session:
+#   flip USE_HEYGEN_WORDS to True AND repoint synth_narration.py at the HeyGen
+#   provider. CAVEAT (not a pure flag flip): in per-scene mode synth_narration.py
+#   concatenates per-clip audio with inserted boundary silence, so per-clip
+#   HeyGen timestamps must be shifted by each clip's placement in the concat
+#   (scene-times.json manifest) to become the whole-file absolute times that
+#   Whisper produces today. See the consumption branch in compute() and the
+#   diff-session note in decisions/log.md 2026-07-22.
+USE_HEYGEN_WORDS = False  # TODO(heygen-swap): flip to True once the voice is pinned
+HEYGEN_WORDS_FILE = "narration.words.json"  # heygen-tts.mjs --words output
+
 
 def _fade_edges(seg, chan, fade, fade_in, fade_out):
     """Ramp the head (fade_in) and/or tail (fade_out) of an int16 frame array to
@@ -207,7 +225,15 @@ def compute(ws: Path):
         single-take flow."""
     index_path = ws / "index.html"
     html = index_path.read_text()
-    words = load_transcript(ws / "assets" / "voice" / "transcript.json")
+    # TODO(heygen-swap): word timings are Whisper today; HeyGen supplies them
+    #   natively (no transcribe pass). Same flat text/start/end shape either way,
+    #   so this is the only consumption site that changes here. Default path
+    #   (flag off) is unchanged — see USE_HEYGEN_WORDS note at top of file.
+    voice_dir = ws / "assets" / "voice"
+    if USE_HEYGEN_WORDS:
+        words = load_transcript(voice_dir / HEYGEN_WORDS_FILE)
+    else:
+        words = load_transcript(voice_dir / "transcript.json")
     scenes = parse_scenes(html)
     problems = []
 

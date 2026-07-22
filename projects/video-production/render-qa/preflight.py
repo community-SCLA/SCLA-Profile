@@ -47,6 +47,18 @@ from hfp_common import ffprobe_duration, norm_token, parse_scenes
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
 TOL = 0.002
 
+# TODO(heygen-swap): when the illustrated pipeline's TTS moves to HeyGen starfish
+#   (native word timestamps, see compile_timeline.py + design-system/frame.md
+#   voice: + decisions/log.md 2026-07-22), the Whisper transcript.json is
+#   replaced by assets/voice/narration.words.json emitted by heygen-tts.mjs
+#   (--words, flat [{id,text,start,end}]). Flip this IN LOCKSTEP with
+#   compile_timeline.USE_HEYGEN_WORDS. Note: HeyGen words are the exact
+#   synthesized text (no Whisper mishears), so script_match becomes a near-exact
+#   check — the RATE_WARN/RATE_FAIL/RUN_FAIL thresholds below still pass as-is
+#   (strictly better) and may optionally be tightened in the diff session.
+USE_HEYGEN_WORDS = False  # TODO(heygen-swap): flip to True once the voice is pinned
+HEYGEN_WORDS_FILE = "narration.words.json"  # heygen-tts.mjs --words output
+
 # script_match thresholds — whisper small.en's known noise floor is ~1 mishear
 # per ~360 words (~0.3%), so the gate is threshold-based, never exact-match.
 RATE_WARN = 0.005   # ≤ this: PASS, diffs printed as warnings (noise floor)
@@ -131,18 +143,21 @@ def diff_script_transcript(script_toks, heard_toks):
 
 
 def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
-    """Workspace dir name is the script stem <section>_<program-slug>_<date>.
-    Scripts live in state folders (location = lifecycle state):
-    refined/ (render queue) is the normal home while a build exists; root is
-    raw intake; rendered/ covers re-verification of a shipped lesson."""
-    parts = ws.name.split("_")
-    if len(parts) != 3:
-        return None
-    program = scripts_root / parts[1]
-    for sub in ("refined", "", "rendered"):
-        candidate = program / sub / f"{ws.name}.txt"
-        if candidate.is_file():
-            return candidate
+    """The workspace dir name IS the script stem. The program is the folder the
+    script lives in (lesson-scripts/<program>/…), not a segment of the stem — so
+    we locate by searching every program's state folders for a matching stem,
+    rather than parsing program out of the name. This is convention-agnostic:
+    it works for both <section>_<program>_<date> and m<#>_<title>_<date> stems.
+
+    Scripts live in state folders (location = lifecycle state): refined/ (the
+    render queue) is the normal home while a build exists; root is raw intake;
+    rendered/ covers re-verification of a shipped lesson."""
+    filename = f"{ws.name}.txt"
+    for program in sorted(p for p in scripts_root.iterdir() if p.is_dir()):
+        for sub in ("refined", "", "rendered"):
+            candidate = program / sub / filename
+            if candidate.is_file():
+                return candidate
     return None
 
 
@@ -160,7 +175,10 @@ def check_script_match(ws: Path, script_path=None, scripts_root=LESSON_SCRIPTS):
     if not script_path.is_file():
         return {"pass": False,
                 "output": f"--script {script_path} does not exist"}
-    tr_path = ws / "assets/voice/transcript.json"
+    # TODO(heygen-swap): native HeyGen words file replaces the Whisper transcript
+    #   here when USE_HEYGEN_WORDS is on. Same flat text/start/end shape.
+    tr_path = ws / "assets/voice" / (HEYGEN_WORDS_FILE if USE_HEYGEN_WORDS
+                                     else "transcript.json")
     if not tr_path.is_file():
         return {"pass": True, "output":
                 f"WARN: {tr_path} missing — script-vs-transcript check "

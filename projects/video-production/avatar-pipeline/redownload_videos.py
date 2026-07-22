@@ -42,7 +42,7 @@ CONCURRENT_DOWNLOADS = 3
 
 def get_video_url(video_id):
     """Check a video's status on HeyGen and return its download URL if ready."""
-    url = f"https://api.heygen.com/v1/video_status.get?video_id={video_id}"
+    url = f"https://api.heygen.com/v3/videos/{video_id}"
     headers = {"X-Api-Key": HEYGEN_API_KEY, "Accept": "application/json"}
     resp = requests.get(url, headers=headers, timeout=30)
     if resp.status_code != 200:

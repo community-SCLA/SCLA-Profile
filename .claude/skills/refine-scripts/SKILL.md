@@ -8,11 +8,25 @@ description: Batch-refine SCLA lesson scripts — drains every raw .txt sitting 
 **State is the folder, not a table.** A script's location *is* its lifecycle:
 
 ```
-lesson-scripts/<program-slug>/*.txt      raw intake — this skill's queue
-lesson-scripts/<program-slug>/refined/   refined + facts-checked — open human
-                                         review buffer AND /render-lessons queue
-lesson-scripts/<program-slug>/rendered/  published (MP4 filed + on Wistia)
+lesson-scripts/<program-slug>/*.txt         raw intake, HyperFrames route — queue
+lesson-scripts/<program-slug>/avatar/*.txt  raw intake, HeyGen-avatar route — queue
+lesson-scripts/<program-slug>/refined/      refined HyperFrames queue — /render-lessons
+lesson-scripts/<program-slug>/refined/avatar/  refined avatar queue — avatar-pipeline
+lesson-scripts/<program-slug>/rendered/     published (MP4 filed + on Wistia)
 ```
+
+**Render route = location.** A raw script's folder declares how it renders:
+program root → illustrated (HyperFrames), `avatar/` subfolder → talking-head
+(HeyGen). Refinement preserves the split: root → `refined/`, `avatar/` →
+`refined/avatar/`. The two never mix — `/render-lessons` builds only `refined/`
+root; `avatar-pipeline/config.json` points only into `refined/avatar/`.
+
+**Compiled-bundle intake:** when a program arrives as one `.txt` holding every
+lesson, split it into per-lesson raws first. Each lesson block's route comes from
+its `Render: avatar` / `Render: hyperframes` tag; with no tag, infer (script
+written as an AI-avatar read → avatar; script carrying production notes →
+HyperFrames) and **list the inferred routing for the human to confirm before
+refining**. Avatar-route raws are written to `avatar/`, the rest to the root.
 
 `refinement-log.md` is a **ledger only** (dates, locations, notes for humans) —
 never read it to decide what to do; the folders decide.
@@ -21,12 +35,17 @@ never read it to decide what to do; the folders decide.
 
 The session that runs this skill is a dispatcher. It lists queues, spawns
 subagents, moves nothing by hand it doesn't have to, and **never reads a script
-body inline** — that's what keeps a 10-script batch from blowing up one
+body inline** — that's what keeps a multi-script batch from blowing up one
 session's context.
 
-1. **Queue:** `ls` each `lesson-scripts/<program-slug>/` root — every `*.txt`
-   there is raw. (`mkdir -p` the program's `refined/` on first use; absolute
-   paths — the governance hook rejects relative/variable forms.)
+1. **Queue:** `ls` each `lesson-scripts/<program-slug>/` root **and** its
+   `avatar/` subfolder — every `*.txt` in either is raw (root = HyperFrames
+   route → `refined/`; `avatar/` = HeyGen route → `refined/avatar/`). Use a
+   non-recursive `ls` per folder, not a recursive `find` (don't re-sweep
+   `refined/`). (`mkdir -p` the target `refined/` or `refined/avatar/` on first
+   use; absolute paths — the governance hook rejects relative/variable forms.)
+   The per-script subagent's target path mirrors the source: a raw at
+   `avatar/<stem>.txt` refines to `refined/avatar/<stem>.txt`.
 2. **Skip list:** any raw script whose ledger row (or filename) carries an open
    human question (e.g. "does a pointer-to-a-PDF lesson need a video at all?")
    is **skipped, not refined blind** — leave it at root, keep the ledger note,

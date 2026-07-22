@@ -29,12 +29,13 @@ DEST="$LESSONS/_archive/$STEM"
 [[ -e "$DEST" ]] && { echo "$DEST already exists — refusing to overwrite an archived build" >&2; exit 1; }
 
 # Safety: the deliverable must be filed before its workspace is retired.
-# The filed MP4 keeps the script's section+program but swaps in the render date,
-# so match by that prefix rather than the exact script stem (which carries the
-# script's own date).
+# The filed MP4 reuses the script stem but swaps in the render date, so match by
+# the stem-minus-date prefix rather than the exact script stem (which carries the
+# script's own date). The recursive find matches inside the program's
+# hyperframes/ (or avatar/) subfolder too.
 BASE="${STEM%_*}"
 if ! find "$VIDEOS" -mindepth 2 -name "${BASE}_*.mp4" | grep -q .; then
-  echo "No ${BASE}_*.mp4 found under renders-mp4/<program-slug>/ — file the final render first." >&2
+  echo "No ${BASE}_*.mp4 found under renders-mp4/<program-slug>/{hyperframes,avatar}/ — file the final render first." >&2
   exit 1
 fi
 

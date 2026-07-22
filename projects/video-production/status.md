@@ -65,7 +65,7 @@
 | Better Decisions Come From Better Criteria | Approved | blocked (facts provenance) | — |
 
 ### Blockers
-- [ ] **HeyGen API key has no API permission** — every endpoint returns 403 ("Ask your Space Admin"). Blocks `avatar-pipeline/` renders AND HeyGen TTS for illustrated videos (local Kokoro voice covers the gap). Fix: Space Admin grants API access, or `npx hyperframes auth login`.
+- [x] ~~HeyGen API key has no API permission~~ — **resolved 2026-07-21**: new key rotated into Infisical (`HEYGEN_API_KEY`), verified live against `GET /v2/user/remaining_quota` → 200, `remaining_quota: 15000`. `avatar-pipeline/` renders and HeyGen TTS are unblocked; see `endpoints.md` → "HeyGen".
 - [ ] Enterprise tier confirmation (Synthesia) — only if long-form avatar courses survive re-evaluation
 - [ ] Voice clone recording not yet done (avatar path)
 

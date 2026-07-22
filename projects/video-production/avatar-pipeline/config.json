@@ -1,4 +1,6 @@
 {
+  "program": "Early Career Boost",
+  "program_slug": "early-career-boost",
   "avatar": {
     "id": "b04699c54ba843d4b3018caae5847932",
     "name": "Ann"
@@ -16,16 +18,19 @@
   "lessons": {
     "1.0": {
       "title": "Introduction to Your Course",
+      "module": 1,
       "source": "local",
       "file": "scripts/example-lesson.txt"
     },
     "3.5": {
       "title": "Better Decisions Come From Better Criteria",
+      "module": 3,
       "source": "local",
       "file": "../lesson-scripts/early-career-boost/refined/better-decisions-come-from-better-criteria_early-career-boost_2026-07-06.txt"
     },
     "1.1": {
       "title": "Mini-Syllabus",
+      "module": 1,
       "source": "local",
       "file": "../lesson-scripts/early-career-boost/rendered/mini-syllabus_early-career-boost_2026-07-06.txt"
     }

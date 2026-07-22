@@ -48,6 +48,24 @@ Update here first — scripts and skills should read from here, not from hardcod
 
 ---
 
+## HeyGen
+
+| Name | Type | ID / URL | Used By |
+|---|---|---|---|
+| API key | — | in **Infisical** (project `scla-projects-n-joy`, env `dev`, secret name `HEYGEN_API_KEY`) — never in `.env`, this file, or the repo | `avatar-pipeline/` renders, HeyGen TTS path in `hyperframes-media` |
+
+> **Status — verified live 2026-07-21:** key rotated (previous key returned 403
+> "Ask your Space Admin" on every endpoint — see `decisions/log.md` 2026-07-15,
+> `projects/video-production/status.md` blockers). Injected via
+> `scripts/with-secrets.sh` and probed against `GET /v2/user/remaining_quota`
+> with header `X-Api-Key` → **200**, `remaining_quota: 15000` (`api: 15000, seat: 1,
+> plan_credit: 1000`). Note: that endpoint is HeyGen's **legacy v2** API, sunsetting
+> 2026-10-31 per its own response — new integration work should target
+> `GET /v3/users/me` instead (https://developers.heygen.com/reference).
+> `avatar-pipeline/` renders and the HeyGen TTS path are unblocked.
+
+---
+
 ## Infisical (secrets manager — source of truth for ALL secrets)
 
 Secrets live **only** in Infisical and are injected at runtime by the CLI —
@@ -67,14 +85,19 @@ project/env with `INFISICAL_PROJECT_ID` / `INFISICAL_ENV`. CLI is provisioned by
 
 > **Verified 2026-07-15:** Infisical is healthy — the reported HTTP 401 is **not**
 > Infisical's. Identity `SCLA-PROJECTS` logs in (universal-auth, exit 0) and
-> `scripts/with-secrets.sh` injects both project secrets (`WISTIA_API`,
-> `HEYGEN_API_KEY`) on `scla-projects-n-joy` / `dev`; the injection line
-> "Injecting 2 Infisical secrets" is success, not failure. The 401 the owner hit
-> comes from **Wistia** rejecting a `DELETE` — see the Wistia section. The right
-> machine identity is being called and it is authorized.
+> `scripts/with-secrets.sh` injects project secrets on `scla-projects-n-joy` /
+> `dev`; the injection line "Injecting N Infisical secrets" is success, not
+> failure. The 401 the owner hit comes from **Wistia** rejecting a `DELETE` — see
+> the Wistia section. The right machine identity is being called and it is
+> authorized.
 > (Earlier states for the record: 2026-07-14 endpoints note "read access";
 > decision-log 2026-07-14 "authenticates but reads 403, blocked pending owner
 > assigning the identity to the project" — that block is now cleared.)
+>
+> **2026-07-21:** now injecting 3 secrets: `WISTIA_API`, `HEYGEN_API_KEY`, and a
+> third named plain `HEYGEN`. The third is **intentionally unused** (owner call,
+> 2026-07-22) — not a blocker, ignore it. `HEYGEN_API_KEY` is the pipeline key;
+> see "HeyGen" section above for its live-verified status.
 
 ---
 

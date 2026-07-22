@@ -12,9 +12,9 @@ This folder is the **code path** for HeyGen production — use it for repeatable
 
 **Upstream (authoring):** scripts here start life in `../script-templates/heygen-lesson-script.md`. That template produces a rich doc — body copy, `[On screen:]` / `[Graphic:]` cues, and a shot list. This pipeline consumes **plain narration only**: copy just the spoken lines from section 3 of the script into a `.txt`, dropping all cues, headings, and the shot list. Cues are for the human building visuals in HeyGen, not for the avatar to read.
 
-Once a narration script is approved, save it directly into its program's folder under `../lesson-scripts/<program-slug>/` — the curated home for the approved script (the rendered video goes to Wistia, not here) — and point `config.json` at it there (e.g. `../lesson-scripts/early-career-boost/lesson-1.0_early-career-boost_2026-07-06.txt`). This is a single source of truth: the pipeline reads the script from its permanent home instead of a separate staging copy, so nothing needs moving except the rendered `.mp4` at the end. The local `scripts/` folder is reserved for `example-lesson.txt`, the generic onboarding demo used by the Quick Start below — not real production content.
+Once a narration script is approved, it lives in its program's **avatar** queue at `../lesson-scripts/<program-slug>/refined/avatar/` — the curated home for avatar-route scripts (`/refine-scripts` puts it there; the rendered video goes to Wistia, not here) — and `config.json` points at it (e.g. `../lesson-scripts/mid-career-momentum/refined/avatar/m1_the-value-of-building-mid-career-momentum_2026-07-20.txt`). This is a single source of truth: the pipeline reads the script from its permanent home instead of a separate staging copy, so nothing needs moving except the rendered `.mp4` at the end. The local `scripts/` folder is reserved for `example-lesson.txt`, the generic onboarding demo used by the Quick Start below — not real production content.
 
-**Downstream (hosting):** finished MP4s land in `output/videos/` (self-contained, gitignored) — once a human has reviewed the MP4, rename per the [`lesson-scripts/README.md`](../lesson-scripts/README.md) convention and **upload to Wistia** (account + auth status: repo-root `endpoints.md` → "Wistia"); record the Wistia URL in `../lesson-scripts/refinement-log.md`. The `.mp4` is not committed to the repo — only the approved `.txt` script lives in `../lesson-scripts/<program-slug>/`.
+**Downstream (hosting):** the pipeline concatenates a lesson's HeyGen chunks into **one video per lesson** and files it, already named `m<#>_<title-slug>_<render-date>.mp4` (the [`lesson-scripts/README.md`](../lesson-scripts/README.md) convention), straight into `../renders-mp4/<program-slug>/avatar/` (gitignored, alongside the illustrated path's `hyperframes/` renders). Per-chunk intermediates stay in `output/videos/`. Once a human has reviewed the MP4, **upload to Wistia** (account + auth status: repo-root `endpoints.md` → "Wistia"); record the Wistia URL in `../lesson-scripts/refinement-log.md`. The `.mp4` is not committed to the repo — only the approved `.txt` script lives in `../lesson-scripts/<program-slug>/refined/avatar/`.
 
 ## Quick Start
 
@@ -62,16 +62,21 @@ Run `python generate_videos.py --list-voices` to print every HeyGen voice in you
 Edit the `lessons` section in `config.json`:
 
 ```json
+"program": "Mid-Career Momentum",
+"program_slug": "mid-career-momentum",
 "lessons": {
   "1.0": {
-    "title": "My First Lesson",
+    "title": "The Value of Building Mid-Career Momentum",
+    "module": 1,
     "source": "local",
-    "file": "../lesson-scripts/<program-slug>/lesson-1.0_<program-slug>_2026-07-06.txt"
+    "file": "../lesson-scripts/mid-career-momentum/refined/avatar/m1_the-value-of-building-mid-career-momentum_2026-07-20.txt"
   }
 }
 ```
 
-For local files, save the approved `.txt` script into `../lesson-scripts/<program-slug>/` (its permanent home — see "Where This Fits SCLA's Video Pipeline" above), not into this folder. For Google Docs, use `"source": "google_doc"` with a `"doc_id"`.
+`program_slug` sets the render folder (`renders-mp4/<program-slug>/avatar/`);
+each lesson's `module` + `title` build the filename `m<#>_<title-slug>_<render-date>.mp4`.
+For local files, the approved `.txt` lives in `../lesson-scripts/<program-slug>/refined/avatar/` (the avatar queue — see "Where This Fits SCLA's Video Pipeline" above), not in this folder. For Google Docs, use `"source": "google_doc"` with a `"doc_id"`.
 
 ### 5. Test with a dry run
 
@@ -137,13 +142,14 @@ All settings live in `config.json`:
 
 | Setting | Location | Purpose |
 |---|---|---|
+| Program name/slug | `config.json → program`, `program_slug` | Program identity — `program_slug` (kebab-case, matches `lesson-scripts/<slug>/`) sets the render folder `renders-mp4/<slug>/avatar/` |
 | API key | `.env` | HeyGen authentication |
 | Avatar ID/name | `config.json → avatar` | Your HeyGen avatar |
 | Voice ID | `config.json → voice` | Your HeyGen voice |
 | Voice settings | `config.json → voice.settings` | Speed (and other HeyGen voice options) |
 | Chunk size | `config.json → pipeline.max_chunk_words` | Max words per chunk |
 | Concurrent limit | `config.json → pipeline.concurrent_limit` | Parallel video requests |
-| Lessons | `config.json → lessons` | Your course structure — `file` points into `../lesson-scripts/<program-slug>/`, not a local `scripts/` copy |
+| Lessons | `config.json → lessons` | Your course structure — each lesson's `module` (the `m<#>` in the filename) + `title` (slugified for the filename); `file` points into `../lesson-scripts/<program-slug>/refined/avatar/`, not a local `scripts/` copy |
 
 **Lesson key convention:** `<section>.<position>` — the platform's section number and the lesson's position within that section's component list, per the program's `video-style.md` outline (e.g. `programs/early-career-boost/video-style.md`). Example: `"3.5"` = Section 3, 5th lesson-only component listed.
 
@@ -185,8 +191,16 @@ Claude Code can help you customize and extend this pipeline. Here are some thing
 ```
 output/
   scripts/         # Exported and split text files
-  videos/          # Downloaded HeyGen MP4 files
+  videos/          # Per-chunk HeyGen MP4 intermediates (resumable)
+
+../renders-mp4/<program-slug>/avatar/
+  m<#>_<title-slug>_<render-date>.mp4   # one assembled video per lesson (the deliverable)
 ```
+
+Each lesson's chunks are concatenated (ffmpeg, stream-copy) into a single
+titled MP4 filed under its program's `avatar/` subfolder — the human-facing
+deliverable. `output/videos/` keeps the raw chunks so a re-run resumes without
+re-rendering completed parts.
 
 ## Troubleshooting
 

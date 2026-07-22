@@ -77,7 +77,7 @@ session days later — no context carries over, nothing bloats.
                                  │   • file the MP4 + QA packet
                                  ▼
  ┌─ SHIPPED ─────────────────────────────────────────────────────────────────────┐
- │  renders-mp4/<program>/<section>_<program>_<render-date>.mp4   (local, gitignored)│
+ │  renders-mp4/<program>/hyperframes/m<#>_<title>_<render-date>.mp4  (local, gitignored)│
  │                                                                                 │
  │   ██ HUMAN CHECKPOINT 2 — MP4 REVIEW █████████████████████████████████████████  │
  │   You WATCH the filed MP4 before it can reach Wistia.                           │
@@ -149,4 +149,9 @@ Every build/render session ends by writing an entry to `render-qa/snag-log.md`:
 
 The illustrated (HyperFrames) path above is the default for lesson videos. The
 avatar path (`avatar-pipeline/`, HeyGen) is a separate tool for
-translations / talking-head / true human-presence moments.
+translations / talking-head / true human-presence moments. It reads from the
+program's `refined/avatar/` queue (route = location: root/`refined/` →
+illustrated, `avatar/`/`refined/avatar/` → HeyGen), assembles one talking-head
+MP4 per lesson, and files it to `renders-mp4/<program>/avatar/` under the same
+`m<#>_<title>_<render-date>` naming — then the same MP4 REVIEW → Wistia steps.
+Hybrid (avatar + on-screen overlays) is a future build: `hybrid-avatar-overlay-brief.md`.

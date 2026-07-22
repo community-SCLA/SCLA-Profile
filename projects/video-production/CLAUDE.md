@@ -21,7 +21,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `avatar-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 | `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production; delivered builds move to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh`. See its `README.md`. |
 | `lesson-scripts/` | Curated script library, one folder per program — **a script's folder is its state**: raw at root → `refined/` → `rendered/` (the video itself goes to Wistia, not here). Naming + state semantics in its `README.md`; `refinement-log.md` is the human-facing ledger. |
-| `renders-mp4/` | Local staging for finished **HyperFrames-rendered** MP4s (gitignored), one folder per program mirroring `lesson-scripts/` — viewable locally before the Wistia upload, named with the render date. See its `README.md`. Avatar-rendered MP4s stage separately, in `avatar-pipeline/output/videos/`. |
+| `renders-mp4/` | Local staging for finished MP4s (gitignored), one folder per program mirroring `lesson-scripts/`, split into `hyperframes/` + `avatar/` subfolders — **both render paths file here**, viewable locally before the Wistia upload, named with the render date. See its `README.md`. |
 | `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.agents/skills/`) — separate tool from `avatar-pipeline/`, for authoring HTML video compositions directly. |
 
 ## Tool Routing (Don't Mix These Up)
@@ -33,7 +33,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 - **HeyGen (avatar)** → translations/multilingual, quick-turn social talking heads, true human-presence moments
 - **HeyGen web UI vs. code path** → web UI for one-off/visually-designed videos; `avatar-pipeline/` for repeatable batch rendering from finalized scripts
 - **Synthesia** → long-form avatar courses — under re-evaluation (setup never completed; decide before any Enterprise commitment)
-- **Hosting / analytics** → **Wistia** (account, upload mechanics, auth status: repo-root `endpoints.md` → "Wistia") — the human-reviewed MP4 is uploaded at `/render-lessons` PUBLISH; the URL is recorded in `refinement-log.md`. Before upload, finished MP4s stage locally so they're viewable: HyperFrames renders in `renders-mp4/<program-slug>/`, avatar renders in `avatar-pipeline/output/videos/`. Rendered MP4s are **not committed to the repo** (only the `.txt` script is tracked).
+- **Hosting / analytics** → **Wistia** (account, upload mechanics, auth status: repo-root `endpoints.md` → "Wistia") — the human-reviewed MP4 is uploaded at `/render-lessons` PUBLISH; the URL is recorded in `refinement-log.md`. Before upload, finished MP4s stage locally so they're viewable, one folder per program with two subfolders: HyperFrames renders in `renders-mp4/<program-slug>/hyperframes/`, avatar renders in `renders-mp4/<program-slug>/avatar/`. Rendered MP4s are **not committed to the repo** (only the `.txt` script is tracked).
 
 Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Enterprise** tier; HeyGen Business/Enterprise with weekly credit monitoring.
 

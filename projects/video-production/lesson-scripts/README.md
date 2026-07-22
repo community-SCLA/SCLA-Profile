@@ -11,11 +11,20 @@ tracks the durable source (the `.txt`); Wistia holds the build output.
 ```
 lesson-scripts/
   <program-slug>/
-    <stem>.txt            ← RAW intake — /refine-scripts' queue; do not render
-    refined/<stem>.txt    ← refined + facts-checked — /render-lessons' BUILD queue
-                            and the open human review buffer (edit/veto any time)
-    rendered/<stem>.txt   ← published — MP4 filed in ../renders-mp4/ and on Wistia
+    <stem>.txt              ← RAW intake, illustrated route — /refine-scripts' queue
+    avatar/<stem>.txt       ← RAW intake, HeyGen-avatar route — /refine-scripts' queue
+    refined/<stem>.txt      ← refined — /render-lessons' BUILD queue (illustrated)
+                              and the open human review buffer (edit/veto any time)
+    refined/avatar/<stem>.txt  ← refined — avatar-pipeline's queue (talking-head)
+    rendered/<stem>.txt     ← published — MP4 filed in ../renders-mp4/ and on Wistia
 ```
+
+**Render route is also a location.** Program root / `refined/` = illustrated
+(HyperFrames); the `avatar/` and `refined/avatar/` subfolders = talking-head
+(HeyGen, `../avatar-pipeline/`). The two queues never mix: `/render-lessons`
+builds only the `refined/` root, `avatar-pipeline/config.json` points only into
+`refined/avatar/`. `/refine-scripts` preserves the split (root → `refined/`,
+`avatar/` → `refined/avatar/`).
 
 Between `refined/` and `rendered/` a lesson's in-flight state lives outside
 this folder: a `../renders-hyperframes/<stem>/` workspace = built, waiting at
@@ -40,25 +49,33 @@ match the `programs/` slug and log it in `decisions/log.md` per
 
 ## Naming convention
 
+Current scheme (program is now the folder, so it drops out of the filename):
+
 ```
-<section>_<program>_<date>
+m<#>_<title>_<date>
 ```
 
-- **section** — the course section the video teaches, kebab-case: `brand-you-intro`, `smart-goals`, `hidden-job-market-1`.
-- **program** — the program slug, matching the folder name: `early-career-boost`.
+- **m<#>** — the lesson's module number: `m1`, `m2`, … (a lesson AKA "module").
+- **title** — the video title, kebab-case: `the-value-of-building-mid-career-momentum`.
 - **date** — for the `.txt`: capture/approval date; the stem stays unchanged as the file moves between state folders.
 
 Underscores separate the three parts; hyphens go *inside* a part. The rendered
-video reuses section+program but **swaps the date for the render date**, so a
-video rendered well after its script doesn't carry a stale date — source and
-deliverable stay traceable by section+program:
+video reuses `m<#>`+title but **swaps the date for the render date**, so a video
+rendered well after its script doesn't carry a stale date — source and
+deliverable stay traceable by module+title:
 
 ```
-smart-goals_scla-leadership-program_2026-07-06.txt   ← refined/ (approved 07-06)
-smart-goals_scla-leadership-program_2026-07-11        ← MP4 stem + Wistia title (rendered 07-11)
+m1_the-value-of-building-mid-career-momentum_2026-07-20.txt   ← refined/avatar/ (approved 07-20)
+m1_the-value-of-building-mid-career-momentum_2026-07-22       ← MP4 stem + Wistia title (rendered 07-22)
 ```
 
-Lowercase throughout. No spaces, no `+`, no capitals — keeps filenames safe across shells, URLs, and Wistia titles.
+Lowercase throughout. No spaces, no `+`, no capitals — keeps filenames safe
+across shells, URLs, and Wistia titles.
+
+> **Older programs** (`early-career-boost`, `career-readiness-accelerator`,
+> `scla-leadership-program`) use the previous `<section>_<program>_<date>`
+> scheme (section kebab-case; program = the folder slug). Their existing files
+> keep it; the tooling reads both. Use `m<#>_<title>_<date>` for new programs.
 
 ## How scripts move
 
@@ -72,8 +89,9 @@ Lowercase throughout. No spaces, no `+`, no capitals — keeps filenames safe ac
 - **Out:** PUBLISH (per stem, on human go) uploads to Wistia, records the URL
   in the ledger, and `git mv`s the `.txt` to `rendered/`.
 - The avatar path ([`../avatar-pipeline/`](../avatar-pipeline/CLAUDE.md))
-  reads scripts from `refined/` via `config.json` and stages its MP4s in
-  `avatar-pipeline/output/videos/`.
+  reads scripts from `refined/avatar/` via `config.json`, renders each lesson as
+  one talking-head video, and stages the MP4 in
+  [`../renders-mp4/<program-slug>/avatar/`](../renders-mp4/README.md).
 
 The `.txt` is plain spoken narration only (no cues, no shot list). Refinement
 rules live in `/refine-scripts`; drafting prompt templates in

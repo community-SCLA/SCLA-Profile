@@ -43,9 +43,25 @@ motion:
   ambient: "oval rings breathe scale 1→1.05 over 3-4s, finite yoyo repeats sized to the scene"
   ban: "repeat: -1 (use finite counts), linear full-screen gradients on navy (H.264 banding — use radial)"
 voice:
-  provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Decision + upgrade path: CLAUDE.md "Narration voice"
-  voice_id: af_heart
+  # TODO(heygen-swap): pinned TARGET engine is HeyGen starfish TTS — it returns
+  #   native word timestamps, which drops the Whisper transcribe step (see
+  #   render-qa/compile_timeline.py + preflight.py, grep TODO(heygen-swap)).
+  #   Cost finding 2026-07-22: ~1 HeyGen credit per ~10s line; quota 15000.
+  #   Voice CHOSEN 2026-07-22: Ann — Professional (continuity with avatar
+  #   presenter "Ann"). Other auditioned candidates, for the record: Narrative
+  #   Nora 3ad72945…, Claire Lawson 5f745b3d…, June 68dedac4…, Catherine 3682592b….
+  #   Voice is now pinned below; the remaining diff-session work is CODE only:
+  #   repoint synth_narration.py at the HeyGen provider + emit the native words
+  #   file, then flip USE_HEYGEN_WORDS in compile_timeline.py + preflight.py in
+  #   lockstep. Until that lands the `fallback` block below (Kokoro af_heart) is
+  #   what ACTUALLY renders — do not remove it.
+  provider: heygen           # TODO(heygen-swap): target only; fallback.provider is live until USE_HEYGEN_WORDS flips
+  voice_id: 2e4de8a01f3b4e9c96794045e2f12779  # Ann — Professional (chosen 2026-07-22)
   speed: 0.95
+  fallback: # ACTIVE — Kokoro is what renders today, until the HeyGen swap lands
+    provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Decision + upgrade path: CLAUDE.md "Narration voice"
+    voice_id: af_heart
+    speed: 0.95
 ---
 
 # SCLA Lesson System — frame-scale design spec
