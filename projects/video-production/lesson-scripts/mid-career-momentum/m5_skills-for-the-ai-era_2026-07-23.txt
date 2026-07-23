@@ -1,0 +1,46 @@
+Lesson: Mod 5 — BONUS: Career Planning in the AI Era
+Dashboard component: Skills for the AI-Era  (slug: the-state-of-ai)
+Video: Skills for the AI-Era Future
+Source: app.thescla.org admin dashboard — captured 2026-07-23 (program status: Draft)
+Route: illustrated HyperFrames
+Production note: the dashboard ▶ VIDEO heading reads "Skills for the AI-Era Future (insert your existing lesson video here)" — i.e. slot in / adapt the existing Early Career Boost video "do-not-just-ask-what-ai-replaces". The narration below is the mid-career adaptation of that lesson.
+
+===== SCRIPT (verbatim from dashboard) =====
+
+Don't Just Ask What AI Replaces; Ask What It Changes
+
+The most useful question about AI and your career is not "will it replace my job?" It is "how will it change my job — and how do I aim myself at the more valuable part?" Mid-career, you have the leverage to do exactly that, because you already understand your role deeply enough to see which parts are shifting.
+
+A practical way to think about your current role and your next move:
+
+- What tasks might AI do faster or cheaper? Assume those get automated or accelerated. Do not defend them.
+- What becomes more valuable as a result? Usually, the judgment, relationships, creativity, and oversight around those tasks — the very things your experience makes you good at.
+- How do I reposition toward that more valuable part? This is where AI-era thinking meets everything else in this course: your Next Move Statement, your repositioned resume, and your visibility can all be aimed at the human, high-judgment work that grows more valuable as AI spreads.
+
+Example: AI can draft a first pass of almost any document, analysis, or plan. That makes the drafting less scarce — and makes the person who knows what is worth saying, who can judge quality, who owns the client relationship, and who can stake their reputation on the call more valuable. Mid-career, that person is you. Aim your next move at that part.
+
+===== COMPANION ARTICLE — "Skills for the AI-Era Future" (verbatim; on-page reading, likely folds into narration) =====
+
+Mid-career, the AI conversation lands differently than it does for someone just starting out. You have a decade of judgment, relationships, and hard-won context — exactly the things AI is worst at replicating. The frame that matters is this: AI is very good at tasks, and your value has always been more than tasks. The skills that stay valuable are the ones that are hardest to automate and that make you the person who can direct AI well rather than compete with it.
+
+The durable, human-centered skills to keep investing in:
+
+- Judgment and decision-making. Deciding what is worth doing — and what "good" looks like — is far harder to automate than doing the task. Your experience is the raw material here.
+- Communication and persuasion. Explaining ideas clearly, building trust, and moving people to act. Mid-career, this often becomes your primary value.
+- Relationships and collaboration. Leadership, empathy, and working across teams — deeply human, deeply valued, and exactly what sponsorship and advancement run on.
+- Learning how to learn. In a fast-changing field, the ability to pick up new tools quickly beats mastery of any one tool. Staying curious is a competitive advantage at every level.
+- Working with AI. Knowing how to prompt, check, and combine AI outputs with your own judgment is quickly becoming a baseline professional skill — and a visible one you can demonstrate.
+
+None of these requires you to out-compute a machine. They require you to be a thoughtful, capable professional who uses powerful tools well, and mid-career, you are better positioned to do that than almost anyone.
+
+===== PRODUCTION NOTES (verbatim from dashboard) =====
+
+Video: insert your existing lesson video here (reuse / adapt Early Career Boost "do-not-just-ask-what-ai-replaces").
+
+Additional Resources:
+- How to Future-Proof Your Career in the Age of AI — UC Santa Cruz Extension
+- Durable Skills in the Age of AI — Communications of the ACM
+- Top Human Skills to Succeed in the Age of AI — edX
+- Skills and Talent Development in the Age of AI — Jobs for the Future (JFF)
+- Elevating Human Skills in the Age of AI — FranklinCovey (PDF)
+- How Storytelling Unlocks Career Pathways in the Age of AI — Forbes

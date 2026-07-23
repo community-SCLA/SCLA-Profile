@@ -1,0 +1,183 @@
+Lesson: Mod 3 — Reposition Your Experience
+Dashboard component: From Responsibilities to Results, Scope, and Impact  (slug: how-to-make-strong-career-decisions-1)
+Video: How to Reposition Your Career (Without Starting Over)
+Source: app.thescla.org admin dashboard — captured 2026-07-23 (program status: Draft)
+Route: illustrated HyperFrames
+Note: dashboard component holds 2 videos; this is video 2 of 2.
+
+===== SCRIPT (verbatim from dashboard) =====
+
+When people hear “career pivot” or “repositioning,” they often imagine starting completely over—new degree, new industry, new identity.
+
+In reality, many successful career pivots are strategic repositionings of the experience you already have. You’re not erasing your past; you’re re‑telling it so it clearly points to the future you want.
+
+[On screen: Title text “Reposition Your Career (Without Starting Over)” with a visual of a road that bends rather than breaks.]
+
+Let’s talk about how to do that in a practical way, and look at a few examples of how other mid‑career professionals have repositioned themselves.
+
+[Graphic: Three simple character icons labeled “Alex,” “Jordan,” and “Priya,” with their old titles underneath.]
+
+Example 1: Alex – From Operations Manager to Strategy Leader
+
+Alex spent ten years as an Operations Manager, making sure processes ran smoothly, teams hit their numbers, and projects stayed on track. On paper, Alex’s roles looked operational, not strategic. But in reality, Alex had led cross‑functional projects, redesigned systems, and influenced decisions.
+
+[On screen: Alex’s “before” resume snippet with bullets like “Managed daily operations,” “Oversaw team workflows.”]
+
+To reposition for a Strategy Leader role, Alex did three things:
+
+Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money, or leading a project that changed how a department worked.
+
+Rewrote bullets to emphasize decisions, outcomes, and scope—turning “managed operations” into “Led multi‑department initiative that reduced processing time by 25% and improved customer satisfaction scores.”
+
+Updated LinkedIn to reflect the future: “Operations & Strategy Leader | Transforming complex systems into scalable, efficient processes.”
+
+[Motion graphic: Alex’s “before” bullet morphs into “after” bullet; old LinkedIn headline morphs into future‑oriented headline with “Strategy” highlighted.]
+
+Alex didn’t pretend to have a Strategy Director title. Instead, Alex highlighted the strategic work already inside those operations roles and began applying to roles with that focus.
+
+Example 2: Jordan – From Teacher to Learning Experience Designer
+
+Jordan spent years teaching in the classroom, designing lessons, assessments, and learning experiences. Jordan wanted to move into instructional design and learning technologies—roles that often use different language and sit in different departments.
+
+[On screen: Jordan’s “before” profile: title “Teacher,” bullets like “Developed lesson plans,” “Graded assignments.”]
+
+To reposition, Jordan:
+
+Translated teaching tasks into design language: “Designed and implemented multi‑modal learning experiences for diverse learners,” “Developed assessment strategies to measure learning outcomes.”
+
+Highlighted tools and methods used—like learning platforms, data analysis, and collaborative project design.
+
+Updated LinkedIn headline to: “Learning Experience Designer | Translating classroom expertise into engaging digital and hybrid learning.”
+
+[Graphic: Side‑by‑side comparison of “Teacher” vs. “Learning Experience Designer,” with common skills highlighted between them.]
+
+Jordan didn’t erase the classroom. Instead, Jordan positioned classroom experience as proof of strong design, facilitation, and learner‑centered thinking—directly relevant to the new field.
+
+Example 3: Priya – From Individual Contributor to People Manager
+
+Priya had spent most of her career as a strong individual contributor—taking ownership of complex tasks, building relationships, and delivering results. Priya wanted to step into a first‑line leadership role.
+
+[On screen: Priya’s “before” bullets highlighting personal contributions only.]
+
+To reposition:
+
+Priya identified experiences where she’d informally led others—coordinating project teams, mentoring colleagues, onboarding new hires.
+
+She rewrote bullets to show leadership behaviors and outcomes: “Mentored 3 new analysts, accelerating their ramp‑up time by 30%,” “Coordinated cross‑team project, aligning stakeholders and delivering ahead of schedule.”
+
+She updated her profile summary to: “Emerging people leader with a track record of mentoring, coordinating cross‑team projects, and growing others while delivering results.”
+
+[Motion graphic: A “leader” icon appears over Priya’s updated bullets; her summary now includes phrases like “growing others” and “leading projects.”]
+
+Across these examples, the pattern is the same:
+
+Clarify your future direction. Know whether you’re aiming for a promotion, lateral move, or role redesign, and what types of roles you want to show up on your radar.
+
+Curate your story. Select experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you’ll need.
+
+Translate your language. Rewrite bullets and profile sections so they use the phrases of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path.
+
+Update your public signals. Align your resume, LinkedIn headline, summary, and even your “60‑second career story” with that future‑focused positioning.
+
+[On screen: A four‑step diagram labeled “Clarify → Curate → Translate → Update,” with arrows forming a loop.]
+
+Repositioning your career is not about being someone you’re not. It’s about revealing the through‑line in what you’ve already done—and telling that story in a way that makes your next move feel obvious to others.
+
+As you move forward in this track, keep asking:
+“How can I tell the true story of my experience so it clearly points to the roles I want next?”
+
+That’s the heart of repositioning—and it’s one of the most powerful ways to open new doors without starting from scratch.
+
+
+---
+
+**Visual / Graphics Design Notes for the Video Builder**
+
+Overall style
+
+Presenter: Same avatar/setting as other Track 2 videos for continuity (neutral, modern environment).
+
+Visual theme: “Path” and “through‑line”—use gentle curves/arrows rather than abrupt breaks.
+
+Key static graphics to create
+
+Title slide
+
+Text: “Reposition Your Career (Without Starting Over)”
+
+Visual: A path/road bending rather than breaking; subtle arrow toward a brighter “future” area.
+
+Character profiles for examples
+
+Alex: “Operations Manager → Strategy Leader”
+
+Jordan: “Teacher → Learning Experience Designer”
+
+Priya: “Individual Contributor → People Manager”
+
+Simple avatar icons with “before” titles under them.
+
+Before/after resume snippets
+
+Alex:
+
+Before: “Managed daily operations.”
+
+After: “Led multi‑department initiative that reduced processing time by 25% and improved customer satisfaction.”
+
+Jordan:
+
+Before: “Developed lesson plans.”
+
+After: “Designed multi‑modal learning experiences and assessment strategies to drive learner outcomes.”
+
+Priya:
+
+Before: “Completed complex tasks independently.”
+
+After: “Mentored new analysts and coordinated cross‑team projects to deliver ahead of schedule.”
+
+LinkedIn headline before/after mockups
+
+Alex: “Operations Manager at X” → “Operations & Strategy Leader | Transforming complex systems into scalable processes.”
+
+Jordan: “Teacher” → “Learning Experience Designer | Translating classroom expertise into engaging digital learning.”
+
+Priya: “Analyst” → “Emerging People Leader | Growing teams and delivering results.”
+
+Skill overlap diagrams
+
+For Jordan: Venn diagram or two columns showing common skills between “Teacher” and “Learning Experience Designer” (e.g., curriculum design, assessment, facilitation, learner analysis).
+
+Four-step framework graphic
+
+Clarify → Curate → Translate → Update
+
+Simple icons: compass, gallery, language bubbles, profile card.
+
+Motion graphics ideas
+
+Path animation at the beginning: a line travels smoothly from left to right, curving gently, with “Past Roles” on the left and “Future Roles” on the right.
+
+Morphing text: use animated text to show before/after bullets and headlines changing.
+
+Highlight transitions: when Alex/Jordan/Priya examples are discussed, their avatar and headline/bullets slide into view; key words like “Strategy,” “Design,” “Leader” briefly highlight.
+
+Four-step loop: Clarify → Curate → Translate → Update appears as a circular flow; each step lights up as it’s mentioned.
+
+Suggested shot sequencing
+
+Title slide → avatar introduction.
+
+Visual of bending path with “Without Starting Over” overlay.
+
+Introduce Alex, Jordan, Priya with a quick character grid.
+
+For each example: show “before” snippet, then animate into the “after” repositioned version.
+
+Show LinkedIn headline before/after frames as repositioning is explained.
+
+End with the four-step framework graphic and a closing shot of the avatar delivering the final reflection question.
+
+
+---

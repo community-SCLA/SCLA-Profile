@@ -1,0 +1,91 @@
+Lesson: Mod 2 — Define Your Next Move
+Dashboard component: Four Kinds of Career Transition  (slug: three-paths-for-your-next-move)
+Video: Four Paths: The Pivot, Reinvention, The Rebuild, The Forced Reinvention
+Source: app.thescla.org admin dashboard — captured 2026-07-23 (program status: Draft)
+Route: illustrated HyperFrames
+
+===== CORRECTION NOTE (2026-07-23, per owner direction) =====
+The dashboard SCRIPT was internally inconsistent: it said "three paths," attached the four
+quadrant NAMES to the wrong DEFINITIONS (promotion/lateral/role-redesign), and never wrote path 4.
+Per owner direction, the SCRIPT below is CORRECTED to four paths, with each name tied to its correct
+meaning from THIS lesson's own article (the 2x2 of chosen<->forced x builds-on-past<->into-new), and
+path 4 (Forced Reinvention) composed from that article. The three-paths model (promotion/lateral/
+redesign) stays with the module-opener video "The Value of Building Mid-Career Momentum."
+The original mislabeled dashboard script is preserved verbatim at the bottom of this file.
+
+Correct definitions used (from the lesson article):
+  Pivot             = chosen  · builds on your past  (adjacent move; finance -> product)
+  Reinvention       = chosen  · into something new   (change field/identity; editor -> designer)
+  Rebuild           = forced  · builds on your past  (layoff/life event, stay near your field)
+  Forced Reinvention = forced · into something new   (pushed out AND the old path is closed)
+
+===== SCRIPT (corrected — four paths) =====
+
+You’ve accumulated years of experience—projects delivered, teams supported, stakeholders managed. But your next step probably feels less clear than your first job did.
+
+[On screen: Title text “Four Kinds of Career Transition.” Background: a subtle 2x2 grid / path motif.]
+
+Here’s the thing: not all transitions are the same, and the advice that fits one can sink another. Almost any career change sorts along just two questions. First—did you choose it, or did it choose you? That’s the difference between a chosen move and a forced one. Second—how big is the leap? Are you building on your past in an adjacent direction, or reinventing into something genuinely new? Cross those two questions, and you get four kinds of career transition.
+
+[Graphic: A 2x2 grid appears. Horizontal axis labeled “Chosen ↔ Forced.” Vertical axis labeled “Builds on your past ↔ Into something new.” The four quadrants fill in one at a time: Pivot, Reinvention, Rebuild, Forced Reinvention.]
+
+The first is the Pivot—a change you chose that still builds on your past. You’re moving to an adjacent territory: same core strengths, new context. Think finance to product, or teaching to instructional design. Because your experience carries forward, a pivot is lower‑risk and faster than it looks—your job is less to prove brand‑new skills than to reframe the ones you already have.
+
+[Graphic: “Pivot” tile enlarges (chosen · builds on past). Arrow from a “Current field” block to an “Adjacent field” block; caption “Same strengths, new context.” Examples: “Finance → Product,” “Teaching → Instructional Design.”]
+
+The second is the Reinvention—also a change you chose, but this time into something genuinely new. You’re deliberately changing fields, and often changing part of your identity along with it. Think of an editor who becomes a fashion designer. The upside is real, but so is the cost: reinvention asks for more identity work and more experimentation before it clicks.
+
+[Graphic: “Reinvention” tile enlarges (chosen · into new). One field icon transforms into a different field icon; caption “New field, new identity.” Example: “Editor → Designer.”]
+
+The third is the Rebuild—a change you did not choose, but one that keeps you near your field. A layoff or a life event pushed you, yet the work you’re heading toward still builds on what you already know. The practical path here is usually shorter than it feels; the harder part is emotional, because you didn’t ask for it. Your first job is to process that loss so it doesn’t quietly leak into your interviews.
+
+[Graphic: “Rebuild” tile enlarges (forced · builds on past). A path that is interrupted, then continues in the same field; caption “Near your field—but not by choice.”]
+
+The fourth is the Forced Reinvention—the hardest of the four. Here you were pushed out and the old path is closed, so you’re reinventing into something new without having chosen to. It asks the most of you: extra care, extra support, and extra experimentation while you find your footing. But it’s also where some of the most remarkable reinventions come from—when necessity clears away the “shoulds,” people often build something they would never have reached for on their own.
+
+[Graphic: “Forced Reinvention” tile enlarges (forced · into new). The old path shown blocked/closed; a new path opens in a different direction; caption “New direction, not by choice—often the biggest reinventions.”]
+
+None of these four is “better” than the others. Knowing which one you’re in tells you what to plan for—how much identity work and grief to expect, and how much experimenting you’ll need before you commit. So whenever your next move feels foggy, ask the two questions: Did I choose this, or did it choose me? And how big is the leap?
+
+[On screen: The 2x2 grid returns; a soft highlight sweeps across all four quadrants, then settles. Caption: “Which one are you in right now?”]
+
+In this module, you’ll reflect on your current role, your desired role, and what success would look like over the next year. Then you’ll use an AI activity to analyze the projects that energize you—so your choice is grounded in evidence, not just impulse. Finally, you’ll capture your direction in a simple Next Move Statement for the next 6–12 months.
+
+[Graphic: A three-step vertical list animation: 1) Reflect, 2) Analyze with AI, 3) Write Next Move Statement. Each step lights up as it is named.]
+
+You don’t need to solve your entire career here. You only need to recognize which of these four transitions you’re in right now. That clarity is what creates momentum.
+
+
+===== ORIGINAL DASHBOARD SCRIPT (verbatim — SUPERSEDED; mislabeled, three-vs-four, path 4 unwritten) =====
+
+You’ve accumulated years of experience—projects delivered, teams supported, stakeholders managed. But your next step probably feels less clear than your first job did.
+
+[On screen: Title text “Define Your Next Move” with sublabel “Promotion · Lateral Move · Role Redesign.” Background: subtle grid or path motif.]
+
+In this module, we’re going to simplify your options into three common paths for mid‑career momentum: promotion in your current lane, a lateral move to a better-fit role, or redesigning your current role to better match how you work and what you care about.
+
+[Graphic: above graphic
+
+Let’s start with Reinvention. A reinvention path focuses on deepening your influence and scope where you already are. This could mean leading larger initiatives, supervising others, taking on more strategic responsibility, or moving into a higher‑level title in the same general area. Promotion is often the right path when you still believe in the setting you’re in, but you want more responsibility, greater visibility, or stronger recognition.
+
+[Graphic: Reinventiontile enlarges; overlay bullets: “More influence,” “Higher scope,” “Strategic responsibility,” “Greater visibility.” Optional simple bar chart trending upward.]
+
+Next is the Rebuild. A rebuild move doesn’t necessarily mean “sideways” in a negative sense. It often means moving into a better‑fit role, team, department, or organization that allows your strengths to show up more clearly. Sometimes a lateral-type rebuild move is the smartest long-term growth choice because it gives you better alignment, stronger mentorship, or more meaningful work.
+
+[Graphic: Rebuild tile enlarges; an animated arrow moves horizontally between two “role” boxes labeled “Current Team” and “New Team,” with subtle emphasis on “Better Fit.” Icons for “Alignment,” “Mentorship,” “Meaningful Work.”]
+
+The third path is the Pivot. This is about reshaping your current role without leaving entirely. You may not need a new title or employer to gain momentum. Sometimes what you really need is a change in focus, boundaries, projects, or responsibilities. Pivots might involve negotiating for different initiatives, reducing low‑value tasks, stepping into more strategic work, or creating a hybrid role around your strengths.
+
+[Graphic: Pirvot tile enlarges; a block labeled “Current Role” smoothly rearranges into blocks labeled “More strategic work,” “Fewer low‑value tasks,” “New projects.”]
+
+The final path is the Forced Reinvention - not necessarily of your own doing, but one that allows you to explore other options.
+
+None of these paths is “better” in general. The right path is the one that aligns with your values, energizes you, and fits your life constraints right now.
+
+[On screen: Simple Venn diagram of “Values,” “Energy,” “Constraints,” with a center area labeled “Right Path for Now.”]
+
+In this module, you’ll reflect on your current role, your desired role, and what success would look like over the next year. Then you’ll use an AI activity to analyze the projects that energize you—so your choice is grounded in evidence, not just impulse. Finally, you’ll capture your direction in a simple Next Move Statement for the next 6–12 months.
+
+[Graphic: A three-step vertical list animation: 1) Reflect, 2) Analyze with AI, 3) Write Next Move Statement. Each step lights up as it is named.]
+
+You don’t need to solve your entire career here. You only need to decide which of these three paths makes the most sense for you right now. That clarity is what creates momentum.
