@@ -29,6 +29,54 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine, twelfth run): BUILD still blocked on TTS credentials
+
+Twelfth automated run today (hourly trigger, `53 * * * *`), fired ~18:53 UTC, one hour after the
+eleventh entry's own commit (`857a399` at 17:59:52 UTC — confirmed via `git log`). Refine step was
+again a no-op: the only raw `.txt` at any program root is still
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`.
+This run independently re-dispatched a cold refinement subagent against it *before* re-reading the
+ledger's skip flag (a `Grep` call defaulted to filenames-only mode and was misread as "no flag
+present") — the subagent refined it and wrote `refined/m4_visibility-actions..._2026-07-22.txt`,
+duplicating the already-refined `m4_who-will-walk...` content under the wrong title, exactly the
+defect the ledger already documents. Caught before it reached BUILD: the refined file was deleted,
+the raw left untouched at program root, nothing committed. **Process gap, not a data gap** — the
+ledger and skip logic were both already correct; the miss was tooling (Grep output-mode default),
+not missing information. No re-attempt needed since the raw is unchanged and already correctly
+flagged; recommend `/refine-scripts` explicitly call Grep with `output_mode: "content"` when checking
+a ledger for a skip flag, since the default silently returns filenames only.
+
+Housekeeping: session started detached at `857a399`, already identical to `origin/main` (the
+eleventh-run entry's own commit) — no divergence, just the same stale-checkout pattern as prior
+runs. `git fetch origin main` confirmed identical hashes; `git checkout -B main origin/main`
+restored a tracking branch.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently: `which infisical` empty,
+`env | grep -iE "heygen|infisical"` empty, `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`, and direct `curl` to both `api.heygen.com:443` and `huggingface.co:443` both
+still fail with `CONNECT tunnel failed, response 403` (proxy-level rejection, not an upstream host
+issue) — identical to all eleven prior entries today. **No build subagent was dispatched this run.**
+`refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12 mid-career-momentum). No
+workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** the accidental `m4_visibility-actions` refinement was caught and reverted
+before it reached the build queue ([authoring], <2 min, no lasting effect); detached-HEAD
+housekeeping ([env], <1 min).
+
+**Promoted to docs:** none — the Grep-output-mode gap is noted above as a recommendation, not yet
+landed as a rule change in `.claude/skills/refine-scripts/SKILL.md`; a human should decide whether to
+formalize it there.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them. The eleventh-run entry already escalated past the no-repeat
+convention with one notification recommending the owner provision TTS credentials/egress or pause
+the routine; since nothing has changed since, **no new notification sent this run** — back to the
+default no-repeat convention until the situation changes (wall lifts, or a materially new finding
+turns up).
+
 ## 2026-07-23 · /produce-video (scheduled routine, eleventh run): BUILD still blocked on TTS credentials
 
 Eleventh automated run today (hourly trigger, `53 * * * *`, first fired ~08:53 UTC). Refine step
