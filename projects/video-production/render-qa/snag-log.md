@@ -29,6 +29,171 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine): BUILD blocked, then branch divergence found
+
+Automated routine run. Refine step was a no-op: the only raw `.txt` at any program root
+(`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`)
+is the already-known duplicate-body item from 2026-07-22 (see Open list below) — correctly
+left raw, not refined blind.
+
+Moved to Phase BUILD against the 13-script `refined/` backlog. Cross-checked every queued stem
+against this file's Open list before picking a batch: `early-career-boost/using-the-career-map-tool`
+(never actually refined — raw capture markers still present), `m1_four-kinds-of-career-transition`
+and `m2_using-the-resume-builder-tool-with-the-four-part-lens-pt2` (taxonomy contradiction),
+`m2_discover-experiences-that-support-your-next-move-pt1` and `m2_rewrite-your-linkedin-for-future-you-pt2`
+(inline `TODO: needs input`), `m1_the-value-of-building-mid-career-momentum` and
+`m5_skills-for-the-ai-era` (half-length, undecided), and `m6_youve-built-momentum` (qa-facts
+FAIL→partly fixed, two fabricated-content defects still open on purpose) were all excluded from
+this run's batch as still-blocked. Picked 3 clean stems: `m1_mid-career-mindsets-and-limiting-beliefs`,
+`m2_from-history-to-signal`, `m3_finding-new-peers-sponsors-and-opportunity-holders` (style
+rotation: `rendered/` count for mid-career-momentum = 0 → summit/horizon/cadence).
+
+Dispatched the first build subagent (`m1_mid-career-mindsets-and-limiting-beliefs`, theme
+summit). It assembled a clean 9-scene workspace, verbatim-verified `data-narration` against the
+refined script, and got `npx hyperframes check` to 0 lint/runtime/layout/motion errors and
+38/38 WCAG AA contrast checks. It could not get past scene-timing synthesis: HeyGen (the pinned
+default TTS provider) needs `HEYGEN_API_KEY` via `scripts/with-secrets.sh`, which requires
+`INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` as environment secrets — **neither is set in this
+session's environment** (confirmed: `env | grep -i infisical` empty). Fell back to the documented
+kokoro path — TTS synthesis itself succeeded (`narration.wav`, verified against the script) — but
+the required `npx hyperframes transcribe` step needs a Whisper model download, and this session's
+egress policy blocks every host tried: `huggingface.co` (hyperframes' own default),
+`openaipublic.azureedge.net`, `ggml.ggerganov.com`, `sourceforge.net`, `github.com`/`api.github.com`.
+Both paths to word-level timing are closed in this environment. Stopped there — did not dispatch
+builds 2 or 3, since the identical environment wall would block them too. No render was attempted;
+nothing moved `refined/ → rendered/`; the partial workspace (gitignored, local to that container)
+was left at `renders-hyperframes/m1_mid-career-mindsets-and-limiting-beliefs_2026-07-22/`.
+
+**While closing out, found this container's checkout had silently diverged from `origin/main`.**
+This session's `HEAD` was 13 commits ahead of `origin/main` on a line containing all of the
+mid-career-momentum work referenced above (raw capture, the 12-of-13 refine drain, the HeyGen TTS
+refactor, renumbering, prior snag-log entries) — but **none of those 13 commits were ever pushed**.
+Meanwhile `origin/main` had independently moved forward on a *different* line (early-career-boost:
+`what-energizes-me` refined and shipped) from the same base commit. `mid-career-momentum/` does not
+exist at all on current `origin/main`. Rather than force either line to win, the 13-commit line was
+preserved verbatim as branch `mid-career-momentum-wip` (pushed to origin) and this entry was written
+there, not on `main` — writing it to `main`'s copy of this file would have silently dropped 273 lines
+of prior history with no record. **No further refine/build work was attempted against `main`'s
+current state** pending a human decision on how to reconcile the two lines; see Open.
+
+**Fixed this session (on the `m1_mid-career-mindsets-and-limiting-beliefs` build workspace):**
+- [authoring] **Duplicate `data-composition-id` across scene instances** — three `scla-statement`
+  and three `scla-condition` instances shared one ID each (must be unique per instance); `npx
+  hyperframes lint` caught it. Renamed to `scla-statement-cost/-practice/-task` and
+  `scla-condition-leverage/-experiment/-redesign`.
+- [env] **Missing `ffmpeg`/`ffprobe` and `kokoro-onnx`/`soundfile`** in this container — installed
+  via apt/pip.
+- [env] **GSAP CDN (`cdn.jsdelivr.net`) blocked by this session's egress policy** — self-hosted
+  `gsap@3.14.2` from the npm registry (an allowed host) into the workspace's
+  `assets/vendor/gsap.min.js`, scoped to that one workspace, documented inline.
+
+**Promoted to docs:** none yet — the exact-pinned `npx --yes hyperframes@0.7.45` invocation in
+`design-system/package.json`'s scripts silently exits 1 with zero output in this container, while
+unpinned `npx hyperframes` resolves 0.7.68 and works (satisfies the documented "0.7.45+" floor).
+Reproduced once, not yet root-caused or confirmed environment-specific — left as a Fixed-session
+workaround rather than a doc change until someone confirms it isn't specific to this remote session.
+
+**Open:**
+- [owner] **`origin/main` and this session's 13-commit mid-career-momentum line have diverged**
+  ([env], found 2026-07-23) — see above. The 13 commits are safe on branch `mid-career-momentum-wip`
+  (pushed to origin). Decide: merge it into `main` (bringing the whole mid-career-momentum program
+  — raw captures, refine drain, tooling refactor — back into the mainline), rebase it onto current
+  `main` first, or treat it as superseded/abandoned. Until this is resolved, no `/produce-video` or
+  `/render-lessons` run should touch `mid-career-momentum` against `main`, since `main` has no
+  `lesson-scripts/mid-career-momentum/` folder at all right now (since 2026-07-23).
+- [owner] **This session's environment has no TTS credential path** ([env], found 2026-07-23) —
+  neither `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` (for the pinned HeyGen provider) nor
+  egress to a Whisper-model host (for the kokoro fallback's transcribe step) is available in this
+  remote/scheduled-routine session. Every queued illustrated-lesson build is blocked on this,
+  independent of script content. Provision the Infisical Codespaces secrets to this environment,
+  or open egress to at least one Whisper-model host, before the next scheduled BUILD run
+  (since 2026-07-23).
+- [owner] **`m4_visibility-actions` is a duplicate body** ([authoring], found 2026-07-22) — the raw
+  carries its own `NOTE FOR REVIEW`, and a diff confirms its body is the same script as
+  `m4_who-will-walk...` modulo header and list formatting. It never defines or demonstrates a
+  visibility action. Skipped, still raw at program root. Decide: retire the stem as a duplicate, or
+  capture the real visibility-actions lesson — Module 4 currently has no lesson teaching its own
+  title concept (since 2026-07-22).
+- [owner] **Career-transition taxonomy is self-contradictory across Module 1 and Module 2**
+  ([authoring], found 2026-07-22) — raw m1 says "three common paths" (L8, L34) but its title and
+  enumeration give four, and its labels don't match their own definitions ("Reinvention" = promotion
+  in place, "Rebuild" = lateral move, "Pivot" = role redesign). m2's resume-builder lesson then
+  teaches three paths under the *other* names (promotion / lateral / role redesign). Both
+  refinements are correct against their own raws, so no agent can reconcile them without fabricating
+  course content. A learner hits the collision directly. Rule on the canonical taxonomy
+  (since 2026-07-22).
+- [owner] **Module 5 recap asserts four things the program never taught** ([authoring], found
+  2026-07-22) — all four are in the raw, so they are inherited, not refinement defects: (1) "In
+  Module 4, you gauged your confidence with AI" — no confidence-gauge activity exists anywhere, and
+  the line displaces M4's actual relationships/visibility content; (2) "Outcome. Visibility.
+  Relationships. Results." presented as a reusable framework — taught nowhere, and it collides with
+  the real four-part lens (Responsibility → Action → Measurable outcome → Scope) the learner actually
+  practiced; (3) "The Career Accelerator has more tracks, more tools, and a member community" — the
+  KB program of record is *Career Readiness Accelerator*, a single 5-week Launchpad, and the
+  community is a separate entity (theCOMMUNITY.com); (4) "you sent at least one real message" —
+  Module 3 only asks learners to *craft* messages ("drafted" would fix it). Closing lesson, so these
+  are the last thing a learner hears (since 2026-07-22). **Update 2026-07-22:** (1) and (4) were
+  fixed in `m6_youve-built-momentum`'s refined text; (2) and (3) remain, left on purpose as
+  owner-actionable content calls — see the ledger row for detail.
+- [owner] **Three refined scripts carry inline `TODO: needs input` lines** ([authoring], found
+  2026-07-22) — `m1_four-kinds`, `m2_discover-experiences`, `m2_rewrite-your-linkedin`. This is the
+  skill's prescribed marker for content the source doesn't supply, but the files feed TTS verbatim,
+  so **a build would speak them aloud**. Answer the three questions (Forced Reinvention's missing
+  definition; the four formula parts the source names but never defines; whether the LinkedIn lesson
+  follows the resume lesson in the published sequence) before any `/render-lessons` run on those
+  stems (since 2026-07-22).
+- [owner] **`mid-career-momentum` has no filed curriculum source** ([authoring], found 2026-07-22) —
+  `programs/` has no folder for it, so each raw capture is its own self-attesting source of record
+  and every `qa-facts` pass flagged the same gap: the program has no independent fact floor. File the
+  curriculum outline, or accept that facts passes here can only check internal consistency
+  (since 2026-07-22).
+- [owner] **Resume Builder Tool's "AI rewrite feature" is undocumented** ([authoring], found
+  2026-07-22) — `m2_using-the-resume-builder-tool...` narrates a UI walkthrough ("you'll see the main
+  upload or text area", "run the bullet through the AI rewrite feature") of a capability no filed SCLA
+  product doc describes; `programs/programs-overview.md` L260-264 says the tool "needs content and
+  tech upgrades. A PRD is required." Confirm the feature and screen exist in the live product before
+  this renders (since 2026-07-22).
+- [owner] **Sample figures will read as SCLA data if rendered as stat cards** ([defect], found
+  2026-07-22) — three m2 scripts speak illustrative resume metrics (30% / 20% onboarding, and 18% /
+  25% / cohorts of 30–40 / quarterly). All are sourced and all are now explicitly framed as example
+  copy *in narration* — but the framing lives only in the spoken line. Watch for these at the
+  hyperframe gate; a standalone stat card strips the qualifier (since 2026-07-22).
+- [owner] **Two mid-career lessons are half-length** ([authoring], found 2026-07-22) —
+  `m1_the-value-of-building-mid-career-momentum` (184 words, ~75s; the title promises the *value* of
+  momentum but the body only maps three paths) and `m4_bonus-skills-for-the-ai-era` (275 words). The
+  latter is marked "adapted from Early Career Boost" and its ancestor carries three beats this
+  adaptation drops. Nothing was invented to pad either. Decide: capture the missing sections, import
+  and re-frame the ancestor's beats, or ship short (since 2026-07-22).
+- [owner] **`early-career-boost/refined/using-the-career-map-tool_...` was never actually refined**
+  ([authoring], found 2026-07-22) — it still carries a full `LESSON CAPTURE` header plus `[▶ VIDEO]`,
+  `[ATTACHMENT — PDF]` and `[IMAGE]` markers, i.e. a raw capture filed straight into `refined/`. The
+  ledger records it as refined 2026-07-12. It sits in the `/render-lessons` queue in that state.
+  Decide: re-run it through `/refine-scripts`, or confirm it is intentionally parked
+  (since 2026-07-22).
+- [owner] **`/refine-scripts` SKILL.md wording invites the padding failure above** ([defect], found
+  2026-07-22) — see "Promoted to docs". Two edits would close it: state that the ~580-word target is
+  never a reason to add content, and scope voice work to how source lines are said rather than which
+  beats exist. Deferred to the owner because the skill is shared with `/produce-video`
+  (since 2026-07-22).
+- [owner] **Superseded audio-wrong mini-syllabus `2ilh1o6c4g` still live** in the Wistia ECB folder
+  ([tooling], found 2026-07-22) — replaced by `nj4n0073vn`. Token can't delete; archive it on Wistia
+  as you did the earlier old-header copies (since 2026-07-22).
+- [owner] **mini-syllabus legacy comps have low animacy** ([defect], found 2026-07-22) — presence gate
+  hard-fails on false positives (frames verified correct). Decide: commission a proper re-animation of
+  the bespoke `scla-points-*` / `scla-steps` / `scla-outro` comps (bring them to the 2026-07-15 motion
+  standard), or accept these minimal layouts as-is and tune the presence detector's light-frame /
+  low-amplitude thresholds so it stops false-flagging them (since 2026-07-22).
+- [owner] **`scla-chips` `subBeats` renders inert** ([defect], found 2026-07-15) — `.cc-subbeat` never
+  appears in rendered output; `subBeats` silently unusable until repro'd in live devtools. Decide whether
+  to prioritize or leave marked unusable (since 2026-07-15).
+- [owner] **Who/what rendered `better-decisions`?** Provenance-blocked, never at the gate. Provide the
+  lesson body/outline to clear its facts blocker, or park the workspace (since 2026-07-15).
+- [owner] **Wistia publish/credential audit trail** — no entry records who cleared the earlier "reads
+  403" state or ran the earlier unlogged publishes; `WISTIA_API` token still lacks delete scope, so
+  superseded medias can only be archived (owner) not deleted (since 2026-07-15).
+- [owner] **HeyGen API key still 403s** — blocks the pinned-voice upgrade path and `avatar-pipeline/`
+  (since 2026-07-07).
+
 ## 2026-07-22 · /refine-scripts drained mid-career-momentum: 12 refined, 1 skipped
 
 First batch for a second program. 13 raw captures at `lesson-scripts/mid-career-momentum/` root
