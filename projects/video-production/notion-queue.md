@@ -111,18 +111,26 @@ needs tracking:
 | Final video | **Wistia** (upload) + Wistia URL in the row's **Final video** field | not in git |
 | Retired workspace (after Delivered) | `renders-hyperframes/_archive/<stem>/` | gitignored |
 
-## Automation — how the queue runs without micromanagement
+## Automation — retired, kept for history
 
-**Claude side (polling):** the **"SCLA video queue worker"** scheduled routine
-(claude.ai cloud; ID + URL in `endpoints.md` → "Claude Code routines") runs
-weekdays at 9:13 and 15:13 UTC against this repo with the Notion connector
-attached, and works the queue per this file. Each run drains every transition
-Claude owns and exits; rows at a human gate are untouched, and drafted scripts
-arrive as PRs to `main`. Cadence is a dial — raise it when volume grows; runs
-are idempotent (a run that finds nothing actionable does nothing). If a cloud
-run can't complete a production step (local-toolchain renders), it sets the row
-Blocked with the reason for a local session to pick up — cloud drafts, local
-renders.
+**2026-07-22: repointed.** The scheduled routine that used to poll this queue
+(claude.ai cloud, ID + URL in `endpoints.md` → "Claude Code routines") is now
+named **"SCLA lesson pipeline worker"**, runs hourly, and no longer touches
+Notion at all — it runs `/produce-video` against the `.txt`-file intake
+described at the top of this doc (raw script → `refined/` → hyperframe
+workspace → HYPERFRAME GATE). It never ships or publishes; those stay
+human-triggered. See `endpoints.md` for the current routine config and
+`decisions/log.md` (2026-07-22) for why. The paragraph below describes the
+retired Notion-polling behavior for history only.
+
+**Old behavior (Notion polling, retired):** the routine ran weekdays at 9:13
+and 15:13 UTC with the Notion connector attached, and worked the queue per
+this file. Each run drained every transition Claude owns and exited; rows at a
+human gate were untouched, and drafted scripts arrived as PRs to `main`. Runs
+were idempotent (a run that finds nothing actionable does nothing). If a cloud
+run couldn't complete a production step (local-toolchain renders), it set the
+row Blocked with the reason for a local session to pick up — cloud drafts,
+local renders.
 
 **Notion side (one-time manual setup, in the database's ⚡ Automations — the API
 can't create these):**

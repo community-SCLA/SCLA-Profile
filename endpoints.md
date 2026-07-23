@@ -124,7 +124,7 @@ project/env with `INFISICAL_PROJECT_ID` / `INFISICAL_ENV`. CLI is provisioned by
 
 | Name | Type | ID / URL | Used By |
 |---|---|---|---|
-| SCLA video queue worker | Scheduled routine | `trig_01MLz82FGHA6T6NJ3SgWVqv6` · https://claude.ai/code/routines/trig_01MLz82FGHA6T6NJ3SgWVqv6 | polls the video queue weekdays 9:13 + 15:13 UTC (`projects/video-production/notion-queue.md` → "Automation") |
+| SCLA lesson pipeline worker | Scheduled routine | `trig_01MLz82FGHA6T6NJ3SgWVqv6` · https://claude.ai/code/routines/trig_01MLz82FGHA6T6NJ3SgWVqv6 | hourly (repointed 2026-07-22, was weekdays 9:13+15:13 UTC polling the now-retired Notion queue): runs `/produce-video` — drains raw scripts into `refined/`, then `refined/` into hyperframe workspaces, stops at the HYPERFRAME GATE. Never ships/publishes. |
 
 ---
 
