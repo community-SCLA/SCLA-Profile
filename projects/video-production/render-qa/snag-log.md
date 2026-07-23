@@ -29,6 +29,40 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine, fourteenth run): BUILD still blocked on TTS credentials
+
+Fourteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-read (full file, not just grep) and re-confirmed as the same duplicate-body defect
+against `m4_who-will-walk-this-next-life-chapter-experience-with-you` (title promises "visibility
+actions," body never covers one) — ledger row 60 already documents this exhaustively (byte-identical
+normalized bodies, md5 confirmed). Left raw, not refined blind.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently before dispatching any
+build subagent: `which infisical` empty, `env | grep -iE "heygen|infisical"` empty,
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`, and direct `curl` to both
+`api.heygen.com:443` and `huggingface.co:443` both still fail with `CONNECT tunnel failed, response
+403` (confirmed via both a direct curl and the agent-proxy `/__agentproxy/status` endpoint —
+`recentRelayFailures` empty, consistent with the proxy rejecting the CONNECT before any relay attempt
+is logged). Identical to all thirteen prior entries today — **no build subagent was dispatched this
+run**. `refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12
+mid-career-momentum). No workspaces exist under `renders-hyperframes/` (only `README.md`). `git
+status --short` clean — nothing this run touched tracked files.
+
+**Fixed this session:** none — no new snag to fix, prior housekeeping (detached HEAD) was not present
+this run.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them. Per the no-repeat-notification convention established at the
+eleventh-run entry (one escalation already sent; hold silence until the wall lifts or something
+material changes), **no new notification sent this run** — this is the fourteenth identical report of
+the same environment wall today.
+
 ## 2026-07-23 · /produce-video (scheduled routine, thirteenth run): BUILD still blocked on TTS credentials
 
 Thirteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
