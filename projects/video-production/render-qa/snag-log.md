@@ -29,6 +29,41 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine, seventh run): BUILD still blocked on TTS credentials
+
+Seventh automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly, grepped for `SCRIPT PENDING`/`NOTE FOR REVIEW` —
+neither present) to be the same duplicate-body defect: beat-for-beat match to `m4_who-will-walk...`,
+title promises "visibility actions," body never covers one. Left raw, not refined blind.
+
+Housekeeping: session started in detached HEAD at `221987a` while `origin/main` had fast-forwarded
+to `fad8b78` (the sixth-run entry's own commit) — no divergence, just a stale checkout. `git fetch
+origin main` confirmed local and `origin/main` point at the identical commit; `git checkout -B main
+origin/main` restored a tracking branch before touching anything else.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `env | grep -i infisical` / `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403` (verbose curl confirms the proxy itself returns the 403 on the CONNECT, not the
+upstream host). Identical to all six prior entries today — this session's egress policy still
+blocks both TTS paths, independent of script content. **No build subagent was dispatched this run.**
+`refined/` is unchanged (13 scripts still queued: 1 early-career-boost, 12 mid-career-momentum).
+No workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+This is the seventh identical report of the TTS blocker today; no new notification sent for it.
+
 ## 2026-07-23 · /produce-video (scheduled routine, sixth run): BUILD still blocked on TTS credentials
 
 Sixth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
