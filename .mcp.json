@@ -5,7 +5,9 @@
       "command": "npx",
       "args": [
         "@playwright/mcp@latest",
-        "--browser=chromium"
+        "--browser=chromium",
+        "--isolated",
+        "--storage-state=/workspaces/SCLA-Profile/.auth/auth.json"
       ],
       "env": {}
     }

@@ -2,6 +2,10 @@
 .playwright-mcp/
 _scratch/
 
+# Playwright saved auth (live session tokens — credential, never commit)
+.auth/
+auth.json
+
 # Drive-sync build artifacts (generated .docx; see scripts/build-docx.sh)
 build/
 
