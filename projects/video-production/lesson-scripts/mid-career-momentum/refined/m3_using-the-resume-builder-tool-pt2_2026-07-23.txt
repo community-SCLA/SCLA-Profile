@@ -1,0 +1,23 @@
+Welcome back. Last video, we talked about the future-you resume—one built around the role you want next, not just everything you've done so far.
+
+Now I'll show you how to actually do that, using two things together: our Resume Builder Tool and a simple four-part lens for rewriting your bullets. By the end, you'll see how to turn a vague task like "managed orientation sessions" into a clear impact statement that supports your Next Move Statement.
+
+Start with the lens. Any strong mid-career bullet can usually answer four questions. Responsibility—what were you expected to do? Action—what did you actually do? Measurable outcome—what changed as a result? And scope—how big was the impact, and who was involved?
+
+Applying this lens moves you from "I did tasks" to "I created results," and from "I had a job" to "I handled responsibility and scope." That's what helps managers, sponsors, and hiring committees see you as ready for your next role. You don't need perfect numbers for every bullet—even approximate outcomes, like "reduced time" or "improved satisfaction," make your impact clearer.
+
+Now let's use that lens inside our Resume Builder Tool, supported by AI. Start by uploading your current resume or pasting the bullets you want to focus on. For this example, take a common one: "Managed orientation sessions for new hires." It tells us what you did, but not what difference it made, how often, or how many people it involved.
+
+Next, run it through the AI rewrite feature. Behind the scenes, we're asking the AI to look for responsibility, action, measurable outcome, and scope. Here's what it might return: "Led quarterly orientation sessions for cohorts of 30 to 40 new hires, implementing a new feedback loop that increased post-orientation satisfaction scores by 18 percent and reduced onboarding confusion reports by 25 percent." Same basic responsibility—but now it reads as leadership, process improvement, and clear impact.
+
+That rewrite is a starting point, not the final version. First, check accuracy. Do the frequency, numbers, and outcomes reflect reality? If you didn't run sessions quarterly, change it. If you don't have exact percentages, soften the language to "improved satisfaction scores based on post-orientation feedback." The goal is honest, credible impact—not exaggeration.
+
+Second, align the tone with your field. In higher education or non-profits, you might prefer "enhanced new-hire onboarding experience" over "crushed onboarding KPIs." Make it sound like you. Third, keep the four-part structure intact: responsibility, action, outcome, scope. If someone read only that one bullet, would they understand what you did, how well, and at what level? If yes, you're in good shape.
+
+The last piece is choosing which bullets to bring forward, based on your Next Move Statement. Think about your three possible paths. For a promotion in your current lane, prioritize bullets that show leadership, scope, and strategic decisions—the ones that say "I'm already operating at the next level." For a lateral move, highlight transferable skills and cross-functional projects—"I can bring my skills into new contexts." For a redesign of your current role, focus on process improvements and innovation—"I've already started redesigning my role; now I'm formalizing it."
+
+Don't try to perfect everything at once. Select the three to five strongest bullets that align with your chosen path, reflect your true impact, and help others see the future you from your Next Move Statement. Those become your headline stories.
+
+The same principles apply to your LinkedIn profile, with one addition: LinkedIn is searchable and public, so it's also a visibility tool. The words in your headline and About section decide whether the right people—including the opportunity holders you'll meet in Module 4—find you at all.
+
+Your headline is the most-read line you own. Most headlines just state a current title; yours should point at future you. Paste your current headline, plus a sentence describing your next move if you have one, and ask the AI to rewrite it so it credibly signals where you're heading—without overclaiming. Then choose the version that feels both ambitious and true. That final judgment call is yours.
