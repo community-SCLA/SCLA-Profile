@@ -29,6 +29,48 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine, eleventh run): BUILD still blocked on TTS credentials
+
+Eleventh automated run today (hourly trigger, `53 * * * *`, first fired ~08:53 UTC). Refine step
+was again a no-op: the only raw `.txt` at any program root is still
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-read and confirmed to be the same duplicate-body defect (beat-for-beat match to
+`m4_who-will-walk...`). Left raw, not refined blind.
+
+Housekeeping: session started detached at `5d2f050`. `git fetch origin main` showed `origin/main`
+had already fast-forwarded to that exact commit (the tenth-run entry's own commit) — no real
+divergence, just the same detached-HEAD-on-fresh-container pattern as runs four/eight/nine/ten.
+`git checkout -B main origin/main` restored a tracking branch; no content changes involved.
+
+Independently re-verified the TTS blocker rather than trust the prior entry: `which infisical`
+empty, `env | grep -iE "heygen|infisical"` empty, `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`. Direct proxy probe (`curl $HTTPS_PROXY/__agentproxy/status`) confirms the
+gateway is actively rejecting both TTS-relevant hosts by policy: `connect_rejected` / "gateway
+answered 403 to CONNECT" for both `api.heygen.com:443` and `huggingface.co:443`, timestamped this
+run — this is a deliberate network-policy denial on this environment, not a transient host issue.
+**No build subagent was dispatched this run** — identical wall, no new information to gain from
+re-discovering it. `refined/` is unchanged (13 scripts still queued: 1 early-career-boost — which
+per the first-run entry's Open list is itself a mis-filed raw capture, never actually refined —
+and 12 mid-career-momentum, 3 of which carry inline `TODO: needs input`, plus others separately
+flagged owner-actionable). No workspaces exist under `renders-hyperframes/` (gitignored, empty in
+this fresh container — confirmed via listing, only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+**Escalating past the routine's own no-repeat-notification convention this run:** this is the
+eleventh identical hourly hit of the same environment wall today (routine fires hourly, `53 * * * *`,
+since 2026-07-08) with zero chance of self-resolving — sending one notification to flag the
+run-rate/wall combination itself (not just the wall), and recommending the owner either provision
+Infisical credentials / open TTS egress for this environment, or pause the routine until one lands.
+
 ## 2026-07-23 · /produce-video (scheduled routine, tenth run): BUILD still blocked on TTS credentials
 
 Tenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
