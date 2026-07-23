@@ -29,6 +29,46 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine, third run): BUILD still blocked on TTS credentials
+
+Third automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+same duplicate-body defect as the prior two entries (beat-for-beat match to `m4_who-will-walk...`).
+Left raw, not refined blind.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential blocker before dispatching
+anything: `env | grep -i infisical` and `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned default provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403`. Identical to the prior two entries — this session's egress policy still blocks both
+TTS paths. Since this blocks every possible build regardless of script content, **no build subagent
+was dispatched this run**. `refined/` is unchanged (13 scripts still queued: 1 early-career-boost,
+12 mid-career-momentum). No workspaces exist yet under `renders-hyperframes/` (confirmed via
+listing — only `README.md`).
+
+**Fixed this session:** none — no build subagent was dispatched, so there was nothing to fix.
+
+**Promoted to docs:** none.
+
+**Open:**
+- [owner] **This session's environment has no TTS credential path** ([env], since 2026-07-23,
+  **re-confirmed 2026-07-23, third time today**) — neither `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`
+  (pinned HeyGen provider) nor egress to a Whisper-model host (kokoro fallback's transcribe step) is
+  available in this remote/scheduled-routine session; `api.heygen.com` and `huggingface.co` both
+  reject the CONNECT tunnel with 403. Every queued illustrated-lesson build is blocked on this,
+  independent of script content. Provision the Infisical Codespaces secrets to this environment, or
+  open egress to at least one Whisper-model host, before the next scheduled BUILD run can produce
+  any workspace.
+- [owner] **`m4_visibility-actions` is a duplicate body** ([authoring], since 2026-07-22) — raw
+  body is the same script as `m4_who-will-walk...` modulo formatting; never defines or demonstrates
+  a visibility action. Skipped, still raw at program root. Decide: retire the stem as a duplicate,
+  or capture the real visibility-actions lesson.
+- [owner] **Career-transition taxonomy is self-contradictory across Module 1 and Module 2**
+  ([authoring], since 2026-07-22) — raw m1 says "three common paths" but title/enumeration give
+  four with labels that don't match their own definitions; m2's resume-builder lesson teaches three
+  paths under different names. Neither refinement can reconcile this without fabricating content.
+  Rule on the canonical taxonomy.
+
 ## 2026-07-23 · /produce-video (scheduled routine, re-run): BUILD still blocked on TTS credentials
 
 Second automated run today. Refine step was again a no-op: the only raw `.txt` at any program
