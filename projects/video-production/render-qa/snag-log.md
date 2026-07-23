@@ -29,6 +29,37 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-23 · /produce-video (scheduled routine, thirteenth run): BUILD still blocked on TTS credentials
+
+Thirteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+already ledger-flagged `SCRIPT PENDING — do not refine or build` (duplicate body of
+`m4_who-will-walk...`). This run re-read the ledger with `Grep` in `output_mode: "content"` per the
+prior entry's recommendation and confirmed the skip flag correctly on the first check — no blind
+refinement attempted, unlike run twelve's near-miss.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently before dispatching any
+build subagent: `which infisical` empty (CLI not installed — `scripts/with-secrets.sh` exits 127 on
+this), `env | grep -iE "heygen|infisical"` empty (no `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`,
+no `HEYGEN_API_KEY`), `python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`, and direct `curl` to
+both `api.heygen.com:443` and `huggingface.co:443` both still fail with `CONNECT tunnel failed,
+response 403` (proxy-level rejection). Identical to all twelve prior entries today — **no build
+subagent was dispatched this run**, since both the default (HeyGen) and fallback (Kokoro) TTS paths
+are confirmed unreachable and dispatching one would just burn tool calls failing at
+`synth_narration.py`. `refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12
+mid-career-momentum). No workspaces exist under `renders-hyperframes/` (only `README.md`).
+
+Housekeeping: session started detached at `1507832` (== `origin/main`, run twelve's own commit) — no
+divergence. `git checkout -B main origin/main` restored a tracking branch.
+
+**Open, still unresolved (since 2026-07-23, first hit run one today):** BUILD cannot proceed until
+either (a) Infisical access is provisioned in this environment (`INFISICAL_CLIENT_ID` +
+`INFISICAL_SECRET_KEY` as Codespaces repo secrets, plus the `infisical` CLI itself, per
+`.devcontainer/devcontainer.json`'s `postCreateCommand`) so `scripts/with-secrets.sh` can inject
+`HEYGEN_API_KEY`, or (b) the proxy allowlists `api.heygen.com` and `huggingface.co` so the Kokoro
+local-model fallback can download and run. This is owner-actionable only — thirteen consecutive
+hourly runs have confirmed it, no further diagnosis will change the finding.
+
 ## 2026-07-23 · /produce-video (scheduled routine, twelfth run): BUILD still blocked on TTS credentials
 
 Twelfth automated run today (hourly trigger, `53 * * * *`), fired ~18:53 UTC, one hour after the
