@@ -29,6 +29,51 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-24 · /produce-video (scheduled routine, sixth run today): BUILD still blocked on TTS credentials
+
+Sixth automated run today. Refine step: listed each program's root and `avatar/` non-recursively
+(`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Two raw
+`.txt` files present at program roots — `entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt`
+and `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` —
+both confirmed by direct read to be documented skip items (refinement-log.md rows 133/150/153): the EA
+file is a byte-identical duplicate of `m1_reframing-entrepreneurship-and-going-solo` (dashboard authoring
+gap, needs a distinct M2 script from the owner); the MCM file carries the `SCRIPT PENDING — do not refine
+or build` marker at its own top (duplicate of `m4_who-will-walk...`, no real visibility-actions narration
+ever captured). No avatar-route raws in any program's `avatar/`. Both correctly skipped by folder-content
+alone. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` now holds 28 scripts (8 career-transitions, 1 early-career-boost, 4
+entrepreneur-accelerator, 15 mid-career-momentum — 2 of the latter still carrying inline `TODO: needs
+input`), reflecting drain work from an earlier session (`git log` HEAD commit: "refine-scripts: drain EA
+(4) + CT (8) to refined/, 2 skipped" — already on `main` before this run started). No workspaces exist
+under `renders-hyperframes/` (only `README.md`), so all 28 are unbuilt.
+
+Independently re-verified the TTS-credential/egress wall rather than trust the prior entry: `which
+infisical` empty; `env | grep -iE "heygen|infisical"` empty; `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`; direct curls to `api.heygen.com` and `huggingface.co` both `CONNECT tunnel failed,
+response 403` (proxy-level tunnel rejection) — identical to every prior entry today and all prior days.
+Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, and B2's build sequence
+depends on one of the two for every video, so **no build subagent was dispatched** — dispatching one would
+just fail at the same wall after burning its tool budget. `refined/` unchanged; batch cap not exercised.
+
+Housekeeping: session started in detached HEAD at `f67728dd0593532b4586004857592404e451e552` (matched
+`origin/main` exactly after fetch — no divergence). `git checkout -B main origin/main` restored a tracking
+branch before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, gated at the file level; `m2_why-build-your-own-path` duplicate
+of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script; Module 1/2
+career-transition taxonomy contradiction; `m6` recap's two unsupported claims; two mid-career-momentum
+scripts carrying inline `TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume
+Builder Tool's undocumented "AI rewrite feature"). Per the no-repeat-notification convention (established
+eleventh-run entry 2026-07-23, one escalation already sent): the wall itself is unchanged since that
+escalation, so **no new notification sent this run**.
+
 ## 2026-07-24 · /produce-video (scheduled routine, fifth run today): BUILD still blocked on TTS credentials
 
 Fifth automated run today. Refine step: listed both program roots directly (non-recursive `ls` of
