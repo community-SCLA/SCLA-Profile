@@ -124,8 +124,12 @@ printf '# Build workspace. Sequence + commands: /render-lessons. Design contract
 ```
 
 **Assemble `index.html` FIRST** — one scene slot per beat from the design-system
-templates (pattern: the **newest lesson build**, not the demo reel — its
-header comment says so), `<audio>` at the host root. Follow `frame.md`'s
+templates (pattern exemplar: the current per-scene `data-narration` build
+`how-to-make-strong-career-decisions_early-career-boost_2026-07-10` in this
+folder — or any newer dated build; its header comment names its own `Pattern
+source`. **Never the demo reel or the init-generated workspace `CLAUDE.md`** —
+both are legacy, and mistaking them for the pattern is what makes a cold
+subagent wrongly conclude this SKILL is stale), `<audio>` at the host root. Follow `frame.md`'s
 animacy + illustration rules. Standing landmines:
 
 - **Add the host-root progress rail to every build** (`frame.md` → "Host-root
@@ -155,8 +159,10 @@ refined script BEFORE any TTS, synthesizes one clip per scene (cached —
 edits only re-synthesize changed scenes), and concatenates with REAL boundary
 silence; never hand-run single-take `hyperframes tts` for a lesson (the
 old insert-silence flow spliced words — decisions/log.md 2026-07-14). Default
-provider is **HeyGen starfish** (2026-07-22 — needs `$HEYGEN_API_KEY`, so run
-under `scripts/with-secrets.sh` from the repo root) — it returns native word
+provider is **HeyGen starfish** (2026-07-22 — needs a live `HEYGEN_API_KEY`,
+which **only `scripts/with-secrets.sh` supplies**; the ambient shell
+`HEYGEN_API_KEY` is stale and fails, so never call `synth_narration.py` bare) —
+it returns native word
 timestamps with the synthesis, so the Whisper transcribe step is **skipped**:
 
 ```bash

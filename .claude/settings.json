@@ -18,10 +18,14 @@
       "Bash(find:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)"
+
     ],
     "ask": [],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": ["/home/codespace/.claude"]
   },
   "skillOverrides": {
     "onboard": "off"
@@ -35,7 +39,13 @@
             "type": "command",
             "command": "if [ \"${VIDEO_SNAG_RETRO_HOOK_DISABLED:-0}\" = \"1\" ]; then exit 0; fi; c=$(jq -r \".tool_input.command // \\\"\\\"\"); if printf \"%s\" \"$c\" | grep -Eq \"(^|[;&|]) *([A-Z_]+=[^ ]* )*(npm run render|npx (--yes )?hyperframes(@[^ ]*)?( lambda)? render)\"; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"SNAG RETRO (automated hook): a HyperFrames render ran this session. Before you end the session, PREPEND a new dated entry to projects/video-production/render-qa/snag-log.md per its header rules: (1) Open list \\u2014 OWNER-ACTIONABLE items only: roll forward only what genuinely needs the human (a decision, a credential, or access); anything you can fix yourself, FIX THIS SESSION instead of rolling it. If the Open list is non-empty, DIRECTLY ASK the human to resolve each item at close-out (AskUserQuestion when interactive) instead of filing it in the log for them to find. (2) Fixed this session \\u2014 tagged [env]/[tooling]/[authoring]/[upstream]/[defect] with resolution + time cost. (3) Promoted to docs \\u2014 durable lessons go into the owning doc (skill command block, frame.md, or a preflight/verify check) in this same session, not into the log.\"}}'; fi",
             "timeout": 10,
-            "statusMessage": "Render detected → write snag-log retro before session end (set VIDEO_SNAG_RETRO_HOOK_DISABLED=1 to silence)"
+            "statusMessage": "Render detected \u2192 write snag-log retro before session end (set VIDEO_SNAG_RETRO_HOOK_DISABLED=1 to silence)"
+          },
+          {
+            "type": "command",
+            "command": "if [ \"${VIDEO_PURGE_REMINDER_HOOK_DISABLED:-0}\" = \"1\" ]; then exit 0; fi; c=$(jq -r \".tool_input.command // \\\"\\\"\"); if printf \"%s\" \"$c\" | grep -q \"wistia-upload.sh\" && ! printf \"%s\" \"$c\" | grep -q \"archive-lesson.sh\"; then printf '%s' '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"PUBLISH CLEANUP (automated hook): a Wistia upload just ran, so this lesson is published. Close the books per /render-lessons: run  bash scripts/archive-lesson.sh <stem>  from the repo root. That step retires the workspace to renders-hyperframes/_archive/<stem>/ AND purges the regenerable byproducts (renders/ qa/ verify/ snapshots/ node_modules/ + logs) so they stop piling up on disk. archive-lesson.sh refuses unless the final MP4 is already filed under renders-mp4/<program-slug>/, so file the render there first. Set VIDEO_PURGE_REMINDER_HOOK_DISABLED=1 to silence this reminder.\"}}'; fi",
+            "timeout": 10,
+            "statusMessage": "Wistia upload detected -> run archive-lesson.sh to purge byproducts (set VIDEO_PURGE_REMINDER_HOOK_DISABLED=1 to silence)"
           }
         ]
       }

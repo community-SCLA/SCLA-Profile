@@ -40,7 +40,10 @@ if ! find "$VIDEOS" -mindepth 2 -name "${BASE}_*.mp4" | grep -q .; then
 fi
 
 # Prune regenerable bulk (all rebuildable via npm install / hyperframes).
-for junk in node_modules .thumbnails .waveform-cache .hyperframes snapshots renders output; do
+# qa/ + verify/ are the render-verification frame dumps — the biggest byproduct
+# by far (qa/ alone ran ~70M in the 2026-07-24 cleanup) and fully regenerable by
+# re-running verify_render.py; the MP4's QA packet already ships to renders-mp4/.
+for junk in node_modules .thumbnails .waveform-cache .hyperframes snapshots renders output qa verify; do
   rm -rf "$SRC/$junk"
 done
 find "$SRC" -name '*.log' -delete   # includes assets/voice/tts.log, transcribe.log
