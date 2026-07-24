@@ -29,6 +29,46 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-24 · /produce-video (scheduled routine, first run today): BUILD still blocked on TTS credentials; refine-phase marker gap fixed
+
+First automated run today. Refine step: the only raw `.txt` at any program root was again
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`.
+This run initially deviated from the standing convention — dispatched a refine subagent against it
+*before* checking the ledger/skip rule, producing a `refined/` copy. Caught immediately on reading
+ledger row 60 (2026-07-22), which documents this exact stem as a duplicate body of
+`m4_who-will-walk-this-next-life-chapter-experience-with-you` (title promises "visibility actions,"
+body never delivers one) — independently re-confirmed by direct comparison of both refined bodies
+(near-identical language/beats). Reverted: deleted the wrongly-produced `refined/` copy (`git
+status` confirmed clean before and after, nothing else touched). Unlike the sixteen-plus prior runs
+that only re-verified the marker's absence, this run **actually wrote the `SCRIPT PENDING — do not
+refine or build` marker into the raw file** (documented as existing since 2026-07-22 but never
+physically added) plus a corresponding ledger row, and committed (`9a9c6e4`). The gap that made
+every prior run re-diff this file by hand is now closed at the file level, not just the ledger.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall before dispatching
+any build subagent: `infisical` CLI not installed; `INFISICAL_CLIENT_ID` / `INFISICAL_SECRET_KEY` /
+`HEYGEN_API_KEY` all unset; `python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; direct curls
+to `api.heygen.com:443` and `huggingface.co:443` both `CONNECT tunnel failed, response 403` —
+identical to every prior entry. **No build subagent was dispatched.** `refined/` unchanged apart
+from the marker fix above: 13 scripts queued (1 early-career-boost, 12 mid-career-momentum, 3 of
+which carry inline `TODO: needs input`).
+
+**Fixed this session:** [authoring] wrote the missing `SCRIPT PENDING` marker into
+`m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` + a ledger row,
+closing the gap the prior sixteen entries only re-documented (~10 min, includes reverting the
+mistaken refine).
+
+**Promoted to docs:** none — the marker convention was already documented in
+`refinement-log.md`; this run just executes it.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, now correctly gated at the file level; Module 1/2
+career-transition taxonomy contradiction; `m6` recap's two unsupported claims; three scripts
+carrying inline `TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume
+Builder Tool's undocumented "AI rewrite feature"). Per the no-repeat-notification convention
+(established eleventh-run entry, one escalation already sent): the wall itself is unchanged since
+that escalation, so **no new notification sent this run**.
+
 ## 2026-07-23 · /produce-video (scheduled routine, sixteenth run): BUILD still blocked on TTS credentials
 
 Sixteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
