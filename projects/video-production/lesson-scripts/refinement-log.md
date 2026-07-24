@@ -68,6 +68,60 @@ the program has no independent fact floor — all verdicts are faithful-to-raw o
 
 **Cross-lesson taxonomy (program-wide, owner-actionable):** `m2_four-kinds-of-career-transition` teaches a **four-kind** model (Pivot / Reinvention / Rebuild / Forced Reinvention), while `m2_the-value…`, `m3_how-to-reposition`, and `m3_using-the-resume-builder-tool-pt2` all name a **three-path** set (promotion / lateral move / role redesign). Each script is faithful to its own raw, so this is not a facts defect in any one script — but a learner moving across the program meets two different transition taxonomies. Owner should confirm whether this is intentional or the lessons should be aligned.
 
+**Dashboard reconciliation 2026-07-23 (post-drain):** all 15 refined scripts
+trace 1:1 to the 15 `▶ VIDEO` blocks in the live `/api/admin/program/mid-career-momentum`
+JSON (every dashboard script is ≥92% n-gram-contained in its preserved raw;
+`m5_skills-for-the-ai-era` sources from the whole lesson body incl. companion
+article, as its ledger row already records). **Nothing left behind.** Four
+dashboard lesson components carry **no video block at all** — M2 "AI Feedback:
+What Energizes You Mid-Career?", M2 "Discussion Prompt: What's Shaping Your
+Next Move?", M2 "Creating Your Next Move Statement", M7 "Resources" — so no
+script exists to capture for them; owner should confirm whether they're meant
+to get videos (the "every lesson has a video" expectation fails only in the
+dashboard itself, not in the capture).
+
+## career-transitions
+
+**Captured from the SCLA admin dashboard 2026-07-23** (8 raw scripts at
+program root, not yet refined). Reconciled against the live
+`/api/admin/program/career-transitions` JSON 2026-07-23: **all 8 captures are
+verbatim matches (n-gram containment 1.00 both directions) and no dashboard
+video block lacks a capture.** Dashboard is Draft; program has 8 modules.
+Dashboard components with no video block: M1 Mini-Syllabus (unlike the other
+track programs, it has none), M8 Resources. M6 "Reinventing with AI" is an
+explicit reuse slot ("Use the same video from Early Career Boost") — no script
+to capture, mirrors mid-career-momentum M5.
+
+| Script | Created | Refined | Rendered | Notes |
+|---|---|---|---|---|
+| `m2_welcome-and-using-career-transitions-as-leaps-ahead_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M2 "The Truth About Transitions" script |
+| `m2_four-kinds-of-career-transition_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard. ⚠ Same lesson title as mid-career-momentum's m2 but a **different taxonomy** (Growth Pivot / Reinvention / Redirect / Rebuild on a chosen-vs-forced × adjacent-vs-dramatic 2×2) — this is the CT program's own model, faithful to its source, not a capture error |
+| `m3_the-two-sided-work_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard |
+| `m3_the-identity-audit_2026-07-23.txt` | 2026-07-23 | — | — | raw at root. ⚠ **Dashboard has no labeled Script for this video** — capture is the whole video block: article-style prose + an embedded design spec (concentric-circles diagram) + a "(Forbes, 2026)" citation. Not clean narration; refine with care, qa-facts should watch the Forbes claim |
+| `m4_building-your-carry-forward-inventory_2026-07-23.txt` | 2026-07-23 | — | — | raw at root. ⚠ **Dashboard has no labeled Script** — capture is the video block: header line, four-category graphic content + design spec, no connected narration. Owner may need to supply/confirm the narration before refine |
+| `m5_testing-your-next-chapter_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard |
+| `m5_the-story-that-makes-the-change-legible_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M5 "Your Pivot Story and Positioning" |
+| `m7_your-reinvention-roadmap_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M7 "Completion & Your Reinvention Roadmap" |
+
+## entrepreneur-accelerator
+
+**Captured from the SCLA admin dashboard 2026-07-23** (5 raw scripts at
+program root, not yet refined; dashboard program name "Entrepreneurship
+Accelerator", slug `entrepreneur-accelerator`, Draft, 6 modules). Reconciled
+against the live program JSON 2026-07-23: **all 5 captures are verbatim
+(containment 1.00) and no dashboard video block lacks a capture** — but see
+the m1/m2 duplication below. Dashboard components with no video block:
+M2 "Going Solo - What Should I Do?", M6 "Launching Your Solo Adventure",
+M6 "Resources".
+
+| Script | Created | Refined | Rendered | Notes |
+|---|---|---|---|---|
+| `m1_reframing-entrepreneurship-and-going-solo_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M1 Mini-Syllabus video |
+| `m2_why-build-your-own-path_2026-07-23.txt` | 2026-07-23 | — | — | ⚠ **Byte-identical to `m1_reframing…` — and faithfully so: the dashboard itself carries the SAME script under both video headings** (M1 "Reframing Entrepreneurship & Going Solo" and M2 "Why Build Your Own Path"). Not a capture error; an authoring gap in the dashboard. **Owner-actionable: supply a distinct script for one of the two videos. Skip at /refine-scripts until resolved** — refining both as-is produces two videos with identical narration |
+| `m3_choosing-your-solo-model_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard |
+| `m4_building-visibility-on-your-own_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard. Dashboard block has no "Script" label but the content IS real narration with on-screen cues — usable as-is |
+| `m5_making-solo-work-sustainable_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M5 "Building a Solo System" |
+
 ## career-readiness-accelerator
 
 No scripts yet — program hasn't started producing videos (see `../README.md`).
