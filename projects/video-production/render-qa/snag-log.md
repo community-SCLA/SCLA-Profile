@@ -29,6 +29,888 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-24 · /produce-video (scheduled routine, fourth run today): BUILD still blocked on TTS credentials
+
+Fourth automated run today. Refine step: listed both program roots directly (non-recursive `ls` of
+`early-career-boost/` and `mid-career-momentum/`, plus each program's `avatar/` — neither exists).
+Only raw file present is `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+confirmed by direct read (not grep) to already carry the `SCRIPT PENDING — do not refine or build`
+marker (re-confirmed 2026-07-24, per its own text). Correctly skipped by folder-content alone. No
+refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall rather than trust the
+prior entry: `which infisical` empty; `env | grep -iE "heygen|infisical"` empty; `python3 -c "import
+kokoro_onnx"` → `ModuleNotFoundError`; direct curls to `api.heygen.com` and `huggingface.co` both
+`CONNECT tunnel failed, response 403` (proxy-level tunnel rejection) — identical to every prior entry
+today and all prior days. **No build subagent was dispatched.** `refined/` unchanged: 13 scripts still
+queued (1 early-career-boost, 12 mid-career-momentum, 3 of which carry inline `TODO: needs input`). No
+workspaces exist under `renders-hyperframes/` (only `README.md`).
+
+Housekeeping: session started in detached HEAD at `181e8dc` (the prior entry's own commit, identical
+to `origin/main` after fetch — no divergence). `git checkout -B main origin/main` restored a tracking
+branch before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, gated at the file level; Module 1/2 career-transition
+taxonomy contradiction; `m6` recap's two unsupported claims; three scripts carrying inline
+`TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume Builder Tool's
+undocumented "AI rewrite feature"). Per the no-repeat-notification convention (established
+eleventh-run entry 2026-07-23, one escalation already sent): the wall itself is unchanged since that
+escalation, so **no new notification sent this run**.
+
+## 2026-07-24 · /produce-video (scheduled routine, third run today): BUILD still blocked on TTS credentials
+
+Third automated run today. Refine step: re-listed both program roots directly (non-recursive `ls` of
+`early-career-boost/` and `mid-career-momentum/`, plus each program's `avatar/` — neither exists).
+Only raw file present is `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+confirmed to already carry the `SCRIPT PENDING — do not refine or build` marker (written 2026-07-24,
+commit `9a9c6e4`) — correctly skipped by folder-content alone. No refine subagent dispatched; true no-op.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall rather than trust the
+prior entry: `which infisical` empty; `env | grep -iE "heygen|infisical"` empty; `python3 -c "import
+kokoro_onnx"` → `ModuleNotFoundError`; direct curls to `api.heygen.com` and `huggingface.co` both
+`CONNECT tunnel failed, response 403` (proxy-level tunnel rejection) — identical to every prior entry
+today and all prior days. **No build subagent was dispatched.** `refined/` unchanged: 13 scripts still
+queued (1 early-career-boost, 12 mid-career-momentum, 3 of which carry inline `TODO: needs input`). No
+workspaces exist under `renders-hyperframes/` (only `README.md`).
+
+Housekeeping: session started in detached HEAD at `4d09ad8` (the prior entry's own commit, identical
+to `origin/main` — no divergence). `git checkout -B main origin/main` restored a tracking branch
+before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, gated at the file level; Module 1/2 career-transition
+taxonomy contradiction; `m6` recap's two unsupported claims; three scripts carrying inline
+`TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume Builder Tool's
+undocumented "AI rewrite feature"). Per the no-repeat-notification convention (established
+eleventh-run entry 2026-07-23, one escalation already sent): the wall itself is unchanged since that
+escalation, so **no new notification sent this run**.
+
+## 2026-07-24 · /produce-video (scheduled routine, second run today): BUILD still blocked on TTS credentials
+
+Second automated run today. Refine step: re-listed both program roots directly (non-recursive `ls`
+of `early-career-boost/` and `mid-career-momentum/`, plus each program's `avatar/` — neither exists).
+Only raw file present is `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+confirmed to already carry the `SCRIPT PENDING — do not refine or build` marker (written by the prior
+run, commit `9a9c6e4`) — correctly skipped by folder-content alone, no ledger cross-reference needed.
+No refine subagent dispatched. Refine step was a true no-op.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall rather than trust the
+prior entry: `which infisical` empty; `env | grep -i infisical` / `env | grep -i heygen` both empty;
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; direct curls to `api.heygen.com` and
+`huggingface.co` both `CONNECT tunnel failed, response 403` (proxy-level tunnel rejection, not an
+upstream error) — identical to every prior entry today and all prior days. **No build subagent was
+dispatched.** `refined/` unchanged: 13 scripts still queued (1 early-career-boost, 12
+mid-career-momentum, 3 of which carry inline `TODO: needs input`). No workspaces exist under
+`renders-hyperframes/` (only `README.md`).
+
+Housekeeping: session started in detached HEAD at `27038fa` (the first-run entry's own commit).
+`git fetch origin main` confirmed `origin/main` at the identical hash — no divergence, just the same
+detached-HEAD-on-fresh-container pattern as prior runs. `git checkout -B main origin/main` restored a
+tracking branch before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, gated at the file level; Module 1/2 career-transition
+taxonomy contradiction; `m6` recap's two unsupported claims; three scripts carrying inline
+`TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume Builder Tool's
+undocumented "AI rewrite feature"). Per the no-repeat-notification convention (established
+eleventh-run entry 2026-07-23, one escalation already sent): the wall itself is unchanged since that
+escalation, so **no new notification sent this run**.
+
+## 2026-07-24 · /produce-video (scheduled routine, first run today): BUILD still blocked on TTS credentials; refine-phase marker gap fixed
+
+First automated run today. Refine step: the only raw `.txt` at any program root was again
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`.
+This run initially deviated from the standing convention — dispatched a refine subagent against it
+*before* checking the ledger/skip rule, producing a `refined/` copy. Caught immediately on reading
+ledger row 60 (2026-07-22), which documents this exact stem as a duplicate body of
+`m4_who-will-walk-this-next-life-chapter-experience-with-you` (title promises "visibility actions,"
+body never delivers one) — independently re-confirmed by direct comparison of both refined bodies
+(near-identical language/beats). Reverted: deleted the wrongly-produced `refined/` copy (`git
+status` confirmed clean before and after, nothing else touched). Unlike the sixteen-plus prior runs
+that only re-verified the marker's absence, this run **actually wrote the `SCRIPT PENDING — do not
+refine or build` marker into the raw file** (documented as existing since 2026-07-22 but never
+physically added) plus a corresponding ledger row, and committed (`9a9c6e4`). The gap that made
+every prior run re-diff this file by hand is now closed at the file level, not just the ledger.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall before dispatching
+any build subagent: `infisical` CLI not installed; `INFISICAL_CLIENT_ID` / `INFISICAL_SECRET_KEY` /
+`HEYGEN_API_KEY` all unset; `python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; direct curls
+to `api.heygen.com:443` and `huggingface.co:443` both `CONNECT tunnel failed, response 403` —
+identical to every prior entry. **No build subagent was dispatched.** `refined/` unchanged apart
+from the marker fix above: 13 scripts queued (1 early-career-boost, 12 mid-career-momentum, 3 of
+which carry inline `TODO: needs input`).
+
+**Fixed this session:** [authoring] wrote the missing `SCRIPT PENDING` marker into
+`m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` + a ledger row,
+closing the gap the prior sixteen entries only re-documented (~10 min, includes reverting the
+mistaken refine).
+
+**Promoted to docs:** none — the marker convention was already documented in
+`refinement-log.md`; this run just executes it.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, now correctly gated at the file level; Module 1/2
+career-transition taxonomy contradiction; `m6` recap's two unsupported claims; three scripts
+carrying inline `TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume
+Builder Tool's undocumented "AI rewrite feature"). Per the no-repeat-notification convention
+(established eleventh-run entry, one escalation already sent): the wall itself is unchanged since
+that escalation, so **no new notification sent this run**.
+
+## 2026-07-23 · /produce-video (scheduled routine, sixteenth run): BUILD still blocked on TTS credentials
+
+Sixteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (ledger row 60 + direct read of the file's opening) as the same
+duplicate-body defect against `m4_who-will-walk-this-next-life-chapter-experience-with-you` (title
+promises "visibility actions," body is the relationship-mapping activity). Left raw, not refined
+blind.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently before dispatching any
+build subagent: `which infisical` empty, `env | grep -iE "heygen|infisical"` empty,
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`, and direct `curl` to both
+`api.heygen.com:443` and `huggingface.co:443` both still fail with `CONNECT tunnel failed, response
+403`, cross-checked against the agent-proxy `/__agentproxy/status` endpoint — `recentRelayFailures`
+shows both hosts freshly rejected this run (`connect_rejected`, "gateway answered 403 to CONNECT").
+Identical to all fifteen prior entries today — **no build subagent was dispatched this run**.
+`refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12 mid-career-momentum). No
+workspaces exist under `renders-hyperframes/` (only `README.md`). `git status --short` clean —
+nothing this run touched tracked files.
+
+**Fixed this session:** none — no new snag to fix.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them. Per the no-repeat-notification convention established at the
+eleventh-run entry (one escalation already sent; hold silence until the wall lifts or something
+material changes), **no new notification sent this run** — this is the sixteenth identical report
+of the same environment wall today.
+
+## 2026-07-23 · /produce-video (scheduled routine, fifteenth run): BUILD still blocked on TTS credentials
+
+Fifteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (ledger row 60 + direct read of the file's opening) as the same
+duplicate-body defect against `m4_who-will-walk-this-next-life-chapter-experience-with-you` (title
+promises "visibility actions," body is the relationship-mapping activity). Left raw, not refined
+blind.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently before dispatching any
+build subagent: `which infisical` empty, `env | grep -iE "heygen|infisical"` empty,
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`, and direct `curl` to both
+`api.heygen.com:443` and `huggingface.co:443` both still fail with `CONNECT tunnel failed, response
+403`, cross-checked against the agent-proxy `/__agentproxy/status` endpoint — `recentRelayFailures`
+shows both hosts freshly rejected this run (`connect_rejected`, "gateway answered 403 to CONNECT").
+Identical to all fourteen prior entries today — **no build subagent was dispatched this run**.
+`refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12 mid-career-momentum). No
+workspaces exist under `renders-hyperframes/` (only `README.md`). `git status --short` clean —
+nothing this run touched tracked files.
+
+**Fixed this session:** none — no new snag to fix.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them. Per the no-repeat-notification convention established at the
+eleventh-run entry (one escalation already sent; hold silence until the wall lifts or something
+material changes), **no new notification sent this run** — this is the fifteenth identical report
+of the same environment wall today.
+
+## 2026-07-23 · /produce-video (scheduled routine, fourteenth run): BUILD still blocked on TTS credentials
+
+Fourteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-read (full file, not just grep) and re-confirmed as the same duplicate-body defect
+against `m4_who-will-walk-this-next-life-chapter-experience-with-you` (title promises "visibility
+actions," body never covers one) — ledger row 60 already documents this exhaustively (byte-identical
+normalized bodies, md5 confirmed). Left raw, not refined blind.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently before dispatching any
+build subagent: `which infisical` empty, `env | grep -iE "heygen|infisical"` empty,
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`, and direct `curl` to both
+`api.heygen.com:443` and `huggingface.co:443` both still fail with `CONNECT tunnel failed, response
+403` (confirmed via both a direct curl and the agent-proxy `/__agentproxy/status` endpoint —
+`recentRelayFailures` empty, consistent with the proxy rejecting the CONNECT before any relay attempt
+is logged). Identical to all thirteen prior entries today — **no build subagent was dispatched this
+run**. `refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12
+mid-career-momentum). No workspaces exist under `renders-hyperframes/` (only `README.md`). `git
+status --short` clean — nothing this run touched tracked files.
+
+**Fixed this session:** none — no new snag to fix, prior housekeeping (detached HEAD) was not present
+this run.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them. Per the no-repeat-notification convention established at the
+eleventh-run entry (one escalation already sent; hold silence until the wall lifts or something
+material changes), **no new notification sent this run** — this is the fourteenth identical report of
+the same environment wall today.
+
+## 2026-07-23 · /produce-video (scheduled routine, thirteenth run): BUILD still blocked on TTS credentials
+
+Thirteenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+already ledger-flagged `SCRIPT PENDING — do not refine or build` (duplicate body of
+`m4_who-will-walk...`). This run re-read the ledger with `Grep` in `output_mode: "content"` per the
+prior entry's recommendation and confirmed the skip flag correctly on the first check — no blind
+refinement attempted, unlike run twelve's near-miss.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently before dispatching any
+build subagent: `which infisical` empty (CLI not installed — `scripts/with-secrets.sh` exits 127 on
+this), `env | grep -iE "heygen|infisical"` empty (no `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`,
+no `HEYGEN_API_KEY`), `python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`, and direct `curl` to
+both `api.heygen.com:443` and `huggingface.co:443` both still fail with `CONNECT tunnel failed,
+response 403` (proxy-level rejection). Identical to all twelve prior entries today — **no build
+subagent was dispatched this run**, since both the default (HeyGen) and fallback (Kokoro) TTS paths
+are confirmed unreachable and dispatching one would just burn tool calls failing at
+`synth_narration.py`. `refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12
+mid-career-momentum). No workspaces exist under `renders-hyperframes/` (only `README.md`).
+
+Housekeeping: session started detached at `1507832` (== `origin/main`, run twelve's own commit) — no
+divergence. `git checkout -B main origin/main` restored a tracking branch.
+
+**Open, still unresolved (since 2026-07-23, first hit run one today):** BUILD cannot proceed until
+either (a) Infisical access is provisioned in this environment (`INFISICAL_CLIENT_ID` +
+`INFISICAL_SECRET_KEY` as Codespaces repo secrets, plus the `infisical` CLI itself, per
+`.devcontainer/devcontainer.json`'s `postCreateCommand`) so `scripts/with-secrets.sh` can inject
+`HEYGEN_API_KEY`, or (b) the proxy allowlists `api.heygen.com` and `huggingface.co` so the Kokoro
+local-model fallback can download and run. This is owner-actionable only — thirteen consecutive
+hourly runs have confirmed it, no further diagnosis will change the finding.
+
+## 2026-07-23 · /produce-video (scheduled routine, twelfth run): BUILD still blocked on TTS credentials
+
+Twelfth automated run today (hourly trigger, `53 * * * *`), fired ~18:53 UTC, one hour after the
+eleventh entry's own commit (`857a399` at 17:59:52 UTC — confirmed via `git log`). Refine step was
+again a no-op: the only raw `.txt` at any program root is still
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`.
+This run independently re-dispatched a cold refinement subagent against it *before* re-reading the
+ledger's skip flag (a `Grep` call defaulted to filenames-only mode and was misread as "no flag
+present") — the subagent refined it and wrote `refined/m4_visibility-actions..._2026-07-22.txt`,
+duplicating the already-refined `m4_who-will-walk...` content under the wrong title, exactly the
+defect the ledger already documents. Caught before it reached BUILD: the refined file was deleted,
+the raw left untouched at program root, nothing committed. **Process gap, not a data gap** — the
+ledger and skip logic were both already correct; the miss was tooling (Grep output-mode default),
+not missing information. No re-attempt needed since the raw is unchanged and already correctly
+flagged; recommend `/refine-scripts` explicitly call Grep with `output_mode: "content"` when checking
+a ledger for a skip flag, since the default silently returns filenames only.
+
+Housekeeping: session started detached at `857a399`, already identical to `origin/main` (the
+eleventh-run entry's own commit) — no divergence, just the same stale-checkout pattern as prior
+runs. `git fetch origin main` confirmed identical hashes; `git checkout -B main origin/main`
+restored a tracking branch.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently: `which infisical` empty,
+`env | grep -iE "heygen|infisical"` empty, `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`, and direct `curl` to both `api.heygen.com:443` and `huggingface.co:443` both
+still fail with `CONNECT tunnel failed, response 403` (proxy-level rejection, not an upstream host
+issue) — identical to all eleven prior entries today. **No build subagent was dispatched this run.**
+`refined/` is unchanged: 13 scripts still queued (1 early-career-boost, 12 mid-career-momentum). No
+workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** the accidental `m4_visibility-actions` refinement was caught and reverted
+before it reached the build queue ([authoring], <2 min, no lasting effect); detached-HEAD
+housekeeping ([env], <1 min).
+
+**Promoted to docs:** none — the Grep-output-mode gap is noted above as a recommendation, not yet
+landed as a rule change in `.claude/skills/refine-scripts/SKILL.md`; a human should decide whether to
+formalize it there.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them. The eleventh-run entry already escalated past the no-repeat
+convention with one notification recommending the owner provision TTS credentials/egress or pause
+the routine; since nothing has changed since, **no new notification sent this run** — back to the
+default no-repeat convention until the situation changes (wall lifts, or a materially new finding
+turns up).
+
+## 2026-07-23 · /produce-video (scheduled routine, eleventh run): BUILD still blocked on TTS credentials
+
+Eleventh automated run today (hourly trigger, `53 * * * *`, first fired ~08:53 UTC). Refine step
+was again a no-op: the only raw `.txt` at any program root is still
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-read and confirmed to be the same duplicate-body defect (beat-for-beat match to
+`m4_who-will-walk...`). Left raw, not refined blind.
+
+Housekeeping: session started detached at `5d2f050`. `git fetch origin main` showed `origin/main`
+had already fast-forwarded to that exact commit (the tenth-run entry's own commit) — no real
+divergence, just the same detached-HEAD-on-fresh-container pattern as runs four/eight/nine/ten.
+`git checkout -B main origin/main` restored a tracking branch; no content changes involved.
+
+Independently re-verified the TTS blocker rather than trust the prior entry: `which infisical`
+empty, `env | grep -iE "heygen|infisical"` empty, `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`. Direct proxy probe (`curl $HTTPS_PROXY/__agentproxy/status`) confirms the
+gateway is actively rejecting both TTS-relevant hosts by policy: `connect_rejected` / "gateway
+answered 403 to CONNECT" for both `api.heygen.com:443` and `huggingface.co:443`, timestamped this
+run — this is a deliberate network-policy denial on this environment, not a transient host issue.
+**No build subagent was dispatched this run** — identical wall, no new information to gain from
+re-discovering it. `refined/` is unchanged (13 scripts still queued: 1 early-career-boost — which
+per the first-run entry's Open list is itself a mis-filed raw capture, never actually refined —
+and 12 mid-career-momentum, 3 of which carry inline `TODO: needs input`, plus others separately
+flagged owner-actionable). No workspaces exist under `renders-hyperframes/` (gitignored, empty in
+this fresh container — confirmed via listing, only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+**Escalating past the routine's own no-repeat-notification convention this run:** this is the
+eleventh identical hourly hit of the same environment wall today (routine fires hourly, `53 * * * *`,
+since 2026-07-08) with zero chance of self-resolving — sending one notification to flag the
+run-rate/wall combination itself (not just the wall), and recommending the owner either provision
+Infisical credentials / open TTS egress for this environment, or pause the routine until one lands.
+
+## 2026-07-23 · /produce-video (scheduled routine, tenth run): BUILD still blocked on TTS credentials
+
+Tenth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly, grepped for `SCRIPT PENDING`/`NOTE FOR REVIEW` —
+neither present) to be the same duplicate-body defect: beat-for-beat match to `m4_who-will-walk...`,
+title promises "visibility actions," body never covers one. Left raw, not refined blind.
+
+Housekeeping: session started in detached HEAD at `ad8b374`, already identical to `origin/main`
+(the ninth-run entry's own commit) — no divergence, just a stale checkout. `git fetch origin main`
+confirmed identical hashes; `git checkout -B main origin/main` restored a tracking branch before
+touching anything else.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `which infisical` empty, `env | grep -i infisical` / `env | grep -i heygen` both empty,
+and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and `huggingface.co`
+(kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed, response 403` (curl exit
+56, tunnel 403 from the proxy itself, not the upstream host). Identical to all nine prior entries
+today — this session's egress policy still blocks both TTS paths, independent of script content.
+**No build subagent was dispatched this run.** `refined/` is unchanged (13 scripts still queued: 1
+early-career-boost, 12 mid-career-momentum). No workspaces exist under `renders-hyperframes/`
+(confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+This is the tenth identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, ninth run): BUILD still blocked on TTS credentials
+
+Ninth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly, grepped for `SCRIPT PENDING`/`NOTE FOR REVIEW` —
+neither present) to be the same duplicate-body defect: beat-for-beat match to `m4_who-will-walk...`,
+title promises "visibility actions," body never covers one. Left raw, not refined blind.
+
+Housekeeping: session started in detached HEAD at `1bd8c03` (the eighth-run entry's own commit).
+Unlike a stale checkout, `git fetch origin main` showed `origin/main` had just fast-forwarded to
+that same `1bd8c03` — so this was not a real divergence, just the same detached-HEAD-on-fresh-commit
+pattern noted in runs four and eight. `git checkout -B main origin/main` restored a tracking branch;
+`main` matches `origin/main` exactly, no content changes involved.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `which infisical` empty, `env | grep -i infisical` / `env | grep -i heygen` both empty,
+and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and `huggingface.co`
+(kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed, response 403` (curl exit
+56, tunnel 403 from the proxy itself, not the upstream host). Identical to all eight prior entries
+today — this session's egress policy still blocks both TTS paths, independent of script content.
+**No build subagent was dispatched this run.** `refined/` is unchanged (13 scripts still queued: 1
+early-career-boost, 12 mid-career-momentum). No workspaces exist under `renders-hyperframes/`
+(confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+This is the ninth identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, eighth run): BUILD still blocked on TTS credentials
+
+Eighth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly, grepped for `SCRIPT PENDING`/`NOTE FOR REVIEW` —
+neither present) to be the same duplicate-body defect: beat-for-beat match to `m4_who-will-walk...`,
+title promises "visibility actions," body never covers one. Left raw, not refined blind.
+
+Housekeeping: session started in detached HEAD at `94eb2e9`, which was already identical to
+`origin/main` (the seventh-run entry's own commit) — no divergence, just a stale checkout.
+`git fetch origin main` confirmed identical hashes; `git checkout -B main origin/main` restored a
+tracking branch before touching anything else.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `which infisical` empty, `env | grep -i infisical` / `env | grep -i heygen` both empty,
+and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and `huggingface.co`
+(kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed, response 403` (verbose
+curl confirms the proxy itself returns the 403 on the CONNECT, not the upstream host). Identical to
+all seven prior entries today — this session's egress policy still blocks both TTS paths,
+independent of script content. **No build subagent was dispatched this run.** `refined/` is unchanged
+(13 scripts still queued: 1 early-career-boost, 12 mid-career-momentum). No workspaces exist under
+`renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+This is the eighth identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, seventh run): BUILD still blocked on TTS credentials
+
+Seventh automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly, grepped for `SCRIPT PENDING`/`NOTE FOR REVIEW` —
+neither present) to be the same duplicate-body defect: beat-for-beat match to `m4_who-will-walk...`,
+title promises "visibility actions," body never covers one. Left raw, not refined blind.
+
+Housekeeping: session started in detached HEAD at `221987a` while `origin/main` had fast-forwarded
+to `fad8b78` (the sixth-run entry's own commit) — no divergence, just a stale checkout. `git fetch
+origin main` confirmed local and `origin/main` point at the identical commit; `git checkout -B main
+origin/main` restored a tracking branch before touching anything else.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `env | grep -i infisical` / `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403` (verbose curl confirms the proxy itself returns the 403 on the CONNECT, not the
+upstream host). Identical to all six prior entries today — this session's egress policy still
+blocks both TTS paths, independent of script content. **No build subagent was dispatched this run.**
+`refined/` is unchanged (13 scripts still queued: 1 early-career-boost, 12 mid-career-momentum).
+No workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+This is the seventh identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, sixth run): BUILD still blocked on TTS credentials
+
+Sixth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly — no `SCRIPT PENDING`/`NOTE FOR REVIEW` marker
+text present, same as prior runs' findings) to still be the same duplicate-body defect: beat-for-beat
+match to `m4_who-will-walk...`, title promises "visibility actions," body never covers one. Left raw,
+not refined blind.
+
+Housekeeping: session started in detached HEAD at `221987a` while `origin/main` had moved to
+`625cd5e` (the prior entry's own commit) — no divergence, just a stale checkout. `git checkout -B
+main origin/main` put the session back on a tracking `main` before touching anything else.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `env | grep -i infisical` / `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403` (verbose curl confirms the proxy itself returns the 403 on the CONNECT, not the
+upstream host). Identical to all five prior entries today — this session's egress policy still
+blocks both TTS paths, independent of script content. **No build subagent was dispatched this run.**
+`refined/` is unchanged (13 scripts still queued: 1 early-career-boost, 12 mid-career-momentum).
+No workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the second-run entry for full text of each.
+This is the sixth identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, fifth run): BUILD still blocked on TTS credentials
+
+Fifth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly, grepped for a `SCRIPT PENDING`/`NOTE FOR REVIEW`
+marker — none present in the text, same as the second run's finding) to still be the same
+duplicate-body defect: beat-for-beat match to `m4_who-will-walk...`, title promises "visibility
+actions," body never covers one. Left raw, not refined blind.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `env | grep -i infisical` / `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403` (verbose curl confirms the proxy itself returns the 403 on the CONNECT, not the
+upstream host). Identical to all four prior entries today — this session's egress policy still
+blocks both TTS paths, independent of script content. **No build subagent was dispatched this run.**
+`refined/` is unchanged (13 scripts still queued: 1 early-career-boost, 12 mid-career-momentum).
+No workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD housekeeping was already resolved by the prior entry; nothing
+new to fix this run.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the immediately preceding entry for full text of each.
+This is the fifth identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, fourth run): BUILD still blocked on TTS credentials
+
+Fourth automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed (read the file directly) to still be the same duplicate-body defect
+logged since 2026-07-22 — beat-for-beat match to `m4_who-will-walk...`, title promises "visibility
+actions," body never covers one. Left raw, not refined blind.
+
+Housekeeping: this session started in detached HEAD at `221987a` while `origin/main` had moved to
+`b25d4a3` (the prior entry's own commit) — no divergence, just a stale checkout. `git checkout -B
+main origin/main` put the session back on a tracking `main` before touching anything else. No content
+changes involved.
+
+Moved to Phase BUILD. Re-verified the TTS-credential blocker independently rather than trust the
+prior entry: `env | grep -i infisical` / `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned HeyGen provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403`. Identical to all three prior entries today — this session's egress policy still
+blocks both TTS paths, independent of script content. **No build subagent was dispatched this run.**
+`refined/` is unchanged (13 scripts still queued: 1 early-career-boost, 12 mid-career-momentum).
+No workspaces exist under `renders-hyperframes/` (confirmed via listing — only `README.md`).
+
+**Fixed this session:** detached-HEAD → tracking-branch housekeeping only ([env], <1 min); no pipeline
+snag was newly resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged from the prior entry — all seven items still stand (TTS credential/egress wall;
+`m4_visibility-actions` duplicate body; Module 1/2 career-transition taxonomy contradiction; `m6`
+recap's two unsupported claims; three scripts carrying inline `TODO: needs input`; no filed
+`mid-career-momentum` curriculum source; Resume Builder Tool's undocumented "AI rewrite feature").
+Nothing this run changed any of them — see the immediately preceding entry for full text of each.
+This is the fourth identical report of the TTS blocker today; no new notification sent for it.
+
+## 2026-07-23 · /produce-video (scheduled routine, third run): BUILD still blocked on TTS credentials
+
+Third automated run today. Refine step was again a no-op: the only raw `.txt` at any program root
+is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+same duplicate-body defect as the prior two entries (beat-for-beat match to `m4_who-will-walk...`).
+Left raw, not refined blind.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential blocker before dispatching
+anything: `env | grep -i infisical` and `env | grep -i heygen` both empty, `infisical` not on
+`PATH`, and direct connectivity checks to both `api.heygen.com` (pinned default provider) and
+`huggingface.co` (kokoro-fallback Whisper host) both still fail with `CONNECT tunnel failed,
+response 403`. Identical to the prior two entries — this session's egress policy still blocks both
+TTS paths. Since this blocks every possible build regardless of script content, **no build subagent
+was dispatched this run**. `refined/` is unchanged (13 scripts still queued: 1 early-career-boost,
+12 mid-career-momentum). No workspaces exist yet under `renders-hyperframes/` (confirmed via
+listing — only `README.md`).
+
+**Fixed this session:** none — no build subagent was dispatched, so there was nothing to fix.
+
+**Promoted to docs:** none.
+
+**Open:**
+- [owner] **This session's environment has no TTS credential path** ([env], since 2026-07-23,
+  **re-confirmed 2026-07-23, third time today**) — neither `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`
+  (pinned HeyGen provider) nor egress to a Whisper-model host (kokoro fallback's transcribe step) is
+  available in this remote/scheduled-routine session; `api.heygen.com` and `huggingface.co` both
+  reject the CONNECT tunnel with 403. Every queued illustrated-lesson build is blocked on this,
+  independent of script content. Provision the Infisical Codespaces secrets to this environment, or
+  open egress to at least one Whisper-model host, before the next scheduled BUILD run can produce
+  any workspace.
+- [owner] **`m4_visibility-actions` is a duplicate body** ([authoring], since 2026-07-22) — raw
+  body is the same script as `m4_who-will-walk...` modulo formatting; never defines or demonstrates
+  a visibility action. Skipped, still raw at program root. Decide: retire the stem as a duplicate,
+  or capture the real visibility-actions lesson.
+- [owner] **Career-transition taxonomy is self-contradictory across Module 1 and Module 2**
+  ([authoring], since 2026-07-22) — raw m1 says "three common paths" but title/enumeration give
+  four with labels that don't match their own definitions; m2's resume-builder lesson teaches three
+  paths under different names. Neither refinement can reconcile this without fabricating content.
+  Rule on the canonical taxonomy.
+
+## 2026-07-23 · /produce-video (scheduled routine, re-run): BUILD still blocked on TTS credentials
+
+Second automated run today. Refine step was again a no-op: the only raw `.txt` at any program
+root is still `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`,
+independently re-confirmed to be the same duplicate-body item logged 2026-07-22/23 (its content
+still matches `m4_who-will-walk...` beat-for-beat; no `SCRIPT PENDING` marker text remains in the
+file, but the underlying defect — title promises "visibility actions," body never covers any — is
+unchanged). Left raw, not refined blind.
+
+**Branch-divergence Open item from the prior entry is resolved** — `git fetch origin` showed
+`origin/main` had fast-forwarded from `221987a` to `ba4166d` (this session's own detached-HEAD
+commit, i.e. the prior entry's `mid-career-momentum-wip` line is now `main`'s history verbatim).
+Ran `git checkout main && git merge --ff-only origin/main`; local `main` now matches. `main` has
+`lesson-scripts/mid-career-momentum/` again. Closing that item — no owner action needed.
+
+Moved to Phase BUILD. Before dispatching any subagent, re-verified the prior entry's TTS-credential
+blocker rather than assume it still held: `env | grep -i infisical` and `env | grep -i heygen` are
+both still empty, `infisical` is still not on `PATH`, and direct connectivity checks to both
+`huggingface.co` (kokoro-fallback Whisper host) and `api.heygen.com` (pinned default TTS provider)
+both fail with `CONNECT tunnel failed, response 403` — this session's egress policy blocks both TTS
+paths outright, same as the prior entry. Since this blocks every possible build regardless of which
+script is picked (confirmed, not assumed, per the hard rule against forcing a toolchain gap
+through), **no build subagent was dispatched this run** — dispatching one would only reproduce the
+identical, already-documented failure. Nothing moved; `refined/` is unchanged (13 scripts still
+queued: 1 early-career-boost, 12 mid-career-momentum, of which 5 mid-career-momentum stems carry
+additional unresolved content blockers — see Open, unchanged from 2026-07-22).
+
+**Fixed this session:** none — no build subagent was dispatched, so there was nothing to fix.
+
+**Promoted to docs:** none.
+
+**Open:**
+- [owner] **This session's environment has no TTS credential path** ([env], since 2026-07-23,
+  **re-confirmed 2026-07-23**) — neither `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` (pinned
+  HeyGen provider) nor egress to a Whisper-model host (kokoro fallback's transcribe step) is
+  available in this remote/scheduled-routine session; `api.heygen.com` and `huggingface.co` both
+  reject the CONNECT tunnel with 403. Every queued illustrated-lesson build is blocked on this,
+  independent of script content. Provision the Infisical Codespaces secrets to this environment, or
+  open egress to at least one Whisper-model host, before the next scheduled BUILD run can produce
+  any workspace.
+- [owner] **`m4_visibility-actions` is a duplicate body** ([authoring], since 2026-07-22) — raw
+  body is the same script as `m4_who-will-walk...` modulo formatting; never defines or demonstrates
+  a visibility action. Skipped, still raw at program root. Decide: retire the stem as a duplicate,
+  or capture the real visibility-actions lesson.
+- [owner] **Career-transition taxonomy is self-contradictory across Module 1 and Module 2**
+  ([authoring], since 2026-07-22) — raw m1 says "three common paths" but title/enumeration give
+  four with labels that don't match their own definitions; m2's resume-builder lesson teaches three
+  paths under different names. Neither refinement can reconcile this without fabricating content.
+  Rule on the canonical taxonomy.
+- [owner] **Module 5 recap (`m6_youve-built-momentum`) asserts two things the program never
+  taught** ([authoring], since 2026-07-22) — (2) "Outcome. Visibility. Relationships. Results."
+  presented as a taught framework, taught nowhere; (3) "The Career Accelerator has more tracks,
+  more tools, and a member community" vs. the KB program of record, *Career Readiness Accelerator*,
+  a single 5-week Launchpad. Both left in on purpose (verbatim in the owner's v2 compile) —
+  content calls, not refinement defects.
+- [owner] **Three refined scripts carry inline `TODO: needs input` lines** ([authoring], since
+  2026-07-22) — `m1_four-kinds`, `m2_discover-experiences`, `m2_rewrite-your-linkedin`. Would be
+  spoken verbatim by TTS if built as-is. Answer the three underlying content questions before
+  building those stems.
+- [owner] **`mid-career-momentum` has no filed curriculum source** ([authoring], since 2026-07-22)
+  — `programs/` has no folder for it; every `qa-facts` pass can only check internal consistency,
+  not ground truth. File the curriculum outline, or accept the limited fact floor.
+- [owner] **Resume Builder Tool's "AI rewrite feature" is undocumented** ([authoring], since
+  2026-07-22) — `m2_using-the-resume-builder-tool...` narrates a UI walkthrough of a capability no
+  filed SCLA product doc describes (`programs/programs-overview.md` L260-264 says the tool "needs
+  content and tech upgrades. A PRD is required."). Confirm the feature exists in the live product
+  before this renders.
+- [owner] **Sample figures will read as SCLA data if rendered as stat cards** ([defect], since
+  2026-07-22) — three m2 scripts speak illustrative resume metrics, sourced and framed as example
+  copy only in narration. Watch for these at the hyperframe gate; a standalone stat card strips the
+  qualifier.
+
+## 2026-07-23 · /produce-video (scheduled routine): BUILD blocked, then branch divergence found
+
+Automated routine run. Refine step was a no-op: the only raw `.txt` at any program root
+(`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`)
+is the already-known duplicate-body item from 2026-07-22 (see Open list below) — correctly
+left raw, not refined blind.
+
+Moved to Phase BUILD against the 13-script `refined/` backlog. Cross-checked every queued stem
+against this file's Open list before picking a batch: `early-career-boost/using-the-career-map-tool`
+(never actually refined — raw capture markers still present), `m1_four-kinds-of-career-transition`
+and `m2_using-the-resume-builder-tool-with-the-four-part-lens-pt2` (taxonomy contradiction),
+`m2_discover-experiences-that-support-your-next-move-pt1` and `m2_rewrite-your-linkedin-for-future-you-pt2`
+(inline `TODO: needs input`), `m1_the-value-of-building-mid-career-momentum` and
+`m5_skills-for-the-ai-era` (half-length, undecided), and `m6_youve-built-momentum` (qa-facts
+FAIL→partly fixed, two fabricated-content defects still open on purpose) were all excluded from
+this run's batch as still-blocked. Picked 3 clean stems: `m1_mid-career-mindsets-and-limiting-beliefs`,
+`m2_from-history-to-signal`, `m3_finding-new-peers-sponsors-and-opportunity-holders` (style
+rotation: `rendered/` count for mid-career-momentum = 0 → summit/horizon/cadence).
+
+Dispatched the first build subagent (`m1_mid-career-mindsets-and-limiting-beliefs`, theme
+summit). It assembled a clean 9-scene workspace, verbatim-verified `data-narration` against the
+refined script, and got `npx hyperframes check` to 0 lint/runtime/layout/motion errors and
+38/38 WCAG AA contrast checks. It could not get past scene-timing synthesis: HeyGen (the pinned
+default TTS provider) needs `HEYGEN_API_KEY` via `scripts/with-secrets.sh`, which requires
+`INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` as environment secrets — **neither is set in this
+session's environment** (confirmed: `env | grep -i infisical` empty). Fell back to the documented
+kokoro path — TTS synthesis itself succeeded (`narration.wav`, verified against the script) — but
+the required `npx hyperframes transcribe` step needs a Whisper model download, and this session's
+egress policy blocks every host tried: `huggingface.co` (hyperframes' own default),
+`openaipublic.azureedge.net`, `ggml.ggerganov.com`, `sourceforge.net`, `github.com`/`api.github.com`.
+Both paths to word-level timing are closed in this environment. Stopped there — did not dispatch
+builds 2 or 3, since the identical environment wall would block them too. No render was attempted;
+nothing moved `refined/ → rendered/`; the partial workspace (gitignored, local to that container)
+was left at `renders-hyperframes/m1_mid-career-mindsets-and-limiting-beliefs_2026-07-22/`.
+
+**While closing out, found this container's checkout had silently diverged from `origin/main`.**
+This session's `HEAD` was 13 commits ahead of `origin/main` on a line containing all of the
+mid-career-momentum work referenced above (raw capture, the 12-of-13 refine drain, the HeyGen TTS
+refactor, renumbering, prior snag-log entries) — but **none of those 13 commits were ever pushed**.
+Meanwhile `origin/main` had independently moved forward on a *different* line (early-career-boost:
+`what-energizes-me` refined and shipped) from the same base commit. `mid-career-momentum/` does not
+exist at all on current `origin/main`. Rather than force either line to win, the 13-commit line was
+preserved verbatim as branch `mid-career-momentum-wip` (pushed to origin) and this entry was written
+there, not on `main` — writing it to `main`'s copy of this file would have silently dropped 273 lines
+of prior history with no record. **No further refine/build work was attempted against `main`'s
+current state** pending a human decision on how to reconcile the two lines; see Open.
+
+**Fixed this session (on the `m1_mid-career-mindsets-and-limiting-beliefs` build workspace):**
+- [authoring] **Duplicate `data-composition-id` across scene instances** — three `scla-statement`
+  and three `scla-condition` instances shared one ID each (must be unique per instance); `npx
+  hyperframes lint` caught it. Renamed to `scla-statement-cost/-practice/-task` and
+  `scla-condition-leverage/-experiment/-redesign`.
+- [env] **Missing `ffmpeg`/`ffprobe` and `kokoro-onnx`/`soundfile`** in this container — installed
+  via apt/pip.
+- [env] **GSAP CDN (`cdn.jsdelivr.net`) blocked by this session's egress policy** — self-hosted
+  `gsap@3.14.2` from the npm registry (an allowed host) into the workspace's
+  `assets/vendor/gsap.min.js`, scoped to that one workspace, documented inline.
+
+**Promoted to docs:** none yet — the exact-pinned `npx --yes hyperframes@0.7.45` invocation in
+`design-system/package.json`'s scripts silently exits 1 with zero output in this container, while
+unpinned `npx hyperframes` resolves 0.7.68 and works (satisfies the documented "0.7.45+" floor).
+Reproduced once, not yet root-caused or confirmed environment-specific — left as a Fixed-session
+workaround rather than a doc change until someone confirms it isn't specific to this remote session.
+
+**Open:**
+- [owner] **`origin/main` and this session's 13-commit mid-career-momentum line have diverged**
+  ([env], found 2026-07-23) — see above. The 13 commits are safe on branch `mid-career-momentum-wip`
+  (pushed to origin). Decide: merge it into `main` (bringing the whole mid-career-momentum program
+  — raw captures, refine drain, tooling refactor — back into the mainline), rebase it onto current
+  `main` first, or treat it as superseded/abandoned. Until this is resolved, no `/produce-video` or
+  `/render-lessons` run should touch `mid-career-momentum` against `main`, since `main` has no
+  `lesson-scripts/mid-career-momentum/` folder at all right now (since 2026-07-23).
+- [owner] **This session's environment has no TTS credential path** ([env], found 2026-07-23) —
+  neither `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` (for the pinned HeyGen provider) nor
+  egress to a Whisper-model host (for the kokoro fallback's transcribe step) is available in this
+  remote/scheduled-routine session. Every queued illustrated-lesson build is blocked on this,
+  independent of script content. Provision the Infisical Codespaces secrets to this environment,
+  or open egress to at least one Whisper-model host, before the next scheduled BUILD run
+  (since 2026-07-23).
+- [owner] **`m4_visibility-actions` is a duplicate body** ([authoring], found 2026-07-22) — the raw
+  carries its own `NOTE FOR REVIEW`, and a diff confirms its body is the same script as
+  `m4_who-will-walk...` modulo header and list formatting. It never defines or demonstrates a
+  visibility action. Skipped, still raw at program root. Decide: retire the stem as a duplicate, or
+  capture the real visibility-actions lesson — Module 4 currently has no lesson teaching its own
+  title concept (since 2026-07-22).
+- [owner] **Career-transition taxonomy is self-contradictory across Module 1 and Module 2**
+  ([authoring], found 2026-07-22) — raw m1 says "three common paths" (L8, L34) but its title and
+  enumeration give four, and its labels don't match their own definitions ("Reinvention" = promotion
+  in place, "Rebuild" = lateral move, "Pivot" = role redesign). m2's resume-builder lesson then
+  teaches three paths under the *other* names (promotion / lateral / role redesign). Both
+  refinements are correct against their own raws, so no agent can reconcile them without fabricating
+  course content. A learner hits the collision directly. Rule on the canonical taxonomy
+  (since 2026-07-22).
+- [owner] **Module 5 recap asserts four things the program never taught** ([authoring], found
+  2026-07-22) — all four are in the raw, so they are inherited, not refinement defects: (1) "In
+  Module 4, you gauged your confidence with AI" — no confidence-gauge activity exists anywhere, and
+  the line displaces M4's actual relationships/visibility content; (2) "Outcome. Visibility.
+  Relationships. Results." presented as a reusable framework — taught nowhere, and it collides with
+  the real four-part lens (Responsibility → Action → Measurable outcome → Scope) the learner actually
+  practiced; (3) "The Career Accelerator has more tracks, more tools, and a member community" — the
+  KB program of record is *Career Readiness Accelerator*, a single 5-week Launchpad, and the
+  community is a separate entity (theCOMMUNITY.com); (4) "you sent at least one real message" —
+  Module 3 only asks learners to *craft* messages ("drafted" would fix it). Closing lesson, so these
+  are the last thing a learner hears (since 2026-07-22). **Update 2026-07-22:** (1) and (4) were
+  fixed in `m6_youve-built-momentum`'s refined text; (2) and (3) remain, left on purpose as
+  owner-actionable content calls — see the ledger row for detail.
+- [owner] **Three refined scripts carry inline `TODO: needs input` lines** ([authoring], found
+  2026-07-22) — `m1_four-kinds`, `m2_discover-experiences`, `m2_rewrite-your-linkedin`. This is the
+  skill's prescribed marker for content the source doesn't supply, but the files feed TTS verbatim,
+  so **a build would speak them aloud**. Answer the three questions (Forced Reinvention's missing
+  definition; the four formula parts the source names but never defines; whether the LinkedIn lesson
+  follows the resume lesson in the published sequence) before any `/render-lessons` run on those
+  stems (since 2026-07-22).
+- [owner] **`mid-career-momentum` has no filed curriculum source** ([authoring], found 2026-07-22) —
+  `programs/` has no folder for it, so each raw capture is its own self-attesting source of record
+  and every `qa-facts` pass flagged the same gap: the program has no independent fact floor. File the
+  curriculum outline, or accept that facts passes here can only check internal consistency
+  (since 2026-07-22).
+- [owner] **Resume Builder Tool's "AI rewrite feature" is undocumented** ([authoring], found
+  2026-07-22) — `m2_using-the-resume-builder-tool...` narrates a UI walkthrough ("you'll see the main
+  upload or text area", "run the bullet through the AI rewrite feature") of a capability no filed SCLA
+  product doc describes; `programs/programs-overview.md` L260-264 says the tool "needs content and
+  tech upgrades. A PRD is required." Confirm the feature and screen exist in the live product before
+  this renders (since 2026-07-22).
+- [owner] **Sample figures will read as SCLA data if rendered as stat cards** ([defect], found
+  2026-07-22) — three m2 scripts speak illustrative resume metrics (30% / 20% onboarding, and 18% /
+  25% / cohorts of 30–40 / quarterly). All are sourced and all are now explicitly framed as example
+  copy *in narration* — but the framing lives only in the spoken line. Watch for these at the
+  hyperframe gate; a standalone stat card strips the qualifier (since 2026-07-22).
+- [owner] **Two mid-career lessons are half-length** ([authoring], found 2026-07-22) —
+  `m1_the-value-of-building-mid-career-momentum` (184 words, ~75s; the title promises the *value* of
+  momentum but the body only maps three paths) and `m4_bonus-skills-for-the-ai-era` (275 words). The
+  latter is marked "adapted from Early Career Boost" and its ancestor carries three beats this
+  adaptation drops. Nothing was invented to pad either. Decide: capture the missing sections, import
+  and re-frame the ancestor's beats, or ship short (since 2026-07-22).
+- [owner] **`early-career-boost/refined/using-the-career-map-tool_...` was never actually refined**
+  ([authoring], found 2026-07-22) — it still carries a full `LESSON CAPTURE` header plus `[▶ VIDEO]`,
+  `[ATTACHMENT — PDF]` and `[IMAGE]` markers, i.e. a raw capture filed straight into `refined/`. The
+  ledger records it as refined 2026-07-12. It sits in the `/render-lessons` queue in that state.
+  Decide: re-run it through `/refine-scripts`, or confirm it is intentionally parked
+  (since 2026-07-22).
+- [owner] **`/refine-scripts` SKILL.md wording invites the padding failure above** ([defect], found
+  2026-07-22) — see "Promoted to docs". Two edits would close it: state that the ~580-word target is
+  never a reason to add content, and scope voice work to how source lines are said rather than which
+  beats exist. Deferred to the owner because the skill is shared with `/produce-video`
+  (since 2026-07-22).
+- [owner] **Superseded audio-wrong mini-syllabus `2ilh1o6c4g` still live** in the Wistia ECB folder
+  ([tooling], found 2026-07-22) — replaced by `nj4n0073vn`. Token can't delete; archive it on Wistia
+  as you did the earlier old-header copies (since 2026-07-22).
+- [owner] **mini-syllabus legacy comps have low animacy** ([defect], found 2026-07-22) — presence gate
+  hard-fails on false positives (frames verified correct). Decide: commission a proper re-animation of
+  the bespoke `scla-points-*` / `scla-steps` / `scla-outro` comps (bring them to the 2026-07-15 motion
+  standard), or accept these minimal layouts as-is and tune the presence detector's light-frame /
+  low-amplitude thresholds so it stops false-flagging them (since 2026-07-22).
+- [owner] **`scla-chips` `subBeats` renders inert** ([defect], found 2026-07-15) — `.cc-subbeat` never
+  appears in rendered output; `subBeats` silently unusable until repro'd in live devtools. Decide whether
+  to prioritize or leave marked unusable (since 2026-07-15).
+- [owner] **Who/what rendered `better-decisions`?** Provenance-blocked, never at the gate. Provide the
+  lesson body/outline to clear its facts blocker, or park the workspace (since 2026-07-15).
+- [owner] **Wistia publish/credential audit trail** — no entry records who cleared the earlier "reads
+  403" state or ran the earlier unlogged publishes; `WISTIA_API` token still lacks delete scope, so
+  superseded medias can only be archived (owner) not deleted (since 2026-07-15).
+- [owner] **HeyGen API key still 403s** — blocks the pinned-voice upgrade path and `avatar-pipeline/`
+  (since 2026-07-07).
+
 ## 2026-07-22 · /refine-scripts drained mid-career-momentum: 12 refined, 1 skipped
 
 First batch for a second program. 13 raw captures at `lesson-scripts/mid-career-momentum/` root
