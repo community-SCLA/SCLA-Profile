@@ -42,9 +42,10 @@ going-solo` (byte-identical duplicate); the MCM file still carries its own `SCRI
 or build` marker at the top. No avatar-route raws in any program's `avatar/`. Both correctly skipped by
 folder-content alone. No refine subagent dispatched — true no-op.
 
-Moved to Phase BUILD. `refined/` unchanged at 27 scripts (8 career-transitions, 1 early-career-boost, 4
-entrepreneur-accelerator, 14 mid-career-momentum root + 1 mid-career-momentum avatar route, not counted).
-No workspaces under `renders-hyperframes/` (only `README.md`) — all 27 still unbuilt.
+Moved to Phase BUILD. `refined/` unchanged at 28 scripts (8 career-transitions, 1 early-career-boost, 4
+entrepreneur-accelerator, 15 mid-career-momentum root; `refined/avatar/` holds 1 more but that's the
+HeyGen queue, not counted here). No workspaces under `renders-hyperframes/` (only `README.md`) — all
+28 still unbuilt.
 
 Independently re-verified the TTS-credential/egress wall rather than trust the prior entry: `which
 infisical` empty (CLI not installed); `env | grep -iE "heygen|infisical"` empty (no
