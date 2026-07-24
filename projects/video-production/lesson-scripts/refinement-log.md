@@ -82,45 +82,58 @@ dashboard itself, not in the capture).
 
 ## career-transitions
 
-**Captured from the SCLA admin dashboard 2026-07-23** (8 raw scripts at
-program root, not yet refined). Reconciled against the live
-`/api/admin/program/career-transitions` JSON 2026-07-23: **all 8 captures are
-verbatim matches (n-gram containment 1.00 both directions) and no dashboard
-video block lacks a capture.** Dashboard is Draft; program has 8 modules.
-Dashboard components with no video block: M1 Mini-Syllabus (unlike the other
-track programs, it has none), M8 Resources. M6 "Reinventing with AI" is an
-explicit reuse slot ("Use the same video from Early Career Boost") — no script
-to capture, mirrors mid-career-momentum M5.
+**Captured from the SCLA admin dashboard 2026-07-23**; reconciled against the
+live `/api/admin/program/career-transitions` JSON 2026-07-23 (**all 8 captures
+verbatim, n-gram containment 1.00 both directions, no dashboard video block
+lacks a capture**). Dashboard is Draft; program has 8 modules. Dashboard
+components with no video block: M1 Mini-Syllabus (unlike the other track
+programs, it has none), M8 Resources. M6 "Reinventing with AI" is an explicit
+reuse slot ("Use the same video from Early Career Boost") — no script to
+capture, mirrors mid-career-momentum M5.
+
+**Drained 2026-07-24 (`/refine-scripts`): all 8 refined, 0 skipped.** No
+independent curriculum is filed under `programs/` for this program, so each raw
+capture is its own faithful source of record — qa-facts verdicts are
+faithful-to-raw only (no independent fact floor). NOTE: the `refined/` copies
+were found already drafted+committed by a prior partial run that never ran the
+facts pass or the bookkeeping; this drain supplied the mandatory qa-facts pass
+on all 8, applied one fix, and completed the raw removal. Raw originals removed
+from root (preserved in git history) — facts findings cite raw line numbers.
 
 | Script | Created | Refined | Rendered | Notes |
 |---|---|---|---|---|
-| `m2_welcome-and-using-career-transitions-as-leaps-ahead_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M2 "The Truth About Transitions" script |
-| `m2_four-kinds-of-career-transition_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard. ⚠ Same lesson title as mid-career-momentum's m2 but a **different taxonomy** (Growth Pivot / Reinvention / Redirect / Rebuild on a chosen-vs-forced × adjacent-vs-dramatic 2×2) — this is the CT program's own model, faithful to its source, not a capture error |
-| `m3_the-two-sided-work_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard |
-| `m3_the-identity-audit_2026-07-23.txt` | 2026-07-23 | — | — | raw at root. ⚠ **Dashboard has no labeled Script for this video** — capture is the whole video block: article-style prose + an embedded design spec (concentric-circles diagram) + a "(Forbes, 2026)" citation. Not clean narration; refine with care, qa-facts should watch the Forbes claim |
-| `m4_building-your-carry-forward-inventory_2026-07-23.txt` | 2026-07-23 | — | — | raw at root. ⚠ **Dashboard has no labeled Script** — capture is the video block: header line, four-category graphic content + design spec, no connected narration. Owner may need to supply/confirm the narration before refine |
-| `m5_testing-your-next-chapter_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard |
-| `m5_the-story-that-makes-the-change-legible_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M5 "Your Pivot Story and Positioning" |
-| `m7_your-reinvention-roadmap_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M7 "Completion & Your Reinvention Roadmap" |
+| `m2_welcome-and-using-career-transitions-as-leaps-ahead_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS**. Cue-strip + trivial rewordings only; Feiler/Ibarra, 3–5 transitions/~5 yrs, Tracks 1/2/3, 5-modules/3-things all trace to raw |
+| `m2_four-kinds-of-career-transition_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS** (2 NOTE: hedge "often" dropped in 3 spots; tricolon "more complexity" omitted — stylistic, no overclaim). ⚠ Same lesson title as mid-career-momentum's m2 but a **different taxonomy** (Growth Pivot / Reinvention / Redirect / Rebuild on a chosen-vs-forced × adjacent-vs-dramatic 2×2) — the CT program's own model, faithful to source, not a capture error |
+| `m3_the-two-sided-work_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS** (2 NOTE pov-drift: "Let me"→"Let's", "I see"→"we see" — cosmetic). Bridges/Ibarra/Dorie Clark refs + carry-forward 4-item set all trace to raw |
+| `m3_the-identity-audit_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **FAIL→fixed**. Refine had dropped the raw's "(Forbes, 2026)" citation while keeping the empirical "evidence-based practices" claim as bare fact; **fixed 2026-07-24** by restoring spoken attribution ("As Forbes reported in twenty twenty-six…") — faithful to raw. Five identity layers + three audit questions intact; concentric-circles design spec correctly stripped |
+| `m4_building-your-carry-forward-inventory_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS** (2 NOTE added-gloss: two interpretive tails answer prompts the raw only poses — non-contradicting). Graphic-heavy source (no labeled Script): all four categories (Skills/Values/Relationships/Insights) with defs+prompts voiced complete; 1600×700px design spec stripped. Earlier "owner may need to supply narration" flag resolved — the block carried enough sourced content to refine faithfully |
+| `m5_testing-your-next-chapter_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS**. Ibarra/Harvard/INSEAD, design-three-experiments, 25-min / 10-20-30-hr / "saved you a year" figures all trace to raw |
+| `m5_the-story-that-makes-the-change-legible_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS**. Ibarra & Barbulescu, 3-part pivot story, 3 failure modes, module deliverables all trace to raw; "Harvard" attribution dropped (safe subtraction). Dashboard M5 "Your Pivot Story and Positioning" |
+| `m7_your-reinvention-roadmap_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; qa-facts **PASS**. Completion/recap lesson; Ibarra ref, 18-months, four roadmap elements, 90-day rationale all trace to raw; no recap line references a module/activity absent from the program. Dashboard M7 "Completion & Your Reinvention Roadmap" |
 
 ## entrepreneur-accelerator
 
-**Captured from the SCLA admin dashboard 2026-07-23** (5 raw scripts at
-program root, not yet refined; dashboard program name "Entrepreneurship
-Accelerator", slug `entrepreneur-accelerator`, Draft, 6 modules). Reconciled
-against the live program JSON 2026-07-23: **all 5 captures are verbatim
-(containment 1.00) and no dashboard video block lacks a capture** — but see
-the m1/m2 duplication below. Dashboard components with no video block:
+**Captured from the SCLA admin dashboard 2026-07-23** (dashboard program name
+"Entrepreneurship Accelerator", slug `entrepreneur-accelerator`, Draft, 6
+modules). Reconciled against the live program JSON 2026-07-23: **all 5 captures
+verbatim (containment 1.00), no dashboard video block lacks a capture** — but
+see the m1/m2 duplication below. Dashboard components with no video block:
 M2 "Going Solo - What Should I Do?", M6 "Launching Your Solo Adventure",
 M6 "Resources".
 
+**Drained 2026-07-24 (`/refine-scripts`): 4 refined, 1 skipped** (`m2` — the
+m1-duplicate, see its row). No independent curriculum is filed under `programs/`
+for this program, so each raw capture is its own faithful source of record —
+qa-facts verdicts are faithful-to-raw only. Raw originals of the 4 refined
+scripts removed from root (preserved in git history); `m2` stays raw at root.
+
 | Script | Created | Refined | Rendered | Notes |
 |---|---|---|---|---|
-| `m1_reframing-entrepreneurship-and-going-solo_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M1 Mini-Syllabus video |
-| `m2_why-build-your-own-path_2026-07-23.txt` | 2026-07-23 | — | — | ⚠ **Byte-identical to `m1_reframing…` — and faithfully so: the dashboard itself carries the SAME script under both video headings** (M1 "Reframing Entrepreneurship & Going Solo" and M2 "Why Build Your Own Path"). Not a capture error; an authoring gap in the dashboard. **Owner-actionable: supply a distinct script for one of the two videos. Skip at /refine-scripts until resolved** — refining both as-is produces two videos with identical narration |
-| `m3_choosing-your-solo-model_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard |
-| `m4_building-visibility-on-your-own_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard. Dashboard block has no "Script" label but the content IS real narration with on-screen cues — usable as-is |
-| `m5_making-solo-work-sustainable_2026-07-23.txt` | 2026-07-23 | — | — | raw at root; verbatim vs dashboard M5 "Building a Solo System" |
+| `m1_reframing-entrepreneurship-and-going-solo_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; 332→267 words. qa-facts **PASS**. Program opener; 5-item module roadmap (experiment / freelance-consulting-fractional / package offer / draft outreach / 30–90 day plan) complete and unaltered. Dashboard M1 Mini-Syllabus video |
+| `m2_why-build-your-own-path_2026-07-23.txt` | 2026-07-23 | — | — | **SKIPPED at /refine-scripts 2026-07-24 (re-confirmed).** ⚠ Byte-identical (md5 `226e875…`) to `m1_reframing…`, faithfully so — the dashboard carries the SAME script under both M1 "Reframing Entrepreneurship & Going Solo" and M2 "Why Build Your Own Path". Not a capture error; a dashboard authoring gap. Stays raw at root. **Owner-actionable: supply a distinct script for one of the two videos** — refining both as-is produces two videos with identical narration |
+| `m3_choosing-your-solo-model_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; 267→~290 words. qa-facts **FAIL→fixed**. Refine had escalated the raw's hedges/comparatives into absolutes; **fixed 2026-07-24** by restoring raw framing ("often paid", "more on clarity…than", "part-time leader or owner", "more embedded…more accountable"). Three solo models (Freelance/Consulting/Fractional) + example roles intact |
+| `m4_building-visibility-on-your-own_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; 766→595 words. qa-facts **PASS**. Six enumerated sets (3 first-client sources / 4 building blocks / 3-part story / 5 touchpoints / 5 AI uses / 4-item deliverable) all complete + correctly ordered; example offer statements kept as examples, not SCLA facts. Content was real narration with on-screen cues — usable as-is |
+| `m5_making-solo-work-sustainable_2026-07-23.txt` | 2026-07-23 | 2026-07-24 | — | in `refined/`; 236→218 words. qa-facts **PASS**. Five-piece solo system (tracking / intake / templates / weekly review / boundaries) complete; short by design (source carried ~217 spoken words — not padded). Dashboard M5 "Building a Solo System" |
 
 <!-- alternate branch removed: older 2026-07-22 mid-career notes -->
 | `m1_the-value-of-building-mid-career-momentum_...` | 2026-07-22 | 2026-07-22 | — | in `refined/`; 161→184 words. qa-facts **PASS**. ⚠ **Very short** (~75s) — reads as a coherent module opener, but the title promises the *value* of mid-career momentum and the body only maps the three paths. If a "why now" section exists upstream, it was never captured |
