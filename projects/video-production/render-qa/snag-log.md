@@ -29,6 +29,50 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-24 · /produce-video (scheduled routine, thirteenth run today): BUILD still blocked on TTS credentials
+
+Thirteenth automated run today. Refine step: listed each program's root and `avatar/` non-recursively
+(`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Same two
+raw `.txt` files present at program roots as every prior run today —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` — both
+re-confirmed by direct read to be documented skip items (refinement-log.md rows 133/150/153): the EA file
+opens with the same "When people hear the word 'entrepreneur'…" body as `m1_reframing-entrepreneurship-and-
+going-solo` (byte-identical duplicate); the MCM file still carries its own `SCRIPT PENDING — do not refine
+or build` marker at the top. No avatar-route raws in any program's `avatar/`. Both correctly skipped by
+folder-content alone. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` unchanged at 28 scripts (8 career-transitions, 1 early-career-boost, 4
+entrepreneur-accelerator, 15 mid-career-momentum). No workspaces under `renders-hyperframes/` (only
+`README.md`) — all 28 still unbuilt.
+
+Independently re-verified the TTS-credential/egress wall rather than trust the prior entry: `which
+infisical` empty (CLI not installed); `env | grep -iE "heygen|infisical"` empty (no
+`INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`/`HEYGEN_API_KEY`); `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`; direct curls to `api.heygen.com` and `huggingface.co` both failed outright (curl
+exit 56, "CONNECT tunnel failed, response 403" — proxy-level block, not a timeout), same class of egress
+failure as every prior entry today. Neither the default HeyGen-starfish TTS path nor the kokoro fallback
+can run, and B2's build sequence depends on one of the two for every video, so **no build subagent was
+dispatched** — dispatching one would just fail at the same wall after burning its tool budget. `refined/`
+unchanged; batch cap not exercised.
+
+Housekeeping: session started in detached HEAD at `c75bf36` (matched `origin/main` exactly after fetch —
+no divergence). `git checkout -B main origin/main` restored a tracking branch before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, gated at the file level; `m2_why-build-your-own-path` duplicate
+of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script; Module 1/2
+career-transition taxonomy contradiction; `m6` recap's two unsupported claims; two mid-career-momentum
+scripts carrying inline `TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume
+Builder Tool's undocumented "AI rewrite feature"). Per the no-repeat-notification convention (one
+escalation already sent, eleventh-run entry): the wall itself is unchanged since that escalation, so
+**no new notification sent this run**.
+
 ## 2026-07-24 · /produce-video (scheduled routine, twelfth run today): BUILD still blocked on TTS credentials
 
 Twelfth automated run today. Refine step: listed each program's root and `avatar/` non-recursively
