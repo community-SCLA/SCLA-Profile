@@ -29,6 +29,47 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-24 · /produce-video (scheduled routine, sixteenth run today): BUILD still blocked on TTS credentials
+
+Sixteenth automated run today. Refine step: listed each program's root and `avatar/` non-recursively
+(`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Same two
+raw `.txt` files present at program roots as every prior run today —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` — both
+re-confirmed by direct read to be documented skip items (refinement-log.md rows 133/150/153): the EA file
+opens with the same "When people hear the word 'entrepreneur'…" body as `m1_reframing-entrepreneurship-and-
+going-solo` (byte-identical duplicate); the MCM file still carries its own `SCRIPT PENDING — do not refine
+or build` marker at the top. No avatar-route raws in any program's `avatar/`. Both correctly skipped by
+folder-content alone. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` unchanged at 28 scripts (8 career-transitions, 1 early-career-boost, 4
+entrepreneur-accelerator, 15 mid-career-momentum). No workspaces under `renders-hyperframes/` (only
+`README.md`) — all 28 still unbuilt.
+
+Independently re-verified the TTS-credential/egress wall rather than trust the prior entry: `which
+infisical` empty (CLI not installed); `env | grep -iE "heygen|infisical"` empty (no
+`INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`/`HEYGEN_API_KEY`); `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`; direct curls to `api.heygen.com` and `huggingface.co` both failed outright (curl
+exit 56, "CONNECT tunnel failed" — proxy-level block, not a timeout), same class of egress failure as every
+prior entry today. Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, and B2's
+build sequence depends on one of the two for every video, so **no build subagent was dispatched** —
+dispatching one would just fail at the same wall after burning its tool budget. `refined/` unchanged; batch
+cap not exercised.
+
+Housekeeping: session started in detached HEAD at `fce121f` (a merge that had already absorbed a
+divergent branch tip separately tagged "sixteenth run" by a concurrent firing earlier today — that tip's
+own content was strictly behind this merge, i.e. superseded, so nothing was lost). `git checkout -B main
+origin/main` restored a tracking branch before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
+resolved.
+
+**Not notifying the owner this run:** identical root cause, identical diagnosis, and identical no-op
+outcome to each of the last several runs today (see entries below) — nothing new for the owner to act on
+that hasn't already surfaced. The standing ask remains: provision `INFISICAL_CLIENT_ID` /
+`INFISICAL_SECRET_KEY` (or a direct `HEYGEN_API_KEY`) for this environment, or allow egress to
+`api.heygen.com` / `huggingface.co` so the kokoro fallback can install and run.
+
 ## 2026-07-24 · /produce-video (scheduled routine, fifteenth run today): BUILD still blocked on TTS credentials
 
 Fifteenth automated run today. Refine step: listed each program's root and `avatar/` non-recursively
