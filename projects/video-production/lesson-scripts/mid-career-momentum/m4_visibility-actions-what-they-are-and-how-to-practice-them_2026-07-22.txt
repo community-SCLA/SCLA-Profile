@@ -1,3 +1,8 @@
+SCRIPT PENDING — do not refine or build. Re-confirmed 2026-07-24 (auto drain):
+body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you;
+never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row.
+Owner-actionable: supply real visibility-actions narration.
+
 Lesson: Mod 4 — Strategic Networking for Your Next Play
 Title: Visibility Actions: What Are They and How to Practice Them?
  When most people hear the phrase “strategic networking,” they jump straight to tactics:
