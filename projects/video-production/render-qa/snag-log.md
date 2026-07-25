@@ -29,6 +29,64 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-25 · /produce-video (scheduled routine, 15th re-confirmation today): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged
+
+Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
+non-recursively (`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`,
+`mid-career-momentum`). Same two raw `.txt` files present at program roots as every prior run —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` (byte-identical duplicate body of
+`m1_reframing-entrepreneurship-and-going-solo`, md5 `226e875076a9411a33363895c1ee002c` matches the
+ledger row and the raw file directly) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`
+(own `SCRIPT PENDING — do not refine or build` marker confirmed still at file top by direct read) —
+both re-confirmed by direct read and correctly skipped by folder-content alone. No avatar-route raws
+in any program's `avatar/`. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `renders-hyperframes/` holds only `README.md` — no workspace exists for any
+queued stem. Independently re-verified the TTS/egress wall rather than trust the prior entry: `which
+infisical` → not found; no `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`/`HEYGEN_API_KEY` in env;
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; `which ffmpeg` → not found; direct curls to
+`https://api.heygen.com` and `https://huggingface.co` both returned `000` (proxy tunnel failure).
+Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, so **no build subagent
+was dispatched**. `refined/` unchanged; batch cap not exercised.
+
+Re-checked the data-integrity finding: still open, unchanged. Confirmed the same 5 stems still sit in
+both `refined/` and `rendered/`: `early-career-boost` (`better-decisions-come-from-better-criteria`,
+`build-direction-before-you-build-a-plan`, `how-to-make-strong-career-decisions`,
+`skills-for-the-ai-era-future`) and `mid-career-momentum` (`m2_four-kinds-of-career-transition_2026-07-23`).
+No file was touched this run — removing tracked files without a human able to catch a wrong call stays
+outside this routine's authorized scope.
+
+Housekeeping: session started with local `HEAD` detached at the 14th-run commit (`1478273`), while this
+container's cached `origin/main` ref pointed at a later commit (`f77cd92`, a "sixteenth run today" snag-log
+entry not present in this session's history). An explicit `git fetch origin main` twice confirmed the
+**actual remote `origin/main` tip is `1478273`** — i.e. the real remote branch was rewound past two later
+run commits (the 15th/16th, per their own snag-log wording) sometime between this container's ref cache
+and now. No content was at risk (those were identical no-op re-confirmation commits, same as this one),
+but it signals multiple concurrent firings of this same scheduled routine landing overlapping commits and
+at least one non-fast-forward rewrite of `main` — worth the owner's attention as a scheduling/concurrency
+question, separate from the TTS blocker. `git fetch origin main && git checkout -B main origin/main`
+restored a clean tracking branch on the confirmed remote tip before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min) — no pipeline snag was newly
+resolved.
+
+**Promoted to docs:** none.
+
+**Open:**
+- TTS-credential/egress wall: unchanged since 2026-07-23; **not re-notified** (no push sent this run
+  either), per the no-repeat-notification convention established at the eleventh-run entry 2026-07-23
+  — still no infra fix landed (a human needs to either grant this container's proxy egress to
+  `api.heygen.com`/`huggingface.co`, or install `infisical`+`INFISICAL_CLIENT_ID`/
+  `INFISICAL_SECRET_KEY`+`kokoro_onnx`+`ffmpeg` so the kokoro fallback can run fully offline)
+- 5 scripts committed to both `refined/` and `rendered/` in `early-career-boost` (4) and
+  `mid-career-momentum` (1) — needs a human to confirm the `rendered/` copies are stale duplicates
+  before `git rm` (since 2026-07-25; not re-notified this run, unchanged)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (since 2026-07-23)
+- **New this run:** `origin/main` was found rewound by 2 commits versus this container's cached ref
+  (see Housekeeping above) — no data lost (duplicate no-op commits only), but flags concurrent/overlapping
+  routine firings worth the owner's attention (since 2026-07-25; first occurrence, not yet notified)
+
 ## 2026-07-25 · /produce-video (scheduled routine, 14th re-confirmation today): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged
 
 Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
