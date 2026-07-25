@@ -3132,6 +3132,102 @@ copy is authoritative before any file is touched.
 - Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
 - `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
 - Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely (since 2026-07-23)
+
+## 2026-07-25 · /render-lessons BUILD: m2_mid-career-mindsets-and-limiting-beliefs_mid-career-momentum_2026-07-25 — gate-clean
+
+Build subagent run: `m2_mid-career-mindsets-and-limiting-beliefs_mid-career-momentum_2026-07-25`, theme `cadence`, 8 scenes, 95.3s.
+Script: `lesson-scripts/mid-career-momentum/refined/m2_mid-career-mindsets-and-limiting-beliefs_2026-07-23.txt` (236 words, 0.00% mismatch).
+
+All gates passed: synth (heygen, 8 scenes, 227 words, 94.2s audio), compile_timeline (APPLIED, clean on re-run), preflight (PASS — 0 boundary violations, theme=cadence on all scenes, 0.00% script-vs-transcript mismatch), npm run check (PASS — 0 errors, 1 contrast warning on decorative ghost numeral in shared scla-steps.html template, 9 layout samples).
+
+**Fixed this session:**
+- [authoring] Em-dash anchor collision: scene-03 pointCue anchored on "gives you more" — "more" is part of the compound token "more—not" in the HeyGen transcript, making it an invalid cue end position. Fixed: changed anchor to "That gives you" which ends cleanly before the compound. Resolution: 1 min.
+- [authoring] chip labels in scene-02 originally used `&apos;` HTML entity (e.g. `It&apos;s too late`) inside a single-quoted HTML attribute — `&apos;` would close the attribute at the parser level. Fixed: rewrote chip labels to plain ASCII without apostrophes (`Too late to change`, etc.). Resolution: 1 min.
+
+**Promoted to docs:** None new this session (em-dash anchor avoidance already documented in frame.md and SKILL.md; the `&apos;`-in-single-quoted-attr risk is a variant of the same JSON/HTML-escaping discipline already noted).
+
+**Open:**
+- [env] ffmpeg not in devcontainer postCreateCommand — every fresh codespace will hit the same transcode failure on first HeyGen TTS run. Owner action: add `ffmpeg` to devcontainer setup (or `.devcontainer/devcontainer.json` features). (since 2026-07-25)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
+## 2026-07-25 · /render-lessons BUILD: skills-for-the-ai-era-future_early-career-boost_2026-07-10 — gate-clean
+
+Build subagent run: `skills-for-the-ai-era-future_early-career-boost_2026-07-10`, theme `horizon`, 9 scenes, 191.98s.
+Script: `lesson-scripts/early-career-boost/refined/skills-for-the-ai-era-future_early-career-boost_2026-07-10.txt` (503 words, 0.00% mismatch).
+
+All gates passed: synth (heygen, 9 scenes, 503 words, 190.88s), compile_timeline (APPLIED, clean on re-run), preflight (PASS — 0 boundary violations, theme=horizon on all scenes, 0.00% script-vs-transcript mismatch), npm run check (PASS — 0 errors, 0 warnings, 43/43 WCAG AA, 9 layout samples). Script moved to `rendered/`.
+
+**Fixed this session:**
+- None. Build ran clean first attempt. Token verification passed before TTS (tokenizer treats `--` and em-dash equivalently via DASH_RE). All chip labels kept free of internal commas per frame.md rule.
+
+**Promoted to docs:** None new this session.
+
+**Open:**
+- [env] ffmpeg not in devcontainer postCreateCommand — every fresh codespace will hit the same transcode failure on first HeyGen TTS run. Owner action: add `ffmpeg` to devcontainer setup (or `.devcontainer/devcontainer.json` features). (since 2026-07-25)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
+## 2026-07-25 · /render-lessons BUILD: how-to-make-strong-career-decisions_early-career-boost_2026-07-10 — gate-clean
+
+Build subagent run: `how-to-make-strong-career-decisions_early-career-boost_2026-07-10`, theme `summit`, 11 scenes, 178.5s.
+Script: `lesson-scripts/early-career-boost/refined/how-to-make-strong-career-decisions_early-career-boost_2026-07-10.txt` (465 words, 0.00% mismatch).
+
+All gates passed: synth (heygen, 11 scenes, 465 words), compile_timeline (APPLIED, clean on re-run), preflight (PASS — 0 boundary violations, theme=summit on all scenes, 0.00% script-vs-transcript mismatch), npm run check (PASS — 0 errors, 0 warnings, 25 WCAG AA text checks, 9 layout samples). Script moved to `rendered/`.
+
+**Fixed this session:**
+- [authoring] `&quot;` HTML entity inside single-quoted `data-variable-values` chip value (scene 06 "Ask &quot;what else?&quot; twice") caused `JSONDecodeError` in `hfp_common._load_json_attr` after `html.unescape()` expanded entities before `json.loads()`. Fixed: rewrote chip to plain ASCII `Ask what else — twice`. Resolution: 1 min.
+- [authoring] `synth_narration.py` flagged `scene(s) missing data-narration` on outro (empty string). Fixed: restructured final two scenes — scene 10 (scla-statement) covers closing loop insight, scene 11 (scla-outro) covers final call-to-action sentence. Resolution: 2 min.
+- [authoring] Curly quote corruption (U+201C/U+201D) in scene-06 chip JSON after compile round-trip. Compiler `json.dumps(ensure_ascii=False)` wrote curly quotes into structural JSON positions. Fixed: byte-level replace pass on the attribute value before re-compiling. Resolution: 3 min.
+- [env] HeyGen TTS synthesis failed with stale ambient `HEYGEN_API_KEY`. Fixed: invoked synth via `bash ../../../../scripts/with-secrets.sh python3 ...` — Infisical REST fallback exports correct key. Resolution: 2 min (diagnosis) + immediate retry success.
+- [tooling] `npm run check` lint rule `media_missing_data_start`: `<audio>` element lacked `data-start`/`data-duration`. Fixed: added `data-start="0"` and then let `compile_timeline --apply` set correct `data-duration=177.436` (actual wav length). Resolution: 1 min.
+- [tooling] `npm run check` lint rules `host_missing_composition_id` + `studio_missing_editable_id`: scene clip divs missing `id` and `data-composition-id`. Fixed: added both attributes to all 11 scene divs. Resolution: 3 min.
+- [tooling] After manually setting `<audio data-duration="178.536">` (root duration), `preflight.py compile_check` and `coverage` both failed because true wav is 177.436s. Fixed: re-ran `compile_timeline --apply`; it updated audio `data-duration` to 177.436 and both checks passed. Resolution: 1 min.
+
+**Promoted to docs:** None new this session (all snags are variants of known patterns already documented in frame.md / SKILL.md notes on JSON-in-single-quote attributes, with-secrets.sh for HeyGen creds, and the lint rule notes from the 2026-07-25 mini-syllabus entry).
+
+**Open:**
+- [env] ffmpeg not in devcontainer postCreateCommand — every fresh codespace will hit the same transcode failure on first HeyGen TTS run. Owner action: add `ffmpeg` to devcontainer setup (or `.devcontainer/devcontainer.json` features). (since 2026-07-25)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
+## 2026-07-25 · /render-lessons BUILD: m2_four-kinds-of-career-transition_mid-career-momentum_2026-07-25 — gate-clean
+
+Build subagent run: `m2_four-kinds-of-career-transition_mid-career-momentum_2026-07-25`, theme `horizon`, 9 scenes, 202.9s.
+Script: `lesson-scripts/mid-career-momentum/refined/m2_four-kinds-of-career-transition_2026-07-23.txt` (544 words, 0.00% mismatch).
+
+All gates passed: synth (heygen, 9 scenes, 530 words), compile_timeline (APPLIED, clean on re-run), preflight (PASS — 0 boundary violations, theme=horizon on all scenes, 0.00% script-vs-transcript mismatch), npm run check (PASS — 0 errors, 37/37 WCAG AA, 9 layout samples).
+
+**Fixed this session:**
+- [authoring] Em-dash anchor collision: scene-02 chipCues anchored on "did you choose it" and "how big is the leap" — both are preceded by em-dash compounds ("First—did", "Second—how"), making them invalid cue start positions. Fixed: rephrased anchors to "or did it choose you" and "Are you building on your past" which clear the compounds. Resolution: 1 min.
+- [authoring] chipCues vs chips count mismatch in scenes 04 and 06: authoring had 4 chipCues for 3 chips each. Fixed: reduced chipCues to 3 per scene to match the chips list. Resolution: <1 min.
+- [authoring] Curly single-quote characters (\u2018/\u2019) in data-variable-values attributes from Unicode escape in original Write: the compiler's attribute-matching regex looks for ASCII single quotes and failed with MatchError on --apply. Fixed inline with a Python replace pass. Resolution: 2 min.
+- [authoring] Raw apostrophe in JSON string inside single-quoted HTML attribute (scene-07 statement "you're in"): compiler unescaped \u2019 during first apply, creating broken HTML. Fixed: rewrote to "you are in". Resolution: <1 min.
+
+**Promoted to docs:** None new this session (apostrophe/curly-quote risk in JSON-in-single-quote HTML attributes is implicit in the existing frame.md note about HTML-escaping inner double quotes — same discipline applies to apostrophes when using single-quoted wrapper).
+
+**Open:**
+- [env] ffmpeg not in devcontainer postCreateCommand — every fresh codespace will hit the same transcode failure on first HeyGen TTS run. Owner action: add `ffmpeg` to devcontainer setup (or `.devcontainer/devcontainer.json` features). (since 2026-07-25)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23)
 - No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
 - Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
 
@@ -3207,6 +3303,33 @@ inline `TODO: needs input`; no filed `mid-career-momentum` curriculum source; Re
 undocumented "AI rewrite feature"). Per the no-repeat-notification convention (established eleventh-run
 entry 2026-07-23, one escalation already sent): the wall itself is unchanged since that escalation, so **no
 new notification sent this run**.
+
+## 2026-07-25 · /render-lessons BUILD (human-initiated, new codespace): 3 mid-career-momentum videos built and gate-clean
+
+New codespace after previous one ran out of disk. Full environment re-verified from scratch.
+
+**Environment:** `/dev/shm` 512M ✓. HyperFrames 0.7.71 ✓. Infisical CLI not installed (devcontainer postCreateCommand did not run). `scripts/with-secrets.sh` exists and its REST fallback confirmed working — fetches live `HEYGEN_API_KEY` from Infisical and injects it. egress to `api.heygen.com` unblocked (HTTP 200 on `/v3/users/me`; wallet $247.87). The ambient `HEYGEN_API_KEY` in the shell is the old rotated-out key (403 "no permission") — `with-secrets.sh` correctly supersedes it.
+
+**Built this session (all gate-clean, preflight PASS, script-match 0.00%):**
+1. `m1_mini-syllabus_mid-career-momentum_2026-07-25` — summit, 7 scenes, 107.9s
+2. `m2_four-kinds-of-career-transition_mid-career-momentum_2026-07-25` — horizon, 9 scenes, 202.9s
+3. `m2_mid-career-mindsets-and-limiting-beliefs_mid-career-momentum_2026-07-25` — cadence, 8 scenes, 95.3s
+
+All three scripts moved `refined/ → rendered/`. Remaining `refined/` queue: 12 scripts (2 with `TODO: needs input` — skipped; 10 buildable on next run).
+
+**Fixed this session:** TTS credential wall cleared [env] — `with-secrets.sh` REST fallback works without infisical CLI; builds unblocked. No new upstream bugs.
+
+**Promoted to docs:** none this session (snag about `with-secrets.sh` REST fallback was already documented in the script itself).
+
+**Open:**
+- `ffmpeg` not in devcontainer — every fresh codespace must install it before TTS transcode works (build subagents hit this on first run and recover inline with `sudo apt-get install -y ffmpeg`). Owner action: add `ffmpeg` to `.devcontainer/devcontainer.json` `postCreateCommand`. (since 2026-07-25)
+- `m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` at program root — `SCRIPT PENDING` marker, body missing; content needed before this script can be refined or built. (since 2026-07-23)
+- `m2_why-build-your-own-path_2026-07-23.txt` in `entrepreneur-accelerator/` root — duplicate body of `m1_reframing-entrepreneurship-and-going-solo`; needs a distinct M2 script. (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction in `mid-career-momentum` curriculum source (no filed source to resolve against). (since 2026-07-23)
+- `m6_youve-built-momentum` recap contains two unsupported claims (no source filed). (since 2026-07-23)
+- Two `mid-career-momentum/refined/` scripts with inline `TODO: needs input` — `m2_the-value-of-building-mid-career-momentum` (missing value/"why now" section) and `m3_discover-experiences-that-support-your-next-move` (RAMS formula never defined). Skipped this session; content needed from owner. (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source document. (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" referenced in `m3_using-the-resume-builder-tool-pt2`. (since 2026-07-23)
 
 ## 2026-07-25 · /produce-video (scheduled routine, first run today): BUILD still blocked on TTS credentials
 
