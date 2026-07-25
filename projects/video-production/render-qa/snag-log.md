@@ -29,7 +29,64 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
-## 2026-07-25 · /produce-video (scheduled routine, 16th re-confirmation today): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged
+## 2026-07-25 22:56 UTC · /produce-video (scheduled routine, 17th re-confirmation today): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged
+
+Automated hourly run via `/produce-video` (trigger `trig_01MLz82FGHA6T6NJ3SgWVqv6`, cron `53 * * * *`
+— confirmed via `list_triggers`, so ~17 identical firings in one day is the trigger's normal cadence,
+not a scheduling anomaly; the prior entry's concurrent-firing/rewind concern is not re-flagged since it
+still hasn't reproduced). Refine step: listed each program's root and `avatar/` non-recursively
+(`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Same
+two raw `.txt` files present at program roots as every prior run —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` (byte-identical duplicate body of
+`m1_reframing-entrepreneurship-and-going-solo`) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` (own
+`SCRIPT PENDING — do not refine or build` marker confirmed still at file top by direct read) — both
+re-confirmed by direct read and correctly skipped by folder-content alone. No avatar-route raws in any
+program's `avatar/`. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` queue = 31 scripts (career-transitions 8, early-career-boost 5,
+entrepreneur-accelerator 4, mid-career-momentum 14) — unchanged. `renders-hyperframes/` still holds only
+`README.md` — no workspace exists for any queued stem, so the workspace-skip guard doesn't remove
+anything from the count. No build subagent dispatched — independently re-verified the TTS wall before
+assuming so: `which infisical` → not found; no `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`/
+`HEYGEN_API_KEY` in env; `python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; `which ffmpeg` → not
+found; direct curls to `https://api.heygen.com` and `https://huggingface.co` both returned
+`http_code=000` (proxy tunnel failure). Neither the default HeyGen-starfish TTS path nor the kokoro
+fallback can run, so no build subagent was dispatched. `refined/` unchanged; batch cap not exercised.
+
+Re-checked the data-integrity finding: still open, unchanged. Confirmed via `comm -12` the same 5 stems
+still sit in both `refined/` and `rendered/` simultaneously: `early-career-boost`
+(`better-decisions-come-from-better-criteria`, `build-direction-before-you-build-a-plan`,
+`how-to-make-strong-career-decisions`, `skills-for-the-ai-era-future`) and `mid-career-momentum`
+(`m2_four-kinds-of-career-transition_2026-07-23`). No file was touched this run — removing tracked files
+without a human able to catch a wrong call stays outside this routine's authorized scope.
+
+No push notification sent this run: both open items (TTS/egress credential wall, duplicate-state files)
+are unchanged from the last several hourly firings today and were already surfaced in this log: this is
+a stuck-and-known state, not a new event, and the trigger's hourly cadence means re-notifying on every
+identical firing would be pure noise. Flagging here for whichever human next opens this file — **both
+Open items below need a one-time human action to clear** (credential/tooling setup; a decision on the
+5 duplicate-state files).
+
+**Open (owner-actionable, unchanged since first flagged):**
+- **TTS/egress wall (since 2026-07-2x, first hit run):** no `infisical`/`INFISICAL_*`/`HEYGEN_API_KEY`
+  configured in this environment, no `kokoro_onnx` fallback installed, no `ffmpeg`, and no network
+  egress reaches `api.heygen.com` or `huggingface.co`. Every BUILD phase is a guaranteed no-op until one
+  of: HeyGen credentials are provisioned via `scripts/with-secrets.sh`'s expected secret store, or the
+  kokoro local fallback + `ffmpeg` + egress are installed in this environment. 31 scripts are queued in
+  `refined/` waiting on this.
+- **5 stems in both `refined/` and `rendered/` simultaneously (since first flagged, still unresolved):**
+  `early-career-boost/better-decisions-come-from-better-criteria_early-career-boost_2026-07-06`,
+  `early-career-boost/build-direction-before-you-build-a-plan_early-career-boost_2026-07-07`,
+  `early-career-boost/how-to-make-strong-career-decisions_early-career-boost_2026-07-10`,
+  `early-career-boost/skills-for-the-ai-era-future_early-career-boost_2026-07-10`,
+  `mid-career-momentum/m2_four-kinds-of-career-transition_2026-07-23`. Under the "state is the folder"
+  model these are contradictory (rendered/ = gate-clean build exists; refined/ = not yet built) — needs
+  a human call on which folder is correct per stem before this routine will touch them.
+
+**Fixed this session:** none — same two blockers re-confirmed, no state to fix.
+
+**Promoted to docs:** none.
 
 Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
 non-recursively (`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`,
