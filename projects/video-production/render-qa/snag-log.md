@@ -29,7 +29,7 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
-## 2026-07-25 · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged
+## 2026-07-25 · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged (2nd re-confirmation today)
 
 Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
 non-recursively (`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`,
@@ -46,10 +46,10 @@ entrepreneur-accelerator 4, mid-career-momentum 14) — unchanged from the prior
 not exercised, gated on the TTS wall below. Independently re-verified rather than trust the prior
 entry: `which infisical` exit 1 (still not installed); `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`
 unset; `python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; `which ffmpeg` exit 1; direct curls
-to `https://api.heygen.com` and `https://huggingface.co` both returned `CONNECT tunnel failed,
-response 403` (http_code 000) — the outbound proxy is still blocking both hosts, not just a missing
-credential. Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, so **no
-build subagent was dispatched**. `refined/` unchanged; batch cap not exercised.
+to `https://api.heygen.com` and `https://huggingface.co` both returned `http_code:000` (connection
+failed through the outbound proxy) — the outbound proxy is still blocking both hosts, not just a
+missing credential. Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, so
+**no build subagent was dispatched**. `refined/` unchanged; batch cap not exercised.
 
 Re-checked the data-integrity finding: still open, unchanged. `early-career-boost` (4 scripts:
 `better-decisions-come-from-better-criteria`, `build-direction-before-you-build-a-plan`,
@@ -59,9 +59,9 @@ both `refined/` and `rendered/` simultaneously, byte-identical (`diff -q` clean 
 file was touched this run — removing tracked files without a human able to catch a wrong call stays
 outside this routine's authorized scope.
 
-Housekeeping: session again started `HEAD detached from refs/heads/main`, exactly at `origin/main`
-(no divergence, verified by comparing `git log -1` to `git log -1 origin/main` before touching
-anything). `git checkout -B main origin/main` restored a tracking branch before committing this entry.
+Housekeeping: session again started `HEAD detached from refs/heads/main`. Fetched `origin/main` and
+confirmed the prior run's commit (`bbede0b`) was already pushed and equal to `origin/main` — no
+divergence. `git checkout -B main origin/main` restored a tracking branch before committing this entry.
 
 **Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly
 resolved.
