@@ -29,6 +29,55 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-25 · /produce-video (scheduled routine, third run today): BUILD still blocked on TTS credentials; duplicate-file finding still open
+
+Third automated run today. Refine step: listed each program's root and `avatar/` non-recursively
+(`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Same two raw
+`.txt` files present at program roots as every prior run — `entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt`
+(duplicate body of `m1_reframing-entrepreneurship-and-going-solo`) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` (own
+`SCRIPT PENDING — do not refine or build` marker still at file top) — both re-confirmed by direct read and
+correctly skipped by folder-content alone. No avatar-route raws in any program's `avatar/`. No refine subagent
+dispatched — true no-op.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall rather than trust the prior
+entry: `which infisical` exit 1 (not installed); `env | grep -iE "heygen|infisical"` empty; `python3 -c "import
+kokoro_onnx"` → `ModuleNotFoundError`; `which ffmpeg` exit 1 (the devcontainer fix promoted to docs by the
+interim interactive build session is still not effective in this container); direct curls to `api.heygen.com`
+and `huggingface.co` both returned HTTP 000 (connection failure) — same proxy-level block as every prior entry.
+Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, so **no build subagent was
+dispatched**. `refined/` unchanged; batch cap not exercised.
+
+Re-checked the data-integrity finding from the immediately prior entry: still open, unchanged.
+`early-career-boost` (4 scripts: `better-decisions-come-from-better-criteria`, `build-direction-before-you-build-a-plan`,
+`how-to-make-strong-career-decisions`, `skills-for-the-ai-era-future`) and `mid-career-momentum` (1 script:
+`m2_four-kinds-of-career-transition_2026-07-23`) still each have a script committed to both `refined/` and
+`rendered/` simultaneously. No file was touched this run (removing tracked files without a human able to catch
+a wrong call is outside this routine's authorized scope).
+
+Housekeeping: session again started `HEAD detached from refs/heads/main`, exactly at `origin/main` (`2fc5e30`)
+— no divergence. `git checkout -B main origin/main` restored a tracking branch before committing this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly resolved.
+
+**Promoted to docs:** none.
+
+**Open:**
+- TTS-credential/egress wall: unchanged since 2026-07-23; **not re-notified**, per the no-repeat-notification
+  convention established at the eleventh-run entry 2026-07-23 (one escalation already sent)
+- 5 scripts committed to both `refined/` and `rendered/` in `early-career-boost` (4) and
+  `mid-career-momentum` (1) — needs a human to confirm the `rendered/` copies are stale duplicates before
+  `git rm` (since 2026-07-25; **escalated this run** — no prior entry recorded a notification for this
+  specific finding, so this is treated as the first escalation, not a repeat)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct
+  M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
 ## 2026-07-25 · /produce-video (scheduled routine): BUILD still blocked on TTS credentials; new duplicate-file finding
 
 Automated run. Refine step: listed each program's root and `avatar/` non-recursively (`career-transitions`,
