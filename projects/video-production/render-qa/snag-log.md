@@ -29,6 +29,31 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-25 · /render-lessons BUILD: m1_mini-syllabus_mid-career-momentum_2026-07-25 — gate-clean
+
+Build subagent run: `m1_mini-syllabus_mid-career-momentum_2026-07-25`, theme `summit`, 7 scenes, 107.9s.
+Script: `lesson-scripts/mid-career-momentum/refined/m1_mini-syllabus_2026-07-23.txt` (266 words, 0.00% mismatch).
+
+All gates passed: synth (heygen, 7 scenes), compile_timeline (APPLIED, no drift on re-run), preflight (PASS — 0 boundary violations, theme=summit on all scenes, 0.00% script-vs-transcript mismatch), npm run check (PASS — 0 errors, 0 warnings, 51/51 WCAG AA text checks, 9 layout samples).
+
+**Fixed this session:**
+- [env] ffmpeg not installed in devcontainer — HeyGen TTS synthesis failed at transcode step. Fixed: `sudo apt-get install -y ffmpeg`. Resolution: 2 min. Note: ffmpeg is a required dep for any HeyGen-provider build; should be in devcontainer setup.
+- [authoring] JSON decode error on `data-variable-values`: `&quot;` HTML entity around quoted statement text in scene 06 — after `html.unescape()` bare double-quotes break JSON. Fixed: removed curly-quote markup from the JSON variable value (kept literal quotes in `data-narration` only, where it's handled as a plain string). Resolution: 1 min.
+- [authoring] `synth_narration.py` treats empty `data-narration=""` as missing and dies. Outro scene had no narration. Fixed: moved the script's closing sentence ("When you're ready, click Next to begin.") from scene 06 to the outro slot — natural split and keeps the outro as the visual hold. Resolution: 2 min.
+- [tooling] `npm run check` (v0.7.71) now requires `data-composition-id` on every clip host div (new lint rule `host_missing_composition_id`) and `data-start` on `<audio>` (`media_missing_data_start`). Pattern build predates this rule. Fixed: added `id` + `data-composition-id` to each scene clip div, added `data-start="0"` to `<audio>`. Resolution: 2 min.
+
+**Promoted to docs:**
+- ffmpeg dependency: added to `.devcontainer/devcontainer.json` postCreateCommand (2026-07-25). Owner action item closed.
+
+**Open:**
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
 ## 2026-07-25 · /produce-video (scheduled routine, second run today): BUILD still blocked on TTS credentials
 
 Second automated run today. Refine step: listed each program's root and `avatar/` non-recursively
