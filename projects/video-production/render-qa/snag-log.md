@@ -29,6 +29,67 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-25 · /produce-video (scheduled routine): BUILD still blocked on TTS credentials; new duplicate-file finding
+
+Automated run. Refine step: listed each program's root and `avatar/` non-recursively (`career-transitions`,
+`early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Same two raw `.txt` files present at
+program roots as every prior run — `entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt`
+(duplicate body of `m1_reframing-entrepreneurship-and-going-solo`, md5 re-verified `226e875076a9411a33363895c1ee002c`)
+and `mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` (own
+`SCRIPT PENDING — do not refine or build` marker still at file top) — both re-confirmed by direct read and
+correctly skipped by folder-content alone. No avatar-route raws in any program's `avatar/`. No refine subagent
+dispatched — true no-op.
+
+Moved to Phase BUILD. Independently re-verified the TTS-credential/egress wall rather than trust the prior
+entry: `which infisical` exit 1 (CLI not installed); `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` unset;
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; direct curls to `api.heygen.com` and `huggingface.co`
+both returned no response (curl exit 56 / HTTP 000) — same proxy-level block as every prior entry. Neither the
+default HeyGen-starfish TTS path nor the kokoro fallback can run, and B2's build sequence depends on one of the
+two for every video, so **no build subagent was dispatched**. `refined/` unchanged; batch cap not exercised.
+
+**New this session — data-integrity finding (not previously logged):** `early-career-boost` and
+`mid-career-momentum` each have scripts committed to **both** `refined/` and `rendered/` simultaneously,
+violating the "state is the folder, one location" invariant:
+`early-career-boost/{refined,rendered}/better-decisions-come-from-better-criteria_..._2026-07-06.txt`,
+`build-direction-before-you-build-a-plan_..._2026-07-07.txt`, `how-to-make-strong-career-decisions_..._2026-07-10.txt`,
+`skills-for-the-ai-era-future_..._2026-07-10.txt`, and
+`mid-career-momentum/{refined,rendered}/m2_four-kinds-of-career-transition_2026-07-23.txt` — byte-identical
+content in both locations per `diff`, confirmed via `git ls-files` (tracked, not a symlink/artifact). The
+ledger (`refinement-log.md`) lists all 5 as "in `refined/`" with Rendered `—` (never shipped), which suggests
+the `rendered/` copies are the erroneous ones, but this run did **not** delete anything — removing tracked
+files without a human able to catch a wrong call is outside this routine's authorized scope. Left as an Open
+item for an interactive session to resolve (likely `git rm` the 5 stale `rendered/` copies after a human
+confirms against the ledger).
+
+Housekeeping: session again started with `HEAD detached from refs/heads/main`, this time exactly at
+`origin/main` (`6a12984`, includes the ffmpeg + infisical-CLI devcontainer fix from the prior run — not yet
+effective in *this* container). `git checkout -B main origin/main` restored a tracking branch before committing
+this entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly resolved.
+
+**Promoted to docs:** none — the duplicate-file finding is logged here only pending human confirmation of which
+copy is authoritative before any file is touched.
+
+**Open:**
+- TTS-credential/egress wall: `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` not present in this container's env
+  and outbound egress to `api.heygen.com`/`huggingface.co` is proxy-blocked, so no BUILD can run in this
+  environment until infra fixes one of: (a) Infisical creds + `infisical` CLI on PATH, or (b) egress allowlist
+  for the HeyGen/HF hosts, or (c) a local kokoro_onnx install as a same-container fallback (since 2026-07-23;
+  no change this run — **not re-notified**, per the no-repeat-notification convention established at the
+  eleventh-run entry 2026-07-23)
+- **NEW:** 5 scripts committed to both `refined/` and `rendered/` in `early-career-boost` (4) and
+  `mid-career-momentum` (1) — needs a human to confirm the `rendered/` copies are stale duplicates before
+  `git rm` (since 2026-07-25)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct
+  M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
 ## 2026-07-25 · /render-lessons BUILD: m1_mini-syllabus_mid-career-momentum_2026-07-25 — gate-clean
 
 Build subagent run: `m1_mini-syllabus_mid-career-momentum_2026-07-25`, theme `summit`, 7 scenes, 107.9s.
