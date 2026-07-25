@@ -29,6 +29,54 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-25 · /produce-video (scheduled routine, second run today): BUILD still blocked on TTS credentials
+
+Second automated run today. Refine step: listed each program's root and `avatar/` non-recursively
+(`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`, `mid-career-momentum`). Same two raw
+`.txt` files present at program roots as every prior run — `entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt`
+(duplicate body of `m1_reframing-entrepreneurship-and-going-solo`, refinement-log.md rows 132/133, md5
+re-verified `226e875076a9411a33363895c1ee002c` — matches the row's recorded value) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` (own
+`SCRIPT PENDING — do not refine or build` marker still at file top, rows 150/153) — both re-confirmed by
+direct read and correctly skipped by folder-content alone. No avatar-route raws in any program's `avatar/`.
+No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` unchanged at 28 scripts (8 career-transitions, 1 early-career-boost, 4
+entrepreneur-accelerator, 15 mid-career-momentum root; `refined/avatar/` holds 1 more but that's the
+HeyGen queue, not counted here). `renders-hyperframes/` holds only `README.md` — all 28 still unbuilt.
+Selected a candidate batch of 3 opener videos, one per program with zero builds yet
+(`m2_welcome-and-using-career-transitions-as-leaps-ahead_2026-07-23` · career-transitions,
+`m1_reframing-entrepreneurship-and-going-solo_2026-07-23` · entrepreneur-accelerator,
+`m1_mini-syllabus_2026-07-23` · mid-career-momentum) — never dispatched, see below.
+
+Independently re-verified the TTS-credential/egress wall rather than trust the prior entry: `which
+infisical` exit 1 (CLI not installed); `env | grep -iE "heygen|infisical"` empty; `python3 -c "import
+kokoro_onnx"` → `ModuleNotFoundError`; `cat scripts/with-secrets.sh` confirms it hard-requires
+`INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` (neither set) and exits 127 if `infisical` isn't on PATH; direct
+curls to `api.heygen.com` and `huggingface.co` both failed (`CONNECT tunnel failed, response 403`, curl exit
+56 — same proxy-level block as every prior entry). Neither the default HeyGen-starfish TTS path nor the
+kokoro fallback can run, and B2's build sequence depends on one of the two for every video, so **no build
+subagent was dispatched** for any of the 3 selected candidates — dispatching one would just fail at the same
+wall after burning its tool budget. `refined/` unchanged; batch cap not exercised.
+
+Housekeeping: session again started with `HEAD detached from refs/heads/main`, this time at the prior run's
+own commit `bda3b0d`. `git fetch origin main` confirmed `origin/main` was exactly `bda3b0d` — no divergence,
+working tree clean. `git checkout -B main origin/main` restored a tracking branch before committing this
+entry.
+
+**Fixed this session:** detached-HEAD housekeeping only ([env], <1 min); no pipeline snag was newly resolved.
+
+**Promoted to docs:** none.
+
+**Open:** unchanged — the same seven items stand (TTS credential/egress wall; `m4_visibility-actions`
+duplicate body — content still missing, gated at the file level; `m2_why-build-your-own-path` duplicate of
+`m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script; Module 1/2 career-transition
+taxonomy contradiction; `m6` recap's two unsupported claims; three mid-career-momentum scripts carrying
+inline `TODO: needs input`; no filed `mid-career-momentum` curriculum source; Resume Builder Tool's
+undocumented "AI rewrite feature"). Per the no-repeat-notification convention (established eleventh-run
+entry 2026-07-23, one escalation already sent): the wall itself is unchanged since that escalation, so **no
+new notification sent this run**.
+
 ## 2026-07-25 · /produce-video (scheduled routine, first run today): BUILD still blocked on TTS credentials
 
 First automated run today (previous run's date rolled from 2026-07-24). Refine step: listed each program's
