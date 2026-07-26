@@ -29,6 +29,59 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-26 03:58 UTC · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged; no renotify (state identical to prior entry)
+
+Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
+non-recursively (`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`,
+`mid-career-momentum`). Same two raw `.txt` files present at program roots, unchanged —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` (byte-identical duplicate body of
+`m1_reframing-entrepreneurship-and-going-solo`, per ledger row) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt` (own
+`SCRIPT PENDING — do not refine or build` marker confirmed still at file top by direct read) — both
+re-confirmed by direct read of the raw files and the ledger, correctly skipped by folder-content alone.
+No avatar-route raws in any program's `avatar/`. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` queue = 31 scripts (career-transitions 8, early-career-boost 5,
+entrepreneur-accelerator 4, mid-career-momentum 14, of which 1 is `refined/avatar/`) — unchanged.
+`renders-hyperframes/` still holds only `README.md` — no partial workspace to resume. Independently
+re-verified the TTS/egress wall rather than trusting the prior entry: `which infisical` → not found; no
+`INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`/`HEYGEN_API_KEY` in env; `python3 -c "import kokoro_onnx"`
+→ `ModuleNotFoundError`; `which ffmpeg` → not found; direct curls to `https://api.heygen.com` and
+`https://huggingface.co` both failed via the proxy (`CONNECT tunnel failed, response 403`, http_code
+000). Neither the default HeyGen-starfish TTS path nor the kokoro fallback can run, so no build subagent
+was dispatched. `refined/` unchanged; batch cap not exercised.
+
+Re-checked the data-integrity finding via `comm -12` on `refined/`×`rendered/` per program: same 5
+stems still overlap, unchanged — `early-career-boost` (`better-decisions-come-from-better-criteria`,
+`build-direction-before-you-build-a-plan`, `how-to-make-strong-career-decisions`,
+`skills-for-the-ai-era-future`) and `mid-career-momentum` (`m2_four-kinds-of-career-transition_2026-07-23`).
+No file touched this run.
+
+**No push notification this run.** Two prior entries today already surfaced both open items out-of-band
+(one after 3 days silent, one as an explicit re-confirmation minutes later). Nothing has changed since
+either: same two blockers, same 31-script queue, same 5-stem overlap. A third identical notification
+would be pure noise.
+
+**Open (owner-actionable, unchanged since first flagged):**
+- **TTS/egress wall (since 2026-07-23):** no `infisical`/`INFISICAL_*`/`HEYGEN_API_KEY` configured in
+  this environment, no `kokoro_onnx` fallback installed, no `ffmpeg`, and no network egress reaches
+  `api.heygen.com` or `huggingface.co`. Every BUILD phase is a guaranteed no-op until one of: HeyGen
+  credentials are provisioned via `scripts/with-secrets.sh`'s expected secret store, or the kokoro local
+  fallback + `ffmpeg` + egress are installed in this environment. 31 scripts are queued in `refined/`
+  waiting on this.
+- **5 stems in both `refined/` and `rendered/` simultaneously (since first flagged, still unresolved):**
+  `early-career-boost/better-decisions-come-from-better-criteria_early-career-boost_2026-07-06`,
+  `early-career-boost/build-direction-before-you-build-a-plan_early-career-boost_2026-07-07`,
+  `early-career-boost/how-to-make-strong-career-decisions_early-career-boost_2026-07-10`,
+  `early-career-boost/skills-for-the-ai-era-future_early-career-boost_2026-07-10`,
+  `mid-career-momentum/m2_four-kinds-of-career-transition_2026-07-23`. Under the "state is the folder"
+  model these are contradictory (rendered/ = gate-clean build exists; refined/ = not yet built) — needs
+  a human call on which folder is correct per stem before this routine will touch them.
+
+**Fixed this session:** none — same two blockers re-confirmed, no state to fix.
+
+**Promoted to docs:** none.
+
 ## 2026-07-26 02:56 UTC · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged; no renotify (prior entry notified minutes prior, nothing new)
 
 Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
