@@ -9,7 +9,8 @@
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none)","default":""}
+    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none)","default":""},
+    {"id":"iconCue","type":"string","label":"Optional icon draw-on cue, local sec (Motion v2 2026-07-27; empty = entrance draw)","default":""}
   ]'
 >
   <head>
@@ -62,10 +63,34 @@
           width: 1500px;
         }
         #sm-rule {
+          position: relative;
           width: 148px;
           height: 4px;
           background: #eaab2d;
           transform-origin: left center;
+        }
+        /* Closing-beat overlay segment (Motion v2, 2026-07-27): extends the rule ~15%
+           wider at sceneDuration - 1.0 when supporting lines are present. */
+        #sm-rule-ext {
+          position: absolute;
+          left: 100%;
+          top: 0;
+          width: 15%;
+          height: 100%;
+          background: #eaab2d;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
+        /* Closing-beat accent tick (Motion v2): pops beside the kicker when no lines. */
+        #sm-tick {
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          margin-left: 18px;
+          border-radius: 3px;
+          background: #eaab2d;
+          vertical-align: middle;
+          transform: scale(0);
         }
         #sm-kicker {
           margin-top: 26px;
@@ -135,6 +160,7 @@
         #root[data-theme="horizon"] #sm-ring-2 { right: auto; bottom: auto; left: -190px; top: -250px; border-color: rgba(255, 255, 255, 0.16); }
         #root[data-theme="horizon"] #sm-ring-3 { right: auto; bottom: auto; left: -110px; top: -170px; border-color: rgba(51, 147, 214, 0.2); }
         #root[data-theme="horizon"] #sm-rule { background: #3393d6; }
+        #root[data-theme="horizon"] #sm-rule-ext { background: #3393d6; }
         #root[data-theme="horizon"] #sm-kicker { color: #bcd3e4; }
         #root[data-theme="horizon"] #sm-underline { background: rgba(234, 171, 45, 0.55); }
         #root[data-theme="horizon"] .sm-corner { border-color: rgba(51, 147, 214, 0.4); }
@@ -157,7 +183,7 @@
         <div class="sm-corner" id="sm-corner-tl"></div>
         <div class="sm-corner" id="sm-corner-br"></div>
         <div id="sm-block">
-          <div id="sm-rule"></div>
+          <div id="sm-rule"><div id="sm-rule-ext"></div></div>
           <div id="sm-kicker">The shift</div>
           <h2 id="sm-statement">Better decisions become possible when you shift from pressure to process.</h2>
           <div id="sm-underline"></div>
@@ -179,6 +205,7 @@
             theme: "summit",
             sceneDuration: "10",
             icon: "",
+            iconCue: "",
           };
           const vars = Object.assign(
             {},
@@ -234,29 +261,39 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo("#sm-ring-1", { opacity: 0.5, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0);
-          tl.fromTo("#sm-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.15);
-          tl.fromTo("#sm-ring-3", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.3);
-          tl.fromTo(["#sm-corner-tl", "#sm-corner-br"], { opacity: 0.55 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
-          tl.fromTo("#sm-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out" }, 0.3);
-          tl.fromTo("#sm-kicker", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.45);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut;
+          // Motion v2 2026-07-27: opacity 0.55 → 1 in ~0.3s so cuts land as a hit).
+          tl.fromTo("#sm-ring-1", { opacity: 0.55, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#sm-ring-2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.06);
+          tl.fromTo("#sm-ring-3", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.12);
+          tl.fromTo(["#sm-corner-tl", "#sm-corner-br"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+          // Entrance settles ≤1.2s (Motion v2): hero tween ≤0.6s, staggers compressed.
+          tl.fromTo("#sm-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.15);
+          tl.fromTo("#sm-kicker", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.25);
           // Second beat: the statement resolves upward with a clip reveal so the frame
           // is still developing after the entrance — not a static hold.
           tl.fromTo(
             "#sm-statement",
             { opacity: 0, y: 60, clipPath: "inset(0% 0% 100% 0%)" },
-            { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.95, ease: "power4.out" },
-            0.65,
+            { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "power4.out" },
+            0.3,
           );
-          if (!lines.length) tl.fromTo("#sm-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 1.5);
-          // Supporting lines resolve one per spoken cue (a real staged beat covering the hold —
-          // never in-place re-animation of settled text).
+          if (!lines.length) tl.fromTo("#sm-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.65);
+          // Supporting lines resolve one per spoken cue (a real staged beat covering the
+          // hold — never in-place re-animation of settled text). Uncued overflow lines
+          // schedule AFTER the last provided cue — never before their cued siblings
+          // (ordering fix, 2026-07-27); the zero-cue fallback spread is unchanged.
           lineEls.forEach(function (el, i) {
-            const at = i < lineCues.length ? lineCues[i] : 1.4 + i * 1.2;
+            let at;
+            if (i < lineCues.length) at = lineCues[i];
+            else if (lineCues.length) at = lineCues[lineCues.length - 1] + 0.9 * (i - lineCues.length + 1);
+            else at = 1.4 + i * 1.2;
             tl.fromTo(el, { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, at);
+            // Compound cue (Motion v2): each new arrival dims already-settled siblings
+            // to 0.6; the closing beat restores all to full.
+            if (i > 0) tl.to(lineEls.slice(0, i), { opacity: 0.6, duration: 0.3, ease: "power2.out" }, at);
           });
-          tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0);
+          tl.fromTo(["#sm-index", "#sm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
           // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
           tl.fromTo("#sm-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
           tl.fromTo("#sm-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);
@@ -318,17 +355,38 @@
               });
               document.getElementById("root").setAttribute("data-has-icon", "1");
               document.getElementById("sm-iconwrap").style.display = "block";
-              if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.7);
-              if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.4);
+              // iconCue (Motion v2, 2026-07-27): when set, the draw-on fires at the cue —
+              // a real mid-scene beat. Empty keeps the compressed entrance draw.
+              const iconCueV = parseFloat(vars.iconCue);
+              const iconAt = isNaN(iconCueV) ? 0.35 : iconCueV;
+              if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.45, ease: "power3.out", stagger: 0.08 }, iconAt);
+              if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, iconAt + 0.55);
               // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).
               tl.fromTo("#sm-iconwrap", { x: 0, y: 0 }, { x: 0, y: -10, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sdur / 2.7) - 1) }, 0);
             }
           }
-          // (No reading ripple, late-phase resolve, or any in-place motion of the
-          // settled statement/underline — owner decision 2026-07-14, REAFFIRMED
-          // 2026-07-15 after an unauthorized restoration shipped in rendered cuts.
-          // Long holds are covered by staged beats: supporting `lines`, a shorter
-          // statement, or a scene split — never by re-animating settled text.)
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15 — no reading ripple, no in-place motion of the settled
+          // statement/underline), but the cued closing beat and the exit below are
+          // REQUIRED (Motion contract v2, 2026-07-27) — additive NEW beats only.
+          // Closing beat (Motion v2), sceneDuration - 1.0:
+          if (lineEls.length) {
+            // The restore-to-full IS the beat, plus the rule extending ~15% wider
+            // on a NEW overlay segment.
+            tl.to(lineEls, { opacity: 1, duration: 0.4, ease: "power2.out" }, sdur - 1.0);
+            tl.fromTo("#sm-rule-ext", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, sdur - 1.0);
+          } else {
+            // No lines: a gold accent tick pops beside the kicker.
+            const tick = document.createElement("span");
+            tick.id = "sm-tick";
+            document.getElementById("sm-kicker").appendChild(tick);
+            tl.fromTo("#sm-tick", { scale: 0 }, { scale: 1, duration: 0.45, ease: "back.out(2)" }, sdur - 1.0);
+          }
+          // Exit (Motion v2): content layer lifts out; furniture (corners, brandline,
+          // index) and ghost rings hold to the cut.
+          const exitTargets = ["#sm-block", "#sm-iconwrap"];
+          tl.fromTo(exitTargets, { opacity: 1, y: 0 }, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in", immediateRender: false }, sdur - 0.35);
+          tl.set(exitTargets, { opacity: 0 }, sdur - 0.02);
           window.__timelines["scla-statement"] = tl;
         })();
       </script>

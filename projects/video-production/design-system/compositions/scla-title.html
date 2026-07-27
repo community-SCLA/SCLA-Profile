@@ -83,6 +83,15 @@
           color: #ffffff;
           text-wrap: balance;
         }
+        /* Closing-beat rule (Motion v2, 2026-07-27): draws under the title at sceneDuration - 1.0 */
+        #t-close-rule {
+          margin-top: 30px;
+          width: 320px;
+          height: 5px;
+          background: #eaab2d;
+          transform-origin: left center;
+          transform: scaleX(0);
+        }
         #t-meta-row {
           position: absolute;
           left: 120px;
@@ -124,6 +133,7 @@
         #root[data-theme="horizon"] #t-ring-2 { right: auto; top: auto; left: -150px; bottom: -120px; border-color: rgba(255, 255, 255, 0.16); }
         #root[data-theme="horizon"] #t-ring-3 { right: auto; top: auto; left: -40px; bottom: -20px; border-color: rgba(51, 147, 214, 0.2); }
         #root[data-theme="horizon"] #t-rule { background: #3393d6; }
+        #root[data-theme="horizon"] #t-close-rule { background: #3393d6; }
         #root[data-theme="horizon"] #t-eyebrow { color: #bcd3e4; }
         #root[data-theme="horizon"] .t-corner { border-color: rgba(51, 147, 214, 0.4); }
         #root[data-theme="cadence"] .t-bg { background: radial-gradient(130% 130% at 78% 18%, #0d2437 0%, #0a1e2f 74%); }
@@ -147,6 +157,7 @@
           <div id="t-rule"></div>
           <div id="t-eyebrow">Early Career Boost</div>
           <h1 id="t-title">Better Decisions Come From Better Criteria</h1>
+          <div id="t-close-rule"></div>
         </div>
         <div id="t-meta-row">
           <span id="t-chip">Lesson</span>
@@ -178,23 +189,25 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo("#t-ring-1", { opacity: 0.5, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0);
-          tl.fromTo("#t-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.15);
-          tl.fromTo("#t-ring-3", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.3);
-          tl.fromTo("#t-logo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, 0.1);
-          tl.fromTo(["#t-corner-tl", "#t-corner-br"], { opacity: 0.55 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0);
-          tl.fromTo("#t-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out" }, 0.3);
-          tl.fromTo("#t-eyebrow", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.45);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut;
+          // Motion v2 2026-07-27: opacity 0.55 → 1 in ~0.3s so cuts land as a hit).
+          tl.fromTo("#t-ring-1", { opacity: 0.55, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#t-ring-2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.06);
+          tl.fromTo("#t-ring-3", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.12);
+          tl.fromTo("#t-logo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 0.05);
+          tl.fromTo(["#t-corner-tl", "#t-corner-br"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+          // Entrance settles ≤1.2s (Motion v2): hero tween ≤0.6s, staggers compressed.
+          tl.fromTo("#t-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.15);
+          tl.fromTo("#t-eyebrow", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.25);
           tl.fromTo(
             "#t-title",
             { opacity: 0, y: 64, clipPath: "inset(0% 0% 100% 0%)" },
-            { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.85, ease: "power4.out" },
-            0.6,
+            { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.55, ease: "power4.out" },
+            0.35,
           );
-          tl.fromTo("#t-chip", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.15);
-          tl.fromTo("#t-meta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.28);
-          tl.fromTo("#t-index", { opacity: 0.55 }, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0);
+          tl.fromTo("#t-chip", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.6);
+          tl.fromTo("#t-meta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.75);
+          tl.fromTo("#t-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
           // Ambient breath for the rest of the 8s window (finite repeats, seek-safe)
           tl.fromTo("#t-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.3);
           tl.fromTo("#t-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
@@ -213,9 +226,17 @@
           drift("#t-ring-1", 120, 72, 3.4);
           drift("#t-ring-2", -100, -52, 2.9);
           drift("#t-ring-3", 70, 44, 2.5);
-          // (No late-phase title-block motion — owner decision 2026-07-14,
-          // REAFFIRMED 2026-07-15 after an unauthorized restoration. Settled
-          // elements stay put; long holds are an authoring problem, not a tween.)
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15 — settled elements stay put, no wobble/ripple), but the
+          // cued closing beat and the exit below are REQUIRED (Motion contract v2,
+          // 2026-07-27) — additive NEW beats, never in-place motion of settled text.
+          // Closing beat (Motion v2): a gold rule draws under the title in the final second.
+          tl.fromTo("#t-close-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, sdur - 1.0);
+          // Exit (Motion v2): content layer lifts out; furniture (corners, index) and
+          // ghost rings hold to the cut.
+          const exitTargets = ["#t-logo", "#t-block", "#t-meta-row"];
+          tl.fromTo(exitTargets, { opacity: 1, y: 0 }, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in", immediateRender: false }, sdur - 0.35);
+          tl.set(exitTargets, { opacity: 0 }, sdur - 0.02);
           window.__timelines["scla-title"] = tl;
         })();
       </script>

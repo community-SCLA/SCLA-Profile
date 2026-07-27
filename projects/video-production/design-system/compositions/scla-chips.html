@@ -12,7 +12,9 @@
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
     {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
     {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
+    {"id":"icon","type":"string","label":"Optional statement-style hero living icon name (see frame.md icon library; empty = none, layout unchanged). Chips column narrows when set.","default":""},
+    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""}
   ]'
 >
   <head>
@@ -155,14 +157,26 @@
           color: #0d2437;
           opacity: 0;
         }
+        /* Closing-beat rule (Motion v2, 2026-07-27) — completes under the heading in
+           the scene's final second. scaleX(0) at rest so it is invisible pre-beat. */
+        #cc-close-rule { margin-top: 20px; width: 240px; height: 4px; background: #eaab2d; transform: scaleX(0); transform-origin: left center; }
+        /* Optional living-icon hero (opt-in via `icon`; layout mirrors scla-statement's
+           right-column icon hosting). Hidden by default; JS shows it and narrows
+           #cc-field with INLINE styles — never a qualified-#root rule, which renders
+           unstyled under composition scoping. Light canvas on all three themes →
+           navy main stroke, gold accents. */
+        #cc-iconwrap { position: absolute; left: 1430px; top: 560px; width: 300px; height: 300px; display: none; }
+        #cc-iconwrap svg { width: 300px; height: 300px; }
         /* Style packages — visual layer only; timeline identical */
         #root[data-theme="horizon"] .cc-bg { background: #ffffff; }
         #root[data-theme="horizon"] #cc-tick { background: #3393d6; }
+        #root[data-theme="horizon"] #cc-close-rule { background: #3393d6; }
         #root[data-theme="horizon"] .cc-chip { border-color: #3393d6; }
         #root[data-theme="horizon"] .cc-chip.cc-accent { border-color: #3393d6; }
         #root[data-theme="cadence"] .cc-bg { background: #ffffff; }
         #root[data-theme="cadence"] .cc-bg::after { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
         #root[data-theme="cadence"] #cc-tick { width: 70px; }
+        #root[data-theme="cadence"] #cc-close-rule { width: 300px; }
         #root[data-theme="cadence"] .cc-chip { border-color: #0d2437; }
         #root[data-theme="cadence"] .cc-chip.cc-accent { border-color: #eaab2d; }
       </style>
@@ -177,8 +191,16 @@
             <div id="cc-label">Step 1 — Define success</div>
           </div>
           <h2 id="cc-heading">What matters most, the next 3–5 years?</h2>
+          <div id="cc-close-rule"></div>
         </div>
         <div id="cc-field"></div>
+        <div id="cc-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
+        <!-- Static append target for cued sub-beats — the 2026-07-27 fix for the
+             2026-07-15 "subBeat never renders" bug. Appending to #root by id was the
+             defect: every scene's template root is id="root", so in the composited
+             render getElementById("root") resolves to the FIRST scene's root and the
+             sub-beat lands in another scene's (hidden, differently-scoped) slot. -->
+        <div id="cc-subbeat-host"></div>
         <div id="cc-index" data-layout-allow-occlusion>07 / DEFINE</div>
         <div id="cc-brandline">SCLA · Lesson System</div>
       </div>
@@ -195,6 +217,8 @@
             sceneIndex: "07 / DEFINE",
             theme: "summit",
             sceneDuration: "10",
+            icon: "",
+            iconCue: "",
           };
           const vars = Object.assign(
             {},
@@ -222,15 +246,63 @@
             field.appendChild(chip);
           });
 
+          // Optional statement-style hero living icon (opt-in via `icon`; hosting
+          // pattern mirrors scla-statement's right-column icon). Geometry MIRRORED
+          // from scla-condition.html's ICONS map (the canonical source; frame.md →
+          // "Living icon library" — keep in sync, never diverge). Light canvas on all
+          // three themes → navy main stroke, gold accents/dots pop last.
+          const RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z";
+          const ICONS = {
+            compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+            pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+            insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
+            salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
+            mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
+            mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
+            growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
+            target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
+            question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
+            examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
+            done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] },
+          };
+          const iconName = String(vars.icon || "").trim();
+          const ic = iconName ? ICONS[iconName] : null;
+          const iconDraws = [], iconDots = [];
+          if (ic) {
+            // Narrow the chip column and reserve the right column for the icon —
+            // inline styles, so nothing depends on a scoping-fragile #root[...] rule.
+            field.style.right = "620px";
+            const iconwrap = document.getElementById("cc-iconwrap");
+            iconwrap.style.display = "block";
+            const svg = document.querySelector("#cc-iconwrap svg");
+            const strokeMain = "#0d2437";
+            (ic.paths || []).forEach(function (p) {
+              const el = document.createElementNS("http://www.w3.org/2000/svg", "path");
+              el.setAttribute("d", p.d); el.setAttribute("fill", "none");
+              el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
+              el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
+              el.setAttribute("pathLength", "100"); svg.appendChild(el); iconDraws.push(el);
+            });
+            (ic.circles || []).forEach(function (c) {
+              const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
+              if (c.fill) { el.setAttribute("fill", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke", "none"); iconDots.push(el); }
+              else { el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); iconDraws.push(el); }
+              svg.appendChild(el);
+            });
+          }
+
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#cc-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1);
-          tl.fromTo("#cc-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
-          tl.fromTo("#cc-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.35);
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          // Entrance settles ≤1.2s (Motion v2, 2026-07-27): hero tweens ≤0.6s,
+          // relative order/stagger feel preserved from the v1 choreography.
+          tl.fromTo("#cc-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.1);
+          tl.fromTo("#cc-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.15);
+          tl.fromTo("#cc-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.3);
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut):
-          // rings settle from half-visible, never from nothing.
-          tl.fromTo("#cc-ghost-ring", { opacity: 0.5, scale: 0.97 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
-          tl.fromTo("#cc-ghost-ring-2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
+          // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.
+          tl.fromTo(["#cc-ghost-ring", "#cc-ghost-ring-2"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
 
           const chips = gsap.utils.toArray(".cc-chip");
           const cues = String(vars.chipCues || "")
@@ -248,14 +320,26 @@
               to = { opacity: 1, x: 0, y: 0, duration: 0.55, ease: "power3.out" };
             }
             tl.fromTo(chip, from, to, at);
+            // Compound cue (Motion v2, 2026-07-27): the arriving chip dims the
+            // already-settled siblings to 0.6; the closing beat restores them.
+            if (i > 0) tl.to(chips.slice(0, i), { opacity: 0.6, duration: 0.3, ease: "power2.out" }, at);
           });
-          tl.fromTo(["#cc-index", "#cc-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          // Living icon draws on in the entrance slot, or — when `iconCue` is set —
+          // the moment the narration names the thing; gold accents/dots pop last.
+          if (ic) {
+            const iconCue = parseFloat(String(vars.iconCue || "").trim());
+            const drawAt = isNaN(iconCue) ? 0.35 : Math.max(0.4, iconCue);
+            if (iconDraws.length) tl.fromTo(iconDraws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.1 }, drawAt);
+            if (iconDots.length) tl.fromTo(iconDots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, drawAt + 0.5);
+            // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).
+            tl.fromTo("#cc-iconwrap", { y: 0 }, { y: -10, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 2.7) - 1) }, 0);
+          }
+          tl.fromTo(["#cc-index", "#cc-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo("#cc-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut" }, 1.4);
           tl.fromTo("#cc-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
           // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost rings
           // drift in finite translate-only sine yoyo cycles across the whole scene so
           // the decorative layer registers at QA frame sampling even between cues.
-          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
           const drift = function (sel, ax, ay, per) {
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / per) - 1) }, 0);
@@ -263,34 +347,42 @@
           // Amplitude raised 2026-07-15 (render-qa hard-fail on
           // what-energizes-me/early-career-boost): 24/14px drift moved <1
           // gray level per 48x27 QA thumbnail pixel — under the checker's
-          // >1 "same frame" tolerance, so scenes with a broken subBeat cue
-          // (see below) read as fully static for 5s+. 110/70px clears it.
+          // >1 "same frame" tolerance, so scenes with the then-broken subBeat
+          // cue (root-caused + fixed 2026-07-27, see below) read as fully
+          // static for 5s+. 110/70px clears it.
           drift("#cc-ghost-ring", 110, 70, 3.3);
           drift("#cc-ghost-ring-2", -90, -55, 2.8);
-          // (No pre-cue keep-alives or late-phase chip re-marks — owner decision
-          // 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized restoration.
-          // Long holds are covered by staged beats: `subBeats`, cues, or a split.)
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15), but the cued closing beat and the scene exit below are
+          // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place
+          // re-marks of settled chips/headings.
           // Sub-beats: a cued live line that swaps text on each spoken cue —
           // covers narration spans between primary reveals (dead-hold fix,
           // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,
           // no timeline impact. Seek-safe: tween-only swaps, no .call().
-          // KNOWN BUG (found 2026-07-15, unconfirmed root cause): the
-          // .cc-subbeat element never appears in rendered output — confirmed
-          // by frame extraction on what-energizes-me/early-career-boost at
-          // two separate cue points. Chips (same appendChild + gsap.fromTo
-          // pattern, built just above) render correctly, so the defect is
-          // specific to this block, not dynamic-DOM-in-general. Ghost-ring
-          // amplitude (above) is a workaround, not a fix — subBeats is still
-          // silently inert. Needs live-devtools repro before trusting it again.
+          // BUG FIXED 2026-07-27 (was KNOWN BUG 2026-07-15, "subBeat never renders"):
+          // root cause was the append target, document.getElementById("root").
+          // Every scene's template root carries id="root", and element ids are NOT
+          // rewritten when sub-comps are inlined into the composited render — so
+          // getElementById("root") resolves to the FIRST scene's root in document
+          // order, and the sub-beat landed in another scene's slot: outside this
+          // scene's CSS scope ([data-composition-id="scla-chips"] .cc-subbeat no
+          // longer matches → unstyled) and hidden whenever this scene is on screen.
+          // Chips rendered fine because #cc-field is unique document-wide; Studio
+          // preview mounts each scene in its own iframe (single #root), which is why
+          // the bug never reproduced outside composited renders. Fix: append to the
+          // static #cc-subbeat-host wrapper declared in this template's markup.
           const subBeats = String(vars.subBeats || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
           const subCues = String(vars.subCues || "").split(",").map(function (s) { return Number(s.trim()); }).filter(function (v) { return !isNaN(v); });
+          const subEls = [];
           if (subBeats.length && subCues.length === subBeats.length) {
             subBeats.forEach(function (text, i) {
               const el = document.createElement("div");
               el.className = "cc-subbeat";
               el.setAttribute("data-layout-allow-occlusion", "");
               el.textContent = text;
-              document.getElementById("root").appendChild(el);
+              document.getElementById("cc-subbeat-host").appendChild(el);
+              subEls.push(el);
               const at = Math.max(0.4, subCues[i]);
               tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at);
               if (i + 1 < subBeats.length) {
@@ -299,6 +391,20 @@
               }
             });
           }
+          // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final
+          // second: dimmed chips restore to full and a gold rule completes under the
+          // heading. NEW state only, never re-animation of settled text in place.
+          const closeAt = sceneDur - 1.0;
+          tl.to(chips, { opacity: 1, duration: 0.4, ease: "power2.out" }, closeAt);
+          tl.fromTo("#cc-close-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, closeAt);
+          // Exit (Motion v2, 2026-07-27) — the content layer leaves at −0.35s so the
+          // seam reads velocity-matched; furniture and ghost rings never exit.
+          const exitAt = sceneDur - 0.35;
+          tl.to(["#cc-head"].concat(chips, subEls), { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, exitAt);
+          if (ic) tl.to("#cc-iconwrap", { opacity: 0, x: 40, duration: 0.3, ease: "power2.in" }, exitAt);
+          // Hard-kill at the boundary (gsap_exit_missing_hard_kill lint).
+          const killTargets = ["#cc-head"].concat(chips, subEls, ic ? ["#cc-iconwrap"] : []);
+          tl.set(killTargets, { opacity: 0 }, sceneDur - 0.02);
           window.__timelines["scla-chips"] = tl;
         })();
       </script>

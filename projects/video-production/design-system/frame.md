@@ -38,7 +38,9 @@ components:
   point-marker: "74px circle, gold fill, navy 900 number"
   rule: "gold or blue, 3-4px, animates scaleX 0→1 from transform-origin left"
 motion:
-  entrance: "0.4-0.6s, power3.out / power4.out / back.out(1.4) — vary per element"
+  entrance: "0.4-0.6s per element, power3.out / power4.out / back.out(1.4) — vary per element; the WHOLE entrance settles by 1.2s (Motion v2, 2026-07-27)"
+  exit: "0.3s power2.in at sceneDuration-0.35 — content layer only, furniture stays; hard-kill set() at the boundary; scla-outro exempt (video ends full-frame)"
+  closing-beat: "one cued resolve in each scene's final second (rule completes / accent pops / dimmed items restore) — additive, never in-place re-animation"
   stagger: "0.12-0.18s"
   ambient: "oval rings breathe scale 1→1.05 over 3-4s, finite yoyo repeats sized to the scene"
   ban: "repeat: -1 (use finite counts), linear full-screen gradients on navy (H.264 banding — use radial)"
@@ -99,6 +101,32 @@ a style choice. These are hard rules, checked at the QA gate.
   must keep resolving — the next item, an illustration, a highlight, a figure —
   timed to what the narration is saying *right now*. If nothing can happen for
   the next few seconds, the scene is too long: split it into more scenes.
+- **Entrance settles by 1.2s (Motion v2, 2026-07-27).** All non-cued content is
+  in place ≤1.2s after the cut; hero tweens ≤0.6s. Furniture still paints at
+  t=0 (opacity 0.55 → 1 in ~0.3s, so cuts land as a hit, not a dissolve). Slow
+  meters (a 2.4s track fill, three parallel 1.6s stat ramps) are defects —
+  stagger and compress them inside the budget.
+- **Every scene ends with a closing beat (Motion v2).** One cued resolve in the
+  scene's final second — a rule completes, a check/accent pops, dimmed items
+  restore to full — so no scene coasts to its cut. Additive motion only: this
+  is a NEW beat, not re-animation of settled content (the 2026-07-14/15 idle
+  keep-alive ban stands untouched).
+- **Every scene exits (Motion v2; scla-outro exempt).** At sceneDuration−0.35
+  the content layer (never the furniture) slides out 0.3s `power2.in` with a
+  GSAP hard-kill `set()` at the boundary (the `gsap_exit_missing_hard_kill`
+  lint enforces this); entrances arrive from the opposite edge so seams read
+  velocity-matched instead of cut-on-frozen-frame.
+- **Focus follows the voice (compound cues, Motion v2).** When a cued item
+  lands, already-settled sibling items dim to ~0.6 (0.3s); the closing beat
+  restores them. De-emphasis driven by a *new* beat is sanctioned; idle wobble
+  of settled content remains banned.
+- **Pacing budget — deterministic (preflight-enforced, 2026-07-27).** Per
+  scene, visual events = entrance settle (1.2s) + every compiled cue + the
+  closing beat (duration−0.5). Largest gap between consecutive events: FAIL
+  above 4.5s, WARN above 3.5s. Scene duration caps: ≤12.5s standard,
+  `scla-title` ≤6.5s, `scla-outro` ≤8.5s (title/outro are duration-capped and
+  exempt from the gap check). A failing scene is re-authored — split it, add
+  cues, or move the boundary; never satisfied with background drift.
 - **Reveal on the spoken cue, not on a timer.** When the narration enumerates
   ("the answers people reach for are X, Y, Z…", "first… second… third…"), each
   item enters the moment it is spoken. Pull cue times from the scene's word
@@ -335,6 +363,16 @@ scene, and drawn on the cue.
   narrows to clear it; on `scla-steps` it sits in the header panel's top-right and
   **replaces the ghost numeral**. Added 2026-07-15 for the career-purpose lesson
   (question / structure / write-it beats).
+- **`iconCue` (optional, Motion v2 2026-07-27):** every icon slot takes an
+  optional cue (author it by phrase in `data-cue-anchors` as `"iconCue"`; the
+  compiler resolves it) so the draw-on fires the moment the narration names the
+  thing — a real mid-scene beat instead of fixed entrance decoration at t=0.7s.
+  Empty keeps the legacy entrance draw.
+- **Wider icon slots (Motion v2):** `scla-points` accepts optional per-item
+  `icons` (comma list from the ICONS set, revealed on each item's cue),
+  `scla-morph` optional per-card icons, and `scla-chips` an optional
+  statement-style hero `icon`. Defaults stay empty — existing builds compile
+  unchanged. The "novel, not on every frame" discipline still governs use.
 - An enumerated set the narration walks one at a time is still best split into one
   `scla-condition` card per item (each with its own icon), **not** given icons in a
   single multi-row scene — see the `scla-condition` row and "Split an enumerated

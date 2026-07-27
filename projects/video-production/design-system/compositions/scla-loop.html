@@ -267,16 +267,19 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#lp-panel", { yPercent: -100 }, { yPercent: 0, duration: 0.7, ease: "power3.out" }, 0);
+          // Entrance compressed to settle ≤1.2s (Motion v2, 2026-07-27).
+          tl.fromTo("#lp-panel", { yPercent: -100 }, { yPercent: 0, duration: 0.6, ease: "power3.out" }, 0);
           tl.fromTo("#lp-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.3);
           tl.fromTo("#lp-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.4);
           tl.fromTo("#lp-heading", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.45);
-          tl.fromTo("#lp-ghost-num", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 0.55);
+          tl.fromTo("#lp-ghost-num", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.5);
           tl.fromTo(".lp-track", { opacity: 0 }, { opacity: 1, duration: 0.35 }, 0.8);
           // Explicit activation cues (local seconds) fire each node/caption the moment
           // the narration reaches that step. Empty → default even spread. The gold arc
-          // draws clockwise to arrive at the last node as it activates, then the
-          // arrowhead closes the loop 4 → 1. frame.md → "Reveal on the spoken cue".
+          // advances in quarter-arc SEGMENTS — one per step cue (Motion v2, 2026-07-27;
+          // the old single stretched draw slowed with scene length and read as drag) —
+          // then the final segment + arrowhead close the loop 4 → 1 as the cued
+          // closing beat. frame.md → "Reveal on the spoken cue".
           const stepCues = String(vars.stepCues || "")
             .split(",")
             .map(function (s) { return Number(s.trim()); })
@@ -286,8 +289,18 @@
             at.push(stepCues.length ? Math.max(0.4, stepCues[i]) : 1.0 + i * 0.46);
           }
           const lastAt = visible ? at[visible - 1] : 1.0;
-          const drawDur = Math.max(1.4, lastAt + 0.3 - 1.0);
-          tl.fromTo("#lp-fill", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: drawDur, ease: "power2.inOut" }, 1.0);
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          // Segmented draw: node i+1 sits at arc progress i*25 (12/3/6/9 o'clock), so a
+          // quarter-arc advances TO node i the moment stepCue i fires. Seek-safe: each
+          // segment is an explicit fromTo between fixed offsets.
+          for (let i = 1; i < visible; i++) {
+            tl.fromTo(
+              "#lp-fill",
+              { strokeDashoffset: 100 - (i - 1) * 25 },
+              { strokeDashoffset: 100 - i * 25, duration: 0.6, ease: "power2.out" },
+              at[i],
+            );
+          }
           for (let i = 0; i < visible; i++) {
             tl.fromTo(
               "#lp-node-" + (i + 1),
@@ -308,17 +321,25 @@
               at[i] + 0.18,
             );
           }
-          // The loop closes: the return arrowhead fades in on the upper-left segment
-          // after the final node. Opacity-only — scaling an SVG polygon whose coords sit
-          // far from the origin translates it under GSAP's transform model.
-          tl.fromTo("#lp-arrow", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, lastAt + 0.4);
+          // Closing beat (Motion v2, 2026-07-27): the final arc segment draws home and
+          // the return arrowhead fades in on the upper-left segment, in the scene's
+          // final second (after the last step cue). Arrow is opacity-only — scaling an
+          // SVG polygon whose coords sit far from the origin translates it under
+          // GSAP's transform model.
+          const closeAt = Math.max(lastAt + 0.8, sceneDur - 1.0);
+          tl.fromTo(
+            "#lp-fill",
+            { strokeDashoffset: 100 - (visible - 1) * 25 },
+            { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" },
+            closeAt - 0.5,
+          );
+          tl.fromTo("#lp-arrow", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, closeAt);
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo(["#lp-index", "#lp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          tl.fromTo(["#lp-index", "#lp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           // Ambient drift cycles (mirrors scla-steps): the ghost numeral drifts
           // horizontally in finite translate-only sine yoyo cycles across the whole
           // scene (x-only — its entrance owns y) so the decorative layer registers at
           // QA frame sampling even between cues.
-          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
           tl.fromTo("#lp-ghost-num", { x: 0 }, { x: 20, duration: 3.2, ease: "sine.inOut",
             yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);
           // Sub-beats: a cued live line that swaps text on each spoken cue — covers
@@ -341,6 +362,12 @@
               }
             });
           }
+          // Exit (Motion v2, 2026-07-27): the content layer slides out at
+          // sceneDuration−0.35; furniture (bg, panel, index, brandline) stays put.
+          const exitEls = ["#lp-head", "#lp-ghost-num", "#lp-ring", ".lp-node", ".lp-caption"];
+          if (subBeats.length && subCues.length === subBeats.length) exitEls.push(".lp-subbeat");
+          tl.to(exitEls, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, sceneDur - 0.35);
+          tl.set(exitEls, { opacity: 0 }, sceneDur - 0.02);
           window.__timelines["scla-loop"] = tl;
         })();
       </script>

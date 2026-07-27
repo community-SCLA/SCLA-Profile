@@ -9,6 +9,7 @@
     {"id":"chips","type":"string","label":"Comma list of detail chips (up to 4)","default":"Variety,Clear tasks,Real feedback,Freedom"},
     {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"icon","type":"string","label":"Living icon name (see frame.md icon library)","default":"compass"},
+    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"09 / ENGAGING"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained)","default":"8"}
@@ -136,7 +137,7 @@
           };
           var defaults = {
             num: "1", kicker: "Condition one", heading: "Engaging work", total: "5",
-            chips: "Variety,Clear tasks,Real feedback,Freedom", chipCues: "", icon: "compass",
+            chips: "Variety,Clear tasks,Real feedback,Freedom", chipCues: "", icon: "compass", iconCue: "",
             sceneIndex: "09 / ENGAGING", theme: "summit", sceneDuration: "8",
           };
           var vars = Object.assign({}, defaults,
@@ -159,7 +160,7 @@
 
           // build the living icon from the geometry library
           var svg = document.querySelector("#cd-iconwrap svg");
-          var draws = [], dots = [];
+          var draws = [], dots = [], accents = []; // accents = the gold (gd) strokes/dots, for the closing-beat pop
           var ic = ICONS[vars.icon] || ICONS.compass;
           var strokeMain = "#0d2437";
           (ic.paths || []).forEach(function (p) {
@@ -168,6 +169,7 @@
             el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
             el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
             el.setAttribute("pathLength", "100"); svg.appendChild(el); draws.push(el);
+            if (p.gd) accents.push(el);
           });
           (ic.circles || []).forEach(function (c) {
             var el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -178,6 +180,7 @@
               el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain);
               el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); draws.push(el);
             }
+            if (c.gd) accents.push(el);
             svg.appendChild(el);
           });
 
@@ -189,38 +192,61 @@
 
           window.__timelines = window.__timelines || {};
           var tl = gsap.timeline({ paused: true });
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo("#cd-ghost", { opacity: 0.4 }, { opacity: 1, duration: 0.7 }, 0);
-          tl.fromTo(["#cd-corner-tl", "#cd-corner-br", "#cd-index", "#cd-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
-          tl.fromTo(".pdot", { opacity: 0, scale: 0.6, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.06 }, 0.2);
-          tl.fromTo("#cd-num", { opacity: 0, scale: 0.6, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.35);
-          tl.fromTo("#cd-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, 0.4);
-          tl.fromTo("#cd-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.5);
-          tl.fromTo("#cd-heading", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.5);
-          // living icon draws on (strokeDashoffset), gold accents/dots pop last
-          if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.7);
-          if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.4);
+          var sdur = Math.max(4, parseFloat(vars.sceneDuration) || 8);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut):
+          // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.
+          tl.fromTo("#cd-ghost", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+          tl.fromTo(["#cd-corner-tl", "#cd-corner-br", "#cd-index", "#cd-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+          // Entrance settles ≤1.2s (Motion v2, 2026-07-27): hero tweens ≤0.6s,
+          // relative order/stagger feel preserved from the v1 choreography.
+          tl.fromTo(".pdot", { opacity: 0, scale: 0.6, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.35, stagger: 0.05 }, 0.1);
+          tl.fromTo("#cd-num", { opacity: 0, scale: 0.6, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.2);
+          tl.fromTo("#cd-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, 0.3);
+          tl.fromTo("#cd-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power3.out" }, 0.35);
+          tl.fromTo("#cd-heading", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.4);
+          // Living icon draws on (strokeDashoffset) in the compressed entrance slot,
+          // or — when `iconCue` is set (Motion v2, 2026-07-27) — the moment the
+          // narration names the thing. Gold accents/dots pop last either way.
+          var iconCue = parseFloat(String(vars.iconCue || "").trim());
+          var drawAt = isNaN(iconCue) ? 0.3 : Math.max(0.4, iconCue);
+          if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.1 }, drawAt);
+          if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, drawAt + 0.5);
           // detail chips reveal on their spoken cue
           chipEls.forEach(function (el, i) {
             var at = i < cueArr.length ? cueArr[i] : 2.2 + i * 0.9;
             tl.fromTo(el, { opacity: 0, y: 26, scale: 0.9, transformOrigin: "left center" }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, at);
+            // Compound cue (Motion v2, 2026-07-27): the arriving chip dims the
+            // already-settled sibling chips to 0.6; the closing beat restores them.
+            if (i > 0) tl.to(chipEls.slice(0, i), { opacity: 0.6, duration: 0.3, ease: "power2.out" }, at);
           });
-          // (No pre-cue keep-alives on the settled heading/badge — owner decision
-          // 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized restoration.
-          // Long holds are covered by staged beats: chip cues or a scene split.)
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15), but the cued closing beat and the scene exit below are
+          // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place
+          // re-marks of the settled heading/badge/chips.
           // Ambient drift + living-icon bob (2026-07-15 animacy regression fix): finite
           // translate-only sine yoyo cycles across the whole scene so the frame registers
           // at QA frame sampling after the last cue lands. Icon bob is on the HTML
           // wrapper (never scale + SVG-opacity together).
-          var sdur = Math.max(4, parseFloat(vars.sceneDuration) || 8);
           var drift = function (sel, ax, ay, per) {
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
           };
           drift("#cd-ghost", 24, 14, 3.2);
           drift("#cd-iconwrap", 0, -10, 2.7);
-          // (No late-phase chip re-marks — owner decision 2026-07-14, reaffirmed
-          // 2026-07-15. The living icon + ghost drift are the only ambient layer.)
+          // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final
+          // second: the icon's gold accent re-pops once (a single cued back.out pop —
+          // sanctioned as a NEW beat) and dimmed chips restore to full.
+          var closeAt = sdur - 1.0;
+          if (accents.length) tl.fromTo(accents, { scale: 1, transformOrigin: "center" }, { scale: 1.16, duration: 0.22, ease: "back.out(3)", yoyo: true, repeat: 1 }, closeAt);
+          if (chipEls.length) tl.to(chipEls, { opacity: 1, duration: 0.4, ease: "power2.out" }, closeAt);
+          // Exit (Motion v2, 2026-07-27) — the content layer leaves at −0.35s so the
+          // seam reads velocity-matched; furniture (ghost ring, corners, progress
+          // dots, index, brandline) never exits.
+          var exitAt = sdur - 0.35;
+          tl.to(["#cd-num", "#cd-kicker", "#cd-rule", "#cd-heading", "#cd-chips"], { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, exitAt);
+          tl.to("#cd-iconwrap", { opacity: 0, x: -40, duration: 0.3, ease: "power2.in" }, exitAt);
+          // Hard-kill at the boundary (gsap_exit_missing_hard_kill lint).
+          tl.set(["#cd-num", "#cd-kicker", "#cd-rule", "#cd-heading", "#cd-chips", "#cd-iconwrap"], { opacity: 0 }, sdur - 0.02);
           window.__timelines["scla-condition"] = tl;
         })();
       </script>

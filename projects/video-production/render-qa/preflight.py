@@ -20,6 +20,16 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      (also enforced by the compiler)
   5. script_match                  — approved lesson script (.txt) vs the
                                      whisper transcript, word-level diff.
+  6. pacing                        — Motion v2 (frame.md "Pacing budget",
+                                     2026-07-27): per scene, visual events =
+                                     entrance settle (1.2s) + every compiled
+                                     cue + the closing beat (duration-0.5);
+                                     largest event gap FAILs above 4.5s (WARN
+                                     3.5s). Duration caps: 12.5s standard,
+                                     title 6.5s, outro 8.5s (title/outro are
+                                     duration-capped, gap-exempt). Background
+                                     drift never counts — pacing is graded on
+                                     communicative beats, not pixel motion.
                                      Threshold-based, never exact-match:
                                      whisper small.en mishears ~1 word in ~360,
                                      so isolated misses pass with printed
@@ -42,10 +52,21 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import ffprobe_duration, norm_token, parse_scenes
+from hfp_common import ffprobe_duration, get_attr, norm_token, parse_scenes
 
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
 TOL = 0.002
+
+# pacing gate (Motion v2, 2026-07-27 — normative numbers in frame.md
+# "Pacing budget"): a failing scene is re-authored (split it, add cues, move
+# the boundary), never waved through on background drift.
+GAP_FAIL = 4.5        # s without a visual event -> FAIL
+GAP_WARN = 3.5        # s without a visual event -> WARN
+SCENE_CAP = 12.5      # s, standard scene duration cap
+TITLE_CAP = 6.5       # s, scla-title (duration-capped, gap-exempt)
+OUTRO_CAP = 8.5       # s, scla-outro (duration-capped, gap-exempt)
+ENTRANCE_SETTLE = 1.2 # s, Motion v2 entrance budget = first visual event
+CLOSING_BEAT = 0.5    # s before scene end the closing beat lands
 
 # HeyGen swap (landed 2026-07-22, see decisions/log.md, same detection idiom
 #   as compile_timeline.words_path_for()): the illustrated pipeline's default
@@ -213,6 +234,71 @@ def check_script_match(ws: Path, script_path=None, scripts_root=LESSON_SCRIPTS):
     return {"pass": True, "output": "\n".join(lines)}
 
 
+def _cue_values(variables):
+    """Every compiled numeric cue in a scene's data-variable-values: any
+    '*Cues' comma list plus the single-value cue keys (mapCue, iconCue)."""
+    vals = []
+    for k, v in variables.items():
+        raw = str(v)
+        if k.endswith("Cues"):
+            parts = raw.split(",")
+        elif k in ("mapCue", "iconCue"):
+            parts = [raw]
+        else:
+            continue
+        for p in parts:
+            try:
+                vals.append(float(p.strip()))
+            except ValueError:
+                pass
+    return vals
+
+
+def check_pacing(scenes):
+    """The pacing gate (check 6) — Motion v2. Events per scene = entrance
+    settle + compiled cues + closing beat; grade the largest gap, and cap
+    scene durations. title/outro are duration-capped and gap-exempt (they
+    legitimately carry zero cues)."""
+    problems, warns = [], []
+    for s in scenes:
+        dur = s["duration"]
+        if dur != dur:  # NaN — placeholder pre-compile; compile_check owns it
+            continue
+        tpl = Path(get_attr(s["tag"], "data-composition-src") or "").stem
+        if tpl == "scla-title":
+            if dur > TITLE_CAP:
+                problems.append(f"{s['id']}: title card runs {dur:.1f}s > "
+                                f"{TITLE_CAP}s — a title holds only for the "
+                                f"opening line; land the rest in a content scene")
+            continue
+        if tpl == "scla-outro":
+            if dur > OUTRO_CAP:
+                problems.append(f"{s['id']}: outro runs {dur:.1f}s > "
+                                f"{OUTRO_CAP}s — tighten the closing span")
+            continue
+        if dur > SCENE_CAP:
+            problems.append(f"{s['id']}: {dur:.1f}s > {SCENE_CAP}s cap — "
+                            f"split the scene at a sentence end")
+        events = [ENTRANCE_SETTLE] + _cue_values(s["variables"])
+        events.append(max(dur - CLOSING_BEAT, ENTRANCE_SETTLE))
+        events = sorted(e for e in events if 0 <= e <= dur + 1e-9)
+        worst, seg = 0.0, (0.0, 0.0)
+        for a, b in zip(events, events[1:]):
+            if b - a > worst:
+                worst, seg = b - a, (a, b)
+        if worst > GAP_FAIL:
+            problems.append(f"{s['id']}: {worst:.1f}s with no visual event "
+                            f"({seg[0]:.1f}s→{seg[1]:.1f}s of {dur:.1f}s) — "
+                            f"add cues, split the scene, or move the boundary")
+        elif worst > GAP_WARN:
+            warns.append(f"WARN {s['id']}: largest event gap {worst:.1f}s "
+                         f"(>{GAP_WARN}s) — room for one more cued beat")
+    out = problems + warns
+    return {"pass": not problems,
+            "output": "\n".join(out) or
+                      f"ok — caps held, every event gap ≤ {GAP_WARN}s"}
+
+
 def run_tool(cmd):
     p = subprocess.run(cmd, capture_output=True, text=True)
     return p.returncode, p.stdout + p.stderr
@@ -285,6 +371,14 @@ def main():
         theme_problems.append(f"mixed style packages in one video: {sorted(themes)}")
     if None in themes or "" in themes:
         theme_problems.append("scene(s) missing the theme variable")
+    # Motion v2 (2026-07-27): exits/closing beats key off sceneDuration, and the
+    # compiler only injects it when the scene DECLARES the key — a slot without
+    # it silently runs on the template's fallback and mistimes its exit.
+    no_sdur = [s["id"] for s in scenes if "sceneDuration" not in s["variables"]]
+    if no_sdur:
+        theme_problems.append(f"scene(s) missing the sceneDuration variable "
+                              f"(exits/closing beats mistime without it): "
+                              f"{', '.join(no_sdur)}")
     sections["variables"] = {"pass": not theme_problems,
                              "output": "\n".join(theme_problems) or
                                        f"theme={next(iter(themes), '?')} on all scenes"}
@@ -293,6 +387,10 @@ def main():
     # 5. script fidelity — approved script vs whisper transcript
     sections["script_match"] = check_script_match(ws, script_override)
     failed |= not sections["script_match"]["pass"]
+
+    # 6. pacing — Motion v2 cue-gap budget + scene duration caps
+    sections["pacing"] = check_pacing(scenes)
+    failed |= not sections["pacing"]["pass"]
 
     verdict = "FAIL" if failed else "PASS"
     if as_json:

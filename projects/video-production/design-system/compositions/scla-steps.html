@@ -14,7 +14,8 @@
     {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
     {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""},
-    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none). Replaces the ghost numeral when set.","default":""}
+    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none). Replaces the ghost numeral when set.","default":""},
+    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""}
   ]'
 >
   <head>
@@ -191,6 +192,11 @@
         #st-iconwrap { position: absolute; right: 130px; top: 86px; width: 150px; height: 150px; display: none; }
         #st-iconwrap svg { width: 150px; height: 150px; }
         #root[data-has-icon="1"] #st-ghost-num { display: none; }
+        /* Closing-beat "done" check (Motion v2, 2026-07-27) — the ICONS map's `done`
+           gold accent, small, at the track's end. opacity 0 at rest, pops on the beat.
+           Gold-on-white reads under all three style packages — no theme override needed. */
+        #st-done { position: absolute; right: 132px; top: 572px; width: 60px; height: 60px; opacity: 0; }
+        #st-done svg { width: 60px; height: 60px; }
         /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] #st-panel { background: #f6f6f9; }
         #root[data-theme="horizon"] .st-bg::after { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); }
@@ -228,6 +234,12 @@
         <div class="st-caption" id="st-cap-2">Broaden your options</div>
         <div class="st-caption" id="st-cap-3">Compare with your criteria</div>
         <div class="st-caption" id="st-cap-4">Notice what you still don't know</div>
+        <div id="st-done" data-layout-allow-occlusion><svg viewBox="0 0 96 96" fill="none"><path d="M34 49 L44 60 L64 37" fill="none" stroke="#eaab2d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100"></path></svg></div>
+        <!-- Static append target for cued sub-beats. Appending to #root by id is unsafe:
+             every scene's template root is id="root", so in the composited render
+             getElementById("root") resolves to the FIRST scene's root (see the
+             scla-chips subBeat root-cause note, fixed 2026-07-27). -->
+        <div id="st-subbeat-host"></div>
         <div id="st-index" data-layout-allow-occlusion>03 / PROCESS</div>
         <div id="st-brandline">SCLA · Lesson System</div>
       </div>
@@ -246,6 +258,7 @@
             sceneDuration: "10",
             stepCues: "",
             icon: "",
+            iconCue: "",
           };
           const vars = Object.assign(
             {},
@@ -273,13 +286,15 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#st-panel", { yPercent: -100 }, { yPercent: 0, duration: 0.7, ease: "power3.out" }, 0);
-          tl.fromTo("#st-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.3);
-          tl.fromTo("#st-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.4);
-          tl.fromTo("#st-heading", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.5);
-          tl.fromTo("#st-ghost-num", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.6);
-          tl.fromTo("#st-track", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.9);
-          tl.fromTo("#st-track-fill", { scaleX: 0 }, { scaleX: 1, duration: 2.4, ease: "power2.inOut" }, 1.1);
+          // Entrance settles ≤1.2s (Motion v2, 2026-07-27): hero tweens ≤0.6s; the old
+          // 2.4s power2.inOut track fill was a defect — compressed to 0.8s power2.out.
+          tl.fromTo("#st-panel", { yPercent: -100 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, 0);
+          tl.fromTo("#st-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.2);
+          tl.fromTo("#st-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.25);
+          tl.fromTo("#st-heading", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.35);
+          tl.fromTo("#st-ghost-num", { opacity: 0.55, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#st-track", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.3);
+          tl.fromTo("#st-track-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 0.4);
           // Explicit activation cues (local seconds) fire each step node/caption the
           // moment the narration reaches that step ("first… second… third…"). Empty →
           // default even spread. frame.md → "Reveal on the spoken cue, not on a timer".
@@ -308,8 +323,9 @@
               at + 0.22,
             );
           }
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo(["#st-index", "#st-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut):
+          // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.
+          tl.fromTo(["#st-index", "#st-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost numeral
           // drifts horizontally in finite translate-only sine yoyo cycles across the
           // whole scene (x-only — its entrance owns y) so the decorative layer registers
@@ -317,22 +333,28 @@
           const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
           tl.fromTo("#st-ghost-num", { x: 0 }, { x: 20, duration: 3.2, ease: "sine.inOut",
             yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);
-          // (No pre-cue keep-alives or late-phase node re-marks — owner decision
-          // 2026-07-14, REAFFIRMED 2026-07-15 after an unauthorized restoration.
-          // Long holds are covered by staged beats: `subBeats`, cues, or a split.)
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15), but the cued closing beat and the scene exit below are
+          // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place
+          // re-marks of settled nodes/captions.
           // Sub-beats: a cued live line that swaps text on each spoken cue —
           // covers narration spans between primary reveals (dead-hold fix,
           // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,
           // no timeline impact. Seek-safe: tween-only swaps, no .call().
+          // Appended to #st-subbeat-host (NOT getElementById("root") — duplicate
+          // root ids resolve to the first scene in the composited render; see the
+          // scla-chips subBeat root-cause fix, 2026-07-27).
           const subBeats = String(vars.subBeats || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
           const subCues = String(vars.subCues || "").split(",").map(function (s) { return Number(s.trim()); }).filter(function (v) { return !isNaN(v); });
+          const subEls = [];
           if (subBeats.length && subCues.length === subBeats.length) {
             subBeats.forEach(function (text, i) {
               const el = document.createElement("div");
               el.className = "st-subbeat";
               el.setAttribute("data-layout-allow-occlusion", "");
               el.textContent = text;
-              document.getElementById("root").appendChild(el);
+              document.getElementById("st-subbeat-host").appendChild(el);
+              subEls.push(el);
               const at = Math.max(0.4, subCues[i]);
               tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at);
               if (i + 1 < subBeats.length) {
@@ -384,13 +406,33 @@
               });
               document.getElementById("root").setAttribute("data-has-icon", "1");
               document.getElementById("st-iconwrap").style.display = "block";
-              // Draw on after the header panel lands (~0.7s), gold accents/dots pop last.
-              if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, 0.75);
-              if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 1.45);
+              // Draw on in the compressed entrance slot, or — when `iconCue` is set
+              // (Motion v2, 2026-07-27) — the moment the narration names the thing.
+              // Gold accents/dots pop last either way.
+              const iconCue = parseFloat(String(vars.iconCue || "").trim());
+              const drawAt = isNaN(iconCue) ? 0.35 : Math.max(0.4, iconCue);
+              if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.1 }, drawAt);
+              if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, drawAt + 0.5);
               // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).
-              tl.fromTo("#st-iconwrap", { x: 0, y: 0 }, { x: 0, y: -8, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 2.7) - 1) }, 0);
+              tl.fromTo("#st-iconwrap", { y: 0 }, { y: -8, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 2.7) - 1) }, 0);
             }
           }
+          // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final
+          // second: a small "done" check (the ICONS map's `done` gold accent) pops at
+          // the track's end. NEW element only — no re-animation of settled content.
+          // (No compound dims on step nodes — activation semantics already carry focus.)
+          const closeAt = sceneDur - 1.0;
+          tl.fromTo("#st-done", { opacity: 0, scale: 0.4, transformOrigin: "center" }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, closeAt);
+          // Exit (Motion v2, 2026-07-27) — the content layer leaves at −0.35s so the
+          // seam reads velocity-matched; furniture (panel, ghost numeral, index,
+          // brandline) never exits.
+          const exitAt = sceneDur - 0.35;
+          const exitTargets = ["#st-head", "#st-track", "#st-track-fill", "#st-done"]
+            .concat(gsap.utils.toArray(".st-node"), gsap.utils.toArray(".st-caption"), subEls);
+          tl.to(exitTargets, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, exitAt);
+          if (iconName) tl.to("#st-iconwrap", { opacity: 0, x: 40, duration: 0.3, ease: "power2.in" }, exitAt);
+          // Hard-kill at the boundary (gsap_exit_missing_hard_kill lint).
+          tl.set(iconName ? exitTargets.concat("#st-iconwrap") : exitTargets, { opacity: 0 }, sceneDur - 0.02);
           window.__timelines["scla-steps"] = tl;
         })();
       </script>

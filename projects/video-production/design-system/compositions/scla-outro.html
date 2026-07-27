@@ -101,6 +101,17 @@
           text-transform: uppercase;
           color: #3393d6;
         }
+        /* Closing-beat rule (Motion v2, 2026-07-27): draws under the URL at
+           sceneDuration - 1.0. Gold on the navy canvas reads in all three
+           style packages (the CTA arrow stays gold in every theme too). */
+        #o-url-rule {
+          margin-top: 20px;
+          width: 300px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: center;
+          transform: scaleX(0);
+        }
         #o-baseline {
           position: absolute;
           left: 120px;
@@ -146,6 +157,7 @@
           <div id="o-next">Use your criteria to compare real paths — not just the loudest option.</div>
           <div id="o-cta">Open your career map</div>
           <div id="o-url">thescla.org</div>
+          <div id="o-url-rule"></div>
         </div>
         <div id="o-baseline"></div>
         <div id="o-index">06 / NEXT STEP</div>
@@ -174,17 +186,19 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#o-logo", { opacity: 0, y: 44, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power4.out" }, 0.15);
-          tl.fromTo("#o-next", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 0.6);
-          tl.fromTo("#o-cta", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 1.0);
-          tl.fromTo("#o-url", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.3);
-          tl.fromTo("#o-baseline", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 0.9);
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo("#o-index", { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
-          tl.fromTo("#o-ring-l1", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.1);
-          tl.fromTo("#o-ring-l2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.25);
-          tl.fromTo("#o-ring-r1", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.2);
-          tl.fromTo("#o-ring-r2", { opacity: 0.5, scale: 0.96 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, 0.35);
+          // Entrance settles ≤1.2s (Motion v2, 2026-07-27): hero tweens ≤0.6s.
+          tl.fromTo("#o-logo", { opacity: 0, y: 44, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power4.out" }, 0.05);
+          tl.fromTo("#o-next", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+          tl.fromTo("#o-cta", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.55);
+          tl.fromTo("#o-url", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.75);
+          tl.fromTo("#o-baseline", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.inOut" }, 0.5);
+          // Furniture paints at t=0 (frame.md — no bare first frame at a cut;
+          // Motion v2: opacity 0.55 → 1 in ~0.3s so cuts land as a hit).
+          tl.fromTo("#o-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+          tl.fromTo("#o-ring-l1", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#o-ring-l2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.08);
+          tl.fromTo("#o-ring-r1", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.04);
+          tl.fromTo("#o-ring-r2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.12);
           tl.fromTo("#o-ring-l1", { scale: 1 }, { scale: 1.05, duration: 3.1, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.4);
           tl.fromTo("#o-ring-r1", { scale: 1 }, { scale: 1.04, duration: 2.7, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.7);
           // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the left and
@@ -202,9 +216,14 @@
           // thumbnail px → read static at frame sampling. ~110/70px clears it.
           drift(["#o-ring-l1", "#o-ring-l2"], 115, 66, 3.4);
           drift(["#o-ring-r1", "#o-ring-r2"], -108, -58, 2.9);
-          // (No CTA re-marks — owner decision 2026-07-14, REAFFIRMED 2026-07-15
-          // after an unauthorized restoration. The settled CTA stays put; ring
-          // drift above is the only ambient layer.)
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15 — no CTA re-marks, the settled CTA stays put), but the
+          // cued closing beat below is REQUIRED (Motion contract v2, 2026-07-27) —
+          // an additive NEW element, never re-animation of settled text.
+          // Closing beat (Motion v2): a gold rule draws under the URL in the final second.
+          tl.fromTo("#o-url-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, sdur - 1.0);
+          // NO exit on scla-outro (Motion v2 exemption): the video must end on a
+          // full frame — everything holds to the last frame.
           window.__timelines["scla-outro"] = tl;
         })();
       </script>

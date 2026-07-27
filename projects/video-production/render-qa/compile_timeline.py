@@ -78,9 +78,15 @@ AUDIO_TAIL = 0.05    # root must outlive the audio by at least this
 MAX_EXTRA_AIR = 0.9  # cap on surplus silence assigned to air-after
 DECLICK = 0.008      # fade (s) into/out of each inserted silence — kills the
                      # voiced-audio-to-zero splice click at scene boundaries
-CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue", "subCues")
-# cue key -> (list variable it must match 1:1, separator of that variable)
-LIST_PAIRS = {"chipCues": ("chips", ","), "subCues": ("subBeats", "|")}
+CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue", "subCues", "iconCue")
+# cue key -> (list variable it must match 1:1, separator of that variable).
+# pointCues rides two templates: scla-statement's `lines` ("|"-separated) —
+# checked here — and scla-points' point1..point4 slots, counted specially in
+# resolve_cues (the 2026-07-10 lines-vs-cues mismatch fired uncued lines
+# BEFORE their cued siblings; the count gate kills that class).
+LIST_PAIRS = {"chipCues": ("chips", ","), "subCues": ("subBeats", "|"),
+              "pointCues": ("lines", "|")}
+POINT_SLOTS = ("point1", "point2", "point3", "point4")
 
 # HeyGen swap (landed 2026-07-22, see decisions/log.md): synth_narration.py's
 #   default provider is now HeyGen starfish, whose native per-word timestamps
@@ -364,12 +370,18 @@ def resolve_cues(sc, words, scene_start):
         else:
             out[key] = ",".join(f"{c:g}" for c in cues)
         listvar, sep = LIST_PAIRS.get(key, (None, ","))
+        n_items = named = None
         if listvar and listvar in sc["variables"]:
             n_items = len([x for x in str(sc["variables"][listvar]).split(sep) if x.strip()])
-            if n_items != len(phrases):
-                problems.append(f"{sc['id']}: {listvar} has {n_items} items but "
-                                f"{key} anchors {len(phrases)} phrases — every "
-                                f"item needs its cue")
+            named = listvar
+        elif key == "pointCues" and any(k in sc["variables"] for k in POINT_SLOTS):
+            n_items = len([k for k in POINT_SLOTS
+                           if str(sc["variables"].get(k, "")).strip()])
+            named = "point1..point4"
+        if n_items is not None and n_items != len(phrases):
+            problems.append(f"{sc['id']}: {named} has {n_items} items but "
+                            f"{key} anchors {len(phrases)} phrases — every "
+                            f"item needs its cue")
     return out, problems
 
 

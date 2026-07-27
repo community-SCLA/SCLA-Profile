@@ -153,6 +153,20 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* Closing-beat cap (Motion v2, 2026-07-27): a gold tick pops on the bar's
+           end-cap in the scene's final second; in ring mode it becomes a gold dot
+           at the ring's 12 o'clock instead. */
+        #sh-cap {
+          position: absolute;
+          left: 1630px;
+          top: 691px;
+          width: 8px;
+          height: 28px;
+          border-radius: 100px;
+          background: #eaab2d;
+          opacity: 0;
+        }
+        #root[data-ring="on"] #sh-cap { left: 402px; top: 252px; width: 16px; height: 16px; border-radius: 50%; }
         /* Ring gauge (opt-in via ring:"on"). A CLOSED full circle (owner decision
            2026-07-14 — no open arcs): a faint track with a gold fill that draws on
            clockwise from the top as the number counts up. Hidden in the default
@@ -173,11 +187,13 @@
         #root[data-theme="horizon"] #sh-number { color: #ffffff; }
         #root[data-theme="horizon"] #sh-stat-rule { background: #eaab2d; }
         #root[data-theme="horizon"] #sh-bar-fill { background: #3393d6; }
+        #root[data-theme="horizon"] #sh-cap { background: #eaab2d; }
         #root[data-theme="cadence"] .sh-bg { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
         #root[data-theme="cadence"] #sh-panel { background: radial-gradient(130% 120% at 70% 20%, #0d2437 0%, #0a1e2f 82%); }
         #root[data-theme="cadence"] #sh-panel::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 10px; background: #eaab2d; }
         #root[data-theme="cadence"] #sh-panel-ring-2 { border-color: rgba(234, 171, 45, 0.4); }
         #root[data-theme="cadence"] #sh-stat-rule { width: 140px; background: #eaab2d; }
+        #root[data-theme="cadence"] #sh-cap { background: #eaab2d; }
       </style>
 
       <div id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow>
@@ -202,6 +218,7 @@
         </div>
         <div id="sh-bar"></div>
         <div id="sh-bar-fill"></div>
+        <div id="sh-cap" data-layout-allow-occlusion></div>
         <div id="sh-index">05 / STAT</div>
       </div>
 
@@ -249,37 +266,43 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#sh-panel", { xPercent: -100 }, { xPercent: 0, duration: 0.7, ease: "power3.out" }, 0);
+          // Entrance (Motion v2, 2026-07-27): the three meters land as three STAGGERED
+          // hits — count-up 0.5→1.5, bar 0.7→1.4, ring 0.9→1.8 — instead of three
+          // parallel slow ramps finishing together. Everything settled ≤1.8s (the
+          // scla-stat exception: its meters ARE the content).
+          tl.fromTo("#sh-panel", { xPercent: -100 }, { xPercent: 0, duration: 0.6, ease: "power3.out" }, 0);
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0.5 }, { opacity: 1, duration: 0.8, stagger: 0.15 }, 0.5);
+          tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, stagger: 0.1 }, 0);
           if (ringOn) {
-            tl.fromTo("#sh-ring-track", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.4);
-            // Gold fill draws on across the same window the number counts up.
-            tl.fromTo("#sh-ring-fill", { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.out" }, 0.7);
+            tl.fromTo("#sh-ring-track", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+            // Third hit: the gold fill draws on after the count-up and bar have started.
+            tl.fromTo("#sh-ring-fill", { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 0.9);
           }
-          tl.fromTo("#sh-number", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.55);
-          // Deterministic count-up: tween a proxy on the timeline; formatting happens in onUpdate.
+          tl.fromTo("#sh-number", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+          // First hit — deterministic count-up: tween a proxy on the timeline;
+          // formatting happens in onUpdate.
           const proxy = { v: 0 };
           tl.fromTo(
             proxy,
             { v: 0 },
             {
               v: target,
-              duration: 1.6,
+              duration: 1.0,
               ease: "power2.out",
               onUpdate: function () {
                 numberEl.textContent = fmt(proxy.v);
               },
             },
-            0.7,
+            0.5,
           );
-          tl.fromTo("#sh-stat-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 1.0);
-          tl.fromTo("#sh-stat-label", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.1);
-          tl.fromTo("#sh-context-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.9);
-          tl.fromTo("#sh-context", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 1.05);
-          tl.fromTo("#sh-bar", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.5);
-          tl.fromTo("#sh-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, 1.6);
-          tl.fromTo("#sh-index", { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          tl.fromTo("#sh-stat-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.8);
+          tl.fromTo("#sh-stat-label", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.9);
+          tl.fromTo("#sh-context-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.6);
+          tl.fromTo("#sh-context", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.8);
+          tl.fromTo("#sh-bar", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.5);
+          // Second hit: the proportional bar fills as its own distinct beat.
+          tl.fromTo("#sh-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0.7);
+          tl.fromTo("#sh-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo("#sh-panel-ring", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
           // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the two panel
           // rings drift at different rates — translate-only decorative parallax in finite
@@ -296,9 +319,20 @@
           // thumbnail px → read static at frame sampling. ~110/70px clears it.
           drift("#sh-panel-ring", 110, 68, 3.2);
           drift("#sh-panel-ring-2", -84, -52, 2.7);
-          // (No stat-number re-mark — owner decision 2026-07-14, REAFFIRMED
-          // 2026-07-15 after an unauthorized restoration. The settled number
-          // stays put; ring drift above is the only ambient layer.)
+          // Idle re-animation of settled content remains banned (2026-07-14/15) — the
+          // settled number stays put — but the cued closing beat and exit below are
+          // REQUIRED (Motion v2, 2026-07-27).
+          // Closing beat: the bar ticks its end-cap (ring mode: a gold dot pops at the
+          // ring's 12 o'clock) — an additive NEW gold accent, never a number re-mark.
+          const closeAt = Math.max(2.2, sdur - 1.0);
+          tl.fromTo("#sh-cap", { opacity: 0, scale: 0.2, transformOrigin: "center" },
+            { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, closeAt);
+          // Exit (Motion v2, 2026-07-27): the content layer slides out at
+          // sceneDuration−0.35; furniture (bg, panel, panel rings, index) stays put.
+          const exitEls = ["#sh-number", "#sh-stat-rule", "#sh-stat-label", "#sh-context-label", "#sh-context", "#sh-bar", "#sh-bar-fill", "#sh-cap"];
+          if (ringOn) exitEls.push("#sh-ring-wrap");
+          tl.to(exitEls, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, sdur - 0.35);
+          tl.set(exitEls, { opacity: 0 }, sdur - 0.02);
           window.__timelines["scla-stat"] = tl;
         })();
       </script>

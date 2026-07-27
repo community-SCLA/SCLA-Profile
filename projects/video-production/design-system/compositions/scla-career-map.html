@@ -254,23 +254,25 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          tl.fromTo("#cm-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.1);
-          tl.fromTo("#cm-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.2);
-          tl.fromTo("#cm-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power4.out" }, 0.35);
-          tl.fromTo("#cm-node-start", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 0.6);
+          // Entrance compressed to settle ≤1.2s (Motion v2, 2026-07-27) — same relative
+          // stagger order (tick → label → heading → start → edges → option nodes).
+          tl.fromTo("#cm-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#cm-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.1);
+          tl.fromTo("#cm-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.2);
+          tl.fromTo("#cm-node-start", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.3);
           // Candidate edges draw out, then the three option nodes arrive.
           ["#cm-edge-1", "#cm-edge-2", "#cm-edge-3"].forEach(function (sel, i) {
             const path = document.querySelector(sel);
             const len = path.getTotalLength();
             path.style.strokeDasharray = len;
             path.style.strokeDashoffset = len;
-            tl.fromTo(sel, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 0.9 + i * 0.18);
+            tl.fromTo(sel, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, 0.45 + i * 0.1);
           });
-          tl.fromTo("#cm-node-1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.4);
-          tl.fromTo("#cm-node-2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.6);
-          tl.fromTo("#cm-node-3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.8);
+          tl.fromTo("#cm-node-1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.65);
+          tl.fromTo("#cm-node-2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.75);
+          tl.fromTo("#cm-node-3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.85);
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
-          tl.fromTo(["#cm-index", "#cm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.5 }, 0);
+          tl.fromTo(["#cm-index", "#cm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
 
           // Idle-window resolve: the wait between the map entrance and the route
           // cue used to be a dead stretch (a 9s pixel-static run was measured on
@@ -279,9 +281,11 @@
           // Translate-only, HTML-only: a scale+SVG-opacity variant of this pulse
           // ghosted the whole diagram in the 2026-07-10 22:00 streaming-encode
           // capture (snapshot path was clean — capture artifact, not DOM).
-          if (mapAt > 6.0) {
+          // Engage threshold lowered 6.0 → 3.5 (Motion v2, 2026-07-27): with the
+          // entrance settling by 1.2s, a default mapCue of 5.0 left a static gap.
+          if (mapAt > 3.5) {
             const pulses = ["#cm-node-1", "#cm-node-2", "#cm-node-3"];
-            const t0 = 2.8, t1 = mapAt - 0.8;
+            const t0 = 1.6, t1 = mapAt - 0.8;
             pulses.forEach(function (sel, i) {
               const at = t0 + ((t1 - t0) * (i + 0.5)) / pulses.length;
               tl.fromTo(sel, { y: 0 }, { y: -8, duration: 0.5, ease: "sine.inOut",
@@ -299,6 +303,14 @@
           // De-emphasize the losing options as the winner resolves.
           tl.to(losers, { opacity: 0.4, duration: 0.6 }, mapAt + 0.3);
           tl.fromTo("#cm-node-best", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, mapAt + 1.1);
+          // Closing beat (Motion v2, 2026-07-27): the cued route trace + loser dim +
+          // winner pop above IS this scene's closing resolve — nothing further added.
+          // Exit (Motion v2, 2026-07-27): the content layer slides out at
+          // sceneDuration−0.35; furniture (bg, index, brandline) stays put.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          const exitEls = ["#cm-head", "#cm-stage"];
+          tl.to(exitEls, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, sceneDur - 0.35);
+          tl.set(exitEls, { opacity: 0 }, sceneDur - 0.02);
           window.__timelines["scla-career-map"] = tl;
         })();
       </script>
