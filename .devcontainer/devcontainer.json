@@ -3,9 +3,12 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {},
   // HyperFrames Studio preview (npm run dev / scripts/preview.sh) serves on :3002
-  "forwardPorts": [3002],
+  // 3002-3004: up to three HyperFrames Studio previews side by side (scripts/preview.sh)
+  "forwardPorts": [3002, 3003, 3004],
   "portsAttributes": {
-    "3002": { "label": "HyperFrames Studio", "onAutoForward": "openBrowser" }
+    "3002": { "label": "HyperFrames Studio", "onAutoForward": "openBrowser" },
+    "3003": { "label": "HyperFrames Studio 2", "onAutoForward": "openBrowser" },
+    "3004": { "label": "HyperFrames Studio 3", "onAutoForward": "openBrowser" }
   },
   // Infisical CLI = secrets source of truth (injected at runtime via scripts/with-secrets.sh; never written to .env)
   // ffmpeg required for HeyGen TTS transcode step in synth_narration.py
