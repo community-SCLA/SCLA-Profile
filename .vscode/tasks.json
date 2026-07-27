@@ -1,0 +1,34 @@
+{
+  // Terminal → Run Task…  (or the task list in the status bar)
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🎬 Review lesson videos",
+      "detail": "Shows which builds are ready for your eyes and opens them",
+      "type": "shell",
+      "command": "bash scripts/review.sh",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true,
+        "focus": true
+      },
+      "runOptions": { "instanceLimit": 1 }
+    },
+    {
+      "label": "🛑 Stop all video previews",
+      "detail": "Frees every preview port when things get stuck",
+      "type": "shell",
+      "command": "pkill -f '[h]yperframes preview' || true; echo; echo 'All previews stopped.'; echo",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}

@@ -2,13 +2,18 @@
   "name": "SCLA Profile",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {},
-  // HyperFrames Studio preview (npm run dev / scripts/preview.sh) serves on :3002
-  // 3002-3004: up to three HyperFrames Studio previews side by side (scripts/preview.sh)
-  "forwardPorts": [3002, 3003, 3004],
+  // A HyperFrames preview serves exactly ONE workspace (it needs an index.html in
+  // its cwd), so reviewing N videos needs N ports. 3002-3007 = six side by side,
+  // handed out by scripts/review.sh (VS Code task "Review lesson videos").
+  // Silent: the task prints the links, so nothing should steal focus on launch.
+  "forwardPorts": [3002, 3003, 3004, 3005, 3006, 3007],
   "portsAttributes": {
-    "3002": { "label": "HyperFrames Studio", "onAutoForward": "openBrowser" },
-    "3003": { "label": "HyperFrames Studio 2", "onAutoForward": "openBrowser" },
-    "3004": { "label": "HyperFrames Studio 3", "onAutoForward": "openBrowser" }
+    "3002": { "label": "Lesson preview 1", "onAutoForward": "silent" },
+    "3003": { "label": "Lesson preview 2", "onAutoForward": "silent" },
+    "3004": { "label": "Lesson preview 3", "onAutoForward": "silent" },
+    "3005": { "label": "Lesson preview 4", "onAutoForward": "silent" },
+    "3006": { "label": "Lesson preview 5", "onAutoForward": "silent" },
+    "3007": { "label": "Lesson preview 6", "onAutoForward": "silent" }
   },
   // Infisical CLI = secrets source of truth (injected at runtime via scripts/with-secrets.sh; never written to .env)
   // ffmpeg required for HeyGen TTS transcode step in synth_narration.py
