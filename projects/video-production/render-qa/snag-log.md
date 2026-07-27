@@ -3133,6 +3133,96 @@ copy is authoritative before any file is touched.
 - `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
 - Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely (since 2026-07-23)
 
+## 2026-07-27 · Motion v2 re-author (m1, m2-mindsets) + template-collision defect found and gated + build-loop streamlining
+
+Re-authored two of the five reviewed builds to Motion v2 — `m1_mini-syllabus_mid-career-momentum_2026-07-25` (7 scenes/107.9s → **14 scenes/102.8s**, summit, 7 distinct forms) and `m2_mid-career-mindsets-and-limiting-beliefs_mid-career-momentum_2026-07-25` (8/95.3s → **13/94.5s**, cadence, 8 forms). Both gate-clean: preflight PASS (pacing "caps held, every event gap ≤ 3.5s", 0.00% script mismatch), `npm run check` passed, snapshots reviewed. Neither rendered — both wait at the hyperframe gate.
+
+Owner previewed m1 and reported missing headings. Root-caused a **design-system-wide defect**: HyperFrames keys a sub-composition's `window.__timelines` entry and its element ids to the **file**, not the slot, so two slots pointing at one template collide — the surviving timeline animates one instance and the others render with a blank header, or blank entirely once Motion v2's exit tween + hard-kill run. Invisible in Studio preview (per-scene iframes) and to `lint`/`validate`/`inspect`; reproduces only in the composited render and in `hyperframes snapshot`. Proven by construction: cloning one colliding template to a per-instance file restored that scene immediately.
+
+Affected slots (every build in the folder had them — this predates Motion v2; v2's exits only turned "wrong content" into "blank frame"): m1 — scene-06-tools, 07-support, 08-complicated, 09-questions, 11-plan, 12-commitment, 13-anchor (plus scene-04-checkpoint's heading being killed mid-scene by a sibling instance's timeline); m2-mindsets — 06-experiments, 08-redesign, 09-adjust, 11-your-task, 12-reflect; four-kinds — 20 slots; **already-shipped** how-to-make-strong-career-decisions — 06-step2, 07-step3, 08-step4, 09-step5, 10-loop-close; **already-shipped** skills-for-the-ai-era-future — 04-strategy, 06-transferable, 07-human, 08-automation; **already-shipped** build-direction-before-you-build-a-plan — 06-dream-job, 07-ai-mirror.
+
+Also measured why a build costs 50–80 min: it is **not** the tooling (`npm run check` 9s, `snapshot` 8s, compile/preflight seconds, a full 14-scene TTS pass ~100s sequential). ~85% is the model hand-writing `index.html`, whose scene slots are 400–700-char attribute lines re-emitted on every revision (m1: 168k tokens/80 min; m2: 153k/48 min).
+
+**Fixed this session:**
+- [defect] Template-file collision blanking repeat-instance scenes — new `render-qa/instance_templates.py` clones a per-slot template (namespacing composition id, timeline key, element-id prefix) and retrofits any existing workspace; applied to m1 (7 slots) + m2-mindsets (5). New `preflight` section `instance_templates` fails any build that reuses a file. ~90 min incl. diagnosis.
+- [tooling] `synth_narration.py` synthesized cache misses one at a time — now a 5-way thread pool (`TTS_WORKERS`); ~100s → ~25s on a 14-scene build. Output order and cache keys unchanged; 36/36 tests pass. ~10 min.
+- [tooling] Hand-written `index.html` was the build's dominant cost — new `render-qa/build_index.py` generates it from a ~8-line-per-scene `scenes.json` manifest, gives every slot its own template file by construction, and writes the cue/`sceneDuration` keys the compiler fills. `--extract` recovers a manifest from an existing build. Round-trip proven on m1: regenerated → identical 102.752s timing, all gates green, frames visually identical. ~35 min.
+- [authoring] `preflight.py`'s script auto-locate silently WARNs and skips the fidelity check when the workspace stem carries a program segment the script filename lacks (every `m<N>_…` build) — documented, and `--script` is now explicit in the skill's gate loop.
+
+**Promoted to docs:** `/render-lessons` SKILL.md — manifest-first authoring replaces hand-assembling `index.html`; the one-template-file-per-slot rule and its preview blind spot as a standing landmine; `--script` explicit in the gate loop; a mandatory `snapshot` step in both the build loop and B3 (a blank scene passes `preflight` + `check`); build subagents now dispatch **concurrently**, since the measurement shows serialising them only multiplies model time.
+
+**Open:**
+- **Three already-shipped videos carry the template-collision defect on Wistia** — `how-to-make-strong-career-decisions` (5 slots), `skills-for-the-ai-era-future` (4), `build-direction-before-you-build-a-plan` (2). Owner decision: re-author + re-ship, or leave live. The `WISTIA_API` token cannot delete, so replacing means a new upload and a manual takedown in the Wistia UI (NEW 2026-07-27).
+- `m2_four-kinds-of-career-transition_mid-career-momentum_2026-07-25` is **half-authored** — `index.html` was rewritten to 28 scenes at 19:24 by an interrupted build dispatch while `assets/voice/scenes/` still holds the 9-scene narration; preflight FAILs (33 boundary violations, 20 colliding slots). Finish it or revert it; do not preview it (NEW 2026-07-27).
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23). One (`m2_the-value-of-building-mid-career-momentum`) was rendered 2026-07-27 as an off-pipeline showcase from its four complete paragraphs only; the title's promised "value/why now" section still needs owner-sourced content before any pipeline build.
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
+## 2026-07-27 · design-system demo reel: sceneDuration wiring fix + re-render — exit QA clean
+
+Fixed the demo reel (`design-system/index.html`) not passing `sceneDuration` into any of its 12 scene slots: templates schedule exits at `sceneDuration − 0.35` and closing beats at `sceneDuration − 1.0` from `vars.sceneDuration`, so five scenes (points, statement, steps, loop, career-map) mistimed exits against per-template fallbacks. Added `"sceneDuration"` matching each slot's `data-duration` (8/8/8/10/8/8/12/8/8/8/12/8) to every slot's `data-variable-values`. `npm run check` PASS (0 errors, 4 known overlapping_gsap_tweens warnings — accepted false positives). Re-rendered `renders/design-system_2026-07-27_15-57-43.mp4` (106s, 3180 frames); frame-extracted all five previously-failing boundaries (t=16/24/42/50/62 at −0.85 and −0.10): closing beat visible, content clearly fading at −0.10 with furniture intact, career-map no longer shows bare canvas before its cut. 5/5 pass; no template changes needed. Older renders kept.
+
+**Fixed this session:**
+- [authoring] Demo reel omitted `sceneDuration` in all 12 slot `data-variable-values`, letting template fallbacks mistime 5 scene exits — wired each slot's actual `data-duration` value through. ~10 min incl. render + frame verify.
+
+**Promoted to docs:** None — one-file wiring fix; templates and contract unchanged.
+
+**Open:** (carried verbatim from previous entry — none new this session; none are actionable within this reel-fix session)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23). One (`m2_the-value-of-building-mid-career-momentum`) was rendered 2026-07-27 as an off-pipeline showcase from its four complete paragraphs only; the title's promised "value/why now" section still needs owner-sourced content before any pipeline build.
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
+## 2026-07-27 · off-pipeline showcase build+render: fable-showcase_m2-mid-career-paths_2026-07-27
+
+Owner-requested one-off (explicitly outside /produce-video · /refine-scripts · /render-lessons, no design-system templates): a from-scratch HyperFrames composition for `lesson-scripts/mid-career-momentum/refined/m2_the-value-of-building-mid-career-momentum_2026-07-23.txt`. 7 custom scenes, 81.5s, Oxana (HeyGen) narration verbatim from the script's four complete paragraphs, brand tokens quoted from `design-system/frame.md` frontmatter (brand/ absent in this checkout). `npm run check` PASS (0 errors, 0 warnings, 33/33 WCAG AA); rendered locally to the workspace (`m2_mid-career-paths_fable-showcase_2026-07-27.mp4`, h264+aac, 81.52s). NOT filed to renders-mp4/, NOT uploaded to Wistia; script left in `refined/`.
+
+**Fixed this session:**
+- [authoring] 5× `gsap_exit_missing_hard_kill` lint errors on scene-exit fades — added the suggested `tl.set(…, {opacity:0}, boundary)` hard kills. ~2 min.
+- [authoring] Two-tone headline spans: inline-block collapsed the trailing space ("feelless clear") and scale needed inline-block — margin-right + display fix, caught in snapshot review. ~3 min.
+- [authoring] Retrieved HeyGen BGM is 33s vs an 81.5s cut — pre-looped with ffmpeg acrossfade into `track-long.m4a` instead of runtime looping. ~2 min.
+- [env] infisical CLI still absent in this codespace (predates the 6a12984 postCreateCommand fix; rebuild pending) — `with-secrets.sh` REST fallback injected HEYGEN_API_KEY fine. No action left; ffmpeg IS present now, so 2026-07-25's ffmpeg Open item is closed by 6a12984.
+
+**Promoted to docs:** None — off-pipeline one-off; no pipeline doc owns it.
+
+**Open:**
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23). NEW this session: one of the three (`m2_the-value-of-building-mid-career-momentum`) was rendered as an off-pipeline showcase from its four complete paragraphs only; the title's promised "value/why now" section still needs owner-sourced content before any pipeline build.
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
+## 2026-07-25 · /render-lessons BUILD: build-direction-before-you-build-a-plan_early-career-boost_2026-07-07 — gate-clean
+
+Build subagent run: `build-direction-before-you-build-a-plan_early-career-boost_2026-07-07`, theme `cadence`, 8 scenes, 151.6s.
+Script: `lesson-scripts/early-career-boost/refined/build-direction-before-you-build-a-plan_early-career-boost_2026-07-07.txt` (385 words, 0.00% mismatch).
+
+All gates passed: synth (heygen, 8 scenes, 390 words, 150.5s audio), compile_timeline (APPLIED, clean on re-run), preflight (PASS — 0 boundary violations, theme=cadence on all scenes, 0.00% script-vs-transcript mismatch), npm run check (PASS — 0 errors, 0 warnings, 38/38 WCAG AA, 9 layout samples). Script moved to `rendered/`.
+
+**Fixed this session:**
+- None. Build ran clean on first attempt. TTS, compile, preflight, and check all green in one pass.
+
+**Promoted to docs:** None new this session.
+
+**Open:**
+- [env] ffmpeg not in devcontainer postCreateCommand — every fresh codespace will hit the same transcode failure on first HeyGen TTS run. Owner action: add `ffmpeg` to devcontainer setup (or `.devcontainer/devcontainer.json` features). (since 2026-07-25)
+- `m4_visibility-actions` duplicate body — content still missing, gated at file level (not in this build) (since 2026-07-23)
+- `m2_why-build-your-own-path` duplicate of `m1_reframing-entrepreneurship-and-going-solo` — needs a distinct M2 script (since 2026-07-23)
+- Module 1/2 career-transition taxonomy contradiction (note only; don't block build on it) (since 2026-07-23)
+- `m6` recap's two unsupported claims (note only; not in this build) (since 2026-07-23)
+- Three mid-career-momentum scripts carrying inline `TODO: needs input` — skip those scripts entirely; they are NOT in this batch (since 2026-07-23)
+- No filed `mid-career-momentum` curriculum source (note only) (since 2026-07-23)
+- Resume Builder Tool's undocumented "AI rewrite feature" (note only) (since 2026-07-23)
+
 ## 2026-07-25 · /render-lessons BUILD: m2_mid-career-mindsets-and-limiting-beliefs_mid-career-momentum_2026-07-25 — gate-clean
 
 Build subagent run: `m2_mid-career-mindsets-and-limiting-beliefs_mid-career-momentum_2026-07-25`, theme `cadence`, 8 scenes, 95.3s.

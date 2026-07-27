@@ -333,6 +333,16 @@ def main():
     sections["boundaries"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
 
+    # 2b. one template file per slot (2026-07-27). HyperFrames keys a
+    # sub-composition's timeline and element ids to the FILE, so two slots
+    # sharing one template collide: the surviving timeline animates one
+    # instance and the others render blank headers. Invisible in Studio
+    # preview (per-scene iframes) — composited render only.
+    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "instance_templates.py"),
+                        str(ws), "--check"])
+    sections["instance_templates"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
     # 3. coverage
     html = (ws / "index.html").read_text()
     scenes = parse_scenes(html)

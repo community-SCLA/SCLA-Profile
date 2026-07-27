@@ -51,6 +51,7 @@ import json
 import subprocess
 import sys
 import wave
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from array import array
 from pathlib import Path
 
@@ -65,6 +66,8 @@ LEAD = 0.15          # silence before the next scene's first word
 FINAL_HOLD = 1.1     # final scene visual hold past the last word (1.0 + 0.1)
 
 # Clip edge trim: peak-based so a breathy tail isn't misread as silence.
+TTS_WORKERS = 5          # parallel provider calls for cache misses (network-bound)
+
 TRIM_THRESHOLD = 300     # |int16| below this is "silent" (~ -40 dBFS)
 TRIM_WIN = 0.02          # scan window (s)
 GUARD_LEAD = 0.04        # keep this much silence before the first voiced win
@@ -227,27 +230,46 @@ def main():
 
     need_words = provider == "heygen"
 
-    # Synthesize (or reuse) per-scene clips.
-    entries = []
-    raw_words = []  # per-scene: clip-relative [{text,start,end}], heygen only
+    # Synthesize (or reuse) per-scene clips. Each clip is an independent
+    # network round-trip to the provider, so the misses are synthesized in
+    # parallel (2026-07-27: 14 sequential HeyGen calls cost ~100s of every
+    # build iteration; a small pool cuts that to ~25s). Clip files are
+    # per-scene, the cache key is content-addressed, and results are assembled
+    # in scene order afterwards, so the output stays byte-identical.
+    plan = []
     for i, (sc, text) in enumerate(zip(scenes, texts), start=1):
         clip_rel = f"scenes/scene-{i:02d}.wav"
         clip = clips_dir / f"scene-{i:02d}.wav"
         words_path = clips_dir / f"scene-{i:02d}.words.json"
         sha = hashlib.sha1(f"{provider}|{voice}|{speed}|{text}".encode()).hexdigest()[:16]
-        if force or not clip.is_file() or old.get(clip_rel) != sha:
-            tts(text, clip, provider, voice, speed, cwd=ws,
-                words_out=words_path if need_words else None)
-            print(f"  tts  scene-{i:02d}  ({len(text.split())} words)")
-        else:
-            if need_words and not words_path.is_file():
-                die(f"scene-{i:02d}: cached clip has no {words_path.name} "
-                    f"(missing or from a pre-HeyGen run) — re-run with --force")
-            print(f"  keep scene-{i:02d}  (unchanged)")
-        raw_words.append(json.loads(words_path.read_text()) if need_words else [])
-        entries.append({"i": i - 1, "id": sc["id"], "clip": clip_rel,
-                        "sha": sha, "text_words": len(text.split()),
-                        "question": text.rstrip().rstrip("\"')]").endswith("?")})
+        stale = force or not clip.is_file() or old.get(clip_rel) != sha
+        if not stale and need_words and not words_path.is_file():
+            die(f"scene-{i:02d}: cached clip has no {words_path.name} "
+                f"(missing or from a pre-HeyGen run) — re-run with --force")
+        plan.append({"i": i, "sc": sc, "text": text, "clip": clip, "clip_rel": clip_rel,
+                     "words_path": words_path, "sha": sha, "stale": stale})
+
+    misses = [p for p in plan if p["stale"]]
+    if misses:
+        with ThreadPoolExecutor(max_workers=min(TTS_WORKERS, len(misses))) as pool:
+            futures = {
+                pool.submit(tts, p["text"], p["clip"], provider, voice, speed, ws,
+                            p["words_path"] if need_words else None): p
+                for p in misses
+            }
+            for fut in as_completed(futures):
+                fut.result()  # re-raises the worker's SystemExit/exception here
+
+    entries = []
+    raw_words = []  # per-scene: clip-relative [{text,start,end}], heygen only
+    for p in plan:
+        verb = "tts " if p["stale"] else "keep"
+        note = f"({len(p['text'].split())} words)" if p["stale"] else "(unchanged)"
+        print(f"  {verb} scene-{p['i']:02d}  {note}")
+        raw_words.append(json.loads(p["words_path"].read_text()) if need_words else [])
+        entries.append({"i": p["i"] - 1, "id": p["sc"]["id"], "clip": p["clip_rel"],
+                        "sha": p["sha"], "text_words": len(p["text"].split()),
+                        "question": p["text"].rstrip().rstrip("\"')]").endswith("?")})
 
     # Trim + concatenate with real gaps. On the HeyGen path, each clip's raw
     # (clip-relative) word timestamps are shifted twice: once by the trim
