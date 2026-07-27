@@ -48,8 +48,10 @@ Usage:
 
 import hashlib
 import json
+import os
 import subprocess
 import sys
+import time
 import wave
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from array import array
@@ -66,7 +68,13 @@ LEAD = 0.15          # silence before the next scene's first word
 FINAL_HOLD = 1.1     # final scene visual hold past the last word (1.0 + 0.1)
 
 # Clip edge trim: peak-based so a breathy tail isn't misread as silence.
-TTS_WORKERS = 5          # parallel provider calls for cache misses (network-bound)
+# Parallel provider calls for cache misses (network-bound). Lowered 5 -> 3 on
+# 2026-07-27: at 5, HeyGen let ~5 clips through and then rejected the rest with
+# "request/transcode error" — a 21-scene build lost 16 clips, while sequential
+# calls succeeded every time. Override with TTS_WORKERS=1 to force sequential.
+TTS_WORKERS = max(1, int(os.environ.get("TTS_WORKERS", "3")))
+TTS_RETRIES = 3          # attempts per clip before the build fails
+TTS_BACKOFF = 2.0        # seconds, doubled each retry (2s, 4s, 8s)
 
 TRIM_THRESHOLD = 300     # |int16| below this is "silent" (~ -40 dBFS)
 TRIM_WIN = 0.02          # scan window (s)
@@ -114,6 +122,27 @@ def tts(text: str, out: Path, provider: str, voice: str, speed: str, cwd: Path,
         p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
         if p.returncode != 0 or not out.is_file():
             die(f"tts failed for {out.name}: {(p.stdout + p.stderr).strip()[-500:]}")
+
+
+def tts_retrying(*args, **kwargs):
+    """`tts` with bounded retry (2026-07-27). Provider-side rejections under
+    concurrency are transient — HeyGen returns "request/transcode error" for a
+    burst and then serves the identical text fine moments later. `tts` reports
+    every failure through `die`, so SystemExit is the failure signal here, not
+    an abort. The final attempt re-raises untouched, so a genuinely bad clip
+    still fails the build loudly."""
+    label = kwargs.get("out") or (args[1] if len(args) > 1 else "clip")
+    for attempt in range(1, TTS_RETRIES + 1):
+        try:
+            return tts(*args, **kwargs)
+        except (SystemExit, Exception):
+            if attempt == TTS_RETRIES:
+                raise
+            delay = TTS_BACKOFF * (2 ** (attempt - 1))
+            print(f"  retry {attempt}/{TTS_RETRIES - 1} for "
+                  f"{getattr(label, 'name', label)} in {delay:.0f}s",
+                  file=sys.stderr, flush=True)
+            time.sleep(delay)
 
 
 def read_wav(path: Path):
@@ -253,8 +282,8 @@ def main():
     if misses:
         with ThreadPoolExecutor(max_workers=min(TTS_WORKERS, len(misses))) as pool:
             futures = {
-                pool.submit(tts, p["text"], p["clip"], provider, voice, speed, ws,
-                            p["words_path"] if need_words else None): p
+                pool.submit(tts_retrying, p["text"], p["clip"], provider, voice,
+                            speed, ws, p["words_path"] if need_words else None): p
                 for p in misses
             }
             for fut in as_completed(futures):

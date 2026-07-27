@@ -27,6 +27,10 @@ typography:
     body: "32-38px / 400"
     label: "20-26px / 700, uppercase, letter-spacing 0.14em" # Eyebrows, chips, metadata
     stat: "200-260px / 900" # Count-ups
+  min-size: # Normative floors — preflight `text_size` FAILs below these (2026-07-27)
+    body: 32 # px. Anything the viewer READS as a sentence: points, captions, sub-beats, card copy
+    label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
+    exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
 spacing:
   frame-padding: "120px" # Safe margin from canvas edge for primary content
   radius-card: "12px"
@@ -226,6 +230,33 @@ Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
 - **Boundaries land on sentence ends.** Never cut mid-word or mid-sentence; the
   sentence that opens a thought belongs to the scene that illustrates it. If a
   sentence straddles a planned cut, move the boundary — don't split the sentence.
+- **A sentence longer than its scene's cap is a script defect, not a pacing
+  one (2026-07-27).** This rule and the duration caps can deadlock: a single
+  sentence whose speech exceeds 12.5s (title 6.5s, outro 8.5s) offers no legal
+  cut anywhere inside it, so no re-authoring of `scenes.json` can clear the
+  pacing gate. The sanctioned repair is **word-preserving re-punctuation of the
+  refined script** — an em dash, colon, or semicolon joining two independent
+  clauses becomes a period, which creates a legal boundary. No word may be
+  added, removed, reordered, or altered: `preflight`'s `script_match` must
+  still report 0.00% afterward. Rewording is never the fix, and neither is an
+  exception to the cap. Word count does not predict this — measured across 90
+  built scenes the speech rate spans 2.18–3.51 w/s (median 2.85), because
+  commas and dashes buy pause time; a 12-word title card has run 7.0s. Judge by
+  the compiled duration, never by length on the page.
+- **An em dash/colon/semicolon that splits reveal-cues across its two clauses
+  gets converted to a period regardless of duration, not only when the scene
+  is over cap (2026-07-27).** Neither narration voice supports pause tags
+  (`design-system/CLAUDE.md` → "Narration voice") — text punctuation is the
+  only pacing signal that reaches the audio, and an em dash joining two
+  independent clauses is a weak one: TTS often doesn't pause on it, so a cued
+  phrase right after the dash reads as glued to the clause before it. The
+  trigger is structural, not caps: a `chipCues`/`pointCues`/`stepCues` phrase
+  in the clause *before* the dash and another *after* it. A plain
+  comma-separated list inside one clause ("more impact, more recognition, or
+  a role that fits you better") is unaffected — commas already read as clear
+  pauses; leave those alone. Apply the same word-preserving re-punctuation as
+  above (`script_match` still 0.00% afterward) only at the dash/colon/
+  semicolon boundary itself.
 - **≥0.2s of air after the last word.** A scene may not cut until at least
   0.2s after its final spoken word's `end` time. Cutting at or before the word's
   end (the old builds cut up to 0.36s *early*, mid-word) is a defect.
@@ -318,6 +349,29 @@ discards everything outside it. Weights: 900 display / 700 subheads-labels /
 400 body. No 300 or 600 — the kit doesn't ship them. Sentence case for titles and body; uppercase +
 0.14em tracking is reserved for labels/eyebrows/chips.
 
+- **Minimum on-frame text size — hard floor (preflight-enforced, 2026-07-27).**
+  **Body-class text never renders below 32px**; label-class furniture never
+  below 20px (frontmatter `typography.min-size`). Body class = anything the
+  viewer reads as a sentence — points, captions, card copy, sub-beats, notes.
+  Label class = the uppercase + letter-spaced furniture only (eyebrow, scene
+  index, brandline, chip, attribution). The gate classifies by that styling:
+  a rule with `text-transform: uppercase` **and** `letter-spacing` is graded
+  against the label floor, everything else against the body floor. Marker
+  numerals sized by their circle (step node, point marker, morph card number)
+  opt out with `/* text-floor-exempt: <reason> */` on the rule. Sub-32px body
+  copy is unreadable at viewing distance and reads as filler — if a line only
+  fits at 28px, cut the line, don't shrink it.
+- **Never restate the label or heading elsewhere in the frame
+  (preflight-enforced).** A sub-beat, caption, or point that repeats what the
+  eyebrow or heading already says is dead weight — it adds a second, smaller
+  copy of a line the viewer has already read at full size (owner call,
+  2026-07-27: "having it there in the first place is totally unnecessary
+  because it is already located at the top of the frame"). The gate FAILs any
+  `subBeats` / caption / point whose words are a subset of, or ≥80% overlap
+  with, that scene's `label` or `heading`. A sub-beat exists to carry narration
+  the frame is **not** already showing; if it has nothing new to say, drop it
+  and let the scene's cued items cover the span.
+
 ## Scene templates
 
 Reusable sub-compositions in `compositions/` — instantiate via
@@ -373,6 +427,17 @@ scene, and drawn on the cue.
   `scla-morph` optional per-card icons, and `scla-chips` an optional
   statement-style hero `icon`. Defaults stay empty — existing builds compile
   unchanged. The "novel, not on every frame" discipline still governs use.
+- **Hide the wrapper until the draw-on cue (render-qa friction log, 2026-07-27
+  B1):** every icon path is built with `stroke-linecap: round` and animated
+  from `strokeDasharray "100 100"` / `strokeDashoffset 100`, which is a
+  zero-*length* stroke — but a round linecap still paints it as a filled dot,
+  not nothing. Any icon host (`#cd-iconwrap`, `#sm-iconwrap`, `#st-iconwrap`,
+  `#cc-iconwrap`, `.mp-cicon`, `.kp-icon`) must therefore be held at
+  `opacity: 0` from t=0 and only set to `opacity: 1` at the same cue
+  (`drawAt`/`iconAt`) that starts the stroke-draw tween — the draw-on is the
+  reveal; without the opacity hold, the dot is visible from t=0 until the cue
+  fires. All six current icon hosts carry this fix; a new icon-bearing
+  template must repeat it.
 - An enumerated set the narration walks one at a time is still best split into one
   `scla-condition` card per item (each with its own icon), **not** given icons in a
   single multi-row scene — see the `scla-condition` row and "Split an enumerated

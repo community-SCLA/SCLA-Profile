@@ -17,8 +17,9 @@ renders-hyperframes/
 1. **Active:** `design-system/CLAUDE.md` → "Building a lesson video" scaffolds
    `renders-hyperframes/<script-stem>/` (stem = the approved script's filename in
    `../lesson-scripts/<program-slug>/`).
-2. **Delivered:** once the final MP4 is verified and filed in
-   `../lesson-scripts/<program-slug>/`, run from the repo root:
+2. **Delivered:** the workspace **stays put after publish**. Archiving is a
+   human-only call — no skill, hook, or agent step retires a build on its own.
+   When you want the disk back, run from the repo root:
 
    ```bash
    bash scripts/archive-lesson.sh <script-stem>
@@ -30,9 +31,9 @@ renders-hyperframes/
    `compositions/`, `frame.md`, `assets/`, configs — is a complete, re-renderable
    source: `npm install && npm run render` brings it back.
 
-`renders-hyperframes/` should only ever contain this README, workspaces currently in
-production, and `_archive/`. If a folder sits here for a video that's already
-delivered, archive it.
+`renders-hyperframes/` contains this README, workspaces (in production *and*
+delivered), and `_archive/`. Delivered folders lingering here are expected —
+they are only cleared when a human runs `archive-lesson.sh`.
 
 ## What lives where (durable vs. scaffolding)
 

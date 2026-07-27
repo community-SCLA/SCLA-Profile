@@ -142,7 +142,7 @@
           position: absolute;
           left: 120px;
           bottom: 58px;
-          font-size: 19px;
+          font-size: 20px;
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
@@ -359,6 +359,13 @@
               // a real mid-scene beat. Empty keeps the compressed entrance draw.
               const iconCueV = parseFloat(vars.iconCue);
               const iconAt = isNaN(iconCueV) ? 0.35 : iconCueV;
+              // Hold the wrapper invisible until iconAt (render-qa friction log,
+              // 2026-07-27 B1): round stroke-linecaps paint a filled dot even at
+              // strokeDashoffset 100/zero visible length, so without this the dot
+              // is visible from t=0 until the draw-on fires. The stroke-draw itself
+              // is the reveal — this just keeps it hidden until its cue.
+              tl.set("#sm-iconwrap", { opacity: 0 }, 0);
+              tl.set("#sm-iconwrap", { opacity: 1 }, iconAt);
               if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.45, ease: "power3.out", stagger: 0.08 }, iconAt);
               if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, iconAt + 0.55);
               // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).

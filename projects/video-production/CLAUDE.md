@@ -8,8 +8,6 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 
 | File | Purpose |
 |---|---|
-| `status.md` | Live production status — setup checklist, owner, accounts, blockers |
-| `PIPELINE-MAP.md` | **Human reference** — the live annotated flow map of the lesson-video pipeline (skills, folders, the two checkpoints). Not loaded by agents; update it whenever the pipeline flow changes. |
 | `notion-queue.md` | Notion queue doc — **retired as intake 2026-07-13** (scripts now enter at `lesson-scripts/<program-slug>/` root). Notion's remaining role (Wistia-link ledger, routine fate) is an open decision; the file documents the old flow until that lands. |
 | `script-templates/heygen-lesson-script.md` | HeyGen lesson script scaffold (program-agnostic). Worked example: `programs/early-career-boost/video-style.md` |
 | `script-templates/course-script-prompt.md` | Claude prompt for course/certificate videos (Synthesia; B-roll markers) |
@@ -19,7 +17,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `script-templates/qa-checklist.md` | Video QA checklist for the human review step |
 | `design-system/` | **SCLA video design system** — nine branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
 | `avatar-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
-| `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production; delivered builds move to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh`. See its `README.md`. |
+| `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production. Delivered builds **stay put** — retiring one to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh` is a human-only call, never an automated pipeline step. See its `README.md`. |
 | `lesson-scripts/` | Curated script library, one folder per program — **a script's folder is its state**: raw at root → `refined/` → `rendered/` (the video itself goes to Wistia, not here). Naming + state semantics in its `README.md`; `refinement-log.md` is the human-facing ledger. |
 | `renders-mp4/` | Local staging for finished MP4s (gitignored), one folder per program mirroring `lesson-scripts/`, split into `hyperframes/` + `avatar/` subfolders — **both render paths file here**, viewable locally before the Wistia upload, named with the render date. See its `README.md`. |
 | `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.agents/skills/`) — separate tool from `avatar-pipeline/`, for authoring HTML video compositions directly. |
@@ -54,4 +52,10 @@ Source of truth: `brand/visual-identity.md` (colors, logo, type) and `brand/voic
 
 ## Current Phase
 
-See `status.md`.
+**State is the folder** — nothing narrates it, so read it directly:
+`lesson-scripts/<program>/refined/*.txt` = queued to build ·
+`renders-hyperframes/<stem>/` = built, waiting at the hyperframe gate ·
+`lesson-scripts/<program>/rendered/*.txt` = gate-clean build exists ·
+Wistia URL in `lesson-scripts/refinement-log.md` = published.
+(`status.md` and `PIPELINE-MAP.md` were removed 2026-07-27 — both narrated a
+pipeline shape that had already changed underneath them.)

@@ -11,6 +11,16 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      (independent implementation: air, mid-word
                                      /mid-sentence cuts, question air, final
                                      hold, root-vs-audio)
+  2c. composition_freshness        — workspace compositions/ is copied once at
+                                     init and never refreshed (render-qa
+                                     friction log, 2026-07-27 C2): compares
+                                     each non-instanced composition's
+                                     <style>/<script> content against the
+                                     current design-system/compositions/
+                                     source. Instanced clones (basename__
+                                     suffix.html) are skipped — their ids are
+                                     deliberately renamed and can't be diffed
+                                     against the un-namespaced source.
   3. coverage                      — scene clips tile 0 → root exactly: first
                                      scene at 0, no gaps/overlaps, last scene
                                      end == root duration, audio attr == true
@@ -37,6 +47,13 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      consecutive misses (= a misread/dropped
                                      sentence) fails. Script auto-located from
                                      the workspace stem, or pass --script.
+  7. text                          — check_text.py: minimum on-frame text size
+                                     (body >= 32px, label >= 20px; frame.md
+                                     typography.min-size) and no on-frame line
+                                     that restates its own scene's label or
+                                     heading. Both owner calls, 2026-07-27, off
+                                     a 30px sub-beat repeating the eyebrow
+                                     already sitting at the top of the frame.
 
 Exit 0 = cleared for render. Exit 1 = fix and re-run. This is the gate that
 lets the QA gauntlet's agent lanes shrink to judgment-only work.
@@ -45,11 +62,14 @@ Usage:  preflight.py <workspace> [--script <approved.txt>] [--json]
 """
 
 import difflib
+import hashlib
 import json
 import re
 import subprocess
 import sys
 from pathlib import Path
+
+DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[1] / "design-system" / "compositions"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import ffprobe_duration, get_attr, norm_token, parse_scenes
@@ -299,6 +319,62 @@ def check_pacing(scenes):
                       f"ok — caps held, every event gap ≤ {GAP_WARN}s"}
 
 
+def _style_script_digest(html_text: str) -> str:
+    """Hash of every <style>/<script> block's inner text.
+
+    Not a whole-file hash: HyperFrames re-serializes composition HTML on
+    catalog/build (quote style, self-closing tags, injected data-hf-id
+    attrs), so a byte-for-byte diff of the full file false-positives on
+    every already-initialized workspace, fresh or not. <style>/<script>
+    content is RAWTEXT and passes through that re-serialization unchanged,
+    and it's where every real template edit (motion, tokens, layout) lives —
+    so it's the reliable freshness signal.
+    """
+    blocks = re.findall(r"<(?:style|script)\b[^>]*>(.*?)</(?:style|script)>", html_text, re.S)
+    return hashlib.sha256("".join(blocks).encode("utf-8")).hexdigest()
+
+
+def check_composition_freshness(ws: Path):
+    """Workspace compositions/ vs the design-system source (C2, 2026-07-27).
+
+    compositions/ is copied into each workspace once at init and never
+    refreshed — a design-system template fix (like the B1 icon-flash fix)
+    lands silently invisible in every workspace already on disk. This
+    compares each non-instanced composition file's <style>/<script> content
+    against design-system/compositions/<same name>.html. Instanced clones
+    (basename__suffix.html, from instance_templates.py or a hand-namespaced
+    duplicate) are skipped: their ids are deliberately renamed per-slot, so
+    they can't be diffed against the un-namespaced source without re-running
+    the clone step.
+    """
+    ws_comp_dir = ws / "compositions"
+    if not ws_comp_dir.is_dir():
+        return {"pass": True, "output": "no compositions/ dir in this workspace"}
+    stale, skipped, checked = [], [], 0
+    for f in sorted(ws_comp_dir.glob("*.html")):
+        if "__" in f.stem:
+            skipped.append(f.name)
+            continue
+        src = DESIGN_SYSTEM_COMPOSITIONS / f.name
+        if not src.exists():
+            skipped.append(f"{f.name} (no matching design-system source)")
+            continue
+        checked += 1
+        if _style_script_digest(f.read_text()) != _style_script_digest(src.read_text()):
+            stale.append(f.name)
+    lines = []
+    if stale:
+        lines.append("stale — refresh from design-system/compositions/ before building: "
+                     + ", ".join(stale))
+    else:
+        lines.append(f"ok — {checked} composition(s) match design-system/compositions/ "
+                     f"(style+script)")
+    if skipped:
+        lines.append(f"not checked ({len(skipped)} instanced clone(s)/unmatched): "
+                     + ", ".join(skipped))
+    return {"pass": not stale, "output": "\n".join(lines)}
+
+
 def run_tool(cmd):
     p = subprocess.run(cmd, capture_output=True, text=True)
     return p.returncode, p.stdout + p.stderr
@@ -342,6 +418,12 @@ def main():
                         str(ws), "--check"])
     sections["instance_templates"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
+
+    # 2c. compositions/ freshness (2026-07-27, C2) — copied once at init,
+    # never refreshed; catches a workspace silently building on a stale
+    # pre-fix template.
+    sections["composition_freshness"] = check_composition_freshness(ws)
+    failed |= not sections["composition_freshness"]["pass"]
 
     # 3. coverage
     html = (ws / "index.html").read_text()
@@ -401,6 +483,15 @@ def main():
     # 6. pacing — Motion v2 cue-gap budget + scene duration caps
     sections["pacing"] = check_pacing(scenes)
     failed |= not sections["pacing"]["pass"]
+
+    # 7. text — minimum on-frame text size + no restatement of label/heading
+    #    (owner calls 2026-07-27; frame.md typography.min-size + "Type rules").
+    #    Static: reads the workspace's composition CSS and scene variables, so
+    #    it costs nothing and catches unreadable/duplicate copy pre-render.
+    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_text.py"),
+                        str(ws)])
+    sections["text"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
 
     verdict = "FAIL" if failed else "PASS"
     if as_json:

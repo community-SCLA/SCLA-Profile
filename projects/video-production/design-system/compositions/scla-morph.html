@@ -62,11 +62,12 @@
         #mp-rule { position: absolute; left: 162px; top: 226px; width: 120px; height: 4px; background: #eaab2d; transform-origin: left center; }
         .card { position: absolute; left: 160px; width: 900px; height: 210px; border-radius: 12px; background: #f6f6f9; border: 2px solid #cccedf; padding: 40px 46px; box-sizing: border-box; }
         .card .ct { font-size: 46px; font-weight: 900; color: #0d2437; line-height: 1.08; }
-        .card .cs { font-size: 30px; font-weight: 400; color: #5f6f96; margin-top: 14px; }
+        .card .cs { font-size: 32px; font-weight: 400; color: #5f6f96; margin-top: 14px; }
         /* Number markers are circular (owner decision 2026-07-14 — not square corner tabs). */
+        /* text-floor-exempt: marker numeral sized by its 66px circle, not body copy */
         .card .cn { position: absolute; left: -26px; top: -26px; width: 66px; height: 66px; border-radius: 50%; background: #0d2437; color: #fff; font-size: 30px; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px #ffffff; }
-        #cardA { top: 300px; }
-        #cardB { top: 560px; }
+        #mp-cardA { top: 300px; }
+        #mp-cardB { top: 560px; }
         .card.win { border-color: #eaab2d; background: #fff; box-shadow: 0 0 0 4px rgba(234, 171, 45, 0.18); }
         .card.win .cn { background: #eaab2d; color: #0d2437; }
         #mp-notes { position: absolute; left: 1140px; top: 320px; width: 620px; }
@@ -113,8 +114,8 @@
         <div class="mp-corner" id="mp-corner-br"></div>
         <div id="mp-kicker">Flip the order</div>
         <div id="mp-rule"></div>
-        <div class="card" id="cardA"><div class="cn" id="cnA">1</div><div class="ct" id="ctA">Pick the destination</div><div class="cs" id="csA">choose the job first</div></div>
-        <div class="card" id="cardB"><div class="cn" id="cnB">2</div><div class="ct" id="ctB">Know what you optimize for</div><div class="cs" id="csB">define good work first</div></div>
+        <div class="card" id="mp-cardA"><div class="cn" id="mp-cnA">1</div><div class="ct" id="mp-ctA">Pick the destination</div><div class="cs" id="mp-csA">choose the job first</div></div>
+        <div class="card" id="mp-cardB"><div class="cn" id="mp-cnB">2</div><div class="ct" id="mp-ctB">Know what you optimize for</div><div class="cs" id="mp-csB">define good work first</div></div>
         <div id="mp-notes"></div>
         <div id="mp-index" data-layout-allow-occlusion>03 / FLIP</div>
         <div id="mp-brandline">SCLA · Lesson System</div>
@@ -149,14 +150,14 @@
             window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {});
           document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("mp-kicker").textContent = vars.kicker;
-          document.getElementById("ctA").textContent = vars.aTitle;
-          document.getElementById("csA").textContent = vars.aSub;
-          document.getElementById("ctB").textContent = vars.bTitle;
-          document.getElementById("csB").textContent = vars.bSub;
+          document.getElementById("mp-ctA").textContent = vars.aTitle;
+          document.getElementById("mp-csA").textContent = vars.aSub;
+          document.getElementById("mp-ctB").textContent = vars.bTitle;
+          document.getElementById("mp-csB").textContent = vars.bSub;
           document.getElementById("mp-index").textContent = vars.sceneIndex;
 
           var TOP = 300, BOT = 560;
-          var cardA = document.getElementById("cardA"), cardB = document.getElementById("cardB");
+          var cardA = document.getElementById("mp-cardA"), cardB = document.getElementById("mp-cardB");
           var notes = String(vars.notes || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
           var noteEls = [];
           var nhost = document.getElementById("mp-notes");
@@ -178,6 +179,12 @@
             svg.setAttribute("fill", "none");
             wrap.appendChild(svg);
             host.appendChild(wrap);
+            // Hidden until drawIcon() reveals it at its cue (render-qa friction
+            // log, 2026-07-27 B1): round stroke-linecaps paint a filled dot even
+            // at strokeDashoffset 100/zero visible length, so without this the
+            // dot is visible — cascading through the card's own fade-in — before
+            // the draw-on fires.
+            wrap.style.opacity = "0";
             var draws = [], dots = [];
             (ic.paths || []).forEach(function (p) {
               var el = document.createElementNS(SVGNS, "path");
@@ -209,6 +216,7 @@
           // gold dots pop last — same grammar as scla-condition).
           function drawIcon(icon, at) {
             if (!icon) return;
+            tl.set(icon.wrap, { opacity: 1 }, at);
             if (icon.draws.length) tl.fromTo(icon.draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, at);
             if (icon.dots.length) tl.fromTo(icon.dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, at + 0.45);
           }

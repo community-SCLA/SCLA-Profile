@@ -209,6 +209,13 @@
           // narration names the thing. Gold accents/dots pop last either way.
           var iconCue = parseFloat(String(vars.iconCue || "").trim());
           var drawAt = isNaN(iconCue) ? 0.3 : Math.max(0.4, iconCue);
+          // Hold the wrapper invisible until drawAt (render-qa friction log,
+          // 2026-07-27 B1): round stroke-linecaps paint a filled dot even at
+          // strokeDashoffset 100/zero visible length, so without this the dot
+          // is visible from t=0 until the draw-on fires. The stroke-draw itself
+          // is the reveal — this just keeps it hidden until its cue.
+          tl.set("#cd-iconwrap", { opacity: 0 }, 0);
+          tl.set("#cd-iconwrap", { opacity: 1 }, drawAt);
           if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.1 }, drawAt);
           if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, drawAt + 0.5);
           // detail chips reveal on their spoken cue
