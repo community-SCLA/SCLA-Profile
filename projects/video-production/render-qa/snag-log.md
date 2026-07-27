@@ -29,6 +29,75 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-27 23:57 UTC (22nd firing) · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall; refined×rendered duplicate finding now fully resolved; no renotify
+
+Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
+non-recursively (`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`,
+`mid-career-momentum`). Same two raw `.txt` files present at program roots, unchanged —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` (re-confirmed by direct read +
+diff against the refined `m1_reframing-entrepreneurship-and-going-solo` body: identical narration
+modulo cue-strip/typographic normalization, still correctly staying raw per the ledger row) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`
+(`SCRIPT PENDING — do not refine or build` marker confirmed still at file top by direct read) — both
+re-confirmed by direct read, correctly skipped by folder-content alone. No avatar-route raws at any
+program root. No refine subagent dispatched — true no-op.
+
+Moved to Phase BUILD. `refined/` root queue = 29 scripts (career-transitions 8, early-career-boost 2,
+entrepreneur-accelerator 4, mid-career-momentum 15), plus 1 separate `refined/avatar/` file (HeyGen
+route, not this queue). `renders-hyperframes/` still holds only `README.md` — no partial workspace to
+resume. Independently re-verified the TTS/egress wall from scratch (not trusting the prior entry):
+`which infisical` → not found; no `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY`/`HEYGEN_API_KEY` in env;
+`python3 -c "import kokoro_onnx"` → `ModuleNotFoundError`; `which ffmpeg` → not found; direct curl to
+`https://api.heygen.com` and `https://huggingface.co` both failed (exit 56, http_code 000). Neither the
+default HeyGen-starfish TTS path nor the kokoro fallback can run, so no build subagent was dispatched.
+`refined/` unchanged by this run; batch cap not exercised.
+
+**Data-integrity finding now CLOSED:** the 5-stem `refined/`×`rendered/` overlap flagged since the
+16th-ish firing is gone — `comm -12` on every program's `refined/`×`rendered/` stem lists returns empty
+everywhere. `early-career-boost/refined/` shrank from 5 files to 2
+(`better-decisions-come-from-better-criteria_..._2026-07-06`, `using-the-career-map-tool_..._2026-07-10`
+remain; `build-direction-before-you-build-a-plan`, `how-to-make-strong-career-decisions`,
+`skills-for-the-ai-era-future` are gone from `refined/` and exist only in `rendered/` now) —
+`git log --oneline -- lesson-scripts/early-career-boost/refined/` shows commit `2630285` "BUILD
+gate-clean, horizon theme" for `skills-for-the-ai-era-future`, i.e. a real build ran to completion
+outside this routine's blocked firings (working credentials, different session type) and the
+bookkeeping cleanup that follows a gate-clean build removed the stale duplicate. `mid-career-momentum`'s
+`m2_four-kinds-of-career-transition` no longer overlaps either (`rendered/` is empty for that program;
+the stem is only in `refined/`). No action needed from this routine — noting the closure so it isn't
+mistakenly re-flagged as open.
+
+The 2 `TODO: needs input` scripts in `mid-career-momentum/refined/`
+(`m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+`m3_discover-experiences-that-support-your-next-move_2026-07-23`) are unchanged — still carry their TODO
+lines (`grep -l` confirms both). Still blocked behind the TTS/egress wall regardless.
+
+**No push notification this run.** The blocker the human was already notified about (2026-07-26, after
+3 days silent) is unchanged — still a guaranteed environment-provisioning wall this routine cannot clear
+itself. The only change since the 21st firing (duplicate-file cleanup) is positive, already resolved
+without needing the human, and not itself an actionable ask — logging it is enough. A 22nd identical
+"BUILD is blocked" notification would be pure noise.
+
+**Open (owner-actionable, unchanged since first flagged 2026-07-23, notified 2026-07-26):**
+- **TTS/egress wall:** `INFISICAL_CLIENT_ID`/`INFISICAL_SECRET_KEY` (Codespaces repo secrets) and the
+  `infisical` CLI are not present in this environment — `with-secrets.sh` hard-fails without them, and
+  they're normally installed by the devcontainer's `postCreateCommand`, which doesn't run in this session
+  type. No `kokoro_onnx` fallback, no `ffmpeg`, and no network egress reaches `api.heygen.com` or
+  `huggingface.co` either. Every BUILD phase in this routine's environment is a guaranteed no-op until
+  credentials + CLI are provisioned for this environment type (or the kokoro fallback + ffmpeg + egress
+  are). 29 scripts are queued in `refined/` waiting on this. **Firing cadence:** this routine has now
+  fired 22 times today with no BUILD progress possible from within it; the owner may want to widen its
+  interval or pause it until the environment is provisioned, since builds are in fact happening (see the
+  closed duplicate-file finding above) — just via a different session type, not this one.
+- **2 `TODO: needs input` scripts queued in `mid-career-momentum/refined/`** (would be spoken by TTS as
+  literal text if built as-is): `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`. Blocked behind the TTS/egress wall
+  regardless, so not yet a live risk, but flagged so it isn't missed once TTS is unblocked.
+
+**Fixed this session:** none — no code/config issue found that this agent could resolve; the blocker is
+environment provisioning (secrets + CLI + egress) outside this session's reach.
+
+**Promoted to docs:** none new this session (already documented in the prior entry's trail).
+
 ## 2026-07-27 (21st firing) · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall; duplicate-file finding still open, unchanged; no renotify (twenty-first identical confirmation today)
 
 Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
