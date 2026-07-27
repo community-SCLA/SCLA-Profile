@@ -42,6 +42,24 @@ same 5-item roadmap opener as `m1_reframing-entrepreneurship-and-going-solo_2026
 re-confirmed by direct read of the raw files, correctly skipped by folder-content alone. No
 avatar-route raws in any program's `avatar/`. No refine subagent dispatched — true no-op.
 
+Housekeeping: this session's checkout started detached at this branch's own 13th-firing commit
+(`c69a7db`), 51 commits ahead of a stale local `main` ref cached at the 2026-07-23 "sixteenth run"
+tip (`f77cd92`) with wildly different content (hundreds of unrelated `_archive/` files, divergent
+`lesson-scripts/` contents) — a `git diff` between the two looked like a genuine history fork.
+`git checkout main` naively followed the stale cached ref and nearly caused this session to treat its
+own correct, in-progress lineage as orphaned. An explicit `git fetch origin main` (not a cached
+`rev-parse` compare) resolved it: the confirmed true remote tip was `c69a7db` — i.e. the local `main`
+ref, not this session's detached `HEAD`, was the stale artifact. `git checkout -B main origin/main`
+followed by `git merge --ff-only` onto this run's own commit restored a correct, clean, fast-forwardable
+history before pushing. No data was ever actually at risk (matches the pattern in the 2026-07-25
+14th/15th-run entries: local git ref caches in this environment can go stale or wrong in either
+direction — sometimes local looks ahead of a stale "origin," sometimes, as here, a stale local ref
+falsely looks like a divergent fork of the real remote). **Always re-verify with an explicit `git
+fetch` before trusting any local comparison of `main` vs `origin/main` in this environment** — this is
+now the second time this exact class of confusion has been hit and resolved; if it recurs a third time,
+it's worth the owner's attention as a real environment defect (stale ref caching on container start),
+not just a one-off.
+
 Moved to Phase BUILD. `refined/` queue = 31 scripts (career-transitions 8, early-career-boost 5,
 entrepreneur-accelerator 4, mid-career-momentum 14, plus 1 separate `refined/avatar/` file not in this
 queue) — unchanged, recounted directly. `renders-hyperframes/` still holds only `README.md` — no
