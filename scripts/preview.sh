@@ -77,10 +77,38 @@ else
   URL="http://localhost:$PORT"
 fi
 
+# Start the server, then WAIT until the port actually answers before printing
+# the URL — the URL is only ever shown for a live server, and a dead one fails
+# loudly instead of leaving you to "hope it opens a tab" (R5/A2).
+cd "$WS"
+npm run dev -- --port "$PORT" &
+SERVER_PID=$!
+trap 'kill "$SERVER_PID" 2>/dev/null || true' INT TERM
+
+WAIT_SECS=30
+answered=""
+for _ in $(seq 1 $((WAIT_SECS * 2))); do
+  if port_busy "$PORT"; then answered=1; break; fi
+  if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+    echo "" >&2
+    echo "FAILED: the preview server exited before serving port $PORT — see npm output above." >&2
+    echo "Debug by hand: cd $WS && npm run dev -- --port $PORT" >&2
+    exit 1
+  fi
+  sleep 0.5
+done
+
+if [ -z "$answered" ]; then
+  kill "$SERVER_PID" 2>/dev/null || true
+  echo "" >&2
+  echo "FAILED: port $PORT never answered within ${WAIT_SECS}s — no URL to open." >&2
+  echo "Debug by hand: cd $WS && npm run dev -- --port $PORT" >&2
+  exit 1
+fi
+
 echo ""
 echo "  $STEM"
 echo "  HyperFrames Studio → $URL/#project/$STEM"
-echo "  (ctrl/cmd-click the link; Ctrl-C here to stop this preview)"
+echo "  (server is up and answering on port $PORT; ctrl/cmd-click the link, Ctrl-C here to stop)"
 echo ""
-cd "$WS"
-exec npm run dev -- --port "$PORT"
+wait "$SERVER_PID"
