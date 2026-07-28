@@ -1,5 +1,23 @@
 # HANDOFF — AUTO-BATCH, updated 2026-07-28 evening (certification complete)
 
+> ## ⛔ SUPERSEDED — read `HANDOFF-owner-review-enforcement-2026-07-28.md` first
+>
+> **The owner reviewed this "certified" pilot later on 2026-07-28 and REJECTED
+> it.** Everything below describes the state before that review and is kept as
+> history. Three claims in it are now false:
+>
+> 1. **"Ready to ship pending sign-off" — no.** The pilot now FAILS preflight on
+>    11 variety + 30 copy findings plus the in-scene silence gate. It needs a
+>    rebuild, not a preview.
+> 2. **The workspace path changed.** It is now
+>    `renders-hyperframes/better-decisions-come-from-better-criteria_early-career-boost_**2026-07-28**/`
+>    and the MP4 is `..._2026-07-28.mp4` — a stem carries exactly one date, and
+>    it means the most recent action.
+> 3. **Certification was necessary but not sufficient.** Three clean rebuilds
+>    with zero vision-lane FAILs still shipped a video the owner called
+>    "boring." The gates it passed did not measure variety, artwork, heading
+>    case, list conjunctions, or in-scene silence. They do now.
+
 Written for a session starting with **zero context**. Read this whole file,
 then run `bash scripts/batch-status.sh`.
 

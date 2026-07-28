@@ -37,6 +37,66 @@ Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
 same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
 
 
+## 2026-07-28 ~21:45 UTC · plan-first rewire landed + pilot rebuilt through it
+
+Picked up HANDOFF-deterministic-rewire-2026-07-28.md mid-flight (3 subagents
+were cut off). All three had landed; §6 ran green after two fixes below. The
+pilot was rebuilt THROUGH the new flow — a cold builder authored `scenes.json`
+only, looped `--static` pre-TTS, and the deck went 25 scenes / 7 content forms
+/ all gates exit 0 / precheck + vision PASS. Sitting at the PILOT GATE now.
+No render ran this session.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Confirm the on-screen program label** *(since 2026-07-28)* — eyebrow is
+  now gated to "Career Accelerator" (title_card check verifies it); visible on
+  the rebuilt pilot title card at preview. Say so if wrong.
+- **Pilot sign-off (rebuilt cut)** — `bash scripts/preview.sh
+  better-decisions-come-from-better-criteria_early-career-boost_2026-07-28`;
+  approval authorizes the batch. (Replaces the previous entry's _2026-07-06
+  preview line — that cut was rejected and has been rebuilt plan-first.)
+- **Commit decision** *(new 2026-07-28)* — ~35 files across three sessions
+  uncommitted (gates, compiler, skills, rules, tests, logs). Recommendation:
+  commit granularly; all suites green.
+
+**Fixed this session**
+
+- `[defect]` **check_variety `family()` missed `__scene_NN` instance suffixes**
+  — every hand-named clone counted as its own template family, so run caps,
+  canvas caps, and distribution silently undercounted on real workspaces (the
+  rejected pilot reported 8 findings; truth was 13, including the 9-scene/78.3s
+  light-canvas run the owner rejected). Fix: strip at the first `__`. Tests
+  still pin reference-PASS / rejected-FAIL. ~15 min.
+- `[tooling]` **Agent A's pinning test was never written** (cut off mid-step) —
+  added `tests/test_build_index.py` (26 checks: byte-determinism, round-trip,
+  canon head/tail cross-pinned against `batch-prepare.sh`, placeholders,
+  `__i2` clone scheme). Via subagent. No defects found in `build_index.py`.
+- `[defect]` **Broken STD-35 claim** — `.claude/rules/video-production.md`
+  backticked `scenes.json` inside a Mechanism annotation; check-enforcement
+  hard-failed it (per-workspace artifact, not a repo file). Reworded; 41
+  backed / 0 broken. ~5 min.
+- `[env]` **Stale user-level skill copies shadowed the project skills** —
+  `/home/codespace/.claude/skills/{render-lessons,refine-scripts,produce-video}/SKILL.md`
+  were pre-rewire copies, and the skill loader served the STALE render-lessons
+  ("assemble index.html first") over the project's plan-first rewrite. Synced
+  all three (verified byte-identical). Durable risk: the sync is manual and
+  nothing detects drift — if the duplicate install is deliberate, it deserves
+  a checker; if not, the user-level copies should be deleted. ~10 min.
+- `[authoring]` 15 unreferenced `__scene_NN` template clones from the rejected
+  build pruned from the pilot workspace; preflight re-verified exit 0.
+
+**Promoted to docs**
+
+- decisions/log.md: new top entry — plan-first rewire (builder authors the
+  plan; compiler emits the HTML; gates fire at plan stage; doctrine line).
+- HANDOFF-deterministic-rewire-2026-07-28.md: pickup banner (what landed,
+  what remains) so no future session re-runs its queue.
+
 ## 2026-07-28 ~19:10 UTC · pilot certification loop (audit + 3 clean re-runs)
 
 Owner directive: batch may not launch until the pilot rebuilds 3 consecutive

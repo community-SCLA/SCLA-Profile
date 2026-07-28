@@ -9,6 +9,98 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-28 (later) — Plan-first rewire: judgment writes the plan, everything after the plan is compiled
+
+**Decision:** The owner directed that video production "should be deterministic
+— from the jump, a formula that can just be cranked out," rejecting the pattern
+where gates catch failures only *after* a full authoring pass or a 7-minute
+render is already spent. The architecture was backwards: a cold agent freehand-
+authored a 21-scene `index.html` from ~6,100 words of prose, while the
+deterministic compiler that made that unnecessary (`render-qa/build_index.py`,
+manifest → complete `index.html`, `--extract` reverses it) already existed and
+was wired into nothing.
+
+The rewire: **a builder authors only the `scenes.json` plan** — beat
+segmentation, template choice, on-frame copy, cue anchors, icons; the genuinely
+creative residue and nothing else. Everything downstream is mechanical:
+`build_index.py` compiles the plan into `index.html` (canon head/tail matching
+the `batch-prepare.sh` scaffold, deterministic `data-hf-id`s, `__i2`-suffix
+per-slot template clones), `compile_timeline.py` owns every timing number, and
+`index.html` is a build artifact that is never hand-edited. Gates moved to the
+plan stage so failures cost a 30-line JSON edit, not a re-author:
+`preflight.py --static` runs every audio-independent section in milliseconds,
+and `scripts/hyperframe-guard.sh` (PostToolUse hook) recompiles and re-gates on
+every write to `scenes.json`. `scripts/batch-precheck.sh` (per-scene snapshots
++ low-ink detection + vision review) now runs *before* the render spend, not
+after. Two variety rules were added and calibrated against the owner's
+reference video (`test_variety.py` pins both directions; a gate that rejects
+the reference is a broken gate): rule 6 theme-block cap (max 6 consecutive
+content scenes / 65s on one background canvas — the rejected build sat 9
+scenes / 78.3s on the light canvas) and rule 7 two-region coverage (≥25% of
+content scenes; reference ~35%, rejected 11%). Landing fix: `check_variety`'s
+`family()` now strips any `__` instance suffix — the rejected pilot's
+hand-named `__scene_04` clones had let each clone masquerade as its own
+family, silently undercounting every run/cap rule.
+
+**Doctrine (new):** an agent decision that survives into an artifact must pass
+through a machine-checkable intermediate, gated at write time. Never let an
+agent author what a compiler can emit.
+
+## 2026-07-28 — Owner review: stem dates become mechanical, and four standing preferences become gates
+
+**Decision:** The owner reviewed the `better-decisions-come-from-better-criteria`
+build and rejected it on naming plus four quality grounds. Root cause across all
+of them: the rules existed as prose, or not at all.
+
+(1) **Stem naming is now mechanical.** A lesson is `<title>_<program>_<DATE>`
+where `<title>_<program>` is the immutable **base** and the date is a *mutable
+state stamp meaning the most recent action on that artifact* — replaced, never
+appended (capture → refine → **build** → render). The reviewed video still
+carried its 2026-07-06 refine date after a 2026-07-28 render, with the
+HyperFrames CLI's `_<date>_<clock>` stacked on top. New `render-qa/stem.py` is
+the sole owner (`base`/`date`/`restamp`/`normalize`); `batch-prepare.sh` names
+workspaces with the build date, `batch-ship.sh` normalises the renderer's output
+before `verify_render.py` pins it in `qa/VERIFIED`, and restamps the script into
+`rendered/`. **Because the date moves, it is no longer an identity key:**
+`published.tsv` column 1 is now the base (6 existing rows migrated), and
+`batch-status.sh` resolves workspaces by base — the same lesson legitimately
+wears three different stems at once. The owner also ruled that
+`lesson-scripts/README.md` is *their* reference, never a pipeline authority,
+because it is not enforceable; rules must live in a checker.
+
+(2) **Variety becomes a gate** (`render-qa/check_variety.py`). The Motion v2
+variety rule was decided 2026-07-27 and written **only into this log** — never
+into `frame.md` or either skill. It did not hold: 21 scenes on 5 templates, 8 of
+them `scla-statement` (42%), unbroken runs of 3 and 5 near-identical scenes, six
+templates untouched, and scene 13's narration naming a career map while the
+frame showed a generic bullseye. Four hard rules now fail the build: no one-item
+list (the owner: "you would never just render a single bullet point" — 5 scenes
+did), max 2 consecutive scenes per template family, ≥5 distinct content forms
+per lesson ≥90s, no form above 40% of content scenes.
+
+(3) **Copy rules become a gate** (`render-qa/check_copy.py`). Headings are Title
+Case with no terminal period — `frame.md` had said the *opposite* ("sentence case
+for titles and body"), so 0 of 17 headings were Title Case and the pipeline was
+correctly following a rule that contradicted the owner. Spoken lists of ≥3 items
+must carry "and"/"or" before the final item; this sat in `frame.md` as the soft
+word "prefer", carrying the very mentorship/growth example the owner complained
+about. Enforced against narration, not chips.
+
+(4) **In-scene silence is capped.** The "strange sound gaps" are HeyGen Oxana
+emitting 0.98–1.26s of real dead air at some sentence boundaries,
+non-deterministically — 3× variance measured across four identical "Ordinal,"
+constructions in one build. No re-punctuation can control it, and because
+`compile_timeline.py` derives reveal cues from the same word timestamps, the
+picture stalls with the sound. `synth_narration.py` now compresses any in-scene
+gap above `MAX_INSCENE_GAP` (0.5s) and shifts that clip's remaining timestamps;
+preflight fails above 0.8s as a regression guard. Narration speed 0.95 → 1.0.
+
+**Why now:** owner, on the reviewed cut — "I have given preferences that, for
+whatever reason, have not been recorded down and not enforced." The standing
+lesson, recorded in `.claude/rules/video-production.md`: a preference that can be
+mechanized gets a checker, and one that can't gets labelled a convention out
+loud. Prose did not hold.
+
 ## 2026-07-28 — Video batch: certification protocol + machine resume key
 
 The AUTO-BATCH may only launch after the pilot rebuilds 3 consecutive times
