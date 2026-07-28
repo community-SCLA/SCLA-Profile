@@ -30,9 +30,10 @@ granted, each video runs render → verify → file → Wistia upload to complet
 with no further human look (MP4 REVIEW gate removed 2026-07-22; per-video
 HYPERFRAME GATE replaced by the pilot gate 2026-07-28 — both in
 decisions/log.md). From there the quality bar is mechanized: `preflight.py`,
-`verify_render.py`, `check_presence.py`, and a sampled vision review of
-`qa/frames/`, any of which failing quarantines that one video rather than
-stopping the batch. Never self-approve the pilot gate.
+the pre-render `batch-precheck.sh` snapshot review, `verify_render.py`,
+`check_presence.py`, and a sampled vision review of `qa/frames/`, any of which
+failing quarantines that one video rather than stopping the batch. Never
+self-approve the pilot gate.
 Never fabricate SCLA content; no FERPA/PII in any prompt.
 
 **State is the folder:**
@@ -116,30 +117,28 @@ a routine template instantiation runs fine one tier down. The prompt carries
   `projects/video-production/renders-hyperframes/`, and the assigned theme;
 - the **Open + rules block from the latest snag-log entry**, pasted verbatim;
 - "Follow the **Build sequence** section of
-  `.claude/skills/render-lessons/SKILL.md` exactly. Read `frame.md` before
-  assembling. Loop until compile, preflight, and check are all green. Do NOT
-  run `npm run render`. Report: workspace path, scene count, theme, anchor
-  summary, gate outputs."
+  `.claude/skills/render-lessons/SKILL.md` exactly. You author `scenes.json`
+  only — `index.html` is compiled, never hand-written. Read `frame.md` before
+  planning scenes. Loop `build_index.py` + `preflight.py --static` until the
+  plan is clean, then synth + compile and loop until full preflight and check
+  are green. Do NOT run `npm run render`. Report: workspace path, scene count,
+  theme, anchor summary, gate outputs."
 
 ### Build sequence (the subagent reads this section)
 
+The workspace is named for the date it is **built**, not the date the script was
+refined — one date suffix, always the most recent action (`.claude/rules/
+video-production.md`). `render-qa/stem.py` owns the rule; never hand-slice it.
+
 ```bash
 cd projects/video-production/renders-hyperframes
-HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <stem> --example=blank --non-interactive
+WS="$(python3 ../render-qa/stem.py restamp <script-stem>)"   # -> title_program_<today>
+HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init "$WS" --example=blank --non-interactive
 # copy frame.md, compositions/, assets/ in from ../design-system/
-cd <stem>
+cd "$WS"
 # init regenerates a CLAUDE.md routing to skills this repo deleted — replace it:
 printf '# Build workspace. Sequence + commands: /render-lessons. Design contract: ../../design-system/frame.md\n' > CLAUDE.md
 ```
-
-**Assemble `index.html` FIRST** — one scene slot per beat from the design-system
-templates (pattern exemplar: the current per-scene `data-narration` build
-`how-to-make-strong-career-decisions_early-career-boost_2026-07-10` in this
-folder — or any newer dated build; its header comment names its own `Pattern
-source`. **Never the demo reel or the init-generated workspace `CLAUDE.md`** —
-both are legacy, and mistaking them for the pattern is what makes a cold
-subagent wrongly conclude this SKILL is stale), `<audio>` at the host root. Follow `frame.md`'s
-animacy + illustration rules. Standing landmines:
 
 <!-- BUILD-KIT:BEGIN — scripts/batch-prepare.sh extracts everything between
      these two markers verbatim into _run/BUILD-KIT.md for cold build
@@ -147,17 +146,51 @@ animacy + illustration rules. Standing landmines:
      phases, no ship/publish steps, and never any quotable example copy
      (a builder once pasted a cautionary example's heading into a video). -->
 
-- **Add the host-root progress rail to every build** (`frame.md` → "Host-root
-  progress rail"). Inside `#root`, after the scene clips and before the `<audio>`,
-  add `#hf-rail-track` + `#hf-rail-fill`; drive it from the root `"main"` timeline
-  (`scaleX 0→1`, `duration` = the compiler-owned `#root data-duration`, `ease:"none"`).
-  It is not a scene clip, so it stays out of scene coverage and the gates ignore it.
-- **Never type a timing number.** Every scene slot carries
-  `data-narration="<its verbatim span of the refined script>"` (HTML-escape
-  inner double quotes as `&quot;`; split only at sentence ends) and, where it
-  has reveals, `data-cue-anchors='{"chipCues":[…],…}'`; placeholder numbers
-  everywhere — the compiler owns them. `data-anchor-end` is legacy-only: the
-  per-scene manifest owns boundaries now; do not author it on new builds.
+**Author `scenes.json` FIRST — never `index.html`.** The plan is the only
+thing you write; `render-qa/build_index.py` compiles it into `index.html`
+deterministically (host boilerplate, progress rail, `<audio>` host, per-slot
+template clones and instance repointing are all compiler-owned — the generated
+file's banner comment says so). One scene entry per beat: `template` (a
+design-system composition), `narration` (its verbatim span of the refined
+script), every slot filled or explicitly `""`, cue **anchor phrases** never
+numbers. Learn the shape from any newer dated build's `scenes.json`, or
+regenerate one from an existing build with `build_index.py --extract <ws>`.
+**Never pattern-match the demo reel or the init-generated workspace
+`CLAUDE.md`** — both are legacy. Follow `frame.md`'s animacy + illustration
+rules when choosing templates and copy. Standing landmines:
+
+- **Vary the form, or the gate fails you** (`frame.md` → "Variety contract";
+  gate: `render-qa/check_variety.py`). The hard rules: **never a one-item
+  list** (a list slot with exactly one entry draws the bullet/pill illustration
+  around a single fact — give it ≥2 items or use a form that states one idea);
+  **max 2 consecutive** scenes on one template family; **≥5 distinct content
+  forms** for a lesson ≥90s; **no single form above 40%** of content scenes;
+  **artwork on most scenes** (≥60% coverage, ≥5 distinct assets, none reused
+  more than twice, never 3 bare scenes in a row); **no long single-canvas
+  block** (cap on consecutive scenes/seconds on one background). Plan the whole
+  scene list against these BEFORE filling copy — variety is a property of the
+  plan, not of any one scene.
+  Before you settle the scene list, read the template table and deliberately
+  spend the less-used forms — `scla-career-map`, `scla-steps`, `scla-morph`,
+  `scla-loop`, `scla-quote`, `scla-stat` exist and go untouched build after
+  build. When the narration names a thing ("a tool like a career map becomes
+  helpful", "First… Second… Third…"), the template that depicts that thing is
+  the one to use. Rotate the connective device too: an arrow drawn between two
+  statements, a comparison scale, a split frame — not a fourth pill row.
+- **Headings are Title Case, no terminal period** (gate:
+  `render-qa/check_copy.py`). Body copy stays sentence case.
+- **`index.html` is a build artifact — never hand-edit it.** Every fix goes in
+  `scenes.json` (or the bespoke composition file under `compositions/`, for a
+  bespoke scene) and gets recompiled. The authoring loop is seconds, not
+  minutes: edit `scenes.json` → `build_index.py .` → `preflight.py . --static`
+  — the same checkers the hard gate runs, before any TTS or render exists. The
+  guard hook fires that same suite on every `scenes.json` write.
+- **Never type a timing number.** Each scene's `narration` is its verbatim
+  span of the refined script (split only at sentence ends); reveals are cue
+  **anchor phrases** in the plan; the compiler owns every number
+  (`data-start`/`data-duration`/cue seconds are placeholders until
+  `compile_timeline.py --apply`). `data-anchor-end` is legacy-only — never
+  author it.
 - Whisper emits em-dash compounds as ONE token (`buzzwords—just`): a CUE
   phrase can't start or end *inside* one — quote the compound verbatim from
   the transcript or pick a phrase that clears it.
@@ -181,11 +214,18 @@ it returns native word
 timestamps with the synthesis, so the Whisper transcribe step is **skipped**:
 
 ```bash
+python3 ../../render-qa/build_index.py .               # scenes.json -> index.html; compiler-owned, never hand-edited
+python3 ../../render-qa/preflight.py . --static        # plan-stage gates (variety, copy, slots, text, stem) — exit 0 BEFORE any TTS is spent
 ../../../../scripts/with-secrets.sh python3 ../../render-qa/synth_narration.py .   # per-scene HeyGen TTS -> narration.wav + scene-times.json + narration.words.json
 python3 ../../render-qa/compile_timeline.py . --apply  # owns ALL numbers (boundaries + cues from the manifest + HeyGen words)
-python3 ../../render-qa/preflight.py .                 # incl. script-vs-transcript diff — exit 0 or fix
+python3 ../../render-qa/preflight.py .                 # full gate incl. script-vs-transcript diff — exit 0 or fix
 npm run check                                          # lint + validate + inspect
 ```
+
+The first two commands are the cheap loop — iterate on `scenes.json` until
+`--static` exits 0 (a variety or copy failure discovered here costs seconds; the
+same failure after TTS costs a re-synth, and after a render costs 7 minutes).
+Only then spend TTS.
 
 **There is no fallback voice.** The narration voice is pinned
 (`.claude/rules/video-production.md`) and kokoro is not provisioned here. If
@@ -252,9 +292,10 @@ use AUTO-BATCH to drain a queue.
 
 SHIP is `batch-ship.sh`, same as the batch — one-off work gets the same guard
 chain (2026-07-28; the hand-run step list this section used to carry had none
-of the guards):
+of the guards). Look at real pixels before spending the render:
 
 ```bash
+bash scripts/batch-precheck.sh <stem>                       # preflight + per-scene snapshots + low-ink flags (~40s) — vision subagent reviews the printed spread
 bash scripts/batch-ship.sh <stem> <program-slug>            # render phase — BACKGROUND it (~7 min)
 ```
 
@@ -327,25 +368,34 @@ shipping is the one with an audience waiting).
 ### A2 — Pilot
 
 Build ONE video — prefer a program with prior successful renders. Take it all
-the way through `batch-ship.sh` and hand the human a preview link plus the
-resulting Wistia URL. **If the pilot fails, stop and report; do not start the
+the way through the A3 loop (precheck included) and hand the human a preview
+link plus the resulting Wistia URL. **If the pilot fails, stop and report; do not start the
 batch.** The pilot exists to prove the credential path, the version pin, local
 rendering, and the upload *before* 29 more run unattended — and to prove the
 run economics on video 1 rather than at 3am.
 
-### A3 — The loop, two tool calls per video
+### A3 — The loop, three tool calls per video
 
 1. **Cold build subagent** — prompt carries *paths only*: the stem, its refined
    script, `_run/BUILD-KIT.md`, the assigned theme, and the verbatim snag Open
-   block. It clones the scaffold, authors `index.html`, loops synth → compile →
-   preflight → check until green. It returns **five fields, no prose**:
-   `workspace · scenes · theme · gate exits · one-line status`.
-   Run on a fast model; escalate to a strong model only on a retry after a
-   gate failure.
-2. **`bash scripts/batch-ship.sh <stem> <program-slug>`** — the deterministic
+   block. It clones the scaffold, authors `scenes.json`, loops
+   `build_index.py` + `preflight.py --static` until the plan is clean, then
+   synth → compile → full preflight → check until green. It returns **five
+   fields, no prose**: `workspace · scenes · theme · gate exits · one-line
+   status`. Run on a fast model; escalate to a strong model only on a retry
+   after a gate failure.
+2. **`bash scripts/batch-precheck.sh <stem>`** — look before the render is
+   spent: authoritative preflight re-run, one midpoint snapshot per scene
+   (~40s), deterministic low-ink (blank-scene) flags, then a printed frame
+   spread. A vision subagent reviews it (paths only): every scene carries real
+   content, frames depict their sentences, nothing clipped or off-brand. FAIL
+   → quarantine here, before the 7-minute render.
+3. **`bash scripts/batch-ship.sh <stem> <program-slug>`** — the deterministic
    tail, **backgrounded**. Render phase: re-verify preflight → render (25-min
    cap) → `verify_render.py` (writes `qa/VERIFIED`) → prints `AWAITING_VISION`
-   + a sampled frame spread. Vision subagent reviews; on PASS,
+   + a sampled frame spread. With a passed precheck this post-render vision
+   pass is a spot-check for encode-level defects (ghosting, banding) — one
+   subagent, sampled frames only. On PASS,
    `batch-ship.sh <stem> <program-slug> --publish`: marker + sha guard →
    file MP4 → Wistia upload → `published.tsv` + ledger row → `git mv` script
    to `rendered/` → commit → delete local MP4 → prune in place. Publish

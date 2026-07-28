@@ -80,8 +80,20 @@ session's context.
 - Output is plain spoken lines only — no cues, headings, or shot lists; ~580
   words is the working target for a lesson (match the seven 2026-07-12
   refinements in `refined/` for register).
-- Spoken enumerations should resolve (end on a question or closing item) so
-  scenes can cut cleanly.
+- **Every spoken list of ≥3 items MUST carry "and" or "or" before its final
+  item.** Not a preference — `render-qa/check_copy.py` fails the build on it at
+  preflight, and the repair is here in the script, not downstream in the frame.
+  Applies whether the items are one comma list or separate fragments:
+  "Meaning? Mentorship? Growth?" → "Meaning? Mentorship? **Or** growth?";
+  "…different learning opportunities, different next steps." → "…**or**
+  different next steps." Without the conjunction the narration doesn't resolve,
+  it just stops, and the listener can't hear the list ended. (Owner has raised
+  this twice — 2026-07-27 and 2026-07-28.)
+- Spoken enumerations should otherwise resolve (end on a question or closing
+  item) so scenes can cut cleanly.
+- **~14-word declarative sentences; no long comma chains.** A comma-heavy
+  sentence drops the TTS to ~115 wpm and reads as slow. Decided with Motion v2
+  on 2026-07-27 and never written down until 2026-07-28.
 - Never fabricate SCLA content; anything not in the source material is
   `TODO: needs input`, surfaced in the report, never invented. No FERPA/PII.
 - Prompt templates for drafting from scratch: `projects/video-production/script-templates/`.

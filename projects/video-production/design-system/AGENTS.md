@@ -98,7 +98,7 @@ guess URLs: `https://hyperframes.heygen.com/llms.txt`
 
 ## Narration voice — HeyGen starfish, live since 2026-07-22
 
-**HeyGen "Oxana" (en-US) `442360a3e0894fbd85024ff64cc2b928` @ 0.95 speed** —
+**HeyGen "Oxana" (en-US) `442360a3e0894fbd85024ff64cc2b928` @ 1.0 speed** —
 `render-qa/synth_narration.py`'s default provider and voice (owner pick,
 2026-07-22).
 Approved alternate: **Seema — Professional** `166aa8d7acd1495a839d34024ccb1505`,

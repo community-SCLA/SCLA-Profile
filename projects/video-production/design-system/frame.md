@@ -59,11 +59,11 @@ voice:
   #   supports pause tags — pace with sentence structure, not <break>.
   provider: heygen           # ACTIVE — synth_narration.py's default
   voice_id: 442360a3e0894fbd85024ff64cc2b928  # Oxana, en-US (chosen 2026-07-22)
-  speed: 0.95
+  speed: 1.0  # 0.95 -> 1.0 on 2026-07-28 (owner: slightly higher WPM)
   fallback: # manual escape hatch — `synth_narration.py <ws> --provider kokoro`
     provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Needs `npx hyperframes transcribe` after (no native word timestamps)
     voice_id: af_heart
-    speed: 0.95
+    speed: 1.0
 ---
 
 # SCLA Lesson System — frame-scale design spec
@@ -260,9 +260,31 @@ Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
   0.2s after its final spoken word's `end` time. Cutting at or before the word's
   end (the old builds cut up to 0.36s *early*, mid-word) is a defect.
 - **Questions keep their inflection.** When a scene ends on a question, the cut
-  waits for the rise to finish — pad after the question mark, and prefer scripting
-  spoken lists to resolve as a question ("…mentorship, or growth?") rather than
-  trail off.
+  waits for the rise to finish — pad after the question mark.
+- **Every spoken list of ≥3 items takes "and" or "or" before its final item
+  (gated 2026-07-28).** Without the conjunction the narration doesn't resolve,
+  it just stops, and the listener can't hear that the list ended. This held the
+  weaker word "prefer" from 2026-07-27 until the owner reported it again against
+  the 2026-07-28 build — with the same mentorship/growth example this bullet
+  had been carrying all along. It applies whether the items are punctuated as
+  one comma list ("more impact, more recognition, or a role that fits you
+  better") or as separate fragments ("Meaning? Mentorship? Or growth?"), and it
+  is a **script** rule, so the repair is in the refined `.txt`, not the frame —
+  chips and on-frame labels stay bare.
+  *(Gate: `render-qa/check_copy.py`, run by `preflight.py`.)*
+- **In-scene silence is capped at 0.5s (gated 2026-07-28).** HeyGen's Oxana
+  emits 0.98–1.26s of real dead air at some sentence boundaries,
+  non-deterministically — measured 3× variance across four identical "Ordinal,"
+  constructions in one build (0.38s / 0.48s / 0.50s / 1.14s). No punctuation or
+  re-wording can control it, so it is fixed **after** synthesis:
+  `synth_narration.py` compresses any in-scene inter-word gap above
+  `MAX_INSCENE_GAP` and shifts that clip's remaining word timestamps to match.
+  This matters twice over, because `compile_timeline.py` derives reveal cues
+  from those same timestamps — an uncapped pause stalls the picture and the
+  sound together, which is what the owner heard as "a major glitch or lag
+  between the statement heading and the points." Scene-boundary air (0.3s /
+  0.45s after a question, + 0.15s lead) is unaffected; the cap sits just above
+  it so a mid-sentence pause can never outlast a scene change.
 - **The video never ends on an empty frame.** The final scene must (a) start no
   later than the last sentence, (b) extend past the narration's true end
   (`ffprobe` the wav — don't trust the planned total), and (c) hold its full
@@ -308,6 +330,55 @@ is describing at that moment.
   give each step its own scene — hero the spoken step, never preview the rest
   on a timer.
 
+## Variety contract — normative, gated
+
+Decided 2026-07-27 with Motion v2, but left as prose in the decision log and
+never written here or into either skill. It did not hold: the 2026-07-28
+`better-decisions` build put 21 scenes on 5 templates (8 of them
+`scla-statement`, an unbroken run of 5 near-identical condition/chips slides,
+six templates untouched) and every gate passed it. The owner's verdict was
+"boring, doesn't have a lot of visual variety, feels a bit slow." It is now a
+gate: **`render-qa/check_variety.py`, run by `preflight.py`.**
+
+- **Never render a one-item list.** A list slot holding exactly one item draws
+  the bullet/pill/numbered-point illustration around a single fact. You would
+  never render a single bullet point. Either give it ≥2 items or move the beat
+  to a form that states one idea (`scla-statement`, `scla-quote`, `scla-stat`).
+  *(Gate: `render-qa/check_variety.py` rule 1 — hard fail.)*
+- **Max 2 consecutive scenes on one template family** — unless the run is a
+  genuine enumerated series. Three plain repeats is the same slide three times.
+  A run may extend to 6 **only** if every scene in it advances a visible
+  progress indicator, carries its *own* artwork (no asset repeats inside the
+  run), and lasts ≤7s. That exemption is measured, not theoretical: the
+  reference video's best passage is five consecutive `scla-condition` scenes
+  that do exactly this. *(Gate: `render-qa/check_variety.py` rule 2 — hard fail.)*
+- **≥6 distinct content forms** per lesson ≥90s, **≥7** at ≥150s (≥4 below 90s),
+  counting everything but `scla-title`/`scla-outro`. *(Gate: `render-qa/check_variety.py` rule 3 — hard fail.)*
+- **No single form carries more than 40% of the content scenes.** Passing the
+  rules above while putting 42% of the video on one template still reads as
+  monotony. *(Gate: `render-qa/check_variety.py` rule 4 — hard fail.)*
+- **The unused-template list is a menu, not a suggestion.** The gate prints
+  what you didn't touch. If `scla-career-map`, `scla-steps`, `scla-morph`,
+  `scla-loop`, `scla-quote` or `scla-stat` fits a beat, use it — when the
+  narration literally names the artifact ("a tool like a career map becomes
+  helpful") and the build shows a generic bullseye instead, that is the single
+  clearest miss the frame can make.
+- **Artwork on ≥60% of content scenes, ≥5 distinct assets, none used more than
+  twice, and never more than 2 bare scenes in a row.** This is the largest
+  measured gap between the reference video and the rejected one — 79% vs 33%,
+  ~11 devices vs 6 with one doubled — and it went ungated entirely until
+  2026-07-28, which is how "boring" passed every check. Type on a flat field is
+  not an illustration, and neither is the same monoline icon parked in the same
+  right-hand slot every time. The reference earns its coverage with a real bar
+  chart (axes, bars growing to different heights), an advancing 5-dot stepper,
+  figure glyphs mirrored and recoloured so the repeat reads as variation, and
+  red strike-throughs annotating live text.
+  *(Gate: `render-qa/check_variety.py` rule 5 — hard fail.)*
+- **Rotate the connective tissue too.** The circled/ringed point is one device
+  among several. An arrow drawn from one statement to another, a comparison
+  scale, a split frame, a trace along a path — reach for these before repeating
+  the pill row a fourth time.
+
 ## Scene index & numerals
 
 - **The scene index lives only in the lower-right corner** — small, muted, tracked
@@ -345,9 +416,21 @@ Proxima Nova only, self-hosted: `@font-face` rules pointing at
 `ysq3rar`, the same license serving thescla.org). The `@font-face` block must
 live **inside each sub-composition's `<template>`** — the composited render
 discards everything outside it. Weights: 900 display / 700 subheads-labels /
-400 body. No 300 or 600 — the kit doesn't ship them. Sentence case for titles and body; uppercase +
-0.14em tracking is reserved for labels/eyebrows/chips.
+400 body. No 300 or 600 — the kit doesn't ship them. Uppercase + 0.14em tracking
+is reserved for labels/eyebrows/chips.
 
+- **Headings are Title Case; body is sentence case (preflight-enforced,
+  2026-07-28).** A heading is the `heading` / `statement` / `title` slot — the
+  line the viewer reads as the frame's headline. Every principal word is
+  capitalised; articles, coordinating conjunctions and short prepositions stay
+  lowercase unless they lead or close the heading ("Better Decisions Come from
+  Better Criteria"). Acronyms keep their own casing (AI, SCLA). **A heading
+  carries no terminal period** — `?` and `!` are fine. Body copy — points,
+  lines, sub-beats, captions, chips — stays sentence case.
+  This line used to read "sentence case for titles and body", which is why
+  every heading in the 2026-07-28 build shipped sentence case and mixed
+  terminal periods across adjacent scenes despite repeated owner correction.
+  *(Gate: `render-qa/check_copy.py`.)*
 - **Minimum on-frame text size — hard floor (preflight-enforced, 2026-07-27).**
   **Body-class text never renders below 32px**; label-class furniture never
   below 20px (frontmatter `typography.min-size`). Body class = anything the
