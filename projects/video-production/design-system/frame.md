@@ -245,7 +245,7 @@ Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
 - **An em dash/colon/semicolon that splits reveal-cues across its two clauses
   gets converted to a period regardless of duration, not only when the scene
   is over cap (2026-07-27).** Neither narration voice supports pause tags
-  (`design-system/CLAUDE.md` → "Narration voice") — text punctuation is the
+  (`design-system/AGENTS.md` → "Narration voice") — text punctuation is the
   only pacing signal that reaches the audio, and an em dash joining two
   independent clauses is a weak one: TTS often doesn't pause on it, so a cued
   phrase right after the dash reads as glued to the clause before it. The

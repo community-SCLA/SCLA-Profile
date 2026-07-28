@@ -1,89 +1,125 @@
-# HyperFrames Composition Project
+# SCLA Video Design System — HyperFrames project
+
+The brand-owned illustrated-video system for SCLA lesson videos. Twelve reusable
+scene templates + design tokens + a pinned narration voice give every lesson a
+brand-true starting point — but the templates are the **structural floor, not a
+ceiling**: the frame must stay alive and *illustrate what's being said*
+(`frame.md` → "Every scene earns its seconds" + "Illustration over text").
+Decision record: repo-root `decisions/log.md` (2026-07-07, revamped 2026-07-08).
 
 ## Skills — USE THESE FIRST
 
-**Always invoke the relevant skill before writing or modifying compositions.** Skills encode framework-specific patterns (e.g., `window.__timelines` registration, `data-*` attribute semantics, shader-compatible CSS rules) that are NOT in generic web docs. Skipping them produces broken compositions.
+**Always invoke the relevant skill before writing or modifying compositions.**
+Skills encode framework-specific patterns (e.g., `window.__timelines`
+registration, `data-*` attribute semantics, shader-compatible CSS rules) that
+are NOT in generic web docs. Skipping them produces broken compositions.
 
 **This is SCLA's illustrated-lesson design-system project.** Every SCLA
 lesson/program video runs through the two-skill pipeline: **`/refine-scripts`**
 (raw script → `refined/`) and **`/render-lessons`** (refined script → hyperframe
-→ human preview gate → MP4; owns the build sequence and every command).
-`/produce-video` is the one-call dispatcher over both. Start there; do not
-route SCLA lesson videos into generic HyperFrames workflow skills.
+→ human preview gate → MP4; **owns the build sequence and every command** —
+this file does not restate them). `/produce-video` is the one-call dispatcher
+over both. Start there; do not route SCLA lesson videos into generic
+HyperFrames workflow skills.
 
-- **Design contract:** `frame.md` in this folder — normative tokens, frame/animacy
-  rules, the anchor/timing contract, the twelve scene templates, and the style
-  packages. Read it while assembling any composition.
+- **Design contract — read `frame.md` first:** normative tokens, frame/animacy
+  rules, the anchor/timing contract, the twelve scene templates, the style
+  packages, and the motion rotation. Read it while assembling any composition.
 - **Authoring & rendering mechanics:** `/hyperframes-core` (the composition
   contract), `/hyperframes-animation`, `/hyperframes-creative`, `/hyperframes-cli`,
   `/hyperframes-media`, `/hyperframes-registry`.
-- **Deep QA:** `/adversarial-qa` — on-demand adversarial audit (four cold-context
-  reviewer lanes), an escalation only; the deterministic gates + the human
-  hyperframe gate in `/render-lessons` are the standing quality bar.
+- **Deep QA:** `/adversarial-qa` — on-demand escalation only; see "QA model" below.
 
 > **Tailwind v4 projects** (`hyperframes init --tailwind`): see `/hyperframes-core` → `references/tailwind.md`.
 
 > **HyperFrames domain skills not available or need updating?** Run `npx skills add heygen-com/hyperframes`
 > and restart the agent session so the new skills load.
 
-## Commands
+## What's here
+
+| Path | What it is |
+|---|---|
+| `frame.md` | Design spec — SCLA tokens adapted to the video frame. Brand truth stays in `brand/`. |
+| `compositions/scla-*.html` | The twelve scene templates (sub-compositions with variables, referenced via `data-composition-src`) — see table in `frame.md` |
+| `index.html` | Demo reel: all twelve templates with real approved-lesson content. Living style guide — render it after any template change. |
+| `assets/brand/` | SCLA logo SVGs (copied from `brand/assets/`) |
+| `assets/fonts/` | Self-hosted Proxima Nova woff2 (400/700/900, from SCLA's Adobe kit) |
+| `meta.json` | Project metadata (id, name) |
+
+## Commands (this folder only)
 
 ```bash
-npm run dev          # start the preview server (long-running — keep it alive in background)
-npm run check        # lint + validate + inspect
-npm run render       # render to MP4
-npm run publish      # publish and get a shareable link
+npm run dev      # preview server (long-running — background it)
+npm run check    # lint + validate + inspect — ALWAYS run after edits
+npm run render   # re-render the demo reel after template changes
+npm run publish  # publish and get a shareable link
 npx hyperframes lint --verbose  # include info-level findings
 npx hyperframes lint --json     # machine-readable output for CI
-npx hyperframes docs <topic> # reference docs in terminal
+npx hyperframes docs <topic>    # local reference docs — topics: data-attributes,
+                                # gsap, compositions, rendering, examples, troubleshooting
 ```
 
-> **`npm run dev` is a long-running server, not a one-shot command.** It blocks until stopped.
-> In Claude Code, always run it with `run_in_background: true`. Never run it as a foreground
-> command — it will time out and the server will die, breaking the browser preview.
+> **`npm run dev` is a long-running server, not a one-shot command.** It blocks
+> until stopped — always run it in the background, never in the foreground (it
+> will time out and the server will die, breaking the browser preview).
 
-## Documentation
+After creating or editing any `.html` composition, **always** run `npm run check`
+and fix all errors before considering the task complete. Review inspect warnings
+before rendering.
 
-**For quick reference**, use the local CLI docs command (no network required):
+Environment landmines (pkill bracket, /dev/shm size, CLI pin 0.7.45+/#2064,
+HYPERFRAMES_PYTHON) are documented once, in `/render-lessons` Phase BUILD Step B0.
 
-```bash
-npx hyperframes docs <topic>
-```
+**Full documentation:** discover pages via the machine-readable index — do NOT
+guess URLs: `https://hyperframes.heygen.com/llms.txt`
 
-Topics: `data-attributes`, `gsap`, `compositions`, `rendering`, `examples`, `troubleshooting`
+## Template & composition rules
 
-**For full documentation**, discover pages via the machine-readable index — do NOT guess URLs:
+- Templates are instantiated with variables (`data-composition-src` +
+  `data-variable-values`), never forked. A recurring new need = a new
+  `scla-*.html` template here, added to `frame.md`'s table.
+- Every template carries the three style packages (`theme`:
+  `summit`/`horizon`/`cadence`) as CSS-only `data-theme` override blocks —
+  timelines stay identical across packages (spec: `frame.md` → "Style packages").
+- Every timed element needs `data-start`, `data-duration`, `data-track-index`,
+  and **`class="clip"`** — the framework uses the class for visibility control.
+- One paused GSAP timeline per composition, registered on `window.__timelines`:
+  ```js
+  window.__timelines = window.__timelines || {};
+  window.__timelines["composition-id"] = gsap.timeline({ paused: true });
+  ```
+- Deterministic only — no clocks (`Date.now()`), no `Math.random()`, no
+  `repeat: -1`, no network fetches.
+- `<video>`/`<audio>` live at the host root, never inside a sub-comp; videos
+  use `muted` with a separate `<audio>` element for the audio track.
+- Fonts: the `@font-face` block must be **inside** each sub-comp's `<template>`
+  (the composited render discards everything outside it).
+- No FERPA/PII in any prompt or composition. Never fabricate SCLA course content.
 
-```
-https://hyperframes.heygen.com/llms.txt
-```
+## Narration voice — HeyGen starfish, live since 2026-07-22
 
-## Project Structure
+**HeyGen "Oxana" (en-US) `442360a3e0894fbd85024ff64cc2b928` @ 0.95 speed** —
+`render-qa/synth_narration.py`'s default provider and voice (owner pick,
+2026-07-22).
+Approved alternate: **Seema — Professional** `166aa8d7acd1495a839d34024ccb1505`,
+via `--voice`. Neither voice supports pause tags — pace narration with sentence
+structure. Returns native per-word timestamps with the
+synthesis, so the Whisper transcribe step no longer runs on new builds (see
+`frame.md` → "voice" frontmatter + "Narration is synthesized per scene", and
+`decisions/log.md` 2026-07-22). Superseded 2026-07-07's Kokoro `af_heart`
+decision once the 2026-07-21 HeyGen key rotation cleared the 403 that had
+blocked this path.
 
-- `index.html` — main composition (root timeline)
-- `compositions/` — sub-compositions referenced via `data-composition-src`
-- `meta.json` — project metadata (id, name)
-- `transcript.json` — whisper word-level transcript (if generated)
+**Manual fallback:** `synth_narration.py <ws> --provider kokoro` still works
+(local engine, no credits/API key) — it has no
+native word timestamps, so chain `npx hyperframes transcribe` after it (writes
+`transcript.json`), same as the pre-2026-07-22 flow.
 
-## Linting — ALWAYS RUN AFTER CHANGES
+## QA model (2026-07-13)
 
-After creating or editing any `.html` composition, **always** run the full check before considering the task complete:
-
-```bash
-npm run check
-```
-
-Fix all errors before presenting the result. Inspect warnings should be reviewed before rendering.
-
-## Key Rules
-
-1. Every timed element needs `data-start`, `data-duration`, and `data-track-index`
-2. Elements with timing **MUST** have `class="clip"` — the framework uses this for visibility control
-3. Timelines must be paused and registered on `window.__timelines`:
-   ```js
-   window.__timelines = window.__timelines || {};
-   window.__timelines["composition-id"] = gsap.timeline({ paused: true });
-   ```
-4. Videos use `muted` with a separate `<audio>` element for the audio track
-5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
-6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+Quality is enforced by the deterministic gates
+(`../render-qa/{compile_timeline,preflight,verify_render}.py`), the builder's
+frame review, and the one human checkpoint — the hyperframe preview gate
+before any MP4 (the MP4-review gate was removed 2026-07-22; SHIP publishes in
+one uninterrupted pass) — see `/render-lessons`. `/adversarial-qa` (four cold-context reviewer
+lanes) is an on-demand escalation, not a standing per-render gauntlet.
