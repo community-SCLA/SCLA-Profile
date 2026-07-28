@@ -64,7 +64,7 @@ Say so, do not execute it, and correct this brief. Precedent: R8's "byte-identic
 | 2 | S8, S9, S11, S7-rem, A5 — mechanical hygiene | ☑ **done** 2026-07-28 — S9 note: the skill's whole mechanics were fictional (`scripts/ingest.py` AND `_templates/` don't exist); rewritten against the real `templates/` scaffolds. S11 note: only ONE citation needed fixing (log.md:311) — line 124 cites the already-date-first file |
 | 3 | S5 + A7, R9/A3 — factory docs tell the truth | ☑ **done** 2026-07-28 — template count fixed to 12 (they live in `compositions/`, not `templates/`); lesson-scripts README rebuilt without a program table; voice-auditions/ deleted, Ann purged; bonus: design-system/CLAUDE.md's stale "two human checkpoints / MP4 review" QA line corrected |
 | 4 | P2 — `endpoints.md` → `config/endpoints.json` | ☑ **done** 2026-07-28 — registry live, linter check 10 validates it, scripts read it via python3, narrative history moved to decisions/log.md, Infisical IDs removed from the repo (pair already lives in Codespaces secrets). One interim ref left on purpose: `hooks/governance-check.sh:77` names endpoints.md — that file dies at STEP 8 (§0.1: don't correct files slated for deletion) |
-| 5 | S12 — lint-refs.sh into CI | ☐ |
+| 5 | S12 — lint-refs.sh into CI | ☑ **done** 2026-07-28 — `.github/workflows/lint-refs.yml` recreated; YAML validated locally and the exact job command is green. Test-push verification left to the owner's next push (this session doesn't push without an ask) |
 | 6 | R2/A1 — delete the hourly schedule | ☐ |
 | 7 | P1 — `.claude/rules/` replaces prose governance | ☐ |
 | 8 | P3, R11 — retire dead governance machinery | ☐ ⚠️ GATE (R11) |

@@ -1,0 +1,17 @@
+name: lint-refs
+
+# Repo health check (S12): runs the knowledge base's own linter on every push.
+# Informational — no branch protection requires it, so a red run never blocks a
+# push; it just surfaces doc drift the week it happens.
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  lint-refs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run lint-refs
+        run: bash scripts/lint-refs.sh
