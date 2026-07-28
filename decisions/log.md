@@ -9,6 +9,10 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-28 — Repo refactor executed end-to-end (audit brief closed)
+**Decision:** The 2026-07-28 audit brief's execution plan ran to completion in one session — steps 1–13 + close-out, one commit per step (`refactor(step-N)`), linter green after every step. Gates resolved live by the owner: R4 ✅ (AGENTS.md canonical, CLAUDE.md imports it), R6 ✅ (career-transitions aligned to mid-career-momentum's transition taxonomy), R7 ✅ (render-qa logs/docs separated, snag-log rotated; code stayed flat), R10 ❌ (hooks stay unarmed, on purpose), R11 ✅ (skill-eval pair retired as the coordinated change). Structural landings: `config/endpoints.json` registry (P2), `.claude/rules/` (P1), governance machinery deleted (P3), `.agents/` unwound into `.claude/skills/` (P4), lint-refs in CI (S12), preview.sh made reliable (A2). **Open residues:** owner pastes the staged S13/S16 settings content (AI classifier-blocked from its own settings file); owner deletes the disabled hourly routine at claude.ai/code/routines; step 14 (dotfiles split) at leisure. Full record: `audits/2026-07-28-repo-audit-brief.md`.
+**Owner:** community@thescla.org (gates answered in session; executed by Claude)
+
 ## 2026-07-28 — Hourly `/produce-video` routine retired (R2/A1)
 **Decision:** The claude.ai scheduled routine `SCLA lesson pipeline worker` (`trig_01MLz82FGHA6T6NJ3SgWVqv6`, cron `53 * * * *`) is no longer wanted — owner: *"we no longer need this hourly scheduled item"* — after ~25 firings that all stopped at the same TTS/egress wall (see render-qa/snag-log.md). Verified via the routines API 2026-07-28: the routine is **disabled** (`enabled: false`, last fired 06:53 UTC). The API cannot delete routines; final deletion is one owner click at https://claude.ai/code/routines. No pause-alarm or revival plan — nothing needs to survive it.
 **Owner:** community@thescla.org (A1, 2026-07-28; disabled state verified and logged by Claude)

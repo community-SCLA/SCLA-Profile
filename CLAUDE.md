@@ -24,7 +24,7 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Render HeyGen videos (code) | `projects/video-production/avatar-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
-| Refactor — execute, plan, status, structural change | `repo-audit-brief-2026-07-28.md` — **start at §0.0 (cold-start protocol + live ledger), then §0.7. Do not read §1–§9.** |
+| 2026-07 refactor — what ran, why, residues | `audits/2026-07-28-repo-audit-brief.md` (closed 2026-07-28; §0.0 ledger has the two open human residues) |
 | Integrations, endpoint IDs | `config/endpoints.json` |
 
 ## Rules

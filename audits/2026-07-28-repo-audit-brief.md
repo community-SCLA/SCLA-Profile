@@ -1,8 +1,8 @@
 # Repo Audit Brief — 2026-07-28
 
-**This is an execution document, not a report. If you are a fresh session: go to §0.0 and follow it.**
+**CLOSED 2026-07-28 — the refactor is executed.** This brief is now a historical record, filed in `audits/`. Steps 1–13 ran in one session (gates resolved live by the owner: R4 ✅, R6 ✅, R7 ✅, R10 ❌ hooks stay unarmed, R11 ✅). **Two human residues remain**, recorded in the §0.0 ledger: (1) paste the staged S13/S16 content into the project `.claude/settings.json` — the AI is classifier-blocked from editing its own settings file; (2) delete the already-disabled hourly routine at https://claude.ai/code/routines, then drop its entry from `config/endpoints.json`. Step 14 (dotfiles split) stays open at leisure.
 
-**State, 2026-07-28:** Step 0, the owner directive, and A6 are executed (`7bcb2f9`). All seven original open questions are closed. All four P-items are approved. **The only decisions left are five R-items: R4, R6, R7, R10, R11.**
+**State, 2026-07-28 (pre-execution):** Step 0, the owner directive, and A6 are executed (`7bcb2f9`). All seven original open questions are closed. All four P-items are approved. **The only decisions left are five R-items: R4, R6, R7, R10, R11.**
 
 *Item IDs: **S**-numbers = approved hygiene items (§1) · **R**-numbers = items needing a yes/no (§2) · **P**-numbers = the four structural replacements (§0.5) · **A**-numbers = owner answers (§0.6) · **Q**-numbers = the original open questions, all closed (§0.6) · **STD**-numbers = rules quoted from the official Claude Code docs, held in `audits/2026-07-28-repo-audit-redteam.md`'s companion file `audits/2026-07-28-repo-standard.md` (filed there at STEP 2).*
 
@@ -74,7 +74,7 @@ Say so, do not execute it, and correct this brief. Precedent: R8's "byte-identic
 | 12 | R10 — arm the remaining hooks | ☐ ⚠️ GATE · alone · optional |
 | 13 | P4 — unwind `.agents/` | ☑ **done** 2026-07-28 — 10 symlinks materialized into real dirs under `.claude/skills/` (byte-identical, diff-verified; 16/16 skills have SKILL.md, zero symlinks remain); 4 live references repointed (synth_narration.py, frame.md, hyperframes-skills-reference.md, video CLAUDE.md); heygen-tts.mjs verified to resolve and execute at the new path (full TTS still behind the pre-existing egress wall — unrelated to the move); `.agents/` deleted (618 files; the 12 never-linked pack extras are recoverable via `npx skills add heygen-com/hyperframes`, which reinstalls to `.agents/` — re-materialize if run) |
 | 14 | R12-later/A4 — dotfiles split | ☐ at leisure |
-| 15 | File this brief into `audits/` + repoint CLAUDE.md | ☐ **only after 1–13 are done** |
+| 15 | File this brief into `audits/` + repoint CLAUDE.md | ☑ **done** 2026-07-28 — filed as `audits/2026-07-28-repo-audit-brief.md`; CLAUDE.md routing row repointed; completion logged in decisions/log.md |
 
 **Approved without further sign-off:** every step except the four marked ⚠️ GATE. Those five items (R4, R6, R7, R10, R11) need an explicit human yes or no first.
 
