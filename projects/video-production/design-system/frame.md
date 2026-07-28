@@ -371,6 +371,32 @@ discards everything outside it. Weights: 900 display / 700 subheads-labels /
   the frame is **not** already showing; if it has nothing new to say, drop it
   and let the scene's cued items cover the span.
 
+## Title card & outro sources (deterministic — never invent these)
+
+The title card's `eyebrow` and `title`, and the outro's closing copy, are
+DERIVED, not authored:
+
+- **`eyebrow` = the program's display name** from this table (checked by
+  `preflight.py`; a wrong or invented program name is a gate failure):
+
+| Program slug | On-screen display name |
+| --- | --- |
+| early-career-boost | Career Accelerator |
+| mid-career-momentum | Mid-Career Momentum |
+| career-transitions | Career Transitions |
+| entrepreneur-accelerator | Entrepreneur Accelerator |
+
+  (early-career-boost renders as "Career Accelerator" per the owner-directed
+  on-screen rebrand, 2026-07-21, recorded in `refinement-log.md`.)
+
+- **`title` = the lesson title from the script stem** — the stem's title
+  segment with hyphens as spaces, sentence case ("better-decisions-come-from-
+  better-criteria" → "Better decisions come from better criteria"). Never the
+  opening narration sentence, never a paraphrase (checked by `preflight.py`).
+- **Outro `cta`/`next`**: drawn from the closing narration — `next` may quote
+  it; `cta` is a short imperative pulled from it. The two must not restate
+  each other.
+
 ## Scene templates
 
 Reusable sub-compositions in `compositions/` — instantiate via

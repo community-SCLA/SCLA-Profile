@@ -335,6 +335,83 @@ def _style_script_digest(html_text: str) -> str:
     return hashlib.sha256("".join(blocks).encode("utf-8")).hexdigest()
 
 
+def check_title_card(ws: Path, scenes, script_override=None,
+                     scripts_root=LESSON_SCRIPTS):
+    """Title-card provenance gate (check 7b). The eyebrow must equal the
+    program's on-screen display name from frame.md's 'Title card & outro
+    sources' table, and the title must be the stem's title segment de-kebabed
+    (case-insensitive). Both were builder-invented before 2026-07-28."""
+    problems = []
+    title_scene = None
+    for sc in scenes:
+        src = get_attr(sc["tag"], "data-composition-src") or ""
+        if "scla-title" in src:
+            title_scene = sc
+            break
+    if title_scene is None:
+        return {"pass": True, "output": "no scla-title scene — skipped"}
+
+    # Program = the lesson-scripts folder the script lives in.
+    script = Path(script_override) if script_override else locate_script(ws)
+    if script is None:
+        return {"pass": False,
+                "output": "cannot locate script to derive the program slug"}
+    program = script.parent.parent.name if script.parent.name in (
+        "refined", "rendered") else script.parent.name
+
+    # Display-name table from the workspace's frame.md copy.
+    display = {}
+    frame = ws / "frame.md"
+    if frame.is_file():
+        in_table = False
+        for ln in frame.read_text(encoding="utf-8", errors="replace").splitlines():
+            if ln.startswith("| Program slug"):
+                in_table = True
+                continue
+            if in_table:
+                cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+                if len(cells) == 2 and cells[0] and not cells[0].startswith("-"):
+                    display[cells[0]] = cells[1]
+                elif not ln.strip().startswith("|"):
+                    break
+    if not display:
+        return {"pass": False,
+                "output": "frame.md has no 'Program slug' display-name table "
+                          "(is the workspace scaffold stale?)"}
+
+    vars_ = title_scene["variables"]
+    want_eyebrow = display.get(program)
+    got_eyebrow = str(vars_.get("eyebrow", "")).strip()
+    if want_eyebrow is None:
+        problems.append(f"program '{program}' missing from frame.md's "
+                        f"display-name table — add it there, never on the fly")
+    elif got_eyebrow.lower() != want_eyebrow.lower():
+        problems.append(f"eyebrow {got_eyebrow!r} != display name "
+                        f"{want_eyebrow!r} for program {program}")
+
+    # Stem title segment: strip a leading m<N>_ and the trailing
+    # [_<program>]_<date> parts, de-kebab the rest.
+    stem = ws.name
+    parts = stem.split("_")
+    if re.fullmatch(r"m\d+", parts[0]):
+        parts = parts[1:]
+    if parts and re.fullmatch(r"\d{4}-\d{2}-\d{2}", parts[-1]):
+        parts = parts[:-1]
+    if parts and parts[-1] == program:
+        parts = parts[:-1]
+    want_title_words = "_".join(parts).replace("-", " ").split()
+    got_title_words = re.sub(r"[^\w\s]", "", str(vars_.get("title", ""))).lower().split()
+    if [w.lower() for w in want_title_words] != got_title_words:
+        problems.append(
+            f"title {vars_.get('title', '')!r} != stem title "
+            f"\"{' '.join(want_title_words)}\" — the title card carries the "
+            f"lesson title, never narration or a paraphrase")
+
+    return {"pass": not problems,
+            "output": "\n".join(problems) or
+                      f"eyebrow={got_eyebrow!r} title ok ({program})"}
+
+
 def check_composition_freshness(ws: Path):
     """Workspace compositions/ vs the design-system source (C2, 2026-07-27).
 
@@ -493,6 +570,14 @@ def main():
                         str(ws)])
     sections["text"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
+
+    # 7b. title card — eyebrow and title are DERIVED, never authored (frame.md
+    #     "Title card & outro sources"). eyebrow must be the program's display
+    #     name from frame.md's table (run 2 of the 2026-07-28 stability loop
+    #     invented a program name; run 1 used the pre-rebrand one — neither
+    #     traceable); title must be the stem's title segment, de-kebabed.
+    sections["title_card"] = check_title_card(ws, scenes, script_override)
+    failed |= not sections["title_card"]["pass"]
 
     # 8. slots — every template slot a scene doesn't use must be blanked with "".
     #    An omitted slot renders the template's PLACEHOLDER DEFAULT: plausible,

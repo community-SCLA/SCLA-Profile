@@ -263,7 +263,15 @@ and warns over 3.0s. If the narration for a scene has a long span with
 nothing to cue, split the scene at a sentence end or add `subBeats` — never
 stretch a heading over silence.
 
-### 5. Headings stand alone — never a fragment completed by chips or points
+### 5. Title card and outro are DERIVED — never invent them
+
+`eyebrow` = the program display name from frame.md's "Title card & outro
+sources" table. `title` = the stem's title segment, hyphens to spaces,
+sentence case — never the opening narration sentence, never a paraphrase.
+`preflight.py` fails both. Outro: `next` may quote the closing narration;
+`cta` is a short imperative pulled from it; they must not restate each other.
+
+### 6. Headings stand alone — never a fragment completed by chips or points
 
 A heading must read as a complete phrase by itself ("Where people look for the
 answer"), never a sentence fragment that later chips finish ("The right" +
@@ -272,7 +280,7 @@ truncated text on screen). Same for morph/step card titles. If a card or
 scene would show a title plus a large empty area at its midpoint, give it a
 sub-line or tighten the scene.
 
-### 6. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
+### 7. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
 
 `scla-steps` renders nodes `1..N` where N = the count of non-empty step slots,
 and activates them in sequence **within one scene**. It has no notion of "this
