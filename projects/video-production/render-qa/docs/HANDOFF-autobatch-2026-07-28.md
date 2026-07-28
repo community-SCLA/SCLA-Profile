@@ -28,7 +28,110 @@ then `bash scripts/batch-ship.sh <stem> early-career-boost --publish`
 publishes the pilot, and approval covers the remaining 29-video queue per the
 PILOT GATE rule.
 
-## 2. What changed this session (all committed)
+## 1b. What exists on disk RIGHT NOW that you can view
+
+Exactly **one** rendered build exists locally — the certified summit pilot:
+
+- Live hyperframe (interactive, scrubbing):
+  `bash scripts/preview.sh better-decisions-come-from-better-criteria_early-career-boost_2026-07-06`
+- The verified MP4 itself:
+  `renders-hyperframes/better-decisions-come-from-better-criteria_early-career-boost_2026-07-06/renders/*_2026-07-28_18-49-26.mp4`
+- Its frame dump (3 stills per scene): that workspace's `qa/frames/`
+
+**There are no other local renders.** The builds you previewed in earlier
+sessions that then "disappeared" were casualties of the old state machine
+(scripts moved to `rendered/` pre-publish, invisible to every tool); their
+workspaces no longer exist. Their scripts were recovered into `refined/`, so
+the batch rebuilds them fresh — under the new rules that can't lose them.
+The 6 videos already live are on Wistia; their URLs are one command away:
+`cat projects/video-production/lesson-scripts/published.tsv`.
+
+## 2. The pipeline, end to end (who does what)
+
+```
+  lesson-scripts/<prog>/<stem>.txt          RAW INTAKE — you drop .txt scripts here
+        │
+        │  YOU: /refine-scripts   (or /produce-video, which chains everything)
+        ▼
+  lesson-scripts/<prog>/refined/<stem>.txt  BUILD QUEUE + your open review buffer
+        │                                   (edit/veto scripts here any time)
+        │  ═══ AUTO-BATCH loop — one video at a time, priority order ═══
+        ▼
+  [cold BUILD agent]                        clones _run/scaffold, authors index.html,
+        │                                   then loops 5 commands until green:
+        │                                   instance_templates → HeyGen TTS →
+        │                                   compile_timeline → preflight(8 gates) → check
+        ▼
+  renders-hyperframes/<stem>/               THE WORKSPACE (local-only, gitignored)
+        │
+        │  orchestrator re-runs preflight itself (never trusts agent-reported exits)
+        │  batch-precheck.sh → snapshots every scene → [vision agent] judges pixels
+        ▼
+  batch-ship.sh <stem> <prog>               RENDER (~7 min) + verify container/presence
+        │                                   → writes qa/VERIFIED (mp4 + sha-256)
+        │                                   → dumps qa/frames/ (3 stills per scene)
+        ▼
+  [3 vision lane agents]                    every scene's frames reviewed; 0 FAILs required
+        │
+        │  ┌───────────── PILOT ONLY: STOPS HERE ─────────────┐
+        │  │ YOU: bash scripts/preview.sh <stem>              │
+        │  │ YOU: reply "ship <stem>"  → approval covers the  │
+        │  │      whole batch (PILOT GATE)                    │
+        │  └──────────────────────────────────────────────────┘
+        ▼
+  batch-ship.sh <stem> <prog> --publish     refuses without qa/VERIFIED · re-hashes MP4 ·
+        │                                   refuses already-published stems · then:
+        │                                   file MP4 → Wistia upload → published.tsv row
+        │                                   + ledger row → git mv script to rendered/ →
+        │                                   commit → delete local MP4 → prune workspace
+        ▼
+  published.tsv row + rendered/<stem>.txt   = DONE (workspace stays, editable)
+
+  ── any guard failure, any step ──►  quarantine.log row · workspace kept ·
+                                      never published · batch continues with next video
+```
+
+## 2b. What YOU invoke, and when
+
+**Right now (one-time):**
+1. `bash scripts/preview.sh better-decisions-come-from-better-criteria_early-career-boost_2026-07-06`
+   — watch the pilot. Check: title card says CAREER ACCELERATOR / correct
+   lesson title; copy matches the script; pacing feels right.
+2. If good: tell the session **`ship better-decisions-come-from-better-criteria_early-career-boost_2026-07-06`**.
+   That single reply publishes the pilot AND authorizes the 29-video batch to
+   run unattended. If not good: say what's wrong instead — a failing pilot
+   stops everything by rule.
+
+**Routine operation (any later session):**
+- Add lessons: drop `.txt` scripts at `lesson-scripts/<program-slug>/`, then
+  invoke `/produce-video` (it refines, builds, and stops at the pilot gate).
+- See where everything is: `bash scripts/batch-status.sh` — the only status
+  command; reads disk only, safe always.
+- Watch any built-but-unshipped video: `bash scripts/preview.sh <stem>`
+  (or open its `qa/frames/` stills without launching anything).
+- Approve a one-off build: reply `ship <stem>` — same contract as the pilot
+  but covers only that stem.
+- After a batch: read the close-out report; anything quarantined is listed
+  with its reason and is sitting intact in its workspace for a human look.
+
+**You never invoke:** batch-ship.sh --publish directly (sessions do, behind
+the VERIFIED guard), archive-lesson.sh without --in-place (moving a workspace
+to `_archive/` is your call but do it knowingly), or any `hyperframes` CLI
+command — the pipeline wraps them all.
+
+## 2c. Every log, and what it answers
+
+| Question | File (repo-relative) |
+|---|---|
+| What is live on Wistia? (machine truth, resume key) | `projects/video-production/lesson-scripts/published.tsv` |
+| Human-readable history per lesson (dates, URLs, notes) | `projects/video-production/lesson-scripts/refinement-log.md` |
+| Which videos failed a guard, when, why? | `projects/video-production/render-qa/quarantine.log` |
+| What went wrong/right last session? (newest entry = full current state) | `projects/video-production/render-qa/snag-log.md` |
+| Why is the pipeline built this way? | `decisions/log.md` |
+| Where is video X in its journey right now? | not a file — `bash scripts/batch-status.sh` (disk is the truth; §3b maps every state + recovery) |
+| What did any agent change? | `git log` (every publish and every pipeline fix is a commit) |
+
+## 2d. What changed this session (all committed)
 
 The morning handoff's pipeline had **5 state-machine blockers** and a live
 fabrication vector. Everything below is now mechanism, not convention:
