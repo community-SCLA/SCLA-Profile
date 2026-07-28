@@ -1,6 +1,6 @@
 ---
 name: render-lessons
-description: Build and ship SCLA lesson videos from refined scripts, in two phases. BUILD drains lesson-scripts/<program-slug>/refined/ into HyperFrames workspaces (one cold subagent per video, ≤3 per session) and STOPS at the HYPERFRAME GATE — a human previews every hyperframe before any MP4 exists. SHIP ("ship <stem>") is the only other human trigger: once granted, it renders, verifies, files the MP4, and uploads it to Wistia in one uninterrupted pass — no second human review before publish (gate removed 2026-07-22, decisions/log.md). Downstream half of the SCLA lesson pipeline (dispatcher: /produce-video; upstream: /refine-scripts).
+description: Build and ship SCLA lesson videos from refined scripts. AUTO-BATCH (default for a queue) builds ONE pilot video, stops for a single human preview, and on approval drains the whole queue in priority order — build → render → verify → publish to Wistia — one cold subagent per video, no batch cap, each video published and committed before the next starts so an interrupted run never strands work. BUILD and SHIP ("ship <stem>") remain for one-off work. Downstream half of the SCLA lesson pipeline (dispatcher: /produce-video; upstream: /refine-scripts).
 ---
 
 # render-lessons — refined script → hyperframe → (gate) → MP4 → (review) → Wistia
@@ -12,21 +12,27 @@ build subagent reads it while assembling; nothing from it is restated here.
 
 **ONE HUMAN CHECKPOINT, blocking, explicit:**
 
-1. **HYPERFRAME GATE** — a human previews every built hyperframe before it may
-   become an MP4. Hyperframe → MP4 is a manual human decision, never automated.
+1. **PILOT GATE** — a batch builds ONE video, stops, and a human previews it.
+   Approval authorizes the entire batch; a failure stops the run. (Changed
+   2026-07-28 — this replaced the per-video HYPERFRAME GATE, which required an
+   approval per stem and made a 30-video queue impossible to drain. For a
+   single one-off video, the pilot *is* that video, so nothing changes.)
 
 `refined/` is your finalize-before-build buffer — it holds only scripts not
 yet built (edit or veto any of them there, any time *before* you invoke
 BUILD). The moment a build is gate-clean, its script moves `refined/ →
 rendered/` (B3), so `refined/` always shows exactly what's left to build and
-parallel BUILD sessions see a shrinking queue; the human hyperframe gate then
-reviews the built workspace, not the script. Everything on either side of that
-gate is machine work behind deterministic gates: BUILD may not render; SHIP may
-not run without the human naming the stem after the preview — but once
-granted, SHIP runs render → verify → file → Wistia upload to completion with no
-second human look (MP4 REVIEW gate removed 2026-07-22, decisions/log.md; from
-here on the deterministic `verify_render.py` gate plus builder frame
-self-review are the quality bar). Never self-approve the hyperframe gate.
+parallel BUILD sessions see a shrinking queue; the human pilot gate then
+reviews a built workspace, not the script. Everything on either side of that
+gate is machine work behind deterministic gates: BUILD may not render; a batch
+may not proceed past its pilot without the human approving it — but once
+granted, each video runs render → verify → file → Wistia upload to completion
+with no further human look (MP4 REVIEW gate removed 2026-07-22; per-video
+HYPERFRAME GATE replaced by the pilot gate 2026-07-28 — both in
+decisions/log.md). From there the quality bar is mechanized: `preflight.py`,
+`verify_render.py`, `check_presence.py`, and a sampled vision review of
+`qa/frames/`, any of which failing quarantines that one video rather than
+stopping the batch. Never self-approve the pilot gate.
 Never fabricate SCLA content; no FERPA/PII in any prompt.
 
 **State is the folder:**
@@ -82,11 +88,14 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
   skip it (never rebuild one without being asked; point the human at its
   preview instead). This is also what makes parallel BUILD sessions safe —
   neither rebuilds a stem that already has a workspace.
-- **Batch cap: ≤3 builds per session.** One build costs ~150–300 tool calls in
-  its subagent; the per-session budget is 500 (`hooks/pre-tool.sh`). Each
-  subagent carries its own context and budget — that's why builds are
-  delegated, not run inline. More queued than 3 → say so and leave the rest
-  for the next run.
+- **No batch cap — the queue is the batch.** (Removed 2026-07-28: the old
+  ≤3-per-session cap justified itself with a 500-tool-call budget in
+  `hooks/pre-tool.sh`, and that hook is not armed — `~/.claude/settings.json`
+  has no hooks and there is no `budget.json`. It was guarding a limit that
+  doesn't exist.) What actually protects the session is **one cold subagent per
+  video** — that keeps script bodies and `index.html` out of the orchestrator's
+  context — plus the Phase AUTO-BATCH economics below. Both are mandatory; the
+  number is not.
 - Style package: the human's pick if given; otherwise rotate
   summit → horizon → cadence by the program's **started-build** count —
   `count(*.txt in lesson-scripts/<program-slug>/rendered/) mod 3` (rule:
@@ -229,11 +238,15 @@ workspace *is* the pending state.
 ## Phase SHIP — only after the human approves a previewed hyperframe
 
 Trigger: the human explicitly names the stem after reviewing the preview
-("ship X", "approved, render X"). Approval of one stem covers only that stem.
-Once granted, SHIP runs to completion — render, verify, file, publish to
-Wistia, archive — with no second human checkpoint (MP4 REVIEW / PUBLISH gate
-removed 2026-07-22, decisions/log.md; this used to be a separate phase gated
-on its own "publish <stem>" trigger).
+("ship X", "approved, render X"). Once granted, SHIP runs to completion —
+render, verify, file, publish to Wistia — with no second human checkpoint
+(MP4 REVIEW / PUBLISH gate removed 2026-07-22, decisions/log.md; this used to
+be a separate phase gated on its own "publish <stem>" trigger).
+
+**Scope of an approval (changed 2026-07-28):** approving a stem no longer
+covers only that stem. Approving the **pilot** of a batch authorizes the whole
+batch — see Phase AUTO-BATCH. Use this single-stem phase for one-off work;
+use AUTO-BATCH to drain a queue.
 
 ```bash
 pkill -f "hyperframes[ ]preview" 2>/dev/null || true   # previews contaminate renders
@@ -269,11 +282,121 @@ location.
    — until settled, the ledger row is the link's home.)
 3. The script already moved `refined/ → rendered/` at the hyperframe gate (B3)
    — just confirm it's in `rendered/`. The lesson is now done.
-4. `cd <repo-root> && bash scripts/archive-lesson.sh <stem>` (refuses if the
-   MP4 isn't filed).
+4. `cd <repo-root> && bash scripts/archive-lesson.sh <stem> --in-place`
+   (refuses if the MP4 isn't filed). Prunes regenerable bulk — `node_modules`,
+   caches, `snapshots/`, `renders/`, `qa/`, logs — but **leaves the workspace
+   where it is**, editable: `index.html`, `compositions/`, `assets/` (including
+   the synthesized narration, so a revisit costs no new HeyGen credits) and
+   `scenes.json` all survive. A revisit is `npm install` away.
+   Moving a workspace into `_archive/` is a **human-only call, never a pipeline
+   step** (`projects/video-production/CLAUDE.md`) — bare `archive-lesson.sh`
+   without `--in-place` does that, so don't call it here.
+5. Delete the filed MP4 from `renders-mp4/` once the Wistia URL is confirmed —
+   Wistia is the delivery copy and the local file is dead weight across a
+   30-video batch. The workspace can re-render it if ever needed.
 
 Report the Wistia URL to the human as confirmation of what happened, not as a
 request for permission — approving the hyperframe already authorized this.
+
+---
+
+## Phase AUTO-BATCH — drain a whole queue in one session
+
+Default when more than one script is queued. Two things make it survivable:
+**a pilot** (one human approval for the batch) and **run economics** (below).
+
+### A0 — Prepare the run, once
+
+```bash
+export VIDEO_SNAG_RETRO_HOOK_DISABLED=1 VIDEO_PURGE_REMINDER_HOOK_DISABLED=1
+sudo mount -o remount,size=2G /dev/shm
+bash scripts/batch-prepare.sh          # builds renders-hyperframes/_run/
+```
+
+`batch-prepare.sh` regenerates `_run/` from source every run — it is a build
+artifact, gitignored, never committed, so it **cannot drift** the way a
+hand-maintained doc would:
+
+- `_run/BUILD-KIT.md` — the authoring contract distilled from `frame.md`
+  (6,139 words) + the Build sequence + the standing landmines, down to ~2–3k
+  tokens. A build subagent reads **this one file**, not thirty.
+- `_run/scaffold/` — a workspace already `hyperframes init`'d at the pinned
+  version with `compositions/`, `assets/`, the host-root progress rail and the
+  `<audio>` host in place. Each build does `cp -a _run/scaffold <stem>` instead
+  of a network install.
+
+The hooks are silenced because they fire on *every* `npm run render` and
+*every* `wistia-upload.sh` — 60 context injections across a 30-video batch,
+all reminding you to do things `batch-ship.sh` already does. The snag-log retro
+still happens, once, at close-out.
+
+### A1 — Priority order
+
+Drain **program by program**, highest value first, not alphabetically. Each
+video is published and committed before the next starts, so if the session
+dies the top-priority programs are already live. Priority is the human's call;
+absent one, use `refinement-log.md`'s published counts (a program already
+shipping is the one with an audience waiting).
+
+### A2 — Pilot
+
+Build ONE video — prefer a program with prior successful renders. Take it all
+the way through `batch-ship.sh` and hand the human a preview link plus the
+resulting Wistia URL. **If the pilot fails, stop and report; do not start the
+batch.** The pilot exists to prove the credential path, the version pin, local
+rendering, and the upload *before* 29 more run unattended — and to prove the
+run economics on video 1 rather than at 3am.
+
+### A3 — The loop, two tool calls per video
+
+1. **Cold build subagent** — prompt carries *paths only*: the stem, its refined
+   script, `_run/BUILD-KIT.md`, the assigned theme, and the verbatim snag Open
+   block. It clones the scaffold, authors `index.html`, loops synth → compile →
+   preflight → check until green. It returns **five fields, no prose**:
+   `workspace · scenes · theme · gate exits · one-line status`.
+   Run on a fast model; escalate to a strong model only on a retry after a
+   gate failure.
+2. **`bash scripts/batch-ship.sh <stem> <program-slug>`** — the deterministic
+   tail, **backgrounded**. Everything after preflight-green is mechanical and
+   needs no agent: re-verify preflight → `git mv` script to `rendered/` →
+   render → `verify_render.py` → sampled frame review → file MP4 → Wistia
+   upload → record URL in `refinement-log.md` → commit → delete local MP4 →
+   prune workspace in place.
+
+**Pipelining:** because the driver is backgrounded, video N+1 *builds*
+(network- and authoring-bound) while video N *renders* (CPU-bound). Different
+resources, so they overlap cleanly. Do **not** run two renders at once — on a
+4-core box that thrashes and costs more than it saves.
+
+**Backgrounding is also what avoids the 10-minute tool-call ceiling** — a ~7
+min render in a foreground call sits far too close to it.
+
+### A4 — Orchestrator context discipline (non-negotiable)
+
+The batch survives only if the orchestrator stays small. Never read a script
+body, an `index.html`, or `frame.md` yourself — those are subagent territory.
+**Never let rendered frames into your own context:** `verify_render.py` dumps 3
+PNGs per scene, so a 15-scene video is 45 images ≈ 65k tokens and 30 videos
+would be ~2M — more than everything else combined. The frame review runs inside
+a subagent that samples ~6 frames and returns one line.
+
+Budget: ~1.5k tokens per video, under ~80k for a 30-video batch.
+
+### A5 — Fail soft, always
+
+A failure at preflight, verify, or frame review **quarantines that video** —
+built, unpublished, logged — and the batch moves on. One bad lesson never costs
+the others. Report the quarantine list at close-out.
+
+### A6 — Resuming
+
+A stem is done **if and only if it has a Wistia URL in `refinement-log.md`**,
+and that URL is committed in the same pass that publishes it — so there is no
+window where work exists but isn't recorded. `bash scripts/batch-status.sh`
+reconstructs the remaining queue in priority order from the folders and the
+ledger alone. A fresh session resumes with that one command; nothing depends on
+the previous session's context surviving, which also makes mid-run context
+compaction a non-event.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 

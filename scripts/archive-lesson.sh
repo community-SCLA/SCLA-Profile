@@ -6,7 +6,18 @@
 # (node_modules, caches, snapshots, renders, logs), leaving a
 # re-renderable source tree (HTML + frame.md + assets + configs).
 #
-# Usage:  bash scripts/archive-lesson.sh <script-stem>
+# Usage:  bash scripts/archive-lesson.sh <script-stem> [--in-place]
+#
+#   (no flag)    prune, then MOVE the workspace to _archive/<stem>/.
+#                Retiring a build is a HUMAN-ONLY call, never a pipeline step
+#                (projects/video-production/CLAUDE.md) — pipelines pass --in-place.
+#   --in-place   prune the same regenerable bulk but LEAVE the workspace where
+#                it is, so it stays routable and editable. This is what
+#                batch-ship.sh calls after a successful publish: the source tree
+#                (index.html, compositions/, assets/ incl. synthesized
+#                narration, scenes.json) survives, so revisiting a shipped
+#                lesson is `npm install` away and costs no new HeyGen credits.
+#
 # Run AFTER the final MP4 is verified and filed in renders-mp4/<program-slug>/.
 set -euo pipefail
 
@@ -14,11 +25,19 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LESSONS="$REPO_ROOT/projects/video-production/renders-hyperframes"
 VIDEOS="$REPO_ROOT/projects/video-production/renders-mp4"
 
-STEM="${1:-}"
+STEM=""; IN_PLACE=0
+for arg in "$@"; do
+  case "$arg" in
+    --in-place) IN_PLACE=1 ;;
+    -*) echo "Unknown flag: $arg" >&2; exit 2 ;;
+    *)  STEM="$arg" ;;
+  esac
+done
+
 if [[ -z "$STEM" ]]; then
-  echo "Usage: bash scripts/archive-lesson.sh <script-stem>" >&2
+  echo "Usage: bash scripts/archive-lesson.sh <script-stem> [--in-place]" >&2
   echo "Active workspaces:" >&2
-  find "$LESSONS" -mindepth 1 -maxdepth 1 -type d ! -name '_archive' -printf '  %f\n' >&2
+  find "$LESSONS" -mindepth 1 -maxdepth 1 -type d ! -name '_archive' ! -name '_run' -printf '  %f\n' >&2
   exit 1
 fi
 
@@ -26,7 +45,9 @@ SRC="$LESSONS/$STEM"
 DEST="$LESSONS/_archive/$STEM"
 
 [[ -d "$SRC" ]] || { echo "No active workspace at $SRC" >&2; exit 1; }
-[[ -e "$DEST" ]] && { echo "$DEST already exists — refusing to overwrite an archived build" >&2; exit 1; }
+if [[ "$IN_PLACE" -eq 0 && -e "$DEST" ]]; then
+  echo "$DEST already exists — refusing to overwrite an archived build" >&2; exit 1
+fi
 
 # Safety: the deliverable must be filed before its workspace is retired.
 # The filed MP4 reuses the script stem but swaps in the render date, so match by
@@ -47,6 +68,12 @@ for junk in node_modules .thumbnails .waveform-cache .hyperframes snapshots rend
   rm -rf "$SRC/$junk"
 done
 find "$SRC" -name '*.log' -delete   # includes assets/voice/tts.log, transcribe.log
+
+if [[ "$IN_PLACE" -eq 1 ]]; then
+  echo "Pruned in place: renders-hyperframes/$STEM ($(du -sh "$SRC" | cut -f1)) — workspace kept, still editable."
+  echo "To revisit later: cd into it, npm install, edit, npm run render."
+  exit 0
+fi
 
 mkdir -p "$LESSONS/_archive"
 mv "$SRC" "$DEST"

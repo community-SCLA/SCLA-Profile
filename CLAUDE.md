@@ -15,7 +15,7 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Partner org | `partnerships/NIC.md` |
 | Grant work | `projects/grants/` |
 | Video production | `projects/video-production/CLAUDE.md` |
-| Produce a video (one call; stops at the hyperframe gate) | `/produce-video` |
+| Produce a video (one call; stops at the pilot gate) | `/produce-video` |
 | Refine raw lesson scripts (batch) | `/refine-scripts` |
 | Build / ship / publish lesson videos | `/render-lessons` |
 | Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/notion-queue.md` |

@@ -17,7 +17,7 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ROOT="$REPO/projects/video-production/renders-hyperframes"
 PREFLIGHT="$REPO/projects/video-production/render-qa/preflight.py"
 PORTS=(3002 3003 3004 3005 3006 3007)
-HF="hyperframes@0.7.76"
+HF="hyperframes@0.7.45"   # single pin, matches design-system/package.json (render-validated)
 
 bold=$'\e[1m'; dim=$'\e[2m'; grn=$'\e[32m'; ylw=$'\e[33m'; off=$'\e[0m'
 

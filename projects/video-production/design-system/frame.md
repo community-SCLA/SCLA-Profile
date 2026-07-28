@@ -468,9 +468,10 @@ scene, and drawn on the cue.
 A thin brand-gold rail that advances across the **whole runtime** — a completion
 indicator (a documented watch-through lever), never scene motion. It lives at the
 **host root** (`index.html`), not in any sub-composition, because it must span
-every scene. Every build carries it (the `/render-lessons` "Assemble `index.html`
-FIRST" step wires it in; there is no scaffold file to inherit from — the newest
-build is the copy pattern).
+every scene. Every build carries it — since 2026-07-28 it comes pre-wired in
+`renders-hyperframes/_run/scaffold/index.html`, which builds clone
+(`scripts/batch-prepare.sh` generates it from this section), so no build can
+forget it and no builder has to copy the pattern out of another build.
 
 - **DOM** (inside `#root`, after the scene clips, before the `<audio>`): a faint
   full-width track `#hf-rail-track` and a gold fill `#hf-rail-fill`

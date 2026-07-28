@@ -9,6 +9,68 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-28 — Video pipeline: per-video gate → pilot gate; batch cap deleted
+
+**Decision:** Restructure `/render-lessons` so a full queue can be drained in one
+session, in response to a 30-video backlog that the existing shape could not
+deliver.
+
+1. **PILOT GATE replaces the per-video HYPERFRAME GATE.** A batch builds one
+   pilot video, stops for a single human preview, and that approval authorizes
+   the rest of the batch. Previously every video required its own
+   `ship <stem>`, which made a 30-video queue need 30 human approvals and
+   guaranteed it would never finish in one night. The per-video human eye is
+   replaced by four mechanized guards, any of which failing **quarantines that
+   one video** rather than stopping the batch: `preflight.py`,
+   `verify_render.py`, `check_presence.py`, and a sampled vision review of
+   `qa/frames/`. *Accepted trade-off, owner's call:* a subtly ugly layout can
+   now reach Wistia. Mitigated by workspaces staying on disk pruned-but-editable
+   and the Wistia token being read+write, so a re-render and re-upload is cheap.
+2. **The ≤3-builds-per-session cap is deleted.** It justified itself with a
+   500-tool-call budget in `hooks/pre-tool.sh` — and that hook is **not armed**
+   (`~/.claude/settings.json` has no hooks; no `budget.json` exists). It had
+   been guarding a limit that does not exist, and the snag log records it never
+   firing in 25 routine runs. What actually protects a session — one cold
+   subagent per video — is retained and made mandatory.
+3. **Run economics, because context is the real constraint.** Each build
+   subagent had been cold-reading `frame.md` (6,139 words) plus the pattern
+   exemplar's `index.html` and 12 composition templates: ~25–45k tokens of
+   re-derivation per video, ~1M across a batch. Now `scripts/batch-prepare.sh`
+   generates a per-run `renders-hyperframes/_run/` holding a distilled
+   `BUILD-KIT.md` (~2–3k tokens) and a pre-`init`'d `scaffold/` that builds
+   clone instead of running `hyperframes init` 30 times. `_run/` is gitignored
+   and regenerated every run, so unlike the `status.md` / `PIPELINE-MAP.md`
+   docs deleted 2026-07-27 it cannot drift. `scripts/batch-ship.sh` absorbs the
+   whole deterministic tail (render → verify → file → upload → record → prune)
+   into one backgrounded call, and the frame review runs **inside a subagent**
+   so rendered PNGs never enter the orchestrator's context — 45 images/video
+   would have been ~2M tokens across the batch, dominating everything else.
+   Net orchestrator cost: ~1.5k tokens/video.
+4. **Publish-before-next-starts, and never archive automatically.** Each
+   video's Wistia URL is committed to `refinement-log.md` in the same pass that
+   publishes it, making a stem "done" iff it has a URL —
+   `scripts/batch-status.sh` reconstructs the remaining queue from disk alone,
+   so an interrupted run resumes in one command and never strands
+   rendered-but-unpublished work. After publish the local MP4 is deleted
+   (Wistia is the delivery copy) and the workspace is pruned **in place** via
+   the new `archive-lesson.sh --in-place`, keeping it editable. This also fixes
+   a live contradiction: SHIP had been calling bare `archive-lesson.sh`, moving
+   workspaces into `_archive/`, while `projects/video-production/CLAUDE.md`
+   declared that a human-only call.
+
+**Also settled this session:** the HyperFrames pin is unified at **0.7.45**,
+the render-validated version behind all six published videos —
+`scripts/review.sh` was pinned to 0.7.76, which arrived incidentally in a
+VS Code-task commit and had only ever been exercised for *preview*, never
+render. Given this repo's history of version bumps breaking rendering
+(0.7.38→0.7.42, upstream #2064), an unattended 30-video batch pins down, not up.
+
+**Known blocker, owner-actionable:** the Infisical `WISTIA_API` token has
+upload scope but **not** project-management scope — `POST /v1/projects.json`
+returns `unauthorized_scope`. Per-program Wistia projects must be created in
+the Wistia UI by an owner; the pipeline can then auto-discover their IDs.
+Until then only `early-career-boost` has a registered project.
+
 ## 2026-07-28 — Repo refactor executed end-to-end (audit brief closed)
 **Decision:** The 2026-07-28 audit brief's execution plan ran to completion in one session — steps 1–13 + close-out, one commit per step (`refactor(step-N)`), linter green after every step. Gates resolved live by the owner: R4 ✅ (AGENTS.md canonical, CLAUDE.md imports it), R6 ✅ (career-transitions aligned to mid-career-momentum's transition taxonomy), R7 ✅ (render-qa logs/docs separated, snag-log rotated; code stayed flat), R10 ❌ (hooks stay unarmed, on purpose), R11 ✅ (skill-eval pair retired as the coordinated change). Structural landings: `config/endpoints.json` registry (P2), `.claude/rules/` (P1), governance machinery deleted (P3), `.agents/` unwound into `.claude/skills/` (P4), lint-refs in CI (S12), preview.sh made reliable (A2). **Open residues:** owner pastes the staged S13/S16 settings content (AI classifier-blocked from its own settings file); owner deletes the disabled hourly routine at claude.ai/code/routines; step 14 (dotfiles split) at leisure. Full record: `audits/2026-07-28-repo-audit-brief.md`.
 **Owner:** community@thescla.org (gates answered in session; executed by Claude)

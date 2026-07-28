@@ -1,6 +1,6 @@
 ---
 name: produce-video
-description: One-call dispatcher for the SCLA illustrated-lesson pipeline — THE entry point for "produce/make an SCLA lesson video". Runs /refine-scripts (raw scripts → refined/), then /render-lessons BUILD (refined/ → HyperFrames workspaces), and stops at the HYPERFRAME GATE — a human previews every hyperframe before any MP4 exists. The one later step is an explicit /render-lessons "ship <stem>" after the preview — SHIP then renders, verifies, files, and publishes to Wistia in one uninterrupted pass (no separate "publish" call, no second review; MP4 REVIEW gate removed 2026-07-22). Never route SCLA lesson videos into generic hyperframes workflow skills.
+description: One-call dispatcher for the SCLA illustrated-lesson pipeline — THE entry point for "produce/make an SCLA lesson video". Runs /refine-scripts (raw scripts → refined/), then hands off to /render-lessons. One video → BUILD, stopping for the human preview. A queue → Phase AUTO-BATCH, which builds one pilot, stops for a single human approval, then drains the whole queue in priority order to Wistia unattended. Never route SCLA lesson videos into generic hyperframes workflow skills.
 ---
 
 # produce-video — thin dispatcher
@@ -11,16 +11,20 @@ Every command lives in exactly one place; this file restates none of them.
    `lesson-scripts/<program-slug>/` root into `refined/` (one cold subagent
    per script + qa-facts pass). Skip if the request names a script already in
    `refined/`.
-2. **Build** — run `/render-lessons` Phase BUILD: drain `refined/` into
-   HyperFrames workspaces (one cold subagent per video, ≤3 per session),
-   deterministic gates green, **no MP4**.
-3. **Stop at the HYPERFRAME GATE.** Hand the human the preview instructions
-   per built video and end the turn. Never run `/render-lessons` SHIP from this
-   dispatcher — SHIP happens only when the human, having watched the preview,
-   says `ship <stem>`. Once granted, SHIP renders, verifies, files, and
-   publishes to Wistia in one uninterrupted pass — there is no separate
-   `publish` call (MP4 REVIEW gate removed 2026-07-22, `decisions/log.md`).
+2. **Build** — hand off to `/render-lessons`, picking the phase by queue size:
+   - **One video** → Phase BUILD: one cold subagent, deterministic gates
+     green, **no MP4**.
+   - **A queue (more than one)** → Phase AUTO-BATCH: no batch cap, priority
+     order, one video published and committed before the next starts.
+3. **Stop at the human gate — exactly once.** Hand over the preview and end the
+   turn. BUILD stops per video; AUTO-BATCH stops after its **pilot**, and the
+   human's approval there authorizes the rest of the batch (changed
+   2026-07-28 — the old per-video gate made a large queue undrainable;
+   `decisions/log.md`). Never self-approve. Once granted, rendering →
+   verify → file → Wistia runs in one uninterrupted pass; there is no separate
+   `publish` call (MP4 REVIEW gate removed 2026-07-22).
 
-State is the folder (`refined/` → workspace at gate → `rendered/`); if the
-request is only one piece ("just refine", "just build", "ship X"), call
-`/refine-scripts` or `/render-lessons` directly.
+State is the folder (`refined/` → workspace at gate → `rendered/`, Wistia URL
+in `refinement-log.md` = published); if the request is only one piece ("just
+refine", "just build", "ship X"), call `/refine-scripts` or `/render-lessons`
+directly. Resuming an interrupted batch: `bash scripts/batch-status.sh`.
