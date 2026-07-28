@@ -304,5 +304,174 @@ r = subprocess.run([sys.executable, str(PIPE / "synth_narration.py"), str(ws)],
 check("missing data-narration is fatal", r.returncode == 1
       and "missing data-narration" in r.stdout, r.stdout)
 
+print("== unit: in-scene gap compressor (PCM math) ==")
+# The Oxana defect (2026-07-28): 0.98-1.26s of REAL silence at sentence/clause
+# boundaries INSIDE a scene, which nothing governed — scene-boundary air is the
+# only silence the pipeline ever managed. Synthetic clip, exact frame counts:
+# the compressor's whole job is to remove samples and shift the timestamps that
+# describe them by the identical amount, so the two can never disagree.
+RATE = 24000
+
+
+def frames(spec, rate=RATE):
+    """[(seconds, constant int16 value), ...] -> mono frame array."""
+    a = _array.array("h")
+    for secs, val in spec:
+        a.extend([val] * int(round(secs * rate)))
+    return a
+
+
+# 0.2s room tone | 0.3s word A | 1.2s room tone | 0.3s word B | 0.2s room tone.
+# Room tone rather than digital zero so the declick fade is observable.
+clip = frames([(0.2, 200), (0.3, 8000), (1.2, 200), (0.3, 8000), (0.2, 200)])
+gap_words = [{"text": "A", "start": 0.2, "end": 0.5},
+             {"text": "B", "start": 1.7, "end": 2.0}]
+out, new_words, removed, n_cuts = sn.compress_gaps(clip, gap_words, RATE, 1, 0.5)
+check("one over-cap gap -> one cut", n_cuts == 1, str(n_cuts))
+check("removed == gap - cap (1.2 - 0.5)", abs(removed - 0.7) < 1e-9, str(removed))
+check("output shorter by exactly the removed frames",
+      len(out) == len(clip) - int(0.7 * RATE), f"{len(out)} vs {len(clip)}")
+check("caller's clip is not mutated",
+      len(clip) == int(2.2 * RATE) and clip[0] == 200 and max(clip) == 8000)
+check("word before the cut does not move",
+      new_words[0]["start"] == 0.2 and new_words[0]["end"] == 0.5, str(new_words[0]))
+check("word after the cut shifts back by the removed duration",
+      abs(new_words[1]["start"] - 1.0) < 1e-9 and abs(new_words[1]["end"] - 1.3) < 1e-9,
+      str(new_words[1]))
+check("surviving gap == the cap exactly",
+      abs((new_words[1]["start"] - new_words[0]["end"]) - 0.5) < 1e-9)
+check("audio and words still agree: word B's start indexes voiced samples",
+      out[int(new_words[1]["start"] * RATE) + 10] == 8000,
+      str(out[int(new_words[1]["start"] * RATE) + 10]))
+splice = int(round((0.5 + 0.25) * RATE))  # cap/2 of decay kept after word A
+check("splice is declicked on both sides",
+      abs(out[splice - 1]) < 20 and abs(out[splice]) < 20,
+      f"{out[splice - 1]} -> {out[splice]}")
+check("fade is local — room tone untouched away from the splice",
+      out[splice - 3000] == 200 and out[splice + 3000] == 200)
+out2, words2, removed2, cuts2 = sn.compress_gaps(clip, gap_words, RATE, 1, 0.5)
+check("deterministic: same input -> byte-identical output",
+      out2.tobytes() == out.tobytes() and words2 == new_words and removed2 == removed)
+
+# Two over-cap gaps: the second word's shift must be CUMULATIVE, not per-gap.
+clip3 = frames([(0.2, 200), (0.3, 8000), (1.2, 200), (0.3, 8000),
+                (1.2, 200), (0.3, 8000), (0.2, 200)])
+w3 = [{"text": "A", "start": 0.2, "end": 0.5}, {"text": "B", "start": 1.7, "end": 2.0},
+      {"text": "C", "start": 3.2, "end": 3.5}]
+out3, nw3, removed3, cuts3 = sn.compress_gaps(clip3, w3, RATE, 1, 0.5)
+check("two over-cap gaps -> two cuts, 1.4s removed",
+      cuts3 == 2 and abs(removed3 - 1.4) < 1e-9, f"{cuts3}/{removed3}")
+check("third word shifts by BOTH removals",
+      abs(nw3[2]["start"] - 1.8) < 1e-9 and abs(nw3[2]["end"] - 2.1) < 1e-9, str(nw3[2]))
+check("output length matches the cumulative removal",
+      len(out3) == len(clip3) - int(1.4 * RATE))
+
+# Under the cap: nothing may be touched (identity, not a re-encode).
+clip4 = frames([(0.2, 200), (0.3, 8000), (0.4, 200), (0.3, 8000)])
+w4 = [{"text": "A", "start": 0.2, "end": 0.5}, {"text": "B", "start": 0.9, "end": 1.2}]
+out4, nw4, removed4, cuts4 = sn.compress_gaps(clip4, w4, RATE, 1, 0.5)
+check("gap at/under the cap is left alone", cuts4 == 0 and removed4 == 0.0
+      and out4 is clip4 and nw4 is w4)
+check("a single-word clip has no inter-word gap to cut",
+      sn.compress_gaps(clip4, w4[:1], RATE, 1, 0.5)[3] == 0)
+
+print("== e2e: gap compression through synth_narration + the preflight guard ==")
+from preflight import INSCENE_GAP_FAIL, check_inscene_gaps
+
+
+def write_wav(path, data, rate=RATE):
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(rate)
+        w.writeframes(data.tobytes())
+
+
+def make_gap_workspace():
+    """Scene 1's clip carries a 1.25s pause between 'you' and 'care?' — the
+    Oxana defect in miniature. Clips are pre-seeded with matching shas so the
+    full trim/compress/concat path runs without invoking TTS."""
+    if TMP.exists():
+        shutil.rmtree(TMP)
+    clips = TMP / "assets" / "voice" / "scenes"
+    clips.mkdir(parents=True)
+    texts = ["Do you care?", "A simple process."]
+    write_wav(clips / "scene-01.wav",
+              frames([(0.10, 0), (0.55, 8000), (1.20, 0), (0.45, 8000), (0.30, 0)]))
+    write_wav(clips / "scene-02.wav",
+              frames([(0.05, 0), (1.00, 8000), (0.20, 0)]))
+    (clips / "scene-01.words.json").write_text(json.dumps([
+        {"text": "Do", "start": 0.15, "end": 0.35},
+        {"text": "you", "start": 0.40, "end": 0.60},
+        {"text": "care?", "start": 1.85, "end": 2.25}]))  # 1.25s in-scene hole
+    (clips / "scene-02.words.json").write_text(json.dumps([
+        {"text": "A", "start": 0.10, "end": 0.30},
+        {"text": "simple", "start": 0.35, "end": 0.70},
+        {"text": "process.", "start": 0.75, "end": 1.00}]))
+    entries = []
+    provider, speed = sn.DEFAULT_PROVIDER, sn.DEFAULT_SPEED
+    voice = sn.DEFAULT_VOICE[provider]
+    for i, t in enumerate(texts, start=1):
+        sha = hashlib.sha1(f"{provider}|{voice}|{speed}|{t}".encode()).hexdigest()[:16]
+        entries.append({"clip": f"scenes/scene-{i:02d}.wav", "sha": sha})
+    (TMP / "assets" / "voice" / "scene-times.json").write_text(
+        json.dumps({"scenes": entries}))
+    (TMP / "index.html").write_text(f"""<!DOCTYPE html>
+<html><body>
+<div data-hf-id="hf-root1" id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1920" data-height="1080">
+<div data-hf-id="hf-s1" class="clip" id="s1" data-composition-id="scla-title" data-composition-src="compositions/scla-title.html" data-variable-values='{{"title":"x","theme":"summit","sceneDuration":"1"}}' data-narration="{texts[0]}" data-start="0" data-duration="1" data-track-index="1"></div>
+<div data-hf-id="hf-s2" class="clip" id="s2" data-composition-id="scla-chips" data-composition-src="compositions/scla-chips.html" data-variable-values='{{"chips":"One,Two","chipCues":"9,9","theme":"summit","sceneDuration":"1"}}' data-narration="{texts[1]}" data-start="1" data-duration="2" data-track-index="1"></div>
+<audio data-hf-id="hf-aud" id="narration" class="clip" src="assets/voice/narration.wav" data-start="0" data-duration="3.5" data-track-index="2"></audio>
+</div></body></html>""")
+    return TMP
+
+
+ws = make_gap_workspace()
+r = subprocess.run([sys.executable, str(PIPE / "synth_narration.py"), str(ws)],
+                   capture_output=True, text=True)
+check("synth with a gappy clip exits 0", r.returncode == 0, r.stdout + r.stderr)
+check("per-scene trim summary printed",
+      "scene-01: trimmed 0.75s across 1 gap" in r.stdout, r.stdout)
+check("clean scene reports nothing", "scene-02: trimmed" not in r.stdout, r.stdout)
+gmani = json.loads((ws / "assets/voice/scene-times.json").read_text())
+check("manifest records the cap and the total removed",
+      gmani["max_inscene_gap"] == sn.MAX_INSCENE_GAP
+      and abs(gmani["gap_trimmed"] - 0.75) < 0.002, str(gmani.get("gap_trimmed")))
+g1, g2 = gmani["scenes"]
+gwords = json.loads((ws / "assets/voice/narration.words.json").read_text())
+inscene = [b["start"] - a["end"] for a, b in zip(gwords, gwords[1:])
+           if b["start"] <= g1["end"] + 0.002]
+check("no in-scene gap survives above the cap",
+      max(inscene) <= sn.MAX_INSCENE_GAP + 0.002, str(inscene))
+check("the compressed gap sits AT the cap (nothing else was touched)",
+      abs(max(inscene) - sn.MAX_INSCENE_GAP) < 0.005, str(inscene))
+with wave.open(str(ws / "assets/voice/narration.wav"), "rb") as wv:
+    gtotal = wv.getnframes() / wv.getframerate()
+check("wav length still == manifest audio_end", abs(gtotal - gmani["audio_end"]) < 0.002,
+      f"{gtotal} vs {gmani['audio_end']}")
+check("last word ends inside its scene's audio",
+      gwords[-1]["end"] <= g2["end"] + 0.002, f"{gwords[-1]} vs {g2}")
+
+sec = check_inscene_gaps(ws)
+check("preflight guard passes on compressed output", sec["pass"], sec["output"])
+gp = ws / "assets/voice/narration.words.json"
+gp.write_text(json.dumps([
+    W("Do", g1["start"] + 0.05, g1["start"] + 0.20),
+    W("care?", g1["start"] + 1.25, g1["start"] + 1.45)]))
+sec = check_inscene_gaps(ws)
+check(f"guard FAILs an in-scene gap over {INSCENE_GAP_FAIL}s", not sec["pass"], sec["output"])
+check("guard names the offending words", "'Do'" in sec["output"]
+      and "care?" in sec["output"], sec["output"])
+gp.write_text(json.dumps([
+    W("Do", g1["start"] + 0.05, g1["start"] + 0.20),
+    W("care?", g2["start"] + 0.05, g2["start"] + 0.20)]))
+sec = check_inscene_gaps(ws)
+check("guard ignores the SCENE-BOUNDARY gap (air + lead is deliberate)",
+      sec["pass"], sec["output"])
+gp.unlink()
+sec = check_inscene_gaps(ws)
+check("guard skips (WARN, not FAIL) with no words file",
+      sec["pass"] and "SKIPPED" in sec["output"], sec["output"])
+
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

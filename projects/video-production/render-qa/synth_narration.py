@@ -23,12 +23,14 @@ What it does:
   4. Trims each clip's lead/tail silence (peak-based, guarded, faded); on the
      HeyGen path the same trim offset shifts that clip's word timestamps so
      they stay aligned to the trimmed audio.
-  5. Concatenates with real gaps: air after the scene's last sentence (0.3s,
+  5. Caps IN-SCENE silence at MAX_INSCENE_GAP (compress_gaps, 2026-07-28) —
+     the provider's own mid-sentence pauses, which nothing else governs.
+  6. Concatenates with real gaps: air after the scene's last sentence (0.3s,
      0.45s after a question) + 0.15s lead before the next scene. Each clip's
      (trim-shifted) words are re-offset again by its placement in the
      concatenation, turning per-clip HeyGen timestamps into the whole-file
      absolute times compile_timeline.py expects.
-  6. Writes assets/voice/narration.wav + assets/voice/scene-times.json — the
+  7. Writes assets/voice/narration.wav + assets/voice/scene-times.json — the
      manifest compile_timeline.py consumes instead of anchor-guessing
      boundaries. On the HeyGen path also writes assets/voice/narration.words.json
      (flat [{id,text,start,end}], the same shape a Whisper transcript.json
@@ -43,7 +45,8 @@ timestamps came back with the synthesis. --provider kokoro still needs:
 
 Usage:
     synth_narration.py <workspace> [--provider heygen|kokoro] [--voice <id>]
-                       [--speed 0.95] [--script <approved.txt>] [--force] [--json]
+                       [--speed 1.0] [--max-gap 0.5]
+                       [--script <approved.txt>] [--force] [--json]
 """
 
 import hashlib
@@ -66,6 +69,20 @@ AIR = 0.3            # after a normal sentence end (0.2 hard rule + 0.1 margin)
 AIR_QUESTION = 0.45  # after a question (0.35 hard rule + 0.1 margin)
 LEAD = 0.15          # silence before the next scene's first word
 FINAL_HOLD = 1.1     # final scene visual hold past the last word (1.0 + 0.1)
+
+# IN-SCENE silence cap (2026-07-28). The three constants above govern SCENE
+# BOUNDARIES only — nothing governed the pauses HeyGen's Oxana puts INSIDE a
+# clip. Measured on the reference build: 0.98–1.26s of real silence at
+# sentence/clause boundaries mid-scene, non-deterministic on identical syntax
+# ("First," -> 0.48s, "Fourth," -> 1.14s), so it cannot be written around in
+# the script. It reads as a fault rather than a beat because the picture dies
+# with the sound: compile_timeline.resolve_cues() derives every pointCue/chipCue
+# from these same word timestamps, so a 1.2s hole in the audio is also 1.2s of
+# a frozen frame (owner: "strange sound gaps / a major glitch or lag").
+# 0.5 sits just above AIR_QUESTION so a mid-sentence pause can never outlast a
+# scene change — the longest silence in a lesson is always a boundary.
+MAX_INSCENE_GAP = 0.5
+INSCENE_FADE = 0.008  # declick ramp at each excision splice (~8ms)
 
 # Clip edge trim: peak-based so a breathy tail isn't misread as silence.
 # Parallel provider calls for cache misses (network-bound). Lowered 5 -> 3 on
@@ -92,7 +109,9 @@ WORDS_FILENAME = "narration.words.json"  # must match compile_timeline.py /
 DEFAULT_PROVIDER = "heygen"
 DEFAULT_VOICE = {"heygen": "442360a3e0894fbd85024ff64cc2b928",  # Oxana, en-US
                  "kokoro": "af_heart"}
-DEFAULT_SPEED = "0.95"
+DEFAULT_SPEED = "1.0"  # 0.95 -> 1.0 on 2026-07-28 (owner: "the WPM could
+                       # increase, ever slightly"). Changes the clip cache key,
+                       # so the next build re-synthesizes every scene.
 
 
 def die(msg, code=1):
@@ -191,6 +210,76 @@ def trim_clip(data, rate, chan):
     return out, a / rate
 
 
+def _fade_edges(seg, chan, fade, fade_in, fade_out):
+    """Ramp the head (fade_in) and/or tail (fade_out) of an int16 frame array to
+    ~0 over `fade` frames, so a splice never steps between two sample values.
+    Same idiom as compile_timeline._fade_edges — including the half-segment cap,
+    so a short kept span between two excisions never double-scales its middle."""
+    n = len(seg) // chan
+    if n == 0 or fade <= 0:
+        return
+    f = min(fade, n // 2 if (fade_in and fade_out) else n)
+    if f <= 0:
+        return
+    if fade_in:
+        for p in range(f):
+            g = (p + 1) / (f + 1)  # ~0 at the splice -> 1 into the audio
+            base = p * chan
+            for c in range(chan):
+                seg[base + c] = int(seg[base + c] * g)
+    if fade_out:
+        for p in range(f):
+            g = (f - p) / (f + 1)  # 1 in the audio -> ~0 at the splice
+            base = (n - f + p) * chan
+            for c in range(chan):
+                seg[base + c] = int(seg[base + c] * g)
+
+
+def compress_gaps(data, words, rate, chan, max_gap):
+    """Cap every IN-SCENE inter-word silence in one clip at `max_gap` seconds.
+
+    Runs BEFORE trim_clip, on the raw clip and its raw (clip-relative) provider
+    word timestamps, so the trim + concat offset math downstream is untouched:
+    it still sees one clip and one word list that agree with each other.
+
+    Only the space BETWEEN words is eligible — a clip's lead and tail silence
+    belong to trim_clip and the boundary air, and are never seen here. For each
+    over-long pause the middle is excised and max_gap/2 of decay is kept on
+    each side, so neither the preceding word's tail nor the next word's onset
+    moves. Cut points are integer frames off the word timestamps, so the same
+    clip always yields the same bytes.
+
+    Returns (new frame array, new word list, seconds removed, gaps cut). Word
+    timestamps after each cut are shifted back by everything removed before
+    them, keeping the list truthful against the returned audio."""
+    n = len(data) // chan
+    cuts, shifted, removed = [], [], 0.0
+    for i, w in enumerate(words):
+        if i:
+            a = int(round((words[i - 1]["end"] + max_gap / 2) * rate))
+            b = int(round((w["start"] - max_gap / 2) * rate))
+            a, b = min(max(a, 0), n), min(max(b, 0), n)
+            if b > a:  # only true when the gap exceeded max_gap
+                cuts.append((a, b))
+                removed += (b - a) / rate
+        shifted.append({**w, "start": w["start"] - removed,
+                        "end": w["end"] - removed})
+    if not cuts:
+        return data, words, 0.0, 0
+    fade = int(round(INSCENE_FADE * rate))
+    out = array("h")
+    pos = 0
+    for a, b in cuts:
+        seg = data[pos * chan:a * chan]
+        _fade_edges(seg, chan, fade, fade_in=pos > 0, fade_out=True)
+        out += seg
+        pos = b
+    seg = data[pos * chan:]  # tail past the last cut; its own end is trim_clip's
+    _fade_edges(seg, chan, fade, fade_in=True, fade_out=False)
+    out += seg
+    return out, shifted, removed, len(cuts)
+
+
 def verify_script(scene_texts, ws: Path, script_override):
     """Concatenated data-narration must token-match the approved script —
     it is copy-paste, so the match is exact, not threshold-based."""
@@ -228,6 +317,12 @@ def main():
         die(f"--provider must be one of {sorted(DEFAULT_VOICE)}, got {provider!r}", 2)
     voice = opt("--voice", DEFAULT_VOICE[provider])
     speed = opt("--speed", DEFAULT_SPEED)
+    try:
+        max_gap = float(opt("--max-gap", MAX_INSCENE_GAP))
+    except ValueError:
+        die("--max-gap must be a number (seconds)", 2)
+    if max_gap <= 0:
+        die(f"--max-gap must be > 0, got {max_gap}", 2)
     script_override = opt("--script", None)
     args = [a for a in argv if not a.startswith("--")]
     if not args:
@@ -309,6 +404,7 @@ def main():
     rate = chan = None
     cursor = 0.0
     all_words = []
+    gap_trimmed = 0.0
     for i, (e, sc) in enumerate(zip(entries, scenes)):
         params, data = read_wav(clips_dir / Path(e["clip"]).name)
         if rate is None:
@@ -316,6 +412,20 @@ def main():
         elif (params.framerate, params.nchannels) != (rate, chan):
             die(f"{e['clip']}: format {params.framerate}Hz/{params.nchannels}ch "
                 f"differs from first clip {rate}Hz/{chan}ch")
+        # In-scene gap compressor (2026-07-28) — HeyGen path only: without word
+        # timestamps there is no way to tell a mid-sentence pause from a
+        # deliberate one. Runs before the trim so both the clip and its raw
+        # words come out of it consistent, and everything below (trim offset,
+        # concat offset, scene-times.json, and every cue compile_timeline.py
+        # derives from these words) recomputes off the compressed audio.
+        if need_words:
+            data, raw_words[i], cut_s, n_cuts = compress_gaps(
+                data, raw_words[i], rate, chan, max_gap)
+            if n_cuts:
+                gap_trimmed += cut_s
+                e["gap_trimmed"] = round(cut_s, 3)
+                print(f"  {Path(e['clip']).stem}: trimmed {cut_s:.2f}s across "
+                      f"{n_cuts} gap{'s' if n_cuts != 1 else ''}")
         clip_data, trim_offset = trim_clip(data, rate, chan)
         e["start"] = round(cursor, 3)
         cursor += len(clip_data) / chan / rate
@@ -353,7 +463,8 @@ def main():
     manifest = {"mode": "per-scene", "provider": provider, "voice": voice,
                 "speed": speed, "rate": rate, "audio_end": audio_end,
                 "air": AIR, "air_question": AIR_QUESTION, "lead": LEAD,
-                "final_hold": FINAL_HOLD, "scenes": entries}
+                "final_hold": FINAL_HOLD, "max_inscene_gap": max_gap,
+                "gap_trimmed": round(gap_trimmed, 3), "scenes": entries}
     manifest_path.write_text(json.dumps(manifest, indent=2))
 
     words_written = 0
@@ -380,10 +491,15 @@ def main():
     if as_json:
         print(json.dumps({"verdict": "OK", "provider": provider,
                           "audio_end": audio_end, "scenes": len(entries),
-                          "words": words_written, "removed": removed}, indent=2))
+                          "words": words_written, "removed": removed,
+                          "max_inscene_gap": max_gap,
+                          "gap_trimmed": round(gap_trimmed, 3)}, indent=2))
     else:
         print(f"[synth_narration] OK — {provider}, {len(entries)} scenes, "
               f"audio {audio_end}s -> {wav_path.relative_to(ws)}")
+        if gap_trimmed:
+            print(f"  in-scene silence capped at {max_gap}s — "
+                  f"{gap_trimmed:.2f}s removed in total")
         if words_written:
             print(f"  words {words_written} -> {(voice_dir / WORDS_FILENAME).relative_to(ws)}")
         if removed:

@@ -58,7 +58,16 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
 Exit 0 = cleared for render. Exit 1 = fix and re-run. This is the gate that
 lets the QA gauntlet's agent lanes shrink to judgment-only work.
 
-Usage:  preflight.py <workspace> [--script <approved.txt>] [--json]
+--static (2026-07-28): run ONLY the sections that are meaningful on a freshly
+compiled workspace with NO voice assets — the scene-plan stage, before any TTS
+has run. Sections that need audio/transcript/timing (compile_check, boundaries,
+coverage, script_match, pacing, inscene_gaps) are SKIPPED with a "(static
+mode)" note, never failed. Same exit semantics: 0 = the plan is clean, 1 = fix
+the plan. This is the code path scripts/hyperframe-guard.sh runs on every
+scenes.json/index.html write, so the authoring-time guard and the hard gate
+are one source of truth.
+
+Usage:  preflight.py <workspace> [--script <approved.txt>] [--json] [--static]
 """
 
 import difflib
@@ -73,6 +82,7 @@ DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[1] / "design-syste
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import ffprobe_duration, get_attr, norm_token, parse_scenes
+from stem import StemError, base as stem_base, is_canonical
 
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
 TOL = 0.002
@@ -88,6 +98,17 @@ TITLE_CAP = 6.5       # s, scla-title (duration-capped, gap-exempt)
 OUTRO_CAP = 8.5       # s, scla-outro (duration-capped, gap-exempt)
 ENTRANCE_SETTLE = 1.2 # s, Motion v2 entrance budget = first visual event
 CLOSING_BEAT = 0.5    # s before scene end the closing beat lands
+
+# in-scene silence gate (2026-07-28). HeyGen's Oxana emits 0.98-1.26s of real
+# silence at sentence/clause boundaries INSIDE a scene, non-deterministically
+# (3x variance on identical syntax), and the picture dies with the sound
+# because compile_timeline.resolve_cues() derives every cue from these same
+# word timestamps — the owner reported it as "strange sound gaps / a major
+# glitch or lag". synth_narration.compress_gaps() now caps in-scene silence at
+# 0.5s; this gate is the regression guard, set slack above that cap so it fires
+# only if the compressor stops running (kokoro path, a provider swap, a
+# hand-edited words file), never on the compressor's own output.
+INSCENE_GAP_FAIL = 0.8  # s of in-scene inter-word silence -> FAIL
 
 # HeyGen swap (landed 2026-07-22, see decisions/log.md, same detection idiom
 #   as compile_timeline.words_path_for()): the illustrated pipeline's default
@@ -196,13 +217,33 @@ def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
 
     Scripts live in state folders (location = lifecycle state): refined/ (the
     render queue) is the normal home while a build exists; root is raw intake;
-    rendered/ covers re-verification of a shipped lesson."""
-    filename = f"{ws.name}.txt"
+    rendered/ covers re-verification of a shipped lesson.
+
+    Matched on BASE, not the full stem. Since 2026-07-28 a stem's date is the
+    date of the most recent action on *that artifact*, so a workspace built on
+    the 28th from a script refined on the 6th legitimately has a different
+    stem from its own script. Exact-filename matching (what this did before)
+    silently found nothing in that case, and check_script_match's missing-script
+    branch is a WARN-and-skip — so the fabrication guard would have quietly
+    disarmed itself on every build rather than failing loudly."""
+    try:
+        want = stem_base(ws.name)
+    except StemError:
+        want = None
     for program in sorted(p for p in scripts_root.iterdir() if p.is_dir()):
         for sub in ("refined", "", "rendered"):
-            candidate = program / sub / filename
-            if candidate.is_file():
-                return candidate
+            exact = program / sub / f"{ws.name}.txt"
+            if exact.is_file():
+                return exact
+            if want is None:
+                continue
+            for candidate in sorted((program / sub).glob("*.txt")
+                                    if (program / sub).is_dir() else []):
+                try:
+                    if stem_base(candidate.stem) == want:
+                        return candidate
+                except StemError:
+                    continue
     return None
 
 
@@ -318,6 +359,63 @@ def check_pacing(scenes):
     return {"pass": not problems,
             "output": "\n".join(out) or
                       f"ok — caps held, every event gap ≤ {GAP_WARN}s"}
+
+
+def check_inscene_gaps(ws: Path, max_gap=INSCENE_GAP_FAIL):
+    """The in-scene silence gate (check 9, 2026-07-28).
+
+    Grades only the silence BETWEEN words of the SAME scene. Scene-boundary
+    silence is deliberate (synth_narration's air + lead, 0.3/0.45 + 0.15) and
+    is graded by check_boundaries, so the two are told apart with the synthesis
+    manifest's per-scene windows rather than a magic-number threshold — without
+    that manifest every boundary would read as a 0.6s in-scene gap.
+
+    Reads the whole-file words (narration.words.json), never the per-scene
+    scenes/scene-NN.words.json: those are the provider's untouched response, so
+    they still carry the pauses compress_gaps() excised from the audio."""
+    voice = ws / "assets" / "voice"
+    words_path = voice / HEYGEN_WORDS_FILE
+    manifest_path = voice / "scene-times.json"
+    if not words_path.is_file():
+        return {"pass": True, "output":
+                f"WARN: {HEYGEN_WORDS_FILE} missing (kokoro/legacy workspace) "
+                f"— in-scene gap check SKIPPED"}
+    if not manifest_path.is_file():
+        return {"pass": True, "output":
+                "WARN: assets/voice/scene-times.json missing — cannot separate "
+                "in-scene silence from scene-boundary air, check SKIPPED"}
+    words = json.loads(words_path.read_text())
+    scenes = json.loads(manifest_path.read_text()).get("scenes", [])
+    if len(words) < 2 or not scenes:
+        return {"pass": True, "output": "too few words/scenes to grade"}
+
+    def scene_of(t):
+        for i, s in enumerate(scenes):
+            if t <= s["end"] + TOL:
+                return i
+        return len(scenes) - 1
+
+    problems, worst, worst_at = [], 0.0, ""
+    for prev, nxt in zip(words, words[1:]):
+        gap = nxt["start"] - prev["end"]
+        if gap <= 0 or scene_of(prev["end"]) != scene_of(nxt["start"]):
+            continue  # overlap, or the boundary air check_boundaries owns
+        if gap > worst:
+            worst, worst_at = gap, f"{prev['text']!r} -> {nxt['text']!r}"
+        if gap > max_gap:
+            problems.append(
+                f"{gap:.2f}s of silence inside scene "
+                f"{scene_of(prev['end']) + 1:02d} at {nxt['start']:.2f}s "
+                f"({prev['text']!r} -> {nxt['text']!r}) — over the {max_gap}s "
+                f"cap; audio AND picture both hold there (cues derive from "
+                f"these timestamps)")
+    if problems:
+        problems.append("re-run synth_narration.py (it caps in-scene silence "
+                        "at MAX_INSCENE_GAP) then compile_timeline.py --apply")
+    return {"pass": not problems,
+            "output": "\n".join(problems) or
+                      f"ok — largest in-scene gap {worst:.2f}s ≤ {max_gap}s"
+                      + (f" ({worst_at})" if worst_at else "")}
 
 
 def _style_script_digest(html_text: str) -> str:
@@ -474,18 +572,32 @@ def main():
         print(__doc__)
         sys.exit(2)
     ws = Path(args[0]).resolve()
+    static_mode = "--static" in argv
     sections, failed = {}, False
 
+    def static_skip(needs):
+        """A voice/timing section deferred in --static mode: an informational
+        pass, never a failure — the assets it grades don't exist yet."""
+        return {"pass": True,
+                "output": f"SKIPPED (static mode) — needs {needs}; "
+                          f"runs in the full gate after narration synthesis"}
+
     # 1. compiler check
-    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "compile_timeline.py"),
-                        str(ws), "--check"])
-    sections["compile_check"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if static_mode:
+        sections["compile_check"] = static_skip("word timestamps + narration audio")
+    else:
+        rc, out = run_tool([sys.executable, str(Path(__file__).parent / "compile_timeline.py"),
+                            str(ws), "--check"])
+        sections["compile_check"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 2. boundary rules (independent checker)
-    rc, out = run_tool([sys.executable, str(CHECK_BOUNDARIES), str(ws)])
-    sections["boundaries"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if static_mode:
+        sections["boundaries"] = static_skip("the transcript + narration.wav")
+    else:
+        rc, out = run_tool([sys.executable, str(CHECK_BOUNDARIES), str(ws)])
+        sections["boundaries"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 2b. one template file per slot (2026-07-27). HyperFrames keys a
     # sub-composition's timeline and element ids to the FILE, so two slots
@@ -506,33 +618,39 @@ def main():
     # 3. coverage
     html = (ws / "index.html").read_text()
     scenes = parse_scenes(html)
-    problems = []
-    if scenes:
-        scenes.sort(key=lambda s: s["start"])
-        if abs(scenes[0]["start"]) > TOL:
-            problems.append(f"first scene starts at {scenes[0]['start']}s, not 0")
-        for a, b in zip(scenes, scenes[1:]):
-            edge = a["start"] + a["duration"]
-            if abs(edge - b["start"]) > TOL:
-                kind = "gap" if edge < b["start"] else "overlap"
-                problems.append(f"{kind} of {abs(edge - b['start']):.3f}s between "
-                                f"{a['id']} (ends {edge:.3f}) and {b['id']} "
-                                f"(starts {b['start']:.3f}) — bare canvas / double-draw")
-        import re as _re
-        root = _re.search(r'id="root"[^>]*data-duration="([\d.]+)"', html)
-        last_end = scenes[-1]["start"] + scenes[-1]["duration"]
-        if root and abs(float(root.group(1)) - last_end) > TOL:
-            problems.append(f"root duration {root.group(1)}s != last scene end "
-                            f"{last_end:.3f}s")
-        audio_attr = _re.search(r'<audio\b[^>]*data-duration="([\d.]+)"', html)
-        wav = ffprobe_duration(ws / "assets/voice/narration.wav")
-        if audio_attr and wav and abs(float(audio_attr.group(1)) - wav) > 0.05:
-            problems.append(f"<audio> data-duration {audio_attr.group(1)}s != "
-                            f"true wav duration {wav:.3f}s (ffprobe)")
+    scenes.sort(key=lambda s: s["start"])
+    if static_mode:
+        # Pre-TTS the scene starts/durations are placeholders, so tiling and
+        # wav-vs-attr checks are meaningless — but the parsed scenes still
+        # feed the static sections below (variables, title_card).
+        sections["coverage"] = static_skip("compiled scene timings + narration.wav")
     else:
-        problems.append("no scene slots found")
-    sections["coverage"] = {"pass": not problems, "output": "\n".join(problems) or "ok"}
-    failed |= bool(problems)
+        problems = []
+        if scenes:
+            if abs(scenes[0]["start"]) > TOL:
+                problems.append(f"first scene starts at {scenes[0]['start']}s, not 0")
+            for a, b in zip(scenes, scenes[1:]):
+                edge = a["start"] + a["duration"]
+                if abs(edge - b["start"]) > TOL:
+                    kind = "gap" if edge < b["start"] else "overlap"
+                    problems.append(f"{kind} of {abs(edge - b['start']):.3f}s between "
+                                    f"{a['id']} (ends {edge:.3f}) and {b['id']} "
+                                    f"(starts {b['start']:.3f}) — bare canvas / double-draw")
+            import re as _re
+            root = _re.search(r'id="root"[^>]*data-duration="([\d.]+)"', html)
+            last_end = scenes[-1]["start"] + scenes[-1]["duration"]
+            if root and abs(float(root.group(1)) - last_end) > TOL:
+                problems.append(f"root duration {root.group(1)}s != last scene end "
+                                f"{last_end:.3f}s")
+            audio_attr = _re.search(r'<audio\b[^>]*data-duration="([\d.]+)"', html)
+            wav = ffprobe_duration(ws / "assets/voice/narration.wav")
+            if audio_attr and wav and abs(float(audio_attr.group(1)) - wav) > 0.05:
+                problems.append(f"<audio> data-duration {audio_attr.group(1)}s != "
+                                f"true wav duration {wav:.3f}s (ffprobe)")
+        else:
+            problems.append("no scene slots found")
+        sections["coverage"] = {"pass": not problems, "output": "\n".join(problems) or "ok"}
+        failed |= bool(problems)
 
     # 4. variables: one theme per video
     themes = {s["variables"].get("theme") for s in scenes if s["variables"]}
@@ -555,12 +673,20 @@ def main():
     failed |= bool(theme_problems)
 
     # 5. script fidelity — approved script vs whisper transcript
-    sections["script_match"] = check_script_match(ws, script_override)
-    failed |= not sections["script_match"]["pass"]
+    if static_mode:
+        sections["script_match"] = static_skip(
+            "the synthesized transcript (narration.words.json / transcript.json)")
+    else:
+        sections["script_match"] = check_script_match(ws, script_override)
+        failed |= not sections["script_match"]["pass"]
 
     # 6. pacing — Motion v2 cue-gap budget + scene duration caps
-    sections["pacing"] = check_pacing(scenes)
-    failed |= not sections["pacing"]["pass"]
+    if static_mode:
+        sections["pacing"] = static_skip(
+            "compiled cue times + real scene durations")
+    else:
+        sections["pacing"] = check_pacing(scenes)
+        failed |= not sections["pacing"]["pass"]
 
     # 7. text — minimum on-frame text size + no restatement of label/heading
     #    (owner calls 2026-07-27; frame.md typography.min-size + "Type rules").
@@ -589,6 +715,70 @@ def main():
                         str(ws)])
     sections["slots"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
+
+    # 9. in-scene silence — no inter-word hole inside a scene may run past
+    #    INSCENE_GAP_FAIL. Oxana pauses 0.98-1.26s mid-scene at sentence and
+    #    clause boundaries, non-deterministically (identical syntax measured at
+    #    0.48s and 1.14s), and the frame freezes with the audio because every
+    #    cue is derived from these same word timestamps — the owner read it as
+    #    "a major glitch or lag" (2026-07-28). synth_narration.compress_gaps()
+    #    excises the excess at synthesis; this is the guard that keeps a future
+    #    provider or voice change from silently reintroducing the class.
+    if static_mode:
+        sections["inscene_gaps"] = static_skip(
+            "narration.words.json + scene-times.json")
+    else:
+        sections["inscene_gaps"] = check_inscene_gaps(ws)
+        failed |= not sections["inscene_gaps"]["pass"]
+
+    # 10. variety — the frame must not repeat itself. The Motion v2 variety rule
+    #     (max 2 consecutive scenes per template, >=5 distinct forms) was decided
+    #     2026-07-27 and left as prose in decisions/log.md; it reached neither
+    #     frame.md nor the build skill. The next build put 21 scenes on 5
+    #     templates — 8 of them scla-statement, an unbroken run of 5 lookalike
+    #     slides, six templates untouched — and every gate here passed it. Owner
+    #     verdict: "boring, doesn't have a lot of visual variety" (2026-07-28).
+    #     Also fails a list slot holding exactly ONE item: that draws the
+    #     bullet/pill illustration around a single fact ("you would never just
+    #     render a single bullet point"), which 5 scenes of that build did.
+    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_variety.py"),
+                        str(ws)])
+    sections["variety"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
+    # 11. copy — standing owner preferences about the words themselves, given
+    #     repeatedly and enforced nowhere until 2026-07-28. Headings are Title
+    #     Case with no terminal period (frame.md had said the OPPOSITE —
+    #     "sentence case for titles and body" — so 0 of 17 headings in the
+    #     reviewed build were Title Case and the pipeline was faithfully
+    #     following a rule that contradicted the owner). Spoken lists of >=3
+    #     items take "and"/"or" before the final item; that sat in frame.md as
+    #     the soft word "prefer", carrying the very example the owner then
+    #     complained about ("Mentorship? Growth?").
+    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_copy.py"),
+                        str(ws)])
+    sections["copy"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
+    # 12. stem — the workspace name must be canonical: <title>_<program>_<DATE>
+    #     with exactly ONE date, meaning the date of the most recent action on
+    #     this artifact (here, the build). The owner reviewed a video still
+    #     named for its 2026-07-06 refine date after a 2026-07-28 render, with
+    #     the HyperFrames CLI's own _<date>_<clock> stacked on top of that.
+    #     render-qa/stem.py owns the rule (2026-07-28).
+    stem_ok, stem_msg = (True, "")
+    if not is_canonical(ws.name):
+        try:
+            stem_base(ws.name)
+        except StemError as exc:
+            stem_ok, stem_msg = False, str(exc)
+    sections["stem"] = {
+        "pass": stem_ok,
+        "output": (f"workspace name {ws.name!r} is not a canonical stem: "
+                   f"{stem_msg}\n  fix: python3 render-qa/stem.py normalize "
+                   f"{ws.name!r} --date <build-date>, then rename the directory")
+        if not stem_ok else f"{ws.name} — canonical"}
+    failed |= not stem_ok
 
     verdict = "FAIL" if failed else "PASS"
     if as_json:
