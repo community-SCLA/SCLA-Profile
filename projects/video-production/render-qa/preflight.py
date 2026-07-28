@@ -493,6 +493,17 @@ def main():
     sections["text"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
 
+    # 8. slots — every template slot a scene doesn't use must be blanked with "".
+    #    An omitted slot renders the template's PLACEHOLDER DEFAULT: plausible,
+    #    on-brand copy the lesson script never said. No other gate catches it —
+    #    check_text grades size and restatement, not provenance — and it is a
+    #    fabrication-ban violation, so it fails hard. (Added 2026-07-28 after the
+    #    AUTO-BATCH pilot shipped 15 placeholder lines across 6 scenes.)
+    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_slots.py"),
+                        str(ws)])
+    sections["slots"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
     verdict = "FAIL" if failed else "PASS"
     if as_json:
         print(json.dumps({"verdict": verdict, "sections": sections}, indent=2))

@@ -186,6 +186,49 @@ HDR
 
   cat <<'FTR'
 
+## TWO RULES THAT NO OTHER DOC WILL TEACH YOU
+
+Both were discovered by the 2026-07-28 pilot, which passed every static check
+and still produced a mostly-broken video. Neither is optional.
+
+### 1. Clone shared templates — run `instance_templates.py` BEFORE compiling
+
+If two scenes point at the same `compositions/<name>.html`, **every scene that
+shares a template renders completely blank** — background and footer only, no
+heading, no content. On the pilot that was 18 of 21 scenes. The only scenes
+that survived were the three using a template no other scene used.
+
+So the build loop is FIVE commands, not four — the clone step comes first:
+
+```bash
+python3 ../../render-qa/instance_templates.py .          # clone shared templates -> per-scene files
+../../../../scripts/with-secrets.sh python3 ../../render-qa/synth_narration.py .
+python3 ../../render-qa/compile_timeline.py . --apply
+python3 ../../render-qa/preflight.py .
+npm run check
+```
+
+Re-run `instance_templates.py` any time you add or repoint a scene.
+
+### 2. Blank every slot you don't use — omitting it FABRICATES content
+
+Each template declares its variables in a JSON schema block at the top of
+`compositions/<name>.html`, and each declares a `default`. **A slot you leave
+out of `data-variable-values` renders that default** — real-looking, on-brand
+copy your script never said. The pilot put 15 such lines on screen, including
+a "Two more ways pressure shows up" heading above four points.
+
+Before authoring a scene, read the schema block at the top of its template
+(the first ~15 lines — not the whole file) and enumerate its slots. Then pass
+`"": ` for every one you don't use:
+
+```
+data-variable-values='{"label":"...","heading":"...","point1":"...","point2":"...","point3":"","point4":"","sceneIndex":"05 / ...","theme":"summit","sceneDuration":""}'
+```
+
+`preflight.py` now FAILS on this (`check_slots.py`), so you cannot ship past
+it — but fix it at authoring time rather than discovering it at the gate.
+
 ## Report exactly these five fields, no prose
 
 ```
