@@ -88,6 +88,43 @@ frame dumps into your own context; one render at a time; set
 `VIDEO_SNAG_RETRO_HOOK_DISABLED=1 VIDEO_PURGE_REMINDER_HOOK_DISABLED=1` for
 the run and do one snag retro at close-out.
 
+## 3b. The state map — where any video is, from disk alone
+
+Any session (or human) answers "where is video X?" with one command:
+`bash scripts/batch-status.sh`. It reads only these on-disk facts — no
+session memory, no narration files:
+
+| State | On-disk truth | Status tool shows |
+|---|---|---|
+| raw intake | `lesson-scripts/<prog>/<stem>.txt` (program root) | (not queued yet — run /refine-scripts) |
+| queued to build | `refined/<stem>.txt`, no workspace | numbered queue entry |
+| built, awaiting render/vision | `refined/<stem>.txt` + `renders-hyperframes/<stem>/` | `built, NOT published` |
+| rendered + verified, awaiting publish | workspace has `qa/VERIFIED` (sha-256 of the exact MP4) | `STRANDED … verified MP4 awaiting publish` |
+| failed a guard | row in `render-qa/quarantine.log` (workspace kept, never published) | `STRANDED … quarantined: <reason>` |
+| published | row in `lesson-scripts/published.tsv` (full stem + URL); script in `rendered/` | counted in `already on Wistia` |
+| blocked | script contains `TODO: needs input` / `SCRIPT PENDING` | `blocked (<reason>)` |
+
+Recovery rules for a fresh session picking up after a crash/timeout:
+- `STRANDED, workspace present, no qa/VERIFIED` → re-run
+  `batch-ship.sh <stem> <prog>` (render phase is safe to repeat: it cleans
+  stale MP4s and reinstalls node_modules if pruned).
+- `STRANDED, verified MP4 awaiting publish` → vision-review `qa/frames/`,
+  then `batch-ship.sh <stem> <prog> --publish` (idempotent: refuses if a
+  published.tsv row already exists, refuses if the MP4 changed since verify).
+- `quarantined` → read the reason in `quarantine.log`; if the reason says
+  "video IS live at <url>", the upload succeeded and only bookkeeping failed —
+  record the URL, do not re-upload.
+- `built, NOT published` → re-run preflight yourself; if green, continue at
+  precheck. If the workspace is half-authored garbage, delete it — the script
+  still in `refined/` re-queues it automatically.
+
+Logging homes (each has one job): `published.tsv` = machine record of what
+is live (the resume key) · `refinement-log.md` = human-facing ledger prose ·
+`quarantine.log` = per-video guard failures · `render-qa/snag-log.md` =
+per-session retro (newest entry is the complete current state) ·
+`decisions/log.md` = why the pipeline is shaped this way · git history = the
+audit trail of every pipeline change.
+
 ## 4. Queue
 
 `bash scripts/batch-status.sh` is authoritative: **29 to build**, 2 blocked
