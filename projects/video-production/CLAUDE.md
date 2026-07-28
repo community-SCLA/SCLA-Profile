@@ -37,14 +37,12 @@ Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — requires Synthesia **Ent
 
 ## Critical Rules
 
-- **Never fabricate SCLA course content** — always work from provided outlines/source material
-- **One human checkpoint (2026-07-13, replaces the old script/QA gates; MP4 REVIEW/PUBLISH gate removed 2026-07-22 — see `decisions/log.md`):**
-  1. **HYPERFRAME GATE** — a human previews every built hyperframe before it may become an MP4. Hyperframe → MP4 runs only on an explicit `ship <stem>`. **No automation ever takes a script to an MP4 in one shot.**
-  Once granted, SHIP renders, verifies, files, and uploads to Wistia in one uninterrupted pass — no second human review before publish. The deterministic `verify_render.py` gate plus builder frame self-review are the quality bar from SHIP onward.
-  Script approval is **async, not blocking**: `refined/` is an open review buffer (edit/veto any time), guarded by the mandatory qa-facts pass at refinement and the script-vs-transcript diff gate in `preflight.py`. Never self-approve the hyperframe gate.
-- **QA model (2026-07-13)** — deterministic gates (`render-qa/preflight.py` pre-render, `render-qa/verify_render.py` post-render) must pass and the builder reviews the `qa/frames/` dump before the hyperframe gate and again before publish. `/adversarial-qa` (four cold-context reviewer lanes) is an on-demand deep audit — run it when a cut resists diagnosis or the user asks to "try to break it", not on every render. Facts are checked once at script stage (`/refine-scripts`), not per render
-- **Self-improvement loop (2026-07-13, ask-model 2026-07-14)** — every render/build session ends by prepending an entry to `render-qa/snag-log.md` per its header rules (hook-enforced): sessions read **only the latest entry**; unresolved items are **owner-actionable by definition** (the agent fixes anything it can in-session, never rolls fixable work forward), and a non-empty Open list means the session **asks the human directly** to resolve each item at close-out (AskUserQuestion when interactive) — you are never asked to go read the log
-- **No FERPA/PII data** in any prompt sent to an AI tool
+The standing constraints — fabrication ban, HYPERFRAME GATE (the one human checkpoint; `ship <stem>` only, never self-approved), one-pass SHIP, snag-log retro at session end, no FERPA/PII, brand source of truth — live in **`.claude/rules/video-production.md`**, auto-loaded for sessions working under `projects/video-production/`. Cold subagents: read that file first.
+
+Operational details that stay here:
+- **QA model (2026-07-13)** — deterministic gates (`render-qa/preflight.py` pre-render, `render-qa/verify_render.py` post-render) must pass and the builder reviews the `qa/frames/` dump before the hyperframe gate and again before publish. `/adversarial-qa` (four cold-context reviewer lanes) is an on-demand deep audit — run it when a cut resists diagnosis or the user asks to "try to break it", not on every render. Facts are checked once at script stage (`/refine-scripts`), not per render.
+- **Script approval is async, not blocking:** `refined/` is an open review buffer (edit/veto any time), guarded by the qa-facts pass at refinement and the script-vs-transcript diff gate in `preflight.py`.
+- **Snag-log semantics** — sessions read **only the latest entry**; unresolved items are owner-actionable by definition (the agent fixes anything it can in-session, never rolls fixable work forward), and a non-empty Open list means the session asks the human directly at close-out (AskUserQuestion when interactive).
 
 ## Brand
 

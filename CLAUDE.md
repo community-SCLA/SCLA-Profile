@@ -27,9 +27,9 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Refactor — execute, plan, status, structural change | `repo-audit-brief-2026-07-28.md` — **start at §0.0 (cold-start protocol + live ledger), then §0.7. Do not read §1–§9.** |
 | Integrations, endpoint IDs | `config/endpoints.json` |
 
-## Hard Rules
+## Rules
 
-- **Never load or route to `_archive/`**
+Standing rules live in `.claude/rules/` (auto-discovered): `.claude/rules/repo-hygiene.md` (always) and `.claude/rules/video-production.md` (factory work). Headline: **never load or route to `_archive/`**.
 
 ## Tool usage discipline (context budget)
 - Read files with the Read tool, not `cat`/`head`/`tail`. Read specific line ranges when you know roughly where to look.
