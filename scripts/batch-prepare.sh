@@ -80,14 +80,21 @@ if [[ ! -d "$RUN/scaffold" ]]; then
          data-width="1920" data-height="1080">
 
       <!-- SCENE SLOTS GO HERE — one per beat of the refined script.
-           Each carries its verbatim span of the script as data-narration
-           (HTML-escape inner double quotes as &quot;; split only at sentence
-           ends) and placeholder timing numbers the compiler will overwrite:
+           Copy this shape EXACTLY; every attribute below is load-bearing and
+           each was a real gate failure caught on the 2026-07-28 pilot build:
 
-        <div class="clip" data-composition-src="compositions/scla-title.html"
+        <div class="clip" id="scene-01" data-composition-id="scene-01"
+             data-composition-src="compositions/scla-title.html"
              data-start="0" data-duration="1" data-track-index="1"
              data-narration="The first sentence of the script, verbatim."
-             data-vars='{"title":"...","kicker":"..."}'></div>
+             data-variable-values='{"eyebrow":"...","title":"...","sceneIndex":"01 / TITLE","theme":"summit","sceneDuration":""}'></div>
+
+           - `data-variable-values` is the ONLY attribute compile_timeline.py
+             reads. Naming it `data-vars` silently yields zero cue resolution.
+           - `data-composition-id` is a hard lint error when missing.
+           - `sceneDuration` must be PRE-DECLARED (even empty) — the compiler
+             updates existing keys, it never adds new ones.
+           - timing numbers here are placeholders; the compiler owns them.
 
            Where a scene has reveals, add cue anchors quoting phrases verbatim
            from the transcript:
@@ -100,7 +107,9 @@ if [[ ! -d "$RUN/scaffold" ]]; then
       <div id="hf-rail-track"></div>
       <div id="hf-rail-fill"></div>
 
-      <audio src="assets/voice/narration.wav" data-audio-track></audio>
+      <!-- id + data-start are REQUIRED. Without them lint warns "audio will be
+           SILENT in renders" — and the render really is silent. -->
+      <audio id="narration-audio" src="assets/voice/narration.wav" data-audio-track data-start="0"></audio>
     </div>
 
     <script>

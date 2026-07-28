@@ -32,19 +32,12 @@ if [ "$#" -eq 0 ]; then
   exit 2
 fi
 
-if command -v infisical >/dev/null 2>&1; then
-  # Preferred path: CLI available — log in and exec via infisical run.
-  INFISICAL_TOKEN="$(infisical login --method=universal-auth \
-    --client-id="$INFISICAL_CLIENT_ID" --client-secret="$INFISICAL_SECRET_KEY" \
-    --silent --plain)"
-  export INFISICAL_TOKEN
-  exec infisical run --projectId "$INFISICAL_PROJECT_ID" --env "$INFISICAL_ENV" -- "$@"
-fi
-
-# Fallback: CLI not installed (devcontainer postCreateCommand may not have run).
-# Fetch secrets via Infisical REST API and inject them as env vars before exec.
-echo "infisical CLI not found — falling back to REST API injection." >&2
-
+# REST API injection is the ONLY path (2026-07-28). The `infisical` CLI is not
+# installed in this Codespace — the devcontainer's apt install never survived —
+# so the CLI branch was dead code that only ever emitted a "falling back"
+# warning on stderr. In a 30-video batch that warning fired on every TTS and
+# every upload, so it went too. Re-add a CLI branch only if the CLI is actually
+# provisioned; REST is equivalent and equally never writes secrets to disk.
 _token="$(curl -sf -X POST https://app.infisical.com/api/v1/auth/universal-auth/login \
   -H "Content-Type: application/json" \
   -d "{\"clientId\":\"${INFISICAL_CLIENT_ID}\",\"clientSecret\":\"${INFISICAL_SECRET_KEY}\"}" \
