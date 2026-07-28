@@ -9,6 +9,20 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-28 — Video batch: certification protocol + machine resume key
+
+The AUTO-BATCH may only launch after the pilot rebuilds 3 consecutive times
+with zero vision-lane FAILs (achieved 2026-07-28: horizon/cadence/summit).
+Publish contract: verify_render writes qa/VERIFIED (mp4 + sha-256); publish
+refuses without it and refuses stems already in lesson-scripts/published.tsv
+(the machine resume key — full stem + URL, committed in the publish pass).
+Title-card eyebrow/title and outro copy are derived fields gated by preflight
+(frame.md "Title card & outro sources"); early-career-boost renders as
+"Career Accelerator" per the owner's 2026-07-21 rebrand. Template slot
+defaults are [[placeholder]] tokens — realistic defaults were a fabrication
+vector. HyperFrames stays pinned at 0.7.45 through this batch; upgrade +
+upstream repro of the shared-template blanking is a deliberate post-batch task.
+
 ## 2026-07-28 — Video pipeline: per-video gate → pilot gate; batch cap deleted
 
 **Decision:** Restructure `/render-lessons` so a full queue can be drained in one

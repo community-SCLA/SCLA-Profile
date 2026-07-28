@@ -37,6 +37,68 @@ Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
 same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
 
 
+## 2026-07-28 ~19:10 UTC · pilot certification loop (audit + 3 clean re-runs)
+
+Owner directive: batch may not launch until the pilot rebuilds 3 consecutive
+times with zero glitches, pixel-verified. Achieved: horizon, cadence, summit
+runs each went build -> 5 gates -> precheck vision -> render -> verify ->
+3-lane frame review with ZERO FAILs. Batch is certified pending the PILOT
+GATE sign-off on the summit cut.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Confirm the on-screen program label** *(new 2026-07-28)* — frame.md now
+  pins early-career-boost's eyebrow to "Career Accelerator" per the 2026-07-21
+  ledger note; visible on the pilot title card at preview. Say so if wrong.
+- **Pilot sign-off** — `bash scripts/preview.sh better-decisions-come-from-better-criteria_early-career-boost_2026-07-06`;
+  approval authorizes the 29-video batch.
+
+**Fixed this session**
+
+- `[defect]` **State machine unsound for unattended runs (5 blockers).** Stems
+  vanished from batch-status after the preflight-time script move (interrupted
+  runs silently stranded videos); publish could upload a different MP4 than
+  verify verified; no publish idempotency; ledger matcher never matched real
+  rows (would double-publish); git failures masked with MP4 deleted anyway.
+  Fix: qa/VERIFIED sha-256 marker contract, lesson-scripts/published.tsv as
+  machine resume key (backfilled 6 rows), STRANDED bucket, script moves at
+  publish, unmasked commits, publish lock, disk guard, render timeout, upload
+  retries. ~half the session.
+- `[defect]` **BUILD-KIT generator dumped the whole SKILL into every builder**
+  (unanchored awk end-pattern) — including the orchestrator phases and a
+  verbatim quote of the fabricated heading, which the run-0 builder copied
+  on screen. Marker-bounded extraction, fails loud, no quotable copy.
+- `[defect]` **All 55 realistic template defaults could fabricate content** —
+  they were literally this pilot's copy; every other lesson would render it on
+  an omitted slot. Now `[[slot]]` placeholders + check_slots fails any
+  placeholder that would render (multi-line-safe parse too).
+- `[defect]` **check_text never graded chip copy** (`chips` key unmatched,
+  comma list diluted overlap) — echo-chips class now trips at 100%.
+- `[defect]` **Title card + outro were builder-invented each run** (run 2
+  guessed a program name; used narration as title). frame.md display-name
+  table + derivation rules; preflight check 7b enforces.
+- `[tooling]` **with-secrets curl flag needed curl>=7.71; box has 7.68** —
+  login died pre-request, derailing a builder into an unauthorized kokoro
+  fallback + pip install. Flag dropped; kokoro uninstalled; BUILD-KIT now
+  hard-stops on TTS failure (no fallback voice — pinned-voice rule).
+- `[authoring]` **Pacing gate recalibrated** 4.5/3.5 -> 4.0/3.0 with a
+  dead-air rule in BUILD-KIT; templates polished (subBeats live-line styling,
+  morph content-driven card height + earlier entrance, closing tick square->bar).
+
+**Promoted to docs**
+
+- `.claude/rules/video-production.md` (published.tsv + VERIFIED contract),
+  render-lessons SKILL (B3/SHIP/A3/A6 rewritten to the guard chain),
+  batch-prepare BUILD-KIT rules 2-6, frame.md "Title card & outro sources",
+  preflight 7b, HANDOFF doc replaced. Known accepted characteristic: 3.0-3.5s
+  content-bearing holds (gray zone) surface as WARNs and were reviewer-judged
+  acceptable; remedy (subBeats/split) documented in BUILD-KIT rule 4.
+
 ## 2026-07-28 ~09:50 UTC · /render-lessons AUTO-BATCH (pilot + pipeline rebuild)
 
 First session in 26 firings to actually dispatch a build. The 25-firing
