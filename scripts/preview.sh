@@ -66,7 +66,7 @@ fi
 
 # A stale server on THIS port would shadow the workspace we're opening, so clear
 # it — but leave previews on other ports alone so several can run at once. The
-# render path does its own blanket sweep at preflight (render-qa/BUILD-LOG.md
+# render path does its own blanket sweep at preflight (render-qa/logs/BUILD-LOG.md
 # step 0), which is what actually keeps a stale Studio out of a render.
 # Bracketed pattern so we never kill this shell (see render-qa/snag-log.md).
 pkill -f "[h]yperframes.* preview --port $PORT" 2>/dev/null || true

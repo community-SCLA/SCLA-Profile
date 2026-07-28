@@ -9,6 +9,13 @@ phrases); these tools compute every number.** Used by `/render-lessons`
 (BUILD gates + SHIP verify) and `/adversarial-qa`; the authoring contract
 lives in `design-system/frame.md`.
 
+**Folder shape (2026-07-28, R7):** tool code + `tests/` live flat at this
+level — the tools compute the repo root positionally (e.g. `parents[3]`), so
+**never nest the `.py` files deeper**. `snag-log.md` stays here too (the
+settings hook and skills reference this exact path); it rotates old entries
+into `logs/` per its header policy. `logs/` = rolling logs + rotated archives
+(`BUILD-LOG.md` lives there); `docs/` = handoff/working docs.
+
 **2026-07-14 — per-scene synthesis replaced the single-take + inserted-silence
 flow.** The old flow synthesized the whole script as one Kokoro take (natural
 sentence gaps ~0.03s) and spliced digital-zero silence at Whisper-estimated
