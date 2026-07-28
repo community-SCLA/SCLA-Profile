@@ -1,8 +1,8 @@
 # Lesson Scripts — organized by program, state = folder
 
 Narration **scripts**, one folder per program. The rendered video does **not**
-live here: finished MP4s are uploaded to **Wistia** (account + auth status:
-repo-root `endpoints.md` → "Wistia") and are not committed to the repo (see
+live here: finished MP4s stage locally in `../renders-mp4/` and are uploaded to
+**Wistia**, not committed to the repo (see
 [`decisions/log.md`](../../../decisions/log.md), 2026-07-08). This folder
 tracks the durable source (the `.txt`); Wistia holds the build output.
 
@@ -16,7 +16,8 @@ lesson-scripts/
     refined/<stem>.txt      ← refined — /render-lessons' BUILD queue (illustrated)
                               and the open human review buffer (edit/veto any time)
     refined/avatar/<stem>.txt  ← refined — avatar-pipeline's queue (talking-head)
-    rendered/<stem>.txt     ← published — MP4 filed in ../renders-mp4/ and on Wistia
+    rendered/<stem>.txt     ← gate-clean build exists — MP4 filed in ../renders-mp4/
+                              (and on Wistia once shipped)
 ```
 
 **Render route is also a location.** Program root / `refined/` = illustrated
@@ -26,26 +27,17 @@ builds only the `refined/` root, `avatar-pipeline/config.json` points only into
 `refined/avatar/`. `/refine-scripts` preserves the split (root → `refined/`,
 `avatar/` → `refined/avatar/`).
 
-Between `refined/` and `rendered/` a lesson's in-flight state lives outside
-this folder: a `../renders-hyperframes/<stem>/` workspace = built, waiting at
-the human **hyperframe gate**; an MP4 in `../renders-mp4/<program-slug>/` =
-shipped, waiting at human **MP4 review**. No table needs consulting —
-[`refinement-log.md`](refinement-log.md) is a ledger (history for humans),
-never a decision input.
+Between `refined/` and shipped, an illustrated lesson's in-flight state lives
+outside this folder: a `../renders-hyperframes/<stem>/` workspace = built,
+waiting at the human **hyperframe gate**; a Wistia URL in
+[`refinement-log.md`](refinement-log.md) = published. The log is a ledger
+(history for humans), never a decision input.
 
-Create `refined/`/`rendered/` with their first file (`mkdir -p`), not ahead of
-need. One subfolder per program; the slug matches its folder in
-[`programs/`](../../../programs/). Live programs:
-
-| Folder | Program |
-|---|---|
-| `early-career-boost/` | Early Career Boost |
-| `career-readiness-accelerator/` | Career Readiness Accelerator |
-| `scla-leadership-program/` | SCLA Leadership Program |
-
-Add a new program folder only when it actually starts producing videos —
-match the `programs/` slug and log it in `decisions/log.md` per
-[GOVERNANCE.md](../../../GOVERNANCE.md).
+**Live programs are whatever `ls` of this folder shows** — one subfolder per
+program, no hand-maintained list (don't write down what the file tree already
+says). Create `refined/`/`rendered/` with their first file (`mkdir -p`), not
+ahead of need. Add a new program folder only when it actually starts producing
+videos, and log it in `decisions/log.md`.
 
 ## Naming convention
 
@@ -72,10 +64,10 @@ m1_the-value-of-building-mid-career-momentum_2026-07-22       ← MP4 stem + Wis
 Lowercase throughout. No spaces, no `+`, no capitals — keeps filenames safe
 across shells, URLs, and Wistia titles.
 
-> **Older programs** (`early-career-boost`, `career-readiness-accelerator`,
-> `scla-leadership-program`) use the previous `<section>_<program>_<date>`
-> scheme (section kebab-case; program = the folder slug). Their existing files
-> keep it; the tooling reads both. Use `m<#>_<title>_<date>` for new programs.
+> **Older program** `early-career-boost/` uses the previous
+> `<section>_<program>_<date>` scheme (section kebab-case; program = the
+> folder slug). Its existing files keep it; the tooling reads both. Use
+> `m<#>_<title>_<date>` for new programs.
 
 ## How scripts move
 
@@ -83,11 +75,14 @@ across shells, URLs, and Wistia titles.
   drains roots into `refined/` (one subagent per script + qa-facts pass);
   scripts with open human questions stay at root with a ledger note.
 - **Through:** `/render-lessons` BUILD drains `refined/` into hyperframe
-  workspaces and stops at the human hyperframe gate; SHIP (per stem, on human
-  go) renders + files the MP4 into [`../renders-mp4/`](../renders-mp4/README.md)
-  for human MP4 review.
-- **Out:** PUBLISH (per stem, on human go) uploads to Wistia, records the URL
-  in the ledger, and `git mv`s the `.txt` to `rendered/`.
+  workspaces and **stops at the human hyperframe gate** — a human previews
+  every hyperframe before any MP4 exists.
+- **Out:** an explicit `ship <stem>` (the one human trigger after the gate)
+  renders, verifies, files the MP4 in
+  [`../renders-mp4/<program-slug>/`](../renders-mp4/README.md), and publishes
+  to Wistia **in one uninterrupted pass** — no separate MP4-review or publish
+  step (gate removed 2026-07-22, `decisions/log.md`). The Wistia URL is
+  recorded in the ledger and the `.txt` sits in `rendered/`.
 - The avatar path ([`../avatar-pipeline/`](../avatar-pipeline/CLAUDE.md))
   reads scripts from `refined/avatar/` via `config.json`, renders each lesson as
   one talking-head video, and stages the MP4 in

@@ -12,7 +12,7 @@ lesson/program video runs through the two-skill pipeline: **`/refine-scripts`**
 route SCLA lesson videos into generic HyperFrames workflow skills.
 
 - **Design contract:** `frame.md` in this folder — normative tokens, frame/animacy
-  rules, the anchor/timing contract, the nine scene templates, and the style
+  rules, the anchor/timing contract, the twelve scene templates, and the style
   packages. Read it while assembling any composition.
 - **Authoring & rendering mechanics:** `/hyperframes-core` (the composition
   contract), `/hyperframes-animation`, `/hyperframes-creative`, `/hyperframes-cli`,

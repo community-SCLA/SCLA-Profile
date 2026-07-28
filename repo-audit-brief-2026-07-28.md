@@ -62,7 +62,7 @@ Say so, do not execute it, and correct this brief. Precedent: R8's "byte-identic
 | — | A6 — retire `postCreate.sh`, fold in brand safeguard | ☑ **done** 2026-07-28 (`7bcb2f9`) |
 | 1 | S13, S16, S3 — settings & hook hygiene | ◐ **partial** 2026-07-28 — dotfiles copy done (S13 + S3); project `.claude/settings.json` edit **blocked by the permission classifier** (Claude cannot modify its own settings file, even to tighten it). Intended content ready for a human paste — see §0.2 note. S16 note: the render-retro hook already had an anchored matcher; only the Wistia hook was substring-matched |
 | 2 | S8, S9, S11, S7-rem, A5 — mechanical hygiene | ☑ **done** 2026-07-28 — S9 note: the skill's whole mechanics were fictional (`scripts/ingest.py` AND `_templates/` don't exist); rewritten against the real `templates/` scaffolds. S11 note: only ONE citation needed fixing (log.md:311) — line 124 cites the already-date-first file |
-| 3 | S5 + A7, R9/A3 — factory docs tell the truth | ☐ |
+| 3 | S5 + A7, R9/A3 — factory docs tell the truth | ☑ **done** 2026-07-28 — template count fixed to 12 (they live in `compositions/`, not `templates/`); lesson-scripts README rebuilt without a program table; voice-auditions/ deleted, Ann purged; bonus: design-system/CLAUDE.md's stale "two human checkpoints / MP4 review" QA line corrected |
 | 4 | P2 — `endpoints.md` → `config/endpoints.json` | ☐ |
 | 5 | S12 — lint-refs.sh into CI | ☐ |
 | 6 | R2/A1 — delete the hourly schedule | ☐ |

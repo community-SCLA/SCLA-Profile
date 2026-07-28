@@ -1,6 +1,6 @@
 # SCLA Video Design System — HyperFrames project
 
-The brand-owned illustrated-video system for SCLA lesson videos. Nine reusable
+The brand-owned illustrated-video system for SCLA lesson videos. Twelve reusable
 scene templates + design tokens + a pinned narration voice give every lesson a
 brand-true starting point — but the templates are the **structural floor, not a
 ceiling**: the frame must stay alive and *illustrate what's being said*
@@ -19,11 +19,10 @@ composition contract lives in `/hyperframes-core`.
 | Path | What it is |
 |---|---|
 | `frame.md` | Design spec — SCLA tokens adapted to the video frame. Brand truth stays in `brand/`. |
-| `compositions/scla-*.html` | The nine scene templates (sub-compositions with variables) — see table in `frame.md` |
-| `index.html` | Demo reel: all nine templates with real approved-lesson content. Living style guide — render it after any template change. |
+| `compositions/scla-*.html` | The twelve scene templates (sub-compositions with variables) — see table in `frame.md` |
+| `index.html` | Demo reel: all twelve templates with real approved-lesson content. Living style guide — render it after any template change. |
 | `assets/brand/` | SCLA logo SVGs (copied from `brand/assets/`) |
 | `assets/fonts/` | Self-hosted Proxima Nova woff2 (400/700/900, from SCLA's Adobe kit) |
-| `voice-auditions/` | Kokoro voice samples generated from approved script lines — listen and re-decide anytime |
 
 ## Commands (this folder only)
 
@@ -56,7 +55,7 @@ HYPERFRAMES_PYTHON) are documented once, in `/render-lessons` Phase BUILD Step B
 
 **HeyGen "Oxana" (en-US) `442360a3e0894fbd85024ff64cc2b928` @ 0.95 speed** —
 `render-qa/synth_narration.py`'s default provider and voice (owner pick,
-2026-07-22; it replaced Ann — Professional, now retired from this pipeline).
+2026-07-22).
 Approved alternate: **Seema — Professional** `166aa8d7acd1495a839d34024ccb1505`,
 via `--voice`. Neither voice supports pause tags — pace narration with sentence
 structure. Returns native per-word timestamps with the
@@ -67,7 +66,7 @@ decision once the 2026-07-21 HeyGen key rotation cleared the 403 that had
 blocked this path.
 
 **Manual fallback:** `synth_narration.py <ws> --provider kokoro` still works
-(local engine, no credits/API key, samples in `voice-auditions/`) — it has no
+(local engine, no credits/API key) — it has no
 native word timestamps, so chain `npx hyperframes transcribe` after it, same
 as the pre-2026-07-22 flow.
 
@@ -75,6 +74,7 @@ as the pre-2026-07-22 flow.
 
 Quality is enforced by the deterministic gates
 (`../render-qa/{compile_timeline,preflight,verify_render}.py`), the builder's
-frame review, and the two human checkpoints — the hyperframe preview gate
-before any MP4, and MP4 review before Wistia — see `/render-lessons`. `/adversarial-qa` (four cold-context reviewer
+frame review, and the one human checkpoint — the hyperframe preview gate
+before any MP4 (the MP4-review gate was removed 2026-07-22; SHIP publishes in
+one uninterrupted pass) — see `/render-lessons`. `/adversarial-qa` (four cold-context reviewer
 lanes) is an on-demand escalation, not a standing per-render gauntlet.

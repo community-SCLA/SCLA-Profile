@@ -15,7 +15,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `script-templates/social-script-prompt.md` | Claude prompt for social media videos |
 | `script-templates/batch-csv-template.md` | CSV specs for Synthesia + HeyGen bulk generation |
 | `script-templates/qa-checklist.md` | Video QA checklist for the human review step |
-| `design-system/` | **SCLA video design system** — nine branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
+| `design-system/` | **SCLA video design system** — twelve branded scene templates, design tokens (`frame.md`), pinned narration voice, demo reel. The illustrated-video path for lesson videos. See its `CLAUDE.md`. |
 | `avatar-pipeline/` | Code path — Python + HeyGen API turns `.txt` scripts into rendered MP4s (batch, resumable). See its `CLAUDE.md`. |
 | `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production. Delivered builds **stay put** — retiring one to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh` is a human-only call, never an automated pipeline step. See its `README.md`. |
 | `lesson-scripts/` | Curated script library, one folder per program — **a script's folder is its state**: raw at root → `refined/` → `rendered/` (the video itself goes to Wistia, not here). Naming + state semantics in its `README.md`; `refinement-log.md` is the human-facing ledger. |

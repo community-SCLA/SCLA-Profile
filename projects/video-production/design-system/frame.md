@@ -54,8 +54,7 @@ voice:
   #   word timestamps with the synthesis (assets/voice/narration.words.json),
   #   so the separate Whisper transcribe pass no longer runs on new builds.
   #   Cost: ~1 HeyGen credit per ~10s line; quota 15000. Voice changed
-  #   2026-07-22 to Oxana (owner pick); it replaces Ann — Professional, which
-  #   is retired from this pipeline. Approved alternate: Seema — Professional
+  #   2026-07-22 to Oxana (owner pick). Approved alternate: Seema — Professional
   #   166aa8d7acd1495a839d34024ccb1505. Both support locale en-US and neither
   #   supports pause tags — pace with sentence structure, not <break>.
   provider: heygen           # ACTIVE — synth_narration.py's default
@@ -514,7 +513,7 @@ Package rules:
   An in-flight build claims its theme immediately — consecutive builds in one
   batch keep incrementing the count locally; counting deliveries lets
   consecutive videos ship in the same look.
-- A new package = a new `data-theme` override block in **all nine** templates
+- A new package = a new `data-theme` override block in **all twelve** templates
   plus a row here. Never fork a template to make a look.
 
 ## Motion rotation — the sanctioned arsenal
