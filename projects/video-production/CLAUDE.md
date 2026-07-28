@@ -20,7 +20,7 @@ SCLA's AI-powered video pipeline (Synthesia + HeyGen) for producing 16–30 hour
 | `renders-hyperframes/` | **Local-only build workspaces** (gitignored) — one HyperFrames workspace per illustrated video while in production. Delivered builds **stay put** — retiring one to `renders-hyperframes/_archive/<stem>/` via `scripts/archive-lesson.sh` is a human-only call, never an automated pipeline step. See its `README.md`. |
 | `lesson-scripts/` | Curated script library, one folder per program — **a script's folder is its state**: raw at root → `refined/` → `rendered/` (the video itself goes to Wistia, not here). Naming + state semantics in its `README.md`; `refinement-log.md` is the human-facing ledger. |
 | `renders-mp4/` | Local staging for finished MP4s (gitignored), one folder per program mirroring `lesson-scripts/`, split into `hyperframes/` + `avatar/` subfolders — **both render paths file here**, viewable locally before the Wistia upload, named with the render date. See its `README.md`. |
-| `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.agents/skills/`) — separate tool from `avatar-pipeline/`, for authoring HTML video compositions directly. |
+| `hyperframes-skills-reference.md` | Reference table for the locally-installed HyperFrames skill pack (`.claude/skills/`) — separate tool from `avatar-pipeline/`, for authoring HTML video compositions directly. |
 
 ## Tool Routing (Don't Mix These Up)
 

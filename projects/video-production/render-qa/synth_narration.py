@@ -83,8 +83,9 @@ GUARD_TAIL = 0.08        # keep this much decay after the last voiced window
 EDGE_FADE = 0.005        # fade at trimmed edges — never step to digital zero
 
 # Repo-root-relative: render-qa/ -> video-production/ -> projects/ -> repo root.
+# Skills live in .claude/skills/ (materialized from .agents/ 2026-07-28, P4).
 HEYGEN_TTS = Path(__file__).resolve().parents[3] / \
-    ".agents/skills/hyperframes-media/scripts/heygen-tts.mjs"
+    ".claude/skills/hyperframes-media/scripts/heygen-tts.mjs"
 WORDS_FILENAME = "narration.words.json"  # must match compile_timeline.py /
                                           # preflight.py HEYGEN_WORDS_FILE
 

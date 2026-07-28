@@ -520,7 +520,7 @@ Package rules:
 
 Curated from the full HyperFrames skill pack + registry (surveyed 2026-07-09) so
 every lesson can vary its motion without re-researching. Each entry names the
-recipe to start from — read the rule/blueprint file (in `.agents/skills/`) before
+recipe to start from — read the rule/blueprint file (in `.claude/skills/`) before
 building; never reinvent one of these from scratch. Compose 2–4 per scene, max.
 
 | Need | Recipe (skill · rule/blueprint) | Notes |
