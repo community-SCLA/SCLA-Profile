@@ -29,6 +29,50 @@ hook-enforced after any render): **prepend** a new dated entry with three parts:
 
 Sibling: `BUILD-LOG.md` (dated build/overhaul/run records).
 
+## 2026-07-28 (24th firing) · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall, unchanged; no renotify
+
+Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
+non-recursively (`career-transitions`, `early-career-boost`, `entrepreneur-accelerator`,
+`mid-career-momentum`). Same two raw `.txt` files present at program roots, unchanged —
+`entrepreneur-accelerator/m2_why-build-your-own-path_2026-07-23.txt` (byte-identical duplicate of the
+M1 script per the ledger row, confirmed by direct read) and
+`mid-career-momentum/m4_visibility-actions-what-they-are-and-how-to-practice-them_2026-07-22.txt`
+(`SCRIPT PENDING — do not refine or build` marker confirmed still at file top by direct read) — both
+correctly skipped by folder-content alone. No avatar-route raws at any program root. No refine subagent
+dispatched — true no-op.
+
+Moved to Phase BUILD context. `refined/` root queue unchanged at 29 scripts (career-transitions 8,
+early-career-boost 2, entrepreneur-accelerator 4, mid-career-momentum 15, of which 2 carry live
+`TODO: needs input` lines). `renders-hyperframes/` still holds only `README.md` — fresh container, no
+partial workspace to resume. Independently re-verified the TTS/egress wall from scratch before selecting
+or dispatching any build subagent: no `infisical` on PATH; no `INFISICAL_CLIENT_ID`/
+`INFISICAL_SECRET_KEY`/`HEYGEN_API_KEY` in env; `python3 -c "import kokoro_onnx"` →
+`ModuleNotFoundError`; no `ffmpeg` on PATH; direct curl to `https://api.heygen.com` and
+`https://huggingface.co` both fail (exit 56, `http_code 000`). Identical to every prior firing's
+finding. No build subagent dispatched — dispatching one would just fail identically at
+`synth_narration.py` and burn tool-call budget for nothing. Batch cap not exercised.
+
+**No push notification this run.** Nothing changed since the already-notified (2026-07-26) blocker: same
+wall, same queue, no new raw scripts, no build progress. A 24th identical notification would be noise.
+
+**Open (owner-actionable, unchanged since first flagged 2026-07-23, notified 2026-07-26):**
+- **TTS/egress wall:** unchanged — see prior entries for full detail. 29 scripts (27 buildable, 2 blocked
+  independently by their own TODO lines) remain queued in `refined/` waiting on this. **Firing cadence:**
+  this routine has now fired 24 times across 2026-07-27→28 with zero BUILD progress possible from within
+  it. Repeating the same recommendation: the owner may want to widen this routine's interval or pause it
+  until the environment is provisioned for TTS (credentials + CLI, or kokoro + ffmpeg + egress), since
+  real builds are happening via a different session type (see the 22nd-firing entry's closed
+  duplicate-file finding).
+- **2 `TODO: needs input` scripts queued in `mid-career-momentum/refined/`** (would be spoken by TTS as
+  literal text if built as-is): `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`. Blocked behind the TTS/egress wall
+  regardless, so not yet a live risk, but flagged so it isn't missed once TTS is unblocked.
+
+**Fixed this session:** none — no code/config issue found that this agent could resolve; the blocker is
+environment provisioning (secrets + CLI + egress) outside this session's reach.
+
+**Promoted to docs:** none new this session (already documented in the prior entries' trail).
+
 ## 2026-07-28 01:57 UTC (23rd firing) · /produce-video (scheduled routine): BUILD still blocked on TTS/egress wall, unchanged; no renotify
 
 Automated run via `/produce-video`. Refine step: listed each program's root and `avatar/`
