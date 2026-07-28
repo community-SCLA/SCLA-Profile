@@ -54,8 +54,10 @@ PY
 
 rm -rf "$OUT"; mkdir -p "$OUT"
 echo "== snapshotting ${#TIMES[@]} scenes at their midpoints"
+# --describe false: snapshot otherwise probes for a Gemini key to auto-describe
+# frames. SCLA has never had one; our vision review is a subagent, not Gemini.
 ( cd "$WS" && npx --yes "$PIN" snapshot . \
-    --at "$(IFS=,; echo "${TIMES[*]}")" --no-end -o "$OUT" ) >/dev/null 2>&1 \
+    --at "$(IFS=,; echo "${TIMES[*]}")" --no-end --describe false -o "$OUT" ) >/dev/null 2>&1 \
   || { echo "PRECHECK_FAIL $STEM snapshot failed" >&2; exit 3; }
 
 # Deterministic low-ink flag: blank scenes compress far smaller than real ones.
