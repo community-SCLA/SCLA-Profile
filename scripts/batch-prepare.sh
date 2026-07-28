@@ -229,6 +229,25 @@ data-variable-values='{"label":"...","heading":"...","point1":"...","point2":"..
 `preflight.py` now FAILS on this (`check_slots.py`), so you cannot ship past
 it — but fix it at authoring time rather than discovering it at the gate.
 
+### 3. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
+
+`scla-steps` renders nodes `1..N` where N = the count of non-empty step slots,
+and activates them in sequence **within one scene**. It has no notion of "this
+scene is step 3 of 4." So if you give one steps scene a single step, it renders
+a lone node numbered "1" on an empty four-node rail — even when the scene is
+labelled STEP TWO. The pilot did this four times.
+
+Choose by how the narration delivers the set:
+
+- **All items spoken together, one passage** -> ONE `scla-steps` scene with
+  every step slot filled and one `stepCues` entry per step.
+- **Items introduced one at a time, separated by other scenes** ->
+  `scla-condition` per item (number badge + "N of M" progress dots), which is
+  exactly what frame.md prescribes: *"Split an enumerated set into one of these
+  per item, not a timed 5-row list."*
+
+Same rule for `scla-loop` (it shares the steps contract).
+
 ## Report exactly these five fields, no prose
 
 ```
