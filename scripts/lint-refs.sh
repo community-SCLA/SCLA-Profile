@@ -17,7 +17,7 @@ EXCLUDES=(--exclude-dir=_archive --exclude-dir=.git --exclude-dir=.remember --ex
 filter_archives() { grep -v "^\./docs/_archive/" | grep -v "^docs/_archive/"; }
 
 # ── 1. Backtick path references in root governance files exist on disk ──────
-echo "[1/10] Backtick path references resolve"
+echo "[1/9] Backtick path references resolve"
 # Intentional non-paths (_archive/ is named by CLAUDE.md's ban rule; no root _archive exists)
 SKIP_PATHS="_archive/ scheduled-tasks/ .claude/agents/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/ decisions-log.md"
 REF_FAIL=0
@@ -37,7 +37,7 @@ done
 [ "$REF_FAIL" -eq 0 ] && ok "all backtick paths in CLAUDE.md exist"
 
 # ── 2. Word budgets ──────────────────────────────────────────────────────────
-echo "[2/10] Root word budgets (CLAUDE<=600)"
+echo "[2/9] Root word budgets (CLAUDE<=600)"
 check_budget() {
   local file=$1 limit=$2 words
   words=$(wc -w < "$file")
@@ -46,25 +46,25 @@ check_budget() {
 check_budget CLAUDE.md 600
 
 # ── 3. No stale decisions-log paths ──────────────────────────────────────────
-echo "[3/10] No references to old decisions-log path"
+echo "[3/9] No references to old decisions-log path"
 # decisions/log.md is excluded: its migration entry legitimately records the old path.
 HITS=$(grep -rn "${EXCLUDES[@]}" -e "source-of-truth/decisions-log" -e "](\./decisions-log" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" || true)
 if [ -n "$HITS" ]; then warn "stale decisions-log references:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 4. No template placeholders ──────────────────────────────────────────────
-echo "[4/10] No unfilled template placeholders"
+echo "[4/9] No unfilled template placeholders"
 # .claude/skills excluded: the onboard/ingest wizards use placeholder strings as instructions.
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=.claude -e "\[YOUR_" -e "\[project-1\]" -e "\[DATE\]" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" || true)
 if [ -n "$HITS" ]; then warn "template placeholders found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 5. Critical files exist ──────────────────────────────────────────────────
-echo "[5/10] Critical files present"
+echo "[5/9] Critical files present"
 CRITICAL="CLAUDE.md config/endpoints.json scla.config.yml sync.sh .gitignore
 context/me.md decisions/log.md
 brand/visual-identity.md brand/voice-and-tone.md
-member-support/faqs.md hooks/skill-rules.json"
+member-support/faqs.md"
 MISSING=0
 for f in $CRITICAL; do
   if [ ! -f "$f" ]; then warn "critical file missing: $f"; MISSING=1; fi
@@ -72,7 +72,7 @@ done
 [ "$MISSING" -eq 0 ] && ok "all critical files present"
 
 # ── 6. Stale brand hex values ────────────────────────────────────────────────
-echo "[6/10] No stray legacy hex values outside flagged locations"
+echo "[6/9] No stray legacy hex values outside flagged locations"
 # Intent: catch legacy hex hardcoded in docs, not in the actual art. Allowed:
 # .svg files (the logo source art legitimately carries these colors),
 # assets/README.md (describes the SVG file contents), and projects/video-production/
@@ -83,7 +83,7 @@ HITS=$(grep -rni "${EXCLUDES[@]}" -e "#F1B32E" -e "#55A4DD" . 2>/dev/null | filt
 if [ -n "$HITS" ]; then warn "legacy hex values found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 7. No archive routing pointers ───────────────────────────────────────────
-echo "[7/10] No '_archive/source-of-truth/' routing pointers in live KB"
+echo "[7/9] No '_archive/source-of-truth/' routing pointers in live KB"
 # Rule: _archive/ is read-only provenance, never a canonical owner / routing target.
 # Flag backtick-quoted `_archive/source-of-truth/...` pointers in the routing/governance
 # files and the live KB. Allowed and NOT flagged:
@@ -99,7 +99,7 @@ HITS=$(grep -rn "${EXCLUDES[@]}" -e '`_archive/source-of-truth/' \
 if [ -n "$HITS" ]; then warn "archive routing pointers found (route to live owner instead):"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 8. No retired scla/ paths ────────────────────────────────────────────────
-echo "[8/10] No retired scla/ path references in live files"
+echo "[8/9] No retired scla/ path references in live files"
 # Knowledge folders were un-nested from scla/ to root on 2026-07-03. Allowed:
 # decisions/log.md and audits/ (historical records), _archive/ (provenance).
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=audits -e 'scla/' . 2>/dev/null |
@@ -107,19 +107,12 @@ HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=audits -e 'scla/' . 2>/dev/null |
        grep -v "scripts/lint-refs.sh" | grep -v "hooks/governance-check.sh" || true)
 if [ -n "$HITS" ]; then warn "retired scla/ paths found (un-nested layout is canonical):"$'\n'"$HITS"; else ok "none found"; fi
 
-# ── 9. Skill registry lists implemented skills only ──────────────────────────
-echo "[9/10] hooks/skill-rules.json skills all exist in .claude/skills/"
-REG_FAIL=0
-for s in $(python3 -c "import json; print(' '.join(json.load(open('hooks/skill-rules.json'))['skills'].keys()))" 2>/dev/null); do
-  if [ ! -f ".claude/skills/$s/SKILL.md" ]; then
-    warn "skill-rules.json lists unimplemented skill: $s"
-    REG_FAIL=1
-  fi
-done
-[ "$REG_FAIL" -eq 0 ] && ok "registry matches implemented skills"
+# (Former check 9 — hooks/skill-rules.json registry — retired 2026-07-28 with
+#  the hand-maintained skill list itself, R11. Skills are auto-discovered from
+#  .claude/skills/; no registry to cross-check.)
 
-# ── 10. Endpoints registry parses, matches schema, carries no secrets ────────
-echo "[10/10] config/endpoints.json valid (schema + no secret material)"
+# ── 9. Endpoints registry parses, matches schema, carries no secrets ─────────
+echo "[9/9] config/endpoints.json valid (schema + no secret material)"
 REG_OUT=$(python3 - <<'PYEOF' 2>&1
 import json, re
 d = json.load(open('config/endpoints.json'))

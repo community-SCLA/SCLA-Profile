@@ -54,7 +54,8 @@ def merge_hooks(settings: dict, node: str) -> dict:
         event_hooks.append({"matcher": matcher, "hooks": [hook_def]})
 
     # UserPromptSubmit
-    add_hook("UserPromptSubmit", ".*", hook_cmd("skill-eval.sh"))
+    # skill-eval.sh retired 2026-07-28 (R11) — skills are auto-discovered, no
+    # UserPromptSubmit evaluator to register.
 
     # PreToolUse
     add_hook("PreToolUse", ".*", hook_cmd("pre-tool.sh"))
