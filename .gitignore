@@ -13,7 +13,10 @@ build/
 .DS_Store
 *.swp
 .idea/
-.vscode/
+# .vscode/* (not .vscode/) — git cannot re-include a file inside an EXCLUDED
+# directory, so the negation below only works if the directory itself is not
+# excluded. tasks.json was force-added before this fix (S15, 2026-07-28).
+.vscode/*
 !.vscode/tasks.json
 
 # Node (if the team adds tooling later)
@@ -22,6 +25,21 @@ node_modules/
 # credentials
 .env
 !.env.example
+
+# Claude Code credential + session state (S14, 2026-07-28). This repo doubles as
+# the machine's Codespaces dotfiles repo, so a second clone of it holds a LIVE
+# login token at .claude/.credentials.json while settings pre-approve git push.
+# These rules make it impossible for any clone to commit that token or the
+# session transcripts, snapshots, and backups sitting beside it.
+.claude/.credentials.json
+.claude/projects/
+.claude/shell-snapshots/
+.claude/file-history/
+.claude/backups/
+.claude/sessions/
+.claude/statsig/
+.claude/todos/
+.claude/history.jsonl
 
 # Python cache
 __pycache__/
@@ -45,5 +63,7 @@ projects/video-production/renders-mp4/**/*.qa/
 # there doesn't catch them. Local-only; the durable output is the templates.
 projects/video-production/design-system/qa/
 
-# Root-owned S3/secrets setup artifact (0600, not readable/committable)
+# Leftover S3/secrets setup artifact (a package listing; user-owned and readable
+# — the "root-owned, 0600" claim was wrong). Owner decision 2026-07-28: delete
+# the file; rule kept so a regenerated one never gets committed.
 .s3_setup_*

@@ -33,7 +33,7 @@ Read `endpoints.md` at repo root — the single integration registry (IDs, URLs,
 
 | Criterion | Pts | How to detect |
 |---|---|---|
-| Registered integrations | 10 | Count integration sections in endpoints.md (e.g. Google Drive, Wistia, Notion, Infisical, GitHub, Claude routines) that carry ≥1 real (non-`TODO: needs input`) ID/URL. 2 pts each, cap 10. |
+| Registered integrations | 10 | Count integration sections in endpoints.md (e.g. Wistia, Notion, Infisical, GitHub, Claude routines) that carry ≥1 real (non-`TODO: needs input`) ID/URL. 2 pts each, cap 10. |
 | Reference doc per integration | 5 | For each registered integration, check for `references/{tool}-api.md`. −1 per missing. Floor 0. |
 | No pending / blocked access | 5 | Count `TODO: needs input`, `access pending`, and `not wired` notes in endpoints.md. −1 each. Floor 0. |
 | `endpoints.md` populated | 3 | 0 if missing; 1 if sparse (<3 sections); 2 if several sections; 3 if all live integrations documented |
