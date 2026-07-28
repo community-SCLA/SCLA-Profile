@@ -22,7 +22,7 @@ PRIORITY="${VIDEO_PRIORITY:-early-career-boost mid-career-momentum career-transi
 JSON=0
 [[ "${1:-}" == "--json" ]] && JSON=1
 
-PRIORITY="$PRIORITY" LESSONS="$VP/lesson-scripts" \
+PRIORITY="$PRIORITY" LESSONS="$VP/lesson-scripts" VP="$VP" \
 WS="$VP/renders-hyperframes" LEDGER="$VP/lesson-scripts/refinement-log.md" \
 PUBTSV="$VP/lesson-scripts/published.tsv" QLOG="$VP/render-qa/quarantine.log" \
 JSON="$JSON" python3 - <<'PY'
@@ -39,10 +39,23 @@ priority = os.environ["PRIORITY"].split()
 
 ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exists() else ""
 
-# Primary key: published.tsv — full stem, written and committed by
-# batch-ship.sh in the same pass that uploads. The ledger scan below is a
-# fallback for stems published before the tsv existed (rows abbreviate the
-# stem, so that matching is best-effort — the tsv is the contract).
+# Every comparison here is on BASE (title_program), never a dated stem: the
+# date is a state stamp that differs between the refined script (refine date),
+# its workspace (build date) and its MP4 (render date), so the same lesson
+# wears three different stems at once. stem.py owns the rule. (2026-07-28)
+sys.path.insert(0, str(Path(os.environ["VP"]) / "render-qa"))
+from stem import base as stem_base, StemError
+
+def base_of(name: str) -> str:
+    try:
+        return stem_base(name)
+    except StemError:
+        return name          # undated/legacy name: compare it as-is
+
+# Primary key: published.tsv — base, written and committed by batch-ship.sh in
+# the same pass that uploads. The ledger scan below is a fallback for lessons
+# published before the tsv existed (rows abbreviate the stem, so that matching
+# is best-effort — the tsv is the contract).
 published, media_ids = set(), set()
 if pubtsv.exists():
     for line in pubtsv.read_text(encoding="utf-8").splitlines():
@@ -60,7 +73,16 @@ for line in ledger_text.splitlines():
         continue
     media_ids.update(ids)
     for m in re.finditer(r'[A-Za-z0-9][\w.-]*_\d{4}-\d{2}-\d{2}', line):
-        published.add(m.group(0))
+        published.add(base_of(m.group(0)))
+
+# Workspaces are named with the BUILD date, refined scripts with the REFINE
+# date, so a workspace can never be found by joining the script's stem to the
+# path. Index them by base instead.
+ws_by_base = {}
+if ws_root.is_dir():
+    for d in ws_root.iterdir():
+        if d.is_dir() and not d.name.startswith((".", "_")):
+            ws_by_base[base_of(d.name)] = d
 
 # Latest quarantine reason per stem, to annotate stuck videos.
 quarantined = {}
@@ -100,13 +122,13 @@ for prog in ordered:
     queued, blocked, built, stranded = [], [], [], []
     for f in sorted(refined.glob("*.txt")):          # non-recursive: refined/avatar/ is the HeyGen queue
         stem = f.stem
-        if stem in published:
+        if base_of(stem) in published:
             totals["published"] += 1
             continue
         why = blocked_reason(f)
         if why:
             blocked.append((stem, why)); totals["blocked"] += 1
-        elif (ws_root / stem).is_dir():
+        elif base_of(stem) in ws_by_base:
             # workspace exists but no Wistia URL -> built, unpublished (quarantine or in flight)
             built.append(stem); totals["built_unpublished"] += 1
         else:
@@ -118,11 +140,11 @@ for prog in ordered:
     if rendered.is_dir():
         for f in sorted(rendered.glob("*.txt")):
             stem = f.stem
-            if stem in published:
+            if base_of(stem) in published:
                 continue
-            state = "workspace present" if (ws_root / stem).is_dir() else "NO workspace"
-            marker = ws_root / stem / "qa" / "VERIFIED"
-            if marker.is_file():
+            ws_dir = ws_by_base.get(base_of(stem))
+            state = "workspace present" if ws_dir else "NO workspace"
+            if ws_dir and (ws_dir / "qa" / "VERIFIED").is_file():
                 state += ", verified MP4 awaiting publish"
             if stem in quarantined:
                 state += f", quarantined: {quarantined[stem]}"

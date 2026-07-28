@@ -160,20 +160,29 @@ green, and you report five fields.
 
 ## Start from the scaffold — do NOT run `hyperframes init`
 
+The workspace is NOT named after the refined script. A stem carries exactly one
+date suffix and it always means *the most recent action on that artifact* — the
+script's date is when it was refined, the workspace's date is when it was
+**built**. `render-qa/stem.py` owns that rule; never hand-slice the suffix.
+
 ```bash
 cd projects/video-production/renders-hyperframes
-[ ! -e <stem> ] || { echo "workspace <stem> already exists — STOP, report, do not build"; exit 1; }
-cp -a _run/scaffold <stem>
-cd <stem>
+WS="$(python3 ../render-qa/stem.py restamp <script-stem>)"   # -> title_program_<today>
+[ ! -e "$WS" ] || { echo "workspace $WS already exists — STOP, report, do not build"; exit 1; }
+cp -a _run/scaffold "$WS"
+cd "$WS"
 ```
 
 If the workspace already exists, STOP and report it — `cp -a` onto an existing
 directory NESTS the scaffold inside it and every gate then reads stale files.
 
-The scaffold already has `compositions/`, `assets/`, `frame.md`, the pinned
-toolchain, the host-root progress rail and the `<audio>` host. This replaces
-reading a pattern-exemplar `index.html` — you are editing real working markup
-instead of imitating an example.
+Report the WORKSPACE stem in your five fields, not the script stem — that is the
+name the owner previews and the name `batch-ship.sh` is invoked with.
+
+The scaffold already has `compositions/`, `assets/`, `frame.md` and the pinned
+toolchain. You never touch its `index.html` — you author `scenes.json` and
+`render-qa/build_index.py` compiles the markup (boilerplate, progress rail,
+`<audio>` host, template clones included).
 
 ## What to read, in order
 
@@ -182,14 +191,9 @@ instead of imitating an example.
    normative. Mandatory sections: *the animacy rules*, *the pacing rules*,
    *illustration over text*, *type rules*, *scene templates*, *style packages*
    for your assigned theme, and *host-root progress rail*.
-3. **Your refined script.** Verbatim source for every `data-narration`.
+3. **Your refined script.** Verbatim source for every scene's narration.
 
 Do not read other builds' `index.html`, the demo reel, or other skills.
-
-## Assemble index.html FIRST
-
-One scene slot per beat, from the design-system templates. `<audio>` at the
-host root. Then:
 
 HDR
 
@@ -211,31 +215,33 @@ HDR
 Discovered by real pilot builds that passed every static check and still
 produced broken videos. None are optional.
 
-### 1. Clone shared templates — run `instance_templates.py` BEFORE compiling
+### 1. The build loop — plan first, TTS only when the plan is clean
 
 If two scenes point at the same `compositions/<name>.html`, **every scene that
 shares a template renders completely blank** — background and footer only, no
-heading, no content. On one pilot that was 18 of 21 scenes. The only scenes
-that survived were the three using a template no other scene used.
-
-So the build loop is FIVE commands, not four — the clone step comes first:
+heading, no content. On one pilot that was 18 of 21 scenes. `build_index.py`
+clones shared templates into per-scene files itself — which is one more reason
+`index.html` is never hand-authored: a hand-written file skips the cloning.
 
 ```bash
-python3 ../../render-qa/instance_templates.py .          # clone shared templates -> per-scene files
+python3 ../../render-qa/build_index.py .                 # scenes.json -> index.html (+ per-scene template clones)
+python3 ../../render-qa/preflight.py . --static          # plan gates: variety, copy, slots, text, stem — seconds per loop
+# iterate on scenes.json until --static exits 0, ONLY THEN spend TTS:
 ../../../../scripts/with-secrets.sh python3 ../../render-qa/synth_narration.py .
 python3 ../../render-qa/compile_timeline.py . --apply
 python3 ../../render-qa/preflight.py .
 npm run check
 ```
 
-Re-run `instance_templates.py` any time you add or repoint a scene.
+Re-run `build_index.py` after ANY `scenes.json` edit — the compiled
+`index.html` and its clones are artifacts, never edited directly.
 
 ### 2. Every slot is authored copy or an explicit "" — nothing in between
 
 Each template declares its variables in a JSON schema block at the top of
 `compositions/<name>.html`. Slot defaults are `[[slot-name]]` placeholders: a
-slot you leave out of `data-variable-values` renders its placeholder ON
-SCREEN, and `preflight.py` (`check_slots.py`) fails the build for it — as it
+slot you leave out of a scene's variables in `scenes.json` renders its
+placeholder ON SCREEN, and `preflight.py` (`check_slots.py`) fails the build for it — as it
 also fails any slot whose value still IS placeholder text (`[[...]]`, `...`,
 `TODO`).
 
@@ -305,7 +311,7 @@ Same rule for `scla-loop` (it shares the steps contract).
 workspace: <path>
 scenes:    <n>
 theme:     <summit|horizon|cadence>
-gates:     synth=<exit> compile=<exit> preflight=<exit> check=<exit>
+gates:     static=<exit> synth=<exit> compile=<exit> preflight=<exit> check=<exit>
 status:    <one line>
 ```
 

@@ -45,6 +45,19 @@ esac
 WS="$VP/renders-hyperframes/$STEM"
 [[ -d "$WS" ]] || { echo "FATAL: no workspace at $WS" >&2; exit 2; }
 
+# Stem naming has exactly one owner: render-qa/stem.py. A stem is
+# `<title>_<program>_<YYYY-MM-DD>` where the date is the most recent pipeline
+# action — so it CHANGES as the artifact moves, and is therefore not an
+# identity key. BASE is. (2026-07-28: the owner reviewed a video whose name
+# still carried its 2026-07-06 refine date after a 2026-07-28 render, plus the
+# renderer's own `_<date>_<clock>` suffix stacked on top of it.)
+STEM_PY="$VP/render-qa/stem.py"
+stem_base()    { python3 "$STEM_PY" base "$1"; }
+stem_restamp() { python3 "$STEM_PY" restamp "$1" --date "$2"; }
+stem_norm()    { python3 "$STEM_PY" normalize "$1" --date "$2"; }
+
+BASE="$(stem_base "$STEM")" || { echo "FATAL: malformed stem '$STEM'" >&2; exit 2; }
+
 quarantine() {
   local reason="$1"
   mkdir -p "$(dirname "$QLOG")"
@@ -81,6 +94,22 @@ if [[ "$MODE" == "render" ]]; then
 
   echo "== render: $STEM  (~7 min; hard cap 25)"
   ( cd "$WS" && timeout -k 30 1500 npm run render ) || quarantine "npm run render failed or timed out"
+
+  # The HyperFrames CLI names its output `<workspace-dir>_<date>_<clock>.mp4`,
+  # so the renderer's own output violates the one-date rule by construction.
+  # Normalise it here, BEFORE verify_render.py records the path and sha in
+  # qa/VERIFIED — otherwise the marker pins the malformed name and publish
+  # would upload it. The date used is the render date, which is what the name
+  # is supposed to mean.
+  RENDER_DATE="$(date +%F)"
+  shopt -s nullglob
+  for raw in "$WS/renders/"*.mp4; do
+    want="$(stem_norm "$(basename "$raw")" "$RENDER_DATE").mp4"
+    [[ "$(basename "$raw")" == "$want" ]] && continue
+    mv -f "$raw" "$WS/renders/$want" || quarantine "could not normalise render filename"
+    echo "   render name normalised -> $want"
+  done
+  shopt -u nullglob
 
   echo "== verify_render"
   python3 "$VP/render-qa/verify_render.py" "$WS" || quarantine "verify_render.py non-zero"
@@ -122,11 +151,14 @@ if ! mkdir "$LOCK" 2>/dev/null; then
 fi
 trap 'rmdir "$LOCK" 2>/dev/null' EXIT
 
-# Idempotency: a stem with a published.tsv row is done — never re-upload.
+# Idempotency: a lesson with a published.tsv row is done — never re-upload.
+# Keyed on BASE, not the full stem: the date is a state stamp that moves with
+# every action, so a full-stem key would miss the row the moment a rebuild
+# restamped it and would happily publish the same lesson twice.
 if [[ -f "$PUBTSV" ]]; then
-  PREV_URL="$(awk -F'\t' -v s="$STEM" '$1==s{print $4; exit}' "$PUBTSV")"
+  PREV_URL="$(awk -F'\t' -v b="$BASE" '$1==b{print $4; exit}' "$PUBTSV")"
   if [[ -n "$PREV_URL" ]]; then
-    echo "ALREADY PUBLISHED: $STEM  ($PREV_URL)"
+    echo "ALREADY PUBLISHED: $BASE  ($PREV_URL)"
     exit 0
   fi
 fi
@@ -140,10 +172,12 @@ WANT_SHA="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["sha
 GOT_SHA="$(sha256sum "$MP4_SRC" | cut -d' ' -f1)"
 [[ "$GOT_SHA" == "$WANT_SHA" ]] || quarantine "MP4 changed since verify (sha mismatch) — re-run render phase"
 
-# Filed name = script stem with the date swapped to the render date.
+# Filed name = the stem restamped to the render date (one date, most recent
+# action). stem.py owns the rule; this must never hand-slice the suffix.
 RENDER_DATE="$(date +%F)"
-BASE="${STEM%_*}"
-FILED="${BASE}_${RENDER_DATE}.mp4"
+SHIP_STEM="$(stem_restamp "$STEM" "$RENDER_DATE")" \
+  || quarantine "could not restamp stem '$STEM'"
+FILED="${SHIP_STEM}.mp4"
 DEST_DIR="$VP/renders-mp4/$PROGRAM/hyperframes"
 mkdir -p "$DEST_DIR"
 [[ ! -f "$DEST_DIR/$FILED" ]] || quarantine "filed MP4 already exists: $FILED (same-day re-publish?)"
@@ -161,15 +195,17 @@ WURL="$(grep -o 'https://[a-z0-9.-]*wistia\.com/medias/[A-Za-z0-9]*' <<<"$UPLOAD
 # quarantine record, keep the filed MP4, and skip the prune.
 publish_quarantine() { quarantine "$1 — video IS live at $WURL (record by hand)"; }
 
-# Machine ledger first: full stem, tab-separated, greppable. This is the
-# resume key batch-status.sh reads.
+# Machine ledger first: tab-separated, greppable. This is the resume key
+# batch-status.sh reads. Column 1 is the BASE (title_program), not a dated
+# stem — the date is a mutable state stamp and lives in its own column, so a
+# dated key would silently stop matching after any restamp.
 {
-  [[ -f "$PUBTSV" ]] || printf '# stem\tprogram\trender_date\twistia_url\n'
-  printf '%s\t%s\t%s\t%s\n' "$STEM" "$PROGRAM" "$RENDER_DATE" "$WURL"
+  [[ -f "$PUBTSV" ]] || printf '# base\tprogram\trender_date\twistia_url\n'
+  printf '%s\t%s\t%s\t%s\n' "$BASE" "$PROGRAM" "$RENDER_DATE" "$WURL"
 } >> "$PUBTSV" || publish_quarantine "could not write published.tsv"
 
 # Human ledger row.
-STEM="$STEM" PROGRAM="$PROGRAM" WURL="$WURL" FILED="$FILED" RENDER_DATE="$RENDER_DATE" \
+STEM="$SHIP_STEM" BASE="$BASE" PROGRAM="$PROGRAM" WURL="$WURL" FILED="$FILED" RENDER_DATE="$RENDER_DATE" \
 LEDGER="$VP/lesson-scripts/refinement-log.md" python3 - <<'PY' || publish_quarantine "ledger update failed"
 import os, re
 from pathlib import Path
@@ -179,7 +215,11 @@ prog = os.environ["PROGRAM"]; url = os.environ["WURL"]
 filed = os.environ["FILED"]; rdate = os.environ["RENDER_DATE"]
 text = led.read_text(encoding="utf-8"); lines = text.splitlines()
 
-parts = stem.split("_"); date = parts[-1]; rest = parts[:-1]
+# Match on the title prefix ALONE. The row was written when the script was
+# refined and still carries the refine date, while `stem` now carries the
+# render date — so matching on date too (as this did until 2026-07-28) would
+# never hit after a restamp and would append a duplicate row every publish.
+rest = os.environ["BASE"].split("_")
 if rest and rest[-1] == prog:
     rest = rest[:-1]
 prefix = "_".join(rest)
@@ -187,13 +227,13 @@ prefix = "_".join(rest)
 rendered_cell = f"{rdate} → `../renders-mp4/{prog}/hyperframes/{filed}` · Wistia {url}"
 note = f"published {rdate} (AUTO-BATCH); local MP4 deleted after upload, workspace pruned in place and still editable"
 
-# Rows abbreviate the stem (`title_..._DATE.txt`), so match on prefix + date.
+# Rows abbreviate the stem (`title_..._DATE.txt`), so match on prefix.
 hit = None
 for i, ln in enumerate(lines):
     if not ln.startswith("|") or "`" not in ln:
         continue
     cell = ln.split("|")[1] if len(ln.split("|")) > 1 else ""
-    if prefix and prefix in cell and date in cell:
+    if prefix and prefix in cell:
         hit = i
         break
 
@@ -228,9 +268,11 @@ led.write_text("\n".join(lines) + "\n", encoding="utf-8")
 print(f"   ledger row updated ({'in place' if hit is not None else 'appended'})")
 PY
 
-# The script leaves the queue only now, when the video is actually live.
+# The script leaves the queue only now, when the video is actually live. It is
+# restamped on the way: rendered/ means "a render exists", so the date it
+# carries there is the render date, not the refine date it arrived with.
 SRC_SCRIPT="$VP/lesson-scripts/$PROGRAM/refined/$STEM.txt"
-DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$STEM.txt"
+DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$SHIP_STEM.txt"
 if [[ -f "$SRC_SCRIPT" ]]; then
   mkdir -p "$(dirname "$DST_SCRIPT")"
   git -C "$REPO" mv "$SRC_SCRIPT" "$DST_SCRIPT" 2>/dev/null || mv "$SRC_SCRIPT" "$DST_SCRIPT"

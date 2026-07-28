@@ -10,9 +10,27 @@ authoring model writes content and cue phrases, not markup, and edits stay
 surgical.
 
 It also makes the 2026-07-27 template-collision defect unrepresentable: every
-slot gets its OWN template file (`scla-points__scene-07-support.html`), since
-HyperFrames keys a sub-composition's timeline and element ids to the file, not
-the slot (see instance_templates.py).
+slot gets its OWN template file (`scla-points__i2.html`, same suffix scheme as
+instance_templates.py), since HyperFrames keys a sub-composition's timeline and
+element ids to the file, not the slot (see instance_templates.py).
+
+HEAD/TAIL mirror the approved canon (pilot
+better-decisions-come-from-better-criteria_early-career-boost_2026-07-28,
+Motion v2 + follow-on fixes, 2026-07-28): black host background, Inter body /
+JetBrains Mono code fonts, the 48px-bottom progress rail as two SIBLING
+host-root divs, and the `narration-audio` tag. Compiled output is byte-identical
+to the canon head/tail modulo the generated-file banner and `data-hf-id` values.
+
+`data-hf-id`: the HyperFrames CLI (0.7.45, dist/cli.js `ensureHfIds`/
+`stampFileHfIds`/`persistHfIdsIfNeeded`) stamps every body element missing one
+and WRITES THE RE-SERIALIZED FILE BACK TO DISK — so if this compiler omitted
+them, the first `lint`/`validate`/render would rewrite the generated index.html
+(quote style, self-closing tags, injected ids — see preflight.py's
+_style_script_digest note). We stamp them ourselves with an exact port of the
+CLI's algorithm (FNV-1a over the element's content key, `hf-` + last 4 base36
+chars), so ids are deterministic across rebuilds and the tool finds nothing to
+add. Once present, the tool never re-mints an id, so timing rewrites by
+compile_timeline.py don't churn them.
 
     python3 build_index.py <workspace> --extract   # index.html -> scenes.json
     python3 build_index.py <workspace>             # scenes.json -> index.html
@@ -49,9 +67,11 @@ from pathlib import Path
 
 from instance_templates import clone
 
+# HEAD/TAIL are the canon boilerplate (see module docstring). @TOKENS@ are
+# substituted by build() — .replace, not .format, so the CSS braces stay flat.
 HEAD = """<!DOCTYPE html>
 <!--
-{header}
+@HEADER@
   Generated from scenes.json by render-qa/build_index.py — edit the manifest,
   not this file. All timing numbers are compiler-owned (compile_timeline.py).
 -->
@@ -61,71 +81,41 @@ HEAD = """<!DOCTYPE html>
     <meta name="viewport" content="width=1920, height=1080">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-      html, body {{
-        margin: 0;
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: #0d2437;
-      }}
-      /* Host-root progress rail (frame.md -> "Host-root progress rail").
-         Lives at host root, spans whole runtime, driven by the root "main" timeline.
-         Not a scene clip — gates ignore it. Track = #cccedf tint; fill = gold. */
-      #hf-rail-track {{
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 4px;
-        background: rgba(204, 206, 223, 0.35);
-        z-index: 9999;
-        pointer-events: none;
-      }}
-      #hf-rail-fill {{
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        background: #eaab2d;
-        transform-origin: left center;
-        transform: scaleX(0);
-      }}
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+      body { font-family: "Inter", sans-serif; }
+      code, pre, .monospace { font-family: "JetBrains Mono", monospace; }
+
+      /* Host-root progress rail — spans the whole runtime, not scene motion.
+         Not a scene clip, so the deterministic gates ignore it. */
+      #hf-rail-track { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #cccedf; opacity: .28; }
+      #hf-rail-fill  { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #eaab2d;
+                       transform-origin: left center; transform: scaleX(0); }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="{total}" data-width="1920" data-height="1080">
+    <!-- data-duration is COMPILER-OWNED. Leave the placeholder; never type a real number. -->
+    <div data-hf-id="@ROOT_HF@" id="root" data-composition-id="main" data-start="0" data-duration="@TOTAL@" data-width="1920" data-height="1080">
+
 """
 
-TAIL = """
-      <!-- Host-root progress rail — not a scene clip, so scene coverage ignores it.
-           After all scene clips, before the audio tag. -->
-      <div id="hf-rail-track">
-        <div id="hf-rail-fill"></div>
-      </div>
+TAIL = """      <div data-hf-id="@TRACK_HF@" id="hf-rail-track"></div>
+      <div data-hf-id="@FILL_HF@" id="hf-rail-fill"></div>
 
-      <audio id="main-audio" src="assets/voice/narration.wav" preload="auto" data-start="0"></audio>
+      <!-- id + data-start are REQUIRED. Without them lint warns "audio will be
+           SILENT in renders" — and the render really is silent. -->
+      <audio data-hf-id="@AUDIO_HF@" id="narration-audio" src="assets/voice/narration.wav" data-audio-track="" data-start="0"></audio>
     </div>
 
     <script>
-      (function () {
-        // Host-root "main" timeline — drives the progress rail across the whole runtime.
-        // Reads the compiler-owned #root data-duration at load time (never hand-typed).
-        window.__timelines = window.__timelines || {};
-        var root = document.getElementById("root");
-        var total = parseFloat(root.getAttribute("data-duration") || "0");
-        var tl = gsap.timeline({ paused: true });
-        if (total > 0) {
-          tl.fromTo(
-            "#hf-rail-fill",
-            { scaleX: 0 },
-            { scaleX: 1, duration: total, ease: "none" },
-            0
-          );
-        }
-        window.__timelines["main"] = tl;
-      })();
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Rail span is read from the compiler-owned data-duration — never hand-typed.
+      const total = parseFloat(document.getElementById("root").dataset.duration) || 0;
+      tl.fromTo("#hf-rail-fill", { scaleX: 0 }, { scaleX: 1, duration: total, ease: "none" }, 0);
+
+      window.__timelines["main"] = tl;
     </script>
   </body>
 </html>
@@ -135,8 +125,55 @@ PLACEHOLDER = "0"
 
 
 def esc_attr(s):
-    """Escape for a double-quoted HTML attribute."""
-    return s.replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;")
+    """Escape for a double-quoted HTML attribute. `>` is escaped too: a raw
+    `>` inside an attribute value would truncate every [^>]-based tag regex
+    in this pipeline (SCENE_TAG_RE, CLIP_RE, instance_templates.CLIP_RE)."""
+    return (s.replace("&", "&amp;").replace('"', "&quot;")
+             .replace("<", "&lt;").replace(">", "&gt;"))
+
+
+# ── data-hf-id minting — exact port of hyperframes 0.7.45 dist/cli.js ──────
+# (fnv1a / toHfId / contentKey / mintHfId). Port verified against the canon
+# pilot: the rail divs' ids reproduce byte-for-byte (hf-sw2m / hf-1r7q).
+
+def _fnv1a(s: str) -> int:
+    """FNV-1a over UTF-16 code units (JS charCodeAt semantics)."""
+    h = 2166136261
+    for lo_hi in zip(*[iter(s.encode("utf-16-le"))] * 2):
+        h ^= lo_hi[0] | (lo_hi[1] << 8)
+        h = (h * 16777619) & 0xFFFFFFFF
+    return h
+
+
+def _to_hf_id(h: int) -> str:
+    digits = "0123456789abcdefghijklmnopqrstuvwxyz"
+    s = ""
+    while h:
+        s = digits[h % 36] + s
+        h //= 36
+    s = s or "0"
+    return "hf-" + (s[-4:] if len(s) >= 4 else s.rjust(4, "0"))
+
+
+def mint_hf_id(tag: str, attrs, assigned: set, text: str = "") -> str:
+    """attrs = [(name, DECODED value)] excluding data-hf-* — the CLI reads DOM
+    attribute values, so pass raw strings, not their HTML-escaped forms."""
+    key = f"{tag}|" + "".join(sorted(f"{n}\0{v}" for n, v in attrs)) + f"|{text}"
+    hf = _to_hf_id(_fnv1a(key))
+    dup = 0
+    while hf in assigned:
+        dup += 1
+        if dup > 10000:
+            digits = "0123456789abcdefghijklmnopqrstuvwxyz"
+            n, s = _fnv1a(key), ""
+            while n:
+                s = digits[n % 36] + s
+                n //= 36
+            hf = f"hf-{s or '0'}-{dup}"
+            break
+        hf = _to_hf_id(_fnv1a(f"{key}#{dup}"))
+    assigned.add(hf)
+    return hf
 
 
 def cue_placeholder(value):
@@ -144,6 +181,11 @@ def cue_placeholder(value):
     if isinstance(value, list):
         return ",".join([PLACEHOLDER] * len(value))
     return PLACEHOLDER
+
+
+def _compact(obj) -> str:
+    """Attribute JSON: compact separators, real unicode — the canon form."""
+    return json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
 
 
 def build(ws: Path):
@@ -157,17 +199,29 @@ def build(ws: Path):
         f"{len(scenes)} scenes | theme {theme}"
         + (f" | program {manifest['program']}" if manifest.get("program") else ""),
     ]
-    parts = [HEAD.format(header="\n".join("  " + h for h in header_lines), total="1")]
+
+    # hf-ids are minted in document order (the CLI's walkElements order):
+    # root first, then each scene div, then rail track/fill, then the audio.
+    assigned = set()
+    root_attrs = [("id", "root"), ("data-composition-id", "main"),
+                  ("data-start", "0"), ("data-duration", "1"),
+                  ("data-width", "1920"), ("data-height", "1080")]
+    root_hf = mint_hf_id("div", root_attrs, assigned)
+
+    parts = [HEAD.replace("@HEADER@", "\n".join("  " + h for h in header_lines))
+                 .replace("@ROOT_HF@", root_hf)
+                 .replace("@TOTAL@", "1")]
 
     used = {}
     for sc in scenes:
         sid, template = sc["id"], sc["template"]
         src = f"{template}.html"
         # One template FILE per slot — the collision fix, by construction.
+        # Suffix scheme matches instance_templates.py (__i2, __i3, …).
         n = used.get(template, 0) + 1
         used[template] = n
         if n > 1:
-            suffix = "__" + sid.replace("-", "_")
+            suffix = f"__i{n}"
             text, _ = clone(comps / src, suffix)
             src = f"{template}{suffix}.html"
             (comps / src).write_text(text)
@@ -179,25 +233,37 @@ def build(ws: Path):
         variables["theme"] = theme
         variables["sceneDuration"] = PLACEHOLDER
 
+        # (name, DECODED value) in canon attribute order; data-hf-id is minted
+        # from these and then serialized first, exactly as the CLI would.
         attrs = [
-            f'id="{sid}"',
-            'class="clip"',
-            f'data-composition-id="{sid}"',
-            f'data-composition-src="compositions/{src}"',
-            'data-start="0"',
-            'data-duration="1"',
-            'data-track-index="0"',
-            f'data-narration="{esc_attr(sc["narration"])}"',
+            ("class", "clip"),
+            ("id", sid),
+            ("data-composition-id", sid),
+            ("data-composition-src", f"compositions/{src}"),
+            ("data-start", "0"),
+            ("data-duration", "1"),
+            ("data-track-index", "1"),
+            ("data-narration", sc["narration"]),
+            ("data-variable-values", _compact(variables)),
         ]
         if cues:
-            attrs.append("data-cue-anchors=\"" + esc_attr(json.dumps(cues)) + '"')
-        attrs.append("data-variable-values='" + json.dumps(variables) + "'")
+            attrs.append(("data-cue-anchors", _compact(cues)))
+        hf = mint_hf_id("div", attrs, assigned)
 
         if sc.get("note"):
             parts.append(f"      <!-- {sc['note']} -->\n")
-        parts.append("      <div " + " ".join(attrs) + "></div>\n\n")
+        serialized = " ".join(f'{k}="{esc_attr(v)}"' for k, v in attrs)
+        parts.append(f'      <div data-hf-id="{hf}" {serialized}></div>\n\n')
 
-    parts.append(TAIL)
+    track_hf = mint_hf_id("div", [("id", "hf-rail-track")], assigned)
+    fill_hf = mint_hf_id("div", [("id", "hf-rail-fill")], assigned)
+    audio_hf = mint_hf_id("audio", [("id", "narration-audio"),
+                                    ("src", "assets/voice/narration.wav"),
+                                    ("data-audio-track", ""),
+                                    ("data-start", "0")], assigned)
+    parts.append(TAIL.replace("@TRACK_HF@", track_hf)
+                     .replace("@FILL_HF@", fill_hf)
+                     .replace("@AUDIO_HF@", audio_hf))
     (ws / "index.html").write_text("".join(parts))
     print(f"[build_index] wrote index.html — {len(scenes)} scenes, theme {theme}, "
           f"{sum(1 for t, n in used.items() for _ in range(n - 1))} per-slot template clone(s)")
