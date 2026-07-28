@@ -58,7 +58,7 @@ Numbered flows:
 **Key files / endpoints to create**
 - `integrations/gmail-apps-script/Code.gs` — main handler
 - `integrations/gmail-apps-script/prompts/system.md` — grounded prompt (uses faqs.json + voice from `brand/voice-and-tone.md`)
-- Populate `endpoints.md`: Gmail label IDs, Apps Script project ID, Gemini API key in Script Properties (NOT in repo, per CLAUDE.md credential rule)
+- Populate `config/endpoints.json`: Gmail label IDs, Apps Script project ID, Gemini API key in Script Properties (NOT in repo, per CLAUDE.md credential rule)
 
 ---
 
@@ -132,8 +132,8 @@ This honors the **"Never fabricate SCLA facts"** rule from `CLAUDE.md`: nothing 
 - `member-support/pending-answers.md` — overflow file for unanswered questions
 
 **Modified:**
-- `endpoints.md` — fill in Gmail label IDs, Slack channel/app IDs, Drive folder ID, Cloud Function URL, Sheet ID (all TODO today)
-- `endpoints.md` — record Gmail/Slack/Drive connection status as "MCP + Apps Script"; add Gemini + Cloud Function entries (endpoints.md is the single integration registry; connections.md retired 2026-07-14)
+- `config/endpoints.json` — fill in Gmail label IDs, Slack channel/app IDs, Drive folder ID, Cloud Function URL, Sheet ID (all TODO today)
+- `config/endpoints.json` — record Gmail/Slack/Drive connection status as "MCP + Apps Script"; add Gemini + Cloud Function entries (config/endpoints.json is the single integration registry; connections.md retired 2026-07-14)
 - `operations/automation-opportunities.md` — mark items #3 (email triage) and #4 (Slack agent) as in-progress with links to the new dirs
 
 **Outside this repo (referenced, not built here):**

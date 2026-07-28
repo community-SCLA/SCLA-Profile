@@ -25,7 +25,7 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
 | Refactor — execute, plan, status, structural change | `repo-audit-brief-2026-07-28.md` — **start at §0.0 (cold-start protocol + live ledger), then §0.7. Do not read §1–§9.** |
-| Integrations, endpoint IDs | `endpoints.md` |
+| Integrations, endpoint IDs | `config/endpoints.json` |
 
 ## Hard Rules
 

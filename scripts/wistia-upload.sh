@@ -11,10 +11,9 @@
 #            renders-mp4/early-career-boost/hyperframes/foo_2026-07-22.mp4 \
 #            early-career-boost
 #
-# Project IDs (endpoints.md -> "Wistia"): only Early Career Boost has one
-# filed today. Unmapped programs upload to the Wistia account's default
-# project — add a case below once a program's project id is confirmed and
-# recorded in endpoints.md.
+# Project IDs come from config/endpoints.json -> "wistia" (entries with a
+# program_slug). Programs without an entry upload to the Wistia account's
+# default project — register a program's project id there once confirmed.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -34,11 +33,14 @@ if [[ -z "$TITLE" ]]; then
   TITLE="$(basename "$MP4" .mp4)"
 fi
 
-PROJECT_ID=""
-case "$PROGRAM_SLUG" in
-  early-career-boost) PROJECT_ID="10733647" ;;
-  *) echo "No Wistia project id mapped for '$PROGRAM_SLUG' — uploading to account default project. Add its id to endpoints.md and this script once known." >&2 ;;
-esac
+PROJECT_ID="$(python3 -c "
+import json, sys
+d = json.load(open('$REPO_ROOT/config/endpoints.json'))
+print(next((e['id'] for e in d['wistia'] if e.get('program_slug') == '$PROGRAM_SLUG'), ''))
+")"
+if [[ -z "$PROJECT_ID" ]]; then
+  echo "No Wistia project id registered for '$PROGRAM_SLUG' in config/endpoints.json — uploading to account default project." >&2
+fi
 
 CURL_ARGS=(-sS -F "name=$TITLE" -F "file=@$MP4")
 [[ -n "$PROJECT_ID" ]] && CURL_ARGS+=(-F "project_id=$PROJECT_ID")

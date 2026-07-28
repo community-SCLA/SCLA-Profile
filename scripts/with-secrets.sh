@@ -10,14 +10,21 @@
 #
 # Auth: machine identity (universal-auth) via Codespaces repo secrets
 #   INFISICAL_CLIENT_ID + INFISICAL_SECRET_KEY.
-# Project/env IDs are registered in endpoints.md → "Infisical"; overridable via
+# Project/env IDs come from config/endpoints.json (the registry); overridable via
 #   INFISICAL_PROJECT_ID / INFISICAL_ENV.
 set -euo pipefail
 
 : "${INFISICAL_CLIENT_ID:?INFISICAL_CLIENT_ID not set (add it as a Codespaces repo secret)}"
 : "${INFISICAL_SECRET_KEY:?INFISICAL_SECRET_KEY not set (add it as a Codespaces repo secret)}"
 
-INFISICAL_PROJECT_ID="${INFISICAL_PROJECT_ID:-eea9b546-3f30-45d8-a9b9-a6ede93e3a71}"  # scla-projects-n-joy (endpoints.md)
+_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -z "${INFISICAL_PROJECT_ID:-}" ]; then
+  INFISICAL_PROJECT_ID="$(python3 -c "
+import json
+d = json.load(open('${_SCRIPT_DIR}/../config/endpoints.json'))
+print(next(e['id'] for e in d['infisical'] if e['type'] == 'project'))
+")"
+fi
 INFISICAL_ENV="${INFISICAL_ENV:-dev}"
 
 if [ "$#" -eq 0 ]; then

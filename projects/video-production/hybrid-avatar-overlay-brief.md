@@ -82,7 +82,7 @@ sibling subfolder (e.g. `hybrid/`) to distinguish it. Confirm at kickoff.
 - **Presence:** the avatar must be visible throughout on these (they're avatar
   videos) — `qa-presence` will fail an overlay that fully occludes Ann.
 - **Cost:** ~1 HeyGen credit per ~10s of avatar render (quota 15000, per
-  `endpoints.md`); the HyperFrames overlays add no per-minute credit.
+  `config/endpoints.json`); the HyperFrames overlays add no per-minute credit.
 
 ## Acceptance
 

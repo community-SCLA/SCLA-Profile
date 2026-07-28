@@ -29,14 +29,14 @@ Run `date +%Y-%m-%d` to get today's date for the report header.
 
 ### Reach (25 pts) — "What can Claude actually access live?"
 
-Read `endpoints.md` at repo root — the single integration registry (IDs, URLs, and each integration's inline connection status). If missing, score Reach as 0 and flag with 4× leverage multiplier.
+Read `config/endpoints.json` at repo root — the single integration registry (IDs, URLs, and each integration's inline connection status). If missing, score Reach as 0 and flag with 4× leverage multiplier.
 
 | Criterion | Pts | How to detect |
 |---|---|---|
-| Registered integrations | 10 | Count integration sections in endpoints.md (e.g. Wistia, Notion, Infisical, GitHub, Claude routines) that carry ≥1 real (non-`TODO: needs input`) ID/URL. 2 pts each, cap 10. |
+| Registered integrations | 10 | Count integration sections in config/endpoints.json (e.g. Wistia, Notion, Infisical, GitHub, Claude routines) that carry ≥1 real (non-`TODO: needs input`) ID/URL. 2 pts each, cap 10. |
 | Reference doc per integration | 5 | For each registered integration, check for `references/{tool}-api.md`. −1 per missing. Floor 0. |
-| No pending / blocked access | 5 | Count `TODO: needs input`, `access pending`, and `not wired` notes in endpoints.md. −1 each. Floor 0. |
-| `endpoints.md` populated | 3 | 0 if missing; 1 if sparse (<3 sections); 2 if several sections; 3 if all live integrations documented |
+| No pending / blocked access | 5 | Count `TODO: needs input`, `access pending`, and `not wired` notes in config/endpoints.json. −1 each. Floor 0. |
+| `config/endpoints.json` populated | 3 | 0 if missing; 1 if sparse (<3 sections); 2 if several sections; 3 if all live integrations documented |
 | At least one live / writable connection | 2 | Any integration reachable via `mcp` or a wired API (MCP tools are writable — send, post, create). If everything is `not connected` / pending, score 0. |
 
 ### Skills (25 pts) — "Are there reusable workflows installed?"
@@ -66,7 +66,7 @@ Read these paths (targeted reads only — do not load `docs/_archive/`):
 - `context/` — list files
 - `brand/` — list files, look for voice or tone file
 - `decisions/log.md` — first 20 lines to confirm entries exist
-- `endpoints.md` — full read (the integration registry)
+- `config/endpoints.json` — full read (the integration registry)
 - `.claude/skills/` — list subdirectories and read each SKILL.md frontmatter only
 - `.claude/agents/` — list files (if directory exists)
 - `templates/` — list files
@@ -82,9 +82,9 @@ For each criterion that scored below its maximum:
 
 | Condition | Multiplier |
 |---|---|
-| `endpoints.md` missing entirely | 4× |
+| `config/endpoints.json` missing entirely | 4× |
 | CLAUDE.md missing or thin (<200 words) | 3× |
-| ≤2 integrations registered (only applies when endpoints.md exists) | 3× |
+| ≤2 integrations registered (only applies when config/endpoints.json exists) | 3× |
 | 0 skills installed | 2× |
 | No decisions log entry within 30 days | 2× |
 | All connections read-only | 2× |
@@ -92,7 +92,7 @@ For each criterion that scored below its maximum:
 | All others | 1× |
 
 Sort by leverage descending. Take top 3. Write one concrete next-step for each:
-- Missing `endpoints.md` → "Create `endpoints.md` at repo root — one section per integration with its IDs/URLs and inline connection status."
+- Missing `config/endpoints.json` → "Create `config/endpoints.json` at repo root — one section per integration with its IDs/URLs and inline connection status."
 - CLAUDE.md thin (<200 words) → "Expand CLAUDE.md to document org identity, project structure, key rules, and context file locations (target >200 words)."
 - context/ files missing → "Create `context/me.md` and `context/goals.md` (goals + current priorities) with org identity and current focus."
 - Brand/voice undocumented → "Create `brand/voice-and-tone.md` capturing the org's writing register and communication style."
@@ -100,7 +100,7 @@ Sort by leverage descending. Take top 3. Write one concrete next-step for each:
 - No custom skill → "Create `.claude/skills/{name}/SKILL.md` with YAML frontmatter (name + description) and execution steps."
 - No agent → "Create `.claude/agents/{name}.md` for a repeatable multi-step task."
 - Stale decisions log → "Append a dated entry to `decisions/log.md`."
-- No writable connection → "Confirm at least one integration in `endpoints.md` is reachable via MCP — MCP connections are writable by default."
+- No writable connection → "Confirm at least one integration in `config/endpoints.json` is reachable via MCP — MCP connections are writable by default."
 - Templates folder empty → "Add at least one template to `templates/` (e.g. copy `templates/project-grant.md` pattern for a new content type)."
 
 ### Step 4: Print report
@@ -144,7 +144,7 @@ After printing, ask: "Save this audit to `audits/audit-{date}.md`?" If yes, writ
 
 ## Implementation rules
 
-1. **Read-only by default.** Never modify CLAUDE.md, skills, agents, endpoints.md, or any project files. Only writable side effect is the optional audit save.
+1. **Read-only by default.** Never modify CLAUDE.md, skills, agents, config/endpoints.json, or any project files. Only writable side effect is the optional audit save.
 2. **Flexible path detection.** Don't penalize non-canonical names if equivalent intent is present. `voice-decisions.md` in `brand/` counts as brand/voice documentation.
 3. **Be honest, not generous.** A 90/100 is rare. Most setups land 40–70 on first run.
 4. **Speed over thoroughness.** Read targeted files. Don't load the full archive. Under 60 seconds.

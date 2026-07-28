@@ -262,7 +262,7 @@ location.
 **Then publish, in the same pass — no pause for approval:**
 
 1. `bash scripts/wistia-upload.sh <mp4-path> <program-slug>` — headless upload
-   (account, project IDs, and token status live in root `endpoints.md` →
+   (account, project IDs, and token status live in root `config/endpoints.json` →
    "Wistia"; title = the filed stem; the `.mp4` is never committed to the repo).
 2. Record the returned Wistia URL in the ledger row (`refinement-log.md`).
    (Where the URL additionally lands in Notion is an open decision, 2026-07-13

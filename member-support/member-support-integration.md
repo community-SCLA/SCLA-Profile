@@ -141,7 +141,7 @@ Ships in draft-only mode first, advancing to auto-send route by route.
 | `integrations/gmail-apps-script/prompts/system.md` | Grounded prompt (uses `faqs.json` + voice from `brand/voice-and-tone.md`) |
 | `integrations/gmail-apps-script/README.md` | Deploy instructions, Script Property key names |
 
-Update `endpoints.md`: Gmail label IDs, Apps Script project ID. Gemini API key goes in Script Properties — never in the repo.
+Update `config/endpoints.json`: Gmail label IDs, Apps Script project ID. Gemini API key goes in Script Properties — never in the repo.
 
 ---
 
@@ -299,8 +299,8 @@ This honors the **"Never fabricate SCLA facts"** rule in `CLAUDE.md`: nothing re
 
 | Path | Change |
 |---|---|
-| `endpoints.md` | Fill: Gmail label IDs, Slack channel/app IDs, Drive folder ID, Cloud Function URL, Sheet ID, Gemini project ID |
-| `endpoints.md` | Record Gmail/Slack/Drive status as "MCP + Apps Script"; add Gemini + Cloud Function entries (single integration registry; connections.md retired 2026-07-14) |
+| `config/endpoints.json` | Fill: Gmail label IDs, Slack channel/app IDs, Drive folder ID, Cloud Function URL, Sheet ID, Gemini project ID |
+| `config/endpoints.json` | Record Gmail/Slack/Drive status as "MCP + Apps Script"; add Gemini + Cloud Function entries (single integration registry; connections.md retired 2026-07-14) |
 | `operations/automation-opportunities.md` | Mark items #3 (email triage) and #4 (Slack agent) in-progress with links to new dirs |
 
 **Outside this repo (referenced, not built here):**
