@@ -1,6 +1,6 @@
 # Repo Standard — fetched 2026-07-28
 
-**Red-teamed 2026-07-28:** all 30 original quotes re-fetched live and confirmed verbatim on their cited pages. Three corrections applied: STD-8 reclassified (split HARD RULE/GUIDELINE), STD-15's "no registry" gloss marked as inference, and STD-31 added (an on-point AGENTS.md passage the original fetch missed). See `repo-audit-redteam-2026-07-28.md`.
+**Red-teamed 2026-07-28:** all 30 original quotes re-fetched live and confirmed verbatim on their cited pages. Three corrections applied: STD-8 reclassified (split HARD RULE/GUIDELINE), STD-15's "no registry" gloss marked as inference, and STD-31 added (an on-point AGENTS.md passage the original fetch missed). See `2026-07-28-repo-audit-redteam.md` (this folder).
 
 Fetched live from the official docs on 2026-07-28. This file is the grading rubric for the audit brief, the red team, and the execution session. If anything in any of those documents contradicts this file, this file wins — or the contradiction is a bug worth stopping for.
 
