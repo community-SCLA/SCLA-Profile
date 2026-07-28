@@ -35,6 +35,16 @@ PIN="$(grep -o 'hyperframes@[0-9.]*' "$DS/package.json" | head -1)"
 [[ "${1:-}" == "--force" ]] && rm -rf "$RUN"
 mkdir -p "$RUN"
 
+# A scaffold built at a different pin (or before a design-system edit) is
+# stale — rebuild rather than silently reusing it.
+if [[ -d "$RUN/scaffold" ]]; then
+  DS_SIG="$PIN $(find "$DS/compositions" "$DS/frame.md" -type f -newer "$RUN/scaffold" 2>/dev/null | wc -l)"
+  if [[ "$(cat "$RUN/scaffold/.pin" 2>/dev/null)" != "$PIN" || "${DS_SIG#* }" != "0" ]]; then
+    echo "== scaffold stale (pin or design-system changed) — rebuilding"
+    rm -rf "$RUN/scaffold"
+  fi
+fi
+
 # ---------------------------------------------------------------- scaffold
 if [[ ! -d "$RUN/scaffold" ]]; then
   echo "== scaffolding a workspace at $PIN (once for the whole batch)"
@@ -126,6 +136,7 @@ if [[ ! -d "$RUN/scaffold" ]]; then
 </html>
 HTML
 
+  echo "$PIN" > "$RUN/scaffold/.pin"
   echo "   scaffold ready ($(du -sh "$RUN/scaffold" | cut -f1)) — rail + audio host wired"
 else
   echo "== scaffold already present — reusing (use --force to rebuild)"
@@ -151,9 +162,13 @@ green, and you report five fields.
 
 ```bash
 cd projects/video-production/renders-hyperframes
+[ ! -e <stem> ] || { echo "workspace <stem> already exists — STOP, report, do not build"; exit 1; }
 cp -a _run/scaffold <stem>
 cd <stem>
 ```
+
+If the workspace already exists, STOP and report it — `cp -a` onto an existing
+directory NESTS the scaffold inside it and every gate then reads stale files.
 
 The scaffold already has `compositions/`, `assets/`, `frame.md`, the pinned
 toolchain, the host-root progress rail and the `<audio>` host. This replaces
@@ -179,23 +194,28 @@ host root. Then:
 HDR
 
   # The authoring landmines and the command sequence are extracted verbatim
-  # from the SKILL rather than restated, so they cannot drift.
-  awk '/^\*\*Assemble `index.html` FIRST\*\*/,/^\*\*Stop here\. No render in this phase\.\*\*/' "$SKILL" \
-    | sed '1,/^- \*\*Add the host-root progress rail/{ /^\*\*Assemble `index.html` FIRST\*\*/d }' \
-    || true
+  # from the SKILL rather than restated, so they cannot drift. Marker-bounded:
+  # the old regex anchors matched mid-paragraph text and silently dumped the
+  # whole SKILL (orchestrator phases included) into every builder's context.
+  KIT_BODY="$(awk '/<!-- BUILD-KIT:BEGIN/,/<!-- BUILD-KIT:END/' "$SKILL" | sed '1d;$d')"
+  [[ -n "$KIT_BODY" ]] || { echo "FATAL: BUILD-KIT markers missing from $SKILL" >&2; exit 1; }
+  if grep -qE 'Phase (SHIP|AUTO-BATCH)|batch-ship' <<<"$KIT_BODY"; then
+    echo "FATAL: orchestrator content leaked between BUILD-KIT markers in $SKILL" >&2; exit 1
+  fi
+  printf '%s\n' "$KIT_BODY"
 
   cat <<'FTR'
 
-## TWO RULES THAT NO OTHER DOC WILL TEACH YOU
+## RULES THAT NO OTHER DOC WILL TEACH YOU
 
-Both were discovered by the 2026-07-28 pilot, which passed every static check
-and still produced a mostly-broken video. Neither is optional.
+Discovered by real pilot builds that passed every static check and still
+produced broken videos. None are optional.
 
 ### 1. Clone shared templates — run `instance_templates.py` BEFORE compiling
 
 If two scenes point at the same `compositions/<name>.html`, **every scene that
 shares a template renders completely blank** — background and footer only, no
-heading, no content. On the pilot that was 18 of 21 scenes. The only scenes
+heading, no content. On one pilot that was 18 of 21 scenes. The only scenes
 that survived were the three using a template no other scene used.
 
 So the build loop is FIVE commands, not four — the clone step comes first:
@@ -210,26 +230,40 @@ npm run check
 
 Re-run `instance_templates.py` any time you add or repoint a scene.
 
-### 2. Blank every slot you don't use — omitting it FABRICATES content
+### 2. Every slot is authored copy or an explicit "" — nothing in between
 
 Each template declares its variables in a JSON schema block at the top of
-`compositions/<name>.html`, and each declares a `default`. **A slot you leave
-out of `data-variable-values` renders that default** — real-looking, on-brand
-copy your script never said. The pilot put 15 such lines on screen, including
-a "Two more ways pressure shows up" heading above four points.
+`compositions/<name>.html`. Slot defaults are `[[slot-name]]` placeholders: a
+slot you leave out of `data-variable-values` renders its placeholder ON
+SCREEN, and `preflight.py` (`check_slots.py`) fails the build for it — as it
+also fails any slot whose value still IS placeholder text (`[[...]]`, `...`,
+`TODO`).
 
 Before authoring a scene, read the schema block at the top of its template
-(the first ~15 lines — not the whole file) and enumerate its slots. Then pass
-`"": ` for every one you don't use:
+(the first ~15 lines — not the whole file) and enumerate its slots. Every
+content slot gets either copy authored from YOUR SCRIPT, or `""` to hide it.
+`sceneDuration`, every `*Cues` slot, and the title card's `meta` are
+compiler-owned: pre-declare them (empty or placeholder value) and never type
+their content yourself.
 
-```
-data-variable-values='{"label":"...","heading":"...","point1":"...","point2":"...","point3":"","point4":"","sceneIndex":"05 / ...","theme":"summit","sceneDuration":""}'
-```
+### 3. On-screen copy must trace to the narration
 
-`preflight.py` now FAILS on this (`check_slots.py`), so you cannot ship past
-it — but fix it at authoring time rather than discovering it at the gate.
+Headings, labels and points may compress or excerpt the scene's own narration
+— they must never introduce facts, counts, or sequence claims the narration
+does not say ("two more ways", "step 3 of 5", a stat). When unsure, use the
+narration's own words. Never reuse wording from THIS document or from any
+template's schema block: those are instructions to you, not lesson content.
 
-### 3. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
+### 4. No dead air — an event at least every ~3 seconds
+
+After a scene's entrance settles (~1.2s), something visible must keep
+happening on what the narration is saying: the next cued item, a `subBeats`
+live line, an illustration beat. `preflight.py` FAILS any event gap over 4.0s
+and warns over 3.0s. If the narration for a scene has a long span with
+nothing to cue, split the scene at a sentence end or add `subBeats` — never
+stretch a heading over silence.
+
+### 5. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
 
 `scla-steps` renders nodes `1..N` where N = the count of non-empty step slots,
 and activates them in sequence **within one scene**. It has no notion of "this

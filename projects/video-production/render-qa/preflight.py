@@ -80,8 +80,9 @@ TOL = 0.002
 # pacing gate (Motion v2, 2026-07-27 — normative numbers in frame.md
 # "Pacing budget"): a failing scene is re-authored (split it, add cues, move
 # the boundary), never waved through on background drift.
-GAP_FAIL = 4.5        # s without a visual event -> FAIL
-GAP_WARN = 3.5        # s without a visual event -> WARN
+GAP_FAIL = 4.0        # s without a visual event -> FAIL (tightened 2026-07-28:
+                      # the pilot's 4.5s empty-heading hold passed at 4.5)
+GAP_WARN = 3.0        # s without a visual event -> WARN
 SCENE_CAP = 12.5      # s, standard scene duration cap
 TITLE_CAP = 6.5       # s, scla-title (duration-capped, gap-exempt)
 OUTRO_CAP = 8.5       # s, scla-outro (duration-capped, gap-exempt)

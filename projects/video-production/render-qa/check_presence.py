@@ -88,8 +88,16 @@ def scene_starts_from(workspace):
 
 
 def words_from(workspace):
-    p = Path(workspace) / "assets" / "voice" / "transcript.json"
-    return json.loads(p.read_text()) if p.exists() else []
+    # transcript.json is the Whisper (kokoro-fallback) shape; the default
+    # HeyGen path deletes it and leaves narration.words.json (same schema:
+    # start/end per word). Without this fallback the narration-aware
+    # stagnation logic silently ran with zero words on every default build.
+    voice = Path(workspace) / "assets" / "voice"
+    for name in ("transcript.json", "narration.words.json"):
+        p = voice / name
+        if p.exists():
+            return json.loads(p.read_text())
+    return []
 
 
 def main():

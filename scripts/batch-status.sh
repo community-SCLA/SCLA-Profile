@@ -24,6 +24,7 @@ JSON=0
 
 PRIORITY="$PRIORITY" LESSONS="$VP/lesson-scripts" \
 WS="$VP/renders-hyperframes" LEDGER="$VP/lesson-scripts/refinement-log.md" \
+PUBTSV="$VP/lesson-scripts/published.tsv" QLOG="$VP/render-qa/quarantine.log" \
 JSON="$JSON" python3 - <<'PY'
 import json, os, re, sys
 from pathlib import Path
@@ -31,17 +32,28 @@ from pathlib import Path
 lessons = Path(os.environ["LESSONS"])
 ws_root = Path(os.environ["WS"])
 ledger  = Path(os.environ["LEDGER"])
+pubtsv  = Path(os.environ["PUBTSV"])
+qlog    = Path(os.environ["QLOG"])
 as_json = os.environ["JSON"] == "1"
 priority = os.environ["PRIORITY"].split()
 
 ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exists() else ""
 
-# A stem is published iff its name appears on a ledger line that also carries a
-# Wistia media URL. Checked per line so one stem's URL can't vouch for another.
-# A row names the script stem AND the filed MP4 (same base, render date swapped),
-# so collect both spellings for exclusion but count distinct media IDs for the
-# published tally — otherwise every video counts twice.
+# Primary key: published.tsv — full stem, written and committed by
+# batch-ship.sh in the same pass that uploads. The ledger scan below is a
+# fallback for stems published before the tsv existed (rows abbreviate the
+# stem, so that matching is best-effort — the tsv is the contract).
 published, media_ids = set(), set()
+if pubtsv.exists():
+    for line in pubtsv.read_text(encoding="utf-8").splitlines():
+        if line.startswith("#") or not line.strip():
+            continue
+        cols = line.split("\t")
+        if len(cols) >= 4:
+            published.add(cols[0])
+            m = re.search(r'wistia\.com/medias/(\w+)', cols[3])
+            if m:
+                media_ids.add(m.group(1))
 for line in ledger_text.splitlines():
     ids = re.findall(r'wistia\.com/medias/(\w+)', line)
     if not ids:
@@ -49,6 +61,14 @@ for line in ledger_text.splitlines():
     media_ids.update(ids)
     for m in re.finditer(r'[A-Za-z0-9][\w.-]*_\d{4}-\d{2}-\d{2}', line):
         published.add(m.group(0))
+
+# Latest quarantine reason per stem, to annotate stuck videos.
+quarantined = {}
+if qlog.exists():
+    for line in qlog.read_text(encoding="utf-8", errors="replace").splitlines():
+        cols = line.split("\t")
+        if len(cols) >= 4:
+            quarantined[cols[1]] = cols[3]
 
 # Blocked: scripts that must not be built. Detected from content, not a hand-list,
 # so a fixed script re-enters the queue automatically with no bookkeeping.
@@ -70,13 +90,14 @@ def blocked_reason(p: Path):
 programs = sorted([d.name for d in lessons.iterdir() if d.is_dir()])
 ordered  = [p for p in priority if p in programs] + [p for p in programs if p not in priority]
 
-report, totals = [], {"queued": 0, "blocked": 0, "built_unpublished": 0, "published": 0}
+report, totals = [], {"queued": 0, "blocked": 0, "built_unpublished": 0,
+                      "rendered_unpublished": 0, "published": 0}
 
 for prog in ordered:
     refined = lessons / prog / "refined"
     if not refined.is_dir():
         continue
-    queued, blocked, built = [], [], []
+    queued, blocked, built, stranded = [], [], [], []
     for f in sorted(refined.glob("*.txt")):          # non-recursive: refined/avatar/ is the HeyGen queue
         stem = f.stem
         if stem in published:
@@ -90,9 +111,26 @@ for prog in ordered:
             built.append(stem); totals["built_unpublished"] += 1
         else:
             queued.append(stem); totals["queued"] += 1
+    # rendered/ without a published record = stranded mid-pipeline (render,
+    # verify, vision, upload or commit did not complete). Invisible before
+    # 2026-07-28; this bucket is what makes an interrupted batch resumable.
+    rendered = lessons / prog / "rendered"
+    if rendered.is_dir():
+        for f in sorted(rendered.glob("*.txt")):
+            stem = f.stem
+            if stem in published:
+                continue
+            state = "workspace present" if (ws_root / stem).is_dir() else "NO workspace"
+            marker = ws_root / stem / "qa" / "VERIFIED"
+            if marker.is_file():
+                state += ", verified MP4 awaiting publish"
+            if stem in quarantined:
+                state += f", quarantined: {quarantined[stem]}"
+            stranded.append((stem, state)); totals["rendered_unpublished"] += 1
     report.append({"program": prog, "queued": queued,
                    "blocked": [{"stem": s, "reason": r} for s, r in blocked],
-                   "built_unpublished": built})
+                   "built_unpublished": built,
+                   "rendered_unpublished": [{"stem": s, "state": st} for s, st in stranded]})
 
 # Distinct Wistia media = videos actually live, independent of folder state.
 totals["published"] = len(media_ids)
@@ -105,7 +143,8 @@ B, D, O = "\033[1m", "\033[2m", "\033[0m"
 print(f"\n{B}Remaining video queue{O} {D}(priority order — drain top to bottom){O}\n")
 n = 0
 for r in report:
-    if not (r["queued"] or r["blocked"] or r["built_unpublished"]):
+    if not (r["queued"] or r["blocked"] or r["built_unpublished"]
+            or r["rendered_unpublished"]):
         continue
     print(f"{B}{r['program']}{O}")
     for s in r["queued"]:
@@ -113,12 +152,15 @@ for r in report:
         print(f"  {n:3d}. {s}")
     for s in r["built_unpublished"]:
         print(f"       {D}built, NOT published{O} — {s}   <- verify before re-running")
+    for x in r["rendered_unpublished"]:
+        print(f"       \033[33mSTRANDED mid-pipeline{O} — {x['stem']}  ({x['state']})")
     for b in r["blocked"]:
         print(f"       {D}blocked ({b['reason']}){O} — {b['stem']}")
     print()
 
 t = totals
 print(f"{B}{t['queued']} to build{O} · {t['built_unpublished']} built-unpublished · "
+      f"{t['rendered_unpublished']} stranded · "
       f"{t['blocked']} blocked · {t['published']} already on Wistia\n")
 if t["queued"]:
     print(f"{D}Resume: /render-lessons AUTO-BATCH — it starts at the top of this list.{O}\n")

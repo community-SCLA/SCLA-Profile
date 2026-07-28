@@ -141,6 +141,12 @@ both are legacy, and mistaking them for the pattern is what makes a cold
 subagent wrongly conclude this SKILL is stale), `<audio>` at the host root. Follow `frame.md`'s
 animacy + illustration rules. Standing landmines:
 
+<!-- BUILD-KIT:BEGIN — scripts/batch-prepare.sh extracts everything between
+     these two markers verbatim into _run/BUILD-KIT.md for cold build
+     subagents. Keep ONLY builder-facing content here: no orchestrator
+     phases, no ship/publish steps, and never any quotable example copy
+     (a builder once pasted a cautionary example's heading into a video). -->
+
 - **Add the host-root progress rail to every build** (`frame.md` → "Host-root
   progress rail"). Inside `#root`, after the scene clips and before the `<audio>`,
   add `#hf-rail-track` + `#hf-rail-fill`; drive it from the root `"main"` timeline
@@ -197,6 +203,8 @@ loudly instead of misaligning.
 An unresolvable anchor error names the scene and transcript window — fix the
 phrase, never the numbers. **Stop here. No render in this phase.**
 
+<!-- BUILD-KIT:END -->
+
 ### B3 — Verify + present the gate (orchestrator)
 
 For each returned workspace, independently re-run the deterministic gate —
@@ -206,15 +214,11 @@ trust exit codes you produced, not subagent prose:
 python3 projects/video-production/render-qa/preflight.py projects/video-production/renders-hyperframes/<stem>
 ```
 
-**Once your independent preflight exits 0**, the build is gate-clean and the
-script has done its job in the queue — move it out so `refined/` shows only
-what's left to build (do this only after exit 0; a failed build leaves the
-script in `refined/`):
-
-```bash
-git mv projects/video-production/lesson-scripts/<program-slug>/refined/<stem>.txt \
-       projects/video-production/lesson-scripts/<program-slug>/rendered/<stem>.txt
-```
+**Once your independent preflight exits 0**, the build is gate-clean. The
+script STAYS in `refined/` until publish — `batch-ship.sh --publish` moves it
+to `rendered/` in the same pass that records the Wistia URL (changed
+2026-07-28: `rendered/` now means published-or-publishing, so
+`batch-status.sh` can flag anything stranded between render and publish).
 
 Then **stop and hand the human the gate**, per video: stem, theme, scene
 count, and how to watch it. **Never print `<stem>` as a placeholder** — give
@@ -248,52 +252,36 @@ covers only that stem. Approving the **pilot** of a batch authorizes the whole
 batch — see Phase AUTO-BATCH. Use this single-stem phase for one-off work;
 use AUTO-BATCH to drain a queue.
 
+SHIP is `batch-ship.sh`, same as the batch — one-off work gets the same guard
+chain (2026-07-28; the hand-run step list this section used to carry had none
+of the guards):
+
 ```bash
-pkill -f "hyperframes[ ]preview" 2>/dev/null || true   # previews contaminate renders
-cd projects/video-production/renders-hyperframes/<stem>
-npm run render                                          # ~7 min — background it
-python3 ../../render-qa/verify_render.py .              # container truth + presence v2 + qa/frames/ dump — exit 0 or fix + re-render
+bash scripts/batch-ship.sh <stem> <program-slug>            # render phase — BACKGROUND it (~7 min)
 ```
 
-**Frame self-review:** inspect `qa/frames/` (3 per scene) against the
-transcript — reveals land on their words, every frame depicts its sentence,
-nothing clipped or off-brand. If your context is already heavy, delegate this
-to one vision-capable subagent (paths only: `qa/frames/`, `transcript.json`).
-This is the last quality gate before Wistia now — if `verify_render.py` isn't
-exit 0 or frame self-review isn't clean, fix and re-render; never file or
-publish a build that hasn't passed both. Escalation only: `/adversarial-qa`
-when a cut resists diagnosis or the human asks to break it.
+That runs preflight → `npm install` if the workspace was pruned → clean
+`renders/` → render (25-min cap) → `verify_render.py` (writes the
+`qa/VERIFIED` marker naming the exact MP4 + sha256) → prints `AWAITING_VISION`
+with a sampled frame spread. **Frame review:** delegate to one vision-capable
+subagent (paths only: the printed frames + `transcript.json`) — reveals land
+on their words, every frame depicts its sentence, nothing clipped or
+off-brand. Escalation only: `/adversarial-qa` when a cut resists diagnosis.
 
-**File it:** rename the MP4 to the **script stem with the date swapped to the
-render date** — convention-agnostic, so `m1_<title>_<render-date>` for the
-newer scheme or `<section>_<program-slug>_<render-date>` for the older — and
-move it to `../renders-mp4/<program-slug>/hyperframes/` (the illustrated
-subfolder; the avatar path files to `…/<program-slug>/avatar/`) with its QA
-packet (verify summary + `qa/frames/`); fill the ledger row's Rendered date +
-location.
+On a clean review:
 
-**Then publish, in the same pass — no pause for approval:**
+```bash
+bash scripts/batch-ship.sh <stem> <program-slug> --publish
+```
 
-1. `bash scripts/wistia-upload.sh <mp4-path> <program-slug>` — headless upload
-   (account, project IDs, and token status live in root `config/endpoints.json` →
-   "Wistia"; title = the filed stem; the `.mp4` is never committed to the repo).
-2. Record the returned Wistia URL in the ledger row (`refinement-log.md`).
-   (Where the URL additionally lands in Notion is an open decision, 2026-07-13
-   — until settled, the ledger row is the link's home.)
-3. The script already moved `refined/ → rendered/` at the hyperframe gate (B3)
-   — just confirm it's in `rendered/`. The lesson is now done.
-4. `cd <repo-root> && bash scripts/archive-lesson.sh <stem> --in-place`
-   (refuses if the MP4 isn't filed). Prunes regenerable bulk — `node_modules`,
-   caches, `snapshots/`, `renders/`, `qa/`, logs — but **leaves the workspace
-   where it is**, editable: `index.html`, `compositions/`, `assets/` (including
-   the synthesized narration, so a revisit costs no new HeyGen credits) and
-   `scenes.json` all survive. A revisit is `npm install` away.
-   Moving a workspace into `_archive/` is a **human-only call, never a pipeline
-   step** (`projects/video-production/CLAUDE.md`) — bare `archive-lesson.sh`
-   without `--in-place` does that, so don't call it here.
-5. Delete the filed MP4 from `renders-mp4/` once the Wistia URL is confirmed —
-   Wistia is the delivery copy and the local file is dead weight across a
-   30-video batch. The workspace can re-render it if ever needed.
+Publish refuses to run without a fresh `qa/VERIFIED` marker (and re-hashes the
+MP4 against it), refuses a stem already in `published.tsv`, then: file the MP4
+→ Wistia upload (retried, time-capped) → append `lesson-scripts/published.tsv`
+(the machine resume key: full stem + URL) → update the `refinement-log.md` row
+→ move the script `refined/ → rendered/` → commit (a commit failure
+quarantines WITH the URL and keeps the MP4) → delete the local MP4 → prune the
+workspace in place (`archive-lesson.sh --in-place`; moving a workspace into
+`_archive/` stays a human-only call).
 
 Report the Wistia URL to the human as confirmation of what happened, not as a
 request for permission — approving the hyperframe already authorized this.
@@ -357,11 +345,13 @@ run economics on video 1 rather than at 3am.
    Run on a fast model; escalate to a strong model only on a retry after a
    gate failure.
 2. **`bash scripts/batch-ship.sh <stem> <program-slug>`** — the deterministic
-   tail, **backgrounded**. Everything after preflight-green is mechanical and
-   needs no agent: re-verify preflight → `git mv` script to `rendered/` →
-   render → `verify_render.py` → sampled frame review → file MP4 → Wistia
-   upload → record URL in `refinement-log.md` → commit → delete local MP4 →
-   prune workspace in place.
+   tail, **backgrounded**. Render phase: re-verify preflight → render (25-min
+   cap) → `verify_render.py` (writes `qa/VERIFIED`) → prints `AWAITING_VISION`
+   + a sampled frame spread. Vision subagent reviews; on PASS,
+   `batch-ship.sh <stem> <program-slug> --publish`: marker + sha guard →
+   file MP4 → Wistia upload → `published.tsv` + ledger row → `git mv` script
+   to `rendered/` → commit → delete local MP4 → prune in place. Publish
+   refuses a stem already in `published.tsv`, so re-running is safe.
 
 **Pipelining:** because the driver is backgrounded, video N+1 *builds*
 (network- and authoring-bound) while video N *renders* (CPU-bound). Different
@@ -390,13 +380,16 @@ the others. Report the quarantine list at close-out.
 
 ### A6 — Resuming
 
-A stem is done **if and only if it has a Wistia URL in `refinement-log.md`**,
-and that URL is committed in the same pass that publishes it — so there is no
-window where work exists but isn't recorded. `bash scripts/batch-status.sh`
-reconstructs the remaining queue in priority order from the folders and the
-ledger alone. A fresh session resumes with that one command; nothing depends on
-the previous session's context surviving, which also makes mid-run context
-compaction a non-event.
+A stem is done **if and only if it has a row in
+`lesson-scripts/published.tsv`** (full stem + Wistia URL, appended and
+committed in the same pass that publishes — `refinement-log.md` stays the
+human-facing ledger but its rows abbreviate stems and are not machine-matched).
+`bash scripts/batch-status.sh` reconstructs the remaining queue in priority
+order from the folders, the tsv and `render-qa/quarantine.log` alone — and
+flags any script in `rendered/` without a published row as **STRANDED**, the
+bucket that catches every state between render and commit. A fresh session
+resumes with that one command; nothing depends on the previous session's
+context surviving, which also makes mid-run context compaction a non-event.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 

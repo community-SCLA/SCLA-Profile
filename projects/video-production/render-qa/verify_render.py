@@ -114,6 +114,27 @@ def main():
     failed |= len(extracted) != 3 * len(scenes)
 
     verdict = "FAIL" if failed else "PASS"
+
+    # The VERIFIED marker is the publish contract: batch-ship.sh --publish
+    # uploads exactly the file named here (hash-checked) and refuses to run
+    # without it. Written only on PASS; a stale marker is removed on FAIL so
+    # a failed re-render can never be published on the strength of an old one.
+    marker = ws / "qa" / "VERIFIED"
+    if failed:
+        marker.unlink(missing_ok=True)
+    else:
+        import hashlib
+        h = hashlib.sha256()
+        with open(mp4, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b""):
+                h.update(chunk)
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text(json.dumps({
+            "mp4": str(mp4), "sha256": h.hexdigest(),
+            "bytes": mp4.stat().st_size,
+            "video_s": v_dur,
+        }, indent=2) + "\n")
+
     if as_json:
         print(json.dumps({"verdict": verdict, "sections": sections}, indent=2))
     else:

@@ -28,26 +28,26 @@ PIN="$(grep -o 'hyperframes@[0-9.]*' "$VP/design-system/package.json" | head -1)
 OUT="$WS/qa/precheck"
 
 echo "== preflight (authoritative — subagent-reported exits are not trusted)"
-python3 "$VP/render-qa/preflight.py" "$WS" >/dev/null 2>&1
+PREFLIGHT_OUT="$(python3 "$VP/render-qa/preflight.py" "$WS" 2>&1)"
 rc=$?
 if [[ $rc -ne 0 ]]; then
   echo "PRECHECK_FAIL $STEM preflight exit=$rc" >&2
-  python3 "$VP/render-qa/preflight.py" "$WS" 2>&1 | grep -E '^\[!!' -A4 | head -30 >&2
+  grep -E '^\[!!' -A4 <<<"$PREFLIGHT_OUT" | head -30 >&2
   exit 3
 fi
 echo "   preflight exit=0"
 
-# One snapshot per scene, at the scene's midpoint.
-mapfile -t TIMES < <(WS="$WS" python3 - <<'PY'
-import os, re, pathlib
+# One snapshot per scene, at the scene's midpoint. parse_scenes is the shared
+# multi-line-safe scene parser — a per-line regex scan silently misses scene
+# tags that span lines.
+mapfile -t TIMES < <(WS="$WS" RQ="$VP/render-qa" python3 - <<'PY'
+import os, pathlib, sys
+sys.path.insert(0, os.environ["RQ"])
+from hfp_common import parse_scenes
 t = pathlib.Path(os.environ["WS"], "index.html").read_text(encoding="utf-8", errors="replace")
-for line in t.splitlines():
-    if 'class="clip"' not in line or 'data-composition-src' not in line:
-        continue
-    s = re.search(r'data-start="([0-9.]+)"', line)
-    d = re.search(r'data-duration="([0-9.]+)"', line)
-    if s and d:
-        print(f"{float(s.group(1)) + float(d.group(1)) / 2:.2f}")
+for sc in parse_scenes(t):
+    if sc["start"] == sc["start"] and sc["duration"] == sc["duration"]:  # not NaN
+        print(f"{sc['start'] + sc['duration'] / 2:.2f}")
 PY
 )
 [[ ${#TIMES[@]} -gt 0 ]] || { echo "PRECHECK_FAIL $STEM no scene clips found" >&2; exit 3; }
@@ -61,7 +61,9 @@ echo "== snapshotting ${#TIMES[@]} scenes at their midpoints"
   || { echo "PRECHECK_FAIL $STEM snapshot failed" >&2; exit 3; }
 
 # Deterministic low-ink flag: blank scenes compress far smaller than real ones.
-OUT="$OUT" python3 - <<'PY'
+# (Advisory, not fatal: dark statement scenes legitimately compress small — the
+# vision reviewer judges the flagged frames. But the check itself must run.)
+OUT="$OUT" python3 - <<'PY' || { echo "PRECHECK_FAIL $STEM low-ink check crashed" >&2; exit 3; }
 import os, pathlib, statistics
 out = pathlib.Path(os.environ["OUT"])
 pngs = sorted(p for p in out.glob("frame-*.png"))

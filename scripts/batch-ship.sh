@@ -5,32 +5,42 @@
 # so it lives here instead of in an orchestrator's context. Two modes:
 #
 #   bash scripts/batch-ship.sh <stem> <program-slug>
-#       RENDER phase: preflight -> move script to rendered/ -> render -> verify
-#       -> sample frames for review. Exits 0 with AWAITING_VISION, or 3 with
+#       RENDER phase: preflight -> render -> verify (writes qa/VERIFIED) ->
+#       sample frames for review. Exits 0 with AWAITING_VISION, or 3 with
 #       QUARANTINE (never publishes a video that failed a guard).
 #
 #   bash scripts/batch-ship.sh <stem> <program-slug> --publish
-#       PUBLISH phase, run only after the sampled frames pass review: file the
-#       MP4 -> upload to Wistia -> record the URL in refinement-log.md -> commit
-#       -> delete the local MP4 -> prune the workspace in place (kept editable).
+#       PUBLISH phase, run only after the sampled frames pass review: check the
+#       qa/VERIFIED marker -> file exactly that MP4 -> upload to Wistia ->
+#       record stem+URL in published.tsv AND refinement-log.md -> move script
+#       to rendered/ -> commit -> delete the local MP4 -> prune the workspace
+#       in place (kept editable).
 #
 # Fail soft, always: a guard failure quarantines THIS video and exits non-zero;
 # the caller moves on to the next. One bad lesson never costs the others.
+# If a quarantine happens AFTER a successful upload, the Wistia URL is written
+# into the quarantine record so the video is never live-but-unrecorded.
 #
-# Resume contract: a stem is done iff its Wistia URL is in refinement-log.md,
-# and that URL is committed in the same pass that publishes it.
+# Resume contract: a stem is done iff it has a row in
+# lesson-scripts/published.tsv (machine key, full stem, committed in the same
+# pass that publishes it). refinement-log.md stays the human-facing ledger.
 set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VP="$REPO/projects/video-production"
 QLOG="$VP/render-qa/quarantine.log"
+PUBTSV="$VP/lesson-scripts/published.tsv"
 
-STEM="${1:-}"; PROGRAM="${2:-}"; MODE="${3:-render}"
+STEM="${1:-}"; PROGRAM="${2:-}"; MODE_ARG="${3:-}"
 if [[ -z "$STEM" || -z "$PROGRAM" ]]; then
   echo "Usage: bash scripts/batch-ship.sh <stem> <program-slug> [--publish]" >&2
   exit 2
 fi
-[[ "$MODE" == "--publish" ]] && MODE="publish" || MODE="render"
+case "$MODE_ARG" in
+  "")          MODE="render" ;;
+  --publish)   MODE="publish" ;;
+  *) echo "FATAL: unknown mode '$MODE_ARG' (only --publish is accepted)" >&2; exit 2 ;;
+esac
 
 WS="$VP/renders-hyperframes/$STEM"
 [[ -d "$WS" ]] || { echo "FATAL: no workspace at $WS" >&2; exit 2; }
@@ -44,6 +54,11 @@ quarantine() {
   exit 3
 }
 
+# Free disk on the workspace filesystem: a render needs ~1 GB headroom and a
+# full disk mid-ledger-write is the worst failure mode there is.
+FREE_MB="$(df -Pm "$WS" 2>/dev/null | awk 'NR==2{print $4}')"
+[[ -n "$FREE_MB" && "$FREE_MB" -ge 4096 ]] || quarantine "low disk: ${FREE_MB:-?} MB free (<4096)"
+
 # ---------------------------------------------------------------- RENDER phase
 if [[ "$MODE" == "render" ]]; then
   # Previews contaminate renders (they hold the same ports and GPU/shm state).
@@ -52,20 +67,24 @@ if [[ "$MODE" == "render" ]]; then
   echo "== preflight: $STEM"
   python3 "$VP/render-qa/preflight.py" "$WS" || quarantine "preflight.py non-zero"
 
-  # Move the script out of the build queue only once its build is gate-clean.
-  SRC_SCRIPT="$VP/lesson-scripts/$PROGRAM/refined/$STEM.txt"
-  DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$STEM.txt"
-  if [[ -f "$SRC_SCRIPT" ]]; then
-    mkdir -p "$(dirname "$DST_SCRIPT")"
-    git -C "$REPO" mv "$SRC_SCRIPT" "$DST_SCRIPT" 2>/dev/null || mv "$SRC_SCRIPT" "$DST_SCRIPT"
-    echo "   script -> rendered/"
+  # A pruned workspace (post-publish revisit, or the 3x stability loop) has no
+  # node_modules; reinstall instead of false-quarantining "render failed".
+  if [[ ! -d "$WS/node_modules" ]]; then
+    echo "== npm install (workspace was pruned)"
+    ( cd "$WS" && npm install --no-audit --no-fund ) || quarantine "npm install failed"
   fi
 
-  echo "== render: $STEM  (~7 min)"
-  ( cd "$WS" && npm run render ) || quarantine "npm run render failed"
+  # Stale MP4s from earlier renders must not survive into this run: publish
+  # uploads via qa/VERIFIED, but a clean renders/ makes every state legible.
+  rm -f "$WS/renders/"*.mp4 2>/dev/null
+  rm -f "$WS/qa/VERIFIED" 2>/dev/null
+
+  echo "== render: $STEM  (~7 min; hard cap 25)"
+  ( cd "$WS" && timeout -k 30 1500 npm run render ) || quarantine "npm run render failed or timed out"
 
   echo "== verify_render"
   python3 "$VP/render-qa/verify_render.py" "$WS" || quarantine "verify_render.py non-zero"
+  [[ -f "$WS/qa/VERIFIED" ]] || quarantine "verify passed but wrote no qa/VERIFIED marker"
 
   # Sample frames for the vision guard. verify_render dumps 3 per scene; a
   # 15-scene video is 45 images (~65k tokens) and a 30-video batch would be ~2M
@@ -95,9 +114,31 @@ for i in idx:
 fi
 
 # --------------------------------------------------------------- PUBLISH phase
-MP4_SRC="$(find "$WS/renders" -name '*.mp4' -newer "$WS" 2>/dev/null | head -1)"
-[[ -n "$MP4_SRC" ]] || MP4_SRC="$(find "$WS/renders" -name '*.mp4' 2>/dev/null | head -1)"
-[[ -n "$MP4_SRC" ]] || quarantine "no MP4 in $WS/renders/"
+# One publisher at a time: publish touches git and the shared ledgers.
+LOCK="$VP/renders-hyperframes/.publish.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  echo "FATAL: another publish is in flight ($LOCK exists). Retry when it finishes." >&2
+  exit 2
+fi
+trap 'rmdir "$LOCK" 2>/dev/null' EXIT
+
+# Idempotency: a stem with a published.tsv row is done — never re-upload.
+if [[ -f "$PUBTSV" ]]; then
+  PREV_URL="$(awk -F'\t' -v s="$STEM" '$1==s{print $4; exit}' "$PUBTSV")"
+  if [[ -n "$PREV_URL" ]]; then
+    echo "ALREADY PUBLISHED: $STEM  ($PREV_URL)"
+    exit 0
+  fi
+fi
+
+# Publish exactly what verify verified — path and hash from the marker.
+MARKER="$WS/qa/VERIFIED"
+[[ -f "$MARKER" ]] || quarantine "no qa/VERIFIED marker — render+verify have not passed on the current MP4"
+MP4_SRC="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["mp4"])' "$MARKER")"
+WANT_SHA="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["sha256"])' "$MARKER")"
+[[ -f "$MP4_SRC" ]] || quarantine "verified MP4 missing: $MP4_SRC"
+GOT_SHA="$(sha256sum "$MP4_SRC" | cut -d' ' -f1)"
+[[ "$GOT_SHA" == "$WANT_SHA" ]] || quarantine "MP4 changed since verify (sha mismatch) — re-run render phase"
 
 # Filed name = script stem with the date swapped to the render date.
 RENDER_DATE="$(date +%F)"
@@ -105,6 +146,7 @@ BASE="${STEM%_*}"
 FILED="${BASE}_${RENDER_DATE}.mp4"
 DEST_DIR="$VP/renders-mp4/$PROGRAM/hyperframes"
 mkdir -p "$DEST_DIR"
+[[ ! -f "$DEST_DIR/$FILED" ]] || quarantine "filed MP4 already exists: $FILED (same-day re-publish?)"
 cp "$MP4_SRC" "$DEST_DIR/$FILED" || quarantine "could not file MP4"
 echo "== filed: renders-mp4/$PROGRAM/hyperframes/$FILED"
 
@@ -115,10 +157,20 @@ echo "$UPLOAD_OUT"
 WURL="$(grep -o 'https://[a-z0-9.-]*wistia\.com/medias/[A-Za-z0-9]*' <<<"$UPLOAD_OUT" | head -1)"
 [[ -n "$WURL" ]] || quarantine "no Wistia URL returned"
 
-# Record the URL in the ledger — same pass, so an interrupted batch can never
-# leave a published video unrecorded.
+# From here on the video is LIVE: any failure must carry the URL into the
+# quarantine record, keep the filed MP4, and skip the prune.
+publish_quarantine() { quarantine "$1 — video IS live at $WURL (record by hand)"; }
+
+# Machine ledger first: full stem, tab-separated, greppable. This is the
+# resume key batch-status.sh reads.
+{
+  [[ -f "$PUBTSV" ]] || printf '# stem\tprogram\trender_date\twistia_url\n'
+  printf '%s\t%s\t%s\t%s\n' "$STEM" "$PROGRAM" "$RENDER_DATE" "$WURL"
+} >> "$PUBTSV" || publish_quarantine "could not write published.tsv"
+
+# Human ledger row.
 STEM="$STEM" PROGRAM="$PROGRAM" WURL="$WURL" FILED="$FILED" RENDER_DATE="$RENDER_DATE" \
-LEDGER="$VP/lesson-scripts/refinement-log.md" python3 - <<'PY'
+LEDGER="$VP/lesson-scripts/refinement-log.md" python3 - <<'PY' || publish_quarantine "ledger update failed"
 import os, re
 from pathlib import Path
 
@@ -175,15 +227,29 @@ else:
 led.write_text("\n".join(lines) + "\n", encoding="utf-8")
 print(f"   ledger row updated ({'in place' if hit is not None else 'appended'})")
 PY
-[[ $? -eq 0 ]] || quarantine "ledger update failed"
 
-git -C "$REPO" add -A "$VP/lesson-scripts" >/dev/null 2>&1
+# The script leaves the queue only now, when the video is actually live.
+SRC_SCRIPT="$VP/lesson-scripts/$PROGRAM/refined/$STEM.txt"
+DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$STEM.txt"
+if [[ -f "$SRC_SCRIPT" ]]; then
+  mkdir -p "$(dirname "$DST_SCRIPT")"
+  git -C "$REPO" mv "$SRC_SCRIPT" "$DST_SCRIPT" 2>/dev/null || mv "$SRC_SCRIPT" "$DST_SCRIPT"
+  echo "   script -> rendered/"
+fi
+
+# Commit is part of the publish contract — a failure here is a quarantine
+# (with the URL), not a shrug, and the local MP4 must survive it.
+git -C "$REPO" add -A "$VP/lesson-scripts" || publish_quarantine "git add failed"
+if git -C "$REPO" diff --cached --quiet; then
+  publish_quarantine "nothing staged after publish — ledger writes did not land"
+fi
 git -C "$REPO" commit -q -m "ship($PROGRAM): $STEM → Wistia
 
 $WURL
 
-Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>" >/dev/null 2>&1 \
-  && echo "   committed" || echo "   (nothing to commit)"
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" \
+  || publish_quarantine "git commit failed"
+echo "   committed"
 
 # Prune BEFORE deleting the MP4 — archive-lesson.sh refuses to prune a
 # workspace whose deliverable isn't filed, and that safety check is worth keeping.

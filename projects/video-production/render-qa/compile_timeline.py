@@ -433,6 +433,12 @@ def main():
         new_vars.update(cues)
         if "sceneDuration" in new_vars:
             new_vars["sceneDuration"] = f"{dur:g}"
+        # Title-card meta line is compiler-owned: it is the video's duration,
+        # which only the compiler knows. Builders passing prose here produced
+        # a duplicated "Lesson Lesson" badge row (pilot, 2026-07-28).
+        src = get_attr(sc["tag"], "data-composition-src") or ""
+        if "meta" in new_vars and "scla-title" in src:
+            new_vars["meta"] = f"{max(1, round(audio_end / 60))} min"
 
         def drift(name, old, new):
             if old != new:

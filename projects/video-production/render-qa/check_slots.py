@@ -19,6 +19,15 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hfp_common import parse_scenes, get_attr
+
+# Values that are placeholder text, not authored copy — a builder copying an
+# example or a schema default instead of writing from the script. Matched
+# against every non-exempt string slot that will render.
+PLACEHOLDER_RX = re.compile(
+    r"^\s*(\[\[.*\]\]|\.{3}|…|TODO\b.*|TBD\b.*|<[^>]*>|xxx+)\s*$", re.I)
+
 # Slots that are structural/optional rather than on-screen copy: absence is fine.
 EXEMPT = {
     "theme", "sceneIndex", "sceneDuration", "reveal", "winner", "winnerAfter",
@@ -59,22 +68,19 @@ def main(argv):
         return 2
 
     findings = []
-    for line in index.read_text(encoding="utf-8", errors="replace").splitlines():
-        if 'class="clip"' not in line:
+    html_text = index.read_text(encoding="utf-8", errors="replace")
+    scenes = parse_scenes(html_text)   # multi-line-safe: regex over the whole
+    if not scenes:                     # document, not a per-line scan
+        print("no scene clips found in index.html — nothing to check",
+              file=sys.stderr)
+        return 1
+    for sc in scenes:
+        src = get_attr(sc["tag"], "data-composition-src")
+        if not src:
             continue
-        sid = re.search(r'id="(scene-[\w-]+)"', line)
-        src = re.search(r'data-composition-src="([^"]+)"', line)
-        if not (sid and src):
-            continue
-        vv = re.search(r'data-variable-values="([^"]*)"', line) \
-            or re.search(r"data-variable-values='([^']*)'", line)
-        import html as _html
-        try:
-            authored = json.loads(_html.unescape(vv.group(1))) if vv else {}
-        except Exception:
-            authored = {}
+        authored = sc["variables"]
 
-        comp = ws / src.group(1)
+        comp = ws / src
         schema = schema_of(comp)
         if not schema:
             continue
@@ -86,12 +92,20 @@ def main(argv):
             and not CUE_RX.search(s)
             and isinstance(d, str) and d.strip()
         ]
-        if missing:
+        # Placeholder text passed explicitly is the same fabrication with
+        # extra steps — [[slot]] defaults, "...", TODO markers must never render.
+        placeholder = {
+            s: v for s, v in authored.items()
+            if s not in EXEMPT and not CUE_RX.search(s)
+            and isinstance(v, str) and v.strip() and PLACEHOLDER_RX.match(v)
+        }
+        if missing or placeholder:
             findings.append({
-                "scene": sid.group(1),
+                "scene": sc["id"],
                 "template": comp.name,
                 "unfilled": missing,
                 "would_render": {s: schema[s] for s in missing},
+                "placeholder": placeholder,
             })
 
     if as_json:
@@ -103,12 +117,15 @@ def main(argv):
         print("  ok — every declared slot is either authored or explicitly blanked")
         return 0
     for f in findings:
-        print(f"  ! {f['scene']} ({f['template']}) leaves {len(f['unfilled'])} slot(s) unfilled:")
-        for s in f["unfilled"]:
-            print(f"      {s} -> would render placeholder: {f['would_render'][s]!r}")
-    total = sum(len(f["unfilled"]) for f in findings)
-    print(f"  FAIL: {total} unfilled slot(s) across {len(findings)} scene(s).")
-    print('  Fix: add "<slot>": "" to that clip\'s data-variable-values for each unused slot.')
+        if f["unfilled"]:
+            print(f"  ! {f['scene']} ({f['template']}) leaves {len(f['unfilled'])} slot(s) unfilled:")
+            for s in f["unfilled"]:
+                print(f"      {s} -> would render placeholder: {f['would_render'][s]!r}")
+        for s, v in f.get("placeholder", {}).items():
+            print(f"  ! {f['scene']} ({f['template']}) slot {s} carries placeholder text: {v!r}")
+    total = sum(len(f["unfilled"]) + len(f.get("placeholder", {})) for f in findings)
+    print(f"  FAIL: {total} bad slot(s) across {len(findings)} scene(s).")
+    print('  Fix: pass "" for unused slots; write authored copy (from the script) for placeholder slots.')
     return 1
 
 

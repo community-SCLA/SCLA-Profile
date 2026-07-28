@@ -45,8 +45,11 @@ fi
 CURL_ARGS=(-sS -F "name=$TITLE" -F "file=@$MP4")
 [[ -n "$PROJECT_ID" ]] && CURL_ARGS+=(-F "project_id=$PROJECT_ID")
 
+# --retry covers transient network blips; --max-time caps a hung connection so
+# an unattended batch can never stall on one upload (~19 MB file, 600s is ample).
 RESPONSE="$("$REPO_ROOT/scripts/with-secrets.sh" bash -c '
-  curl -sS -F "api_password=$WISTIA_API" "$@" https://upload.wistia.com/
+  curl -sS --retry 3 --retry-all-errors --max-time 600 --connect-timeout 30 \
+       -F "api_password=$WISTIA_API" "$@" https://upload.wistia.com/
 ' _ "${CURL_ARGS[@]}")"
 
 HASHED_ID="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("hashed_id",""))' <<<"$RESPONSE" 2>/dev/null || true)"
