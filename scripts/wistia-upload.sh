@@ -48,7 +48,7 @@ CURL_ARGS=(-sS -F "name=$TITLE" -F "file=@$MP4")
 # --retry covers transient network blips; --max-time caps a hung connection so
 # an unattended batch can never stall on one upload (~19 MB file, 600s is ample).
 RESPONSE="$("$REPO_ROOT/scripts/with-secrets.sh" bash -c '
-  curl -sS --retry 3 --retry-all-errors --max-time 600 --connect-timeout 30 \
+  curl -sS --retry 3 --max-time 600 --connect-timeout 30 \
        -F "api_password=$WISTIA_API" "$@" https://upload.wistia.com/
 ' _ "${CURL_ARGS[@]}")"
 

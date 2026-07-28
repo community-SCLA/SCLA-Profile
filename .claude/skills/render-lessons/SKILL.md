@@ -187,14 +187,12 @@ python3 ../../render-qa/preflight.py .                 # incl. script-vs-transcr
 npm run check                                          # lint + validate + inspect
 ```
 
-Only if you deliberately fall back to `--provider kokoro` (no HeyGen
-credential, or a HeyGen outage) does the old Whisper step come back — insert
-it between synth and compile:
-
-```bash
-python3 ../../render-qa/synth_narration.py . --provider kokoro
-npx hyperframes transcribe assets/voice/narration.wav --model small.en  # cues + script gate read Whisper on the kokoro path only
-```
+**There is no fallback voice.** The narration voice is pinned
+(`.claude/rules/video-production.md`) and kokoro is not provisioned here. If
+HeyGen fails: STOP, capture the exact command + full error output, and report
+— never switch providers, never `pip install` a TTS, never work around a
+credential failure (a 2026-07-28 builder did all three; the actual fault was a
+broken flag in `with-secrets.sh`, which only the orchestrator could see).
 
 Edited a scene's narration or reordered scenes? Re-run the same four commands
 in order — synth re-does only the changed clips, and a stale transcript fails
