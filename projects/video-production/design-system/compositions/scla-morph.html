@@ -236,8 +236,8 @@
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
           tl.fromTo("#mp-ghost", { opacity: 0.4 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo(["#mp-corner-tl", "#mp-corner-br", "#mp-index", "#mp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
-          tl.fromTo("#mp-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.35);
-          tl.fromTo("#mp-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.5);
+          tl.fromTo("#mp-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.15);
+          tl.fromTo("#mp-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.3);
           // cards hidden until their cue
           gsap.set([cardA, cardB], { opacity: 0, y: 0 });
 
