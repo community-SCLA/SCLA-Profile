@@ -9,6 +9,10 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-28 — Hourly `/produce-video` routine retired (R2/A1)
+**Decision:** The claude.ai scheduled routine `SCLA lesson pipeline worker` (`trig_01MLz82FGHA6T6NJ3SgWVqv6`, cron `53 * * * *`) is no longer wanted — owner: *"we no longer need this hourly scheduled item"* — after ~25 firings that all stopped at the same TTS/egress wall (see render-qa/snag-log.md). Verified via the routines API 2026-07-28: the routine is **disabled** (`enabled: false`, last fired 06:53 UTC). The API cannot delete routines; final deletion is one owner click at https://claude.ai/code/routines. No pause-alarm or revival plan — nothing needs to survive it.
+**Owner:** community@thescla.org (A1, 2026-07-28; disabled state verified and logged by Claude)
+
 ## 2026-07-28 — `endpoints.md` replaced by `config/endpoints.json` (machine-first registry, P2)
 **Decision:** The integration registry is now `config/endpoints.json` — schema-validated by `scripts/lint-refs.sh` check 10 (JSON parses, entries carry `name/type/id/url/used_by/verified/notes`, no secret material). Scripts read it with `python3`/`jq` (`with-secrets.sh` takes its default Infisical project id from it; `wistia-upload.sh` maps program→project from it); `endpoints.md` is deleted. Per the owner's target architecture (A4): the Infisical machine-identity `clientId`/`identityId` were **removed from the repo entirely** — the credential pair lives only in the Codespaces secret vault (`INFISICAL_CLIENT_ID` + `INFISICAL_SECRET_KEY`, already consumed from env by `with-secrets.sh`); the registry carries only a pointer.
 **Narrative history carried over from endpoints.md (registry keeps only current facts):**

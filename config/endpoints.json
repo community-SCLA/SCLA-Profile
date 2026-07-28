@@ -125,9 +125,9 @@
       "type": "scheduled-routine",
       "id": "trig_01MLz82FGHA6T6NJ3SgWVqv6",
       "url": "https://claude.ai/code/routines/trig_01MLz82FGHA6T6NJ3SgWVqv6",
-      "verified": "2026-07-22",
-      "used_by": "hourly /produce-video run",
-      "notes": "SLATED FOR DELETION (owner, 2026-07-28 — A1/R2); remove this entry when the schedule is deleted"
+      "verified": "2026-07-28",
+      "used_by": "hourly /produce-video run — DISABLED 2026-07-28 (enabled:false, verified via the routines API)",
+      "notes": "Owner ordered outright deletion (2026-07-28 — A1/R2). The routines API cannot delete — the owner deletes it at https://claude.ai/code/routines, then this entry is removed"
     }
   ]
 }
