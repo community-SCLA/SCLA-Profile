@@ -145,17 +145,35 @@
           color: #5f6f96;
         }
         /* Sub-beats — narration-synced live line (dead-hold fix, 2026-07-14).
-           One beat visible at a time; absent unless subBeats is set. */
+           One beat visible at a time; absent unless subBeats is set.
+           Restyled 2026-07-28: branded supporting live-line, not a floating
+           caption — left-aligned to the content column (element left edge
+           120px, same as heading/chips), gold edge-bar accent (the templates'
+           existing rule/bar language), muted-video body color, and lifted to
+           bottom 170px so it lives in the content zone with clear air above
+           the footer brandline (bottom 58px). 32px = the body-class floor
+           (frame.md typography.min-size — sub-beats are body copy). */
         .cc-subbeat {
           position: absolute;
-          left: 160px;
-          right: 160px;
-          bottom: 132px;
-          text-align: center;
-          font-size: 34px;
+          left: 120px;
+          right: 120px;
+          bottom: 170px;
+          padding-left: 30px;
+          text-align: left;
+          font-size: 32px;
           font-weight: 700;
-          color: #0d2437;
+          color: #5f6f96;
+          line-height: 1.3;
           opacity: 0;
+        }
+        .cc-subbeat::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 5px;
+          width: 5px;
+          height: 32px;
+          background: #eaab2d;
         }
         /* Closing-beat rule (Motion v2, 2026-07-27) — completes under the heading in
            the scene's final second. scaleX(0) at rest so it is invisible pre-beat. */
@@ -171,6 +189,7 @@
         #root[data-theme="horizon"] .cc-bg { background: #ffffff; }
         #root[data-theme="horizon"] #cc-tick { background: #3393d6; }
         #root[data-theme="horizon"] #cc-close-rule { background: #3393d6; }
+        #root[data-theme="horizon"] .cc-subbeat::before { background: #3393d6; }
         #root[data-theme="horizon"] .cc-chip { border-color: #3393d6; }
         #root[data-theme="horizon"] .cc-chip.cc-accent { border-color: #3393d6; }
         #root[data-theme="cadence"] .cc-bg { background: #ffffff; }

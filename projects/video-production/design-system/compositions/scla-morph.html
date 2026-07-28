@@ -60,7 +60,14 @@
         #mp-corner-br { right: 60px; bottom: 60px; border-left: none; border-top: none; }
         #mp-kicker { position: absolute; left: 160px; top: 170px; font-size: 26px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #3393d6; }
         #mp-rule { position: absolute; left: 162px; top: 226px; width: 120px; height: 4px; background: #eaab2d; transform-origin: left center; }
-        .card { position: absolute; left: 160px; width: 900px; height: 210px; border-radius: 12px; background: #f6f6f9; border: 2px solid #cccedf; padding: 40px 46px; box-sizing: border-box; }
+        /* Content-driven height (2026-07-28): no fixed box — a title-only card
+           (empty aSub/bSub) shrinks to its padding around the title instead of
+           rendering a tall mostly-empty panel. min-height fits exactly one
+           46px/1.08 title line inside the 40px vertical padding; cards with
+           subs grow naturally (and 2-line subs no longer overflow the old
+           210px box). Cards stay TOP-anchored in their slots, so the FLIP
+           swap's fixed y deltas remain exact for any height. */
+        .card { position: absolute; left: 160px; width: 900px; min-height: 130px; border-radius: 12px; background: #f6f6f9; border: 2px solid #cccedf; padding: 40px 46px; box-sizing: border-box; }
         .card .ct { font-size: 46px; font-weight: 900; color: #0d2437; line-height: 1.08; }
         .card .cs { font-size: 32px; font-weight: 400; color: #5f6f96; margin-top: 14px; }
         /* Number markers are circular (owner decision 2026-07-14 — not square corner tabs). */
@@ -156,6 +163,12 @@
           document.getElementById("mp-csB").textContent = vars.bSub;
           document.getElementById("mp-index").textContent = vars.sceneIndex;
 
+          // Slot anchors = the cards' TOP edges (CSS #mp-cardA/#mp-cardB tops).
+          // Cards are top-anchored with content-driven height (min-height 130px,
+          // no fixed box — 2026-07-28), so the FLIP swap below moves top edges by
+          // ±(BOT−TOP) and stays exact for any card height; no tween in this
+          // timeline assumes the old fixed 210px height. Worst-case content
+          // (title + 2-line sub ≈ 228px) still clears the 260px slot pitch.
           var TOP = 300, BOT = 560;
           var cardA = document.getElementById("mp-cardA"), cardB = document.getElementById("mp-cardB");
           var notes = String(vars.notes || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);

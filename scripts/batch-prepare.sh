@@ -263,7 +263,16 @@ and warns over 3.0s. If the narration for a scene has a long span with
 nothing to cue, split the scene at a sentence end or add `subBeats` — never
 stretch a heading over silence.
 
-### 5. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
+### 5. Headings stand alone — never a fragment completed by chips or points
+
+A heading must read as a complete phrase by itself ("Where people look for the
+answer"), never a sentence fragment that later chips finish ("The right" +
+chips "The right job / The right major" — a real pilot defect that read as
+truncated text on screen). Same for morph/step card titles. If a card or
+scene would show a title plus a large empty area at its midpoint, give it a
+sub-line or tighten the scene.
+
+### 6. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
 
 `scla-steps` renders nodes `1..N` where N = the count of non-empty step slots,
 and activates them in sequence **within one scene**. It has no notion of "this
