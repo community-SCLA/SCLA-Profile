@@ -50,7 +50,7 @@ FONT_SIZE_RE = re.compile(r"font-size:\s*([\d.]+)px")
 # Which variable keys carry viewer-read lines (vs. cue lists, themes, numbers).
 # Restatement is graded on these; `label` and `heading` are the reference lines.
 LINE_KEYS_RE = re.compile(
-    r"^(subBeats|point\d*|step\d*|caption\d*|line\d*|chip\d*|note\d*|item\d*"
+    r"^(subBeats|point\d*|step\d*|caption\d*|line\d*|chips?\d*|note\d*|item\d*"
     r"|lines|captions|takeaway|cardA\w*|cardB\w*)$"
 )
 REFERENCE_KEYS = ("label", "heading", "kicker", "statement")
@@ -94,10 +94,15 @@ def check_sizes(css_files):
     return findings, graded
 
 
-def _lines_from(value):
-    """A variable's viewer-read lines. subBeats is pipe-separated; `lines` and
+def _lines_from(value, key=""):
+    """A variable's viewer-read lines. subBeats is pipe-separated; `chips` is
+    comma-separated (each chip renders as its own pill and is graded as its
+    own line — the un-split list diluted overlap below the gate, 2026-07-28);
     the rest are single strings."""
-    return [p.strip() for p in str(value).split("|") if p.strip()]
+    parts = [p.strip() for p in str(value).split("|") if p.strip()]
+    if key == "chips":
+        parts = [c.strip() for p in parts for c in p.split(",") if c.strip()]
+    return parts
 
 
 def check_restatement(scenes):
@@ -113,7 +118,7 @@ def check_restatement(scenes):
         for key, value in vars_.items():
             if not LINE_KEYS_RE.match(key) or not str(value).strip():
                 continue
-            for line in _lines_from(value):
+            for line in _lines_from(value, key):
                 toks = norm_phrase(line)
                 if len(toks) < 2:
                     continue
