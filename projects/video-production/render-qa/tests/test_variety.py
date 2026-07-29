@@ -35,7 +35,9 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_variety as cv  # noqa: E402
+import firing  # noqa: E402
 
 failures = []
 
@@ -153,23 +155,31 @@ if not rej_problems:
 else:
     # It must fail for the RIGHT reasons, not incidentally.
     joined = " ".join(rej_problems)
-    for want, label in [
-        ("consecutive scenes on scla-statement", "the statement runs"),
-        ("distinct content forms", "too few distinct forms"),
-        ("carry artwork", "artwork coverage"),
+    # Each row is a POSITIVE-finding assertion, registered by (checker, rule)
+    # for tests/test_firing_coverage.py — see tests/firing.py. Deleting one
+    # turns the coverage suite red instead of quietly lowering a count.
+    for want, rule, label in [
+        ("consecutive scenes on scla-statement", "consecutive-run",
+         "the statement runs"),
+        ("distinct content forms", "min-forms", "too few distinct forms"),
+        ("carry artwork", "artwork", "artwork coverage"),
+        ("no single form may exceed", "share",
+         "the single-form share cap (rule 4)"),
         # Rule 6: the 8-statement navy run (64.0s — over the count cap, under
         # the seconds cap) and the 11-scene / 88.0s light stretch (over both).
-        ("consecutive content scenes on the navy canvas",
+        ("consecutive content scenes on the navy canvas", "canvas-run",
          "the theme-block scene-count cap (navy statement run)"),
-        ("continuously on the light canvas",
+        ("continuously on the light canvas", "canvas-seconds",
          "the theme-block seconds cap (light stretch)"),
         # Rule 7: 0/19 content scenes are two-region.
-        ("two spatially separate regions",
+        ("two spatially separate regions", "two-region",
          "two-region composition coverage"),
     ]:
         if want not in joined:
             failures.append(f"REJECTED should have been caught for {label} "
                             f"(missing {want!r})")
+        else:
+            firing.record("check_variety", rule)
 
 # The exemption must be earned, not granted by length alone: strip the progress
 # indicators from the reference's condition run and it must fail again.

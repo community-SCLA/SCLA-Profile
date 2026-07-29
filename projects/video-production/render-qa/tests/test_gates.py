@@ -18,14 +18,19 @@ RQ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RQ))
 
 import boxmodel
+import check_boundaries
 import check_capacity
 import check_continuity
 import check_copy
 import check_geometry
+import check_slots
 import check_text
 import textmetrics
 import tokens
 from hfp_common import parse_scenes
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from firing import fires as _fires
 
 PASS = FAIL = 0
 TMP = Path(tempfile.gettempdir()) / "scla-gate-tests"
@@ -39,6 +44,13 @@ def check(label, cond, detail=""):
     else:
         FAIL += 1
         print(f"  FAIL {label}  {detail}")
+
+
+def fires(checker, rule, label, cond, detail=""):
+    """A POSITIVE-finding assertion, registered for tests/test_firing_coverage.py.
+    See tests/firing.py — the (checker, rule) key is declared here, at the
+    assertion, never inferred."""
+    return _fires(check, checker, rule, label, cond, detail)
 
 
 def scene_div(i, template, narration, dur=8.0, start=None, variables=None):
@@ -71,9 +83,11 @@ frag = [scene_div(11, "scla-chips", "Do you care most about learning? Security? 
         scene_div(13, "scla-chips", "Mentorship? Growth?", 2.18)]
 ws = workspace(frag)
 probs = check_continuity.check(ws)
-check("a 2.2s scene is flagged as a blip",
+fires("check_continuity", "blip",
+      "a 2.2s scene is flagged as a blip",
       any("scene-13" in p and "blip" in p for p in probs), str(probs))
-check("the split list is named as ONE list across scenes",
+fires("check_continuity", "split-list",
+      "the split list is named as ONE list across scenes",
       any("split across" in p for p in probs), str(probs))
 
 # Owner: "'but it should not make the decision for you' was likely the second
@@ -81,7 +95,8 @@ check("the split list is named as ONE list across scenes",
 split = [scene_div(21, "scla-points", "AI can help you brainstorm options.", 11.0),
          scene_div(22, "scla-statement", "But it should not make the decision for you.", 2.49)]
 probs = check_continuity.check(workspace(split))
-check("a single clause opening with 'But' is a split sentence",
+fires("check_continuity", "split-sentence",
+      "a single clause opening with 'But' is a split sentence",
       any("scene-22" in p and "single clause" in p for p in probs), str(probs))
 
 # ...but a DEVELOPED contrast is not. This false positive was found and fixed
@@ -127,7 +142,8 @@ print("== copy: the conjunction rule the fragmentation disabled ==")
 # which is exactly why the per-scene version of this gate missed it.
 scenes = parse_scenes((TMP / "ws0" / "index.html").read_text())
 probs = check_copy.enumeration_problems(scenes)
-check("the missing conjunction is caught ACROSS scenes",
+fires("check_copy", "conjunction",
+      "the missing conjunction is caught ACROSS scenes",
       any("scene-13" in p and "'Growth?'" in p for p in probs), str(probs))
 check("the finding says the list spans several scenes",
       any("runs across" in p for p in probs), str(probs))
@@ -155,7 +171,8 @@ split = [scene_div(20, "scla-chips",
                    8.0)]
 probs = check_copy.enumeration_problems(
     parse_scenes((workspace(split) / "index.html").read_text()))
-check("a period-split list with a bolted-on 'or' FAILS",
+fires("check_copy", "dangling",
+      "a period-split list with a bolted-on 'or' FAILS",
       any("dangling conjunction" in p for p in probs), str(probs))
 
 ok = [scene_div(20, "scla-chips",
@@ -196,7 +213,8 @@ over = [scene_div(16, "card", "They might be different roles.", 6.36,
 fits = [scene_div(16, "card", "They might be different roles.", 6.36,
                   variables={"path3": "Different learning opportunities"})]
 f = check_capacity.check(workspace(over, {"card": CARD}))
-check("a value over its maxLines budget FAILS",
+fires("check_capacity", "maxlines",
+      "a value over its maxLines budget FAILS",
       any("path3" in x for x in f), str(f))
 f = check_capacity.check(workspace(fits, {"card": CARD}))
 check("a value inside its budget passes", not f, str(f))
@@ -242,7 +260,8 @@ def copy_problems(narration):
 
 dangling = copy_problems("The right job. The right major. The right city. "
                          "Or the right path.")
-check("a bolted-on conjunction fragment FAILS",
+fires("check_copy", "dangling-fragment",
+      "a bolted-on conjunction fragment FAILS",
       any("dangling conjunction" in p for p in dangling), str(dangling))
 joined = copy_problems("The right job, the right major, the right city, "
                        "or the right path.")
@@ -285,7 +304,8 @@ LOOP = """<html data-composition-variables='[
 VARS = {"step3": "Grounded in what you value",
         "subBeats": "Use it on any career decision"}
 hits, _, painted = check_geometry.grade(LOOP % 320, VARS)
-check("the shipped 320px box collides — and is caught",
+fires("check_geometry", "text-collision",
+      "the shipped 320px box collides — and is caught",
       any(h["rule"] == "text-collision" for h in hits), str(hits))
 check("both boxes were actually measured", len(painted) == 2, str(painted))
 # The fix is a wider box so the caption stays on ONE line, not a looser gate.
@@ -297,7 +317,8 @@ BLIND = ('<html><body><template><style>#root{position:absolute;inset:0;}</style>
          '<div id="root"></div></template></body></html>')
 ws = workspace([scene_div(1, "blind", "n", variables={})], {"blind": BLIND})
 _, probs = check_geometry.check(ws)
-check("a scene where nothing could be graded FAILS rather than passing",
+fires("check_geometry", "nothing-graded",
+      "a scene where nothing could be graded FAILS rather than passing",
       any("nothing-graded" in p or "looked at nothing" in p for p in probs),
       str(probs))
 
@@ -316,6 +337,207 @@ while n:
     n = n["parent"]
 check("a paired void tag does not unbalance the element tree",
       "root" in chain, " < ".join(chain))
+
+
+# --------------------------------------------------------------------------
+# Everything below is BUILD-enforcement-rebuild-2026-07-29 Phase 1: the
+# checkers that were armed with no fixture proving they ever returned a
+# finding. Each case asserts a POSITIVE finding on a minimal crafted input —
+# never merely that the checker passes on a good one, which is what "covered"
+# used to mean here.
+# --------------------------------------------------------------------------
+print("== copy: Title Case, armed 2026-07-28 with no fixture until now ==")
+
+
+def heading(slot, value, sid=1):
+    return [{"id": f"scene-{sid:02d}", "narration": "",
+             "variables": {slot: value}}]
+
+
+# The owner's standing preference, and the one frame.md actively contradicted
+# until Phase 0 of this build: headings are Title Case, no terminal period.
+low = check_copy.heading_problems(heading("heading", "Better decisions come "
+                                          "from better criteria"))
+fires("check_copy", "titlecase",
+      "a sentence-case heading FAILS",
+      any("not Title Case" in p for p in low), str(low))
+fires("check_copy", "heading-period",
+      "a heading with a terminal period FAILS",
+      any("ends in a period" in p
+          for p in check_copy.heading_problems(
+              heading("heading", "Better Decisions Come from Better Criteria."))),
+      str(check_copy.heading_problems(
+          heading("heading", "Better Decisions Come from Better Criteria."))))
+check("a correct Title Case heading passes",
+      not check_copy.heading_problems(
+          heading("heading", "Better Decisions Come from Better Criteria")))
+# The three slots the rule names must all be graded, not just `heading`.
+for _slot in ("heading", "statement", "title"):
+    check(f"the '{_slot}' slot is graded for Title Case",
+          any("not Title Case" in p for p in check_copy.heading_problems(
+              heading(_slot, "a lowercase line of copy"))))
+# Acronyms and minor words are the two ways a naive titlecaser breaks a
+# correct heading — a gate that rejects good copy is as broken as one that
+# passes bad copy.
+check("acronyms keep their own casing",
+      not check_copy.heading_problems(heading("heading", "Working with AI")))
+check("minor words stay lowercase mid-heading",
+      not check_copy.heading_problems(
+          heading("heading", "The Cost of a Bad Fit")))
+
+
+# --------------------------------------------------------------------------
+print("== slots: an unfilled slot renders FABRICATED placeholder copy ==")
+# The worst failure this repo has: a slot omitted from data-variable-values
+# renders the template's schema default — plausible, on-brand words the lesson
+# script never said. Every other gate passes it (size and restatement are not
+# provenance). check_slots.py has enforced this since it was written and had
+# no fixture proving it fires.
+POINTS = """<html data-composition-variables='[
+ {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
+ {"id":"point1","type":"string","label":"Point 1","default":"A plausible first point"},
+ {"id":"point2","type":"string","label":"Point 2 (empty to hide)","default":"A plausible second point"}
+]'><body><template><div id="root"></div></template></body></html>"""
+
+unfilled = [scene_div(5, "pts", "Two things matter here.", 8.0,
+                      variables={"heading": "What Matters", "point1": "Cost"})]
+found, err = check_slots.check(workspace(unfilled, {"pts": POINTS}))
+fires("check_slots", "unfilled",
+      "an omitted slot that would render its default FAILS",
+      any("point2" in f["unfilled"] for f in found), f"{found} {err}")
+
+placeheld = [scene_div(5, "pts", "Two things matter here.", 8.0,
+                       variables={"heading": "What Matters", "point1": "Cost",
+                                  "point2": "[[point2]]"})]
+found, err = check_slots.check(workspace(placeheld, {"pts": POINTS}))
+fires("check_slots", "placeholder",
+      "placeholder text passed EXPLICITLY is the same fabrication",
+      any("point2" in f["placeholder"] for f in found), f"{found} {err}")
+
+blanked = [scene_div(5, "pts", "One thing matters here.", 8.0,
+                     variables={"heading": "What Matters", "point1": "Cost",
+                                "point2": ""})]
+found, err = check_slots.check(workspace(blanked, {"pts": POINTS}))
+check("a slot explicitly blanked with \"\" passes", not found, f"{found} {err}")
+
+
+# --------------------------------------------------------------------------
+print("== text: the size floor and the restatement rule ==")
+# check_text had only a token-import assertion — nothing showed either rule
+# returning a finding. The floor moved 32 -> 40 on 2026-07-29 precisely
+# because it had been set AT the smallest size in use and could never fire.
+SMALL_CSS = TMP / "small.css"
+SMALL_CSS.parent.mkdir(parents=True, exist_ok=True)
+SMALL_CSS.write_text(
+    ".tiny-caption { font-size: 32px; font-weight: 400; }\n"
+    ".ok-body { font-size: 40px; font-weight: 400; }\n"
+    ".eyebrow { font-size: 20px; text-transform: uppercase; letter-spacing: 0.14em; }\n")
+small, graded = check_text.check_sizes([SMALL_CSS])
+fires("check_text", "min-size",
+      "body copy below the frame.md floor FAILS",
+      any("tiny-caption" in f for f in small), str(small))
+check("the compliant body rule and the label rule are not flagged",
+      len(small) == 1 and graded == 3, f"{graded} graded, {small}")
+
+EXEMPT_CSS = TMP / "exempt.css"
+EXEMPT_CSS.write_text(
+    "/* text-floor-exempt: marker numeral sized by its circle */\n"
+    ".step-num { font-size: 28px; font-weight: 900; }\n")
+ex, _ = check_text.check_sizes([EXEMPT_CSS])
+check("a declared exemption is honoured", not ex, str(ex))
+
+restated = [{"id": "scene-09",
+             "variables": {"heading": "Criteria Beat Instinct",
+                           "subBeats": "Criteria beat instinct"}}]
+rs, _ = check_text.check_restatement(restated)
+fires("check_text", "restatement",
+      "a sub-beat restating its heading FAILS",
+      any("restates heading" in f for f in rs), str(rs))
+fresh = [{"id": "scene-09",
+          "variables": {"heading": "Criteria Beat Instinct",
+                        "subBeats": "Write them down before you look"}}]
+check("a line that adds something new passes",
+      not check_text.check_restatement(fresh)[0])
+
+
+# --------------------------------------------------------------------------
+print("== boundaries: cuts, air, and the wav's own trailing hold ==")
+# check_boundaries has run on every build since it was written with no fixture
+# proving any of its seven rules returns a finding.
+
+
+def boundary_ws(scenes_html, words, root_duration):
+    ws = TMP / f"bw{len(list(TMP.glob('bw*'))) if TMP.exists() else 0}"
+    (ws / "assets" / "voice").mkdir(parents=True, exist_ok=True)
+    (ws / "assets" / "voice" / "transcript.json").write_text(json.dumps(words))
+    (ws / "index.html").write_text(
+        f'<html><body><div id="root" data-duration="{root_duration}">'
+        + "".join(scenes_html) + "</div></body></html>")
+    return ws
+
+
+def rules_of(ws):
+    return {v["rule"] for v in check_boundaries.check(ws)["violations"]}
+
+
+# A boundary landing mid-thought: scene-01's script span ends on "criteria"
+# with no terminator, which is the split frame.md forbids.
+mid = boundary_ws(
+    [scene_div(1, "scla-points", "You need clear criteria", 5.0, start=0.0),
+     scene_div(2, "scla-statement", "That is the whole idea.", 5.0, start=5.0)],
+    [{"text": "criteria", "start": 4.0, "end": 4.5},
+     {"text": "idea.", "start": 6.0, "end": 8.5}], 10.0)
+fires("check_boundaries", "mid-sentence-cut",
+      "a cut that splits a sentence FAILS",
+      "mid-sentence-cut" in rules_of(mid), str(rules_of(mid)))
+
+# Cutting before the last word has finished speaking.
+midword = boundary_ws(
+    [scene_div(1, "scla-points", "You need clear criteria.", 5.0, start=0.0),
+     scene_div(2, "scla-statement", "That is the whole idea.", 5.0, start=5.0)],
+    [{"text": "criteria.", "start": 4.0, "end": 5.6},
+     {"text": "idea.", "start": 6.0, "end": 8.5}], 10.0)
+fires("check_boundaries", "mid-word-cut",
+      "a cut landing mid-word FAILS",
+      "mid-word-cut" in rules_of(midword), str(rules_of(midword)))
+
+# <0.2s of air after the last word.
+tight = boundary_ws(
+    [scene_div(1, "scla-points", "You need clear criteria.", 5.0, start=0.0),
+     scene_div(2, "scla-statement", "That is the whole idea.", 5.0, start=5.0)],
+    [{"text": "criteria.", "start": 4.0, "end": 4.95},
+     {"text": "idea.", "start": 6.0, "end": 8.5}], 10.0)
+fires("check_boundaries", "insufficient-air",
+      "under 0.2s of air after the last word FAILS",
+      "insufficient-air" in rules_of(tight), str(rules_of(tight)))
+
+# The final scene cutting less than 1.0s after the last spoken word.
+short_hold = boundary_ws(
+    [scene_div(1, "scla-points", "You need clear criteria.", 5.0, start=0.0),
+     scene_div(2, "scla-outro", "That is the whole idea.", 5.0, start=5.0)],
+    [{"text": "criteria.", "start": 4.0, "end": 4.5},
+     {"text": "idea.", "start": 6.0, "end": 9.7}], 10.0)
+fires("check_boundaries", "final-hold",
+      "a final scene that cuts on the last word FAILS",
+      "final-hold" in rules_of(short_hold), str(rules_of(short_hold)))
+
+# A bare-canvas tail: root outruns the last scene.
+tail = boundary_ws(
+    [scene_div(1, "scla-points", "You need clear criteria.", 5.0, start=0.0),
+     scene_div(2, "scla-outro", "That is the whole idea.", 5.0, start=5.0)],
+    [{"text": "criteria.", "start": 4.0, "end": 4.5},
+     {"text": "idea.", "start": 6.0, "end": 8.0}], 12.0)
+fires("check_boundaries", "tail-after-last-scene",
+      "a bare-canvas tail past the last scene FAILS",
+      "tail-after-last-scene" in rules_of(tail), str(rules_of(tail)))
+
+clean = boundary_ws(
+    [scene_div(1, "scla-points", "You need clear criteria.", 5.0, start=0.0),
+     scene_div(2, "scla-outro", "That is the whole idea.", 5.0, start=5.0)],
+    [{"text": "criteria.", "start": 4.0, "end": 4.5},
+     {"text": "idea.", "start": 6.0, "end": 8.0}], 10.0)
+check("a clean set of boundaries passes",
+      not rules_of(clean), str(rules_of(clean)))
 
 shutil.rmtree(TMP, ignore_errors=True)
 print(f"\n{PASS} passed, {FAIL} failed")

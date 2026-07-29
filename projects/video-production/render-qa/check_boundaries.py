@@ -87,19 +87,21 @@ def parse_scenes(index_html: str):
     return scenes, root_duration
 
 
-def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    as_json = "--json" in sys.argv
-    if not args:
-        print(__doc__)
-        sys.exit(2)
-    ws = Path(args[0])
+def check(ws: Path):
+    """Grade one workspace's scene boundaries. Returns the result dict (the same
+    object --json prints). Raises FileNotFoundError when index.html or the
+    transcript is missing.
+
+    Extracted from main() 2026-07-29 so tests can assert this checker FIRES
+    (BUILD-enforcement-rebuild Phase 1) and so the mutation harness can call it
+    in-process. main() is a thin printer over this.
+    """
+    ws = Path(ws)
     index_path = ws / "index.html"
     transcript_path = words_path_for(ws)
     wav_path = ws / "assets" / "voice" / "narration.wav"
     if not index_path.exists() or not transcript_path.exists():
-        print(f"missing {index_path} or {transcript_path}", file=sys.stderr)
-        sys.exit(2)
+        raise FileNotFoundError(f"missing {index_path} or {transcript_path}")
 
     words = json.loads(transcript_path.read_text())
     scenes, root_duration = parse_scenes(index_path.read_text())
@@ -202,9 +204,25 @@ def main():
                                  "detail": f"last scene ends {sc['end']}s but root runs "
                                            f"{root_duration}s — bare-canvas tail"})
 
-    result = {"scenes": report, "violations": findings,
-              "root_duration": root_duration, "audio_end": audio_end,
-              "verdict": "FAIL" if findings else "PASS"}
+    return {"scenes": report, "violations": findings,
+            "root_duration": root_duration, "audio_end": audio_end,
+            "verdict": "FAIL" if findings else "PASS"}
+
+
+def main():
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    as_json = "--json" in sys.argv
+    if not args:
+        print(__doc__)
+        sys.exit(2)
+    try:
+        result = check(Path(args[0]))
+    except FileNotFoundError as exc:
+        print(exc, file=sys.stderr)
+        sys.exit(2)
+    report, findings = result["scenes"], result["violations"]
+    root_duration, audio_end = result["root_duration"], result["audio_end"]
+
     if as_json:
         print(json.dumps(result, indent=2))
     else:

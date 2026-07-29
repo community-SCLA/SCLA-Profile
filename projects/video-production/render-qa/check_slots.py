@@ -56,24 +56,24 @@ def schema_of(comp: Path):
     return out
 
 
-def main(argv):
-    if not argv:
-        print(__doc__)
-        return 2
-    ws = Path(argv[0]).resolve()
-    as_json = "--json" in argv
+def check(ws: Path):
+    """Grade a workspace. Returns (findings, error) — error is a string when the
+    workspace could not be read at all, in which case findings is empty.
+
+    Extracted from main() 2026-07-29 so tests can assert this checker FIRES
+    (BUILD-enforcement-rebuild Phase 1) and so the mutation harness can call it
+    in-process. main() is a thin printer over this.
+    """
+    ws = Path(ws).resolve()
     index = ws / "index.html"
     if not index.is_file():
-        print(f"no index.html at {ws}", file=sys.stderr)
-        return 2
+        return [], f"no index.html at {ws}"
 
     findings = []
     html_text = index.read_text(encoding="utf-8", errors="replace")
     scenes = parse_scenes(html_text)   # multi-line-safe: regex over the whole
     if not scenes:                     # document, not a per-line scan
-        print("no scene clips found in index.html — nothing to check",
-              file=sys.stderr)
-        return 1
+        return [], "no scene clips found in index.html — nothing to check"
     for sc in scenes:
         src = get_attr(sc["tag"], "data-composition-src")
         if not src:
@@ -107,6 +107,22 @@ def main(argv):
                 "would_render": {s: schema[s] for s in missing},
                 "placeholder": placeholder,
             })
+    return findings, None
+
+
+def main(argv):
+    if not argv:
+        print(__doc__)
+        return 2
+    ws = Path(argv[0]).resolve()
+    as_json = "--json" in argv
+
+    findings, error = check(ws)
+    if error:
+        print(error, file=sys.stderr)
+        # "no index.html" is a usage error (2); an index with no clips is a
+        # real failure (1) — same split main() has always drawn.
+        return 2 if error.startswith("no index.html") else 1
 
     if as_json:
         print(json.dumps({"findings": findings}, indent=2))
