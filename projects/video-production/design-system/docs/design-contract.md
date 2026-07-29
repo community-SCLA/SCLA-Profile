@@ -1,81 +1,15 @@
----
-name: SCLA Lesson System
-canvas: 1920x1080
-colors:
-  navy: "#0d2437" # Primary — dark canvases, headings on light, step nodes
-  navy-deep: "#0a1e2f" # Radial edge of dark canvases, deepest panels
-  blue: "#3393d6" # Secondary — section labels, structural rules, diagrams
-  gold: "#eaab2d" # Accent — CTA fills, highlights, count-ups, rules. Ration it.
-  ink: "#292f35" # Body copy on light canvases
-  paper: "#ffffff" # Light canvas base
-  cultured: "#f6f6f9" # Light canvas alt / section fill
-  fill-subtle: "#e5eff6" # Cards and subtle panels on light
-  border: "#cccedf" # Hairlines and dividers on light
-  muted: "#98a4cc" # Web muted (Ceil) — fails contrast at video scale; see muted-video
-  muted-video: "#5f6f96" # Video-safe muted — scene-index labels, rail captions on light
-  logo-gold: "#F1B32E" # Gold used inside the shipped logo SVGs (do not restyle them)
-  logo-blue: "#55A4DD" # Blue of logo-shape.svg (decorative mark)
-typography:
-  display: "proxima-nova" # Vendored woff2 in assets/fonts/ (from SCLA's Adobe kit ysq3rar)
-  body: "proxima-nova"
-  fallback: "'Proxima Nova', system-ui, sans-serif"
-  weights: [400, 700, 900] # The kit ships exactly these three — no 300/600 on video
-  scale:
-    display: "96-120px / 900" # Lesson titles
-    heading: "60-72px / 900" # Scene headings
-    quote: "52-60px / 700"
-    body: "40-48px / 400"
-    label: "20-26px / 700, uppercase, letter-spacing 0.14em" # Eyebrows, chips, metadata
-    stat: "200-260px / 900" # Count-ups
-  min-size: # Normative floors — preflight `text_size` FAILs below these (2026-07-27)
-    body: 40 # px. Anything the viewer READS as a sentence: points, captions, sub-beats, card copy. 32 -> 40 on 2026-07-29: the floor was set AT the smallest size in use, so the gate was armed and could never fire — the scene-19 caption the owner called "just too small" was 32px, i.e. exactly compliant. ~1/27 of frame height, which is what survives phone viewing
-    label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
-    exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
-spacing:
-  # These four are LOADED, not quoted: render-qa/tokens.py parses this block and
-  # render-qa/check_geometry.py grades every scene against all four, in preflight's
-  # full AND --static modes. Changing a number here changes the gate's verdict —
-  # proven by tests/test_tokens_coverage.py, which fails if any accessor here loses
-  # its non-test consumer, and by preflight's composition_freshness section, which
-  # fails a workspace whose copied frame.md declares different numbers.
-  frame-padding: 120 # px. Nominal content inset — the design target for primary content
-  safe-area: 72 # px. HARD outer keep-out. No content element's box may cross into the outer 72px on any edge
-  footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). No content element may enter it — content must end above y = canvas_h - 120
-  content-bottom: 960 # px. Derived: canvas_h - footer-reserve. The lowest y any content element may occupy
-  radius-card: "12px"
-  radius-pill: "100px"
-components:
-  cta-label: "gold text 900 with leading → arrow, no fill/pill — video CTAs aren't clickable, so never style them as buttons"
-  chip: "2px blue border, transparent fill, blue text, radius 100px"
-  step-node: "120px circle, 4px navy ring, gold fill on activation, navy 900 number"
-  point-marker: "74px circle, gold fill, navy 900 number"
-  rule: "gold or blue, 3-4px, animates scaleX 0→1 from transform-origin left"
-motion:
-  entrance: "0.4-0.6s per element, power3.out / power4.out / back.out(1.4) — vary per element; the WHOLE entrance settles by 1.2s (Motion v2, 2026-07-27)"
-  exit: "0.3s power2.in at sceneDuration-0.35 — content layer only, furniture stays; hard-kill set() at the boundary; scla-outro exempt (video ends full-frame)"
-  closing-beat: "one cued resolve in each scene's final second (rule completes / accent pops / dimmed items restore) — additive, never in-place re-animation"
-  stagger: "0.12-0.18s"
-  ambient: "oval rings breathe scale 1→1.05 over 3-4s, finite yoyo repeats sized to the scene"
-  ban: "repeat: -1 (use finite counts), linear full-screen gradients on navy (H.264 banding — use radial)"
-voice:
-  # HeyGen swap LANDED 2026-07-22 (see decisions/log.md): synth_narration.py
-  #   defaults to this HeyGen starfish voice and provider — it returns native
-  #   word timestamps with the synthesis (assets/voice/narration.words.json),
-  #   so the separate Whisper transcribe pass no longer runs on new builds.
-  #   Cost: ~1 HeyGen credit per ~10s line; quota 15000. Voice changed
-  #   2026-07-22 to Oxana (owner pick). Approved alternate: Seema — Professional
-  #   166aa8d7acd1495a839d34024ccb1505. Both support locale en-US and neither
-  #   supports pause tags — pace with sentence structure, not <break>.
-  provider: heygen           # ACTIVE — synth_narration.py's default
-  voice_id: 442360a3e0894fbd85024ff64cc2b928  # Oxana, en-US (chosen 2026-07-22)
-  speed: 1.0  # 0.95 -> 1.0 on 2026-07-28 (owner: slightly higher WPM)
-  fallback: # manual escape hatch — `synth_narration.py <ws> --provider kokoro`
-    provider: kokoro # Pinned engine — NOT a CLI flag (hyperframes ≥0.7.56 removed --provider; kokoro is the built-in). Needs `npx hyperframes transcribe` after (no native word timestamps)
-    voice_id: af_heart
-    speed: 1.0
----
+# SCLA Lesson System — the design contract
 
-# SCLA Lesson System — frame-scale design spec
+> **Normative numbers are NOT in this file.** Colors, type scale, minimum text
+> sizes, spacing tokens, the pinned voice and the program display-name map live
+> in `../config/tokens.yml`, which `render-qa/src/tokens.py` parses and the gates
+> grade against. This document is the human-readable contract around those
+> numbers. If a sentence here disagrees with `tokens.yml`, `tokens.yml` wins —
+> and the sentence is a bug (see `decisions/log.md`, 2026-07-29: the pipeline
+> once correctly obeyed this spec and violated the owner).
+>
+> Split out of `frame.md` on 2026-07-29. Rules below that no checker enforces
+> are conventions; see `.claude/rules/video-production.md` for the mechanized set.
 
 The video design system for SCLA lesson videos (audience: college students 18–24).
 Frontmatter above is normative — quote hex/weights verbatim, never round. Source of
@@ -489,18 +423,12 @@ is reserved for labels/eyebrows/chips.
 The title card's `eyebrow` and `title`, and the outro's closing copy, are
 DERIVED, not authored:
 
-- **`eyebrow` = the program's display name** from this table (checked by
-  `preflight.py`; a wrong or invented program name is a gate failure):
-
-| Program slug | On-screen display name |
-| --- | --- |
-| early-career-boost | Career Accelerator |
-| mid-career-momentum | Mid-Career Momentum |
-| career-transitions | Career Transitions |
-| entrepreneur-accelerator | Entrepreneur Accelerator |
-
-  (early-career-boost renders as "Career Accelerator" per the owner-directed
-  on-screen rebrand, 2026-07-21, recorded in `refinement-log.md`.)
+- **`eyebrow` = the program's display name**, read from the `programs:` map in
+  `../config/tokens.yml` — a wrong or invented program name is a gate failure
+  (`preflight.py`). Add a new program to that map, never here: this file is
+  prose and the gate does not read it. (`early-career-boost` renders as
+  "Career Accelerator" per the owner-directed on-screen rebrand, 2026-07-21,
+  recorded in `refinement-log.md`.)
 
 - **`title` = the lesson title from the script stem** — the stem's title
   segment with hyphens as spaces, Title Case per the heading rule above
