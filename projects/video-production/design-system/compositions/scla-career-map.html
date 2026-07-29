@@ -6,12 +6,12 @@
     {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
     {"id":"startLabel","type":"string","label":"Start node title","default":"[[startLabel]]"},
     {"id":"startSub","type":"string","label":"Start node subtitle","default":"[[startSub]]"},
-    {"id":"path1","type":"string","label":"Path 1 title (top)","default":"[[path1]]"},
-    {"id":"fit1","type":"string","label":"Path 1 fit line","default":"[[fit1]]"},
-    {"id":"path2","type":"string","label":"Path 2 title (middle)","default":"[[path2]]"},
-    {"id":"fit2","type":"string","label":"Path 2 fit line","default":"[[fit2]]"},
-    {"id":"path3","type":"string","label":"Path 3 title (bottom)","default":"[[path3]]"},
-    {"id":"fit3","type":"string","label":"Path 3 fit line","default":"[[fit3]]"},
+    {"id":"path1","type":"string","label":"Path 1 title (top)","default":"[[path1]]","maxLines":2},
+    {"id":"fit1","type":"string","label":"Path 1 fit line","default":"[[fit1]]","maxLines":1},
+    {"id":"path2","type":"string","label":"Path 2 title (middle)","default":"[[path2]]","maxLines":2},
+    {"id":"fit2","type":"string","label":"Path 2 fit line","default":"[[fit2]]","maxLines":1},
+    {"id":"path3","type":"string","label":"Path 3 title (bottom)","default":"[[path3]]","maxLines":2},
+    {"id":"fit3","type":"string","label":"Path 3 fit line","default":"[[fit3]]","maxLines":1},
     {"id":"bestLabel","type":"string","label":"Best-fit node title","default":"[[bestLabel]]"},
     {"id":"bestSub","type":"string","label":"Best-fit node subtitle","default":"[[bestSub]]"},
     {"id":"winner","type":"string","label":"Winning path the gold route runs through (1 | 2 | 3)","default":"2"},
@@ -88,10 +88,16 @@
           color: #0d2437;
           line-height: 1.08;
         }
+        /* top was 380px until 2026-07-29. A 2-line path node at 34px is 170px
+           tall, so node-3 (top 420 inside the stage) bottomed out past 960px —
+           frame.md's content-bottom — and a 3-line node ran to 1011px, straight
+           through the footer rule, which is what the owner saw. At 340px the
+           worst legal node (2 lines, enforced by the maxLines budgets above)
+           ends at 930px, inside the reserve. */
         #cm-stage {
           position: absolute;
           left: 120px;
-          top: 380px;
+          top: 340px;
           width: 1680px;
           height: 560px;
         }
@@ -101,16 +107,23 @@
           width: 100%;
           height: 100%;
         }
+        /* 300px wide until 2026-07-29: "Different learning opportunities"
+           measures 507px in Proxima 900 at 34px, so a 240px text box wrapped it
+           to three lines and the card grew through the footer rule. The first
+           fix dropped the type to 30px and check_text caught it immediately —
+           30px is below frame.md's 32px body floor. Widening is the correct
+           lever: a 300px text box takes "Different learning" (283.5px) on one
+           line, so the same string lands in two. */
         .cm-node {
           position: absolute;
-          width: 300px;
+          width: 360px;
           padding: 26px 30px;
           border-radius: 14px;
           border: 2px solid #cccedf;
           background: #f6f6f9;
         }
         .cm-node .cm-role {
-          font-size: 34px;
+          font-size: 40px;
           font-weight: 900;
           color: #0d2437;
         }

@@ -85,6 +85,7 @@ from pathlib import Path
 DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[1] / "design-system" / "compositions"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import tokens
 from hfp_common import ffprobe_duration, get_attr, norm_token, parse_scenes
 from stem import StemError, base as stem_base, is_canonical
 
@@ -552,6 +553,35 @@ def check_composition_freshness(ws: Path):
     if skipped:
         lines.append(f"not checked ({len(skipped)} instanced clone(s)/unmatched): "
                      + ", ".join(skipped))
+
+    # frame.md is copied into the workspace at init exactly like compositions/,
+    # and tokens.py reads the WORKSPACE copy when one exists — so every gate
+    # that imports a normative number (type floors, safe-area, footer-reserve,
+    # content-bottom) grades this build against the snapshot, not the spec.
+    # Without this, raising typography.min-size 32 -> 40 on 2026-07-29 silently
+    # did not apply to any workspace already on disk: the number "moves in one
+    # place" only for workspaces built afterwards. Same failure mode as stale
+    # compositions, same remedy — refresh the copy. (2026-07-29, Phase 2.)
+    ws_frame, src_frame = ws / "frame.md", DESIGN_SYSTEM_COMPOSITIONS.parent / "frame.md"
+    if ws_frame.is_file() and src_frame.is_file():
+        ws_tok, src_tok = tokens.summary(ws), tokens.summary(None)
+        drift = sorted(k for k in set(ws_tok) | set(src_tok)
+                       if k != "frame_md" and ws_tok.get(k) != src_tok.get(k))
+        if drift:
+            stale = stale or ["frame.md"]
+            lines.append(
+                "stale frame.md — this workspace's copy declares different "
+                "normative token(s) than design-system/frame.md, and the gates "
+                "read the COPY: "
+                + "; ".join(f"{k}: workspace {ws_tok.get(k)!r} vs spec "
+                            f"{src_tok.get(k)!r}" for k in drift)
+                + ". Refresh frame.md from design-system/ before building.")
+        else:
+            lines.append("ok — frame.md's normative tokens match design-system/frame.md")
+    elif not ws_frame.is_file():
+        lines.append("no frame.md in this workspace — gates fall back to "
+                     "design-system/frame.md")
+
     return {"pass": not stale, "output": "\n".join(lines)}
 
 

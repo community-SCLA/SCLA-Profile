@@ -160,7 +160,7 @@
           bottom: 170px;
           padding-left: 30px;
           text-align: left;
-          font-size: 32px;
+          font-size: 40px;
           font-weight: 700;
           color: #5f6f96;
           line-height: 1.3;
@@ -219,7 +219,14 @@
              defect: every scene's template root is id="root", so in the composited
              render getElementById("root") resolves to the FIRST scene's root and the
              sub-beat lands in another scene's (hidden, differently-scoped) slot. -->
-        <div id="cc-subbeat-host"></div>
+        <div id="cc-subbeat-host">
+          <!-- Geometry declaration for the sub-beat lines the script creates at
+               run time: empty and opacity:0, so it paints nothing. It exists so
+               check_geometry.py can see the box those lines occupy. A box only
+               the browser knows about is a box no gate can grade — which is how
+               scla-loop's sub-beat landed on a caption on 2026-07-29. -->
+          <div class="cc-subbeat" id="cc-subbeat-proto" data-slot="subBeats" data-geometry-proto></div>
+        </div>
         <div id="cc-index" data-layout-allow-occlusion>07 / DEFINE</div>
         <div id="cc-brandline">SCLA · Lesson System</div>
       </div>

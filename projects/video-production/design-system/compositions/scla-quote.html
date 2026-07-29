@@ -187,7 +187,11 @@
         <div id="q-ring-2" data-layout-allow-overflow></div>
         <div id="q-card"></div>
         <div id="q-card-edge"></div>
-        <div id="q-glyph">&ldquo;</div>
+        <!-- The oversized open-quote sits BEHIND the quote text by design. That
+             is real layering, so it is declared rather than left for a gate to
+             re-litigate: check_layout.py treats content_overlap as fatal
+             (2026-07-29), and an intentional overlap has to say so. -->
+        <div id="q-glyph" data-layout-allow-overlap>&ldquo;</div>
         <div id="q-glyph-accent">&rdquo;</div>
         <div id="q-text">I picked my criteria before I compared a single option — that one change made the whole decision easier.</div>
         <div id="q-attr-row">

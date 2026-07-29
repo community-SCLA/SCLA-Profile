@@ -32,11 +32,12 @@ typography:
     label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
     exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
 spacing:
-  # render-qa/tokens.py parses this block and exposes frame_padding(), safe_area(),
-  # footer_reserve() and content_bottom() — but as of 2026-07-29 NO checker calls
-  # them, so changing a number here changes nothing physical. Only typography.min-size
-  # is LOADED end to end (tokens.min_size() -> check_text.py). These four are a
-  # Convention until check_geometry.py is wired into preflight.py.
+  # These four are LOADED, not quoted: render-qa/tokens.py parses this block and
+  # render-qa/check_geometry.py grades every scene against all four, in preflight's
+  # full AND --static modes. Changing a number here changes the gate's verdict —
+  # proven by tests/test_tokens_coverage.py, which fails if any accessor here loses
+  # its non-test consumer, and by preflight's composition_freshness section, which
+  # fails a workspace whose copied frame.md declares different numbers.
   frame-padding: 120 # px. Nominal content inset — the design target for primary content
   safe-area: 72 # px. HARD outer keep-out. No content element's box may cross into the outer 72px on any edge
   footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). No content element may enter it — content must end above y = canvas_h - 120

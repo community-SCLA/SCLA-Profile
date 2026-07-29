@@ -222,12 +222,14 @@ check("a value inside its budget passes", not f, str(f))
 
 # --------------------------------------------------------------------------
 print("== tokens: frame.md is loaded, not quoted ==")
-check("safe-area is a real loaded number", tokens.safe_area() == 72)
-check("footer-reserve is a real loaded number", tokens.footer_reserve() == 120)
-check("content-bottom derives from the canvas",
+# The literals that used to live here (safe_area() == 72, footer_reserve() ==
+# 120, min_size() == (40, 20)) were the hand-copy tokens.py exists to abolish:
+# they failed only if *frame.md* changed and never if a *video* violated the
+# number, which is the opposite of what a gate is for. tests/test_tokens_coverage.py
+# now asserts the real property — every normative scalar has an accessor AND a
+# non-test consumer — so a token nobody reads is a red test. (2026-07-29.)
+check("content-bottom is DERIVED, never declared twice",
       tokens.content_bottom() == tokens.canvas()[1] - tokens.footer_reserve())
-check("check_text's floors come FROM frame.md, not a copy",
-      tokens.min_size() == (40, 20))
 # The floor had been pinned AT the smallest size any template used, so the gate
 # was armed and structurally unable to fire. The caption the owner called "just
 # too small" measured 32px — exactly compliant. A floor equal to the minimum in
@@ -337,6 +339,83 @@ while n:
     n = n["parent"]
 check("a paired void tag does not unbalance the element tree",
       "root" in chain, " < ".join(chain))
+
+# A CSS comment inside a declaration block parsed as a declaration and silently
+# displaced `left`, so the model read x=0 for an element at left:120 and
+# invented breaches that were not there. A model that mis-measures is worse
+# than no model. (2026-07-29, found while arming frame-padding.)
+COMMENTED = ('<html><body><template><style>#root{position:absolute;inset:0;}'
+             '#a{position:absolute;/* moved: 110 -> 120 on 2026-07-29 */'
+             'left:120px;top:200px;font-size:40px;}</style>'
+             '<div id="root"><div id="a" data-slot="s">x</div></div>'
+             '</template></body></html>')
+_doc = boxmodel.Doc(COMMENTED)
+check("a CSS comment inside a block does not displace the box",
+      _doc.decls(_doc.by_id["a"]).get("left") == "120px",
+      str(_doc.decls(_doc.by_id["a"])))
+
+# --- geometry: the bounds rules, each proven to return a finding -----------
+# spacing.frame-padding was declared when the system was built and read by
+# NOTHING until 2026-07-29 — tokens.py exposed frame_padding() and no caller
+# ever called it. tests/test_tokens_coverage.py now keeps that from recurring;
+# these prove the rules that consume the numbers actually fire.
+BOUNDS = """<html data-composition-variables='[
+ {"id":"body","type":"string","label":"Body","default":"[[body]]"}
+]'><body><template><style>
+#root { position: absolute; inset: 0; }
+.bd { position: absolute; width: 600px; font-size: 40px; font-weight: 400;
+      line-height: 1.3; }
+</style>
+<div id="root"><div class="bd" id="bd" data-slot="body">x</div>
+</div></template></body></html>"""
+
+
+def bounds_rules(css_pos):
+    html = BOUNDS.replace("#root { position: absolute; inset: 0; }",
+                          "#root { position: absolute; inset: 0; }\n"
+                          f"#bd {{ {css_pos} }}")
+    hits, _, _ = check_geometry.grade(html, {"body": "A line of real copy"})
+    return {h["rule"] for h in hits}
+
+
+fires("check_geometry", "safe-area-breach",
+      "content crossing the 72px keep-out FAILS",
+      "safe-area-breach" in bounds_rules("left: 20px; top: 400px;"),
+      str(bounds_rules("left: 20px; top: 400px;")))
+fires("check_geometry", "footer-breach",
+      "content running into the footer band FAILS",
+      "footer-breach" in bounds_rules("left: 300px; top: 980px;"),
+      str(bounds_rules("left: 300px; top: 980px;")))
+fires("check_geometry", "padding-breach",
+      "body content outside the 120px content inset FAILS",
+      "padding-breach" in bounds_rules("left: 90px; top: 400px;"),
+      str(bounds_rules("left: 90px; top: 400px;")))
+check("body content inside every bound passes",
+      not bounds_rules("left: 200px; top: 400px;"),
+      str(bounds_rules("left: 200px; top: 400px;")))
+# Declared decorative bleed is stated, never tolerated by a loosened threshold.
+_bleed = BOUNDS.replace('id="bd" data-slot="body"',
+                        'id="bd" data-slot="body" data-layout-allow-overflow')
+check("declared bleed (data-layout-allow-overflow) is exempt",
+      not check_geometry.grade(
+          _bleed.replace("#root { position: absolute; inset: 0; }",
+                         "#root { position: absolute; inset: 0; }\n"
+                         "#bd { left: 20px; top: 400px; }"),
+          {"body": "A line of real copy"})[0])
+# Label-class furniture is NOT graded against the content inset: frame.md hands
+# the outer band to the brandline, scene index and rail label by name, so a
+# padding rule that graded them would fail every template in the system.
+LABELISH = BOUNDS.replace(
+    ".bd { position: absolute; width: 600px; font-size: 40px; font-weight: 400;",
+    ".bd { position: absolute; width: 600px; font-size: 20px; font-weight: 700;"
+    " text-transform: uppercase; letter-spacing: 0.14em;")
+_lab = check_geometry.grade(
+    LABELISH.replace("#root { position: absolute; inset: 0; }",
+                     "#root { position: absolute; inset: 0; }\n"
+                     "#bd { left: 90px; top: 400px; }"),
+    {"body": "SCLA lesson system"})[0]
+check("label-class furniture is not graded against the content inset",
+      not any(h["rule"] == "padding-breach" for h in _lab), str(_lab))
 
 
 # --------------------------------------------------------------------------

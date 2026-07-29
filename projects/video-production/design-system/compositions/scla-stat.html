@@ -73,9 +73,14 @@
           border-radius: 50%;
           border: 2px solid rgba(234, 171, 45, 0.3);
         }
+        /* left 110 -> 120 on 2026-07-29: spacing.frame-padding was declared when
+           the system was built and enforced by nothing until check_geometry's
+           padding-breach rule read it. This numeral was the only body-class
+           element in the system outside the inset; the file's own data-ring
+           variant already sat at 130. */
         #sh-number {
           position: absolute;
-          left: 110px;
+          left: 120px;
           top: 330px;
           font-size: 300px;
           font-weight: 900;

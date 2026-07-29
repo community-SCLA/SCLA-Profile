@@ -67,7 +67,7 @@ After creating or editing any `.html` composition, **always** run `npm run check
 and fix all errors before considering the task complete. Review inspect warnings
 before rendering.
 
-Environment landmines (pkill bracket, /dev/shm size, CLI pin 0.7.45+/#2064,
+Environment landmines (pkill bracket, /dev/shm size, CLI pin 0.7.79+/#2064,
 HYPERFRAMES_PYTHON) are documented once, in `/render-lessons` Phase BUILD Step B0.
 
 **Full documentation:** discover pages via the machine-readable index — do NOT

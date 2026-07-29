@@ -86,6 +86,13 @@ class Doc(HTMLParser):
         pins to colour only.
         """
         for style in re.findall(r"<style>(.*?)</style>", html, re.S):
+            # Strip CSS comments BEFORE the rule regex. A /* ... */ comment
+            # containing a colon parses as a declaration, and one sitting inside
+            # a block silently displaced #sh-number's `left` — the model read
+            # x=0 for an element at left:120 and reported breaches that were
+            # not there. A model that mis-measures is worse than no model, so
+            # comments die at the door. (2026-07-29.)
+            style = re.sub(r"/\*.*?\*/", " ", style, flags=re.S)
             for sel, block in RULE_RX.findall(style):
                 d = _decls(block)
                 for one in sel.split(","):

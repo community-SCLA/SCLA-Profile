@@ -39,6 +39,18 @@ THREE RULES:
   safe-area-breach A content element's ink crosses into the outer keep-out band
                    (frame.md spacing.safe-area).
 
+  padding-breach   BODY-class content crosses the nominal content inset
+                   (frame.md spacing.frame-padding). frame-padding has been
+                   declared since the system was built and was enforced by
+                   nothing at all — tokens.py exposed frame_padding() and no
+                   caller ever read it. Graded on body class only: the inset is
+                   the target for PRIMARY CONTENT, and frame.md hands the outer
+                   band to label-class furniture (brandline, scene index, rail
+                   label, eyebrow) by name, so grading chrome against it would
+                   fail every template in the system. Decorative bleed opts out
+                   with `data-layout-allow-overflow`, which the ghost numerals
+                   in scla-steps/scla-loop already declare.
+
 FOOTER CHRME IS NOT CONTENT. frame.md gives the bottom `footer-reserve` band to
 the brandline, scene index and progress rail by name, and every one of them is
 label-class furniture (uppercase + tracked) declared with `bottom:` inside that
@@ -118,6 +130,7 @@ def grade(html: str, variables: dict, ws=None):
     safe = tokens.safe_area(ws)
     bottom_limit = tokens.content_bottom(ws)
     footer_reserve = tokens.footer_reserve(ws)
+    padding = tokens.frame_padding(ws)
 
     painted = []
     for node in layout.text_nodes():
@@ -172,6 +185,28 @@ def grade(html: str, variables: dict, ws=None):
                 "rule": "safe-area-breach",
                 "detail": (f"{_name(node)} crosses the {safe:.0f}px keep-out "
                            f"({', '.join(edges)}) — {layout.text_of(node)!r}"),
+            })
+
+        # 4. the nominal content inset — body class only (see the docstring).
+        if boxmodel.is_label_class(layout.doc, node):
+            continue
+        pad_edges = []
+        if ink.x < padding - TOLERANCE:
+            pad_edges.append(f"left x={ink.x:.0f}")
+        if ink.right > canvas_w - padding + TOLERANCE:
+            pad_edges.append(f"right x={ink.right:.0f}")
+        if ink.y < padding - TOLERANCE:
+            pad_edges.append(f"top y={ink.y:.0f}")
+        if not chrome and ink.bottom > canvas_h - padding + TOLERANCE:
+            pad_edges.append(f"bottom y={ink.bottom:.0f}")
+        if pad_edges:
+            findings.append({
+                "rule": "padding-breach",
+                "detail": (f"{_name(node)} crosses the {padding:.0f}px content "
+                           f"inset ({', '.join(pad_edges)}) — "
+                           f"{layout.text_of(node)!r}. Body content lives inside "
+                           f"frame-padding; declare decorative bleed with "
+                           f"data-layout-allow-overflow"),
             })
 
     return findings, layout, painted

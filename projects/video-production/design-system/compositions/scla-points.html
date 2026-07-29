@@ -61,9 +61,13 @@
           border-radius: 50%;
           border: 2px solid rgba(234, 171, 45, 0.2);
         }
+        /* Rail + label pulled inside the 72px keep-out (2026-07-29): at right:44
+           the vertical label's outer edge sat at x=1876, 28px into the band
+           frame.md declares a HARD no-content zone. Nothing had ever measured a
+           vertical run, so it read as compliant. check_geometry.py measures it. */
         #kp-rail {
           position: absolute;
-          right: 84px;
+          right: 116px;
           top: 120px;
           bottom: 120px;
           width: 2px;
@@ -72,7 +76,7 @@
         }
         #kp-rail-label {
           position: absolute;
-          right: 44px;
+          right: 76px;
           top: 120px;
           font-size: 20px;
           font-weight: 700;
@@ -127,6 +131,7 @@
           padding: 30px 0;
           border-bottom: 2px solid #cccedf;
         }
+        /* text-floor-exempt: marker numeral sized by its 74px circle, not body copy */
         .kp-num {
           flex: none;
           width: 74px;
@@ -140,7 +145,7 @@
           place-items: center;
         }
         .kp-text {
-          font-size: 36px;
+          font-size: 40px;
           font-weight: 400;
           color: #292f35;
         }
@@ -169,7 +174,7 @@
           right: 160px;
           bottom: 132px;
           text-align: center;
-          font-size: 34px;
+          font-size: 40px;
           font-weight: 700;
           color: #0d2437;
           opacity: 0;
@@ -225,7 +230,14 @@
              every scene's template root is id="root", so in the composited render
              getElementById("root") resolves to the FIRST scene's root (see the
              scla-chips subBeat root-cause note, fixed 2026-07-27). -->
-        <div id="kp-subbeat-host"></div>
+        <div id="kp-subbeat-host">
+          <!-- Geometry declaration for the sub-beat lines the script creates at
+               run time: empty and opacity:0, so it paints nothing. It exists so
+               check_geometry.py can see the box those lines occupy. A box only
+               the browser knows about is a box no gate can grade — which is how
+               scla-loop's sub-beat landed on a caption on 2026-07-29. -->
+          <div class="kp-subbeat" id="kp-subbeat-proto" data-slot="subBeats" data-geometry-proto></div>
+        </div>
         <div id="kp-index">02 / KEY POINTS</div>
       </div>
 
