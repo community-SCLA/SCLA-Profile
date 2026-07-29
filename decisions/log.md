@@ -140,6 +140,58 @@ of it. Note also that frame.md is not the worst graveyard, only the measured one
 `render-lessons/SKILL.md` carries 38 unannotated normative lines and is graded by
 nothing.
 
+**BUILT — all six phases landed 2026-07-29.** What the plan predicted and what
+actually happened, so the next session can trust or distrust the estimate:
+
+- Every `check_*.py` is now covered by a test asserting a POSITIVE finding, with
+  the association declared explicitly (`REQUIRED` in `tests/test_firing_coverage.py`)
+  rather than inferred. `check_layout` / `check_presence` are tracked as `SLOW`
+  and named on every run — uncovered out loud, never silently skipped.
+- The four orphaned `spacing` tokens are consumed by `check_geometry.py`, wired
+  into preflight in full AND `--static` mode. Proof the token is load-bearing:
+  setting `safe-area: 9999` in `frame.md` flips preflight's verdict. Verified.
+- Mutation testing runs over the real 20-scene plan, differential and per-rule.
+  Reverting `check_copy` to per-scene conjunction scoping turns mutation 1 red —
+  and the mutant still fires FOUR sibling rules while doing it, which is exactly
+  why a global pass/fail assertion would have stayed green through the deletion.
+- `hyperframe-guard.sh` no longer degrades to silent-clean; `test_guard_contract.py`
+  runs the guard's own extracted `jq` program rather than a copy that could drift.
+- The auditor was itself under-reporting in four ways (backtick citations,
+  `.jsonl`/`.tsv` paths, two unscanned callers, and counting a checker mentioned
+  in a COMMENT as invoked). Recall went 33 → 225 unbacked. `--strict` stays off.
+
+**Two things the plan got wrong, both worth remembering.** First, the plan's own
+`padding-breach` mutation asserted nothing: it injected CSS before the *first*
+`</style>` — the `@font-face` block — where "later rules win" silently discarded
+it, and it moved `left` on a statically-positioned element, where `left` is
+inert. It reported a checker failure that was really its own. A mutation that
+cannot fire is the same defect class as a gate that cannot fire, one level up,
+and the harness now asserts its own targets are patchable. Second,
+`preflight.py`'s missing-approved-script branch returned `pass: True` with a
+WARN — the render-stage half of the fabrication ban disarming itself precisely
+when it could not verify anything. `test_script_match.py` had pinned that
+behaviour as CORRECT. Both inverted. A test enshrines a defect as easily as a
+doc does; that is now the third time this repo has found one doing it.
+
+**The ripples ban, closed properly (owner call).** The 2026-07-14 in-place
+keep-alive ban — banned, reaffirmed 07-15, violated within a day, three MP4s
+shipped and one published, and still unarmed prose at the start of this build —
+was resolved not by arming a gate over it but by the owner's instruction to
+delete the capability: *"I want everything to be as upstream as possible — can
+we just get rid of that hyperframe element so it's not ever used?"* Six sites
+removed from five templates (the career-map node pulse, the living-icon bob in
+four templates, `scla-condition`'s accent re-pop), and `render-qa/check_motion.py`
+now fails a re-add at plan stage and at `npm run check`. This is the strongest
+form the doctrine takes: the trade that produced every past violation — satisfy
+the stagnation gate with a bob instead of re-authoring the scene — is no longer
+available, rather than merely discouraged.
+
+**Doctrine, restated with the evidence in:** a rule is armed when something
+automatically re-runs the owner's actual defect against its checker and fails if
+it passes. Where the capability can be removed instead, remove it — a feature
+that does not exist needs no gate, and this repo's record on rules that merely
+*exist* is 14 defects caused by a rule that was present and did not fire.
+
 ## 2026-07-29 — The gates the `better-decisions` rejection exposed: scope, sampling, severity
 
 **Decision:** The owner rejected the 2026-07-28 `better-decisions` build over

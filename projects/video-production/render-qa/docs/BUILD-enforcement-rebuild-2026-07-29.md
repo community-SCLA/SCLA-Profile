@@ -1,6 +1,10 @@
 # BUILD — enforcement rebuild
 
-**Status:** approved, not started · **Audience:** a fresh build session.
+**Status: BUILT — all six phases landed 2026-07-29.** Kept as the record of what
+was specified and why; the outcome, including the two things this plan got wrong
+about itself, is in `decisions/log.md` (2026-07-29, telemetry-rejection entry).
+The acceptance checklist at the bottom is ticked with how each was verified.
+· **Audience:** a fresh build session.
 Background and the rejected alternatives live in
 `HANDOFF-self-improving-gates-2026-07-29.md` — you do not need them to build.
 
@@ -313,21 +317,41 @@ display-name table out of frame.md's **body**. Legitimate follow-up, not this bu
 
 ## Done when all of these pass
 
-- [ ] `run_tests.py` green **from a fresh clone**
-- [ ] `python3 scripts/check-enforcement.py` → **0 broken claims**
-- [ ] Deleting any firing assertion turns `run_tests.py` red
-- [ ] Breaking `check_copy.titlecase()` turns the suite red
-- [ ] `frame.md safe-area: 9999` changes `preflight.py`'s verdict
-- [ ] Reverting `check_copy` to per-scene conjunction scoping turns mutation 1 red
-- [ ] `hyperframe-guard.sh` reports violations on a failing plan **and** stays silent
+- [x] `run_tests.py` green **from a fresh clone** — verified by cloning to a temp
+      dir and running the suite there; clean tree, exit 0.
+- [x] `python3 scripts/check-enforcement.py` → **0 broken claims** (86 backed,
+      226 unbacked report-only).
+- [x] Deleting any firing assertion turns `run_tests.py` red — deleted
+      `check_slots:unfilled`; suite went red with `NO FIRING PROOF`. Reverted.
+- [x] Breaking `check_copy.titlecase()` turns the suite red — made it the
+      identity function; four assertions went red across three suites. Reverted.
+- [x] `frame.md safe-area: 9999` changes `preflight.py`'s verdict — PASS → FAIL
+      with `safe-area-breach`; reverting restores PASS.
+- [x] Reverting `check_copy` to per-scene conjunction scoping turns mutation 1 red
+      — and the mutant still fired four sibling rules, which is why the assertion
+      had to be differential and per-rule. Reverted.
+- [x] `hyperframe-guard.sh` reports violations on a failing plan **and** stays silent
       on a clean one, asserted by `test_guard_contract.py` running the guard's real
-      `jq` program
-- [ ] `preflight.py --json` shape unchanged: `sections[].pass` bool,
-      `sections[].output` string, keys `^[a-z_]+$`
-- [ ] The 2026-07-29 pilot still passes every gate end to end (no new false blocks)
-- [ ] `decisions/log.md` entry written: why the telemetry design was rejected, what
+      `jq` program. **Caveat:** its clean-plan half points at the on-disk pilot
+      workspace, which is gitignored — on a fresh clone that half self-skips with a
+      `~~` note. Tracked, not silent, but it does mean CI never runs the inverse
+      assertion. Worth replacing with a synthetic clean fixture.
+- [x] `preflight.py --json` shape unchanged: `pass` bool, `output` string, keys
+      `^[a-z_]+$`, no per-section key added. (Note: `sections` is a dict keyed by
+      name, not a list — the `sections[].x` notation above is loose.)
+- [x] The 2026-07-29 pilot still passes every gate end to end — `--static` PASS on
+      all sections. **Full mode cannot run on it as it sits:** its `index.html` was
+      regenerated at 05:42 (≈3h after the MP4), so it carries plan-stage
+      `data-duration="1"` placeholders and the timing/render gates legitimately
+      fail. `scenes.json` predates the render, so no content drift. Every gate this
+      build touched passes in BOTH modes.
+- [x] `decisions/log.md` entry written: why the telemetry design was rejected, what
       replaced it, and the doctrine — *a rule is armed when something automatically
       re-runs the owner's actual defect against its checker and fails if it passes*
+- [x] **Added beyond the plan, on owner instruction:** the ripples / keep-alive ban
+      (OWNER CALL 3) was closed by deleting the capability rather than labelling it
+      `Convention`. Six sites removed from five templates; `check_motion.py` fails a
+      re-add at plan stage and at `npm run check`.
 
 ## One caution
 
