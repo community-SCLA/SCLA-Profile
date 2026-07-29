@@ -328,8 +328,15 @@ def plan_boundaries(scenes, words, audio_end):
     Legacy mode: anchored word ends (assumes gaps sufficient)."""
     if scenes and "manifest_cut" in scenes[0]:
         bounds = [sc["manifest_cut"] for sc in scenes]
-        bounds[-1] = round(max(bounds[-1], (audio_end or 0) + AUDIO_TAIL,
+        bounds[-1] = round(max(bounds[-1],
                                scenes[-1]["end_word"]["end"] + FINAL_HOLD), 3)
+        # The wav carries its own FINAL_HOLD since 2026-07-29, so the manifest
+        # cut already sits at the true audio end. Adding AUDIO_TAIL on top of
+        # that would append a bare-canvas tail past the last scene. The guard
+        # only has to fire in its actual hazard case — a wav that outlives what
+        # the manifest claims — so it is now conditional on that.
+        if audio_end and audio_end > bounds[-1]:
+            bounds[-1] = round(audio_end + AUDIO_TAIL, 3)
         return bounds
     bounds = []
     for i, sc in enumerate(scenes):

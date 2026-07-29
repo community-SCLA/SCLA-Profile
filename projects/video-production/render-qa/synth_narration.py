@@ -175,12 +175,21 @@ def read_wav(path: Path):
     return params, data
 
 
-def trim_clip(data, rate, chan):
+def trim_clip(data, rate, chan, trim_tail=True):
     """Trim lead/tail silence (peak-scan in TRIM_WIN windows, guarded), fade
     the cut edges. Returns (new array, trim_offset_seconds) — trim_offset is
     how much was cut from the START, so a caller holding word timestamps
     against the ORIGINAL clip can shift them: local_time - trim_offset.
-    Never trims into voiced audio."""
+    Never trims into voiced audio.
+
+    trim_tail=False keeps the clip's natural decay intact. The FINAL clip is
+    synthesized this way (2026-07-29): tail-trimming exists to tighten the
+    splice against the NEXT clip, and the last clip has no next clip, so the
+    trim buys nothing and costs the word its release. The owner heard exactly
+    that — "the audio didn't fully complete the last word... it got cut off."
+    Measured on the rejected build: scene-25.wav ran 4.754s but only 4.574s
+    reached narration.wav, whose final 100ms still carried signal (peak 1327,
+    ~-28 dBFS) before EDGE_FADE ramped it to zero and the file simply ended."""
     n = len(data) // chan
     win = max(1, int(TRIM_WIN * rate))
 
@@ -194,10 +203,11 @@ def trim_clip(data, rate, chan):
     if first >= n:
         return data[:], 0.0  # all silence — leave untouched, caller will notice
     last = n
-    while last > first and window_peak(max(0, last - win)) < TRIM_THRESHOLD:
-        last -= win
+    if trim_tail:
+        while last > first and window_peak(max(0, last - win)) < TRIM_THRESHOLD:
+            last -= win
     a = max(0, first - int(GUARD_LEAD * rate))
-    b = min(n, last + int(GUARD_TAIL * rate))
+    b = min(n, last + int(GUARD_TAIL * rate)) if trim_tail else n
     out = data[a * chan:b * chan]
     f = int(EDGE_FADE * rate)
     m = len(out) // chan
@@ -205,8 +215,12 @@ def trim_clip(data, rate, chan):
         g = (p + 1) / (f + 1)
         for c in range(chan):
             out[p * chan + c] = int(out[p * chan + c] * g)
-            q = (m - 1 - p) * chan + c
-            out[q] = int(out[q] * g)
+            # Only fade the tail where we actually cut one. An untrimmed tail
+            # already decays to the provider's own silence; fading it again
+            # shaves the release the trim was skipped to preserve.
+            if trim_tail:
+                q = (m - 1 - p) * chan + c
+                out[q] = int(out[q] * g)
     return out, a / rate
 
 
@@ -426,7 +440,9 @@ def main():
                 e["gap_trimmed"] = round(cut_s, 3)
                 print(f"  {Path(e['clip']).stem}: trimmed {cut_s:.2f}s across "
                       f"{n_cuts} gap{'s' if n_cuts != 1 else ''}")
-        clip_data, trim_offset = trim_clip(data, rate, chan)
+        is_final = i == len(entries) - 1
+        clip_data, trim_offset = trim_clip(data, rate, chan,
+                                           trim_tail=not is_final)
         e["start"] = round(cursor, 3)
         cursor += len(clip_data) / chan / rate
         e["end"] = round(cursor, 3)
@@ -447,7 +463,13 @@ def main():
             gap = air + LEAD
         else:
             e["cut"] = round(e["end"] + FINAL_HOLD, 3)
-            gap = 0.0
+            # Was 0.0 until 2026-07-29 — the manifest promised a FINAL_HOLD the
+            # wav never contained, so narration.wav stopped dead on the last
+            # word's decay while the video held 1.1s past it. Every other scene
+            # got 0.3s of real silence to land in; the one place a listener most
+            # needs it was the only place without it. Now the wav runs to the
+            # same point the composition does.
+            gap = FINAL_HOLD
         out += clip_data
         out += array("h", bytes(int(round(gap * rate)) * 2 * chan))
         cursor += gap

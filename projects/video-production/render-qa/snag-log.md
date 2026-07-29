@@ -37,6 +37,197 @@ Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
 same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
 
 
+## 2026-07-29 (later) · owner rejected the rebuilt cut again — three gates that could not fail
+
+Owner sent a screenshot of scene-19 with text printed through text, reported
+scene-02's audio as "didn't sound like she completed the sentence… almost like
+she ended on a question mark", and said again that there should be an
+enforceable minimum text size. All three already had a gate. **None of the
+three gates was capable of failing:**
+
+- **min text size** — floor 32px, smallest body rule in the system 32px. Armed,
+  wired, run every build, structurally inert. The caption they objected to was
+  exactly compliant.
+- **overlap** — `check_layout.py` ran the real browser inspector at 60 sample
+  points and returned PASS with *zero* findings, not even advisory:
+  `hyperframes inspect` grades text against its own container, so two
+  absolutely-positioned siblings on the same pixels is not a case it models.
+  `check_capacity.py` never graded that slot at all — it infers slot bindings
+  from `getElementById(...).textContent = vars.x`, and `scla-loop` binds its
+  four captions in a `forEach`.
+- **conjunction** — the rule was *satisfied* by the copy that caused the bad
+  audio. "…The right city. Or the right path." passes; it also reads as an
+  unfinished sentence.
+
+Lesson, sharper than 2026-07-28's: **a written, wired, executing gate still
+does not hold if its threshold, its input, or its model makes failure
+unreachable.** Coverage ≠ capability.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Confirm the on-screen program label** *(since 2026-07-28)* — eyebrow gated
+  to "Career Accelerator"; visible on the rebuilt title card at preview.
+- **Pilot sign-off (2026-07-29 rebuild #2)** — `bash scripts/preview.sh
+  better-decisions-come-from-better-criteria_early-career-boost_2026-07-29`.
+- **16/32 refined scripts flag the *conjunction* check** — reported, not
+  blocked; a minority are rhetoric or definitions rather than lists. (The new
+  *dangling-fragment* check is separate and clean: 3 flags across 32 scripts,
+  all real, now 0.)
+
+**Fixed this session**
+
+- [defect] **Body floor was the smallest size in use** — `frame.md`
+  `typography.min-size.body` 32 → 40px (loaded, so one edit moves every gate);
+  12 template rules raised; `.kp-num` correctly re-classed as an exempt marker
+  numeral. Fallout was exactly one card over budget, named at plan stage by
+  `check_capacity`. ~25 min.
+- [defect] **No gate owned text-on-text collision** — new `boxmodel.py`
+  (absolute + block-flow + flex row/column + grid-centre + vertical
+  writing-mode, ink boxes not layout boxes) and `check_geometry.py`
+  (text-collision / footer-breach / safe-area-breach), wired into `preflight.py`
+  in BOTH full and `--static` mode. Reproduced the owner's screenshot exactly
+  (260×31px) before the fix and clears after. ~90 min — the long pole, and most
+  of it was killing false positives, which was the point: a gate that cries
+  wolf gets switched off.
+- [tooling] **Templates now declare what the gate used to guess** — `data-slot`
+  and `data-present-if` on `scla-loop`; empty geometry prototypes for the
+  run-time-created sub-beat lines in `scla-loop`/`chips`/`points`/`steps`.
+  `check_capacity` prefers declared bindings over the JS regex. ~20 min.
+- [defect] **`boxmodel` parser ate its own tree** — `</circle>` popped elements
+  never pushed (paired void tags), orphaning everything after `scla-stat`'s ring
+  SVG; the gate reported that template clean having graded **0** boxes. Fixed to
+  pop-to-match, and `nothing-graded` is now itself a failure. ~15 min.
+- [defect] **`scla-points` rail label breached the safe area** — `right:44px`
+  put a vertical label's outer edge at x=1876, 28px inside the declared 72px
+  keep-out, since the system was built. Nothing had ever modelled vertical text.
+  Rail + label moved inboard. Found by the new gate, unprompted. ~10 min.
+- [defect] **Conjunction satisfied by a dangling fragment** — `check_copy.py`
+  rule (c). Discriminators earned one at a time against the 32-script library:
+  terminal mark (question lists must keep rising), length + finite verb ("But
+  titles are only labels." is a sentence), and position (only the LAST fragment
+  can dangle — mid-paragraph the next sentence completes it). 3 flags/32, all
+  real. The `test_gates.py` fixture pinning the bolted-on form as CORRECT was
+  inverted. ~35 min.
+- [authoring] **scene-02 went under the 4.5s beat floor after the copy fix** —
+  comma-joining removed three full-stop pauses (4.57 → 4.28s). Did NOT weaken
+  the floor; re-cut the line to keep the script's staccato and join only the
+  final pair ("…The right city, or the right path."), which restores the pauses
+  and closes the list. Back to 4.571s. ~10 min.
+- [defect] **`scla-loop` was half-empty for half its runtime** — caught on the
+  precheck contact sheet, not by any checker: at scene-19's midpoint the ring
+  was bare because every node waited for its spoken cue and this narration names
+  the steps only in its second half. Empty numbered rings now enter with the
+  track; gold fill + caption still land on the cue. ~15 min.
+
+**Promoted to docs**
+
+- `.claude/rules/video-production.md` — three new standing rules (geometry, the
+  real text floor, join-don't-bolt), each naming its mechanism.
+- `decisions/log.md` — "A gate must be able to fail."
+- `frame.md` — `typography.min-size.body` 40 + the scale band, with the reason
+  the old number was inert written next to it.
+- `scla-loop.html` — the vertical geometry budget written as a comment beside
+  the numbers it constrains, so the next editor sees why they are what they are.
+
+**Standing gap left open (deliberate, not forgotten):** `check_geometry` reports
+2 unplaced elements per build (a flex-row logo `<img>` sized only by height
+makes its siblings' x unknowable). Reported, never guessed. Chips pills are also
+not modelled. Both are visible in the gate's own output rather than silent.
+
+## 2026-07-29 · owner rejection of `better-decisions` → five gates, and the cut rebuilt through them
+
+Owner rejected the 2026-07-28 cut over six defects, several raised before. The
+finding that reframed the session: **this was mostly not a missing-rules
+problem.** Three of the five classes were already visible to tooling the
+pipeline ran and passed, lost to a scope, a sampling and a severity error.
+Worst of them, the conjunction rule was *disabled by the defect beside it* — a
+seven-item list split across three scenes leaves runs of 2/2/2, never reaching
+the >=3 threshold `check_copy` grades, so the rule the owner has given more
+often than any other never fired. The missing "or" was also **already in the
+approved script**; the renderer faithfully spoke bad copy.
+
+The cut was rebuilt plan-first: 25 scenes -> 20, every gate green, rendered.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Confirm the on-screen program label** *(since 2026-07-28)* — eyebrow gated
+  to "Career Accelerator"; visible on the rebuilt title card at preview.
+- **Pilot sign-off (2026-07-29 cut)** — `bash scripts/preview.sh
+  better-decisions-come-from-better-criteria_early-career-boost_2026-07-29`.
+  Replaces the _2026-07-28 preview line; that cut was rejected and rebuilt.
+- **16/32 refined scripts flag the conjunction check** — reported, not blocked,
+  because a minority are rhetoric or definitions rather than lists. Worth a
+  pass when there is appetite; each finding needs a human judgement.
+
+**Fixed this session**
+
+- [defect] **Conjunction rule graded per scene** — moved to the joined
+  narration stream, attributed to the scene owning the final item. This alone
+  was why "Mentorship? Growth?" shipped. ~20 min.
+- [defect] **No gate on scene content weight** — new `check_continuity.py`:
+  4.5s beat floor, split-sentence detection, enumerations spanning scenes.
+  Calibrated on owner judgement (they rejected a 9-word "But…" clause and said
+  nothing about a 24-word one, so length discriminates tail from beat). ~40 min.
+- [defect] **Layout inspector sampled 9 points across the whole runtime and its
+  `content_overlap` finding was severity `info`** — new `check_layout.py`
+  samples every scene plus transition seams and treats overlap as fatal. Both
+  owner layout complaints reproduce and now block. ~35 min.
+- [defect] **No gate on copy fitting its box** — `check_capacity.py` +
+  `textmetrics.py` measure real rendered width against committed font metrics
+  (`assets/fonts/metrics.json`, <0.05px vs PIL). ~45 min.
+- [defect] **Final narration clip got `gap = 0.0`** where every other scene got
+  0.3s, so `narration.wav` ended 5ms after the last word's decay while the
+  video held 1.1s past it — the owner heard the word cut off. Final clip is no
+  longer tail-trimmed and gets `FINAL_HOLD`; `check_boundaries` gained
+  `audio-tail-clipped`. Verified on the rebuild: 1.100s trailing, last 50ms
+  peak 0. ~30 min.
+- [tooling] **`frame.md` was 675 lines nothing read** — one regex-scraped table
+  was its only parsed content; every normative number was hand-copied into
+  Python under "keep in sync". `tokens.py` makes the frontmatter loaded truth
+  and adds enforced `safe-area` / `footer-reserve` / `content-bottom`. ~25 min.
+- [tooling] **Nothing ran the test suite** — not CI, and not `run_tests.py`,
+  which ran its own 65 cases and silently skipped five sibling suites including
+  the one pinning the variety thresholds. One command runs all 138 now;
+  `lint-refs.sh` check 11 runs that command. ~15 min.
+- [upstream] **CLI pin 34 versions stale** — bumped 0.7.45 -> 0.7.79 and
+  validated with `npm run check`. Kept the pin deliberately: unpinned lets a
+  batch start on one version and finish on another. ~10 min.
+- [authoring] **Continuity and variety pulled against each other** — variety
+  graded a form's share by scene COUNT, so a continuity merge looked like a
+  regression. Share is graded in SECONDS now, making merges share-neutral by
+  construction. Reference video still passes. ~15 min.
+- [authoring] **No `map` icon existed** — owner asked for one on the compare
+  beat; the canonical set had only `examine` (magnifier). Added to the ICONS
+  map and both mirrors, plus `frame.md`. ~10 min.
+- [authoring] **My own career-map fix violated the type floor** — dropped
+  `.cm-role` to 30px against a 32px body floor; `check_text` caught it inside a
+  minute. Widened the node to 360px at 34px instead. The guard hook also caught
+  three real defects in my first scene plan (9-scene canvas run, a chip
+  restating its heading, three icons past the reuse cap). ~15 min.
+
+**Promoted to docs**
+
+- `.claude/rules/video-production.md` — nine new standing rules, each naming its
+  mechanism; STD-35 audit went 41 -> 59 backed claims, 0 broken.
+- `.claude/skills/refine-scripts/SKILL.md` — new **step 3b**: the refiner now
+  RUNS `check_copy.py` on its own output. The conjunction rule was already in
+  that file as prose and was violated anyway; owner directive this session was
+  to prevent upstream rather than catch downstream.
+- `decisions/log.md` — 2026-07-29 entry on scope/sampling/severity, and on why
+  the pin stays.
+- `design-system/frame.md` — `spacing` block is now loaded, not quoted; `map`
+  icon documented.
+
 ## 2026-07-28 ~21:45 UTC · plan-first rewire landed + pilot rebuilt through it
 
 Picked up HANDOFF-deterministic-rewire-2026-07-28.md mid-flight (3 subagents

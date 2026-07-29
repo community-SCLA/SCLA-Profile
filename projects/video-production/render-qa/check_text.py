@@ -36,11 +36,14 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import tokens
 from hfp_common import norm_phrase, parse_scenes
 
-# frame.md frontmatter typography.min-size — normative, keep in sync
-BODY_FLOOR = 32   # px
-LABEL_FLOOR = 20  # px
+# LOADED from frame.md frontmatter typography.min-size — not a copy of it.
+# These were hand-maintained constants under a "keep in sync" comment until
+# 2026-07-29; nothing verified the copy, so the spec and the gate could disagree
+# silently. tokens.py makes frame.md the single source (see its docstring).
+BODY_FLOOR, LABEL_FLOOR = tokens.min_size()
 
 EXEMPT_RE = re.compile(r"/\*\s*text-floor-exempt:")
 # a CSS rule: everything up to `{`, then the declaration block

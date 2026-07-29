@@ -473,5 +473,25 @@ sec = check_inscene_gaps(ws)
 check("guard skips (WARN, not FAIL) with no words file",
       sec["pass"] and "SKIPPED" in sec["output"], sec["output"])
 
-print(f"\n{PASS} passed, {FAIL} failed")
-sys.exit(1 if FAIL else 0)
+print(f"\n{PASS} passed, {FAIL} failed  (run_tests.py's own cases)")
+
+# The sibling test_*.py files used to be runnable but unrun: nothing invoked
+# them, so `python3 tests/run_tests.py` reported green while test_variety.py,
+# test_gates.py, test_stem.py, test_build_index.py and test_script_match.py were
+# never executed by anything, in CI or out. A test that nothing runs is a
+# convention, not a mechanism (repo-hygiene STD-35). One command now runs them
+# all, and scripts/lint-refs.sh runs that command.
+SUITE_FAIL = 0
+for path in sorted(Path(__file__).resolve().parent.glob("test_*.py")):
+    print(f"\n== {path.name} ==")
+    r = subprocess.run([sys.executable, str(path)], capture_output=True, text=True)
+    tail = [ln for ln in r.stdout.strip().splitlines() if ln.strip()]
+    print("\n".join(tail[-3:]) if tail else "(no output)")
+    if r.returncode != 0:
+        SUITE_FAIL += 1
+        print(r.stdout[-2000:])
+        print(r.stderr[-1000:], file=sys.stderr)
+
+if SUITE_FAIL:
+    print(f"\n{SUITE_FAIL} sibling suite(s) FAILED")
+sys.exit(1 if (FAIL or SUITE_FAIL) else 0)

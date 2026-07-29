@@ -34,8 +34,8 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      2026-07-27): per scene, visual events =
                                      entrance settle (1.2s) + every compiled
                                      cue + the closing beat (duration-0.5);
-                                     largest event gap FAILs above 4.5s (WARN
-                                     3.5s). Duration caps: 12.5s standard,
+                                     largest event gap FAILs above 4.0s (WARN
+                                     3.0s). Duration caps: 12.5s standard,
                                      title 6.5s, outro 8.5s (title/outro are
                                      duration-capped, gap-exempt). Background
                                      drift never counts — pacing is graded on
@@ -48,7 +48,11 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      sentence) fails. Script auto-located from
                                      the workspace stem, or pass --script.
   7. text                          — check_text.py: minimum on-frame text size
-                                     (body >= 32px, label >= 20px; frame.md
+                                     (floors LOADED from frame.md
+                                     typography.min-size via tokens.py; body
+                                     rose 32 -> 40px on 2026-07-29 because the
+                                     floor had been set AT the smallest size in
+                                     use, so it could never fire; frame.md
                                      typography.min-size) and no on-frame line
                                      that restates its own scene's label or
                                      heading. Both owner calls, 2026-07-27, off
@@ -759,6 +763,66 @@ def main():
                         str(ws)])
     sections["copy"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
+
+    # 11b. continuity — one thought per scene, no thought split across scenes.
+    #      The 2026-07-28 build spread a seven-item list over three scenes in
+    #      three different styles, gave a comma-joined clause ("But it should
+    #      not make the decision for you.") its own 2.5s frame, and split a
+    #      four-item list across two more. Every gate passed it. Fragmentation
+    #      also DISABLED the conjunction rule: runs of 2/2/2 never reach the
+    #      >=3 threshold check_copy grades, which is why "Mentorship? Growth?"
+    #      shipped without its "or" from a gate written to catch exactly that.
+    #      Runs static — it reads narration and durations, never audio.
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_continuity.py"),
+                        str(ws)] + (["--static"] if static_mode else []))
+    sections["continuity"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
+    # 11c. capacity — copy must fit the box the template gives it, measured in
+    #      the real vendored font rather than estimated from a ratio. Two
+    #      strings on the 2026-07-28 build could not fit their slots:
+    #      "–5 possible paths" as a stat suffix beside a 300px numeral, and
+    #      "Different learning opportunities" (507px of Proxima 900 at 34px) in
+    #      a 240px card, which grew to three lines and pushed through the footer
+    #      rule. Static and cheap, so a builder learns at plan stage.
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_capacity.py"),
+                        str(ws)])
+    sections["capacity"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
+    # 11cc. geometry — no text may land on other text, or below the frame. The
+    #      2026-07-29 build printed "Grounded in what you value" straight
+    #      through "Use it on any career decision" on scene-19, and every gate
+    #      passed it: check_layout ran the real browser inspector at 60 sample
+    #      points and returned zero findings (sibling-vs-sibling collision is
+    #      not a case `hyperframes inspect` models), while check_capacity had
+    #      never graded that slot at all because scla-loop binds its captions in
+    #      a loop the bind regex could not see. boxmodel.py resolves every
+    #      string to a frame box from the template CSS + real font metrics, so
+    #      this is static and cheap and runs at plan stage too.
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_geometry.py"),
+                        str(ws)])
+    sections["geometry"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
+    # 11d. layout — the inspector, run at EVERY scene and believed. `npm run
+    #      check` samples 9 points across the whole runtime (one per ~16.6s on a
+    #      25-scene lesson, so most scenes are never looked at) and treats
+    #      `content_overlap` as severity "info", which the gate discarded. Both
+    #      of the owner's layout complaints were visible to tooling we already
+    #      ran. Needs a browser and ~2 minutes, so it is skipped in --static
+    #      (plan-stage) mode and runs as a hard block before the render.
+    if static_mode:
+        sections["layout"] = static_skip("a rendered browser pass")
+    else:
+        rc, out = run_tool([sys.executable,
+                            str(Path(__file__).parent / "check_layout.py"),
+                            str(ws)])
+        sections["layout"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 12. stem — the workspace name must be canonical: <title>_<program>_<DATE>
     #     with exactly ONE date, meaning the date of the most recent action on

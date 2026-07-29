@@ -23,8 +23,10 @@ Seven rules (5 documented inline at their code, 6-7 added 2026-07-28):
   3. MIN DISTINCT FORMS across the content scenes (title/outro excluded),
      scaled to runtime — a 160s lesson on 4 forms is a slideshow.
 
-  4. NO FORM EXCEEDS `MAX_SHARE` of the content scenes. Passing rules 2 and 3
-     while putting 42% of the video on one template still reads as monotony.
+  4. NO FORM EXCEEDS `MAX_SHARE` of the content SECONDS (falling back to scene
+     count only pre-compile, where durations are placeholders). Passing rules 2
+     and 3 while putting 42% of the video on one template still reads as
+     monotony.
 
   6. THEME-BLOCK CAP. No more than MAX_CANVAS_RUN consecutive content scenes,
      and no more than MAX_CANVAS_SECONDS continuously, on one background
@@ -367,11 +369,39 @@ def check(ws: Path):
             f"{', '.join(sorted(tally))}."
         )
     if content:
-        top, top_n = max(tally.items(), key=lambda kv: kv[1])
-        share = top_n / len(content)
+        # Share is graded on SECONDS, not scene count (2026-07-29).
+        #
+        # check_continuity.py requires a scene to carry a real beat and orders
+        # fragments merged; grading share by COUNT made that merge look like a
+        # variety regression — fold two 2.4s chips scenes into one 4.8s chips
+        # scene and chips' share rises even though the viewer sees exactly the
+        # same form for exactly the same time. The two gates pulled against each
+        # other for a purely arithmetic reason.
+        #
+        # Time dissolves it: a merge is share-neutral by construction, because
+        # the seconds do not move. It is also the truer measure — monotony is
+        # something a viewer experiences over time, not per slide. The threshold
+        # is unchanged, and the reference video still passes it (pinned by
+        # tests/test_variety.py).
+        by_secs = {}
+        for sc, fam in content:
+            d = sc.get("duration")
+            by_secs[fam] = by_secs.get(fam, 0.0) + (
+                d if isinstance(d, (int, float)) and d == d and d > 0 else 0.0)
+        secs, total = by_secs, sum(by_secs.values())
+        if total > 0:
+            top, top_s = max(secs.items(), key=lambda kv: kv[1])
+            share = top_s / total
+            unit = f"{top_s:.0f}s/{total:.0f}s"
+        else:
+            # Plan stage: durations are placeholders until compile_timeline
+            # resolves them, so fall back to the count form.
+            top, top_n = max(tally.items(), key=lambda kv: kv[1])
+            share = top_n / len(content)
+            unit = f"{top_n}/{len(content)} scenes (pre-compile estimate)"
         if share > MAX_SHARE:
             problems.append(
-                f"{top} carries {top_n}/{len(content)} content scenes "
+                f"{top} carries {unit} of the content "
                 f"({share:.0%}) — no single form may exceed {MAX_SHARE:.0%}."
             )
 

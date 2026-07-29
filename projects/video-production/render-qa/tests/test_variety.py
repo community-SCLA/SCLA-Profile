@@ -188,6 +188,64 @@ if not any("Too slow to sustain the run" in p for p in slow_problems):
     failures.append("a 5-scene run of >7s scenes must be caught, but the gate "
                     "allowed it")
 
+# --------------------------------------------------- CANVAS map freshness
+# check_variety.CANVAS is the ONE place the template->canvas map lives, and
+# rule 6 grades runs against it. A template edit that flips a base background
+# would silently rot the map, so grep the real templates and compare. This is
+# the check both files claimed since 2026-07-28 and neither implemented
+# (BUILD-enforcement-rebuild-2026-07-29 Phase 0.4).
+NAVY_HEX = ("#0d2437", "#0a1e2f")
+LIGHT_HEX = ("#ffffff", "#fff", "#f6f6f9")
+COMPOSITIONS = (Path(__file__).resolve().parents[2]
+                / "design-system" / "compositions")
+
+
+def canvas_of(decl: str):
+    """Classify one CSS `background:` value as navy / light / unknown."""
+    low = decl.lower()
+    if any(h in low for h in NAVY_HEX):
+        return "navy"
+    if any(re.search(rf"{re.escape(h)}\b", low) for h in LIGHT_HEX):
+        return "light"
+    return "unknown"
+
+
+if not COMPOSITIONS.is_dir():
+    failures.append(f"CANVAS freshness: {COMPOSITIONS} not found")
+else:
+    seen = set()
+    for path in sorted(COMPOSITIONS.glob("scla-*.html")):
+        fam = path.stem
+        seen.add(fam)
+        if fam not in cv.CANVAS:
+            failures.append(
+                f"CANVAS freshness: template {fam} exists but is missing from "
+                f"check_variety.CANVAS — rule 6 cannot grade it")
+            continue
+        decls = re.findall(r"background\s*:\s*([^;}]+)", path.read_text())
+        if not decls:
+            failures.append(
+                f"CANVAS freshness: {fam} declares no `background:` at all")
+            continue
+        want = cv.CANVAS[fam]
+        base = canvas_of(decls[0])
+        if want == "split":
+            # A split frame carries BOTH: a light base and a navy panel.
+            others = {canvas_of(d) for d in decls[1:]}
+            if base != "light" or "navy" not in others:
+                failures.append(
+                    f"CANVAS freshness: {fam} is mapped 'split' but its base "
+                    f"background is {base!r} and its other backgrounds are "
+                    f"{sorted(others)} — expected a light base + a navy panel")
+        elif base != want:
+            failures.append(
+                f"CANVAS freshness: {fam} is mapped {want!r} but its first "
+                f"`background:` ({decls[0].strip()!r}) reads as {base!r}")
+    for fam in sorted(set(cv.CANVAS) - seen):
+        failures.append(
+            f"CANVAS freshness: check_variety.CANVAS maps {fam}, but no such "
+            f"template exists in design-system/compositions/")
+
 if failures:
     print(f"FAIL ({len(failures)})")
     for f in failures:

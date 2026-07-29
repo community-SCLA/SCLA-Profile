@@ -21,7 +21,7 @@ JetBrains Mono code fonts, the 48px-bottom progress rail as two SIBLING
 host-root divs, and the `narration-audio` tag. Compiled output is byte-identical
 to the canon head/tail modulo the generated-file banner and `data-hf-id` values.
 
-`data-hf-id`: the HyperFrames CLI (0.7.45, dist/cli.js `ensureHfIds`/
+`data-hf-id`: the HyperFrames CLI (0.7.79, dist/cli.js `ensureHfIds`/
 `stampFileHfIds`/`persistHfIdsIfNeeded`) stamps every body element missing one
 and WRITES THE RE-SERIALIZED FILE BACK TO DISK — so if this compiler omitted
 them, the first `lint`/`validate`/render would rewrite the generated index.html
@@ -132,7 +132,7 @@ def esc_attr(s):
              .replace("<", "&lt;").replace(">", "&gt;"))
 
 
-# ── data-hf-id minting — exact port of hyperframes 0.7.45 dist/cli.js ──────
+# ── data-hf-id minting — exact port of hyperframes 0.7.79 dist/cli.js ──────
 # (fnv1a / toHfId / contentKey / mintHfId). Port verified against the canon
 # pilot: the rail divs' ids reproduce byte-for-byte (hf-sw2m / hf-1r7q).
 

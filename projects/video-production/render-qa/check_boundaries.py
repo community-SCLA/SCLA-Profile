@@ -184,6 +184,19 @@ def main():
                 findings.append({"scene": sc["id"], "rule": "audio-outlives-video",
                                  "detail": f"root duration {root_duration}s < audio "
                                            f"{audio_end:.2f}s — narration gets clipped"})
+            # The mirror of the rule above, and the one that was missing. The
+            # 2026-07-28 build held 1.1s of VIDEO past the last word while
+            # narration.wav ended 5ms after it: the file stopped mid-decay and
+            # the owner heard the final word cut off. Video holding past the
+            # audio proves nothing — the wav itself has to carry the release.
+            if audio_end is not None and audio_end < last_word_end + MIN_FINAL_HOLD:
+                findings.append({"scene": sc["id"], "rule": "audio-tail-clipped",
+                                 "detail": f"narration.wav ends {audio_end:.3f}s, only "
+                                           f"{audio_end - last_word_end:.3f}s after the last "
+                                           f"spoken word (need >= {MIN_FINAL_HOLD}s of real "
+                                           f"trailing audio). The video holding longer does "
+                                           f"not fix this — the word's release is not in the "
+                                           f"file."})
             if root_duration is not None and abs(sc["end"] - root_duration) > 0.001:
                 findings.append({"scene": sc["id"], "rule": "tail-after-last-scene",
                                  "detail": f"last scene ends {sc['end']}s but root runs "

@@ -7,8 +7,8 @@ parsed in pure Python — no PIL needed) and hunts GAPS:
     stddev-only heuristic flagged textured white canvases and navy cards as
     blank; content-pixel counting fixes that false-positive class, 2026-07-10)
   - stagnant frames: >=3.0s of pixel-identical video while narration is
-    speaking (frame.md forbids a static frame beyond ~2s; 3.0s is the
-    deterministic tripwire, the lane agent judges the 2-3s gray zone)
+    speaking (frame.md's animacy rule is stated in these same numbers —
+    3.0s WARN / 5.0s FAIL; the lane agent judges the 3-5s gray zone)
   - audio stream outliving the video stream (clipped narration / blank tail)
 
 With --workspace <dir> (recommended) the checker reads index.html scene starts

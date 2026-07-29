@@ -24,15 +24,23 @@ typography:
     display: "96-120px / 900" # Lesson titles
     heading: "60-72px / 900" # Scene headings
     quote: "52-60px / 700"
-    body: "32-38px / 400"
+    body: "40-48px / 400"
     label: "20-26px / 700, uppercase, letter-spacing 0.14em" # Eyebrows, chips, metadata
     stat: "200-260px / 900" # Count-ups
   min-size: # Normative floors — preflight `text_size` FAILs below these (2026-07-27)
-    body: 32 # px. Anything the viewer READS as a sentence: points, captions, sub-beats, card copy
+    body: 40 # px. Anything the viewer READS as a sentence: points, captions, sub-beats, card copy. 32 -> 40 on 2026-07-29: the floor was set AT the smallest size in use, so the gate was armed and could never fire — the scene-19 caption the owner called "just too small" was 32px, i.e. exactly compliant. ~1/27 of frame height, which is what survives phone viewing
     label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
     exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
 spacing:
-  frame-padding: "120px" # Safe margin from canvas edge for primary content
+  # render-qa/tokens.py parses this block and exposes frame_padding(), safe_area(),
+  # footer_reserve() and content_bottom() — but as of 2026-07-29 NO checker calls
+  # them, so changing a number here changes nothing physical. Only typography.min-size
+  # is LOADED end to end (tokens.min_size() -> check_text.py). These four are a
+  # Convention until check_geometry.py is wired into preflight.py.
+  frame-padding: 120 # px. Nominal content inset — the design target for primary content
+  safe-area: 72 # px. HARD outer keep-out. No content element's box may cross into the outer 72px on any edge
+  footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). No content element may enter it — content must end above y = canvas_h - 120
+  content-bottom: 960 # px. Derived: canvas_h - footer-reserve. The lowest y any content element may occupy
   radius-card: "12px"
   radius-pill: "100px"
 components:
@@ -100,7 +108,7 @@ The frame is never allowed to sit still. A scene that finishes its entrance and
 then holds a static image while the narration keeps talking is a **defect**, not
 a style choice. These are hard rules, checked at the QA gate.
 
-- **No stagnant frame beyond ~2s.** Once a scene's opening beat lands, something
+- **No stagnant frame beyond 3.0s (WARN) / 5.0s (FAIL).** Once a scene's opening beat lands, something
   must keep resolving — the next item, an illustration, a highlight, a figure —
   timed to what the narration is saying *right now*. If nothing can happen for
   the next few seconds, the scene is too long: split it into more scenes.
@@ -126,7 +134,8 @@ a style choice. These are hard rules, checked at the QA gate.
 - **Pacing budget — deterministic (preflight-enforced, 2026-07-27).** Per
   scene, visual events = entrance settle (1.2s) + every compiled cue + the
   closing beat (duration−0.5). Largest gap between consecutive events: FAIL
-  above 4.5s, WARN above 3.5s. Scene duration caps: ≤12.5s standard,
+  above 4.0s, WARN above 3.0s (tightened 2026-07-28 — the pilot's 4.5s empty
+  heading hold passed at the old numbers). Scene duration caps: ≤12.5s standard,
   `scla-title` ≤6.5s, `scla-outro` ≤8.5s (title/outro are duration-capped and
   exempt from the gap check). A failing scene is re-authored — split it, add
   cues, or move the boundary; never satisfied with background drift.
@@ -173,8 +182,10 @@ a style choice. These are hard rules, checked at the QA gate.
   The navy hero templates (`scla-title`, `scla-statement`, `scla-outro`,
   `scla-quote`, `scla-stat`) — and the light templates' ghost layers — drift
   their *background* layers at different rates: translate-only 2.5D parallax
-  (CSS/GSAP, never Three.js), 16–30px amplitude on a ~2.5–3.4s `sine.inOut`
-  yoyo period, repeated (finitely) to cover the whole scene. The original
+  (CSS/GSAP, never Three.js), **~85–120px** amplitude on a ~2.5–3.4s
+  `sine.inOut` yoyo period, repeated (finitely) to cover the whole scene.
+  Amplitude has to clear the QA sampler: a 16–30px move is <1 gray level per
+  48×27 thumbnail pixel and reads as static. The original
   single whole-scene glide moved ~1px/s and was pixel-identical between QA
   samples — that regression froze six scenes on the first promoted render.
   Depth-drift is still decorative texture: it guarantees pixel-level animacy at
@@ -354,7 +365,7 @@ gate: **`render-qa/check_variety.py`, run by `preflight.py`.**
   that do exactly this. *(Gate: `render-qa/check_variety.py` rule 2 — hard fail.)*
 - **≥6 distinct content forms** per lesson ≥90s, **≥7** at ≥150s (≥4 below 90s),
   counting everything but `scla-title`/`scla-outro`. *(Gate: `render-qa/check_variety.py` rule 3 — hard fail.)*
-- **No single form carries more than 40% of the content scenes.** Passing the
+- **No single form carries more than 40% of the content seconds.** Passing the
   rules above while putting 42% of the video on one template still reads as
   monotony. *(Gate: `render-qa/check_variety.py` rule 4 — hard fail.)*
 - **The unused-template list is a menu, not a suggestion.** The gate prints
@@ -432,7 +443,8 @@ is reserved for labels/eyebrows/chips.
   terminal periods across adjacent scenes despite repeated owner correction.
   *(Gate: `render-qa/check_copy.py`.)*
 - **Minimum on-frame text size — hard floor (preflight-enforced, 2026-07-27).**
-  **Body-class text never renders below 32px**; label-class furniture never
+  **Body-class text never renders below 40px** (raised from 32 on 2026-07-29 —
+  see the frontmatter note); label-class furniture never
   below 20px (frontmatter `typography.min-size`). Body class = anything the
   viewer reads as a sentence — points, captions, card copy, sub-beats, notes.
   Label class = the uppercase + letter-spaced furniture only (eyebrow, scene
@@ -473,9 +485,10 @@ DERIVED, not authored:
   on-screen rebrand, 2026-07-21, recorded in `refinement-log.md`.)
 
 - **`title` = the lesson title from the script stem** — the stem's title
-  segment with hyphens as spaces, sentence case ("better-decisions-come-from-
-  better-criteria" → "Better decisions come from better criteria"). Never the
-  opening narration sentence, never a paraphrase (checked by `preflight.py`).
+  segment with hyphens as spaces, Title Case per the heading rule above
+  ("better-decisions-come-from-better-criteria" → "Better Decisions Come from
+  Better Criteria"). Never the opening narration sentence, never a paraphrase
+  (checked by `preflight.py`; casing checked by `check_copy.py`).
 - **Outro `cta`/`next`**: drawn from the closing narration — `next` may quote
   it; `cta` is a short imperative pulled from it. The two must not restate
   each other.
@@ -567,7 +580,10 @@ scene, and drawn on the cue.
   `compass`, `pressure` (clock), `insight` (bulb),
   `salary` (tag), `mentorship` + `mentorship2` (two-people, variant recolored so
   adjacent scenes read distinct), `growth` (line chart), `target`, `question`,
-  `examine` (magnifier), `done` (check). Closed-circle ring shared by
+  `examine` (magnifier), `map` (folded map with a gold pin — the picture for
+  "compare your options on a career map"; added 2026-07-29 after the owner
+  called out a magnifying glass as the wrong image for that beat),
+  `done` (check). Closed-circle ring shared by
   compass/pressure/target/question/done: `M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z`.
 - Adding an icon = a new entry in that `ICONS` map + a name here. Keep the set
   small and on-language (line-art, oval-ring family); don't open a clip-art floodgate.
@@ -645,7 +661,7 @@ building; never reinvent one of these from scratch. Compose 2–4 per scene, max
 | One shape morphs into another (SVG shape morph) | `hyperframes-keyframes` · SVG morph — morph pairs must share compatible path structure (asset prep per pair) | **Adopted 2026-07-15.** A cued transformation beat (seed→tree, ✕→✓): shows change/progress more vividly than a cut. Use sparingly — one morph per scene max, on-cue, seek-safe; never as idle motion |
 | Element travels along a path | `hyperframes-keyframes` · Path travel (GSAP MotionPath) | Figure/marker moving along a drawn route |
 | Count-up / stat with graphic | `hyperframes-animation` · `counting-dynamic-scale` + `stat-bars-and-fills` | Pair with `scla-stat` (built-in bar; `ring:"on"` adds a filling closed-circle gauge) |
-| Living icon draws on as it's named | brand-native SVG line-art · `strokeDashoffset` draw-on, gold accent pops last (`back.out`) | Built into `scla-condition`; geometry set in "Living icon library" below. Reserved for the condition/principle hero — not sprinkled on other scenes |
+| Living icon draws on as it's named | brand-native SVG line-art · `strokeDashoffset` draw-on, gold accent pops last (`back.out`) | Home is `scla-condition`; geometry set in "Living icon library" below. **Scope widened 2026-07-15** — also legal on a genuinely single-focus beat of another template (optional `icon` variable), one hero per scene, sparing and on-language. Never sprinkled |
 | Two-option A→B morph (FLIP hand-off) | `hyperframes-animation` · `card-morph-anchor` / `scale-swap-transition` | Built into `scla-morph`: winner re-flows to top, grows, turns gold, may relabel. Seek-safe x/y/scale tweens |
 | Many items gather into one cluster | `hyperframes-keyframes` · FLIP (recorded start/end → numeric x/y/scale) | The pilot's "five conditions gather into a ring" beat. Bespoke; anchor to the closing cue, tween-only |
 | Depth-drift parallax on a navy hero | translate-only 2.5D drift on background layers, finite `sine.inOut` yoyo cycles (~2.5–3.4s period, **~85–120px** — small 16–30px moves <1 gray level per 48×27 QA thumbnail px and reads static, so amplitude must clear the sampler) (CSS/GSAP, **no Three.js**) | Built into the navy templates (title/statement/outro/quote/stat). Texture that also guarantees pixel-level animacy at QA sampling (re-tuned 2026-07-15; amplitude raised across all heroes to the registering band 2026-07-15) |

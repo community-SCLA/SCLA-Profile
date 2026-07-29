@@ -1,0 +1,617 @@
+#!/usr/bin/env python3
+"""boxmodel.py — where a template's text actually lands on the 1920x1080 frame.
+
+WHY THIS EXISTS. On 2026-07-29 scene-19 of the criteria lesson shipped with
+"Grounded in what you value" printed straight through "Use it on any career
+decision". The tooling that was supposed to stop it did not:
+
+  * `check_layout.py` ran the real browser inspector at all 60 sample points and
+    returned PASS with zero findings, not even advisory. `hyperframes inspect`
+    grades text against its OWN container; two absolutely-positioned siblings
+    landing on the same pixels is not a case it models. It never will be — that
+    is a design decision upstream, not a bug we can wait out.
+  * `check_capacity.py` measured the string correctly (407px of Proxima 700 at
+    32px in a 320px box -> 2 lines) and passed it, because the template declared
+    no `maxLines` and the default budget is 3. Capacity knows how many lines a
+    string takes. It does not know that the second line lands on another
+    element.
+
+Both gates were right about their own question and neither owned the real one:
+*given the wrapped line count, does this text box intersect anything?* That is
+answerable with no browser and no render, from the template's own CSS plus the
+real font metrics — so it belongs at plan stage, where a fix is a JSON edit.
+
+This module is the geometry half: it resolves elements to absolute frame boxes.
+`check_geometry.py` is the gate that grades them.
+
+WHAT IT MODELS (and what it does not — read this before trusting a PASS):
+  * `position: absolute` with left/right/top/bottom/inset, resolved against the
+    nearest positioned ancestor. This is how every SCLA template places its
+    content, so it is the case that matters.
+  * normal-flow block children of a positioned box, stacked vertically with
+    margin-top/margin-bottom.
+  * `display: flex` rows (children left-to-right, honouring `gap`).
+  * `display: grid; place-items: center` (single child centred both axes).
+  * shrink-to-fit width for an absolutely-positioned box with no explicit width.
+  * text height as wrapped-line-count x line-height, wrapped in the vendored
+    Proxima Nova via textmetrics.py.
+  * the INK box, not the layout box: a centred one-line caption in a 540px box
+    occupies only the glyph run, centred. Grading layout boxes would invent
+    collisions that a viewer never sees.
+
+  NOT modelled: floats, tables, inline flow between siblings, transforms,
+  writing modes, `calc()`, CSS variables, percentage lengths, attribute-selector
+  and combinator rules (theme overrides are colour-only by spec, so skipping
+  them is safe). An element this module cannot place is reported as UNPLACED
+  rather than silently dropped — a blind spot the caller can see is a blind spot
+  that can be closed.
+"""
+from __future__ import annotations
+
+import re
+from html.parser import HTMLParser
+
+import textmetrics
+
+# ---------------------------------------------------------------------------
+# Parsing
+# ---------------------------------------------------------------------------
+VOID = {"br", "img", "input", "meta", "link", "hr", "source", "use", "path",
+        "polygon", "circle", "rect", "line", "ellipse", "stop"}
+RULE_RX = re.compile(r"([^{}]+)\{([^{}]*)\}")
+LEN_RX = re.compile(r"-?[\d.]+")
+
+
+class Doc(HTMLParser):
+    """The template's element tree plus its stylesheet, indexed for lookup."""
+
+    def __init__(self, html: str):
+        super().__init__(convert_charrefs=True)
+        self.nodes: list[dict] = []
+        self.by_id: dict[str, dict] = {}
+        self._stack: list[dict] = []
+        self._id_css: dict[str, dict] = {}
+        self._class_css: dict[str, dict] = {}
+        self._tag_css: dict[str, dict] = {}
+        self._index_css(html)
+        self.feed(html)
+
+    # -- stylesheet ---------------------------------------------------------
+    def _index_css(self, html: str) -> None:
+        """{'id': decls}, {'class': decls}, {'tag': decls} — later rules win.
+
+        Only simple selectors and simple descendant chains are indexed, keyed on
+        the trailing compound. Anything with an attribute selector is skipped
+        outright: those are the `#root[data-theme=...]` blocks, which frame.md
+        pins to colour only.
+        """
+        for style in re.findall(r"<style>(.*?)</style>", html, re.S):
+            for sel, block in RULE_RX.findall(style):
+                d = _decls(block)
+                for one in sel.split(","):
+                    one = one.strip()
+                    if not one or "[" in one or "@" in one or "%" in one:
+                        continue
+                    tail = one.split()[-1]
+                    # pseudo-elements draw decoration, never our text
+                    if "::" in tail:
+                        continue
+                    tail = tail.split(":")[0]
+                    if not re.fullmatch(r"[.#]?[\w-]+", tail):
+                        continue
+                    if tail.startswith("#"):
+                        self._id_css.setdefault(tail[1:], {}).update(d)
+                    elif tail.startswith("."):
+                        self._class_css.setdefault(tail[1:], {}).update(d)
+                    else:
+                        self._tag_css.setdefault(tail, {}).update(d)
+
+    # -- tree ---------------------------------------------------------------
+    def handle_starttag(self, tag, attrs):
+        a = {k: (v if v is not None else "") for k, v in attrs}
+        node = {
+            "tag": tag,
+            "id": a.get("id"),
+            "classes": (a.get("class") or "").split(),
+            "attrs": a,
+            "parent": self._stack[-1] if self._stack else None,
+            "children": [],
+            "text": "",
+        }
+        if node["parent"] is not None:
+            node["parent"]["children"].append(node)
+        self.nodes.append(node)
+        if node["id"]:
+            self.by_id.setdefault(node["id"], node)
+        if tag not in VOID:
+            self._stack.append(node)
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in VOID and self._stack:
+            self._stack.pop()
+
+    def handle_endtag(self, tag):
+        """Pop to the matching open tag — never blindly.
+
+        `<circle ...></circle>` is written as a pair in these templates, but
+        `circle` is in VOID and was never pushed, so an unconditional pop ate
+        `<svg>` and then `<div id="root">`. Everything after scla-stat's ring
+        SVG became a child of <body>, was never placed, and the gate reported
+        `0 painted boxes` for that template as if it were clean. A gate that
+        silently grades nothing is worse than no gate.
+        """
+        if tag in VOID:
+            return
+        for i in range(len(self._stack) - 1, -1, -1):
+            if self._stack[i]["tag"] == tag:
+                del self._stack[i:]
+                return
+
+    def handle_data(self, data):
+        if self._stack and data.strip():
+            self._stack[-1]["text"] += data
+
+    # -- cascade ------------------------------------------------------------
+    def decls(self, node: dict) -> dict:
+        """Merged declarations for one element (tag, then class, then id)."""
+        d = dict(self._tag_css.get(node["tag"], {}))
+        for c in node["classes"]:
+            d.update(self._class_css.get(c, {}))
+        if node["id"]:
+            d.update(self._id_css.get(node["id"], {}))
+        inline = node["attrs"].get("style")
+        if inline:
+            d.update(_decls(inline))
+        return d
+
+
+def _decls(block: str) -> dict:
+    out = {}
+    for part in block.split(";"):
+        k, _, v = part.partition(":")
+        if k.strip() and v.strip():
+            out[k.strip().lower()] = v.strip()
+    return out
+
+
+def _px(value, default=None):
+    """`120`, `"120px"`, `-4px` -> float. Percentages and calc() are NOT lengths
+    this module can resolve, and return the default rather than a wrong number."""
+    if value is None:
+        return default
+    s = str(value)
+    if "%" in s or "calc(" in s or "var(" in s:
+        return default
+    m = LEN_RX.search(s)
+    return float(m.group(0)) if m else default
+
+
+def _em(value, default=0.0):
+    if value is None:
+        return default
+    m = re.search(r"(-?[\d.]+)\s*em", str(value))
+    return float(m.group(1)) if m else default
+
+
+def _inset(d: dict) -> dict:
+    """left/right/top/bottom, with `inset` shorthand expanded."""
+    out = {k: _px(d.get(k)) for k in ("left", "right", "top", "bottom")}
+    ins = d.get("inset")
+    if ins:
+        parts = [_px(p) for p in ins.split()]
+        if len(parts) == 1:
+            parts *= 4
+        elif len(parts) == 2:
+            parts = [parts[0], parts[1], parts[0], parts[1]]
+        elif len(parts) == 3:
+            parts = [parts[0], parts[1], parts[2], parts[1]]
+        for k, v in zip(("top", "right", "bottom", "left"), parts[:4]):
+            if out[k] is None:
+                out[k] = v
+    return out
+
+
+def _pad4(d: dict) -> tuple[float, float, float, float]:
+    """(top, right, bottom, left) padding, shorthand expanded."""
+    top = right = bottom = left = 0.0
+    p = d.get("padding")
+    if p:
+        parts = [_px(x, 0.0) or 0.0 for x in p.split()]
+        if len(parts) == 1:
+            top = right = bottom = left = parts[0]
+        elif len(parts) == 2:
+            top = bottom = parts[0]
+            right = left = parts[1]
+        elif len(parts) == 3:
+            top, right, bottom = parts[0], parts[1], parts[2]
+            left = parts[1]
+        else:
+            top, right, bottom, left = parts[:4]
+    top += _px(d.get("padding-top"), 0.0) or 0.0
+    right += _px(d.get("padding-right"), 0.0) or 0.0
+    bottom += _px(d.get("padding-bottom"), 0.0) or 0.0
+    left += _px(d.get("padding-left"), 0.0) or 0.0
+    return top, right, bottom, left
+
+
+def _pad(d: dict) -> tuple[float, float]:
+    """(left, right) horizontal padding — the pair most callers want."""
+    _, right, _, left = _pad4(d)
+    return left, right
+
+
+# ---------------------------------------------------------------------------
+# Type resolution
+# ---------------------------------------------------------------------------
+def typeface(doc: Doc, node: dict) -> dict:
+    """Inherited type properties for one element."""
+    size = weight = tracking = line_height = align = None
+    upper = False
+    n = node
+    while n is not None:
+        d = doc.decls(n)
+        if size is None and "font-size" in d:
+            size = _px(d["font-size"])
+        if weight is None and "font-weight" in d:
+            weight = _px(d["font-weight"])
+        if tracking is None and "letter-spacing" in d:
+            tracking = _em(d["letter-spacing"])
+        if line_height is None and "line-height" in d:
+            line_height = d["line-height"]
+        if align is None and "text-align" in d:
+            align = d["text-align"].split()[0]
+        if not upper and d.get("text-transform", "").startswith("uppercase"):
+            upper = True
+        n = n["parent"]
+    size = size or 32.0
+    if line_height in (None, "normal"):
+        lh = size * 1.2
+    else:
+        raw = str(line_height).strip()
+        lh = (_px(raw, size * 1.2) if any(u in raw for u in ("px", "em", "%"))
+              else float(raw) * size)
+    # A vertical rail label runs DOWN the frame: its inline axis is y, so the
+    # box is line-height wide and text-length tall. Modelling it as horizontal
+    # would place the box somewhere it never paints.
+    wm = None
+    n = node
+    while n is not None and wm is None:
+        wm = doc.decls(n).get("writing-mode")
+        n = n["parent"]
+    return {"size": size, "weight": weight or 400, "tracking": tracking or 0.0,
+            "uppercase": upper, "line_height": lh, "align": align or "left",
+            "vertical": bool(wm and wm.startswith("vertical"))}
+
+
+def is_label_class(doc: Doc, node: dict) -> bool:
+    """frame.md's label class: uppercase AND letter-spaced. Mirrors
+    check_text.classify() so the two gates cannot disagree about what a label
+    is."""
+    n = node
+    upper = tracked = False
+    while n is not None:
+        d = doc.decls(n)
+        if d.get("text-transform", "").startswith("uppercase"):
+            upper = True
+        if "letter-spacing" in d:
+            tracked = True
+        n = n["parent"]
+    return upper and tracked
+
+
+# ---------------------------------------------------------------------------
+# Layout
+# ---------------------------------------------------------------------------
+class Box:
+    __slots__ = ("x", "y", "w", "h")
+
+    def __init__(self, x, y, w, h):
+        self.x, self.y, self.w, self.h = float(x), float(y), float(w), float(h)
+
+    @property
+    def right(self):
+        return self.x + self.w
+
+    @property
+    def bottom(self):
+        return self.y + self.h
+
+    def overlap(self, other: "Box") -> tuple[float, float]:
+        """(horizontal, vertical) overlap in px; <=0 on either axis = no hit."""
+        return (min(self.right, other.right) - max(self.x, other.x),
+                min(self.bottom, other.bottom) - max(self.y, other.y))
+
+    def __repr__(self):
+        return (f"Box({self.x:.0f},{self.y:.0f} {self.w:.0f}x{self.h:.0f} "
+                f"-> {self.right:.0f},{self.bottom:.0f})")
+
+
+class Layout:
+    """Absolute frame boxes for a template instantiated with one scene's text.
+
+    `texts` maps element id -> the string that element will actually render.
+    Elements absent from it fall back to their static HTML text; an element
+    whose text resolves to empty is treated as not present (the templates
+    `.remove()` their empty slots).
+    """
+
+    def __init__(self, doc: Doc, texts: dict, canvas=(1920, 1080)):
+        self.doc = doc
+        self.texts = texts
+        self.canvas = canvas
+        self.boxes: dict[int, Box] = {}
+        self.unplaced: list[dict] = []
+        root = doc.by_id.get("root") or (doc.nodes[0] if doc.nodes else None)
+        if root is not None:
+            self.boxes[id(root)] = Box(0, 0, canvas[0], canvas[1])
+            self._place_children(root, self.boxes[id(root)])
+
+    # -- text ---------------------------------------------------------------
+    def text_of(self, node: dict) -> str:
+        if node["id"] in self.texts:
+            return str(self.texts[node["id"]] or "").strip()
+        slot = node["attrs"].get("data-slot")
+        if slot is not None:
+            return str(self.texts.get(slot, "") or "").strip()
+        if any(c["tag"] not in VOID for c in node["children"]):
+            return ""
+        return node["text"].strip()
+
+    def is_present(self, node: dict) -> bool:
+        """Whether this element exists on the frame for this scene.
+
+        Templates `.remove()` the furniture belonging to an empty slot — an
+        unused step takes its node AND its caption with it. A slot-bound element
+        vanishes with its own text; anything else that vanishes with a slot says
+        so with `data-present-if="<slot>"`, because a phantom box invents
+        collisions and a missing box hides them.
+        """
+        gate = node["attrs"].get("data-present-if")
+        if gate is not None and not str(self.texts.get(gate, "") or "").strip():
+            return False
+        bound = (node["id"] in self.texts
+                 or node["attrs"].get("data-slot") is not None)
+        return bool(self.text_of(node)) if bound else True
+
+    def wrapped(self, node: dict, width: float) -> list[str]:
+        t = self.text_of(node)
+        if not t:
+            return []
+        f = typeface(self.doc, node)
+        return textmetrics.wrap_lines(t, width, f["size"], f["weight"],
+                                      f["tracking"], f["uppercase"])
+
+    # -- measurement --------------------------------------------------------
+    def _run_length(self, node: dict) -> float:
+        """Length of the unwrapped glyph run, along whichever axis it runs."""
+        t = self.text_of(node)
+        if not t:
+            return 0.0
+        f = typeface(self.doc, node)
+        return textmetrics.width(t, f["size"], f["weight"], f["tracking"],
+                                 f["uppercase"])
+
+    def _content_width(self, node: dict) -> float:
+        """max-content width — the widest the element wants to be."""
+        if not self.text_of(node):
+            return 0.0
+        f = typeface(self.doc, node)
+        return f["line_height"] if f["vertical"] else self._run_length(node)
+
+    def _height(self, node: dict, width: float) -> float:
+        d = self.doc.decls(node)
+        explicit = _px(d.get("height"))
+        if explicit is not None:
+            return explicit
+        if node["tag"] in VOID:
+            return 0.0
+        if self.text_of(node) and typeface(self.doc, node)["vertical"]:
+            return self._run_length(node)
+        lines = self.wrapped(node, width)
+        if lines:
+            return len(lines) * typeface(self.doc, node)["line_height"]
+        pt, _, pb, _ = _pad4(d)
+        return pt + self._content_height(node, width) + pb
+
+    def _flow_children(self, node: dict) -> list[dict]:
+        return [c for c in node["children"]
+                if self.is_present(c)
+                and self.doc.decls(c).get("position") not in ("absolute",
+                                                              "fixed")]
+
+    def _content_height(self, node: dict, width: float) -> float:
+        """Height of the in-flow children, per this element's display mode.
+
+        A flex ROW and a grid are as tall as their tallest child; a block and a
+        flex COLUMN are as tall as the stack. Getting this wrong is not
+        cosmetic: modelling `#kp-list` (flex column) as a row put all four list
+        items at the same y and manufactured four collisions that do not exist.
+        """
+        d = self.doc.decls(node)
+        display = (d.get("display") or "block").split()[0]
+        gap = _px(d.get("gap"), 0.0) or 0.0
+        kids = self._flow_children(node)
+        if not kids:
+            return 0.0
+        row = display == "flex" and "column" not in (d.get("flex-direction")
+                                                     or "row")
+        if display == "grid" or row:
+            return max(self._height(c, _px(self.doc.decls(c).get("width"))
+                                    or width) for c in kids)
+        total = 0.0
+        for i, c in enumerate(kids):
+            cd = self.doc.decls(c)
+            total += (_px(cd.get("margin-top"), 0.0) or 0.0)
+            total += self._height(c, _px(cd.get("width")) or width)
+            total += (_px(cd.get("margin-bottom"), 0.0) or 0.0)
+            if display == "flex" and i:
+                total += gap
+        return total
+
+    # -- placement ----------------------------------------------------------
+    def _place_children(self, parent: dict, pbox: Box) -> None:
+        pd = self.doc.decls(parent)
+        display = (pd.get("display") or "block").split()[0]
+        pt, pr, pb, pl = _pad4(pd)
+        inner = Box(pbox.x + pl, pbox.y + pt,
+                    max(0.0, pbox.w - pl - pr), max(0.0, pbox.h - pt - pb))
+
+        flow = self._flow_children(parent)
+        out_of_flow = [c for c in parent["children"]
+                       if self.is_present(c)
+                       and self.doc.decls(c).get("position") in ("absolute",
+                                                                 "fixed")]
+
+        if display == "flex":
+            self._place_flex(parent, pd, inner, flow)
+        elif display == "grid":
+            self._place_grid(parent, pd, inner, flow)
+        else:
+            cursor = inner.y
+            for child in flow:
+                cd = self.doc.decls(child)
+                cursor += (_px(cd.get("margin-top"), 0.0) or 0.0)
+                w = _px(cd.get("width")) or inner.w
+                h = self._height(child, w)
+                self._commit(child, Box(inner.x, cursor, w, h))
+                cursor += h + (_px(cd.get("margin-bottom"), 0.0) or 0.0)
+
+        for child in out_of_flow:
+            self._place_absolute(child, pbox)
+
+    def _place_flex(self, parent, pd, inner, flow):
+        """flex row and flex column, honouring `gap` and align-items: center.
+
+        A ROW child whose main-axis size cannot be resolved — a void element
+        sized by its intrinsic aspect, e.g. a logo <img> given only a height —
+        makes every later sibling's x unknowable. Those are recorded UNPLACED
+        rather than guessed. An invented coordinate produces an invented
+        collision, and a gate that cries wolf is a gate that gets switched off.
+        """
+        gap = _px(pd.get("gap"), 0.0) or 0.0
+        column = "column" in (pd.get("flex-direction") or "row")
+        centred = "center" in (pd.get("align-items") or "")
+        extent = self._content_height(parent, inner.w)
+        cursor = inner.y if column else inner.x
+        blocked = False
+        for child in flow:
+            cd = self.doc.decls(child)
+            mt = _px(cd.get("margin-top"), 0.0) or 0.0
+            mb = _px(cd.get("margin-bottom"), 0.0) or 0.0
+            w = _px(cd.get("width"))
+            if w is None and not column:
+                w = self._content_width(child) or None
+            h = self._height(child, w if w else inner.w)
+            if blocked or (not column and w is None):
+                self.unplaced.append(
+                    {"node": child,
+                     "why": "flex-row sibling with unresolvable intrinsic width"})
+                blocked = True
+                continue
+            if column:
+                cw = w if w is not None else (
+                    self._content_width(child) if centred else inner.w)
+                x = inner.x + (inner.w - cw) / 2 if centred else inner.x
+                self._commit(child, Box(x, cursor + mt, cw or inner.w, h))
+                cursor += mt + h + mb + gap
+            else:
+                y = inner.y + (extent - h) / 2 if centred else inner.y
+                self._commit(child, Box(cursor, y, w, h))
+                cursor += w + gap
+
+    def _place_grid(self, parent, pd, inner, flow):
+        centred = "center" in (pd.get("place-items") or pd.get("align-items")
+                               or "")
+        for child in flow:
+            cd = self.doc.decls(child)
+            w = _px(cd.get("width")) or self._content_width(child) or inner.w
+            h = self._height(child, w)
+            if centred:
+                self._commit(child, Box(inner.x + (inner.w - w) / 2,
+                                        inner.y + (inner.h - h) / 2, w, h))
+            else:
+                self._commit(child, Box(inner.x, inner.y, w, h))
+
+    def _place_absolute(self, node: dict, cb: Box) -> None:
+        d = self.doc.decls(node)
+        ins = _inset(d)
+        pad_l, pad_r = _pad(d)
+
+        w = _px(d.get("width"))
+        if w is None and ins["left"] is not None and ins["right"] is not None:
+            w = cb.w - ins["left"] - ins["right"]
+        if w is not None:
+            w += pad_l + pad_r
+        if w is None:
+            # shrink-to-fit: max-content, capped by the room actually available
+            avail = cb.w - (ins["left"] or 0.0) - (ins["right"] or 0.0)
+            content = self._content_width(node) + pad_l + pad_r
+            w = min(content, avail) if content else avail
+        if w is None or w <= 0:
+            self.unplaced.append({"node": node, "why": "no resolvable width"})
+            return
+
+        h = self._height(node, max(1.0, w - pad_l - pad_r))
+
+        if ins["left"] is not None:
+            x = cb.x + ins["left"]
+        elif ins["right"] is not None:
+            x = cb.right - ins["right"] - w
+        else:
+            x = cb.x
+        if ins["top"] is not None:
+            y = cb.y + ins["top"]
+        elif ins["bottom"] is not None:
+            y = cb.bottom - ins["bottom"] - h
+        else:
+            self.unplaced.append({"node": node, "why": "no top/bottom/inset"})
+            return
+
+        self._commit(node, Box(x, y, w, h))
+
+    def _commit(self, node: dict, box: Box) -> None:
+        self.boxes[id(node)] = box
+        d = self.doc.decls(node)
+        positioned = d.get("position") in ("absolute", "relative", "fixed")
+        self._place_children(node, box if positioned else box)
+
+    # -- results ------------------------------------------------------------
+    def ink(self, node: dict) -> Box | None:
+        """The glyph run's box, not the layout box.
+
+        A one-line centred caption in a 540px box paints ~230px of ink in the
+        middle of it. Grading the layout box would invent collisions the viewer
+        never sees, and inventing collisions is how a gate gets switched off.
+        """
+        box = self.boxes.get(id(node))
+        if box is None:
+            return None
+        d = self.doc.decls(node)
+        pad_l, pad_r = _pad(d)
+        avail = max(1.0, box.w - pad_l - pad_r)
+        f = typeface(self.doc, node)
+        if f["vertical"]:
+            if not self.text_of(node):
+                return None
+            return Box(box.x + pad_l, box.y, f["line_height"],
+                       self._run_length(node))
+        lines = self.wrapped(node, avail)
+        if not lines:
+            return None
+        widest = max(textmetrics.width(ln, f["size"], f["weight"],
+                                       f["tracking"], f["uppercase"])
+                     for ln in lines)
+        widest = min(widest, avail)
+        left = box.x + pad_l
+        if f["align"] == "center":
+            left += (avail - widest) / 2
+        elif f["align"] == "right":
+            left += avail - widest
+        return Box(left, box.y, widest, len(lines) * f["line_height"])
+
+    def text_nodes(self) -> list[dict]:
+        """Every element that paints text, in document order."""
+        return [n for n in self.doc.nodes
+                if id(n) in self.boxes and self.is_present(n)
+                and self.text_of(n)]
