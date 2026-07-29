@@ -370,8 +370,10 @@
               tl.set("#sm-iconwrap", { opacity: 1 }, iconAt);
               if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.45, ease: "power3.out", stagger: 0.08 }, iconAt);
               if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, iconAt + 0.55);
-              // Ambient bob on the HTML wrapper (translate-only, never scale + SVG-opacity).
-              tl.fromTo("#sm-iconwrap", { x: 0, y: 0 }, { x: 0, y: -10, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: Math.max(1, Math.ceil(sdur / 2.7) - 1) }, 0);
+              // REMOVED 2026-07-29 (owner): the living-icon bob. The icon is a
+              // cued content hero, not a background layer — frame.md's drift
+              // allow-list covers ghost/ring decoration only. Its motion is the
+              // draw-on above, and that is all. (Mechanism: `render-qa/check_motion.py`.)
             }
           }
           // Idle re-animation of settled content remains banned (owner decisions

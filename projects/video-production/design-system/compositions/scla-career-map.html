@@ -287,24 +287,19 @@
           // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
           tl.fromTo(["#cm-index", "#cm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
 
-          // Idle-window resolve: the wait between the map entrance and the route
-          // cue used to be a dead stretch (a 9s pixel-static run was measured on
-          // 2026-07-10). Candidate nodes now take turns pulsing — the frame reads
-          // as "weighing the options" until the route resolves on cue.
-          // Translate-only, HTML-only: a scale+SVG-opacity variant of this pulse
-          // ghosted the whole diagram in the 2026-07-10 22:00 streaming-encode
-          // capture (snapshot path was clean — capture artifact, not DOM).
-          // Engage threshold lowered 6.0 → 3.5 (Motion v2, 2026-07-27): with the
-          // entrance settling by 1.2s, a default mapCue of 5.0 left a static gap.
-          if (mapAt > 3.5) {
-            const pulses = ["#cm-node-1", "#cm-node-2", "#cm-node-3"];
-            const t0 = 1.6, t1 = mapAt - 0.8;
-            pulses.forEach(function (sel, i) {
-              const at = t0 + ((t1 - t0) * (i + 0.5)) / pulses.length;
-              tl.fromTo(sel, { y: 0 }, { y: -8, duration: 0.5, ease: "sine.inOut",
-                yoyo: true, repeat: 1 }, at);
-            });
-          }
+          // REMOVED 2026-07-29 (owner): the candidate-node pulse. Settled nodes
+          // took turns bobbing to fill the wait between the map entrance and the
+          // route cue — an in-place re-mark of settled content, banned
+          // 2026-07-14 and reaffirmed 07-15. It was on by default (the schema's
+          // mapCue of 5.0 cleared the 3.5 engage threshold), so every default
+          // career-map scene shipped it.
+          //
+          // The dead stretch it papered over is real and is an AUTHORING defect:
+          // cue the route earlier, add a beat, or split the scene. Never
+          // re-animate what has settled to satisfy the stagnation gate — that
+          // trade was made on 2026-07-15, vetoed on sight, and is now
+          // unavailable rather than merely discouraged.
+          // (Mechanism: `render-qa/check_motion.py`.)
 
           // On the cue, the gold route traces from you → winning option → best fit.
           const rlen = route.getTotalLength();

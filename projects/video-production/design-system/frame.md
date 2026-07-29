@@ -162,6 +162,20 @@ a style choice. These are hard rules, checked at the QA gate.
   and vetoed it on sight). A scene that would hold pixel-static past ~5s is an
   AUTHORING defect: split it, add cued items / supporting `lines` / `subBeats`,
   or shorten the narration span — never re-animate what has settled.
+  **The motion is deleted, not merely discouraged** (2026-07-29, owner: "can we
+  just get rid of that hyperframe element so it's not ever used?"): the
+  career-map node pulse, the living-icon bob in `scla-condition` / `scla-chips`
+  / `scla-steps` / `scla-statement`, and `scla-condition`'s accent re-pop are
+  gone from the templates, so there is nothing left to select.
+  *(Mechanism: `render-qa/check_motion.py`, run by `preflight.py` in both full
+  and `--static` mode and by `npm run check` over the demo reel. It grades every
+  repeating tween — `yoyo`, or `repeat` other than 0 — and allows only
+  decorative ghost/ring targets, following a selector through a helper's call
+  sites so a content tween cannot be laundered through the drift helper the way
+  the icon bob was. A deliberate exception is declared on the tween with
+  `/* motion-allow: <reason> */`, never assumed. Firing fixtures:
+  `render-qa/tests/test_motion.py`; full-length mutation in
+  `render-qa/tests/test_mutations.py`.)*
 - **Furniture paints at t=0.** The scene's frame furniture — canvas texture,
   ghost rings, corner marks, scene index, brandline — is visible on the very
   first frame of every scene (entrances may settle it from ~50% opacity to
@@ -178,7 +192,10 @@ a style choice. These are hard rules, checked at the QA gate.
   but they are NOT the cover and never license a long hold: if a scene only
   passes the gate because its background moves, it is still a dead scene —
   re-author it. (A 2026-07-15 attempt to satisfy the gate with text
-  ripples/re-marks instead of re-authoring was vetoed by the owner.)
+  ripples/re-marks instead of re-authoring was vetoed by the owner — and as of
+  2026-07-29 that trade is not available: the keep-alive motion is deleted from
+  the templates and a re-add is a red gate, so a stagnant scene can only be
+  fixed by re-authoring it.) *(Mechanism: `render-qa/check_motion.py`.)*
 - **Depth-drift runs in finite yoyo cycles (2026-07-14; re-tuned 2026-07-15).**
   The navy hero templates (`scla-title`, `scla-statement`, `scla-outro`,
   `scla-quote`, `scla-stat`) — and the light templates' ghost layers — drift

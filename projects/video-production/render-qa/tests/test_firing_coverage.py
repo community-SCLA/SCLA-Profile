@@ -53,6 +53,7 @@ REQUIRED = {
                          "titlecase", "heading-period"],
     "check_geometry":   ["text-collision", "nothing-graded", "safe-area-breach",
                          "footer-breach", "padding-breach"],
+    "check_motion":     ["keep-alive-motion", "undeclared-target"],
     "check_slots":      ["unfilled", "placeholder"],
     "check_text":       ["min-size", "restatement"],
     "check_variety":    ["consecutive-run", "min-forms", "artwork", "share",

@@ -856,6 +856,20 @@ def main():
     sections["geometry"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
 
+    # 11c-bis. motion — settled content may not re-animate in place. The owner
+    #      banned keep-alive motion 2026-07-14 and reaffirmed it 07-15; a
+    #      session restored it the next day because check_presence fails a 5s
+    #      pixel-static hold and a bob is a two-line fix while re-authoring the
+    #      scene is not. Three MP4s shipped with it, one published. The motion
+    #      is now deleted from the templates and this keeps it deleted — static,
+    #      reads the workspace's own copied compositions, so it fires at plan
+    #      stage alongside geometry.
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_motion.py"),
+                        str(ws)])
+    sections["motion"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
     # 11d. layout — the inspector, run at EVERY scene and believed. `npm run
     #      check` samples 9 points across the whole runtime (one per ~16.6s on a
     #      25-scene lesson, so most scenes are never looked at) and treats

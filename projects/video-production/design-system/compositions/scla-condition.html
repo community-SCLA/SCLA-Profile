@@ -161,7 +161,10 @@
 
           // build the living icon from the geometry library
           var svg = document.querySelector("#cd-iconwrap svg");
-          var draws = [], dots = [], accents = []; // accents = the gold (gd) strokes/dots, for the closing-beat pop
+          // accents = the gold (gd) strokes/dots. Collected but no longer tweened:
+          // its only consumer was the closing-beat re-pop removed 2026-07-29. The
+          // gold dots still enter with `dots` below; nothing re-marks them after.
+          var draws = [], dots = [], accents = [];
           var ic = ICONS[vars.icon] || ICONS.compass;
           var strokeMain = "#0d2437";
           (ic.paths || []).forEach(function (p) {
@@ -231,21 +234,30 @@
           // 2026-07-14/15), but the cued closing beat and the scene exit below are
           // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place
           // re-marks of the settled heading/badge/chips.
-          // Ambient drift + living-icon bob (2026-07-15 animacy regression fix): finite
-          // translate-only sine yoyo cycles across the whole scene so the frame registers
-          // at QA frame sampling after the last cue lands. Icon bob is on the HTML
-          // wrapper (never scale + SVG-opacity together).
+          // Ambient drift (2026-07-15 animacy regression fix): finite translate-only
+          // sine yoyo cycles across the whole scene so the frame registers at QA
+          // frame sampling after the last cue lands. BACKGROUND LAYERS ONLY —
+          // frame.md's drift allow-list is ghost/ring decoration, and routing a
+          // content tween through this helper is how the living-icon bob got
+          // laundered past review.
           var drift = function (sel, ax, ay, per) {
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
           };
           drift("#cd-ghost", 24, 14, 3.2);
-          drift("#cd-iconwrap", 0, -10, 2.7);
+          // REMOVED 2026-07-29 (owner): drift("#cd-iconwrap", …), the living-icon bob.
+          // (Mechanism: `render-qa/check_motion.py`.)
           // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final
-          // second: the icon's gold accent re-pops once (a single cued back.out pop —
-          // sanctioned as a NEW beat) and dimmed chips restore to full.
+          // second: the dimmed chips restore to full.
+          //
+          // REMOVED 2026-07-29 (owner): the gold accents' scale 1 → 1.16 → 1 re-pop,
+          // which used to open this beat. It was labelled a sanctioned NEW beat, but
+          // the accents had already popped at drawAt + 0.5 — re-scaling a settled
+          // element is an in-place re-mark by frame.md's own definition, and this was
+          // the only template whose closing beat re-animated an existing element
+          // instead of resolving a new one. The chip restore below IS the closing
+          // beat (frame.md: "dimmed items restore to full").
           var closeAt = sdur - 1.0;
-          if (accents.length) tl.fromTo(accents, { scale: 1, transformOrigin: "center" }, { scale: 1.16, duration: 0.22, ease: "back.out(3)", yoyo: true, repeat: 1 }, closeAt);
           if (chipEls.length) tl.to(chipEls, { opacity: 1, duration: 0.4, ease: "power2.out" }, closeAt);
           // Exit (Motion v2, 2026-07-27) — the content layer leaves at −0.35s so the
           // seam reads velocity-matched; furniture (ghost ring, corners, progress

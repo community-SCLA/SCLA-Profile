@@ -53,6 +53,7 @@ import check_capacity      # noqa: E402
 import check_continuity    # noqa: E402
 import check_copy          # noqa: E402
 import check_geometry      # noqa: E402
+import check_motion        # noqa: E402
 import check_slots         # noqa: E402
 import check_text          # noqa: E402
 import check_variety       # noqa: E402
@@ -111,6 +112,7 @@ def rules_fired(ws: Path) -> set:
     add(check_variety.check(ws)[0])
     add(check_capacity.check(ws))
     add(check_geometry.check(ws)[1])
+    add(check_motion.check(ws)[1])
     add(check_text.check_restatement(scenes)[0])
     slots, _ = check_slots.check(ws)
     for f in slots:
@@ -299,6 +301,34 @@ fired = rules_fired(ws)
 check("a body box placed inside the 120px content inset -> padding-breach",
       "padding-breach" in fired and "safe-area-breach" not in fired,
       f"fired {sorted(fired)}")
+
+# 6c. Restore the banned keep-alive bob to a template, at full length. This is
+#     the repo's most-repeated violation: banned 2026-07-14, reaffirmed 07-15,
+#     restored the next day so renders would clear the stagnation gate, three
+#     MP4s shipped and one published. The templates no longer contain it; this
+#     asserts a workspace cannot get it back either.
+ws = materialize(copy.deepcopy(BASE_PLAN), "motion")
+patched = 0
+for target in sorted((ws / "compositions").glob("scla-chips*.html")):
+    src = target.read_text()
+    m = re.search(r'id="(cc[\w-]*-iconwrap)"', src)
+    if not m:
+        continue
+    anchor = "window.__timelines["
+    if anchor not in src:
+        continue
+    cut = src.rindex(anchor)
+    target.write_text(
+        f'{src[:cut]}tl.fromTo("#{m.group(1)}", {{ y: 0 }}, {{ y: -10, '
+        f'duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: 3 }}, 0);\n'
+        f'          {src[cut:]}')
+    patched += 1
+check("the motion mutation actually patched a chips template",
+      patched > 0, "no scla-chips composition carried a *-iconwrap id")
+fired = rules_fired(ws)
+check("a keep-alive bob restored to a template -> keep-alive-motion",
+      "keep-alive-motion" in fired and "keep-alive-motion" not in BASELINE,
+      f"fired {sorted(fired)}; baseline {sorted(BASELINE)}")
 
 # 7. Lowercase a heading -> Title Case, armed with no fixture until this build.
 def lowercase_heading(plan):
