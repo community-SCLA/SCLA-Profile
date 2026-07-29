@@ -71,6 +71,13 @@ and three adversarial reviews (taxonomy, feasibility, completeness).
 - Google-Forms "(File responses)" trees move **intact** — forms bind by ID, so
   submissions keep flowing regardless of folder location.
 
+## Rolling it back
+
+This script has no undo path, and its log records destinations without file IDs or
+source parents — so it cannot reverse itself. `undo.gs` rebuilds the prior state
+from the Drive Activity API instead; see **[README-UNDO.md](./README-UNDO.md)**.
+Time-critical: items this script trashed auto-purge 30 days after the run.
+
 ## clasp (optional)
 
 Same as v1: `clasp create --type standalone` in this folder, `clasp push`,
