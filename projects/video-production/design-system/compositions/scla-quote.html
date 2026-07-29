@@ -15,7 +15,7 @@
     <!--
       QUOTE CARD — use ONLY for words attributed to a NAMED person. A thesis line
       authored by SCLA or the program is NOT a quote: use scla-statement.html
-      instead (no quote glyph, no attribution). See frame.md → "Scene index &
+      instead (no quote glyph, no attribution). See design-contract.md → "Scene index &
       numerals" → "Quotes are for humans; program lines are statements".
     -->
   </head>
@@ -134,7 +134,7 @@
           color: #eaab2d;
         }
         /* Attribution metadata, not body copy — typeset to the label spec
-           (uppercase + 0.14em tracking, frame.md "Type rules") so it is graded
+           (uppercase + 0.14em tracking, design-contract.md "Type rules") so it is graded
            against the 20px label floor rather than the 32px body floor. */
         #q-role {
           position: absolute;
@@ -166,7 +166,7 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .q-bg { background: #f6f6f9; background-image: none; }
         #root[data-theme="horizon"] #q-ring { right: auto; bottom: auto; left: -280px; top: -340px; border-color: rgba(51, 147, 214, 0.3); }
         #root[data-theme="horizon"] #q-ring-2 { right: auto; bottom: auto; left: -190px; top: -250px; border-color: rgba(234, 171, 45, 0.2); }
@@ -239,7 +239,7 @@
           tl.fromTo("#q-attr-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.35, ease: "power3.out" }, 0.7);
           tl.fromTo("#q-attr", { opacity: 0, x: -26 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, 0.8);
           tl.fromTo("#q-role", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.9);
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut;
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut;
           // Motion v2: opacity 0.55 → 1 in ~0.3s so cuts land as a hit).
           tl.fromTo(["#q-index", "#q-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo("#q-ring", { opacity: 0.55, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);

@@ -15,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 RQ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RQ))
+sys.path.insert(0, str(RQ / "src"))
 
 import boxmodel
 import check_boundaries
@@ -221,10 +221,10 @@ check("a value inside its budget passes", not f, str(f))
 
 
 # --------------------------------------------------------------------------
-print("== tokens: frame.md is loaded, not quoted ==")
+print("== tokens: design-contract.md is loaded, not quoted ==")
 # The literals that used to live here (safe_area() == 72, footer_reserve() ==
 # 120, min_size() == (40, 20)) were the hand-copy tokens.py exists to abolish:
-# they failed only if *frame.md* changed and never if a *video* violated the
+# they failed only if *design-contract.md* changed and never if a *video* violated the
 # number, which is the opposite of what a gate is for. tests/test_tokens_coverage.py
 # now asserts the real property — every normative scalar has an accessor AND a
 # non-test consumer — so a token nobody reads is a red test. (2026-07-29.)
@@ -402,7 +402,7 @@ check("declared bleed (data-layout-allow-overflow) is exempt",
                          "#root { position: absolute; inset: 0; }\n"
                          "#bd { left: 20px; top: 400px; }"),
           {"body": "A line of real copy"})[0])
-# Label-class furniture is NOT graded against the content inset: frame.md hands
+# Label-class furniture is NOT graded against the content inset: design-contract.md hands
 # the outer band to the brandline, scene index and rail label by name, so a
 # padding rule that graded them would fail every template in the system.
 LABELISH = BOUNDS.replace(
@@ -416,6 +416,52 @@ _lab = check_geometry.grade(
     {"body": "SCLA lesson system"})[0]
 check("label-class furniture is not graded against the content inset",
       not any(h["rule"] == "padding-breach" for h in _lab), str(_lab))
+
+# --- geometry: card gutters (owner, 2026-07-29) ----------------------------
+# "two boxes even touch each other where they should be evenly spread out." The
+# ink inside those cards was nowhere near colliding — it is the BORDERS that
+# touched, so this is the one rule graded on layout boxes. The fixture is the
+# real failure mode: two top-anchored cards on slots sized for one line, where
+# the upper card's copy wraps to two and eats the gutter.
+CARDS = """<html data-composition-variables='[
+ {"id":"a","type":"string","label":"A","default":"[[a]]"},
+ {"id":"b","type":"string","label":"B","default":"[[b]]"}
+]'><body><template><style>
+#root { position: absolute; inset: 0; }
+.card { position: absolute; left: 700px; width: 300px; padding: 26px 30px;
+        border: 2px solid #cccedf; background: #f6f6f9; }
+.role { font-size: 40px; font-weight: 900; line-height: 1.2; }
+#c1 { top: 300px; }
+#c2 { top: 470px; }
+.ghost { position: absolute; left: 700px; top: 300px; width: 300px;
+         height: 300px; border: 2px solid #eee; border-radius: 50%; }
+</style>
+<div id="root"><div class="card" id="c1"><div class="role" data-slot="a">x</div></div>
+<div class="card" id="c2"><div class="role" data-slot="b">y</div></div>
+<div class="ghost" id="g1"></div><div class="ghost" id="g2"></div>
+</div></template></body></html>"""
+
+
+def card_rules(a, b):
+    hits, _, _ = check_geometry.grade(CARDS, {"a": a, "b": b})
+    return {h["rule"] for h in hits}
+
+
+# One line each: 300+136 = 436, next card at 470 -> 34px gutter, clean.
+check("evenly spaced one-line cards pass",
+      not card_rules("Short", "Short"), str(card_rules("Short", "Short")))
+# The upper card's copy wraps to two lines and eats the gutter.
+fires("check_geometry", "card-gutter",
+      "a card that grew into the one below it FAILS",
+      "card-gutter" in card_rules("Different learning opportunities", "Short"),
+      str(card_rules("Different learning opportunities", "Short")))
+# The decorative-ring exclusion is load-bearing, not incidental: two concentric
+# empty bordered circles are in every second template in the system, and before
+# the text-bearing condition they fired on all of them.
+_, _lay, _paint = check_geometry.grade(CARDS, {"a": "Short", "b": "Short"})
+_card_ids = {n["id"] for n, _ in check_geometry._card_nodes(_lay, _paint)}
+check("empty decorative rings are not cards",
+      _card_ids == {"c1", "c2"}, str(sorted(_card_ids)))
 
 
 # --------------------------------------------------------------------------
@@ -499,6 +545,42 @@ blanked = [scene_div(5, "pts", "One thing matters here.", 8.0,
 found, err = check_slots.check(workspace(blanked, {"pts": POINTS}))
 check("a slot explicitly blanked with \"\" passes", not found, f"{found} {err}")
 
+# An icon name the template's own library doesn't have draws NOTHING and reports
+# nothing — `ICONS[name]` is just undefined. scene-17 of the 2026-07-29 criteria
+# build asked scla-points for `map`, which existed in scla-statement and
+# scla-steps but not in scla-points, and shipped with a hole where row 2's icon
+# belonged. A divergence between two copies of one library is only visible to a
+# gate that reads the library it is actually calling.
+ICONED = POINTS.replace(
+    "<div id=\"root\"></div>",
+    "<div id=\"root\"></div><script>const ICONS = {"
+    "compass: { paths: [{ d: \"M0 0\" }] }, target: { paths: [{ d: \"M0 0\" }] },"
+    "};</script>")
+BASE = {"heading": "What Matters", "point1": "Cost", "point2": "Time"}
+
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icons="compass,map"))],
+              {"pts": ICONED}))
+fires("check_slots", "unknown-icon",
+      "an icon name the template's library does not have FAILS",
+      any("map" in " ".join(f.get("unknown_icons", [])) for f in found),
+      f"{found} {err}")
+
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icons="compass,target"))],
+              {"pts": ICONED}))
+check("icon names the library does have pass", not found, f"{found} {err}")
+# A template with no library at all is not graded — most of them draw no icons,
+# and failing them for a slot they never read would be a gate crying wolf.
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icons="anything"))],
+              {"pts": POINTS}))
+check("a template with no ICONS library is not graded for icon names",
+      not found, f"{found} {err}")
+
 
 # --------------------------------------------------------------------------
 print("== text: the size floor and the restatement rule ==")
@@ -513,7 +595,7 @@ SMALL_CSS.write_text(
     ".eyebrow { font-size: 20px; text-transform: uppercase; letter-spacing: 0.14em; }\n")
 small, graded = check_text.check_sizes([SMALL_CSS])
 fires("check_text", "min-size",
-      "body copy below the frame.md floor FAILS",
+      "body copy below the design-contract.md floor FAILS",
       any("tiny-caption" in f for f in small), str(small))
 check("the compliant body rule and the label rule are not flagged",
       len(small) == 1 and graded == 3, f"{graded} graded, {small}")
@@ -560,7 +642,7 @@ def rules_of(ws):
 
 
 # A boundary landing mid-thought: scene-01's script span ends on "criteria"
-# with no terminator, which is the split frame.md forbids.
+# with no terminator, which is the split design-contract.md forbids.
 mid = boundary_ws(
     [scene_div(1, "scla-points", "You need clear criteria", 5.0, start=0.0),
      scene_div(2, "scla-statement", "That is the whole idea.", 5.0, start=5.0)],
@@ -590,7 +672,16 @@ fires("check_boundaries", "insufficient-air",
       "under 0.2s of air after the last word FAILS",
       "insufficient-air" in rules_of(tight), str(rules_of(tight)))
 
-# The final scene cutting less than 1.0s after the last spoken word.
+# The producer must clear its own floor. These are two constants in two files:
+# raise the gate without the synth and every build fails its own gate; raise the
+# synth without the gate and the ending the owner rejected stays certified.
+import check_boundaries as _cb                                    # noqa: E402
+import synth_narration as _sn                                     # noqa: E402
+check("synth_narration.FINAL_HOLD clears check_boundaries.MIN_FINAL_HOLD",
+      _sn.FINAL_HOLD >= _cb.MIN_FINAL_HOLD,
+      f"FINAL_HOLD={_sn.FINAL_HOLD} MIN_FINAL_HOLD={_cb.MIN_FINAL_HOLD}")
+
+# The final scene cutting less than the floor after the last spoken word.
 short_hold = boundary_ws(
     [scene_div(1, "scla-points", "You need clear criteria.", 5.0, start=0.0),
      scene_div(2, "scla-outro", "That is the whole idea.", 5.0, start=5.0)],

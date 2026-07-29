@@ -144,15 +144,18 @@
         }
         /* Nodes ride the ellipse at 12 / 3 / 6 / 9 o'clock; captions radiate outward.
            GEOMETRY BUDGET (2026-07-29 — this is why the numbers are what they are).
-           Vertical room runs from the panel edge (y=320) to the top of the sub-beat
-           band (y=906), and every caption is ONE line by contract (`maxLines: 1` in
-           the schema above): a label orbiting a node is a label, not prose. At the
-           40px body floor one line is 52px, which leaves:
+           Vertical room runs from the panel edge (y=320) to content-bottom (y=960),
+           and every caption is ONE line by contract (`maxLines: 1` in the schema
+           above): a label orbiting a node is a label, not prose. At the 40px body
+           floor one line is 52px, which leaves:
                panel 320 | cap-1 349-401 | node-1 425-545 | ring cy=615 ry=130
-                         | node-3 685-805 | cap-3 829-881 | sub-beat 906-954
+                         | node-3 685-805 | cap-3 829-881 | content-bottom 960
            — a >=24px gutter at every seam. The shipped 2026-07-29 build ran the
            ring 25px lower with a 320px caption box, so `step3` wrapped to two lines
-           and printed straight through the sub-beat. cap-1 is BOTTOM-anchored so it
+           and printed straight through the sub-beat, which then lived at y=906.
+           The sub-beat has since moved into the header panel (see .lp-subbeat), so
+           the 79px below cap-3 is now pure slack rather than a shared seam — do not
+           spend it by dropping the ring back down. cap-1 is BOTTOM-anchored so it
            grows away from the node rather than into it. check_geometry.py holds all
            of this; do not nudge a number here without re-running it. */
         #lp-node-1 { left: 900px; top: 425px; }
@@ -186,19 +189,31 @@
           color: #5f6f96;
         }
         /* Sub-beats — narration-synced live line (mirrors scla-steps; dead-hold fix).
-           One beat visible at a time; absent unless subBeats is set. */
+           One beat visible at a time; absent unless subBeats is set.
+
+           IN THE HEADER PANEL, NOT UNDER THE DIAGRAM (owner, 2026-07-29). It sat
+           centred at bottom:126px, directly beneath the ring, where a line like
+           "Same four steps, every time" read as a caption ON the illustration —
+           so a three-node loop looked like it was claiming to show four steps.
+           It is a subheading of the scene's statement, so it belongs under the
+           heading: same left edge (120px), same left alignment, inside the panel.
+           Budget: head bottoms out at 200 (label 29 + margin 16 + heading 71 from
+           top:84), this line runs 224-272, panel border is at 318 — a 24px gutter
+           above and 46px below. Width stops at 1300 so it never reaches the ghost
+           numeral. */
         .lp-subbeat {
           position: absolute;
-          left: 160px;
-          right: 160px;
-          bottom: 126px;
-          text-align: center;
+          left: 120px;
+          top: 224px;
+          width: 1180px;
+          text-align: left;
           font-size: 40px;
           font-weight: 700;
-          color: #0d2437;
+          line-height: 1.2;
+          color: #292f35;
           opacity: 0;
         }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] #lp-panel { background: #f6f6f9; }
         #root[data-theme="horizon"] .lp-bg::after { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); }
         #root[data-theme="horizon"] #lp-tick { background: #3393d6; }
@@ -211,6 +226,9 @@
         #root[data-theme="cadence"] #lp-heading { color: #ffffff; }
         #root[data-theme="cadence"] #lp-ghost-num { color: rgba(234, 171, 45, 0.18); }
         #root[data-theme="cadence"] .lp-fill { stroke: #eaab2d; }
+        /* The sub-beat moved into the panel (2026-07-29), so it now inherits the
+           panel's background per theme — on cadence that panel is navy. */
+        #root[data-theme="cadence"] .lp-subbeat { color: #bcd3e4; }
       </style>
 
       <div id="root" data-composition-id="scla-loop" data-width="1920" data-height="1080" data-duration="8">
@@ -299,7 +317,7 @@
           // advances in quarter-arc SEGMENTS — one per step cue (Motion v2, 2026-07-27;
           // the old single stretched draw slowed with scene length and read as drag) —
           // then the final segment + arrowhead close the loop 4 → 1 as the cued
-          // closing beat. frame.md → "Reveal on the spoken cue".
+          // closing beat. design-contract.md → "Reveal on the spoken cue".
           const stepCues = String(vars.stepCues || "")
             .split(",")
             .map(function (s) { return Number(s.trim()); })
@@ -326,7 +344,7 @@
           // steps only in its second half that left a bare ellipse on screen
           // for ~5 of 10 seconds — caught on the precheck contact sheet, which
           // sampled scene-19 at its midpoint and found one sub-beat line
-          // floating over an empty ring. frame.md → "Every scene earns its
+          // floating over an empty ring. design-contract.md → "Every scene earns its
           // seconds". So the EMPTY numbered rings now enter with the track and
           // the diagram reads as a structure from the first second; the gold
           // fill and the caption still land exactly on the spoken cue, which is
@@ -366,7 +384,7 @@
             closeAt - 0.5,
           );
           tl.fromTo("#lp-arrow", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, closeAt);
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
           tl.fromTo(["#lp-index", "#lp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           // Ambient drift cycles (mirrors scla-steps): the ghost numeral drifts
           // horizontally in finite translate-only sine yoyo cycles across the whole

@@ -33,8 +33,8 @@ load_dotenv()
 HEYGEN_API_KEY = os.getenv("HEYGEN_API_KEY")
 
 # File paths (relative to this script)
-STATE_FILE = Path(__file__).parent / "state.json"
-VIDEOS_DIR = Path(__file__).parent / "output" / "videos"
+STATE_FILE = Path(__file__).resolve().parents[1] / "state.json"
+VIDEOS_DIR = Path(__file__).resolve().parents[1] / "output" / "videos"
 
 # How many videos to download at the same time
 CONCURRENT_DOWNLOADS = 3

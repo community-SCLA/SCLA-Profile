@@ -54,11 +54,11 @@ def load_config():
     lesson list, etc. If anything is missing or still has placeholder
     values, this function will tell you what to fix.
     """
-    config_path = Path(__file__).parent / "config.json"
+    config_path = Path(__file__).resolve().parents[1] / "config" / "config.json"
 
     if not config_path.exists():
         print("[ERROR] config.json not found!")
-        print("  Edit config.json in this folder and fill in your avatar, voice, and lesson values.")
+        print("  Edit config/config.json and fill in your avatar, voice, and lesson values.")
         sys.exit(1)
 
     with open(config_path, encoding="utf-8") as f:
@@ -120,7 +120,8 @@ PROGRAM_NAME = CONFIG.get("program", "")
 PROGRAM_SLUG = CONFIG["program_slug"]
 
 # Output directories (relative to this script's location)
-BASE_DIR = Path(__file__).parent
+# src/ -> avatar-pipeline/ — output, state and config resolve from the project root
+BASE_DIR = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = BASE_DIR / "output"
 SCRIPTS_DIR = OUTPUT_DIR / "scripts"
 VIDEOS_DIR = OUTPUT_DIR / "videos"          # per-chunk intermediates (resumable)
@@ -193,7 +194,7 @@ def save_state_safe(state):
 
 # ── Step 1: Load or Export Script ─────────────────────────────────────────
 # Each lesson needs a plain text script. You can either:
-#   - Drop a .txt file in the scripts/ folder (source: "local")
+#   - Drop a .txt file anywhere under avatar-pipeline/ and point config at it (source: "local")
 #   - Export from Google Docs via the gws CLI (source: "google_doc")
 
 def load_or_export_script(lesson_id, lesson_info):
@@ -212,7 +213,7 @@ def load_or_export_script(lesson_id, lesson_info):
     source = lesson_info.get("source", "local")
 
     if source == "local":
-        # Read from a local file in the scripts/ folder
+        # Read from a local file, path relative to the avatar-pipeline root
         local_path = BASE_DIR / lesson_info.get("file", "")
         if not local_path.exists():
             print(f"  [ERROR] Script file not found: {local_path}")

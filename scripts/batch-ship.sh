@@ -45,16 +45,17 @@ esac
 WS="$VP/renders-hyperframes/$STEM"
 [[ -d "$WS" ]] || { echo "FATAL: no workspace at $WS" >&2; exit 2; }
 
-# Stem naming has exactly one owner: render-qa/stem.py. A stem is
-# `<title>_<program>_<YYYY-MM-DD>` where the date is the most recent pipeline
-# action — so it CHANGES as the artifact moves, and is therefore not an
-# identity key. BASE is. (2026-07-28: the owner reviewed a video whose name
-# still carried its 2026-07-06 refine date after a 2026-07-28 render, plus the
-# renderer's own `_<date>_<clock>` suffix stacked on top of it.)
-STEM_PY="$VP/render-qa/stem.py"
-stem_base()    { python3 "$STEM_PY" base "$1"; }
-stem_restamp() { python3 "$STEM_PY" restamp "$1" --date "$2"; }
-stem_norm()    { python3 "$STEM_PY" normalize "$1" --date "$2"; }
+# Stem naming has exactly one owner: render-qa/src/stem.py. A WORKING artifact
+# (workspace, refined/ script, rendered/ script) is named `<title>_<program>`
+# with no date at all, so its name is its identity and never moves. Only the
+# DELIVERED MP4 gains a date, the render date, frozen at publish. `stem_base`
+# is tolerant of legacy dated names, so a workspace built before 2026-07-29
+# still keys correctly. (Dropped 2026-07-29, decisions/log.md: a name that
+# moves cannot be a lock, and a restamping rebuild had already produced two
+# workspaces for one lesson.)
+STEM_PY="$VP/render-qa/src/stem.py"
+stem_base()      { python3 "$STEM_PY" base "$1"; }
+stem_delivered() { python3 "$STEM_PY" delivered "$1" --date "$2"; }
 
 BASE="$(stem_base "$STEM")" || { echo "FATAL: malformed stem '$STEM'" >&2; exit 2; }
 
@@ -74,11 +75,29 @@ FREE_MB="$(df -Pm "$WS" 2>/dev/null | awk 'NR==2{print $4}')"
 
 # ---------------------------------------------------------------- RENDER phase
 if [[ "$MODE" == "render" ]]; then
+  # ONE render at a time, machine-wide. Builds run N-wide (authoring + network
+  # TTS), but a render is CPU-bound and two of them on a 4-core box thrash and
+  # cost more than they save. Until 2026-07-29 this was a sentence in the SKILL
+  # asking the orchestrator not to — and a session running 4 concurrent builds
+  # was one gate-pass away from disproving it. mkdir is atomic, so the lock is
+  # the mechanism (STD-35); the publish phase below has had the same shape all
+  # along, and this is that guard extended to the phase that actually burns
+  # the CPU. Held for the render, released on any exit.
+  RLOCK="$VP/renders-hyperframes/.render.lock"
+  if ! mkdir "$RLOCK" 2>/dev/null; then
+    HOLDER="$(cat "$RLOCK/stem" 2>/dev/null || echo "unknown")"
+    echo "FATAL: another render is in flight ($HOLDER). Renders are serialised;" >&2
+    echo "       retry when it finishes, or remove $RLOCK if it is stale." >&2
+    exit 2
+  fi
+  echo "$STEM" > "$RLOCK/stem" 2>/dev/null || true
+  trap 'rm -rf "$RLOCK" 2>/dev/null' EXIT
+
   # Previews contaminate renders (they hold the same ports and GPU/shm state).
   pkill -f "hyperframes[ ]preview" 2>/dev/null || true
 
   echo "== preflight: $STEM"
-  python3 "$VP/render-qa/preflight.py" "$WS" || quarantine "preflight.py non-zero"
+  python3 "$VP/render-qa/src/preflight.py" "$WS" || quarantine "preflight.py non-zero"
 
   # A pruned workspace (post-publish revisit, or the 3x stability loop) has no
   # node_modules; reinstall instead of false-quarantining "render failed".
@@ -104,7 +123,7 @@ if [[ "$MODE" == "render" ]]; then
   RENDER_DATE="$(date +%F)"
   shopt -s nullglob
   for raw in "$WS/renders/"*.mp4; do
-    want="$(stem_norm "$(basename "$raw")" "$RENDER_DATE").mp4"
+    want="$(stem_delivered "$(basename "$raw")" "$RENDER_DATE").mp4"
     [[ "$(basename "$raw")" == "$want" ]] && continue
     mv -f "$raw" "$WS/renders/$want" || quarantine "could not normalise render filename"
     echo "   render name normalised -> $want"
@@ -112,7 +131,7 @@ if [[ "$MODE" == "render" ]]; then
   shopt -u nullglob
 
   echo "== verify_render"
-  python3 "$VP/render-qa/verify_render.py" "$WS" || quarantine "verify_render.py non-zero"
+  python3 "$VP/render-qa/src/verify_render.py" "$WS" || quarantine "verify_render.py non-zero"
   [[ -f "$WS/qa/VERIFIED" ]] || quarantine "verify passed but wrote no qa/VERIFIED marker"
 
   # Sample frames for the vision guard. verify_render dumps 3 per scene; a
@@ -172,11 +191,12 @@ WANT_SHA="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["sha
 GOT_SHA="$(sha256sum "$MP4_SRC" | cut -d' ' -f1)"
 [[ "$GOT_SHA" == "$WANT_SHA" ]] || quarantine "MP4 changed since verify (sha mismatch) — re-run render phase"
 
-# Filed name = the stem restamped to the render date (one date, most recent
-# action). stem.py owns the rule; this must never hand-slice the suffix.
+# Filed name = the ONE place a date is still added. A delivered MP4 records
+# the date it was rendered — a fact about an event that happened once, frozen
+# here and never restamped. stem.py owns it; never hand-slice the suffix.
 RENDER_DATE="$(date +%F)"
-SHIP_STEM="$(stem_restamp "$STEM" "$RENDER_DATE")" \
-  || quarantine "could not restamp stem '$STEM'"
+SHIP_STEM="$(stem_delivered "$STEM" "$RENDER_DATE")" \
+  || quarantine "could not build delivered name for '$STEM'"
 FILED="${SHIP_STEM}.mp4"
 DEST_DIR="$VP/renders-mp4/$PROGRAM/hyperframes"
 mkdir -p "$DEST_DIR"
@@ -268,11 +288,13 @@ led.write_text("\n".join(lines) + "\n", encoding="utf-8")
 print(f"   ledger row updated ({'in place' if hit is not None else 'appended'})")
 PY
 
-# The script leaves the queue only now, when the video is actually live. It is
-# restamped on the way: rendered/ means "a render exists", so the date it
-# carries there is the render date, not the refine date it arrived with.
+# The script leaves the queue only now, when the video is actually live. It
+# keeps its name: rendered/ is a working folder, and a working artifact is
+# named for its base alone. The render date is recorded in published.tsv's own
+# column and on the filed MP4, which is where a date belongs. (Destination is
+# BASE rather than STEM so a legacy dated script migrates on its way through.)
 SRC_SCRIPT="$VP/lesson-scripts/$PROGRAM/refined/$STEM.txt"
-DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$SHIP_STEM.txt"
+DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$BASE.txt"
 if [[ -f "$SRC_SCRIPT" ]]; then
   mkdir -p "$(dirname "$DST_SCRIPT")"
   git -C "$REPO" mv "$SRC_SCRIPT" "$DST_SCRIPT" 2>/dev/null || mv "$SRC_SCRIPT" "$DST_SCRIPT"

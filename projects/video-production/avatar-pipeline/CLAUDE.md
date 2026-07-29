@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Automated course video pipeline that turns lesson scripts into avatar-narrated videos. Two-stage workflow: load scripts (local files or Google Docs) → create avatar videos with narration via the HeyGen API (HeyGen generates both the voice and the video in one call). Single Python file (`generate_videos.py`) handles the full pipeline with resumable state tracking.
+Automated course video pipeline that turns lesson scripts into avatar-narrated videos. Two-stage workflow: load scripts (local files or Google Docs) → create avatar videos with narration via the HeyGen API (HeyGen generates both the voice and the video in one call). Single Python file (`src/generate_videos.py`) handles the full pipeline with resumable state tracking.
 
 ## Where This Fits SCLA's Video Pipeline
 
@@ -55,7 +55,7 @@ Edit `config.json`:
 3. The avatar ID is in the URL or shown in the avatar details
 
 **How to find your voice ID:**
-Run `python generate_videos.py --list-voices` to print every HeyGen voice in your account with its ID, then copy the one you want into `config.json`. (You can also browse voices in the HeyGen dashboard.)
+Run `python src/generate_videos.py --list-voices` to print every HeyGen voice in your account with its ID, then copy the one you want into `config/config.json`. (You can also browse voices in the HeyGen dashboard.)
 
 ### 4. Add your lessons
 
@@ -81,7 +81,7 @@ For local files, the approved `.txt` lives in `../lesson-scripts/<program-slug>/
 ### 5. Test with a dry run
 
 ```bash
-python generate_videos.py --dry-run
+python src/generate_videos.py --dry-run
 ```
 
 This exports and splits scripts without making any API calls (no credits used).
@@ -89,7 +89,7 @@ This exports and splits scripts without making any API calls (no credits used).
 ### 6. Generate your first video
 
 ```bash
-python generate_videos.py --lesson 1.0 --max-parts 1
+python src/generate_videos.py --lesson 1.0 --max-parts 1
 ```
 
 Start with one lesson and one chunk to verify everything works before processing your full course.
@@ -98,30 +98,30 @@ Start with one lesson and one chunk to verify everything works before processing
 
 ```bash
 # Full pipeline (all lessons)
-python generate_videos.py
+python src/generate_videos.py
 
 # Export and split scripts only (no API calls)
-python generate_videos.py --dry-run
+python src/generate_videos.py --dry-run
 
 # Process a single module
-python generate_videos.py --module 1
+python src/generate_videos.py --module 1
 
 # Process a single lesson
-python generate_videos.py --lesson 1.0
+python src/generate_videos.py --lesson 1.0
 
 # Limit chunks per lesson (useful for testing)
-python generate_videos.py --max-parts 1
+python src/generate_videos.py --max-parts 1
 
 # Show progress summary
-python generate_videos.py --status
+python src/generate_videos.py --status
 
 # List available HeyGen voices (to find your voice ID)
-python generate_videos.py --list-voices
+python src/generate_videos.py --list-voices
 ```
 
 ## Architecture
 
-Everything lives in `generate_videos.py`. The pipeline processes lessons through four sequential stages per chunk:
+Everything lives in `src/generate_videos.py`. The pipeline processes lessons through four sequential stages per chunk:
 
 1. **Load Script** — Read from local `.txt` file or export Google Doc via `gws` CLI
 2. **Split** — Sentence-boundary splitting into chunks (configurable word limit)
@@ -168,7 +168,7 @@ python heygen_update.py status     # Check progress
 
 ### redownload_videos.py
 
-After upgrading videos with `heygen_update.py`, this script downloads the re-rendered versions.
+After upgrading videos with `src/heygen_update.py`, this script downloads the re-rendered versions.
 
 ```bash
 python redownload_videos.py          # Download all
@@ -210,6 +210,6 @@ re-rendering completed parts.
 
 **HeyGen video failed** — Check the error message. Common causes: avatar not found, voice ID not found, script too long, account out of credits.
 
-**Voice not found / bad voice ID** — Run `python generate_videos.py --list-voices` to see valid HeyGen voice IDs and update `config.json`.
+**Voice not found / bad voice ID** — Run `python src/generate_videos.py --list-voices` to see valid HeyGen voice IDs and update `config.json`.
 
 **gws not found** — The `gws` CLI is needed for Google Docs export. If you're using local script files, you can ignore this.

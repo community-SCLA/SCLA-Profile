@@ -34,7 +34,7 @@ from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeo
 
 # File paths (relative to this script)
 PROGRESS_FILE = Path(__file__).parent / "avatar_update_progress.json"
-STATE_FILE = Path(__file__).parent / "state.json"
+STATE_FILE = Path(__file__).resolve().parents[1] / "state.json"
 SCREENSHOTS_DIR = Path(__file__).parent / "screenshots"
 BROWSER_DATA_DIR = Path(__file__).parent / ".browser-data"
 
@@ -45,7 +45,7 @@ EDITOR_URL = "https://app.heygen.com/create-v4"
 
 def load_config():
     """Load config.json for avatar settings."""
-    config_path = Path(__file__).parent / "config.json"
+    config_path = Path(__file__).resolve().parents[1] / "config" / "config.json"
     if not config_path.exists():
         print("[ERROR] config.json not found!")
         sys.exit(1)

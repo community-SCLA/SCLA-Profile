@@ -48,10 +48,10 @@ implementation on that basis.
 ## 2. The core finding (the whole assessment in one paragraph)
 
 The architecture was backwards: a cold agent freehand-authored a 21-scene
-`index.html` from 6,139 words of prose (`frame.md`), and quality was determined
+`index.html` from 6,139 words of prose (`design-contract.md`), and quality was determined
 afterwards by gates — so every failure cost a full re-author, and every owner
 rejection cost a render. Meanwhile **the deterministic compiler the owner is
-asking for already existed and was orphaned**: `render-qa/build_index.py`
+asking for already existed and was orphaned**: `render-qa/src/build_index.py`
 compiles an ~8-line-per-scene `scenes.json` manifest into the complete
 `index.html` (head/tail boilerplate, rail, audio host, per-slot template
 clones, `--extract` reverses it) — and neither SKILL nor BUILD-KIT ever
@@ -140,7 +140,7 @@ Their edits may be complete, partial, or absent. **First job of the next
 session: run §6 and inspect `git status` + the files below.** If an agent's
 work is missing or half-landed, its full spec is reproduced here — re-run it.
 
-### Agent A — `render-qa/build_index.py` canon refresh
+### Agent A — `render-qa/src/build_index.py` canon refresh
 Spec: update HEAD/TAIL constants to the current approved canon = the pilot's
 hand-authored `index.html` (Motion v2 + follow-ons: rail CSS `bottom: 48px`,
 track opacity .28, `background: #000`, Inter/JetBrains Mono rules, current
@@ -231,17 +231,17 @@ Ranked, with adoption cost:
 ```bash
 cd /workspaces/SCLA-Profile
 git status                                              # union of both sessions' edits; expect possibly-partial agent edits
-git diff projects/video-production/render-qa/build_index.py   # Agent A landed?
-git diff projects/video-production/render-qa/preflight.py scripts/hyperframe-guard.sh  # Agent B?
-git diff projects/video-production/render-qa/check_variety.py projects/video-production/render-qa/tests/test_variety.py  # Agent C?
+git diff projects/video-production/render-qa/src/build_index.py   # Agent A landed?
+git diff projects/video-production/render-qa/src/preflight.py scripts/hyperframe-guard.sh  # Agent B?
+git diff projects/video-production/render-qa/src/check_variety.py projects/video-production/render-qa/tests/test_variety.py  # Agent C?
 python3 projects/video-production/render-qa/tests/run_tests.py          # was 65 passed pre-session
 python3 projects/video-production/render-qa/tests/test_variety.py       # reference PASSES, rejected FAILS — non-negotiable
 bash scripts/lint-refs.sh                                # check 10 = 0 broken claims (rules file was edited — claims must hold)
 python3 scripts/check-enforcement.py                     # was 40 backed / 0 broken / 31 unbacked
 WS=projects/video-production/renders-hyperframes/better-decisions-come-from-better-criteria_early-career-boost_2026-07-28
-python3 projects/video-production/render-qa/preflight.py $WS            # must STILL fail exactly 9/10/11 (+6/7 if Agent C landed & counts pilot's canvas run)
-python3 projects/video-production/render-qa/preflight.py $WS --static   # if Agent B landed: fails 10/11, never attempts 9
-python3 projects/video-production/render-qa/build_index.py $WS && git -C . status  # compile from the workspace scenes.json; then RESTORE if comparing (workspace gitignored)
+python3 projects/video-production/render-qa/src/preflight.py $WS            # must STILL fail exactly 9/10/11 (+6/7 if Agent C landed & counts pilot's canvas run)
+python3 projects/video-production/render-qa/src/preflight.py $WS --static   # if Agent B landed: fails 10/11, never attempts 9
+python3 projects/video-production/render-qa/src/build_index.py $WS && git -C . status  # compile from the workspace scenes.json; then RESTORE if comparing (workspace gitignored)
 bash scripts/batch-prepare.sh && head -40 projects/video-production/renders-hyperframes/_run/BUILD-KIT.md  # kit opens with "Author scenes.json FIRST"; leak-check passes
 ```
 

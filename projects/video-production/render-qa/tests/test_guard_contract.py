@@ -54,6 +54,21 @@ def check(label, cond, detail=""):
 
 
 # ---------------------------------------------------------------------------
+# The guard's two entry points must EXIST at the path it invokes them from.
+# The 2026-07-28 layout refactor moved the toolchain to render-qa/src/ and left
+# the guard's RQ pointing at render-qa/, so from that day every hook firing
+# printed "can't open file" instead of a verdict. It looked like output, so it
+# looked alive; it graded nothing. A jq shape contract cannot catch a python
+# interpreter that never started.
+_rq = re.search(r'^RQ="(.*?)"', GUARD.read_text(), re.M)
+_rq_dir = (_rq.group(1).replace("$REPO", str(REPO)) if _rq else "")
+for _entry in ("preflight.py", "build_index.py"):
+    check(f"the guard's {_entry} path resolves",
+          bool(_rq_dir) and Path(_rq_dir, _entry).is_file(),
+          f"{_rq_dir}/{_entry} does not exist")
+
+
+# ---------------------------------------------------------------------------
 # Extract the guard's REAL jq programs. Not a copy — the file itself.
 def extract_jq(name: str) -> str:
     src = GUARD.read_text()
@@ -83,7 +98,7 @@ def build_workspace(name: str, scenes: list) -> Path:
     ws.mkdir(parents=True, exist_ok=True)
     shutil.copytree(DESIGN_SYSTEM / "compositions", ws / "compositions",
                     dirs_exist_ok=True)
-    shutil.copy(DESIGN_SYSTEM / "frame.md", ws / "frame.md")
+    shutil.copy(DESIGN_SYSTEM / "config" / "tokens.yml", ws / "tokens.yml")
     clips, t = [], 0.0
     for fam, variables, dur, narration in scenes:
         i = len(clips) + 1
@@ -105,7 +120,7 @@ def build_workspace(name: str, scenes: list) -> Path:
 def run_guard_pipeline(ws: Path):
     """Exactly what run_gates() does: subprocess with 2>&1, then the real jq."""
     p = subprocess.run(
-        [sys.executable, str(RQ / "preflight.py"), "--static", "--json", str(ws)],
+        [sys.executable, str(RQ / "src" / "preflight.py"), "--static", "--json", str(ws)],
         capture_output=True, text=True)
     out = p.stdout + p.stderr          # the guard captures 2>&1 into one string
     viol = subprocess.run(["jq", "-r", VIOL_JQ], input=out,

@@ -28,7 +28,7 @@ PIN="$(grep -o 'hyperframes@[0-9.]*' "$VP/design-system/package.json" | head -1)
 OUT="$WS/qa/precheck"
 
 echo "== preflight (authoritative — subagent-reported exits are not trusted)"
-PREFLIGHT_OUT="$(python3 "$VP/render-qa/preflight.py" "$WS" 2>&1)"
+PREFLIGHT_OUT="$(python3 "$VP/render-qa/src/preflight.py" "$WS" 2>&1)"
 rc=$?
 if [[ $rc -ne 0 ]]; then
   echo "PRECHECK_FAIL $STEM preflight exit=$rc" >&2

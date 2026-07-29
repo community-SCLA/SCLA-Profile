@@ -8,13 +8,14 @@
 > and the sentence is a bug (see `decisions/log.md`, 2026-07-29: the pipeline
 > once correctly obeyed this spec and violated the owner).
 >
-> Split out of `frame.md` on 2026-07-29. Rules below that no checker enforces
+> Split out of frame.md on 2026-07-29. Rules below that no checker enforces
 > are conventions; see `.claude/rules/video-production.md` for the mechanized set.
 
 The video design system for SCLA lesson videos (audience: college students 18–24).
-Frontmatter above is normative — quote hex/weights verbatim, never round. Source of
-brand truth: `brand/visual-identity.md` and `brand/voice-and-tone.md`; this file
-adapts those tokens to the video frame per the HyperFrames video-composition rules.
+`../config/tokens.yml` is normative — quote hex/weights verbatim from it, never
+round, and never restate a number here. Source of brand truth:
+`brand/visual-identity.md` and `brand/voice-and-tone.md`; the token file adapts
+those to the video frame per the HyperFrames video-composition rules.
 
 ## The frame
 
@@ -101,7 +102,7 @@ a style choice. These are hard rules, checked at the QA gate.
   career-map node pulse, the living-icon bob in `scla-condition` / `scla-chips`
   / `scla-steps` / `scla-statement`, and `scla-condition`'s accent re-pop are
   gone from the templates, so there is nothing left to select.
-  *(Mechanism: `render-qa/check_motion.py`, run by `preflight.py` in both full
+  *(Mechanism: `render-qa/src/check_motion.py`, run by `preflight.py` in both full
   and `--static` mode and by `npm run check` over the demo reel. It grades every
   repeating tween — `yoyo`, or `repeat` other than 0 — and allows only
   decorative ghost/ring targets, following a selector through a helper's call
@@ -129,7 +130,7 @@ a style choice. These are hard rules, checked at the QA gate.
   ripples/re-marks instead of re-authoring was vetoed by the owner — and as of
   2026-07-29 that trade is not available: the keep-alive motion is deleted from
   the templates and a re-add is a red gate, so a stagnant scene can only be
-  fixed by re-authoring it.) *(Mechanism: `render-qa/check_motion.py`.)*
+  fixed by re-authoring it.) *(Mechanism: `render-qa/src/check_motion.py`.)*
 - **Depth-drift runs in finite yoyo cycles (2026-07-14; re-tuned 2026-07-15).**
   The navy hero templates (`scla-title`, `scla-statement`, `scla-outro`,
   `scla-quote`, `scla-stat`) — and the light templates' ghost layers — drift
@@ -154,7 +155,7 @@ a style choice. These are hard rules, checked at the QA gate.
 **Timing numbers are compiled, never hand-typed.** The author declares text;
 the toolchain computes every number (authoring contract, normative):
 
-- **Narration is synthesized per scene** (`render-qa/synth_narration.py`,
+- **Narration is synthesized per scene** (`render-qa/src/synth_narration.py`,
   2026-07-14 — see `decisions/log.md`): every scene slot carries
   `data-narration="<its verbatim span of the refined script>"` (split only at
   sentence ends; HTML-escape inner double quotes as `&quot;`). The tool
@@ -184,7 +185,7 @@ the toolchain computes every number (authoring contract, normative):
   values, `sceneDuration`, the `<audio>` duration, and the root duration —
   boundaries come from the synthesis manifest; cue times from
   `assets/voice/transcript.json`. Hand-editing any of these numbers is a
-  defect; re-run the compiler instead. `render-qa/preflight.py` re-derives
+  defect; re-run the compiler instead. `render-qa/src/preflight.py` re-derives
   everything and fails the build on any drift.
 
 Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
@@ -234,7 +235,7 @@ Cuts are graded at QA against `assets/voice/transcript.json`, not by feel:
   better") or as separate fragments ("Meaning? Mentorship? Or growth?"), and it
   is a **script** rule, so the repair is in the refined `.txt`, not the frame —
   chips and on-frame labels stay bare.
-  *(Gate: `render-qa/check_copy.py`, run by `preflight.py`.)*
+  *(Gate: `render-qa/src/check_copy.py`, run by `preflight.py`.)*
 - **In-scene silence is capped at 0.5s (gated 2026-07-28).** HeyGen's Oxana
   emits 0.98–1.26s of real dead air at some sentence boundaries,
   non-deterministically — measured 3× variance across four identical "Ordinal,"
@@ -301,25 +302,25 @@ never written here or into either skill. It did not hold: the 2026-07-28
 `scla-statement`, an unbroken run of 5 near-identical condition/chips slides,
 six templates untouched) and every gate passed it. The owner's verdict was
 "boring, doesn't have a lot of visual variety, feels a bit slow." It is now a
-gate: **`render-qa/check_variety.py`, run by `preflight.py`.**
+gate: **`render-qa/src/check_variety.py`, run by `preflight.py`.**
 
 - **Never render a one-item list.** A list slot holding exactly one item draws
   the bullet/pill/numbered-point illustration around a single fact. You would
   never render a single bullet point. Either give it ≥2 items or move the beat
   to a form that states one idea (`scla-statement`, `scla-quote`, `scla-stat`).
-  *(Gate: `render-qa/check_variety.py` rule 1 — hard fail.)*
+  *(Gate: `render-qa/src/check_variety.py` rule 1 — hard fail.)*
 - **Max 2 consecutive scenes on one template family** — unless the run is a
   genuine enumerated series. Three plain repeats is the same slide three times.
   A run may extend to 6 **only** if every scene in it advances a visible
   progress indicator, carries its *own* artwork (no asset repeats inside the
   run), and lasts ≤7s. That exemption is measured, not theoretical: the
   reference video's best passage is five consecutive `scla-condition` scenes
-  that do exactly this. *(Gate: `render-qa/check_variety.py` rule 2 — hard fail.)*
+  that do exactly this. *(Gate: `render-qa/src/check_variety.py` rule 2 — hard fail.)*
 - **≥6 distinct content forms** per lesson ≥90s, **≥7** at ≥150s (≥4 below 90s),
-  counting everything but `scla-title`/`scla-outro`. *(Gate: `render-qa/check_variety.py` rule 3 — hard fail.)*
+  counting everything but `scla-title`/`scla-outro`. *(Gate: `render-qa/src/check_variety.py` rule 3 — hard fail.)*
 - **No single form carries more than 40% of the content seconds.** Passing the
   rules above while putting 42% of the video on one template still reads as
-  monotony. *(Gate: `render-qa/check_variety.py` rule 4 — hard fail.)*
+  monotony. *(Gate: `render-qa/src/check_variety.py` rule 4 — hard fail.)*
 - **The unused-template list is a menu, not a suggestion.** The gate prints
   what you didn't touch. If `scla-career-map`, `scla-steps`, `scla-morph`,
   `scla-loop`, `scla-quote` or `scla-stat` fits a beat, use it — when the
@@ -336,7 +337,7 @@ gate: **`render-qa/check_variety.py`, run by `preflight.py`.**
   chart (axes, bars growing to different heights), an advancing 5-dot stepper,
   figure glyphs mirrored and recoloured so the repeat reads as variation, and
   red strike-throughs annotating live text.
-  *(Gate: `render-qa/check_variety.py` rule 5 — hard fail.)*
+  *(Gate: `render-qa/src/check_variety.py` rule 5 — hard fail.)*
 - **Rotate the connective tissue too.** The circled/ringed point is one device
   among several. An arrow drawn from one statement to another, a comparison
   scale, a split frame, a trace along a path — reach for these before repeating
@@ -393,7 +394,7 @@ is reserved for labels/eyebrows/chips.
   This line used to read "sentence case for titles and body", which is why
   every heading in the 2026-07-28 build shipped sentence case and mixed
   terminal periods across adjacent scenes despite repeated owner correction.
-  *(Gate: `render-qa/check_copy.py`.)*
+  *(Gate: `render-qa/src/check_copy.py`.)*
 - **Minimum on-frame text size — hard floor (preflight-enforced, 2026-07-27).**
   **Body-class text never renders below 40px** (raised from 32 on 2026-07-29 —
   see the frontmatter note); label-class furniture never
@@ -426,9 +427,17 @@ DERIVED, not authored:
 - **`eyebrow` = the program's display name**, read from the `programs:` map in
   `../config/tokens.yml` — a wrong or invented program name is a gate failure
   (`preflight.py`). Add a new program to that map, never here: this file is
-  prose and the gate does not read it. (`early-career-boost` renders as
-  "Career Accelerator" per the owner-directed on-screen rebrand, 2026-07-21,
-  recorded in `refinement-log.md`.)
+  prose and the gate does not read it. **The banner IS the
+  `lesson-scripts/<slug>/` folder name** (owner, 2026-07-29, "a MUST … a hard
+  rule"): a display name is legal only if it slugifies back to its own key, so
+  `early-career-boost` renders as "Early Career Boost" and nothing else. The
+  2026-07-21 "Career Accelerator" on-screen rebrand is reverted — it shipped a
+  banner that named a program the lesson does not belong to, and check 7b
+  passed it because the map it graded against was free text.
+  (Mechanism: `tokens.programs_problems()` → `preflight.py` check 7b in full
+  AND `--static` mode, plus `render-qa/tests/test_programs.py` in CI, which
+  also fails if a `lesson-scripts/` folder has no banner or a banner has no
+  folder.)
 
 - **`title` = the lesson title from the script stem** — the stem's title
   segment with hyphens as spaces, Title Case per the heading rule above
@@ -494,6 +503,15 @@ scene, and drawn on the cue.
   `scla-morph` optional per-card icons, and `scla-chips` an optional
   statement-style hero `icon`. Defaults stay empty — existing builds compile
   unchanged. The "novel, not on every frame" discipline still governs use.
+- **An icon name the template's own library lacks draws nothing, silently.**
+  `ICONS[name]` returning undefined is a typo no browser can report, and the
+  libraries are per-template copies that drift: `map` existed in
+  `scla-statement` and `scla-steps` and not in `scla-points`, so scene-17 of the
+  2026-07-29 criteria build shipped with a hole where row 2's icon belonged and
+  every gate passed it. *(Mechanism: `render-qa/src/check_slots.py` rule
+  `unknown-icon`, which reads the library it is actually calling — run by
+  `preflight.py` in full AND `--static` mode. The four libraries were re-synced
+  the same day.)*
 - **Hide the wrapper until the draw-on cue (render-qa friction log, 2026-07-27
   B1):** every icon path is built with `stroke-linecap: round` and animated
   from `strokeDasharray "100 100"` / `strokeDashoffset 100`, which is a

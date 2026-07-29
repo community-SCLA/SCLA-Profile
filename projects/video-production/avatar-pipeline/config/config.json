@@ -20,7 +20,7 @@
       "title": "Introduction to Your Course",
       "module": 1,
       "source": "local",
-      "file": "scripts/example-lesson.txt"
+      "file": "docs/example-lesson.txt"
     },
     "3.5": {
       "title": "Better Decisions Come From Better Criteria",

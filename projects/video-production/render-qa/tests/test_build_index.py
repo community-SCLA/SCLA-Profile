@@ -38,7 +38,7 @@ from pathlib import Path
 
 TESTS_DIR = Path(__file__).resolve().parent
 RENDER_QA = TESTS_DIR.parent
-sys.path.insert(0, str(RENDER_QA))
+sys.path.insert(0, str(RENDER_QA / "src"))
 import build_index as bi  # noqa: E402
 
 REPO_ROOT = RENDER_QA.parents[2]

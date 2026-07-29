@@ -4,7 +4,7 @@ The brand-owned illustrated-video system for SCLA lesson videos. Twelve reusable
 scene templates + design tokens + a pinned narration voice give every lesson a
 brand-true starting point — but the templates are the **structural floor, not a
 ceiling**: the frame must stay alive and *illustrate what's being said*
-(`frame.md` → "Every scene earns its seconds" + "Illustration over text").
+(`docs/design-contract.md` → "Every scene earns its seconds" + "Illustration over text").
 Decision record: repo-root `decisions/log.md` (2026-07-07, revamped 2026-07-08).
 
 ## Skills — USE THESE FIRST
@@ -22,7 +22,8 @@ this file does not restate them). `/produce-video` is the one-call dispatcher
 over both. Start there; do not route SCLA lesson videos into generic
 HyperFrames workflow skills.
 
-- **Design contract — read `frame.md` first:** normative tokens, frame/animacy
+- **Design contract — read `docs/design-contract.md` first** (numbers in
+  `config/tokens.yml`): frame/animacy
   rules, the anchor/timing contract, the twelve scene templates, the style
   packages, and the motion rotation. Read it while assembling any composition.
 - **Authoring & rendering mechanics:** `/hyperframes-core` (the composition
@@ -39,8 +40,10 @@ HyperFrames workflow skills.
 
 | Path | What it is |
 |---|---|
-| `frame.md` | Design spec — SCLA tokens adapted to the video frame. Brand truth stays in `brand/`. |
-| `compositions/scla-*.html` | The twelve scene templates (sub-compositions with variables, referenced via `data-composition-src`) — see table in `frame.md` |
+| `config/tokens.yml` | **The normative numbers** — colors, type scale, min text sizes, spacing, pinned voice, program display names. `render-qa/src/tokens.py` LOADS this; the gates grade against it. Changing a number here changes a gate's verdict. Never hand-copy one into code. |
+| `docs/design-contract.md` | **The prose contract** — animacy, pacing, variety, the template table. No code reads it. If it disagrees with `tokens.yml`, `tokens.yml` wins and the sentence is a bug. |
+| `docs/README.md` | Why this folder ignores the repo's project convention (HyperFrames dictates the layout) and what we gave up by doing so. |
+| `compositions/scla-*.html` | The twelve scene templates (sub-compositions with variables, referenced via `data-composition-src`) — see table in `docs/design-contract.md` |
 | `index.html` | Demo reel: all twelve templates with real approved-lesson content. Living style guide — render it after any template change. |
 | `assets/brand/` | SCLA logo SVGs (copied from `brand/assets/`) |
 | `assets/fonts/` | Self-hosted Proxima Nova woff2 (400/700/900, from SCLA's Adobe kit) |
@@ -77,10 +80,10 @@ guess URLs: `https://hyperframes.heygen.com/llms.txt`
 
 - Templates are instantiated with variables (`data-composition-src` +
   `data-variable-values`), never forked. A recurring new need = a new
-  `scla-*.html` template here, added to `frame.md`'s table.
+  `scla-*.html` template here, added to `docs/design-contract.md`'s table.
 - Every template carries the three style packages (`theme`:
   `summit`/`horizon`/`cadence`) as CSS-only `data-theme` override blocks —
-  timelines stay identical across packages (spec: `frame.md` → "Style packages").
+  timelines stay identical across packages (spec: `docs/design-contract.md` → "Style packages").
 - Every timed element needs `data-start`, `data-duration`, `data-track-index`,
   and **`class="clip"`** — the framework uses the class for visibility control.
 - One paused GSAP timeline per composition, registered on `window.__timelines`:
@@ -99,13 +102,13 @@ guess URLs: `https://hyperframes.heygen.com/llms.txt`
 ## Narration voice — HeyGen starfish, live since 2026-07-22
 
 **HeyGen "Oxana" (en-US) `442360a3e0894fbd85024ff64cc2b928` @ 1.0 speed** —
-`render-qa/synth_narration.py`'s default provider and voice (owner pick,
+`render-qa/src/synth_narration.py`'s default provider and voice (owner pick,
 2026-07-22).
 Approved alternate: **Seema — Professional** `166aa8d7acd1495a839d34024ccb1505`,
 via `--voice`. Neither voice supports pause tags — pace narration with sentence
 structure. Returns native per-word timestamps with the
 synthesis, so the Whisper transcribe step no longer runs on new builds (see
-`frame.md` → "voice" frontmatter + "Narration is synthesized per scene", and
+`config/tokens.yml` → `voice:` + `docs/design-contract.md` → "Narration is synthesized per scene", and
 `decisions/log.md` 2026-07-22). Superseded 2026-07-07's Kokoro `af_heart`
 decision once the 2026-07-21 HeyGen key rotation cleared the 403 that had
 blocked this path.

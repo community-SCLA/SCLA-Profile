@@ -63,12 +63,13 @@ GRADED = [
     "CLAUDE.md",
     "decisions/log.md",
     "projects/video-production/CLAUDE.md",
-    "projects/video-production/design-system/frame.md",
+    "projects/video-production/design-system/docs/design-contract.md",
     "projects/video-production/design-system/AGENTS.md",
 ]
 
 # Roots a backticked path in a doc may be relative to.
-PATH_ROOTS = [REPO, VP, VP / "design-system", REPO / ".claude"]
+PATH_ROOTS = [REPO, VP, VP / "design-system", VP / "design-system" / "config",
+              VP / "design-system" / "docs", REPO / ".claude"]
 
 # An annotation block: *(Mechanism: ...)*, *(Gate: ...)*, *(Convention...)*
 # Body allows ONE level of nested parens — real annotations cite things like
@@ -113,8 +114,11 @@ def resolve(token: str) -> Path | None:
         p = (root / token)
         if p.exists():
             return p
-    # bare filename anywhere under render-qa/ or scripts/
-    for d in (VP / "render-qa", REPO / "scripts"):
+    # bare filename anywhere under render-qa/ or scripts/. render-qa/src is
+    # listed explicitly: the checkers moved there 2026-07-29 and a resolver that
+    # only knew the flat layout reported every one of them as nonexistent.
+    for d in (VP / "render-qa" / "src", VP / "render-qa" / "tests",
+              VP / "render-qa", REPO / "scripts"):
         p = d / Path(token).name
         if p.exists():
             return p
@@ -135,7 +139,7 @@ def invokers() -> dict[str, str]:
         exists to catch. Comment lines are stripped before matching.
     """
     found = {}
-    for caller in [VP / "render-qa/preflight.py", VP / "render-qa/verify_render.py",
+    for caller in [VP / "render-qa/src/preflight.py", VP / "render-qa/src/verify_render.py",
                    REPO / "scripts/batch-ship.sh", REPO / "scripts/lint-refs.sh",
                    REPO / "scripts/batch-prepare.sh", REPO / "scripts/batch-status.sh",
                    REPO / "scripts/hyperframe-guard.sh",
@@ -233,7 +237,7 @@ def grade():
             # ANY prose line counts, not just list items and table rows
             # (2026-07-29). The old `-`/`*`/`|` filter is why recall sat near
             # 17%: a normative sentence in a paragraph, a heading, or a YAML
-            # frontmatter comment — where `frame.md` keeps some of its most
+            # frontmatter comment — where `design-contract.md` keeps some of its most
             # load-bearing claims — was invisible to the inventory. A rule does
             # not stop being a promise because of the character it starts with.
             stripped = line.strip()

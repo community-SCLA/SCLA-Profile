@@ -97,7 +97,7 @@
         #mp-check svg { position: absolute; inset: 0; }
         #mp-check .mci-stroke { stroke: #0d2437; }
         #mp-check .mci-stroke.mci-gold { stroke: #eaab2d; }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .mp-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
         #root[data-theme="horizon"] #mp-rule { background: #3393d6; }
         #root[data-theme="horizon"] .card.win { border-color: #3393d6; box-shadow: 0 0 0 4px rgba(51, 147, 214, 0.18); }
@@ -131,7 +131,7 @@
       <script>
         (function () {
           // Living-icon geometry — mirrored VERBATIM from scla-condition.html's ICONS
-          // map (the source of truth; frame.md → "Living icon library"). Edit there
+          // map (the source of truth; design-contract.md → "Living icon library"). Edit there
           // first, then re-sync this copy.
           var RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z"; // closed circle, r32 @ (48,48)
           var ICONS = {
@@ -233,7 +233,7 @@
             if (icon.draws.length) tl.fromTo(icon.draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, at);
             if (icon.dots.length) tl.fromTo(icon.dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, at + 0.45);
           }
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
           tl.fromTo("#mp-ghost", { opacity: 0.4 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo(["#mp-corner-tl", "#mp-corner-br", "#mp-index", "#mp-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo("#mp-kicker", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.15);

@@ -5,7 +5,7 @@
 # normal way to run this is the Run Task menu, not typing it.
 #
 # For every build in renders-hyperframes/ it runs the deterministic gate
-# (render-qa/preflight.py, ~0.4s each). Gate-clean builds get a preview server
+# (render-qa/src/preflight.py, ~0.4s each). Gate-clean builds get a preview server
 # started on their own port and a clickable link printed. Everything else is
 # listed as "not ready" so you know to skip it.
 #
@@ -15,7 +15,7 @@ set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ROOT="$REPO/projects/video-production/renders-hyperframes"
-PREFLIGHT="$REPO/projects/video-production/render-qa/preflight.py"
+PREFLIGHT="$REPO/projects/video-production/render-qa/src/preflight.py"
 PORTS=(3002 3003 3004 3005 3006 3007)
 HF="hyperframes@0.7.79"   # single pin, matches design-system/package.json (render-validated)
 

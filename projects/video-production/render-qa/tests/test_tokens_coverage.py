@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """test_tokens_coverage.py — a token nobody reads is a red test.
 
-frame.md's frontmatter carried `spacing.frame-padding: 120` from the day the
+tokens.yml (then design-contract.md's frontmatter) carried `spacing.frame-padding: 120` from the day the
 system was built. `tokens.py` grew a `frame_padding()` accessor for it. Nothing
-ever called that accessor, and the block above it in frame.md claimed the four
+ever called that accessor, and the block above it claimed the four
 spacing tokens were "LOADED, not quoted: every checker imports from it." The
 number was enforced by nothing at all, and the doc said the opposite.
 
 This suite makes that non-recurring, in both directions:
 
-  1. Every normative scalar in frame.md's frontmatter has a tokens.py accessor.
-     (Scope: `typography.min-size` and `spacing` — the two blocks frame.md
+  1. Every normative scalar in tokens.yml has a tokens.py accessor.
+     (Scope: `typography.min-size` and `spacing` — the two blocks tokens.yml
      itself annotates as loaded. Colours, the type scale and the voice pin are
      descriptive: they are consumed by template CSS and by synth_narration's
      provider args, not by a Python gate, and claiming otherwise would be the
@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 RQ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RQ))
+sys.path.insert(0, str(RQ / "src"))
 import tokens  # noqa: E402
 
 failures = []
@@ -40,10 +40,18 @@ ACCESSOR_FOR = {
     ("spacing", "safe-area"):            "safe_area",
     ("spacing", "footer-reserve"):       "footer_reserve",
     ("spacing", "content-bottom"):       "content_bottom",
+    ("spacing", "card-gutter"):          "card_gutter",
 }
 
 # Accessors that are structural rather than a frontmatter scalar.
-STRUCTURAL = {"canvas", "load", "frame_path", "px", "summary", "main"}
+#
+# `slugify` is here because it loads no token at all: it is a pure string helper
+# that `programs_problems()` uses to round-trip a display name back to its slug.
+# Exempting it is not a bypass of the orphan rule — it is directly unit-tested by
+# tests/test_programs.py, and the rule exists to catch a *number* that no gate
+# reads, which is not what this is. Do not add a real accessor to this set to
+# make the suite go quiet; that is precisely how frame_padding() sat unread.
+STRUCTURAL = {"canvas", "load", "tokens_path", "px", "summary", "main", "slugify"}
 
 # Files that may NOT count as a consumer: a token read only by its own test is
 # still an orphan. tokens.py itself is excluded for the same reason.
@@ -57,8 +65,11 @@ def is_consumer(path: Path) -> bool:
 # 1. Every normative frontmatter scalar has an accessor, and it returns a real
 #    number rather than a default that happens to look right.
 data = tokens.load()
-spec = tokens.frame_path().read_text(encoding="utf-8")
-frontmatter = spec.split("---", 2)[1] if spec.startswith("---") else ""
+spec = tokens.tokens_path().read_text(encoding="utf-8")
+# Reuse tokens.py's own splitter rather than re-deriving the file's shape here:
+# a second implementation is a second thing to drift. Handles both a bare
+# tokens.yml and the `---`-fenced form a workspace copy may carry.
+frontmatter = tokens._split_frontmatter(spec)
 
 declared = set()
 block = None
@@ -80,17 +91,17 @@ for key in sorted(ACCESSOR_FOR, key=str):
     dotted = ".".join(key)
     if key not in declared:
         failures.append(f"{dotted} is mapped to tokens.{name}() but no longer "
-                        f"appears in frame.md's frontmatter — the map has rotted")
+                        f"appears in tokens.yml — the map has rotted")
         continue
     fn = getattr(tokens, name, None)
     if not callable(fn):
-        failures.append(f"frame.md declares {dotted} but tokens.py exposes no "
+        failures.append(f"tokens.yml declares {dotted} but tokens.py exposes no "
                         f"{name}() to load it")
         continue
     try:
         value = fn()
     except Exception as exc:                      # noqa: BLE001
-        failures.append(f"tokens.{name}() raised on the live frame.md: {exc}")
+        failures.append(f"tokens.{name}() raised on the live tokens.yml: {exc}")
         continue
     nums = value if isinstance(value, tuple) else (value,)
     if not all(isinstance(v, (int, float)) and v == v and v > 0 for v in nums):
@@ -107,19 +118,19 @@ accessors = sorted(
     and name not in STRUCTURAL
     and getattr(getattr(tokens, name), "__module__", "") == "tokens")
 
-sources = [p for p in sorted(RQ.glob("*.py")) if is_consumer(p)]
+sources = [p for p in sorted((RQ / "src").glob("*.py")) if is_consumer(p)]
 for name in accessors:
     call = re.compile(rf"\btokens\.{re.escape(name)}\s*\(")
     users = [p.name for p in sources if call.search(p.read_text(encoding="utf-8"))]
     if not users:
         failures.append(
-            f"tokens.{name}() has NO non-test consumer — the frame.md number it "
+            f"tokens.{name}() has NO non-test consumer — the tokens.yml number it "
             f"loads is enforced by nothing. Wire it into a checker or delete "
-            f"the accessor and say so in frame.md; do not leave it looking "
+            f"the accessor and say so in tokens.yml; do not leave it looking "
             f"loaded. (This is exactly how spacing.frame-padding sat unread.)")
 
 # Report the wiring so a reader can see it, not just trust it.
-print("frame.md token wiring:")
+print("tokens.yml wiring:")
 for name in accessors:
     call = re.compile(rf"\btokens\.{re.escape(name)}\s*\(")
     users = [p.name for p in sources if call.search(p.read_text(encoding="utf-8"))]

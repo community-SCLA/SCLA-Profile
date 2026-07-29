@@ -52,9 +52,9 @@ REQUIRED = {
     "check_copy":       ["conjunction", "dangling", "dangling-fragment",
                          "titlecase", "heading-period"],
     "check_geometry":   ["text-collision", "nothing-graded", "safe-area-breach",
-                         "footer-breach", "padding-breach"],
+                         "footer-breach", "padding-breach", "card-gutter"],
     "check_motion":     ["keep-alive-motion", "undeclared-target"],
-    "check_slots":      ["unfilled", "placeholder"],
+    "check_slots":      ["unfilled", "placeholder", "unknown-icon"],
     "check_text":       ["min-size", "restatement"],
     "check_variety":    ["consecutive-run", "min-forms", "artwork", "share",
                          "canvas-run", "canvas-seconds", "two-region"],
@@ -97,7 +97,7 @@ for line in registry_path.read_text().splitlines():
 
 # ---------------------------------------------------------------------------
 # 2. Every checker module must be accounted for — in REQUIRED or in SLOW.
-modules = sorted(p.stem for p in RQ.glob("check_*.py"))
+modules = sorted(p.stem for p in (RQ / "src").glob("check_*.py"))
 for mod in modules:
     if mod not in REQUIRED and mod not in SLOW:
         failures.append(

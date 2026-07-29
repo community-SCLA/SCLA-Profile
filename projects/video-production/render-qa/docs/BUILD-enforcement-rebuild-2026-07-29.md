@@ -40,8 +40,8 @@ armed but inert. Six phases, strictly ordered, each independently revertable.
    currently crashes or silently does not exist. Confirm `run_tests.py` passes
    from a clean checkout afterwards.
 
-2. **Fix three doc/code drifts** (`design-system/frame.md`):
-   | frame.md says | Change to | Also fix |
+2. **Fix three doc/code drifts** (`design-system/docs/design-contract.md`):
+   | design-contract.md says | Change to | Also fix |
    |---|---|---|
    | pacing gap FAIL > 4.5s, WARN > 3.5s | **4.0 / 3.0** (`preflight.py` values) | `preflight.py`'s own docstring is stale too |
    | "no stagnant frame beyond ~2s" | **3.0 WARN / 5.0 FAIL** (`check_presence`) | — |
@@ -63,7 +63,7 @@ armed but inert. Six phases, strictly ordered, each independently revertable.
    the claim from both files.
 
 5. **Correct two false enforcement claims** — the `# LOADED` comment above
-   `frame.md`'s frontmatter `spacing` block, and the matching sentence in
+   `design-contract.md`'s frontmatter `spacing` block, and the matching sentence in
    `.claude/rules/video-production.md`. Reality today: `tokens.py` exposes
    `frame_padding()`, `safe_area()`, `footer_reserve()`, `content_bottom()`, and
    the **only** checker consumer is `check_text.py` calling `min_size()`. Until
@@ -108,7 +108,7 @@ Delete any firing assertion → suite goes red.
 
 ## Phase 2 — Arm the orphaned spacing tokens 
 
-`render-qa/check_geometry.py` + its engine `boxmodel.py` exist, are untracked, and
+`render-qa/src/check_geometry.py` + its engine `boxmodel.py` exist, are untracked, and
 are **invoked by nothing**. It is the gate that consumes the orphaned spacing
 tokens (`safe_area()`, `content_bottom()`, `footer_reserve()`, `canvas()`).
 
@@ -144,19 +144,19 @@ tokens (`safe_area()`, `content_bottom()`, `footer_reserve()`, `canvas()`).
    (it needs no render). Follow the existing `run_tool` **exit-code** pattern
    exactly — do not parse its JSON (see Phase 3).
 
-3. **`tests/test_tokens_coverage.py`** — every scalar in `frame.md`'s frontmatter
+3. **`tests/test_tokens_coverage.py`** — every scalar in `design-contract.md`'s frontmatter
    must have a `tokens.py` accessor **and at least one non-test consumer**. This is
    what makes the orphaned-token failure non-recurring: a token nobody reads
    becomes a red test.
 
 4. **Delete the hard-coded literals in `tests/test_gates.py:190-195`** asserting
    `safe_area() == 72` etc. They are the hand-copy `tokens.py` exists to abolish,
-   and they fail only if *frame.md* changes, never if a *video* violates the number.
+   and they fail only if *design-contract.md* changes, never if a *video* violates the number.
    Replace with the coverage assertion from step 3.
 
-5. Only now, restore the `# LOADED` comment in `frame.md` — it will finally be true.
+5. Only now, restore the `# LOADED` comment in `design-contract.md` — it will finally be true.
 
-**Exit test:** set `safe-area: 9999` in `frame.md`, confirm `preflight.py`'s verdict
+**Exit test:** set `safe-area: 9999` in `design-contract.md`, confirm `preflight.py`'s verdict
 changes. That is the proof the token is load-bearing. Revert.
 
 ---
@@ -284,14 +284,14 @@ All changes **report-only** per STD-38:
 4. Widen the line filter beyond `-`/`*`/`|` to any prose line, and parse YAML
    frontmatter comments. Raises recall from ~17% toward ~90%.
 
-**Do NOT flip `--strict`.** It hard-fails CI on ~115 frame.md items on day one, and
+**Do NOT flip `--strict`.** It hard-fails CI on ~115 design-contract.md items on day one, and
 the cheapest response is relabelling them `Convention` — which changes nothing
 physical.
 
-**Do NOT attempt the frame.md split** (machine spec + rationale doc). It touches
-~20 files that route agents to "read frame.md first", including a hook string in
+**Do NOT attempt the design-contract.md split** (machine spec + rationale doc). It touches
+~20 files that route agents to "read design-contract.md first", including a hook string in
 `.claude/settings.json`, and `preflight.check_title_card` regex-scrapes the program
-display-name table out of frame.md's **body**. Legitimate follow-up, not this build.
+display-name table out of design-contract.md's **body**. Legitimate follow-up, not this build.
 
 ---
 
@@ -307,7 +307,7 @@ display-name table out of frame.md's **body**. Legitimate follow-up, not this bu
 3. **The ripples / in-place keep-alive motion ban is unarmed and was violated in
    published work.** Banned 2026-07-14, reaffirmed 07-15, violated within a day (a
    session restored the banned motion so renders would pass the stagnation gate;
-   three MP4s shipped, one published). It is still unarmed prose in `frame.md`.
+   three MP4s shipped, one published). It is still unarmed prose in `design-contract.md`.
    Options: (a) arm it as a real check near `check_presence`, (b) route it to
    `/adversarial-qa` as an explicit rubric item, or (c) mark it `Convention` out
    loud. **Default if the owner is unreachable: (c) plus a tracked follow-up.**
@@ -325,7 +325,7 @@ display-name table out of frame.md's **body**. Legitimate follow-up, not this bu
       `check_slots:unfilled`; suite went red with `NO FIRING PROOF`. Reverted.
 - [x] Breaking `check_copy.titlecase()` turns the suite red — made it the
       identity function; four assertions went red across three suites. Reverted.
-- [x] `frame.md safe-area: 9999` changes `preflight.py`'s verdict — PASS → FAIL
+- [x] `design-contract.md safe-area: 9999` changes `preflight.py`'s verdict — PASS → FAIL
       with `safe-area-breach`; reverting restores PASS.
 - [x] Reverting `check_copy` to per-scene conjunction scoping turns mutation 1 red
       — and the mutant still fired four sibling rules, which is why the assertion

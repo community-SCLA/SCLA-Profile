@@ -20,7 +20,7 @@ import tempfile
 from pathlib import Path
 
 RQ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RQ))
+sys.path.insert(0, str(RQ / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_capacity      # noqa: E402
@@ -136,7 +136,7 @@ assert_all_tagged("check_geometry.check", check_geometry.check(workspace(
 import subprocess  # noqa: E402
 
 for name, args in (("check_geometry", [str(RQ.parent / "design-system")]),):
-    r = subprocess.run([sys.executable, str(RQ / f"{name}.py"), *args, "--json"],
+    r = subprocess.run([sys.executable, str(RQ / "src" / f"{name}.py"), *args, "--json"],
                        capture_output=True, text=True)
     body = r.stdout[r.stdout.find("{"):]
     try:

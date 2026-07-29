@@ -55,7 +55,7 @@ files as-is; the tooling handles both.
    prefix, any render date) before it will archive the build workspace.
 
 **Avatar (HeyGen):**
-1. `avatar-pipeline/generate_videos.py` renders each lesson (concatenating its
+1. `avatar-pipeline/src/generate_videos.py` renders each lesson (concatenating its
    HeyGen chunks into one video) straight into `avatar/` under this program.
 2. Human MP4 review, then upload to Wistia; record the URL in the ledger.
 

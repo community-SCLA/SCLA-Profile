@@ -5,17 +5,17 @@
 #   BUILD-KIT.md   the hot path: command sequence + landmines + scaffold usage,
 #                  extracted VERBATIM from the owning docs (never summarised —
 #                  a lossy paraphrase of a design contract is how brand drift
-#                  starts). It navigates frame.md; it does not replace it.
+#                  starts). It navigates design-contract.md; it does not replace it.
 #   scaffold/      a workspace already `hyperframes init`'d at the pinned
 #                  version with compositions/, assets/, the host-root progress
 #                  rail and the <audio> host in place, plus one commented slot
 #                  example. Builds `cp -a` this instead of running init 30 times.
 #
-# Why this exists: each build subagent had been cold-reading frame.md, the
+# Why this exists: each build subagent had been cold-reading the design contract, the
 # pattern exemplar's full index.html and all 12 composition templates —
 # ~25-45k tokens of re-derivation per video. The scaffold removes the exemplar
 # and template reads (real working markup beats reading an example), leaving
-# frame.md, which stays mandatory because it IS the contract.
+# design-contract.md, which stays mandatory because it IS the contract.
 #
 # _run/ is gitignored and regenerated every run, so unlike a hand-maintained
 # doc it cannot drift out of sync with its sources.
@@ -38,7 +38,7 @@ mkdir -p "$RUN"
 # A scaffold built at a different pin (or before a design-system edit) is
 # stale — rebuild rather than silently reusing it.
 if [[ -d "$RUN/scaffold" ]]; then
-  DS_SIG="$PIN $(find "$DS/compositions" "$DS/frame.md" -type f -newer "$RUN/scaffold" 2>/dev/null | wc -l)"
+  DS_SIG="$PIN $(find "$DS/compositions" "$DS/config/tokens.yml" "$DS/docs/design-contract.md" -type f -newer "$RUN/scaffold" 2>/dev/null | wc -l)"
   if [[ "$(cat "$RUN/scaffold/.pin" 2>/dev/null)" != "$PIN" || "${DS_SIG#* }" != "0" ]]; then
     echo "== scaffold stale (pin or design-system changed) — rebuilding"
     rm -rf "$RUN/scaffold"
@@ -52,18 +52,22 @@ if [[ ! -d "$RUN/scaffold" ]]; then
       --example=blank --non-interactive ) || {
     echo "FATAL: hyperframes init failed" >&2; exit 1; }
 
-  cp "$DS/frame.md" "$RUN/scaffold/frame.md"
+  # tokens.yml is what the GATES read (tokens.py prefers the workspace copy);
+  # design-contract.md is what the BUILDER reads. Split 2026-07-29 — copy both,
+  # or preflight's composition_freshness section reports a missing token file.
+  cp "$DS/config/tokens.yml" "$RUN/scaffold/tokens.yml"
+  cp "$DS/docs/design-contract.md" "$RUN/scaffold/design-contract.md"
   rm -rf "$RUN/scaffold/compositions"; cp -a "$DS/compositions" "$RUN/scaffold/compositions"
   rm -rf "$RUN/scaffold/assets";       cp -a "$DS/assets"       "$RUN/scaffold/assets"
 
   # init writes a CLAUDE.md routing to skills this repo deleted.
-  printf '# Build workspace. Sequence + commands: _run/BUILD-KIT.md. Design contract: frame.md\n' \
+  printf '# Build workspace. Sequence + commands: _run/BUILD-KIT.md. Design contract: design-contract.md (numbers: tokens.yml)\n' \
     > "$RUN/scaffold/CLAUDE.md"
 
   # The blank example has no rail and no <audio> host, and every build needs
-  # both. Wiring them here (per frame.md "Host-root progress rail") means no
+  # both. Wiring them here (per design-contract.md "Host-root progress rail") means no
   # build can forget them, and no subagent has to read another build to copy
-  # the pattern. Colours are frame.md's, not restated anywhere else.
+  # the pattern. Colours are tokens.yml's, not restated anywhere else.
   cat > "$RUN/scaffold/index.html" <<'HTML'
 <!doctype html>
 <html lang="en">
@@ -146,10 +150,10 @@ fi
 echo "== writing BUILD-KIT.md"
 {
   cat <<'HDR'
-# BUILD-KIT — read this, then frame.md, then your script. Nothing else.
+# BUILD-KIT — read this, then design-contract.md, then your script. Nothing else.
 
 Generated per run by `scripts/batch-prepare.sh`. Never edit by hand; never
-commit. If this contradicts `frame.md` or the render-lessons SKILL, THEY WIN —
+commit. If this contradicts `design-contract.md` or the render-lessons SKILL, THEY WIN —
 report the contradiction rather than following this file.
 
 ## Your job
@@ -160,34 +164,39 @@ green, and you report five fields.
 
 ## Start from the scaffold — do NOT run `hyperframes init`
 
-The workspace is NOT named after the refined script. A stem carries exactly one
-date suffix and it always means *the most recent action on that artifact* — the
-script's date is when it was refined, the workspace's date is when it was
-**built**. `render-qa/stem.py` owns that rule; never hand-slice the suffix.
+The workspace is named `<title>_<program>` — the script's name with any date
+suffix stripped. No date. `render-qa/src/stem.py` owns that; never hand-slice a
+suffix. (Dates live on the delivered MP4 only.)
+
+**`mkdir` IS the lock.** Other builds may be running right now against this same
+folder. `mkdir` either creates the directory or fails because someone else got
+there first — that is atomic, and it is the only thing standing between you and
+two agents building the same lesson on top of each other. Never `mkdir -p`, and
+never test-then-create: the gap between the test and the create is the bug.
 
 ```bash
 cd projects/video-production/renders-hyperframes
-WS="$(python3 ../render-qa/stem.py restamp <script-stem>)"   # -> title_program_<today>
-[ ! -e "$WS" ] || { echo "workspace $WS already exists — STOP, report, do not build"; exit 1; }
-cp -a _run/scaffold "$WS"
+WS="$(python3 ../render-qa/src/stem.py base <script-stem>)"   # -> title_program
+mkdir "$WS" || { echo "workspace $WS already claimed — STOP, report, do not build"; exit 1; }
+cp -a _run/scaffold/. "$WS"/     # note the /. — copies CONTENTS into the dir you just claimed
 cd "$WS"
 ```
 
-If the workspace already exists, STOP and report it — `cp -a` onto an existing
-directory NESTS the scaffold inside it and every gate then reads stale files.
+The trailing `/.` is load-bearing: `cp -a _run/scaffold "$WS"` would nest the
+scaffold *inside* your workspace and every gate would then read stale files.
 
-Report the WORKSPACE stem in your five fields, not the script stem — that is the
-name the owner previews and the name `batch-ship.sh` is invoked with.
+If `mkdir` fails, STOP and report it. Do not delete the other directory, do not
+pick a different name, do not build into it.
 
-The scaffold already has `compositions/`, `assets/`, `frame.md` and the pinned
+The scaffold already has `compositions/`, `assets/`, `design-contract.md`, `tokens.yml` and the pinned
 toolchain. You never touch its `index.html` — you author `scenes.json` and
-`render-qa/build_index.py` compiles the markup (boilerplate, progress rail,
+`render-qa/src/build_index.py` compiles the markup (boilerplate, progress rail,
 `<audio>` host, template clones included).
 
 ## What to read, in order
 
 1. **This file.**
-2. **`frame.md`** (in your workspace) — the design contract, and it is
+2. **`design-contract.md`** (in your workspace) — the design contract, and it is
    normative. Mandatory sections: *the animacy rules*, *the pacing rules*,
    *illustration over text*, *type rules*, *scene templates*, *style packages*
    for your assigned theme, and *host-root progress rail*.
@@ -224,12 +233,12 @@ clones shared templates into per-scene files itself — which is one more reason
 `index.html` is never hand-authored: a hand-written file skips the cloning.
 
 ```bash
-python3 ../../render-qa/build_index.py .                 # scenes.json -> index.html (+ per-scene template clones)
-python3 ../../render-qa/preflight.py . --static          # plan gates: variety, copy, slots, text, stem — seconds per loop
+python3 ../../render-qa/src/build_index.py .                 # scenes.json -> index.html (+ per-scene template clones)
+python3 ../../render-qa/src/preflight.py . --static          # plan gates: variety, copy, slots, text, stem — seconds per loop
 # iterate on scenes.json until --static exits 0, ONLY THEN spend TTS:
-../../../../scripts/with-secrets.sh python3 ../../render-qa/synth_narration.py .
-python3 ../../render-qa/compile_timeline.py . --apply
-python3 ../../render-qa/preflight.py .
+../../../../scripts/with-secrets.sh python3 ../../render-qa/src/synth_narration.py .
+python3 ../../render-qa/src/compile_timeline.py . --apply
+python3 ../../render-qa/src/preflight.py .
 npm run check
 ```
 
@@ -271,7 +280,7 @@ stretch a heading over silence.
 
 ### 5. Title card and outro are DERIVED — never invent them
 
-`eyebrow` = the program display name from frame.md's "Title card & outro
+`eyebrow` = the program display name from tokens.yml's `programs:` map ("Title card & outro
 sources" table. `title` = the stem's title segment, hyphens to spaces,
 sentence case — never the opening narration sentence, never a paraphrase.
 `preflight.py` fails both. Outro: `next` may quote the closing narration;
@@ -300,7 +309,7 @@ Choose by how the narration delivers the set:
   every step slot filled and one `stepCues` entry per step.
 - **Items introduced one at a time, separated by other scenes** ->
   `scla-condition` per item (number badge + "N of M" progress dots), which is
-  exactly what frame.md prescribes: *"Split an enumerated set into one of these
+  exactly what design-contract.md prescribes: *"Split an enumerated set into one of these
   per item, not a timed 5-row list."*
 
 Same rule for `scla-loop` (it shares the steps contract).

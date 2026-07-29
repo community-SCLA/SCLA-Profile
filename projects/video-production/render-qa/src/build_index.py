@@ -72,7 +72,7 @@ from instance_templates import clone
 HEAD = """<!DOCTYPE html>
 <!--
 @HEADER@
-  Generated from scenes.json by render-qa/build_index.py — edit the manifest,
+  Generated from scenes.json by render-qa/src/build_index.py — edit the manifest,
   not this file. All timing numbers are compiler-owned (compile_timeline.py).
 -->
 <html lang="en">

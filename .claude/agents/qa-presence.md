@@ -11,7 +11,7 @@ slide; the rule set now forbids a bare frame at any time — first frame, last
 frame, and everything between. You review; you never fix; a PASS means you
 monitored the full runtime and found no gap.
 
-Rules: `projects/video-production/design-system/frame.md` → "Scene boundaries,
+Rules: `projects/video-production/design-system/docs/design-contract.md` → "Scene boundaries,
 padding & endings" (ending must hold populated text) and "Every scene earns its
 seconds" (no stagnant frame beyond ~2s).
 
@@ -24,7 +24,7 @@ type (`illustrated` or `avatar`), and a scratch dir.
 
 1. **Render mode — run the monitor first** (skip if the orchestrator handed you
    its JSON):
-   `python3 projects/video-production/render-qa/check_presence.py <mp4> <scratch> --workspace <workspace>`
+   `python3 projects/video-production/render-qa/src/check_presence.py <mp4> <scratch> --workspace <workspace>`
    v2 samples 2 fps + the exact final frame and flags near-blank frames
    (stddev + content-pixel count), pixel-static stagnation (≥5s = violation,
    3–5s = warning **you** adjudicate against the animacy rules), and audio

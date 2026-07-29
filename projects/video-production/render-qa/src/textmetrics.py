@@ -23,7 +23,8 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
-METRICS = (Path(__file__).resolve().parent.parent
+# src/ -> render-qa/ -> video-production/
+METRICS = (Path(__file__).resolve().parents[2]
            / "design-system" / "assets" / "fonts" / "metrics.json")
 
 WEIGHTS = (400, 700, 900)
@@ -55,7 +56,7 @@ def width(text: str, size: float, weight=400, letter_spacing_em=0.0,
           uppercase=False) -> float:
     """Rendered width in px of `text` at `size`px.
 
-    letter_spacing_em and uppercase both matter: the label class in frame.md is
+    letter_spacing_em and uppercase both matter: the label class in the design contract is
     typeset uppercase with 0.14-0.22em tracking, which can add 20% to a run.
     """
     s = text.upper() if uppercase else text

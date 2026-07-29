@@ -8,7 +8,7 @@
     {"id":"total","type":"string","label":"How many in the set (progress dots)","default":"[[total]]"},
     {"id":"chips","type":"string","label":"Comma list of detail chips (up to 4)","default":"[[chips]]"},
     {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (compiler-owned)","default":""},
-    {"id":"icon","type":"string","label":"Living icon name (see frame.md icon library)","default":"compass"},
+    {"id":"icon","type":"string","label":"Living icon name (see design-contract.md icon library)","default":"compass"},
     {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"09 / ENGAGING"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
@@ -24,7 +24,7 @@
       spoken cue) with a brand-native LIVING ICON as the hero illustration on the right.
       Progress dots show which of the set this is. Living icons are reserved for this
       template (owner decision 2026-07-14 — "novel, not on every frame"); do not sprinkle
-      them onto other scenes. Icon geometry set + rules: frame.md → "Living icon library".
+      them onto other scenes. Icon geometry set + rules: design-contract.md → "Living icon library".
     -->
   </head>
   <body>
@@ -88,7 +88,7 @@
         #cd-iconwrap svg { width: 300px; height: 300px; }
         #cd-index { position: absolute; right: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
         #cd-brandline { position: absolute; left: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .cd-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
         #root[data-theme="horizon"] #cd-num { background: transparent; border: 3px solid #0d2437; color: #0d2437; box-sizing: border-box; }
         #root[data-theme="horizon"] #cd-rule { background: #3393d6; }
@@ -118,7 +118,7 @@
 
       <script>
         (function () {
-          // Canonical living-icon library — brand-native SVG line-art (frame.md → "Living icon
+          // Canonical living-icon library — brand-native SVG line-art (design-contract.md → "Living icon
           // library"). Rings are CLOSED full circles (owner decision 2026-07-14, drops the old
           // 5/8 open-arc signature). gd:true paints a stroke/fill in gold; fill:true is a solid dot.
           var RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z"; // closed circle, r32 @ (48,48)
@@ -197,7 +197,7 @@
           window.__timelines = window.__timelines || {};
           var tl = gsap.timeline({ paused: true });
           var sdur = Math.max(4, parseFloat(vars.sceneDuration) || 8);
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut):
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut):
           // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.
           tl.fromTo("#cd-ghost", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo(["#cd-corner-tl", "#cd-corner-br", "#cd-index", "#cd-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
@@ -237,7 +237,7 @@
           // Ambient drift (2026-07-15 animacy regression fix): finite translate-only
           // sine yoyo cycles across the whole scene so the frame registers at QA
           // frame sampling after the last cue lands. BACKGROUND LAYERS ONLY —
-          // frame.md's drift allow-list is ghost/ring decoration, and routing a
+          // design-contract.md's drift allow-list is ghost/ring decoration, and routing a
           // content tween through this helper is how the living-icon bob got
           // laundered past review.
           var drift = function (sel, ax, ay, per) {
@@ -246,17 +246,17 @@
           };
           drift("#cd-ghost", 24, 14, 3.2);
           // REMOVED 2026-07-29 (owner): drift("#cd-iconwrap", …), the living-icon bob.
-          // (Mechanism: `render-qa/check_motion.py`.)
+          // (Mechanism: `render-qa/src/check_motion.py`.)
           // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final
           // second: the dimmed chips restore to full.
           //
           // REMOVED 2026-07-29 (owner): the gold accents' scale 1 → 1.16 → 1 re-pop,
           // which used to open this beat. It was labelled a sanctioned NEW beat, but
           // the accents had already popped at drawAt + 0.5 — re-scaling a settled
-          // element is an in-place re-mark by frame.md's own definition, and this was
+          // element is an in-place re-mark by design-contract.md's own definition, and this was
           // the only template whose closing beat re-animated an existing element
           // instead of resolving a new one. The chip restore below IS the closing
-          // beat (frame.md: "dimmed items restore to full").
+          // beat (design-contract.md: "dimmed items restore to full").
           var closeAt = sdur - 1.0;
           if (chipEls.length) tl.to(chipEls, { opacity: 1, duration: 0.4, ease: "power2.out" }, closeAt);
           // Exit (Motion v2, 2026-07-27) — the content layer leaves at −0.35s so the

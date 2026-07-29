@@ -21,7 +21,7 @@
       Pair the numeral with a clear label/unit so it never reads as a slide number.
       An enumeration the narration reads aloud ("list three to five paths",
       "first… second…") is NOT a stat — illustrate it with scla-points / scla-steps,
-      items arriving on cue. frame.md → "Scene index & numerals".
+      items arriving on cue. design-contract.md → "Scene index & numerals".
     -->
   </head>
   <body>
@@ -185,7 +185,7 @@
         #root[data-ring="on"] #sh-stat-label { left: 130px; top: 588px; width: 560px; text-align: center; }
         #root[data-ring="on"] #sh-bar,
         #root[data-ring="on"] #sh-bar-fill { display: none; }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .sh-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
         #root[data-theme="horizon"] #sh-panel { background: radial-gradient(150% 130% at 35% 92%, #0d2437 0%, #0a1e2f 80%); }
         #root[data-theme="horizon"] #sh-panel-ring { border-color: rgba(255, 255, 255, 0.2); }
@@ -276,7 +276,7 @@
           // parallel slow ramps finishing together. Everything settled ≤1.8s (the
           // scla-stat exception: its meters ARE the content).
           tl.fromTo("#sh-panel", { xPercent: -100 }, { xPercent: 0, duration: 0.6, ease: "power3.out" }, 0);
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
           tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, stagger: 0.1 }, 0);
           if (ringOn) {
             tl.fromTo("#sh-ring-track", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);

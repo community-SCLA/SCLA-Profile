@@ -171,7 +171,7 @@ fabrication vector. Everything below is now mechanism, not convention:
    the SKILL) after its awk bug dumped the whole SKILL — including a verbatim
    fabricated heading a builder then copied on screen.
 4. **Derived fields**: title-card eyebrow/title and outro copy come from
-   frame.md ("Title card & outro sources" + program display-name table:
+   design-contract.md ("Title card & outro sources" + program display-name table:
    early-career-boost → **"Career Accelerator"**, per the owner's 2026-07-21
    rebrand) and the stem; `preflight.py` check 7b gates them.
 5. **Text gate**: `check_text` grades each chip as its own line (the `chips`

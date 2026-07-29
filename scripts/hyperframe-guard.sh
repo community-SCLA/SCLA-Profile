@@ -9,7 +9,7 @@
 # not at all (owner, 2026-07-28: "I want them to be enforceable from the very
 # beginning when the hyperframes are actually being rendered").
 #
-# The builder authors scenes.json (the plan); render-qa/build_index.py
+# The builder authors scenes.json (the plan); render-qa/src/build_index.py
 # compiles it to index.html deterministically. This hook fires on every write
 # to either file: on a scenes.json write it recompiles index.html first, then
 # runs `preflight.py --static` — the SAME sections the hard gate runs, minus
@@ -27,7 +27,13 @@
 
 set -uo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-RQ="$REPO/projects/video-production/render-qa"
+# render-qa/src, not render-qa/: the 2026-07-28 layout refactor moved the
+# toolchain into src/ and this path was not moved with it, so every invocation
+# of the plan-stage guard since then has died on "can't open file" — the hook
+# fired, printed a crash instead of a verdict, and graded nothing. Caught
+# 2026-07-29 by a scenes.json edit that tripped it. test_guard_contract.py now
+# asserts the two entry points exist.
+RQ="$REPO/projects/video-production/render-qa/src"
 
 resolve_ws() {
   # Accept a workspace dir or any path inside one; return the workspace root.
@@ -121,7 +127,7 @@ if [ "${1:-}" = "--hook" ]; then
   MSG="FRAME CONTRACT (automated guard, fired on your ${KIND/scenes/scenes.json} write; graded by preflight.py --static — the same sections the hard gate runs). These are HARD GATES that preflight will fail on — fix them NOW, while the scene plan is still a cheap JSON edit, not after the build is finished:
 
 ${VIOL}
-Fix the plan in scenes.json and let build_index.py recompile — NEVER edit index.html by hand; it is compiled output and your edit will be overwritten. Contract: design-system/frame.md -> \"Variety contract\" and \"Type rules\". Do not proceed to narration synthesis or render with these outstanding."
+Fix the plan in scenes.json and let build_index.py recompile — NEVER edit index.html by hand; it is compiled output and your edit will be overwritten. Contract: design-system/docs/design-contract.md -> \"Variety contract\" and \"Type rules\". Do not proceed to narration synthesis or render with these outstanding."
   jq -cn --arg m "$MSG" \
     '{hookSpecificOutput:{hookEventName:"PostToolUse", additionalContext:$m}}'
   exit 0

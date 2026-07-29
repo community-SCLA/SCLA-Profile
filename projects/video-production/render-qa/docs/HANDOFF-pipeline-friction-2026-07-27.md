@@ -60,7 +60,7 @@ Hit on 3 of the 4 rebuilt videos. A scene cap (12.5s standard, `scla-title`
 sentence longer than the cap, because boundaries may only land on sentence
 ends. No `scenes.json` re-authoring can clear it; the build stalls.
 *Fixed structurally, three levels:*
-- `design-system/frame.md` — new normative bullet: an over-cap sentence is a
+- `design-system/docs/design-contract.md` — new normative bullet: an over-cap sentence is a
   **script** defect, and the sanctioned repair is word-preserving
   re-punctuation (em dash / colon / semicolon joining two independent clauses
   becomes a period). `script_match` must still read 0.00% after.
@@ -116,7 +116,7 @@ dot hidden until then. Six hosts, six call sites:
 `#st-iconwrap` (scla-steps), `#cc-iconwrap` (scla-chips), `.mp-cicon`
 (scla-morph, per-card — `buildIcon()`/`drawIcon()` now carry `wrap` through),
 `.kp-icon` (scla-points, per-item — `iconSets[i].wrap`).
-Documented as a normative rule in `design-system/frame.md` → "Living icon
+Documented as a normative rule in `design-system/docs/design-contract.md` → "Living icon
 library" so a future icon-bearing template repeats it.
 *Consequence:* the six workspaces at the hyperframe gate (table above) still
 hold **pre-fix** copies of these templates in their own `compositions/` —
@@ -135,7 +135,7 @@ yet entered — **a transient-entrance false positive, not a reading defect.**
 `how-to-make-strong-career-decisions` — i.e. a motion-design change made to
 satisfy a buggy check. *Correct fix is in sampling, not the template:* the
 modern CLI exposes `--at`, `--samples`, `--at-transitions`; the audit should
-skip or tolerate the entrance window (content settles by 1.2s per `frame.md`).
+skip or tolerate the entrance window (content settles by 1.2s per `design-contract.md`).
 
 **B3 — `invalid_variable_values_json` lint fires falsely, once per scene.**
 `preflight.py` and the `hyperframes` CLI rewrite `data-variable-values` from

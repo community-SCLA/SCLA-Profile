@@ -37,6 +37,99 @@ Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
 same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
 
 
+## 2026-07-29 (latest) · owner review of rebuild #2 — five notes, four of them a gate that was never armed
+
+Owner reviewed the 2026-07-29 cut and named five things. The headline is the
+banner: an Early Career Boost lesson titled **"Career Accelerator"** — *"a MUST
+… a hard rule that must be enforced."* It had a gate. `preflight.py` check 7b
+compared the eyebrow to `tokens.yml`'s `programs:` map and passed, because the
+map itself carried the alias. **Grading a value against an unchecked table is
+not enforcement — it relocates where a wrong value is allowed to sit.** Same
+shape as the last three sessions, one level further out.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum_2026-07-23`,
+  `m3_discover-experiences-that-support-your-next-move_2026-07-23`.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Pilot sign-off (2026-07-29 rebuild #3)** — `bash scripts/preview.sh
+  better-decisions-come-from-better-criteria_early-career-boost_2026-07-29`,
+  or the MP4 in `renders/`. Rendered and verified, NOT published.
+- **16/32 refined scripts flag the *conjunction* check** — reported, not
+  blocked; a minority are rhetoric or definitions rather than lists.
+- **Scene-12 (career map) holds ~3s pixel-static mid-scene** — advisory, in
+  `check_presence`'s 3–5s gray zone, and it is the dead stretch the deleted
+  ripple used to paper over. The contract's fix is authoring (cue the route
+  earlier, or reveal each path card on its own spoken phrase), which changes
+  the scene's rhythm — worth a decision rather than a silent rewrite.
+
+("Confirm the on-screen program label", open since 2026-07-28, is closed: the
+owner confirmed it by rejecting it.)
+
+**Fixed this session**
+
+- [defect] **The banner did not name the program** — `programs:` map reverted
+  (`early-career-boost` → "Early Career Boost"), and the map is now graded:
+  a display name must slugify back to its own key (`tokens.programs_problems()`
+  → check 7b, full + `--static`), plus `tests/test_programs.py` in CI, which
+  also fails a `lesson-scripts/` folder with no banner. ~35 min.
+- [defect] **`scripts/hyperframe-guard.sh` had been dead since 2026-07-28** —
+  its `RQ` still pointed at `render-qa/`, which the layout refactor emptied into
+  `render-qa/src/`. Every PostToolUse firing printed `can't open file` instead of
+  a verdict; it read as alive because it produced output, and the jq shape
+  contract could not see it (no interpreter ran to emit a payload). Found by
+  editing a `scenes.json`. `test_guard_contract.py` now resolves the guard's own
+  `RQ` and asserts both entry points exist. ~15 min.
+- [authoring] **scla-loop sub-beats moved into the header panel** — under the
+  heading, not under the illustration, so a line like "Same four steps, every
+  time" reads as a subheading of the statement rather than a caption on a
+  three-node diagram. Owner's call, and it also retires the seam that produced
+  last session's text-on-text.
+- [defect] **Career-map cards were spaced for the copy, not for the slot** —
+  74px between one pair and 26px between the other, because top-anchored cards
+  grow downward when copy wraps. Fixed slots sized for the widest legal card
+  (48px gutters), stage/viewBox made 1:1 so a coordinate is a frame pixel, and
+  cards widened 360 → 440 so a 427px phrase stops taking two lines. New
+  `card-gutter` rule in `check_geometry.py` (layout boxes, not ink) against a
+  new `spacing.card-gutter` token. ~50 min, most of it narrowing the rule until
+  it stopped firing on decorative concentric ghost rings.
+- [defect] **`icons: "…,map,…"` on `scla-points` drew nothing, silently** —
+  `map` existed in `scla-statement`/`scla-steps` and not in `scla-points`;
+  `ICONS[name]` returning undefined is a typo no browser reports. New
+  `unknown-icon` rule in `check_slots.py` reading the library it actually calls;
+  the four libraries re-synced. (The row icons themselves are gone from this
+  build at the owner's request — the bullets carry it.)
+- [authoring] **Final-slide audio** — `FINAL_HOLD` 1.1 → 1.8s and
+  `MIN_FINAL_HOLD` 1.0 → 1.5 together. Worth stating plainly: the release WAS
+  in the file (1.34s of trailing audio past the last word timestamp), so this
+  is not last session's clipped-tail defect recurring — a lesson ending just
+  needs longer to land than a scene boundary does.
+- [tooling] **`run_tests.py` asserted the number, not the behaviour** — it
+  hard-coded `1.1` and went red the moment the hold changed. Now reads
+  `synth_narration.FINAL_HOLD`; a separate assertion pins the producer above its
+  own floor.
+- [tooling] **A mutation whose defect the design eliminated** — the loop
+  text-collision mutant fired capacity rules once the sub-beat moved. Retargeted
+  at the seam the NEW layout still has (a heading wrapping into the sub-beat
+  below it), not re-pointed at whatever the mutant happened to trip.
+
+**Promoted to docs**
+
+- `.claude/rules/video-production.md` — four new rules: the banner is the
+  program folder's name; a hook that crashes is a gate that is off; even spacing
+  is a property of the slots; an unknown icon name draws nothing. The trailing-
+  hold rule extended with the 1.8s number and why.
+- `design-system/docs/design-contract.md` — title-card sources rewritten (the
+  2026-07-21 "Career Accelerator" rebrand note deleted, replaced with the
+  slug round-trip and its mechanism); the icon-library divergence documented
+  under "Living icon library".
+- `decisions/log.md` — the banner reversal and the dead guard, with why a green
+  gate certified both.
+- Templates carry their own budgets in comments beside the CSS that creates
+  them (`scla-career-map` slot budget, `scla-loop` header budget).
+
 ## 2026-07-29 (later) · owner rejected the rebuilt cut again — three gates that could not fail
 
 Owner sent a screenshot of scene-19 with text printed through text, reported
@@ -415,7 +508,7 @@ creds present. Nothing in the env item survives; it stops appearing.
   `_run/BUILD-KIT.md` (generated by `scripts/batch-prepare.sh`).
 - "Blank every unused slot with `""`" and "enumerated set spread across the
   lesson -> `scla-condition`, not `scla-steps`" — BUILD-KIT rules 2 and 3.
-- New `render-qa/check_slots.py`, wired into `preflight.py` as check 8 — the
+- New `render-qa/src/check_slots.py`, wired into `preflight.py` as check 8 — the
   fabrication class is now mechanized, not a convention.
 - Per-video gate is no longer a human eye: PILOT GATE + mechanized guards, in
   `.claude/rules/video-production.md` and `/render-lessons` Phase AUTO-BATCH.

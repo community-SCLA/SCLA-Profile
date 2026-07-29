@@ -20,7 +20,7 @@ import tempfile
 import wave
 from pathlib import Path
 
-PIPE = Path(__file__).resolve().parents[0].parent
+PIPE = Path(__file__).resolve().parents[1] / "src"
 sys.path.insert(0, str(PIPE))
 from hfp_common import MatchError, find_phrase, get_attr, json_attr, load_transcript
 
@@ -245,7 +245,14 @@ check("clip 1 trimmed to guards (~1.12s)", abs((s1["end"] - s1["start"]) - 1.12)
 check("question gets question air", s1["question"] and abs(s1["cut"] - (s1["end"] + 0.45)) < 0.001, f"{s1}")
 check("real gap between scenes = air + lead",
       abs(s2["start"] - (s1["end"] + 0.45 + 0.15)) < 0.001, f"{s1} {s2}")
-check("final cut = end + final hold", abs(s2["cut"] - (s2["end"] + 1.1)) < 0.001, f"{s2}")
+# Read the constant, never re-type it: this line said 1.1 and went red the day
+# the owner asked for a longer ending, which is a test asserting a number rather
+# than the behaviour that the final cut is the last word plus the declared hold.
+sys.path.insert(0, str(PIPE))
+import synth_narration as _synth  # noqa: E402
+check("final cut = end + final hold",
+      abs(s2["cut"] - (s2["end"] + _synth.FINAL_HOLD)) < 0.001,
+      f"{s2} hold={_synth.FINAL_HOLD}")
 check("stale transcript/pre-pad cleared",
       not (ws / "assets/voice/transcript.json").exists()
       and not (ws / "assets/voice/narration.pre-pad.wav").exists())

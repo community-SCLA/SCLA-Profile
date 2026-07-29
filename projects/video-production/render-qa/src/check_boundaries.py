@@ -2,7 +2,7 @@
 """Deterministic timing checker for SCLA HyperFrames lesson builds.
 
 Checks every scene boundary in index.html against the narration transcript:
-  - >=0.2s of air between a scene's last spoken word and its cut (frame.md ->
+  - >=0.2s of air between a scene's last spoken word and its cut (design-contract.md ->
     "Scene boundaries, padding & endings")
   - no mid-word cuts (boundary before the last word's end = negative gap)
   - boundaries land on sentence ends (last word in the scene carries . ! ? )
@@ -33,7 +33,11 @@ from pathlib import Path
 
 MIN_AIR = 0.2
 MIN_QUESTION_AIR = 0.35
-MIN_FINAL_HOLD = 1.0
+# The floor, not the target — synth_narration.FINAL_HOLD is what a build
+# actually gets, and it sits above this by design. Raised 1.0 -> 1.5 with the
+# producer on 2026-07-29: the owner heard the 1.1s ending as abrupt, and a floor
+# left at 1.0 would go on certifying exactly the ending that was rejected.
+MIN_FINAL_HOLD = 1.5
 HEYGEN_WORDS_FILE = "narration.words.json"  # synth_narration.py / heygen-tts.mjs output
 
 

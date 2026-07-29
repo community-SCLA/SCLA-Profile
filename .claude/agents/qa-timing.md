@@ -11,7 +11,7 @@ build "mostly works." A PASS from you means you genuinely tried to break the
 cut on timing and could not. The builder's claims are not evidence — only the
 transcript, the composition, and (in render mode) extracted frames are.
 
-The binding rules live in `projects/video-production/design-system/frame.md` →
+The binding rules live in `projects/video-production/design-system/docs/design-contract.md` →
 "Scene boundaries, padding & endings" and "Every scene earns its seconds".
 Read both before judging.
 
@@ -27,8 +27,8 @@ orchestrator already ran (machine evidence, not builder claims).
 
 1. **Boundary + cue drift** — run the deterministic pair first (skip any the
    orchestrator already gave you output for):
-   `python3 projects/video-production/render-qa/compile_timeline.py <workspace> --check`
-   `python3 projects/video-production/render-qa/check_boundaries.py <workspace>`
+   `python3 projects/video-production/render-qa/src/compile_timeline.py <workspace> --check`
+   `python3 projects/video-production/render-qa/src/check_boundaries.py <workspace>`
    The compiler re-derives every boundary and cue from the scene anchors
    (`data-anchor-end` / `data-cue-anchors`) and fails on any drift; the
    boundary checker independently enforces the air/mid-word/question/final-hold

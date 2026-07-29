@@ -47,7 +47,7 @@ either answered "no"):
    suffix stacked on top of it.
 2. *Was it rendered using v2 (the recent design updates)?* → **YES.** Workspace
    scaffolded 2026-07-28 15:55Z, after Motion v2 (`61467a9`, 2026-07-27); all
-   twelve templates and `frame.md` byte-identical to design-system at HEAD,
+   twelve templates and `design-contract.md` byte-identical to design-system at HEAD,
    including the four follow-on fixes.
 
 **Then five quality complaints:**
@@ -75,7 +75,7 @@ either answered "no"):
 - *"README is never used as a reference for the pipeline — that is for my
   reference… The reason is that it is not enforceable."* Then: *"How do we make
   these things enforceable?"*, then the observation that **`CLAUDE.md` and
-  `frame.md` are equally unenforceable**, then the Repo Structure Playbook v1.1,
+  `design-contract.md` are equally unenforceable**, then the Repo Structure Playbook v1.1,
   then: *"I want them to be enforceable from the very beginning when the
   hyperframes are actually being rendered."*
 
@@ -93,9 +93,9 @@ failure**, not a capability failure.
 
 | Complaint | Where the rule actually lived | Why it failed |
 |---|---|---|
-| No visual variety | `decisions/log.md` 2026-07-27 **only** | The Motion v2 variety rule ("max 2 consecutive, ≥5 distinct forms") was written into the decision log and **never reached `frame.md` or either skill**. Writing it down was treated as shipping it. |
-| Title Case headings | `frame.md` said the **opposite** | Line 381 read *"Sentence case for titles and body."* The pipeline was correctly following a rule that contradicted the owner. 0 of 17 headings were Title Case. |
-| List conjunctions | `frame.md`, as the soft word *"prefer"* | The bullet **already contained the exact mentorship/growth example** the owner complained about. Advisory language, no gate. |
+| No visual variety | `decisions/log.md` 2026-07-27 **only** | The Motion v2 variety rule ("max 2 consecutive, ≥5 distinct forms") was written into the decision log and **never reached `design-contract.md` or either skill**. Writing it down was treated as shipping it. |
+| Title Case headings | `frame.md` (now `design-contract.md`) said the **opposite** | Line 381 read *"Sentence case for titles and body."* The pipeline was correctly following a rule that contradicted the owner. 0 of 17 headings were Title Case. |
+| List conjunctions | `design-contract.md`, as the soft word *"prefer"* | The bullet **already contained the exact mentorship/growth example** the owner complained about. Advisory language, no gate. |
 | Single circled point | Nowhere | Not 2 scenes but **5**: 06, 08 (`lines=1`) and 11, 13, 15 (`chips=1`). |
 | Sound gaps | Nowhere | Not a pipeline bug — see §3.1. |
 | Stale date in name | `lesson-scripts/README.md` | Which the owner had explicitly designated as *their* reference, not a pipeline authority. |
@@ -139,7 +139,7 @@ inspected in-scene silence.
 
 > ⚠️ **Doc discrepancy found:** `decisions/log.md` (2026-07-13 entry) describes
 > silence insertion as *"0.6s air + 0.15s lead, 0.9s after questions."* The
-> code, `frame.md`, and `render-qa/README.md` all say **0.3 / 0.15 / 0.45**. The
+> code, `design-contract.md`, and `render-qa/README.md` all say **0.3 / 0.15 / 0.45**. The
 > 0.6/0.9 numbers exist nowhere in the codebase. The log entry is historical and
 > was left untouched, but do not trust it.
 
@@ -151,9 +151,9 @@ inspected in-scene silence.
 
 | File | What it is |
 |---|---|
-| `render-qa/stem.py` | **Sole owner** of stem naming. `split`/`base`/`date`/`restamp`/`normalize`/`is_canonical`. `restamp` refuses a malformed name; `normalize` is the one lenient path, for renderer output only. |
-| `render-qa/check_variety.py` | The variety gate. 5 rules — one-item lists, max-consecutive (with exemption), distinct forms, max share, artwork coverage. |
-| `render-qa/check_copy.py` | The copy gate. Title Case headings, no terminal period, list conjunctions in narration. |
+| `render-qa/src/stem.py` | **Sole owner** of stem naming. `split`/`base`/`date`/`restamp`/`normalize`/`is_canonical`. `restamp` refuses a malformed name; `normalize` is the one lenient path, for renderer output only. |
+| `render-qa/src/check_variety.py` | The variety gate. 5 rules — one-item lists, max-consecutive (with exemption), distinct forms, max share, artwork coverage. |
+| `render-qa/src/check_copy.py` | The copy gate. Title Case headings, no terminal period, list conjunctions in narration. |
 | `render-qa/tests/test_stem.py` | Fixture tests for the one-date rule, incl. the identity invariant `published.tsv` depends on. |
 | `render-qa/tests/test_variety.py` | **Calibration tests.** Pins thresholds to the two real videos; asserts reference PASSES, rejected FAILS, exemption is earned. |
 | `scripts/check-enforcement.py` | Playbook **STD-35** audit. See §5. |
@@ -175,29 +175,29 @@ inspected in-scene silence.
   lookups by base; new `ws_by_base` index (a workspace can no longer be found by
   joining the script's stem to a path).
 - `lesson-scripts/published.tsv` — 6 rows migrated, col 1 header `stem` → `base`.
-- `render-qa/preflight.py` — `locate_script()` now matches by base **(see §4.4 —
+- `render-qa/src/preflight.py` — `locate_script()` now matches by base **(see §4.4 —
   this was a silent-failure bug)**; new sections 10 (variety), 11 (copy), 12
   (stem).
 
 **Audio / narration:**
-- `render-qa/synth_narration.py` — new `MAX_INSCENE_GAP = 0.5`,
+- `render-qa/src/synth_narration.py` — new `MAX_INSCENE_GAP = 0.5`,
   `INSCENE_FADE = 0.008`, `_fade_edges()`, `compress_gaps()`. Excises the
   **middle** of an over-cap pause (neither word's edge moves), applies an 8 ms
   declick, shifts subsequent timestamps by the cumulative removal. Runs
   **before** `trim_clip`. HeyGen path only (needs word timestamps). New
   `--max-gap`; manifest gains `max_inscene_gap`/`gap_trimmed`. **Speed 0.95 →
   1.0.**
-- `render-qa/preflight.py` — section 9, `check_inscene_gaps()`,
+- `render-qa/src/preflight.py` — section 9, `check_inscene_gaps()`,
   `INSCENE_GAP_FAIL = 0.8`. Reads the **whole-file** `narration.words.json`, not
   the per-scene files (those are the provider's untouched response and still
   contain the excised pauses — they'd fail forever). Buckets by
   `scene-times.json` to exclude deliberate boundary air.
-- `design-system/frame.md` + `AGENTS.md` — `speed: 0.95` → `1.0` in frontmatter
+- `design-system/docs/design-contract.md` + `AGENTS.md` — `speed: 0.95` → `1.0` in frontmatter
   and prose (kept in sync so a future agent can't pass `--speed 0.95` and undo
   the owner's change).
 
 **Rules and docs:**
-- `design-system/frame.md` — **"Sentence case for titles and body" removed** and
+- `design-system/docs/design-contract.md` — **"Sentence case for titles and body" removed** and
   replaced with the Title Case rule; new **"Variety contract"** section; list
   conjunction promoted from *prefer* to normative + gated; new in-scene silence
   rule; artwork coverage rule.
@@ -286,7 +286,7 @@ plus a nested-paren bug in its own parser. **Current state: 40 backed, 0 broken,
 31 unbacked.**
 
 > **The 31 unbacked rules are a real, honest gap inventory** — e.g. `CLAUDE.md`
-> "Never re-read a file already read this session", `frame.md` "Boundaries land
+> "Never re-read a file already read this session", `design-contract.md` "Boundaries land
 > on sentence ends". These are the next candidates for mechanisation, or for
 > honest `Convention` labels. Run `python3 scripts/check-enforcement.py --json`
 > for the full list. This is a good agenda item for the next session.
@@ -392,7 +392,7 @@ bash projects/video-production/render-qa/tests/test_retro_hook.sh     # → 4/4 
 bash scripts/batch-status.sh                                # → 29 to build, 1 built-unpublished, 6 on Wistia
 
 WS=projects/video-production/renders-hyperframes/better-decisions-come-from-better-criteria_early-career-boost_2026-07-28
-python3 projects/video-production/render-qa/preflight.py $WS   # → FAIL on 9/10/11 only
+python3 projects/video-production/render-qa/src/preflight.py $WS   # → FAIL on 9/10/11 only
 bash scripts/hyperframe-guard.sh $WS/index.html                # → the build-time view
 ```
 

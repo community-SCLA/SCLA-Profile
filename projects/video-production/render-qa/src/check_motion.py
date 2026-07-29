@@ -21,9 +21,9 @@ is what "keep-alive" means mechanically. The target selector decides the
 verdict:
 
   * DECORATION (ghost layers, ring furniture, canvas texture) — allowed.
-    frame.md sanctions background depth-drift parallax and ring-breath by name.
+    design-contract.md sanctions background depth-drift parallax and ring-breath by name.
   * ANYTHING ELSE — a finding. Text, chips, rows, nodes, numbers, CTAs, cards
-    and the living-icon hero are content. frame.md's allow-list covers
+    and the living-icon hero are content. design-contract.md's allow-list covers
     "the light templates' GHOST layers"; it has never covered a content hero.
 
 TWO RULES:
@@ -55,7 +55,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import Finding, typed
 
-# Substrings that mark an element as background decoration. frame.md grants
+# Substrings that mark an element as background decoration. design-contract.md grants
 # depth-drift and ring-breath to these and only these.
 DECORATIVE = ("ghost", "ring", "-bg", "bg-", "canvas", "texture", "corner",
               "grain", "vignette")

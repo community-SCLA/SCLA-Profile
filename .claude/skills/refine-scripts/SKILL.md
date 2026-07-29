@@ -66,7 +66,7 @@ session's context.
    wrong:
 
    ```bash
-   python3 projects/video-production/render-qa/check_copy.py \
+   python3 projects/video-production/render-qa/src/check_copy.py \
        lesson-scripts/<program-slug>/refined/<stem>.txt
    ```
 
@@ -108,7 +108,7 @@ session's context.
   words is the working target for a lesson (match the seven 2026-07-12
   refinements in `refined/` for register).
 - **Every spoken list of ≥3 items MUST carry "and" or "or" before its final
-  item.** Not a preference — `render-qa/check_copy.py` fails the build on it at
+  item.** Not a preference — `render-qa/src/check_copy.py` fails the build on it at
   preflight, and the repair is here in the script, not downstream in the frame.
   Applies whether the items are one comma list or separate fragments:
   "Meaning? Mentorship? Growth?" → "Meaning? Mentorship? **Or** growth?";

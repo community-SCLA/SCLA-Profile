@@ -4,7 +4,7 @@
 # Moves projects/video-production/renders-hyperframes/<stem>/ to
 # renders-hyperframes/_archive/<stem>/ and prunes regenerable bulk
 # (node_modules, caches, snapshots, renders, logs), leaving a
-# re-renderable source tree (HTML + frame.md + assets + configs).
+# re-renderable source tree (HTML + design-contract.md + assets + configs).
 #
 # Usage:  bash scripts/archive-lesson.sh <script-stem> [--in-place]
 #

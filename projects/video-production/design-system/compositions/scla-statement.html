@@ -9,7 +9,7 @@
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none)","default":""},
+    {"id":"icon","type":"string","label":"Optional living icon name (see design-contract.md icon library; empty = none)","default":""},
     {"id":"iconCue","type":"string","label":"Optional icon draw-on cue, local sec (Motion v2 2026-07-27; empty = entrance draw)","default":""}
   ]'
 >
@@ -18,7 +18,7 @@
     <!--
       STATEMENT CARD — use for a bold thesis line authored by SCLA or the program.
       This is NOT a quote: no quotation glyph, no person attribution. If the line is
-      attributed to a named human, use scla-quote.html instead. (frame.md → "Scene
+      attributed to a named human, use scla-quote.html instead. (design-contract.md → "Scene
       index & numerals" → "Quotes are for humans; program lines are statements".)
     -->
   </head>
@@ -149,13 +149,13 @@
           text-transform: uppercase;
           color: rgba(188, 211, 228, 0.55);
         }
-        /* Optional living-icon hero on the right (opt-in via `icon`; frame.md → "Living
+        /* Optional living-icon hero on the right (opt-in via `icon`; design-contract.md → "Living
            icon library"). Absent by default — statement scenes without an icon are
            unchanged. When present the text block narrows to reserve the right column. */
         #sm-iconwrap { position: absolute; left: 1400px; top: 392px; width: 300px; height: 300px; display: none; }
         #sm-iconwrap svg { width: 300px; height: 300px; }
         #root[data-has-icon="1"] #sm-block { width: 1180px; }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] .sm-bg { background: radial-gradient(140% 120% at 50% 92%, #0d2437 0%, #0a1e2f 76%); }
         #root[data-theme="horizon"] #sm-ring-1 { right: auto; bottom: auto; left: -280px; top: -340px; border-color: rgba(51, 147, 214, 0.3); }
         #root[data-theme="horizon"] #sm-ring-2 { right: auto; bottom: auto; left: -190px; top: -250px; border-color: rgba(255, 255, 255, 0.16); }
@@ -262,7 +262,7 @@
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut;
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut;
           // Motion v2 2026-07-27: opacity 0.55 → 1 in ~0.3s so cuts land as a hit).
           tl.fromTo("#sm-ring-1", { opacity: 0.55, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
           tl.fromTo("#sm-ring-2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.06);
@@ -317,7 +317,7 @@
           // Optional living-icon hero (opt-in via `icon`; owner decision 2026-07-15 —
           // living icons may appear on single-focus statement beats, still sparing and
           // drawn on the cue). Geometry MIRRORED from scla-condition.html's ICONS map
-          // (the canonical source; frame.md → "Living icon library" — keep in sync).
+          // (the canonical source; design-contract.md → "Living icon library" — keep in sync).
           // Navy canvas → white main stroke, gold accents/dots pop last.
           const iconName = String(vars.icon || "").trim();
           if (iconName) {
@@ -371,9 +371,9 @@
               if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.45, ease: "power3.out", stagger: 0.08 }, iconAt);
               if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, iconAt + 0.55);
               // REMOVED 2026-07-29 (owner): the living-icon bob. The icon is a
-              // cued content hero, not a background layer — frame.md's drift
+              // cued content hero, not a background layer — design-contract.md's drift
               // allow-list covers ghost/ring decoration only. Its motion is the
-              // draw-on above, and that is all. (Mechanism: `render-qa/check_motion.py`.)
+              // draw-on above, and that is all. (Mechanism: `render-qa/src/check_motion.py`.)
             }
           }
           // Idle re-animation of settled content remains banned (owner decisions

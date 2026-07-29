@@ -34,7 +34,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import parse_scenes
 
-DESIGN_SYSTEM = Path(__file__).resolve().parent.parent / "design-system"
+# src/ -> render-qa/ -> video-production/
+DESIGN_SYSTEM = Path(__file__).resolve().parents[2] / "design-system"
 
 # Codes that block regardless of the severity the inspector assigns them.
 FATAL_CODES = {"content_overlap", "text_overflow", "text_clipped",

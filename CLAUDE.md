@@ -18,14 +18,14 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Produce a video (one call; stops at the pilot gate) | `/produce-video` |
 | Refine raw lesson scripts (batch) | `/refine-scripts` |
 | Build / ship / publish lesson videos | `/render-lessons` |
-| Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/notion-queue.md` |
+| Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/docs/notion-queue.md` |
 | Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
 | HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
 | Render HeyGen videos (code) | `projects/video-production/avatar-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
-| Build the gate-enforcement rebuild (owner feedback that never got armed) | `projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md` |
-| 2026-07 refactor — what ran, why, residues | `audits/2026-07-28-repo-audit-brief.md` (closed 2026-07-28; §0.0 ledger has the two open human residues) |
+| Gate-enforcement rebuild (unarmed owner feedback) | `projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md` |
+| 2026-07 refactor — what ran, why, residues | `audits/2026-07-28-repo-audit-brief.md` (§0.0 ledger: open residues) |
 | Integrations, endpoint IDs | `config/endpoints.json` |
 
 ## Commands
@@ -44,17 +44,19 @@ bash scripts/with-secrets.sh CMD   # Infisical injection — required for HeyGen
 
 ## Architecture
 
-A knowledge base (`brand/`, `context/`, `member-support/`, `partnerships/`) plus one real
-code system: the lesson-video factory under `projects/video-production/`. Three load-bearing
-ideas, each spread across many files:
+A knowledge base plus one real code system: the lesson-video factory under
+`projects/video-production/`. Four load-bearing ideas:
 
-- **State is the folder.** No status doc narrates the pipeline; a script's location *is* its
-  stage (raw → refined/ → rendered/), and a stem carries exactly one date — the most recent
-  action. `projects/video-production/render-qa/stem.py` owns that rule; never hand-slice a
-  suffix.
+- **Every project has the same shape.** README (human door), AGENTS (agent door), run.sh
+  (machine door), then src/, config/, docs/, logs/. Nothing loose at a project root — a
+  script at the top level belongs in src/. Sole exception: the design system, whose layout
+  HyperFrames dictates; that divergence is documented, never assumed.
+- **State is the folder.** No status doc narrates it; a script's location *is* its stage
+  (raw → refined/ → rendered/). Working artifacts carry no date — the name is identity,
+  so `mkdir` is the build lock. `projects/video-production/render-qa/src/stem.py` owns
+  it; never hand-slice a suffix.
 - **Authors declare text; tools compute every number.** A builder writes narration spans and
-  cue phrases into a scene plan; `projects/video-production/render-qa/` derives all timings,
-  boundaries and durations.
+  cue phrases into a scene plan; `projects/video-production/render-qa/` derives every timing.
   Hand-edited `data-start`/`data-duration` values are a defect.
 - **A rule is real only if a checker enforces it (STD-35).** Owner feedback becomes a gate in
   render-qa/, a hook in `.claude/settings.json`, or a `scripts/lint-refs.sh` check — never a

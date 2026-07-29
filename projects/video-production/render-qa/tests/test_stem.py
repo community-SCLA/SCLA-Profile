@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
-"""Fixture tests for stem.py — the one-date naming rule.
+"""Fixture tests for stem.py — working names carry NO date.
 
-Each case is an attack on the failure mode the module exists for: the
-2026-07-28 review, where a video refined on 2026-07-06 and rendered on
-2026-07-28 reached the owner named for the refine date, with the HyperFrames
-CLI's own `_<date>_<clock>` suffix stacked on top of it. The rule is that a
-stem carries exactly ONE date, meaning the most recent action, and that the
-date is therefore never an identity key — `base` is.
+The module used to enforce a one-date rule: every artifact carried a date
+meaning "most recent action," restamped at each transition. That rule was
+dropped on 2026-07-29 (decisions/log.md) because a name that moves cannot be
+used as a lock — the same lesson ended up holding two build workspaces,
+`..._2026-07-28` and `..._2026-07-29`, since a rebuild restamped its way into
+a second directory instead of reusing the first.
+
+Now: a working artifact is named for its base alone, so `mkdir <base>` is the
+build mutex. Only a delivered MP4 carries a date, and it is the render date,
+frozen at publish.
+
+Each case below attacks one of the two things that must hold: `base()` is
+tolerant enough that legacy dated names still resolve (no flag day), and
+`check()` is strict enough that a NEW dated working name is rejected.
 
 Run:  python3 tests/test_stem.py   (exit 0 = all pass)
 """
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from stem import (StemError, base, date, is_canonical, normalize,  # noqa: E402
-                  restamp, split)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+from stem import (StemError, base, check, date, delivered,  # noqa: E402
+                  is_canonical)
 
-REAL = "better-decisions-come-from-better-criteria_early-career-boost_2026-07-06"
-# What the HyperFrames CLI actually emitted for that build.
-RENDERED = REAL + "_2026-07-28_18-49-26.mp4"
+BASE = "better-decisions-come-from-better-criteria_early-career-boost"
+# Legacy names still on disk when the convention was dropped.
+LEGACY = BASE + "_2026-07-06"
+# What the HyperFrames CLI actually emits for a build.
+RENDERED = BASE + "_2026-07-28_18-49-26.mp4"
 
 failures = []
 
@@ -40,52 +50,52 @@ def raises(label, fn, *a, **kw):
     failures.append(f"{label}: no StemError raised")
 
 
-# --- the happy path -------------------------------------------------------
-ok("split", split(REAL),
-   ("better-decisions-come-from-better-criteria_early-career-boost", "2026-07-06"))
-ok("base", base(REAL),
-   "better-decisions-come-from-better-criteria_early-career-boost")
-ok("date", date(REAL), "2026-07-06")
-ok("is_canonical", is_canonical(REAL), True)
+# --- a working name is its own base ---------------------------------------
+ok("base of a base", base(BASE), BASE)
+ok("is_canonical on a base", is_canonical(BASE), True)
+ok("no date on a working name", date(BASE), None)
 
-# --- restamp REPLACES, never appends (the whole point) --------------------
-ok("restamp", restamp(REAL, "2026-07-28"),
-   "better-decisions-come-from-better-criteria_early-career-boost_2026-07-28")
-ok("restamp is idempotent", restamp(restamp(REAL, "2026-07-28"), "2026-07-28"),
-   restamp(REAL, "2026-07-28"))
-ok("restamp preserves base", base(restamp(REAL, "2026-07-28")), base(REAL))
+# --- tolerance: every legacy shape resolves to the same identity ----------
+# This is what let the convention be dropped without renaming the world in
+# one transaction — a dated name still keys correctly while it exists.
+ok("base strips a legacy date", base(LEGACY), BASE)
+ok("base strips date+clock", base(RENDERED), BASE)
+ok("base is idempotent", base(base(RENDERED)), BASE)
+ok("one identity across every shape",
+   len({base(s) for s in (BASE, LEGACY, RENDERED, BASE + "_2026-08-01")}), 1)
+
+# --- strictness: a NEW dated working name is a defect ---------------------
+ok("is_canonical rejects a dated name", is_canonical(LEGACY), False)
+ok("is_canonical rejects renderer output", is_canonical(RENDERED), False)
+ok("check rejects a dated name", check(LEGACY)[0], False)
+ok("check accepts a base", check(BASE), (True, BASE))
 
 # --- accepts paths, filenames and trailing slashes ------------------------
-ok("path", base(f"/a/b/{REAL}/"), base(REAL))
-ok("txt suffix", date(REAL + ".txt"), "2026-07-06")
-ok("mp4 suffix", date(REAL + ".mp4"), "2026-07-06")
+ok("path", base(f"/a/b/{BASE}/"), BASE)
+ok("txt suffix", base(BASE + ".txt"), BASE)
+ok("mp4 suffix", base(RENDERED), BASE)
 
-# --- the malformed names that motivated the module ------------------------
-raises("double date rejected", split, RENDERED)
-raises("no date rejected", split, "no-date-here_program")
-raises("bare date rejected", split, "2026-07-06")
-raises("date not final rejected", split, "title_2026-07-06_program")
-raises("empty rejected", split, "")
-raises("bad --date rejected", restamp, REAL, "07/28/2026")
-ok("is_canonical on malformed", is_canonical(RENDERED), False)
+# --- delivered() is the one remaining naming transition -------------------
+ok("delivered adds the render date", delivered(BASE, "2026-07-29"),
+   BASE + "_2026-07-29")
+ok("delivered replaces, never appends", delivered(LEGACY, "2026-07-29"),
+   BASE + "_2026-07-29")
+ok("delivered is idempotent",
+   delivered(delivered(BASE, "2026-07-29"), "2026-07-29"), BASE + "_2026-07-29")
+ok("delivered preserves base", base(delivered(BASE, "2026-07-29")), BASE)
+ok("delivered survives renderer output", delivered(RENDERED, "2026-07-29"),
+   BASE + "_2026-07-29")
+raises("delivered rejects a bad date", delivered, BASE, "07/29/2026")
 
-# --- normalize repairs what the renderer emits ----------------------------
-# Lenient by design: base is everything before the FIRST date, later date and
-# clock segments are discarded. This is the ONLY caller-facing leniency.
-ok("normalize renderer output", normalize(RENDERED, "2026-07-28"),
-   "better-decisions-come-from-better-criteria_early-career-boost_2026-07-28")
-ok("normalize is idempotent",
-   normalize(normalize(RENDERED, "2026-07-28"), "2026-07-28"),
-   normalize(RENDERED, "2026-07-28"))
-ok("normalize == restamp on a clean stem",
-   normalize(REAL, "2026-07-28"), restamp(REAL, "2026-07-28"))
-raises("normalize still needs a date", normalize, "no-date-here_program")
+# --- names with no usable base --------------------------------------------
+raises("empty rejected", base, "")
+raises("bare date rejected", base, "2026-07-06")
+raises("bare clock rejected", base, "18-49-26")
 
-# --- the identity invariant that published.tsv depends on -----------------
-# The same lesson wears three stems at once (refine / build / render dates).
-# All three must resolve to one key, or publish would double-upload.
-stems = [REAL, restamp(REAL, "2026-07-28"), restamp(REAL, "2026-08-01")]
-ok("base is stable across restamps", len({base(s) for s in stems}), 1)
+# --- a date-like segment INSIDE a title is not stripped -------------------
+# Only trailing segments go; otherwise a legitimate title could be eaten.
+ok("mid-name date survives", base("title_2026-07-06_program"),
+   "title_2026-07-06_program")
 
 if failures:
     print(f"FAIL ({len(failures)})")

@@ -39,11 +39,12 @@ priority = os.environ["PRIORITY"].split()
 
 ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exists() else ""
 
-# Every comparison here is on BASE (title_program), never a dated stem: the
-# date is a state stamp that differs between the refined script (refine date),
-# its workspace (build date) and its MP4 (render date), so the same lesson
-# wears three different stems at once. stem.py owns the rule. (2026-07-28)
-sys.path.insert(0, str(Path(os.environ["VP"]) / "render-qa"))
+# Every comparison here is on BASE (title_program). Since 2026-07-29 a working
+# artifact carries no date, so base_of() is usually the identity function — but
+# it stays because the MP4 still carries its render date, refinement-log.md rows
+# still quote legacy dated stems, and a workspace built before the change may
+# survive. stem.py owns the rule; base() strips any trailing date/clock.
+sys.path.insert(0, str(Path(os.environ["VP"]) / "render-qa" / "src"))
 from stem import base as stem_base, StemError
 
 def base_of(name: str) -> str:

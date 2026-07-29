@@ -3,7 +3,7 @@
   lang="en"
   data-composition-variables='[
     {"id":"label","type":"string","label":"Section label","default":"[[label]]"},
-    {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
+    {"id":"heading","type":"string","label":"Heading — ONE line (<=1500px); the stage below is budgeted against it","default":"[[heading]]","maxLines":1},
     {"id":"startLabel","type":"string","label":"Start node title","default":"[[startLabel]]"},
     {"id":"startSub","type":"string","label":"Start node subtitle","default":"[[startSub]]"},
     {"id":"path1","type":"string","label":"Path 1 title (top)","default":"[[path1]]","maxLines":2},
@@ -28,7 +28,7 @@
       against a criteria axis; on mapCue a gold route traces through the winning
       path (winner variable) to the best-fitting option while the losers fade.
       Use for "compare options against your criteria" beats. All SVG/CSS + GSAP,
-      seek-safe. frame.md → "Illustration over text — draw a map/path and trace it".
+      seek-safe. design-contract.md → "Illustration over text — draw a map/path and trace it".
     -->
   </head>
   <body>
@@ -88,18 +88,32 @@
           color: #0d2437;
           line-height: 1.08;
         }
-        /* top was 380px until 2026-07-29. A 2-line path node at 34px is 170px
-           tall, so node-3 (top 420 inside the stage) bottomed out past 960px —
-           frame.md's content-bottom — and a 3-line node ran to 1011px, straight
-           through the footer rule, which is what the owner saw. At 340px the
-           worst legal node (2 lines, enforced by the maxLines budgets above)
-           ends at 930px, inside the reserve. */
+        /* STAGE = THE WHOLE CONTENT BAND, and the SVG viewBox is 1:1 with it so a
+           coordinate here is a frame pixel (2026-07-29, second pass). It was
+           1680x560 stretched by preserveAspectRatio="none", which meant every
+           edge endpoint moved whenever the stage was resized — the numbers below
+           are only checkable if they mean pixels.
+
+           Band: 300 (a 70px gutter under a ONE-line heading, which the schema now
+           enforces) to 960 = tokens.yml content-bottom. 660px of room.
+
+           SLOT BUDGET. The three path cards ride FIXED, EVENLY SPACED slots sized
+           for the worst legal card — 2 lines of 40px role type, `maxLines: 2` in
+           the schema — so the gutter does not shrink when a card's copy grows:
+               slack 6 | slot-1 6-190 | 48 | slot-2 238-422 | 48 | slot-3 470-654
+                       | slack 6   (frame: 306-490 / 538-722 / 776-960)
+           The shipped 2026-07-29 cut top-anchored the same cards on slots sized
+           for ONE line, so a 2-line card grew downward into the next: the gaps
+           came out 74px and 26px, and the owner read the 26 as touching. Even
+           spacing is a property of the SLOTS, never of the copy that lands in
+           them. A one-line card sits 24px high in its slot; the edge endpoints
+           below aim at the one-line centre for that reason. */
         #cm-stage {
           position: absolute;
           left: 120px;
-          top: 340px;
+          top: 300px;
           width: 1680px;
-          height: 560px;
+          height: 660px;
         }
         #cm-svg {
           position: absolute;
@@ -111,12 +125,15 @@
            measures 507px in Proxima 900 at 34px, so a 240px text box wrapped it
            to three lines and the card grew through the footer rule. The first
            fix dropped the type to 30px and check_text caught it immediately —
-           30px is below frame.md's 32px body floor. Widening is the correct
-           lever: a 300px text box takes "Different learning" (283.5px) on one
-           line, so the same string lands in two. */
+           30px is below tokens.yml's body floor. Widening is the correct lever.
+           Widened again to 440 the same day (total 500 — there is no
+           box-sizing:border-box inside a sub-comp template, so padding adds):
+           at the 40px floor "Learning opportunities" is 427px, which a 360px
+           text box wrapped to two lines. It is legal for a card to take two
+           lines; it should not take two for a phrase this short. */
         .cm-node {
           position: absolute;
-          width: 360px;
+          width: 440px;
           padding: 26px 30px;
           border-radius: 14px;
           border: 2px solid #cccedf;
@@ -135,21 +152,23 @@
           text-transform: uppercase;
           color: #5f6f96;
         }
+        /* 260px until 2026-07-29 — "Three to five paths" is 257.6px tracked, so
+           the default start card was 2.4px from wrapping its own subtitle. */
         #cm-node-start {
           left: 0;
-          top: 220px;
-          width: 260px;
+          top: 238px;
+          width: 280px;
           background: #0d2437;
           border-color: #0d2437;
         }
         #cm-node-start .cm-role { color: #ffffff; }
         #cm-node-start .cm-fit { color: #bcd3e4; }
-        #cm-node-1 { left: 560px; top: 0; }
-        #cm-node-2 { left: 560px; top: 210px; }
-        #cm-node-3 { left: 560px; top: 420px; }
+        #cm-node-1 { left: 560px; top: 6px; }
+        #cm-node-2 { left: 560px; top: 238px; }
+        #cm-node-3 { left: 560px; top: 470px; }
         #cm-node-best {
           left: 1240px;
-          top: 205px;
+          top: 238px;
           width: 340px;
           border-color: #eaab2d;
           background: #fff;
@@ -192,11 +211,15 @@
           <h2 id="cm-heading">Which one fits what matters to you?</h2>
         </div>
         <div id="cm-stage">
-          <svg id="cm-svg" viewBox="0 0 1680 560" preserveAspectRatio="none" fill="none">
-            <path id="cm-edge-1" d="M260 300 C 420 300, 420 100, 560 100" stroke="#cccedf" stroke-width="4" />
-            <path id="cm-edge-2" d="M260 300 C 420 300, 420 300, 560 300" stroke="#cccedf" stroke-width="4" />
-            <path id="cm-edge-3" d="M260 300 C 420 300, 420 500, 560 500" stroke="#cccedf" stroke-width="4" />
-            <path id="cm-route" d="M260 300 C 420 300, 420 300, 560 300 L 860 300 C 1020 300, 1080 300, 1240 300" stroke="#eaab2d" stroke-width="7" stroke-linecap="round" />
+          <!-- viewBox is the stage's own pixel size: 1 unit = 1 frame pixel.
+               x340 = the start card's right edge, x560 = the path column's left
+               edge, x1060 = its right edge, x1240 = the best-fit card's left
+               edge. y74/306/538 are the three slots' one-line centres. -->
+          <svg id="cm-svg" viewBox="0 0 1680 660" preserveAspectRatio="none" fill="none">
+            <path id="cm-edge-1" d="M340 306 C 460 306, 460 74, 560 74" stroke="#cccedf" stroke-width="4" />
+            <path id="cm-edge-2" d="M340 306 L 560 306" stroke="#cccedf" stroke-width="4" />
+            <path id="cm-edge-3" d="M340 306 C 460 306, 460 538, 560 538" stroke="#cccedf" stroke-width="4" />
+            <path id="cm-route" d="M340 306 L 1060 306 C 1140 306, 1160 306, 1240 306" stroke="#eaab2d" stroke-width="7" stroke-linecap="round" />
           </svg>
           <div class="cm-node" id="cm-node-start"><div class="cm-role" id="cm-start-role">You, today</div><div class="cm-fit" id="cm-start-sub">Your criteria</div></div>
           <div class="cm-node" id="cm-node-1"><div class="cm-role" id="cm-role-1">Path A</div><div class="cm-fit" id="cm-fit-1">Fits 2 of 5</div></div>
@@ -251,13 +274,13 @@
           const mapAt = Math.max(1.0, Number(vars.mapCue) || 5.0);
           const winner = ["1", "2", "3"].indexOf(String(vars.winner).trim()) >= 0 ? String(vars.winner).trim() : "2";
 
-          // The gold route's geometry follows the winner: through the top (y100),
-          // middle (y300), or bottom (y500) path node, then into the best-fit node
-          // (vertical center ≈ y300 at x1240).
+          // The gold route's geometry follows the winner: through the top (y74),
+          // middle (y306), or bottom (y538) slot, then into the best-fit card
+          // (vertical centre y306 at x1240). Stage pixels — see the viewBox note.
           const routes = {
-            "1": "M260 300 C 420 300, 420 100, 560 100 L 860 100 C 1020 100, 1080 300, 1240 300",
-            "2": "M260 300 C 420 300, 420 300, 560 300 L 860 300 C 1020 300, 1080 300, 1240 300",
-            "3": "M260 300 C 420 300, 420 500, 560 500 L 860 500 C 1020 500, 1080 300, 1240 300",
+            "1": "M340 306 C 460 306, 460 74, 560 74 L 1060 74 C 1140 74, 1160 306, 1240 306",
+            "2": "M340 306 L 1060 306 C 1140 306, 1160 306, 1240 306",
+            "3": "M340 306 C 460 306, 460 538, 560 538 L 1060 538 C 1140 538, 1160 306, 1240 306",
           };
           const route = document.getElementById("cm-route");
           route.setAttribute("d", routes[winner]);
@@ -284,7 +307,7 @@
           tl.fromTo("#cm-node-1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.65);
           tl.fromTo("#cm-node-2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.75);
           tl.fromTo("#cm-node-3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.85);
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut).
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
           tl.fromTo(["#cm-index", "#cm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
 
           // REMOVED 2026-07-29 (owner): the candidate-node pulse. Settled nodes
@@ -299,7 +322,7 @@
           // re-animate what has settled to satisfy the stagnation gate — that
           // trade was made on 2026-07-15, vetoed on sight, and is now
           // unavailable rather than merely discouraged.
-          // (Mechanism: `render-qa/check_motion.py`.)
+          // (Mechanism: `render-qa/src/check_motion.py`.)
 
           // On the cue, the gold route traces from you → winning option → best fit.
           const rlen = route.getTotalLength();

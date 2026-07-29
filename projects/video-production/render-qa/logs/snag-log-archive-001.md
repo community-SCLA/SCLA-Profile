@@ -3117,9 +3117,9 @@ Affected slots (every build in the folder had them — this predates Motion v2; 
 Also measured why a build costs 50–80 min: it is **not** the tooling (`npm run check` 9s, `snapshot` 8s, compile/preflight seconds, a full 14-scene TTS pass ~100s sequential). ~85% is the model hand-writing `index.html`, whose scene slots are 400–700-char attribute lines re-emitted on every revision (m1: 168k tokens/80 min; m2: 153k/48 min).
 
 **Fixed this session:**
-- [defect] Template-file collision blanking repeat-instance scenes — new `render-qa/instance_templates.py` clones a per-slot template (namespacing composition id, timeline key, element-id prefix) and retrofits any existing workspace; applied to m1 (7 slots) + m2-mindsets (5). New `preflight` section `instance_templates` fails any build that reuses a file. ~90 min incl. diagnosis.
+- [defect] Template-file collision blanking repeat-instance scenes — new `render-qa/src/instance_templates.py` clones a per-slot template (namespacing composition id, timeline key, element-id prefix) and retrofits any existing workspace; applied to m1 (7 slots) + m2-mindsets (5). New `preflight` section `instance_templates` fails any build that reuses a file. ~90 min incl. diagnosis.
 - [tooling] `synth_narration.py` synthesized cache misses one at a time — now a 5-way thread pool (`TTS_WORKERS`); ~100s → ~25s on a 14-scene build. Output order and cache keys unchanged; 36/36 tests pass. ~10 min.
-- [tooling] Hand-written `index.html` was the build's dominant cost — new `render-qa/build_index.py` generates it from a ~8-line-per-scene `scenes.json` manifest, gives every slot its own template file by construction, and writes the cue/`sceneDuration` keys the compiler fills. `--extract` recovers a manifest from an existing build. Round-trip proven on m1: regenerated → identical 102.752s timing, all gates green, frames visually identical. ~35 min.
+- [tooling] Hand-written `index.html` was the build's dominant cost — new `render-qa/src/build_index.py` generates it from a ~8-line-per-scene `scenes.json` manifest, gives every slot its own template file by construction, and writes the cue/`sceneDuration` keys the compiler fills. `--extract` recovers a manifest from an existing build. Round-trip proven on m1: regenerated → identical 102.752s timing, all gates green, frames visually identical. ~35 min.
 - [authoring] `preflight.py`'s script auto-locate silently WARNs and skips the fidelity check when the workspace stem carries a program segment the script filename lacks (every `m<N>_…` build) — documented, and `--script` is now explicit in the skill's gate loop.
 
 **Promoted to docs:** `/render-lessons` SKILL.md — manifest-first authoring replaces hand-assembling `index.html`; the one-template-file-per-slot rule and its preview blind spot as a standing landmine; `--script` explicit in the gate loop; a mandatory `snapshot` step in both the build loop and B3 (a blank scene passes `preflight` + `check`); build subagents now dispatch **concurrently**, since the measurement shows serialising them only multiplies model time.
@@ -5777,7 +5777,7 @@ decorative depth-drift as its hold cover):
   steps are STALE** — they still show the retired single-take
   `npx hyperframes tts "$(cat script)"` + assemble-index-after flow; the live
   contract (decisions/log.md 2026-07-14) is per-scene
-  `render-qa/synth_narration.py`, which reads `data-narration` from index.html,
+  `render-qa/src/synth_narration.py`, which reads `data-narration` from index.html,
   so index.html is authored FIRST. The 2026-07-14 "promoted to docs" claim did
   not actually land in the SKILL. I handed subagents the correct flow this
   session; the fix is a factual command correction but edits the running skill,
@@ -6036,7 +6036,7 @@ touched (promotion waits on the human's hyperframe review). Brief:
 scratchpad `pilot-brief.md`; per-scene map: workspace `PILOT-NOTES.md`.
 
 **Open:**
-- [owner] **`render-qa/preflight.py` number-word fold — accept or revert.** The build added a
+- [owner] **`render-qa/src/preflight.py` number-word fold — accept or revert.** The build added a
   symmetric spelled-number→digit fold (`_fold_number_words`) to the script-vs-transcript
   tokenizer, because this stat-dense lesson tripped `script_match` at 2.24% purely on format
   noise ("eighty thousand"/"forty-thousand-dollar" vs Whisper "80,000"/"$40,000"); rate → 0.56%
@@ -6152,7 +6152,7 @@ scratchpad `pilot-brief.md`; per-scene map: workspace `PILOT-NOTES.md`.
   ~5 min.
 
 **Promoted to docs:**
-- The parse fix lives in the shared parser (`render-qa/hfp_common.py`
+- The parse fix lives in the shared parser (`render-qa/src/hfp_common.py`
   `parse_scenes` / `_load_json_attr`), so compile/preflight/check/verify all
   inherit it. Compiler suite still 20/20.
 - Re-render procedure (restore from `.pre-pad` before `--apply` so new timing

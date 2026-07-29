@@ -82,7 +82,7 @@ class Doc(HTMLParser):
 
         Only simple selectors and simple descendant chains are indexed, keyed on
         the trailing compound. Anything with an attribute selector is skipped
-        outright: those are the `#root[data-theme=...]` blocks, which frame.md
+        outright: those are the `#root[data-theme=...]` blocks, which the design contract
         pins to colour only.
         """
         for style in re.findall(r"<style>(.*?)</style>", html, re.S):
@@ -292,7 +292,7 @@ def typeface(doc: Doc, node: dict) -> dict:
 
 
 def is_label_class(doc: Doc, node: dict) -> bool:
-    """frame.md's label class: uppercase AND letter-spaced. Mirrors
+    """The design contract's label class: uppercase AND letter-spaced. Mirrors
     check_text.classify() so the two gates cannot disagree about what a label
     is."""
     n = node

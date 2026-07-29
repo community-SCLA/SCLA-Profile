@@ -1,25 +1,32 @@
 #!/usr/bin/env python3
-"""tokens.py — frame.md's frontmatter, LOADED. The design spec stops describing
-the gates and starts being them.
+"""tokens.py — design-system/config/tokens.yml, LOADED. The design spec stops
+describing the gates and starts being them.
 
-Before 2026-07-29 frame.md was 675 lines that nothing read. Its frontmatter is
-real YAML, but every normative number in it was hand-copied into a checker under
-a "keep in sync" comment (check_text.py: `BODY_FLOOR = 32  # frame.md
-frontmatter typography.min-size — normative, keep in sync`). Nothing verified
-the copy. So `spacing.frame-padding: "120px"` — a safe margin declared in the
-spec since the system was built — was enforced by exactly nothing, and a
-career-map card ran straight through the footer on the 2026-07-28 build.
+Before 2026-07-29 this lived in the frontmatter of `frame.md`, 709 lines of
+which nothing read. Its frontmatter was real YAML, but every normative number in
+it was hand-copied into a checker under a "keep in sync" comment (check_text.py:
+`BODY_FLOOR = 32  # tokens.yml typography.min-size — normative, keep
+in sync`). Nothing verified the copy. So `spacing.frame-padding: "120px"` — a
+safe margin declared in the spec since the system was built — was enforced by
+exactly nothing, and a career-map card ran straight through the footer on the
+2026-07-28 build.
 
-This module makes the frontmatter the loaded source of truth. A checker imports
-its floors from here; changing a number in frame.md changes the gate. There is
-no second copy to drift.
+On 2026-07-29 the file was split: the numbers became `config/tokens.yml` (this
+module's source) and the prose became `docs/design-contract.md`, which no code
+reads. That split is the point — a human document that is also machine
+load-bearing gets edited by humans and silently breaks gates. The program
+display-name map moved here for the same reason: preflight.py had been parsing
+it out of a markdown table.
 
-Resolution order for frame.md (a workspace carries its own copy, and that copy
-is what its build was authored against):
-    <workspace>/frame.md  ->  design-system/frame.md
+Resolution order (a workspace carries its own copy, and that copy is what its
+build was authored against):
+    <workspace>/tokens.yml  ->  design-system/config/tokens.yml
+
+Both a bare YAML document and a `---`-fenced frontmatter block parse, so a
+workspace copy stays valid whichever form it was written in.
 
 Usage:  python3 tokens.py [workspace]        # print the loaded token set
-Exit:   0 loaded · 2 frame.md missing or unparseable
+Exit:   0 loaded · 2 tokens.yml missing or unparseable
 """
 from __future__ import annotations
 
@@ -28,7 +35,8 @@ import re
 import sys
 from pathlib import Path
 
-DESIGN_SYSTEM = Path(__file__).resolve().parent.parent / "design-system"
+# src/ -> render-qa/ -> video-production/
+DESIGN_SYSTEM = Path(__file__).resolve().parents[2] / "design-system"
 _CACHE: dict[str, dict] = {}
 
 
@@ -36,10 +44,13 @@ _CACHE: dict[str, dict] = {}
 # Frontmatter parsing
 # --------------------------------------------------------------------------
 def _split_frontmatter(text: str) -> str:
-    m = re.match(r"^---\n(.*?)\n---\s*\n", text, re.S)
-    if not m:
-        raise ValueError("frame.md has no YAML frontmatter block")
-    return m.group(1)
+    """A bare YAML document, or the frontmatter of a fenced one."""
+    if text.lstrip().startswith("---"):
+        m = re.match(r"^\s*---\n(.*?)\n---\s*\n", text, re.S)
+        if not m:
+            raise ValueError("opens with '---' but has no closing fence")
+        return m.group(1)
+    return text
 
 
 def _parse_yaml(src: str) -> dict:
@@ -104,17 +115,17 @@ def _scalar(text: str):
 # --------------------------------------------------------------------------
 # Public API
 # --------------------------------------------------------------------------
-def frame_path(ws=None) -> Path:
-    """The frame.md that governs this build — the workspace's own copy first."""
+def tokens_path(ws=None) -> Path:
+    """The tokens.yml governing this build — the workspace's own copy first."""
     if ws:
-        local = Path(ws) / "frame.md"
+        local = Path(ws) / "tokens.yml"
         if local.is_file():
             return local
-    return DESIGN_SYSTEM / "frame.md"
+    return DESIGN_SYSTEM / "config" / "tokens.yml"
 
 
 def load(ws=None) -> dict:
-    path = frame_path(ws)
+    path = tokens_path(ws)
     key = str(path)
     if key not in _CACHE:
         _CACHE[key] = _parse_yaml(_split_frontmatter(
@@ -174,11 +185,55 @@ def content_bottom(ws=None) -> float:
     return canvas(ws)[1] - footer_reserve(ws)
 
 
+def card_gutter(ws=None) -> float:
+    """Minimum clear air between two bordered cards stacked in one column."""
+    return px(_spacing(ws).get("card-gutter"), 24)
+
+
+def programs(ws=None) -> dict:
+    """program-slug -> on-screen display name. The title card's `eyebrow` is
+    derived from this, never authored (preflight.py check 7b). Lived as a
+    markdown table inside frame.md until 2026-07-29, which meant a checker
+    parsed prose."""
+    return load(ws).get("programs") or {}
+
+
+def slugify(display: str) -> str:
+    """Display name -> lesson-scripts folder slug. Lowercase, every run of
+    non-alphanumerics collapsed to one hyphen."""
+    return re.sub(r"[^a-z0-9]+", "-", str(display).strip().lower()).strip("-")
+
+
+def programs_problems(ws=None) -> list[str]:
+    """The banner rule, mechanized (owner, 2026-07-29 — "a MUST").
+
+    The title card's eyebrow is the program's name, and the program's name is
+    the `lesson-scripts/<slug>/` folder the script lives in. So a display name
+    is only legal if it slugifies back to its own key: "Mid-Career Momentum" ->
+    mid-career-momentum passes, "Career Accelerator" under the key
+    early-career-boost does not. That one shipped — a whole Early Career Boost
+    lesson banner-labelled Career Accelerator, and every gate passed it, because
+    the map was free text and the eyebrow check only compared the eyebrow to the
+    map. Checking the eyebrow against an unchecked map checks nothing.
+
+    Returns a list of human-readable problems; empty means the map is clean."""
+    problems = []
+    for slug, display in sorted((programs(ws) or {}).items()):
+        if not str(display).strip():
+            problems.append(f"program '{slug}' has an empty display name")
+        elif slugify(display) != slug:
+            problems.append(
+                f"program '{slug}' declares display name {display!r}, which "
+                f"slugifies to '{slugify(display)}' — a banner must be the "
+                f"program folder's own name, never a rebrand or an alias")
+    return problems
+
+
 def summary(ws=None) -> dict:
     body, label = min_size(ws)
     w, h = canvas(ws)
     return {
-        "frame_md": str(frame_path(ws)),
+        "tokens_file": str(tokens_path(ws)),
         "canvas": {"w": w, "h": h},
         "min_size": {"body": body, "label": label},
         "spacing": {
@@ -195,12 +250,12 @@ def main(argv) -> int:
     try:
         data = summary(ws)
     except (OSError, ValueError) as exc:
-        print(f"tokens: cannot load frame.md — {exc}", file=sys.stderr)
+        print(f"tokens: cannot load tokens.yml — {exc}", file=sys.stderr)
         return 2
     if "--json" in argv:
         print(json.dumps(data, indent=2))
         return 0
-    print(f"[tokens] loaded from {data['frame_md']}")
+    print(f"[tokens] loaded from {data['tokens_file']}")
     print(f"  canvas          {data['canvas']['w']}x{data['canvas']['h']}")
     print(f"  min-size        body >= {data['min_size']['body']:g}px, "
           f"label >= {data['min_size']['label']:g}px")

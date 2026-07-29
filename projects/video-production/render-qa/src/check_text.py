@@ -4,7 +4,7 @@
 Two checks, both static (no browser, no render) — they run in preflight, before
 the expensive render:
 
-  1. size   — minimum on-frame text size (frame.md -> "Type rules" ->
+  1. size   — minimum on-frame text size (design-contract.md -> "Type rules" ->
               "Minimum on-frame text size", frontmatter typography.min-size).
               Every `font-size: <n>px` rule in the workspace's compositions is
               graded against a floor picked from how the rule is TYPESET:
@@ -17,7 +17,7 @@ the expensive render:
               A rule opts out with `/* text-floor-exempt: <reason> */` on the
               line above it (marker numerals sized by their circle).
 
-  2. restate — no line restates the label or heading (frame.md -> "Type rules").
+  2. restate — no line restates the label or heading (design-contract.md -> "Type rules").
               A sub-beat / caption / point whose words are a subset of, or >=80%
               overlap with, that scene's `label` or `heading` is a second,
               smaller copy of a line already on the frame at full size. Owner
@@ -39,10 +39,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tokens
 from hfp_common import Finding, norm_phrase, parse_scenes
 
-# LOADED from frame.md frontmatter typography.min-size — not a copy of it.
+# LOADED from tokens.yml typography.min-size — not a copy of it.
 # These were hand-maintained constants under a "keep in sync" comment until
 # 2026-07-29; nothing verified the copy, so the spec and the gate could disagree
-# silently. tokens.py makes frame.md the single source (see its docstring).
+# silently. tokens.py makes tokens.yml the single source (see its docstring).
 BODY_FLOOR, LABEL_FLOOR = tokens.min_size()
 
 EXEMPT_RE = re.compile(r"/\*\s*text-floor-exempt:")
@@ -61,7 +61,7 @@ OVERLAP_FAIL = 0.8  # >= this share of a line's words already in label/heading
 
 
 def classify(decls: str) -> str:
-    """label class = uppercase AND letter-spaced (frame.md's label spec);
+    """label class = uppercase AND letter-spaced (the design contract's label spec);
     everything else is body class."""
     return ("label" if "uppercase" in decls and "letter-spacing" in decls
             else "body")
@@ -94,7 +94,7 @@ def check_sizes(css_files):
                     "text-below-min-size",
                     f"{path.name}: `{sel}` renders {kind}-class text at "
                     f"{size:g}px, below the {floor}px {kind} floor — {fix} "
-                    f"(frame.md typography.min-size)"))
+                    f"(tokens.yml typography.min-size)"))
     return findings, graded
 
 
@@ -139,7 +139,7 @@ def check_restatement(scenes):
                             f"\"{vars_[ref_key]}\" ({overlap:.0%} of its words "
                             f"are already on the frame) — drop the line or give "
                             f"it something the frame is not already showing "
-                            f"(frame.md \"Never restate the label or heading\")"))
+                            f"(design-contract.md \"Never restate the label or heading\")"))
                         break
     return findings, graded
 

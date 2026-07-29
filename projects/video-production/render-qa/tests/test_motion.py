@@ -5,7 +5,7 @@ The ban is the most-violated rule in the repo's history: given 2026-07-14
 ("I fully want ripples off"), reaffirmed 07-15, and broken the next day by a
 session that restored the banned motion so renders would clear the stagnation
 gate. Three MP4s shipped with it and one was published. It was written in
-frame.md, in `.claude/rules/video-production.md`, AND in comments inside the
+design-contract.md, in `.claude/rules/video-production.md`, AND in comments inside the
 very templates that violated it — prose lost to a gate three times over.
 
 On 2026-07-29 the owner's instruction was to make the motion unselectable
@@ -24,7 +24,7 @@ import tempfile
 from pathlib import Path
 
 RQ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RQ))
+sys.path.insert(0, str(RQ / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_motion              # noqa: E402
@@ -74,7 +74,7 @@ check("`repeat: -1` (infinite) on content FAILS",
       "keep-alive-motion" in rules(
           tween('"#cc-iconwrap"', '{ y: -10, duration: 2.7, repeat: -1 }')))
 
-print("== ...and does not fire on what frame.md sanctions ==")
+print("== ...and does not fire on what design-contract.md sanctions ==")
 check("a one-shot entrance on content PASSES",
       not rules(tween('"#cc-iconwrap"', ONCE)))
 check("`repeat: 0` is a one-shot, not keep-alive",

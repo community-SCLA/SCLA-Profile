@@ -22,7 +22,7 @@ rejected. Sections 1–3 record why, so nobody rebuilds it in six weeks.
 
 Then the owner said the thing that redirected the whole effort:
 
-> "SO many things are referencing frame.md when that is a prose file, it's not
+> "SO many things are referencing design-contract.md when that is a prose file, it's not
 > enforceable... a lot of rules in there that aren't enforced and not armed. So
 > many of the points of feedback that I have given in the past have landed there
 > and then just not been enforced."
@@ -85,7 +85,7 @@ Do not rebuild any of this. Each row has the finding that killed it.
 
 1. The claim "the conjunction rule was dead for months and no telemetry noticed"
    is **false**. `check_copy.py` was created 2026-07-28, ~one day before the
-   rejection. For the months in question the rule was **prose in `frame.md`,
+   rejection. For the months in question the rule was **prose in `design-contract.md`,
    written as the soft word "prefer"**. A ledger of firings cannot notice a rule
    that was never code. This is the owner's point, not an argument for telemetry.
 2. `tests/test_variety.py` was cited as "the pattern that works." Its own
@@ -104,16 +104,16 @@ These are real, they exist right now, and most are independent of everything els
 
 ### 2.1 BLOCKING — the spacing tokens are still enforced by nothing
 
-`frame.md` frontmatter contains this comment above the `spacing` block:
+`config/tokens.yml` contains this comment above the `spacing` block:
 
-> `# These four are LOADED, not quoted: render-qa/tokens.py parses this block and`
+> `# These four are LOADED, not quoted: render-qa/src/tokens.py parses this block and`
 > `# every checker imports from it. Changing a number here changes the gate.`
 
 **False.** `tokens.py` exposes `frame_padding()`, `safe_area()`, `footer_reserve()`,
 `content_bottom()`. The only checker consumer of `tokens` is
 `check_text.py`, which calls `min_size()` **only**. `tests/test_gates.py` asserts
 the four spacing values equal hard-coded literals (`72`, `120`, …) — which is the
-hand-copy `tokens.py` was written to abolish, and which fails only if *frame.md*
+hand-copy `tokens.py` was written to abolish, and which fails only if *design-contract.md*
 changes, never if a *video* violates the number.
 
 `.claude/rules/video-production.md` repeats the false claim ("...and imported by
@@ -125,7 +125,7 @@ closed this hole. It did not.
 
 ### 2.2 BLOCKING — `check_geometry.py` is a written gate that nothing invokes
 
-`render-qa/check_geometry.py` (+ its engine `render-qa/boxmodel.py`) exist, are
+`render-qa/src/check_geometry.py` (+ its engine `render-qa/src/boxmodel.py`) exist, are
 **untracked in git**, and are **invoked by nothing** — not `preflight.py`, not any
 script. It is the gate that would consume the orphaned spacing tokens: it calls
 `tokens.safe_area()`, `content_bottom()`, `footer_reserve()`, `canvas()`.
@@ -163,25 +163,25 @@ and `check_capacity.py` + `tests/test_gates.py` both depend on it. On a fresh cl
 or in CI, capacity checking either crashes or silently does not exist.
 **Commit all of these.**
 
-### 2.4 SERIOUS — three live drifts between frame.md and the code
+### 2.4 SERIOUS — three live drifts between design-contract.md and the code
 
-| frame.md says | Code enforces | Provenance |
+| design-contract.md says | Code enforces | Provenance |
 |---|---|---|
-| pacing gap **FAIL > 4.5s, WARN > 3.5s** | `preflight.py` `GAP_FAIL = 4.0`, `GAP_WARN = 3.0` | snag-log 2026-07-28 records the recalibration; frame.md was never updated. `preflight.py`'s **own docstring is also stale** — the file contradicts itself. |
+| pacing gap **FAIL > 4.5s, WARN > 3.5s** | `preflight.py` `GAP_FAIL = 4.0`, `GAP_WARN = 3.0` | snag-log 2026-07-28 records the recalibration; design-contract.md was never updated. `preflight.py`'s **own docstring is also stale** — the file contradicts itself. |
 | "no stagnant frame beyond **~2s**" | `check_presence` `STAGNANT_WARN=3.0`, `STAGNANT_FAIL=5.0` | **2.5× looser than the doc every builder reads.** |
 | "no form above 40% **of the content scenes**" | `check_variety` grades share in **seconds** (since 2026-07-29) | threshold matches, unit does not — a builder counting scenes computes a different number than the gate. |
 
 Consequence of row 1: **every builder authoring to the spec targets a pacing
 budget the gate rejects.**
 
-### 2.5 SERIOUS — frame.md contradicts itself, including on Title Case
+### 2.5 SERIOUS — design-contract.md contradicts itself, including on Title Case
 
 | A | B | Nature |
 |---|---|---|
 | heading slots (`heading`/`statement`/**`title`**) are **Title Case**, no terminal period | `title` = the lesson title "…in **sentence case** ('Better decisions come from better criteria')" | **Direct contradiction on the same slot.** This is the owner's most-cited grievance, half-fixed. `check_copy` grades `title` as Title Case; `preflight.check_title_card` compares case-**insensitively**, so it doesn't crash — it just misinstructs every builder. |
 | depth-drift "**16–30px** amplitude" | "~85–120px — small **16–30px** moves read static" | The document prescribes an amplitude and then calls that amplitude a defect, 478 lines later. Neither is gated. |
 | icon discipline "novel, not on every frame" (widened 2026-07-15) | living icon "**reserved for the condition/principle hero**" | The motion table preserves the superseded 2026-07-14 scope. |
-| `.claude/rules/video-production.md`: "**≥5** distinct content forms" | frame.md and code both say **6** | A third copy, also drifted. |
+| `.claude/rules/video-production.md`: "**≥5** distinct content forms" | design-contract.md and code both say **6** | A third copy, also drifted. |
 
 ### 2.6 SERIOUS — `hyperframe-guard.sh` fails silently and wears a blindfold
 
@@ -215,7 +215,7 @@ docstring. The `CANVAS` map happens to be correct today; nothing keeps it correc
 Found independently by two reviewers. `check-enforcement.py` cannot see it because
 it grades six markdown files, not Python comments.
 
-**This is the owner's frame.md complaint reproduced inside the checkers.** Either
+**This is the owner's design-contract.md complaint reproduced inside the checkers.** Either
 write the grep or delete the claim.
 
 ### 2.8 The `check-enforcement.py` auditor has false negatives
@@ -225,7 +225,7 @@ write the grep or delete the claim.
 - **`PATHISH` does not match `.jsonl`.**
 - **`invokers()` scans a fixed six-file list** that excludes `hyperframe-guard.sh` and `batch-precheck.sh` — a `check_*.py` invoked only by those audits as "invoked by nothing."
 - **`invokers()` matches a filename anywhere in a caller, including comments** — a checker named-but-never-executed audits as armed.
-- It **never parses YAML frontmatter** (so §2.1's false claim is invisible) and **only grades lines starting with `-`, `*`, or `|`** (so every normative *paragraph* is skipped). Measured recall against frame.md: **~17%**.
+- It **never parses YAML frontmatter** (so §2.1's false claim is invisible) and **only grades lines starting with `-`, `*`, or `|`** (so every normative *paragraph* is skipped). Measured recall against design-contract.md: **~17%**.
 - **The unbacked count read 31 on 2026-07-28 and 31 today**, straight through a full arming session. Arming *appends* new annotated rules; nothing retires the prose already buried.
 
 ### 2.9 OWNER-VISIBLE — a standing directive was violated and published
@@ -233,7 +233,7 @@ write the grep or delete the claim.
 On 2026-07-14 the owner banned in-place keep-alive motion ("I fully want ripples
 off"), reaffirmed 2026-07-15. It was violated **within a day**: a session
 *restored* the banned motion so renders would pass the stagnation gate. **Three
-MP4s shipped; one was published.** It remains unarmed prose in `frame.md` today.
+MP4s shipped; one was published.** It remains unarmed prose in `design-contract.md` today.
 
 Surface this to the owner. Do not silently re-arm or silently drop it —
 see §5, OWNER CALL 3.
@@ -278,7 +278,7 @@ Nothing downstream is trustworthy until the repo and the spec agree.
 1. **`git add` the untracked gate files and `metrics.json`** (§2.3). Confirm
    `run_tests.py` passes from a clean checkout afterwards.
 2. **Fix the three drifts (§2.4)** — the code is right, the doc is stale.
-   Update `frame.md` to 4.0/3.0; update `preflight.py`'s own stale docstring;
+   Update `design-contract.md` to 4.0/3.0; update `preflight.py`'s own stale docstring;
    update the stagnation line to 3.0 WARN / 5.0 FAIL; change the variety wording
    from "of the content scenes" to "of content seconds."
 3. **Fix the contradictions (§2.5)** — delete the sentence-case `title`
@@ -290,7 +290,7 @@ Nothing downstream is trustworthy until the repo and the spec agree.
    it* — it is ~10 lines in `tests/test_variety.py` and it is a genuine
    template-drift guard.
 5. **Correct the two false enforcement claims** — the `# LOADED` comment in
-   frame.md's frontmatter and the matching sentence in
+   design-contract.md's frontmatter and the matching sentence in
    `.claude/rules/video-production.md`. Until Phase 2 lands they must say
    `min-size` is loaded and the four spacing tokens are **not yet consumed by a
    gate**. Do not leave a claim standing that Phase 2 has not yet made true.
@@ -350,15 +350,15 @@ Closes §2.1 and §2.2 — the hole the repo already believes it closed.
 2. **Wire `check_geometry.py` into `preflight.py`** as a new section, `--static`-safe
    (it needs no render). Follow the existing `run_tool` exit-code pattern exactly —
    do **not** parse its JSON (§4.3).
-3. **Add `tests/test_tokens_coverage.py`:** every scalar in frame.md's frontmatter
+3. **Add `tests/test_tokens_coverage.py`:** every scalar in design-contract.md's frontmatter
    must have a `tokens.py` accessor **and at least one non-test consumer**. This is
    the mechanism that makes §2.1 non-recurring — a token nobody reads becomes a red test.
 4. **Delete the hard-coded literals in `tests/test_gates.py:190-195`** that assert
    `safe_area() == 72`. They are the hand-copy `tokens.py` exists to abolish.
    Replace with the coverage assertion from step 3.
-5. Only now, restore the `# LOADED` comment in frame.md — it will finally be true.
+5. Only now, restore the `# LOADED` comment in design-contract.md — it will finally be true.
 
-**Exit test:** change `safe-area` in frame.md to `9999`, confirm `preflight.py`'s
+**Exit test:** change `safe-area` in design-contract.md to `9999`, confirm `preflight.py`'s
 verdict changes. That is the proof the token is load-bearing. Revert.
 
 ### Phase 3 — Narrow typed findings (enabling only; ~2h)
@@ -464,11 +464,11 @@ Why it scores so low: the failures were not unbacked sentences. They were
 *missing* sentences (the variety rule was written only into `decisions/log.md` —
 "writing it down was treated as shipping it"), *soft-worded* ones (the conjunction
 rule said **"prefer"**, which the `NORMATIVE` regex does not match — that is
-exactly why it survived), a *contradicting* one (frame.md said sentence case, so
-the pipeline correctly obeyed frame.md and violated the owner), and gates that
+exactly why it survived), a *contradicting* one (design-contract.md said sentence case, so
+the pipeline correctly obeyed design-contract.md and violated the owner), and gates that
 were named correctly and did not fire.
 
-Also note: **frame.md is not the worst graveyard, it is the only one measured.**
+Also note: **design-contract.md is not the worst graveyard, it is the only one measured.**
 After discounting duplicates it holds ~9 genuinely unarmed statements.
 `.claude/skills/render-lessons/SKILL.md` holds **38 normative lines with zero
 mechanism annotations and is graded by nothing** — and it is read into every build
@@ -488,15 +488,15 @@ Build, all **report-only** per STD-38:
 4. Widen the line filter beyond `-`/`*`/`|` to any prose line, and parse YAML
    frontmatter comments. Raises recall from ~17% toward ~90%.
 
-**Do NOT flip `--strict`.** It would hard-fail CI on ~115 frame.md items on day
+**Do NOT flip `--strict`.** It would hard-fail CI on ~115 design-contract.md items on day
 one, and the cheapest response is relabelling them `Convention`, which changes
 nothing physical. The repo's own doctrine (STD-38) says a drift check starts
 non-blocking so it teaches.
 
-**Do NOT attempt the full frame.md split** (machine spec + rationale doc) in this
-pass. It touches ~20 files that route agents to "read frame.md first" — including
+**Do NOT attempt the full design-contract.md split** (machine spec + rationale doc) in this
+pass. It touches ~20 files that route agents to "read design-contract.md first" — including
 a hook string in `.claude/settings.json` — and `preflight.check_title_card`
-regex-scrapes the program display-name table out of frame.md's **body**, which the
+regex-scrapes the program display-name table out of design-contract.md's **body**, which the
 split would move. It is a legitimate follow-up, not part of this build.
 
 ---
@@ -508,8 +508,8 @@ split would move. It is a legitimate follow-up, not part of this build.
 | 1 | **No JSONL ledger, no escape metric, no dead-gate check, no CI teeth, ever at this N.** | §1. If a future session wants these, it must first show ≥30 owner verdict events exist. Today: 2. |
 | 2 | **Nothing in this plan blocks a batch or needs the owner to clear it.** | The queue is 29 videos; measured owner latency 5–8 days; the 25-firing wall is precedent. Every new failure mode is a red test with an agent-fixable remedy. |
 | 3 | **Base fixture is labelled `gate-clean, pending sign-off`, never `approved`.** | No approved plan exists. Overclaiming provenance is how `test_variety.py`'s fixture ended up pinning a fabricated 43%. |
-| 4 | **Title Case wins over frame.md's sentence-case `title` line.** | It is the owner's stated preference and what `check_copy` already enforces. |
-| 5 | **frame.md is corrected, not deleted or split, in this pass.** | The split is real work with a 20-file blast radius and a live parser dependency. Sequencing it after the firing mandate costs nothing. |
+| 4 | **Title Case wins over design-contract.md's sentence-case `title` line.** | It is the owner's stated preference and what `check_copy` already enforces. |
+| 5 | **design-contract.md is corrected, not deleted or split, in this pass.** | The split is real work with a 20-file blast radius and a live parser dependency. Sequencing it after the firing mandate costs nothing. |
 | 6 | **Where code and doc disagree, the CODE is authoritative** (Phase 0). | Every drift found was the doc going stale after a deliberate recalibration. |
 
 **OWNER CALL 1 — the pilot still needs sign-off.** `bash scripts/preview.sh
@@ -539,7 +539,7 @@ drop it.
 - [ ] `python3 scripts/check-enforcement.py` → **0 broken claims**
 - [ ] Deleting any firing assertion turns `run_tests.py` red (Phase 1)
 - [ ] Breaking `check_copy.titlecase()` turns the suite red (Phase 1)
-- [ ] Setting frame.md `safe-area: 9999` changes `preflight.py`'s verdict (Phase 2)
+- [ ] Setting design-contract.md `safe-area: 9999` changes `preflight.py`'s verdict (Phase 2)
 - [ ] Reverting `check_copy` to per-scene conjunction scoping turns mutation 1 red (Phase 4)
 - [ ] `hyperframe-guard.sh` still reports violations on a failing plan **and** stays silent on a clean one, asserted by `test_guard_contract.py` running the guard's real `jq` program (Phase 3)
 - [ ] `preflight.py --json` shape unchanged: `sections[].pass` bool, `sections[].output` string, keys `^[a-z_]+$`

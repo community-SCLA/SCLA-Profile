@@ -68,7 +68,15 @@ from hfp_common import parse_scenes
 AIR = 0.3            # after a normal sentence end (0.2 hard rule + 0.1 margin)
 AIR_QUESTION = 0.45  # after a question (0.35 hard rule + 0.1 margin)
 LEAD = 0.15          # silence before the next scene's first word
-FINAL_HOLD = 1.1     # final scene visual hold past the last word (1.0 + 0.1)
+FINAL_HOLD = 1.8     # real silence in the file past the last word
+# 0.0 until 2026-07-29 (the manifest promised a hold and the wav did not have
+# one), then 1.1, then this. The owner on the 1.1s cut: "the audio on the very
+# last slide ends awkwardly, it just kind of abruptly cuts off on the last
+# word." The word's release was measurably present — 1.34s of trailing audio
+# after the last provider timestamp — so this is NOT the clipped-release defect
+# the 1.1 fixed; it is that a lesson ending needs longer to land than a scene
+# boundary does. The floor in check_boundaries.MIN_FINAL_HOLD moved with it;
+# raising one without the other lets a producer drift under its own gate.
 
 # IN-SCENE silence cap (2026-07-28). The three constants above govern SCENE
 # BOUNDARIES only — nothing governed the pauses HeyGen's Oxana puts INSIDE a
@@ -99,9 +107,9 @@ GUARD_LEAD = 0.04        # keep this much silence before the first voiced win
 GUARD_TAIL = 0.08        # keep this much decay after the last voiced window
 EDGE_FADE = 0.005        # fade at trimmed edges — never step to digital zero
 
-# Repo-root-relative: render-qa/ -> video-production/ -> projects/ -> repo root.
+# Repo-root-relative: src/ -> render-qa/ -> video-production/ -> projects/ -> repo root.
 # Skills live in .claude/skills/ (materialized from .agents/ 2026-07-28, P4).
-HEYGEN_TTS = Path(__file__).resolve().parents[3] / \
+HEYGEN_TTS = Path(__file__).resolve().parents[4] / \
     ".claude/skills/hyperframes-media/scripts/heygen-tts.mjs"
 WORDS_FILENAME = "narration.words.json"  # must match compile_timeline.py /
                                           # preflight.py HEYGEN_WORDS_FILE

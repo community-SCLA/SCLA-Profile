@@ -47,25 +47,25 @@ Run this checklist on every video before publishing to Wistia. Human review is r
 
 ## Illustrated Video QA (HyperFrames / design-system)
 
-- [ ] Deterministic gates green on this exact render: `render-qa/preflight.py` (pre-render) and `render-qa/verify_render.py` (post-render) both exit 0; every scene carries `data-narration` and boundaries come from the `synth_narration.py` manifest (`assets/voice/scene-times.json`) — timing is compiled, never hand-typed; `data-anchor-end` is legacy-only and never authored on new builds (per-scene synthesis decision, 2026-07-14)
+- [ ] Deterministic gates green on this exact render: `render-qa/src/preflight.py` (pre-render) and `render-qa/src/verify_render.py` (post-render) both exit 0; every scene carries `data-narration` and boundaries come from the `synth_narration.py` manifest (`assets/voice/scene-times.json`) — timing is compiled, never hand-typed; `data-anchor-end` is legacy-only and never authored on new builds (per-scene synthesis decision, 2026-07-14)
 - [ ] Builder frame review done on this exact render — `qa/frames/` dump (3 stills per scene) checked against the transcript; if an `/adversarial-qa` deep audit was run, every launched lane returned PASS and reports are attached
 - [ ] `npm run check` passes with 0 errors (lint + validate + inspect)
 - [ ] Frames reviewed by a human at **several points per scene** (start, mid, late) — one midpoint still can't reveal a stagnant frame
-- [ ] Design tokens match `design-system/frame.md` — no off-palette colors, Proxima Nova renders (not a fallback sans)
-- [ ] Narration voice matches the pinned voice in `frame.md` (no silent provider drift)
+- [ ] Design tokens match `design-system/docs/design-contract.md` — no off-palette colors, Proxima Nova renders (not a fallback sans)
+- [ ] Narration voice matches the pinned voice in `design-contract.md` (no silent provider drift)
 - [ ] On-screen text is synced to the narration (right words visible while spoken)
 - [ ] Video teaches with sound OFF — on-screen text carries the key moves
 - [ ] Scene templates instantiated via variables, not forked copies
 - [ ] One style package throughout — every scene's `theme` variable matches the assigned package (summit/horizon/cadence), no mixed looks
 
-### Animacy & illustration (`frame.md` → "Every scene earns its seconds")
+### Animacy & illustration (`design-contract.md` → "Every scene earns its seconds")
 - [ ] **No stagnant frame beyond ~2s** — every scene keeps developing across its full duration; no title card or slide parked static over ongoing narration
 - [ ] **Reveals hit the spoken cue** — enumerated items appear as the narration says them (`pointCues` / `stepCues` mapped from word timings), not on an even timer
 - [ ] **Illustration depicts the narration** — each scene *shows* the idea, not just labels it; nothing generic that ignores the sentence being spoken
 - [ ] **Statements aren't quotes** — quotation treatment (`scla-quote`) only on a **named person's** words; program/SCLA theses use `scla-statement`
 - [ ] **Numerals read right** — scene index is small in the lower-right; any large numeral is a genuine stat or the spoken step, never a slide number or a bare cardinal
 
-### Pacing, cuts & endings (`frame.md` → "Scene boundaries, padding & endings")
+### Pacing, cuts & endings (`design-contract.md` → "Scene boundaries, padding & endings")
 - [ ] **Every cut lands ≥0.2s after the scene's last spoken word ends** — verify against `transcript.json`; no scene cuts mid-word or mid-sentence
 - [ ] **Questions finish their inflection** before the cut (extra air after a question mark)
 - [ ] **The video ends on populated content** — final scene outlives the narration (check the wav's true duration with `ffprobe`) and holds its text ≥1s after the last word; no bare-canvas tail, no clipped audio

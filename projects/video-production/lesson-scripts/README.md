@@ -23,7 +23,7 @@ lesson-scripts/
 **Render route is also a location.** Program root / `refined/` = illustrated
 (HyperFrames); the `avatar/` and `refined/avatar/` subfolders = talking-head
 (HeyGen, `../avatar-pipeline/`). The two queues never mix: `/render-lessons`
-builds only the `refined/` root, `avatar-pipeline/config.json` points only into
+builds only the `refined/` root, `avatar-pipeline/config/config.json` points only into
 `refined/avatar/`. `/refine-scripts` preserves the split (root → `refined/`,
 `avatar/` → `refined/avatar/`).
 
@@ -44,30 +44,40 @@ videos, and log it in `decisions/log.md`.
 Current scheme (program is now the folder, so it drops out of the filename):
 
 ```
-m<#>_<title>_<date>
+m<#>_<title>              working artifacts — NO date
+m<#>_<title>_<date>.mp4   the delivered MP4 only — the render date
 ```
 
 - **m<#>** — the lesson's module number: `m1`, `m2`, … (a lesson AKA "module").
 - **title** — the video title, kebab-case: `the-value-of-building-mid-career-momentum`.
-- **date** — for the `.txt`: capture/approval date; the stem stays unchanged as the file moves between state folders.
 
-Underscores separate the three parts; hyphens go *inside* a part. The rendered
-video reuses `m<#>`+title but **swaps the date for the render date**, so a video
-rendered well after its script doesn't carry a stale date — source and
-deliverable stay traceable by module+title:
+Underscores separate the parts; hyphens go *inside* a part. **A working artifact
+carries no date at all** — the raw script, the `refined/` script, the build
+workspace and the `rendered/` script all share one name, which never changes as
+the file moves between state folders. That name is therefore the lesson's
+identity, and `mkdir renders-hyperframes/<name>` is what stops two concurrent
+build agents landing on the same lesson.
+
+Only the delivered MP4 gains a date, the date it was rendered — a fact about an
+event that happened once, frozen at publish:
 
 ```
-m1_the-value-of-building-mid-career-momentum_2026-07-20.txt   ← refined/avatar/ (approved 07-20)
-m1_the-value-of-building-mid-career-momentum_2026-07-22       ← MP4 stem + Wistia title (rendered 07-22)
+m1_the-value-of-building-mid-career-momentum.txt          ← raw / refined/ / rendered/
+m1_the-value-of-building-mid-career-momentum_2026-07-22.mp4  ← the delivered video
 ```
+
+"When was this last acted on" is mtime; the filesystem tracks it and cannot
+drift. (Changed 2026-07-29 — the old scheme restamped every artifact at every
+transition, and a name that moves cannot be a lock. See `decisions/log.md`.)
 
 Lowercase throughout. No spaces, no `+`, no capitals — keeps filenames safe
 across shells, URLs, and Wistia titles.
 
 > **Older program** `early-career-boost/` uses the previous
-> `<section>_<program>_<date>` scheme (section kebab-case; program = the
-> folder slug). Its existing files keep it; the tooling reads both. Use
-> `m<#>_<title>_<date>` for new programs.
+> `<section>_<program>` scheme (section kebab-case; program = the folder slug).
+> Its existing files keep it; the tooling reads both. Use `m<#>_<title>` for new
+> programs. `stem.py base` also still accepts any legacy dated name, so an
+> artifact that predates 2026-07-29 keys correctly wherever one survives.
 
 ## How scripts move
 

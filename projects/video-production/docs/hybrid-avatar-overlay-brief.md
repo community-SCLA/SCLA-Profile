@@ -34,7 +34,7 @@ timing bridge — real work, gated like any other lesson video.
    avatar MP4 as a **framework-owned media layer** (a `<video>` track, seek-safe
    — do NOT hand-animate it) and layers the production notes above it as timed
    `scla-*` overlays: lower-thirds, side cards, callouts, stat rings — drawn on
-   the brand tokens in [`design-system/frame.md`](design-system/frame.md).
+   the brand tokens in [`design-system/docs/design-contract.md`](design-system/docs/design-contract.md).
    Decide the frame split up front (avatar right-third / lower-third vs.
    full-frame with lower-third overlays) — this is the main creative call.
 3. **Bridge the timing.** Overlays must land on the words that motivate them.
@@ -88,7 +88,7 @@ sibling subfolder (e.g. `hybrid/`) to distinguish it. Confirm at kickoff.
 
 One Mid-Career Momentum lesson built end-to-end as a hybrid, passing all
 deterministic gates + the human hyperframe gate, with a repeatable composition
-pattern documented back into `design-system/` (or a note in `frame.md`) so the
+pattern documented back into `design-system/` (or a note in `design-contract.md`) so the
 next hybrid is a copy, not a re-invention.
 
 ## Pointers
@@ -96,5 +96,5 @@ next hybrid is a copy, not a re-invention.
 - Avatar render: [`avatar-pipeline/CLAUDE.md`](avatar-pipeline/CLAUDE.md)
 - Composition contract + media layers: `hyperframes-core`, `hyperframes-creative`
 - Background removal / transcription: `hyperframes-media`
-- Brand tokens + templates: [`design-system/frame.md`](design-system/frame.md)
+- Brand tokens + templates: [`design-system/docs/design-contract.md`](design-system/docs/design-contract.md)
 - Gates: [`render-qa/README.md`](render-qa/README.md)

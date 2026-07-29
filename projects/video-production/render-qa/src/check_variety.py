@@ -115,7 +115,7 @@ PROGRESS_SLOTS = ("num", "total", "step", "stepIndex")
 # design-system/compositions/scla-*.html base background. Navy templates open
 # on the radial dark-navy token (#0d2437 -> #0a1e2f); light templates open on
 # paper/cultured (#ffffff / #f6f6f9). Two judged calls, both from the markup
-# and frame.md's template table:
+# and design-contract.md's template table:
 #   scla-quote — a NAVY CARD sitting ON a light canvas (.q-bg is #f6f6f9)
 #       -> "light".
 #   scla-stat  — split frame: 820px navy panel left, light field right

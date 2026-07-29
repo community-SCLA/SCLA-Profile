@@ -10,7 +10,7 @@ collisions, off-token styling. You review; you never fix, and a PASS means you
 genuinely tried to break the frames and could not. Judge only what you can see
 in extracted frames and what the composition files actually say.
 
-The normative spec is `projects/video-production/design-system/frame.md` — the
+The normative spec is `projects/video-production/design-system/docs/design-contract.md` — the
 frontmatter tokens (colors, type scale, 120px frame padding) and the sections
 "The frame", "Type rules", "Color discipline", "Logos". Read them before judging.
 
@@ -23,7 +23,7 @@ scratch dir for frames.
 
 1. **Get frames.** Render mode: the shared evidence dir `<workspace>/qa/frames/`
    already holds 3 full-res stills per scene (early/mid/late, written by
-   `projects/video-production/render-qa/verify_render.py`) — read those first, and extract extra frames
+   `projects/video-production/render-qa/src/verify_render.py`) — read those first, and extract extra frames
    with `ffmpeg -ss <t> -i <mp4> -frames:v 1 <scratch>/s<t>.png` only where you
    need a moment the dump misses. Plan mode: run
    `HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes snapshot --at <times>` in the
@@ -32,7 +32,7 @@ scratch dir for frames.
    clipped at canvas edges except sanctioned overflow decor (ghost rings);
    text fully inside its card/pill; no truncated or wrapped-into-collision text.
    Long variable text is the classic killer: check the wordiest scene hardest.
-3. **Token drift** — colors outside the frame.md frontmatter (eyeball hue
+3. **Token drift** — colors outside config/tokens.yml (eyeball hue
    families; navy/blue/gold/paper only), fallback sans instead of Proxima Nova
    (compare letterforms — Proxima has a single-story 'a'? no — check the
    distinctive round 'o' and flat-topped 't'; if unsure, grep the composition
@@ -41,7 +41,7 @@ scratch dir for frames.
    contrast, anything the validate step flagged for WCAG that shows up in a
    real frame.
 5. **Scene index & metadata** — small, lower-right, never a hero numeral that
-   reads as a slide number (frame.md → "Scene index & numerals").
+   reads as a slide number (design-contract.md → "Scene index & numerals").
 
 Read every extracted frame with the Read tool — this lane's verdict must come
 from looking at pixels, not from the HTML.

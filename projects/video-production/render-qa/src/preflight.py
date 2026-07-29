@@ -7,7 +7,7 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
   1. compile_timeline.py --check   — anchors resolve, no boundary/cue drift,
                                      no missing padding (the 2026-07-10
                                      cue-mismatch class dies here)
-  2. check_boundaries.py           — frame.md pacing rules vs transcript
+  2. check_boundaries.py           — design-contract.md pacing rules vs transcript
                                      (independent implementation: air, mid-word
                                      /mid-sentence cuts, question air, final
                                      hold, root-vs-audio)
@@ -30,7 +30,7 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      (also enforced by the compiler)
   5. script_match                  — approved lesson script (.txt) vs the
                                      whisper transcript, word-level diff.
-  6. pacing                        — Motion v2 (frame.md "Pacing budget",
+  6. pacing                        — Motion v2 (design-contract.md "Pacing budget",
                                      2026-07-27): per scene, visual events =
                                      entrance settle (1.2s) + every compiled
                                      cue + the closing beat (duration-0.5);
@@ -48,11 +48,11 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      sentence) fails. Script auto-located from
                                      the workspace stem, or pass --script.
   7. text                          — check_text.py: minimum on-frame text size
-                                     (floors LOADED from frame.md
+                                     (floors LOADED from tokens.yml
                                      typography.min-size via tokens.py; body
                                      rose 32 -> 40px on 2026-07-29 because the
                                      floor had been set AT the smallest size in
-                                     use, so it could never fire; frame.md
+                                     use, so it could never fire; tokens.yml
                                      typography.min-size) and no on-frame line
                                      that restates its own scene's label or
                                      heading. Both owner calls, 2026-07-27, off
@@ -82,7 +82,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[1] / "design-system" / "compositions"
+# src/ -> render-qa/ -> video-production/
+DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[2] / "design-system" / "compositions"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tokens
@@ -92,7 +93,7 @@ from stem import StemError, base as stem_base, is_canonical
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
 TOL = 0.002
 
-# pacing gate (Motion v2, 2026-07-27 — normative numbers in frame.md
+# pacing gate (Motion v2, 2026-07-27 — normative numbers in design-contract.md
 # "Pacing budget"): a failing scene is re-authored (split it, add cues, move
 # the boundary), never waved through on background drift.
 GAP_FAIL = 4.0        # s without a visual event -> FAIL (tightened 2026-07-28:
@@ -136,7 +137,7 @@ RATE_WARN = 0.005   # ≤ this: PASS, diffs printed as warnings (noise floor)
 RATE_FAIL = 0.02    # > this: FAIL — the TTS read the wrong text
 RUN_FAIL = 4        # ≥ this many consecutive missed words: FAIL — a sentence
                     # was misread/dropped, not a transcription hiccup
-LESSON_SCRIPTS = Path(__file__).resolve().parent.parent / "lesson-scripts"
+LESSON_SCRIPTS = Path(__file__).resolve().parents[2] / "lesson-scripts"
 
 DASH_RE = re.compile(r"[‒–—―/-]+")
 
@@ -459,9 +460,11 @@ def _style_script_digest(html_text: str) -> str:
 def check_title_card(ws: Path, scenes, script_override=None,
                      scripts_root=LESSON_SCRIPTS):
     """Title-card provenance gate (check 7b). The eyebrow must equal the
-    program's on-screen display name from frame.md's 'Title card & outro
-    sources' table, and the title must be the stem's title segment de-kebabed
-    (case-insensitive). Both were builder-invented before 2026-07-28."""
+    program's on-screen display name from tokens.yml's `programs:` map (was a
+    markdown table in frame.md until 2026-07-29), the map itself must name the
+    lesson-scripts folders it keys on (tokens.programs_problems — the banner
+    rule, 2026-07-29), and the title must be the stem's title segment de-kebabed
+    (case-insensitive). All three were builder-invented before 2026-07-28."""
     problems = []
     title_scene = None
     for sc in scenes:
@@ -480,32 +483,26 @@ def check_title_card(ws: Path, scenes, script_override=None,
     program = script.parent.parent.name if script.parent.name in (
         "refined", "rendered") else script.parent.name
 
-    # Display-name table from the workspace's frame.md copy.
-    display = {}
-    frame = ws / "frame.md"
-    if frame.is_file():
-        in_table = False
-        for ln in frame.read_text(encoding="utf-8", errors="replace").splitlines():
-            if ln.startswith("| Program slug"):
-                in_table = True
-                continue
-            if in_table:
-                cells = [c.strip() for c in ln.strip().strip("|").split("|")]
-                if len(cells) == 2 and cells[0] and not cells[0].startswith("-"):
-                    display[cells[0]] = cells[1]
-                elif not ln.strip().startswith("|"):
-                    break
+    # Display names come from the workspace's tokens.yml copy. This used to
+    # scrape a markdown table out of design-contract.md — a checker parsing prose, which
+    # is exactly the coupling the 2026-07-29 split removed.
+    display = tokens.programs(ws)
     if not display:
         return {"pass": False,
-                "output": "frame.md has no 'Program slug' display-name table "
+                "output": "tokens.yml declares no `programs:` map "
                           "(is the workspace scaffold stale?)"}
+    # Grade the MAP before grading the eyebrow against it. Comparing an eyebrow
+    # to an unvalidated map is a gate that certifies whatever the map says — how
+    # an Early Career Boost lesson shipped banner-labelled "Career Accelerator"
+    # with 7b green (owner, 2026-07-29).
+    problems.extend(tokens.programs_problems(ws))
 
     vars_ = title_scene["variables"]
     want_eyebrow = display.get(program)
     got_eyebrow = str(vars_.get("eyebrow", "")).strip()
     if want_eyebrow is None:
-        problems.append(f"program '{program}' missing from frame.md's "
-                        f"display-name table — add it there, never on the fly")
+        problems.append(f"program '{program}' missing from tokens.yml's "
+                        f"`programs:` map — add it there, never on the fly")
     elif got_eyebrow.lower() != want_eyebrow.lower():
         problems.append(f"eyebrow {got_eyebrow!r} != display name "
                         f"{want_eyebrow!r} for program {program}")
@@ -572,33 +569,41 @@ def check_composition_freshness(ws: Path):
         lines.append(f"not checked ({len(skipped)} instanced clone(s)/unmatched): "
                      + ", ".join(skipped))
 
-    # frame.md is copied into the workspace at init exactly like compositions/,
+    # tokens.yml is copied into the workspace at init exactly like compositions/,
     # and tokens.py reads the WORKSPACE copy when one exists — so every gate
     # that imports a normative number (type floors, safe-area, footer-reserve,
     # content-bottom) grades this build against the snapshot, not the spec.
     # Without this, raising typography.min-size 32 -> 40 on 2026-07-29 silently
     # did not apply to any workspace already on disk: the number "moves in one
     # place" only for workspaces built afterwards. Same failure mode as stale
-    # compositions, same remedy — refresh the copy. (2026-07-29, Phase 2.)
-    ws_frame, src_frame = ws / "frame.md", DESIGN_SYSTEM_COMPOSITIONS.parent / "frame.md"
-    if ws_frame.is_file() and src_frame.is_file():
-        ws_tok, src_tok = tokens.summary(ws), tokens.summary(None)
+    # compositions, same remedy — refresh the copy. (2026-07-29, Phase 2;
+    # retargeted from design-contract.md to config/tokens.yml when the spec was split.)
+    ws_tokens = ws / "tokens.yml"
+    src_tokens = DESIGN_SYSTEM_COMPOSITIONS.parent / "config" / "tokens.yml"
+    if ws_tokens.is_file() and src_tokens.is_file():
+        # summary() carries the scalars; `programs` is a map and lives outside it,
+        # so it is compared separately and folded in with its real values — an
+        # earlier version added the key to `drift` but formatted from summary(),
+        # which printed the useless "programs: workspace None vs spec None".
+        ws_tok, src_tok = dict(tokens.summary(ws)), dict(tokens.summary(None))
+        ws_tok["programs"] = tokens.programs(ws)
+        src_tok["programs"] = tokens.programs(None)
         drift = sorted(k for k in set(ws_tok) | set(src_tok)
-                       if k != "frame_md" and ws_tok.get(k) != src_tok.get(k))
+                       if k != "tokens_file" and ws_tok.get(k) != src_tok.get(k))
         if drift:
-            stale = stale or ["frame.md"]
+            stale = stale or ["tokens.yml"]
             lines.append(
-                "stale frame.md — this workspace's copy declares different "
-                "normative token(s) than design-system/frame.md, and the gates "
-                "read the COPY: "
+                "stale tokens.yml — this workspace's copy declares different "
+                "normative token(s) than design-system/config/tokens.yml, and "
+                "the gates read the COPY: "
                 + "; ".join(f"{k}: workspace {ws_tok.get(k)!r} vs spec "
                             f"{src_tok.get(k)!r}" for k in drift)
-                + ". Refresh frame.md from design-system/ before building.")
+                + ". Refresh tokens.yml from design-system/config/ before building.")
         else:
-            lines.append("ok — frame.md's normative tokens match design-system/frame.md")
-    elif not ws_frame.is_file():
-        lines.append("no frame.md in this workspace — gates fall back to "
-                     "design-system/frame.md")
+            lines.append("ok — tokens.yml matches design-system/config/tokens.yml")
+    elif not ws_tokens.is_file():
+        lines.append("no tokens.yml in this workspace — gates fall back to "
+                     "design-system/config/tokens.yml")
 
     return {"pass": not stale, "output": "\n".join(lines)}
 
@@ -741,7 +746,7 @@ def main():
         failed |= not sections["pacing"]["pass"]
 
     # 7. text — minimum on-frame text size + no restatement of label/heading
-    #    (owner calls 2026-07-27; frame.md typography.min-size + "Type rules").
+    #    (owner calls 2026-07-27; tokens.yml typography.min-size + "Type rules").
     #    Static: reads the workspace's composition CSS and scene variables, so
     #    it costs nothing and catches unreadable/duplicate copy pre-render.
     rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_text.py"),
@@ -749,9 +754,9 @@ def main():
     sections["text"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
 
-    # 7b. title card — eyebrow and title are DERIVED, never authored (frame.md
+    # 7b. title card — eyebrow and title are DERIVED, never authored (design-contract.md
     #     "Title card & outro sources"). eyebrow must be the program's display
-    #     name from frame.md's table (run 2 of the 2026-07-28 stability loop
+    #     name from tokens.yml's `programs:` map (run 2 of the 2026-07-28 stability loop
     #     invented a program name; run 1 used the pre-rebrand one — neither
     #     traceable); title must be the stem's title segment, de-kebabed.
     sections["title_card"] = check_title_card(ws, scenes, script_override)
@@ -886,23 +891,27 @@ def main():
         sections["layout"] = {"pass": rc == 0, "output": out.strip()}
         failed |= rc != 0
 
-    # 12. stem — the workspace name must be canonical: <title>_<program>_<DATE>
-    #     with exactly ONE date, meaning the date of the most recent action on
-    #     this artifact (here, the build). The owner reviewed a video still
-    #     named for its 2026-07-06 refine date after a 2026-07-28 render, with
-    #     the HyperFrames CLI's own _<date>_<clock> stacked on top of that.
-    #     render-qa/stem.py owns the rule (2026-07-28).
+    # 12. stem — a workspace is a WORKING artifact, so its name is the base
+    #     `<title>_<program>` and carries no date. The name is therefore the
+    #     identity, which is what makes `mkdir renders-hyperframes/<base>` the
+    #     build lock for concurrent sessions. A dated workspace name defeats
+    #     that lock silently: it is how one lesson came to hold both
+    #     `..._2026-07-28` and `..._2026-07-29`. Dates survive only on the
+    #     delivered MP4. render-qa/stem.py owns the rule (2026-07-29).
     stem_ok, stem_msg = (True, "")
-    if not is_canonical(ws.name):
-        try:
-            stem_base(ws.name)
-        except StemError as exc:
-            stem_ok, stem_msg = False, str(exc)
+    try:
+        want = stem_base(ws.name)
+    except StemError as exc:
+        stem_ok, stem_msg, want = False, str(exc), None
+    else:
+        if not is_canonical(ws.name):
+            stem_ok = False
+            stem_msg = (f"it carries a date suffix; a build workspace is named "
+                        f"for its base alone")
     sections["stem"] = {
         "pass": stem_ok,
-        "output": (f"workspace name {ws.name!r} is not a canonical stem: "
-                   f"{stem_msg}\n  fix: python3 render-qa/stem.py normalize "
-                   f"{ws.name!r} --date <build-date>, then rename the directory")
+        "output": (f"workspace name {ws.name!r} is not canonical: {stem_msg}"
+                   + (f"\n  fix: mv {ws.name!r} {want!r}" if want else ""))
         if not stem_ok else f"{ws.name} — canonical"}
     failed |= not stem_ok
 

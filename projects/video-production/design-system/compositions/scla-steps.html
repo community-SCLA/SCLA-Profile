@@ -14,7 +14,7 @@
     {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
     {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""},
-    {"id":"icon","type":"string","label":"Optional living icon name (see frame.md icon library; empty = none). Replaces the ghost numeral when set.","default":""},
+    {"id":"icon","type":"string","label":"Optional living icon name (see design-contract.md icon library; empty = none). Replaces the ghost numeral when set.","default":""},
     {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""}
   ]'
 >
@@ -186,7 +186,7 @@
           color: #0d2437;
           opacity: 0;
         }
-        /* Optional living icon (opt-in via `icon`; frame.md → "Living icon library").
+        /* Optional living icon (opt-in via `icon`; design-contract.md → "Living icon library").
            Sits in the header panel's top-right and REPLACES the ghost numeral when set;
            absent by default so step scenes without an icon are unchanged. */
         #st-iconwrap { position: absolute; right: 130px; top: 86px; width: 150px; height: 150px; display: none; }
@@ -197,7 +197,7 @@
            Gold-on-white reads under all three style packages — no theme override needed. */
         #st-done { position: absolute; right: 132px; top: 572px; width: 60px; height: 60px; opacity: 0; }
         #st-done svg { width: 60px; height: 60px; }
-        /* Style packages (frame.md "Style packages") — visual layer only; timeline identical */
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
         #root[data-theme="horizon"] #st-panel { background: #f6f6f9; }
         #root[data-theme="horizon"] .st-bg::after { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); }
         #root[data-theme="horizon"] #st-tick { background: #3393d6; }
@@ -304,7 +304,7 @@
           tl.fromTo("#st-track-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 0.4);
           // Explicit activation cues (local seconds) fire each step node/caption the
           // moment the narration reaches that step ("first… second… third…"). Empty →
-          // default even spread. frame.md → "Reveal on the spoken cue, not on a timer".
+          // default even spread. design-contract.md → "Reveal on the spoken cue, not on a timer".
           const stepCues = String(vars.stepCues || "")
             .split(",")
             .map(function (s) { return Number(s.trim()); })
@@ -330,7 +330,7 @@
               at + 0.22,
             );
           }
-          // Furniture paints at t=0 (frame.md — no bare first frame at a cut):
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut):
           // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.
           tl.fromTo(["#st-index", "#st-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost numeral
@@ -373,7 +373,7 @@
           // Optional living icon in the header panel (opt-in via `icon`; owner decision
           // 2026-07-15 — living icons may appear on single-focus step scenes, still
           // sparing and drawn on the cue). Geometry MIRRORED from scla-condition.html's
-          // ICONS map (the canonical source; frame.md → "Living icon library" — keep in
+          // ICONS map (the canonical source; design-contract.md → "Living icon library" — keep in
           // sync). Main stroke follows the panel: navy on the light panel, white on the
           // navy cadence panel; gold accents/dots pop last.
           const iconName = String(vars.icon || "").trim();
@@ -429,9 +429,9 @@
               if (draws.length) tl.fromTo(draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.1 }, drawAt);
               if (dots.length) tl.fromTo(dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, drawAt + 0.5);
               // REMOVED 2026-07-29 (owner): the living-icon bob. The icon is a
-              // cued content hero, not a background layer — frame.md's drift
+              // cued content hero, not a background layer — design-contract.md's drift
               // allow-list covers ghost/ring decoration only. Its motion is the
-              // draw-on above, and that is all. (Mechanism: `render-qa/check_motion.py`.)
+              // draw-on above, and that is all. (Mechanism: `render-qa/src/check_motion.py`.)
             }
           }
           // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final

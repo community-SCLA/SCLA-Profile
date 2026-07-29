@@ -14,7 +14,7 @@ import shutil
 import sys
 from pathlib import Path
 
-PIPE = Path(__file__).resolve().parents[0].parent
+PIPE = Path(__file__).resolve().parents[1] / "src"
 sys.path.insert(0, str(PIPE))
 from preflight import (RATE_FAIL, RATE_WARN, RUN_FAIL, check_script_match,
                        diff_script_transcript, locate_script,

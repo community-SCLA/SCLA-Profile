@@ -45,7 +45,7 @@ import tempfile
 from pathlib import Path
 
 RQ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RQ))
+sys.path.insert(0, str(RQ / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import boxmodel            # noqa: E402
@@ -84,9 +84,9 @@ def materialize(plan: dict, name: str) -> Path:
     ws.mkdir(parents=True, exist_ok=True)
     shutil.copytree(DESIGN_SYSTEM / "compositions", ws / "compositions",
                     dirs_exist_ok=True)                        # harness rule 2
-    shutil.copy(DESIGN_SYSTEM / "frame.md", ws / "frame.md")
+    shutil.copy(DESIGN_SYSTEM / "config" / "tokens.yml", ws / "tokens.yml")
     (ws / "scenes.json").write_text(json.dumps(plan, indent=2))
-    r = subprocess.run([sys.executable, str(RQ / "build_index.py"), str(ws)],
+    r = subprocess.run([sys.executable, str(RQ / "src" / "build_index.py"), str(ws)],
                        capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError(f"build_index failed for {name}:\n{r.stdout}\n{r.stderr}")
@@ -185,11 +185,22 @@ mutate("enumeration split 3/2/2 across three scenes", "missing-conjunction",
        split_enumeration)
 
 # 2. A text collision at scene 15 — deep enough that a 9-point sampler misses it.
+# Retargeted 2026-07-29: this used to collide `step3` with the sub-beat, which
+# lived under the illustration. The owner moved the sub-beat up into the header
+# panel that same day, which made that particular pair structurally unable to
+# meet — and the mutant then fired capacity rules instead, which is a different
+# gate proving a different thing. The collision the NEW layout can still have is
+# a heading that wraps into the sub-beat sitting right below it, so that is what
+# this mutates. A mutation whose defect the design eliminated is retargeted at
+# the design's own remaining seam, never deleted or re-pointed at whatever the
+# mutant happened to trip.
 def collide(plan):
     loop = scene_by_template(plan, "scla-loop")
-    loop["vars"] = dict(loop["vars"],
-                        step3="Grounded in what you value and in what you need",
-                        subBeats="Use it on any career decision you ever face")
+    loop["vars"] = dict(
+        loop["vars"],
+        heading="A Repeatable Process You Can Use on Any Career Decision "
+                "at Any Stage You Ever Reach",
+        subBeats="Same four steps, every time")
 
 
 mutate("a text collision on the loop captions", "text-collision", collide)

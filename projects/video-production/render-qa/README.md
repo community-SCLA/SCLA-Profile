@@ -7,14 +7,21 @@ transcript "repair", emergency silence padding, 14 cue-phrase mismatches).
 The inversion: **authors declare text (per-scene narration spans + cue
 phrases); these tools compute every number.** Used by `/render-lessons`
 (BUILD gates + SHIP verify) and `/adversarial-qa`; the authoring contract
-lives in `design-system/frame.md`.
+lives in `design-system/docs/design-contract.md`.
 
-**Folder shape (2026-07-28, R7):** tool code + `tests/` live flat at this
-level — the tools compute the repo root positionally (e.g. `parents[3]`), so
-**never nest the `.py` files deeper**. `snag-log.md` stays here too (the
-settings hook and skills reference this exact path); it rotates old entries
-into `logs/` per its header policy. `logs/` = rolling logs + rotated archives
-(`BUILD-LOG.md` lives there); `docs/` = handoff/working docs.
+**Folder shape (2026-07-29):** `src/` tool code · `tests/` the suite that pins
+it · `docs/` handoffs and working notes · `logs/` the rolling snag-log,
+`BUILD-LOG.md`, and rotated archives.
+
+The tools compute paths from `__file__` **positionally** — `src/` → `render-qa/`
+→ `video-production/` is `parents[2]`, and the repo root is `parents[4]` from
+`src/`. That is the one thing this folder is fragile about: **moving a `.py`
+between directory levels silently breaks every relative lookup** (design-system,
+lesson-scripts, the skills dir) without a syntax error. If you move one, re-derive
+its `parents[n]` and run `tests/run_tests.py`. Until 2026-07-29 the code sat flat
+at this level and this README said never to nest it; the nesting was done
+deliberately in the project-layout refactor, and every derivation was retargeted
+in the same pass.
 
 **2026-07-14 — per-scene synthesis replaced the single-take + inserted-silence
 flow.** The old flow synthesized the whole script as one Kokoro take (natural
@@ -41,13 +48,13 @@ this file per-workspace and prefer it over `transcript.json` when present —
 | `synth_narration.py <ws> [--provider heygen\|kokoro]` | after assembling `index.html` | Per-scene TTS: verifies every scene's `data-narration` against the approved script (exact token match, BEFORE any TTS), synthesizes one clip per scene (cached by a hash of provider+voice+speed+text — edits re-synthesize only changed scenes; default provider **heygen**, needs `$HEYGEN_API_KEY` — run under `scripts/with-secrets.sh`), trims clip edge silence, **caps IN-SCENE silence at 0.5s** (`--max-gap`; HeyGen's Oxana pauses 0.98–1.26s mid-scene at sentence/clause boundaries, non-deterministically — audio and picture both die there because the cues derive from the same word timestamps, so the excess samples are excised, faded, and subtracted from that clip's later word times; 2026-07-28), concatenates with REAL boundary gaps (0.3s air + 0.15s lead; 0.45s air after questions), writes `narration.wav` + the sample-exact boundary manifest `assets/voice/scene-times.json` + (heygen path) `assets/voice/narration.words.json`, and deletes stale `transcript.json`/a stale words file from a different provider so a forgotten re-transcribe or a leftover words file fails loudly. |
 | `compile_timeline.py <ws> --apply` | after synth (+ transcribe on the kokoro path) | Manifest mode (default for new builds): scene boundaries come from `scene-times.json`; cue phrases in `data-cue-anchors` resolve against `narration.words.json` (HeyGen) or the whisper transcript (kokoro), whichever exists, inside each scene's manifest window; writes every `data-start`/`data-duration`, numeric cue, `sceneDuration`, audio + root duration. No silence is ever inserted. Legacy mode (no manifest): `data-anchor-end` anchoring + boundary-silence insertion, kept for old workspaces. Idempotent. `--check` = drift detector (exit 1 on any). |
 | `preflight.py <ws> [--script <path>]` | before every render | One-command pre-render gate: compiler drift check + `check_boundaries.py` (independent pacing rules; manifest = ground truth for spoken ends and question flags — transcript word ends can drift into silence) + one-template-file-per-slot (`instance_templates.py --check`) + **compositions/ freshness** (workspace `compositions/*.html` is copied once at init and never refreshed — compares each non-instanced file's `<style>`/`<script>` content against the current `design-system/compositions/` source; a full-file diff would false-positive on every scene because HyperFrames re-serializes HTML on catalog/build, so this hashes just the RAWTEXT blocks that pass through unchanged; instanced clones (`basename__suffix.html`) are skipped — added 2026-07-27, C2) + clip coverage (tile 0→root, no gaps/overlaps) + one-theme-per-video + script fidelity (approved `lesson-scripts/` `.txt` vs `narration.words.json`/whisper transcript, word-level diff — threshold-based because whisper small.en mishears ~1/360 (HeyGen's exact-text words pass well inside the same thresholds): isolated misses PASS with warnings, mismatch rate >2% or ≥4 consecutive missed words FAILs; spelled numbers fold to digits on both sides; script auto-located from the workspace stem or passed via `--script`; missing script = WARN + skip) + **in-scene silence** (no inter-word hole INSIDE a scene above 0.8s; scene-boundary air is excluded via `scene-times.json`, and it reads the whole-file `narration.words.json`, never the per-scene files — those keep the provider's uncompressed pauses. Regression guard for `synth_narration.py`'s 0.5s cap, 2026-07-28). Exit 0 = cleared to render. |
-| `check_text.py <ws>` | inside `preflight.py` (section 7); standalone against `design-system/` to grade the templates | Static on-frame TEXT gate. **size:** every `font-size` rule in `<ws>/compositions/*.html` graded against `frame.md`'s `typography.min-size` floors — body ≥32px, label ≥20px — with the class read off the typesetting (`text-transform: uppercase` **and** `letter-spacing` = label furniture, everything else = body copy). Opt a rule out with `/* text-floor-exempt: <reason> */` above it (marker numerals sized by their circle). **restate:** FAILs any `subBeats`/point/step/caption/line whose words are a subset of, or ≥80% overlap with, that scene's own `label`/`heading`/`kicker`/`statement` — a second, smaller copy of a line already on the frame at full size. Both owner calls, 2026-07-27. |
+| `check_text.py <ws>` | inside `preflight.py` (section 7); standalone against `design-system/` to grade the templates | Static on-frame TEXT gate. **size:** every `font-size` rule in `<ws>/compositions/*.html` graded against `design-contract.md`'s `typography.min-size` floors — body ≥32px, label ≥20px — with the class read off the typesetting (`text-transform: uppercase` **and** `letter-spacing` = label furniture, everything else = body copy). Opt a rule out with `/* text-floor-exempt: <reason> */` above it (marker numerals sized by their circle). **restate:** FAILs any `subBeats`/point/step/caption/line whose words are a subset of, or ≥80% overlap with, that scene's own `label`/`heading`/`kicker`/`statement` — a second, smaller copy of a line already on the frame at full size. Both owner calls, 2026-07-27. |
 | `verify_render.py <ws> [mp4]` | after every render | Container truth (streams/duration/resolution) + presence v2 (blank frames by stddev **and** content pixels, ≥5s stagnation tripwire, audio-vs-video) + writes the shared QA frame evidence: `<ws>/qa/frames/` — 3 full-res stills per scene for the gauntlet lanes and the human gate. Exit 0 before anyone reviews the cut. |
 | `hfp_common.py` | library | Transcript loading, normalized duplicate-safe phrase matching (forward pointer, positional), scene-slot parse/rewrite (incl. `data-narration`), apostrophe-safe attribute JSON. |
 | `tests/run_tests.py` | after editing any tool | 36 adversarial fixtures: duplicate words, missing/unresolvable anchors, cue-count mismatches, unclaimed transcript tails, question air, legacy padding idempotency, `data-hf-id` parsing trap, apostrophe injection, per-scene synth (clip cache, trim, real-silence gaps, stale-artifact hygiene), manifest-mode compile (boundaries, cue windows, idempotency, count mismatch). Must print `36 passed, 0 failed`. |
 | `tests/test_script_match.py` | after editing `preflight.py` | Synthetic fixtures for the script-fidelity gate: clean match, noise-floor mishear (passes with warning), dropped/misread sentence (fails), >2% mismatch rate (fails), dash-compound tokenization, stem-based script location, missing script warn+skip. |
 
-## The authoring contract (normative copy: `design-system/frame.md`)
+## The authoring contract (normative copy: `design-system/docs/design-contract.md`)
 
 ```html
 <div … data-narration="Ask where you are hiding somewhere. …"

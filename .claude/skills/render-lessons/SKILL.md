@@ -7,7 +7,7 @@ description: Build and ship SCLA lesson videos from refined scripts. AUTO-BATCH 
 
 **This file owns the build/ship/publish sequence and every command.** The
 design contract (tokens, animacy rules, anchor/timing contract, templates,
-style packages) is `projects/video-production/design-system/frame.md` — the
+style packages) is `projects/video-production/design-system/docs/design-contract.md` — the
 build subagent reads it while assembling; nothing from it is restated here.
 
 **ONE HUMAN CHECKPOINT, blocking, explicit:**
@@ -38,13 +38,18 @@ Never fabricate SCLA content; no FERPA/PII in any prompt.
 
 **State is the folder:**
 
+A working artifact is named `<title>_<program>` — **no date**. Only the
+delivered MP4 carries one, the render date, frozen at publish (2026-07-29,
+`decisions/log.md`).
+
 ```
-lesson-scripts/<program-slug>/refined/   BUILD's queue — scripts not yet built
-                                         (refined/avatar/ is the HeyGen avatar
-                                         queue — NOT built here; see B1)
-renders-hyperframes/<stem>/              built — sitting at the HYPERFRAME GATE
-lesson-scripts/<program-slug>/rendered/  its script, moved here once the build is gate-clean (B3)
-renders-mp4/<program-slug>/hyperframes/<stem>.mp4   shipped — filed locally, then published to Wistia in the same pass
+lesson-scripts/<program-slug>/refined/<base>.txt    BUILD's queue — scripts not yet built
+                                                    (refined/avatar/ is the HeyGen avatar
+                                                    queue — NOT built here; see B1)
+renders-hyperframes/<base>/                         built — sitting at the HYPERFRAME GATE
+lesson-scripts/<program-slug>/rendered/<base>.txt   its script, moved here at publish (B3)
+renders-mp4/<program-slug>/hyperframes/<base>_<render-date>.mp4
+                                                    shipped — filed locally, then published to Wistia
 ```
 
 (`rendered/` means "a gate-clean build exists for this script," not
@@ -84,11 +89,11 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
   …/refined/*.txt`), not a recursive `find`. A
   gate-clean build moves its script out to `rendered/` (B3), so `refined/`
   already holds only un-built scripts. The workspace check stays as a guard:
-  if a stem still in `refined/` somehow already has a
-  `renders-hyperframes/<stem>/` workspace, it's built and waiting at the gate —
-  skip it (never rebuild one without being asked; point the human at its
-  preview instead). This is also what makes parallel BUILD sessions safe —
-  neither rebuilds a stem that already has a workspace.
+  if a script still in `refined/` already has a `renders-hyperframes/<base>/`
+  workspace, it's built and waiting at the gate — skip it (never rebuild one
+  without being asked; point the human at its preview instead). Since a
+  workspace is named for its base and nothing restamps it, that check is exact;
+  the subagent's own `mkdir` is the hard backstop for a race the check loses.
 - **No batch cap — the queue is the batch.** (Removed 2026-07-28: the old
   ≤3-per-session cap justified itself with a 500-tool-call budget in
   `hooks/pre-tool.sh`, and that hook is not armed — `~/.claude/settings.json`
@@ -97,10 +102,19 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
   video** — that keeps script bodies and `index.html` out of the orchestrator's
   context — plus the Phase AUTO-BATCH economics below. Both are mandatory; the
   number is not.
+- **Builds run concurrently; renders do not.** Authoring and TTS are
+  network-bound and overlap cleanly, so dispatch build subagents **up to 3 at a
+  time**. Rendering is CPU-bound and is serialised by a lock inside
+  `batch-ship.sh` (`renders-hyperframes/.render.lock`) — a second render exits 2
+  rather than thrashing a 4-core box. You do not have to remember either rule:
+  `mkdir <base>` is the build lock and `.render.lock` is the render lock, both
+  atomic. (2026-07-29 — before this, "sequentially" was a sentence in this file
+  and a session was already running 4 concurrent builds against no render lock
+  at all.)
 - Style package: the human's pick if given; otherwise rotate
   summit → horizon → cadence by the program's **started-build** count —
   `count(*.txt in lesson-scripts/<program-slug>/rendered/) mod 3` (rule:
-  `frame.md` → "Style packages"). Never scan `_archive/` for this — `rendered/`
+  `design-contract.md` → "Style packages"). Never scan `_archive/` for this — `rendered/`
   already holds every gate-clean build's script, so it covers delivered +
   at-gate builds. The orchestrator computes the theme per queued video
   (consecutive builds in one batch keep rotating) and passes it to the subagent.
@@ -108,8 +122,11 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 
 ### B2 — One cold build subagent per video
 
-Dispatch a general-purpose subagent per script (sequentially — they share the
-toolchain and `/dev/shm`). Strong model for bespoke/illustration-heavy lessons;
+Dispatch a general-purpose subagent per script, **up to 3 concurrently** (they
+share the toolchain and `/dev/shm`, but builds are network- and authoring-bound;
+the CPU-bound render is serialised separately by `.render.lock`). Each claims
+its workspace with `mkdir`, so two subagents cannot collide on one lesson.
+Strong model for bespoke/illustration-heavy lessons;
 a routine template instantiation runs fine one tier down. The prompt carries
 **paths + facts, never file bodies** (except the snag block):
 
@@ -118,7 +135,7 @@ a routine template instantiation runs fine one tier down. The prompt carries
 - the **Open + rules block from the latest snag-log entry**, pasted verbatim;
 - "Follow the **Build sequence** section of
   `.claude/skills/render-lessons/SKILL.md` exactly. You author `scenes.json`
-  only — `index.html` is compiled, never hand-written. Read `frame.md` before
+  only — `index.html` is compiled, never hand-written. Read `design-contract.md` before
   planning scenes. Loop `build_index.py` + `preflight.py --static` until the
   plan is clean, then synth + compile and loop until full preflight and check
   are green. Do NOT run `npm run render`. Report: workspace path, scene count,
@@ -126,18 +143,20 @@ a routine template instantiation runs fine one tier down. The prompt carries
 
 ### Build sequence (the subagent reads this section)
 
-The workspace is named for the date it is **built**, not the date the script was
-refined — one date suffix, always the most recent action (`.claude/rules/
-video-production.md`). `render-qa/stem.py` owns the rule; never hand-slice it.
+The workspace is named `<title>_<program>` — no date (`.claude/rules/
+video-production.md`). `render-qa/src/stem.py` owns the rule; never hand-slice a
+suffix. **`mkdir` is the build lock** — atomic, so it is what makes concurrent
+builds safe. Never `mkdir -p`, never test-then-create.
 
 ```bash
 cd projects/video-production/renders-hyperframes
-WS="$(python3 ../render-qa/stem.py restamp <script-stem>)"   # -> title_program_<today>
+WS="$(python3 ../render-qa/src/stem.py base <script-stem>)"   # -> title_program
+mkdir "$WS" || { echo "$WS already claimed by another build — STOP"; exit 1; }
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init "$WS" --example=blank --non-interactive
-# copy frame.md, compositions/, assets/ in from ../design-system/
+# copy design-contract.md, compositions/, assets/ in from ../design-system/
 cd "$WS"
 # init regenerates a CLAUDE.md routing to skills this repo deleted — replace it:
-printf '# Build workspace. Sequence + commands: /render-lessons. Design contract: ../../design-system/frame.md\n' > CLAUDE.md
+printf '# Build workspace. Sequence + commands: /render-lessons. Design contract: ../../design-system/docs/design-contract.md\n' > CLAUDE.md
 ```
 
 <!-- BUILD-KIT:BEGIN — scripts/batch-prepare.sh extracts everything between
@@ -147,7 +166,7 @@ printf '# Build workspace. Sequence + commands: /render-lessons. Design contract
      (a builder once pasted a cautionary example's heading into a video). -->
 
 **Author `scenes.json` FIRST — never `index.html`.** The plan is the only
-thing you write; `render-qa/build_index.py` compiles it into `index.html`
+thing you write; `render-qa/src/build_index.py` compiles it into `index.html`
 deterministically (host boilerplate, progress rail, `<audio>` host, per-slot
 template clones and instance repointing are all compiler-owned — the generated
 file's banner comment says so). One scene entry per beat: `template` (a
@@ -156,11 +175,11 @@ script), every slot filled or explicitly `""`, cue **anchor phrases** never
 numbers. Learn the shape from any newer dated build's `scenes.json`, or
 regenerate one from an existing build with `build_index.py --extract <ws>`.
 **Never pattern-match the demo reel or the init-generated workspace
-`CLAUDE.md`** — both are legacy. Follow `frame.md`'s animacy + illustration
+`CLAUDE.md`** — both are legacy. Follow `design-contract.md`'s animacy + illustration
 rules when choosing templates and copy. Standing landmines:
 
-- **Vary the form, or the gate fails you** (`frame.md` → "Variety contract";
-  gate: `render-qa/check_variety.py`). The hard rules: **never a one-item
+- **Vary the form, or the gate fails you** (`design-contract.md` → "Variety contract";
+  gate: `render-qa/src/check_variety.py`). The hard rules: **never a one-item
   list** (a list slot with exactly one entry draws the bullet/pill illustration
   around a single fact — give it ≥2 items or use a form that states one idea);
   **max 2 consecutive** scenes on one template family; **≥5 distinct content
@@ -178,7 +197,7 @@ rules when choosing templates and copy. Standing landmines:
   the one to use. Rotate the connective device too: an arrow drawn between two
   statements, a comparison scale, a split frame — not a fourth pill row.
 - **Headings are Title Case, no terminal period** (gate:
-  `render-qa/check_copy.py`). Body copy stays sentence case.
+  `render-qa/src/check_copy.py`). Body copy stays sentence case.
 - **`index.html` is a build artifact — never hand-edit it.** Every fix goes in
   `scenes.json` (or the bespoke composition file under `compositions/`, for a
   bespoke scene) and gets recompiled. The authoring loop is seconds, not
@@ -214,11 +233,11 @@ it returns native word
 timestamps with the synthesis, so the Whisper transcribe step is **skipped**:
 
 ```bash
-python3 ../../render-qa/build_index.py .               # scenes.json -> index.html; compiler-owned, never hand-edited
-python3 ../../render-qa/preflight.py . --static        # plan-stage gates (variety, copy, slots, text, stem) — exit 0 BEFORE any TTS is spent
-../../../../scripts/with-secrets.sh python3 ../../render-qa/synth_narration.py .   # per-scene HeyGen TTS -> narration.wav + scene-times.json + narration.words.json
-python3 ../../render-qa/compile_timeline.py . --apply  # owns ALL numbers (boundaries + cues from the manifest + HeyGen words)
-python3 ../../render-qa/preflight.py .                 # full gate incl. script-vs-transcript diff — exit 0 or fix
+python3 ../../render-qa/src/build_index.py .               # scenes.json -> index.html; compiler-owned, never hand-edited
+python3 ../../render-qa/src/preflight.py . --static        # plan-stage gates (variety, copy, slots, text, stem) — exit 0 BEFORE any TTS is spent
+../../../../scripts/with-secrets.sh python3 ../../render-qa/src/synth_narration.py .   # per-scene HeyGen TTS -> narration.wav + scene-times.json + narration.words.json
+python3 ../../render-qa/src/compile_timeline.py . --apply  # owns ALL numbers (boundaries + cues from the manifest + HeyGen words)
+python3 ../../render-qa/src/preflight.py .                 # full gate incl. script-vs-transcript diff — exit 0 or fix
 npm run check                                          # lint + validate + inspect
 ```
 
@@ -249,7 +268,7 @@ For each returned workspace, independently re-run the deterministic gate —
 trust exit codes you produced, not subagent prose:
 
 ```bash
-python3 projects/video-production/render-qa/preflight.py projects/video-production/renders-hyperframes/<stem>
+python3 projects/video-production/render-qa/src/preflight.py projects/video-production/renders-hyperframes/<stem>
 ```
 
 **Once your independent preflight exits 0**, the build is gate-clean. The
@@ -264,11 +283,11 @@ the literal, copy-pasteable command with that video's actual stem filled in,
 one fenced command per video built this session (even when there's only one):
 
 ```bash
-bash scripts/preview.sh career-building-is-a-repeatable-process_early-career-boost_2026-07-10
+bash scripts/preview.sh career-building-is-a-repeatable-process_early-career-boost
 ```
 
 ```bash
-bash scripts/preview.sh what-makes-for-a-dream-job_early-career-boost_2026-07-10
+bash scripts/preview.sh what-makes-for-a-dream-job_early-career-boost
 ```
 
 State plainly: "Built and gate-clean. Nothing renders until you approve —
@@ -344,7 +363,7 @@ bash scripts/batch-prepare.sh          # builds renders-hyperframes/_run/
 artifact, gitignored, never committed, so it **cannot drift** the way a
 hand-maintained doc would:
 
-- `_run/BUILD-KIT.md` — the authoring contract distilled from `frame.md`
+- `_run/BUILD-KIT.md` — the authoring contract distilled from `design-contract.md`
   (6,139 words) + the Build sequence + the standing landmines, down to ~2–3k
   tokens. A build subagent reads **this one file**, not thirty.
 - `_run/scaffold/` — a workspace already `hyperframes init`'d at the pinned
@@ -401,10 +420,13 @@ run economics on video 1 rather than at 3am.
    to `rendered/` → commit → delete local MP4 → prune in place. Publish
    refuses a stem already in `published.tsv`, so re-running is safe.
 
-**Pipelining:** because the driver is backgrounded, video N+1 *builds*
+**Pipelining:** because the driver is backgrounded, videos N+1..N+3 *build*
 (network- and authoring-bound) while video N *renders* (CPU-bound). Different
-resources, so they overlap cleanly. Do **not** run two renders at once — on a
-4-core box that thrashes and costs more than it saves.
+resources, so they overlap cleanly — keep up to **3 builds in flight** so the
+render lane never sits idle waiting for a plan. Two renders at once would
+thrash a 4-core box, so `batch-ship.sh` refuses: the second exits 2 on
+`.render.lock`. You do not have to sequence renders by hand, but do not treat a
+lock failure as a retry-in-a-loop — wait for the render in flight to finish.
 
 **Backgrounding is also what avoids the 10-minute tool-call ceiling** — a ~7
 min render in a foreground call sits far too close to it.
@@ -412,7 +434,7 @@ min render in a foreground call sits far too close to it.
 ### A4 — Orchestrator context discipline (non-negotiable)
 
 The batch survives only if the orchestrator stays small. Never read a script
-body, an `index.html`, or `frame.md` yourself — those are subagent territory.
+body, an `index.html`, or `design-contract.md` yourself — those are subagent territory.
 **Never let rendered frames into your own context:** `verify_render.py` dumps 3
 PNGs per scene, so a 15-scene video is 45 images ≈ 65k tokens and 30 videos
 would be ~2M — more than everything else combined. The frame review runs inside
@@ -445,7 +467,7 @@ Append a **new entry at the top** of `render-qa/snag-log.md` following the
 rules in its header: new snags tagged `[env]/[tooling]/[authoring]/[upstream]/[defect]`
 with resolution + time cost, **Open items carried forward verbatim from the
 previous entry until actually fixed**, and durable lessons promoted into the
-owning doc (this SKILL, `frame.md`, or preflight/verify checks) in the same
+owning doc (this SKILL, `design-contract.md`, or preflight/verify checks) in the same
 session — the doc is the memory, the log is the trail. **Open items are
 owner-actionable by definition** — anything you could fix yourself (code,
 config, a retry, filing an upstream bug), fix this session; never roll

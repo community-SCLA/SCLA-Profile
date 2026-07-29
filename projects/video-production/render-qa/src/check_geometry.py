@@ -21,7 +21,21 @@ box intersect anything? boxmodel.py answers where every string lands; this gate
 grades the result. Static, no browser, no render — so it fires at plan stage,
 where the fix is a JSON edit rather than a re-synthesis and a re-render.
 
-THREE RULES:
+FOUR RULES:
+
+  card-gutter      Two BORDERED CARDS stacked in the same column sit closer than
+                   tokens.yml spacing.card-gutter, or overlap outright. This is
+                   the one rule graded on LAYOUT boxes rather than ink, because a
+                   card's border and fill are what the viewer sees touching —
+                   the 2026-07-29 career-map cut left 26px between one pair and
+                   74px between the other and the owner read the 26 as touching,
+                   while every ink box inside them was comfortably clear.
+                   Deliberately narrow, to stay believable: both elements must be
+                   absolutely positioned, carry a full border, and OVERLAP
+                   HORIZONTALLY (i.e. actually be in one column). A row of chips
+                   and a list of hairline-separated rows are adjacent by design
+                   and are not graded — inventing collisions is how a gate gets
+                   switched off.
 
   text-collision   Two painted glyph runs overlap by more than TOLERANCE on both
                    axes. Graded on INK boxes, not layout boxes — a centred
@@ -31,27 +45,27 @@ THREE RULES:
                    layering opts out with `data-layout-allow-overlap` ON THE
                    ELEMENT — stated, never tolerated by a loosened threshold.
 
-  footer-breach    A content element's ink crosses content-bottom (frame.md
+  footer-breach    A content element's ink crosses content-bottom (tokens.yml
                    spacing.content-bottom, loaded via tokens.py). This is the
                    2026-07-28 career-map defect: a card grew to three lines and
                    ran through the footer rule.
 
   safe-area-breach A content element's ink crosses into the outer keep-out band
-                   (frame.md spacing.safe-area).
+                   (tokens.yml spacing.safe-area).
 
   padding-breach   BODY-class content crosses the nominal content inset
-                   (frame.md spacing.frame-padding). frame-padding has been
+                   (tokens.yml spacing.frame-padding). frame-padding has been
                    declared since the system was built and was enforced by
                    nothing at all — tokens.py exposed frame_padding() and no
                    caller ever read it. Graded on body class only: the inset is
-                   the target for PRIMARY CONTENT, and frame.md hands the outer
+                   the target for PRIMARY CONTENT, and the design contract hands the outer
                    band to label-class furniture (brandline, scene index, rail
                    label, eyebrow) by name, so grading chrome against it would
                    fail every template in the system. Decorative bleed opts out
                    with `data-layout-allow-overflow`, which the ghost numerals
                    in scla-steps/scla-loop already declare.
 
-FOOTER CHRME IS NOT CONTENT. frame.md gives the bottom `footer-reserve` band to
+FOOTER CHROME IS NOT CONTENT. The design contract gives the bottom `footer-reserve` band to
 the brandline, scene index and progress rail by name, and every one of them is
 label-class furniture (uppercase + tracked) declared with `bottom:` inside that
 band. Those are derived as chrome and exempted from the two bounds rules — they
@@ -121,6 +135,40 @@ def _name(node: dict) -> str:
     return "<" + node["tag"] + ">"
 
 
+# A card, for the card-gutter rule, is THREE things at once — each condition
+# earns its place by excluding a real element that would otherwise cry wolf:
+#   * absolutely positioned          (flow rows stack by design)
+#   * a border on all four sides     ('border-bottom' is a rule between list
+#                                     rows, not a card — keeps kp-item out)
+#   * carries painted text inside it (the decorative ghost rings and corner
+#                                     marks are bordered, absolutely positioned,
+#                                     empty, and DELIBERATELY concentric; every
+#                                     one of them fired before this condition)
+# What survives all three is a content container, which is the only thing whose
+# edges a viewer reads as spacing.
+_FULL_BORDER = re.compile(r"^\s*(?:[\d.]+px|thin|medium|thick)\s+\w+")
+
+
+def _card_nodes(layout: "boxmodel.Layout", painted):
+    bearing = set()
+    for node, _ink in painted:
+        cur = node
+        while cur is not None:
+            bearing.add(id(cur))
+            cur = cur.get("parent")
+    cards = []
+    for n in layout.doc.nodes:
+        box = layout.boxes.get(id(n))
+        if box is None or id(n) not in bearing:
+            continue
+        d = layout.doc.decls(n)
+        border = d.get("border") or ""
+        if (d.get("position") == "absolute" and _FULL_BORDER.match(border)
+                and "none" not in border and layout.is_present(n)):
+            cards.append((n, box))
+    return cards
+
+
 def grade(html: str, variables: dict, ws=None):
     """Findings for one template instantiated with one scene's variables."""
     doc = boxmodel.Doc(html)
@@ -140,6 +188,34 @@ def grade(html: str, variables: dict, ws=None):
         painted.append((node, ink))
 
     findings = []
+
+    # 0. card gutters — layout boxes, not ink. See the docstring for why this
+    #    rule is scoped to absolutely-positioned, fully-bordered, horizontally
+    #    overlapping pairs and nothing else.
+    gutter = tokens.card_gutter(ws)
+    cards = _card_nodes(layout, painted)
+    for i, (a, abox) in enumerate(cards):
+        for b, bbox in cards[i + 1:]:
+            if ("data-layout-allow-overlap" in a["attrs"]
+                    or "data-layout-allow-overlap" in b["attrs"]):
+                continue
+            # Same column? Only then is the vertical gap the thing the viewer
+            # reads as spacing.
+            if min(abox.right, bbox.right) - max(abox.x, bbox.x) <= TOLERANCE:
+                continue
+            gap = max(abox.y, bbox.y) - min(abox.bottom, bbox.bottom)
+            if gap >= gutter - TOLERANCE:
+                continue
+            top, low = (a, b) if abox.y <= bbox.y else (b, a)
+            findings.append({
+                "rule": "card-gutter",
+                "detail": (
+                    f"{_name(top)} and {_name(low)} sit {gap:.0f}px apart in the "
+                    f"same column (need {gutter:.0f}px)"
+                    + (" — the cards OVERLAP" if gap < 0 else "")
+                    + ". A card grows when its copy wraps; space the slots for "
+                    f"the widest legal card, never for the copy in front of you"),
+            })
 
     # 1. collisions
     for i, (a, abox) in enumerate(painted):
@@ -220,7 +296,7 @@ def check(target: Path):
     if not scenes:
         return None, ["no scene slots found in index.html"]
 
-    ws = target if (target / "frame.md").is_file() else None
+    ws = target if (target / "tokens.yml").is_file() else None
     report = {"scenes": [], "unplaced": 0, "graded": 0}
     problems = []
     cache: dict[str, str] = {}

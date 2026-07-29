@@ -14,6 +14,6 @@ human liked it.
 **The plan is stored; the workspace is not.** `build_index.py` compiles this
 against the LIVE `design-system/` on every run. A frozen *workspace* would
 hard-fail `composition_freshness` within 24h and would be graded against a
-snapshot of `frame.md`; a frozen *plan* tracks live templates by construction,
+snapshot of `design-contract.md`; a frozen *plan* tracks live templates by construction,
 so a template edit that breaks this plan shows up as a red test rather than as
 a fixture that quietly diverges from the system it is meant to represent.
