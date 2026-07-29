@@ -235,6 +235,10 @@ def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
         want = stem_base(ws.name)
     except StemError:
         want = None
+    if not scripts_root.is_dir():
+        # A missing script library is "no script found", not a crash. It used
+        # to raise FileNotFoundError straight out of the gate (2026-07-29).
+        return None
     for program in sorted(p for p in scripts_root.iterdir() if p.is_dir()):
         for sub in ("refined", "", "rendered"):
             exact = program / sub / f"{ws.name}.txt"
@@ -253,15 +257,29 @@ def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
 
 
 def check_script_match(ws: Path, script_path=None, scripts_root=LESSON_SCRIPTS):
-    """The script-vs-transcript fidelity gate (check 5). Never crashes the
-    gate on a missing approved script — WARNs and skips instead."""
+    """The script-vs-transcript fidelity gate (check 5) — the render-stage half
+    of the fabrication ban.
+
+    A MISSING APPROVED SCRIPT IS A HARD FAILURE (2026-07-29). This branch used
+    to return `pass: True` with a WARN, which is the worst possible answer: the
+    one gate standing between a build and fabricated on-screen content
+    disarmed itself precisely when it could not verify anything, and reported
+    green while doing it. "I could not check" is not "it is fine". A gate that
+    passes when it cannot grade is how `nothing-graded` and the CANVAS claim
+    got here too.
+
+    The escape hatch stays explicit: pass --script <path> to name the script
+    yourself. Silence is not an escape hatch."""
     if script_path is None:
         script_path = locate_script(ws, scripts_root)
         if script_path is None:
-            return {"pass": True, "output":
-                    f"WARN: approved script not found for stem {ws.name!r} "
-                    f"under {scripts_root} and no --script given — "
-                    f"script-vs-transcript check SKIPPED"}
+            return {"pass": False, "output":
+                    f"FAIL: no approved script found for stem {ws.name!r} under "
+                    f"{scripts_root} (matched on BASE, not the full stem) and no "
+                    f"--script given. The script-vs-transcript diff is the "
+                    f"render-stage half of the fabrication ban — it cannot be "
+                    f"skipped silently. File the script in the program's "
+                    f"refined/ folder, or pass --script <path> explicitly."}
     script_path = Path(script_path)
     if not script_path.is_file():
         return {"pass": False,

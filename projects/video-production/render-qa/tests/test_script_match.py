@@ -155,13 +155,19 @@ ws, root = make_fixture(STEM, "No buzzwords — just plain talk.",
 sec = check_script_match(ws, scripts_root=root)
 check("dash compound normalized on both sides: PASS", sec["pass"], sec["output"])
 
-print("== gate: missing script warns and skips ==")
+print("== gate: a missing script FAILS (it does not warn and skip) ==")
+# Inverted 2026-07-29. This case used to assert `pass` was True on a loud WARN,
+# which pinned the live bug it was written to describe: the render-stage half of
+# the fabrication ban reported green precisely when it could not verify a single
+# word of on-screen content. "I could not check" is not "it is fine", and a test
+# enshrines a defect exactly as easily as a doc does.
 ws, root = make_fixture(STEM, SCRIPT, SCRIPT_WORDS)
 (root / "early-career-boost" / f"{STEM}.txt").unlink()
 sec = check_script_match(ws, scripts_root=root)
-check("missing script: gate not failed", sec["pass"], sec["output"])
-check("missing script: loud WARN + SKIPPED",
-      "WARN" in sec["output"] and "SKIPPED" in sec["output"])
+check("missing script: gate FAILS", not sec["pass"], sec["output"])
+check("missing script: names the stem, the root searched, and the --script "
+      "escape hatch",
+      all(s in sec["output"] for s in ("FAIL", STEM, "--script")), sec["output"])
 
 print("== gate: explicit --script override ==")
 ws, root = make_fixture(STEM, SCRIPT, SCRIPT_WORDS)

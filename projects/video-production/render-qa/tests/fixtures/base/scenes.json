@@ -1,0 +1,417 @@
+{
+  "theme": "summit",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "When people talk about career decisions, they often imagine there is one right answer hiding somewhere.",
+      "vars": {
+        "eyebrow": "Career Accelerator",
+        "title": "Better Decisions Come from Better Criteria",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-chips",
+      "narration": "The right job. The right major. The right city, or the right path.",
+      "cues": {
+        "chipCues": [
+          "The right job",
+          "The right major",
+          "The right city",
+          "or the right path"
+        ]
+      },
+      "vars": {
+        "label": "The myth",
+        "heading": "One Right Answer",
+        "chips": "The right job,The right major,The right city,The right path",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "02 / THE MYTH",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "question",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-statement",
+      "narration": "But most strong career decisions do not come from finding a perfect answer. They come from choosing among several good options with clear criteria and good judgment.",
+      "cues": {
+        "pointCues": [
+          "choosing among several good options",
+          "clear criteria and good judgment"
+        ]
+      },
+      "vars": {
+        "kicker": "A better way to decide",
+        "statement": "Strong Decisions Come from Good Options",
+        "lines": "Choose among several good options|Bring clear criteria and good judgment",
+        "sceneIndex": "03 / A BETTER WAY",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-statement",
+      "narration": "One reason career decisions feel hard is that people often decide under pressure.",
+      "vars": {
+        "kicker": "Why it feels hard",
+        "statement": "People Decide Under Pressure",
+        "lines": "",
+        "sceneIndex": "04 / PRESSURE",
+        "icon": "pressure",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-points",
+      "narration": "They compare themselves to others. They focus on one factor like salary or prestige.",
+      "cues": {
+        "pointCues": [
+          "compare themselves to others",
+          "one factor like salary"
+        ]
+      },
+      "vars": {
+        "label": "Under pressure",
+        "heading": "What Pressure Looks Like",
+        "point1": "Comparing yourself to others",
+        "point2": "Fixing on one factor like salary",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "05 / PRESSURE",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "mentorship,salary"
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-statement",
+      "narration": "Or they stay committed to a path because they have already invested time into it, even if it is no longer the best fit.",
+      "vars": {
+        "kicker": "The third trap",
+        "statement": "Staying on a Path You Already Paid For",
+        "lines": "Time already invested|Even when the fit is weak",
+        "sceneIndex": "06 / SUNK COST",
+        "icon": "pressure",
+        "iconCue": ""
+      },
+      "cues": {
+        "pointCues": [
+          "already invested time into it",
+          "no longer the best fit"
+        ]
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-morph",
+      "narration": "The sunk cost problem is especially common. It happens when someone thinks, \"I already put so much time into this, I cannot change now,\" even when the future fit is weak.",
+      "cues": {
+        "pointCues": [
+          "sunk cost problem",
+          "I already put so much time",
+          "I cannot change now",
+          "the future fit is weak"
+        ]
+      },
+      "vars": {
+        "kicker": "The sunk cost trap",
+        "aTitle": "Time already spent",
+        "aSub": "What it has cost you",
+        "bTitle": "Fit going forward",
+        "bSub": "What it will give you",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "salary,target",
+        "actions": "A,B,note,morph",
+        "notes": "The time is spent either way",
+        "sceneIndex": "07 / SUNK COST"
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-statement",
+      "narration": "Better decisions become possible when you shift from pressure to process. Here is a simple process.",
+      "vars": {
+        "kicker": "The shift",
+        "statement": "From Pressure to Process",
+        "lines": "",
+        "sceneIndex": "08 / THE SHIFT",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-condition",
+      "narration": "First, define what success means for you over the next three to five years. Not forever. Just the next stage.",
+      "cues": {
+        "chipCues": [
+          "the next three to five years",
+          "Not forever",
+          "Just the next stage"
+        ]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "First",
+        "heading": "Define What Success Means to You",
+        "total": "4",
+        "chips": "The next three to five years,Not forever,Just the next stage",
+        "icon": "target",
+        "iconCue": "",
+        "sceneIndex": "09 / DEFINE"
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-chips",
+      "narration": "Do you care most about learning? Security? Income? Flexibility? Meaning? Mentorship? Or growth?",
+      "cues": {
+        "chipCues": [
+          "care most about learning",
+          "Security",
+          "Income",
+          "Flexibility",
+          "Meaning",
+          "Mentorship",
+          "Or growth"
+        ]
+      },
+      "vars": {
+        "label": "Ask yourself",
+        "heading": "What Matters Most to You",
+        "chips": "Learning,Security,Income,Flexibility,Meaning,Mentorship,Growth",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "10 / YOUR CRITERIA",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "mentorship",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-condition",
+      "narration": "Second, broaden your options. If you only compare one job to one other job, your frame is too narrow.",
+      "cues": {
+        "chipCues": [
+          "one job",
+          "one other job",
+          "your frame is too narrow"
+        ]
+      },
+      "vars": {
+        "num": "2",
+        "kicker": "Second",
+        "heading": "Broaden Your Options",
+        "total": "4",
+        "chips": "One job,One other job,Too narrow a frame",
+        "icon": "compass",
+        "iconCue": "",
+        "sceneIndex": "11 / BROADEN"
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-career-map",
+      "narration": "Instead, list three to five possible paths. They might be different roles, different industries, different learning opportunities, or different next steps.",
+      "cues": {
+        "mapCue": "different industries"
+      },
+      "vars": {
+        "label": "Compare your options",
+        "heading": "Three to Five Possible Paths",
+        "startLabel": "Your options",
+        "startSub": "Three to five paths",
+        "path1": "Different roles",
+        "fit1": "New responsibilities",
+        "path2": "Different industries",
+        "fit2": "New context",
+        "path3": "Learning opportunities",
+        "fit3": "New skills",
+        "bestLabel": "Best fit",
+        "bestSub": "What matters to you",
+        "winner": "2",
+        "sceneIndex": "12 / COMPARE"
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-statement",
+      "narration": "Third, compare those options using your criteria. That is where a tool like a career map becomes helpful.",
+      "cues": {
+        "pointCues": [
+          "using your criteria",
+          "a career map becomes helpful"
+        ]
+      },
+      "vars": {
+        "kicker": "Third",
+        "statement": "Compare Options Against Your Criteria",
+        "lines": "Judge each path by what matters to you|A career map makes the comparison visible",
+        "sceneIndex": "13 / THE MAP",
+        "icon": "map",
+        "iconCue": "a career map becomes helpful"
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-morph",
+      "narration": "You are not just asking, \"Which one sounds good?\" You are asking, \"Which one fits what matters to me?\"",
+      "cues": {
+        "pointCues": [
+          "not just asking",
+          "You are asking",
+          "fits what matters to me"
+        ]
+      },
+      "vars": {
+        "kicker": "Ask the better question",
+        "aTitle": "Which one sounds good?",
+        "aSub": "Surface appeal",
+        "bTitle": "Which one fits what matters to me?",
+        "bSub": "Measured against your criteria",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "question,done",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "14 / THE BETTER QUESTION"
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-condition",
+      "narration": "Fourth, notice what you still do not know. Some decisions cannot be solved only by thinking. Sometimes you need more evidence.",
+      "cues": {
+        "chipCues": [
+          "what you still do not know",
+          "cannot be solved only by thinking",
+          "you need more evidence"
+        ]
+      },
+      "vars": {
+        "num": "4",
+        "kicker": "Fourth",
+        "heading": "Notice What You Do Not Know",
+        "total": "4",
+        "chips": "Gaps in what you know,Not solved by thinking,More evidence",
+        "icon": "examine",
+        "iconCue": "",
+        "sceneIndex": "15 / EVIDENCE"
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-chips",
+      "narration": "That might mean talking to someone in the field, doing a short project, shadowing, reading job postings, or testing a new skill.",
+      "cues": {
+        "chipCues": [
+          "talking to someone in the field",
+          "doing a short project",
+          "shadowing",
+          "reading job postings",
+          "testing a new skill"
+        ]
+      },
+      "vars": {
+        "label": "Gather evidence",
+        "heading": "Ways to Learn More",
+        "chips": "Talk to someone,Do a short project,Shadow,Read job postings,Test a new skill",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "16 / GATHER",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "mentorship2",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-17",
+      "template": "scla-points",
+      "narration": "AI can be useful here too. It can help you brainstorm additional options, summarize what different roles involve, or show you where your comparison may be incomplete.",
+      "cues": {
+        "pointCues": [
+          "brainstorm additional options",
+          "summarize what different roles involve",
+          "your comparison may be incomplete"
+        ]
+      },
+      "vars": {
+        "label": "Using AI",
+        "heading": "Where AI Helps",
+        "point1": "Brainstorm more options",
+        "point2": "Summarize what roles involve",
+        "point3": "Show where your comparison is thin",
+        "point4": "",
+        "sceneIndex": "17 / AI",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "insight,map,examine"
+      }
+    },
+    {
+      "id": "scene-18",
+      "template": "scla-statement",
+      "narration": "But it should not make the decision for you. The point of this module is not to make every decision easy.",
+      "vars": {
+        "kicker": "The limit",
+        "statement": "You Make the Decision, Not the Tool",
+        "lines": "",
+        "sceneIndex": "18 / THE LIMIT",
+        "icon": "done",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-19",
+      "template": "scla-loop",
+      "narration": "The point is to help you build a repeatable process so that career decisions become more thoughtful, less reactive, and more grounded in what you actually value.",
+      "cues": {
+        "stepCues": [
+          "more thoughtful",
+          "less reactive",
+          "grounded in what you actually value"
+        ],
+        "subCues": [
+          "build a repeatable process",
+          "career decisions become"
+        ]
+      },
+      "vars": {
+        "label": "The takeaway",
+        "heading": "A Repeatable Process",
+        "step1": "More thoughtful",
+        "step2": "Less reactive",
+        "step3": "Grounded in what you value",
+        "step4": "",
+        "sceneIndex": "19 / REPEATABLE",
+        "subBeats": "Same four steps, every time|Use it on any career decision",
+        "subCues": ""
+      }
+    },
+    {
+      "id": "scene-20",
+      "template": "scla-outro",
+      "narration": "Once you know how to make one good decision, you can use that skill again and again.",
+      "vars": {
+        "cta": "Practice the process",
+        "next": "Use the same four steps on your next decision",
+        "url": "thescla.org",
+        "sceneIndex": "20 / NEXT STEP"
+      }
+    }
+  ]
+}
