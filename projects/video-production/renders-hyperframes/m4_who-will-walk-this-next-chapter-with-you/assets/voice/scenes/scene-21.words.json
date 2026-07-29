@@ -1,0 +1,158 @@
+[
+  {
+    "id": "w0",
+    "text": "You're",
+    "start": 0.099,
+    "end": 0.219
+  },
+  {
+    "id": "w1",
+    "text": "not",
+    "start": 0.239,
+    "end": 0.439
+  },
+  {
+    "id": "w2",
+    "text": "just",
+    "start": 0.479,
+    "end": 0.619
+  },
+  {
+    "id": "w3",
+    "text": "building",
+    "start": 0.639,
+    "end": 0.919
+  },
+  {
+    "id": "w4",
+    "text": "a",
+    "start": 1.039,
+    "end": 1.059
+  },
+  {
+    "id": "w5",
+    "text": "contact",
+    "start": 1.079,
+    "end": 1.559
+  },
+  {
+    "id": "w6",
+    "text": "list.",
+    "start": 1.639,
+    "end": 1.939
+  },
+  {
+    "id": "w7",
+    "text": "You're",
+    "start": 2.419,
+    "end": 2.599
+  },
+  {
+    "id": "w8",
+    "text": "choosing",
+    "start": 2.659,
+    "end": 3.159
+  },
+  {
+    "id": "w9",
+    "text": "who",
+    "start": 3.179,
+    "end": 3.359
+  },
+  {
+    "id": "w10",
+    "text": "you",
+    "start": 3.399,
+    "end": 3.519
+  },
+  {
+    "id": "w11",
+    "text": "want",
+    "start": 3.639,
+    "end": 3.799
+  },
+  {
+    "id": "w12",
+    "text": "in",
+    "start": 3.839,
+    "end": 3.959
+  },
+  {
+    "id": "w13",
+    "text": "your",
+    "start": 3.98,
+    "end": 4.159
+  },
+  {
+    "id": "w14",
+    "text": "corner",
+    "start": 4.199,
+    "end": 4.859
+  },
+  {
+    "id": "w15",
+    "text": "as",
+    "start": 4.9,
+    "end": 5.019
+  },
+  {
+    "id": "w16",
+    "text": "you",
+    "start": 5.039,
+    "end": 5.159
+  },
+  {
+    "id": "w17",
+    "text": "create",
+    "start": 5.219,
+    "end": 5.519
+  },
+  {
+    "id": "w18",
+    "text": "your",
+    "start": 5.559,
+    "end": 5.679
+  },
+  {
+    "id": "w19",
+    "text": "next",
+    "start": 5.739,
+    "end": 5.92
+  },
+  {
+    "id": "w20",
+    "text": "chapter.",
+    "start": 5.96,
+    "end": 6.399
+  },
+  {
+    "id": "w21",
+    "text": "Take",
+    "start": 7.44,
+    "end": 7.599
+  },
+  {
+    "id": "w22",
+    "text": "your",
+    "start": 7.639,
+    "end": 7.759
+  },
+  {
+    "id": "w23",
+    "text": "time",
+    "start": 7.799,
+    "end": 8.019
+  },
+  {
+    "id": "w24",
+    "text": "with",
+    "start": 8.059,
+    "end": 8.199
+  },
+  {
+    "id": "w25",
+    "text": "this.",
+    "start": 8.239,
+    "end": 8.479
+  }
+]

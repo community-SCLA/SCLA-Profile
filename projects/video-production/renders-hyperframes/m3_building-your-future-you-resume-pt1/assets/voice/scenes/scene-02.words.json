@@ -1,0 +1,206 @@
+[
+  {
+    "id": "w0",
+    "text": "By",
+    "start": 0.119,
+    "end": 0.239
+  },
+  {
+    "id": "w1",
+    "text": "mid-career,",
+    "start": 0.28,
+    "end": 0.859
+  },
+  {
+    "id": "w2",
+    "text": "most",
+    "start": 1.36,
+    "end": 1.519
+  },
+  {
+    "id": "w3",
+    "text": "of",
+    "start": 1.539,
+    "end": 1.619
+  },
+  {
+    "id": "w4",
+    "text": "us",
+    "start": 1.639,
+    "end": 1.759
+  },
+  {
+    "id": "w5",
+    "text": "have",
+    "start": 1.819,
+    "end": 1.959
+  },
+  {
+    "id": "w6",
+    "text": "resumes",
+    "start": 1.959,
+    "end": 2.44
+  },
+  {
+    "id": "w7",
+    "text": "that",
+    "start": 2.48,
+    "end": 2.599
+  },
+  {
+    "id": "w8",
+    "text": "have",
+    "start": 2.599,
+    "end": 2.779
+  },
+  {
+    "id": "w9",
+    "text": "quietly",
+    "start": 2.859,
+    "end": 3.259
+  },
+  {
+    "id": "w10",
+    "text": "turned",
+    "start": 3.259,
+    "end": 3.5
+  },
+  {
+    "id": "w11",
+    "text": "into",
+    "start": 3.5,
+    "end": 3.74
+  },
+  {
+    "id": "w12",
+    "text": "archives",
+    "start": 3.74,
+    "end": 4.259
+  },
+  {
+    "id": "w13",
+    "text": "—",
+    "start": 4.259,
+    "end": 4.259
+  },
+  {
+    "id": "w14",
+    "text": "long",
+    "start": 4.44,
+    "end": 4.679
+  },
+  {
+    "id": "w15",
+    "text": "lists",
+    "start": 4.759,
+    "end": 5.059
+  },
+  {
+    "id": "w16",
+    "text": "of",
+    "start": 5.099,
+    "end": 5.279
+  },
+  {
+    "id": "w17",
+    "text": "everything",
+    "start": 5.319,
+    "end": 5.699
+  },
+  {
+    "id": "w18",
+    "text": "we've",
+    "start": 5.719,
+    "end": 5.879
+  },
+  {
+    "id": "w19",
+    "text": "ever",
+    "start": 5.9,
+    "end": 6.099
+  },
+  {
+    "id": "w20",
+    "text": "done.",
+    "start": 6.119,
+    "end": 6.379
+  },
+  {
+    "id": "w21",
+    "text": "On",
+    "start": 6.96,
+    "end": 7.079
+  },
+  {
+    "id": "w22",
+    "text": "the",
+    "start": 7.079,
+    "end": 7.199
+  },
+  {
+    "id": "w23",
+    "text": "surface",
+    "start": 7.239,
+    "end": 7.579
+  },
+  {
+    "id": "w24",
+    "text": "that",
+    "start": 7.719,
+    "end": 7.859
+  },
+  {
+    "id": "w25",
+    "text": "looks",
+    "start": 7.879,
+    "end": 8.119
+  },
+  {
+    "id": "w26",
+    "text": "thorough.",
+    "start": 8.159,
+    "end": 8.879
+  },
+  {
+    "id": "w27",
+    "text": "In",
+    "start": 8.939,
+    "end": 9.079
+  },
+  {
+    "id": "w28",
+    "text": "practice,",
+    "start": 9.099,
+    "end": 9.559
+  },
+  {
+    "id": "w29",
+    "text": "it",
+    "start": 9.899,
+    "end": 9.98
+  },
+  {
+    "id": "w30",
+    "text": "often",
+    "start": 10.039,
+    "end": 10.28
+  },
+  {
+    "id": "w31",
+    "text": "works",
+    "start": 10.3,
+    "end": 10.5
+  },
+  {
+    "id": "w32",
+    "text": "against",
+    "start": 10.579,
+    "end": 10.86
+  },
+  {
+    "id": "w33",
+    "text": "us.",
+    "start": 10.92,
+    "end": 11.139
+  }
+]

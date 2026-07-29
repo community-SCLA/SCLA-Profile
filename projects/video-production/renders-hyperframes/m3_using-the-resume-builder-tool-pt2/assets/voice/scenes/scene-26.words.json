@@ -1,0 +1,128 @@
+[
+  {
+    "id": "w0",
+    "text": "Your",
+    "start": 0.219,
+    "end": 0.359
+  },
+  {
+    "id": "w1",
+    "text": "headline",
+    "start": 0.439,
+    "end": 0.839
+  },
+  {
+    "id": "w2",
+    "text": "is",
+    "start": 0.899,
+    "end": 0.979
+  },
+  {
+    "id": "w3",
+    "text": "the",
+    "start": 1.019,
+    "end": 1.079
+  },
+  {
+    "id": "w4",
+    "text": "most-read",
+    "start": 1.279,
+    "end": 1.679
+  },
+  {
+    "id": "w5",
+    "text": "line",
+    "start": 1.759,
+    "end": 1.939
+  },
+  {
+    "id": "w6",
+    "text": "you",
+    "start": 2.019,
+    "end": 2.139
+  },
+  {
+    "id": "w7",
+    "text": "own.",
+    "start": 2.22,
+    "end": 2.419
+  },
+  {
+    "id": "w8",
+    "text": "Most",
+    "start": 2.879,
+    "end": 3.079
+  },
+  {
+    "id": "w9",
+    "text": "headlines",
+    "start": 3.139,
+    "end": 3.619
+  },
+  {
+    "id": "w10",
+    "text": "just",
+    "start": 3.72,
+    "end": 3.879
+  },
+  {
+    "id": "w11",
+    "text": "state",
+    "start": 3.899,
+    "end": 4.099
+  },
+  {
+    "id": "w12",
+    "text": "a",
+    "start": 4.139,
+    "end": 4.219
+  },
+  {
+    "id": "w13",
+    "text": "current",
+    "start": 4.279,
+    "end": 4.559
+  },
+  {
+    "id": "w14",
+    "text": "title;",
+    "start": 4.619,
+    "end": 4.92
+  },
+  {
+    "id": "w15",
+    "text": "yours",
+    "start": 5.359,
+    "end": 5.659
+  },
+  {
+    "id": "w16",
+    "text": "should",
+    "start": 5.699,
+    "end": 5.879
+  },
+  {
+    "id": "w17",
+    "text": "point",
+    "start": 5.92,
+    "end": 6.119
+  },
+  {
+    "id": "w18",
+    "text": "at",
+    "start": 6.199,
+    "end": 6.279
+  },
+  {
+    "id": "w19",
+    "text": "future",
+    "start": 6.399,
+    "end": 6.759
+  },
+  {
+    "id": "w20",
+    "text": "you.",
+    "start": 6.799,
+    "end": 7
+  }
+]

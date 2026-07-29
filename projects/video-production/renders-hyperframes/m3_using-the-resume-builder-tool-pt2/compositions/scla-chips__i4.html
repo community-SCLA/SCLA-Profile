@@ -1,0 +1,449 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Section label","default":"[[label]]"},
+    {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
+    {"id":"chips","type":"string","label":"Chip texts, comma-separated (up to 8)","default":"[[chips]]"},
+    {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (empty = default stagger)","default":""},
+    {"id":"accentIndex","type":"string","label":"1-based index of the gold-accent chip (empty = none)","default":""},
+    {"id":"reveal","type":"string","label":"Chip entrance (pop | slide)","default":"pop"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"07 / DEFINE"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
+    {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
+    {"id":"icon","type":"string","label":"Optional statement-style hero living icon name (see design-contract.md icon library; empty = none, layout unchanged). Chips column narrows when set.","default":""},
+    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      TEMPLATE — kinetic word-field / chip cluster on a light canvas. Use when the
+      narration rattles off a list of words too fast/too many for scla-points
+      (criteria, options, values, traits — up to 8 chips). Each chip flashes in on
+      its spoken cue (chipCues); reveal="slide" makes chips enter from alternating
+      angles for extra variety. design-contract.md → "Illustration over text" + "Reveal on cue".
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .cc__i4-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+        }
+        .cc__i4-bg::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px);
+          background-size: 72px 72px;
+        }
+        #cc__i4-ghost-ring {
+          position: absolute;
+          right: -300px;
+          top: -380px;
+          width: 860px;
+          height: 980px;
+          border-radius: 50%;
+          border: 3px solid rgba(51, 147, 214, 0.12);
+        }
+        #cc__i4-ghost-ring-2 {
+          position: absolute;
+          right: -200px;
+          top: -300px;
+          width: 620px;
+          height: 720px;
+          border-radius: 50%;
+          border: 2px solid rgba(234, 171, 45, 0.14);
+        }
+        #cc__i4-head {
+          position: absolute;
+          left: 120px;
+          top: 130px;
+          width: 1500px;
+        }
+        #cc__i4-label-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #cc__i4-tick {
+          width: 46px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #cc__i4-label {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #cc__i4-heading {
+          margin-top: 18px;
+          font-size: 64px;
+          font-weight: 900;
+          color: #0d2437;
+          line-height: 1.08;
+        }
+        #cc__i4-field {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          top: 470px;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: flex-start;
+          gap: 26px 30px;
+        }
+        .cc__i4-chip {
+          padding: 22px 46px;
+          border-radius: 100px;
+          border: 3px solid #3393d6;
+          color: #0d2437;
+          background: #ffffff;
+          font-size: 44px;
+          font-weight: 700;
+        }
+        .cc__i4-chip.cc__i4-accent {
+          border-color: #eaab2d;
+        }
+        #cc__i4-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #cc__i4-brandline {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* Sub-beats — narration-synced live line (dead-hold fix, 2026-07-14).
+           One beat visible at a time; absent unless subBeats is set.
+           Restyled 2026-07-28: branded supporting live-line, not a floating
+           caption — left-aligned to the content column (element left edge
+           120px, same as heading/chips), gold edge-bar accent (the templates'
+           existing rule/bar language), muted-video body color, and lifted to
+           bottom 170px so it lives in the content zone with clear air above
+           the footer brandline (bottom 58px). 32px = the body-class floor
+           (tokens.yml typography.min-size — sub-beats are body copy). */
+        .cc__i4-subbeat {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          bottom: 170px;
+          padding-left: 30px;
+          text-align: left;
+          font-size: 40px;
+          font-weight: 700;
+          color: #5f6f96;
+          line-height: 1.3;
+          opacity: 0;
+        }
+        .cc__i4-subbeat::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 5px;
+          width: 5px;
+          height: 32px;
+          background: #eaab2d;
+        }
+        /* Closing-beat rule (Motion v2, 2026-07-27) — completes under the heading in
+           the scene's final second. scaleX(0) at rest so it is invisible pre-beat. */
+        #cc__i4-close-rule { margin-top: 20px; width: 240px; height: 4px; background: #eaab2d; transform: scaleX(0); transform-origin: left center; }
+        /* Optional living-icon hero (opt-in via `icon`; layout mirrors scla-statement's
+           right-column icon hosting). Hidden by default; JS shows it and narrows
+           #cc__i4-field with INLINE styles — never a qualified-#root rule, which renders
+           unstyled under composition scoping. Light canvas on all three themes →
+           navy main stroke, gold accents. */
+        #cc__i4-iconwrap { position: absolute; left: 1430px; top: 560px; width: 300px; height: 300px; display: none; }
+        #cc__i4-iconwrap svg { width: 300px; height: 300px; }
+        /* Style packages — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .cc__i4-bg { background: #ffffff; }
+        #root[data-theme="horizon"] #cc__i4-tick { background: #3393d6; }
+        #root[data-theme="horizon"] #cc__i4-close-rule { background: #3393d6; }
+        #root[data-theme="horizon"] .cc__i4-subbeat::before { background: #3393d6; }
+        #root[data-theme="horizon"] .cc__i4-chip { border-color: #3393d6; }
+        #root[data-theme="horizon"] .cc__i4-chip.cc__i4-accent { border-color: #3393d6; }
+        #root[data-theme="cadence"] .cc__i4-bg { background: #ffffff; }
+        #root[data-theme="cadence"] .cc__i4-bg::after { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] #cc__i4-tick { width: 70px; }
+        #root[data-theme="cadence"] #cc__i4-close-rule { width: 300px; }
+        #root[data-theme="cadence"] .cc__i4-chip { border-color: #0d2437; }
+        #root[data-theme="cadence"] .cc__i4-chip.cc__i4-accent { border-color: #eaab2d; }
+      </style>
+
+      <div id="root" data-composition-id="scla-chips__i4" data-width="1920" data-height="1080" data-duration="10">
+        <div class="cc__i4-bg"></div>
+        <div id="cc__i4-ghost-ring" data-layout-allow-overflow></div>
+        <div id="cc__i4-ghost-ring-2" data-layout-allow-overflow></div>
+        <div id="cc__i4-head">
+          <div id="cc__i4-label-row">
+            <div id="cc__i4-tick"></div>
+            <div id="cc__i4-label">Step 1 — Define success</div>
+          </div>
+          <h2 id="cc__i4-heading">What matters most, the next 3–5 years?</h2>
+          <div id="cc__i4-close-rule"></div>
+        </div>
+        <div id="cc__i4-field"></div>
+        <div id="cc__i4-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
+        <!-- Static append target for cued sub-beats — the 2026-07-27 fix for the
+             2026-07-15 "subBeat never renders" bug. Appending to #root by id was the
+             defect: every scene's template root is id="root", so in the composited
+             render getElementById("root") resolves to the FIRST scene's root and the
+             sub-beat lands in another scene's (hidden, differently-scoped) slot. -->
+        <div id="cc__i4-subbeat-host">
+          <!-- Geometry declaration for the sub-beat lines the script creates at
+               run time: empty and opacity:0, so it paints nothing. It exists so
+               check_geometry.py can see the box those lines occupy. A box only
+               the browser knows about is a box no gate can grade — which is how
+               scla-loop's sub-beat landed on a caption on 2026-07-29. -->
+          <div class="cc__i4-subbeat" id="cc__i4-subbeat-proto" data-slot="subBeats" data-geometry-proto></div>
+        </div>
+        <div id="cc__i4-index" data-layout-allow-occlusion>07 / DEFINE</div>
+        <div id="cc__i4-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            label: "Step 1 — Define success",
+            heading: "What matters most, the next 3–5 years?",
+            chips: "Learning,Security,Income,Flexibility,Meaning,Mentorship,Growth",
+            chipCues: "",
+            accentIndex: "",
+            reveal: "pop",
+            sceneIndex: "07 / DEFINE",
+            theme: "summit",
+            sceneDuration: "10",
+            icon: "",
+            iconCue: "",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("cc__i4-label").textContent = vars.label;
+          document.getElementById("cc__i4-heading").textContent = vars.heading;
+          document.getElementById("cc__i4-index").textContent = vars.sceneIndex;
+
+          // Build the chip field from the variable (textContent only), before the timeline.
+          const chipTexts = String(vars.chips || "")
+            .split(",")
+            .map(function (s) { return s.trim(); })
+            .filter(function (s) { return s !== ""; })
+            .slice(0, 8);
+          const accentIdx = parseInt(String(vars.accentIndex || "").trim(), 10); // 1-based
+          const field = document.getElementById("cc__i4-field");
+          chipTexts.forEach(function (text, i) {
+            const chip = document.createElement("div");
+            chip.className = "cc__i4-chip" + (i + 1 === accentIdx ? " cc__i4-accent" : "");
+            chip.id = "cc__i4-chip-" + (i + 1);
+            chip.textContent = text;
+            field.appendChild(chip);
+          });
+
+          // Optional statement-style hero living icon (opt-in via `icon`; hosting
+          // pattern mirrors scla-statement's right-column icon). Geometry MIRRORED
+          // from scla-condition.html's ICONS map (the canonical source; design-contract.md →
+          // "Living icon library" — keep in sync, never diverge). Light canvas on all
+          // three themes → navy main stroke, gold accents/dots pop last.
+          const RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z";
+          const ICONS = {
+            compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+            pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
+            insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
+            salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
+            map: { paths: [{ d: "M18 30 L38 22 L58 30 L78 22 L78 66 L58 74 L38 66 L18 74 Z" }, { d: "M38 22 L38 66" }, { d: "M58 30 L58 74" }, { d: "M48 41 L48 52", gd: true }], circles: [{ cx: 48, cy: 36, r: 5, gd: true }] },
+            mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
+            mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
+            growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
+            target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
+            question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
+            examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
+            done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] },
+          };
+          const iconName = String(vars.icon || "").trim();
+          const ic = iconName ? ICONS[iconName] : null;
+          const iconDraws = [], iconDots = [];
+          if (ic) {
+            // Narrow the chip column and reserve the right column for the icon —
+            // inline styles, so nothing depends on a scoping-fragile #root[...] rule.
+            field.style.right = "620px";
+            const iconwrap = document.getElementById("cc__i4-iconwrap");
+            iconwrap.style.display = "block";
+            const svg = document.querySelector("#cc__i4-iconwrap svg");
+            const strokeMain = "#0d2437";
+            (ic.paths || []).forEach(function (p) {
+              const el = document.createElementNS("http://www.w3.org/2000/svg", "path");
+              el.setAttribute("d", p.d); el.setAttribute("fill", "none");
+              el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
+              el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
+              el.setAttribute("pathLength", "100"); svg.appendChild(el); iconDraws.push(el);
+            });
+            (ic.circles || []).forEach(function (c) {
+              const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
+              if (c.fill) { el.setAttribute("fill", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke", "none"); iconDots.push(el); }
+              else { el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); iconDraws.push(el); }
+              svg.appendChild(el);
+            });
+          }
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          // Entrance settles ≤1.2s (Motion v2, 2026-07-27): hero tweens ≤0.6s,
+          // relative order/stagger feel preserved from the v1 choreography.
+          tl.fromTo("#cc__i4-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.1);
+          tl.fromTo("#cc__i4-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.15);
+          tl.fromTo("#cc__i4-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, 0.3);
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut):
+          // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.
+          tl.fromTo(["#cc__i4-ghost-ring", "#cc__i4-ghost-ring-2"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+
+          const chips = gsap.utils.toArray(".cc__i4-chip");
+          const cues = String(vars.chipCues || "")
+            .split(",")
+            .map(function (s) { return Number(s.trim()); })
+            .filter(function (v) { return !isNaN(v); });
+          const mode = vars.reveal === "slide" ? "slide" : "pop";
+          chips.forEach(function (chip, i) {
+            const at = i < cues.length ? Math.max(0.4, cues[i]) : 1.4 + i * 0.5;
+            let from = { opacity: 0, scale: 0.5, y: 24 };
+            let to = { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" };
+            if (mode === "slide") {
+              // Chips enter alternating from different angles.
+              from = i % 3 === 0 ? { opacity: 0, x: -90 } : i % 3 === 1 ? { opacity: 0, x: 90 } : { opacity: 0, y: -70 };
+              to = { opacity: 1, x: 0, y: 0, duration: 0.55, ease: "power3.out" };
+            }
+            tl.fromTo(chip, from, to, at);
+            // Compound cue (Motion v2, 2026-07-27): the arriving chip dims the
+            // already-settled siblings to 0.6; the closing beat restores them.
+            if (i > 0) tl.to(chips.slice(0, i), { opacity: 0.6, duration: 0.3, ease: "power2.out" }, at);
+          });
+          // Living icon draws on in the entrance slot, or — when `iconCue` is set —
+          // the moment the narration names the thing; gold accents/dots pop last.
+          if (ic) {
+            const iconCue = parseFloat(String(vars.iconCue || "").trim());
+            const drawAt = isNaN(iconCue) ? 0.35 : Math.max(0.4, iconCue);
+            // Hold the wrapper invisible until drawAt (render-qa friction log,
+            // 2026-07-27 B1): round stroke-linecaps paint a filled dot even at
+            // strokeDashoffset 100/zero visible length, so without this the dot
+            // is visible from t=0 until the draw-on fires. The stroke-draw itself
+            // is the reveal — this just keeps it hidden until its cue.
+            tl.set("#cc__i4-iconwrap", { opacity: 0 }, 0);
+            tl.set("#cc__i4-iconwrap", { opacity: 1 }, drawAt);
+            if (iconDraws.length) tl.fromTo(iconDraws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.1 }, drawAt);
+            if (iconDots.length) tl.fromTo(iconDots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, drawAt + 0.5);
+            // REMOVED 2026-07-29 (owner): the living-icon bob. The icon is a
+            // cued content hero, not a background layer — design-contract.md's drift
+            // allow-list covers ghost/ring decoration only. Its motion is the
+            // draw-on above, and that is all. (Mechanism: `render-qa/src/check_motion.py`.)
+          }
+          tl.fromTo(["#cc__i4-index", "#cc__i4-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+          tl.fromTo("#cc__i4-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut" }, 1.4);
+          tl.fromTo("#cc__i4-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
+          // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost rings
+          // drift in finite translate-only sine yoyo cycles across the whole scene so
+          // the decorative layer registers at QA frame sampling even between cues.
+          const drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / per) - 1) }, 0);
+          };
+          // Amplitude raised 2026-07-15 (render-qa hard-fail on
+          // what-energizes-me/early-career-boost): 24/14px drift moved <1
+          // gray level per 48x27 QA thumbnail pixel — under the checker's
+          // >1 "same frame" tolerance, so scenes with the then-broken subBeat
+          // cue (root-caused + fixed 2026-07-27, see below) read as fully
+          // static for 5s+. 110/70px clears it.
+          drift("#cc__i4-ghost-ring", 110, 70, 3.3);
+          drift("#cc__i4-ghost-ring-2", -90, -55, 2.8);
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15), but the cued closing beat and the scene exit below are
+          // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place
+          // re-marks of settled chips/headings.
+          // Sub-beats: a cued live line that swaps text on each spoken cue —
+          // covers narration spans between primary reveals (dead-hold fix,
+          // owner-approved 2026-07-14). Empty subBeats (the default) = no DOM,
+          // no timeline impact. Seek-safe: tween-only swaps, no .call().
+          // BUG FIXED 2026-07-27 (was KNOWN BUG 2026-07-15, "subBeat never renders"):
+          // root cause was the append target, document.getElementById("root").
+          // Every scene's template root carries id="root", and element ids are NOT
+          // rewritten when sub-comps are inlined into the composited render — so
+          // getElementById("root") resolves to the FIRST scene's root in document
+          // order, and the sub-beat landed in another scene's slot: outside this
+          // scene's CSS scope ([data-composition-id="scla-chips__i4"] .cc__i4-subbeat no
+          // longer matches → unstyled) and hidden whenever this scene is on screen.
+          // Chips rendered fine because #cc__i4-field is unique document-wide; Studio
+          // preview mounts each scene in its own iframe (single #root), which is why
+          // the bug never reproduced outside composited renders. Fix: append to the
+          // static #cc__i4-subbeat-host wrapper declared in this template's markup.
+          const subBeats = String(vars.subBeats || "").split("|").map(function (s) { return s.trim(); }).filter(Boolean);
+          const subCues = String(vars.subCues || "").split(",").map(function (s) { return Number(s.trim()); }).filter(function (v) { return !isNaN(v); });
+          const subEls = [];
+          if (subBeats.length && subCues.length === subBeats.length) {
+            subBeats.forEach(function (text, i) {
+              const el = document.createElement("div");
+              el.className = "cc__i4-subbeat";
+              el.setAttribute("data-layout-allow-occlusion", "");
+              el.textContent = text;
+              document.getElementById("cc__i4-subbeat-host").appendChild(el);
+              subEls.push(el);
+              const at = Math.max(0.4, subCues[i]);
+              tl.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at);
+              if (i + 1 < subBeats.length) {
+                const out = Math.max(at + 0.5, Math.max(0.4, subCues[i + 1]) - 0.35);
+                tl.to(el, { opacity: 0, y: -18, duration: 0.3, ease: "power2.in" }, out);
+              }
+            });
+          }
+          // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final
+          // second: dimmed chips restore to full and a gold rule completes under the
+          // heading. NEW state only, never re-animation of settled text in place.
+          const closeAt = sceneDur - 1.0;
+          tl.to(chips, { opacity: 1, duration: 0.4, ease: "power2.out" }, closeAt);
+          tl.fromTo("#cc__i4-close-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, closeAt);
+          // Exit (Motion v2, 2026-07-27) — the content layer leaves at −0.35s so the
+          // seam reads velocity-matched; furniture and ghost rings never exit.
+          const exitAt = sceneDur - 0.35;
+          tl.to(["#cc__i4-head"].concat(chips, subEls), { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, exitAt);
+          if (ic) tl.to("#cc__i4-iconwrap", { opacity: 0, x: 40, duration: 0.3, ease: "power2.in" }, exitAt);
+          // Hard-kill at the boundary (gsap_exit_missing_hard_kill lint).
+          const killTargets = ["#cc__i4-head"].concat(chips, subEls, ic ? ["#cc__i4-iconwrap"] : []);
+          tl.set(killTargets, { opacity: 0 }, sceneDur - 0.02);
+          window.__timelines["scla-chips__i4"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

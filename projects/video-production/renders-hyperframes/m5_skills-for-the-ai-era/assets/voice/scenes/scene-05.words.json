@@ -1,0 +1,86 @@
+[
+  {
+    "id": "w0",
+    "text": "Here's",
+    "start": 0.199,
+    "end": 0.379
+  },
+  {
+    "id": "w1",
+    "text": "a",
+    "start": 0.519,
+    "end": 0.539
+  },
+  {
+    "id": "w2",
+    "text": "practical",
+    "start": 0.56,
+    "end": 1.12
+  },
+  {
+    "id": "w3",
+    "text": "way",
+    "start": 1.139,
+    "end": 1.36
+  },
+  {
+    "id": "w4",
+    "text": "to",
+    "start": 1.379,
+    "end": 1.559
+  },
+  {
+    "id": "w5",
+    "text": "think",
+    "start": 1.599,
+    "end": 1.719
+  },
+  {
+    "id": "w6",
+    "text": "about",
+    "start": 1.799,
+    "end": 1.979
+  },
+  {
+    "id": "w7",
+    "text": "your",
+    "start": 2.019,
+    "end": 2.18
+  },
+  {
+    "id": "w8",
+    "text": "current",
+    "start": 2.2,
+    "end": 2.559
+  },
+  {
+    "id": "w9",
+    "text": "role",
+    "start": 2.579,
+    "end": 2.939
+  },
+  {
+    "id": "w10",
+    "text": "and",
+    "start": 2.96,
+    "end": 3.119
+  },
+  {
+    "id": "w11",
+    "text": "your",
+    "start": 3.139,
+    "end": 3.279
+  },
+  {
+    "id": "w12",
+    "text": "next",
+    "start": 3.279,
+    "end": 3.599
+  },
+  {
+    "id": "w13",
+    "text": "move.",
+    "start": 3.619,
+    "end": 3.899
+  }
+]

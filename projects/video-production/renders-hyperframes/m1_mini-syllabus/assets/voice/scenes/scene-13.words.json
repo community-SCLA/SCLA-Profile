@@ -1,0 +1,44 @@
+[
+  {
+    "id": "w0",
+    "text": "When",
+    "start": 0.14,
+    "end": 0.319
+  },
+  {
+    "id": "w1",
+    "text": "you're",
+    "start": 0.34,
+    "end": 0.479
+  },
+  {
+    "id": "w2",
+    "text": "ready,",
+    "start": 0.56,
+    "end": 0.779
+  },
+  {
+    "id": "w3",
+    "text": "click",
+    "start": 1.22,
+    "end": 1.399
+  },
+  {
+    "id": "w4",
+    "text": "Next",
+    "start": 1.599,
+    "end": 2.119
+  },
+  {
+    "id": "w5",
+    "text": "to",
+    "start": 2.139,
+    "end": 2.22
+  },
+  {
+    "id": "w6",
+    "text": "begin.",
+    "start": 2.259,
+    "end": 2.599
+  }
+]

@@ -1,0 +1,134 @@
+[
+  {
+    "id": "w0",
+    "text": "Take",
+    "start": 0.14,
+    "end": 0.319
+  },
+  {
+    "id": "w1",
+    "text": "an",
+    "start": 0.34,
+    "end": 0.379
+  },
+  {
+    "id": "w2",
+    "text": "example.",
+    "start": 0.459,
+    "end": 0.859
+  },
+  {
+    "id": "w3",
+    "text": "AI",
+    "start": 1.919,
+    "end": 2.18
+  },
+  {
+    "id": "w4",
+    "text": "can",
+    "start": 2.299,
+    "end": 2.419
+  },
+  {
+    "id": "w5",
+    "text": "draft",
+    "start": 2.44,
+    "end": 2.679
+  },
+  {
+    "id": "w6",
+    "text": "a",
+    "start": 2.7,
+    "end": 2.799
+  },
+  {
+    "id": "w7",
+    "text": "first",
+    "start": 2.839,
+    "end": 3.079
+  },
+  {
+    "id": "w8",
+    "text": "pass",
+    "start": 3.119,
+    "end": 3.399
+  },
+  {
+    "id": "w9",
+    "text": "of",
+    "start": 3.46,
+    "end": 3.539
+  },
+  {
+    "id": "w10",
+    "text": "almost",
+    "start": 3.579,
+    "end": 3.899
+  },
+  {
+    "id": "w11",
+    "text": "any",
+    "start": 3.98,
+    "end": 4.159
+  },
+  {
+    "id": "w12",
+    "text": "document,",
+    "start": 4.179,
+    "end": 4.679
+  },
+  {
+    "id": "w13",
+    "text": "analysis,",
+    "start": 4.98,
+    "end": 5.679
+  },
+  {
+    "id": "w14",
+    "text": "or",
+    "start": 5.719,
+    "end": 5.839
+  },
+  {
+    "id": "w15",
+    "text": "plan.",
+    "start": 5.9,
+    "end": 6.759
+  },
+  {
+    "id": "w16",
+    "text": "That",
+    "start": 6.94,
+    "end": 7.059
+  },
+  {
+    "id": "w17",
+    "text": "makes",
+    "start": 7.079,
+    "end": 7.279
+  },
+  {
+    "id": "w18",
+    "text": "the",
+    "start": 7.299,
+    "end": 7.339
+  },
+  {
+    "id": "w19",
+    "text": "drafting",
+    "start": 7.379,
+    "end": 7.819
+  },
+  {
+    "id": "w20",
+    "text": "less",
+    "start": 7.859,
+    "end": 8.06
+  },
+  {
+    "id": "w21",
+    "text": "scarce.",
+    "start": 8.079,
+    "end": 8.539
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "w0",
+    "text": "If",
+    "start": 0.179,
+    "end": 0.319
+  },
+  {
+    "id": "w1",
+    "text": "you're",
+    "start": 0.34,
+    "end": 0.419
+  },
+  {
+    "id": "w2",
+    "text": "watching",
+    "start": 0.439,
+    "end": 0.779
+  },
+  {
+    "id": "w3",
+    "text": "this,",
+    "start": 0.799,
+    "end": 1.339
+  },
+  {
+    "id": "w4",
+    "text": "you've",
+    "start": 1.399,
+    "end": 1.539
+  },
+  {
+    "id": "w5",
+    "text": "finished",
+    "start": 1.579,
+    "end": 1.86
+  },
+  {
+    "id": "w6",
+    "text": "Mid-Career",
+    "start": 1.879,
+    "end": 2.379
+  },
+  {
+    "id": "w7",
+    "text": "Momentum.",
+    "start": 2.419,
+    "end": 2.899
+  }
+]

@@ -1,0 +1,1364 @@
+[
+  {
+    "id": "w0",
+    "text": "Let's",
+    "start": 0.06,
+    "end": 0.359
+  },
+  {
+    "id": "w1",
+    "text": "talk",
+    "start": 0.4,
+    "end": 0.619
+  },
+  {
+    "id": "w2",
+    "text": "honestly",
+    "start": 0.679,
+    "end": 1.159
+  },
+  {
+    "id": "w3",
+    "text": "about",
+    "start": 1.239,
+    "end": 1.439
+  },
+  {
+    "id": "w4",
+    "text": "mid-career",
+    "start": 1.499,
+    "end": 1.899
+  },
+  {
+    "id": "w5",
+    "text": "mindset\u2014especially",
+    "start": 2.0,
+    "end": 3.119
+  },
+  {
+    "id": "w6",
+    "text": "the",
+    "start": 3.139,
+    "end": 3.219
+  },
+  {
+    "id": "w7",
+    "text": "beliefs",
+    "start": 3.26,
+    "end": 3.659
+  },
+  {
+    "id": "w8",
+    "text": "that",
+    "start": 3.699,
+    "end": 3.859
+  },
+  {
+    "id": "w9",
+    "text": "quietly",
+    "start": 3.919,
+    "end": 4.359
+  },
+  {
+    "id": "w10",
+    "text": "keep",
+    "start": 4.399,
+    "end": 4.579
+  },
+  {
+    "id": "w11",
+    "text": "people",
+    "start": 4.599,
+    "end": 4.959
+  },
+  {
+    "id": "w12",
+    "text": "stuck.",
+    "start": 4.979,
+    "end": 5.319
+  },
+  {
+    "id": "w13",
+    "text": "Some",
+    "start": 5.96,
+    "end": 6.16
+  },
+  {
+    "id": "w14",
+    "text": "common",
+    "start": 6.2,
+    "end": 6.401
+  },
+  {
+    "id": "w15",
+    "text": "beliefs",
+    "start": 6.461,
+    "end": 6.781
+  },
+  {
+    "id": "w16",
+    "text": "sound",
+    "start": 6.8,
+    "end": 6.96
+  },
+  {
+    "id": "w17",
+    "text": "like",
+    "start": 7.021,
+    "end": 7.12
+  },
+  {
+    "id": "w18",
+    "text": "this:",
+    "start": 7.18,
+    "end": 7.44
+  },
+  {
+    "id": "w19",
+    "text": "\"It's",
+    "start": 7.44,
+    "end": 8.1
+  },
+  {
+    "id": "w20",
+    "text": "too",
+    "start": 8.12,
+    "end": 8.261
+  },
+  {
+    "id": "w21",
+    "text": "late",
+    "start": 8.3,
+    "end": 8.481
+  },
+  {
+    "id": "w22",
+    "text": "to",
+    "start": 8.521,
+    "end": 8.64
+  },
+  {
+    "id": "w23",
+    "text": "change.\"",
+    "start": 8.68,
+    "end": 9.14
+  },
+  {
+    "id": "w24",
+    "text": "\"If",
+    "start": 9.14,
+    "end": 9.64
+  },
+  {
+    "id": "w25",
+    "text": "I",
+    "start": 9.74,
+    "end": 9.76
+  },
+  {
+    "id": "w26",
+    "text": "speak",
+    "start": 9.84,
+    "end": 10.08
+  },
+  {
+    "id": "w27",
+    "text": "up,",
+    "start": 10.12,
+    "end": 10.241
+  },
+  {
+    "id": "w28",
+    "text": "I'll",
+    "start": 10.46,
+    "end": 10.62
+  },
+  {
+    "id": "w29",
+    "text": "seem",
+    "start": 10.661,
+    "end": 10.86
+  },
+  {
+    "id": "w30",
+    "text": "ungrateful.\"",
+    "start": 10.92,
+    "end": 11.5
+  },
+  {
+    "id": "w31",
+    "text": "\"If",
+    "start": 11.5,
+    "end": 12.02
+  },
+  {
+    "id": "w32",
+    "text": "I",
+    "start": 12.14,
+    "end": 12.16
+  },
+  {
+    "id": "w33",
+    "text": "don't",
+    "start": 12.18,
+    "end": 12.38
+  },
+  {
+    "id": "w34",
+    "text": "grab",
+    "start": 12.4,
+    "end": 12.62
+  },
+  {
+    "id": "w35",
+    "text": "the",
+    "start": 12.66,
+    "end": 12.741
+  },
+  {
+    "id": "w36",
+    "text": "first",
+    "start": 12.781,
+    "end": 12.98
+  },
+  {
+    "id": "w37",
+    "text": "opportunity,",
+    "start": 13.02,
+    "end": 13.6
+  },
+  {
+    "id": "w38",
+    "text": "I'll",
+    "start": 13.98,
+    "end": 14.141
+  },
+  {
+    "id": "w39",
+    "text": "miss",
+    "start": 14.161,
+    "end": 14.3
+  },
+  {
+    "id": "w40",
+    "text": "my",
+    "start": 14.34,
+    "end": 14.501
+  },
+  {
+    "id": "w41",
+    "text": "chance.\"",
+    "start": 14.541,
+    "end": 14.96
+  },
+  {
+    "id": "w42",
+    "text": "These",
+    "start": 15.596,
+    "end": 15.796
+  },
+  {
+    "id": "w43",
+    "text": "thoughts",
+    "start": 15.855,
+    "end": 16.155
+  },
+  {
+    "id": "w44",
+    "text": "feel",
+    "start": 16.275,
+    "end": 16.435
+  },
+  {
+    "id": "w45",
+    "text": "protective,",
+    "start": 16.535,
+    "end": 17.136
+  },
+  {
+    "id": "w46",
+    "text": "but",
+    "start": 17.555,
+    "end": 17.655
+  },
+  {
+    "id": "w47",
+    "text": "they",
+    "start": 17.675,
+    "end": 17.815
+  },
+  {
+    "id": "w48",
+    "text": "often",
+    "start": 17.876,
+    "end": 18.155
+  },
+  {
+    "id": "w49",
+    "text": "keep",
+    "start": 18.235,
+    "end": 18.376
+  },
+  {
+    "id": "w50",
+    "text": "you",
+    "start": 18.415,
+    "end": 18.535
+  },
+  {
+    "id": "w51",
+    "text": "playing",
+    "start": 18.575,
+    "end": 18.795
+  },
+  {
+    "id": "w52",
+    "text": "smaller",
+    "start": 18.915,
+    "end": 19.335
+  },
+  {
+    "id": "w53",
+    "text": "than",
+    "start": 19.376,
+    "end": 19.495
+  },
+  {
+    "id": "w54",
+    "text": "your",
+    "start": 19.535,
+    "end": 19.595
+  },
+  {
+    "id": "w55",
+    "text": "experience",
+    "start": 19.695,
+    "end": 20.215
+  },
+  {
+    "id": "w56",
+    "text": "allows.",
+    "start": 20.276,
+    "end": 20.775
+  },
+  {
+    "id": "w57",
+    "text": "Let's",
+    "start": 21.405,
+    "end": 21.645
+  },
+  {
+    "id": "w58",
+    "text": "reframe.",
+    "start": 21.665,
+    "end": 22.165
+  },
+  {
+    "id": "w59",
+    "text": "First,",
+    "start": 22.545,
+    "end": 22.945
+  },
+  {
+    "id": "w60",
+    "text": "mid-career",
+    "start": 23.226,
+    "end": 23.805
+  },
+  {
+    "id": "w61",
+    "text": "is",
+    "start": 23.825,
+    "end": 23.925
+  },
+  {
+    "id": "w62",
+    "text": "a",
+    "start": 24.045,
+    "end": 24.065
+  },
+  {
+    "id": "w63",
+    "text": "leverage",
+    "start": 24.065,
+    "end": 24.405
+  },
+  {
+    "id": "w64",
+    "text": "point.",
+    "start": 24.446,
+    "end": 25.045
+  },
+  {
+    "id": "w65",
+    "text": "You've",
+    "start": 25.105,
+    "end": 25.265
+  },
+  {
+    "id": "w66",
+    "text": "built",
+    "start": 25.285,
+    "end": 25.585
+  },
+  {
+    "id": "w67",
+    "text": "skills,",
+    "start": 25.606,
+    "end": 26.126
+  },
+  {
+    "id": "w68",
+    "text": "credibility,",
+    "start": 26.425,
+    "end": 27.365
+  },
+  {
+    "id": "w69",
+    "text": "and",
+    "start": 27.385,
+    "end": 27.485
+  },
+  {
+    "id": "w70",
+    "text": "relationships.",
+    "start": 27.525,
+    "end": 28.305
+  },
+  {
+    "id": "w71",
+    "text": "That",
+    "start": 28.938,
+    "end": 29.018
+  },
+  {
+    "id": "w72",
+    "text": "gives",
+    "start": 29.137,
+    "end": 29.298
+  },
+  {
+    "id": "w73",
+    "text": "you",
+    "start": 29.358,
+    "end": 29.397
+  },
+  {
+    "id": "w74",
+    "text": "more\u2014not",
+    "start": 29.517,
+    "end": 30.117
+  },
+  {
+    "id": "w75",
+    "text": "fewer\u2014options.",
+    "start": 30.257,
+    "end": 31.117
+  },
+  {
+    "id": "w76",
+    "text": "The",
+    "start": 31.537,
+    "end": 31.657
+  },
+  {
+    "id": "w77",
+    "text": "challenge",
+    "start": 31.698,
+    "end": 32.198
+  },
+  {
+    "id": "w78",
+    "text": "isn't",
+    "start": 32.257,
+    "end": 32.557
+  },
+  {
+    "id": "w79",
+    "text": "a",
+    "start": 32.637,
+    "end": 32.657
+  },
+  {
+    "id": "w80",
+    "text": "lack",
+    "start": 32.738,
+    "end": 32.937
+  },
+  {
+    "id": "w81",
+    "text": "of",
+    "start": 32.977,
+    "end": 33.057
+  },
+  {
+    "id": "w82",
+    "text": "opportunity;",
+    "start": 33.138,
+    "end": 33.757
+  },
+  {
+    "id": "w83",
+    "text": "it's",
+    "start": 34.238,
+    "end": 34.397
+  },
+  {
+    "id": "w84",
+    "text": "learning",
+    "start": 34.477,
+    "end": 34.738
+  },
+  {
+    "id": "w85",
+    "text": "to",
+    "start": 34.777,
+    "end": 34.837
+  },
+  {
+    "id": "w86",
+    "text": "choose",
+    "start": 34.977,
+    "end": 35.238
+  },
+  {
+    "id": "w87",
+    "text": "intentionally.",
+    "start": 35.357,
+    "end": 36.157
+  },
+  {
+    "id": "w88",
+    "text": "Second,",
+    "start": 36.842,
+    "end": 37.281
+  },
+  {
+    "id": "w89",
+    "text": "instead",
+    "start": 37.741,
+    "end": 38.081
+  },
+  {
+    "id": "w90",
+    "text": "of",
+    "start": 38.081,
+    "end": 38.201
+  },
+  {
+    "id": "w91",
+    "text": "thinking",
+    "start": 38.241,
+    "end": 38.461
+  },
+  {
+    "id": "w92",
+    "text": "in",
+    "start": 38.501,
+    "end": 38.621
+  },
+  {
+    "id": "w93",
+    "text": "terms",
+    "start": 38.641,
+    "end": 38.881
+  },
+  {
+    "id": "w94",
+    "text": "of",
+    "start": 38.921,
+    "end": 39.141
+  },
+  {
+    "id": "w95",
+    "text": "one",
+    "start": 39.181,
+    "end": 39.381
+  },
+  {
+    "id": "w96",
+    "text": "big,",
+    "start": 39.401,
+    "end": 39.641
+  },
+  {
+    "id": "w97",
+    "text": "all-or-nothing",
+    "start": 39.941,
+    "end": 40.542
+  },
+  {
+    "id": "w98",
+    "text": "pivot,",
+    "start": 40.562,
+    "end": 40.861
+  },
+  {
+    "id": "w99",
+    "text": "we'll",
+    "start": 41.281,
+    "end": 41.502
+  },
+  {
+    "id": "w100",
+    "text": "think",
+    "start": 41.542,
+    "end": 41.661
+  },
+  {
+    "id": "w101",
+    "text": "in",
+    "start": 41.681,
+    "end": 41.821
+  },
+  {
+    "id": "w102",
+    "text": "terms",
+    "start": 41.821,
+    "end": 42.042
+  },
+  {
+    "id": "w103",
+    "text": "of",
+    "start": 42.062,
+    "end": 42.201
+  },
+  {
+    "id": "w104",
+    "text": "career",
+    "start": 42.221,
+    "end": 42.502
+  },
+  {
+    "id": "w105",
+    "text": "experiments.",
+    "start": 42.581,
+    "end": 43.221
+  },
+  {
+    "id": "w106",
+    "text": "That",
+    "start": 43.835,
+    "end": 43.975
+  },
+  {
+    "id": "w107",
+    "text": "might",
+    "start": 44.015,
+    "end": 44.195
+  },
+  {
+    "id": "w108",
+    "text": "mean",
+    "start": 44.255,
+    "end": 44.435
+  },
+  {
+    "id": "w109",
+    "text": "testing",
+    "start": 44.495,
+    "end": 44.835
+  },
+  {
+    "id": "w110",
+    "text": "a",
+    "start": 44.855,
+    "end": 44.935
+  },
+  {
+    "id": "w111",
+    "text": "leadership",
+    "start": 44.975,
+    "end": 45.375
+  },
+  {
+    "id": "w112",
+    "text": "role",
+    "start": 45.495,
+    "end": 45.795
+  },
+  {
+    "id": "w113",
+    "text": "on",
+    "start": 45.836,
+    "end": 45.915
+  },
+  {
+    "id": "w114",
+    "text": "a",
+    "start": 45.935,
+    "end": 45.995
+  },
+  {
+    "id": "w115",
+    "text": "project,",
+    "start": 46.035,
+    "end": 46.515
+  },
+  {
+    "id": "w116",
+    "text": "trying",
+    "start": 46.915,
+    "end": 47.156
+  },
+  {
+    "id": "w117",
+    "text": "a",
+    "start": 47.195,
+    "end": 47.295
+  },
+  {
+    "id": "w118",
+    "text": "hybrid",
+    "start": 47.335,
+    "end": 47.636
+  },
+  {
+    "id": "w119",
+    "text": "responsibilities",
+    "start": 47.695,
+    "end": 48.495
+  },
+  {
+    "id": "w120",
+    "text": "arrangement,",
+    "start": 48.536,
+    "end": 49.056
+  },
+  {
+    "id": "w121",
+    "text": "or",
+    "start": 49.455,
+    "end": 49.535
+  },
+  {
+    "id": "w122",
+    "text": "exploring",
+    "start": 49.616,
+    "end": 50.096
+  },
+  {
+    "id": "w123",
+    "text": "an",
+    "start": 50.116,
+    "end": 50.175
+  },
+  {
+    "id": "w124",
+    "text": "adjacent",
+    "start": 50.295,
+    "end": 50.695
+  },
+  {
+    "id": "w125",
+    "text": "function",
+    "start": 50.735,
+    "end": 51.095
+  },
+  {
+    "id": "w126",
+    "text": "with",
+    "start": 51.116,
+    "end": 51.215
+  },
+  {
+    "id": "w127",
+    "text": "a",
+    "start": 51.335,
+    "end": 51.355
+  },
+  {
+    "id": "w128",
+    "text": "small",
+    "start": 51.375,
+    "end": 51.656
+  },
+  {
+    "id": "w129",
+    "text": "assignment",
+    "start": 51.795,
+    "end": 52.535
+  },
+  {
+    "id": "w130",
+    "text": "before",
+    "start": 52.576,
+    "end": 52.896
+  },
+  {
+    "id": "w131",
+    "text": "you",
+    "start": 52.916,
+    "end": 53.015
+  },
+  {
+    "id": "w132",
+    "text": "commit",
+    "start": 53.055,
+    "end": 53.275
+  },
+  {
+    "id": "w133",
+    "text": "fully.",
+    "start": 53.375,
+    "end": 53.656
+  },
+  {
+    "id": "w134",
+    "text": "Finally,",
+    "start": 54.279,
+    "end": 54.939
+  },
+  {
+    "id": "w135",
+    "text": "we'll",
+    "start": 54.979,
+    "end": 55.159
+  },
+  {
+    "id": "w136",
+    "text": "use",
+    "start": 55.219,
+    "end": 55.38
+  },
+  {
+    "id": "w137",
+    "text": "re-design",
+    "start": 55.419,
+    "end": 55.939
+  },
+  {
+    "id": "w138",
+    "text": "thinking.",
+    "start": 55.959,
+    "end": 56.319
+  },
+  {
+    "id": "w139",
+    "text": "Instead",
+    "start": 56.819,
+    "end": 57.179
+  },
+  {
+    "id": "w140",
+    "text": "of",
+    "start": 57.179,
+    "end": 57.279
+  },
+  {
+    "id": "w141",
+    "text": "viewing",
+    "start": 57.299,
+    "end": 57.579
+  },
+  {
+    "id": "w142",
+    "text": "your",
+    "start": 57.599,
+    "end": 57.719
+  },
+  {
+    "id": "w143",
+    "text": "role",
+    "start": 57.739,
+    "end": 57.939
+  },
+  {
+    "id": "w144",
+    "text": "as",
+    "start": 57.939,
+    "end": 58.16
+  },
+  {
+    "id": "w145",
+    "text": "fixed.",
+    "start": 58.179,
+    "end": 58.58
+  },
+  {
+    "id": "w146",
+    "text": "You'll",
+    "start": 59.194,
+    "end": 59.313
+  },
+  {
+    "id": "w147",
+    "text": "look",
+    "start": 59.334,
+    "end": 59.453
+  },
+  {
+    "id": "w148",
+    "text": "for",
+    "start": 59.493,
+    "end": 59.593
+  },
+  {
+    "id": "w149",
+    "text": "ways",
+    "start": 59.633,
+    "end": 59.853
+  },
+  {
+    "id": "w150",
+    "text": "to",
+    "start": 59.893,
+    "end": 59.993
+  },
+  {
+    "id": "w151",
+    "text": "adjust",
+    "start": 60.013,
+    "end": 60.393
+  },
+  {
+    "id": "w152",
+    "text": "projects,",
+    "start": 60.473,
+    "end": 61.033
+  },
+  {
+    "id": "w153",
+    "text": "boundaries,",
+    "start": 61.533,
+    "end": 62.093
+  },
+  {
+    "id": "w154",
+    "text": "responsibilities,",
+    "start": 62.573,
+    "end": 63.553
+  },
+  {
+    "id": "w155",
+    "text": "and",
+    "start": 63.934,
+    "end": 64.133
+  },
+  {
+    "id": "w156",
+    "text": "skills",
+    "start": 64.173,
+    "end": 64.613
+  },
+  {
+    "id": "w157",
+    "text": "so",
+    "start": 64.633,
+    "end": 64.753
+  },
+  {
+    "id": "w158",
+    "text": "your",
+    "start": 64.793,
+    "end": 64.914
+  },
+  {
+    "id": "w159",
+    "text": "work",
+    "start": 64.934,
+    "end": 65.173
+  },
+  {
+    "id": "w160",
+    "text": "better",
+    "start": 65.253,
+    "end": 65.474
+  },
+  {
+    "id": "w161",
+    "text": "matches",
+    "start": 65.493,
+    "end": 65.914
+  },
+  {
+    "id": "w162",
+    "text": "who",
+    "start": 65.934,
+    "end": 66.053
+  },
+  {
+    "id": "w163",
+    "text": "you",
+    "start": 66.093,
+    "end": 66.173
+  },
+  {
+    "id": "w164",
+    "text": "are",
+    "start": 66.213,
+    "end": 66.393
+  },
+  {
+    "id": "w165",
+    "text": "now.",
+    "start": 66.454,
+    "end": 66.593
+  },
+  {
+    "id": "w166",
+    "text": "This",
+    "start": 67.214,
+    "end": 67.334
+  },
+  {
+    "id": "w167",
+    "text": "track",
+    "start": 67.394,
+    "end": 67.614
+  },
+  {
+    "id": "w168",
+    "text": "will",
+    "start": 67.653,
+    "end": 67.794
+  },
+  {
+    "id": "w169",
+    "text": "help",
+    "start": 67.873,
+    "end": 68.033
+  },
+  {
+    "id": "w170",
+    "text": "you",
+    "start": 68.054,
+    "end": 68.193
+  },
+  {
+    "id": "w171",
+    "text": "notice",
+    "start": 68.294,
+    "end": 68.513
+  },
+  {
+    "id": "w172",
+    "text": "when",
+    "start": 68.554,
+    "end": 68.653
+  },
+  {
+    "id": "w173",
+    "text": "a",
+    "start": 68.733,
+    "end": 68.753
+  },
+  {
+    "id": "w174",
+    "text": "belief",
+    "start": 68.773,
+    "end": 69.173
+  },
+  {
+    "id": "w175",
+    "text": "is",
+    "start": 69.193,
+    "end": 69.393
+  },
+  {
+    "id": "w176",
+    "text": "limiting",
+    "start": 69.433,
+    "end": 69.794
+  },
+  {
+    "id": "w177",
+    "text": "you,",
+    "start": 69.794,
+    "end": 69.993
+  },
+  {
+    "id": "w178",
+    "text": "then",
+    "start": 70.473,
+    "end": 70.593
+  },
+  {
+    "id": "w179",
+    "text": "replace",
+    "start": 70.633,
+    "end": 71.054
+  },
+  {
+    "id": "w180",
+    "text": "it",
+    "start": 71.073,
+    "end": 71.153
+  },
+  {
+    "id": "w181",
+    "text": "with",
+    "start": 71.193,
+    "end": 71.474
+  },
+  {
+    "id": "w182",
+    "text": "small,",
+    "start": 71.494,
+    "end": 72.073
+  },
+  {
+    "id": "w183",
+    "text": "practical",
+    "start": 72.133,
+    "end": 72.554
+  },
+  {
+    "id": "w184",
+    "text": "experiments",
+    "start": 72.673,
+    "end": 73.494
+  },
+  {
+    "id": "w185",
+    "text": "that",
+    "start": 73.514,
+    "end": 73.693
+  },
+  {
+    "id": "w186",
+    "text": "build",
+    "start": 73.713,
+    "end": 73.974
+  },
+  {
+    "id": "w187",
+    "text": "confidence",
+    "start": 74.054,
+    "end": 74.733
+  },
+  {
+    "id": "w188",
+    "text": "instead",
+    "start": 74.753,
+    "end": 75.074
+  },
+  {
+    "id": "w189",
+    "text": "of",
+    "start": 75.074,
+    "end": 75.253
+  },
+  {
+    "id": "w190",
+    "text": "fear.",
+    "start": 75.274,
+    "end": 75.514
+  },
+  {
+    "id": "w191",
+    "text": "For",
+    "start": 76.097,
+    "end": 76.196
+  },
+  {
+    "id": "w192",
+    "text": "now,",
+    "start": 76.316,
+    "end": 76.617
+  },
+  {
+    "id": "w193",
+    "text": "your",
+    "start": 76.896,
+    "end": 77.037
+  },
+  {
+    "id": "w194",
+    "text": "task",
+    "start": 77.076,
+    "end": 77.396
+  },
+  {
+    "id": "w195",
+    "text": "is",
+    "start": 77.476,
+    "end": 77.636
+  },
+  {
+    "id": "w196",
+    "text": "simple:",
+    "start": 77.656,
+    "end": 77.996
+  },
+  {
+    "id": "w197",
+    "text": "acknowledge",
+    "start": 78.496,
+    "end": 79.156
+  },
+  {
+    "id": "w198",
+    "text": "where",
+    "start": 79.216,
+    "end": 79.356
+  },
+  {
+    "id": "w199",
+    "text": "you",
+    "start": 79.456,
+    "end": 79.596
+  },
+  {
+    "id": "w200",
+    "text": "feel",
+    "start": 79.636,
+    "end": 79.896
+  },
+  {
+    "id": "w201",
+    "text": "stuck,",
+    "start": 79.956,
+    "end": 80.357
+  },
+  {
+    "id": "w202",
+    "text": "and",
+    "start": 80.857,
+    "end": 81.038
+  },
+  {
+    "id": "w203",
+    "text": "commit",
+    "start": 81.058,
+    "end": 81.437
+  },
+  {
+    "id": "w204",
+    "text": "to",
+    "start": 81.497,
+    "end": 81.578
+  },
+  {
+    "id": "w205",
+    "text": "exploring",
+    "start": 81.637,
+    "end": 82.417
+  },
+  {
+    "id": "w206",
+    "text": "one",
+    "start": 82.517,
+    "end": 82.757
+  },
+  {
+    "id": "w207",
+    "text": "new",
+    "start": 82.797,
+    "end": 82.957
+  },
+  {
+    "id": "w208",
+    "text": "path",
+    "start": 83.078,
+    "end": 83.618
+  },
+  {
+    "id": "w209",
+    "text": "rather",
+    "start": 83.717,
+    "end": 83.998
+  },
+  {
+    "id": "w210",
+    "text": "than",
+    "start": 84.057,
+    "end": 84.197
+  },
+  {
+    "id": "w211",
+    "text": "staying",
+    "start": 84.317,
+    "end": 84.637
+  },
+  {
+    "id": "w212",
+    "text": "in",
+    "start": 84.677,
+    "end": 84.797
+  },
+  {
+    "id": "w213",
+    "text": "neutral.",
+    "start": 84.837,
+    "end": 85.297
+  },
+  {
+    "id": "w214",
+    "text": "So\u2014where",
+    "start": 85.922,
+    "end": 86.182
+  },
+  {
+    "id": "w215",
+    "text": "do",
+    "start": 86.223,
+    "end": 86.283
+  },
+  {
+    "id": "w216",
+    "text": "you",
+    "start": 86.322,
+    "end": 86.442
+  },
+  {
+    "id": "w217",
+    "text": "feel",
+    "start": 86.463,
+    "end": 86.582
+  },
+  {
+    "id": "w218",
+    "text": "stuck?",
+    "start": 86.723,
+    "end": 87.062
+  },
+  {
+    "id": "w219",
+    "text": "And",
+    "start": 87.482,
+    "end": 87.562
+  },
+  {
+    "id": "w220",
+    "text": "what",
+    "start": 87.642,
+    "end": 87.762
+  },
+  {
+    "id": "w221",
+    "text": "small",
+    "start": 87.862,
+    "end": 88.062
+  },
+  {
+    "id": "w222",
+    "text": "experiment",
+    "start": 88.163,
+    "end": 88.622
+  },
+  {
+    "id": "w223",
+    "text": "could",
+    "start": 88.703,
+    "end": 88.842
+  },
+  {
+    "id": "w224",
+    "text": "you",
+    "start": 88.882,
+    "end": 88.982
+  },
+  {
+    "id": "w225",
+    "text": "try",
+    "start": 89.022,
+    "end": 89.182
+  },
+  {
+    "id": "w226",
+    "text": "next?",
+    "start": 89.262,
+    "end": 89.602
+  }
+]

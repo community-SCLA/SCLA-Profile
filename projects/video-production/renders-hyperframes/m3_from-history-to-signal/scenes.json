@@ -1,0 +1,297 @@
+{
+  "theme": "horizon",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "By mid-career, your resume and professional profiles often turn into archives",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "From History to Signal",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-statement",
+      "narration": "— a long record of everything you've done. And that makes it harder for other people to quickly see where you're heading next, and why you're ready for the role you actually want. So let's fix that.",
+      "cues": {
+        "pointCues": ["see where you're heading next", "ready for the role you actually want"],
+        "iconCue": "long record of everything you've done"
+      },
+      "vars": {
+        "kicker": "The problem",
+        "statement": "Hard to See Where You're Heading",
+        "lines": "Takes people longer to see it|Ready for the role you want",
+        "sceneIndex": "02 / THE PROBLEM",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-chips",
+      "narration": "When a manager, a sponsor, or a hiring committee looks at your materials, they're really scanning for just a few things.",
+      "cues": {
+        "chipCues": ["a manager", "a sponsor", "a hiring committee"],
+        "iconCue": "scanning for just a few things"
+      },
+      "vars": {
+        "label": "Who's reading",
+        "heading": "Who's Scanning Your Materials",
+        "chips": "A manager,A sponsor,A hiring committee",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "03 / WHO'S LOOKING",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "examine",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-steps",
+      "narration": "What kinds of results you've delivered. The level of scope you've handled. And how well your experience lines up with the role you want next.",
+      "cues": {
+        "stepCues": ["results you've delivered", "scope you've handled", "experience lines up with the role you want next"]
+      },
+      "vars": {
+        "label": "What they scan for",
+        "heading": "What They're Really Scanning For",
+        "step1": "Results you've delivered",
+        "step2": "The scope you've handled",
+        "step3": "How your experience lines up with the role you want next",
+        "step4": "",
+        "sceneIndex": "04 / WHAT THEY SCAN FOR",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "growth",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-chips",
+      "narration": "Here's the problem. If your resume reads like a task list — \"responsible for X,\" \"duties included Y\" — they have to work much harder to see your impact.",
+      "cues": {
+        "chipCues": ["responsible for X", "duties included Y"],
+        "iconCue": "work much harder to see your impact"
+      },
+      "vars": {
+        "label": "Sounds like a task list",
+        "heading": "What a Task List Sounds Like",
+        "chips": "\"Responsible for X\",\"Duties included Y\"",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "05 / TASK LIST PROBLEM",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "examine",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-statement",
+      "narration": "And if your LinkedIn headline describes only your current role, they may never realize you're aiming for a different kind of future.",
+      "cues": {
+        "pointCues": ["only your current role", "a different kind of future"]
+      },
+      "vars": {
+        "kicker": "The other half of the story",
+        "statement": "Your Headline Might Only Show Today",
+        "lines": "Describes only your current role|Not the future you're aiming for",
+        "sceneIndex": "06 / THE HEADLINE GAP",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-morph",
+      "narration": "Think about the difference. A bullet like \"responsible for managing projects\" tells them what you were assigned.",
+      "cues": {
+        "pointCues": ["responsible for managing projects"]
+      },
+      "vars": {
+        "kicker": "Think about the difference",
+        "aTitle": "\"Responsible for managing projects\"",
+        "aSub": "What you were assigned",
+        "bTitle": "\"Cut onboarding time 30%\"",
+        "bSub": "What you actually delivered",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "",
+        "actions": "A",
+        "notes": "",
+        "sceneIndex": "07 / BEFORE THE REWRITE"
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-morph",
+      "narration": "But rewrite that same experience as \"led a cross-functional project that reduced onboarding time by 30%,\" and now they see what you actually delivered.",
+      "cues": {
+        "pointCues": ["rewrite that same experience", "led a cross-functional project", "reduced onboarding time", "what you actually delivered"]
+      },
+      "vars": {
+        "kicker": "Think about the difference",
+        "aTitle": "\"Responsible for managing projects\"",
+        "aSub": "What you were assigned",
+        "bTitle": "\"Cut onboarding time 30%\"",
+        "bSub": "What you actually delivered",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "",
+        "actions": "A,B,note,morph",
+        "notes": "A concrete result",
+        "sceneIndex": "08 / AFTER THE REWRITE"
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-chips",
+      "narration": "Same work — but one version signals results, and the other just lists duties. That's the shift this module is about. And we'll focus on three moves.",
+      "cues": {
+        "chipCues": ["signals results", "lists duties"],
+        "iconCue": "shift this module is about"
+      },
+      "vars": {
+        "label": "The takeaway",
+        "heading": "Same Work, Different Signal",
+        "chips": "Signals results,Lists duties",
+        "accentIndex": "1",
+        "reveal": "pop",
+        "sceneIndex": "09 / THE TAKEAWAY",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "done",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-condition",
+      "narration": "First, discovering the experiences that best support your future trajectory — the parts of your story that point forward, not just the ones that fill the page.",
+      "cues": {
+        "chipCues": ["support your future trajectory", "point forward"]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "First",
+        "heading": "Discover What Points Forward",
+        "total": "3",
+        "chips": "Experiences that support your trajectory,Parts of your story that point forward",
+        "icon": "compass",
+        "iconCue": "",
+        "sceneIndex": "10 / DISCOVER"
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-condition",
+      "narration": "Second, rewriting your key resume bullets so they show results, scope, and impact — not tasks.",
+      "cues": {
+        "chipCues": ["results", "scope", "and impact"]
+      },
+      "vars": {
+        "num": "2",
+        "kicker": "Second",
+        "heading": "Show Results, Scope, and Impact",
+        "total": "3",
+        "chips": "Results,Scope,Impact",
+        "icon": "growth",
+        "iconCue": "",
+        "sceneIndex": "11 / REWRITE"
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-statement",
+      "narration": "Third, updating your LinkedIn headline and summary so they speak to your future-you, not just your past-you.",
+      "cues": {
+        "pointCues": ["your LinkedIn headline", "and summary"],
+        "iconCue": "not just your past-you"
+      },
+      "vars": {
+        "kicker": "Third",
+        "statement": "Speak to Your Future-You, Not Your Past",
+        "lines": "Update your LinkedIn headline|Update your summary",
+        "sceneIndex": "12 / SPEAK FORWARD",
+        "icon": "target",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-points",
+      "narration": "Now, the goal here is not to rewrite your entire history. It's to curate. To highlight the parts of your story that make your Next Move Statement believable and compelling.",
+      "cues": {
+        "pointCues": ["not to rewrite your entire history", "highlight the parts of your story", "believable and compelling"]
+      },
+      "vars": {
+        "label": "The goal",
+        "heading": "Curate, Don't Rewrite",
+        "point1": "Not to rewrite your entire history",
+        "point2": "Curate the parts that fit your story",
+        "point3": "Makes your story believable and compelling",
+        "point4": "",
+        "sceneIndex": "13 / CURATE",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-morph",
+      "narration": "When you reposition your experience like this, you make it easier for decision-makers to connect the dots — from who you are now, to who you're becoming.",
+      "cues": {
+        "pointCues": ["reposition your experience", "connect the dots", "who you are now", "who you're becoming"]
+      },
+      "vars": {
+        "kicker": "Connect the dots",
+        "aTitle": "Who you are now",
+        "aSub": "Your history",
+        "bTitle": "Who you're becoming",
+        "bSub": "Your next move",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "",
+        "actions": "A,B,note,morph",
+        "notes": "Same story, new angle",
+        "sceneIndex": "14 / CONNECT THE DOTS"
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-statement",
+      "narration": "So as you work through this module, keep one question in mind. If someone only saw my resume and my LinkedIn profile, would they understand the future I'm aiming for?",
+      "cues": {
+        "pointCues": ["keep one question in mind", "saw my resume and my linkedin profile"],
+        "iconCue": "understand the future"
+      },
+      "vars": {
+        "kicker": "Ask yourself",
+        "statement": "Would They Understand the Future I'm Aiming For?",
+        "lines": "Keep one question in mind|Just your resume and LinkedIn profile",
+        "sceneIndex": "15 / ASK YOURSELF",
+        "icon": "target",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-outro",
+      "narration": "By the end of this module, you'll be much closer to a yes.",
+      "vars": {
+        "cta": "Reposition your story",
+        "next": "By the end of this module, you'll be much closer to a yes.",
+        "url": "thescla.org",
+        "sceneIndex": "16 / NEXT STEP"
+      }
+    }
+  ]
+}

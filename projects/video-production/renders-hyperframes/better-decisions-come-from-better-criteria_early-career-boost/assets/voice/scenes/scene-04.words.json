@@ -1,0 +1,80 @@
+[
+  {
+    "id": "w0",
+    "text": "One",
+    "start": 0.219,
+    "end": 0.46
+  },
+  {
+    "id": "w1",
+    "text": "reason",
+    "start": 0.46,
+    "end": 0.779
+  },
+  {
+    "id": "w2",
+    "text": "career",
+    "start": 0.779,
+    "end": 1.039
+  },
+  {
+    "id": "w3",
+    "text": "decisions",
+    "start": 1.059,
+    "end": 1.5
+  },
+  {
+    "id": "w4",
+    "text": "feel",
+    "start": 1.62,
+    "end": 1.819
+  },
+  {
+    "id": "w5",
+    "text": "hard",
+    "start": 1.819,
+    "end": 2.18
+  },
+  {
+    "id": "w6",
+    "text": "is",
+    "start": 2.22,
+    "end": 2.319
+  },
+  {
+    "id": "w7",
+    "text": "that",
+    "start": 2.359,
+    "end": 2.519
+  },
+  {
+    "id": "w8",
+    "text": "people",
+    "start": 2.599,
+    "end": 2.839
+  },
+  {
+    "id": "w9",
+    "text": "often",
+    "start": 2.919,
+    "end": 3.179
+  },
+  {
+    "id": "w10",
+    "text": "decide",
+    "start": 3.179,
+    "end": 3.659
+  },
+  {
+    "id": "w11",
+    "text": "under",
+    "start": 3.679,
+    "end": 3.919
+  },
+  {
+    "id": "w12",
+    "text": "pressure.",
+    "start": 3.939,
+    "end": 4.299
+  }
+]

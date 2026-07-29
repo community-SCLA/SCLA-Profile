@@ -1,0 +1,439 @@
+{
+  "theme": "cadence",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "At this point in your career, most meaningful opportunities don't come from job boards.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Finding New Peers, Sponsors, and Opportunity Holders",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-chips",
+      "narration": "They come from people—colleagues, leaders, and connectors who know your work and can open doors.",
+      "vars": {
+        "label": "Not job boards",
+        "heading": "People Open Doors",
+        "chips": "Colleagues,Leaders,Connectors",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "02 / PEOPLE",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "",
+        "iconCue": ""
+      },
+      "cues": {
+        "chipCues": [
+          "people—colleagues",
+          "leaders",
+          "connectors"
+        ]
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-steps",
+      "narration": "In this module, we'll focus on three kinds of relationships that matter especially during a mid-career pivot or advancement: peers, sponsors, and opportunity holders.",
+      "vars": {
+        "label": "This module",
+        "heading": "Three Relationships That Matter",
+        "step1": "Peers",
+        "step2": "Sponsors",
+        "step3": "Opportunity holders",
+        "step4": "",
+        "sceneIndex": "03 / THREE TYPES",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "compass",
+        "iconCue": ""
+      },
+      "cues": {
+        "stepCues": [
+          "peers",
+          "sponsors",
+          "opportunity holders"
+        ]
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-condition",
+      "narration": "Peers are professionals at a similar level who share knowledge, introductions, and real-world context.",
+      "vars": {
+        "num": "1",
+        "kicker": "Peer",
+        "heading": "People at Your Level",
+        "total": "3",
+        "chips": "Knowledge,Introductions,Real-world context",
+        "icon": "mentorship",
+        "iconCue": "",
+        "sceneIndex": "04 / PEERS"
+      },
+      "cues": {
+        "chipCues": [
+          "knowledge",
+          "introductions",
+          "real-world context"
+        ]
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-points",
+      "narration": "They help you understand what's happening on the ground, compare experiences, and build community as you shift direction.",
+      "vars": {
+        "label": "What peers do",
+        "heading": "Ground Truth and Community",
+        "point1": "Understand what's happening on the ground",
+        "point2": "Compare experiences",
+        "point3": "Build community as you shift direction",
+        "point4": "",
+        "sceneIndex": "05 / PEERS",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      },
+      "cues": {
+        "pointCues": [
+          "understand what's happening on the ground",
+          "compare experiences",
+          "build community"
+        ]
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-chips",
+      "narration": "Think of colleagues in your department, practitioners in your future field, and members of the professional communities you belong to.",
+      "vars": {
+        "label": "Think of",
+        "heading": "Where to Find Peers",
+        "chips": "Colleagues in your department,Practitioners in your future field,Professional communities you belong to",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "06 / PEERS",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "",
+        "iconCue": ""
+      },
+      "cues": {
+        "chipCues": [
+          "colleagues in your department",
+          "practitioners in your future field",
+          "professional communities"
+        ]
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-condition",
+      "narration": "Sponsors are more senior leaders who don't just advise you—they actively advocate for you.",
+      "vars": {
+        "num": "2",
+        "kicker": "Sponsor",
+        "heading": "Leaders Who Advocate for You",
+        "total": "3",
+        "chips": "Advise,Advocate",
+        "icon": "growth",
+        "iconCue": "",
+        "sceneIndex": "07 / SPONSORS"
+      },
+      "cues": {
+        "chipCues": [
+          "don't just advise",
+          "actively advocate for you"
+        ]
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-points",
+      "narration": "They put your name forward for roles, projects, and committees.",
+      "vars": {
+        "label": "What sponsors do",
+        "heading": "They Put Your Name Forward",
+        "point1": "Roles",
+        "point2": "Projects",
+        "point3": "Committees",
+        "point4": "",
+        "sceneIndex": "08 / SPONSORS",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      },
+      "cues": {
+        "pointCues": [
+          "roles",
+          "projects",
+          "committees"
+        ]
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-chips",
+      "narration": "Sponsorship is especially critical for mid-career advancement and career pivots, because sponsors often sit right where decisions get made—the promotions, the project leads, the committee seats.",
+      "vars": {
+        "label": "Why it's critical",
+        "heading": "Sponsors Sit Where Decisions Get Made",
+        "chips": "The promotions,The project leads,The committee seats",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "09 / SPONSORS",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "",
+        "iconCue": ""
+      },
+      "cues": {
+        "chipCues": [
+          "promotions",
+          "the project leads",
+          "the committee seats"
+        ]
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-condition",
+      "narration": "Opportunity holders are people who control or influence roles, projects, and hiring decisions.",
+      "vars": {
+        "num": "3",
+        "kicker": "Opportunity holder",
+        "heading": "People Who Control the Door",
+        "total": "3",
+        "chips": "Roles,Projects,Hiring decisions",
+        "icon": "target",
+        "iconCue": "",
+        "sceneIndex": "10 / OPPORTUNITY HOLDERS"
+      },
+      "cues": {
+        "chipCues": [
+          "roles",
+          "projects",
+          "hiring decisions"
+        ]
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-points",
+      "narration": "This might be hiring managers, program directors, deans, HR or talent partners, or leaders in organizations you'd like to join.",
+      "vars": {
+        "label": "Who counts",
+        "heading": "Many Faces, One Role",
+        "point1": "Hiring managers",
+        "point2": "Program directors and deans",
+        "point3": "HR or talent partners",
+        "point4": "Leaders in organizations you'd like to join",
+        "sceneIndex": "11 / OPPORTUNITY HOLDERS",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      },
+      "cues": {
+        "pointCues": [
+          "hiring managers",
+          "program directors",
+          "hr or talent partners",
+          "leaders in organizations"
+        ]
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-statement",
+      "narration": "Even if they don't know you yet, they are key nodes for your future path.",
+      "vars": {
+        "kicker": "Even strangers matter",
+        "statement": "They Are Key Nodes for Your Path",
+        "lines": "",
+        "sceneIndex": "12 / OPPORTUNITY HOLDERS",
+        "icon": "map",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-morph",
+      "narration": "When you're pivoting into a new field or aiming for a higher-level role, your goal is not to meet everyone. Your goal is to identify a small, strategic map of the people who are most relevant to the future you're building.",
+      "vars": {
+        "kicker": "Finding the right people",
+        "aTitle": "Meet Everyone",
+        "aSub": "No real leverage",
+        "bTitle": "A Small, Strategic Map",
+        "bSub": "The people most relevant to your future",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "question,map",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "13 / STRATEGY"
+      },
+      "cues": {
+        "pointCues": [
+          "meet everyone",
+          "strategic map",
+          "future you're building"
+        ]
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-points",
+      "narration": "So how do you find these people? First, start with your existing connections: Current and former colleagues, People you've worked with on cross-functional projects, Alumni networks, professional associations, or communities you're part of",
+      "vars": {
+        "label": "Method one",
+        "heading": "Start with Existing Connections",
+        "point1": "Current and former colleagues",
+        "point2": "People you've worked with on cross-functional projects",
+        "point3": "Alumni networks, professional associations, or communities you're part of",
+        "point4": "",
+        "sceneIndex": "14 / FIND THEM",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "mentorship2,,"
+      },
+      "cues": {
+        "pointCues": [
+          "current and former colleagues",
+          "cross-functional projects",
+          "alumni networks"
+        ]
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-statement",
+      "narration": "Let them know about your Next Move Statement and ask: \"Who do you know in my target field or role that I might talk to for a twenty-minute learning conversation?\"",
+      "vars": {
+        "kicker": "Ask this",
+        "statement": "Ask for a Twenty-Minute Conversation",
+        "lines": "",
+        "sceneIndex": "15 / ASK",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-points",
+      "narration": "Second, use platforms like LinkedIn and professional groups to search directly in your future field: Search by title, skills, or keywords connected to your target roles, Look for people in organizations or teams you'd like to join",
+      "vars": {
+        "label": "Method two",
+        "heading": "Search Your Future Field Directly",
+        "point1": "Search by title, skills, or keywords for your target roles",
+        "point2": "Look for people in organizations or teams you'd like to join",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "16 / FIND THEM",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "examine,target"
+      },
+      "cues": {
+        "pointCues": [
+          "search by title",
+          "look for people"
+        ]
+      }
+    },
+    {
+      "id": "scene-17",
+      "template": "scla-points",
+      "narration": "Third, identify potential sponsors in your current organization or a new one: People one to three levels above you who appreciate your work or seem aligned with your direction, Leaders who are visible in the spaces you want to enter",
+      "vars": {
+        "label": "Method three",
+        "heading": "Identify Potential Sponsors",
+        "point1": "People one to three levels above you",
+        "point2": "Leaders visible in the spaces you want to enter",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "17 / FIND THEM",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "compass,mentorship2"
+      },
+      "cues": {
+        "pointCues": [
+          "one to three levels above you",
+          "leaders who are visible"
+        ]
+      }
+    },
+    {
+      "id": "scene-18",
+      "template": "scla-stat",
+      "narration": "In this module's activity, you'll build a contact map of three to five strategic relationships—peers, sponsors, and opportunity holders—who are relevant to your next move, then use outreach templates and AI to craft authentic messages.",
+      "vars": {
+        "value": 5,
+        "prefix": "3–",
+        "suffix": "",
+        "statLabel": "Strategic relationships",
+        "ring": "",
+        "context": "Peers, sponsors, and opportunity holders who are relevant to your next move.",
+        "sceneIndex": "18 / THE ACTIVITY"
+      }
+    },
+    {
+      "id": "scene-19",
+      "template": "scla-chips",
+      "narration": "Remember: networking is not about collecting business cards or asking for favors at random.",
+      "vars": {
+        "label": "Remember",
+        "heading": "Not About Collecting Cards",
+        "chips": "Business cards,Favors at random",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "19 / REMEMBER",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "salary",
+        "iconCue": ""
+      },
+      "cues": {
+        "chipCues": [
+          "business cards",
+          "favors at random"
+        ]
+      }
+    },
+    {
+      "id": "scene-20",
+      "template": "scla-statement",
+      "narration": "It's about building real relationships, sharing value, and staying visible to the people who are most connected to the future you're creating.",
+      "vars": {
+        "kicker": "It's about",
+        "statement": "Building Real Relationships",
+        "lines": "Sharing value|Staying visible to the right people",
+        "sceneIndex": "20 / REMEMBER",
+        "icon": "growth",
+        "iconCue": ""
+      },
+      "cues": {
+        "pointCues": [
+          "sharing value",
+          "staying visible"
+        ]
+      }
+    },
+    {
+      "id": "scene-21",
+      "template": "scla-outro",
+      "narration": "As you move forward, ask yourself: \"Who already sits near the opportunities I care about—and how can I begin a genuine, respectful relationship with them?\"",
+      "vars": {
+        "cta": "Map Your Key Relationships",
+        "next": "Who already sits near the opportunities you care about?",
+        "url": "thescla.org",
+        "sceneIndex": "21 / NEXT STEP"
+      }
+    }
+  ]
+}

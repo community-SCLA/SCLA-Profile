@@ -1,0 +1,116 @@
+[
+  {
+    "id": "w0",
+    "text": "You",
+    "start": 0.239,
+    "end": 0.299
+  },
+  {
+    "id": "w1",
+    "text": "are",
+    "start": 0.319,
+    "end": 0.399
+  },
+  {
+    "id": "w2",
+    "text": "not",
+    "start": 0.459,
+    "end": 0.619
+  },
+  {
+    "id": "w3",
+    "text": "just",
+    "start": 0.659,
+    "end": 0.799
+  },
+  {
+    "id": "w4",
+    "text": "asking,",
+    "start": 0.879,
+    "end": 1.339
+  },
+  {
+    "id": "w5",
+    "text": "\"Which",
+    "start": 1.339,
+    "end": 2.079
+  },
+  {
+    "id": "w6",
+    "text": "one",
+    "start": 2.139,
+    "end": 2.259
+  },
+  {
+    "id": "w7",
+    "text": "sounds",
+    "start": 2.379,
+    "end": 2.659
+  },
+  {
+    "id": "w8",
+    "text": "good?\"",
+    "start": 2.74,
+    "end": 2.919
+  },
+  {
+    "id": "w9",
+    "text": "You",
+    "start": 3.519,
+    "end": 3.579
+  },
+  {
+    "id": "w10",
+    "text": "are",
+    "start": 3.619,
+    "end": 3.699
+  },
+  {
+    "id": "w11",
+    "text": "asking,",
+    "start": 3.779,
+    "end": 4.179
+  },
+  {
+    "id": "w12",
+    "text": "\"Which",
+    "start": 4.179,
+    "end": 4.839
+  },
+  {
+    "id": "w13",
+    "text": "one",
+    "start": 4.88,
+    "end": 5
+  },
+  {
+    "id": "w14",
+    "text": "fits",
+    "start": 5.139,
+    "end": 5.319
+  },
+  {
+    "id": "w15",
+    "text": "what",
+    "start": 5.38,
+    "end": 5.519
+  },
+  {
+    "id": "w16",
+    "text": "matters",
+    "start": 5.559,
+    "end": 5.9
+  },
+  {
+    "id": "w17",
+    "text": "to",
+    "start": 5.94,
+    "end": 6
+  },
+  {
+    "id": "w18",
+    "text": "me?\"",
+    "start": 6.059,
+    "end": 6.179
+  }
+]

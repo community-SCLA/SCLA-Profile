@@ -1,0 +1,104 @@
+[
+  {
+    "id": "w0",
+    "text": "Once",
+    "start": 0.199,
+    "end": 0.399
+  },
+  {
+    "id": "w1",
+    "text": "you",
+    "start": 0.459,
+    "end": 0.56
+  },
+  {
+    "id": "w2",
+    "text": "know",
+    "start": 0.599,
+    "end": 0.699
+  },
+  {
+    "id": "w3",
+    "text": "how",
+    "start": 0.759,
+    "end": 0.859
+  },
+  {
+    "id": "w4",
+    "text": "to",
+    "start": 0.899,
+    "end": 0.979
+  },
+  {
+    "id": "w5",
+    "text": "make",
+    "start": 1.019,
+    "end": 1.159
+  },
+  {
+    "id": "w6",
+    "text": "one",
+    "start": 1.339,
+    "end": 1.48
+  },
+  {
+    "id": "w7",
+    "text": "good",
+    "start": 1.579,
+    "end": 1.699
+  },
+  {
+    "id": "w8",
+    "text": "decision,",
+    "start": 1.759,
+    "end": 2.22
+  },
+  {
+    "id": "w9",
+    "text": "you",
+    "start": 2.639,
+    "end": 2.72
+  },
+  {
+    "id": "w10",
+    "text": "can",
+    "start": 2.759,
+    "end": 2.859
+  },
+  {
+    "id": "w11",
+    "text": "use",
+    "start": 2.939,
+    "end": 3.079
+  },
+  {
+    "id": "w12",
+    "text": "that",
+    "start": 3.119,
+    "end": 3.279
+  },
+  {
+    "id": "w13",
+    "text": "skill",
+    "start": 3.359,
+    "end": 3.619
+  },
+  {
+    "id": "w14",
+    "text": "again",
+    "start": 3.74,
+    "end": 4
+  },
+  {
+    "id": "w15",
+    "text": "and",
+    "start": 4.039,
+    "end": 4.119
+  },
+  {
+    "id": "w16",
+    "text": "again.",
+    "start": 4.159,
+    "end": 4.519
+  }
+]

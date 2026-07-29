@@ -1,0 +1,38 @@
+[
+  {
+    "id": "w0",
+    "text": "That",
+    "start": 0.099,
+    "end": 0.379
+  },
+  {
+    "id": "w1",
+    "text": "clarity",
+    "start": 0.399,
+    "end": 0.899
+  },
+  {
+    "id": "w2",
+    "text": "is",
+    "start": 0.919,
+    "end": 1.059
+  },
+  {
+    "id": "w3",
+    "text": "what",
+    "start": 1.079,
+    "end": 1.24
+  },
+  {
+    "id": "w4",
+    "text": "creates",
+    "start": 1.299,
+    "end": 1.699
+  },
+  {
+    "id": "w5",
+    "text": "momentum.",
+    "start": 1.719,
+    "end": 2.279
+  }
+]

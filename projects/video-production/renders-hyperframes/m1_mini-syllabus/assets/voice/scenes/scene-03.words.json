@@ -1,0 +1,158 @@
+[
+  {
+    "id": "w0",
+    "text": "Think",
+    "start": 0.159,
+    "end": 0.319
+  },
+  {
+    "id": "w1",
+    "text": "of",
+    "start": 0.359,
+    "end": 0.419
+  },
+  {
+    "id": "w2",
+    "text": "it",
+    "start": 0.459,
+    "end": 0.539
+  },
+  {
+    "id": "w3",
+    "text": "as",
+    "start": 0.579,
+    "end": 0.68
+  },
+  {
+    "id": "w4",
+    "text": "the",
+    "start": 0.74,
+    "end": 0.859
+  },
+  {
+    "id": "w5",
+    "text": "mid-career",
+    "start": 0.899,
+    "end": 1.379
+  },
+  {
+    "id": "w6",
+    "text": "checkpoint",
+    "start": 1.539,
+    "end": 2.22
+  },
+  {
+    "id": "w7",
+    "text": "in",
+    "start": 2.279,
+    "end": 2.379
+  },
+  {
+    "id": "w8",
+    "text": "your",
+    "start": 2.419,
+    "end": 2.559
+  },
+  {
+    "id": "w9",
+    "text": "career",
+    "start": 2.579,
+    "end": 2.919
+  },
+  {
+    "id": "w10",
+    "text": "map:",
+    "start": 2.96,
+    "end": 3.179
+  },
+  {
+    "id": "w11",
+    "text": "a",
+    "start": 3.619,
+    "end": 3.679
+  },
+  {
+    "id": "w12",
+    "text": "place",
+    "start": 3.74,
+    "end": 3.959
+  },
+  {
+    "id": "w13",
+    "text": "where",
+    "start": 4,
+    "end": 4.119
+  },
+  {
+    "id": "w14",
+    "text": "you",
+    "start": 4.139,
+    "end": 4.279
+  },
+  {
+    "id": "w15",
+    "text": "pause,",
+    "start": 4.36,
+    "end": 4.819
+  },
+  {
+    "id": "w16",
+    "text": "reassess,",
+    "start": 5.159,
+    "end": 5.779
+  },
+  {
+    "id": "w17",
+    "text": "and",
+    "start": 6.079,
+    "end": 6.219
+  },
+  {
+    "id": "w18",
+    "text": "deliberately",
+    "start": 6.239,
+    "end": 6.92
+  },
+  {
+    "id": "w19",
+    "text": "choose",
+    "start": 6.98,
+    "end": 7.179
+  },
+  {
+    "id": "w20",
+    "text": "what",
+    "start": 7.239,
+    "end": 7.419
+  },
+  {
+    "id": "w21",
+    "text": "comes",
+    "start": 7.46,
+    "end": 7.699
+  },
+  {
+    "id": "w22",
+    "text": "next",
+    "start": 7.759,
+    "end": 8.059
+  },
+  {
+    "id": "w23",
+    "text": "instead",
+    "start": 8.199,
+    "end": 8.539
+  },
+  {
+    "id": "w24",
+    "text": "of",
+    "start": 8.559,
+    "end": 8.619
+  },
+  {
+    "id": "w25",
+    "text": "drifting.",
+    "start": 8.679,
+    "end": 9.119
+  }
+]

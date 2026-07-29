@@ -1,0 +1,158 @@
+[
+  {
+    "id": "w0",
+    "text": "Now",
+    "start": 0.219,
+    "end": 0.359
+  },
+  {
+    "id": "w1",
+    "text": "I'll",
+    "start": 0.419,
+    "end": 0.579
+  },
+  {
+    "id": "w2",
+    "text": "show",
+    "start": 0.62,
+    "end": 0.759
+  },
+  {
+    "id": "w3",
+    "text": "you",
+    "start": 0.839,
+    "end": 0.899
+  },
+  {
+    "id": "w4",
+    "text": "how",
+    "start": 0.959,
+    "end": 1.059
+  },
+  {
+    "id": "w5",
+    "text": "to",
+    "start": 1.139,
+    "end": 1.24
+  },
+  {
+    "id": "w6",
+    "text": "actually",
+    "start": 1.319,
+    "end": 1.679
+  },
+  {
+    "id": "w7",
+    "text": "do",
+    "start": 1.719,
+    "end": 1.86
+  },
+  {
+    "id": "w8",
+    "text": "that,",
+    "start": 1.899,
+    "end": 2.2
+  },
+  {
+    "id": "w9",
+    "text": "using",
+    "start": 2.619,
+    "end": 2.879
+  },
+  {
+    "id": "w10",
+    "text": "two",
+    "start": 2.939,
+    "end": 3.059
+  },
+  {
+    "id": "w11",
+    "text": "things",
+    "start": 3.159,
+    "end": 3.359
+  },
+  {
+    "id": "w12",
+    "text": "together:",
+    "start": 3.419,
+    "end": 3.819
+  },
+  {
+    "id": "w13",
+    "text": "our",
+    "start": 4.839,
+    "end": 4.92
+  },
+  {
+    "id": "w14",
+    "text": "Resume",
+    "start": 5,
+    "end": 5.38
+  },
+  {
+    "id": "w15",
+    "text": "Builder",
+    "start": 5.48,
+    "end": 5.779
+  },
+  {
+    "id": "w16",
+    "text": "Tool",
+    "start": 5.859,
+    "end": 6.199
+  },
+  {
+    "id": "w17",
+    "text": "and",
+    "start": 7.059,
+    "end": 7.159
+  },
+  {
+    "id": "w18",
+    "text": "a",
+    "start": 7.219,
+    "end": 7.239
+  },
+  {
+    "id": "w19",
+    "text": "simple",
+    "start": 7.399,
+    "end": 7.679
+  },
+  {
+    "id": "w20",
+    "text": "four-part",
+    "start": 7.839,
+    "end": 8.359
+  },
+  {
+    "id": "w21",
+    "text": "lens",
+    "start": 8.479,
+    "end": 8.84
+  },
+  {
+    "id": "w22",
+    "text": "for",
+    "start": 8.939,
+    "end": 9.019
+  },
+  {
+    "id": "w23",
+    "text": "rewriting",
+    "start": 9.159,
+    "end": 9.619
+  },
+  {
+    "id": "w24",
+    "text": "your",
+    "start": 9.679,
+    "end": 9.779
+  },
+  {
+    "id": "w25",
+    "text": "bullets.",
+    "start": 9.84,
+    "end": 10.279
+  }
+]

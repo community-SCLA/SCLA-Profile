@@ -1,0 +1,74 @@
+[
+  {
+    "id": "w0",
+    "text": "The",
+    "start": 0.199,
+    "end": 0.28
+  },
+  {
+    "id": "w1",
+    "text": "Career",
+    "start": 0.319,
+    "end": 0.599
+  },
+  {
+    "id": "w2",
+    "text": "Accelerator",
+    "start": 0.659,
+    "end": 1.299
+  },
+  {
+    "id": "w3",
+    "text": "has",
+    "start": 1.36,
+    "end": 1.539
+  },
+  {
+    "id": "w4",
+    "text": "more",
+    "start": 1.559,
+    "end": 1.74
+  },
+  {
+    "id": "w5",
+    "text": "tracks,",
+    "start": 1.799,
+    "end": 2.259
+  },
+  {
+    "id": "w6",
+    "text": "more",
+    "start": 2.619,
+    "end": 2.799
+  },
+  {
+    "id": "w7",
+    "text": "tools,",
+    "start": 2.839,
+    "end": 3.319
+  },
+  {
+    "id": "w8",
+    "text": "and",
+    "start": 3.659,
+    "end": 3.759
+  },
+  {
+    "id": "w9",
+    "text": "a",
+    "start": 3.779,
+    "end": 3.859
+  },
+  {
+    "id": "w10",
+    "text": "member",
+    "start": 3.899,
+    "end": 4.079
+  },
+  {
+    "id": "w11",
+    "text": "community.",
+    "start": 4.179,
+    "end": 4.659
+  }
+]

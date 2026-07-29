@@ -1,0 +1,110 @@
+[
+  {
+    "id": "w0",
+    "text": "They",
+    "start": 0.159,
+    "end": 0.28
+  },
+  {
+    "id": "w1",
+    "text": "help",
+    "start": 0.359,
+    "end": 0.519
+  },
+  {
+    "id": "w2",
+    "text": "you",
+    "start": 0.539,
+    "end": 0.639
+  },
+  {
+    "id": "w3",
+    "text": "understand",
+    "start": 0.699,
+    "end": 1.22
+  },
+  {
+    "id": "w4",
+    "text": "what's",
+    "start": 1.24,
+    "end": 1.459
+  },
+  {
+    "id": "w5",
+    "text": "happening",
+    "start": 1.519,
+    "end": 1.899
+  },
+  {
+    "id": "w6",
+    "text": "on",
+    "start": 1.939,
+    "end": 2.059
+  },
+  {
+    "id": "w7",
+    "text": "the",
+    "start": 2.059,
+    "end": 2.139
+  },
+  {
+    "id": "w8",
+    "text": "ground,",
+    "start": 2.2,
+    "end": 2.559
+  },
+  {
+    "id": "w9",
+    "text": "compare",
+    "start": 3.059,
+    "end": 3.5
+  },
+  {
+    "id": "w10",
+    "text": "experiences,",
+    "start": 3.539,
+    "end": 4.359
+  },
+  {
+    "id": "w11",
+    "text": "and",
+    "start": 4.719,
+    "end": 4.94
+  },
+  {
+    "id": "w12",
+    "text": "build",
+    "start": 4.94,
+    "end": 5.219
+  },
+  {
+    "id": "w13",
+    "text": "community",
+    "start": 5.259,
+    "end": 6.099
+  },
+  {
+    "id": "w14",
+    "text": "as",
+    "start": 6.159,
+    "end": 6.279
+  },
+  {
+    "id": "w15",
+    "text": "you",
+    "start": 6.319,
+    "end": 6.48
+  },
+  {
+    "id": "w16",
+    "text": "shift",
+    "start": 6.519,
+    "end": 6.739
+  },
+  {
+    "id": "w17",
+    "text": "direction.",
+    "start": 6.779,
+    "end": 7.299
+  }
+]

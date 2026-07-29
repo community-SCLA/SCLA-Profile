@@ -1,0 +1,32 @@
+[
+  {
+    "id": "w0",
+    "text": "You've",
+    "start": 0.28,
+    "end": 0.359
+  },
+  {
+    "id": "w1",
+    "text": "accumulated",
+    "start": 0.379,
+    "end": 1.079
+  },
+  {
+    "id": "w2",
+    "text": "years",
+    "start": 1.159,
+    "end": 1.36
+  },
+  {
+    "id": "w3",
+    "text": "of",
+    "start": 1.379,
+    "end": 1.459
+  },
+  {
+    "id": "w4",
+    "text": "experience.",
+    "start": 1.579,
+    "end": 2.159
+  }
+]

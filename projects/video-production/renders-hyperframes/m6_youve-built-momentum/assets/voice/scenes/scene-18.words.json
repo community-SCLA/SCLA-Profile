@@ -1,0 +1,86 @@
+[
+  {
+    "id": "w0",
+    "text": "Every",
+    "start": 0.179,
+    "end": 0.479
+  },
+  {
+    "id": "w1",
+    "text": "conversation,",
+    "start": 0.539,
+    "end": 1.339
+  },
+  {
+    "id": "w2",
+    "text": "every",
+    "start": 1.799,
+    "end": 2
+  },
+  {
+    "id": "w3",
+    "text": "session,",
+    "start": 2.099,
+    "end": 2.559
+  },
+  {
+    "id": "w4",
+    "text": "every",
+    "start": 3.119,
+    "end": 3.319
+  },
+  {
+    "id": "w5",
+    "text": "next",
+    "start": 3.439,
+    "end": 3.659
+  },
+  {
+    "id": "w6",
+    "text": "track",
+    "start": 3.779,
+    "end": 4.099
+  },
+  {
+    "id": "w7",
+    "text": "adds",
+    "start": 4.519,
+    "end": 4.839
+  },
+  {
+    "id": "w8",
+    "text": "to",
+    "start": 4.88,
+    "end": 4.94
+  },
+  {
+    "id": "w9",
+    "text": "the",
+    "start": 4.98,
+    "end": 5.119
+  },
+  {
+    "id": "w10",
+    "text": "same",
+    "start": 5.159,
+    "end": 5.4
+  },
+  {
+    "id": "w11",
+    "text": "body",
+    "start": 5.519,
+    "end": 5.739
+  },
+  {
+    "id": "w12",
+    "text": "of",
+    "start": 5.779,
+    "end": 5.879
+  },
+  {
+    "id": "w13",
+    "text": "work.",
+    "start": 5.96,
+    "end": 6.219
+  }
+]

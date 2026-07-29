@@ -1,0 +1,316 @@
+{
+  "theme": "summit",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "Many mid-career professionals treat their LinkedIn profile as a static biography.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Rewrite Your LinkedIn for Future You",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-points",
+      "narration": "A list of titles, and a vague summary about being an \"experienced professional.\" It sits there. It doesn't do much.",
+      "cues": {
+        "pointCues": [
+          "a list of titles",
+          "it sits there",
+          "doesn't do much"
+        ]
+      },
+      "vars": {
+        "label": "The default profile",
+        "heading": "What Most Profiles Look Like",
+        "point1": "A list of titles and a vague summary",
+        "point2": "It sits there",
+        "point3": "It doesn't do much",
+        "point4": "",
+        "sceneIndex": "02 / THE DEFAULT",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-statement",
+      "narration": "But here's the thing: your LinkedIn is one of your most important positioning tools. Recruiters, managers, and peers often see your headline and your \"About\" section before they see anything else about you.",
+      "cues": {
+        "pointCues": [
+          "most important positioning tools",
+          "managers and peers",
+          "your headline and your about",
+          "before they see anything else"
+        ]
+      },
+      "vars": {
+        "kicker": "Here's the thing",
+        "statement": "Your LinkedIn Is a Positioning Tool",
+        "lines": "One of your most important tools|Recruiters, managers, and peers see it first|Your headline and About section|Before anything else about you",
+        "sceneIndex": "03 / POSITIONING",
+        "icon": "target",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-statement",
+      "narration": "That's your first impression, and it's working whether you've shaped it or not. So let's shape it.",
+      "cues": {
+        "pointCues": [
+          "your first impression",
+          "let's shape it"
+        ]
+      },
+      "vars": {
+        "kicker": "Whether you've shaped it or not",
+        "statement": "It's Working, Shaped or Not",
+        "lines": "It's your first impression|So let's shape it, on purpose",
+        "sceneIndex": "04 / FIRST IMPRESSION",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-condition",
+      "narration": "A strong mid-career headline and summary does three things. First, it speaks to the future roles you're aiming for.",
+      "cues": {
+        "iconCue": "does three things"
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "First",
+        "heading": "Speaks to Your Future Roles",
+        "total": "3",
+        "chips": "",
+        "icon": "compass",
+        "iconCue": "",
+        "sceneIndex": "05 / FIRST"
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-condition",
+      "narration": "Second, it highlights the strengths and skills you want to be known for.",
+      "cues": {
+        "iconCue": "the strengths and skills"
+      },
+      "vars": {
+        "num": "2",
+        "kicker": "Second",
+        "heading": "Highlights Your Strengths and Skills",
+        "total": "3",
+        "chips": "",
+        "icon": "growth",
+        "iconCue": "",
+        "sceneIndex": "06 / SECOND"
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-condition",
+      "narration": "And third, it shows the value you create, in a way that's clear and human.",
+      "cues": {
+        "iconCue": "the value you create"
+      },
+      "vars": {
+        "num": "3",
+        "kicker": "Third",
+        "heading": "Shows the Value You Create",
+        "total": "3",
+        "chips": "",
+        "icon": "salary",
+        "iconCue": "",
+        "sceneIndex": "07 / THIRD"
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-steps",
+      "narration": "For your headline, you can use a simple structure. Target role or direction, then your key strengths and skills, then the value you create or the area you focus on.",
+      "cues": {
+        "stepCues": [
+          "target role or direction",
+          "your key strengths and skills",
+          "the value you create"
+        ]
+      },
+      "vars": {
+        "label": "Headline structure",
+        "heading": "A Simple Structure for Your Headline",
+        "step1": "Target role or direction",
+        "step2": "Your key strengths and skills",
+        "step3": "The value you create or focus on",
+        "step4": "",
+        "sceneIndex": "08 / STRUCTURE",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "target",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-statement",
+      "narration": "Separate them with a line, and let each piece do a job. Here's what that shift looks like.",
+      "cues": {
+        "pointCues": [
+          "with a line",
+          "what that shift looks like"
+        ]
+      },
+      "vars": {
+        "kicker": "One simple rule",
+        "statement": "Let Each Piece Do Its Own Job",
+        "lines": "Separate each part with a line|Here's what that shift looks like",
+        "sceneIndex": "09 / ONE RULE",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-morph",
+      "narration": "Before, a headline might read: \"Project Manager at X Company.\" True, but it only names where you've been. After, it becomes: \"Senior Program Leader — driving cross-functional initiatives, improving outcomes in higher ed.\"",
+      "cues": {
+        "pointCues": [
+          "a headline might read",
+          "only names where you've been",
+          "After it becomes"
+        ]
+      },
+      "vars": {
+        "kicker": "The headline shift",
+        "aTitle": "Project Manager at X Company",
+        "aSub": "Only names where you've been",
+        "bTitle": "Senior Program Leader",
+        "bSub": "Cross-functional initiatives, better outcomes",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "question,done",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "10 / THE SHIFT"
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-points",
+      "narration": "Same person. But now the profile points forward. Now for your \"About\" summary. Think of it as a short narrative rather than a resume dump.",
+      "cues": {
+        "pointCues": [
+          "profile points forward",
+          "a short narrative",
+          "rather than a resume dump"
+        ]
+      },
+      "vars": {
+        "label": "Same person, new direction",
+        "heading": "From This Chapter to the Next",
+        "point1": "Same person, but the profile now points forward",
+        "point2": "Write your About summary as a narrative",
+        "point3": "Not a resume dump",
+        "point4": "",
+        "sceneIndex": "11 / NEW CHAPTER",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-points",
+      "narration": "It connects your past to your future. It names two or three themes or strengths. And it describes the kind of problems you love to solve, and for whom.",
+      "cues": {
+        "pointCues": [
+          "connects your past",
+          "two or three themes",
+          "describes the kind of problems"
+        ]
+      },
+      "vars": {
+        "label": "The About summary",
+        "heading": "What a Strong Summary Does",
+        "point1": "Connects your past to your future",
+        "point2": "Names two or three themes or strengths",
+        "point3": "Describes the problems you love to solve, and for whom",
+        "point4": "",
+        "sceneIndex": "12 / THE SUMMARY",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "growth,insight,examine"
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-statement",
+      "narration": "In this module, you'll draft a future-oriented headline and summary.",
+      "vars": {
+        "kicker": "In this module",
+        "statement": "Draft a Future-Oriented Headline and Summary",
+        "lines": "",
+        "sceneIndex": "13 / THE MODULE",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-chips",
+      "narration": "Then use AI feedback to sharpen your positioning, whether you're aiming for a promotion, a lateral move, or a role redesign.",
+      "cues": {
+        "chipCues": [
+          "a promotion",
+          "a lateral move",
+          "a role redesign"
+        ],
+        "iconCue": "sharpen your positioning"
+      },
+      "vars": {
+        "label": "Then, sharpen it",
+        "heading": "Sharpen Your Positioning with AI Feedback",
+        "chips": "Promotion,Lateral move,Role redesign",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "14 / SHARPEN IT",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-statement",
+      "narration": "When you reposition your LinkedIn this way, you make it easier for new doors to open.",
+      "cues": {
+        "iconCue": "reposition your LinkedIn this way"
+      },
+      "vars": {
+        "kicker": "The payoff",
+        "statement": "New Doors Open When You Reposition",
+        "lines": "",
+        "sceneIndex": "15 / THE PAYOFF",
+        "icon": "done",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-outro",
+      "narration": "Because people can immediately see how your experience and strengths match the roles and challenges you're excited about next.",
+      "vars": {
+        "cta": "Reposition your profile",
+        "next": "See how your experience and strengths match what's next",
+        "url": "thescla.org",
+        "sceneIndex": "16 / NEXT STEP"
+      }
+    }
+  ]
+}

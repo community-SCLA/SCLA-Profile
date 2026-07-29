@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+  16 scenes | theme horizon
+  Generated from scenes.json by render-qa/src/build_index.py — edit the manifest,
+  not this file. All timing numbers are compiler-owned (compile_timeline.py).
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+      body { font-family: "Inter", sans-serif; }
+      code, pre, .monospace { font-family: "JetBrains Mono", monospace; }
+
+      /* Host-root progress rail — spans the whole runtime, not scene motion.
+         Not a scene clip, so the deterministic gates ignore it. */
+      #hf-rail-track { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #cccedf; opacity: .28; }
+      #hf-rail-fill  { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #eaab2d;
+                       transform-origin: left center; transform: scaleX(0); }
+    </style>
+  </head>
+  <body>
+    <!-- data-duration is COMPILER-OWNED. Leave the placeholder; never type a real number. -->
+    <div data-hf-id="hf-nbma" id="root" data-composition-id="main" data-start="0" data-duration="131.281" data-width="1920" data-height="1080">
+
+      <div data-hf-id="hf-c3pt" class="clip" id="scene-01" data-composition-id="scene-01" data-composition-src="compositions/scla-title.html" data-start="0" data-duration="4.633" data-track-index="1" data-narration="By mid-career, your resume and professional profiles often turn into archives" data-variable-values='{"eyebrow":"Mid-Career Momentum","title":"From History to Signal","meta":"2 min","sceneIndex":"01 / TITLE","theme":"horizon","sceneDuration":"4.633"}'></div>
+
+      <div data-hf-id="hf-gnp7" class="clip" id="scene-02" data-composition-id="scene-02" data-composition-src="compositions/scla-statement.html" data-start="4.633" data-duration="11.105" data-track-index="1" data-narration="— a long record of everything you've done. And that makes it harder for other people to quickly see where you're heading next, and why you're ready for the role you actually want. So let's fix that." data-variable-values='{"kicker":"The problem","statement":"Hard to See Where You’re Heading","lines":"Takes people longer to see it|Ready for the role you want","sceneIndex":"02 / THE PROBLEM","icon":"compass","iconCue":"0.33","pointCues":"5.33,7.57","theme":"horizon","sceneDuration":"11.105"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;see where you're heading next&quot;,&quot;ready for the role you actually want&quot;],&quot;iconCue&quot;:&quot;long record of everything you've done&quot;}"></div>
+
+      <div data-hf-id="hf-7tfk" class="clip" id="scene-03" data-composition-id="scene-03" data-composition-src="compositions/scla-chips.html" data-start="15.738" data-duration="7.657" data-track-index="1" data-narration="When a manager, a sponsor, or a hiring committee looks at your materials, they're really scanning for just a few things." data-variable-values='{"label":"Who’s reading","heading":"Who’s Scanning Your Materials","chips":"A manager,A sponsor,A hiring committee","accentIndex":"","reveal":"pop","sceneIndex":"03 / WHO’S LOOKING","subBeats":"","subCues":"","icon":"examine","iconCue":"5.63","chipCues":"0.27,1.11,2.35","theme":"horizon","sceneDuration":"7.657"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;a manager&quot;,&quot;a sponsor&quot;,&quot;a hiring committee&quot;],&quot;iconCue&quot;:&quot;scanning for just a few things&quot;}"></div>
+
+      <div data-hf-id="hf-cfi7" class="clip" id="scene-04" data-composition-id="scene-04" data-composition-src="compositions/scla-steps.html" data-start="23.395" data-duration="7.892" data-track-index="1" data-narration="What kinds of results you've delivered. The level of scope you've handled. And how well your experience lines up with the role you want next." data-variable-values='{"label":"What they scan for","heading":"What They’re Really Scanning For","step1":"Results you’ve delivered","step2":"The scope you’ve handled","step3":"How your experience lines up with the role you want next","step4":"","sceneIndex":"04 / WHAT THEY SCAN FOR","subBeats":"","subCues":"","icon":"growth","iconCue":"","stepCues":"0.89,2.93,4.95","theme":"horizon","sceneDuration":"7.892"}' data-cue-anchors="{&quot;stepCues&quot;:[&quot;results you've delivered&quot;,&quot;scope you've handled&quot;,&quot;experience lines up with the role you want next&quot;]}"></div>
+
+      <div data-hf-id="hf-5age" class="clip" id="scene-05" data-composition-id="scene-05" data-composition-src="compositions/scla-chips__i2.html" data-start="31.287" data-duration="9.462" data-track-index="1" data-narration="Here's the problem. If your resume reads like a task list — &quot;responsible for X,&quot; &quot;duties included Y&quot; — they have to work much harder to see your impact." data-variable-values='{"label":"Sounds like a task list","heading":"What a Task List Sounds Like","chips":"\"Responsible for X\",\"Duties included Y\"","accentIndex":"","reveal":"slide","sceneIndex":"05 / TASK LIST PROBLEM","subBeats":"","subCues":"","icon":"examine","iconCue":"7.25","chipCues":"3.21,4.35","theme":"horizon","sceneDuration":"9.462"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;responsible for X&quot;,&quot;duties included Y&quot;],&quot;iconCue&quot;:&quot;work much harder to see your impact&quot;}"></div>
+
+      <div data-hf-id="hf-ll1w" class="clip" id="scene-06" data-composition-id="scene-06" data-composition-src="compositions/scla-statement__i2.html" data-start="40.749" data-duration="6.813" data-track-index="1" data-narration="And if your LinkedIn headline describes only your current role, they may never realize you're aiming for a different kind of future." data-variable-values='{"kicker":"The other half of the story","statement":"Your Headline Might Only Show Today","lines":"Describes only your current role|Not the future you’re aiming for","sceneIndex":"06 / THE HEADLINE GAP","icon":"insight","iconCue":"","pointCues":"1.99,5.35","theme":"horizon","sceneDuration":"6.813"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;only your current role&quot;,&quot;a different kind of future&quot;]}"></div>
+
+      <div data-hf-id="hf-qstf" class="clip" id="scene-07" data-composition-id="scene-07" data-composition-src="compositions/scla-morph.html" data-start="47.562" data-duration="6.545" data-track-index="1" data-narration="Think about the difference. A bullet like &quot;responsible for managing projects&quot; tells them what you were assigned." data-variable-values='{"kicker":"Think about the difference","aTitle":"\"Responsible for managing projects\"","aSub":"What you were assigned","bTitle":"\"Cut onboarding time 30%\"","bSub":"What you actually delivered","winner":"b","winnerAfter":"","icons":"","actions":"A","notes":"","sceneIndex":"07 / BEFORE THE REWRITE","pointCues":"2.31","theme":"horizon","sceneDuration":"6.545"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;responsible for managing projects&quot;]}"></div>
+
+      <div data-hf-id="hf-2yr3" class="clip" id="scene-08" data-composition-id="scene-08" data-composition-src="compositions/scla-morph__i2.html" data-start="54.107" data-duration="9.213" data-track-index="1" data-narration="But rewrite that same experience as &quot;led a cross-functional project that reduced onboarding time by 30%,&quot; and now they see what you actually delivered." data-variable-values='{"kicker":"Think about the difference","aTitle":"\"Responsible for managing projects\"","aSub":"What you were assigned","bTitle":"\"Cut onboarding time 30%\"","bSub":"What you actually delivered","winner":"b","winnerAfter":"","icons":"","actions":"A,B,note,morph","notes":"A concrete result","sceneIndex":"08 / AFTER THE REWRITE","pointCues":"0.31,2.07,4.41,7.67","theme":"horizon","sceneDuration":"9.213"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;rewrite that same experience&quot;,&quot;led a cross-functional project&quot;,&quot;reduced onboarding time&quot;,&quot;what you actually delivered&quot;]}"></div>
+
+      <div data-hf-id="hf-se6w" class="clip" id="scene-09" data-composition-id="scene-09" data-composition-src="compositions/scla-chips__i3.html" data-start="63.32" data-duration="9.465" data-track-index="1" data-narration="Same work — but one version signals results, and the other just lists duties. That's the shift this module is about. And we'll focus on three moves." data-variable-values='{"label":"The takeaway","heading":"Same Work, Different Signal","chips":"Signals results,Lists duties","accentIndex":"1","reveal":"pop","sceneIndex":"09 / THE TAKEAWAY","subBeats":"","subCues":"","icon":"done","iconCue":"5.69","chipCues":"2.01,4.03","theme":"horizon","sceneDuration":"9.465"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;signals results&quot;,&quot;lists duties&quot;],&quot;iconCue&quot;:&quot;shift this module is about&quot;}"></div>
+
+      <div data-hf-id="hf-0j5c" class="clip" id="scene-10" data-composition-id="scene-10" data-composition-src="compositions/scla-condition.html" data-start="72.785" data-duration="9.173" data-track-index="1" data-narration="First, discovering the experiences that best support your future trajectory — the parts of your story that point forward, not just the ones that fill the page." data-variable-values='{"num":"1","kicker":"First","heading":"Discover What Points Forward","total":"3","chips":"Experiences that support your trajectory,Parts of your story that point forward","icon":"compass","iconCue":"","sceneIndex":"10 / DISCOVER","chipCues":"3.05,5.91","theme":"horizon","sceneDuration":"9.173"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;support your future trajectory&quot;,&quot;point forward&quot;]}"></div>
+
+      <div data-hf-id="hf-o0gl" class="clip" id="scene-11" data-composition-id="scene-11" data-composition-src="compositions/scla-condition__i2.html" data-start="81.958" data-duration="7.666" data-track-index="1" data-narration="Second, rewriting your key resume bullets so they show results, scope, and impact — not tasks." data-variable-values='{"num":"2","kicker":"Second","heading":"Show Results, Scope, and Impact","total":"3","chips":"Results,Scope,Impact","icon":"growth","iconCue":"","sceneIndex":"11 / REWRITE","chipCues":"3.63,4.61,5.19","theme":"horizon","sceneDuration":"7.666"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;results&quot;,&quot;scope&quot;,&quot;and impact&quot;]}"></div>
+
+      <div data-hf-id="hf-w94n" class="clip" id="scene-12" data-composition-id="scene-12" data-composition-src="compositions/scla-statement__i3.html" data-start="89.624" data-duration="6.262" data-track-index="1" data-narration="Third, updating your LinkedIn headline and summary so they speak to your future-you, not just your past-you." data-variable-values='{"kicker":"Third","statement":"Speak to Your Future-You, Not Your Past","lines":"Update your LinkedIn headline|Update your summary","sceneIndex":"12 / SPEAK FORWARD","icon":"target","iconCue":"4.83","pointCues":"1.31,2.19","theme":"horizon","sceneDuration":"6.262"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;your LinkedIn headline&quot;,&quot;and summary&quot;],&quot;iconCue&quot;:&quot;not just your past-you&quot;}"></div>
+
+      <div data-hf-id="hf-g5gf" class="clip" id="scene-13" data-composition-id="scene-13" data-composition-src="compositions/scla-points.html" data-start="95.886" data-duration="10.946" data-track-index="1" data-narration="Now, the goal here is not to rewrite your entire history. It's to curate. To highlight the parts of your story that make your Next Move Statement believable and compelling." data-variable-values='{"label":"The goal","heading":"Curate, Don’t Rewrite","point1":"Not to rewrite your entire history","point2":"Curate the parts that fit your story","point3":"Makes your story believable and compelling","point4":"","sceneIndex":"13 / CURATE","subBeats":"","subCues":"","icons":"","pointCues":"1.93,6.09,9.21","theme":"horizon","sceneDuration":"10.946"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;not to rewrite your entire history&quot;,&quot;highlight the parts of your story&quot;,&quot;believable and compelling&quot;]}"></div>
+
+      <div data-hf-id="hf-aghu" class="clip" id="scene-14" data-composition-id="scene-14" data-composition-src="compositions/scla-morph__i3.html" data-start="106.832" data-duration="8.492" data-track-index="1" data-narration="When you reposition your experience like this, you make it easier for decision-makers to connect the dots — from who you are now, to who you're becoming." data-variable-values='{"kicker":"Connect the dots","aTitle":"Who you are now","aSub":"Your history","bTitle":"Who you’re becoming","bSub":"Your next move","winner":"b","winnerAfter":"","icons":"","actions":"A,B,note,morph","notes":"Same story, new angle","sceneIndex":"14 / CONNECT THE DOTS","pointCues":"0.47,4.77,5.87,7.21","theme":"horizon","sceneDuration":"8.492"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;reposition your experience&quot;,&quot;connect the dots&quot;,&quot;who you are now&quot;,&quot;who you're becoming&quot;]}"></div>
+
+      <div data-hf-id="hf-trdq" class="clip" id="scene-15" data-composition-id="scene-15" data-composition-src="compositions/scla-statement__i4.html" data-start="115.324" data-duration="10.943" data-track-index="1" data-narration="So as you work through this module, keep one question in mind. If someone only saw my resume and my LinkedIn profile, would they understand the future I'm aiming for?" data-variable-values='{"kicker":"Ask yourself","statement":"Would They Understand the Future I’m Aiming For?","lines":"Keep one question in mind|Just your resume and LinkedIn profile","sceneIndex":"15 / ASK YOURSELF","icon":"target","iconCue":"8.15","pointCues":"2.31,5.11","theme":"horizon","sceneDuration":"10.943"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;keep one question in mind&quot;,&quot;saw my resume and my linkedin profile&quot;],&quot;iconCue&quot;:&quot;understand the future&quot;}"></div>
+
+      <div data-hf-id="hf-0fwf" class="clip" id="scene-16" data-composition-id="scene-16" data-composition-src="compositions/scla-outro.html" data-start="126.267" data-duration="5.014" data-track-index="1" data-narration="By the end of this module, you'll be much closer to a yes." data-variable-values='{"cta":"Reposition your story","next":"By the end of this module, you’ll be much closer to a yes.","url":"thescla.org","sceneIndex":"16 / NEXT STEP","theme":"horizon","sceneDuration":"5.014"}'></div>
+
+      <div data-hf-id="hf-sw2m" id="hf-rail-track"></div>
+      <div data-hf-id="hf-1r7q" id="hf-rail-fill"></div>
+
+      <!-- id + data-start are REQUIRED. Without them lint warns "audio will be
+           SILENT in renders" — and the render really is silent. -->
+      <audio data-hf-id="hf-b5r0" id="narration-audio" src="assets/voice/narration.wav" data-audio-track="" data-start="0"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Rail span is read from the compiler-owned data-duration — never hand-typed.
+      const total = parseFloat(document.getElementById("root").dataset.duration) || 0;
+      tl.fromTo("#hf-rail-fill", { scaleX: 0 }, { scaleX: 1, duration: total, ease: "none" }, 0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

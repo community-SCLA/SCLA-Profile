@@ -1,0 +1,164 @@
+[
+  {
+    "id": "w0",
+    "text": "AI",
+    "start": 0.239,
+    "end": 0.639
+  },
+  {
+    "id": "w1",
+    "text": "can",
+    "start": 0.68,
+    "end": 0.839
+  },
+  {
+    "id": "w2",
+    "text": "be",
+    "start": 0.859,
+    "end": 1
+  },
+  {
+    "id": "w3",
+    "text": "useful",
+    "start": 1.079,
+    "end": 1.479
+  },
+  {
+    "id": "w4",
+    "text": "here",
+    "start": 1.5,
+    "end": 1.739
+  },
+  {
+    "id": "w5",
+    "text": "too.",
+    "start": 1.759,
+    "end": 1.979
+  },
+  {
+    "id": "w6",
+    "text": "It",
+    "start": 2.399,
+    "end": 2.48
+  },
+  {
+    "id": "w7",
+    "text": "can",
+    "start": 2.519,
+    "end": 2.699
+  },
+  {
+    "id": "w8",
+    "text": "help",
+    "start": 2.779,
+    "end": 2.959
+  },
+  {
+    "id": "w9",
+    "text": "you",
+    "start": 2.96,
+    "end": 3.099
+  },
+  {
+    "id": "w10",
+    "text": "brainstorm",
+    "start": 3.119,
+    "end": 3.72
+  },
+  {
+    "id": "w11",
+    "text": "additional",
+    "start": 3.839,
+    "end": 4.279
+  },
+  {
+    "id": "w12",
+    "text": "options,",
+    "start": 4.36,
+    "end": 4.819
+  },
+  {
+    "id": "w13",
+    "text": "summarize",
+    "start": 5.299,
+    "end": 5.839
+  },
+  {
+    "id": "w14",
+    "text": "what",
+    "start": 5.879,
+    "end": 6.079
+  },
+  {
+    "id": "w15",
+    "text": "different",
+    "start": 6.099,
+    "end": 6.46
+  },
+  {
+    "id": "w16",
+    "text": "roles",
+    "start": 6.48,
+    "end": 6.819
+  },
+  {
+    "id": "w17",
+    "text": "involve,",
+    "start": 6.879,
+    "end": 7.379
+  },
+  {
+    "id": "w18",
+    "text": "or",
+    "start": 7.739,
+    "end": 7.96
+  },
+  {
+    "id": "w19",
+    "text": "show",
+    "start": 7.98,
+    "end": 8.26
+  },
+  {
+    "id": "w20",
+    "text": "you",
+    "start": 8.279,
+    "end": 8.479
+  },
+  {
+    "id": "w21",
+    "text": "where",
+    "start": 8.519,
+    "end": 8.72
+  },
+  {
+    "id": "w22",
+    "text": "your",
+    "start": 8.739,
+    "end": 8.859
+  },
+  {
+    "id": "w23",
+    "text": "comparison",
+    "start": 8.899,
+    "end": 9.599
+  },
+  {
+    "id": "w24",
+    "text": "may",
+    "start": 9.639,
+    "end": 9.84
+  },
+  {
+    "id": "w25",
+    "text": "be",
+    "start": 9.859,
+    "end": 9.979
+  },
+  {
+    "id": "w26",
+    "text": "incomplete.",
+    "start": 10.019,
+    "end": 10.599
+  }
+]

@@ -1,0 +1,116 @@
+[
+  {
+    "id": "w0",
+    "text": "A",
+    "start": 0.219,
+    "end": 0.299
+  },
+  {
+    "id": "w1",
+    "text": "strong",
+    "start": 0.34,
+    "end": 0.699
+  },
+  {
+    "id": "w2",
+    "text": "mid-career",
+    "start": 0.779,
+    "end": 1.22
+  },
+  {
+    "id": "w3",
+    "text": "headline",
+    "start": 1.319,
+    "end": 1.759
+  },
+  {
+    "id": "w4",
+    "text": "and",
+    "start": 1.799,
+    "end": 1.879
+  },
+  {
+    "id": "w5",
+    "text": "summary",
+    "start": 1.979,
+    "end": 2.319
+  },
+  {
+    "id": "w6",
+    "text": "does",
+    "start": 2.359,
+    "end": 2.559
+  },
+  {
+    "id": "w7",
+    "text": "three",
+    "start": 2.619,
+    "end": 2.839
+  },
+  {
+    "id": "w8",
+    "text": "things.",
+    "start": 2.859,
+    "end": 3.22
+  },
+  {
+    "id": "w9",
+    "text": "First,",
+    "start": 3.699,
+    "end": 4.019
+  },
+  {
+    "id": "w10",
+    "text": "it",
+    "start": 4.38,
+    "end": 4.5
+  },
+  {
+    "id": "w11",
+    "text": "speaks",
+    "start": 4.539,
+    "end": 4.879
+  },
+  {
+    "id": "w12",
+    "text": "to",
+    "start": 4.9,
+    "end": 4.96
+  },
+  {
+    "id": "w13",
+    "text": "the",
+    "start": 5,
+    "end": 5.079
+  },
+  {
+    "id": "w14",
+    "text": "future",
+    "start": 5.119,
+    "end": 5.46
+  },
+  {
+    "id": "w15",
+    "text": "roles",
+    "start": 5.48,
+    "end": 5.739
+  },
+  {
+    "id": "w16",
+    "text": "you're",
+    "start": 5.799,
+    "end": 5.94
+  },
+  {
+    "id": "w17",
+    "text": "aiming",
+    "start": 6,
+    "end": 6.279
+  },
+  {
+    "id": "w18",
+    "text": "for.",
+    "start": 6.319,
+    "end": 6.519
+  }
+]

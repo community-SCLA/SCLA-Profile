@@ -1,0 +1,415 @@
+{
+  "theme": "cadence",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "Mid-career, the AI conversation lands differently than it does for someone just starting out.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Skills for the AI Era",
+        "meta": "",
+        "sceneIndex": "01 / TITLE",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-chips",
+      "narration": "You've got a decade of judgment, relationships, and hard-won context — exactly the things AI is worst at replicating.",
+      "cues": {
+        "chipCues": [
+          "judgment",
+          "relationships",
+          "hard-won context"
+        ]
+      },
+      "vars": {
+        "label": "Mid-career, you already have",
+        "heading": "Exactly What AI Is Worst at Replicating",
+        "chips": "Judgment,Relationships,Hard-won context",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "02 / YOUR CONTEXT",
+        "theme": "cadence",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-morph",
+      "narration": "So the most useful question about AI and your career isn't \"will it replace my job?\" It's \"how will it change my job. And how do I aim myself at the more valuable part?\"",
+      "cues": {
+        "pointCues": [
+          "will it replace my job",
+          "how will it change my job",
+          "the more valuable part"
+        ]
+      },
+      "vars": {
+        "kicker": "The more useful question",
+        "aTitle": "Will It Replace My Job?",
+        "aSub": "The question everyone asks",
+        "bTitle": "How Will It Change My Job?",
+        "bSub": "And where's the more valuable part",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "question,target",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "03 / THE QUESTION",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-statement",
+      "narration": "Mid-career, you have the leverage to do exactly that, because you already understand your role deeply enough to see which parts are shifting.",
+      "cues": {},
+      "vars": {
+        "kicker": "Your advantage",
+        "statement": "You Have the Leverage to Do Exactly That",
+        "lines": "",
+        "sceneIndex": "04 / YOUR ADVANTAGE",
+        "theme": "cadence",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-statement",
+      "narration": "Here's a practical way to think about your current role and your next move.",
+      "vars": {
+        "kicker": "The framework",
+        "statement": "A Practical Way to Think About Your Next Move",
+        "lines": "",
+        "sceneIndex": "05 / THE FRAMEWORK",
+        "theme": "cadence",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-condition",
+      "narration": "First: what tasks might AI do faster or cheaper? Assume those get automated or accelerated, and don't defend them.",
+      "cues": {
+        "chipCues": [
+          "get automated or accelerated",
+          "don't defend them"
+        ]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "First",
+        "heading": "What Tasks Might AI Do Faster or Cheaper?",
+        "total": "3",
+        "chips": "Get automated or accelerated,Don't defend them",
+        "icon": "pressure",
+        "iconCue": "",
+        "sceneIndex": "06 / FIRST",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-chips",
+      "narration": "Second: what becomes more valuable as a result? Usually it's the judgment, the relationships, the creativity, and the oversight around those tasks — the very things your experience makes you good at.",
+      "cues": {
+        "chipCues": [
+          "judgment",
+          "relationships",
+          "creativity",
+          "and the oversight"
+        ]
+      },
+      "vars": {
+        "label": "Second",
+        "heading": "What Becomes More Valuable as a Result?",
+        "chips": "Judgment,Relationships,Creativity,Oversight",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "07 / SECOND",
+        "theme": "cadence",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "growth",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-condition",
+      "narration": "Third: how do you reposition toward that more valuable part? This is where AI-era thinking meets everything else in this course.",
+      "vars": {
+        "num": "3",
+        "kicker": "Third",
+        "heading": "How Do You Reposition Toward That?",
+        "total": "3",
+        "chips": "",
+        "icon": "compass",
+        "iconCue": "",
+        "sceneIndex": "08 / THIRD",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-statement",
+      "narration": "Your Next Move Statement, your repositioned resume, and your visibility can all be aimed at the human, high-judgment work that grows more valuable as AI spreads.",
+      "cues": {
+        "pointCues": [
+          "your next move statement",
+          "your repositioned resume",
+          "and your visibility"
+        ]
+      },
+      "vars": {
+        "kicker": "Aim these at the valuable part",
+        "statement": "Aimed at the Human, High-Judgment Work",
+        "lines": "Your Next Move Statement|Your repositioned resume|Your visibility",
+        "sceneIndex": "09 / AIM THESE",
+        "theme": "cadence",
+        "icon": "target",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-steps",
+      "narration": "Take an example. AI can draft a first pass of almost any document, analysis, or plan. That makes the drafting less scarce.",
+      "cues": {
+        "stepCues": [
+          "ai can draft a first pass",
+          "that makes the drafting less scarce"
+        ]
+      },
+      "vars": {
+        "label": "Take an example",
+        "heading": "What Happens First",
+        "step1": "AI drafts the first pass",
+        "step2": "That makes drafting less scarce",
+        "step3": "",
+        "step4": "",
+        "sceneIndex": "10 / EXAMPLE",
+        "theme": "cadence",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "examine",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-points",
+      "narration": "And it makes the person who knows what's worth saying, who can judge quality, who owns the client relationship, and who can stake their reputation on the call more valuable.",
+      "cues": {
+        "pointCues": [
+          "worth saying",
+          "judge quality",
+          "owns the client relationship",
+          "and who can stake their reputation"
+        ]
+      },
+      "vars": {
+        "label": "That makes someone else more valuable",
+        "heading": "Who Becomes More Valuable",
+        "point1": "Knows what's worth saying",
+        "point2": "Can judge quality",
+        "point3": "Owns the client relationship",
+        "point4": "Can stake their reputation on the call",
+        "sceneIndex": "11 / MORE VALUABLE",
+        "theme": "cadence",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "salary,examine,mentorship,done"
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-statement",
+      "narration": "Mid-career, that person is you. So aim your next move at that part.",
+      "cues": {},
+      "vars": {
+        "kicker": "Mid-career",
+        "statement": "That Person Is You",
+        "lines": "",
+        "sceneIndex": "12 / THAT'S YOU",
+        "theme": "cadence",
+        "icon": "mentorship2",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-morph",
+      "narration": "The frame that matters is this: AI is very good at tasks, and your value has always been more than tasks. The skills that stay valuable are the ones that are hardest to automate — the ones that make you the person who can direct AI well, rather than compete with it.",
+      "cues": {
+        "pointCues": [
+          "your value has always been more than tasks",
+          "direct ai well",
+          "compete with it"
+        ]
+      },
+      "vars": {
+        "kicker": "The real skill",
+        "aTitle": "Compete With It",
+        "aSub": "Try to out-automate the machine",
+        "bTitle": "Direct AI Well",
+        "bSub": "The hardest thing to automate",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "pressure,growth",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "13 / DIRECT, DON'T COMPETE",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-stat",
+      "narration": "So here are the durable, human-centered skills worth investing in. Judgment and decision-making.",
+      "vars": {
+        "value": 5,
+        "prefix": "",
+        "suffix": "",
+        "statLabel": "durable, human-centered skills",
+        "ring": "on",
+        "context": "So here are the durable, human-centered skills worth investing in",
+        "sceneIndex": "14 / FIVE SKILLS",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-condition",
+      "narration": "Deciding what's worth doing — and what \"good\" looks like — is far harder to automate than doing the task itself. Your experience is the raw material here.",
+      "vars": {
+        "num": "1",
+        "kicker": "Judgment and decision-making",
+        "heading": "Deciding What's Worth Doing",
+        "total": "5",
+        "chips": "",
+        "icon": "insight",
+        "iconCue": "",
+        "sceneIndex": "15 / SKILL ONE",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-condition",
+      "narration": "Communication and persuasion. Explaining ideas clearly, building trust, and moving people to act. Mid-career, this often becomes your primary value.",
+      "cues": {
+        "chipCues": [
+          "explaining ideas clearly",
+          "building trust",
+          "and moving people to act"
+        ]
+      },
+      "vars": {
+        "num": "2",
+        "kicker": "Communication and persuasion",
+        "heading": "Your Primary Value, Mid-Career",
+        "total": "5",
+        "chips": "Explaining ideas clearly,Building trust,Moving people to act",
+        "icon": "mentorship",
+        "iconCue": "",
+        "sceneIndex": "16 / SKILL TWO",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-17",
+      "template": "scla-statement",
+      "narration": "Relationships and collaboration. Leadership, empathy, working across teams — deeply human, deeply valued, and exactly what sponsorship and advancement run on.",
+      "cues": {
+        "pointCues": [
+          "leadership",
+          "empathy",
+          "working across teams"
+        ]
+      },
+      "vars": {
+        "kicker": "Relationships and collaboration",
+        "statement": "What Sponsorship and Advancement Run On",
+        "lines": "Leadership|Empathy|Working across teams",
+        "sceneIndex": "17 / SKILL THREE",
+        "theme": "cadence",
+        "icon": "mentorship2",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-18",
+      "template": "scla-condition",
+      "narration": "Learning how to learn. In a fast-changing field, the ability to pick up new tools quickly beats mastery of any single tool. Staying curious is a competitive advantage at every level.",
+      "vars": {
+        "num": "4",
+        "kicker": "Learning how to learn",
+        "heading": "Picking up New Tools Quickly",
+        "total": "5",
+        "chips": "",
+        "icon": "question",
+        "iconCue": "",
+        "sceneIndex": "18 / SKILL FOUR",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-19",
+      "template": "scla-condition",
+      "narration": "And working with AI. Knowing how to prompt it, check it, and combine its outputs with your own judgment is quickly becoming a baseline professional skill — and a visible one you can demonstrate.",
+      "cues": {
+        "chipCues": [
+          "prompt it",
+          "check it",
+          "and combine its outputs"
+        ]
+      },
+      "vars": {
+        "num": "5",
+        "kicker": "Working with AI",
+        "heading": "A Baseline Professional Skill",
+        "total": "5",
+        "chips": "Prompt it,Check it,Combine outputs",
+        "icon": "done",
+        "iconCue": "",
+        "sceneIndex": "19 / SKILL FIVE",
+        "theme": "cadence"
+      }
+    },
+    {
+      "id": "scene-20",
+      "template": "scla-statement",
+      "narration": "None of these asks you to out-compute a machine. They ask you to be a thoughtful, capable professional who uses powerful tools well. And mid-career, you're better positioned to do that than almost anyone.",
+      "cues": {},
+      "vars": {
+        "kicker": "None of this is out-computing a machine",
+        "statement": "A Thoughtful, Capable Professional Who Uses Powerful Tools Well",
+        "lines": "",
+        "sceneIndex": "20 / THOUGHTFUL PROFESSIONAL",
+        "theme": "cadence",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-21",
+      "template": "scla-outro",
+      "narration": "So don't just ask what AI replaces. Ask what it changes — and aim yourself at the part that's worth more.",
+      "vars": {
+        "cta": "Ask what it changes",
+        "next": "Aim yourself at the part that's worth more",
+        "url": "thescla.org",
+        "sceneIndex": "21 / NEXT STEP",
+        "theme": "cadence"
+      }
+    }
+  ]
+}

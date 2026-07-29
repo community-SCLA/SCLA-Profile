@@ -1,0 +1,68 @@
+[
+  {
+    "id": "w0",
+    "text": "By",
+    "start": 0.14,
+    "end": 0.299
+  },
+  {
+    "id": "w1",
+    "text": "mid-career,",
+    "start": 0.359,
+    "end": 1.199
+  },
+  {
+    "id": "w2",
+    "text": "your",
+    "start": 1.24,
+    "end": 1.379
+  },
+  {
+    "id": "w3",
+    "text": "resume",
+    "start": 1.379,
+    "end": 1.759
+  },
+  {
+    "id": "w4",
+    "text": "and",
+    "start": 1.819,
+    "end": 1.919
+  },
+  {
+    "id": "w5",
+    "text": "professional",
+    "start": 1.919,
+    "end": 2.44
+  },
+  {
+    "id": "w6",
+    "text": "profiles",
+    "start": 2.5,
+    "end": 3.039
+  },
+  {
+    "id": "w7",
+    "text": "often",
+    "start": 3.139,
+    "end": 3.439
+  },
+  {
+    "id": "w8",
+    "text": "turn",
+    "start": 3.439,
+    "end": 3.619
+  },
+  {
+    "id": "w9",
+    "text": "into",
+    "start": 3.619,
+    "end": 3.839
+  },
+  {
+    "id": "w10",
+    "text": "archives",
+    "start": 3.839,
+    "end": 4.339
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "w0",
+    "text": "A",
+    "start": 0.159,
+    "end": 0.28
+  },
+  {
+    "id": "w1",
+    "text": "future-you",
+    "start": 0.319,
+    "end": 0.74
+  },
+  {
+    "id": "w2",
+    "text": "resume",
+    "start": 0.859,
+    "end": 1.24
+  },
+  {
+    "id": "w3",
+    "text": "is",
+    "start": 1.259,
+    "end": 1.399
+  },
+  {
+    "id": "w4",
+    "text": "built",
+    "start": 1.439,
+    "end": 1.659
+  },
+  {
+    "id": "w5",
+    "text": "around",
+    "start": 1.759,
+    "end": 2.039
+  },
+  {
+    "id": "w6",
+    "text": "the",
+    "start": 2.059,
+    "end": 2.159
+  },
+  {
+    "id": "w7",
+    "text": "role",
+    "start": 2.2,
+    "end": 2.419
+  },
+  {
+    "id": "w8",
+    "text": "you",
+    "start": 2.48,
+    "end": 2.599
+  },
+  {
+    "id": "w9",
+    "text": "want,",
+    "start": 2.619,
+    "end": 2.919
+  },
+  {
+    "id": "w10",
+    "text": "not",
+    "start": 3.46,
+    "end": 3.619
+  },
+  {
+    "id": "w11",
+    "text": "the",
+    "start": 3.639,
+    "end": 3.74
+  },
+  {
+    "id": "w12",
+    "text": "role",
+    "start": 3.779,
+    "end": 3.959
+  },
+  {
+    "id": "w13",
+    "text": "you",
+    "start": 4,
+    "end": 4.099
+  },
+  {
+    "id": "w14",
+    "text": "started",
+    "start": 4.179,
+    "end": 4.48
+  },
+  {
+    "id": "w15",
+    "text": "in.",
+    "start": 4.519,
+    "end": 4.619
+  }
+]

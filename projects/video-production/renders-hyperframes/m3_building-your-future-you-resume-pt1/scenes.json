@@ -1,0 +1,407 @@
+{
+  "theme": "summit",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "Hi, and welcome to this lesson on your future-you resume.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Building Your Future You Resume Pt1",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-statement",
+      "narration": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.",
+      "cues": {
+        "pointCues": ["On the surface", "In practice"]
+      },
+      "vars": {
+        "kicker": "The problem",
+        "statement": "Resumes Quietly Become Archives",
+        "lines": "On the surface, that looks thorough|In practice, it works against us",
+        "sceneIndex": "02 / THE PROBLEM",
+        "icon": "examine",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-morph",
+      "narration": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.",
+      "cues": {
+        "pointCues": ["a historical record", "a strategic tool", "ready for it"]
+      },
+      "vars": {
+        "kicker": "The reframe",
+        "aTitle": "A Historical Record",
+        "aSub": "What it used to prove",
+        "bTitle": "A Strategic Tool",
+        "bSub": "What it proves now",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "examine,growth",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "03 / REFRAME"
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-condition",
+      "narration": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits. First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\"",
+      "cues": {
+        "chipCues": ["Managed projects", "Supported faculty", "Handled student inquiries"]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "First",
+        "heading": "Overloaded with Tasks, Light on Impact",
+        "total": "3",
+        "chips": "Managed projects,Supported faculty,Handled student inquiries",
+        "icon": "pressure",
+        "iconCue": "",
+        "sceneIndex": "04 / FIRST"
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-points",
+      "narration": "Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.",
+      "cues": {
+        "pointCues": ["no results", "no scope", "no value added"]
+      },
+      "vars": {
+        "label": "What's missing",
+        "heading": "Activity Isn't the Same as Impact",
+        "point1": "No results",
+        "point2": "No scope",
+        "point3": "No value added",
+        "point4": "",
+        "sceneIndex": "05 / NO IMPACT",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-condition",
+      "narration": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations.",
+      "cues": {
+        "chipCues": ["old sections forward", "a decade ago", "today's expectations"]
+      },
+      "vars": {
+        "num": "2",
+        "kicker": "Second",
+        "heading": "Outdated or Generic",
+        "total": "3",
+        "chips": "Old sections carried forward,Phrases from a decade ago,Doesn't match today's expectations",
+        "icon": "pressure",
+        "iconCue": "",
+        "sceneIndex": "06 / SECOND"
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-condition",
+      "narration": "The result looks busy but not sharp or focused. Third — and this is the big one for us — there's often no clear link between your experience and the role you want next.",
+      "cues": {
+        "chipCues": ["busy but not sharp", "no clear link"]
+      },
+      "vars": {
+        "num": "3",
+        "kicker": "Third",
+        "heading": "No Clear Link to What's Next",
+        "total": "3",
+        "chips": "Busy but not sharp,Doesn't connect the dots",
+        "icon": "target",
+        "iconCue": "",
+        "sceneIndex": "07 / THIRD"
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-morph",
+      "narration": "Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\"",
+      "cues": {
+        "pointCues": ["what you've done", "connects to the step", "here's why I'm ready"]
+      },
+      "vars": {
+        "kicker": "The missing link",
+        "aTitle": "Here's My History",
+        "aSub": "What you've done",
+        "bTitle": "Here's Why I'm Ready",
+        "bSub": "How it connects to what's next",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "question,done",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "08 / THE GAP"
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-statement",
+      "narration": "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\"",
+      "vars": {
+        "kicker": "The cost",
+        "statement": "Harder to Say Yes, Right Now",
+        "lines": "",
+        "sceneIndex": "09 / THE COST",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-statement",
+      "narration": "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next.",
+      "vars": {
+        "kicker": "Flip the perspective",
+        "statement": "Ready, Not Just Busy",
+        "lines": "",
+        "sceneIndex": "10 / FLIP IT",
+        "icon": "target",
+        "iconCue": "ready for what's next"
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-morph",
+      "narration": "A future-you resume is built around the role you want, not the role you started in.",
+      "cues": {
+        "pointCues": ["the role you want", "not the role", "you started in"]
+      },
+      "vars": {
+        "kicker": "The reframe",
+        "aTitle": "The Role You Want Next",
+        "aSub": "Where you're headed",
+        "bTitle": "The Role You Started In",
+        "bSub": "Where you began",
+        "winner": "a",
+        "winnerAfter": "",
+        "icons": "compass,",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "11 / WHAT IT'S FOR"
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-chips",
+      "narration": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course.",
+      "cues": {
+        "chipCues": ["projects", "results", "responsibilities"]
+      },
+      "vars": {
+        "label": "Curating evidence",
+        "heading": "Choose What Supports Your Case",
+        "chips": "Projects,Results,Responsibilities",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "12 / CURATE",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-statement",
+      "narration": "Every bullet answers one question: \"How does this show I'm prepared for my next move?\"",
+      "vars": {
+        "kicker": "The test",
+        "statement": "How Does This Show I'm Prepared?",
+        "lines": "",
+        "sceneIndex": "13 / THE TEST",
+        "icon": "question",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-statement",
+      "narration": "That might mean highlighting the initiatives where you led at a higher level than your title suggested.",
+      "vars": {
+        "kicker": "What to highlight",
+        "statement": "Led Above Your Title",
+        "lines": "",
+        "sceneIndex": "14 / WHAT TO KEEP",
+        "icon": "growth",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-points",
+      "narration": "Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading.",
+      "cues": {
+        "pointCues": ["outcomes and scope", "de-emphasizing tasks"]
+      },
+      "vars": {
+        "label": "What shifts",
+        "heading": "Emphasize This, De-Emphasize That",
+        "point1": "Outcomes and scope — how many people, what improved",
+        "point2": "Tasks or roles that no longer match where you're heading",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "15 / SHIFT FOCUS",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-statement",
+      "narration": "Your resume becomes less of a timeline and more of a case file for your future you. Earlier in this track, you created a Next Move Statement.",
+      "vars": {
+        "kicker": "The shift",
+        "statement": "A Case File for Your Future You",
+        "lines": "",
+        "sceneIndex": "16 / CASE FILE",
+        "icon": "map",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-17",
+      "template": "scla-chips",
+      "narration": "You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months.",
+      "cues": {
+        "chipCues": ["promotion", "lateral move", "role redesign"]
+      },
+      "vars": {
+        "label": "Your Next Move Statement",
+        "heading": "Your Primary Path",
+        "chips": "Promotion,Lateral move,Role redesign",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "17 / YOUR PATH",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-18",
+      "template": "scla-statement",
+      "narration": "In this lesson, that statement is your north star. As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\"",
+      "vars": {
+        "kicker": "Your north star",
+        "statement": "Does This Help Make the Case?",
+        "lines": "",
+        "sceneIndex": "18 / NORTH STAR",
+        "icon": "map",
+        "iconCue": "your north star"
+      }
+    },
+    {
+      "id": "scene-19",
+      "template": "scla-steps",
+      "narration": "You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.",
+      "cues": {
+        "stepCues": ["responsibility", "action", "measurable outcome", "scope"]
+      },
+      "vars": {
+        "label": "Rewrite each line",
+        "heading": "What Every Strong Bullet Shows",
+        "step1": "Responsibility",
+        "step2": "Action",
+        "step3": "Measurable outcome",
+        "step4": "Scope",
+        "sceneIndex": "19 / THE FORMULA",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "salary",
+        "iconCue": "measurable outcome"
+      }
+    },
+    {
+      "id": "scene-20",
+      "template": "scla-morph",
+      "narration": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\"",
+      "cues": {
+        "pointCues": ["Managed team projects", "Led a cross-functional team", "time-to-productivity by 30%"]
+      },
+      "vars": {
+        "kicker": "See it rewritten",
+        "aTitle": "Managed Team Projects",
+        "aSub": "Describes activity",
+        "bTitle": "Led a Team of 6 to Streamline Onboarding",
+        "bSub": "30% faster ramp-up, 20% higher satisfaction",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": ",salary",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "20 / THE REWRITE"
+      }
+    },
+    {
+      "id": "scene-21",
+      "template": "scla-statement",
+      "narration": "Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.",
+      "vars": {
+        "kicker": "Same work, new story",
+        "statement": "A Much Clearer Picture of Your Impact",
+        "lines": "",
+        "sceneIndex": "21 / THE PROOF",
+        "icon": "done",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-22",
+      "template": "scla-points",
+      "narration": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement.",
+      "cues": {
+        "pointCues": ["upload or paste", "let AI help", "refine the versions"]
+      },
+      "vars": {
+        "label": "The Resume Builder Tool",
+        "heading": "From Draft to Direction",
+        "point1": "Upload or paste your current resume",
+        "point2": "Let AI draft stronger, impact-focused bullets",
+        "point3": "Refine to match your Next Move Statement",
+        "point4": "",
+        "sceneIndex": "22 / THE TOOL",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ",insight,"
+      }
+    },
+    {
+      "id": "scene-23",
+      "template": "scla-stat",
+      "narration": "You'll decide which three to five experiences become your headline stories on your resume and profile.",
+      "vars": {
+        "value": 5,
+        "prefix": "",
+        "suffix": "",
+        "statLabel": "Headline Experiences",
+        "ring": "on",
+        "context": "Your headline stories on your resume and profile.",
+        "sceneIndex": "23 / HEADLINE STORIES"
+      }
+    },
+    {
+      "id": "scene-24",
+      "template": "scla-outro",
+      "narration": "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.",
+      "vars": {
+        "cta": "Start with the Resume Builder Tool",
+        "next": "Reshape your resume around the role you want next",
+        "url": "thescla.org",
+        "sceneIndex": "24 / NEXT STEP"
+      }
+    }
+  ]
+}

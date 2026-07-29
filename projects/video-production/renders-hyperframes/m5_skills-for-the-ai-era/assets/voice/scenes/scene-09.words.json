@@ -1,0 +1,158 @@
+[
+  {
+    "id": "w0",
+    "text": "Your",
+    "start": 0.239,
+    "end": 0.4
+  },
+  {
+    "id": "w1",
+    "text": "Next",
+    "start": 0.519,
+    "end": 0.699
+  },
+  {
+    "id": "w2",
+    "text": "Move",
+    "start": 0.799,
+    "end": 0.939
+  },
+  {
+    "id": "w3",
+    "text": "Statement,",
+    "start": 1.039,
+    "end": 1.48
+  },
+  {
+    "id": "w4",
+    "text": "your",
+    "start": 1.819,
+    "end": 1.979
+  },
+  {
+    "id": "w5",
+    "text": "repositioned",
+    "start": 2.019,
+    "end": 2.579
+  },
+  {
+    "id": "w6",
+    "text": "resume,",
+    "start": 2.639,
+    "end": 3.099
+  },
+  {
+    "id": "w7",
+    "text": "and",
+    "start": 4.039,
+    "end": 4.219
+  },
+  {
+    "id": "w8",
+    "text": "your",
+    "start": 4.259,
+    "end": 4.38
+  },
+  {
+    "id": "w9",
+    "text": "visibility",
+    "start": 4.4,
+    "end": 5.279
+  },
+  {
+    "id": "w10",
+    "text": "can",
+    "start": 5.319,
+    "end": 5.539
+  },
+  {
+    "id": "w11",
+    "text": "all",
+    "start": 5.619,
+    "end": 5.779
+  },
+  {
+    "id": "w12",
+    "text": "be",
+    "start": 5.819,
+    "end": 5.94
+  },
+  {
+    "id": "w13",
+    "text": "aimed",
+    "start": 6.079,
+    "end": 6.399
+  },
+  {
+    "id": "w14",
+    "text": "at",
+    "start": 6.42,
+    "end": 6.519
+  },
+  {
+    "id": "w15",
+    "text": "the",
+    "start": 6.539,
+    "end": 6.679
+  },
+  {
+    "id": "w16",
+    "text": "human,",
+    "start": 6.759,
+    "end": 7.139
+  },
+  {
+    "id": "w17",
+    "text": "high-judgment",
+    "start": 7.539,
+    "end": 8.179
+  },
+  {
+    "id": "w18",
+    "text": "work",
+    "start": 8.22,
+    "end": 8.48
+  },
+  {
+    "id": "w19",
+    "text": "that",
+    "start": 8.5,
+    "end": 8.64
+  },
+  {
+    "id": "w20",
+    "text": "grows",
+    "start": 8.659,
+    "end": 9.06
+  },
+  {
+    "id": "w21",
+    "text": "more",
+    "start": 9.099,
+    "end": 9.24
+  },
+  {
+    "id": "w22",
+    "text": "valuable",
+    "start": 9.34,
+    "end": 10.099
+  },
+  {
+    "id": "w23",
+    "text": "as",
+    "start": 10.159,
+    "end": 10.26
+  },
+  {
+    "id": "w24",
+    "text": "AI",
+    "start": 10.46,
+    "end": 10.619
+  },
+  {
+    "id": "w25",
+    "text": "spreads.",
+    "start": 10.739,
+    "end": 11.199
+  }
+]

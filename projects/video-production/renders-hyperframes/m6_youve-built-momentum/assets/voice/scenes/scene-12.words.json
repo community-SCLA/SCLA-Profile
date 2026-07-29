@@ -1,0 +1,110 @@
+[
+  {
+    "id": "w0",
+    "text": "Three",
+    "start": 0.159,
+    "end": 0.34
+  },
+  {
+    "id": "w1",
+    "text": "things",
+    "start": 0.439,
+    "end": 0.68
+  },
+  {
+    "id": "w2",
+    "text": "to",
+    "start": 0.719,
+    "end": 0.799
+  },
+  {
+    "id": "w3",
+    "text": "remember",
+    "start": 0.839,
+    "end": 1.259
+  },
+  {
+    "id": "w4",
+    "text": "as",
+    "start": 1.379,
+    "end": 1.48
+  },
+  {
+    "id": "w5",
+    "text": "you",
+    "start": 1.519,
+    "end": 1.62
+  },
+  {
+    "id": "w6",
+    "text": "leave",
+    "start": 1.679,
+    "end": 1.839
+  },
+  {
+    "id": "w7",
+    "text": "this",
+    "start": 1.899,
+    "end": 2.059
+  },
+  {
+    "id": "w8",
+    "text": "track.",
+    "start": 2.099,
+    "end": 2.399
+  },
+  {
+    "id": "w9",
+    "text": "One",
+    "start": 2.98,
+    "end": 3.079
+  },
+  {
+    "id": "w10",
+    "text": "—",
+    "start": 3.079,
+    "end": 3.079
+  },
+  {
+    "id": "w11",
+    "text": "momentum",
+    "start": 3.279,
+    "end": 3.659
+  },
+  {
+    "id": "w12",
+    "text": "decays",
+    "start": 3.74,
+    "end": 4.199
+  },
+  {
+    "id": "w13",
+    "text": "if",
+    "start": 4.259,
+    "end": 4.36
+  },
+  {
+    "id": "w14",
+    "text": "you",
+    "start": 4.4,
+    "end": 4.48
+  },
+  {
+    "id": "w15",
+    "text": "don't",
+    "start": 4.519,
+    "end": 4.699
+  },
+  {
+    "id": "w16",
+    "text": "touch",
+    "start": 4.739,
+    "end": 4.92
+  },
+  {
+    "id": "w17",
+    "text": "it.",
+    "start": 4.96,
+    "end": 5.099
+  }
+]

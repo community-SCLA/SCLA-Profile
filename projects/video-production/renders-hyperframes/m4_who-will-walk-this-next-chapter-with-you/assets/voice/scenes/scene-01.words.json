@@ -1,0 +1,80 @@
+[
+  {
+    "id": "w0",
+    "text": "When",
+    "start": 0.119,
+    "end": 0.3
+  },
+  {
+    "id": "w1",
+    "text": "most",
+    "start": 0.3,
+    "end": 0.5
+  },
+  {
+    "id": "w2",
+    "text": "people",
+    "start": 0.56,
+    "end": 0.839
+  },
+  {
+    "id": "w3",
+    "text": "hear",
+    "start": 0.879,
+    "end": 1.019
+  },
+  {
+    "id": "w4",
+    "text": "the",
+    "start": 1.059,
+    "end": 1.179
+  },
+  {
+    "id": "w5",
+    "text": "phrase",
+    "start": 1.199,
+    "end": 1.539
+  },
+  {
+    "id": "w6",
+    "text": "\"strategic",
+    "start": 1.539,
+    "end": 2.44
+  },
+  {
+    "id": "w7",
+    "text": "networking,\"",
+    "start": 2.559,
+    "end": 3.019
+  },
+  {
+    "id": "w8",
+    "text": "they",
+    "start": 3.599,
+    "end": 3.74
+  },
+  {
+    "id": "w9",
+    "text": "jump",
+    "start": 3.779,
+    "end": 3.939
+  },
+  {
+    "id": "w10",
+    "text": "straight",
+    "start": 4.059,
+    "end": 4.4
+  },
+  {
+    "id": "w11",
+    "text": "to",
+    "start": 4.42,
+    "end": 4.5
+  },
+  {
+    "id": "w12",
+    "text": "tactics.",
+    "start": 4.619,
+    "end": 5.199
+  }
+]

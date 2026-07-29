@@ -1,0 +1,26 @@
+[
+  {
+    "id": "w0",
+    "text": "Welcome",
+    "start": 0.259,
+    "end": 0.639
+  },
+  {
+    "id": "w1",
+    "text": "to",
+    "start": 0.659,
+    "end": 0.819
+  },
+  {
+    "id": "w2",
+    "text": "Mid-Career",
+    "start": 0.839,
+    "end": 1.359
+  },
+  {
+    "id": "w3",
+    "text": "Momentum.",
+    "start": 1.439,
+    "end": 1.899
+  }
+]

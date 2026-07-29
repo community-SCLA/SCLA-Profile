@@ -1,0 +1,80 @@
+[
+  {
+    "id": "w0",
+    "text": "Do",
+    "start": 0.14,
+    "end": 0.239
+  },
+  {
+    "id": "w1",
+    "text": "you",
+    "start": 0.28,
+    "end": 0.439
+  },
+  {
+    "id": "w2",
+    "text": "care",
+    "start": 0.46,
+    "end": 0.699
+  },
+  {
+    "id": "w3",
+    "text": "most",
+    "start": 0.779,
+    "end": 0.939
+  },
+  {
+    "id": "w4",
+    "text": "about",
+    "start": 0.979,
+    "end": 1.219
+  },
+  {
+    "id": "w5",
+    "text": "learning?",
+    "start": 1.22,
+    "end": 1.559
+  },
+  {
+    "id": "w6",
+    "text": "Security?",
+    "start": 2.099,
+    "end": 2.699
+  },
+  {
+    "id": "w7",
+    "text": "Income?",
+    "start": 3.179,
+    "end": 3.619
+  },
+  {
+    "id": "w8",
+    "text": "Flexibility?",
+    "start": 3.839,
+    "end": 4.539
+  },
+  {
+    "id": "w9",
+    "text": "Meaning?",
+    "start": 5,
+    "end": 5.319
+  },
+  {
+    "id": "w10",
+    "text": "Mentorship?",
+    "start": 5.539,
+    "end": 6.199
+  },
+  {
+    "id": "w11",
+    "text": "Or",
+    "start": 6.239,
+    "end": 6.379
+  },
+  {
+    "id": "w12",
+    "text": "growth?",
+    "start": 6.42,
+    "end": 6.779
+  }
+]

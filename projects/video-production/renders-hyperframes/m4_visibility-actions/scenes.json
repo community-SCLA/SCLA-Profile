@@ -1,0 +1,279 @@
+{
+  "theme": "summit",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "Networking is one part of your career momentum.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Visibility Actions",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-statement",
+      "narration": "The other part is visibility—making sure the right people can actually see your contributions and your potential. Visibility isn't about self-promotion for its own sake.",
+      "cues": {
+        "pointCues": [
+          "your contributions",
+          "your potential",
+          "self-promotion for its own sake"
+        ]
+      },
+      "vars": {
+        "kicker": "The other half",
+        "statement": "Visibility Is the Other Half",
+        "lines": "See your contributions|See your potential|Not self-promotion",
+        "sceneIndex": "02 / VISIBILITY",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-statement",
+      "narration": "It's about making sure that decision-makers, sponsors, and peers understand what you're working on, where you're growing, and how you add value. So what are visibility actions?",
+      "cues": {
+        "pointCues": [
+          "understand what you're working on",
+          "where you're growing",
+          "how you add value"
+        ]
+      },
+      "vars": {
+        "kicker": "Being understood",
+        "statement": "Understood by Decision-Makers and Peers",
+        "lines": "What you're working on|Where you're growing|How you add value",
+        "sceneIndex": "03 / UNDERSTOOD",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-points",
+      "narration": "They're small, intentional behaviors that put your work and insights where others can see them, link your name to meaningful contributions, and build a consistent reputation over time.",
+      "cues": {
+        "pointCues": [
+          "put your work",
+          "link your name",
+          "build a consistent reputation"
+        ]
+      },
+      "vars": {
+        "label": "The definition",
+        "heading": "What Are Visibility Actions?",
+        "point1": "Put your work where others can see it",
+        "point2": "Link your name to meaningful contributions",
+        "point3": "Build a consistent reputation over time",
+        "point4": "",
+        "sceneIndex": "04 / DEFINE",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "target,mentorship,growth"
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-chips",
+      "narration": "Examples of visibility actions include volunteering to present a project update at a cross-department meeting, sharing a short summary of a success or a learning on an internal channel or on LinkedIn.",
+      "cues": {
+        "chipCues": [
+          "volunteering to present a project update",
+          "sharing a short summary of a success",
+          "an internal channel or on LinkedIn"
+        ]
+      },
+      "vars": {
+        "label": "For example",
+        "heading": "Ways to Be Seen",
+        "chips": "Present a project update,Share a success or a learning,On an internal channel or LinkedIn",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "05 / EXAMPLES",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-chips",
+      "narration": "Asking thoughtful and forward-looking questions in meetings, taking on a stretch role in a high-impact project, and offering to mentor a colleague or run a short learning session on a skill you already have.",
+      "cues": {
+        "chipCues": [
+          "asking thoughtful",
+          "taking on a stretch role",
+          "offering to mentor a colleague",
+          "run a short learning session"
+        ]
+      },
+      "vars": {
+        "label": "More examples",
+        "heading": "Ways to Be Seen, Continued",
+        "chips": "Ask forward-looking questions,Take a stretch role,Mentor a colleague,Run a short learning session",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "06 / MORE EXAMPLES",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "mentorship2",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-07a",
+      "template": "scla-morph",
+      "note": "split from scene-07 at the sentence end (12.5s cap) — carries the misconception half only; card B/morph need scene-07b's own words to anchor, so this scene shows card A plus a mid-scene note beat.",
+      "narration": "Notice that none of these require you to be loud, extroverted, or constantly \"on.\"",
+      "cues": {
+        "pointCues": [
+          "to be loud",
+          "or constantly"
+        ]
+      },
+      "vars": {
+        "kicker": "Not what you think",
+        "aTitle": "Loud and Extroverted",
+        "aSub": "What people assume visibility means",
+        "bTitle": "",
+        "bSub": "",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "question",
+        "actions": "A,note",
+        "notes": "Not what people assume",
+        "sceneIndex": "07 / NOT LOUD"
+      }
+    },
+    {
+      "id": "scene-07b",
+      "template": "scla-statement",
+      "note": "split from scene-07 — the resolution half, on its own words.",
+      "narration": "They're focused, purposeful moments that help others connect your name to useful contributions and growing capabilities.",
+      "cues": {
+        "pointCues": [
+          "useful contributions",
+          "growing capabilities"
+        ]
+      },
+      "vars": {
+        "kicker": "What actually works",
+        "statement": "Focused, Purposeful Moments",
+        "lines": "Connect your name to useful contributions|And growing capabilities",
+        "sceneIndex": "07 / THE REAL FOCUS",
+        "icon": "done",
+        "iconCue": "growing capabilities"
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-points",
+      "note": "template swapped from scla-stat — that template has no cue mechanism at all, so a scene this long (narration unchanged) could never clear the pacing gate on it.",
+      "narration": "In this module, you'll design three visibility actions tailored to your context and your Next Move Statement. For example:",
+      "cues": {
+        "pointCues": [
+          "your context",
+          "Next Move Statement"
+        ]
+      },
+      "vars": {
+        "label": "Coming up",
+        "heading": "Design Three Visibility Actions",
+        "point1": "Tailored to your context",
+        "point2": "Tailored to your Next Move Statement",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "08 / THREE ACTIONS",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-09a",
+      "template": "scla-steps",
+      "note": "split from scene-09 (was 3 quoted examples, 14.2s > cap) — the first two examples, spoken together.",
+      "narration": "\"Share a brief overview of my project outcomes with my leadership team.\" Or, \"Ask one strategic question at the next all-staff meeting.\"",
+      "cues": {
+        "stepCues": [
+          "Share a brief overview",
+          "Ask one strategic question"
+        ]
+      },
+      "vars": {
+        "label": "For example",
+        "heading": "What This Could Sound Like",
+        "step1": "Share a project overview with leadership",
+        "step2": "Ask one strategic question at all-staff",
+        "step3": "",
+        "step4": "",
+        "sceneIndex": "09 / FOR EXAMPLE",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-09b",
+      "template": "scla-condition",
+      "note": "split from scene-09 — the third example on its own. A single quoted example can't be a one-item scla-steps list, so it moves to scla-condition (3 of 3) instead — new distinct form, offsets losing scla-stat.",
+      "narration": "Or, \"Offer a thirty-minute mini-session on a skill to my team or community.\"",
+      "cues": {
+        "chipCues": [
+          "thirty-minute mini-session",
+          "my team or community"
+        ]
+      },
+      "vars": {
+        "num": "3",
+        "kicker": "One more example",
+        "heading": "Offer a Mini-Session",
+        "total": "3",
+        "chips": "A thirty-minute mini-session,To my team or community",
+        "icon": "insight",
+        "iconCue": "",
+        "sceneIndex": "09 / THIRD EXAMPLE"
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-statement",
+      "note": "extended to absorb the front of the outro's single over-long sentence (no internal terminator, so the cap fix moves words here instead of trimming them).",
+      "narration": "Then you'll choose one to test in the next 30 days, and reflect on what you learn. Visibility isn't about being perfect. It's about practicing small behaviors that make your work and your future direction",
+      "cues": {
+        "pointCues": [
+          "reflect on what you learn",
+          "isn't about being perfect",
+          "practicing small behaviors",
+          "your future direction"
+        ]
+      },
+      "vars": {
+        "kicker": "Then",
+        "statement": "Choose One, Then Test It",
+        "lines": "Reflect on what you learn|It doesn't have to be perfect|Practicing small behaviors|That shape your direction",
+        "sceneIndex": "10 / TEST IT",
+        "icon": "done",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-outro",
+      "note": "shortened — the front of this single sentence (no internal terminator) moved to scene-10 to clear the 8.5s outro cap. The word 'easier' is capitalized at this new boundary (word-preserving re-punctuation, design-contract.md 'Pacing budget'/'Boundaries land on sentence ends') so the scene doesn't open on a lowercase mid-sentence word; no word added, removed, or reordered.",
+      "narration": "Easier to see—and easier for others to support.",
+      "vars": {
+        "cta": "Make it easier to see",
+        "next": "And easier for others to support",
+        "url": "thescla.org",
+        "sceneIndex": "11 / NEXT STEP"
+      }
+    }
+  ]
+}

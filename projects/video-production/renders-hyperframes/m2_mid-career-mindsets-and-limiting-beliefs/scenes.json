@@ -1,0 +1,252 @@
+{
+  "theme": "cadence",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Mid Career Mindsets and Limiting Beliefs",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-chips",
+      "narration": "Some common beliefs sound like this: \"It's too late to change.\" \"If I speak up, I'll seem ungrateful.\" \"If I don't grab the first opportunity, I'll miss my chance.\"",
+      "cues": {
+        "chipCues": [
+          "too late to change",
+          "I'll seem ungrateful",
+          "I'll miss my chance"
+        ]
+      },
+      "vars": {
+        "label": "The stories we tell ourselves",
+        "heading": "Beliefs That Keep You Stuck",
+        "chips": "It's too late to change,If I speak up I'll seem ungrateful,If I don't grab the first opportunity I'll miss my chance",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "02 / THE STORY",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "question",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-morph",
+      "narration": "These thoughts feel protective, but they often keep you playing smaller than your experience allows.",
+      "cues": {
+        "pointCues": [
+          "feel protective",
+          "playing smaller",
+          "your experience allows"
+        ]
+      },
+      "vars": {
+        "kicker": "The catch",
+        "aTitle": "Feels Protective",
+        "aSub": "What it seems to do",
+        "bTitle": "Keeps You Playing Smaller",
+        "bSub": "What it actually does",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "pressure,question",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "03 / THE CATCH"
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-condition",
+      "narration": "Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships.",
+      "cues": {
+        "chipCues": [
+          "built skills",
+          "credibility",
+          "and relationships"
+        ]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "First",
+        "heading": "Mid-Career Is a Leverage Point",
+        "total": "3",
+        "chips": "Skills,Credibility,Relationships",
+        "icon": "growth",
+        "iconCue": "",
+        "sceneIndex": "04 / FIRST"
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-statement",
+      "narration": "That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally.",
+      "cues": {
+        "pointCues": [
+          "a lack of opportunity",
+          "choose intentionally"
+        ]
+      },
+      "vars": {
+        "kicker": "What that means",
+        "statement": "More Options, Chosen Intentionally",
+        "lines": "The challenge isn't a lack of opportunity|It's learning to choose intentionally",
+        "sceneIndex": "05 / CHOOSE",
+        "icon": "compass",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-condition",
+      "narration": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments.",
+      "cues": {
+        "chipCues": [
+          "one big, all-or-nothing pivot",
+          "career experiments"
+        ]
+      },
+      "vars": {
+        "num": "2",
+        "kicker": "Second",
+        "heading": "Think in Career Experiments",
+        "total": "3",
+        "chips": "One big pivot,Small career experiments",
+        "icon": "target",
+        "iconCue": "",
+        "sceneIndex": "06 / SECOND"
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-chips",
+      "narration": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully.",
+      "cues": {
+        "chipCues": [
+          "testing a leadership role",
+          "a hybrid responsibilities arrangement",
+          "an adjacent function"
+        ]
+      },
+      "vars": {
+        "label": "Try it as an experiment",
+        "heading": "Ways to Experiment",
+        "chips": "Test a leadership role,Try a hybrid arrangement,Explore an adjacent function",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "07 / TRY IT",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "examine",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-statement",
+      "narration": "Finally, we'll use re-design thinking. Instead of viewing your role as fixed.",
+      "cues": {
+        "pointCues": []
+      },
+      "vars": {
+        "kicker": "Finally",
+        "statement": "Your Role Isn't Fixed",
+        "lines": "",
+        "sceneIndex": "08 / FINALLY",
+        "icon": "pressure",
+        "iconCue": "re-design thinking"
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-points",
+      "narration": "You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now.",
+      "cues": {
+        "pointCues": [
+          "adjust projects",
+          "boundaries",
+          "responsibilities",
+          "and skills"
+        ]
+      },
+      "vars": {
+        "label": "Redesign the role",
+        "heading": "What You Can Adjust",
+        "point1": "Projects",
+        "point2": "Boundaries",
+        "point3": "Responsibilities",
+        "point4": "Skills",
+        "sceneIndex": "09 / REDESIGN",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "insight,mentorship,mentorship2,done"
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-steps",
+      "narration": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear.",
+      "cues": {
+        "stepCues": [
+          "notice when a belief is limiting you",
+          "replace it with small, practical experiments",
+          "build confidence instead of fear"
+        ]
+      },
+      "vars": {
+        "label": "How this works",
+        "heading": "Notice, Replace, Build Confidence",
+        "step1": "Notice the limiting belief",
+        "step2": "Replace it with a small experiment",
+        "step3": "Build confidence instead of fear",
+        "step4": "",
+        "sceneIndex": "10 / THE TRACK",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-points",
+      "narration": "For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral.",
+      "cues": {
+        "pointCues": [
+          "acknowledge where you feel stuck",
+          "commit to exploring one new path",
+          "staying in neutral"
+        ]
+      },
+      "vars": {
+        "label": "Your task",
+        "heading": "Acknowledge It, Then Commit",
+        "point1": "Acknowledge where you feel stuck",
+        "point2": "Commit to exploring one new path",
+        "point3": "Not staying in neutral",
+        "point4": "",
+        "sceneIndex": "11 / YOUR TASK",
+        "subBeats": "",
+        "subCues": "",
+        "icons": "compass,growth,target"
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-outro",
+      "narration": "So—where do you feel stuck? And what small experiment could you try next?",
+      "vars": {
+        "cta": "Take one small step",
+        "next": "Where do you feel stuck, and what could you try next?",
+        "url": "thescla.org",
+        "sceneIndex": "12 / NEXT STEP"
+      }
+    }
+  ]
+}

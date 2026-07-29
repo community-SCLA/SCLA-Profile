@@ -1,0 +1,98 @@
+[
+  {
+    "id": "w0",
+    "text": "When",
+    "start": 0.14,
+    "end": 0.299
+  },
+  {
+    "id": "w1",
+    "text": "people",
+    "start": 0.399,
+    "end": 0.639
+  },
+  {
+    "id": "w2",
+    "text": "talk",
+    "start": 0.659,
+    "end": 0.839
+  },
+  {
+    "id": "w3",
+    "text": "about",
+    "start": 0.919,
+    "end": 1.139
+  },
+  {
+    "id": "w4",
+    "text": "career",
+    "start": 1.159,
+    "end": 1.459
+  },
+  {
+    "id": "w5",
+    "text": "decisions,",
+    "start": 1.48,
+    "end": 2.279
+  },
+  {
+    "id": "w6",
+    "text": "they",
+    "start": 2.319,
+    "end": 2.46
+  },
+  {
+    "id": "w7",
+    "text": "often",
+    "start": 2.539,
+    "end": 2.759
+  },
+  {
+    "id": "w8",
+    "text": "imagine",
+    "start": 2.839,
+    "end": 3.199
+  },
+  {
+    "id": "w9",
+    "text": "there",
+    "start": 3.22,
+    "end": 3.319
+  },
+  {
+    "id": "w10",
+    "text": "is",
+    "start": 3.359,
+    "end": 3.579
+  },
+  {
+    "id": "w11",
+    "text": "one",
+    "start": 3.659,
+    "end": 3.879
+  },
+  {
+    "id": "w12",
+    "text": "right",
+    "start": 3.919,
+    "end": 4.099
+  },
+  {
+    "id": "w13",
+    "text": "answer",
+    "start": 4.159,
+    "end": 4.48
+  },
+  {
+    "id": "w14",
+    "text": "hiding",
+    "start": 4.5,
+    "end": 4.839
+  },
+  {
+    "id": "w15",
+    "text": "somewhere.",
+    "start": 4.859,
+    "end": 5.219
+  }
+]

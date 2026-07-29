@@ -1,0 +1,62 @@
+[
+  {
+    "id": "w0",
+    "text": "They",
+    "start": 0.099,
+    "end": 0.299
+  },
+  {
+    "id": "w1",
+    "text": "put",
+    "start": 0.319,
+    "end": 0.5
+  },
+  {
+    "id": "w2",
+    "text": "your",
+    "start": 0.539,
+    "end": 0.679
+  },
+  {
+    "id": "w3",
+    "text": "name",
+    "start": 0.759,
+    "end": 0.959
+  },
+  {
+    "id": "w4",
+    "text": "forward",
+    "start": 1,
+    "end": 1.339
+  },
+  {
+    "id": "w5",
+    "text": "for",
+    "start": 1.339,
+    "end": 1.5
+  },
+  {
+    "id": "w6",
+    "text": "roles,",
+    "start": 1.539,
+    "end": 1.939
+  },
+  {
+    "id": "w7",
+    "text": "projects,",
+    "start": 2.2,
+    "end": 2.919
+  },
+  {
+    "id": "w8",
+    "text": "and",
+    "start": 2.98,
+    "end": 3.119
+  },
+  {
+    "id": "w9",
+    "text": "committees.",
+    "start": 3.119,
+    "end": 3.579
+  }
+]

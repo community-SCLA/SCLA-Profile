@@ -1,0 +1,478 @@
+{
+  "theme": "horizon",
+  "scenes": [
+    {
+      "id": "scene-01",
+      "template": "scla-title",
+      "narration": "When most people hear the phrase \"strategic networking,\" they jump straight to tactics.",
+      "vars": {
+        "eyebrow": "Mid-Career Momentum",
+        "title": "Who Will Walk This Next Chapter with You",
+        "meta": "",
+        "sceneIndex": "01 / TITLE"
+      }
+    },
+    {
+      "id": "scene-02",
+      "template": "scla-chips",
+      "narration": "Who should I email? What should I say? How do I ask for help without being awkward? Those are important questions. But they're not the first ones.",
+      "cues": {
+        "chipCues": [
+          "Who should I email",
+          "What should I say",
+          "How do I ask for help"
+        ]
+      },
+      "vars": {
+        "label": "First instinct",
+        "heading": "Who, What, How",
+        "chips": "Who should I email?,What should I say?,How do I ask for help?",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "02 / FIRST INSTINCT",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "question",
+        "iconCue": "Those are important questions"
+      }
+    },
+    {
+      "id": "scene-03",
+      "template": "scla-statement",
+      "narration": "Before you move into outreach and visibility, it's worth slowing down to ask a deeper one: who do I actually want walking alongside me in this next chapter, and why?",
+      "cues": {
+        "pointCues": [
+          "walking alongside me",
+          "in this next chapter"
+        ]
+      },
+      "vars": {
+        "kicker": "Slow down and ask",
+        "statement": "Ask a Deeper Question First",
+        "lines": "Who I want walking alongside me|In this next chapter, and why",
+        "sceneIndex": "03 / THE DEEPER QUESTION",
+        "icon": "compass",
+        "iconCue": "worth slowing down to ask a deeper one"
+      }
+    },
+    {
+      "id": "scene-04",
+      "template": "scla-statement",
+      "narration": "This activity isn't just about making a list of names. It's about deliberately designing a small constellation of relationships that could matter for your future, not just your inbox this week.",
+      "cues": {
+        "pointCues": [
+          "just about making a list of names",
+          "matter for your future"
+        ]
+      },
+      "vars": {
+        "kicker": "Not a list of names",
+        "statement": "Design a Small Constellation of Relationships",
+        "lines": "Not just names on a list|Something that matters for your future",
+        "sceneIndex": "04 / THE ACTIVITY",
+        "icon": "mentorship",
+        "iconCue": "small constellation of relationships"
+      }
+    },
+    {
+      "id": "scene-05",
+      "template": "scla-loop",
+      "narration": "As you think about your next move, whether that's a role transition, a new project, a shift in direction, or simply becoming more visible in your current work, certain people will matter more than others.",
+      "cues": {
+        "stepCues": [
+          "a role transition",
+          "a new project",
+          "a shift in direction",
+          "becoming more visible"
+        ],
+        "subCues": [
+          "certain people",
+          "matter more than others"
+        ]
+      },
+      "vars": {
+        "label": "Whatever the move",
+        "heading": "What Your Next Move Might Look Like",
+        "step1": "A role transition",
+        "step2": "A new project",
+        "step3": "A shift in direction",
+        "step4": "Becoming visible",
+        "sceneIndex": "05 / YOUR NEXT MOVE",
+        "subBeats": "Certain people|Matter more than others",
+        "subCues": "",
+        "icon": ""
+      }
+    },
+    {
+      "id": "scene-06",
+      "template": "scla-condition",
+      "narration": "Some people already understand parts of your story. They've seen you work. They know your strengths.",
+      "cues": {
+        "chipCues": [
+          "seen you work",
+          "know your strengths"
+        ]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "People who know you",
+        "heading": "They Already Understand Your Story",
+        "total": "3",
+        "chips": "Seen you work,Know your strengths",
+        "icon": "insight",
+        "iconCue": "",
+        "sceneIndex": "06 / THEY KNOW YOU"
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-points",
+      "narration": "Others can help you see new possibilities: fields you haven't considered, roles you didn't know existed, paths that look different from what you see day to day.",
+      "cues": {
+        "pointCues": [
+          "fields you haven't considered",
+          "roles you didn't know existed",
+          "paths that look different"
+        ]
+      },
+      "vars": {
+        "label": "People who broaden the view",
+        "heading": "Others Help You See New Possibilities",
+        "point1": "Fields you haven't considered",
+        "point2": "Roles you didn't know existed",
+        "point3": "Paths that look different",
+        "point4": "",
+        "sceneIndex": "07 / NEW POSSIBILITIES",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-08",
+      "template": "scla-condition",
+      "narration": "And some sit close to the actual opportunities you care about: decisions about roles, projects, budgets, hiring, or internal moves.",
+      "cues": {
+        "chipCues": [
+          "decisions about roles",
+          "projects, budgets",
+          "hiring, or internal moves"
+        ]
+      },
+      "vars": {
+        "num": "3",
+        "kicker": "People near the opportunity",
+        "heading": "Some Sit Close to the Opportunities",
+        "total": "3",
+        "chips": "Decisions about roles,Projects and budgets,Hiring or internal moves",
+        "icon": "target",
+        "iconCue": "",
+        "sceneIndex": "08 / CLOSE TO OPPORTUNITY"
+      }
+    },
+    {
+      "id": "scene-09",
+      "template": "scla-statement",
+      "narration": "So in this reflection, you'll identify three to five specific people who could play important roles in your next chapter. You're going to look at each person through a few lenses.",
+      "cues": {
+        "pointCues": [
+          "three to five specific people",
+          "a few lenses"
+        ]
+      },
+      "vars": {
+        "kicker": "The reflection",
+        "statement": "Identify Three to Five Key People",
+        "lines": "Who could play a role in your next chapter|You'll look at each through a few lenses",
+        "sceneIndex": "09 / THE REFLECTION",
+        "icon": "examine",
+        "iconCue": "important roles in your next chapter"
+      }
+    },
+    {
+      "id": "scene-10",
+      "template": "scla-condition",
+      "narration": "Who are they, and where do they sit in relation to your current or target field? What type of relationship do they represent?",
+      "cues": {
+        "chipCues": [
+          "your current",
+          "target field",
+          "type of relationship"
+        ]
+      },
+      "vars": {
+        "num": "1",
+        "kicker": "Lens one",
+        "heading": "Who They Are",
+        "total": "4",
+        "chips": "Current field,Target field,Type of relationship",
+        "icon": "compass",
+        "iconCue": "",
+        "sceneIndex": "10 / LENS ONE"
+      }
+    },
+    {
+      "id": "scene-11",
+      "template": "scla-steps",
+      "narration": "A peer who walks alongside you, a sponsor who advocates for you, an opportunity holder who shapes roles and projects, or a mentor who helps you think clearly?",
+      "cues": {
+        "stepCues": [
+          "a peer who walks alongside you",
+          "a sponsor who advocates for you",
+          "an opportunity holder who shapes roles",
+          "a mentor who helps you think clearly"
+        ]
+      },
+      "vars": {
+        "label": "Lens two",
+        "heading": "What Type of Relationship?",
+        "step1": "A peer",
+        "step2": "A sponsor",
+        "step3": "An opportunity holder",
+        "step4": "A mentor",
+        "sceneIndex": "11 / FOUR RELATIONSHIP TYPES",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "mentorship2",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-12",
+      "template": "scla-statement",
+      "narration": "Why do they matter for your Next Move Statement or your future direction? And what would moving this relationship forward look like in the next 90 days?",
+      "cues": {
+        "pointCues": [
+          "Next Move Statement or your future direction",
+          "in the next 90 days"
+        ]
+      },
+      "vars": {
+        "kicker": "The last two lenses",
+        "statement": "Why They Matter, and What Comes Next",
+        "lines": "For your Next Move Statement, or future direction|Within the next 90 days",
+        "sceneIndex": "12 / WHY AND WHAT'S NEXT",
+        "icon": "growth",
+        "iconCue": "what would moving this relationship forward"
+      }
+    },
+    {
+      "id": "scene-13",
+      "template": "scla-morph",
+      "narration": "Instead of treating networking as a numbers game, talk to as many people as possible, you're treating it as a values and direction game.",
+      "cues": {
+        "pointCues": [
+          "a numbers game",
+          "talk to as many people as possible",
+          "a values and direction game"
+        ]
+      },
+      "vars": {
+        "kicker": "Reframe the game",
+        "aTitle": "A numbers game",
+        "aSub": "Talk to as many people as possible",
+        "bTitle": "A values and direction game",
+        "bSub": "Who genuinely fits your story",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "salary,target",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "13 / REFRAME THE GAME"
+      }
+    },
+    {
+      "id": "scene-14",
+      "template": "scla-points",
+      "narration": "Who genuinely fits into the story I'm building about my career? What kind of relationship would be meaningful and realistic with each person?",
+      "cues": {
+        "pointCues": [
+          "genuinely fits into the story",
+          "meaningful and realistic"
+        ]
+      },
+      "vars": {
+        "label": "Ask yourself",
+        "heading": "Two Questions to Ask",
+        "point1": "Who genuinely fits my story?",
+        "point2": "What relationship is meaningful?",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "14 / ASK YOURSELF",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-15",
+      "template": "scla-chips",
+      "narration": "You'll write about why each person is relevant to your Next Move Statement. That might include what they see that you don't yet, what opportunities they're close to, or what kind of perspective or support they could offer.",
+      "cues": {
+        "chipCues": [
+          "what they see that you don't yet",
+          "opportunities they're close to",
+          "perspective or support"
+        ]
+      },
+      "vars": {
+        "label": "What to capture",
+        "heading": "What You Might Be Missing",
+        "chips": "What they see,Opportunities they're close to,Perspective or support",
+        "accentIndex": "",
+        "reveal": "slide",
+        "sceneIndex": "15 / WHAT TO CAPTURE",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "examine",
+        "iconCue": "why each person is relevant"
+      }
+    },
+    {
+      "id": "scene-16",
+      "template": "scla-points",
+      "narration": "Then you'll define one specific, respectful outcome you'd like to aim for within the next 90 days. Things like having one",
+      "cues": {
+        "pointCues": [
+          "one specific, respectful outcome",
+          "within the next 90 days"
+        ]
+      },
+      "vars": {
+        "label": "Set the outcome",
+        "heading": "Define One Specific Outcome",
+        "point1": "One specific, respectful outcome",
+        "point2": "Within the next 90 days",
+        "point3": "",
+        "point4": "",
+        "sceneIndex": "16 / DEFINE THE OUTCOME",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-17",
+      "template": "scla-chips",
+      "narration": "20-minute conversation about your next move, sharing your updated profile or resume and asking for feedback, exploring internal opportunities on their team, or asking for an introduction to someone in your target field.",
+      "cues": {
+        "chipCues": [
+          "20-minute conversation about your next move",
+          "updated profile or resume",
+          "internal opportunities",
+          "an introduction"
+        ]
+      },
+      "vars": {
+        "label": "Pick one outcome",
+        "heading": "Ways to Move It Forward",
+        "chips": "A 20-minute conversation,Share your resume for feedback,Explore internal opportunities,Ask for an introduction",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "17 / PICK ONE OUTCOME",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "done",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-18",
+      "template": "scla-statement",
+      "narration": "At the end, you'll step back and look at the patterns in your list. Are most of your relationships inside your current organization?",
+      "cues": {
+        "pointCues": [
+          "look at the patterns in your list",
+          "inside your current organization"
+        ]
+      },
+      "vars": {
+        "kicker": "Step back",
+        "statement": "Step Back and Look at Your List",
+        "lines": "What patterns show up?|Inside your current organization?",
+        "sceneIndex": "18 / STEP BACK",
+        "icon": "insight",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-19",
+      "template": "scla-points",
+      "narration": "Do you have a mix of peers, sponsors, and opportunity holders, or is everything weighted toward one type? Which single relationship feels most important to nurture first, and why?",
+      "cues": {
+        "pointCues": [
+          "a mix of peers, sponsors, and opportunity holders",
+          "everything weighted toward one type",
+          "most important to nurture first"
+        ]
+      },
+      "vars": {
+        "label": "Look for patterns",
+        "heading": "Check the Balance of Your List",
+        "point1": "A mix of peers, sponsors, and opportunity holders?",
+        "point2": "Not weighted toward one type?",
+        "point3": "Which relationship to nurture first?",
+        "point4": "",
+        "sceneIndex": "19 / CHECK THE BALANCE",
+        "subBeats": "",
+        "subCues": "",
+        "icons": ""
+      }
+    },
+    {
+      "id": "scene-20",
+      "template": "scla-statement",
+      "narration": "These answers matter, because they guide where you put your energy when you start taking action.",
+      "cues": {
+        "pointCues": [
+          "guide where you put your energy",
+          "when you start taking action"
+        ]
+      },
+      "vars": {
+        "kicker": "Why it matters",
+        "statement": "That Is Why These Answers Matter",
+        "lines": "They guide where you put your energy|When you start taking action",
+        "sceneIndex": "20 / WHY IT MATTERS",
+        "icon": "growth",
+        "iconCue": ""
+      }
+    },
+    {
+      "id": "scene-21",
+      "template": "scla-morph",
+      "narration": "You're not just building a contact list. You're choosing who you want in your corner as you create your next chapter. Take your time with this.",
+      "cues": {
+        "pointCues": [
+          "not just building a contact list",
+          "choosing who you want in your corner",
+          "create your next chapter"
+        ]
+      },
+      "vars": {
+        "kicker": "What you're really building",
+        "aTitle": "A contact list",
+        "aSub": "Not just a list of names",
+        "bTitle": "Who's in your corner",
+        "bSub": "As you create your next chapter",
+        "winner": "b",
+        "winnerAfter": "",
+        "icons": "map,mentorship2",
+        "actions": "A,B,morph",
+        "notes": "",
+        "sceneIndex": "21 / YOUR CORNER"
+      }
+    },
+    {
+      "id": "scene-22",
+      "template": "scla-outro",
+      "narration": "The more honest and specific you are now, the clearer and more grounded your outreach and visibility will feel later.",
+      "vars": {
+        "cta": "Be honest and specific",
+        "next": "Your outreach and visibility will feel clearer and more grounded",
+        "url": "thescla.org",
+        "sceneIndex": "22 / NEXT STEP"
+      }
+    }
+  ]
+}

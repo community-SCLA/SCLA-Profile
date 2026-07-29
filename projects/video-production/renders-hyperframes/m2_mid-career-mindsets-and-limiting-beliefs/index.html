@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+  12 scenes | theme cadence
+  Generated from scenes.json by render-qa/src/build_index.py — edit the manifest,
+  not this file. All timing numbers are compiler-owned (compile_timeline.py).
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+      body { font-family: "Inter", sans-serif; }
+      code, pre, .monospace { font-family: "JetBrains Mono", monospace; }
+
+      /* Host-root progress rail — spans the whole runtime, not scene motion.
+         Not a scene clip, so the deterministic gates ignore it. */
+      #hf-rail-track { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #cccedf; opacity: .28; }
+      #hf-rail-fill  { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #eaab2d;
+                       transform-origin: left center; transform: scaleX(0); }
+    </style>
+  </head>
+  <body>
+    <!-- data-duration is COMPILER-OWNED. Leave the placeholder; never type a real number. -->
+    <div data-hf-id="hf-nbma" id="root" data-composition-id="main" data-start="0" data-duration="91.729" data-width="1920" data-height="1080">
+
+      <div data-hf-id="hf-z9y0" class="clip" id="scene-01" data-composition-id="scene-01" data-composition-src="compositions/scla-title.html" data-start="0" data-duration="5.771" data-track-index="1" data-narration="Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck." data-variable-values='{"eyebrow":"Mid-Career Momentum","title":"Mid Career Mindsets and Limiting Beliefs","meta":"2 min","sceneIndex":"01 / TITLE","theme":"cadence","sceneDuration":"5.771"}'></div>
+
+      <div data-hf-id="hf-h088" class="clip" id="scene-02" data-composition-id="scene-02" data-composition-src="compositions/scla-chips.html" data-start="5.771" data-duration="9.675" data-track-index="1" data-narration="Some common beliefs sound like this: &quot;It's too late to change.&quot; &quot;If I speak up, I'll seem ungrateful.&quot; &quot;If I don't grab the first opportunity, I'll miss my chance.&quot;" data-variable-values='{"label":"The stories we tell ourselves","heading":"Beliefs That Keep You Stuck","chips":"It’s too late to change,If I speak up I’ll seem ungrateful,If I don’t grab the first opportunity I’ll miss my chance","accentIndex":"","reveal":"pop","sceneIndex":"02 / THE STORY","subBeats":"","subCues":"","icon":"question","iconCue":"","chipCues":"2.35,4.69,8.21","theme":"cadence","sceneDuration":"9.675"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;too late to change&quot;,&quot;I'll seem ungrateful&quot;,&quot;I'll miss my chance&quot;]}"></div>
+
+      <div data-hf-id="hf-vf66" class="clip" id="scene-03" data-composition-id="scene-03" data-composition-src="compositions/scla-morph.html" data-start="15.446" data-duration="5.79" data-track-index="1" data-narration="These thoughts feel protective, but they often keep you playing smaller than your experience allows." data-variable-values='{"kicker":"The catch","aTitle":"Feels Protective","aSub":"What it seems to do","bTitle":"Keeps You Playing Smaller","bSub":"What it actually does","winner":"b","winnerAfter":"","icons":"pressure,question","actions":"A,B,morph","notes":"","sceneIndex":"03 / THE CATCH","pointCues":"0.83,3.13,4.09","theme":"cadence","sceneDuration":"5.79"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;feel protective&quot;,&quot;playing smaller&quot;,&quot;your experience allows&quot;]}"></div>
+
+      <div data-hf-id="hf-ajvn" class="clip" id="scene-04" data-composition-id="scene-04" data-composition-src="compositions/scla-condition.html" data-start="21.236" data-duration="7.552" data-track-index="1" data-narration="Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships." data-variable-values='{"num":"1","kicker":"First","heading":"Mid-Career Is a Leverage Point","total":"3","chips":"Skills,Credibility,Relationships","icon":"growth","iconCue":"","sceneIndex":"04 / FIRST","chipCues":"4.05,5.19,6.15","theme":"cadence","sceneDuration":"7.552"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;built skills&quot;,&quot;credibility&quot;,&quot;and relationships&quot;]}"></div>
+
+      <div data-hf-id="hf-5wtt" class="clip" id="scene-05" data-composition-id="scene-05" data-composition-src="compositions/scla-statement.html" data-start="28.788" data-duration="7.804" data-track-index="1" data-narration="That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally." data-variable-values='{"kicker":"What that means","statement":"More Options, Chosen Intentionally","lines":"The challenge isn’t a lack of opportunity|It’s learning to choose intentionally","sceneIndex":"05 / CHOOSE","icon":"compass","iconCue":"","pointCues":"3.85,6.19","theme":"cadence","sceneDuration":"7.804"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;a lack of opportunity&quot;,&quot;choose intentionally&quot;]}"></div>
+
+      <div data-hf-id="hf-mtpy" class="clip" id="scene-06" data-composition-id="scene-06" data-composition-src="compositions/scla-condition__i2.html" data-start="36.592" data-duration="7.074" data-track-index="1" data-narration="Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments." data-variable-values='{"num":"2","kicker":"Second","heading":"Think in Career Experiments","total":"3","chips":"One big pivot,Small career experiments","icon":"target","iconCue":"","sceneIndex":"06 / SECOND","chipCues":"2.59,5.63","theme":"cadence","sceneDuration":"7.074"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;one big, all-or-nothing pivot&quot;,&quot;career experiments&quot;]}"></div>
+
+      <div data-hf-id="hf-89o8" class="clip" id="scene-07" data-composition-id="scene-07" data-composition-src="compositions/scla-chips__i2.html" data-start="43.666" data-duration="10.444" data-track-index="1" data-narration="That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully." data-variable-values='{"label":"Try it as an experiment","heading":"Ways to Experiment","chips":"Test a leadership role,Try a hybrid arrangement,Explore an adjacent function","accentIndex":"","reveal":"slide","sceneIndex":"07 / TRY IT","subBeats":"","subCues":"","icon":"examine","iconCue":"","chipCues":"0.83,3.53,6.45","theme":"cadence","sceneDuration":"10.444"}' data-cue-anchors="{&quot;chipCues&quot;:[&quot;testing a leadership role&quot;,&quot;a hybrid responsibilities arrangement&quot;,&quot;an adjacent function&quot;]}"></div>
+
+      <div data-hf-id="hf-338m" class="clip" id="scene-08" data-composition-id="scene-08" data-composition-src="compositions/scla-statement__i2.html" data-start="54.11" data-duration="4.934" data-track-index="1" data-narration="Finally, we'll use re-design thinking. Instead of viewing your role as fixed." data-variable-values='{"kicker":"Finally","statement":"Your Role Isn’t Fixed","lines":"","sceneIndex":"08 / FINALLY","icon":"pressure","iconCue":"re-design thinking","pointCues":"","theme":"cadence","sceneDuration":"4.934"}' data-cue-anchors="{&quot;pointCues&quot;:[]}"></div>
+
+      <div data-hf-id="hf-ovso" class="clip" id="scene-09" data-composition-id="scene-09" data-composition-src="compositions/scla-points.html" data-start="59.044" data-duration="8.02" data-track-index="1" data-narration="You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now." data-variable-values='{"label":"Redesign the role","heading":"What You Can Adjust","point1":"Projects","point2":"Boundaries","point3":"Responsibilities","point4":"Skills","sceneIndex":"09 / REDESIGN","subBeats":"","subCues":"","icons":"insight,mentorship,mentorship2,done","pointCues":"0.97,2.49,3.53,4.89","theme":"cadence","sceneDuration":"8.02"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;adjust projects&quot;,&quot;boundaries&quot;,&quot;responsibilities&quot;,&quot;and skills&quot;]}"></div>
+
+      <div data-hf-id="hf-3e4w" class="clip" id="scene-10" data-composition-id="scene-10" data-composition-src="compositions/scla-steps.html" data-start="67.064" data-duration="8.883" data-track-index="1" data-narration="This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear." data-variable-values='{"label":"How this works","heading":"Notice, Replace, Build Confidence","step1":"Notice the limiting belief","step2":"Replace it with a small experiment","step3":"Build confidence instead of fear","step4":"","sceneIndex":"10 / THE TRACK","subBeats":"","subCues":"","icon":"insight","iconCue":"","stepCues":"1.23,3.57,6.65","theme":"cadence","sceneDuration":"8.883"}' data-cue-anchors="{&quot;stepCues&quot;:[&quot;notice when a belief is limiting you&quot;,&quot;replace it with small, practical experiments&quot;,&quot;build confidence instead of fear&quot;]}"></div>
+
+      <div data-hf-id="hf-c8id" class="clip" id="scene-11" data-composition-id="scene-11" data-composition-src="compositions/scla-points__i2.html" data-start="75.947" data-duration="9.806" data-track-index="1" data-narration="For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral." data-variable-values='{"label":"Your task","heading":"Acknowledge It, Then Commit","point1":"Acknowledge where you feel stuck","point2":"Commit to exploring one new path","point3":"Not staying in neutral","point4":"","sceneIndex":"11 / YOUR TASK","subBeats":"","subCues":"","icons":"compass,growth,target","pointCues":"2.55,5.11,8.37","theme":"cadence","sceneDuration":"9.806"}' data-cue-anchors="{&quot;pointCues&quot;:[&quot;acknowledge where you feel stuck&quot;,&quot;commit to exploring one new path&quot;,&quot;staying in neutral&quot;]}"></div>
+
+      <div data-hf-id="hf-sebe" class="clip" id="scene-12" data-composition-id="scene-12" data-composition-src="compositions/scla-outro.html" data-start="85.753" data-duration="5.976" data-track-index="1" data-narration="So—where do you feel stuck? And what small experiment could you try next?" data-variable-values='{"cta":"Take one small step","next":"Where do you feel stuck, and what could you try next?","url":"thescla.org","sceneIndex":"12 / NEXT STEP","theme":"cadence","sceneDuration":"5.976"}'></div>
+
+      <div data-hf-id="hf-sw2m" id="hf-rail-track"></div>
+      <div data-hf-id="hf-1r7q" id="hf-rail-fill"></div>
+
+      <!-- id + data-start are REQUIRED. Without them lint warns "audio will be
+           SILENT in renders" — and the render really is silent. -->
+      <audio data-hf-id="hf-b5r0" id="narration-audio" src="assets/voice/narration.wav" data-audio-track="" data-start="0"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Rail span is read from the compiler-owned data-duration — never hand-typed.
+      const total = parseFloat(document.getElementById("root").dataset.duration) || 0;
+      tl.fromTo("#hf-rail-fill", { scaleX: 0 }, { scaleX: 1, duration: total, ease: "none" }, 0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

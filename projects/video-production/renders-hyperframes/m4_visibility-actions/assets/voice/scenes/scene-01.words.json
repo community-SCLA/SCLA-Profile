@@ -1,0 +1,50 @@
+[
+  {
+    "id": "w0",
+    "text": "Networking",
+    "start": 0.159,
+    "end": 0.759
+  },
+  {
+    "id": "w1",
+    "text": "is",
+    "start": 0.799,
+    "end": 0.979
+  },
+  {
+    "id": "w2",
+    "text": "one",
+    "start": 1.059,
+    "end": 1.259
+  },
+  {
+    "id": "w3",
+    "text": "part",
+    "start": 1.279,
+    "end": 1.519
+  },
+  {
+    "id": "w4",
+    "text": "of",
+    "start": 1.519,
+    "end": 1.639
+  },
+  {
+    "id": "w5",
+    "text": "your",
+    "start": 1.659,
+    "end": 1.779
+  },
+  {
+    "id": "w6",
+    "text": "career",
+    "start": 1.819,
+    "end": 2.119
+  },
+  {
+    "id": "w7",
+    "text": "momentum.",
+    "start": 2.139,
+    "end": 2.639
+  }
+]

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;label&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Section label&quot;,&quot;default&quot;:&quot;[[label]]&quot;},
+    {&quot;id&quot;:&quot;heading&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Heading — ONE line (<=1500px); the stage below is budgeted against it&quot;,&quot;default&quot;:&quot;[[heading]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;startLabel&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Start node title&quot;,&quot;default&quot;:&quot;[[startLabel]]&quot;},
+    {&quot;id&quot;:&quot;startSub&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Start node subtitle&quot;,&quot;default&quot;:&quot;[[startSub]]&quot;},
+    {&quot;id&quot;:&quot;path1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 1 title (top)&quot;,&quot;default&quot;:&quot;[[path1]]&quot;,&quot;maxLines&quot;:2},
+    {&quot;id&quot;:&quot;fit1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 1 fit line&quot;,&quot;default&quot;:&quot;[[fit1]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;path2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 2 title (middle)&quot;,&quot;default&quot;:&quot;[[path2]]&quot;,&quot;maxLines&quot;:2},
+    {&quot;id&quot;:&quot;fit2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 2 fit line&quot;,&quot;default&quot;:&quot;[[fit2]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;path3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 3 title (bottom)&quot;,&quot;default&quot;:&quot;[[path3]]&quot;,&quot;maxLines&quot;:2},
+    {&quot;id&quot;:&quot;fit3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 3 fit line&quot;,&quot;default&quot;:&quot;[[fit3]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;bestLabel&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Best-fit node title&quot;,&quot;default&quot;:&quot;[[bestLabel]]&quot;},
+    {&quot;id&quot;:&quot;bestSub&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Best-fit node subtitle&quot;,&quot;default&quot;:&quot;[[bestSub]]&quot;},
+    {&quot;id&quot;:&quot;winner&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Winning path the gold route runs through (1 | 2 | 3)&quot;,&quot;default&quot;:&quot;2&quot;},
+    {&quot;id&quot;:&quot;mapCue&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Local sec when the winning route is traced&quot;,&quot;default&quot;:&quot;5.0&quot;},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;09 / COMPARE&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained; times the late-phase resolve)&quot;,&quot;default&quot;:&quot;10&quot;}
+  ]">
+  <head>
+    <meta charset="UTF-8">
+    <!--
+      TEMPLATE — decision map. A start node fans out to three candidate paths
+      against a criteria axis; on mapCue a gold route traces through the winning
+      path (winner variable) to the best-fitting option while the losers fade.
+      Use for "compare options against your criteria" beats. All SVG/CSS + GSAP,
+      seek-safe. design-contract.md → "Illustration over text — draw a map/path and trace it".
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .cm-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+        }
+        .cm-bg::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px);
+          background-size: 72px 72px;
+        }
+        #cm-head {
+          position: absolute;
+          left: 120px;
+          top: 120px;
+          width: 1500px;
+        }
+        #cm-label-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #cm-tick {
+          width: 46px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        #cm-label {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #cm-heading {
+          margin-top: 16px;
+          font-size: 60px;
+          font-weight: 900;
+          color: #0d2437;
+          line-height: 1.08;
+        }
+        /* STAGE = THE WHOLE CONTENT BAND, and the SVG viewBox is 1:1 with it so a
+           coordinate here is a frame pixel (2026-07-29, second pass). It was
+           1680x560 stretched by preserveAspectRatio="none", which meant every
+           edge endpoint moved whenever the stage was resized — the numbers below
+           are only checkable if they mean pixels.
+
+           Band: 300 (a 70px gutter under a ONE-line heading, which the schema now
+           enforces) to 960 = tokens.yml content-bottom. 660px of room.
+
+           SLOT BUDGET. The three path cards ride FIXED, EVENLY SPACED slots sized
+           for the worst legal card — 2 lines of 40px role type, `maxLines: 2` in
+           the schema — so the gutter does not shrink when a card's copy grows:
+               slack 6 | slot-1 6-190 | 48 | slot-2 238-422 | 48 | slot-3 470-654
+                       | slack 6   (frame: 306-490 / 538-722 / 776-960)
+           The shipped 2026-07-29 cut top-anchored the same cards on slots sized
+           for ONE line, so a 2-line card grew downward into the next: the gaps
+           came out 74px and 26px, and the owner read the 26 as touching. Even
+           spacing is a property of the SLOTS, never of the copy that lands in
+           them. A one-line card sits 24px high in its slot; the edge endpoints
+           below aim at the one-line centre for that reason. */
+        #cm-stage {
+          position: absolute;
+          left: 120px;
+          top: 300px;
+          width: 1680px;
+          height: 660px;
+        }
+        #cm-svg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+        /* 300px wide until 2026-07-29: "Different learning opportunities"
+           measures 507px in Proxima 900 at 34px, so a 240px text box wrapped it
+           to three lines and the card grew through the footer rule. The first
+           fix dropped the type to 30px and check_text caught it immediately —
+           30px is below tokens.yml's body floor. Widening is the correct lever.
+           Widened again to 440 the same day (total 500 — there is no
+           box-sizing:border-box inside a sub-comp template, so padding adds):
+           at the 40px floor "Learning opportunities" is 427px, which a 360px
+           text box wrapped to two lines. It is legal for a card to take two
+           lines; it should not take two for a phrase this short. */
+        .cm-node {
+          position: absolute;
+          width: 440px;
+          padding: 26px 30px;
+          border-radius: 14px;
+          border: 2px solid #cccedf;
+          background: #f6f6f9;
+        }
+        .cm-node .cm-role {
+          font-size: 40px;
+          font-weight: 900;
+          color: #0d2437;
+        }
+        .cm-node .cm-fit {
+          margin-top: 10px;
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* 260px until 2026-07-29 — "Three to five paths" is 257.6px tracked, so
+           the default start card was 2.4px from wrapping its own subtitle. */
+        #cm-node-start {
+          left: 0;
+          top: 238px;
+          width: 280px;
+          background: #0d2437;
+          border-color: #0d2437;
+        }
+        #cm-node-start .cm-role { color: #ffffff; }
+        #cm-node-start .cm-fit { color: #bcd3e4; }
+        #cm-node-1 { left: 560px; top: 6px; }
+        #cm-node-2 { left: 560px; top: 238px; }
+        #cm-node-3 { left: 560px; top: 470px; }
+        #cm-node-best {
+          left: 1240px;
+          top: 238px;
+          width: 340px;
+          border-color: #eaab2d;
+          background: #fff;
+          box-shadow: 0 0 0 6px rgba(234, 171, 45, 0.16);
+        }
+        #cm-node-best .cm-fit { color: #b07d10; }
+        #cm-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        #cm-brandline {
+          position: absolute;
+          left: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* Style packages — visual layer only; timeline identical */
+        #root[data-theme="horizon"] #cm-tick { background: #3393d6; }
+        #root[data-theme="cadence"] #cm-tick { width: 70px; }
+        #root[data-theme="cadence"] .cm-bg::after { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+      </style>
+
+      <div data-hf-id="hf-fdpp" id="root" data-composition-id="scla-career-map" data-width="1920" data-height="1080" data-duration="12">
+        <div data-hf-id="hf-h7uk" class="cm-bg"></div>
+        <div data-hf-id="hf-0pss" id="cm-head">
+          <div data-hf-id="hf-gxuf" id="cm-label-row">
+            <div data-hf-id="hf-9a4l" id="cm-tick"></div>
+            <div data-hf-id="hf-jbzc" id="cm-label">Step 3 — Compare</div>
+          </div>
+          <h2 data-hf-id="hf-xl6l" id="cm-heading">Which one fits what matters to you?</h2>
+        </div>
+        <div data-hf-id="hf-ji24" id="cm-stage">
+          <!-- viewBox is the stage's own pixel size: 1 unit = 1 frame pixel.
+               x340 = the start card's right edge, x560 = the path column's left
+               edge, x1060 = its right edge, x1240 = the best-fit card's left
+               edge. y74/306/538 are the three slots' one-line centres. -->
+          <svg data-hf-id="hf-r4hp" id="cm-svg" viewBox="0 0 1680 660" preserveAspectRatio="none" fill="none">
+            <path data-hf-id="hf-8u5m" id="cm-edge-1" d="M340 306 C 460 306, 460 74, 560 74" stroke="#cccedf" stroke-width="4" />
+            <path data-hf-id="hf-j5oa" id="cm-edge-2" d="M340 306 L 560 306" stroke="#cccedf" stroke-width="4" />
+            <path data-hf-id="hf-b2zi" id="cm-edge-3" d="M340 306 C 460 306, 460 538, 560 538" stroke="#cccedf" stroke-width="4" />
+            <path data-hf-id="hf-f17o" id="cm-route" d="M340 306 L 1060 306 C 1140 306, 1160 306, 1240 306" stroke="#eaab2d" stroke-width="7" stroke-linecap="round" />
+          </svg>
+          <div data-hf-id="hf-ggz3" class="cm-node" id="cm-node-start"><div data-hf-id="hf-dou9" class="cm-role" id="cm-start-role">You, today</div><div data-hf-id="hf-d75i" class="cm-fit" id="cm-start-sub">Your criteria</div></div>
+          <div data-hf-id="hf-tjbq" class="cm-node" id="cm-node-1"><div data-hf-id="hf-xsuy" class="cm-role" id="cm-role-1">Path A</div><div data-hf-id="hf-25c8" class="cm-fit" id="cm-fit-1">Fits 2 of 5</div></div>
+          <div data-hf-id="hf-pl7p" class="cm-node" id="cm-node-2"><div data-hf-id="hf-lhew" class="cm-role" id="cm-role-2">Path B</div><div data-hf-id="hf-be1r" class="cm-fit" id="cm-fit-2">Fits 4 of 5</div></div>
+          <div data-hf-id="hf-otjw" class="cm-node" id="cm-node-3"><div data-hf-id="hf-9o0e" class="cm-role" id="cm-role-3">Path C</div><div data-hf-id="hf-40mt" class="cm-fit" id="cm-fit-3">Fits 1 of 5</div></div>
+          <div data-hf-id="hf-2gdv" class="cm-node" id="cm-node-best"><div data-hf-id="hf-ia5m" class="cm-role" id="cm-best-role">Best fit</div><div data-hf-id="hf-fm7p" class="cm-fit" id="cm-best-sub">Matches what matters</div></div>
+        </div>
+        <div data-hf-id="hf-xfeh" id="cm-index" data-layout-allow-occlusion="">09 / COMPARE</div>
+        <div data-hf-id="hf-72my" id="cm-brandline">SCLA · Lesson System</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            label: "Step 3 — Compare",
+            heading: "Which one fits what matters to you?",
+            startLabel: "You, today",
+            startSub: "Your criteria",
+            path1: "Path A",
+            fit1: "Fits 2 of 5",
+            path2: "Path B",
+            fit2: "Fits 4 of 5",
+            path3: "Path C",
+            fit3: "Fits 1 of 5",
+            bestLabel: "Best fit",
+            bestSub: "Matches what matters",
+            winner: "2",
+            mapCue: "5.0",
+            sceneIndex: "09 / COMPARE",
+            theme: "summit",
+            sceneDuration: "10",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("cm-label").textContent = vars.label;
+          document.getElementById("cm-heading").textContent = vars.heading;
+          document.getElementById("cm-index").textContent = vars.sceneIndex;
+          document.getElementById("cm-start-role").textContent = vars.startLabel;
+          document.getElementById("cm-start-sub").textContent = vars.startSub;
+          document.getElementById("cm-role-1").textContent = vars.path1;
+          document.getElementById("cm-fit-1").textContent = vars.fit1;
+          document.getElementById("cm-role-2").textContent = vars.path2;
+          document.getElementById("cm-fit-2").textContent = vars.fit2;
+          document.getElementById("cm-role-3").textContent = vars.path3;
+          document.getElementById("cm-fit-3").textContent = vars.fit3;
+          document.getElementById("cm-best-role").textContent = vars.bestLabel;
+          document.getElementById("cm-best-sub").textContent = vars.bestSub;
+          const mapAt = Math.max(1.0, Number(vars.mapCue) || 5.0);
+          const winner = ["1", "2", "3"].indexOf(String(vars.winner).trim()) >= 0 ? String(vars.winner).trim() : "2";
+
+          // The gold route's geometry follows the winner: through the top (y74),
+          // middle (y306), or bottom (y538) slot, then into the best-fit card
+          // (vertical centre y306 at x1240). Stage pixels — see the viewBox note.
+          const routes = {
+            "1": "M340 306 C 460 306, 460 74, 560 74 L 1060 74 C 1140 74, 1160 306, 1240 306",
+            "2": "M340 306 L 1060 306 C 1140 306, 1160 306, 1240 306",
+            "3": "M340 306 C 460 306, 460 538, 560 538 L 1060 538 C 1140 538, 1160 306, 1240 306",
+          };
+          const route = document.getElementById("cm-route");
+          route.setAttribute("d", routes[winner]);
+          const losers = ["#cm-node-1", "#cm-node-2", "#cm-node-3"].filter(function (sel) {
+            return sel !== "#cm-node-" + winner;
+          });
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          // Entrance compressed to settle ≤1.2s (Motion v2, 2026-07-27) — same relative
+          // stagger order (tick → label → heading → start → edges → option nodes).
+          tl.fromTo("#cm-tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.05);
+          tl.fromTo("#cm-label", { opacity: 0, x: -32 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.1);
+          tl.fromTo("#cm-heading", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.55, ease: "power4.out" }, 0.2);
+          tl.fromTo("#cm-node-start", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+          // Candidate edges draw out, then the three option nodes arrive.
+          ["#cm-edge-1", "#cm-edge-2", "#cm-edge-3"].forEach(function (sel, i) {
+            const path = document.querySelector(sel);
+            const len = path.getTotalLength();
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+            tl.fromTo(sel, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, 0.45 + i * 0.1);
+          });
+          tl.fromTo("#cm-node-1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.65);
+          tl.fromTo("#cm-node-2", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.75);
+          tl.fromTo("#cm-node-3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.5)" }, 0.85);
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
+          tl.fromTo(["#cm-index", "#cm-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+
+          // REMOVED 2026-07-29 (owner): the candidate-node pulse. Settled nodes
+          // took turns bobbing to fill the wait between the map entrance and the
+          // route cue — an in-place re-mark of settled content, banned
+          // 2026-07-14 and reaffirmed 07-15. It was on by default (the schema's
+          // mapCue of 5.0 cleared the 3.5 engage threshold), so every default
+          // career-map scene shipped it.
+          //
+          // The dead stretch it papered over is real and is an AUTHORING defect:
+          // cue the route earlier, add a beat, or split the scene. Never
+          // re-animate what has settled to satisfy the stagnation gate — that
+          // trade was made on 2026-07-15, vetoed on sight, and is now
+          // unavailable rather than merely discouraged.
+          // (Mechanism: `render-qa/src/check_motion.py`.)
+
+          // On the cue, the gold route traces from you → winning option → best fit.
+          const rlen = route.getTotalLength();
+          route.style.strokeDasharray = rlen;
+          route.style.strokeDashoffset = rlen;
+          route.style.opacity = 0;
+          tl.set("#cm-route", { opacity: 1 }, mapAt - 0.01);
+          tl.fromTo("#cm-route", { strokeDashoffset: rlen }, { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, mapAt);
+          // De-emphasize the losing options as the winner resolves.
+          tl.to(losers, { opacity: 0.4, duration: 0.6 }, mapAt + 0.3);
+          tl.fromTo("#cm-node-best", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, mapAt + 1.1);
+          // Closing beat (Motion v2, 2026-07-27): the cued route trace + loser dim +
+          // winner pop above IS this scene's closing resolve — nothing further added.
+          // Exit (Motion v2, 2026-07-27): the content layer slides out at
+          // sceneDuration−0.35; furniture (bg, index, brandline) stays put.
+          const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
+          const exitEls = ["#cm-head", "#cm-stage"];
+          tl.to(exitEls, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, sceneDur - 0.35);
+          tl.set(exitEls, { opacity: 0 }, sceneDur - 0.02);
+          window.__timelines["scla-career-map"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
