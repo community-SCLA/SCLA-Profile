@@ -40,7 +40,7 @@ echo "   preflight exit=0"
 # One snapshot per scene, at the scene's midpoint. parse_scenes is the shared
 # multi-line-safe scene parser — a per-line regex scan silently misses scene
 # tags that span lines.
-mapfile -t TIMES < <(WS="$WS" RQ="$VP/render-qa" python3 - <<'PY'
+mapfile -t TIMES < <(WS="$WS" RQ="$VP/render-qa/src" python3 - <<'PY'
 import os, pathlib, sys
 sys.path.insert(0, os.environ["RQ"])
 from hfp_common import parse_scenes

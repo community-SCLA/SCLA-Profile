@@ -37,7 +37,93 @@ Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
 same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
 
 
-## 2026-07-29 (latest) · owner review of rebuild #2 — five notes, four of them a gate that was never armed
+## 2026-07-29 (latest) · mid-career-momentum batch — parallelism applied to the one stage that measures as serial
+
+Owner asked for all 15 mid-career-momentum lessons rendered in parallel inside
+30 minutes. 13 were buildable. **Zero rendered.** The 30-minute target was not
+reachable for renders under any schedule (one render at a time, machine-wide,
+~7 min each), and saying so up front would have been worth more than the two
+status updates that implied builds might still make it.
+
+The session's real cost was self-inflicted: 13 build subagents were dispatched
+at once, each running `TTS_WORKERS=3`, into a provider that
+`synth_narration.py:96-100` already documents as tolerating ~3 concurrent calls
+**in total** — the worker count had been dialled 5 → 3 on 2026-07-27 after a
+21-scene build lost 16 clips. Every build failed at TTS with
+`HeyGen request/transcode error`. Four subagents independently diagnosed it as
+backend flakiness or a `with-secrets.sh` credential fault (the 2026-07-28
+precedent), which is the wrong repair and would have escalated to the owner.
+The orchestrator had verified the credential path before dispatch, so the
+concurrency reading was available; it was not applied until three builds had
+burned ~25 minutes. **`TTS_WORKERS=1` on a quiet machine: 0 errors across 258
+clips.** The parallelism that WAS safe — authoring — produced 13 usable plans.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum`,
+  `m3_discover-experiences-that-support-your-next-move`. Still blocking; they
+  cannot enter the pipeline.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Pilot sign-off (2026-07-29 rebuild #3)** *(since 2026-07-29)* —
+  `bash scripts/preview.sh better-decisions-come-from-better-criteria_early-career-boost`.
+  Rendered and verified, NOT published.
+- **Pilot sign-off (mid-career-momentum)** *(new)* —
+  `bash scripts/preview.sh m2_mid-career-mindsets-and-limiting-beliefs` is the
+  only gate-clean lesson of the 13. Nothing in this program can render until a
+  human approves a pilot.
+- **"Career Accelerator" appears in APPROVED SCRIPT BODY** *(new)* —
+  `m1_mini-syllabus` narrates "your broader Career Accelerator journey". The
+  owner rejected that name on the banner on 2026-07-29 and the `programs:` map
+  was reverted. Whether the name is retired repo-wide or only as a program
+  label is a decision only the owner can make; the script was left untouched.
+- **Scene-12 (career map) holds ~3s pixel-static mid-scene** *(since
+  2026-07-29)* — advisory, in `check_presence`'s 3–5s gray zone. The fix is
+  authoring and changes the scene's rhythm — worth a decision.
+
+**Fixed this session**
+
+- [env] **HeyGen TTS concurrency** — root-caused to fan-out, not the provider.
+  Serialized to one workspace at a time at `TTS_WORKERS=1`; all 13 lessons
+  synthesized clean (258 clips). ~40 min lost before the diagnosis landed.
+- [defect] **`scla-chips` `subBeats` renders outside the safe area** — the
+  `#cc-subbeat-proto` prototype sits at `y=-222` whenever `subBeats` is
+  populated at all. Two independent build agents hit it; `check_geometry.py`
+  caught it both times, so the gate works — the template does not. Worked
+  around by using delayed `iconCue` anchors instead. **Not yet fixed at the
+  template**, which is where it belongs (see Promoted).
+- [authoring] **Anchor phrases inside em-dash compounds** — 13 cue-resolution
+  failures across 3 lessons, all the documented `word—word` single-token class.
+  Fixed by quoting the compound verbatim or clearing it. All 13 lessons now
+  compile.
+- [authoring] **Two conjunction-rule defects in `m6_youve-built-momentum`'s
+  refined script** — fixed by joining the lists into one sentence ("...and
+  results", "...and compounding"), the sanctioned form, not a bolted-on word.
+  Verified against `check_copy.py --script`.
+
+**Promoted to docs**
+
+- Nothing yet — see the two items below, both of which are agent-fixable and
+  therefore MUST NOT roll forward as Open items. They are the session's real
+  output and are recorded here so the next session finishes them:
+  1. **The pacing gate must fire at `--static`.** 12 of 13 lessons, authored
+     independently by 12 agents all following BUILD-KIT, failed `pacing` the
+     same way — 4–10s stretches with no visual event, plus 2–5 scenes over the
+     12.5s cap each. It is the only owner-facing gate that cannot fire before
+     TTS is spent, so today it was learned after 258 clips instead of during a
+     JSON edit. Every other rule in this repo fires at plan stage. A
+     words-per-second estimate from the refined script is enough to grade both
+     the cap and cue density statically.
+  2. **`scla-stat` has no cue mechanism.** Verified against the template source
+     by two agents: entrance + closing beat only, no `*Cues`/`iconCue` slot. Any
+     `scla-stat` scene longer than ~5.7s therefore CANNOT pass pacing, and the
+     only fix is to abandon the template. BUILD-KIT actively tells builders to
+     spend `scla-stat` because it "goes untouched build after build" — the
+     variety contract and the pacing gate are in direct conflict, and the
+     template loses. Either give it a cue slot or stop recommending it.
+
+## 2026-07-29 · owner review of rebuild #2 — five notes, four of them a gate that was never armed
 
 Owner reviewed the 2026-07-29 cut and named five things. The headline is the
 banner: an Early Career Boost lesson titled **"Career Accelerator"** — *"a MUST
