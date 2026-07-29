@@ -17,7 +17,7 @@ EXCLUDES=(--exclude-dir=_archive --exclude-dir=.git --exclude-dir=.remember --ex
 filter_archives() { grep -v "^\./docs/_archive/" | grep -v "^docs/_archive/"; }
 
 # ── 1. Backtick path references in root governance files exist on disk ──────
-echo "[1/10] Backtick path references resolve"
+echo "[1/11] Backtick path references resolve"
 # Intentional non-paths (_archive/ is named by CLAUDE.md's ban rule; no root _archive exists)
 SKIP_PATHS="_archive/ scheduled-tasks/ .claude/agents/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/ decisions-log.md"
 REF_FAIL=0
@@ -37,7 +37,7 @@ done
 [ "$REF_FAIL" -eq 0 ] && ok "all backtick paths in CLAUDE.md exist"
 
 # ── 2. Word budgets ──────────────────────────────────────────────────────────
-echo "[2/10] Root word budgets (CLAUDE<=600)"
+echo "[2/11] Root word budgets (CLAUDE<=600)"
 check_budget() {
   local file=$1 limit=$2 words
   words=$(wc -w < "$file")
@@ -46,21 +46,21 @@ check_budget() {
 check_budget CLAUDE.md 600
 
 # ── 3. No stale decisions-log paths ──────────────────────────────────────────
-echo "[3/10] No references to old decisions-log path"
+echo "[3/11] No references to old decisions-log path"
 # decisions/log.md is excluded: its migration entry legitimately records the old path.
 HITS=$(grep -rn "${EXCLUDES[@]}" -e "source-of-truth/decisions-log" -e "](\./decisions-log" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" || true)
 if [ -n "$HITS" ]; then warn "stale decisions-log references:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 4. No template placeholders ──────────────────────────────────────────────
-echo "[4/10] No unfilled template placeholders"
+echo "[4/11] No unfilled template placeholders"
 # .claude/skills excluded: the onboard/ingest wizards use placeholder strings as instructions.
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=.claude -e "\[YOUR_" -e "\[project-1\]" -e "\[DATE\]" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" || true)
 if [ -n "$HITS" ]; then warn "template placeholders found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 5. Critical files exist ──────────────────────────────────────────────────
-echo "[5/10] Critical files present"
+echo "[5/11] Critical files present"
 CRITICAL="CLAUDE.md config/endpoints.json scla.config.yml sync.sh .gitignore
 context/me.md decisions/log.md
 brand/visual-identity.md brand/voice-and-tone.md
@@ -72,7 +72,7 @@ done
 [ "$MISSING" -eq 0 ] && ok "all critical files present"
 
 # ── 6. Stale brand hex values ────────────────────────────────────────────────
-echo "[6/10] No stray legacy hex values outside flagged locations"
+echo "[6/11] No stray legacy hex values outside flagged locations"
 # Intent: catch legacy hex hardcoded in docs, not in the actual art. Allowed:
 # .svg files (the logo source art legitimately carries these colors),
 # assets/README.md (describes the SVG file contents), and projects/video-production/
@@ -83,7 +83,7 @@ HITS=$(grep -rni "${EXCLUDES[@]}" -e "#F1B32E" -e "#55A4DD" . 2>/dev/null | filt
 if [ -n "$HITS" ]; then warn "legacy hex values found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 7. No archive routing pointers ───────────────────────────────────────────
-echo "[7/10] No '_archive/source-of-truth/' routing pointers in live KB"
+echo "[7/11] No '_archive/source-of-truth/' routing pointers in live KB"
 # Rule: _archive/ is read-only provenance, never a canonical owner / routing target.
 # Flag backtick-quoted `_archive/source-of-truth/...` pointers in the routing/governance
 # files and the live KB. Allowed and NOT flagged:
@@ -99,7 +99,7 @@ HITS=$(grep -rn "${EXCLUDES[@]}" -e '`_archive/source-of-truth/' \
 if [ -n "$HITS" ]; then warn "archive routing pointers found (route to live owner instead):"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 8. No retired scla/ paths ────────────────────────────────────────────────
-echo "[8/10] No retired scla/ path references in live files"
+echo "[8/11] No retired scla/ path references in live files"
 # Knowledge folders were un-nested from scla/ to root on 2026-07-03. Allowed:
 # decisions/log.md and audits/ (historical records), _archive/ (provenance).
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=audits -e 'scla/' . 2>/dev/null |
@@ -112,7 +112,7 @@ if [ -n "$HITS" ]; then warn "retired scla/ paths found (un-nested layout is can
 #  .claude/skills/; no registry to cross-check.)
 
 # ── 9. Endpoints registry parses, matches schema, carries no secrets ─────────
-echo "[9/10] config/endpoints.json valid (schema + no secret material)"
+echo "[9/11] config/endpoints.json valid (schema + no secret material)"
 REG_OUT=$(python3 - <<'PYEOF' 2>&1
 import json, re
 d = json.load(open('config/endpoints.json'))
@@ -140,7 +140,7 @@ else
   warn "config/endpoints.json: $REG_OUT"
 fi
 
-echo "[10/10] STD-35: no doc claims a mechanism that does not exist"
+echo "[10/11] STD-35: no doc claims a mechanism that does not exist"
 # The Repo Structure Playbook v1.1, STD-35 — a written rule is a request; only
 # a mechanism is a guarantee. This cannot make prose enforceable; it makes prose
 # unable to LIE about being enforced. Hard-fails only on a broken claim (a doc
@@ -153,6 +153,25 @@ if [ $? -eq 0 ]; then
   ok "$(printf '%s' "$ENF_OUT" | head -1)"
 else
   warn "$(printf '%s' "$ENF_OUT" | sed -n '1,8p')"
+fi
+
+echo "[11/11] render-qa test suite"
+# The render-qa test suite actually runs. Until 2026-07-29 the tests
+# existed and nothing executed them: not CI, not run_tests.py (which only ran
+# its own cases and silently skipped its five sibling test_*.py files). The
+# thresholds pinned in test_variety.py and test_gates.py are what stop a future
+# session from "fixing" a gate by loosening it until the rejected build passes,
+# so they have to be enforced, not merely present.
+RQ_TESTS="$(dirname "$0")/../projects/video-production/render-qa/tests/run_tests.py"
+if [ -f "$RQ_TESTS" ]; then
+  if TEST_OUT="$(python3 "$RQ_TESTS" 2>&1)"; then
+    ok "render-qa suite: $(printf '%s' "$TEST_OUT" | grep -c '  ok ') assertions pass"
+  else
+    warn "render-qa suite FAILED:
+$(printf '%s' "$TEST_OUT" | grep -E 'FAIL|failed' | head -8)"
+  fi
+else
+  warn "render-qa test suite missing at $RQ_TESTS"
 fi
 
 echo

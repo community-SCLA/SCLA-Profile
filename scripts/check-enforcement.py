@@ -48,10 +48,20 @@ REPO = Path(__file__).resolve().parent.parent
 VP = REPO / "projects/video-production"
 
 # Docs that carry normative claims and are therefore graded.
+#
+# The three skill/log files were added 2026-07-29. They were the largest
+# graveyard: `render-lessons/SKILL.md` alone holds dozens of normative lines
+# with no mechanism annotation and is read into EVERY build subagent's
+# instructions — the single most-read normative doc in the repo was the one
+# nothing audited. `decisions/log.md` is graded because a decision that names
+# a mechanism is making the same promise a rule does.
 GRADED = [
     ".claude/rules/repo-hygiene.md",
     ".claude/rules/video-production.md",
+    ".claude/skills/render-lessons/SKILL.md",
+    ".claude/skills/refine-scripts/SKILL.md",
     "CLAUDE.md",
+    "decisions/log.md",
     "projects/video-production/CLAUDE.md",
     "projects/video-production/design-system/frame.md",
     "projects/video-production/design-system/AGENTS.md",
@@ -64,14 +74,29 @@ PATH_ROOTS = [REPO, VP, VP / "design-system", REPO / ".claude"]
 # Body allows ONE level of nested parens — real annotations cite things like
 # "the `.gitignore` credential shield (S14)", and a naive [^)]* truncates at
 # that inner paren and then reports the annotation as naming no mechanism.
+#
+# Mechanism/Gate REQUIRE the colon; only Convention may stand bare. Without
+# that, ordinary prose parenthesising the word "gate" was read as an annotation
+# naming no mechanism and hard-failed — a heading arrow "→ (gate) → MP4" and a
+# log line "(gates answered in session)" both did. A false BROKEN CLAIM is not
+# a harmless over-report: it trains readers to wave the audit through, which is
+# the exact false-safety failure this script exists to prevent.
 ANNOTATION = re.compile(
-    r"\((Mechanisms?|Gates?|Convention)\b((?:[^()]|\([^()]*\))*)\)", re.I)
+    r"\((?:(?P<mech>Mechanisms?|Gates?)\s*:|(?P<conv>Convention)\b)"
+    r"(?P<body>(?:[^()]|\([^()]*\))*)\)", re.I)
 
-# A backticked path-ish token inside an annotation.
-PATHISH = re.compile(r"`([A-Za-z0-9_./-]+\.(?:py|sh|json|md|mjs|yml|yaml))`")
+# A backticked path-ish token inside an annotation. `.jsonl` is in the list
+# because published.tsv's sibling ledgers are cited as mechanisms and were
+# silently unresolvable — an extension missing here reads as "names no
+# mechanism", which is the false-negative direction.
+PATHISH = re.compile(
+    r"`([A-Za-z0-9_./-]+\.(?:py|sh|json|jsonl|tsv|md|mjs|yml|yaml))`")
 
-# lint-refs.sh check N
-LINTCHECK = re.compile(r"lint-refs(?:\.sh)?\s+check\s+(\d+)", re.I)
+# lint-refs.sh check N. The separator class must admit a backtick: every real
+# citation in the repo is written ``lint-refs.sh` check 11`, and a bare `\s+`
+# matched 1 of 6 — so five true citations went unverified while the check they
+# named did not exist.
+LINTCHECK = re.compile(r"lint-refs(?:\.sh)?[\s`]+check\s+(\d+)", re.I)
 
 # Words that make a sentence a promise rather than advice.
 NORMATIVE = re.compile(
@@ -97,15 +122,31 @@ def resolve(token: str) -> Path | None:
 
 
 def invokers() -> dict[str, str]:
-    """Map checker filename -> the file that actually invokes it."""
+    """Map checker filename -> the file that actually invokes it.
+
+    Two false-negative directions, both closed 2026-07-29:
+
+      * the caller list was a fixed six and omitted `hyperframe-guard.sh` and
+        `batch-precheck.sh` — two of the pipeline's real gate runners, so a
+        checker invoked only from those read as "invoked by nothing".
+      * a filename was matched ANYWHERE in a caller, comments included, so a
+        checker merely *mentioned* in a comment counted as invoked. That is the
+        dangerous direction: it manufactures the exact false safety this script
+        exists to catch. Comment lines are stripped before matching.
+    """
     found = {}
     for caller in [VP / "render-qa/preflight.py", VP / "render-qa/verify_render.py",
                    REPO / "scripts/batch-ship.sh", REPO / "scripts/lint-refs.sh",
-                   REPO / "scripts/batch-prepare.sh", REPO / "scripts/batch-status.sh"]:
+                   REPO / "scripts/batch-prepare.sh", REPO / "scripts/batch-status.sh",
+                   REPO / "scripts/hyperframe-guard.sh",
+                   REPO / "scripts/batch-precheck.sh"]:
         if not caller.is_file():
             continue
-        text = caller.read_text(encoding="utf-8", errors="replace")
-        for name in re.findall(r"([a-z_][a-z0-9_-]*\.(?:py|sh))", text):
+        code = "\n".join(
+            ln for ln in caller.read_text(encoding="utf-8",
+                                          errors="replace").splitlines()
+            if not ln.lstrip().startswith("#"))
+        for name in re.findall(r"([a-z_][a-z0-9_-]*\.(?:py|sh))", code):
             found.setdefault(name, str(caller.relative_to(REPO)))
     return found
 
@@ -140,7 +181,9 @@ def grade():
             annots = list(ANNOTATION.finditer(line))
             if annots:
                 for m in annots:
-                    kind, body = m.group(1).lower(), m.group(2)
+                    kind = ("convention" if m.group("conv")
+                            else m.group("mech").lower())
+                    body = m.group("body")
                     if kind.startswith("convention"):
                         # An honest label. Nothing to verify.
                         backed.append({"file": rel, "line": n,
@@ -186,9 +229,17 @@ def grade():
                 continue
 
             # No annotation on this line: is it making a promise anyway?
-            if NORMATIVE.search(line) and line.strip().startswith(("-", "*", "|")):
+            #
+            # ANY prose line counts, not just list items and table rows
+            # (2026-07-29). The old `-`/`*`/`|` filter is why recall sat near
+            # 17%: a normative sentence in a paragraph, a heading, or a YAML
+            # frontmatter comment — where `frame.md` keeps some of its most
+            # load-bearing claims — was invisible to the inventory. A rule does
+            # not stop being a promise because of the character it starts with.
+            stripped = line.strip()
+            if stripped and stripped != "---" and NORMATIVE.search(stripped):
                 unbacked.append({"file": rel, "line": n,
-                                 "text": line.strip()[:150]})
+                                 "text": stripped.lstrip("#> ").strip()[:150]})
     return broken, unbacked, backed
 
 
