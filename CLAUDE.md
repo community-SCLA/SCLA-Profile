@@ -24,8 +24,42 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Render HeyGen videos (code) | `projects/video-production/avatar-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
+| Build the gate-enforcement rebuild (owner feedback that never got armed) | `projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md` |
 | 2026-07 refactor — what ran, why, residues | `audits/2026-07-28-repo-audit-brief.md` (closed 2026-07-28; §0.0 ledger has the two open human residues) |
 | Integrations, endpoint IDs | `config/endpoints.json` |
+
+## Commands
+
+```bash
+bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 11 checks,
+                                   # incl. the render-qa suite (check 11) and the STD-35
+                                   # enforcement audit (check 10). CI runs it on every push.
+python3 projects/video-production/render-qa/tests/run_tests.py   # that suite alone
+python3 projects/video-production/render-qa/tests/test_variety.py # one file — each runs standalone
+npm run check                      # in design-system/ — template gate, run after ANY composition edit
+bash scripts/batch-status.sh       # resume key: what's left in the video queue, read from disk alone
+bash scripts/review.sh             # gate every build, serve previews of the clean ones
+bash scripts/with-secrets.sh CMD   # Infisical injection — required for HeyGen/Wistia calls
+```
+
+## Architecture
+
+A knowledge base (`brand/`, `context/`, `member-support/`, `partnerships/`) plus one real
+code system: the lesson-video factory under `projects/video-production/`. Three load-bearing
+ideas, each spread across many files:
+
+- **State is the folder.** No status doc narrates the pipeline; a script's location *is* its
+  stage (raw → refined/ → rendered/), and a stem carries exactly one date — the most recent
+  action. `projects/video-production/render-qa/stem.py` owns that rule; never hand-slice a
+  suffix.
+- **Authors declare text; tools compute every number.** A builder writes narration spans and
+  cue phrases into a scene plan; `projects/video-production/render-qa/` derives all timings,
+  boundaries and durations.
+  Hand-edited `data-start`/`data-duration` values are a defect.
+- **A rule is real only if a checker enforces it (STD-35).** Owner feedback becomes a gate in
+  render-qa/, a hook in `.claude/settings.json`, or a `scripts/lint-refs.sh` check — never a
+  sentence. `scripts/check-enforcement.py` hard-fails any doc that claims a mechanism it
+  doesn't have, so annotate unenforced rules `Convention` out loud.
 
 ## Rules
 

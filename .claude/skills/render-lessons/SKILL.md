@@ -65,7 +65,7 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 
 - `/dev/shm` under ~256M → `sudo mount -o remount,size=512M /dev/shm` (64M
   hangs Chrome mid-render; the devcontainer remount can fail silently).
-- CLI pin: `design-system/package.json` pins hyperframes **0.7.45+** — never
+- CLI pin: `design-system/package.json` pins hyperframes **0.7.79+** — never
   older (≤0.7.44 silently renders template defaults, upstream #2064).
 - If `npx hyperframes tts` fails on a missing `kokoro_onnx`, set
   `HYPERFRAMES_PYTHON` to an interpreter that has it (`findPython()` respects it).

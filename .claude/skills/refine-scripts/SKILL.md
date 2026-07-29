@@ -60,6 +60,33 @@ session's context.
      then refine the script accordingly. Write the result to the target path.
      Report: word count before/after, what you cut, any claim you could not
      verify."
+3b. **Copy gate on the output (orchestrator, mechanical — not a judgement call):**
+   the moment a refined `.txt` exists, run it through the same checker the build
+   uses, and do not move on until it is clean or you can name why a finding is
+   wrong:
+
+   ```bash
+   python3 projects/video-production/render-qa/check_copy.py \
+       lesson-scripts/<program-slug>/refined/<stem>.txt
+   ```
+
+   Exit 0 = clean. Each finding names the list and the item missing its
+   conjunction; fix it **in the script**, here, and re-run.
+
+   This step exists because the conjunction rule below was already written in
+   this file as prose and was violated anyway: the 2026-07-28 `better-decisions`
+   build shipped "Meaning? Mentorship? Growth?" with no connector, and the
+   defect was in the approved script, not the frame. The owner then had to spend
+   a review catching by eye something a command answers in 200ms. A rule a
+   subagent is asked to remember is a request; a command it must run is a
+   mechanism (repo-hygiene STD-35).
+
+   **It reports, it does not block.** A sweep of the 32-script library found a
+   minority of findings are rhetoric or definitions rather than lists — "Not
+   five months. Five years.", "Consulting is insight." Those legitimately take
+   no conjunction. Judge each finding; fix the real ones. Never "fix" a false
+   positive by bending the sentence.
+
 4. **Facts pass:** for every drafted/refined script, spawn the `qa-facts` agent
    (cold context is the point) with only file paths: the refined `.txt` + the
    source material. A verbatim user-provided script skips this (the human owns

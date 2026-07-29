@@ -9,6 +9,192 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-29 — A gate must be able to fail. Three that structurally could not.
+
+**Decision:** After the owner rejected the rebuilt `better-decisions` cut over
+overlapping text, awkward scene-02 audio, and body copy "just too small", the
+root cause in all three was the same shape — **a rule that existed, was wired,
+ran, and was incapable of firing.**
+
+1. **Minimum text size.** The floor was 32px. The smallest body rule in the
+   system was also 32px. A floor set at the minimum in use can never fail
+   anything; the caption the owner objected to was exactly compliant. Body floor
+   → **40px** in `frame.md` (the single loaded source), which moved 12 rules and
+   cost one card's copy. `test_gates.py` now asserts no body rule sits *at* the
+   floor, so this specific way of being armed-but-inert cannot recur.
+2. **Text-on-text overlap.** Three gates passed a collision visible in the
+   owner's screenshot. `check_layout.py` ran the real browser inspector at 60
+   points and found nothing — `hyperframes inspect` grades text against its own
+   container, and sibling-vs-sibling collision is not a case it models.
+   `check_capacity.py` never looked, because it *inferred* slot bindings from a
+   JS pattern that `scla-loop` does not use. Rather than wait on upstream,
+   `boxmodel.py` resolves every string to a frame box from the template CSS +
+   committed font metrics, and `check_geometry.py` grades collisions and bounds
+   with no browser — so it runs at plan stage. Templates now **declare**
+   bindings (`data-slot`, `data-present-if`) and carry geometry prototypes for
+   run-time-created lines, because a gate cannot grade a box only the browser
+   knows about.
+3. **The conjunction rule's own blast radius.** The rule the owner has given
+   more than any other was satisfied by bolting "Or" onto a standalone fragment
+   — which is what produced the audio they then rejected. The fix is joining the
+   list into one sentence; a new rule says so, exempting question lists (which
+   are *meant* to rise) and mid-paragraph topic labels. The existing test that
+   had pinned the bolted-on form as CORRECT was inverted.
+
+**Why it matters:** the 2026-07-28 session's lesson was "unwritten rules don't
+hold." This session's is narrower and sharper — **a written, wired, executing
+gate still doesn't hold if its threshold, its input, or its model makes failure
+unreachable.** Coverage is not the same as capability. Hence the standing
+addition: a checker that grades zero elements for a scene now FAILS
+(`nothing-graded`) instead of reporting clean, which immediately caught a
+`</circle>` end tag that had been orphaning half of `scla-stat` from the model.
+
+**Also found and fixed by the new gate, unprompted:** `scla-points`' vertical
+rail label sat 28px inside the declared 72px safe-area keep-out — a real breach
+of a token declared since the system was built, never measured because nothing
+had ever modelled vertical text.
+
+**Rules:** `.claude/rules/video-production.md`. **Trail:**
+`projects/video-production/render-qa/snag-log.md`.
+
+## 2026-07-29 — Rejected: a telemetry/ledger "self-improving" pipeline. Adopted: prove every gate fires.
+
+**Decision:** The owner asked for a self-improving mechanism in the video
+pipeline — "everything gets put into the log but nothing reads it." The proposed
+answer was a gate ledger (JSONL of every finding), an analyzer computing
+escapes / dead gates / noise / margin collapse, and CI teeth blocking a batch on
+unaddressed debt. **Eight adversarial review lanes ran against it and it was
+rejected.** The replacement plan is
+`projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md`,
+which is self-contained and pre-decides every open question.
+
+**Why the ledger design failed.** It was an *absence* detector built for a
+pipeline that fails through *miscalibrated presence*. On the three worst defects
+in repo history — the 18-of-21 blank render, the layout collision emitted at
+severity `info`, and `check_variety.family()` reporting 8 findings when the truth
+was 13 — a finding existed in every case, so the escape join returns "not an
+escape" and the dead-gate report returns "alive and healthy." It would have been
+affirmatively reassuring on exactly the defects that mattered. Scored against ten
+real historical defects it catches **zero** of them earlier.
+
+It also had no sample size and none is coming: `published.tsv` holds **6 videos
+lifetime**, **7 of the 9 checkers postdate all six publishes** (so zero approved
+videos have ever been seen by the current gate stack), owner rejections number
+**2 and are both the same lesson**, and AUTO-BATCH is designed so one pilot
+approval authorizes a whole batch — verdicts accrue per *batch*, not per video.
+The metrics need ~30. And the teeth were worse than useless: "dead gate fails CI"
+fires on a *healthy* pipeline, because a rule that never fires is what success
+looks like. The blocking rule would have frozen all 29 queued videos on
+2026-07-29 over a judgment the session had already reasoned correctly (declining
+to hard-block the script-stage conjunction check). Estimated probability of a
+multi-day stall in month one: **80–85%**.
+
+**What the evidence actually said.** A trace of all 33 standing preferences the
+owner has given: **0 of 18 were armed at the moment first given** before
+2026-07-27; **70% were buried as prose**; **61% of buried preferences later
+recurred as a shipped or rejected defect**; median lag feedback→enforced was
+**10 days**, worst **22**. But defects caused by *forgetting* a pattern: **zero**.
+Defects caused by a rule that existed and did not fire: **14**. The conjunction
+rule was written in frame.md, in the rules file, *and implemented in
+`check_copy.py`* — remembered in three places — and still shipped, because one
+line scoped it per scene.
+
+**Doctrine adopted:** *a rule is not armed when a checker exists; it is armed when
+something automatically re-runs the owner's actual defect against that checker
+and fails if it passes.* Concretely: every `check_*.py` must be covered by a test
+asserting a POSITIVE finding, plus mutation tests over a real full-length plan
+(toy fixtures are too small to expose the scope and sampling bugs that caused the
+failures). Nothing in the adopted plan blocks a batch or requires the owner to
+clear it.
+
+**Live defects the review surfaced, all now scheduled:** the four `spacing`
+tokens (`frame-padding`, `safe-area`, `footer-reserve`, `content-bottom`) are
+**still enforced by no checker** despite frame.md and the rules file both claiming
+they are loaded and imported — the hole the 2026-07-29 session believed it closed;
+`check_geometry.py` + `boxmodel.py` are written, untracked, and invoked by
+nothing; `metrics.json` and six gate files are untracked, so **CI runs a smaller
+test suite than a local checkout**; three live doc↔code drifts (pacing 4.5/3.5 vs
+4.0/3.0, stagnation ~2s vs 5s, variety share by scenes vs seconds); frame.md
+contradicts itself on `title` case, drift amplitude, and icon scope;
+`hyperframe-guard.sh` degrades **silently to "always clean"** if preflight's JSON
+shape moves; and `check_variety.py` carries a false enforcement claim about a
+`tests/test_variety.py` grep **that does not exist** — the owner's frame.md
+complaint reproduced inside the checkers.
+
+**Also recorded for the owner:** the 2026-07-14 ban on in-place keep-alive motion
+("I fully want ripples off") was violated within a day by a session that restored
+the banned motion to pass the stagnation gate; three MP4s shipped and one was
+published. It is still unarmed prose.
+
+**Why not just extend `check-enforcement.py` to frame.md and the SKILL files:**
+tested against all 14 historical recurrences, it would have prevented
+approximately none. The failures were *missing* sentences (the variety rule was
+written only into this log — writing it down was treated as shipping it),
+*soft-worded* ones (the conjunction rule said "prefer", which the NORMATIVE regex
+does not match), a *contradicting* one (frame.md said sentence case, so the
+pipeline correctly obeyed frame.md and violated the owner), and correctly-named
+gates that did not fire. Its unbacked count read 31 on 2026-07-28 and 31 today,
+straight through a full arming session — arming appends; nothing retires prose.
+It is scheduled as report-only hygiene, after the firing mandate, never instead
+of it. Note also that frame.md is not the worst graveyard, only the measured one:
+`render-lessons/SKILL.md` carries 38 unannotated normative lines and is graded by
+nothing.
+
+## 2026-07-29 — The gates the `better-decisions` rejection exposed: scope, sampling, severity
+
+**Decision:** The owner rejected the 2026-07-28 `better-decisions` build over
+defects that "should not be hard" to catch, having raised several of them
+repeatedly before. Investigation found that this was mostly **not** a
+missing-rules problem. Three of the five defect classes were already visible to
+tooling the pipeline ran and passed, and were lost to a scope, sampling or
+severity error:
+
+- **Scope.** `check_copy.py` graded the "a list of ≥3 items takes and/or"
+  rule *per scene*. The build split a seven-item list across three scenes,
+  leaving runs of 2/2/2 — never reaching the ≥3 threshold anywhere. The rule the
+  owner has given more often than any other was silently disabled by the very
+  defect sitting next to it. Enumeration is now graded on the joined narration
+  stream, attributed to the scene owning the final item.
+- **Sampling.** `npm run check` inspects 9 points across the whole runtime — one
+  per ~16.6s on a 25-scene lesson, so 16 scenes were never looked at.
+- **Severity.** The inspector *did* find the scene-15 text collision, at
+  severity `info`, so `ok` stayed true and the gate passed the build.
+
+Two further findings changed where work belongs. The missing conjunction was
+**already in the approved script** ("The right job. The right major. The right
+city. The right path."), so the render pipeline faithfully spoke a script that
+was wrong — the rule now also grades `.txt` scripts at refine time, where the
+fix is a text edit rather than a re-synthesis and re-render. And `frame.md`,
+675 lines, had exactly one line anything parsed; every normative number was
+hand-copied into Python under "keep in sync" comments that nothing verified,
+which is how `spacing.frame-padding: 120px` — a safe margin declared since the
+system was built — ended up enforced by nothing while a card ran through the
+footer.
+
+Added: `tokens.py` (frame.md frontmatter becomes loaded truth, plus enforced
+`safe-area` / `footer-reserve` / `content-bottom`), `check_continuity.py`
+(beat floor, split sentences, enumerations spanning scenes),
+`check_capacity.py` + `textmetrics.py` (slot fit measured in the real vendored
+font against committed metrics), `check_layout.py` (per-scene + transition
+sampling, overlap fatal regardless of upstream severity). Fixed: the final
+narration clip got `gap = 0.0` where every other scene got 0.3s, so the wav
+stopped on the last word's decay — the owner heard it cut off.
+
+**Two conflicts resolved rather than papered over.** Continuity orders merges
+while variety caps a form's share; grading share by scene count made every merge
+look like a variety regression. Share is now graded in **seconds**, which makes
+merges share-neutral by construction and is the truer measure — monotony is
+experienced over time, not per slide. And the CLI pin was kept, not dropped,
+despite going stale: an unpinned `npx` lets a batch start on one version and
+finish on another, and lets a gate's verdict change because upstream shipped.
+Staleness is cured by bumping deliberately (0.7.45 → 0.7.79, validated), never
+by removing the pin.
+
+**Also found:** the test suite existed and nothing ran it — not CI, and not
+`run_tests.py`, which executed its own cases while silently skipping five
+sibling suites including the one pinning the variety thresholds. One command now
+runs them all and `lint-refs.sh` check 11 runs that command.
+
 ## 2026-07-28 (later) — Plan-first rewire: judgment writes the plan, everything after the plan is compiled
 
 **Decision:** The owner directed that video production "should be deterministic
