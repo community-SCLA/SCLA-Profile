@@ -57,7 +57,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import get_attr, parse_scenes
+from hfp_common import Finding, get_attr, parse_scenes, typed
 
 # Forms that frame the lesson rather than carry a beat (mirrors check_variety).
 CHROME = {"scla-title", "scla-outro"}
@@ -134,16 +134,18 @@ def split_sentence_problems(scenes):
         # scene past the 12.5s duration ceiling.
         if (word.lower() in COORDINATORS and len(_fragments(text)) == 1
                 and len(WORD_RX.findall(text)) < COORDINATOR_MAX_WORDS):
-            problems.append(
+            problems.append(Finding(
+                "split-sentence",
                 f"{s['id']}: a single clause opening with {word!r} — this is "
                 f"either the back half of {prev}'s sentence or the final item "
                 f"of a list {prev} started, given its own frame. "
-                f"Merge it into {prev}. ({text[:60]!r})")
+                f"Merge it into {prev}. ({text[:60]!r})"))
         elif word[0].islower() and not lead.strip():
-            problems.append(
+            problems.append(Finding(
+                "opens-lowercase",
                 f"{s['id']}: narration opens lowercase ({word!r}) — the "
                 f"sentence starts in {prev}. Merge it into {prev}. "
-                f"({text[:60]!r})")
+                f"({text[:60]!r})"))
     return problems
 
 
@@ -163,15 +165,17 @@ def blip_problems(scenes, static=False):
                   and dur == dur and dur > 0)
         if usable:
             if dur < MIN_SCENE_SEC:
-                problems.append(
+                problems.append(Finding(
+                    "scene-blip",
                     f"{s['id']}: {dur:.2f}s on screen — under the "
                     f"{MIN_SCENE_SEC}s floor, so it reads as a blip rather than "
-                    f"a beat. Fold it into an adjacent scene. ({text[:60]!r})")
+                    f"a beat. Fold it into an adjacent scene. ({text[:60]!r})"))
         elif len(words) < MIN_WORDS:
-            problems.append(
+            problems.append(Finding(
+                "too-few-words",
                 f"{s['id']}: {len(words)} spoken words — under the {MIN_WORDS}-word "
                 f"plan-stage floor (~{MIN_SCENE_SEC}s). Fold it into an adjacent "
-                f"scene. ({text[:60]!r})")
+                f"scene. ({text[:60]!r})"))
     return problems
 
 
@@ -184,12 +188,13 @@ def enumeration_span_problems(scenes):
         if len(run) >= 2:
             ids = ", ".join(s["id"] for s in run)
             items = [f for s in run for f in _fragments(s["narration"])]
-            problems.append(
+            problems.append(Finding(
+                "list-split-across-scenes",
                 f"{run[0]['id']}: one spoken list of {len(items)} items is split "
                 f"across {len(run)} scenes ({ids}) — "
                 f"{', '.join(repr(i) for i in items[:4])}"
                 f"{'...' if len(items) > 4 else ''}. The viewer hears one list; "
-                f"render it as one scene.")
+                f"render it as one scene."))
         run.clear()
 
     for s in scenes:
@@ -229,7 +234,8 @@ def main(argv) -> int:
     ws = Path(args[0]).resolve()
     problems = check(ws, static="--static" in argv)
     if "--json" in argv:
-        print(json.dumps({"pass": not problems, "problems": problems}, indent=2))
+        print(json.dumps({"pass": not problems, "problems": problems,
+                          "findings": typed(problems)}, indent=2))
     else:
         for p in problems:
             print(f"  !! {p}")

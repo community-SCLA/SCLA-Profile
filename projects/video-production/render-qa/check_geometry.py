@@ -72,7 +72,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import boxmodel
 import tokens
-from hfp_common import get_attr, parse_scenes
+from hfp_common import Finding, get_attr, parse_scenes, typed
 
 # Sub-pixel slop in the wrap model (kerning is not modelled; see textmetrics)
 # plus the difference between a glyph's line box and its actual ink. Below this
@@ -253,8 +253,9 @@ def check(target: Path):
             "findings": findings,
         })
         for f in findings:
-            problems.append(f"{sc['id']} ({Path(src).name}) [{f['rule']}] "
-                            f"{f['detail']}")
+            problems.append(Finding(
+                f["rule"],
+                f"{sc['id']} ({Path(src).name}) [{f['rule']}] {f['detail']}"))
     return report, problems
 
 
@@ -272,6 +273,7 @@ def main(argv) -> int:
 
     if "--json" in argv:
         print(json.dumps({"pass": not problems, "problems": problems,
+                          "findings": typed(problems),
                           "report": report}, indent=2))
     else:
         print(f"[geometry] {report['graded']} painted text box(es) across "

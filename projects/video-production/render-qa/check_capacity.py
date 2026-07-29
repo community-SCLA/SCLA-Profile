@@ -43,7 +43,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import textmetrics
-from hfp_common import get_attr, parse_scenes
+from hfp_common import Finding, get_attr, parse_scenes, typed
 
 # A slot with no declared budget still gets one — an unenforced slot is how both
 # of the 2026-07-28 defects shipped. Three lines is generous for a card or a
@@ -230,13 +230,14 @@ def check(ws: Path):
                                            tracking, upper)
             if len(lines) > budget:
                 w = textmetrics.width(str(value), size, weight, tracking, upper)
-                findings.append(
+                findings.append(Finding(
+                    "slot-over-maxlines",
                     f"{sc['id']} ({comp.name}) slot {slot!r}: "
                     f"{str(value)!r} renders {w:.0f}px at {size:g}px/"
                     f"{int(weight)} into a {avail:.0f}px box — {len(lines)} "
                     f"lines, budget {budget}. Shorten it to about "
                     f"{_fit_chars(str(value), lines, budget)} characters, or "
-                    f"use a form built for a longer line.")
+                    f"use a form built for a longer line."))
     return findings
 
 
@@ -256,7 +257,8 @@ def main(argv) -> int:
     ws = Path(args[0]).resolve()
     findings = check(ws)
     if "--json" in argv:
-        print(json.dumps({"pass": not findings, "problems": findings}, indent=2))
+        print(json.dumps({"pass": not findings, "problems": findings,
+                          "findings": typed(findings)}, indent=2))
     else:
         for f in findings:
             print(f"  !! {f}")

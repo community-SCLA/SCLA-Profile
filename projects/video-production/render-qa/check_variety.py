@@ -54,7 +54,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import parse_scenes, get_attr
+from hfp_common import Finding, parse_scenes, get_attr, typed
 
 # Forms that frame the lesson rather than carry a beat of it.
 CHROME = {"scla-title", "scla-outro"}
@@ -271,12 +271,13 @@ def check(ws: Path):
     for s, fam in zip(scenes, fams):
         for slot, n in list_counts(s["variables"]).items():
             if n == 1:
-                problems.append(
+                problems.append(Finding(
+                    "one-item-list",
                     f"{s['id']} ({fam}): slot '{slot}' has exactly ONE item — "
                     f"renders the bullet/pill illustration around a single "
                     f"point. Give it >=2 items, or move the scene to a form "
                     f"that states one idea (scla-statement/scla-quote/scla-stat)."
-                )
+                ))
 
     # --- rule 2: max consecutive, with the enumerated-series exemption ------
     exempt_idx = set()   # scene indices inside an earned enumerated-series run
@@ -289,10 +290,11 @@ def check(ws: Path):
                 ok, why = run_is_exempt(block)
                 if not ok:
                     ids = ", ".join(s["id"] for s in block)
-                    problems.append(
+                    problems.append(Finding(
+                        "consecutive-run",
                         f"{run} consecutive scenes on {fams[run_start]} "
                         f"({ids}) — max is {MAX_CONSECUTIVE}. {why}"
-                    )
+                    ))
                 else:
                     exempt_idx.update(range(run_start, i))
                     info.append(
@@ -335,19 +337,21 @@ def check(ws: Path):
         canvas, ks = b
         first, last = scenes[ks[0]]["id"], scenes[ks[-1]]["id"]
         if len(ks) > MAX_CANVAS_RUN:
-            problems.append(
+            problems.append(Finding(
+                "canvas-run",
                 f"{len(ks)} consecutive content scenes on the {canvas} canvas "
                 f"({first}..{last}) — max is {MAX_CANVAS_RUN} before the "
                 f"background must change (theme-block cap)."
-            )
+            ))
         if durations_compiled:
             secs = sum(scenes[k]["duration"] for k in ks)
             if secs > MAX_CANVAS_SECONDS:
-                problems.append(
+                problems.append(Finding(
+                    "canvas-seconds",
                     f"{secs:.1f}s continuously on the {canvas} canvas "
                     f"({first}..{last}) — max is {MAX_CANVAS_SECONDS:.0f}s "
                     f"before the background must change (theme-block cap)."
-                )
+                ))
 
     # --- rules 3 & 4: distribution across content scenes --------------------
     content = [(s, f) for s, f in zip(scenes, fams) if f not in CHROME]
@@ -363,11 +367,12 @@ def check(ws: Path):
         need = MIN_FORMS_SHORT
     distinct = len(tally)
     if distinct < need:
-        problems.append(
+        problems.append(Finding(
+            "too-few-forms",
             f"only {distinct} distinct content forms across {len(content)} "
             f"scenes ({runtime:.0f}s) — need >={need}. Used: "
             f"{', '.join(sorted(tally))}."
-        )
+        ))
     if content:
         # Share is graded on SECONDS, not scene count (2026-07-29).
         #
@@ -400,10 +405,11 @@ def check(ws: Path):
             share = top_n / len(content)
             unit = f"{top_n}/{len(content)} scenes (pre-compile estimate)"
         if share > MAX_SHARE:
-            problems.append(
+            problems.append(Finding(
+                "form-share",
                 f"{top} carries {unit} of the content "
                 f"({share:.0%}) — no single form may exceed {MAX_SHARE:.0%}."
-            )
+            ))
 
     # --- rule 5: artwork coverage ------------------------------------------
     # Measured 2026-07-28: the reference video carries artwork on 79% of its
@@ -417,27 +423,30 @@ def check(ws: Path):
         with_art = [(s, f) for s, f in content if art_assets(s["variables"])]
         share = len(with_art) / len(content)
         if share < MIN_ARTWORK_SHARE:
-            problems.append(
+            problems.append(Finding(
+                "artwork-coverage",
                 f"only {len(with_art)}/{len(content)} content scenes carry "
                 f"artwork ({share:.0%}) — need >={MIN_ARTWORK_SHARE:.0%}. Type "
                 f"on a flat field is not an illustration."
-            )
+            ))
         assets = [a for s, _ in content for a in art_assets(s["variables"])]
         uniq = sorted(set(assets))
         if len(uniq) < MIN_DISTINCT_ASSETS:
-            problems.append(
+            problems.append(Finding(
+                "artwork-distinct",
                 f"only {len(uniq)} distinct artwork asset(s) "
                 f"({', '.join(uniq) or 'none'}) — need "
                 f">={MIN_DISTINCT_ASSETS} across the lesson."
-            )
+            ))
         overused = {a: assets.count(a) for a in uniq
                     if assets.count(a) > MAX_ASSET_REUSE}
         if overused:
-            problems.append(
+            problems.append(Finding(
+                "artwork-reuse",
                 "artwork reused past the limit: " + ", ".join(
                     f"{a} x{n}" for a, n in sorted(overused.items())) +
                 f" (max {MAX_ASSET_REUSE} each)."
-            )
+            ))
         bare_run, worst, worst_ids = 0, 0, []
         current = []
         for s, _ in content:
@@ -449,10 +458,11 @@ def check(ws: Path):
                 if bare_run > worst:
                     worst, worst_ids = bare_run, list(current)
         if worst > MAX_CONSECUTIVE_BARE:
-            problems.append(
+            problems.append(Finding(
+                "two-region-info",
                 f"{worst} consecutive scenes with no artwork at all "
                 f"({', '.join(worst_ids)}) — max is {MAX_CONSECUTIVE_BARE}."
-            )
+            ))
 
     # --- rule 7: composition (two-region) coverage ---------------------------
     if content:
@@ -461,14 +471,15 @@ def check(ws: Path):
         info.append(f"two-region coverage: {len(two)}/{len(content)} content "
                     f"scenes ({share:.0%})")
         if share < MIN_TWO_REGION_SHARE:
-            problems.append(
+            problems.append(Finding(
+                "two-region-coverage",
                 f"only {len(two)}/{len(content)} content scenes ({share:.0%}) "
                 f"place content in two spatially separate regions — need "
                 f">={MIN_TWO_REGION_SHARE:.0%}. Reach for a split/diagram form "
                 f"(scla-stat, scla-steps, scla-loop, scla-career-map) or fill "
                 f"the right-column icon hero on scla-condition/scla-statement/"
                 f"scla-chips."
-            )
+            ))
 
     # --- info: the menu the builder didn't touch ----------------------------
     available = {p.stem for p in (ws / "compositions").glob("scla-*.html")
@@ -490,6 +501,7 @@ def main() -> int:
     problems, info, tally = check(ws)
     if "--json" in sys.argv[1:]:
         print(json.dumps({"pass": not problems, "problems": problems,
+                          "findings": typed(problems),
                           "info": info, "distribution": tally}, indent=2))
     else:
         for line in info:

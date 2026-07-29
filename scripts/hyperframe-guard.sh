@@ -44,21 +44,48 @@ resolve_ws() {
   return 1
 }
 
+# preflight.py --json is a FROZEN WIRE CONTRACT and this is its only machine
+# consumer. Until 2026-07-29 the extraction below ran with `2>/dev/null`: if
+# `.output` stopped being a string, jq errored, the redirect ate the error,
+# `viol` came back empty, and the crash-fallback did not fire because `.verdict`
+# still parsed — so THE PLAN-STAGE GUARD EXITED 0 AND REPORTED CLEAN ON EVERY
+# FAILING PLAN. Silence is now impossible: the shape is asserted first, and a
+# shape drift is itself reported as a violation.
+#
+# Both programs are extracted VERBATIM by
+# render-qa/tests/test_guard_contract.py — it runs the real thing rather than a
+# pasted copy, because a copy is a second source that drifts. Keep the markers.
+# --- GUARD_SHAPE_JQ_BEGIN ---
+GUARD_SHAPE_JQ='
+  (.sections | type) == "object"
+  and (.sections | length) > 0
+  and (.sections | to_entries | all(
+          (.key | test("^[a-z_]+$"))
+      and ((.value.pass | type) == "boolean")
+      and ((.value.output | type) == "string")))'
+# --- GUARD_SHAPE_JQ_END ---
+# --- GUARD_VIOL_JQ_BEGIN ---
+GUARD_VIOL_JQ='
+    .sections | to_entries[] | select(.value.pass | not)
+    | "!! [" + .key + "]\n"
+      + (.value.output | split("\n") | map("   " + .) | join("\n"))'
+# --- GUARD_VIOL_JQ_END ---
+
 run_gates() {
   # Static preflight — the same code path as the hard gate (one source of
   # truth). Emits only the actionable lines: each failing section's name and
   # output; nothing when the plan is clean.
   local ws="$1" out viol
   out="$(python3 "$RQ/preflight.py" --static --json "$ws" 2>&1)"
-  viol="$(printf '%s' "$out" | jq -r '
-    .sections | to_entries[] | select(.value.pass | not)
-    | "!! [" + .key + "]\n"
-      + (.value.output | split("\n") | map("   " + .) | join("\n"))' 2>/dev/null)"
-  if [ -z "$viol" ] && ! printf '%s' "$out" | jq -e '.verdict' >/dev/null 2>&1; then
-    # preflight crashed instead of grading — that is itself actionable.
-    viol="!! [preflight] preflight.py --static produced no verdict:
-$(printf '%s\n' "$out" | head -15)"
+  if ! printf '%s' "$out" | jq -e "$GUARD_SHAPE_JQ" >/dev/null; then
+    # Either preflight crashed instead of grading, or its JSON shape drifted.
+    # Both mean this guard cannot grade the plan, and BOTH are actionable —
+    # never silent.
+    printf '!! [preflight] preflight.py --static did not emit the frozen JSON shape (sections non-empty, keys ^[a-z_]+$, sections[].pass bool, sections[].output string). The guard could not grade this plan:\n%s\n' \
+      "$(printf '%s\n' "$out" | head -15)"
+    return 0
   fi
+  viol="$(printf '%s' "$out" | jq -r "$GUARD_VIOL_JQ")"
   printf '%s' "$viol"
 }
 

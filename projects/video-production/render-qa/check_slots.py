@@ -103,6 +103,11 @@ def check(ws: Path):
             findings.append({
                 "scene": sc["id"],
                 "template": comp.name,
+                # Stable keys for machine consumers (2026-07-29). Both classes
+                # are the same defect — fabricated copy the script never said —
+                # so they share a severity and differ only in how they got there.
+                "rule_id": ("unfilled-slot" if missing else "placeholder-slot"),
+                "severity": "error",
                 "unfilled": missing,
                 "would_render": {s: schema[s] for s in missing},
                 "placeholder": placeholder,

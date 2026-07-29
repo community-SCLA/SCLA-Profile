@@ -37,7 +37,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tokens
-from hfp_common import norm_phrase, parse_scenes
+from hfp_common import Finding, norm_phrase, parse_scenes
 
 # LOADED from frame.md frontmatter typography.min-size — not a copy of it.
 # These were hand-maintained constants under a "keep in sync" comment until
@@ -90,10 +90,11 @@ def check_sizes(css_files):
                 fix = ("raise it, or retypeset it as a label "
                        "(uppercase + letter-spacing) if it is really metadata"
                        if kind == "body" else "raise it")
-                findings.append(
+                findings.append(Finding(
+                    "text-below-min-size",
                     f"{path.name}: `{sel}` renders {kind}-class text at "
                     f"{size:g}px, below the {floor}px {kind} floor — {fix} "
-                    f"(frame.md typography.min-size)")
+                    f"(frame.md typography.min-size)"))
     return findings, graded
 
 
@@ -132,12 +133,13 @@ def check_restatement(scenes):
                     shared = sum(1 for t in toks if t in ref_toks)
                     overlap = shared / len(toks)
                     if overlap >= OVERLAP_FAIL:
-                        findings.append(
+                        findings.append(Finding(
+                            "restates-heading",
                             f"{sc['id']}: {key} \"{line}\" restates {ref_key} "
                             f"\"{vars_[ref_key]}\" ({overlap:.0%} of its words "
                             f"are already on the frame) — drop the line or give "
                             f"it something the frame is not already showing "
-                            f"(frame.md \"Never restate the label or heading\")")
+                            f"(frame.md \"Never restate the label or heading\")"))
                         break
     return findings, graded
 

@@ -210,6 +210,9 @@ def main():
               "verdict": "FAIL" if findings else "PASS"}
     if as_json:
         result["frames"] = frames
+        for _v in result.get("violations", []):
+            _v.setdefault("rule_id", _v.get("rule", "unclassified"))
+            _v.setdefault("severity", "error")
         print(json.dumps(result, indent=2))
     else:
         print(f"video={v_dur}s audio={a_dur}s frames_sampled={len(frames)}")

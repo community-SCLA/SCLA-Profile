@@ -136,3 +136,53 @@ def json_attr(value) -> str:
     attribute can never be truncated by its own delimiter."""
     s = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
     return s.replace("'", "’")
+
+
+# ---------------------------------------------------------------------------
+# Typed findings (2026-07-29)
+# ---------------------------------------------------------------------------
+class Finding(str):
+    """A finding string that also carries a stable `rule_id` and `severity`.
+
+    The checkers grew as text tools: each appends a formatted sentence to a
+    `problems` list, and everything downstream — printing, joining, the
+    substring assertions in tests — treats those as plain strings. Machine
+    consumers had nothing stable to key on, so anything reading a finding had
+    to match on prose that changes whenever the wording improves.
+
+    Subclassing `str` means a Finding IS the sentence: every existing print,
+    join, `in` test and f-string keeps working untouched, while `--json` can
+    read the tag. Crucially the tag is attached AT THE POINT THE FINDING IS
+    CREATED, beside the rule that produced it — never inferred afterwards from
+    the text, which is the mistake this whole build exists to stop repeating.
+
+        problems.append(Finding("dangling-conjunction", f"{sid}: ..."))
+
+    Severity is "error" unless stated. Nothing in the pipeline branches on it
+    yet — exit codes remain the verdict (they are the one part of this pipeline
+    that has never lied); it is here so a consumer can rank findings without
+    parsing English.
+    """
+    __slots__ = ("rule_id", "severity")
+
+    def __new__(cls, rule_id: str, text: str, severity: str = "error"):
+        obj = super().__new__(cls, text)
+        obj.rule_id = rule_id
+        obj.severity = severity
+        return obj
+
+
+def typed(findings) -> list:
+    """[{rule_id, severity, detail}] for a list of Finding-or-plain-str.
+
+    An untagged string reports rule_id "unclassified" rather than being dropped
+    or guessed at: a machine consumer must be able to SEE the coverage hole.
+    """
+    out = []
+    for f in findings:
+        out.append({
+            "rule_id": getattr(f, "rule_id", "unclassified"),
+            "severity": getattr(f, "severity", "error"),
+            "detail": str(f),
+        })
+    return out

@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import parse_scenes
+from hfp_common import Finding, parse_scenes, typed
 
 # Slots that render as an on-frame heading.
 HEADING_SLOTS = ("heading", "statement", "title")
@@ -80,16 +80,18 @@ def heading_problems(scenes):
                 continue
             body = raw.rstrip()
             if body.endswith("."):
-                problems.append(
+                problems.append(Finding(
+                    "heading-terminal-period",
                     f"{s['id']} '{slot}': heading ends in a period — "
-                    f"{raw!r}. Headings take no terminal period.")
+                    f"{raw!r}. Headings take no terminal period."))
                 body = body[:-1].rstrip()
             want = titlecase(body)
             if want != body:
-                problems.append(
+                problems.append(Finding(
+                    "heading-not-title-case",
                     f"{s['id']} '{slot}': not Title Case.\n"
                     f"      is:     {body!r}\n"
-                    f"      should: {want!r}")
+                    f"      should: {want!r}"))
     return problems
 
 
@@ -164,10 +166,11 @@ def enumeration_problems(scenes):
             across = (f" (the list runs across {len(spans)} scenes: "
                       f"{', '.join(spans)} — merge them)" if len(spans) > 1
                       else "")
-            problems.append(
+            problems.append(Finding(
+                "missing-conjunction",
                 f"{run[-1][0]}: spoken list of {len(run)} items ends without "
                 f"'and'/'or' — ...{run[-2][1]!r} {run[-1][1]!r}. Add the "
-                f"conjunction to the final item{across}.")
+                f"conjunction to the final item{across}."))
         # A terminator switch both closes the old run and opens a new one.
         run = ([(sid, frag)]
                if frag and len(WORD_RX.findall(frag)) <= 5
@@ -224,12 +227,13 @@ def enumeration_problems(scenes):
             if (_is_sentence(frag) or len(words) > 5
                     or any(w.lower() in FINITE for w in words)):
                 continue
-            problems.append(
+            problems.append(Finding(
+                "dangling-conjunction",
                 f"{s['id']}: {frag!r} is a dangling conjunction fragment — a "
                 f"list item wearing a full stop. It reads as an unfinished "
                 f"sentence. Join the run into ONE sentence with commas "
                 f"(\"a, b, c, or d.\") instead of bolting the conjunction onto "
-                f"a separate fragment.")
+                f"a separate fragment."))
 
     for s in scenes:
         text = (s["narration"] or "").strip()
@@ -251,10 +255,11 @@ def enumeration_problems(scenes):
             if len(parts) < 3 or any(len(WORD_RX.findall(p)) > 6 for p in parts):
                 continue
             if not CONJ_RX.search(parts[-1]):
-                problems.append(
+                problems.append(Finding(
+                    "missing-conjunction-comma-list",
                     f"{s['id']}: comma list of {len(parts)} items ends without "
                     f"'and'/'or' — ...{parts[-1]!r}. Add the conjunction to "
-                    f"the final item.")
+                    f"the final item."))
     return problems
 
 
@@ -297,7 +302,8 @@ def main() -> int:
     else:
         problems = check(target)
     if "--json" in sys.argv[1:]:
-        print(json.dumps({"pass": not problems, "problems": problems}, indent=2))
+        print(json.dumps({"pass": not problems, "problems": problems,
+                          "findings": typed(problems)}, indent=2))
     else:
         for p in problems:
             print(f"  !! {p}")

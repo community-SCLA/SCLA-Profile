@@ -224,6 +224,9 @@ def main():
     root_duration, audio_end = result["root_duration"], result["audio_end"]
 
     if as_json:
+        for _v in result.get("violations", []):
+            _v.setdefault("rule_id", _v.get("rule", "unclassified"))
+            _v.setdefault("severity", "error")
         print(json.dumps(result, indent=2))
     else:
         for r in report:
