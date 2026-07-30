@@ -1,0 +1,360 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"value","type":"number","label":"Stat value (count-up target)","default":5},
+    {"id":"prefix","type":"string","label":"Prefix (before the number)","default":""},
+    {"id":"suffix","type":"string","label":"Suffix (after the number)","default":""},
+    {"id":"statLabel","type":"string","label":"Stat label","default":"[[statLabel]]"},
+    {"id":"ring","type":"string","label":"Ring gauge mode: \"on\" pairs the count-up with a filling closed-circle gauge (empty = split-panel default)","default":""},
+    {"id":"context","type":"string","label":"Context sentence","default":"[[context]]"},
+    {"id":"contextCue","type":"string","label":"Reveal time for the context sentence, local sec (compiler-owned; empty = lands with the entrance)","default":""},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / STAT"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"8"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      STAT HIGHLIGHT — use ONLY when a single number IS the point the narration is
+      making (a measured quantity, a percentage, a count that lands as a stat).
+      Pair the numeral with a clear label/unit so it never reads as a slide number.
+      An enumeration the narration reads aloud ("list three to five paths",
+      "first… second…") is NOT a stat — illustrate it with scla-points / scla-steps,
+      items arriving on cue. design-contract.md → "Scene index & numerals".
+    -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .sh-bg {
+          position: absolute;
+          inset: 0;
+          background: #ffffff;
+          background-image:
+            linear-gradient(rgba(51, 147, 214, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(51, 147, 214, 0.06) 1px, transparent 1px);
+          background-size: 120px 120px;
+        }
+        #sh-panel {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 820px;
+          background: radial-gradient(130% 120% at 30% 40%, #0d2437 0%, #0a1e2f 82%);
+        }
+        #sh-panel-ring {
+          position: absolute;
+          left: -220px;
+          top: -260px;
+          width: 640px;
+          height: 740px;
+          border-radius: 50%;
+          border: 3px solid rgba(51, 147, 214, 0.3);
+        }
+        #sh-panel-ring-2 {
+          position: absolute;
+          left: -160px;
+          top: -190px;
+          width: 460px;
+          height: 540px;
+          border-radius: 50%;
+          border: 2px solid rgba(234, 171, 45, 0.3);
+        }
+        /* left 110 -> 120 on 2026-07-29: spacing.frame-padding was declared when
+           the system was built and enforced by nothing until check_geometry's
+           padding-breach rule read it. This numeral was the only body-class
+           element in the system outside the inset; the file's own data-ring
+           variant already sat at 130. */
+        #sh-number {
+          position: absolute;
+          left: 120px;
+          top: 330px;
+          font-size: 300px;
+          font-weight: 900;
+          color: #eaab2d;
+          line-height: 1;
+          letter-spacing: -0.02em;
+        }
+        #sh-stat-label {
+          position: absolute;
+          left: 116px;
+          top: 690px;
+          width: 600px;
+          font-size: 30px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #ffffff;
+          line-height: 1.35;
+        }
+        #sh-stat-rule {
+          position: absolute;
+          left: 116px;
+          top: 660px;
+          width: 90px;
+          height: 4px;
+          background: #3393d6;
+          transform-origin: left center;
+        }
+        #sh-context {
+          position: absolute;
+          left: 940px;
+          top: 380px;
+          width: 830px;
+          font-size: 40px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #292f35;
+        }
+        #sh-context-label {
+          position: absolute;
+          left: 940px;
+          top: 310px;
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        #sh-bar {
+          position: absolute;
+          left: 940px;
+          top: 700px;
+          width: 700px;
+          height: 10px;
+          background: #e5eff6;
+          border-radius: 100px;
+        }
+        #sh-bar-fill {
+          position: absolute;
+          left: 940px;
+          top: 700px;
+          width: 700px;
+          height: 10px;
+          background: #eaab2d;
+          border-radius: 100px;
+          transform-origin: left center;
+        }
+        #sh-index {
+          position: absolute;
+          right: 120px;
+          bottom: 58px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        /* Closing-beat cap (Motion v2, 2026-07-27): a gold tick pops on the bar's
+           end-cap in the scene's final second; in ring mode it becomes a gold dot
+           at the ring's 12 o'clock instead. */
+        #sh-cap {
+          position: absolute;
+          left: 1630px;
+          top: 691px;
+          width: 8px;
+          height: 28px;
+          border-radius: 100px;
+          background: #eaab2d;
+          opacity: 0;
+        }
+        #root[data-ring="on"] #sh-cap { left: 402px; top: 252px; width: 16px; height: 16px; border-radius: 50%; }
+        /* Ring gauge (opt-in via ring:"on"). A CLOSED full circle (owner decision
+           2026-07-14 — no open arcs): a faint track with a gold fill that draws on
+           clockwise from the top as the number counts up. Hidden in the default
+           split-panel layout; when on, the number + label re-center inside the ring
+           and the right-hand proportional bar stands down (the ring is that visual). */
+        #sh-ring-wrap { position: absolute; left: 130px; top: 190px; width: 560px; height: 560px; display: none; }
+        #sh-ring-wrap svg { position: absolute; inset: 0; }
+        #root[data-ring="on"] #sh-ring-wrap { display: block; }
+        #root[data-ring="on"] #sh-number { left: 130px; top: 330px; width: 560px; text-align: center; font-size: 150px; }
+        #root[data-ring="on"] #sh-stat-rule { display: none; }
+        #root[data-ring="on"] #sh-stat-label { left: 130px; top: 588px; width: 560px; text-align: center; }
+        #root[data-ring="on"] #sh-bar,
+        #root[data-ring="on"] #sh-bar-fill { display: none; }
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .sh-bg { background-image: radial-gradient(rgba(51, 147, 214, 0.1) 2px, transparent 2px); background-size: 72px 72px; }
+        #root[data-theme="horizon"] #sh-panel { background: radial-gradient(150% 130% at 35% 92%, #0d2437 0%, #0a1e2f 80%); }
+        #root[data-theme="horizon"] #sh-panel-ring { border-color: rgba(255, 255, 255, 0.2); }
+        #root[data-theme="horizon"] #sh-number { color: #ffffff; }
+        #root[data-theme="horizon"] #sh-stat-rule { background: #eaab2d; }
+        #root[data-theme="horizon"] #sh-bar-fill { background: #3393d6; }
+        #root[data-theme="horizon"] #sh-cap { background: #eaab2d; }
+        #root[data-theme="cadence"] .sh-bg { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
+        #root[data-theme="cadence"] #sh-panel { background: radial-gradient(130% 120% at 70% 20%, #0d2437 0%, #0a1e2f 82%); }
+        #root[data-theme="cadence"] #sh-panel::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 10px; background: #eaab2d; }
+        #root[data-theme="cadence"] #sh-panel-ring-2 { border-color: rgba(234, 171, 45, 0.4); }
+        #root[data-theme="cadence"] #sh-stat-rule { width: 140px; background: #eaab2d; }
+        #root[data-theme="cadence"] #sh-cap { background: #eaab2d; }
+      </style>
+
+      <div id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow>
+        <div class="sh-bg"></div>
+        <div id="sh-panel" data-layout-allow-overflow>
+          <div id="sh-panel-ring" data-layout-allow-overflow></div>
+          <div id="sh-panel-ring-2" data-layout-allow-overflow></div>
+        </div>
+        <div id="sh-ring-wrap" data-layout-allow-overflow>
+          <svg viewBox="0 0 560 560" fill="none">
+            <path id="sh-ring-track" d="" stroke="rgba(255,255,255,0.14)" stroke-width="16" stroke-linecap="round"></path>
+            <path id="sh-ring-fill" d="" stroke="#eaab2d" stroke-width="16" stroke-linecap="round" pathLength="100"></path>
+          </svg>
+        </div>
+        <div id="sh-number">5</div>
+        <div id="sh-stat-rule"></div>
+        <div id="sh-stat-label">Paths to list — not just one</div>
+        <div id="sh-context-label">The move</div>
+        <div id="sh-context">
+          If you only compare one job to one other job, your frame is too narrow. List three to five
+          possible paths before you decide.
+        </div>
+        <div id="sh-bar"></div>
+        <div id="sh-bar-fill"></div>
+        <div id="sh-cap" data-layout-allow-occlusion></div>
+        <div id="sh-index">05 / STAT</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            value: 5,
+            prefix: "",
+            suffix: "",
+            statLabel: "Paths to list — not just one",
+            context:
+              "If you only compare one job to one other job, your frame is too narrow. List three to five possible paths before you decide.",
+            sceneIndex: "05 / STAT",
+            theme: "summit",
+            sceneDuration: "8",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("sh-stat-label").textContent = vars.statLabel;
+          document.getElementById("sh-context").textContent = vars.context;
+          document.getElementById("sh-index").textContent = vars.sceneIndex;
+
+          // Ring gauge mode (opt-in). Build the closed-circle track + fill geometry.
+          const ringOn = String(vars.ring || "").trim().toLowerCase() === "on";
+          if (ringOn) {
+            document.getElementById("root").setAttribute("data-ring", "on");
+            const cx = 280, cy = 280, r = 210;
+            const circle =
+              "M " + cx + " " + (cy - r) + " A " + r + " " + r + " 0 1 1 " + cx + " " + (cy + r) +
+              " A " + r + " " + r + " 0 1 1 " + cx + " " + (cy - r) + " Z";
+            document.getElementById("sh-ring-track").setAttribute("d", circle);
+            document.getElementById("sh-ring-fill").setAttribute("d", circle);
+          }
+
+          const target = Number(vars.value) || 0;
+          const numberEl = document.getElementById("sh-number");
+          const fmt = function (n) {
+            return String(vars.prefix || "") + Math.round(n).toLocaleString("en-US") + String(vars.suffix || "");
+          };
+          numberEl.textContent = fmt(0);
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          // Declared here, not beside the drift block below: the cued context
+          // reveal clamps against it and would otherwise read it in its TDZ.
+          const sdur = Math.max(4, Number(vars.sceneDuration) || 8);
+          // Entrance (Motion v2, 2026-07-27): the three meters land as three STAGGERED
+          // hits — count-up 0.5→1.5, bar 0.7→1.4, ring 0.9→1.8 — instead of three
+          // parallel slow ramps finishing together. Everything settled ≤1.8s (the
+          // scla-stat exception: its meters ARE the content).
+          tl.fromTo("#sh-panel", { xPercent: -100 }, { xPercent: 0, duration: 0.6, ease: "power3.out" }, 0);
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
+          tl.fromTo(["#sh-panel-ring", "#sh-panel-ring-2"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, stagger: 0.1 }, 0);
+          if (ringOn) {
+            tl.fromTo("#sh-ring-track", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+            // Third hit: the gold fill draws on after the count-up and bar have started.
+            tl.fromTo("#sh-ring-fill", { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 0.9);
+          }
+          tl.fromTo("#sh-number", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+          // First hit — deterministic count-up: tween a proxy on the timeline;
+          // formatting happens in onUpdate.
+          const proxy = { v: 0 };
+          tl.fromTo(
+            proxy,
+            { v: 0 },
+            {
+              v: target,
+              duration: 1.0,
+              ease: "power2.out",
+              onUpdate: function () {
+                numberEl.textContent = fmt(proxy.v);
+              },
+            },
+            0.5,
+          );
+          tl.fromTo("#sh-stat-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.8);
+          tl.fromTo("#sh-stat-label", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.9);
+          tl.fromTo("#sh-context-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.6);
+          // The context sentence is this template's ONE cue-able beat (2026-07-30).
+          // Without it scla-stat had no cue mechanism at all — entrance + closing
+          // beat only — so every stat scene over ~5.7s failed the pacing gate's
+          // 4.0s event-gap budget, and BUILD-KIT was recommending the template
+          // anyway (snag log 2026-07-29, "Promoted to docs" item 2). Holding the
+          // sentence until the narration reaches it splits that dead middle into
+          // two gaps. The label still lands at 0.6 so the region is never bare,
+          // and this is a first reveal, not a re-mark of settled content — the
+          // idle-re-animation ban (2026-07-14/15) is untouched.
+          const cCue = Number(String(vars.contextCue || "").trim());
+          const contextAt = !isNaN(cCue) && cCue > 0.8 ? Math.min(cCue, Math.max(1.0, sdur - 1.4)) : 0.8;
+          tl.fromTo("#sh-context", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }, contextAt);
+          tl.fromTo("#sh-bar", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.5);
+          // Second hit: the proportional bar fills as its own distinct beat.
+          tl.fromTo("#sh-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0.7);
+          tl.fromTo("#sh-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+          tl.fromTo("#sh-panel-ring", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
+          // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the two panel
+          // rings drift at different rates — translate-only decorative parallax in finite
+          // sine yoyo cycles sized to register at QA frame sampling. (The promoted single
+          // whole-scene glide moved ~1px/s — pixel-identical between 0.5s samples: render
+          // regression 2026-07-15.)
+          const drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
+          };
+          // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
+          // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
+          // thumbnail px → read static at frame sampling. ~110/70px clears it.
+          drift("#sh-panel-ring", 110, 68, 3.2);
+          drift("#sh-panel-ring-2", -84, -52, 2.7);
+          // Idle re-animation of settled content remains banned (2026-07-14/15) — the
+          // settled number stays put — but the cued closing beat and exit below are
+          // REQUIRED (Motion v2, 2026-07-27).
+          // Closing beat: the bar ticks its end-cap (ring mode: a gold dot pops at the
+          // ring's 12 o'clock) — an additive NEW gold accent, never a number re-mark.
+          const closeAt = Math.max(2.2, sdur - 1.0);
+          tl.fromTo("#sh-cap", { opacity: 0, scale: 0.2, transformOrigin: "center" },
+            { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, closeAt);
+          // Exit (Motion v2, 2026-07-27): the content layer slides out at
+          // sceneDuration−0.35; furniture (bg, panel, panel rings, index) stays put.
+          const exitEls = ["#sh-number", "#sh-stat-rule", "#sh-stat-label", "#sh-context-label", "#sh-context", "#sh-bar", "#sh-bar-fill", "#sh-cap"];
+          if (ringOn) exitEls.push("#sh-ring-wrap");
+          tl.to(exitEls, { opacity: 0, y: -24, duration: 0.3, ease: "power2.in" }, sdur - 0.35);
+          tl.set(exitEls, { opacity: 0 }, sdur - 0.02);
+          window.__timelines["scla-stat"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
