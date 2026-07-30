@@ -78,7 +78,8 @@ AUDIO_TAIL = 0.05    # root must outlive the audio by at least this
 MAX_EXTRA_AIR = 0.9  # cap on surplus silence assigned to air-after
 DECLICK = 0.008      # fade (s) into/out of each inserted silence — kills the
                      # voiced-audio-to-zero splice click at scene boundaries
-CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue", "subCues", "iconCue")
+CUE_KEYS = ("pointCues", "stepCues", "chipCues", "mapCue", "subCues", "iconCue",
+            "contextCue")  # contextCue: scla-stat's only cue-able beat, 2026-07-30
 # cue key -> (list variable it must match 1:1, separator of that variable).
 # pointCues rides two templates: scla-statement's `lines` ("|"-separated) —
 # checked here — and scla-points' point1..point4 slots, counted specially in

@@ -75,7 +75,7 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 - If `npx hyperframes tts` fails on a missing `kokoro_onnx`, set
   `HYPERFRAMES_PYTHON` to an interpreter that has it (`findPython()` respects it).
 - **Snag memory: read ONLY the latest entry** of
-  `projects/video-production/render-qa/snag-log.md` (the first `## ` entry —
+  `projects/video-production/render-qa/logs/snag-log.md` (the first `## ` entry —
   use Read with a line limit; never load the whole file). Its **Open** list
   rolls forward until fixed — carry it into every build-subagent prompt and
   into your close-out.
@@ -196,6 +196,11 @@ rules when choosing templates and copy. Standing landmines:
   helpful", "First… Second… Third…"), the template that depicts that thing is
   the one to use. Rotate the connective device too: an arrow drawn between two
   statements, a comparison scale, a split frame — not a fourth pill row.
+  **`scla-stat` is the one form with a ceiling:** use it only when a number IS
+  the point, and spend its single `contextCue` beat — cued it clears pacing to
+  ~9.7s, uncued only ~5.7s, and it has no second cue to give. (It had none at
+  all until 2026-07-30, which is why this list kept recommending a template the
+  pacing gate then failed.)
 - **Headings are Title Case, no terminal period** (gate:
   `render-qa/src/check_copy.py`). Body copy stays sentence case.
 - **`index.html` is a build artifact — never hand-edit it.** Every fix goes in
@@ -463,7 +468,7 @@ context surviving, which also makes mid-run context compaction a non-event.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 
-Append a **new entry at the top** of `render-qa/snag-log.md` following the
+Append a **new entry at the top** of `render-qa/logs/snag-log.md` following the
 rules in its header: new snags tagged `[env]/[tooling]/[authoring]/[upstream]/[defect]`
 with resolution + time cost, **Open items carried forward verbatim from the
 previous entry until actually fixed**, and durable lessons promoted into the

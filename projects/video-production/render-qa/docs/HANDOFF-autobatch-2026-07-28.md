@@ -144,7 +144,7 @@ command — the pipeline wraps them all.
 | What is live on Wistia? (machine truth, resume key) | `projects/video-production/lesson-scripts/published.tsv` |
 | Human-readable history per lesson (dates, URLs, notes) | `projects/video-production/lesson-scripts/refinement-log.md` |
 | Which videos failed a guard, when, why? | `projects/video-production/render-qa/quarantine.log` |
-| What went wrong/right last session? (newest entry = full current state) | `projects/video-production/render-qa/snag-log.md` |
+| What went wrong/right last session? (newest entry = full current state) | `projects/video-production/render-qa/logs/snag-log.md` |
 | Why is the pipeline built this way? | `decisions/log.md` |
 | Where is video X in its journey right now? | not a file — `bash scripts/batch-status.sh` (disk is the truth; §3b maps every state + recovery) |
 | What did any agent change? | `git log` (every publish and every pipeline fix is a commit) |
@@ -241,7 +241,7 @@ Recovery rules for a fresh session picking up after a crash/timeout:
 
 Logging homes (each has one job): `published.tsv` = machine record of what
 is live (the resume key) · `refinement-log.md` = human-facing ledger prose ·
-`quarantine.log` = per-video guard failures · `render-qa/snag-log.md` =
+`quarantine.log` = per-video guard failures · `render-qa/logs/snag-log.md` =
 per-session retro (newest entry is the complete current state) ·
 `decisions/log.md` = why the pipeline is shaped this way · git history = the
 audit trail of every pipeline change.
