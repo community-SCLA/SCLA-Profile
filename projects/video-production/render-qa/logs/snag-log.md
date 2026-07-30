@@ -37,7 +37,126 @@ Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
 same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
 
 
-## 2026-07-29 (latest) · mid-career-momentum batch — parallelism applied to the one stage that measures as serial
+## 2026-07-30 (latest) · carry-forward-inventory BUILD — the two rolled-forward gate items, closed
+
+Owner asked for one illustrated lesson video (`m4_building-your-carry-forward-inventory`,
+career-transitions, theme summit) matching the `better-decisions` reference. The
+refined script already existed and was byte-identical to the script supplied in
+the request, so `/refine-scripts` was a no-op and this was a pure BUILD.
+
+**The plan is gate-clean and there is no video.** `preflight.py --static` exits 0
+(re-run independently, not taken from the builder's report): 16 scenes, 14
+content scenes, 6 distinct forms, largest share 28.6%, artwork 14/14, longest
+same-family run 2. Narration verified verbatim against the refined script — 338
+words in, 338 out, exact match. TTS and render were never attempted, because
+this environment's network policy answers **403 on CONNECT** for
+`api.heygen.com`, `app.infisical.com` AND `cdn.jsdelivr.net` (GSAP, which every
+composition loads). No narration means no word timestamps, and every timing
+number derives from those. Per the standing rule the wall was reported, not
+worked around: no provider swap, no local TTS, no vendored GSAP. `main`'s HEAD
+commit records the same wall on the sixteenth run of the day, so the diagnosis
+cost minutes rather than the ~40 it cost on 2026-07-29 — the probe was run
+before dispatching the builder, and the builder was told the finding up front.
+
+The previous entry's two "Promoted to docs" items were explicitly recorded as
+that session's own output and left for the next session. Both are now done, so
+neither was eligible to roll forward as an owner item.
+
+**Open — owner-actionable only**
+
+- **Egress policy blocks the whole render path** *(new)* — `api.heygen.com`,
+  `app.infisical.com`, `cdn.jsdelivr.net` all 403 on CONNECT. The pipeline can
+  author but can never ship from this environment. This is the same wall the
+  last ~17 runs hit and it is the single thing standing between a gate-clean
+  plan and a published video. Only the owner can change the environment policy.
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum`,
+  `m3_discover-experiences-that-support-your-next-move`. Still blocking; they
+  cannot enter the pipeline.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Pilot sign-off (2026-07-29 rebuild #3)** *(since 2026-07-29)* —
+  `bash scripts/preview.sh better-decisions-come-from-better-criteria_early-career-boost`.
+  Rendered and verified, NOT published.
+- **Pilot sign-off (mid-career-momentum)** *(since 2026-07-29)* —
+  `bash scripts/preview.sh m2_mid-career-mindsets-and-limiting-beliefs` is the
+  only gate-clean lesson of the 13. Nothing in this program can render until a
+  human approves a pilot.
+- **"Career Accelerator" appears in APPROVED SCRIPT BODY** *(since 2026-07-29)* —
+  `m1_mini-syllabus` narrates "your broader Career Accelerator journey". The
+  owner rejected that name on the banner on 2026-07-29 and the `programs:` map
+  was reverted. Whether the name is retired repo-wide or only as a program
+  label is a decision only the owner can make; the script was left untouched.
+- **Scene-12 (career map) holds ~3s pixel-static mid-scene** *(since
+  2026-07-29)* — advisory, in `check_presence`'s 3–5s gray zone. The fix is
+  authoring and changes the scene's rhythm — worth a decision.
+- **`m4_building-your-carry-forward-inventory` scene-02 is one 38-word
+  sentence** *(new)* — ~14.1s against the 12.5s cap, so the new static pacing
+  gate WARNs and the post-synth gate will likely FAIL. There is no legal split
+  inside the scene plan: every split point leaves the next scene opening
+  mid-clause, which `check_continuity` hard-fails. The fix is one sentence in
+  the refined script — replacing ", and the tool that answers it is" with a full
+  stop plus "The tool that answers it is" yields 9 + 29 words, both under cap
+  with a legal opener. Left to the owner because the script text was supplied
+  verbatim in the request; changing their copy is their call, not the agent's.
+
+**Fixed this session**
+
+- [tooling] **`pacing` now fires at `--static`** — the previous entry's item 1.
+  It was the only owner-facing gate that could not run before TTS was spent
+  (12 of 13 lessons on 2026-07-29 learned it after 258 clips). `check_pacing_static()`
+  estimates duration from narration word count and locates cue anchors by word
+  offset. Rates are **measured, not guessed**: 249 real content scenes across 14
+  built lessons give words/sec of `data-duration` at median 2.71, p95 3.72.
+  `WPS_TYPICAL` drives a WARN band; `WPS_FAST` is a one-sided certainty bound
+  above every observed rate, so a static FAIL can only mean the copy genuinely
+  cannot fit. Validated against all 14 builds — the owner's reference passes,
+  and the one hard FAIL (`m5_skills-for-the-ai-era` scene-13) really does run
+  14.9s. It then earned itself immediately: it caught this lesson's scene-02
+  during a JSON edit, which is exactly the class that used to cost a re-synth.
+- [defect] **`scla-stat` has a cue-able beat** — the previous entry's item 2.
+  Its meters all land in the entrance, so entrance + closing beat were the only
+  events and any stat scene over ~5.7s could not pass pacing, while BUILD-KIT
+  went on recommending the template. New `contextCue` holds the context sentence
+  until the narration reaches it: ceiling ~5.7s → **~9.7s**, above the ~8s median
+  content scene. Absent the variable the behaviour is unchanged, so existing
+  builds are unaffected. Verified by executing the timeline against a GSAP stub
+  (default 0.8s / cued honoured / clamped to `sdur−1.4` / junk falls back),
+  because `npm run check`'s Runtime pass cannot execute here.
+- [tooling] **`render-qa/snag-log.md` did not exist** — the real path is
+  `logs/snag-log.md`, and a session following its own documented snag memory got
+  a read error. Repointed in both pipeline skills, `adversarial-qa`, the rules
+  file, the `settings.json` hook text, `PIPELINE-MANUAL.md`, the autobatch
+  handoff, `preview.sh` and `wistia-upload.sh`. `decisions/log.md` and `audits/`
+  keep the old path as historical record.
+- [env] **`ffprobe` was absent**, so `run_tests.py` crashed with a bare
+  `FileNotFoundError` and check 11 could not grade anything. Confirmed
+  pre-existing by re-running the suite on stashed HEAD before blaming the edit.
+  Installed ffmpeg via apt (`--no-install-recommends`; the plain install 404s on
+  stale driver debs). Suite then 83 assertions green.
+
+**Promoted to docs**
+
+- `design-contract.md`'s `scla-stat` row and the `/render-lessons` BUILD-KIT
+  block both now state the template's cue slot and its ~9.7s ceiling. BUILD-KIT
+  had been recommending a template the pacing gate then failed; per STD-35 the
+  constraint belongs where the recommendation lives, and `batch-prepare.sh`
+  regenerates `_run/BUILD-KIT.md` from that block so the fix propagates.
+- Two repo-vs-doc gaps found and recorded here rather than silently tolerated,
+  both agent-fixable only in part because the right fix is a policy call:
+  1. **`build_index.py --extract` is lossy and writes in place.** Pointed at
+     `m5_skills-for-the-ai-era` to learn the manifest shape, it round-tripped
+     that committed plan and silently dropped every `theme` var (plus altered
+     `meta` and apostrophes). Reverted. It is a live footgun for any builder
+     told to learn the format that way — BUILD-KIT and this SKILL both suggest
+     it. It should write to stdout, or refuse a workspace it was not given.
+  2. **`renders-hyperframes/` and `_run/` are fully tracked in git**, though
+     `projects/video-production/CLAUDE.md` and the AUTO-BATCH section both call
+     them gitignored. There are no matching `.gitignore` rules at all, so every
+     workspace is committed. The doc and the repo disagree; which one is wrong
+     is a decision, so it is named here instead of guessed at.
+
+## 2026-07-29 · mid-career-momentum batch — parallelism applied to the one stage that measures as serial
 
 Owner asked for all 15 mid-career-momentum lessons rendered in parallel inside
 30 minutes. 13 were buildable. **Zero rendered.** The 30-minute target was not

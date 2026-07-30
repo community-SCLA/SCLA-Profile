@@ -465,7 +465,7 @@ Reusable sub-compositions in `compositions/` — instantiate via
 | Career / route map | `scla-career-map.html` | Light | Comparing 3 paths/options against criteria: 3 candidate paths draw on, gold route traces to the winner on `mapCue` (`winner` picks it) |
 | Morph hand-off | `scla-morph.html` | Light | A **two-option** comparison where the winner re-flows on cue (FLIP-style): unlearn-X-do-Y, before→after, wrong-vs-right, reorder-the-priority. Cards A/B enter, then the `winner` rises + turns gold (may relabel via `winnerAfter`); `actions`/`pointCues` sequence the beats. Not a 3-way route map |
 | Quote card | `scla-quote.html` | Navy card on light | A line attributed to a **named person** only |
-| Stat highlight | `scla-stat.html` | Split navy/light | One number that is genuinely the point — not an enumeration. Optional `ring:"on"` pairs the count-up with a filling closed-circle gauge. Its meters all land in the entrance, so its ONE cue-able beat is `contextCue` (holds the context sentence until the narration reaches it). With it a stat scene clears the pacing gate to **~9.7s**; without it, ~5.7s. Past that, split the scene — there is no second cue to spend |
+| Stat highlight | `scla-stat.html` | Split navy/light | One number that is genuinely the point — not an enumeration. Optional `ring:"on"` pairs the count-up with a filling closed-circle gauge |
 | CTA outro | `scla-outro.html` | Navy | Next step + wordmark close — must hold ≥1s past the last spoken word |
 
 Templates are the **structural floor** — they guarantee the brand, the tokens,

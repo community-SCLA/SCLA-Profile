@@ -65,8 +65,11 @@ lets the QA gauntlet's agent lanes shrink to judgment-only work.
 --static (2026-07-28): run ONLY the sections that are meaningful on a freshly
 compiled workspace with NO voice assets — the scene-plan stage, before any TTS
 has run. Sections that need audio/transcript/timing (compile_check, boundaries,
-coverage, script_match, pacing, inscene_gaps) are SKIPPED with a "(static
-mode)" note, never failed. Same exit semantics: 0 = the plan is clean, 1 = fix
+coverage, script_match, inscene_gaps) are SKIPPED with a "(static
+mode)" note, never failed. `pacing` is the exception: it ESTIMATES scene
+durations from narration word counts (check_pacing_static, 2026-07-30) instead
+of skipping, so a scene whose copy cannot fit its cap fails while it is still a
+JSON edit. Same exit semantics: 0 = the plan is clean, 1 = fix
 the plan. This is the code path scripts/hyperframe-guard.sh runs on every
 scenes.json/index.html write, so the authoring-time guard and the hard gate
 are one source of truth.
@@ -87,7 +90,8 @@ DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[2] / "design-syste
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tokens
-from hfp_common import ffprobe_duration, get_attr, norm_token, parse_scenes
+from hfp_common import (ffprobe_duration, get_attr, norm_phrase, norm_token,
+                        parse_scenes)
 from stem import StemError, base as stem_base, is_canonical
 
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
@@ -104,6 +108,15 @@ TITLE_CAP = 6.5       # s, scla-title (duration-capped, gap-exempt)
 OUTRO_CAP = 8.5       # s, scla-outro (duration-capped, gap-exempt)
 ENTRANCE_SETTLE = 1.2 # s, Motion v2 entrance budget = first visual event
 CLOSING_BEAT = 0.5    # s before scene end the closing beat lands
+
+# static pacing estimate (2026-07-30) — see check_pacing_static. Measured, not
+# guessed: 249 content scenes across 14 built lessons give words-per-second of
+# data-duration at median 2.71 / p95 3.72. TYPICAL drives the WARN band, FAST is
+# a one-sided certainty bound (above every rate observed) so a static FAIL can
+# only mean the copy genuinely cannot fit the cap. Re-measure both if the pinned
+# voice or its speed ever changes.
+STATIC_WPS_TYPICAL = 2.7
+STATIC_WPS_FAST = 3.8
 
 # in-scene silence gate (2026-07-28). HeyGen's Oxana emits 0.98-1.26s of real
 # silence at sentence/clause boundaries INSIDE a scene, non-deterministically
@@ -328,7 +341,7 @@ def _cue_values(variables):
         raw = str(v)
         if k.endswith("Cues"):
             parts = raw.split(",")
-        elif k in ("mapCue", "iconCue"):
+        elif k in ("mapCue", "iconCue", "contextCue"):
             parts = [raw]
         else:
             continue
@@ -338,6 +351,91 @@ def _cue_values(variables):
             except ValueError:
                 pass
     return vals
+
+
+def _est_cue_times(scene, dur):
+    """Estimated cue times for a scene with NO synthesized audio yet.
+
+    A cue lands when its anchor phrase is spoken, so the phrase's word offset
+    inside the scene's own narration is a usable clock: a phrase ending at word
+    k of n is spoken at about (k/n) * dur. Cue anchors that don't resolve are
+    dropped silently — check_compile owns unresolvable anchors, and this
+    estimator must not double-report them."""
+    words = norm_phrase(scene.get("narration") or "")
+    if not words:
+        return []
+    n = len(words)
+    out = []
+    for phrases in (scene.get("cue_anchors") or {}).values():
+        for phrase in (phrases if isinstance(phrases, list) else [phrases]):
+            toks = norm_phrase(str(phrase))
+            if not toks:
+                continue
+            for i in range(len(words) - len(toks) + 1):
+                if words[i:i + len(toks)] == toks:
+                    out.append((i + len(toks)) / n * dur)
+                    break
+    return out
+
+
+def check_pacing_static(scenes):
+    """The pacing gate's plan-stage half (2026-07-30) — no audio required.
+
+    Until now `pacing` was the ONE owner-facing gate that could not fire before
+    TTS was spent: on 2026-07-29, 12 of 13 independently authored lessons failed
+    it the same way, and every one of them learned it after 258 clips instead of
+    during a JSON edit (snag log, "Promoted to docs" item 1). Every other rule in
+    this repo fires at plan stage; this closes that hole.
+
+    Duration is estimated from the scene's own narration word count. The two
+    rates are measured, not guessed — across 249 real content scenes in 14 built
+    lessons, words per second of `data-duration` runs median 2.71 and p95 3.72:
+
+      * over cap even at WPS_FAST (faster than any scene observed) -> FAIL.
+        No delivery this voice has ever produced fits that copy in the cap, so
+        the verdict is certain and blocking it costs the builder nothing but a
+        sentence split.
+      * over cap at WPS_TYPICAL -> WARN. Likely, not certain; per STD-38 it
+        teaches rather than nags, and the full gate settles it after synthesis.
+
+    Cue gaps are graded at WPS_TYPICAL and only ever WARN: the estimate carries
+    both the rate variance and the anchor-position approximation, so a hard
+    block here would fail plans that render fine."""
+    problems, warns = [], []
+    for s in scenes:
+        words = len(norm_phrase(s.get("narration") or ""))
+        if not words:
+            continue
+        tpl = Path(get_attr(s["tag"], "data-composition-src") or "").stem
+        cap = {"scla-title": TITLE_CAP, "scla-outro": OUTRO_CAP}.get(tpl, SCENE_CAP)
+        certain, typical = words / STATIC_WPS_FAST, words / STATIC_WPS_TYPICAL
+        if certain > cap:
+            problems.append(f"{s['id']}: {words} words cannot be spoken in the "
+                            f"{cap}s cap — ~{certain:.1f}s even at "
+                            f"{STATIC_WPS_FAST} words/s, faster than any scene "
+                            f"measured. Split it at a sentence end")
+            continue
+        if typical > cap:
+            warns.append(f"WARN {s['id']}: {words} words is ~{typical:.1f}s at "
+                         f"the typical {STATIC_WPS_TYPICAL} words/s, over the "
+                         f"{cap}s cap — likely needs splitting")
+        if tpl in ("scla-title", "scla-outro"):
+            continue  # duration-capped, gap-exempt (they carry no cues)
+        events = sorted({ENTRANCE_SETTLE, max(typical - CLOSING_BEAT, ENTRANCE_SETTLE),
+                         *(e for e in _est_cue_times(s, typical) if 0 <= e <= typical)})
+        worst, seg = 0.0, (0.0, 0.0)
+        for a, b in zip(events, events[1:]):
+            if b - a > worst:
+                worst, seg = b - a, (a, b)
+        if worst > GAP_FAIL:
+            warns.append(f"WARN {s['id']}: ~{worst:.1f}s with no visual event "
+                         f"({seg[0]:.1f}s→{seg[1]:.1f}s of an estimated "
+                         f"{typical:.1f}s) — add a cue anchor or split the scene")
+    out = problems + warns
+    return {"pass": not problems,
+            "output": "\n".join(out) or
+                      f"ok (estimated from narration) — every scene fits its "
+                      f"cap and no gap exceeds {GAP_FAIL}s"}
 
 
 def check_pacing(scenes):
@@ -737,13 +835,13 @@ def main():
         sections["script_match"] = check_script_match(ws, script_override)
         failed |= not sections["script_match"]["pass"]
 
-    # 6. pacing — Motion v2 cue-gap budget + scene duration caps
-    if static_mode:
-        sections["pacing"] = static_skip(
-            "compiled cue times + real scene durations")
-    else:
-        sections["pacing"] = check_pacing(scenes)
-        failed |= not sections["pacing"]["pass"]
+    # 6. pacing — Motion v2 cue-gap budget + scene duration caps. Static mode
+    #    ESTIMATES from narration word counts rather than skipping (2026-07-30):
+    #    this was the only owner-facing gate that could not fire before TTS was
+    #    spent, and 12 of 13 lessons on 2026-07-29 paid for that.
+    sections["pacing"] = (check_pacing_static(scenes) if static_mode
+                          else check_pacing(scenes))
+    failed |= not sections["pacing"]["pass"]
 
     # 7. text — minimum on-frame text size + no restatement of label/heading
     #    (owner calls 2026-07-27; tokens.yml typography.min-size + "Type rules").
