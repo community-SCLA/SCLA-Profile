@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per-file so this composition is self-contained.
+           Kept in its OWN <style> block: sub-comp CSS is scoped to the
+           data-composition-id, and an at-rule must not be able to take the
+           layout rules down with it. url() resolves against the HOST document,
+           which is where this template gets cloned. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #ffffff;
+        }
+
+        /* Region A — the headline slot. Four mutually-exclusive lines share it. */
+        .head-slot {
+          position: absolute;
+          left: 120px;
+          top: 240px;
+          width: 1560px;
+          font-size: 104px;
+          font-weight: 900;
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+          opacity: 0;
+          will-change: transform;
+        }
+        #op-line3a {
+          font-size: 72px;
+          line-height: 1.12;
+        }
+        #op-line4 {
+          color: #eaab2d;
+        }
+
+        /* Region B — the supporting band. */
+        #op-items {
+          position: absolute;
+          left: 120px;
+          top: 540px;
+          width: 1200px;
+        }
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 28px;
+          height: 88px;
+          opacity: 0;
+          will-change: transform;
+        }
+        .item-tick {
+          display: block;
+          width: 44px;
+          height: 4px;
+          background: #eaab2d;
+          flex: 0 0 auto;
+        }
+        .item-text {
+          font-size: 46px;
+          font-weight: 700;
+          color: rgba(255, 255, 255, 0.94);
+        }
+
+        #op-line3b {
+          position: absolute;
+          left: 120px;
+          top: 546px;
+          width: 1340px;
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.42;
+          color: rgba(255, 255, 255, 0.78);
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* A single hairline that survives the act — the horizon the map builds on. */
+        #op-rule {
+          position: absolute;
+          left: 120px;
+          top: 960px;
+          width: 1680px;
+          height: 2px;
+          background: rgba(51, 147, 214, 0.42);
+          transform-origin: 0 50%;
+          transform: scaleX(0);
+        }
+      </style>
+
+      <div data-hf-id="hf-nrhd" id="root" data-composition-id="opening" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-l7xh" class="head-slot" id="op-line1">Years of experience.</div>
+        <div data-hf-id="hf-sfji" class="head-slot" id="op-line2">Your next step feels less clear.</div>
+        <div data-hf-id="hf-bo7y" class="head-slot" id="op-line3a">Not all transitions are the same.</div>
+        <div data-hf-id="hf-yg0q" class="head-slot" id="op-line4">Two questions.</div>
+
+        <div data-hf-id="hf-l6mj" id="op-items">
+          <div data-hf-id="hf-m2f3" class="item" id="op-item1">
+            <span data-hf-id="hf-hs6a" class="item-tick"></span><span data-hf-id="hf-jx82" class="item-text">Projects delivered</span>
+          </div>
+          <div data-hf-id="hf-dej8" class="item" id="op-item2">
+            <span data-hf-id="hf-eu9y" class="item-tick"></span><span data-hf-id="hf-qcyg" class="item-text">Teams supported</span>
+          </div>
+          <div data-hf-id="hf-e671" class="item" id="op-item3">
+            <span data-hf-id="hf-f8kz" class="item-tick"></span><span data-hf-id="hf-6stc" class="item-text">Stakeholders managed</span>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-ygrt" id="op-line3b">The advice that fits one transition can sink another.</div>
+
+        <div data-hf-id="hf-awtv" id="op-rule"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power4.out";
+          const OUT = "power2.in";
+
+          // Arrivals are binary (tl.set opacity 1) + a whip from below — never a fade.
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.3, ease: OUT }, t);
+          }
+
+          // ---- s01 — "years of experience / projects, teams, stakeholders"
+          arrive("#op-line1", 0.9, 76, 0.22);
+          tl.fromTo("#op-rule", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "power3.out" }, 1.05);
+          // The three items land on their own spoken words (HeyGen word timestamps,
+          // s01 audio starts at 0.900): "Projects" 2.92 / "teams" 4.00 / "stakeholders" 5.16.
+          arrive("#op-item1", 3.82, 48, 0.16);
+          arrive("#op-item2", 4.9, 48, 0.15);
+          arrive("#op-item3", 6.06, 48, 0.14);
+
+          // ---- s02 — the step gets less clear: the record dims, the doubt lands
+          leave("#op-line1", 7.6, -44);
+          tl.to("#op-items", { opacity: 0.22, duration: 0.5, ease: "power2.out" }, 7.72);
+          arrive("#op-line2", 7.95, 72, 0.24);
+
+          // ---- s03 — not all transitions are the same
+          leave("#op-line2", 12.45, -44);
+          tl.to("#op-items", { opacity: 0, duration: 0.35, ease: OUT }, 12.45);
+          arrive("#op-line3a", 12.85, 64, 0.22);
+          arrive("#op-line3b", 14.9, 42, 0.2);
+
+          // ---- s04 — the hand-off into the map
+          leave("#op-line3a", 18.5, -40);
+          leave("#op-line3b", 18.5, -28);
+          arrive("#op-line4", 19.05, 76, 0.24);
+
+          // Clear the frame for the map's first stroke.
+          tl.to("#op-line4", { opacity: 0, duration: 0.34, ease: OUT }, 22.5);
+          tl.to("#op-rule", { opacity: 0, duration: 0.34, ease: OUT }, 22.5);
+
+          window.__timelines["opening"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "provider": "heygen",
+  "lang": "en",
+  "speed": 1.0,
+  "bgm": { "mode": "none" },
+  "lines": [
+    { "id": "s01", "text": "You've accumulated years of experience. Projects delivered, teams supported, and stakeholders managed." },
+    { "id": "s02", "text": "But your next step probably feels less clear than your first job did." },
+    { "id": "s03", "text": "Here's the thing: not all transitions are the same, and the advice that fits one can sink another." },
+    { "id": "s04", "text": "Almost any career change sorts along two questions." },
+    { "id": "s05", "text": "First — did you choose it, or did it choose you? That's the difference between a chosen move and a forced one." },
+    { "id": "s06", "text": "Second — how big is the leap? Are you building on your past in an adjacent direction, or reinventing into something genuinely new?" },
+    { "id": "s07", "text": "Cross those two questions, and you get four kinds of career transition." },
+    { "id": "s08", "text": "The first is the Pivot — a change you chose that still builds on your past. You're moving to adjacent territory. Same core strengths, new context." },
+    { "id": "s09", "text": "Think finance to product, or teaching to instructional design. Because your experience carries forward, a pivot is lower-risk and faster than it looks." },
+    { "id": "s10", "text": "Your job is less to prove brand-new skills than to reframe the ones you already have." },
+    { "id": "s11", "text": "The second is the Reinvention — also a change you chose, but this time into something genuinely new. You're deliberately changing fields, and often changing part of your identity along with it." },
+    { "id": "s12", "text": "Think of an editor who becomes a fashion designer. The upside is real, but so is the cost: reinvention asks for more identity work and more experimentation before it clicks." },
+    { "id": "s13", "text": "The third is the Rebuild — a change you did not choose, but one that keeps you near your field. A layoff or a life event pushed you, yet the work you're heading toward still builds on what you already know." },
+    { "id": "s14", "text": "The practical path here is usually shorter than it feels. The harder part is emotional, because you didn't ask for it. Your first job is to process that loss so it doesn't quietly leak into your interviews." },
+    { "id": "s15", "text": "The fourth is the Forced Reinvention — the hardest of the four. Here you were pushed out and the old path is closed, so you're reinventing into something new without having chosen to." },
+    { "id": "s16", "text": "It asks the most of you: extra care, extra support, and extra experimentation while you find your footing." },
+    { "id": "s17", "text": "But it's also where some of the most remarkable reinventions come from. When necessity clears away the shoulds, people often build something they would never have reached for on their own." },
+    { "id": "s18", "text": "None of these four is better than the others. Knowing which one you're in tells you what to plan for." },
+    { "id": "s19", "text": "How much identity work and grief to expect, and how much experimenting you'll need before you commit." },
+    { "id": "s20", "text": "So whenever your next move feels foggy, ask the two questions: Did I choose this, or did it choose me? And how big is the leap?" },
+    { "id": "s21", "text": "In this module, you'll reflect on your current role, your desired role, and what success would look like over the next year." },
+    { "id": "s22", "text": "Then you'll use an A.I. activity to analyze the projects that energize you. So your choice is grounded in evidence, not just impulse." },
+    { "id": "s23", "text": "Finally, you'll capture your direction in a simple Next Move Statement for the next 6 to 12 months." },
+    { "id": "s24", "text": "You don't need to solve your entire career here. You only need to recognize which of these four transitions you're in right now. That clarity is what creates momentum." }
+  ]
+}

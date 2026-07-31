@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* ---- Brand font: Proxima Nova, self-hosted (brand/visual-identity.md) ----
+         Declared once here, in the HOST head. Sub-compositions are cloned INTO
+         this document, so the face resolves for them too — and an @font-face
+         inside a sub-comp <template> would be mangled by CSS scoping. */
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+      }
+      body {
+        font-family: "Proxima Nova", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+
+      /* Full-bleed fill lives on a CHILD, never on the composition root —
+         the producer can drop a root background and render the frame black. */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: #0a1e2f;
+      }
+      #bg-glow {
+        position: absolute;
+        left: 50%;
+        top: 46%;
+        width: 1700px;
+        height: 1200px;
+        margin: -600px 0 0 -850px;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(51, 147, 214, 0.16) 0%,
+          rgba(13, 36, 55, 0.55) 42%,
+          rgba(10, 30, 47, 0) 72%
+        );
+        will-change: transform;
+      }
+      #bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 120px 120px;
+        background-position: 0 0;
+      }
+      #bg-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 50%, rgba(10, 30, 47, 0) 55%, rgba(6, 20, 32, 0.72) 100%);
+      }
+
+      /* Persistent chrome — the program banner, present for the whole runtime. */
+      #chrome {
+        position: absolute;
+        left: 120px;
+        top: 62px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+      }
+      #chrome-mark {
+        display: block;
+        width: 10px;
+        height: 32px;
+        background: #eaab2d;
+      }
+      #chrome-text {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      /* Sub-composition slots fill the frame. */
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-ke5y" id="root" data-composition-id="main" data-start="0" data-duration="200.53" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-2xc0" id="bg">
+        <div data-hf-id="hf-isbq" id="bg-glow"></div>
+        <div data-hf-id="hf-r3kh" id="bg-grid"></div>
+        <div data-hf-id="hf-s60r" id="bg-vignette"></div>
+      </div>
+
+      <div data-hf-id="hf-rwb7" id="chrome">
+        <span data-hf-id="hf-ptn2" id="chrome-mark"></span>
+        <span data-hf-id="hf-oun7" id="chrome-text">Mid-Career Momentum</span>
+      </div>
+
+      <!-- ACT 1 — the hook, typographic, before the map exists. -->
+      <div data-hf-id="hf-5zt7" id="el-opening" data-composition-id="opening" data-composition-src="compositions/opening.html" data-start="0" data-duration="22.982" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- ACTS 2-4 — one continuous state machine on ONE matrix. -->
+      <div data-hf-id="hf-dvmh" id="el-map" data-composition-id="map" data-composition-src="compositions/map.html" data-start="22.982" data-duration="142.661" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- ACT 5 — what the module asks of you, and the close. -->
+      <div data-hf-id="hf-3c7q" id="el-closing" data-composition-id="closing" data-composition-src="compositions/closing.html" data-start="165.643" data-duration="34.887" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — HeyGen Starfish TTS, voice Oxana (442360a3e0894fbd85024ff64cc2b928).
+           One element per beat at GLOBAL time, on a track well above the visuals. -->
+      <audio data-hf-id="hf-jwbn" id="vo-s01" src="assets/voice/s01.wav" data-start="0.9" data-duration="6.635" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-2zxd" id="vo-s02" src="assets/voice/s02.wav" data-start="7.885" data-duration="4.571" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-q0ep" id="vo-s03" src="assets/voice/s03.wav" data-start="12.806" data-duration="5.904" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ls4p" id="vo-s04" src="assets/voice/s04.wav" data-start="19.06" data-duration="3.422" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-srj3" id="vo-s05" src="assets/voice/s05.wav" data-start="23.232" data-duration="5.721" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-lmk5" id="vo-s06" src="assets/voice/s06.wav" data-start="29.303" data-duration="7.184" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ijyd" id="vo-s07" src="assets/voice/s07.wav" data-start="36.837" data-duration="3.892" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-i1t9" id="vo-s08" src="assets/voice/s08.wav" data-start="41.479" data-duration="9.874" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-l1sm" id="vo-s09" src="assets/voice/s09.wav" data-start="51.703" data-duration="10.083" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ba2d" id="vo-s10" src="assets/voice/s10.wav" data-start="62.136" data-duration="4.702" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-6pml" id="vo-s11" src="assets/voice/s11.wav" data-start="67.388" data-duration="11.337" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-zi7f" id="vo-s12" src="assets/voice/s12.wav" data-start="79.075" data-duration="10.71" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-k3g4" id="vo-s13" src="assets/voice/s13.wav" data-start="90.335" data-duration="12.696" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-1of6" id="vo-s14" src="assets/voice/s14.wav" data-start="103.381" data-duration="12.304" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-canj" id="vo-s15" src="assets/voice/s15.wav" data-start="116.235" data-duration="10.475" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-4x1v" id="vo-s16" src="assets/voice/s16.wav" data-start="127.06" data-duration="6.661" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-h2bk" id="vo-s17" src="assets/voice/s17.wav" data-start="134.071" data-duration="10.632" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-08fh" id="vo-s18" src="assets/voice/s18.wav" data-start="145.453" data-duration="4.78" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-lf50" id="vo-s19" src="assets/voice/s19.wav" data-start="150.583" data-duration="5.146" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-nz6t" id="vo-s20" src="assets/voice/s20.wav" data-start="156.079" data-duration="9.064" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-o4fy" id="vo-s21" src="assets/voice/s21.wav" data-start="165.893" data-duration="6.792" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ntt3" id="vo-s22" src="assets/voice/s22.wav" data-start="173.035" data-duration="10.083" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-rzxg" id="vo-s23" src="assets/voice/s23.wav" data-start="183.468" data-duration="5.355" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-fbfk" id="vo-s24" src="assets/voice/s24.wav" data-start="189.173" data-duration="9.561" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Chrome settles once, then never moves again.
+      tl.fromTo("#chrome", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+
+      // One shared ambient breath on the background GLOW only — never on content.
+      // Finite repeats (8s half-period x 25 legs = 200s ~= data-duration).
+      tl.fromTo(
+        "#bg-glow",
+        { scale: 1, opacity: 0.92 },
+        { scale: 1.06, opacity: 1, duration: 8, ease: "sine.inOut", yoyo: true, repeat: 24 },
+        0,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

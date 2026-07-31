@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per-file so this composition is self-contained.
+           Kept in its OWN <style> block: sub-comp CSS is scoped to the
+           data-composition-id, and an at-rule must not be able to take the
+           layout rules down with it. url() resolves against the HOST document,
+           which is where this template gets cloned. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #ffffff;
+        }
+
+        #cl-kicker {
+          position: absolute;
+          left: 120px;
+          top: 238px;
+          font-size: 28px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #eaab2d;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        .step {
+          position: absolute;
+          left: 120px;
+          width: 1680px;
+          display: flex;
+          align-items: flex-start;
+          gap: 44px;
+          opacity: 0;
+          will-change: transform;
+        }
+        #step1 {
+          top: 330px;
+        }
+        #step2 {
+          top: 524px;
+        }
+        #step3 {
+          top: 718px;
+        }
+        .step-num {
+          flex: 0 0 96px;
+          font-size: 44px;
+          font-weight: 900;
+          line-height: 1.32;
+          color: #3393d6;
+          font-variant-numeric: tabular-nums;
+        }
+        .step-text {
+          flex: 1 1 auto;
+          max-width: 1420px;
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.32;
+          color: rgba(255, 255, 255, 0.9);
+        }
+        .step-text b {
+          font-weight: 700;
+          color: #ffffff;
+        }
+
+        /* The close */
+        .close-line {
+          position: absolute;
+          left: 120px;
+          width: 1600px;
+          opacity: 0;
+          will-change: transform;
+        }
+        #cl-a {
+          top: 330px;
+          font-size: 56px;
+          font-weight: 900;
+          line-height: 1.14;
+          letter-spacing: -0.01em;
+          color: rgba(255, 255, 255, 0.72);
+        }
+        #cl-b {
+          top: 450px;
+          font-size: 56px;
+          font-weight: 900;
+          line-height: 1.14;
+          letter-spacing: -0.01em;
+          color: #ffffff;
+        }
+        #cl-c {
+          top: 672px;
+          font-size: 68px;
+          font-weight: 900;
+          line-height: 1.14;
+          letter-spacing: -0.02em;
+          color: #eaab2d;
+        }
+        #cl-rule {
+          position: absolute;
+          left: 120px;
+          top: 620px;
+          width: 1680px;
+          height: 2px;
+          background: rgba(51, 147, 214, 0.42);
+          transform-origin: 0 50%;
+          transform: scaleX(0);
+        }
+      </style>
+
+      <div data-hf-id="hf-2qee" id="root" data-composition-id="closing" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-sayd" id="cl-kicker">In this module</div>
+
+        <div data-hf-id="hf-x1l3" class="step" id="step1">
+          <span data-hf-id="hf-hqo3" class="step-num">01</span>
+          <span data-hf-id="hf-qnos" class="step-text">Reflect on your current role, your desired role, and what success would look like over the next
+            year.</span>
+        </div>
+        <div data-hf-id="hf-m63g" class="step" id="step2">
+          <span data-hf-id="hf-hcd2" class="step-num">02</span>
+          <span data-hf-id="hf-cp82" class="step-text">Use an AI activity to analyze the projects that energize you, so your choice is grounded in
+            <b data-hf-id="hf-hqsq">evidence, not impulse</b>.</span>
+        </div>
+        <div data-hf-id="hf-mxr9" class="step" id="step3">
+          <span data-hf-id="hf-gy21" class="step-num">03</span>
+          <span data-hf-id="hf-rlu9" class="step-text">Capture your direction in a simple <b data-hf-id="hf-kxtw">Next Move Statement</b> for the next 6–12 months.</span>
+        </div>
+
+        <div data-hf-id="hf-sw2d" class="close-line" id="cl-a">You don't need to solve your entire career here.</div>
+        <div data-hf-id="hf-x5ec" class="close-line" id="cl-b">Only recognize which of these four you're in right now.</div>
+        <div data-hf-id="hf-vy97" id="cl-rule"></div>
+        <div data-hf-id="hf-9k5y" class="close-line" id="cl-c">That clarity is what creates momentum.</div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power4.out";
+          const OUT = "power2.in";
+
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y == null ? 40 : y }, t);
+            tl.to(sel, { y: 0, duration: dur == null ? 0.2 : dur, ease: IN }, t);
+          }
+          function leave(sel, t) {
+            tl.to(sel, { opacity: 0, y: -26, duration: 0.3, ease: OUT }, t);
+          }
+
+          // ---- s21/s22/s23 — the three module steps arrive on their own beats and
+          // STAY. Sequential reveal timed to the VO, not an ambient loop.
+          arrive("#cl-kicker", 0.3, 24, 0.2);
+          arrive("#step1", 0.85, 56, 0.22);
+          arrive("#step2", 7.65, 56, 0.22);
+          arrive("#step3", 18.05, 56, 0.22);
+
+          // ---- s24 — the close (audio @23.530)
+          leave("#cl-kicker", 23.4);
+          leave("#step1", 23.4);
+          leave("#step2", 23.46);
+          leave("#step3", 23.52);
+
+          arrive("#cl-a", 23.85, 52, 0.24); // "You don't need to solve..." (0.24)
+          arrive("#cl-b", 26.28, 52, 0.24); // "You only need to recognize..." (2.70)
+          tl.fromTo("#cl-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.out" }, 26.6);
+          arrive("#cl-c", 30.86, 56, 0.26); // "That clarity..." (7.28)
+
+          // Settle to the ground.
+          tl.to(["#cl-a", "#cl-b", "#cl-c", "#cl-rule"], { opacity: 0, duration: 0.7, ease: "power2.inOut" }, 34.05);
+
+          window.__timelines["closing"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

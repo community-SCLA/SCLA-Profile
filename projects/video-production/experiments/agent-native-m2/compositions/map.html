@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per-file so this composition is self-contained.
+           Kept in its OWN <style> block: sub-comp CSS is scoped to the
+           data-composition-id, and an at-rule must not be able to take the
+           layout rules down with it. url() resolves against the HOST document,
+           which is where this template gets cloned. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #ffffff;
+        }
+
+        /* ---------- the map ----------
+           grid 400..1080 x 250..930, cells 340, plates inset 14 */
+        #matrix {
+          position: absolute;
+          inset: 0;
+        }
+
+        .row-label,
+        .col-label {
+          position: absolute;
+          font-size: 30px;
+          font-weight: 700;
+          line-height: 1.22;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #3393d6;
+          opacity: 0;
+          will-change: transform;
+        }
+        .row-label {
+          left: 120px;
+          width: 260px;
+          text-align: right;
+        }
+        #lab-chose {
+          top: 401px;
+        }
+        #lab-forced {
+          top: 741px;
+        }
+        .col-label {
+          top: 196px;
+          width: 340px;
+          text-align: center;
+        }
+        #lab-adjacent {
+          left: 400px;
+        }
+        #lab-new {
+          left: 740px;
+        }
+
+        /* Axes — the two questions, drawn. */
+        #ax-h {
+          position: absolute;
+          left: 400px;
+          top: 589px;
+          width: 680px;
+          height: 2px;
+          background: #3393d6;
+          transform-origin: 0 50%;
+          transform: scaleX(0);
+        }
+        #ax-v {
+          position: absolute;
+          left: 739px;
+          top: 250px;
+          width: 2px;
+          height: 680px;
+          background: #3393d6;
+          transform-origin: 50% 0;
+          transform: scaleY(0);
+        }
+
+        /* Four plates, one per quadrant. */
+        .plate {
+          position: absolute;
+          width: 312px;
+          height: 312px;
+          border: 1px solid rgba(51, 147, 214, 0.38);
+          background: rgba(13, 36, 55, 0.62);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          will-change: transform;
+        }
+        #plate-tl {
+          left: 414px;
+          top: 264px;
+        }
+        #plate-tr {
+          left: 754px;
+          top: 264px;
+        }
+        #plate-bl {
+          left: 414px;
+          top: 604px;
+        }
+        #plate-br {
+          left: 754px;
+          top: 604px;
+        }
+        .plate-active {
+          position: absolute;
+          inset: -1px;
+          border: 3px solid #eaab2d;
+          background: rgba(234, 171, 45, 0.1);
+          opacity: 0;
+        }
+        .plate-name {
+          position: relative;
+          padding: 0 22px;
+          font-size: 38px;
+          font-weight: 900;
+          line-height: 1.14;
+          letter-spacing: -0.01em;
+          text-align: center;
+          color: #ffffff;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        #divider {
+          position: absolute;
+          left: 1120px;
+          top: 250px;
+          width: 1px;
+          height: 680px;
+          background: rgba(255, 255, 255, 0.12);
+          transform-origin: 50% 0;
+          transform: scaleY(0);
+        }
+
+        /* ---------- the panel ---------- */
+        #panel {
+          position: absolute;
+          left: 1170px;
+          top: 0;
+          width: 630px;
+          height: 1080px;
+        }
+        .pnl-head {
+          position: absolute;
+          left: 0;
+          top: 250px;
+          width: 630px;
+          opacity: 0;
+          will-change: transform;
+        }
+        .pnl-kicker {
+          font-size: 28px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #eaab2d;
+          margin-bottom: 18px;
+        }
+        .pnl-title {
+          font-size: 56px;
+          font-weight: 900;
+          line-height: 1.14;
+          letter-spacing: -0.01em;
+        }
+
+        .pnl-body {
+          position: absolute;
+          left: 0;
+          top: 470px;
+          width: 630px;
+          opacity: 0;
+          will-change: transform;
+        }
+        .pnl-body.high {
+          top: 330px;
+        }
+        .pnl-line {
+          font-size: 40px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: rgba(255, 255, 255, 0.82);
+        }
+        .pnl-line + .pnl-line {
+          margin-top: 34px;
+        }
+        .pnl-line.accent {
+          color: #eaab2d;
+          font-weight: 700;
+        }
+        .pnl-line.big {
+          font-size: 56px;
+          font-weight: 900;
+          line-height: 1.14;
+          color: #ffffff;
+        }
+        .pnl-q {
+          font-size: 48px;
+          font-weight: 900;
+          line-height: 1.16;
+          letter-spacing: -0.01em;
+          color: #eaab2d;
+          opacity: 0;
+          will-change: transform;
+        }
+        .pnl-q + .pnl-q {
+          margin-top: 44px;
+        }
+
+        /* The three "extra" beats land on their own spoken words. */
+        .extra {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          height: 74px;
+          opacity: 0;
+          will-change: transform;
+        }
+        .extra-tick {
+          display: block;
+          width: 34px;
+          height: 4px;
+          background: #eaab2d;
+          flex: 0 0 auto;
+        }
+        .extra-text {
+          font-size: 44px;
+          font-weight: 700;
+          color: #ffffff;
+        }
+      </style>
+
+      <div data-hf-id="hf-jv7n" id="root" data-composition-id="map" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-qpri" id="matrix">
+          <div data-hf-id="hf-3u9j" class="row-label" id="lab-chose">You chose it</div>
+          <div data-hf-id="hf-ytyw" class="row-label" id="lab-forced">It chose you</div>
+          <div data-hf-id="hf-bssr" class="col-label" id="lab-adjacent">Adjacent leap</div>
+          <div data-hf-id="hf-xq6s" class="col-label" id="lab-new">New-field leap</div>
+
+          <div data-hf-id="hf-yezl" id="ax-h"></div>
+          <div data-hf-id="hf-h6tb" id="ax-v"></div>
+
+          <div data-hf-id="hf-pq1f" class="plate" id="plate-tl">
+            <span data-hf-id="hf-3rk9" class="plate-active" id="act-tl"></span>
+            <span data-hf-id="hf-i535" class="plate-name" id="name-tl">Pivot</span>
+          </div>
+          <div data-hf-id="hf-wnf1" class="plate" id="plate-tr">
+            <span data-hf-id="hf-7m6v" class="plate-active" id="act-tr"></span>
+            <span data-hf-id="hf-7ypq" class="plate-name" id="name-tr">Reinvention</span>
+          </div>
+          <div data-hf-id="hf-ww0l" class="plate" id="plate-bl">
+            <span data-hf-id="hf-vf0f" class="plate-active" id="act-bl"></span>
+            <span data-hf-id="hf-55q0" class="plate-name" id="name-bl">Rebuild</span>
+          </div>
+          <div data-hf-id="hf-b1fv" class="plate" id="plate-br">
+            <span data-hf-id="hf-cn6p" class="plate-active" id="act-br"></span>
+            <span data-hf-id="hf-pnfz" class="plate-name" id="name-br">Forced Reinvention</span>
+          </div>
+
+          <div data-hf-id="hf-5i2k" id="divider"></div>
+        </div>
+
+        <div data-hf-id="hf-zk0l" id="panel">
+          <!-- Act 2 — the two questions, asked -->
+          <div data-hf-id="hf-imme" class="pnl-body high" id="b-q1">
+            <div data-hf-id="hf-j6nt" class="pnl-line big">Did you choose it, or did it choose you?</div>
+            <div data-hf-id="hf-ks8w" class="pnl-line">A chosen move, or a forced one.</div>
+          </div>
+          <div data-hf-id="hf-eoid" class="pnl-body high" id="b-q2">
+            <div data-hf-id="hf-jnyj" class="pnl-line big">How big is the leap?</div>
+            <div data-hf-id="hf-plqq" class="pnl-line">Adjacent to your past, or genuinely new.</div>
+          </div>
+          <div data-hf-id="hf-dwuk" class="pnl-body high" id="b-q3">
+            <div data-hf-id="hf-jpbm" class="pnl-line big">Cross them, and you get four kinds of career transition.</div>
+          </div>
+
+          <!-- Act 3 — one head per quadrant, body swaps beneath it -->
+          <div data-hf-id="hf-1ff2" class="pnl-head" id="h-pivot">
+            <div data-hf-id="hf-n4r1" class="pnl-kicker">You chose it · Adjacent leap</div>
+            <div data-hf-id="hf-jbhl" class="pnl-title">Pivot</div>
+          </div>
+          <div data-hf-id="hf-qdiy" class="pnl-head" id="h-reinv">
+            <div data-hf-id="hf-1dsw" class="pnl-kicker">You chose it · New-field leap</div>
+            <div data-hf-id="hf-fgag" class="pnl-title">Reinvention</div>
+          </div>
+          <div data-hf-id="hf-xl4v" class="pnl-head" id="h-rebuild">
+            <div data-hf-id="hf-9b4j" class="pnl-kicker">It chose you · Adjacent leap</div>
+            <div data-hf-id="hf-qa56" class="pnl-title">Rebuild</div>
+          </div>
+          <div data-hf-id="hf-2gpp" class="pnl-head" id="h-forced">
+            <div data-hf-id="hf-7gz6" class="pnl-kicker">It chose you · New-field leap</div>
+            <div data-hf-id="hf-hvnj" class="pnl-title">Forced Reinvention</div>
+          </div>
+
+          <div data-hf-id="hf-sxp5" class="pnl-body" id="b08">
+            <div data-hf-id="hf-c0ll" class="pnl-line">A change you chose that still builds on your past.</div>
+            <div data-hf-id="hf-vo8x" class="pnl-line accent">Same core strengths, new context.</div>
+          </div>
+          <div data-hf-id="hf-s61c" class="pnl-body" id="b09">
+            <div data-hf-id="hf-0d5o" class="pnl-line">Finance to product. Teaching to instructional design.</div>
+            <div data-hf-id="hf-oqki" class="pnl-line accent">Lower-risk, and faster than it looks.</div>
+          </div>
+          <div data-hf-id="hf-wi8m" class="pnl-body" id="b10">
+            <div data-hf-id="hf-rs4t" class="pnl-line">Your job is to reframe the strengths you already have, not to prove brand-new ones.</div>
+          </div>
+          <div data-hf-id="hf-2nyf" class="pnl-body" id="b11">
+            <div data-hf-id="hf-94qa" class="pnl-line">Also a change you chose, but this time into something genuinely new.</div>
+            <div data-hf-id="hf-4b8m" class="pnl-line accent">Changing fields, and part of your identity with it.</div>
+          </div>
+          <div data-hf-id="hf-rsgs" class="pnl-body" id="b12">
+            <div data-hf-id="hf-voqn" class="pnl-line">An editor becomes a fashion designer.</div>
+            <div data-hf-id="hf-797c" class="pnl-line accent">More identity work, and more experimentation before it clicks.</div>
+          </div>
+          <div data-hf-id="hf-sk4l" class="pnl-body" id="b13">
+            <div data-hf-id="hf-f6nw" class="pnl-line">You did not choose it, but it keeps you near your field.</div>
+            <div data-hf-id="hf-x8d3" class="pnl-line accent">A layoff or a life event pushed you.</div>
+          </div>
+          <div data-hf-id="hf-bbua" class="pnl-body" id="b14">
+            <div data-hf-id="hf-9su4" class="pnl-line">The practical path is shorter than it feels.</div>
+            <div data-hf-id="hf-l0l5" class="pnl-line accent">The harder part is emotional. Process the loss so it doesn't leak into your interviews.</div>
+          </div>
+          <div data-hf-id="hf-f9yb" class="pnl-body" id="b15">
+            <div data-hf-id="hf-90b0" class="pnl-line">Pushed out, and the old path is closed.</div>
+            <div data-hf-id="hf-joko" class="pnl-line accent">Reinventing into something new without having chosen to.</div>
+          </div>
+          <div data-hf-id="hf-6m2g" class="pnl-body" id="b16">
+            <div data-hf-id="hf-9yhd" class="extra" id="x1"><span data-hf-id="hf-jsj9" class="extra-tick"></span><span data-hf-id="hf-9x1g" class="extra-text">Extra care</span></div>
+            <div data-hf-id="hf-g476" class="extra" id="x2"><span data-hf-id="hf-ev6x" class="extra-tick"></span><span data-hf-id="hf-6sm8" class="extra-text">Extra support</span></div>
+            <div data-hf-id="hf-k2b7" class="extra" id="x3"><span data-hf-id="hf-g240" class="extra-tick"></span><span data-hf-id="hf-ytln" class="extra-text">Extra experimentation</span></div>
+          </div>
+          <div data-hf-id="hf-7dq9" class="pnl-body" id="b17">
+            <div data-hf-id="hf-sbsl" class="pnl-line">When necessity clears away the shoulds,</div>
+            <div data-hf-id="hf-ms6x" class="pnl-line accent">people build what they would never have reached for on their own.</div>
+          </div>
+
+          <!-- Act 4 — the map resolves -->
+          <div data-hf-id="hf-suo0" class="pnl-body high" id="b18">
+            <div data-hf-id="hf-stew" class="pnl-line big">None of the four is better than the others.</div>
+          </div>
+          <div data-hf-id="hf-tmbt" class="pnl-body high" id="b19">
+            <div data-hf-id="hf-krwv" class="pnl-line big">Knowing which one you're in tells you what to plan for.</div>
+            <div data-hf-id="hf-bmr8" class="pnl-line">How much identity work. How much grief. How much experimenting before you commit.</div>
+          </div>
+          <div data-hf-id="hf-rngp" class="pnl-body high" id="b20">
+            <div data-hf-id="hf-uirh" class="pnl-kicker" id="b20-kicker">Ask the two questions</div>
+            <div data-hf-id="hf-r5gj" class="pnl-q" id="b20-q1">Did I choose this, or did it choose me?</div>
+            <div data-hf-id="hf-kzip" class="pnl-q" id="b20-q2">And how big is the leap?</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power4.out";
+          const OUT = "power2.in";
+
+          // Arrival: binary reveal + a whip from below. Exit: a short fade up.
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y == null ? 40 : y }, t);
+            tl.to(sel, { y: 0, duration: dur == null ? 0.2 : dur, ease: IN }, t);
+          }
+          function leave(sel, t) {
+            tl.to(sel, { opacity: 0, y: -26, duration: 0.3, ease: OUT }, t);
+          }
+          // A body block swaps out, the next swaps in 0.3s later.
+          function swap(outSel, inSel, t) {
+            if (outSel) leave(outSel, t);
+            arrive(inSel, t + 0.3, 40, 0.22);
+          }
+
+          // ================= ACT 2 — the map is built =================
+          // s05 (audio @0.250): the first question draws the horizontal axis.
+          arrive("#b-q1", 0.3, 46, 0.24);
+          tl.fromTo("#ax-h", { scaleX: 0 }, { scaleX: 1, duration: 0.85, ease: "power3.out" }, 0.45);
+          tl.fromTo("#divider", { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power3.out" }, 0.45);
+          // Row labels land on "choose it" (0.86) and "did it choose you" (1.46).
+          arrive("#lab-chose", 1.11, 26, 0.16);
+          arrive("#lab-forced", 1.71, 26, 0.16);
+
+          // s06 (audio @6.321): the second question draws the vertical axis.
+          leave("#b-q1", 5.75);
+          arrive("#b-q2", 6.4, 46, 0.24);
+          tl.fromTo("#ax-v", { scaleY: 0 }, { scaleY: 1, duration: 0.85, ease: "power3.out" }, 6.55);
+          // Column labels land on "adjacent" (3.54) and "reinventing" (5.00).
+          arrive("#lab-adjacent", 9.86, 24, 0.16);
+          arrive("#lab-new", 11.32, 24, 0.16);
+
+          // s07 (audio @13.855): "four kinds" — the four plates spring in.
+          leave("#b-q2", 13.3);
+          arrive("#b-q3", 13.95, 46, 0.24);
+          const plates = ["#plate-tl", "#plate-tr", "#plate-bl", "#plate-br"];
+          plates.forEach(function (sel, i) {
+            const t = 15.99 + i * 0.09;
+            tl.set(sel, { opacity: 1 }, t);
+            tl.fromTo(sel, { scale: 0.62 }, { scale: 1, duration: 0.42, ease: "back.out(1.7)" }, t);
+          });
+
+          // ================= ACT 3 — one quadrant at a time =================
+          leave("#b-q3", 17.95);
+
+          // Activating a quadrant: its plate takes the accent, its name arrives.
+          function activate(actSel, nameSel, t) {
+            tl.to(actSel, { opacity: 1, duration: 0.4, ease: "power2.out" }, t);
+            tl.set(nameSel, { opacity: 1, y: 26 }, t + 0.12);
+            tl.to(nameSel, { y: 0, duration: 0.24, ease: IN }, t + 0.12);
+          }
+          // Introduced, no longer the subject: the plate releases the accent and the
+          // name settles back to a map key.
+          function deactivate(actSel, nameSel, t) {
+            tl.to(actSel, { opacity: 0, duration: 0.4, ease: "power2.out" }, t);
+            tl.to(nameSel, { opacity: 0.42, duration: 0.4, ease: "power2.out" }, t);
+          }
+
+          // --- Pivot (chosen · adjacent) : s08 s09 s10
+          activate("#act-tl", "#name-tl", 18.3);
+          arrive("#h-pivot", 18.55, 40, 0.22);
+          arrive("#b08", 18.95, 40, 0.22);
+          swap("#b08", "#b09", 28.55);
+          swap("#b09", "#b10", 38.99);
+
+          // --- Reinvention (chosen · new) : s11 s12
+          deactivate("#act-tl", "#name-tl", 44.24);
+          activate("#act-tr", "#name-tr", 44.24);
+          leave("#h-pivot", 44.24);
+          arrive("#h-reinv", 44.6, 40, 0.22);
+          swap("#b10", "#b11", 44.9);
+          swap("#b11", "#b12", 55.93);
+
+          // --- Rebuild (forced · adjacent) : s13 s14
+          deactivate("#act-tr", "#name-tr", 67.19);
+          activate("#act-bl", "#name-bl", 67.19);
+          leave("#h-reinv", 67.19);
+          arrive("#h-rebuild", 67.55, 40, 0.22);
+          swap("#b12", "#b13", 67.85);
+          swap("#b13", "#b14", 80.24);
+
+          // --- Forced Reinvention (forced · new) : s15 s16 s17
+          deactivate("#act-bl", "#name-bl", 93.09);
+          activate("#act-br", "#name-br", 93.09);
+          leave("#h-rebuild", 93.09);
+          arrive("#h-forced", 93.45, 40, 0.22);
+          swap("#b14", "#b15", 93.75);
+
+          // s16 (audio @104.078): the three asks land on "extra care / support /
+          // experimentation" (1.74 / 2.76 / 3.96).
+          leave("#b15", 103.92);
+          tl.set("#b16", { opacity: 1 }, 104.22);
+          arrive("#x1", 105.82, 40, 0.16);
+          arrive("#x2", 106.84, 40, 0.15);
+          arrive("#x3", 108.04, 40, 0.14);
+
+          leave("#b16", 110.93);
+          arrive("#b17", 111.28, 40, 0.22);
+
+          // ================= ACT 4 — all four, then the questions =================
+          // s18: no single quadrant is the subject any more. Only the accent overlay
+          // is released here — the names are handed to ONE tween below, so no two
+          // tweens ever touch the same opacity at the same time.
+          tl.to("#act-br", { opacity: 0, duration: 0.4, ease: "power2.out" }, 122.3);
+          leave("#h-forced", 122.3);
+          leave("#b17", 122.3);
+          tl.to(
+            ["#name-tl", "#name-tr", "#name-bl", "#name-br"],
+            { opacity: 0.94, duration: 0.5, ease: "power2.out" },
+            122.85,
+          );
+          arrive("#b18", 122.7, 40, 0.24);
+
+          // s19
+          swap("#b18", "#b19", 127.45);
+
+          // s20 (audio @133.097): the map recedes; the two questions come back.
+          leave("#b19", 132.95);
+          tl.to("#matrix", { opacity: 0.4, duration: 0.7, ease: "power2.out" }, 133.0);
+          tl.set("#b20", { opacity: 1 }, 133.35);
+          tl.fromTo("#b20-kicker", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: IN }, 133.4);
+          // Each question lands on the word that asks it (4.32 / 7.56).
+          arrive("#b20-q1", 137.42, 44, 0.22);
+          arrive("#b20-q2", 140.66, 44, 0.22);
+
+          // Clear the frame for Act 5.
+          tl.to(["#matrix", "#panel"], { opacity: 0, duration: 0.4, ease: OUT }, 142.2);
+
+          window.__timelines["map"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
