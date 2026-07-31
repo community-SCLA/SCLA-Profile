@@ -75,12 +75,11 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   failure quarantines the video with its URL and keeps the MP4. A stem is done if
   and only if it has a `published.tsv` row; anything in `rendered/` without one
   is flagged **STRANDED**. Publish runs only against `qa/VERIFIED` and refuses
-  stems already published. *(Mechanisms: `scripts/batch-ship.sh` guards; read the
+  stems already published. *(Mechanisms: `scripts/batch-ship.sh` guards. Read the
   queue with `scripts/batch-status.sh`, or open the generated
-  `projects/video-production/PIPELINE-STATUS.md`, which `batch-ship.sh`
-  regenerates on every quarantine and every publish. Why: log 2026-07-28 "Video
-  batch: certification protocol + machine resume key"; log 2026-07-31 (status
-  doc) "The queue read becomes a document".)*
+  `projects/video-production/PIPELINE-STATUS.md`, regenerated on every quarantine
+  and publish. Why: log 2026-07-28 "Video batch: certification protocol + machine
+  resume key"; log 2026-07-31 (status doc) "The queue read becomes a document".)*
 - **One render at a time, machine-wide; builds run up to 3-wide.** Authoring and
   TTS are network-bound and overlap cleanly; a render is CPU-bound and two on a
   4-core box thrash. *(Mechanism: `batch-ship.sh` takes
@@ -97,10 +96,10 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   succeeds exactly once, so concurrent build subagents cannot collide. Only the
   delivered MP4 gains a date (`<base>_<render-date>.mp4`). "When was this last
   acted on" is mtime. *(Mechanisms: `render-qa/src/stem.py` is the sole owner;
-  `preflight.py` check 12 fails a workspace whose name carries a date;
-  `batch-ship.sh` claims `.render.lock` and files the MP4 via `stem.py
-  delivered`; `render-qa/tests/test_stem.py`. Why: log 2026-07-29 "Working
-  artifacts lose their date suffix; the name becomes the lock".)*
+  `preflight.py` check 12 fails a dated workspace name; `batch-ship.sh` files the
+  MP4 via `stem.py delivered`. Pinned by `render-qa/tests/test_stem.py`. Why: log
+  2026-07-29 "Working artifacts lose their date suffix; the name becomes the
+  lock".)*
 - **Never archive automatically.** Retiring a workspace to
   `renders-hyperframes/_archive/` is a human-only call. A shipped video's
   workspace is pruned in place (`scripts/archive-lesson.sh <stem> --in-place`)
@@ -154,9 +153,8 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   scene boundary does — `FINAL_HOLD` is **1.8s**. *(Mechanisms:
   `synth_narration.py` (final clip is not tail-trimmed and gets `FINAL_HOLD`);
   `check_boundaries.py` rules `audio-tail-clipped` + `final-hold` against
-  `MIN_FINAL_HOLD`; `test_gates.py` asserts the producer clears its own floor and
-  `run_tests.py` reads `FINAL_HOLD` instead of re-typing it. Why: log 2026-07-29
-  "The gates the `better-decisions` rejection exposed".)*
+  `MIN_FINAL_HOLD`; `test_gates.py` asserts the producer clears its own floor.
+  Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
 
 ## Layout and geometry
 
@@ -194,10 +192,9 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   slots for the widest legal card the schema permits and let a short card sit
   high in its slot. *(Mechanism: `check_geometry.py` rule `card-gutter` against
   `tokens.yml` `spacing.card-gutter`, graded on LAYOUT boxes — the one rule in
-  that gate that is, because a border and a fill are what a viewer sees touching.
-  Deliberately narrow: absolutely positioned + fully bordered + text-bearing +
-  horizontally overlapping. Fixture: `test_gates.py`. Why: log 2026-07-29 (owner
-  review) "Eight defects…".)*
+  that gate that is. Deliberately narrow: absolutely positioned + fully bordered
+  + text-bearing + horizontally overlapping. Fixture: `test_gates.py`. Why: log
+  2026-07-29 (owner review) "Eight defects…".)*
 - **No icons beside bullet rows or cards — only ONE hero illustration per
   frame.** The plural `icons` slot is deleted, not policed. The singular hero
   `icon` on statement/chips/steps/condition is untouched. *(Mechanisms: the slot
@@ -278,9 +275,8 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   flat word files and the freeform per-beat one (`audio_meta.json`), offsetting
   each clip's words by its `timing.json` `audio_start`; `check_presence` and
   `check_diversity` both call it; an absent transcript emits a `no-word-timings`
-  warning naming the lost coverage instead of passing for rigour. Pinned by
-  `test_diversity.py`, which asserts a frozen span over silence does NOT fire and
-  the same span over speech does. Why: log 2026-07-31 (freeform gates).)*
+  warning instead of passing for rigour. Pinned by `test_diversity.py`. Why: log
+  2026-07-31 (freeform gates).)*
 - **tokens.yml is LOADED, not quoted, and a number nobody reads is a red test.**
   Normative numbers (type floors, frame-padding, safe-area, footer-reserve,
   content-bottom) are parsed from the spec and read by a gate — never hand-copied
@@ -288,9 +284,8 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   `render-qa/src/tokens.py` → `check_text.py` (`min_size`) and
   `check_geometry.py` (all four spacing tokens, full AND `--static`);
   `render-qa/tests/test_tokens_coverage.py` fails if any accessor loses its
-  non-test consumer, which is what makes the orphan class non-recurring. Why: log
-  2026-07-29 "One project shape, and frame.md split into the numbers and the
-  prose".)*
+  non-test consumer. Why: log 2026-07-29 "One project shape, and frame.md split
+  into the numbers and the prose".)*
 - **A workspace's copied `tokens.yml` is graded against the spec, because the
   gates read the COPY.** Raising a token in `design-system/config/tokens.yml`
   does not reach workspaces already on disk. *(Mechanism: `preflight.py`'s

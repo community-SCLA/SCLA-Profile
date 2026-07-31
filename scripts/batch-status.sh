@@ -207,6 +207,7 @@ for prog in ordered:
             # which for a current-format (undated) script equals its own base.
             ws_dir = ws_by_base.get(base_of(stem))
             stage, state, nxt = ws_state(ws_dir)
+            findings = []
             q = quarantined.get(stem) or quarantined.get(base_of(stem))
             if q:
                 # The log records which guard said no, never what it said. Ask the
@@ -214,10 +215,16 @@ for prog in ordered:
                 # failure is reproducible — and point at the transcript if one was
                 # captured. "verify_render.py non-zero" is a citation, not a reason.
                 stage = "quarantined"
-                state = f"a release gate rejected this cut ({q})"
+                state = f"a release gate rejected this cut — {q}"
                 reason_file = ws_dir / "qa" / "quarantine-reason.txt" if ws_dir else None
                 if reason_file is not None and reason_file.is_file():
-                    nxt = ("read the failure in "
+                    # The gate prints its objections as "    - [rule] ...". Lift the
+                    # first few into the doc: the point of the transcript is that the
+                    # owner should not have to open a transcript to know what broke.
+                    txt = reason_file.read_text(encoding="utf-8", errors="replace")
+                    findings = [ln.strip() for ln in txt.splitlines()
+                                if re.match(r'\s+-\s+\[', ln)][:4]
+                    nxt = ("read the full failure in "
                            f"`renders-hyperframes/{ws_dir.name}/qa/quarantine-reason.txt`, "
                            "fix the authoring, then re-render: "
                            f"`bash scripts/batch-ship.sh {stem} {prog}`")
@@ -226,7 +233,8 @@ for prog in ordered:
                            f"`python3 projects/video-production/render-qa/src/verify_render.py "
                            f"projects/video-production/renders-hyperframes/{ws_dir.name if ws_dir else stem}`")
             built.append((stem, stage, state,
-                          nxt.replace("{stem}", stem).replace("{program}", prog)))
+                          nxt.replace("{stem}", stem).replace("{program}", prog),
+                          findings))
             totals["built_unpublished"] += 1
             totals[{"verified": "mp4_awaiting_publish",
                     "quarantined": "quarantined"}.get(stage, "composition_only")] += 1

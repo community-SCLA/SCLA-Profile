@@ -150,7 +150,8 @@ if [[ "$MODE" == "render" ]]; then
   shopt -u nullglob
 
   echo "== verify_render"
-  python3 "$VP/render-qa/src/verify_render.py" "$WS" || quarantine "verify_render.py non-zero"
+  guarded "verify_render" python3 "$VP/render-qa/src/verify_render.py" "$WS" \
+    || quarantine "the rendered MP4 failed post-render verification (verify_render.py)"
   [[ -f "$WS/qa/VERIFIED" ]] || quarantine "verify passed but wrote no qa/VERIFIED marker"
 
   # Sample frames for the vision guard. verify_render dumps 3 per scene; a
