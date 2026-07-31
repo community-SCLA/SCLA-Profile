@@ -1,7 +1,6 @@
-# HyperFrames Render Workspaces — local only, not in git
+# HyperFrames Render Workspaces
 
-Per-video HyperFrames build workspaces for the illustrated-video path. Everything
-here except this README is **gitignored** (root `.gitignore`): a workspace is
+Per-video HyperFrames build workspaces for the illustrated-video path: a workspace is
 scaffolding — HTML scene files, TTS audio, caches — and the durable outputs it
 produces are filed elsewhere (see "What lives where" below).
 

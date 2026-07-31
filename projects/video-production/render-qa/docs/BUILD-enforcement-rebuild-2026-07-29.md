@@ -360,3 +360,30 @@ Do not treat the on-disk 2026-07-28 rejected workspace as evidence of anything. 
 `preflight.py` both describe it as "21 scenes, 5 templates, 8 × scla-statement, 42%
 share." Nothing in the repo links artifact → verdict, so the disagreement is
 unresolvable. Phase 4's mutations are authored deliberately, not scraped from it.
+
+
+## My Notes: 
+ so we just did a batch render of mid-career and there were so many violations of what should be hard rules, what I thought were set as hard and forcible rules. I noticed that with each render under the Render Hyperframes folder, each one is also duplicating the agent and Claude.md within its lesson file.
+ Here is what one session responded with when I asked why each workspace folder had so many documents duplicated within it: "Why each one is in the scaffold at all is different for the two files:
+
+CLAUDE.md is deliberate. batch-prepare.sh:63-65 deletes what hyperframes init wrote and replaces it with one line pointing at _run/BUILD-KIT.md and design-contract.md. Build subagents run cold inside <stem>/; that stub is how they find the build sequence without loading the repo root. It earns its place.
+
+AGENTS.md is an accident. npx hyperframes init writes it at batch-prepare.sh:51. It's the vendor's 95-line skill router — /general-video, /faceless-explainer, /product-launch-video, /motion-graphics. Nobody wrote it for this repo, nothing in this repo reads it (I grepped scripts/, .claude/skills/, render-qa/src/, BUILD-KIT.md — zero hits), and it contradicts the pipeline: /produce-video's own description says "Never route SCLA lesson videos into generic hyperframes workflow skills." That instruction is sitting in every workspace a cold build subagent works in.
+
+The same pass that neutralized init's CLAUDE.md should have deleted its AGENTS.md and just didn't. It went unnoticed while the folder was ignored; now that you've tracked renders-hyperframes/, it's committed 15 times over."
+
+There simply has to be a better way because clearly the agents that are independently running each rendering are spun up with their own fresh context and their judgment can just go haywire. There are even a couple sessions where the agent took liberties and changed the rules. Let's really examine how to make this more reliable and deterministic. There must be a way for us to ensure variability in slides so there's enough engagement and moving elements while not solely relying on AI to make those decisions because it just can't really account for taste. In this process we have defined rules and options that are pre-approved that I'm certain can be deterministically routed for each render. 
+
+Here is what The session running these agents said: "A shared template was edited and it shipped a real defect. A pacing-fix agent added an icon/iconCue slot to design-system/compositions/scla-stat.html plus all 14 workspace copies, and documented it in design-contract.md. It validated with npm run check, which passed — because the demo reel's stat scene doesn't populate those slots together. In an actual lesson it produced three content_overlap errors on #sh-number. I've reverted the template, the doc, and all 15 workspace copies.
+
+This is worth recording beyond today: npm run check over the demo reel is the mechanism that's supposed to catch template defects "once, not once per video" — and it certified a template change that breaks on real content. The reel is one scene per template with sparse slots; it can't see collisions that only appear when every slot is filled.
+
+A fix that reported success didn't take. m4_who-will-walk's agent said it added iconCue anchors to five scenes; all five still fail identically, so the cues went onto slots the templates don't honour. It also moved a boundary mid-sentence, breaking the sentence-end rule. Both are being redone with explicit verification that compiled cue values are non-zero.
+
+I've updated my own trust model accordingly: I'm now re-running the authoritative gate myself after every agent rather than accepting reported exits — which is what caught both of these.
+
+Current state: 1 gate-clean, 1 render-blocked on permissions, 2 lessons in corrective passes, 6 untouched. The render permission is the one thing only you can unblock."
+
+"That copies everything in _run/scaffold/ — compositions/, assets/, tokens.yml, design-contract.md, index.html, hyperframes.json… and also the two markdown files sitting in there. The scaffold is a fully-initialized HyperFrames project, cloned wholesale so each build starts from a known-good state and no subagent has to assemble one. AGENTS.md and CLAUDE.md aren't being "populated" — they're passengers in a cp -a.
+
+

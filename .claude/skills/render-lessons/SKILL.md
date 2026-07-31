@@ -174,8 +174,10 @@ design-system composition), `narration` (its verbatim span of the refined
 script), every slot filled or explicitly `""`, cue **anchor phrases** never
 numbers. Learn the shape from any newer dated build's `scenes.json`, or
 regenerate one from an existing build with `build_index.py --extract <ws>`.
-**Never pattern-match the demo reel or the init-generated workspace
-`CLAUDE.md`** — both are legacy. Follow `design-contract.md`'s animacy + illustration
+**Never pattern-match the demo reel** — it is legacy. A workspace carries no
+`AGENTS.md` or `CLAUDE.md` of its own by design; if you find one, it is an
+init artifact routing to generic hyperframes workflows this pipeline forbids —
+delete it, do not follow it. Follow `design-contract.md`'s animacy + illustration
 rules when choosing templates and copy. Standing landmines:
 
 - **Vary the form, or the gate fails you** (`design-contract.md` → "Variety contract";
@@ -262,6 +264,60 @@ phrase, never the numbers. **Stop here. No render in this phase.**
 
 <!-- BUILD-KIT:END -->
 
+### Freeform build sequence (`--freeform` — opt-in, decisions/log.md 2026-07-30)
+
+The agent-native lane: **no templates, no scenes.json, no compiler — the HTML
+is the authored artifact.** Same stem, same `mkdir` lock, same workspace
+parent, same folder-state flow. Reference build (visual bar + working example
+of every artifact): `projects/video-production/experiments/agent-native-m2/`
+— read its `design.md` and `PROVENANCE.md`, never copy its compositions.
+**Every freeform build stops at a per-video human preview; freeform never
+enters AUTO-BATCH** while its quality floor is unproven.
+
+Build order is narration-first (a late visual fix then costs an HTML edit,
+never a re-synthesis):
+
+1. **Claim + init** exactly as the template sequence above (`mkdir` lock,
+   `hyperframes init --example=blank`), then copy in `tokens.yml` from
+   `../design-system/config/` and the Proxima woff2 set from
+   `../design-system/assets/fonts/`.
+2. **`design.md`** — brand truth for THIS video plus the one thing no checker
+   can grade: the **concept angle**, one sentence naming the single carrying
+   visual idea (the reference's: "four transitions are four positions on ONE
+   map, built once, never left"). Palette and face come from `tokens.yml` /
+   `brand/visual-identity.md`; hierarchy by weight/size/color, headings Title
+   Case without terminal periods.
+3. **`audio_request.json`** — the beat manifest: `lines: [{id, text}]`, the
+   refined script **verbatim** (TTS normalizations only), split into
+   narration beats. This file is the gates' narration source
+   (`preflight --static` diffs it against the approved script — run it now,
+   it is free).
+4. **Synthesize** via the HyperFrames audio engine (`audio.mjs` from the
+   `hyperframes-media` skill), pinned voice from `tokens.yml`, through
+   `scripts/with-secrets.sh` — never a bare env. Output: `audio_meta.json`
+   + one wav per beat.
+5. **`timing.json`** — `{total, rows:[{id, audio_start, audio_dur, vis_start,
+   vis_dur}]}` COMPUTED from `audio_meta.json` durations (a script computes
+   it; never hand-tune a number). The tail after the last word ≥ **1.8s**
+   (`FINAL_HOLD` — the gate floor is 1.5s and the owner rejected 1.1s twice).
+6. **Author** `index.html` + `compositions/*.html` against the frozen
+   timings, word-timestamp-driven reveals. The freeform contract the gates
+   read: on-frame copy lives in **markup, never JS strings**; headings carry
+   **`data-role="heading"`** (or are `<h1>`–`<h3>`); the program display name
+   and the lesson title appear on the title card in markup; deliberate
+   exceptions are declared where they live (`/* motion-allow: … */`,
+   `/* brand-allow: … */`). Colors are `tokens.yml colors:` at any alpha;
+   every `font-family` leads with the brand face; body text ≥ 40px.
+7. **Snapshot every beat midpoint** with the pinned CLI:
+   `npx hyperframes@<pin> snapshot . --at <beat midpoints from timing.json>
+   --no-end -o snapshots` — the pixel bounds gate (`check_ink`) grades these;
+   fewer stills than beats is a preflight FAIL. Review them yourself before
+   presenting the gate.
+8. **Gates, same bar as the template lane:** `preflight.py .` (auto-detects
+   the lane; runs script-vs-beats, copy, continuity, brand, text, title,
+   ink, motion, per-beat layout) exit 0, then `npm run check`. **Stop — no
+   render.** The human preview gate is per video on this lane.
+
 ### B3 — Verify + present the gate (orchestrator)
 
 For each returned workspace, independently re-run the deterministic gate —
@@ -337,9 +393,10 @@ MP4 against it), refuses a stem already in `published.tsv`, then: file the MP4
 → Wistia upload (retried, time-capped) → append `lesson-scripts/published.tsv`
 (the machine resume key: full stem + URL) → update the `refinement-log.md` row
 → move the script `refined/ → rendered/` → commit (a commit failure
-quarantines WITH the URL and keeps the MP4) → delete the local MP4 → prune the
-workspace in place (`archive-lesson.sh --in-place`; moving a workspace into
-`_archive/` stays a human-only call).
+quarantines WITH the URL and keeps the MP4) → prune the workspace in place
+(`archive-lesson.sh --in-place`; moving a workspace into `_archive/` stays a
+human-only call). The filed MP4 stays in `renders-mp4/<program>/hyperframes/`
+as a local backup — gitignored, never deleted.
 
 Report the Wistia URL to the human as confirmation of what happened, not as a
 request for permission — approving the hyperframe already authorized this.
@@ -416,8 +473,9 @@ run economics on video 1 rather than at 3am.
    pass is a spot-check for encode-level defects (ghosting, banding) — one
    subagent, sampled frames only. On PASS,
    `batch-ship.sh <stem> <program-slug> --publish`: marker + sha guard →
-   file MP4 → Wistia upload → `published.tsv` + ledger row → `git mv` script
-   to `rendered/` → commit → delete local MP4 → prune in place. Publish
+   file MP4 → Wistia upload → `published.tsv` +
+   ledger row → `git mv` script to `rendered/` → commit → prune in place
+   (the filed MP4 is kept as a local backup). Publish
    refuses a stem already in `published.tsv`, so re-running is safe.
 
 **Pipelining:** because the driver is backgrounded, videos N+1..N+3 *build*

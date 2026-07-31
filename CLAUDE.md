@@ -42,27 +42,6 @@ bash scripts/review.sh             # gate every build, serve previews of the cle
 bash scripts/with-secrets.sh CMD   # Infisical injection — required for HeyGen/Wistia calls
 ```
 
-## Architecture
-
-A knowledge base plus one real code system: the lesson-video factory under
-`projects/video-production/`. Four load-bearing ideas:
-
-- **Every project has the same shape.** README (human door), AGENTS (agent door), run.sh
-  (machine door), then src/, config/, docs/, logs/. Nothing loose at a project root — a
-  script at the top level belongs in src/. Sole exception: the design system, whose layout
-  HyperFrames dictates; that divergence is documented, never assumed.
-- **State is the folder.** No status doc narrates it; a script's location *is* its stage
-  (raw → refined/ → rendered/). Working artifacts carry no date — the name is identity,
-  so `mkdir` is the build lock. `projects/video-production/render-qa/src/stem.py` owns
-  it; never hand-slice a suffix.
-- **Authors declare text; tools compute every number.** A builder writes narration spans and
-  cue phrases into a scene plan; `projects/video-production/render-qa/` derives every timing.
-  Hand-edited `data-start`/`data-duration` values are a defect.
-- **A rule is real only if a checker enforces it (STD-35).** Owner feedback becomes a gate in
-  render-qa/, a hook in `.claude/settings.json`, or a `scripts/lint-refs.sh` check — never a
-  sentence. `scripts/check-enforcement.py` hard-fails any doc that claims a mechanism it
-  doesn't have, so annotate unenforced rules `Convention` out loud.
-
 ## Rules
 
 Standing rules live in `.claude/rules/` (auto-discovered): `.claude/rules/repo-hygiene.md` (always) and `.claude/rules/video-production.md` (factory work). Headline: **never load or route to `_archive/`**.

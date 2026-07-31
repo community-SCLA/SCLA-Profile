@@ -9,6 +9,121 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-31 (later) — A build workspace carries no agent instructions of its own
+
+**Decision:** `hyperframes init` writes an `AGENTS.md` and a `CLAUDE.md` into
+every scaffolded project, and `scripts/batch-prepare.sh` copies the scaffold
+into all 16 build workspaces — so both files existed, byte-identical, in every
+one. `batch-prepare.sh` had been overwriting `CLAUDE.md` with a one-line pointer
+since the day the scaffold was built, with the reason stated inline ("init
+writes a CLAUDE.md routing to skills this repo deleted"), and had never touched
+`AGENTS.md` at all. Both are now deleted from the scaffold instead of corrected,
+and removed from the 16 workspaces already on disk. A workspace holds
+compositions, assets, tokens, the design contract and the plan — no prose telling
+an agent how to work.
+
+**Why:** `AGENTS.md` carried exactly the defect `CLAUDE.md` had been replaced
+for, in the one directory a build subagent actually works in. Its 96 lines
+routed to `/product-launch-video` and `/faceless-explainer` — generic workflows
+`/produce-video` forbids by name for SCLA lessons — and named `npm run check` as
+the gate when the gate is `render-qa/src/preflight.py`. Sixteen copies of
+instructions that contradict the pipeline is a live hazard, not clutter, and it
+is the repo's oldest recurring failure: prose losing an argument with other
+prose. Correcting it would have created a second authoritative brief to keep in
+sync with the SKILL; deleting it leaves one. This follows the ripple-motion
+(2026-07-29) and row-icon (2026-07-29) precedent — remove the capability rather
+than police it.
+
+**Why nothing breaks:** no gate, hook, test or script ever read a
+workspace-level copy of either file — the only `AGENTS.md` any code names is
+`design-system/AGENTS.md`, a different file. The one real loss was a breadcrumb:
+an auto-loaded `CLAUDE.md` was the sole in-tree link from a workspace back to
+`_run/BUILD-KIT.md`. The primary path never used it (the AUTO-BATCH orchestrator
+hands the cold build subagent that path directly in its prompt), and the
+secondary path is covered by a new routing row in
+`projects/video-production/CLAUDE.md` — a parent directory, so it auto-loads
+anyway, and unlike the deleted files it is tracked in git and linted. The
+builder-facing warning moved to the SKILL's BUILD-KIT block (the kit is
+regenerated from those markers on every `batch-prepare.sh` run, so editing
+`BUILD-KIT.md` directly would have been overwritten): a workspace agent file
+found in future is an init artifact to delete, not to follow.
+
+## 2026-07-31 — The Wistia poster frame goes back to Wistia's default
+
+**Decision:** Owner call — *"I no longer need Claude to select thumbnails for
+Wistia for the MP4s."* The first-frame poster step added 2026-07-29 (entry
+below) is deleted from `wistia-upload.sh`: no ffmpeg extract, no Image-media
+upload, no `new_still_media_id` PUT. The script uploads the MP4 and reports
+the URL, and Wistia picks the poster frame as it did before 2026-07-29.
+Already-published videos keep whatever still they have — this changes new
+uploads only, and any poster is still settable by hand in the Wistia UI.
+
+**Why it's a clean removal:** the step was best-effort and terminal — it ran
+after the video was live, printed `THUMBNAIL_WARN` on every failure path, and
+returned 0. Nothing parsed its output and no gate depended on it, so deleting
+it changes no exit code and no publish path. It also retires the STD-35
+exception the 2026-07-29 entry carved out: with the step gone, there is no
+longer a deliberately-unenforced rule in the publish tail to justify.
+
+## 2026-07-30 — Freeform (agent-native) builds become a second lane, opt-in, same contract
+
+**Decision:** Owner call, after the verified module verdict
+(`render-qa/docs/HANDOFF-agent-native-verdict-2026-07-30.md`) and a side-by-side
+frame review of the same lesson built both ways. Four parts:
+
+1. **A freeform build is a normal lesson build.** It takes a stem, claims
+   `renders-hyperframes/<base>` via `mkdir` (the build lock), and its script moves
+   raw → `refined/` → `rendered/` exactly like the template path. The stem contract
+   has nothing to do with templates. (Resolves the handoff's open owner call #1.)
+2. **Freeform is opt-in (`--freeform`) with a human preview per video.** It never
+   becomes the AUTO-BATCH default while its quality floor is unproven — the
+   template lane keeps shipping untouched. (Resolves open owner call #2.)
+3. **The DOM-rect probe is dropped, not deferred.** It is blocked on unexported
+   framework bundling and produced 1760 false findings from an unstyled page; the
+   per-beat layout inspector plus the ink-bands pixel gate cover the same rules
+   from real pixels. `check_diversity` (perceptual hash) is deferred — the
+   per-video human preview covers monotony while freeform is opt-in.
+4. **Nothing is retired yet.** The six template-shaped modules stay until the
+   freeform lane has shipped real lessons (handoff §4: archiving today reds CI
+   and disarms the lane that ships). Deletion, not `_archive/`, when it lands.
+
+**Why:** the owner's stated end goal is visually interesting videos; the
+agent-native reference build is the more designed cut of the same lesson. The
+five real invariants — script fidelity, brand colors, brand fonts, stem naming,
+folder-state — get mechanized on the freeform lane (beat-source adapter re-arms
+the copy gates; a new brand gate closes the one gap templates had been covering
+by construction). Everything template-mechanical stays on the template lane only.
+
+## 2026-07-29 (later) — Delivered MP4s are kept, and the Wistia poster is the first frame
+
+**Decision:** Owner call, two changes to the publish tail:
+
+1. **Publish no longer deletes the local MP4.** `batch-ship.sh` filed the
+   delivered cut to `renders-mp4/<program>/hyperframes/` and then `rm -f`'d it,
+   on the 2026-07-28 reasoning that "Wistia is the delivery copy." That line is
+   now gone: the filed MP4 stays. The folder is gitignored, so nothing enters
+   git history, and `renders-mp4/README.md` had said *"Files can stay here
+   after upload — a free local backup of the delivered cut"* the whole time —
+   the deletion was the side that was out of step. It also makes
+   `archive-lesson.sh`'s "deliverable must be filed before the workspace is
+   pruned" check permanently true instead of true-for-one-second.
+
+2. **The Wistia thumbnail is the video's own first frame.** Wistia otherwise
+   picks a poster frame from somewhere in the middle of the video, which for a
+   lesson lands on an arbitrary mid-animation state. Wistia has no "use frame
+   0" flag, so `wistia-upload.sh` does the documented three-step version:
+   `ffmpeg -frames:v 1` → upload the JPEG as an Image media → `PUT
+   new_still_media_id` on the video, waiting for the image to reach `ready`
+   first (a PUT against an unprocessed still is silently ignored).
+
+**Why the thumbnail step is best-effort, not a gate:** it runs *after* the
+video is live. Failing hard there would make `batch-ship.sh` quarantine a
+published video and — because the URL is grepped out of the upload output —
+lose its URL in the process. So every failure path prints `THUMBNAIL_WARN` and
+returns 0. That is a deliberate exception to STD-35, not an unarmed rule: the
+poster frame is cosmetic and recoverable by hand; a live-but-unrecorded video
+is not.
+
 ## 2026-07-29 — Working artifacts lose their date suffix; the name becomes the lock
 
 **Decision:** Owner call while planning a throughput rebuild: *"let's drop the
