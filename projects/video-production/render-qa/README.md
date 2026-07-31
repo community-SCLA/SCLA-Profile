@@ -1,39 +1,31 @@
 # render-qa/ — the deterministic toolchain for illustrated lesson videos
 
 *Owner's manual for the whole SCLA lesson-video pipeline, and the tool
-reference for this folder. Single source — nothing else narrates the flow.
-Written 2026-07-28, brought current 2026-07-30, merged from the standalone
-pipeline manual 2026-07-31. This file explains the system; it does not govern
-it. The governing artifacts are the skills (`.claude/skills/render-lessons`,
-`refine-scripts`, `produce-video`), the rules
-(`.claude/rules/video-production.md`), and the checkers under `render-qa/`
-themselves — if this manual ever disagrees with them, they win and this file
-needs a fix.*
+reference for this folder — the single place that narrates the flow. It
+explains the system; it does not govern it. The skills
+(`.claude/skills/render-lessons`, `refine-scripts`, `produce-video`), the
+rules (`.claude/rules/video-production.md`), and the checkers under
+`render-qa/` govern — if this manual ever disagrees with them, they win and
+this file needs a fix.*
 
-Built 2026-07-10 to end the class of defects that dominated the first at-scale
-builds: hand-typed scene boundaries and cue times reconciled against the
-narration *after* the fact (26 boundary violations, mid-word cuts, a backfired
-transcript "repair", emergency silence padding, 14 cue-phrase mismatches).
-The inversion: **authors declare text (per-scene narration spans + cue
-phrases); these tools compute every number.** Used by `/render-lessons`
-(BUILD gates + SHIP verify) and `/adversarial-qa`; the authoring contract
-lives in `design-system/docs/design-contract.md`.
+**Why these tools exist:** the first at-scale builds hand-typed scene
+boundaries and cue times, reconciled against the narration *after* the
+fact — 26 boundary violations, mid-word cuts, 14 cue-phrase mismatches. The
+inversion: **authors declare text (per-scene narration spans + cue phrases);
+these tools compute every number.** Used by `/render-lessons` (BUILD gates +
+SHIP verify) and `/adversarial-qa`; the authoring contract lives in
+`design-system/docs/design-contract.md`.
 
-**Folder shape (2026-07-29):** `src/` tool code · `tests/` the suite that pins
-it · `docs/` handoffs and working notes · `logs/` the rolling snag-log and
-rotated archives. `BUILD-LOG.md` (the one-off 2026-07-10 overhaul session) is
-retired to `logs/BUILD-LOG-archive-001.md` — pipeline-structure decisions now
-land in `decisions/log.md`, not this folder.
+**Folder shape:** `src/` tool code · `tests/` the suite that pins it ·
+`docs/` handoffs and working notes · `logs/` the rolling snag-log and rotated
+archives. Pipeline-structure decisions land in `decisions/log.md`, not here.
 
-The tools compute paths from `__file__` **positionally** — `src/` → `render-qa/`
-→ `video-production/` is `parents[2]`, and the repo root is `parents[4]` from
-`src/`. That is the one thing this folder is fragile about: **moving a `.py`
-between directory levels silently breaks every relative lookup** (design-system,
-lesson-scripts, the skills dir) without a syntax error. If you move one, re-derive
-its `parents[n]` and run `tests/run_tests.py`. Until 2026-07-29 the code sat flat
-at this level and this README said never to nest it; the nesting was done
-deliberately in the project-layout refactor, and every derivation was retargeted
-in the same pass.
+**Fragile point:** tool paths are derived from `__file__` positionally —
+`src/` → `render-qa/` → `video-production/` is `parents[2]`, repo root is
+`parents[4]`. Moving a `.py` between directory levels silently breaks every
+relative lookup (design-system, lesson-scripts, the skills dir) with no
+syntax error. If you move one, re-derive its `parents[n]` and run
+`tests/run_tests.py`.
 
 ## 1. The pipeline, end to end
 
@@ -45,14 +37,12 @@ per beat, on-frame copy, cue anchor phrases, icons). Everything else is
 compiled or gated by machines: a compiler emits the HTML, a compiler owns every
 timing number, checkers enforce your standing preferences at the moment the
 plan is written, snapshots are vision-reviewed *before* a render is spent, and
-a verifier hashes what actually rendered before anything is published. You
-stand at **one gate**: previewing a batch's pilot. Everything downstream of
-your approval is exit codes.
-
-**State is the folder.** A script's location *is* its stage. Nothing narrates
-it, no database tracks it, and no hook moves it — every transition is a
-`git mv` performed by a named script, and every "where is everything?" question
-is answered by reading the folders back off disk.
+a verifier hashes what actually rendered before anything is published. **State
+is the folder** — a script's location *is* its stage; no database tracks it,
+no hook moves it, every transition is a `git mv` performed by a named script,
+and every "where is everything?" question is answered by reading the folders
+back off disk. You stand at **one gate**: previewing a batch's pilot.
+Everything downstream of your approval is exit codes.
 
 ### 1.2 The whole flow
 
