@@ -75,7 +75,11 @@ REPEAT = re.compile(r"\brepeat\s*:\s*(-?\d+|[A-Za-z_$][\w$.]*\s*\([^)]*\)|"
 YOYO = re.compile(r"\byoyo\s*:\s*true\b")
 ALLOW = re.compile(r"/\*\s*motion-allow\s*:\s*([^*]+?)\s*\*/", re.I)
 
-SELECTOR = re.compile(r"""["']([#.][\w$-]+)["']""")
+# Compound selectors ("#root .big", ".panel > .line") are ordinary in freeform
+# HTML; a single-token pattern degraded them to undeclared-target — a failure,
+# but the wrong rule with a misleading message. The decorative test is a
+# substring scan, so it reads a compound selector fine.
+SELECTOR = re.compile(r"""["']([#.][\w$\s.#>-]*[\w$-])["']""")
 
 # A tween target is often a helper parameter: every template wraps its
 # depth-drift in `var drift = function (sel, ax, ay, per) { tl.fromTo(sel, …) }`
@@ -192,13 +196,25 @@ def grade(raw_html: str):
 
 
 def compositions(target: Path) -> list[Path]:
+    """Template sets grade their scla-*.html; a freeform workspace has no
+    naming convention, so every composition is graded, plus index.html when it
+    carries script (the freeform host owns timelines too). The scla-* glob is
+    tried first so a design-system checkout never grades its demo scaffolding.
+    (Was scla-*.html ONLY, which made this gate exit 2 — "nothing to grade" —
+    on every freeform build; HANDOFF-agent-native-verdict §2.)"""
     for sub in ("compositions", "."):
         d = target / sub
         if d.is_dir():
             found = sorted(d.glob("scla-*.html"))
             if found:
                 return found
-    return []
+    comps = target / "compositions"
+    found = sorted(comps.glob("*.html")) if comps.is_dir() else []
+    idx = target / "index.html"
+    if idx.exists() and "<script" in idx.read_text(encoding="utf-8",
+                                                   errors="replace"):
+        found.append(idx)
+    return found
 
 
 def check(target: Path):

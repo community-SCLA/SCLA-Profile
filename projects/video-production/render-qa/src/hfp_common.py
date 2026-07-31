@@ -130,6 +130,197 @@ def parse_scenes(index_html: str):
     return scenes
 
 
+# ---------------------------------------------------------------------------
+# Freeform (agent-native) beat manifest + on-frame text (2026-07-30)
+#
+# A freeform build carries no data-narration / data-variable-values — those are
+# build_index.py's private authoring protocol, not HyperFrames contract. Its
+# narration contract is audio_request.json (the audio engine's own input:
+# lines[{id,text}]) plus timing.json once computed. This adapter is the §1
+# coupling fix from docs/HANDOFF-agent-native-verdict-2026-07-30.md: without
+# it, every parse_scenes() consumer exits 0 having graded nothing.
+# ---------------------------------------------------------------------------
+
+def load_beats(ws: Path):
+    """Scene-shaped beat dicts for a freeform workspace, or None if no
+    audio_request.json exists. Shaped like parse_scenes() entries so every
+    narration rule runs on them unchanged; `duration` is the beat's visual
+    span from timing.json when present (NaN before timings are computed)."""
+    req = Path(ws) / "audio_request.json"
+    if not req.exists():
+        return None
+    lines = (json.loads(req.read_text(encoding="utf-8")) or {}).get("lines") or []
+    rows = {}
+    tp = Path(ws) / "timing.json"
+    if tp.exists():
+        t = json.loads(tp.read_text(encoding="utf-8"))
+        rows = {r.get("id"): r for r in (t.get("rows") or [])}
+    beats = []
+    for i, ln in enumerate(lines):
+        if isinstance(ln, str):
+            bid, text = f"s{i + 1:02d}", ln
+        else:
+            bid = ln.get("id") or f"s{i + 1:02d}"
+            text = ln.get("text") or ""
+        r = rows.get(bid) or {}
+        beats.append({
+            "narration": text, "tag": "", "span": (0, 0), "id": bid,
+            "comp": "?", "anchor_end": None, "cue_anchors": None,
+            "variables": {},
+            "start": float(r.get("vis_start", "nan")),
+            "duration": float(r.get("vis_dur", "nan")),
+        })
+    return beats
+
+
+def load_words(ws: Path):
+    """Flat [{start, end, text}] narration words on an ABSOLUTE timeline, or []
+    if this workspace carries none.
+
+    Three shapes, in preference order:
+      1. assets/voice/transcript.json      — Whisper/kokoro fallback, flat
+      2. assets/voice/narration.words.json — HeyGen default path, flat
+      3. audio_meta.json + timing.json     — the FREEFORM shape: one wav and one
+         word list PER BEAT, each timed from its own clip zero, so every word
+         must be offset by that beat's `audio_start` from timing.json.
+
+    Shape 3 is why this helper exists. check_presence.py looked only for the two
+    flat files; a freeform build has neither, so `words` came back empty and its
+    `not words` fallback made EVERY static run gradeable regardless of speech —
+    the gate ran stricter than designed and could not have reported why
+    (HANDOFF-agent-native-verdict-2026-07-30 §2: "survives, stricter AND
+    blind"). A deliberate silent hold — the 1.8s FINAL_HOLD every lesson ends
+    on — is exactly what that mode would eventually fail.
+    """
+    ws = Path(ws)
+    voice = ws / "assets" / "voice"
+    for name in ("transcript.json", "narration.words.json"):
+        p = voice / name
+        if p.exists():
+            try:
+                flat = json.loads(p.read_text(encoding="utf-8"))
+            except (ValueError, OSError):
+                continue
+            return [w for w in flat
+                    if isinstance(w, dict) and "start" in w and "end" in w]
+
+    meta, timing = ws / "audio_meta.json", ws / "timing.json"
+    if not meta.exists():
+        return []
+    try:
+        m = json.loads(meta.read_text(encoding="utf-8"))
+    except (ValueError, OSError):
+        return []
+    offsets = {}
+    if timing.exists():
+        try:
+            t = json.loads(timing.read_text(encoding="utf-8"))
+            offsets = {r.get("id"): float(r.get("audio_start", 0.0))
+                       for r in (t.get("rows") or [])}
+        except (ValueError, OSError, TypeError):
+            offsets = {}
+    words = []
+    for v in (m.get("voices") or []):
+        off = offsets.get(v.get("id"), 0.0)
+        for w in (v.get("words") or []):
+            try:
+                words.append({"text": w.get("text", ""),
+                              "start": off + float(w["start"]),
+                              "end": off + float(w["end"])})
+            except (KeyError, TypeError, ValueError):
+                continue
+    words.sort(key=lambda w: w["start"])
+    return words
+
+
+def speech_in(words, a: float, b: float) -> bool:
+    """Does any narration word overlap [a, b)? True when there are no words at
+    all is NOT the contract — callers decide what an absent transcript means,
+    because 'silently grade everything' and 'silently grade nothing' are both
+    ways for a gate to lie about its coverage."""
+    return any(w["start"] < b and w["end"] > a for w in words)
+
+
+_STYLE_SCRIPT_RE = re.compile(r"<(style|script)\b[^>]*>.*?</\1\s*>", re.S | re.I)
+
+
+def _clean_text(fragment: str) -> str:
+    txt = re.sub(r"<[^>]+>", " ", fragment)
+    return re.sub(r"\s+", " ", html.unescape(txt)).strip()
+
+
+def onframe_strings(ws: Path):
+    """[(file, role, text)] for every visible markup string in a freeform
+    build — index.html plus compositions/*.html, including markup inside
+    <template> (where sub-composition content lives).
+
+    role is "heading" for <h1>–<h3> or any element declaring
+    data-role="heading" (the freeform contract's one required annotation —
+    Title Case is graded on these), "text" for every other text node. Copy
+    built up in JS string literals is invisible to this scan, which is why the
+    freeform contract requires on-frame copy to live in markup."""
+    ws = Path(ws)
+    files = []
+    if (ws / "index.html").exists():
+        files.append(ws / "index.html")
+    files += sorted(ws.glob("compositions/*.html"))
+    out = []
+    for f in files:
+        raw = f.read_text(encoding="utf-8", errors="replace")
+        headings = set()
+        for m in re.finditer(r"<(h[1-3])\b[^>]*>(.*?)</\1\s*>", raw, re.S | re.I):
+            t = _clean_text(m.group(2))
+            if t and t not in headings:
+                headings.add(t)
+                out.append((f.name, "heading", t))
+        for m in re.finditer(
+                r"""<([a-zA-Z][\w-]*)\b[^>]*data-role\s*=\s*["']heading["']"""
+                r"""[^>]*>(.*?)</\1\s*>""", raw, re.S | re.I):
+            t = _clean_text(m.group(2))
+            if t and t not in headings:
+                headings.add(t)
+                out.append((f.name, "heading", t))
+        body = _STYLE_SCRIPT_RE.sub(" ", raw)
+        body = re.sub(r"<[^>]+>", "\x00", body)
+        for chunk in body.split("\x00"):
+            t = re.sub(r"\s+", " ", html.unescape(chunk)).strip()
+            if t and t not in headings:
+                out.append((f.name, "text", t))
+    return out
+
+
+def sample_units(ws: Path):
+    """The sampling grid every time-sampled gate walks: one unit per BEAT.
+
+    Template path: scene clips already are beats (one narration span each), so
+    the clips are the grid. Freeform path: a clip is an ACT (the agent-native
+    reference has 3 clips on a 200s video), so sampling per clip starves every
+    sampler — 27 → 3 layout samples, 81 → 9 verify stills (HANDOFF §2). There
+    the grid is timing.json's beat rows via load_beats(). Falls back to clips
+    when no usable beat timing exists; callers treat an empty grid as
+    ungradeable, never as clean."""
+    ws = Path(ws)
+    scenes = parse_scenes((ws / "index.html").read_text(
+        encoding="utf-8", errors="replace"))
+
+    def timed(units):
+        out = []
+        for u in units:
+            start, dur = u.get("start"), u.get("duration")
+            if not isinstance(start, (int, float)) or not isinstance(dur, (int, float)):
+                continue
+            if start != start or dur != dur or dur <= 0:  # NaN / placeholder
+                continue
+            out.append(u)
+        return out
+
+    if not any(s["narration"] is not None for s in scenes):
+        beats = timed(load_beats(ws) or [])
+        if beats:
+            return beats
+    return timed(scenes)
+
+
 def json_attr(value) -> str:
     """JSON for a single-quoted HTML attribute. ASCII apostrophes inside content
     are replaced with U+2019 (house style is typographic anyway) so the

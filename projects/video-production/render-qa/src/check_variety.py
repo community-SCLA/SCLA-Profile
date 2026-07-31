@@ -17,6 +17,16 @@ Seven rules (5 documented inline at their code, 6-7 added 2026-07-28):
      should not be using a list-bearing form at all. (0 items = slot correctly
      blanked, which check_slots.py governs.)
 
+  1b. NO ONE-CARD COMPARISON. The same defect in the form the list rules could
+     not see: scla-morph is a two-option comparison, and a scene that fills
+     aTitle but leaves bTitle blank renders ONE card, with its `notes` caption
+     stranded in the right-hand column beside nothing. The 2026-07-29
+     visibility-actions cut did exactly that and every gate passed, because the
+     cards are two scalar slots rather than a list. The owner: "having just a
+     single card breaks the rule of not having a single card rendered in this
+     style… having the text off to the side outside the card also is just
+     awkward and doesn't work and should never happen."
+
   2. MAX 2 CONSECUTIVE scenes may share a template family. Three in a row is
      the same slide three times to a viewer.
 
@@ -106,7 +116,11 @@ MAX_ASSET_REUSE = 2
 MAX_CONSECUTIVE_BARE = 2
 
 # Slots that carry artwork rather than copy.
-ART_SLOTS = ("icon", "icons")
+# Only the singular hero icon: the plural per-row/per-card `icons` slot was
+# removed from the templates on 2026-07-29 and is rejected by check_slots.py's
+# `banned-row-icons`, so listing it here would only ever match a scene that has
+# already failed a harder gate.
+ART_SLOTS = ("icon",)
 # Slots that mark a scene's position in an enumerated series.
 PROGRESS_SLOTS = ("num", "total", "step", "stepIndex")
 
@@ -278,6 +292,34 @@ def check(ws: Path):
                     f"point. Give it >=2 items, or move the scene to a form "
                     f"that states one idea (scla-statement/scla-quote/scla-stat)."
                 ))
+
+    # --- rule 1b: no one-card comparison -----------------------------------
+    # scla-morph's two options are scalar slots, not a list, so rule 1 above
+    # cannot see them. A morph with one card is a comparison with nothing to
+    # compare — and its `notes` column then floats beside empty space.
+    for s, fam in zip(scenes, fams):
+        if fam != "scla-morph":
+            continue
+        v = s["variables"]
+        filled = [k for k in ("aTitle", "bTitle") if str(v.get(k, "")).strip()]
+        if len(filled) == 1:
+            problems.append(Finding(
+                "one-card",
+                f"{s['id']} (scla-morph): only {filled[0]} is filled — renders "
+                f"ONE card in a two-card comparison form, with any `notes` "
+                f"caption stranded beside empty space. Fill both cards, or move "
+                f"the beat to a form that states one idea (scla-statement/"
+                f"scla-quote/scla-stat)."
+            ))
+        # `winner` naming a card that was never filled points the resolve beat
+        # (and its gold check glyph) at nothing.
+        win = str(v.get("winner", "")).strip().lower()
+        if win in ("a", "b") and not str(v.get(f"{win}Title", "")).strip():
+            problems.append(Finding(
+                "one-card",
+                f"{s['id']} (scla-morph): winner='{win}' but {win}Title is "
+                f"blank — the morph resolves onto a card that does not exist."
+            ))
 
     # --- rule 2: max consecutive, with the enumerated-series exemption ------
     exempt_idx = set()   # scene indices inside an earned enumerated-series run

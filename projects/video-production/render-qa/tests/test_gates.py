@@ -496,6 +496,37 @@ fires("check_copy", "heading-period",
 check("a correct Title Case heading passes",
       not check_copy.heading_problems(
           heading("heading", "Better Decisions Come from Better Criteria")))
+
+# --- (e) a lesson's part number is a filing convention, not copy -----------
+# The stem `m3_using-the-resume-builder-tool-pt2` tells two halves of one
+# lesson apart on disk; it reached the title card as "Using the Resume Builder
+# Tool Pt2" (owner, 2026-07-29: "that is simply a reference for our purposes").
+fires("check_copy", "part-reference",
+      "a title carrying the filing suffix FAILS",
+      any("filing suffix" in p for p in check_copy.part_reference_problems(
+          heading("title", "Using the Resume Builder Tool Pt2"))),
+      str(check_copy.part_reference_problems(
+          heading("title", "Using the Resume Builder Tool Pt2"))))
+for _bad in ("Building Your Future You Resume Pt1", "Resume Builder, Part Two",
+             "The Tool (part 2)"):
+    check(f"{_bad!r} is caught",
+          any("filing suffix" in p
+              for p in check_copy.part_reference_problems(
+                  heading("title", _bad))))
+# The guard that keeps the rule usable: `four-part` is authored copy and
+# appears 8 times across this program. A rule that flagged it would be off
+# within a week.
+for _ok in ("The Resume Builder Tool and a Four-Part Lens",
+            "Keep the Four-Part Structure", "Every Strong Bullet Has Four Parts",
+            "Part of the Work Is Naming It"):
+    check(f"{_ok!r} is NOT flagged",
+          not check_copy.part_reference_problems(heading("title", _ok)),
+          str(check_copy.part_reference_problems(heading("title", _ok))))
+# Narration is graded too, so a future script cannot speak the filing name.
+check("narration carrying the filing name is caught",
+      any("filing suffix" in p for p in check_copy.part_reference_problems(
+          [{"id": "scene-01", "variables": {},
+            "narration": "In part two we pick the strongest bullets."}])))
 # The three slots the rule names must all be graded, not just `heading`.
 for _slot in ("heading", "statement", "title"):
     check(f"the '{_slot}' slot is graded for Title Case",
@@ -560,7 +591,7 @@ BASE = {"heading": "What Matters", "point1": "Cost", "point2": "Time"}
 
 found, err = check_slots.check(
     workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icons="compass,map"))],
+                         variables=dict(BASE, icon="map"))],
               {"pts": ICONED}))
 fires("check_slots", "unknown-icon",
       "an icon name the template's library does not have FAILS",
@@ -569,17 +600,81 @@ fires("check_slots", "unknown-icon",
 
 found, err = check_slots.check(
     workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icons="compass,target"))],
+                         variables=dict(BASE, icon="target"))],
               {"pts": ICONED}))
-check("icon names the library does have pass", not found, f"{found} {err}")
+check("an icon name the library does have passes", not found, f"{found} {err}")
 # A template with no library at all is not graded — most of them draw no icons,
 # and failing them for a slot they never read would be a gate crying wolf.
 found, err = check_slots.check(
     workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icons="anything"))],
+                         variables=dict(BASE, icon="anything"))],
               {"pts": POINTS}))
 check("a template with no ICONS library is not graded for icon names",
       not found, f"{found} {err}")
+
+# --- the on-frame scene badge must match the frame's real position ---------
+# m4_visibility-actions numbered 13 scenes 1..11 (two 07s, two 09s), so a whole
+# round of frame-numbered owner feedback could not be resolved against the plan.
+def _badged(nums):
+    return [{"id": f"scene-{n:02d}", "variables": {"sceneIndex": f"{n:02d} / X"}}
+            for n in nums]
+
+
+fires("check_slots", "scene-index-badge",
+      "a badge that disagrees with the frame's position FAILS",
+      any("renumber it 03" in f["badge"]
+          for f in check_slots.scene_index_problems(_badged([1, 2, 2, 4]))),
+      str(check_slots.scene_index_problems(_badged([1, 2, 2, 4]))))
+check("a correctly numbered run passes",
+      not check_slots.scene_index_problems(_badged([1, 2, 3, 4])))
+check("a badge with no leading number FAILS",
+      any("does not start with a scene number" in f["badge"]
+          for f in check_slots.scene_index_problems(
+              [{"id": "scene-01", "variables": {"sceneIndex": "TITLE"}}])))
+# An absent badge is not this rule's business — check_slots' own unfilled-slot
+# rule governs whether a slot must be authored at all.
+check("an absent badge is not flagged here",
+      not check_slots.scene_index_problems(
+          [{"id": "scene-01", "variables": {}}]))
+
+# --- banned per-row / per-card icons (owner, 2026-07-29) --------------------
+# The plural `icons` slot drew a glyph beside every bullet row and in every
+# card corner. It was removed from scla-points and scla-morph; this rule is
+# what stops it coming back, and what catches a workspace still carrying the
+# variable (the compiler would otherwise drop it in silence). Note the two
+# fixtures below previously asserted the OPPOSITE — that `icons="compass,target"`
+# passes — which is exactly how a test enshrines a defect.
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icons="compass,target"))],
+              {"pts": ICONED}))
+fires("check_slots", "banned-row-icons",
+      "a scene authoring the plural `icons` slot FAILS",
+      any(f["rule_id"] == "banned-row-icons" for f in found), f"{found} {err}")
+
+# One defect, one finding: a banned slot must not ALSO be reported as an
+# unknown icon name, or the actionable message gets buried.
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icons="notarealicon"))],
+              {"pts": ICONED}))
+check("a banned `icons` slot reports once, not also as unknown-icon",
+      [f["rule_id"] for f in found] == ["banned-row-icons"], f"{found} {err}")
+
+# Explicitly blanked is how every other unused slot is spelled; it must stay legal.
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icons=""))],
+              {"pts": ICONED}))
+check("an explicitly blanked `icons` slot passes", not found, f"{found} {err}")
+
+# The SINGULAR hero icon is untouched by the ban — one illustration per frame is
+# the thing the statement/chips/steps/condition families are for.
+found, err = check_slots.check(
+    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
+                         variables=dict(BASE, icon="compass"))],
+              {"pts": ICONED}))
+check("the singular hero `icon` is not banned", not found, f"{found} {err}")
 
 
 # --------------------------------------------------------------------------

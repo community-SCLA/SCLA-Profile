@@ -190,12 +190,70 @@ def card_gutter(ws=None) -> float:
     return px(_spacing(ws).get("card-gutter"), 24)
 
 
+def palette(ws=None) -> dict:
+    """name -> hex for every brand color (tokens.yml `colors:`). Consumed by
+    check_brand.py, which grades every color literal in a freeform build's CSS
+    against this set — the machine-readable half of brand/visual-identity.md
+    (whose hexes these mirror; check 6 guards the legacy set)."""
+    return {k: str(v) for k, v in (load(ws).get("colors") or {}).items()}
+
+
+def brand_faces(ws=None) -> list[str]:
+    """Normalized allowed typeface names (tokens.yml `typography:` display/
+    body). Consumed by check_brand.py: every font-family stack in a freeform
+    build must lead with one of these."""
+    ty = load(ws).get("typography") or {}
+    faces = set()
+    for key in ("display", "body"):
+        v = str(ty.get(key) or "").strip().strip("'\"")
+        if v:
+            faces.add(slugify(v))
+    return sorted(faces)
+
+
+def chrome_regions(ws=None) -> list[tuple[int, int, int, int]]:
+    """Declared label-chrome rectangles (x0, y0, x1, y1) that the pixel gate
+    (check_ink.py) blanks before grading its keep-out bands. The design
+    contract hands the outer band to label furniture — brandline, eyebrow —
+    BY NAME, and a pixel gate cannot tell furniture from content on its own;
+    the region is therefore declared here and printed on every run, never
+    tolerated by a loosened threshold (same doctrine as
+    data-layout-allow-overlap). tokens.yml key: `chrome-regions`, a list of
+    "x0,y0,x1,y1" strings."""
+    out = []
+    for raw in load(ws).get("chrome-regions") or []:
+        parts = [int(px(p)) for p in str(raw).split(",")]
+        if len(parts) == 4:
+            out.append(tuple(parts))
+    return out
+
+
 def programs(ws=None) -> dict:
     """program-slug -> on-screen display name. The title card's `eyebrow` is
     derived from this, never authored (preflight.py check 7b). Lived as a
     markdown table inside frame.md until 2026-07-29, which meant a checker
     parsed prose."""
     return load(ws).get("programs") or {}
+
+
+def retired_names() -> list[str]:
+    """Names no render may speak or display (tokens.yml `retired-names`).
+
+    Distinct from `programs()`, which only grades the banner: a retired name can
+    also sit in a script's narration, which is how "your broader Career
+    Accelerator journey" reached synthesized audio in two mid-career-momentum
+    lessons after the banner alias had already been reverted. Consumed by
+    check_copy.py in workspace mode (narration + on-frame copy) and script mode.
+
+    READ FROM THE SPEC, NEVER THE WORKSPACE COPY — deliberately unlike every
+    other accessor here. Layout tokens are per-workspace by design (a build is
+    graded against the geometry it was authored under), but a retired name is a
+    repo-wide editorial fact with no legitimate per-workspace value. Honouring
+    the copy would mean every workspace created before a name was retired
+    silently opts out of the ban, which is the exact shape of hole this gate
+    exists to close.
+    """
+    return [str(n) for n in (load(None).get("retired-names") or []) if str(n).strip()]
 
 
 def slugify(display: str) -> str:

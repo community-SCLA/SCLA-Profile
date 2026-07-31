@@ -32,6 +32,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hfp_common import load_words  # noqa: E402
+
 BLANK_STDDEV = 8.0     # 0-255 scale
 CONTENT_DEV = 12       # a byte deviating this much from frame mean = content
 MIN_CONTENT_PX = 15    # fewer content pixels than this + low stddev = blank
@@ -88,16 +91,13 @@ def scene_starts_from(workspace):
 
 
 def words_from(workspace):
-    # transcript.json is the Whisper (kokoro-fallback) shape; the default
-    # HeyGen path deletes it and leaves narration.words.json (same schema:
-    # start/end per word). Without this fallback the narration-aware
-    # stagnation logic silently ran with zero words on every default build.
-    voice = Path(workspace) / "assets" / "voice"
-    for name in ("transcript.json", "narration.words.json"):
-        p = voice / name
-        if p.exists():
-            return json.loads(p.read_text())
-    return []
+    # Delegates to hfp_common.load_words, which knows all THREE shapes: the two
+    # flat files (transcript.json / narration.words.json) and the freeform
+    # per-beat shape (audio_meta.json + timing.json). This function used to know
+    # only the flat two, so on a freeform build it returned [] and the
+    # `not words` fallback below graded every static run as if narration ran
+    # wall to wall — including the deliberate FINAL_HOLD. 2026-07-31.
+    return load_words(Path(workspace))
 
 
 def main():
@@ -199,6 +199,19 @@ def main():
             else:
                 entry["detail"] += " [3-5s gray zone — lane judges]"
                 warns.append(entry)
+
+    # A workspace that yields no words is a COVERAGE HOLE, not a clean bill:
+    # every static run below is being graded as if narration ran wall to wall.
+    # Say so out loud rather than letting the strictness pass for rigour.
+    if workspace and not words:
+        warns.append({"rule": "no-word-timings", "t": 0.0,
+                      "detail": f"{workspace} yielded no narration word "
+                                f"timings (transcript.json / "
+                                f"narration.words.json / audio_meta.json+"
+                                f"timing.json all absent or unreadable) — "
+                                f"stagnation is being graded WITHOUT speech "
+                                f"awareness, so deliberate silent holds will "
+                                f"read as defects"})
 
     if v_dur is not None and a_dur is not None and a_dur > v_dur + 0.05:
         findings.append({"rule": "audio-outlives-video",

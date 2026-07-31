@@ -88,8 +88,7 @@
         "point4": "",
         "sceneIndex": "05 / PRESSURE",
         "subBeats": "",
-        "subCues": "",
-        "icons": "mentorship,salary"
+        "subCues": ""
       }
     },
     {
@@ -131,7 +130,6 @@
         "bSub": "What it will give you",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "salary,target",
         "actions": "A,B,note,morph",
         "notes": "The time is spent either way",
         "sceneIndex": "07 / SUNK COST"
@@ -284,7 +282,6 @@
         "bSub": "Measured against your criteria",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,done",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "14 / THE BETTER QUESTION"
@@ -358,8 +355,7 @@
         "point4": "",
         "sceneIndex": "17 / AI",
         "subBeats": "",
-        "subCues": "",
-        "icons": "insight,map,examine"
+        "subCues": ""
       }
     },
     {

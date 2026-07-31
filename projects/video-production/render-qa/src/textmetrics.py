@@ -10,7 +10,12 @@ once from the vendored woff2 files and committed. That keeps the gate free of a
 runtime font dependency (fontTools + brotli are needed to REGENERATE the file,
 never to read it). Regenerate when the fonts change:
 
-    python3 -c "$(sed -n '/^REGEN/,$p' textmetrics.py | tail -n +2)"
+    python3 -c "import re,pathlib; \
+exec(pathlib.Path('textmetrics.py').read_text().split('# REGEN')[1].split('\"\"\"')[1])"
+
+(The old one-liner here grepped `/^REGEN/` against a line that begins `# REGEN`,
+so it matched nothing, ran an empty program, and reported success — which is
+why `lineHeight` appeared to regenerate and did not, 2026-07-29.)
 
 Validated against PIL's own rasteriser at generation time to <0.05px on every
 weight. Kerning is not modelled — Proxima's kern pairs move a line by well under
@@ -42,6 +47,23 @@ def _weight_key(weight) -> str:
     except (TypeError, ValueError):
         w = 400
     return str(min(WEIGHTS, key=lambda k: abs(k - w)))
+
+
+def normal_line_height(weight=400) -> float:
+    """`line-height: normal` as a multiple of font-size, from the real font.
+
+    Chrome resolves `normal` from the font's hhea ascent/descent/lineGap (OS/2
+    USE_TYPO_METRICS is off on this kit), which puts Proxima at 1.404/1.447/
+    1.477 by weight. boxmodel.py assumed 1.2 until 2026-07-29 and therefore
+    under-measured the height of every block that does not set line-height
+    explicitly — by 20% on a 44px chip, which is how four wrapped chip rows
+    were modelled as ending 43px higher than they really do, clear of a footer
+    they in fact ran through.
+    """
+    m = _metrics()[_weight_key(weight)]
+    # Older metrics.json predates this key; 1.2 keeps callers running rather
+    # than crashing, and the accessor test below fails loudly if it is missing.
+    return float(m.get("lineHeight") or 1.2)
 
 
 def advance(ch: str, weight=400) -> float:
@@ -113,6 +135,18 @@ for w in (400, 700, 900):
         g = cmap.get(ord(ch))
         if g and g in hmtx.metrics:
             adv[ch] = round(hmtx.metrics[g][0] / upem, 5)
-    out[str(w)] = {"upem": upem, "advance": adv}
+    # `line-height: normal` — what the browser uses when the CSS says nothing.
+    # Chrome derives it from hhea ascent/descent/lineGap unless OS/2
+    # USE_TYPO_METRICS (fsSelection bit 7) is set, which it is not on this kit.
+    # Proxima lands at 1.40-1.48 depending on weight, NOT the 1.2 the box model
+    # assumed until 2026-07-29 — a 17-23% under-measure of every un-line-heighted
+    # block, which is most of them.
+    hhea = f["hhea"]
+    out[str(w)] = {
+        "upem": upem,
+        "lineHeight": round(
+            (hhea.ascent - hhea.descent + hhea.lineGap) / upem, 5),
+        "advance": adv,
+    }
 (d / "metrics.json").write_text(json.dumps(out, indent=1, sort_keys=True))
 """

@@ -32,7 +32,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import parse_scenes
+from hfp_common import sample_units
 
 # src/ -> render-qa/ -> video-production/
 DESIGN_SYSTEM = Path(__file__).resolve().parents[2] / "design-system"
@@ -75,18 +75,14 @@ def pinned_cli() -> str:
 
 
 def scene_times(ws: Path):
-    """(midpoint, scene_id) for every scene clip."""
-    scenes = parse_scenes((ws / "index.html").read_text(
-        encoding="utf-8", errors="replace"))
-    out = []
-    for sc in scenes:
-        start, dur = sc.get("start"), sc.get("duration")
-        if not isinstance(start, (int, float)) or not isinstance(dur, (int, float)):
-            continue
-        if start != start or dur != dur or dur <= 0:  # NaN / placeholder
-            continue
-        out.append((round(start + dur / 2, 2), sc["id"], start, start + dur))
-    return out
+    """(midpoint, unit_id, start, end) for every sampled unit — one per BEAT,
+    not per clip. On the template path clips are beats; on the freeform path a
+    clip is an act, and per-clip sampling collapsed coverage 27 → 3 on a longer
+    video (HANDOFF-agent-native-verdict §2). hfp_common.sample_units owns the
+    grid for every time-sampled gate."""
+    return [(round(u["start"] + u["duration"] / 2, 2), u["id"],
+             u["start"], u["start"] + u["duration"])
+            for u in sample_units(ws)]
 
 
 def run_inspect(ws: Path, times):

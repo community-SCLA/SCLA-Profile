@@ -38,6 +38,26 @@ CUE_RX = re.compile(r"(Cues?|Cue)$")
 # Slots that name an entry in the template's own living-icon library.
 ICON_SLOTS = {"icon", "icons"}
 
+# The plural `icons` slot is BANNED outright (owner, 2026-07-29: "add a rule
+# that icons should not render to the right of bullet points" / "no future
+# renders should include the icons within this style of illustration").
+#
+# It drew a ~64px glyph at the right edge of every bullet row (scla-points) and
+# in the top-right corner of every card (scla-morph). Three ways it went wrong,
+# all shipped: it rendered on SOME rows and not others, because the slot is
+# positional and a short list left holes (`icons=",insight,"` put one icon
+# beside point 2 of three); it drew two near-identical person glyphs in one
+# frame (`mentorship` + `mentorship2`, which differ only in which figure is
+# gold); and it competed with the row copy for the eye in a family whose whole
+# job is a list of words.
+#
+# The capability is gone from both templates — this rule exists so a re-add,
+# or a stale workspace still carrying the variable, fails loudly instead of
+# being silently dropped by the compiler. The SINGULAR hero `icon` on
+# statement/chips/steps/condition is unaffected; it is one illustration per
+# frame, which is the thing the family is for.
+BANNED_SLOTS = {"icons"}
+
 
 def schema_of(comp: Path):
     """Return {slot_id: default} from the template's leading JSON schema block."""
@@ -100,6 +120,48 @@ def icon_library(comp: Path) -> set | None:
     return keys or None
 
 
+SCENE_INDEX_RX = re.compile(r"^\s*(\d+)")
+
+
+def scene_index_problems(scenes) -> list:
+    """The on-frame badge must be this scene's position, uniquely.
+
+    `sceneIndex` prints "09 / REDESIGN" bottom-right, and it is how the owner
+    refers to a frame when reviewing a cut ("on frame 22 do not use the loop").
+    m4_visibility-actions numbered 13 scenes 1..11 — two 07s and two 09s, from a
+    scene split into `scene-07a`/`scene-07b` that kept one badge — so a whole
+    round of frame-numbered feedback could not be resolved against the plan
+    without opening every scene. A badge that disagrees with the frame's real
+    position is worse than no badge: it is confidently wrong, and it silently
+    costs a reviewer's time rather than a builder's.
+
+    Split beats are still fine — they just each take their own number.
+    """
+    problems = []
+    for i, sc in enumerate(scenes, 1):
+        raw = str((sc["variables"] or {}).get("sceneIndex", "")).strip()
+        if not raw:
+            continue
+        m = SCENE_INDEX_RX.match(raw)
+        if not m:
+            problems.append({
+                "scene": sc["id"], "template": "-",
+                "rule_id": "scene-index-badge", "severity": "error",
+                "unfilled": [], "would_render": {}, "placeholder": {},
+                "badge": f"{raw!r} does not start with a scene number",
+            })
+            continue
+        if int(m.group(1)) != i:
+            problems.append({
+                "scene": sc["id"], "template": "-",
+                "rule_id": "scene-index-badge", "severity": "error",
+                "unfilled": [], "would_render": {}, "placeholder": {},
+                "badge": (f"badge says {int(m.group(1)):02d} but this is scene "
+                          f"{i} of {len(scenes)} — renumber it {i:02d}"),
+            })
+    return problems
+
+
 def check(ws: Path):
     """Grade a workspace. Returns (findings, error) — error is a string when the
     workspace could not be read at all, in which case findings is empty.
@@ -118,6 +180,7 @@ def check(ws: Path):
     scenes = parse_scenes(html_text)   # multi-line-safe: regex over the whole
     if not scenes:                     # document, not a per-line scan
         return [], "no scene clips found in index.html — nothing to check"
+    findings += scene_index_problems(scenes)
     for sc in scenes:
         src = get_attr(sc["tag"], "data-composition-src")
         if not src:
@@ -152,11 +215,31 @@ def check(ws: Path):
         library = icon_library(comp)
         unknown = []
         if library:
-            for slot in ICON_SLOTS & set(authored):
+            # Banned slots are reported by their own rule; grading them here too
+            # would print two findings for one defect and bury the actionable one.
+            for slot in (ICON_SLOTS - BANNED_SLOTS) & set(authored):
                 for name in str(authored[slot]).split(","):
                     name = name.strip()
                     if name and name not in library:
                         unknown.append(f"{slot}={name!r}")
+        # A banned slot is graded on what the SCENE authored, not on what the
+        # template declares — the template no longer declares `icons` at all, so
+        # a scene still carrying one would otherwise be dropped in silence,
+        # which is the failure mode this whole gate exists to prevent.
+        banned = sorted(
+            s for s in BANNED_SLOTS & set(authored) if str(authored[s]).strip()
+        )
+        if banned:
+            findings.append({
+                "scene": sc["id"],
+                "template": comp.name,
+                "rule_id": "banned-row-icons",
+                "severity": "error",
+                "unfilled": [],
+                "would_render": {},
+                "placeholder": {},
+                "banned_slots": {s: authored[s] for s in banned},
+            })
         if unknown:
             findings.append({
                 "scene": sc["id"],
@@ -214,12 +297,22 @@ def main(argv):
                 print(f"      {s} -> would render placeholder: {f['would_render'][s]!r}")
         for s, v in f.get("placeholder", {}).items():
             print(f"  ! {f['scene']} ({f['template']}) slot {s} carries placeholder text: {v!r}")
+        for s, v in f.get("banned_slots", {}).items():
+            print(f"  ! {f['scene']} ({f['template']}) authors the banned slot "
+                  f"{s}={v!r} — per-row/per-card icons were removed from the "
+                  f"templates on 2026-07-29 (owner: icons must not render to "
+                  f"the right of bullet points). Drop the slot; if the frame "
+                  f"needs an illustration, use the singular hero `icon`.")
+        if f.get("badge"):
+            print(f"  ! {f['scene']} sceneIndex: {f['badge']}")
         for u in f.get("unknown_icons", []):
             print(f"  ! {f['scene']} ({f['template']}) names an icon the template "
                   f"does not have: {u} — it draws nothing, silently. "
                   f"Library: {', '.join(f['library'])}")
     total = sum(len(f["unfilled"]) + len(f.get("placeholder", {}))
-                + len(f.get("unknown_icons", [])) for f in findings)
+                + len(f.get("unknown_icons", []))
+                + len(f.get("banned_slots", {}))
+                + (1 if f.get("badge") else 0) for f in findings)
     print(f"  FAIL: {total} bad slot(s) across {len(findings)} scene(s).")
     print('  Fix: pass "" for unused slots; write authored copy (from the script) for placeholder slots.')
     return 1

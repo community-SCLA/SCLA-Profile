@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """check_copy.py — standing owner rules about the words themselves.
 
-Two rules, both given repeatedly as feedback and neither previously written
-anywhere a machine could read (owner, 2026-07-28: "I have given preferences
-that, for whatever reason, have not been recorded down and not enforced").
+Standing owner rules, every one of them given repeatedly as feedback and none
+previously written anywhere a machine could read (owner, 2026-07-28: "I have
+given preferences that, for whatever reason, have not been recorded down and
+not enforced"). Rules (c) dangling-fragment, (d) retired-name and (e)
+part-reference are documented at their own functions below.
 
   1. HEADINGS ARE TITLE CASE. On-frame headings are headings, not prose. Every
      principal word is capitalised; articles, coordinating conjunctions and
@@ -20,6 +22,11 @@ that, for whatever reason, have not been recorded down and not enforced").
      e.g. "Meaning? Mentorship? Growth?" -> "Meaning? Mentorship? Or growth?"
           "The right city. The right path." -> "...or the right path."
 
+  (e) A LESSON'S PART NUMBER IS A FILING CONVENTION. `...-resume-pt1` /
+     `...-tool-pt2` name two halves of one lesson on disk; neither belongs
+     in the words on screen. Narrow by design — `four-part lens` is real
+     copy and must keep passing (owner, 2026-07-29).
+
 Usage:  python3 check_copy.py <workspace> [--json]
 Exit:   0 clean · 1 violations · 2 bad args
 """
@@ -29,7 +36,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import Finding, parse_scenes, typed
+import tokens
+from hfp_common import Finding, load_beats, onframe_strings, parse_scenes, typed
 
 # Slots that render as an on-frame heading.
 HEADING_SLOTS = ("heading", "statement", "title")
@@ -74,7 +82,10 @@ def titlecase(text: str) -> str:
 def heading_problems(scenes):
     problems = []
     for s in scenes:
-        for slot in HEADING_SLOTS:
+        # Template scenes carry the literal slot names; freeform pseudo-scenes
+        # carry one string per key ("heading#3"), so match on the "#" prefix.
+        for slot in [k for k in s["variables"]
+                     if k.split("#")[0] in HEADING_SLOTS]:
             raw = (s["variables"].get(slot) or "").strip()
             if not raw:
                 continue
@@ -92,6 +103,84 @@ def heading_problems(scenes):
                     f"{s['id']} '{slot}': not Title Case.\n"
                     f"      is:     {body!r}\n"
                     f"      should: {want!r}"))
+    return problems
+
+
+def retired_name_problems(scenes):
+    """(d) A retired name may not be SPOKEN or DISPLAYED (owner, 2026-07-29).
+
+    `tokens.programs_problems()` already stops a retired name being used as a
+    banner label, but it grades the eyebrow and nothing else. That left the
+    whole narration stream ungraded: "your broader Career Accelerator journey"
+    sat in two approved mid-career-momentum script bodies and was synthesized
+    into audio months after the on-screen alias had been reverted, because no
+    checker had ever been pointed at what the voice actually says.
+
+    Graded on narration AND every on-frame string, in workspace and script mode
+    alike — the script-mode pass is the one that matters, since catching it
+    there costs a text edit instead of a re-synthesis.
+    """
+    banned = tokens.retired_names()
+    if not banned:
+        return []
+    problems = []
+    for sc in scenes:
+        fields = [("narration", sc.get("narration") or "")]
+        for key, val in (sc.get("variables") or {}).items():
+            if isinstance(val, str):
+                fields.append((key, val))
+        for name in banned:
+            for field, text in fields:
+                if name.lower() in text.lower():
+                    problems.append(Finding(
+                        "retired-name",
+                        f"{sc['id']} '{field}': retired name {name!r} must not "
+                        f"be spoken or shown — rewrite the line "
+                        f"(tokens.yml `retired-names`)"))
+    return problems
+
+
+# A part-number carried by the FILING name, not by the lesson. Deliberately
+# narrow so it cannot swallow real copy: `four-part lens` and `Keep the
+# Four-Part Structure` are authored phrases that appear 8 times across this
+# program, and a rule that flagged them would be turned off within a week.
+# The discriminator is a hyphen immediately before `part` (a compound adjective:
+# four-part, two-part, multi-part) and the requirement of an ordinal after it.
+PART_REF_RX = re.compile(
+    r"\bpt\.?\s*\d+\b"                                   # Pt1, Pt. 2, pt 3
+    r"|(?<!-)\bpart\s+(?:one|two|three|1|2|3)\b",        # Part One, part 2
+    re.I,
+)
+
+
+def part_reference_problems(scenes):
+    """(e) A lesson's part number is a filing convention, never on-screen copy.
+
+    `m3_using-the-resume-builder-tool-pt2` is how the repo tells two halves of
+    one lesson apart on disk; the builder turned that stem into a title card
+    reading "Using the Resume Builder Tool Pt2", and the same happened on
+    `...-resume-pt1`. The owner, 2026-07-29: "Don't actually list the part one
+    or two in the first slide statement. That is simply a reference for our
+    purposes and should not actually go into the content created."
+
+    Graded on narration as well as every on-frame string. That costs nothing
+    here — no script in the library says "part two" — and it means the rule
+    holds if a future script tries to speak the filing name.
+    """
+    problems = []
+    for sc in scenes:
+        fields = [("narration", sc.get("narration") or "")]
+        for key, val in (sc.get("variables") or {}).items():
+            if isinstance(val, str):
+                fields.append((key, val))
+        for field, text in fields:
+            m = PART_REF_RX.search(text or "")
+            if m:
+                problems.append(Finding(
+                    "part-reference",
+                    f"{sc['id']} '{field}': {m.group(0)!r} is the lesson's "
+                    f"filing suffix, not lesson copy — drop it from the "
+                    f"rendered words ({text.strip()!r})"))
     return problems
 
 
@@ -263,11 +352,81 @@ def enumeration_problems(scenes):
     return problems
 
 
+# Placeholder text reaching the frame is a fabrication-ban violation, not
+# template mechanics — rehomed here from check_slots.py (whose copy grades
+# data-variable-values and dies with the template path; HANDOFF §3.2). Whole-
+# string match mirrors check_slots' PLACEHOLDER_RX; the embedded [[...]] scan
+# is added because a merge-field marker ANYWHERE on frame is always a defect.
+PLACEHOLDER_RX = re.compile(
+    r"^\s*(\[\[.*\]\]|\.{3}|…|TODO\b.*|TBD\b.*|xxx+)\s*$", re.I)
+MERGE_FIELD_RX = re.compile(r"\[\[[^\]]*\]\]")
+
+
+def placeholder_problems(strings):
+    """strings: [(file, role, text)] from hfp_common.onframe_strings()."""
+    problems = []
+    for fname, role, text in strings:
+        if PLACEHOLDER_RX.match(text) or MERGE_FIELD_RX.search(text):
+            problems.append(Finding(
+                "placeholder-slot",
+                f"{fname}: on-frame {role} text is placeholder copy, not "
+                f"authored copy — {text!r}. Placeholder text reaching the "
+                f"frame violates the fabrication ban; write the line from "
+                f"the lesson script."))
+    return problems
+
+
 def check(ws: Path):
     scenes = parse_scenes((ws / "index.html").read_text())
-    if not scenes:
-        return ["no scene slots found"]
-    return heading_problems(scenes) + enumeration_problems(scenes)
+    if scenes and any(s["narration"] is not None for s in scenes):
+        return (heading_problems(scenes) + enumeration_problems(scenes)
+                + retired_name_problems(scenes) + part_reference_problems(scenes))
+
+    # No data-narration anywhere: either a freeform (agent-native) build whose
+    # narration contract is the beat manifest, or a build this gate cannot see.
+    beats = load_beats(ws)
+    if beats is None:
+        if not scenes:
+            return ["no scene slots found"]
+        return [Finding(
+            "nothing-graded",
+            f"{len(scenes)} scene slot(s) carry no data-narration and no "
+            f"audio_request.json beat manifest exists — this gate can grade "
+            f"NOTHING. A template build authors narration via build_index.py; "
+            f"a freeform build ships audio_request.json. A gate that passes "
+            f"having looked at nothing is the most expensive bug class in "
+            f"this pipeline (HANDOFF-agent-native-verdict §1).")]
+
+    # Freeform: narration rules on the beats, on-frame rules on the markup.
+    problems = (enumeration_problems(beats) + retired_name_problems(beats)
+                + part_reference_problems(beats))
+    if not beats:
+        problems.append(Finding(
+            "nothing-graded",
+            "audio_request.json exists but carries zero narration lines — "
+            "nothing to grade is a failure, never a pass."))
+
+    strings = onframe_strings(ws)
+    counters = {}
+    pseudo = {}
+    for fname, role, text in strings:
+        counters[fname] = counters.get(fname, 0) + 1
+        key = ("heading" if role == "heading" else "text") + f"#{counters[fname]}"
+        pseudo.setdefault(fname, {"id": fname, "narration": "",
+                                  "variables": {}})["variables"][key] = text
+    pseudo_scenes = list(pseudo.values())
+    problems += (heading_problems(pseudo_scenes)
+                 + retired_name_problems(pseudo_scenes)
+                 + part_reference_problems(pseudo_scenes)
+                 + placeholder_problems(strings))
+    if not any(role == "heading" for _, role, _ in strings):
+        problems.append(Finding(
+            "no-headings-declared",
+            "no on-frame heading is declared anywhere (an <h1>–<h3> or "
+            "data-role=\"heading\") — Title Case cannot be graded on copy the "
+            "gate cannot identify. The freeform contract requires headings to "
+            "be declared in markup; a lesson always has at least a title card."))
+    return problems
 
 
 def check_script(path: Path):
@@ -288,7 +447,8 @@ def check_script(path: Path):
     paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
     scenes = [{"id": f"line {i}", "narration": p, "variables": {}}
               for i, p in enumerate(paragraphs, 1)]
-    return enumeration_problems(scenes)
+    return (enumeration_problems(scenes) + retired_name_problems(scenes)
+            + part_reference_problems(scenes))
 
 
 def main() -> int:

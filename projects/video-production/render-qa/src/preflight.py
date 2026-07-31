@@ -87,7 +87,8 @@ DESIGN_SYSTEM_COMPOSITIONS = Path(__file__).resolve().parents[2] / "design-syste
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tokens
-from hfp_common import ffprobe_duration, get_attr, norm_token, parse_scenes
+from hfp_common import (ffprobe_duration, get_attr, load_beats, norm_token,
+                        onframe_strings, parse_scenes)
 from stem import StemError, base as stem_base, is_canonical
 
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
@@ -518,6 +519,14 @@ def check_title_card(ws: Path, scenes, script_override=None,
     if parts and parts[-1] == program:
         parts = parts[:-1]
     want_title_words = "_".join(parts).replace("-", " ").split()
+    # A trailing part number (`...-resume-pt1`, `...-tool-pt2`) is a FILING
+    # convention that tells two halves of one lesson apart on disk — it is not
+    # part of the lesson's name and must not reach the frame (owner,
+    # 2026-07-29; check_copy's `part-reference` rule rejects it in copy). Both
+    # gates have to agree, or removing it from the title card to satisfy one
+    # fails the other, which is exactly what happened when the rule landed.
+    if want_title_words and re.fullmatch(r"pt\.?\d+", want_title_words[-1], re.I):
+        want_title_words = want_title_words[:-1]
     got_title_words = re.sub(r"[^\w\s]", "", str(vars_.get("title", ""))).lower().split()
     if [w.lower() for w in want_title_words] != got_title_words:
         problems.append(
@@ -613,6 +622,168 @@ def run_tool(cmd):
     return p.returncode, p.stdout + p.stderr
 
 
+# ---------------------------------------------------------------------------
+# Freeform (agent-native) lane sections — 2026-07-30, decisions/log.md.
+# A freeform workspace has no scenes.json, no compiler and no template slots;
+# its authoring contract is audio_request.json (the beats) + timing.json
+# (computed, never hand-tuned) + design.md + the composition HTML itself.
+# Verdict provenance: render-qa/docs/HANDOFF-agent-native-verdict-2026-07-30.md
+# ---------------------------------------------------------------------------
+
+def check_freeform_timing(ws: Path, html: str, static=False):
+    """Replaces compile_check on the freeform lane: every beat has a computed
+    timing row, the timeline covers the root duration, and the ending keeps
+    the MIN_FINAL_HOLD floor the owner has rejected twice. check_boundaries
+    grades the wav-level form of that floor on the template lane; this grades
+    the timing-level form the freeform contract can see (its full wav adapter
+    is deferred)."""
+    from check_boundaries import MIN_FINAL_HOLD
+    problems = []
+    beats = load_beats(ws) or []
+    if not beats:
+        problems.append("audio_request.json carries no narration lines")
+    tp = ws / "timing.json"
+    if not tp.is_file():
+        if static and beats:
+            return {"pass": True, "output":
+                    f"{len(beats)} beat(s) in the manifest — timing.json not "
+                    f"yet computed (plan stage); the full gate requires it"}
+        problems.append("timing.json missing — compute beat timings from "
+                        "audio_meta.json (never hand-tune) before the full gate")
+        return {"pass": False, "output": "\n".join(problems)}
+    untimed = [b["id"] for b in beats if b["duration"] != b["duration"]]
+    if untimed:
+        problems.append(f"beat(s) with no timing row: {', '.join(untimed)}")
+    t = json.loads(tp.read_text())
+    rows, total = t.get("rows") or [], t.get("total")
+    root = re.search(r'id="root"[^>]*data-duration="([\d.]+)"', html)
+    if root and total and abs(float(root.group(1)) - float(total)) > 0.05:
+        problems.append(f"root data-duration {root.group(1)}s != timing.json "
+                        f"total {total}s — the timeline and the manifest disagree")
+    hold = None
+    if rows and total:
+        last = max(rows, key=lambda r: (r.get("audio_start") or 0))
+        end = (last.get("audio_start") or 0) + (last.get("audio_dur") or 0)
+        hold = float(total) - end
+        if hold < MIN_FINAL_HOLD:
+            problems.append(
+                f"final hold {hold:.2f}s < the {MIN_FINAL_HOLD}s floor — the "
+                f"last word needs air to land (the owner rejected a 1.1s "
+                f"ending twice; the producer target is 1.8s). Extend the "
+                f"closing hold in timing.json's total / root duration.")
+    ok = (f"{len(beats)} beat(s), all timed"
+          + (f"; final hold {hold:.2f}s" if hold is not None else ""))
+    return {"pass": not problems, "output": "\n".join(problems) or ok}
+
+
+def check_freeform_script_match(ws: Path, script_override=None):
+    """The fabrication ban, freeform form: the BEAT MANIFEST — the exact text
+    sent to the TTS engine — diffs against the approved script. Static and
+    free, so it runs at plan stage too. (The spoken-audio half, whisper vs
+    wav, needs the flat-words adapter and is deferred; what was SENT is graded
+    here, and the engine's own word timestamps are what drive the reveals.)
+    A missing approved script is a hard failure, same as check_script_match —
+    'I could not check' is never 'it is fine'."""
+    script_path = script_override or locate_script(ws)
+    if script_path is None:
+        return {"pass": False, "output":
+                f"FAIL: no approved script found for stem {ws.name!r} under "
+                f"{LESSON_SCRIPTS} and no --script given. The script-vs-beats "
+                f"diff is the freeform half of the fabrication ban — it cannot "
+                f"be skipped silently."}
+    script_path = Path(script_path)
+    if not script_path.is_file():
+        return {"pass": False, "output": f"--script {script_path} does not exist"}
+    beats = load_beats(ws) or []
+    heard_toks = tokenize_for_diff(" ".join(b["narration"] for b in beats))
+    script_toks = tokenize_for_diff(script_path.read_text())
+    if not script_toks:
+        return {"pass": False, "output": f"approved script {script_path} is empty"}
+    if not heard_toks:
+        return {"pass": False,
+                "output": "audio_request.json carries no narration text"}
+    rate, max_run, segments = diff_script_transcript(script_toks, heard_toks)
+    lines = [f"script: {script_path}",
+             f"{len(script_toks)} script words vs {len(heard_toks)} beat words "
+             f"— mismatch rate {rate:.2%}, longest miss run {max_run}"]
+    lines += [f"WARN {s}" for s in segments]
+    if max_run >= RUN_FAIL:
+        lines.append(f"FAIL: {max_run} consecutive mismatched words — a "
+                     f"sentence was rewritten or dropped, not a TTS "
+                     f"normalization")
+        return {"pass": False, "output": "\n".join(lines)}
+    if rate > RATE_FAIL:
+        lines.append(f"FAIL: mismatch rate {rate:.2%} > {RATE_FAIL:.1%} — the "
+                     f"beat manifest does not carry the approved script")
+        return {"pass": False, "output": "\n".join(lines)}
+    return {"pass": True, "output": "\n".join(lines)}
+
+
+def check_freeform_title(ws: Path, script_override=None):
+    """The banner rule on the freeform lane: the program's display name and
+    the lesson's title must appear in on-frame MARKUP text (chrome built up in
+    JS is invisible to every gate, so the freeform contract requires it in
+    markup). Compared slug-to-slug, so case and punctuation are free and an
+    alias can never pass — same doctrine as tokens.programs_problems()."""
+    problems = list(tokens.programs_problems(ws))
+    script_path = script_override or locate_script(ws)
+    slug = None
+    if script_path is not None:
+        p = Path(script_path)
+        slug = (p.parent.name if p.parent.name not in ("refined", "rendered")
+                else p.parents[1].name)
+    joined = tokens.slugify(" ".join(t for _, _, t in onframe_strings(ws)))
+    if slug is None:
+        problems.append("cannot resolve the program folder (no approved "
+                        "script located) — the banner cannot be verified")
+    else:
+        display = (tokens.programs(ws) or {}).get(slug)
+        if not display:
+            problems.append(f"program '{slug}' has no display name in "
+                            f"tokens.yml `programs:`")
+        elif tokens.slugify(display) not in joined:
+            problems.append(f"program banner {display!r} not found in any "
+                            f"on-frame markup text — the eyebrow names the "
+                            f"program on every frame")
+    try:
+        base = stem_base(ws.name)
+        title_seg = re.sub(r"^m\d+_", "", base)
+        if slug and title_seg.endswith(f"_{slug}"):
+            title_seg = title_seg[: -len(slug) - 1]
+        title_seg = re.sub(r"-pt\d+$", "", title_seg)
+        if title_seg and title_seg not in joined:
+            problems.append(f"lesson title (stem segment {title_seg!r}) not "
+                            f"found in any on-frame markup text — the title "
+                            f"card carries the lesson's name")
+    except StemError:
+        pass  # the stem section below owns naming failures
+    return {"pass": not problems,
+            "output": "\n".join(problems) or "program banner + lesson title "
+                                             "found in on-frame markup"}
+
+
+def check_freeform_ink(ws: Path):
+    """The freeform geometry gate: check_ink.py over one snapshot still per
+    beat. boxmodel cannot run here — measured at 281 false findings on a build
+    verified clean across 34 stills (HANDOFF §2) — so bounds come from real
+    pixels, and text-on-text comes from check_layout's per-beat inspector
+    pass. Missing or thin snapshots FAIL: nothing-graded is never a pass."""
+    beats = load_beats(ws) or []
+    snaps = ws / "snapshots"
+    pngs = sorted(snaps.glob("*.png")) if snaps.is_dir() else []
+    if len(pngs) < max(1, len(beats)):
+        return {"pass": False, "output":
+                f"{len(pngs)} snapshot still(s) under {snaps} for "
+                f"{len(beats)} beat(s) — the pixel bounds gate needs at least "
+                f"one still per beat midpoint. Run the pinned CLI: "
+                f"npx hyperframes@<pin> snapshot . --at <beat midpoints> "
+                f"--no-end -o snapshots"}
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_ink.py"),
+                        str(snaps), "--tokens-ws", str(ws)])
+    return {"pass": rc == 0, "output": out.strip()}
+
+
 def main():
     argv = sys.argv[1:]
     as_json = "--json" in argv
@@ -632,6 +803,16 @@ def main():
     static_mode = "--static" in argv
     sections, failed = {}, False
 
+    html = (ws / "index.html").read_text()
+    scenes = parse_scenes(html)
+    scenes.sort(key=lambda s: s["start"])
+    # Freeform (agent-native) lane detection: state is the folder — no scene
+    # slot carries data-narration (the compiler's private protocol) and the
+    # beat manifest exists. No flag to remember, nothing to mis-declare.
+    # decisions/log.md 2026-07-30.
+    freeform = (not any(s["narration"] is not None for s in scenes)
+                and (ws / "audio_request.json").is_file())
+
     def static_skip(needs):
         """A voice/timing section deferred in --static mode: an informational
         pass, never a failure — the assets it grades don't exist yet."""
@@ -639,8 +820,19 @@ def main():
                 "output": f"SKIPPED (static mode) — needs {needs}; "
                           f"runs in the full gate after narration synthesis"}
 
-    # 1. compiler check
-    if static_mode:
+    def freeform_skip(why):
+        """A template-lane section with no referent on the freeform lane: an
+        informational pass that SAYS why, so a skipped rule is always visible
+        and never silently lost (the §3 unowned-rules lesson)."""
+        return {"pass": True, "output": f"SKIPPED (freeform lane) — {why}"}
+
+    # 1. compiler check — freeform has no compiler; its timing contract
+    # (every beat timed, timeline covers root, MIN_FINAL_HOLD kept) is graded
+    # directly from the manifest.
+    if freeform:
+        sections["compile_check"] = check_freeform_timing(ws, html, static_mode)
+        failed |= not sections["compile_check"]["pass"]
+    elif static_mode:
         sections["compile_check"] = static_skip("word timestamps + narration audio")
     else:
         rc, out = run_tool([sys.executable, str(Path(__file__).parent / "compile_timeline.py"),
@@ -649,7 +841,12 @@ def main():
         failed |= rc != 0
 
     # 2. boundary rules (independent checker)
-    if static_mode:
+    if freeform:
+        sections["boundaries"] = freeform_skip(
+            "check_boundaries wants narration.wav + a flat words file (the "
+            "freeform adapter is deferred) — the final-hold floor is graded "
+            "in compile_check above from timing.json")
+    elif static_mode:
         sections["boundaries"] = static_skip("the transcript + narration.wav")
     else:
         rc, out = run_tool([sys.executable, str(CHECK_BOUNDARIES), str(ws)])
@@ -661,10 +858,15 @@ def main():
     # sharing one template collide: the surviving timeline animates one
     # instance and the others render blank headers. Invisible in Studio
     # preview (per-scene iframes) — composited render only.
-    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "instance_templates.py"),
-                        str(ws), "--check"])
-    sections["instance_templates"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if freeform:
+        sections["instance_templates"] = freeform_skip(
+            "one-template-file-per-slot is compiler mechanics; a freeform "
+            "build authors unique composition files by construction")
+    else:
+        rc, out = run_tool([sys.executable, str(Path(__file__).parent / "instance_templates.py"),
+                            str(ws), "--check"])
+        sections["instance_templates"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 2c. compositions/ freshness (2026-07-27, C2) — copied once at init,
     # never refreshed; catches a workspace silently building on a stale
@@ -673,9 +875,6 @@ def main():
     failed |= not sections["composition_freshness"]["pass"]
 
     # 3. coverage
-    html = (ws / "index.html").read_text()
-    scenes = parse_scenes(html)
-    scenes.sort(key=lambda s: s["start"])
     if static_mode:
         # Pre-TTS the scene starts/durations are placeholders, so tiling and
         # wav-vs-attr checks are meaningless — but the parsed scenes still
@@ -710,27 +909,39 @@ def main():
         failed |= bool(problems)
 
     # 4. variables: one theme per video
-    themes = {s["variables"].get("theme") for s in scenes if s["variables"]}
-    theme_problems = []
-    if len(themes) > 1:
-        theme_problems.append(f"mixed style packages in one video: {sorted(themes)}")
-    if None in themes or "" in themes:
-        theme_problems.append("scene(s) missing the theme variable")
-    # Motion v2 (2026-07-27): exits/closing beats key off sceneDuration, and the
-    # compiler only injects it when the scene DECLARES the key — a slot without
-    # it silently runs on the template's fallback and mistimes its exit.
-    no_sdur = [s["id"] for s in scenes if "sceneDuration" not in s["variables"]]
-    if no_sdur:
-        theme_problems.append(f"scene(s) missing the sceneDuration variable "
-                              f"(exits/closing beats mistime without it): "
-                              f"{', '.join(no_sdur)}")
-    sections["variables"] = {"pass": not theme_problems,
-                             "output": "\n".join(theme_problems) or
-                                       f"theme={next(iter(themes), '?')} on all scenes"}
-    failed |= bool(theme_problems)
+    if freeform:
+        sections["variables"] = freeform_skip(
+            "theme/sceneDuration are compiler slot variables; brand truth is "
+            "graded by the brand section below, monotony by the per-video "
+            "human preview")
+    else:
+        themes = {s["variables"].get("theme") for s in scenes if s["variables"]}
+        theme_problems = []
+        if len(themes) > 1:
+            theme_problems.append(f"mixed style packages in one video: {sorted(themes)}")
+        if None in themes or "" in themes:
+            theme_problems.append("scene(s) missing the theme variable")
+        # Motion v2 (2026-07-27): exits/closing beats key off sceneDuration, and the
+        # compiler only injects it when the scene DECLARES the key — a slot without
+        # it silently runs on the template's fallback and mistimes its exit.
+        no_sdur = [s["id"] for s in scenes if "sceneDuration" not in s["variables"]]
+        if no_sdur:
+            theme_problems.append(f"scene(s) missing the sceneDuration variable "
+                                  f"(exits/closing beats mistime without it): "
+                                  f"{', '.join(no_sdur)}")
+        sections["variables"] = {"pass": not theme_problems,
+                                 "output": "\n".join(theme_problems) or
+                                           f"theme={next(iter(themes), '?')} on all scenes"}
+        failed |= bool(theme_problems)
 
-    # 5. script fidelity — approved script vs whisper transcript
-    if static_mode:
+    # 5. script fidelity — the fabrication ban's render-stage half. Freeform:
+    # the beat manifest (what was SENT to the engine) diffs against the
+    # approved script, static and free. Template: approved script vs the
+    # synthesized transcript.
+    if freeform:
+        sections["script_match"] = check_freeform_script_match(ws, script_override)
+        failed |= not sections["script_match"]["pass"]
+    elif static_mode:
         sections["script_match"] = static_skip(
             "the synthesized transcript (narration.words.json / transcript.json)")
     else:
@@ -738,7 +949,12 @@ def main():
         failed |= not sections["script_match"]["pass"]
 
     # 6. pacing — Motion v2 cue-gap budget + scene duration caps
-    if static_mode:
+    if freeform:
+        sections["pacing"] = freeform_skip(
+            "the cue-gap budget reads compiled cue variables; freeform "
+            "reveals are word-timestamp-driven and pacing is owned by the "
+            "per-video human preview")
+    elif static_mode:
         sections["pacing"] = static_skip(
             "compiled cue times + real scene durations")
     else:
@@ -759,8 +975,24 @@ def main():
     #     name from tokens.yml's `programs:` map (run 2 of the 2026-07-28 stability loop
     #     invented a program name; run 1 used the pre-rebrand one — neither
     #     traceable); title must be the stem's title segment, de-kebabed.
-    sections["title_card"] = check_title_card(ws, scenes, script_override)
+    #     Freeform: same rule, graded on extracted on-frame markup text.
+    if freeform:
+        sections["title_card"] = check_freeform_title(ws, script_override)
+    else:
+        sections["title_card"] = check_title_card(ws, scenes, script_override)
     failed |= not sections["title_card"]["pass"]
+
+    # 7c. brand — colors + typeface come from the machine-readable brand
+    #     tokens, graded on the workspace's own CSS. Templates guarantee brand
+    #     by construction, so this runs on the freeform lane only — the one
+    #     lane where nothing else owns it (the gap the adoption brief missed:
+    #     brand-truth.md would be prose, and prose is a request).
+    if freeform:
+        rc, out = run_tool([sys.executable,
+                            str(Path(__file__).parent / "check_brand.py"),
+                            str(ws)])
+        sections["brand"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 8. slots — every template slot a scene doesn't use must be blanked with "".
     #    An omitted slot renders the template's PLACEHOLDER DEFAULT: plausible,
@@ -768,10 +1000,16 @@ def main():
     #    check_text grades size and restatement, not provenance — and it is a
     #    fabrication-ban violation, so it fails hard. (Added 2026-07-28 after the
     #    AUTO-BATCH pilot shipped 15 placeholder lines across 6 scenes.)
-    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_slots.py"),
-                        str(ws)])
-    sections["slots"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if freeform:
+        sections["slots"] = freeform_skip(
+            "the data-slot / placeholder-default protocol is the compiler's; "
+            "the placeholder scan is rehomed in check_copy (runs below, over "
+            "extracted on-frame markup text)")
+    else:
+        rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_slots.py"),
+                            str(ws)])
+        sections["slots"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 9. in-scene silence — no inter-word hole inside a scene may run past
     #    INSCENE_GAP_FAIL. Oxana pauses 0.98-1.26s mid-scene at sentence and
@@ -781,7 +1019,12 @@ def main():
     #    "a major glitch or lag" (2026-07-28). synth_narration.compress_gaps()
     #    excises the excess at synthesis; this is the guard that keeps a future
     #    provider or voice change from silently reintroducing the class.
-    if static_mode:
+    if freeform:
+        sections["inscene_gaps"] = freeform_skip(
+            "needs per-word timestamps in the flat-words shape; the audio "
+            "engine owns gap compression on this lane (adapter deferred with "
+            "check_boundaries')")
+    elif static_mode:
         sections["inscene_gaps"] = static_skip(
             "narration.words.json + scene-times.json")
     else:
@@ -798,10 +1041,16 @@ def main():
     #     Also fails a list slot holding exactly ONE item: that draws the
     #     bullet/pill illustration around a single fact ("you would never just
     #     render a single bullet point"), which 5 scenes of that build did.
-    rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_variety.py"),
-                        str(ws)])
-    sections["variety"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if freeform:
+        sections["variety"] = freeform_skip(
+            "template-family counting has no referent here; monotony on this "
+            "lane is owned by the per-video human preview (decisions/log.md "
+            "2026-07-30) until check_diversity exists")
+    else:
+        rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_variety.py"),
+                            str(ws)])
+        sections["variety"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 11. copy — standing owner preferences about the words themselves, given
     #     repeatedly and enforced nowhere until 2026-07-28. Headings are Title
@@ -839,11 +1088,18 @@ def main():
     #      "Different learning opportunities" (507px of Proxima 900 at 34px) in
     #      a 240px card, which grew to three lines and pushed through the footer
     #      rule. Static and cheap, so a builder learns at plan stage.
-    rc, out = run_tool([sys.executable,
-                        str(Path(__file__).parent / "check_capacity.py"),
-                        str(ws)])
-    sections["capacity"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if freeform:
+        sections["capacity"] = freeform_skip(
+            "slot capacity needs slots; freeform layout is designed around "
+            "its copy, and overflow is graded from real pixels (geometry/ink "
+            "below + the per-beat layout inspector) — an accepted loss of the "
+            "plan-stage fit check, decisions/log.md 2026-07-30")
+    else:
+        rc, out = run_tool([sys.executable,
+                            str(Path(__file__).parent / "check_capacity.py"),
+                            str(ws)])
+        sections["capacity"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 11cc. geometry — no text may land on other text, or below the frame. The
     #      2026-07-29 build printed "Grounded in what you value" straight
@@ -855,11 +1111,24 @@ def main():
     #      a loop the bind regex could not see. boxmodel.py resolves every
     #      string to a frame box from the template CSS + real font metrics, so
     #      this is static and cheap and runs at plan stage too.
-    rc, out = run_tool([sys.executable,
-                        str(Path(__file__).parent / "check_geometry.py"),
-                        str(ws)])
-    sections["geometry"] = {"pass": rc == 0, "output": out.strip()}
-    failed |= rc != 0
+    if freeform:
+        # boxmodel is CONFIDENTLY WRONG on freeform CSS — measured at 281
+        # false findings on a build verified clean across 34 stills (HANDOFF
+        # §2) — so it must not run here. Bounds come from real pixels
+        # (check_ink over per-beat snapshots); text-on-text from the per-beat
+        # layout inspector pass below.
+        if static_mode:
+            sections["geometry"] = static_skip(
+                "browser snapshots of the built HTML (check_ink)")
+        else:
+            sections["geometry"] = check_freeform_ink(ws)
+            failed |= not sections["geometry"]["pass"]
+    else:
+        rc, out = run_tool([sys.executable,
+                            str(Path(__file__).parent / "check_geometry.py"),
+                            str(ws)])
+        sections["geometry"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
 
     # 11c-bis. motion — settled content may not re-animate in place. The owner
     #      banned keep-alive motion 2026-07-14 and reaffirmed it 07-15; a

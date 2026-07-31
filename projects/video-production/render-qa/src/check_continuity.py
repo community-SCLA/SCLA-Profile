@@ -57,7 +57,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import Finding, get_attr, parse_scenes, typed
+from hfp_common import Finding, get_attr, load_beats, parse_scenes, typed
 
 # Forms that frame the lesson rather than carry a beat (mirrors check_variety).
 CHROME = {"scla-title", "scla-outro"}
@@ -219,11 +219,33 @@ def enumeration_span_problems(scenes):
 def check(ws: Path, static=False):
     scenes = parse_scenes((ws / "index.html").read_text(
         encoding="utf-8", errors="replace"))
-    if not scenes:
-        return ["no scene slots found in index.html"]
-    return (split_sentence_problems(scenes)
-            + blip_problems(scenes, static=static)
-            + enumeration_span_problems(scenes))
+    if scenes and any(s["narration"] is not None for s in scenes):
+        return (split_sentence_problems(scenes)
+                + blip_problems(scenes, static=static)
+                + enumeration_span_problems(scenes))
+
+    # Freeform (agent-native): narration lives in the beat manifest. A beat is
+    # a TTS synthesis unit, not a frame — several beats can share one visual
+    # state — so only rule 1 applies: a beat opening mid-sentence still puts an
+    # audible pause inside a thought. Rules 2 and 3 grade FRAMES, which no beat
+    # manifest can see; on the freeform lane the per-video human preview owns
+    # them (decisions/log.md 2026-07-30).
+    beats = load_beats(ws)
+    if beats is None:
+        if not scenes:
+            return ["no scene slots found in index.html"]
+        return [Finding(
+            "nothing-graded",
+            f"{len(scenes)} scene slot(s) carry no data-narration and no "
+            f"audio_request.json exists — this gate can grade nothing, and "
+            f"grading nothing is a failure, never a pass.")]
+    # Of rule 1, only the lowercase opening is kept for beats: a sentence that
+    # STARTS in the previous synthesis unit is unambiguously cut. A complete
+    # clause opening on a coordinator ("But your next step probably feels…")
+    # is ordinary spoken rhetoric when no frame changes underneath it — the
+    # 15-word frame calibration does not transfer to audio-only units.
+    return [p for p in split_sentence_problems(beats)
+            if getattr(p, "rule_id", "") == "opens-lowercase"]
 
 
 def main(argv) -> int:

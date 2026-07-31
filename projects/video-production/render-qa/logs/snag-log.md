@@ -33,11 +33,255 @@ to `logs/snag-log-archive-<NNN>.md` (next number; prepend the standard
 provenance header). Archives are read-only trail — the read rule above never
 changes: only the latest entry in THIS file is current state.
 
-Sibling: `logs/BUILD-LOG.md` (dated build/overhaul/run records; rotated the
-same way if it outgrows ~100 KB). Handoff docs live in `docs/`.
+`logs/BUILD-LOG-archive-001.md` is the retired one-off build-overhaul log
+(2026-07-10); nothing writes to it and it does not rotate further — pipeline-
+structure decisions now land in `decisions/log.md`. Handoff docs live in `docs/`.
 
 
-## 2026-07-29 (latest) · mid-career-momentum batch — parallelism applied to the one stage that measures as serial
+## 2026-07-30 — freeform-lane infrastructure + the first freeform pilot (build-direction, early-career-boost)
+
+**Open — owner-actionable only.**
+- **One-word script edit needs back-porting (or veto).** The freeform pilot's beat
+  manifest deviates from the approved script by exactly one word: s07's four-question
+  run fails the conjunction gate, and the only edit that clears BOTH check_copy and
+  the script-fidelity diff is `Where` → `or` in the final question. The build carries
+  the edit; the refined script
+  `lesson-scripts/early-career-boost/refined/build-direction-before-you-build-a-plan_early-career-boost.txt`
+  still carries the original. Approve = edit the one word in the script; veto = the
+  build re-synthesizes s07. *(since 2026-07-30)*
+- **Variety floor vs. the icon ban.** Removing per-row icons dropped 7 lessons below the
+  artwork-coverage floor (60% of content scenes must carry an illustration). `scla-points`
+  now has NO icon capability at all, so a points-heavy lesson cannot reach the floor. Either
+  those lessons get re-authored onto illustration-capable forms (condition/statement/chips/
+  steps with a hero icon — which is also the fix for "this workspace lacks variety across
+  the frames"), or the floor moves. Re-authoring is the honest option; the floor was
+  calibrated against a reference video that never used row icons, so it is not obviously
+  wrong. Needs the owner's call on scope. *(since 2026-07-29)*
+- **Remaining script rewrites need re-synthesis** — connector words (m3_building f4,
+  m4_finding f9/f17, m4_who f6/f8), "ask two questions" -> "three" (m2_four-kinds f22),
+  question-mark inflection (m4_who f11/f15), and the sentence split across m4_who f16/f17.
+  Each is a text edit plus a HeyGen re-synthesis and re-compile; none is blocked, just
+  not yet done. *(since 2026-07-29)*
+
+**Fixed this session.**
+- `[tooling]` The §1 coupling from HANDOFF-agent-native-verdict: freeform builds graded
+  by nothing. Beat-manifest adapter in `hfp_common.py` re-armed check_copy/continuity/
+  layout/verify_render; `check_ink.py` (pixel bounds) and `check_brand.py` (palette +
+  face) landed with firing fixtures; `preflight.py` auto-detects the lane. 56/56 firing
+  proofs, lint-refs 11/11 green. (~1 session)
+- `[authoring]` Pilot: TTS normalization `AI` → `A.I.` makes Oxana read the trailing
+  period as a sentence end (2.2s mid-line hole). Correct form is `A.I` — no trailing
+  period. Measured across three synthesized variants. **Promoted:** worth folding into
+  the freeform skill section / refine guidance if it recurs.
+- `[authoring]` Pilot: Proxima 900 at `line-height: 1.1` overflows its own line box
+  (real normal is 1.477) — two display lines collided; caught by the per-beat layout
+  pass, fixed at 1.5. The template lane already knew this number (`metrics.json`);
+  freeform builders learn it from the gate.
+- `[env]` Session disconnect killed the pilot agent mid-run; resumed from transcript
+  with disk-state verification (workspace claim held, no TTS spent). The mkdir lock +
+  artifact-on-disk contract made the resume trivial.
+
+**Promoted to docs.** Freeform build sequence → `/render-lessons` SKILL.md; lane
+decisions → `decisions/log.md` 2026-07-30; `hyperframe-guard.sh` now gives
+freeform-correct fix advice on violations.
+
+## 2026-07-29 — owner review of the mid-career-momentum batch: 13 lessons, ~60 frame notes
+
+**Open — owner-actionable only.**
+- **Variety floor vs. the icon ban.** Removing per-row icons dropped 7 lessons below the
+  artwork-coverage floor (60% of content scenes must carry an illustration). `scla-points`
+  now has NO icon capability at all, so a points-heavy lesson cannot reach the floor. Either
+  those lessons get re-authored onto illustration-capable forms (condition/statement/chips/
+  steps with a hero icon — which is also the fix for "this workspace lacks variety across
+  the frames"), or the floor moves. Re-authoring is the honest option; the floor was
+  calibrated against a reference video that never used row icons, so it is not obviously
+  wrong. Needs the owner's call on scope. *(since 2026-07-29)*
+- **Remaining script rewrites need re-synthesis** — connector words (m3_building f4,
+  m4_finding f9/f17, m4_who f6/f8), "ask two questions" -> "three" (m2_four-kinds f22),
+  question-mark inflection (m4_who f11/f15), and the sentence split across m4_who f16/f17.
+  Each is a text edit plus a HeyGen re-synthesis and re-compile; none is blocked, just
+  not yet done. *(since 2026-07-29)*
+- **m1_mini-syllabus still needs its rebuild.** Diagnosed, not rebuilt: the frames render,
+  but most carry a heading and one bullet, which is what the owner read as "nothing renders
+  in actual hyperframes". *(since 2026-07-29)*
+
+**What happened.** The owner reviewed all 13 built mid-career-momentum hyperframes and
+returned ~60 frame-level notes plus five new rules. Every "remove icons from frame N" note
+mapped to the same slot — the plural per-row/per-card `icons` on `scla-points`/`scla-morph`
+— so the capability was deleted (ripple precedent) and 42 authored instances stripped across
+12 plans. Four more rules were mechanized: `part-reference`, `one-card`, `scene-index-badge`,
+and the geometry work below. `m3_from-history-to-signal` was approved for ship and has not
+been shipped yet.
+
+**What we learned.**
+- *Three of the owner's complaints were invisible to the geometry gate because the boxes did
+  not exist in the model.* Chips, condition chips, statement lines and morph notes are all
+  created at run time, and only sub-beats had ever been given a geometry prototype. The gate
+  graded 4 chrome boxes on the frame the owner said was overflowing and returned PASS.
+- *`line-height: normal` was assumed to be 1.2 and is really 1.404/1.447/1.477 in Proxima.*
+  Every un-line-heighted block was ~20% short in the model. This single number is why four
+  wrapped chip rows modelled as ending 43px clear of a footer they ran through. Both
+  owner-reported overflows now fail from the plan alone, no browser, no render.
+- *A gate can be defeated by an inline style.* `scla-chips` narrows its field to
+  `right: 620px` in JS when a hero icon is set; nothing in the CSS said so, so the model used
+  the full 1680px and packed two rows where the browser makes four. Conditional geometry is
+  now DECLARED (`data-geometry-alt-if`) and the script reads the number back out of the
+  attribute, so the two cannot drift.
+- *Two gates disagreeing makes a fix impossible.* Removing "Pt2" from a title card to satisfy
+  the new `part-reference` rule failed `title_card`, which required the title to equal the
+  stem. `title_card` now strips the same filing suffix.
+- *A test can enshrine a defect.* Two fixtures asserted `icons="compass,target"` PASSES; the
+  mutation harness's own control fixture carried four `icons` values. Both were inverted /
+  cleaned rather than worked around.
+- *`sceneIndex` badges are load-bearing for review.* m4_visibility-actions numbered 13 scenes
+  1..11, and the owner's frame numbers for that lesson could not be resolved against the plan.
+  Now gated.
+- *The documented metrics-regen recipe had never run.* It grepped `/^REGEN/` against a line
+  beginning `# REGEN`, matched nothing, executed an empty program, and reported success.
+
+**Still true.** Preflight status after this session: 1 lesson clean
+(m2_mid-career-mindsets), 12 with remaining findings — mostly `pacing` (pre-existing
+duration caps) and `variety` (the artwork floor above). No lesson was left worse than found.
+
+## 2026-07-29 (latest) · AUTO-BATCH resume — "13 built videos" were 12 unfinished ones
+
+The session opened on `batch-status.sh` reporting **13 built, NOT published**
+with the hint `<- verify before re-running`, and the owner's standing question:
+republish them or rebuild them? **Neither was right.** Twelve of the thirteen
+had never had `compile_timeline.py --apply` run against them: `index.html`
+carried nothing but placeholders (`data-start="0"`, `data-duration="1"`) on
+every scene. They were not finished videos awaiting an upload; they were builds
+abandoned two commands from the end.
+
+The failure mode that hid this is worth naming, because it will recur. Running
+`preflight.py` on such a workspace reports **80+ geometry/layout violations, all
+at `scene-01 (t=0.00s)`, comparing elements that belong to different scenes** —
+because with no timeline applied, every scene is simultaneously visible at t=0.
+Read at face value that is a catastrophically broken build and the obvious
+call is to rebuild. Read one line higher — `[compile_timeline:check] FAIL` —
+it is one missing command. **A cascade failure reports loudest at its furthest
+edge; diagnosis starts at the first failing check, never the biggest number.**
+
+Cost of the two available answers, measured rather than guessed: rebuilding all
+12 would have discarded 258 valid TTS clips and every scene plan. The actual
+repair was `compile_timeline.py --apply` — 11 of 12 clean on the first attempt,
+no re-synthesis, under a minute total. The 13th (`m1_mini-syllabus`) had a real
+defect underneath: its `scenes.json` had been edited after synthesis, so
+scene-02's audio clip physically contained scene-03's opening sentence
+(`text_words` 35/26 against an actual 25/36). The transcript gate caught it
+exactly as designed and named it as an unresolvable anchor phrase.
+
+**Open — owner-actionable only**
+
+- **2 scripts carry live `TODO: needs input`** *(since 2026-07-23)* —
+  `m2_the-value-of-building-mid-career-momentum`,
+  `m3_discover-experiences-that-support-your-next-move`. Still blocking; they
+  cannot enter the pipeline.
+- **`mini-syllabus` superseded Wistia copy `2ilh1o6c4g` still needs archiving**
+  *(since 2026-07-21)* — token has no delete scope.
+- **Pilot sign-off (mid-career-momentum)** *(since 2026-07-29)* — asked this
+  session; owner chose to preview before authorizing. Nothing in this program
+  renders until it clears:
+  `bash scripts/preview.sh m2_mid-career-mindsets-and-limiting-beliefs`
+- **Scene-12 (career map) holds ~3s pixel-static mid-scene** *(since
+  2026-07-29)* — advisory, in `check_presence`'s 3–5s gray zone. The fix is
+  authoring and changes the scene's rhythm — worth a decision.
+
+*Closed since the last entry:* the `better-decisions-come-from-better-criteria`
+pilot is **published** (`t6cathsymi`, in `published.tsv`) — the previous entry
+listed it as awaiting sign-off, which was already stale when written. The
+`"Career Accelerator"` question was put to the owner and answered: remove it,
+and it is now gated rather than remembered (below).
+
+**Fixed this session**
+
+- [tooling] **12 workspaces stranded with an unapplied timeline** — root-caused
+  and repaired without rebuilding. Also found the mechanism that strands them:
+  **`build_index.py` regenerates `index.html` with placeholder timings, silently
+  discarding an applied timeline.** Any `build_index.py` run must be followed by
+  `compile_timeline.py --apply`, always — reproduced first-hand this session by
+  refreshing a composition and watching a green workspace go red.
+- [tooling] **`batch-status.sh` called a bare workspace "built"** — the label a
+  resuming session acts on was derived from folder existence alone, which is
+  what turned a two-command repair into a republish-or-rebuild judgement call
+  with no evidence attached. It now probes what the files prove and says which
+  stage a workspace actually reached (`planned, NOT synthesized` ·
+  `synthesized, timeline NOT applied` · `compiled — run preflight to confirm
+  gate-clean` · `verified MP4 awaiting publish`). Had it said that this morning,
+  the diagnosis would have been the first line of output rather than an hour of
+  work.
+- [defect] **`boxmodel.py` never derived height from opposing insets** — width
+  resolved from `left`+`right`, height ignored `top`+`bottom` and always used
+  content height. So an `inset: 0` wrapper measured **1920x0**, and every
+  absolutely positioned child resolving against it was placed against a
+  zero-height box. This is the true root of the recurring
+  "`subBeats` renders outside the safe area" snag carried in the last entry as
+  a template defect: `#kp-subbeat-proto` came out at y=-180 on a template that
+  renders correctly in a browser. **Two build agents had already worked around
+  it by abandoning `subBeats` entirely** — a gate's false positive silently
+  removing a design capability from finished videos. Fixed at `boxmodel.py`,
+  restricted to text-free nodes so text ink stays its own height; the prototype
+  now measures y=900, inside the safe area.
+- [defect] **Three sub-beat hosts were unstyled** (`scla-points`, `scla-chips`,
+  `scla-steps`) — `#*-subbeat-host` had no CSS at all, so it established no
+  containing block and the sub-beat's `bottom` resolved against whatever
+  wrapper enclosed it. Given `position: absolute; inset: 0` at the template, so
+  the fix lands once rather than in every scene plan that wants a sub-beat.
+  (`scla-loop` has no host element — it appends elsewhere and was left alone.)
+- [authoring] **`m1_mini-syllabus` had a stale `scene-times.json`** — plan edited
+  after synthesis, one sentence's audio sitting in the wrong scene's clip.
+  Re-synthesized the two affected clips only; the cache made it cheap.
+- [process] **Composition freshness fired correctly and was believed** — editing
+  three shared templates turned every pre-existing workspace stale, including
+  the one gate-clean pilot. Refreshed all 13 and recompiled rather than
+  suppressing the check.
+
+**Promoted to docs**
+
+- **A retired name is now a gate, not a memory.** The owner's instruction that
+  no render may **speak** the name "Career Accelerator" had no mechanism: the
+  existing rule graded only the title-card banner, which is why the phrase sat
+  in two approved script bodies and reached synthesized audio months after the
+  on-screen alias was reverted. Now `design-system/config/tokens.yml`
+  `retired-names:` (data) → `tokens.retired_names()` → `check_copy.py` rule
+  `retired-name`, graded on narration AND on-frame copy, in workspace mode, in
+  `--static` plan mode, and on refined scripts at `/refine-scripts` — where the
+  fix costs a text edit instead of a re-synthesis. Deliberately read from the
+  **spec, never the workspace copy**, unlike every other token accessor: a
+  workspace created before a name was retired must not be able to opt out of
+  the ban. Pinned by `render-qa/tests/test_programs.py` (fires in narration, in
+  on-frame copy, case-insensitively; clean copy passes), which runs in CI via
+  `lint-refs.sh` check 11. Library swept: 0 refined scripts contain it.
+- **`scripts/batch-status.sh`** — the stage probe above, with the reasoning
+  written beside it so the next person does not re-derive why it is not enough
+  to say "built".
+- **`render-qa/src/boxmodel.py`** — the inset-height rule, commented with the
+  false-positive it caused and the workaround it provoked.
+
+- [tooling] **A stale duplicate SKILL.md was shadowing the maintained one.**
+  Two copies of `/render-lessons` exist: `.claude/skills/render-lessons/SKILL.md`
+  in the repo (version-controlled, current — and the copy
+  `scripts/batch-prepare.sh` reads when it generates `_run/BUILD-KIT.md`) and
+  `~/.claude/skills/render-lessons/SKILL.md` (unversioned, and a day stale).
+  **The stale one is what loaded into this session**, 176 diff lines behind. It
+  still instructed `stem.py restamp <stem>` to produce a dated workspace name —
+  reversed by the 2026-07-29 no-date rule, and something `stem.py` now exits 2
+  on. It also pointed at pre-refactor paths (`render-qa/preflight.py`,
+  `render-qa/stem.py`, `render-qa/snag-log.md`, `narration.wav` at the workspace
+  root). Build subagents were never exposed to any of it, because `BUILD-KIT.md`
+  is generated from the **repo** copy and was correct throughout — only the
+  orchestrator read the stale text. Synced repo → user-level; the two are now
+  identical.
+  **Still unmechanized (convention):** nothing stops them diverging again.
+  `sync.sh` is a git sync and does not touch `~/.claude/`. A lint check that
+  fails when the two copies differ is the obvious fix and is NOT yet written.
+- [tooling] **SKILL.md misdescribes its own extraction.** The marker comment
+  claims `batch-prepare.sh` extracts the block "verbatim". It does — but from
+  the repo copy, while the sentence sits in whichever copy you happen to be
+  reading. That is how a stale file can describe a healthy mechanism and still
+  mislead.
+
+## 2026-07-29 · mid-career-momentum batch — parallelism applied to the one stage that measures as serial
 
 Owner asked for all 15 mid-career-momentum lessons rendered in parallel inside
 30 minutes. 13 were buildable. **Zero rendered.** The 30-minute target was not

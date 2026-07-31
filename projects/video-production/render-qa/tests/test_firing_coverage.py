@@ -48,16 +48,36 @@ REQUIRED = {
     "check_boundaries": ["mid-sentence-cut", "mid-word-cut", "insufficient-air",
                          "final-hold", "tail-after-last-scene"],
     "check_capacity":   ["maxlines"],
-    "check_continuity": ["blip", "split-list", "split-sentence"],
+    "check_continuity": ["blip", "split-list", "split-sentence",
+                         "freeform-opens-lowercase", "nothing-graded"],
     "check_copy":       ["conjunction", "dangling", "dangling-fragment",
-                         "titlecase", "heading-period"],
+                         "titlecase", "heading-period", "part-reference",
+                         # the freeform (agent-native) path, re-armed via the
+                         # beat-manifest adapter — HANDOFF-agent-native §1
+                         "freeform-conjunction", "freeform-retired-name",
+                         "freeform-titlecase", "freeform-heading-period",
+                         "placeholder", "no-headings", "nothing-graded"],
+    # the pre-render freeze gate (freeform lane) — the same rule check_presence
+    # applies to the delivered MP4, run over snapshot stills before the render
+    # is spent. twin-beats WARNS by design (STD-38) but must still be proven to
+    # fire, or it rots into the vacuous PASS it exists to replace.
+    "check_diversity":  ["static-span", "grid-too-sparse", "twin-beats",
+                         "nothing-graded"],
     "check_geometry":   ["text-collision", "nothing-graded", "safe-area-breach",
                          "footer-breach", "padding-breach", "card-gutter"],
-    "check_motion":     ["keep-alive-motion", "undeclared-target"],
-    "check_slots":      ["unfilled", "placeholder", "unknown-icon"],
+    # the pixel bounds gate (freeform lane) — same three bands, real pixels
+    "check_ink":        ["safe-area", "padding", "footer"],
+    # the brand gate (freeform lane) — colors + typeface from tokens.yml
+    "check_brand":      ["off-color", "off-font", "missing-font-asset",
+                         "nothing-graded"],
+    "check_motion":     ["keep-alive-motion", "undeclared-target",
+                         "freeform-keep-alive"],
+    "check_slots":      ["unfilled", "placeholder", "unknown-icon",
+                         "banned-row-icons", "scene-index-badge"],
     "check_text":       ["min-size", "restatement"],
     "check_variety":    ["consecutive-run", "min-forms", "artwork", "share",
-                         "canvas-run", "canvas-seconds", "two-region"],
+                         "canvas-run", "canvas-seconds", "two-region",
+                         "one-item-list", "one-card"],
 }
 
 # Checkers that cannot be fired from a pure-Python fixture: they need a live

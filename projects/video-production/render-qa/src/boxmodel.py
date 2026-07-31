@@ -58,6 +58,11 @@ import textmetrics
 # ---------------------------------------------------------------------------
 VOID = {"br", "img", "input", "meta", "link", "hr", "source", "use", "path",
         "polygon", "circle", "rect", "line", "ellipse", "stop"}
+
+# Sub-pixel slack before a flex row is considered full. Font metrics and the
+# browser's own rounding differ by well under a pixel; breaking a row on that
+# would invent a row and, with it, an overflow that is not there.
+TOL_WRAP = 1.0
 RULE_RX = re.compile(r"([^{}]+)\{([^{}]*)\}")
 LEN_RX = re.compile(r"-?[\d.]+")
 
@@ -242,6 +247,25 @@ def _pad4(d: dict) -> tuple[float, float, float, float]:
     return top, right, bottom, left
 
 
+def _border4(d: dict) -> tuple[float, float, float, float]:
+    """(top, right, bottom, left) border WIDTHS.
+
+    A 3px border on a chip is 6px of box on each axis. That is small until it
+    is multiplied by four stacked rows, and it is the outer edge — the line the
+    viewer actually sees meeting the footer — so it belongs in the box.
+    `border: none` and `border: 0` resolve to 0 by _px's own parsing.
+    """
+    out = {}
+    for i, side in enumerate(("top", "right", "bottom", "left")):
+        spec = d.get(f"border-{side}") or d.get("border") or ""
+        if not spec or "none" in spec:
+            out[side] = 0.0
+            continue
+        head = spec.split()[0] if spec.split() else ""
+        out[side] = _px(head, 0.0) or 0.0
+    return out["top"], out["right"], out["bottom"], out["left"]
+
+
 def _pad(d: dict) -> tuple[float, float]:
     """(left, right) horizontal padding — the pair most callers want."""
     _, right, _, left = _pad4(d)
@@ -272,11 +296,14 @@ def typeface(doc: Doc, node: dict) -> dict:
             upper = True
         n = n["parent"]
     size = size or 32.0
+    # `normal` comes from the real vendored font (1.40-1.48 by weight), not the
+    # 1.2 this assumed until 2026-07-29 — see textmetrics.normal_line_height.
+    default_lh = size * textmetrics.normal_line_height(weight or 400)
     if line_height in (None, "normal"):
-        lh = size * 1.2
+        lh = default_lh
     else:
         raw = str(line_height).strip()
-        lh = (_px(raw, size * 1.2) if any(u in raw for u in ("px", "em", "%"))
+        lh = (_px(raw, default_lh) if any(u in raw for u in ("px", "em", "%"))
               else float(raw) * size)
     # A vertical rail label runs DOWN the frame: its inline axis is y, so the
     # box is line-height wide and text-length tall. Modelling it as horizontal
@@ -349,10 +376,108 @@ class Layout:
         self.canvas = canvas
         self.boxes: dict[int, Box] = {}
         self.unplaced: list[dict] = []
+        self._expand_repeats()
         root = doc.by_id.get("root") or (doc.nodes[0] if doc.nodes else None)
         if root is not None:
             self.boxes[id(root)] = Box(0, 0, canvas[0], canvas[1])
             self._place_children(root, self.boxes[id(root)])
+
+    # -- run-time repetition -------------------------------------------------
+    def _expand_repeats(self) -> None:
+        """Turn a `data-geometry-repeat` prototype into one box per list item.
+
+        The single empty prototype that `data-geometry-proto` gives a sub-beat
+        works because sub-beats swap in place: one box, shown one line at a
+        time. A chip row is the other shape — N pills of DIFFERENT widths on
+        screen at once — and one prototype cannot stand in for it. Before this,
+        chips were simply invisible to the gate: scene-17 of who-will-walk
+        graded four boxes, all of them chrome, while the four chips the owner
+        was looking at ran through the footer.
+
+        A template declares `data-geometry-repeat="<sep>"` on the prototype and
+        names the slot with `data-slot`; the prototype is replaced, in place,
+        by one clone per item. A prototype may carry structure — scla-statement's
+        line is a flex row of a bullet dot and a text span — in which case the
+        item text lands on the descendant marked `data-geometry-text` and the
+        rest of the subtree is cloned as is, so the bullet still occupies its
+        16px of the row. A flat prototype takes the text itself.
+        """
+        for proto in [n for n in self.doc.nodes
+                      if "data-geometry-repeat" in n["attrs"]]:
+            parent = proto.get("parent")
+            if parent is None or proto not in parent["children"]:
+                continue
+            sep = proto["attrs"].get("data-geometry-repeat") or ","
+            slot = proto["attrs"].get("data-slot")
+            raw = str(self.texts.get(slot, "") or "") if slot else ""
+            items = [s.strip() for s in raw.split(sep) if s.strip()]
+            clones = [self._clone_for(proto, parent, item) for item in items]
+            i = parent["children"].index(proto)
+            parent["children"][i:i + 1] = clones
+            self.doc.nodes = [n for n in self.doc.nodes
+                              if n is not proto and not self._within(n, proto)]
+
+    @staticmethod
+    def _within(node: dict, ancestor: dict) -> bool:
+        cur = node.get("parent")
+        while cur is not None:
+            if cur is ancestor:
+                return True
+            cur = cur.get("parent")
+        return False
+
+    def _clone_for(self, proto: dict, parent: dict, item: str) -> dict:
+        """Deep-copy `proto`, dropping the repeat markers, with `item` as text."""
+        STRIP = ("data-slot", "data-geometry-repeat", "data-geometry-proto")
+
+        def copy(src: dict, new_parent: dict | None) -> dict:
+            node = dict(src)
+            node["attrs"] = {k: v for k, v in src["attrs"].items()
+                             if k not in STRIP}
+            node["id"] = None
+            node["parent"] = new_parent
+            node["children"] = []
+            node["text"] = ""
+            self.doc.nodes.append(node)
+            for kid in src["children"]:
+                node["children"].append(copy(kid, node))
+            return node
+
+        clone = copy(proto, parent)
+        # Find the marked text carrier in the CLONE (same walk order as proto).
+        target, stack = None, [(proto, clone)]
+        while stack:
+            src, dst = stack.pop()
+            if "data-geometry-text" in src["attrs"]:
+                target = dst
+                break
+            stack.extend(zip(src["children"], dst["children"]))
+        (target or clone)["text"] = item
+        return clone
+
+    # -- cascade -------------------------------------------------------------
+    def _decls(self, node: dict) -> dict:
+        """`Doc.decls`, plus any geometry a template applies CONDITIONALLY.
+
+        scla-chips narrows its chip column to `right: 620px` in JavaScript when
+        a hero icon is set, reserving the right third of the frame for the
+        glyph. Nothing in the CSS says so, so the model placed chips in a
+        1680px-wide field the browser had already cut to 1180px — it packed two
+        rows where the render produced four, and the fourth ran through the
+        footer. That is the module's own stated failure mode ("a box only the
+        browser knows about is a box no gate can grade") arriving through an
+        inline style instead of a created element.
+
+        A template DECLARES the conditional box with
+        `data-geometry-alt-if="<slot>" data-geometry-alt="<css decls>"`, and
+        its script reads the same attribute rather than repeating the number —
+        so the declaration cannot drift from the behaviour.
+        """
+        d = self.doc.decls(node)
+        gate = node["attrs"].get("data-geometry-alt-if")
+        if gate and str(self.texts.get(gate, "") or "").strip():
+            d = dict(d, **_decls(node["attrs"].get("data-geometry-alt") or ""))
+        return d
 
     # -- text ---------------------------------------------------------------
     def text_of(self, node: dict) -> str:
@@ -400,14 +525,26 @@ class Layout:
                                  f["uppercase"])
 
     def _content_width(self, node: dict) -> float:
-        """max-content width — the widest the element wants to be."""
+        """Shrink-to-fit BORDER-BOX width — text, plus its own padding/border.
+
+        Padding and border were omitted until 2026-07-29, which understated a
+        chip pill by 98px (46px padding a side, 3px border a side). Two
+        consequences, both live: the flex-wrap packer fitted more chips per row
+        than the browser does, and `ink()` then wrapped the label to two lines
+        inside a box far too narrow for it. The pill is what a viewer sees, so
+        the pill is what gets measured.
+        """
         if not self.text_of(node):
             return 0.0
         f = typeface(self.doc, node)
-        return f["line_height"] if f["vertical"] else self._run_length(node)
+        run = f["line_height"] if f["vertical"] else self._run_length(node)
+        d = self._decls(node)
+        _, pr, _, pl = _pad4(d)
+        _, br, _, bl = _border4(d)
+        return run + pl + pr + bl + br
 
     def _height(self, node: dict, width: float) -> float:
-        d = self.doc.decls(node)
+        d = self._decls(node)
         explicit = _px(d.get("height"))
         if explicit is not None:
             return explicit
@@ -415,16 +552,19 @@ class Layout:
             return 0.0
         if self.text_of(node) and typeface(self.doc, node)["vertical"]:
             return self._run_length(node)
-        lines = self.wrapped(node, width)
-        if lines:
-            return len(lines) * typeface(self.doc, node)["line_height"]
         pt, _, pb, _ = _pad4(d)
-        return pt + self._content_height(node, width) + pb
+        bt, _, bb, _ = _border4(d)
+        lines = self.wrapped(node, max(1.0, width - _pad(d)[0] - _pad(d)[1]))
+        if lines:
+            # Border-box, as above: a padded pill is taller than its glyphs.
+            return (len(lines) * typeface(self.doc, node)["line_height"]
+                    + pt + pb + bt + bb)
+        return pt + self._content_height(node, width) + pb + bt + bb
 
     def _flow_children(self, node: dict) -> list[dict]:
         return [c for c in node["children"]
                 if self.is_present(c)
-                and self.doc.decls(c).get("position") not in ("absolute",
+                and self._decls(c).get("position") not in ("absolute",
                                                               "fixed")]
 
     def _content_height(self, node: dict, width: float) -> float:
@@ -435,7 +575,7 @@ class Layout:
         cosmetic: modelling `#kp-list` (flex column) as a row put all four list
         items at the same y and manufactured four collisions that do not exist.
         """
-        d = self.doc.decls(node)
+        d = self._decls(node)
         display = (d.get("display") or "block").split()[0]
         gap = _px(d.get("gap"), 0.0) or 0.0
         kids = self._flow_children(node)
@@ -444,11 +584,11 @@ class Layout:
         row = display == "flex" and "column" not in (d.get("flex-direction")
                                                      or "row")
         if display == "grid" or row:
-            return max(self._height(c, _px(self.doc.decls(c).get("width"))
+            return max(self._height(c, _px(self._decls(c).get("width"))
                                     or width) for c in kids)
         total = 0.0
         for i, c in enumerate(kids):
-            cd = self.doc.decls(c)
+            cd = self._decls(c)
             total += (_px(cd.get("margin-top"), 0.0) or 0.0)
             total += self._height(c, _px(cd.get("width")) or width)
             total += (_px(cd.get("margin-bottom"), 0.0) or 0.0)
@@ -458,7 +598,7 @@ class Layout:
 
     # -- placement ----------------------------------------------------------
     def _place_children(self, parent: dict, pbox: Box) -> None:
-        pd = self.doc.decls(parent)
+        pd = self._decls(parent)
         display = (pd.get("display") or "block").split()[0]
         pt, pr, pb, pl = _pad4(pd)
         inner = Box(pbox.x + pl, pbox.y + pt,
@@ -467,7 +607,7 @@ class Layout:
         flow = self._flow_children(parent)
         out_of_flow = [c for c in parent["children"]
                        if self.is_present(c)
-                       and self.doc.decls(c).get("position") in ("absolute",
+                       and self._decls(c).get("position") in ("absolute",
                                                                  "fixed")]
 
         if display == "flex":
@@ -477,7 +617,7 @@ class Layout:
         else:
             cursor = inner.y
             for child in flow:
-                cd = self.doc.decls(child)
+                cd = self._decls(child)
                 cursor += (_px(cd.get("margin-top"), 0.0) or 0.0)
                 w = _px(cd.get("width")) or inner.w
                 h = self._height(child, w)
@@ -488,22 +628,37 @@ class Layout:
             self._place_absolute(child, pbox)
 
     def _place_flex(self, parent, pd, inner, flow):
-        """flex row and flex column, honouring `gap` and align-items: center.
+        """flex row and flex column, honouring `gap`, `align-items: center` and
+        `flex-wrap: wrap`.
 
         A ROW child whose main-axis size cannot be resolved — a void element
         sized by its intrinsic aspect, e.g. a logo <img> given only a height —
         makes every later sibling's x unknowable. Those are recorded UNPLACED
         rather than guessed. An invented coordinate produces an invented
         collision, and a gate that cries wolf is a gate that gets switched off.
+
+        WRAP (2026-07-29). Without it a wrapping row was modelled as one
+        infinitely long line, so its height was one chip and its overflow was
+        always downward-invisible. scla-chips' `#cc-field` is `flex-wrap: wrap`
+        at top:470 in a 1080 frame: four long chips stack into four rows and end
+        at y≈1000, through the footer band and the brandline. The owner reported
+        exactly that ("the points are rendered too low in the frame and violate
+        the border padding"), and check_geometry returned PASS — it had never
+        seen a chip box at all. Row height is the tallest child in the row, and
+        `gap: <row> <column>` is read in that order, as CSS does.
         """
-        gap = _px(pd.get("gap"), 0.0) or 0.0
+        gap_parts = str(pd.get("gap") or "").split()
+        row_gap = _px(gap_parts[0], 0.0) or 0.0 if gap_parts else 0.0
+        col_gap = (_px(gap_parts[1], 0.0) or 0.0) if len(gap_parts) > 1 else row_gap
         column = "column" in (pd.get("flex-direction") or "row")
         centred = "center" in (pd.get("align-items") or "")
+        wrap = "wrap" in (pd.get("flex-wrap") or "")
         extent = self._content_height(parent, inner.w)
         cursor = inner.y if column else inner.x
+        row_y, row_h = inner.y, 0.0
         blocked = False
         for child in flow:
-            cd = self.doc.decls(child)
+            cd = self._decls(child)
             mt = _px(cd.get("margin-top"), 0.0) or 0.0
             mb = _px(cd.get("margin-bottom"), 0.0) or 0.0
             w = _px(cd.get("width"))
@@ -521,17 +676,27 @@ class Layout:
                     self._content_width(child) if centred else inner.w)
                 x = inner.x + (inner.w - cw) / 2 if centred else inner.x
                 self._commit(child, Box(x, cursor + mt, cw or inner.w, h))
-                cursor += mt + h + mb + gap
+                cursor += mt + h + mb + row_gap
+            elif wrap:
+                # Break BEFORE placing when this child would pass the right
+                # edge — and never on the first child of a row, or an
+                # over-wide item would loop a row per item forever.
+                if cursor > inner.x and cursor + w > inner.x + inner.w + TOL_WRAP:
+                    row_y += row_h + row_gap
+                    cursor, row_h = inner.x, 0.0
+                self._commit(child, Box(cursor, row_y, w, h))
+                row_h = max(row_h, h)
+                cursor += w + col_gap
             else:
                 y = inner.y + (extent - h) / 2 if centred else inner.y
                 self._commit(child, Box(cursor, y, w, h))
-                cursor += w + gap
+                cursor += w + col_gap
 
     def _place_grid(self, parent, pd, inner, flow):
         centred = "center" in (pd.get("place-items") or pd.get("align-items")
                                or "")
         for child in flow:
-            cd = self.doc.decls(child)
+            cd = self._decls(child)
             w = _px(cd.get("width")) or self._content_width(child) or inner.w
             h = self._height(child, w)
             if centred:
@@ -541,7 +706,7 @@ class Layout:
                 self._commit(child, Box(inner.x, inner.y, w, h))
 
     def _place_absolute(self, node: dict, cb: Box) -> None:
-        d = self.doc.decls(node)
+        d = self._decls(node)
         ins = _inset(d)
         pad_l, pad_r = _pad(d)
 
@@ -559,7 +724,23 @@ class Layout:
             self.unplaced.append({"node": node, "why": "no resolvable width"})
             return
 
-        h = self._height(node, max(1.0, w - pad_l - pad_r))
+        # A container stretched between OPPOSING insets takes its height from
+        # the containing block, exactly as `width` does above — CSS resolves
+        # top+bottom the same way it resolves left+right, but only the width
+        # half of that was implemented. An `inset: 0` wrapper therefore measured
+        # 1920x0, and every absolutely positioned child resolving against it was
+        # placed relative to a zero-height box: `#kp-subbeat-host` put the
+        # sub-beat prototype at y=-180, failing safe-area AND padding on three
+        # templates that render correctly in a browser. Two build agents read
+        # that as a template defect and abandoned `subBeats` to get around it.
+        # Restricted to text-free nodes so a text box's ink stays the height of
+        # its own lines rather than the height of the stretched box.
+        h = None
+        if (ins["top"] is not None and ins["bottom"] is not None
+                and not self.text_of(node)):
+            h = cb.h - ins["top"] - ins["bottom"]
+        if h is None or h <= 0:
+            h = self._height(node, max(1.0, w - pad_l - pad_r))
 
         if ins["left"] is not None:
             x = cb.x + ins["left"]
@@ -579,7 +760,7 @@ class Layout:
 
     def _commit(self, node: dict, box: Box) -> None:
         self.boxes[id(node)] = box
-        d = self.doc.decls(node)
+        d = self._decls(node)
         positioned = d.get("position") in ("absolute", "relative", "fixed")
         self._place_children(node, box if positioned else box)
 
@@ -594,14 +775,16 @@ class Layout:
         box = self.boxes.get(id(node))
         if box is None:
             return None
-        d = self.doc.decls(node)
-        pad_l, pad_r = _pad(d)
-        avail = max(1.0, box.w - pad_l - pad_r)
+        d = self._decls(node)
+        pad_t, pad_r, pad_b, pad_l = _pad4(d)
+        bt, br, bb, bl = _border4(d)
+        avail = max(1.0, box.w - pad_l - pad_r - bl - br)
+        top = box.y + pad_t + bt
         f = typeface(self.doc, node)
         if f["vertical"]:
             if not self.text_of(node):
                 return None
-            return Box(box.x + pad_l, box.y, f["line_height"],
+            return Box(box.x + pad_l + bl, top, f["line_height"],
                        self._run_length(node))
         lines = self.wrapped(node, avail)
         if not lines:
@@ -610,12 +793,12 @@ class Layout:
                                        f["tracking"], f["uppercase"])
                      for ln in lines)
         widest = min(widest, avail)
-        left = box.x + pad_l
+        left = box.x + pad_l + bl
         if f["align"] == "center":
             left += (avail - widest) / 2
         elif f["align"] == "right":
             left += avail - widest
-        return Box(left, box.y, widest, len(lines) * f["line_height"])
+        return Box(left, top, widest, len(lines) * f["line_height"])
 
     def text_nodes(self) -> list[dict]:
         """Every element that paints text, in document order."""

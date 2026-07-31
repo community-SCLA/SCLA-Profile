@@ -28,7 +28,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hfp_common import ffprobe_duration, parse_scenes
+from hfp_common import ffprobe_duration, parse_scenes, sample_units
 
 CHECK_PRESENCE = Path(__file__).resolve().parent / "check_presence.py"
 DUR_TOL = 0.15
@@ -95,8 +95,12 @@ def main():
     frames_dir.mkdir(parents=True, exist_ok=True)
     for old in frames_dir.glob("*.png"):
         old.unlink()
+    # One unit per BEAT: on the freeform path a scene clip is an act, and
+    # per-clip extraction collapsed 81 stills to 9 on a longer video
+    # (HANDOFF-agent-native-verdict §2). Template clips are already beats.
+    units = sample_units(ws)
     extracted = []
-    for sc in scenes:
+    for sc in units:
         end = sc["start"] + sc["duration"]
         for pos, t in (("early", sc["start"] + 0.3),
                        ("mid", sc["start"] + sc["duration"] / 2),
@@ -109,9 +113,32 @@ def main():
                  str(frames_dir / name)], check=False)
             if (frames_dir / name).is_file() and (frames_dir / name).stat().st_size > 0:
                 extracted.append(name)
-    sections["frames"] = {"pass": len(extracted) == 3 * len(scenes),
-                          "output": f"{len(extracted)} frames -> {frames_dir}"}
-    failed |= len(extracted) != 3 * len(scenes)
+    sections["frames"] = {"pass": bool(units) and len(extracted) == 3 * len(units),
+                          "output": f"{len(extracted)} frames ({len(units)} "
+                                    f"beats x3) -> {frames_dir}"}
+    failed |= not units or len(extracted) != 3 * len(units)
+
+    # 4. monotony — do consecutive beats draw the same picture? The stills above
+    # are already on disk and already one-per-beat, so this costs no extra
+    # ffmpeg. It is deliberately NOT the freeze rule: this grid is per-beat and
+    # far too sparse to measure a 5s hold (check_diversity says so itself, and
+    # presence above owns that question authoritatively from the 2fps sampling).
+    # Reported, never fatal — the twin threshold is uncalibrated against the
+    # owner's reference video, and blocking a ship on an unpinned taste number is
+    # how a gate earns its way into being switched off (STD-38).
+    try:
+        from check_diversity import check as diversity_check
+        _rep, _probs, _warns = diversity_check(frames_dir, ws=ws)
+        twins = [w for w in _warns if getattr(w, "rule_id", "") == "twin-beats"]
+        sections["monotony"] = {
+            "pass": True,
+            "output": ("no consecutive beats drawing the same picture"
+                       if not twins else
+                       f"{len(twins)} twin-beat pair(s) — ADVISORY, not blocking:"
+                       + "".join(f"\n  ? {t}" for t in twins))}
+    except Exception as exc:                       # never fail a ship on advice
+        sections["monotony"] = {"pass": True,
+                                "output": f"not graded ({exc.__class__.__name__}: {exc})"}
 
     verdict = "FAIL" if failed else "PASS"
 

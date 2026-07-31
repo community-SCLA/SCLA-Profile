@@ -83,6 +83,35 @@ if LESSON_SCRIPTS.is_dir():
 else:
     check("lesson-scripts/ present", False, str(LESSON_SCRIPTS))
 
+# --- 5. a retired name is banned from SPEECH, not just from the banner ------
+# The banner rule (section 3) grades the eyebrow only. It passed happily while
+# "your broader Career Accelerator journey" sat in two approved mid-career
+# script bodies and reached synthesized audio. The narration rule is what
+# closes that, so it is pinned here: the list must be loaded from tokens.yml
+# (never hardcoded in the checker), and the rule must actually FIRE — a gate
+# that cannot fail is the failure mode this repo keeps rediscovering.
+import check_copy
+
+retired = tokens.retired_names()
+check("retired-names is declared in tokens.yml", bool(retired), f"got {retired!r}")
+
+for name in retired:
+    dirty = [{"id": "scene-01", "narration": f"part of your broader {name} journey",
+              "variables": {}}]
+    clean = [{"id": "scene-01", "narration": "part of your broader career journey",
+              "variables": {}}]
+    onframe = [{"id": "scene-01", "narration": "",
+                "variables": {"heading": f"The {name}"}}]
+    check(f"retired name {name!r} fails in narration",
+          len(check_copy.retired_name_problems(dirty)) == 1)
+    check(f"retired name {name!r} fails in on-frame copy",
+          len(check_copy.retired_name_problems(onframe)) == 1)
+    check(f"retired name {name!r} is matched case-insensitively",
+          len(check_copy.retired_name_problems(
+              [{"id": "s", "narration": name.upper(), "variables": {}}])) == 1)
+    check("clean copy passes", not check_copy.retired_name_problems(clean))
+
+
 print(f"\ntest_programs: {'FAIL' if failures else 'all pass'}"
       f" ({len(failures)} failure(s))" if failures else
       "\ntest_programs: all pass")

@@ -198,6 +198,79 @@ if not any("Too slow to sustain the run" in p for p in slow_problems):
     failures.append("a 5-scene run of >7s scenes must be caught, but the gate "
                     "allowed it")
 
+# ------------------------------------------- rules 1 / 1b: lists and cards
+# Rule 1 has been armed since the gate was written and had NO firing fixture —
+# the class it governs (a bullet illustration wrapped around a single fact) is
+# the most common thing the owner reports, so it gets one now.
+
+
+def check(label, cond, detail=""):
+    """This suite reports via `failures`; firing.fires() wants a check(). Bridge."""
+    if not cond:
+        failures.append(f"{label} — {detail}" if detail else label)
+
+
+def one_of(fam, extra):
+    """A minimal legal lesson with ONE scene of `fam` carrying `extra` vars."""
+    spec = [("scla-title", {"theme": "summit"}, 6.0),
+            (fam, dict({"theme": "summit"}, **extra), 8.0),
+            ("scla-chips", {"theme": "summit", "chips": "a,b,c"}, 8.0),
+            ("scla-steps", {"theme": "summit", "step1": "a", "step2": "b"}, 8.0),
+            ("scla-outro", {"theme": "summit"}, 6.0)]
+    return run(spec)[0]
+
+
+probs = one_of("scla-points", {"point1": "The only thing on this slide"})
+firing.fires(check, "check_variety", "one-item-list",
+             "a list slot with exactly ONE item FAILS",
+             any("exactly ONE item" in p for p in probs), "; ".join(probs))
+
+probs = one_of("scla-points", {"point1": "First", "point2": "Second"})
+check("a two-item list passes", not any("exactly ONE item" in p for p in probs),
+      "; ".join(probs))
+
+# Rule 1b — the same defect where rule 1 is structurally blind: scla-morph's
+# two options are scalar slots, so a one-card comparison read as clean until
+# 2026-07-29.
+probs = one_of("scla-morph", {"aTitle": "Loud and Extroverted",
+                              "aSub": "What people assume", "bTitle": "",
+                              "notes": "Not what people assume"})
+firing.fires(check, "check_variety", "one-card",
+             "a scla-morph with only one card filled FAILS",
+             any("renders ONE card" in p for p in probs), "; ".join(probs))
+
+probs = one_of("scla-morph", {"aTitle": "Loud and Extroverted",
+                              "bTitle": "Focused and Purposeful"})
+check("a morph with both cards filled passes",
+      not any("renders ONE card" in p for p in probs), "; ".join(probs))
+
+# A winner pointing at a card that was never filled resolves the morph — and its
+# gold check glyph — onto nothing.
+probs = one_of("scla-morph", {"aTitle": "A", "bTitle": "B is blank below",
+                              "winner": "b"})
+check("winner naming a filled card passes",
+      not any("does not exist" in p for p in probs), "; ".join(probs))
+probs = one_of("scla-morph", {"aTitle": "A", "bTitle": "", "winner": "b"})
+check("winner naming a BLANK card FAILS",
+      any("does not exist" in p for p in probs), "; ".join(probs))
+
+# -------------------------------------------- font metrics: line-height
+# `line-height: normal` is resolved from the REAL vendored font, never assumed.
+# boxmodel assumed 1.2 until 2026-07-29; Proxima is 1.40-1.48 by weight, so
+# every un-line-heighted block was ~20% shorter in the model than on the frame.
+# That is what let four wrapped chip rows model as ending clear of a footer
+# they ran straight through. If metrics.json is ever regenerated without the
+# key, this fails instead of silently reverting to the old assumption.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+import textmetrics  # noqa: E402
+
+for _w in (400, 700, 900):
+    _lh = textmetrics.normal_line_height(_w)
+    check(f"normal line-height for weight {_w} comes from the font, not 1.2",
+          1.3 < _lh < 1.6, f"got {_lh}")
+check("heavier weights are not shorter than lighter ones",
+      textmetrics.normal_line_height(900) >= textmetrics.normal_line_height(400))
+
 # --------------------------------------------------- CANVAS map freshness
 # check_variety.CANVAS is the ONE place the template->canvas map lives, and
 # rule 6 grades runs against it. A template edit that flips a base background
