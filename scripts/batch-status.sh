@@ -7,7 +7,15 @@
 # refinement-log.md — that URL is committed in the same pass that publishes it,
 # so there is never a window where work exists but isn't recorded.
 #
-# Usage:  bash scripts/batch-status.sh [--json]
+# Usage:  bash scripts/batch-status.sh [--json | --write [path]]
+#
+# --write regenerates the human-facing status document (default
+# projects/video-production/PIPELINE-STATUS.md) from the same disk-truth read
+# as the terminal report, and is meant to be called by the pipeline itself
+# (batch-ship.sh at quarantine/publish, refine-scripts book-keeping) so the
+# doc updates itself at every stage transition instead of going stale like the
+# hand-maintained status.md/PIPELINE-MAP.md deleted 2026-07-27
+# (decisions/log.md). It is a build artifact, not a place to hand-edit.
 #
 # Priority order is the drain order: highest-value programs ship first, so an
 # interrupted run leaves the most important videos already live. Override with
@@ -19,13 +27,17 @@ VP="$REPO/projects/video-production"
 
 PRIORITY="${VIDEO_PRIORITY:-early-career-boost mid-career-momentum career-transitions entrepreneur-accelerator}"
 
-JSON=0
-[[ "${1:-}" == "--json" ]] && JSON=1
+MODE=text
+OUTPATH="$VP/PIPELINE-STATUS.md"
+case "${1:-}" in
+  --json)  MODE=json ;;
+  --write) MODE=write; [[ -n "${2:-}" ]] && OUTPATH="$2" ;;
+esac
 
 PRIORITY="$PRIORITY" LESSONS="$VP/lesson-scripts" VP="$VP" \
 WS="$VP/renders-hyperframes" LEDGER="$VP/lesson-scripts/refinement-log.md" \
 PUBTSV="$VP/lesson-scripts/published.tsv" QLOG="$VP/render-qa/quarantine.log" \
-JSON="$JSON" python3 - <<'PY'
+MODE="$MODE" OUTPATH="$OUTPATH" python3 - <<'PY'
 import json, os, re, sys
 from pathlib import Path
 
@@ -34,7 +46,8 @@ ws_root = Path(os.environ["WS"])
 ledger  = Path(os.environ["LEDGER"])
 pubtsv  = Path(os.environ["PUBTSV"])
 qlog    = Path(os.environ["QLOG"])
-as_json = os.environ["JSON"] == "1"
+mode    = os.environ["MODE"]
+outpath = Path(os.environ["OUTPATH"])
 priority = os.environ["PRIORITY"].split()
 
 ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exists() else ""
@@ -57,7 +70,7 @@ def base_of(name: str) -> str:
 # the same pass that uploads. The ledger scan below is a fallback for lessons
 # published before the tsv existed (rows abbreviate the stem, so that matching
 # is best-effort — the tsv is the contract).
-published, media_ids = set(), set()
+published, media_ids, published_rows = set(), set(), []
 if pubtsv.exists():
     for line in pubtsv.read_text(encoding="utf-8").splitlines():
         if line.startswith("#") or not line.strip():
@@ -65,6 +78,8 @@ if pubtsv.exists():
         cols = line.split("\t")
         if len(cols) >= 4:
             published.add(cols[0])
+            published_rows.append({"base": cols[0], "program": cols[1],
+                                    "render_date": cols[2], "wistia_url": cols[3]})
             m = re.search(r'wistia\.com/medias/(\w+)', cols[3])
             if m:
                 media_ids.add(m.group(1))
@@ -152,8 +167,17 @@ for prog in ordered:
         if why:
             blocked.append((stem, why)); totals["blocked"] += 1
         elif base_of(stem) in ws_by_base:
-            # workspace exists but no Wistia URL -> unpublished; say WHICH stage it reached
-            built.append((stem, ws_state(ws_by_base.get(base_of(stem)))))
+            # workspace exists but no Wistia URL -> unpublished; say WHICH stage it reached.
+            # Most quarantines fire while the script is still HERE (refined/, not
+            # rendered/) — batch-ship.sh only moves it to rendered/ at publish — so a
+            # quarantine.log hit must be surfaced on this branch too, or "stuck" never
+            # shows a reason at all. quarantine.log keys on the STEM at quarantine time,
+            # which for a current-format (undated) script equals its own base.
+            state = ws_state(ws_by_base.get(base_of(stem)))
+            q = quarantined.get(stem) or quarantined.get(base_of(stem))
+            if q:
+                state = f"QUARANTINED: {q}"
+            built.append((stem, state))
             totals["built_unpublished"] += 1
         else:
             queued.append(stem); totals["queued"] += 1
@@ -181,8 +205,84 @@ for prog in ordered:
 # Distinct Wistia media = videos actually live, independent of folder state.
 totals["published"] = len(media_ids)
 
-if as_json:
-    print(json.dumps({"priority": ordered, "totals": totals, "programs": report}, indent=2))
+if mode == "json":
+    print(json.dumps({"priority": ordered, "totals": totals, "programs": report,
+                       "published": published_rows}, indent=2))
+    sys.exit(0)
+
+if mode == "write":
+    stuck = [(r["program"], x["stem"], x["state"]) for r in report
+             for x in r["built_unpublished"] if x["state"].startswith("QUARANTINED")]
+    lines = []
+    a = lines.append
+    a("# Video Production — Pipeline Status")
+    a("")
+    a("**Generated file — do not hand-edit.** Overwritten by `scripts/batch-status.sh "
+      "--write` at every build/quarantine/publish step; a hand edit here is lost on the "
+      "next run and this file cannot go stale the way the old `status.md` did (deleted "
+      "2026-07-27, see `decisions/log.md`) because it is never the thing anyone edits — "
+      "only ever the thing that gets regenerated from the folders + `published.tsv`.")
+    a("")
+    a(f"- **{totals['queued']}** queued to build")
+    a(f"- **{totals['built_unpublished']}** built, not yet published")
+    a(f"- **{totals['rendered_unpublished']}** stranded mid-pipeline")
+    a(f"- **{totals['blocked']}** blocked — needs owner input")
+    a(f"- **{totals['published']}** live on Wistia")
+    a("")
+    if stuck:
+        a("## Stuck right now")
+        a("")
+        for prog, stem, state in stuck:
+            a(f"- **{stem}** ({prog}) — {state}")
+        a("")
+    if published_rows:
+        a("## Published — live on Wistia")
+        a("")
+        a("| Lesson | Program | Render date | Wistia URL |")
+        a("|---|---|---|---|")
+        for row in published_rows:
+            a(f"| {row['base']} | {row['program']} | {row['render_date']} | {row['wistia_url']} |")
+        a("")
+    n = 0
+    for r in report:
+        if not (r["queued"] or r["blocked"] or r["built_unpublished"]
+                or r["rendered_unpublished"]):
+            continue
+        a(f"## {r['program']}")
+        a("")
+        if r["queued"]:
+            a("**Queued to build:**")
+            a("")
+            for s in r["queued"]:
+                n += 1
+                a(f"{n}. {s}")
+            a("")
+        if r["built_unpublished"]:
+            a("**Built, unpublished:**")
+            a("")
+            for x in r["built_unpublished"]:
+                a(f"- {x['stem']} — {x['state']}")
+            a("")
+        if r["rendered_unpublished"]:
+            a("**Stranded mid-pipeline:**")
+            a("")
+            for x in r["rendered_unpublished"]:
+                a(f"- {x['stem']} — {x['state']}")
+            a("")
+        if r["blocked"]:
+            a("**Blocked — needs owner input:**")
+            a("")
+            for b in r["blocked"]:
+                a(f"- {b['stem']} — {b['reason']}")
+            a("")
+    a("---")
+    a("Resume: `/render-lessons` AUTO-BATCH starts at the top of the queued list above. "
+      "Full state model: `bash scripts/batch-status.sh` (terminal) or "
+      "`bash scripts/batch-status.sh --json` (machine).")
+    a("")
+    outpath.parent.mkdir(parents=True, exist_ok=True)
+    outpath.write_text("\n".join(lines), encoding="utf-8")
+    print(f"wrote {outpath}")
     sys.exit(0)
 
 B, D, O = "\033[1m", "\033[2m", "\033[0m"

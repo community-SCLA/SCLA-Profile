@@ -94,7 +94,10 @@ session's context.
    ledger row and close-out flag it loudly.
 5. **Book-keeping (orchestrator, not subagent):** `git mv`/remove the raw
    original once the refined copy exists (the stem stays identical), update the
-   ledger row (Refined date + notes), commit per the repo flow.
+   ledger row (Refined date + notes), run `bash scripts/batch-status.sh --write`
+   to regenerate `projects/video-production/PIPELINE-STATUS.md` (a build
+   artifact of the ledger + folders, never hand-edited — see its own header),
+   stage it alongside the ledger/script changes, commit per the repo flow.
 
 ## Refinement rules (the subagent reads this section)
 

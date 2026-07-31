@@ -99,6 +99,15 @@ TWIN_CHURN = 0.004
 #                                      a 19-minute render and a blocked ship.
 MAX_SAMPLE_GAP = STAGNANT_FAIL / 4.0
 
+# Timestamps are read back out of filenames at 1/100s, so EVERY time comparison
+# here carries that much slop and both of them bit during calibration: a perfect
+# 1.25s grid measured 1.26s wide (33.125 and 34.375 round to 33.12 and 34.38) and
+# fired grid-too-sparse, then the real 5.0s freeze at 74.0s measured 3.74s
+# against a 3.75s threshold (78.125 and 74.375 round to 78.12 and 74.38) and was
+# demoted to a warning by one hundredth of a second. Precision loss is a property
+# of the input, so it is spent once, here, rather than rediscovered per rule.
+TIME_EPS = 0.02
+
 # f0074.64s_s15_mid.png  (verify_render.py's per-beat evidence)
 # frame-00-at-9.46s.png  (the hyperframes `snapshot` CLI's own naming)
 NAME_RES = (
@@ -177,7 +186,7 @@ def check(target: Path, ws=None, freeze_churn=FREEZE_CHURN,
     # 1. Is the grid dense enough to see a STAGNANT_FAIL freeze at all?
     gaps = [(b[0] - a[0], a[0], b[0]) for a, b in zip(frames, frames[1:])]
     worst = max(gaps, key=lambda g: g[0]) if gaps else (0.0, 0.0, 0.0)
-    if worst[0] > MAX_SAMPLE_GAP:
+    if worst[0] > MAX_SAMPLE_GAP + TIME_EPS:
         problems.append(Finding(
             "grid-too-sparse",
             f"stills are up to {worst[0]:.1f}s apart ({worst[1]:.1f}s → "
@@ -207,7 +216,7 @@ def check(target: Path, ws=None, freeze_churn=FREEZE_CHURN,
 
     for a, b in runs:
         span = b - a
-        if span < warn_at:
+        if span < warn_at - TIME_EPS:
             continue
         if words and not speech_in(words, a, b):
             continue  # a deliberate silent hold is not a defect
@@ -216,7 +225,7 @@ def check(target: Path, ws=None, freeze_churn=FREEZE_CHURN,
                  f"is not moving. Re-author the beat; do NOT re-animate "
                  f"settled content (that motion is banned and check_motion "
                  f"will reject it).")
-        if span >= fail_at:
+        if span >= fail_at - TIME_EPS:
             problems.append(Finding("static-span", entry))
         else:
             warns.append(Finding(

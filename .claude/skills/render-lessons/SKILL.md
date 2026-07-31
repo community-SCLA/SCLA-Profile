@@ -518,6 +518,9 @@ flags any script in `rendered/` without a published row as **STRANDED**, the
 bucket that catches every state between render and commit. A fresh session
 resumes with that one command; nothing depends on the previous session's
 context surviving, which also makes mid-run context compaction a non-event.
+`batch-ship.sh` calls `batch-status.sh --write` on every quarantine and every
+publish, regenerating `projects/video-production/PIPELINE-STATUS.md` — the
+same read, rendered as a document a human can open without running anything.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 

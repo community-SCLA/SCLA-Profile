@@ -100,7 +100,7 @@ else:
     # that always fires is a flag people learn to skip past.
     t = MAX_SAMPLE_GAP / 2.0
     while t < end:
-        print(f"{t:.2f}\t{beat_at(t)}")
+        print(f"{round(t, 2):.2f}\t{beat_at(t)}")
         t += MAX_SAMPLE_GAP
 PY
 )

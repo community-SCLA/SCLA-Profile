@@ -67,6 +67,7 @@ quarantine() {
   printf '%s\t%s\t%s\t%s\n' "$(date -u +%FT%TZ)" "$STEM" "$PROGRAM" "$reason" >> "$QLOG"
   echo "QUARANTINE: $STEM — $reason" >&2
   echo "  workspace kept at renders-hyperframes/$STEM; not published." >&2
+  bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
   exit 3
 }
 
@@ -303,9 +304,14 @@ if [[ -f "$SRC_SCRIPT" ]]; then
   echo "   script -> rendered/"
 fi
 
+# Regenerate the human-facing status doc in the same pass that publishes —
+# it's a build artifact of published.tsv/refined//rendered/, never hand-edited,
+# so it rides in this commit alongside the ledger rows it's derived from.
+bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
+
 # Commit is part of the publish contract — a failure here is a quarantine
 # (with the URL), not a shrug, and the local MP4 must survive it.
-git -C "$REPO" add -A "$VP/lesson-scripts" || publish_quarantine "git add failed"
+git -C "$REPO" add -A "$VP/lesson-scripts" "$VP/PIPELINE-STATUS.md" || publish_quarantine "git add failed"
 if git -C "$REPO" diff --cached --quiet; then
   publish_quarantine "nothing staged after publish — ledger writes did not land"
 fi

@@ -20,7 +20,7 @@ Match the task, load the ONE file it names, stop.
 | Session close-out retro | `render-qa/logs/snag-log.md` (read ONLY the latest entry) |
 | Brand facts — colors, logo, type, voice | `brand/visual-identity.md`, `brand/voice-and-tone.md` |
 | Why a decision was made | `decisions/log.md` |
-| What's left in the queue | `bash scripts/batch-status.sh` |
+| What's left in the queue / what's stuck / what's published where | `PIPELINE-STATUS.md` (generated doc, human-readable) or `bash scripts/batch-status.sh` (live, terminal) |
 
 ## Which Tool
 
