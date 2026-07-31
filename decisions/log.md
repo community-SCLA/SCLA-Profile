@@ -9,6 +9,119 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-07-31 (rules refactor) — The video rules file splits by audience
+
+**Decision:** `.claude/rules/video-production.md` is auto-loaded on every session
+that touches `projects/video-production/**`. It had grown to 41 bullets and
+~8,300 tokens, of which the normative claims were ~640 (8%); the rest was
+incident narrative (~56%) and mechanism citations (~35%). The narrative moves
+here. The rule file keeps the claim and the mechanism, and cites its history as
+`Why: log <date> "<title>"` — a grep target rather than a heading anchor, so the
+citation survives the log being re-titled or re-ordered.
+
+**Why:** the file's job is to state constraints a session must not violate; a
+postmortem is a different document for a different reader, and paying 8k tokens
+for the postmortem before any work starts is a tax on every build. Much of the
+narrative was already duplicated here — `2026-07-29 "A gate must be able to
+fail"`, `"The gates the better-decisions rejection exposed"`, `"Working
+artifacts lose their date suffix"` and `2026-07-28 "Owner review"` each carry in
+full what a rule bullet was re-telling in miniature.
+
+**Two things went in rather than out.** The histories that existed *only* in the
+rule file are now real log entries — the 2026-07-29 owner review below, and the
+freeform measurement gates above — because deleting them would have destroyed
+the provenance that makes those rules defensible when a future session wants to
+"simplify" a gate. And three rules were stale against the branch that changed
+them: the `static-span` rule did not mention `TIME_EPS`, the tolerance without
+which it demotes a real 5.0s freeze to a warning; no rule mentioned
+`PIPELINE-STATUS.md`; and the word-timing rule had traded the literal
+`timing.json` for the prose "its workspace timing manifest", losing the grep
+target (`hfp_common.py` names that file in three places). A citation that cannot
+be checked is the failure mode this file exists to prevent. A fourth, older
+staleness was fixed in passing: the close-out rule pointed at
+`render-qa/snag-log.md`, which moved to `render-qa/logs/snag-log.md`.
+
+**Rules:** `.claude/rules/video-production.md`.
+
+## 2026-07-31 (status doc) — The queue read becomes a document, not only a command
+
+**Decision:** `scripts/batch-status.sh --write` regenerates
+`projects/video-production/PIPELINE-STATUS.md` — the same read the terminal
+command performs, rendered as a document a human can open without running
+anything. `batch-ship.sh` calls it on every quarantine and every publish;
+`/refine-scripts` regenerates and stages it alongside the ledger row. It is a
+build artifact of the ledger plus the folder state, never hand-edited.
+
+**Why:** the resume key was correct and invisible. `batch-status.sh` reads
+everything it needs from disk alone, which is what makes a fresh session
+resumable and mid-run context compaction a non-event — but it answers only to
+someone at a terminal who already knows the command exists. Regenerating at the
+two moments state actually changes costs one call and makes "what's left, what's
+stuck, what's published where" answerable by opening a file.
+
+**Rules:** `.claude/rules/video-production.md`.
+
+## 2026-07-31 (freeform gates) — A measurement is never delegated to the human preview
+
+**Decision:** the 2026-07-30 freeform lane skipped `check_pacing` and
+`check_variety` and named one compensating control for both — "owned by the
+per-video human preview". That deferral is now split, because the two questions
+are not the same kind:
+
+- *Is this video monotonous?* is a taste judgement, and it stays with the human.
+  `check_diversity`'s `twin-beats` rule names consecutive beats drawing
+  near-identical pictures (it finds two on the 2026-07-31 cut, including the pair
+  straddling a scene cut) and `verify_render.py`'s `monotony` section prints
+  them. It never fails a ship: the twin threshold is not calibrated against the
+  owner's reference video the way `check_variety`'s are, and a gate that blocks
+  on an unpinned taste number is one that gets switched off. Per STD-38 it
+  teaches first; pin it against a reference build before arming it.
+- *Did the picture hold perfectly still for 5 seconds?* is a stopwatch reading,
+  and no eye performs it reliably — least of all with narration playing over the
+  stillness to fill it. It moves to `check_diversity`'s `static-span` rule, run
+  by `scripts/batch-precheck.sh` over a uniform ~1.25s snapshot grid. Pre-render,
+  so the fix costs a re-author instead of a 19-minute render. Same rule and same
+  constants as `check_presence`, which stays authoritative post-render.
+
+**Why:** on 2026-07-31 the owner watched
+`build-direction-before-you-build-a-plan`, approved it, and `check_presence` then
+failed it post-render on three spans of 5.0–5.5s of pixel-identical video under
+continuous speech, two running straight through a scene cut. The approval was not
+the defect; the assignment was. A deferral must state which instrument answers
+the question, and "the human" is only a legal answer for questions a human can
+actually answer.
+
+**Three supporting mechanisms:**
+
+1. **The grid grades itself.** `grid-too-sparse` fails a run whose stills are too
+   far apart to see a `STAGNANT_FAIL` freeze, because a sampler that cannot
+   answer must say so rather than return clean. Thresholds calibrated against
+   that cut's 78 real stills — a frozen pair reads 0.00000 churn and max cell
+   delta 2, the nearest genuine reveal reads 0.00852 and 80 — and pinned by
+   `test_diversity.py`.
+2. **Timestamp precision is spent once, not per rule.** Frame times are read back
+   out of filenames at 1/100s, so every time comparison in `check_diversity`
+   carries that slop, and both directions bit during calibration: a perfect 1.25s
+   grid measured 1.26s wide (33.125 and 34.375 round to 33.12 and 34.38) and
+   fired `grid-too-sparse`, then the real 5.0s freeze at 74.0s measured 3.74s
+   against a 3.75s threshold (78.125 and 74.375 round to 78.12 and 74.38) and was
+   demoted to a warning by one hundredth of a second. `TIME_EPS = 0.02` is
+   declared once beside the thresholds, and `scripts/batch-precheck.sh` rounds
+   its emitted grid to the same precision so the sampler and the gate agree.
+3. **Narration word timings get one loader.** `check_presence` knew only the two
+   flat word files, so on a freeform build (per-beat wavs + `audio_meta.json`) it
+   found none, and its `not words` fallback graded every static run as if
+   narration ran wall to wall — stricter than designed, silently, and it would
+   eventually have failed the deliberate 1.8s `FINAL_HOLD` every lesson ends on.
+   `hfp_common.load_words()` now reads all three shapes, offsetting each clip's
+   words by its `timing.json` `audio_start`; `check_presence` and
+   `check_diversity` both call it; an absent transcript emits a `no-word-timings`
+   warning naming the lost coverage instead of passing for rigour. Pinned by
+   `test_diversity.py`, which asserts a frozen span over silence does NOT fire
+   and the same span over speech does.
+
+**Rules:** `.claude/rules/video-production.md`.
+
 ## 2026-07-31 (later) — A build workspace carries no agent instructions of its own
 
 **Decision:** `hyperframes init` writes an `AGENTS.md` and a `CLAUDE.md` into
@@ -93,6 +206,115 @@ five real invariants — script fidelity, brand colors, brand fonts, stem naming
 folder-state — get mechanized on the freeform lane (beat-source adapter re-arms
 the copy gates; a new brand gate closes the one gap templates had been covering
 by construction). Everything template-mechanical stays on the template lane only.
+
+## 2026-07-29 (owner review) — Eight defects from the career-map and visibility-actions cuts
+
+**Decision:** a round of owner review across two cuts produced eight fixes. Two
+of them delete a capability rather than police it, following the ripple-motion
+precedent from the same day.
+
+1. **No icons beside bullet rows or cards — only ONE hero illustration per
+   frame.** The plural `icons` slot drew a ~64px glyph at the right edge of every
+   `scla-points` row and in every `scla-morph` card corner, and it shipped three
+   ways wrong: positionally, so a short list left holes (`icons=",insight,"` put
+   one icon beside point 2 of three); duplicated, drawing `mentorship` and
+   `mentorship2` — two near-identical person glyphs — in one frame; and competing
+   with the row copy in a family whose whole job is a list of words. Owner: *"add
+   a rule that icons should not render to the right of bullet points… no future
+   renders should include the icons within this style of illustration."* The slot
+   is gone from both templates, and `check_slots.py` rule `banned-row-icons`
+   fails any scene still authoring it — including a stale workspace, whose
+   variable the compiler would otherwise drop in silence. The singular hero
+   `icon` on statement/chips/steps/condition is untouched. The two fixtures that
+   had pinned `icons="compass,target"` as PASSING were inverted in the same pass.
+2. **A one-card comparison is the one-item list in the form the list rules could
+   not see.** `scla-morph` is a two-option comparison whose options are two
+   SCALAR slots, so the `one-item-list` rule was structurally blind to it: the
+   visibility-actions cut filled `aTitle`, left `bTitle` blank, and rendered a
+   single card with its `notes` caption stranded in the right-hand column beside
+   nothing. Owner: *"having just a single card breaks the rule… having the text
+   off to the side outside the card also is just awkward and should never
+   happen."* `check_variety.py` rule `one-card`, which also fails a `winner`
+   naming a card that was never filled — the morph resolving, gold check glyph
+   and all, onto something that does not exist. `test_variety.py` also gave rule
+   1 `one-item-list` the firing proof it had never had.
+3. **Even spacing is a property of the SLOTS, not of the copy in them.** A card
+   grows when its copy wraps, so cards top-anchored on slots sized for the copy
+   in front of you come out unevenly spaced the moment one of them takes a second
+   line: the career-map cut left 74px between the first pair and 26px between the
+   second, and the owner read the 26 as touching. Every gate passed, because the
+   *ink* inside those cards was nowhere near colliding — it was the borders that
+   met. Size the slots for the widest legal card the schema permits, and let a
+   short card sit high in its slot. `check_geometry.py` rule `card-gutter`
+   against `tokens.yml` `spacing.card-gutter`, graded on LAYOUT boxes — the one
+   rule in that gate that is, because a border and a fill are what a viewer sees
+   touching. Deliberately narrow to stay believable: absolutely positioned +
+   fully bordered + text-bearing + horizontally overlapping, which is what keeps
+   chip rows, hairline-separated list rows and the decorative concentric ghost
+   rings out of it.
+4. **The on-frame scene badge is the frame's real position.** `sceneIndex` is how
+   the owner names a frame when reviewing a cut, and m4_visibility-actions
+   numbered 13 scenes 1..11 (two 07s, two 09s), so a whole round of
+   frame-numbered feedback could not be resolved against the plan.
+   `check_slots.py` rule `scene-index-badge`.
+5. **The geometry gate can see every box on the frame.** Chips, condition chips,
+   statement lines and morph notes are all created at RUN TIME with no geometry
+   prototype, so `check_geometry` graded ZERO of them — it returned PASS on the
+   frame whose four chips ran through the footer band, and on the frame whose
+   last chip crossed the padding border, both of which the owner reported by eye.
+   `boxmodel.py` gained `data-geometry-repeat` prototypes (declared in the
+   templates, structured ones carrying `data-geometry-text`), `flex-wrap` row
+   packing, border-box measurement of padded pills, and `data-geometry-alt-if`
+   for geometry a template applies conditionally in JS — `scla-chips` narrows its
+   field to `right: 620px` when a hero icon is set, and the script now reads that
+   number back out of the attribute so the declaration cannot drift. Both
+   owner-reported overflows now fail from the plan alone, with no browser and no
+   render.
+6. **`line-height: normal` is measured in the real vendored font, never
+   assumed.** `boxmodel.py` assumed 1.2; Proxima Nova resolves to **1.404 / 1.447
+   / 1.477** by weight (Chrome reads hhea ascent/descent/lineGap — OS/2
+   USE_TYPO_METRICS is off on this kit). Every block that does not set
+   `line-height` was therefore ~20% shorter in the model than on the frame, which
+   is how four wrapped chip rows modelled as ending 43px clear of a footer they
+   in fact ran through. The number is generated into
+   `design-system/assets/fonts/metrics.json` beside the advance widths and read
+   by `textmetrics.normal_line_height()`. The regen recipe in `textmetrics.py`
+   was also fixed: it grepped `/^REGEN/` against a line beginning `# REGEN`, so
+   it matched nothing, ran an empty program, and reported success.
+7. **A body statement belongs under the heading, not at the foot of the frame.**
+   `scla-statement`'s only body slot rendered BULLETS, so a builder either
+   bulleted a single sentence (which `one-item-list` rightly rejects) or pushed
+   the thought into a sub-beat, which paints at the bottom. The owner reported
+   both shapes in one review: *"do not render as bullet points, it really is a
+   single statement… render the heading statement and then maybe a secondary body
+   statement"*, and *"the body statement that populates at the bottom should
+   really live up below the statement heading"*. `scla-statement` and
+   `scla-condition` gained a `sub` slot; `scla-chips` and `scla-points` sub-beats
+   moved from the bottom band to directly under the heading. Which slot an author
+   picks stays a convention; the geometry gate enforces that whatever they pick
+   fits.
+8. **A lesson's part number is a filing convention, never on-screen copy.**
+   `...-resume-pt1` / `...-tool-pt2` tell two halves of one lesson apart on disk;
+   the builder turned both stems into title cards reading "…Pt1"/"…Pt2". Owner:
+   *"that is simply a reference for our purposes and should not actually go into
+   the content created."* `check_copy.py` rule `part-reference`, graded on
+   narration AND every on-frame string, in workspace and script mode; and
+   `preflight.py`'s `title_card` check strips the same suffix from the expected
+   stem title, because two gates that disagree make the fix impossible — removing
+   "Pt2" to satisfy one failed the other. Deliberately narrow: `four-part lens`
+   is authored copy that appears 8 times in one program, and a rule that flagged
+   it would be off within a week.
+
+**Also this day, unprompted by the review:** one render at a time, machine-wide,
+with builds up to 3-wide. Authoring and TTS are network-bound and overlap
+cleanly; a render is CPU-bound and two on a 4-core box thrash. `batch-ship.sh`
+takes `renders-hyperframes/.render.lock` via `mkdir` for the whole render phase
+and exits 2 if another holds it — the same shape the publish phase has always
+used. Added when a session was found running 4 concurrent builds against a render
+phase that had no lock at all, and only a sentence in the SKILL asking it not to.
+
+**Rules:** `.claude/rules/video-production.md`. **Trail:**
+`projects/video-production/render-qa/logs/snag-log.md`.
 
 ## 2026-07-29 (later) — Delivered MP4s are kept, and the Wistia poster is the first frame
 

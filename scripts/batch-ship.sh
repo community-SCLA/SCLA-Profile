@@ -61,6 +61,21 @@ stem_delivered() { python3 "$STEM_PY" delivered "$1" --date "$2"; }
 
 BASE="$(stem_base "$STEM")" || { echo "FATAL: malformed stem '$STEM'" >&2; exit 2; }
 
+# A guard's verdict is the diagnosis; its exit code is only the citation. Run one
+# through this so the reason a video is stuck survives the session that found it —
+# "verify_render.py non-zero" told the owner nothing and cost a full re-run of the
+# gate to recover what the gate had already printed (2026-07-31). Output still
+# streams; pipefail keeps the guard's own status, not tee's.
+guarded() {
+  local label="$1"; shift
+  mkdir -p "$WS/qa"
+  { printf '=== %s — %s\n' "$(date -u +%FT%TZ)" "$label"; } > "$WS/qa/quarantine-reason.txt"
+  "$@" 2>&1 | tee -a "$WS/qa/quarantine-reason.txt"
+  local rc=${PIPESTATUS[0]}
+  [[ $rc -eq 0 ]] && rm -f "$WS/qa/quarantine-reason.txt"
+  return $rc
+}
+
 quarantine() {
   local reason="$1"
   mkdir -p "$(dirname "$QLOG")"
@@ -100,7 +115,8 @@ if [[ "$MODE" == "render" ]]; then
   pkill -f "hyperframes[ ]preview" 2>/dev/null || true
 
   echo "== preflight: $STEM"
-  python3 "$VP/render-qa/src/preflight.py" "$WS" || quarantine "preflight.py non-zero"
+  guarded "preflight" python3 "$VP/render-qa/src/preflight.py" "$WS" \
+    || quarantine "preflight rejected the plan (preflight.py)"
 
   # A pruned workspace (post-publish revisit, or the 3x stability loop) has no
   # node_modules; reinstall instead of false-quarantining "render failed".

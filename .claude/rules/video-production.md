@@ -5,46 +5,322 @@ paths: projects/video-production/**
 
 # Video production — standing constraints
 
-Each rule names its enforcement mechanism, or is honestly labelled a **convention**.
+Each rule states the constraint and names the **mechanism** that enforces it, or
+is honestly labelled a **convention** (a request, not a guarantee — see
+`decisions/log.md` on why prose governance was deleted).
 
-- **Never fabricate SCLA course content.** Work only from provided outlines and source material. *(Mechanisms: mandatory qa-facts pass at `/refine-scripts`; script-vs-transcript diff gate in `render-qa/src/preflight.py`; the brand re-materialize safeguard in `.devcontainer/devcontainer.json` exists because a cold subagent once fabricated `brand/voice-and-tone.md`.)*
-- **PILOT GATE — one human approval per batch, not per video.** A batch run builds ONE pilot video, stops, and a human previews it. Only on explicit approval do the remaining videos run build → render → verify → publish unattended. A batch may never start without a passing pilot, and a failing pilot stops the run. *(Convention at the pilot itself. Superseded the per-video HYPERFRAME GATE 2026-07-28, `decisions/log.md` — the per-video human eye is replaced by three mechanized guards, below.)*
-- **The guards that replace the per-video human eye** — every video, no exceptions: `render-qa/src/preflight.py` exit 0 before render; `scripts/batch-precheck.sh` before render (authoritative preflight re-run + one snapshot per scene + deterministic low-ink flags + a vision review of real pixels — catches the blank-scene class before the render is spent); `render-qa/src/verify_render.py` exit 0 after (stream durations vs `#root data-duration` ±0.15s, exact 1920×1080, 3 frames/scene); `render-qa/src/check_presence.py` blank/stagnation detection; and a sampled vision review of `qa/frames/`. Any one failing **quarantines that video** — built, unpublished, logged — and the batch continues. *(Mechanism: `scripts/batch-ship.sh`, which fails soft per video and never publishes a video that failed a guard; `scripts/batch-precheck.sh` exits 3 to quarantine pre-render.)*
-- **SHIP is one uninterrupted pass** — render, verify, file to `renders-mp4/<program-slug>/`, upload to Wistia. No second human review before publish (gate removed 2026-07-22, `decisions/log.md`). *(Convention.)*
-- **A published video is recorded before the next one starts.** The full stem + Wistia URL land in `lesson-scripts/published.tsv` (the machine resume key) and the human-facing `refinement-log.md` row, committed in the same pass — a commit failure quarantines the video with its URL and keeps the MP4. A stem is done if and only if it has a `published.tsv` row; anything in `rendered/` without one is flagged **STRANDED** by the status tool, so an interrupted run never silently strands work. Publish runs only against `qa/VERIFIED` (the sha-256 marker `verify_render.py` writes) and refuses stems already published. *(Mechanisms: `scripts/batch-ship.sh` guards, 2026-07-28; read the remaining queue with `scripts/batch-status.sh`.)*
-- **A working artifact carries NO date; only a delivered MP4 does.** A lesson's identity is `<title>_<program>` — the **base** — and that is the name of the raw script, the `refined/` script, the build workspace, and the `rendered/` script. It never changes, which is what makes the name usable as a lock: `mkdir renders-hyperframes/<base>` succeeds exactly once, so concurrent build subagents cannot collide on one lesson. The only artifact that gains a date is the delivered MP4 (`<base>_<render-date>.mp4`), where the date records an event that happened once and is frozen at publish. "When was this last acted on" is mtime — the filesystem tracks it natively and cannot drift. *(Mechanisms: `render-qa/src/stem.py` is the sole owner — `base` is tolerant of legacy dated names, `delivered` is the one remaining transition, and `restamp`/`normalize` now exit 2 with a pointer here; `preflight.py` check 12 fails a workspace whose name carries a date; `batch-ship.sh` claims `.render.lock` and files the MP4 via `stem.py delivered`. Replaced the one-date restamp rule on 2026-07-29 — that rule made the name move, and a moving name cannot be a lock: a rebuild had already restamped its way into a second workspace, leaving one lesson holding both `..._2026-07-28` and `..._2026-07-29`. The 2026-07-28 complaint it came from — a video named for its refine date with the render clock stacked on top — is answered more completely by having no date to go stale. `render-qa/tests/test_stem.py` pins both the tolerance and the strictness.)*
-- **One render at a time, machine-wide; builds run up to 3-wide.** Authoring and TTS are network-bound and overlap cleanly; a render is CPU-bound and two on a 4-core box thrash. *(Mechanism: `scripts/batch-ship.sh` takes `renders-hyperframes/.render.lock` via `mkdir` for the whole render phase and exits 2 if another holds it — the same shape the publish phase has always used. Added 2026-07-29, when a session was found running 4 concurrent builds against a render phase with no lock at all and only a sentence in the SKILL asking it not to.)*
-- **Standing owner preferences that are gated, not remembered.** Headings (`heading`/`statement`/`title`) are **Title Case with no terminal period**; body copy stays sentence case. Every spoken list of ≥3 items takes **"and"/"or" before the final item**. A list slot with **exactly one item is a defect** — never render a single bullet. Max **2 consecutive** scenes on one template family, **≥6 distinct content forms** per lesson ≥90s (≥7 at ≥150s), and **no form above 40%** of content seconds. Enforced **at authoring time, not just at the gate**: a builder authors only the `scenes.json` plan — `render-qa/src/build_index.py` compiles `index.html` deterministically, and the same checkers fire on every write to the plan, so a builder learns the scene list is wrong while it is still a 30-line JSON edit rather than after a 21-scene video exists. *(Mechanisms: `render-qa/src/check_copy.py` and `render-qa/src/check_variety.py`, run by `preflight.py` as the hard block, by `preflight.py --static` as the plan-stage loop, AND by `scripts/hyperframe-guard.sh` as a `PostToolUse` hook on Write/Edit of a workspace's scenes.json / index.html (per-workspace artifacts, not repo files) — the harness runs the hook, not the agent, which is what makes it a mechanism rather than a request. Thresholds are calibrated against the owner's named reference video and pinned by `render-qa/tests/test_variety.py`: a gate that rejects the reference is a broken gate. Every rule here was given as feedback and lived only in prose — or, for Title Case, was actively contradicted by the design spec (`design-system/docs/design-contract.md`, then named frame.md) — until 2026-07-28.)*
-- **One thought per scene; no thought split across scenes.** A content scene carries a real beat — at least `MIN_SCENE_SEC` (4.5s) on screen. A scene that opens with a bare coordinating conjunction is the back half of the previous scene's sentence and must be merged. A spoken list lives on ONE scene: splitting "Security? Income? Flexibility? Meaning? Mentorship? Or growth?" across three slides in three styles is the defect the owner named first on 2026-07-28. *(Mechanism: `render-qa/src/check_continuity.py`, run by `preflight.py` as the hard block and by `preflight.py --static` — and therefore `scripts/hyperframe-guard.sh` — at plan stage. Thresholds pinned by `render-qa/tests/test_gates.py`.)*
-- **The conjunction rule is graded on the WHOLE narration, not per scene.** Scoping it per scene silently disabled it: a seven-item list split 3/2/2 leaves runs that never reach the ≥3 threshold, so the missing "or" the owner has asked for more than anything else sailed through a gate written to catch it. *(Mechanism: `render-qa/src/check_copy.py`, joined-stream enumeration.)*
-- **The conjunction rule is graded on the SCRIPT too, at refine time.** The 2026-07-28 defect was not introduced by the builder — line 1 of the approved script already read "The right job. The right major. The right city. The right path." A render-stage gate can only report it after a video exists, and fixing it then costs a re-synthesis and a re-render. *(Mechanism: `render-qa/src/check_copy.py`, script mode — pass it a `.txt` instead of a workspace. **Reports, does not block** — a library sweep found 16/32 refined scripts flagged and a minority of those are rhetoric or definitions, not lists, so a hard block would stall the queue on false positives. Per STD-38: non-blocking at first, so it teaches instead of nags.)*
-- **Copy must fit the box the template gives it.** Slot capacity is measured in the real vendored font, not estimated — "Different learning opportunities" is 507px of Proxima 900 at 34px and cannot fit a 240px card, which is why it grew to three lines and crossed the footer. A template declares each constrained slot's `maxLines` in its own variable schema, beside the CSS that creates the constraint. *(Mechanisms: `render-qa/src/check_capacity.py` + `render-qa/src/textmetrics.py` against committed `design-system/assets/fonts/metrics.json`.)*
-- **No text may land on other text, and the gate does not depend on a browser to know it.** The 2026-07-29 cut printed "Grounded in what you value" through "Use it on any career decision", and *three* gates passed it: `check_layout.py` ran the real inspector at 60 sample points and returned zero findings (`hyperframes inspect` grades text against its own container — two absolutely-positioned siblings sharing pixels is not a case it models, and waiting for upstream to model it is not a plan); `check_capacity.py` had never graded that slot at all, because it inferred slot bindings from `getElementById(...).textContent = vars.x` and `scla-loop` binds its captions in a loop; `check_text.py` graded the size and the provenance, neither of which is the question. The question none of them owned — *given the wrapped line count, does this box intersect anything?* — is answerable with no browser at all, from the template CSS plus real font metrics. Two corollaries, both mechanized: a template **declares** which slot each element renders (`data-slot`) and which slot it disappears with (`data-present-if`) instead of the gate guessing from JS; and a run-time-created line (every sub-beat) carries an **empty geometry prototype** in the HTML, because a box only the browser knows about is a box no gate can grade. *(Mechanisms: `render-qa/src/boxmodel.py` + `render-qa/src/check_geometry.py`, run by `preflight.py` in BOTH full and `--static` mode — so it fires at plan stage, where the fix is a JSON edit rather than a re-synthesis and a re-render. A scene where the model can resolve **nothing** fails as `nothing-graded`: a gate that silently grades zero elements is worse than no gate, which is exactly how a `</circle>` end tag orphaning half of `scla-stat` read as clean. Pinned by `render-qa/tests/test_gates.py`.)*
-- **The minimum text size is a real floor, not the smallest size in use.** `check_text.py` has enforced `typography.min-size` since 2026-07-27 and could never once have fired: the body floor was 32px and the smallest body rule in the system was also 32px. The caption the owner called "just too small" was exactly compliant. Raised to **40px** on 2026-07-29 (~1/27 of frame height, which is what survives phone viewing); `design-system/config/tokens.yml` is the single source and `tokens.py` loads it, so the number moves in one place. Raising it is not free and is not meant to be — it cost one card's copy, which the capacity gate named at plan stage. *(Mechanisms: `design-system/config/tokens.yml` `typography.min-size` → `render-qa/src/tokens.py` → `check_text.py`; `render-qa/tests/test_gates.py` asserts the floor is strictly above nothing — i.e. that no body rule sits *at* it by construction.)*
-- **A conjunction is added by joining the list, never by bolting the word onto a fragment.** The conjunction rule's cheapest fix is also a defect: "The right job. The right major. The right city. Or the right path." satisfies it and sounds wrong — the pinned voice reads a predicate-free fragment closed by a full stop with rising, unfinished intonation (owner, 2026-07-29: "it didn't sound like she completed the sentence… almost like she ended on a question mark"). The fix is one sentence, not a bolted-on word. Question lists are deliberately exempt — "Security? Income? Or growth?" is *meant* to rise — so the terminal mark is the discriminator, and only the LAST fragment of a run can dangle (mid-paragraph, the next sentence completes the thought). *(Mechanism: `render-qa/src/check_copy.py` rule (c), run by `preflight.py` and in script mode at `/refine-scripts`. Calibrated by sweeping all 32 refined scripts: 3 flags, all real. The `render-qa/tests/test_gates.py` fixture that had pinned the bolted-on form as CORRECT was inverted in the same pass — a test can enshrine a defect just as easily as a doc.)*
-- **The layout inspector runs at every scene, and its verdict is not discarded.** `npm run check` samples 9 points across the whole runtime — one per ~16.6s on a 25-scene lesson — and emits `content_overlap` at severity "info". Both of the owner's layout complaints were already visible to tooling the pipeline ran and passed. Overlap is fatal whatever severity upstream assigns it; transition seams are sampled because static sampling misses collisions that only appear there. *(Mechanism: `render-qa/src/check_layout.py`, run by `preflight.py`.)*
-- **Template defects are caught at the template, once — not once per video.** `npm run check` in `design-system/` runs the framework's own pass PLUS `check_text.py` and `check_layout.py` over the demo reel, which carries one scene per template. A shared template that trips a gate is found when it is edited, not separately in every build that later uses it. This closed the one hole this session's own work opened: making overlap fatal would have failed every future `scla-quote` scene over its decorative glyph, and nothing would have said so until a video did. (The glyph now declares `data-layout-allow-overlap` — intentional layering is stated, never tolerated by a loosened gate.) *(Mechanism: `design-system/package.json` `check` script, which `design-system/AGENTS.md` already requires after any composition edit.)*
-- **tokens.yml is LOADED, not quoted, and a number nobody reads is a red test.** Normative numbers (type floors, frame-padding, safe-area, footer-reserve, content-bottom) are parsed from the spec and read by a gate — never hand-copied into Python under a "keep in sync" comment. `spacing.frame-padding: 120px` was declared when the system was built and enforced by nothing at all for its entire life: `tokens.py` exposed `frame_padding()` and no caller ever called it, while the spec claimed above the block that "every checker imports from it". *(Mechanisms: `render-qa/src/tokens.py` → `check_text.py` (`min_size`) and `render-qa/src/check_geometry.py` (all four spacing tokens, in preflight's full AND `--static` modes); `render-qa/tests/test_tokens_coverage.py` fails if any accessor loses its non-test consumer, which is what makes the orphan class non-recurring.)*
-- **A workspace's copied `tokens.yml` is graded against the spec, because the gates read the COPY.** `design-system/config/tokens.yml` is copied into each workspace at init exactly like `compositions/`, and `tokens.py` prefers the workspace copy — so raising `typography.min-size` 32 → 40 on 2026-07-29 silently did not apply to any workspace already on disk. The number "moves in one place" only for workspaces built afterwards. *(Mechanism: `preflight.py`'s `composition_freshness` section, which diffs the workspace's normative tokens against `design-system/config/tokens.yml` and hard-fails on drift, 2026-07-29.)*
-- **Even spacing is a property of the SLOTS, not of the copy in them.** A card grows when its copy wraps, so cards top-anchored on slots sized for the copy in front of you come out unevenly spaced the moment one of them takes a second line: the 2026-07-29 career-map cut left 74px between the first pair and 26px between the second, and the owner read the 26 as touching. Every gate passed, because the *ink* inside those cards was nowhere near colliding — it was the borders that met. Size the slots for the widest legal card the schema permits, and let a short card sit high in its slot. *(Mechanism: `render-qa/src/check_geometry.py` rule `card-gutter` against `design-system/config/tokens.yml` `spacing.card-gutter`, graded on LAYOUT boxes — the one rule in that gate that is, because a border and a fill are what a viewer sees touching. Deliberately narrow to stay believable: absolutely positioned + fully bordered + text-bearing + horizontally overlapping, which is what keeps chip rows, hairline-separated list rows and the decorative concentric ghost rings out of it. Fixture: `render-qa/tests/test_gates.py`.)*
-- **An icon name the template does not have draws nothing, and says nothing.** `ICONS[name]` returning undefined is a typo the browser cannot report. The libraries are per-template copies and they drift — `map` existed in `scla-statement` and `scla-steps` and not in `scla-points`, so a row shipped with a hole where its icon belonged. *(Mechanism: `render-qa/src/check_slots.py` rule `unknown-icon`, reading the library it is actually calling, run by `preflight.py` in full and `--static` mode.)*
-- **The narration wav carries its own trailing hold.** Every scene gets real silence after it, including the last — which got `gap = 0.0` until 2026-07-29, so the file stopped 5ms after the final word's decay while the video held 1.1s past it. Video outliving audio proves nothing; the release has to be in the file. **And a lesson's ending needs longer to land than a scene boundary does** — at `FINAL_HOLD = 1.1` the release was measurably present (1.34s of trailing audio past the last provider timestamp) and the owner still heard the last slide "abruptly cut off on the last word", so 1.1 → **1.8s** the same day. The floor moved with the producer: leaving `MIN_FINAL_HOLD` at 1.0 would have gone on certifying exactly the ending that was rejected. *(Mechanisms: `synth_narration.py` (final clip is not tail-trimmed and gets `FINAL_HOLD`); `check_boundaries.py` rules `audio-tail-clipped` + `final-hold` against `MIN_FINAL_HOLD`; `render-qa/tests/test_gates.py` asserts the producer clears its own floor, and `run_tests.py` reads `FINAL_HOLD` instead of re-typing it — the assertion is that the cut is the last word plus the declared hold, not that the hold is any particular number.)*
-- **The render CLI is pinned, and the pin is checked.** An unpinned `npx hyperframes` lets a batch start on one version and finish on another, and lets a gate's verdict change because upstream shipped. Staleness is cured by bumping deliberately and validating, never by dropping the pin. *(Mechanism: single pin in `design-system/package.json`, read by `check_layout.py`; bumped 0.7.45 → 0.7.79 on 2026-07-29 and validated with `npm run check`.)*
-- **The test suite runs in CI.** `run_tests.py` executes its own cases AND every sibling `test_*.py`; `lint-refs.sh` check 11 runs it. Until 2026-07-29 the tests existed and nothing invoked them — not CI, not the runner, which silently skipped five suites including the one pinning the variety thresholds. *(Mechanism: `scripts/lint-refs.sh` check 11.)*
-- **Settled content never re-animates in place, and the motion no longer exists to be chosen.** No wobble, drift, ripple, pulse or re-mark of text, chips, rows, nodes, numbers, CTAs or the living-icon hero once it has entered. This is the repo's most-violated rule: banned 2026-07-14 ("I fully want ripples off"), reaffirmed 07-15, and broken the next day by a session that restored the motion so renders would clear `check_presence.py`'s 5s stagnation gate — three MP4s shipped with it and one was published. It was written in `design-contract.md`, in this file, AND in comments inside the very templates that violated it; prose lost to a gate three times. On 2026-07-29 the owner's instruction was to remove the capability rather than police it, so the six sites were deleted from the templates. A pixel-static hold is an AUTHORING defect with exactly one fix: re-author the scene. *(Mechanism: `render-qa/src/check_motion.py`, run by `preflight.py` in full AND `--static` mode — so a re-add fails at plan stage — and by `design-system/`'s `npm run check` over the demo reel, which catches it at the template rather than once per video. It follows a selector through a helper's call sites, because routing the icon bob through the same `drift()` helper as the decorative ghost ring is much of how it survived two weeks of review. Deliberate exceptions are declared inline with `/* motion-allow: <reason> */`. Firing fixtures: `render-qa/tests/test_motion.py`; full-length mutation in `render-qa/tests/test_mutations.py`.)*
-- **The banner is the program folder's name — always, no aliases.** A lesson's title-card `eyebrow` names the program it belongs to, and the program's name is the `lesson-scripts/<slug>/` folder the script lives in. An Early Career Boost lesson shipped on 2026-07-29 banner-labelled "Career Accelerator" — false on screen, and check 7b passed it, because 7b compared the eyebrow to `tokens.yml`'s `programs:` map and the map itself carried the alias (an owner-directed on-screen rebrand, 2026-07-21, now reverted). Grading a value against an unchecked table grades nothing; it relocates where a wrong name is allowed to sit. A display name is legal only if it slugifies back to its own key, which still permits real orthography ("Mid-Career Momentum" → `mid-career-momentum`) and permits no alias at all. *(Mechanisms: `render-qa/src/tokens.py` `programs_problems()` → `preflight.py` check 7b in full AND `--static` mode, so a drifted map fails at plan stage; `render-qa/tests/test_programs.py`, run by `lint-refs.sh` check 11 in CI, which grades the map with no build in flight and additionally fails on a `lesson-scripts/` folder with no banner or a banner with no folder.)*
-- **A hook that crashes is a gate that is off.** `scripts/hyperframe-guard.sh` invoked `render-qa/preflight.py` and `render-qa/build_index.py` from the day the 2026-07-28 layout refactor moved both into `render-qa/src/` — so every PostToolUse firing on a `scenes.json` write printed `can't open file` where a verdict belonged and graded nothing, for a full day of builds. It read as alive because it still produced output. The jq shape contract that exists precisely to stop this guard going silently clean could not see it: it grades a payload, and there was no interpreter to produce one. *(Mechanism: `render-qa/tests/test_guard_contract.py` now resolves the guard's own `RQ` path and asserts both entry points exist on disk, so a move breaks a test instead of a build.)*
-- **No icons beside bullet rows or cards — only ONE hero illustration per frame.** The plural `icons` slot drew a ~64px glyph at the right edge of every `scla-points` row and in every `scla-morph` card corner. It shipped three ways wrong: positionally, so a short list left holes (`icons=",insight,"` put one icon beside point 2 of three); duplicated, drawing `mentorship` and `mentorship2` — two near-identical person glyphs — in one frame; and competing with the row copy in a family whose whole job is a list of words. Owner, 2026-07-29: "add a rule that icons should not render to the right of bullet points… no future renders should include the icons within this style of illustration." Following the ripple precedent, the CAPABILITY was deleted rather than policed. The singular hero `icon` on statement/chips/steps/condition is untouched. *(Mechanisms: the slot is gone from both templates; `render-qa/src/check_slots.py` rule `banned-row-icons` fails any scene still authoring it — including a stale workspace, whose variable the compiler would otherwise drop in silence. Fixture: `render-qa/tests/test_gates.py`. The two fixtures that had pinned `icons="compass,target"` as PASSING were inverted in the same pass.)*
-- **A lesson's part number is a filing convention, never on-screen copy.** `...-resume-pt1` / `...-tool-pt2` tell two halves of one lesson apart on disk; the builder turned both stems into title cards reading "…Pt1"/"…Pt2". Owner, 2026-07-29: "that is simply a reference for our purposes and should not actually go into the content created." Deliberately narrow — `four-part lens` is authored copy that appears 8 times in this program, and a rule that flagged it would be off within a week. *(Mechanisms: `check_copy.py` rule `part-reference`, graded on narration AND every on-frame string, in workspace and script mode; `preflight.py`'s `title_card` check strips the same suffix from the expected stem title, because two gates that disagree make the fix impossible — removing "Pt2" to satisfy one failed the other.)*
-- **A one-card comparison is the one-item list in the form the list rules could not see.** `scla-morph` is a two-option comparison whose options are two SCALAR slots, so the `one-item-list` rule was structurally blind to it: the 2026-07-29 visibility-actions cut filled `aTitle`, left `bTitle` blank, and rendered a single card with its `notes` caption stranded in the right-hand column beside nothing. Owner: "having just a single card breaks the rule… having the text off to the side outside the card also is just awkward and should never happen." *(Mechanism: `check_variety.py` rule `one-card`, which also fails a `winner` naming a card that was never filled — the morph resolving, gold check glyph and all, onto something that does not exist. Fixtures: `render-qa/tests/test_variety.py`, which also gave rule 1 `one-item-list` the firing proof it had never had.)*
-- **The on-frame scene badge is the frame's real position, and the geometry gate can see every box on the frame.** Two failures of the same kind, both found on 2026-07-29. `sceneIndex` is how the owner names a frame when reviewing a cut, and m4_visibility-actions numbered 13 scenes 1..11 (two 07s, two 09s), so a whole round of frame-numbered feedback could not be resolved against the plan. And the chips, condition chips, statement lines and morph notes are all created at RUN TIME with no geometry prototype, so `check_geometry` graded ZERO of them — it returned PASS on the frame whose four chips ran through the footer band, and on the frame whose last chip crossed the padding border, both of which the owner reported by eye. *(Mechanisms: `check_slots.py` rule `scene-index-badge`; `boxmodel.py` `data-geometry-repeat` prototypes — declared in the templates, structured ones carrying `data-geometry-text` — plus `flex-wrap` row packing, border-box measurement of padded pills, and `data-geometry-alt-if` for geometry a template applies conditionally in JS (scla-chips narrows its field to `right: 620px` when a hero icon is set, and the script now reads that number back out of the attribute so the declaration cannot drift). Both owner-reported overflows now fail from the plan alone, with no browser and no render.)*
-- **`line-height: normal` is measured in the real vendored font, never assumed.** `boxmodel.py` assumed 1.2; Proxima Nova resolves to **1.404 / 1.447 / 1.477** by weight (Chrome reads hhea ascent/descent/lineGap — OS/2 USE_TYPO_METRICS is off on this kit). Every block that does not set `line-height` was therefore ~20% shorter in the model than on the frame, which is how four wrapped chip rows modelled as ending 43px clear of a footer they in fact ran through. The number is generated into `design-system/assets/fonts/metrics.json` beside the advance widths and read by `textmetrics.normal_line_height()`. The regen recipe in `textmetrics.py` was also fixed: it grepped `/^REGEN/` against a line beginning `# REGEN`, so it matched nothing, ran an empty program, and reported success. *(Mechanisms: `textmetrics.normal_line_height()` → `boxmodel.typeface()`; pinned by `render-qa/tests/test_variety.py`, which fails if the key is ever regenerated away.)*
-- **A body statement belongs under the heading, not at the foot of the frame.** `scla-statement`'s only body slot rendered BULLETS, so a builder either bulleted a single sentence (which `one-item-list` rightly rejects) or pushed the thought into a sub-beat, which paints at the bottom. The owner reported both shapes in one review: "do not render as bullet points, it really is a single statement… render the heading statement and then maybe a secondary body statement", and "the body statement that populates at the bottom should really live up below the statement heading". `scla-statement` and `scla-condition` gained a `sub` slot; `scla-chips` and `scla-points` sub-beats moved from the bottom band to directly under the heading. *(Convention on WHICH slot an author picks; the geometry gate enforces that whatever they pick fits.)*
-- **A measurement is never delegated to the human preview.** When the freeform lane went opt-in (2026-07-30) it skipped `check_pacing` and `check_variety` and named the same compensating control for both: "owned by the per-video human preview". One of those two is a taste judgement and belongs there — *is this video monotonous?* The other is a stopwatch reading — *did the picture hold perfectly still for 5 seconds?* — and no eye performs it reliably, least of all with narration playing over the stillness to fill it. On 2026-07-31 the owner watched `build-direction-before-you-build-a-plan`, approved it, and `check_presence` then failed it post-render on three spans of 5.0-5.5s of pixel-identical video under continuous speech, two running straight through a scene cut. The approval was not the defect; the assignment was. A deferral must state which instrument answers the question, and "the human" is only a legal answer for questions a human can actually answer. *(Mechanism: `render-qa/src/check_diversity.py` rule `static-span`, run by `scripts/batch-precheck.sh` on the freeform lane over a uniform ~1.25s snapshot grid — pre-render, so the fix costs a re-author instead of a 19-minute render. It is the same rule and the same constants as `check_presence`, which stays authoritative post-render. The grid density is itself gated: `grid-too-sparse` fails a run whose stills are too far apart to see a `STAGNANT_FAIL` freeze, because a sampler that cannot answer must say so rather than return clean. Thresholds calibrated against that cut's 78 real stills — a frozen pair reads 0.00000 churn and max cell delta 2, the nearest genuine reveal reads 0.00852 and 80 — and pinned by `render-qa/tests/test_diversity.py`.)*
-- **Monotony stays with the human, and is reported to them rather than blocked on.** `check_diversity`'s `twin-beats` rule names consecutive beats drawing near-identical pictures (it finds two on the 2026-07-31 cut, including the pair straddling a scene cut) and `verify_render.py`'s `monotony` section prints them. It never fails a ship: the twin threshold is not calibrated against the owner's reference video the way `check_variety`'s are, and a gate that blocks on an unpinned taste number is one that gets switched off. Per STD-38 it teaches first; pin it against a reference build before arming it. *(Mechanism: `render-qa/src/check_diversity.py` rule `twin-beats`, advisory, printed by `verify_render.py`; fixture in `render-qa/tests/test_diversity.py` asserts it fires AND that it stays out of the blocking list.)*
-- **Narration word timings have one loader, and a gate that cannot see them says so.** `check_presence` knew only the two flat word files, so on a freeform build (per-beat wavs + `audio_meta.json`) it found none and its `not words` fallback graded every static run as if narration ran wall to wall — stricter than designed, silently, and it would eventually have failed the deliberate 1.8s `FINAL_HOLD` every lesson ends on. *(Mechanisms: `hfp_common.load_words()` reads all three shapes including the per-beat one, offsetting each clip's words by the audio_start its workspace timing manifest records; `check_presence` and `check_diversity` both call it; an absent transcript now emits a `no-word-timings` warning naming the lost coverage instead of passing for rigour. Pinned by `render-qa/tests/test_diversity.py`, which asserts a frozen span over silence does NOT fire and the same span over speech does.)*
-- **Never archive automatically.** Retiring a workspace to `renders-hyperframes/_archive/` is a human-only call. A shipped video's workspace is pruned in place (`scripts/archive-lesson.sh <stem> --in-place`) and stays put, editable. *(Convention, stated in `projects/video-production/CLAUDE.md`.)*
-- **Close the books after a render.** Any session that ran a HyperFrames render prepends a snag-log retro entry per `render-qa/snag-log.md` header rules before ending. *(Mechanism: PostToolUse hook in `.claude/settings.json`.)*
+**Why a rule exists is not here.** It lives in `decisions/log.md`, cited as
+`Why: log <date> "<title>"` — a grep target, not a heading anchor, so the
+citation survives the log being re-titled or re-ordered. This file is auto-loaded
+on every session that touches the factory, so it stays a checklist: claim,
+mechanism, pointer. Incident narrative, calibration numbers and superseded
+designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
+2026-07-31 (rules refactor) "The video rules file splits by audience"`.)*
+
+## Content fidelity
+
+- **Never fabricate SCLA course content.** Work only from provided outlines and
+  source material. *(Mechanisms: mandatory qa-facts pass at `/refine-scripts`;
+  script-vs-transcript diff in `render-qa/src/preflight.py`; the brand
+  re-materialize safeguard in `.devcontainer/devcontainer.json`. Why: log
+  2026-07-27 "Cold pipeline subagents promoted to agent charters".)*
+- **The banner is the program folder's name — always, no aliases.** A lesson's
+  title-card `eyebrow` names the `lesson-scripts/<slug>/` folder its script lives
+  in. A display name is legal only if it slugifies back to its own key.
+  *(Mechanisms: `render-qa/src/tokens.py` `programs_problems()` → `preflight.py`
+  check 7b in full AND `--static` mode; `render-qa/tests/test_programs.py` via
+  `lint-refs.sh` check 11. Why: log 2026-07-29 "The banner is the program
+  folder's name".)*
+- **A lesson's part number is a filing convention, never on-screen copy.**
+  `-pt1`/`-pt2` tell two halves of one lesson apart on disk and never reach the
+  frame or the narration. *(Mechanisms: `check_copy.py` rule `part-reference`,
+  graded on narration AND every on-frame string, workspace and script mode;
+  `preflight.py`'s `title_card` strips the same suffix. Why: log 2026-07-29
+  (owner review) "Eight defects from the career-map and visibility-actions
+  cuts".)*
 - **No FERPA/PII in any prompt sent to an AI tool.** *(Convention.)*
-- **Brand facts come from `brand/visual-identity.md` and `brand/voice-and-tone.md`.** Never restate hex values in pipeline docs — they drift. *(Mechanism: `lint-refs.sh` check 6 flags stray legacy hex.)*
-- **The narration voice is pinned** (Oxana, ID in `design-system/config/tokens.yml`). Do not audition, swap, or reference retired voices. *(Convention.)*
+- **Brand facts come from `brand/visual-identity.md` and
+  `brand/voice-and-tone.md`.** Never restate hex values in pipeline docs — they
+  drift. *(Mechanism: `lint-refs.sh` check 6 flags stray legacy hex.)*
+- **The narration voice is pinned** (Oxana, ID in
+  `design-system/config/tokens.yml`). Do not audition, swap, or reference retired
+  voices. *(Convention.)*
+
+## The batch — gates, locks, resume
+
+- **PILOT GATE — one human approval per batch, not per video.** A batch builds
+  ONE pilot, stops for a human preview, and only on explicit approval do the rest
+  run build → render → verify → publish unattended. A batch may never start
+  without a passing pilot; a failing pilot stops the run. *(Convention at the
+  pilot itself. Why: log 2026-07-28 "Video pipeline: per-video gate → pilot gate;
+  batch cap deleted".)*
+- **The guards that replace the per-video human eye** — every video, no
+  exceptions: `preflight.py` exit 0 before render; `scripts/batch-precheck.sh`
+  before render (authoritative preflight re-run, one snapshot per scene,
+  deterministic low-ink flags, vision review of real pixels); `verify_render.py`
+  exit 0 after (stream durations vs `#root data-duration` ±0.15s, exact
+  1920×1080, 3 frames/scene); `check_presence.py` blank/stagnation detection; and
+  a sampled vision review of `qa/frames/`. Any one failing **quarantines that
+  video** — built, unpublished, logged — and the batch continues. *(Mechanisms:
+  `scripts/batch-ship.sh` fails soft per video and never publishes a video that
+  failed a guard; `batch-precheck.sh` exits 3 to quarantine pre-render. Why: log
+  2026-07-28 "Video pipeline: per-video gate → pilot gate".)*
+- **SHIP is one uninterrupted pass** — render, verify, file to
+  `renders-mp4/<program-slug>/`, upload to Wistia. No second human review before
+  publish. *(Convention. Why: log 2026-07-22 "MP4 REVIEW / PUBLISH human gate
+  removed".)*
+- **A published video is recorded before the next one starts.** The full stem +
+  Wistia URL land in `lesson-scripts/published.tsv` (the machine resume key) and
+  the human-facing `refinement-log.md` row, committed in the same pass — a commit
+  failure quarantines the video with its URL and keeps the MP4. A stem is done if
+  and only if it has a `published.tsv` row; anything in `rendered/` without one
+  is flagged **STRANDED**. Publish runs only against `qa/VERIFIED` and refuses
+  stems already published. *(Mechanisms: `scripts/batch-ship.sh` guards; read the
+  queue with `scripts/batch-status.sh`, or open the generated
+  `projects/video-production/PIPELINE-STATUS.md`, which `batch-ship.sh`
+  regenerates on every quarantine and every publish. Why: log 2026-07-28 "Video
+  batch: certification protocol + machine resume key"; log 2026-07-31 (status
+  doc) "The queue read becomes a document".)*
+- **One render at a time, machine-wide; builds run up to 3-wide.** Authoring and
+  TTS are network-bound and overlap cleanly; a render is CPU-bound and two on a
+  4-core box thrash. *(Mechanism: `batch-ship.sh` takes
+  `renders-hyperframes/.render.lock` via `mkdir` for the whole render phase and
+  exits 2 if another holds it. Why: log 2026-07-29 (owner review) "Eight
+  defects…", closing section.)*
+
+## Naming and filing
+
+- **A working artifact carries NO date; only a delivered MP4 does.** A lesson's
+  identity is `<title>_<program>` — the **base** — and that names the raw script,
+  the `refined/` script, the build workspace and the `rendered/` script. It never
+  changes, which is what makes it a lock: `mkdir renders-hyperframes/<base>`
+  succeeds exactly once, so concurrent build subagents cannot collide. Only the
+  delivered MP4 gains a date (`<base>_<render-date>.mp4`). "When was this last
+  acted on" is mtime. *(Mechanisms: `render-qa/src/stem.py` is the sole owner;
+  `preflight.py` check 12 fails a workspace whose name carries a date;
+  `batch-ship.sh` claims `.render.lock` and files the MP4 via `stem.py
+  delivered`; `render-qa/tests/test_stem.py`. Why: log 2026-07-29 "Working
+  artifacts lose their date suffix; the name becomes the lock".)*
+- **Never archive automatically.** Retiring a workspace to
+  `renders-hyperframes/_archive/` is a human-only call. A shipped video's
+  workspace is pruned in place (`scripts/archive-lesson.sh <stem> --in-place`)
+  and stays put, editable. *(Convention, stated in
+  `projects/video-production/CLAUDE.md`.)*
+
+## Copy and narration
+
+- **Standing owner preferences are gated, not remembered.** Headings
+  (`heading`/`statement`/`title`) are **Title Case with no terminal period**;
+  body copy stays sentence case. Every spoken list of ≥3 items takes **"and"/"or"
+  before the final item**. A list slot with **exactly one item is a defect**. Max
+  **2 consecutive** scenes on one template family, **≥6 distinct content forms**
+  per lesson ≥90s (≥7 at ≥150s), **no form above 40%** of content seconds.
+  Enforced at authoring time: a builder authors only `scenes.json`;
+  `build_index.py` compiles `index.html`. *(Mechanisms: `check_copy.py` +
+  `check_variety.py` via `preflight.py` (hard block), `preflight.py --static`
+  (plan stage), and `scripts/hyperframe-guard.sh` (`PostToolUse` hook on
+  scenes.json / index.html writes). Thresholds pinned by
+  `render-qa/tests/test_variety.py`. Why: log 2026-07-28 "Owner review: stem
+  dates become mechanical, and four standing preferences become gates".)*
+- **One thought per scene; no thought split across scenes.** A content scene
+  carries at least `MIN_SCENE_SEC` (4.5s). A scene opening with a bare
+  coordinating conjunction is the back half of the previous sentence and must be
+  merged. A spoken list lives on ONE scene. *(Mechanism:
+  `render-qa/src/check_continuity.py`, run by `preflight.py` and `--static`;
+  pinned by `render-qa/tests/test_gates.py`. Why: log 2026-07-28 "Owner
+  review…".)*
+- **The conjunction rule is graded on the WHOLE narration, not per scene.**
+  Scoping it per scene silently disables it — a seven-item list split 3/2/2
+  leaves no run reaching the ≥3 threshold. *(Mechanism: `check_copy.py`,
+  joined-stream enumeration. Why: log 2026-07-29 "The gates the
+  `better-decisions` rejection exposed: scope, sampling, severity".)*
+- **The conjunction rule is graded on the SCRIPT too, at refine time.** A
+  render-stage gate can only report it after a video exists, when the fix costs a
+  re-synthesis and a re-render. **Reports, does not block** — a library sweep
+  found 16/32 refined scripts flagged and a minority are rhetoric or definitions,
+  not lists. *(Mechanism: `check_copy.py` script mode — pass a `.txt` instead of
+  a workspace. Per STD-38: non-blocking at first, so it teaches instead of nags.
+  Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
+- **A conjunction is added by joining the list, never by bolting the word onto a
+  fragment.** "The right job. The right major. Or the right path." satisfies the
+  rule and sounds wrong. The fix is one sentence. Question lists are exempt —
+  they are *meant* to rise — so the terminal mark is the discriminator, and only
+  the LAST fragment of a run can dangle. *(Mechanism: `check_copy.py` rule (c),
+  run by `preflight.py` and in script mode at `/refine-scripts`. Why: log
+  2026-07-29 "A gate must be able to fail. Three that structurally could not.")*
+- **The narration wav carries its own trailing hold.** Every scene gets real
+  silence after it, including the last; video outliving audio proves nothing, the
+  release has to be in the file. A lesson's ending needs longer to land than a
+  scene boundary does — `FINAL_HOLD` is **1.8s**. *(Mechanisms:
+  `synth_narration.py` (final clip is not tail-trimmed and gets `FINAL_HOLD`);
+  `check_boundaries.py` rules `audio-tail-clipped` + `final-hold` against
+  `MIN_FINAL_HOLD`; `test_gates.py` asserts the producer clears its own floor and
+  `run_tests.py` reads `FINAL_HOLD` instead of re-typing it. Why: log 2026-07-29
+  "The gates the `better-decisions` rejection exposed".)*
+
+## Layout and geometry
+
+- **Copy must fit the box the template gives it.** Slot capacity is measured in
+  the real vendored font, not estimated. A template declares each constrained
+  slot's `maxLines` in its own variable schema, beside the CSS that creates the
+  constraint. *(Mechanisms: `check_capacity.py` + `textmetrics.py` against
+  committed `design-system/assets/fonts/metrics.json`. Why: log 2026-07-29 "The
+  gates the `better-decisions` rejection exposed".)*
+- **No text may land on other text, and the gate does not depend on a browser to
+  know it.** *Given the wrapped line count, does this box intersect anything?* is
+  answerable from template CSS plus real font metrics, with no browser. Two
+  corollaries: a template **declares** which slot each element renders
+  (`data-slot`) and which slot it disappears with (`data-present-if`) rather than
+  the gate guessing from JS; and a run-time-created line carries an **empty
+  geometry prototype** in the HTML. *(Mechanisms: `boxmodel.py` +
+  `check_geometry.py` via `preflight.py` (full AND `--static`); a scene where the
+  model resolves nothing fails as `nothing-graded`. Pinned by `test_gates.py`.
+  Why: log 2026-07-29 "A gate must be able to fail".)*
+- **The geometry gate can see every box on the frame.** Chips, condition chips,
+  statement lines and morph notes are created at run time and need declared
+  prototypes, or the gate grades zero of them and returns PASS. *(Mechanisms:
+  `boxmodel.py` `data-geometry-repeat` prototypes — structured ones carrying
+  `data-geometry-text` — plus `flex-wrap` row packing, border-box measurement of
+  padded pills, and `data-geometry-alt-if` for geometry a template applies
+  conditionally in JS. Why: log 2026-07-29 (owner review) "Eight defects…".)*
+- **The minimum text size is a real floor, not the smallest size in use.** Body
+  floor is **40px** (~1/27 of frame height, which is what survives phone
+  viewing). `design-system/config/tokens.yml` is the single source, so the number
+  moves in one place. *(Mechanisms: `tokens.yml` `typography.min-size` →
+  `render-qa/src/tokens.py` → `check_text.py`; `test_gates.py` asserts no body
+  rule sits *at* the floor. Why: log 2026-07-29 "A gate must be able to fail";
+  originally log 2026-07-27 "Minimum on-frame text size".)*
+- **Even spacing is a property of the SLOTS, not of the copy in them.** Size
+  slots for the widest legal card the schema permits and let a short card sit
+  high in its slot. *(Mechanism: `check_geometry.py` rule `card-gutter` against
+  `tokens.yml` `spacing.card-gutter`, graded on LAYOUT boxes — the one rule in
+  that gate that is, because a border and a fill are what a viewer sees touching.
+  Deliberately narrow: absolutely positioned + fully bordered + text-bearing +
+  horizontally overlapping. Fixture: `test_gates.py`. Why: log 2026-07-29 (owner
+  review) "Eight defects…".)*
+- **No icons beside bullet rows or cards — only ONE hero illustration per
+  frame.** The plural `icons` slot is deleted, not policed. The singular hero
+  `icon` on statement/chips/steps/condition is untouched. *(Mechanisms: the slot
+  is gone from both templates; `check_slots.py` rule `banned-row-icons` fails any
+  scene still authoring it, including a stale workspace whose variable the
+  compiler would otherwise drop in silence. Fixture: `test_gates.py`. Why: log
+  2026-07-29 (owner review) "Eight defects…".)*
+- **An icon name the template does not have draws nothing, and says nothing.**
+  `ICONS[name]` returning undefined is a typo the browser cannot report, and the
+  per-template libraries drift. *(Mechanism: `check_slots.py` rule
+  `unknown-icon`, reading the library it is actually calling, run by
+  `preflight.py` in full and `--static` mode.)*
+- **A one-card comparison is the one-item list in the form the list rules could
+  not see.** `scla-morph`'s two options are SCALAR slots, so `one-item-list` is
+  structurally blind to it. *(Mechanism: `check_variety.py` rule `one-card`,
+  which also fails a `winner` naming a card that was never filled. Fixtures:
+  `test_variety.py`. Why: log 2026-07-29 (owner review) "Eight defects…".)*
+- **The on-frame scene badge is the frame's real position.** `sceneIndex` is how
+  the owner names a frame when reviewing a cut, so a duplicated number makes a
+  whole round of feedback unresolvable against the plan. *(Mechanism:
+  `check_slots.py` rule `scene-index-badge`. Why: log 2026-07-29 (owner review)
+  "Eight defects…".)*
+- **`line-height: normal` is measured in the real vendored font, never assumed.**
+  Proxima Nova resolves to **1.404 / 1.447 / 1.477** by weight; assuming 1.2
+  models every unset block ~20% short. *(Mechanisms:
+  `textmetrics.normal_line_height()` → `boxmodel.typeface()`, generated into
+  `design-system/assets/fonts/metrics.json`; pinned by `test_variety.py`, which
+  fails if the key is regenerated away. Why: log 2026-07-29 (owner review) "Eight
+  defects…".)*
+- **A body statement belongs under the heading, not at the foot of the frame.**
+  `scla-statement` and `scla-condition` have a `sub` slot; `scla-chips` and
+  `scla-points` sub-beats sit directly under the heading. *(Convention on WHICH
+  slot an author picks; the geometry gate enforces that whatever they pick fits.
+  Why: log 2026-07-29 (owner review) "Eight defects…".)*
+- **The layout inspector runs at every scene, and its verdict is not discarded.**
+  Overlap is fatal whatever severity upstream assigns it; transition seams are
+  sampled because static sampling misses collisions that only appear there.
+  *(Mechanism: `check_layout.py`, run by `preflight.py`. Why: log 2026-07-29 "The
+  gates the `better-decisions` rejection exposed".)*
+
+## Motion
+
+- **Settled content never re-animates in place, and the motion no longer exists
+  to be chosen.** No wobble, drift, ripple, pulse or re-mark of text, chips,
+  rows, nodes, numbers, CTAs or the living-icon hero once it has entered. The
+  capability was removed rather than policed. A pixel-static hold is an AUTHORING
+  defect with exactly one fix: re-author the scene. Deliberate exceptions are
+  declared inline with `/* motion-allow: <reason> */`. *(Mechanism:
+  `render-qa/src/check_motion.py` via `preflight.py` (full AND `--static`) and
+  `design-system/`'s `npm run check` over the demo reel; it follows a selector
+  through a helper's call sites. Fixtures: `render-qa/tests/test_motion.py`,
+  `render-qa/tests/test_mutations.py`. Why: log 2026-07-15 "In-place keep-alive
+  motion stays banned" — the repo's most-violated rule.)*
+
+## How a gate must behave
+
+- **A measurement is never delegated to the human preview.** A deferral must name
+  the instrument that answers the question, and "the human" is only a legal
+  answer for questions a human can actually answer. *(Mechanism:
+  `render-qa/src/check_diversity.py` rule `static-span`, run pre-render by
+  `scripts/batch-precheck.sh` over a uniform ~1.25s snapshot grid; same rule and
+  constants as `check_presence`, which stays authoritative post-render.
+  `grid-too-sparse` fails a grid too coarse to see a `STAGNANT_FAIL` freeze.
+  `TIME_EPS = 0.02` absorbs the 1/100s filename-timestamp slop, and
+  `batch-precheck.sh` rounds its emitted grid to match. Pinned by
+  `render-qa/tests/test_diversity.py`. Why: log 2026-07-31 (freeform gates) "A
+  measurement is never delegated to the human preview".)*
+- **Monotony stays with the human, and is reported rather than blocked on.** The
+  twin threshold is not calibrated against the owner's reference video, and a
+  gate that blocks on an unpinned taste number is one that gets switched off. Per
+  STD-38 it teaches first; pin it against a reference build before arming it.
+  *(Mechanism: `check_diversity.py` rule `twin-beats`, advisory, printed by
+  `verify_render.py`'s `monotony` section; `test_diversity.py` asserts it fires
+  AND that it stays out of the blocking list. Why: log 2026-07-31 (freeform
+  gates).)*
+- **Narration word timings have one loader, and a gate that cannot see them says
+  so.** *(Mechanisms: `hfp_common.load_words()` reads all three shapes — the two
+  flat word files and the freeform per-beat one (`audio_meta.json`), offsetting
+  each clip's words by its `timing.json` `audio_start`; `check_presence` and
+  `check_diversity` both call it; an absent transcript emits a `no-word-timings`
+  warning naming the lost coverage instead of passing for rigour. Pinned by
+  `test_diversity.py`, which asserts a frozen span over silence does NOT fire and
+  the same span over speech does. Why: log 2026-07-31 (freeform gates).)*
+- **tokens.yml is LOADED, not quoted, and a number nobody reads is a red test.**
+  Normative numbers (type floors, frame-padding, safe-area, footer-reserve,
+  content-bottom) are parsed from the spec and read by a gate — never hand-copied
+  into Python under a "keep in sync" comment. *(Mechanisms:
+  `render-qa/src/tokens.py` → `check_text.py` (`min_size`) and
+  `check_geometry.py` (all four spacing tokens, full AND `--static`);
+  `render-qa/tests/test_tokens_coverage.py` fails if any accessor loses its
+  non-test consumer, which is what makes the orphan class non-recurring. Why: log
+  2026-07-29 "One project shape, and frame.md split into the numbers and the
+  prose".)*
+- **A workspace's copied `tokens.yml` is graded against the spec, because the
+  gates read the COPY.** Raising a token in `design-system/config/tokens.yml`
+  does not reach workspaces already on disk. *(Mechanism: `preflight.py`'s
+  `composition_freshness` section diffs the workspace's normative tokens against
+  the spec and hard-fails on drift. Why: log 2026-07-29 "One project shape…".)*
+- **Template defects are caught at the template, once — not once per video.**
+  `npm run check` in `design-system/` runs the framework's own pass PLUS
+  `check_text.py` and `check_layout.py` over the demo reel, which carries one
+  scene per template. Intentional layering is *stated*
+  (`data-layout-allow-overlap`), never tolerated by a loosened gate. *(Mechanism:
+  `design-system/package.json` `check` script, required after any composition
+  edit. Why: log 2026-07-29 "A gate must be able to fail".)*
+- **A hook that crashes is a gate that is off.** A guard that still produces
+  output reads as alive while grading nothing. *(Mechanism:
+  `render-qa/tests/test_guard_contract.py` resolves the guard's own `RQ` path and
+  asserts both entry points exist on disk, so a move breaks a test instead of a
+  build. Why: log 2026-07-29 "Rejected: a telemetry/ledger 'self-improving'
+  pipeline. Adopted: prove every gate fires.")*
+- **The render CLI is pinned, and the pin is checked.** An unpinned `npx
+  hyperframes` lets a batch start on one version and finish on another, and lets
+  a gate's verdict change because upstream shipped. Staleness is cured by bumping
+  deliberately and validating, never by dropping the pin. *(Mechanism: single pin
+  in `design-system/package.json`, read by `check_layout.py`. Why: log 2026-07-29
+  "The gates the `better-decisions` rejection exposed".)*
+- **The test suite runs in CI.** `run_tests.py` executes its own cases AND every
+  sibling `test_*.py`. *(Mechanism: `scripts/lint-refs.sh` check 11. Why: log
+  2026-07-29 "The gates the `better-decisions` rejection exposed".)*
+
+## Close-out
+
+- **Close the books after a render.** Any session that ran a HyperFrames render
+  prepends a snag-log retro entry per `render-qa/logs/snag-log.md` header rules
+  before ending. *(Mechanism: PostToolUse hook in `.claude/settings.json`.)*
