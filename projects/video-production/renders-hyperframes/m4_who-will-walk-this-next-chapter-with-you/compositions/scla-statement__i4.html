@@ -5,6 +5,8 @@
     {"id":"kicker","type":"string","label":"Kicker / eyebrow label","default":"[[kicker]]"},
     {"id":"statement","type":"string","label":"Statement line (a program thesis — NOT a quote)","default":"[[statement]]"},
     {"id":"lines","type":"string","label":"Supporting bullet lines under the statement, pipe-separated (empty = none). Prefix a line with \"» \" to make it an indented continuation of the point above (no bullet).","default":""},
+    {"id":"sub","type":"string","label":"Optional secondary body statement, directly under the heading — ONE sentence, no bullet. Use when the beat is a single idea that needs a second breath, not a list (empty = none).","default":""},
+    {"id":"subCue","type":"string","label":"Reveal time for `sub`, local sec (compiler-owned; empty = with the statement)","default":""},
     {"id":"pointCues","type":"string","label":"Per-supporting-line reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / STATEMENT"},
     {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
@@ -124,6 +126,24 @@
            right under the statement regardless of wrap count (never stranded at the bottom).
            A rationed gold dot marks each new point; a line authored with a leading "» " is a
            wrapped continuation of the point above — no dot, text indented to align under it. */
+        /* Secondary body statement (opt-in via `sub`), 2026-07-29. A beat is
+           often one idea that needs a second breath — not a list — and the only
+           body slot here rendered BULLETS, so a builder either bulleted a single
+           sentence (which the one-item-list rule rightly rejects) or pushed the
+           thought into a sub-beat, which paints at the BOTTOM of the frame. The
+           owner reported both shapes in one review: "do not render as bullet
+           points, it really is a single statement… render the heading statement
+           and then maybe a secondary body statement", and "the body statement
+           that populates at the bottom should really live up below the statement
+           heading". This sits in normal flow directly under the statement. */
+        #sm__i4-sub {
+          margin-top: 34px;
+          max-width: 1180px;
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.36;
+          color: #bcd3e4;
+        }
         #sm__i4-lines { margin-top: 40px; }
         .sm__i4-line { display: flex; align-items: flex-start; gap: 24px; font-size: 48px; font-weight: 400; line-height: 1.38; color: #bcd3e4; margin-bottom: 20px; }
         .sm__i4-line .bull { flex: 0 0 16px; width: 16px; height: 16px; margin-top: 18px; border-radius: 50%; background: #eaab2d; }
@@ -188,7 +208,17 @@
           <div id="sm__i4-kicker">The shift</div>
           <h2 id="sm__i4-statement">Better decisions become possible when you shift from pressure to process.</h2>
           <div id="sm__i4-underline"></div>
-          <div id="sm__i4-lines"></div>
+          <div id="sm__i4-sub" data-slot="sub" data-present-if="sub"></div>
+          <!-- Geometry declaration for the run-time body lines. The prototype
+               carries the real row STRUCTURE (bullet + text), so the 16px dot
+               and its 24px gap are in the measured box; check_geometry expands
+               one row per pipe-separated item and the text lands on the span
+               marked data-geometry-text. -->
+          <div id="sm__i4-lines">
+            <div class="sm__i4-line" data-slot="lines" data-geometry-repeat="|" data-geometry-proto>
+              <span class="bull"></span><span class="txt" data-geometry-text></span>
+            </div>
+          </div>
         </div>
         <div id="sm__i4-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
         <div id="sm__i4-brandline">SCLA · Lesson System</div>
@@ -201,6 +231,8 @@
             kicker: "The shift",
             statement: "Better decisions become possible when you shift from pressure to process.",
             lines: "",
+            sub: "",
+            subCue: "",
             pointCues: "",
             sceneIndex: "03 / STATEMENT",
             theme: "summit",
@@ -216,6 +248,14 @@
           document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
           document.getElementById("sm__i4-kicker").textContent = vars.kicker;
           document.getElementById("sm__i4-index").textContent = vars.sceneIndex;
+
+          // Secondary body statement (2026-07-29): one sentence under the
+          // heading, no bullet. Absent unless authored — the element is removed
+          // rather than left empty so it takes no flow space and no gate grades
+          // a phantom box.
+          const subEl = document.getElementById("sm__i4-sub");
+          const subText = String(vars.sub || "").trim();
+          if (subText) { subEl.textContent = subText; } else { subEl.remove(); }
 
           // Statement is split into word spans for layout parity with earlier
           // cuts (the reading-ripple animation that used them was removed
@@ -280,6 +320,13 @@
             0.3,
           );
           if (!lines.length) tl.fromTo("#sm__i4-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 0.65);
+          // The sub lands on its own cue when the compiler gives it one, else
+          // just behind the statement — a second breath, not a second beat.
+          if (subText) {
+            const subAt = parseFloat(vars.subCue);
+            tl.fromTo(subEl, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+                      isNaN(subAt) ? 0.75 : Math.max(0.4, subAt));
+          }
           // Supporting lines resolve one per spoken cue (a real staged beat covering the
           // hold — never in-place re-animation of settled text). Uncued overflow lines
           // schedule AFTER the last provided cue — never before their cued siblings

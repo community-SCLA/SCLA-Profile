@@ -17,7 +17,12 @@
       "template": "scla-chips",
       "narration": "Projects delivered, teams supported, and stakeholders managed. But your next step probably feels less clear than your first job did.",
       "cues": {
-        "chipCues": ["Projects delivered", "teams supported", "and stakeholders managed"]
+        "chipCues": [
+          "Projects delivered",
+          "teams supported",
+          "and stakeholders managed"
+        ],
+        "iconCue": "your next step"
       },
       "vars": {
         "label": "So far",
@@ -36,10 +41,17 @@
       "id": "scene-03",
       "template": "scla-statement",
       "narration": "Here's the thing: not all transitions are the same, and the advice that fits one can sink another. Almost any career change sorts along two questions.",
+      "cues": {
+        "pointCues": [
+          "not all transitions",
+          "can sink another"
+        ],
+        "iconCue": "sorts along two questions"
+      },
       "vars": {
         "kicker": "The setup",
         "statement": "Almost Any Change Sorts Along Two Questions",
-        "lines": "",
+        "lines": "Not all transitions are the same|The advice that fits one can sink another",
         "sceneIndex": "03 / THE SETUP",
         "icon": "compass",
         "iconCue": ""
@@ -50,7 +62,10 @@
       "template": "scla-points",
       "narration": "First—did you choose it, or did it choose you? That's the difference between a chosen move and a forced one.",
       "cues": {
-        "pointCues": ["a chosen move", "a forced one"]
+        "pointCues": [
+          "a chosen move",
+          "a forced one"
+        ]
       },
       "vars": {
         "label": "Question one",
@@ -61,8 +76,7 @@
         "point4": "",
         "sceneIndex": "04 / QUESTION ONE",
         "subBeats": "",
-        "subCues": "",
-        "icons": "question,done"
+        "subCues": ""
       }
     },
     {
@@ -70,7 +84,10 @@
       "template": "scla-chips",
       "narration": "Second—how big is the leap? Are you building on your past in an adjacent direction, or reinventing into something genuinely new?",
       "cues": {
-        "chipCues": ["adjacent direction", "genuinely new"]
+        "chipCues": [
+          "adjacent direction",
+          "genuinely new"
+        ]
       },
       "vars": {
         "label": "Question two",
@@ -87,54 +104,67 @@
     },
     {
       "id": "scene-06",
-      "template": "scla-stat",
-      "narration": "Cross those two questions, and you get four kinds of career transition.",
-      "cues": {},
-      "vars": {
-        "value": 4,
-        "prefix": "",
-        "suffix": "",
-        "statLabel": "kinds of career transition",
-        "ring": "",
-        "context": "Cross those two questions and you get four kinds of career transition",
-        "sceneIndex": "06 / FOUR KINDS"
-      }
-    },
-    {
-      "id": "scene-07",
       "template": "scla-condition",
-      "narration": "The first is the Pivot—a change you chose that still builds on your past. You're moving to adjacent territory. Same core strengths, new context.",
+      "narration": "Cross those two questions, and you get four kinds of career transition. The first is the Pivot—a change you chose that still builds on your past. You're moving to adjacent territory.",
       "cues": {
-        "chipCues": ["you chose", "adjacent territory", "new context"]
+        "chipCues": [
+          "four kinds",
+          "you chose",
+          "still builds",
+          "adjacent territory"
+        ],
+        "iconCue": "The first is the"
       },
       "vars": {
         "num": "1",
         "kicker": "The first",
         "heading": "The Pivot: Chosen and Adjacent",
         "total": "4",
-        "chips": "A change you chose,Adjacent territory,New context",
+        "chips": "Four kinds of transition,A change you chose,Builds on your past,Adjacent territory",
         "icon": "compass",
         "iconCue": "",
-        "sceneIndex": "07 / THE PIVOT"
+        "sceneIndex": "06 / THE PIVOT"
+      }
+    },
+    {
+      "id": "scene-07",
+      "template": "scla-chips",
+      "narration": "Same core strengths, new context. Think finance to product, or teaching to instructional design.",
+      "cues": {
+        "chipCues": [
+          "finance to product",
+          "teaching to instructional design"
+        ]
+      },
+      "vars": {
+        "label": "In practice",
+        "heading": "Same Core Strengths, New Context",
+        "chips": "Finance to product,Teaching to instructional design",
+        "accentIndex": "",
+        "reveal": "pop",
+        "sceneIndex": "07 / IN PRACTICE",
+        "subBeats": "",
+        "subCues": "",
+        "icon": "salary",
+        "iconCue": ""
       }
     },
     {
       "id": "scene-08",
-      "template": "scla-chips",
-      "narration": "Think finance to product, or teaching to instructional design. Because your experience carries forward, a pivot is lower-risk and faster than it looks.",
+      "template": "scla-statement",
+      "narration": "Because your experience carries forward, a pivot is lower-risk and faster than it looks.",
       "cues": {
-        "chipCues": ["finance to product", "teaching to instructional design"]
+        "pointCues": [
+          "a pivot is lower-risk",
+          "and faster"
+        ]
       },
       "vars": {
-        "label": "In practice",
-        "heading": "What a Pivot Looks Like",
-        "chips": "Finance to product,Teaching to instructional design",
-        "accentIndex": "",
-        "reveal": "pop",
-        "sceneIndex": "08 / IN PRACTICE",
-        "subBeats": "",
-        "subCues": "",
-        "icon": "salary",
+        "kicker": "Why it works",
+        "statement": "A Pivot Carries Your Experience Forward",
+        "lines": "Lower-risk than it looks|Faster than it looks",
+        "sceneIndex": "08 / WHY IT WORKS",
+        "icon": "",
         "iconCue": ""
       }
     },
@@ -156,7 +186,10 @@
       "template": "scla-condition",
       "narration": "The second is the Reinvention—also a change you chose, but this time into something genuinely new.",
       "cues": {
-        "chipCues": ["a change you chose", "genuinely new"]
+        "chipCues": [
+          "a change you chose",
+          "genuinely new"
+        ]
       },
       "vars": {
         "num": "2",
@@ -174,7 +207,12 @@
       "template": "scla-morph",
       "narration": "You're deliberately changing fields, and often changing part of your identity along with it. Think of an editor who becomes a fashion designer.",
       "cues": {
-        "pointCues": ["changing fields", "an editor", "fashion designer"]
+        "pointCues": [
+          "changing fields",
+          "your identity",
+          "an editor",
+          "fashion designer"
+        ]
       },
       "vars": {
         "kicker": "A reinvention in practice",
@@ -184,9 +222,8 @@
         "bSub": "Where you land",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "insight,growth",
-        "actions": "A,B,morph",
-        "notes": "",
+        "actions": "A,note,B,morph",
+        "notes": "Changing part of your identity",
         "sceneIndex": "11 / CHANGING FIELDS"
       }
     },
@@ -195,7 +232,10 @@
       "template": "scla-statement",
       "narration": "The upside is real, but so is the cost: reinvention asks for more identity work and more experimentation before it clicks.",
       "cues": {
-        "pointCues": ["identity work", "before it clicks"]
+        "pointCues": [
+          "identity work",
+          "before it clicks"
+        ]
       },
       "vars": {
         "kicker": "The trade-off",
@@ -211,7 +251,10 @@
       "template": "scla-condition",
       "narration": "The third is the Rebuild—a change you did not choose, but one that keeps you near your field.",
       "cues": {
-        "chipCues": ["did not choose", "keeps you near your field"]
+        "chipCues": [
+          "did not choose",
+          "keeps you near your field"
+        ]
       },
       "vars": {
         "num": "3",
@@ -229,7 +272,10 @@
       "template": "scla-points",
       "narration": "A layoff or a life event pushed you, yet the work you're heading toward still builds on what you already know.",
       "cues": {
-        "pointCues": ["a layoff or a life event", "still builds on what you already know"]
+        "pointCues": [
+          "a layoff or a life event",
+          "still builds on what you already know"
+        ]
       },
       "vars": {
         "label": "The rebuild",
@@ -240,8 +286,7 @@
         "point4": "",
         "sceneIndex": "14 / PUSHED",
         "subBeats": "",
-        "subCues": "",
-        "icons": "pressure,target"
+        "subCues": ""
       }
     },
     {
@@ -249,7 +294,10 @@
       "template": "scla-statement",
       "narration": "The practical path here is usually shorter than it feels. The harder part is emotional, because you didn't ask for it.",
       "cues": {
-        "pointCues": ["shorter than it feels", "because you didn't ask for it"]
+        "pointCues": [
+          "shorter than it feels",
+          "because you didn't ask for it"
+        ]
       },
       "vars": {
         "kicker": "The real challenge",
@@ -278,14 +326,19 @@
       "template": "scla-condition",
       "narration": "The fourth is the Forced Reinvention—the hardest of the four. Here you were pushed out and the old path is closed, so you're reinventing into something new without having chosen to.",
       "cues": {
-        "chipCues": ["pushed out", "old path is closed"]
+        "chipCues": [
+          "pushed out",
+          "old path is closed",
+          "reinventing into something new"
+        ],
+        "iconCue": "hardest of the four"
       },
       "vars": {
         "num": "4",
         "kicker": "The fourth",
         "heading": "The Forced Reinvention: Not Chosen and New",
         "total": "4",
-        "chips": "Pushed out,Old path is closed",
+        "chips": "Pushed out,Old path is closed,Reinventing into something new",
         "icon": "mentorship",
         "iconCue": "",
         "sceneIndex": "17 / FORCED REINVENTION"
@@ -296,7 +349,11 @@
       "template": "scla-chips",
       "narration": "It asks the most of you: extra care, extra support, and extra experimentation while you find your footing.",
       "cues": {
-        "chipCues": ["extra care", "extra support", "and extra experimentation"]
+        "chipCues": [
+          "extra care",
+          "extra support",
+          "and extra experimentation"
+        ]
       },
       "vars": {
         "label": "What it takes",
@@ -315,10 +372,16 @@
       "id": "scene-19",
       "template": "scla-statement",
       "narration": "But it's also where some of the most remarkable reinventions come from—when necessity clears away the \"shoulds,\" people often build something they would never have reached for on their own.",
+      "cues": {
+        "pointCues": [
+          "necessity clears away",
+          "people often build"
+        ]
+      },
       "vars": {
         "kicker": "The upside",
         "statement": "Remarkable Reinventions Come from Necessity",
-        "lines": "",
+        "lines": "Necessity clears away the shoulds|Something they would never have reached for",
         "sceneIndex": "19 / FROM NECESSITY",
         "icon": "",
         "iconCue": ""
@@ -326,15 +389,17 @@
     },
     {
       "id": "scene-20",
-      "template": "scla-statement",
+      "template": "scla-stat",
       "narration": "None of these four is \"better\" than the others. Knowing which one you're in tells you what to plan for.",
+      "cues": {},
       "vars": {
-        "kicker": "The takeaway",
-        "statement": "None of These Four Is Better",
-        "lines": "",
-        "sceneIndex": "20 / THE TAKEAWAY",
-        "icon": "",
-        "iconCue": ""
+        "value": 4,
+        "prefix": "",
+        "suffix": "",
+        "statLabel": "kinds of career transition",
+        "ring": "",
+        "context": "None of these four is better than the others",
+        "sceneIndex": "20 / THE TAKEAWAY"
       }
     },
     {
@@ -342,7 +407,10 @@
       "template": "scla-points",
       "narration": "How much identity work and grief to expect, and how much experimenting you'll need before you commit.",
       "cues": {
-        "pointCues": ["identity work and grief", "how much experimenting"]
+        "pointCues": [
+          "identity work and grief",
+          "how much experimenting"
+        ]
       },
       "vars": {
         "label": "What to expect",
@@ -353,8 +421,7 @@
         "point4": "",
         "sceneIndex": "21 / WHAT TO EXPECT",
         "subBeats": "",
-        "subCues": "",
-        "icons": "question,mentorship"
+        "subCues": ""
       }
     },
     {
@@ -362,7 +429,11 @@
       "template": "scla-loop",
       "narration": "So whenever your next move feels foggy, ask the two questions: Did I choose this, or did it choose me? And how big is the leap?",
       "cues": {
-        "stepCues": ["Did I choose this", "did it choose me", "how big is the leap"]
+        "stepCues": [
+          "Did I choose this",
+          "did it choose me",
+          "how big is the leap"
+        ]
       },
       "vars": {
         "label": "Whenever it's foggy",
@@ -381,7 +452,11 @@
       "template": "scla-points",
       "narration": "In this module, you'll reflect on your current role, your desired role, and what success would look like over the next year.",
       "cues": {
-        "pointCues": ["your current role", "your desired role", "what success would look like"]
+        "pointCues": [
+          "your current role",
+          "your desired role",
+          "what success would look like"
+        ]
       },
       "vars": {
         "label": "In this module",
@@ -392,8 +467,7 @@
         "point4": "",
         "sceneIndex": "23 / REFLECT",
         "subBeats": "",
-        "subCues": "",
-        "icons": "salary,map,mentorship2"
+        "subCues": ""
       }
     },
     {
@@ -401,12 +475,16 @@
       "template": "scla-statement",
       "narration": "Then you'll use an AI activity to analyze the projects that energize you. So your choice is grounded in evidence, not just impulse.",
       "cues": {
-        "pointCues": ["grounded in evidence", "not just impulse"]
+        "pointCues": [
+          "the projects that energize",
+          "grounded in evidence",
+          "not just impulse"
+        ]
       },
       "vars": {
         "kicker": "Grounding your choice",
         "statement": "An AI Activity Analyzes What Energizes You",
-        "lines": "Grounded in evidence|Not just impulse",
+        "lines": "Analyze the projects that energize you|Grounded in evidence|Not just impulse",
         "sceneIndex": "24 / WITH AI",
         "icon": "",
         "iconCue": ""
@@ -417,7 +495,10 @@
       "template": "scla-chips",
       "narration": "Finally, you'll capture your direction in a simple Next Move Statement for the next 6–12 months.",
       "cues": {
-        "chipCues": ["capture your direction", "Next Move Statement"]
+        "chipCues": [
+          "capture your direction",
+          "Next Move Statement"
+        ]
       },
       "vars": {
         "label": "Your deliverable",
@@ -436,10 +517,16 @@
       "id": "scene-26",
       "template": "scla-statement",
       "narration": "You don't need to solve your entire career here. You only need to recognize which of these four transitions you're in right now.",
+      "cues": {
+        "pointCues": [
+          "solve your entire career",
+          "recognize which"
+        ]
+      },
       "vars": {
         "kicker": "The real task",
         "statement": "Recognize Which Transition You're In",
-        "lines": "",
+        "lines": "You don't need to solve your entire career|Which of these four you're in right now",
         "sceneIndex": "26 / THE REAL TASK",
         "icon": "",
         "iconCue": ""

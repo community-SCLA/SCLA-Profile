@@ -13,10 +13,18 @@
     {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
     {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
     {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"pointCues","type":"string","label":"Per-point reveal times, local sec, comma-separated (empty = default spread)","default":""},
-    {"id":"icons","type":"string","label":"Optional per-item living icons — comma list of ICONS-map names, positional per visible row (empty = none; Motion v2 2026-07-27; design-contract.md → Living icon library)","default":""}
+    {"id":"pointCues","type":"string","label":"Per-point reveal times, local sec, comma-separated (empty = default spread)","default":""}
   ]'
 >
+  <!-- No per-row icon slot. Icons beside bullet rows were REMOVED 2026-07-29 on
+       owner instruction ("icons should not render to the right of bullet
+       points"), following the ripple precedent: remove the capability rather
+       than police it. The rail drew a ~64px glyph at each row's right edge; in
+       practice it rendered on SOME rows and not others (`icons=",insight,"`),
+       and twice drew two near-identical person glyphs in one frame
+       (`mentorship` + `mentorship2`). A single hero `icon` on the
+       statement/chips/steps/condition families is unaffected. Re-adding an
+       `icons` slot fails check_slots.py rule `banned-row-icons`. -->
   <head>
     <meta charset="UTF-8" />
   </head>
@@ -149,10 +157,6 @@
           font-weight: 400;
           color: #292f35;
         }
-        /* Optional per-item living icon (opt-in via `icons`; Motion v2 2026-07-27) —
-           ~64px, drawn on the row's cue, sits at the row's right edge. */
-        .kp__i5-icon { flex: none; width: 64px; height: 64px; margin-left: auto; }
-        .kp__i5-icon svg { width: 64px; height: 64px; }
         /* Closing-beat rule (Motion v2, 2026-07-27) — completes under the heading in
            the scene's final second. scaleX(0) at rest so it is invisible pre-beat. */
         #kp__i5-close-rule { margin-top: 18px; width: 240px; height: 4px; background: #eaab2d; transform: scaleX(0); transform-origin: left center; }
@@ -168,15 +172,39 @@
         }
         /* Sub-beats — narration-synced live line (dead-hold fix, 2026-07-14).
            One beat visible at a time; absent unless subBeats is set. */
+        #kp__i5-subbeat-host {
+          /* The sub-beat's containing block must be the FRAME. This host was
+             unstyled, so the `bottom` below resolved against whichever
+             absolutely-positioned wrapper happened to enclose it — putting
+             every sub-beat ABOVE the frame (y=-180 here, y=-222 on
+             scla-chips). That is not a prototype-only artifact: the run-time
+             lines appended to this host inherit the same containing block, so
+             real sub-beats rendered out of place too, which is how scla-loop's
+             sub-beat landed on a caption on 2026-07-29. Two build agents
+             worked around it by abandoning subBeats; the defect belongs here,
+             once, rather than in every scene plan that wants a sub-beat. */
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+
+        /* Sub-beat sits directly UNDER THE HEADING, not at the frame bottom
+           (owner, 2026-07-29: "the body statement that populates at the bottom
+           should really live up below the statement heading", said of two
+           frames in one review). A bottom-anchored live line reads as a caption
+           bolted onto the slide; the same sentence under the heading reads as
+           the heading's second breath, which is what the narration is doing at
+           that moment. The content band below is unaffected — chips start at
+           470 / rows at 370, and check_geometry grades the gap. */
         .kp__i5-subbeat {
           position: absolute;
-          left: 160px;
-          right: 160px;
-          bottom: 132px;
-          text-align: center;
+          left: 120px;
+          right: 200px;
+          top: 272px;
+          text-align: left;
           font-size: 40px;
           font-weight: 700;
-          color: #0d2437;
+          color: #5f6f96;
           opacity: 0;
         }
         /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
@@ -253,7 +281,6 @@
             sceneIndex: "02 / KEY POINTS",
             theme: "summit",
             pointCues: "",
-            icons: "",
             sceneDuration: "10",
           };
           const vars = Object.assign(
@@ -275,25 +302,9 @@
             }
           });
 
-          // Optional per-item living icons (opt-in via `icons`, positional per visible
-          // row). Geometry MIRRORED from scla-condition.html's ICONS map (the canonical
-          // source; design-contract.md → "Living icon library" — keep in sync, never diverge).
-          // Light canvas → navy main stroke, gold accents/dots pop last.
-          const RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z";
-          const ICONS = {
-            compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
-            pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
-            insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
-            salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
-            map: { paths: [{ d: "M18 30 L38 22 L58 30 L78 22 L78 66 L58 74 L38 66 L18 74 Z" }, { d: "M38 22 L38 66" }, { d: "M58 30 L58 74" }, { d: "M48 41 L48 52", gd: true }], circles: [{ cx: 48, cy: 36, r: 5, gd: true }] },
-            mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
-            mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
-            growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
-            target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
-            question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
-            examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
-            done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] },
-          };
+          // No living-icon library here by design (2026-07-29). This template
+          // renders bullet rows, and the owner banned icons beside bullet rows;
+          // keeping the map around would just invite the slot back.
 
           window.__timelines = window.__timelines || {};
           const tl = gsap.timeline({ paused: true });
@@ -312,42 +323,6 @@
             .split(",")
             .map(function (s) { return Number(s.trim()); })
             .filter(function (v) { return !isNaN(v); });
-          // Build the optional per-item icons (positional; empty slot = no icon).
-          const iconNames = String(vars.icons || "").split(",").map(function (s) { return s.trim(); });
-          const iconSets = items.map(function (item, i) {
-            const ic = iconNames[i] ? ICONS[iconNames[i]] : null;
-            if (!ic) return null;
-            const wrap = document.createElement("div");
-            wrap.className = "kp__i5-icon";
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("viewBox", "0 0 96 96");
-            svg.setAttribute("fill", "none");
-            wrap.appendChild(svg);
-            item.appendChild(wrap);
-            // Hidden until this item's icon draw-on fires (render-qa friction
-            // log, 2026-07-27 B1): round stroke-linecaps paint a filled dot even
-            // at strokeDashoffset 100/zero visible length, so without this the
-            // dot is visible — cascading through the row's own fade-in — before
-            // the draw-on fires.
-            wrap.style.opacity = "0";
-            const draws = [], dots = [];
-            const strokeMain = "#0d2437";
-            (ic.paths || []).forEach(function (p) {
-              const el = document.createElementNS("http://www.w3.org/2000/svg", "path");
-              el.setAttribute("d", p.d); el.setAttribute("fill", "none");
-              el.setAttribute("stroke", p.gd ? "#eaab2d" : strokeMain);
-              el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
-              el.setAttribute("pathLength", "100"); svg.appendChild(el); draws.push(el);
-            });
-            (ic.circles || []).forEach(function (c) {
-              const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-              el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
-              if (c.fill) { el.setAttribute("fill", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke", "none"); dots.push(el); }
-              else { el.setAttribute("fill", "none"); el.setAttribute("stroke", c.gd ? "#eaab2d" : strokeMain); el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); draws.push(el); }
-              svg.appendChild(el);
-            });
-            return { wrap: wrap, draws: draws, dots: dots };
-          });
           items.forEach(function (item, i) {
             const at = cues.length ? Math.max(0.4, cues[i]) : 0.85 + i * 0.55;
             tl.fromTo(
@@ -361,13 +336,6 @@
             // Compound cue (Motion v2, 2026-07-27): the arriving row dims the
             // already-settled siblings to 0.6; the closing beat restores them.
             if (i > 0) tl.to(items.slice(0, i), { opacity: 0.6, duration: 0.3, ease: "power2.out" }, at);
-            // Icon draws on with the row's cue; gold accents/dots pop last.
-            const set = iconSets[i];
-            if (set) {
-              tl.set(set.wrap, { opacity: 1 }, at + 0.1);
-              if (set.draws.length) tl.fromTo(set.draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.45, ease: "power3.out", stagger: 0.1 }, at + 0.1);
-              if (set.dots.length) tl.fromTo(set.dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.35, ease: "back.out(2)" }, at + 0.5);
-            }
           });
           // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut):
           // opacity 0.55 → 1 in ~0.3s so cuts land as a hit, not a dissolve.

@@ -4,13 +4,13 @@
   "voice": "442360a3e0894fbd85024ff64cc2b928",
   "speed": "1.0",
   "rate": 44100,
-  "audio_end": 191.877,
+  "audio_end": 193.539,
   "air": 0.3,
   "air_question": 0.45,
   "lead": 0.15,
   "final_hold": 1.8,
   "max_inscene_gap": 0.5,
-  "gap_trimmed": 2.939,
+  "gap_trimmed": 3.058,
   "scenes": [
     {
       "i": 0,
@@ -77,39 +77,39 @@
       "i": 5,
       "id": "scene-06",
       "clip": "scenes/scene-06.wav",
-      "sha": "028a4ea83adc5152",
-      "text_words": 12,
+      "sha": "6ad3c3bffe3c91b2",
+      "text_words": 31,
       "question": false,
+      "gap_trimmed": 0.08,
       "start": 34.539,
-      "end": 38.251,
+      "end": 45.923,
       "air": 0.3,
-      "cut": 38.551
+      "cut": 46.223
     },
     {
       "i": 6,
       "id": "scene-07",
       "clip": "scenes/scene-07.wav",
-      "sha": "2df6bac432cac51a",
-      "text_words": 24,
+      "sha": "949f9165f4aba2fb",
+      "text_words": 14,
       "question": false,
-      "gap_trimmed": 0.02,
-      "start": 38.701,
-      "end": 47.618,
+      "gap_trimmed": 0.559,
+      "start": 46.373,
+      "end": 53.05,
       "air": 0.3,
-      "cut": 47.918
+      "cut": 53.35
     },
     {
       "i": 7,
       "id": "scene-08",
       "clip": "scenes/scene-08.wav",
-      "sha": "cfee752a066a62e4",
-      "text_words": 23,
+      "sha": "9a35fbd7bcd29ea5",
+      "text_words": 14,
       "question": false,
-      "gap_trimmed": 0.5,
-      "start": 48.068,
-      "end": 57.271,
+      "start": 53.5,
+      "end": 58.933,
       "air": 0.3,
-      "cut": 57.571
+      "cut": 59.233
     },
     {
       "i": 8,
@@ -118,10 +118,10 @@
       "sha": "dfb8787fdaca99ae",
       "text_words": 16,
       "question": false,
-      "start": 57.721,
-      "end": 62.283,
+      "start": 59.383,
+      "end": 63.945,
       "air": 0.3,
-      "cut": 62.583
+      "cut": 64.245
     },
     {
       "i": 9,
@@ -130,10 +130,10 @@
       "sha": "25682de470552326",
       "text_words": 16,
       "question": false,
-      "start": 62.733,
-      "end": 68.375,
+      "start": 64.395,
+      "end": 70.037,
       "air": 0.3,
-      "cut": 68.675
+      "cut": 70.337
     },
     {
       "i": 10,
@@ -142,10 +142,10 @@
       "sha": "5a6a1a5c35954061",
       "text_words": 23,
       "question": false,
-      "start": 68.825,
-      "end": 76.88,
+      "start": 70.487,
+      "end": 78.542,
       "air": 0.3,
-      "cut": 77.18
+      "cut": 78.842
     },
     {
       "i": 11,
@@ -155,10 +155,10 @@
       "text_words": 21,
       "question": false,
       "gap_trimmed": 0.961,
-      "start": 77.33,
-      "end": 86.255,
+      "start": 78.992,
+      "end": 87.917,
       "air": 0.3,
-      "cut": 86.555
+      "cut": 88.217
     },
     {
       "i": 12,
@@ -167,10 +167,10 @@
       "sha": "b11f1d4eed3a2da4",
       "text_words": 18,
       "question": false,
-      "start": 86.705,
-      "end": 92.006,
+      "start": 88.367,
+      "end": 93.668,
       "air": 0.3,
-      "cut": 92.306
+      "cut": 93.968
     },
     {
       "i": 13,
@@ -179,10 +179,10 @@
       "sha": "9b2279c8c78cee9e",
       "text_words": 21,
       "question": false,
-      "start": 92.456,
-      "end": 98.51,
+      "start": 94.118,
+      "end": 100.172,
       "air": 0.3,
-      "cut": 98.81
+      "cut": 100.472
     },
     {
       "i": 14,
@@ -192,10 +192,10 @@
       "text_words": 21,
       "question": false,
       "gap_trimmed": 0.079,
-      "start": 98.96,
-      "end": 105.232,
+      "start": 100.622,
+      "end": 106.894,
       "air": 0.3,
-      "cut": 105.532
+      "cut": 107.194
     },
     {
       "i": 15,
@@ -204,10 +204,10 @@
       "sha": "58f2b1d90a0734c8",
       "text_words": 16,
       "question": false,
-      "start": 105.682,
-      "end": 110.917,
+      "start": 107.344,
+      "end": 112.579,
       "air": 0.3,
-      "cut": 111.217
+      "cut": 112.879
     },
     {
       "i": 16,
@@ -217,10 +217,10 @@
       "text_words": 31,
       "question": false,
       "gap_trimmed": 0.56,
-      "start": 111.367,
-      "end": 120.791,
+      "start": 113.029,
+      "end": 122.453,
       "air": 0.3,
-      "cut": 121.091
+      "cut": 122.753
     },
     {
       "i": 17,
@@ -229,10 +229,10 @@
       "sha": "cb1f6f09807c6ee8",
       "text_words": 18,
       "question": false,
-      "start": 121.241,
-      "end": 127.583,
+      "start": 122.903,
+      "end": 129.244,
       "air": 0.3,
-      "cut": 127.883
+      "cut": 129.544
     },
     {
       "i": 18,
@@ -241,10 +241,10 @@
       "sha": "4321c615ac199982",
       "text_words": 30,
       "question": false,
-      "start": 128.033,
-      "end": 138.524,
+      "start": 129.694,
+      "end": 140.186,
       "air": 0.3,
-      "cut": 138.824
+      "cut": 140.486
     },
     {
       "i": 19,
@@ -254,10 +254,10 @@
       "text_words": 20,
       "question": false,
       "gap_trimmed": 0.02,
-      "start": 138.974,
-      "end": 144.091,
+      "start": 140.636,
+      "end": 145.753,
       "air": 0.3,
-      "cut": 144.391
+      "cut": 146.053
     },
     {
       "i": 20,
@@ -266,10 +266,10 @@
       "sha": "cc6845fa56bd75bb",
       "text_words": 17,
       "question": false,
-      "start": 144.541,
-      "end": 149.567,
+      "start": 146.203,
+      "end": 151.229,
       "air": 0.3,
-      "cut": 149.867
+      "cut": 151.529
     },
     {
       "i": 21,
@@ -279,10 +279,10 @@
       "text_words": 26,
       "question": true,
       "gap_trimmed": 0.52,
-      "start": 150.017,
-      "end": 158.302,
+      "start": 151.679,
+      "end": 159.964,
       "air": 0.45,
-      "cut": 158.752
+      "cut": 160.414
     },
     {
       "i": 22,
@@ -292,10 +292,10 @@
       "text_words": 22,
       "question": false,
       "gap_trimmed": 0.08,
-      "start": 158.902,
-      "end": 165.474,
+      "start": 160.564,
+      "end": 167.135,
       "air": 0.3,
-      "cut": 165.774
+      "cut": 167.435
     },
     {
       "i": 23,
@@ -304,10 +304,10 @@
       "sha": "1e5751fb1da917ad",
       "text_words": 23,
       "question": false,
-      "start": 165.924,
-      "end": 173.574,
+      "start": 167.585,
+      "end": 175.236,
       "air": 0.3,
-      "cut": 173.874
+      "cut": 175.536
     },
     {
       "i": 24,
@@ -316,10 +316,10 @@
       "sha": "195e42aafc93d8a8",
       "text_words": 16,
       "question": false,
-      "start": 174.024,
-      "end": 180.169,
+      "start": 175.686,
+      "end": 181.831,
       "air": 0.3,
-      "cut": 180.469
+      "cut": 182.131
     },
     {
       "i": 25,
@@ -328,10 +328,10 @@
       "sha": "58dcdd19bea684c3",
       "text_words": 23,
       "question": false,
-      "start": 180.619,
-      "end": 187.286,
+      "start": 182.281,
+      "end": 188.948,
       "air": 0.3,
-      "cut": 187.586
+      "cut": 189.248
     },
     {
       "i": 26,
@@ -340,10 +340,10 @@
       "sha": "fc8d80efae9104ad",
       "text_words": 6,
       "question": false,
-      "start": 187.736,
-      "end": 190.077,
+      "start": 189.398,
+      "end": 191.739,
       "air": 0.3,
-      "cut": 191.877
+      "cut": 193.539
     }
   ]
 }

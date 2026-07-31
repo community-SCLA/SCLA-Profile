@@ -1,24 +1,21 @@
-<!doctype html>
-<html
-  lang="en"
-  data-composition-variables='[
-    {"id":"label","type":"string","label":"Section label","default":"[[label]]"},
-    {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
-    {"id":"chips","type":"string","label":"Chip texts, comma-separated (up to 8)","default":"[[chips]]"},
-    {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (empty = default stagger)","default":""},
-    {"id":"accentIndex","type":"string","label":"1-based index of the gold-accent chip (empty = none)","default":""},
-    {"id":"reveal","type":"string","label":"Chip entrance (pop | slide)","default":"pop"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"07 / DEFINE"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
-    {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"icon","type":"string","label":"Optional statement-style hero living icon name (see design-contract.md icon library; empty = none, layout unchanged). Chips column narrows when set.","default":""},
-    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""}
-  ]'
->
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;label&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Section label&quot;,&quot;default&quot;:&quot;[[label]]&quot;},
+    {&quot;id&quot;:&quot;heading&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Heading&quot;,&quot;default&quot;:&quot;[[heading]]&quot;},
+    {&quot;id&quot;:&quot;chips&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Chip texts, comma-separated (up to 8)&quot;,&quot;default&quot;:&quot;[[chips]]&quot;},
+    {&quot;id&quot;:&quot;chipCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-chip reveal times, local sec, comma-separated (empty = default stagger)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;accentIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;1-based index of the gold-accent chip (empty = none)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;reveal&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Chip entrance (pop | slide)&quot;,&quot;default&quot;:&quot;pop&quot;},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;07 / DEFINE&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;subBeats&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Sub-beats — narration-synced live line, pipe-separated (empty = off)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;subCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained; times the late-phase resolve)&quot;,&quot;default&quot;:&quot;10&quot;},
+    {&quot;id&quot;:&quot;icon&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Optional statement-style hero living icon name (see design-contract.md icon library; empty = none, layout unchanged). Chips column narrows when set.&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;iconCue&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)&quot;,&quot;default&quot;:&quot;&quot;}
+  ]">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <!--
       TEMPLATE — kinetic word-field / chip cluster on a light canvas. Use when the
       narration rattles off a list of words too fast/too many for scla-points
@@ -153,11 +150,35 @@
            bottom 170px so it lives in the content zone with clear air above
            the footer brandline (bottom 58px). 32px = the body-class floor
            (tokens.yml typography.min-size — sub-beats are body copy). */
+        #cc-subbeat-host {
+          /* The sub-beat's containing block must be the FRAME. This host was
+             unstyled, so the `bottom` below resolved against whichever
+             absolutely-positioned wrapper happened to enclose it — putting
+             every sub-beat ABOVE the frame (y=-180 here, y=-222 on
+             scla-chips). That is not a prototype-only artifact: the run-time
+             lines appended to this host inherit the same containing block, so
+             real sub-beats rendered out of place too, which is how scla-loop's
+             sub-beat landed on a caption on 2026-07-29. Two build agents
+             worked around it by abandoning subBeats; the defect belongs here,
+             once, rather than in every scene plan that wants a sub-beat. */
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+
+        /* Sub-beat sits directly UNDER THE HEADING, not at the frame bottom
+           (owner, 2026-07-29: "the body statement that populates at the bottom
+           should really live up below the statement heading", said of two
+           frames in one review). A bottom-anchored live line reads as a caption
+           bolted onto the slide; the same sentence under the heading reads as
+           the heading's second breath, which is what the narration is doing at
+           that moment. The content band below is unaffected — chips start at
+           470 / rows at 370, and check_geometry grades the gap. */
         .cc-subbeat {
           position: absolute;
           left: 120px;
-          right: 120px;
-          bottom: 170px;
+          right: 620px;
+          top: 300px;
           padding-left: 30px;
           text-align: left;
           font-size: 40px;
@@ -200,35 +221,52 @@
         #root[data-theme="cadence"] .cc-chip.cc-accent { border-color: #eaab2d; }
       </style>
 
-      <div id="root" data-composition-id="scla-chips" data-width="1920" data-height="1080" data-duration="10">
-        <div class="cc-bg"></div>
-        <div id="cc-ghost-ring" data-layout-allow-overflow></div>
-        <div id="cc-ghost-ring-2" data-layout-allow-overflow></div>
-        <div id="cc-head">
-          <div id="cc-label-row">
-            <div id="cc-tick"></div>
-            <div id="cc-label">Step 1 — Define success</div>
+      <div data-hf-id="hf-qmsj" id="root" data-composition-id="scla-chips" data-width="1920" data-height="1080" data-duration="10">
+        <div data-hf-id="hf-xori" class="cc-bg"></div>
+        <div data-hf-id="hf-1kyn" id="cc-ghost-ring" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-jpz6" id="cc-ghost-ring-2" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-xona" id="cc-head">
+          <div data-hf-id="hf-qiud" id="cc-label-row">
+            <div data-hf-id="hf-1q2f" id="cc-tick"></div>
+            <div data-hf-id="hf-omz5" id="cc-label">Step 1 — Define success</div>
           </div>
-          <h2 id="cc-heading">What matters most, the next 3–5 years?</h2>
-          <div id="cc-close-rule"></div>
+          <h2 data-hf-id="hf-6q02" id="cc-heading">What matters most, the next 3–5 years?</h2>
+          <div data-hf-id="hf-r627" id="cc-close-rule"></div>
         </div>
-        <div id="cc-field"></div>
-        <div id="cc-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
+        <!-- Geometry declaration for the chips the script creates at run time.
+             One prototype stands in for the WHOLE list: check_geometry expands
+             `data-geometry-repeat` into one box per comma-separated item, each
+             measured in the real vendored font, and #cc-field's `flex-wrap`
+             packs them into rows. Until 2026-07-29 the field was empty markup,
+             so the gate graded ZERO chip boxes and reported PASS on the frame
+             whose four chips ran through the footer band. It paints nothing
+             itself — the run-time chips replace it. -->
+        <!-- data-geometry-alt-if/-alt: when `icon` is set the script narrows this
+             field to reserve the right column for the hero glyph. That used to be
+             a bare inline style, invisible to check_geometry, which therefore
+             modelled a 1680px field the browser had already cut to 1180px — two
+             rows where the render made four, the fourth through the footer. The
+             script reads the number back OUT of this attribute, so there is one
+             number and the declaration cannot drift from the behaviour. -->
+        <div data-hf-id="hf-jpxp" id="cc-field" data-geometry-alt-if="icon" data-geometry-alt="right: 620px">
+          <div data-hf-id="hf-h323" class="cc-chip" data-slot="chips" data-geometry-repeat="," data-geometry-proto=""></div>
+        </div>
+        <div data-hf-id="hf-whco" id="cc-iconwrap" data-layout-allow-overflow=""><svg data-hf-id="hf-2787" viewBox="0 0 96 96" fill="none" /></div>
         <!-- Static append target for cued sub-beats — the 2026-07-27 fix for the
              2026-07-15 "subBeat never renders" bug. Appending to #root by id was the
              defect: every scene's template root is id="root", so in the composited
              render getElementById("root") resolves to the FIRST scene's root and the
              sub-beat lands in another scene's (hidden, differently-scoped) slot. -->
-        <div id="cc-subbeat-host">
+        <div data-hf-id="hf-bc5x" id="cc-subbeat-host">
           <!-- Geometry declaration for the sub-beat lines the script creates at
                run time: empty and opacity:0, so it paints nothing. It exists so
                check_geometry.py can see the box those lines occupy. A box only
                the browser knows about is a box no gate can grade — which is how
                scla-loop's sub-beat landed on a caption on 2026-07-29. -->
-          <div class="cc-subbeat" id="cc-subbeat-proto" data-slot="subBeats" data-geometry-proto></div>
+          <div data-hf-id="hf-fetf" class="cc-subbeat" id="cc-subbeat-proto" data-slot="subBeats" data-geometry-proto=""></div>
         </div>
-        <div id="cc-index" data-layout-allow-occlusion>07 / DEFINE</div>
-        <div id="cc-brandline">SCLA · Lesson System</div>
+        <div data-hf-id="hf-d7gp" id="cc-index" data-layout-allow-occlusion="">07 / DEFINE</div>
+        <div data-hf-id="hf-zcr8" id="cc-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>
@@ -298,7 +336,11 @@
           if (ic) {
             // Narrow the chip column and reserve the right column for the icon —
             // inline styles, so nothing depends on a scoping-fragile #root[...] rule.
-            field.style.right = "620px";
+            // The width comes from the element's own data-geometry-alt so that
+            // check_geometry and this line can never disagree about it.
+            const alt = /right:\s*([\d.]+px)/.exec(
+              field.getAttribute("data-geometry-alt") || "");
+            field.style.right = alt ? alt[1] : "620px";
             const iconwrap = document.getElementById("cc-iconwrap");
             iconwrap.style.display = "block";
             const svg = document.querySelector("#cc-iconwrap svg");

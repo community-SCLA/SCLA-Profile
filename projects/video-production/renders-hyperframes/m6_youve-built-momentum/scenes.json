@@ -17,7 +17,10 @@
       "template": "scla-statement",
       "narration": "That's worth pausing on for a moment. When people start this track, they usually arrive with one of two feelings.",
       "cues": {
-        "pointCues": ["worth pausing on", "when people start this track"],
+        "pointCues": [
+          "worth pausing on",
+          "when people start this track"
+        ],
         "iconCue": "one of two feelings"
       },
       "vars": {
@@ -34,7 +37,10 @@
       "template": "scla-chips",
       "narration": "A quiet frustration that things haven't moved the way they'd hoped, or a growing ambition that hasn't found its focus yet.",
       "cues": {
-        "chipCues": ["a quiet frustration", "a growing ambition"]
+        "chipCues": [
+          "a quiet frustration",
+          "a growing ambition"
+        ]
       },
       "vars": {
         "label": "Where people start",
@@ -54,7 +60,10 @@
       "template": "scla-statement",
       "narration": "Either way, most people start with a lot of noise in their head and very little on paper.",
       "cues": {
-        "pointCues": ["most people start", "a lot of noise in their head"]
+        "pointCues": [
+          "most people start",
+          "a lot of noise in their head"
+        ]
       },
       "vars": {
         "kicker": "Either way",
@@ -70,7 +79,11 @@
       "template": "scla-morph",
       "narration": "Look at what you've done since then. In Module 2, you defined your next move — a specific target, not a vague wish.",
       "cues": {
-        "pointCues": ["your next move", "a specific target", "a vague wish"]
+        "pointCues": [
+          "your next move",
+          "a specific target",
+          "a vague wish"
+        ]
       },
       "vars": {
         "kicker": "Module 2",
@@ -80,7 +93,6 @@
         "bSub": "What you defined",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,target",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "05 / MODULE 2"
@@ -91,7 +103,11 @@
       "template": "scla-chips",
       "narration": "In Module 3, you repositioned your experience so your resume, headline, and summary all point in the same direction.",
       "cues": {
-        "chipCues": ["resume", "headline", "summary"]
+        "chipCues": [
+          "resume",
+          "headline",
+          "summary"
+        ]
       },
       "vars": {
         "label": "Module 3",
@@ -111,7 +127,12 @@
       "template": "scla-points",
       "narration": "In Module 4, you mapped the peers, sponsors, and opportunity holders who matter most for that move — and you drafted at least one real message.",
       "cues": {
-        "pointCues": ["the peers", "sponsors", "opportunity holders", "drafted at least one real message"]
+        "pointCues": [
+          "the peers",
+          "sponsors",
+          "opportunity holders",
+          "drafted at least one real message"
+        ]
       },
       "vars": {
         "label": "Module 4",
@@ -122,8 +143,7 @@
         "point4": "One real message, drafted",
         "sceneIndex": "07 / MODULE 4",
         "subBeats": "",
-        "subCues": "",
-        "icons": "mentorship,,,done"
+        "subCues": ""
       }
     },
     {
@@ -131,7 +151,15 @@
       "template": "scla-chips",
       "narration": "In Module 5, you looked at how AI is changing your work. And started aiming your next move at the judgment, relationships, and oversight that only grow more valuable as AI spreads.",
       "cues": {
-        "chipCues": ["judgment", "relationships", "oversight"],
+        "chipCues": [
+          "judgment",
+          "relationships",
+          "oversight"
+        ],
+        "subCues": [
+          "started aiming your next move",
+          "more valuable as AI spreads"
+        ],
         "iconCue": "how AI is changing your work"
       },
       "vars": {
@@ -141,7 +169,7 @@
         "accentIndex": "",
         "reveal": "slide",
         "sceneIndex": "08 / MODULE 5",
-        "subBeats": "",
+        "subBeats": "Aiming your next move|At judgment, relationships and oversight",
         "subCues": "",
         "icon": "growth",
         "iconCue": ""
@@ -152,13 +180,17 @@
       "template": "scla-statement",
       "narration": "And just now, in Module 6, you translated all of that into a Momentum Snapshot — one outcome and three actions you can actually finish.",
       "cues": {
-        "pointCues": ["one outcome", "three actions you can actually finish"],
+        "pointCues": [
+          "you translated all of that",
+          "one outcome",
+          "three actions you can actually finish"
+        ],
         "iconCue": "a Momentum Snapshot"
       },
       "vars": {
         "kicker": "Module 6",
         "statement": "A Momentum Snapshot",
-        "lines": "One outcome|Three actions you can finish",
+        "lines": "All of that, translated|One outcome|Three actions you can finish",
         "sceneIndex": "09 / MODULE 6",
         "icon": "done",
         "iconCue": ""
@@ -169,7 +201,11 @@
       "template": "scla-morph",
       "narration": "Here's what I want you to notice. You didn't just take a course. You built a system.",
       "cues": {
-        "pointCues": ["take a course", "You built", "a system"]
+        "pointCues": [
+          "take a course",
+          "You built",
+          "a system"
+        ]
       },
       "vars": {
         "kicker": "Here's what to notice",
@@ -179,7 +215,6 @@
         "bSub": "",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "examine,map",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "10 / A SYSTEM"
@@ -190,7 +225,16 @@
       "template": "scla-points",
       "narration": "You now have language for your next move, materials that match that direction, a real network you're activating, and a written plan for the next few weeks. That's a different starting position than the one you had when you began.",
       "cues": {
-        "pointCues": ["language for your next move", "materials that match that direction", "a real network you're activating", "a written plan for the next few weeks"]
+        "pointCues": [
+          "language for your next move",
+          "materials that match that direction",
+          "a real network you're activating",
+          "a written plan for the next few weeks"
+        ],
+        "subCues": [
+          "a different starting position",
+          "the one you had"
+        ]
       },
       "vars": {
         "label": "What you have now",
@@ -200,9 +244,8 @@
         "point3": "A real network you're activating",
         "point4": "A written plan for the next few weeks",
         "sceneIndex": "11 / WHAT YOU HAVE",
-        "subBeats": "",
-        "subCues": "",
-        "icons": "insight,,,mentorship2"
+        "subBeats": "A different starting position|Than the one you had when you began",
+        "subCues": ""
       }
     },
     {
@@ -233,8 +276,8 @@
       "vars": {
         "value": 30,
         "prefix": "",
-        "suffix": " days",
-        "statLabel": "From today, to reopen it",
+        "suffix": "",
+        "statLabel": "Days from today",
         "ring": "",
         "context": "Set a recurring reminder to reopen your Momentum Snapshot",
         "sceneIndex": "13 / 30 DAYS",
@@ -247,7 +290,11 @@
       "template": "scla-steps",
       "narration": "Check what you finished. Update what you didn't. Replace what you completed with the next action.",
       "cues": {
-        "stepCues": ["Check what you finished", "Update what you didn't", "Replace what you completed"]
+        "stepCues": [
+          "Check what you finished",
+          "Update what you didn't",
+          "Replace what you completed"
+        ]
       },
       "vars": {
         "label": "Every 30 days",
@@ -268,7 +315,12 @@
       "template": "scla-steps",
       "narration": "Two — the framework is reusable. Outcome, visibility, relationships, and results. When your goal changes — and it will — the four categories still apply.",
       "cues": {
-        "stepCues": ["Outcome", "visibility", "relationships", "results"],
+        "stepCues": [
+          "Outcome",
+          "visibility",
+          "relationships",
+          "results"
+        ],
         "iconCue": "the four categories still apply"
       },
       "vars": {
@@ -290,7 +342,10 @@
       "template": "scla-condition",
       "narration": "You've learned a way of thinking, not just a plan. Three — you are not doing this alone.",
       "cues": {
-        "chipCues": ["a way of thinking", "not just a plan"],
+        "chipCues": [
+          "a way of thinking",
+          "not just a plan"
+        ],
         "iconCue": "not doing this alone"
       },
       "vars": {
@@ -307,46 +362,43 @@
     {
       "id": "scene-17",
       "template": "scla-chips",
-      "narration": "The Career Accelerator has more tracks, more tools, and a member community.",
+      "narration": "SCLA has more tracks, more tools, and a member community. Every conversation, every session, every next track adds to the same body of work.",
       "cues": {
-        "chipCues": ["more tracks", "more tools", "a member community"]
+        "chipCues": [
+          "more tracks",
+          "more tools",
+          "a member community"
+        ],
+        "subCues": [
+          "Every conversation",
+          "every session",
+          "every next track"
+        ],
+        "iconCue": "the same body of work"
       },
       "vars": {
         "label": "You're not alone",
-        "heading": "A Bigger Support System",
+        "heading": "It All Adds to the Same Body of Work",
         "chips": "More tracks,More tools,A member community",
         "accentIndex": "",
         "reveal": "pop",
         "sceneIndex": "17 / NOT ALONE",
-        "subBeats": "",
+        "subBeats": "Every conversation|Every session|Every next track",
         "subCues": "",
-        "icon": "",
-        "iconCue": ""
-      }
-    },
-    {
-      "id": "scene-18",
-      "template": "scla-statement",
-      "narration": "Every conversation, every session, every next track adds to the same body of work.",
-      "cues": {
-        "pointCues": ["every conversation", "every next track"],
-        "iconCue": "same body of work"
-      },
-      "vars": {
-        "kicker": "It compounds",
-        "statement": "Every Session Adds to the Same Body of Work",
-        "lines": "Every conversation|Every next track",
-        "sceneIndex": "18 / COMPOUNDS",
         "icon": "salary",
         "iconCue": ""
       }
     },
     {
-      "id": "scene-19",
+      "id": "scene-18",
       "template": "scla-chips",
       "narration": "Whatever your next move ends up being — the promotion, the redesigned role, the lateral move that finally fits.",
       "cues": {
-        "chipCues": ["the promotion", "the redesigned role", "the lateral move that finally fits"]
+        "chipCues": [
+          "the promotion",
+          "the redesigned role",
+          "the lateral move that finally fits"
+        ]
       },
       "vars": {
         "label": "Your next move",
@@ -354,7 +406,7 @@
         "chips": "The promotion,A redesigned role,A lateral move that fits",
         "accentIndex": "",
         "reveal": "slide",
-        "sceneIndex": "19 / NEXT MOVE",
+        "sceneIndex": "18 / NEXT MOVE",
         "subBeats": "",
         "subCues": "",
         "icon": "",
@@ -362,11 +414,15 @@
       }
     },
     {
-      "id": "scene-20",
+      "id": "scene-19",
       "template": "scla-loop",
       "narration": "It will be built the same way this track was built. One action at a time, small, consistent, and compounding.",
       "cues": {
-        "stepCues": ["small", "consistent", "compounding"]
+        "stepCues": [
+          "small",
+          "consistent",
+          "compounding"
+        ]
       },
       "vars": {
         "label": "How it's built",
@@ -375,20 +431,20 @@
         "step2": "Consistent",
         "step3": "Compounding",
         "step4": "",
-        "sceneIndex": "20 / BUILT TO LAST",
+        "sceneIndex": "19 / BUILT TO LAST",
         "subBeats": "",
         "subCues": ""
       }
     },
     {
-      "id": "scene-21",
+      "id": "scene-20",
       "template": "scla-outro",
       "narration": "You've earned this completion. Now let's talk about what's next.",
       "vars": {
         "cta": "Talk About What's Next",
         "next": "You've earned this completion",
         "url": "thescla.org",
-        "sceneIndex": "21 / NEXT STEP"
+        "sceneIndex": "20 / NEXT STEP"
       }
     }
   ]

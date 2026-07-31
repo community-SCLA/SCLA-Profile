@@ -1,116 +1,122 @@
 [
   {
     "id": "w0",
-    "text": "Whatever",
-    "start": 0.119,
-    "end": 0.439
+    "text": "It",
+    "start": 0.14,
+    "end": 0.259
   },
   {
     "id": "w1",
-    "text": "your",
-    "start": 0.479,
-    "end": 0.599
+    "text": "will",
+    "start": 0.299,
+    "end": 0.4
   },
   {
     "id": "w2",
-    "text": "next",
-    "start": 0.659,
-    "end": 0.879
+    "text": "be",
+    "start": 0.439,
+    "end": 0.539
   },
   {
     "id": "w3",
-    "text": "move",
-    "start": 0.879,
-    "end": 1.139
+    "text": "built",
+    "start": 0.579,
+    "end": 0.759
   },
   {
     "id": "w4",
-    "text": "ends",
-    "start": 1.199,
-    "end": 1.36
+    "text": "the",
+    "start": 0.779,
+    "end": 0.919
   },
   {
     "id": "w5",
-    "text": "up",
-    "start": 1.399,
-    "end": 1.519
+    "text": "same",
+    "start": 1.059,
+    "end": 1.199
   },
   {
     "id": "w6",
-    "text": "being",
-    "start": 1.559,
-    "end": 1.779
+    "text": "way",
+    "start": 1.24,
+    "end": 1.36
   },
   {
     "id": "w7",
-    "text": "—",
-    "start": 1.779,
-    "end": 1.779
+    "text": "this",
+    "start": 1.399,
+    "end": 1.579
   },
   {
     "id": "w8",
-    "text": "the",
-    "start": 1.799,
-    "end": 1.879
+    "text": "track",
+    "start": 1.579,
+    "end": 1.799
   },
   {
     "id": "w9",
-    "text": "promotion,",
-    "start": 1.919,
-    "end": 2.5
+    "text": "was",
+    "start": 1.86,
+    "end": 1.999
   },
   {
     "id": "w10",
-    "text": "the",
-    "start": 2.859,
-    "end": 2.939
+    "text": "built.",
+    "start": 2.019,
+    "end": 2.639
   },
   {
     "id": "w11",
-    "text": "redesigned",
-    "start": 2.98,
-    "end": 3.48
+    "text": "One",
+    "start": 2.759,
+    "end": 2.859
   },
   {
     "id": "w12",
-    "text": "role,",
-    "start": 3.559,
-    "end": 3.779
+    "text": "action",
+    "start": 2.939,
+    "end": 3.179
   },
   {
     "id": "w13",
-    "text": "the",
-    "start": 4.159,
-    "end": 4.279
+    "text": "at",
+    "start": 3.22,
+    "end": 3.299
   },
   {
     "id": "w14",
-    "text": "lateral",
-    "start": 4.319,
-    "end": 4.699
+    "text": "a",
+    "start": 3.379,
+    "end": 3.399
   },
   {
     "id": "w15",
-    "text": "move",
-    "start": 4.739,
-    "end": 5.019
+    "text": "time,",
+    "start": 3.439,
+    "end": 3.759
   },
   {
     "id": "w16",
-    "text": "that",
-    "start": 5.059,
-    "end": 5.259
+    "text": "small,",
+    "start": 4.079,
+    "end": 4.46
   },
   {
     "id": "w17",
-    "text": "finally",
-    "start": 5.299,
-    "end": 5.759
+    "text": "consistent,",
+    "start": 4.659,
+    "end": 5.299
   },
   {
     "id": "w18",
-    "text": "fits.",
-    "start": 5.779,
-    "end": 6.099
+    "text": "and",
+    "start": 5.519,
+    "end": 5.679
+  },
+  {
+    "id": "w19",
+    "text": "compounding.",
+    "start": 5.699,
+    "end": 6.219
   }
 ]

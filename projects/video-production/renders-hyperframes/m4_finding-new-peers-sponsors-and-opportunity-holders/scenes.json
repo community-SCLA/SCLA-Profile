@@ -25,7 +25,7 @@
         "sceneIndex": "02 / PEOPLE",
         "subBeats": "",
         "subCues": "",
-        "icon": "",
+        "icon": "done",
         "iconCue": ""
       },
       "cues": {
@@ -85,22 +85,22 @@
     },
     {
       "id": "scene-05",
-      "template": "scla-points",
+      "template": "scla-steps",
       "narration": "They help you understand what's happening on the ground, compare experiences, and build community as you shift direction.",
       "vars": {
         "label": "What peers do",
         "heading": "Ground Truth and Community",
-        "point1": "Understand what's happening on the ground",
-        "point2": "Compare experiences",
-        "point3": "Build community as you shift direction",
-        "point4": "",
         "sceneIndex": "05 / PEERS",
         "subBeats": "",
         "subCues": "",
-        "icons": ""
+        "step1": "Understand what's happening on the ground",
+        "step2": "Compare experiences",
+        "step3": "Build community as you shift direction",
+        "step4": "",
+        "icon": "question"
       },
       "cues": {
-        "pointCues": [
+        "stepCues": [
           "understand what's happening on the ground",
           "compare experiences",
           "build community"
@@ -120,7 +120,7 @@
         "sceneIndex": "06 / PEERS",
         "subBeats": "",
         "subCues": "",
-        "icon": "",
+        "icon": "examine",
         "iconCue": ""
       },
       "cues": {
@@ -154,24 +154,20 @@
     },
     {
       "id": "scene-08",
-      "template": "scla-points",
+      "template": "scla-statement",
       "narration": "They put your name forward for roles, projects, and committees.",
       "vars": {
-        "label": "What sponsors do",
         "heading": "They Put Your Name Forward",
-        "point1": "Roles",
-        "point2": "Projects",
-        "point3": "Committees",
-        "point4": "",
         "sceneIndex": "08 / SPONSORS",
-        "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "kicker": "What sponsors do",
+        "statement": "They Put Your Name Forward",
+        "lines": "For roles and projects|And for committees",
+        "icon": "insight",
+        "iconCue": "committees"
       },
       "cues": {
         "pointCues": [
           "roles",
-          "projects",
           "committees"
         ]
       }
@@ -189,7 +185,7 @@
         "sceneIndex": "09 / SPONSORS",
         "subBeats": "",
         "subCues": "",
-        "icon": "",
+        "icon": "target",
         "iconCue": ""
       },
       "cues": {
@@ -210,7 +206,7 @@
         "heading": "People Who Control the Door",
         "total": "3",
         "chips": "Roles,Projects,Hiring decisions",
-        "icon": "target",
+        "icon": "mentorship2",
         "iconCue": "",
         "sceneIndex": "10 / OPPORTUNITY HOLDERS"
       },
@@ -235,8 +231,7 @@
         "point4": "Leaders in organizations you'd like to join",
         "sceneIndex": "11 / OPPORTUNITY HOLDERS",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       },
       "cues": {
         "pointCues": [
@@ -272,7 +267,6 @@
         "bSub": "The people most relevant to your future",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,map",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "13 / STRATEGY"
@@ -287,22 +281,22 @@
     },
     {
       "id": "scene-14",
-      "template": "scla-points",
+      "template": "scla-steps",
       "narration": "So how do you find these people? First, start with your existing connections: Current and former colleagues, People you've worked with on cross-functional projects, Alumni networks, professional associations, or communities you're part of",
       "vars": {
         "label": "Method one",
         "heading": "Start with Existing Connections",
-        "point1": "Current and former colleagues",
-        "point2": "People you've worked with on cross-functional projects",
-        "point3": "Alumni networks, professional associations, or communities you're part of",
-        "point4": "",
         "sceneIndex": "14 / FIND THEM",
         "subBeats": "",
         "subCues": "",
-        "icons": "mentorship2,,"
+        "step1": "Current and former colleagues",
+        "step2": "People you've worked with on cross-functional projects",
+        "step3": "Alumni networks, professional associations, or communities you're part of",
+        "step4": "",
+        "icon": "compass"
       },
       "cues": {
-        "pointCues": [
+        "stepCues": [
           "current and former colleagues",
           "cross-functional projects",
           "alumni networks"
@@ -319,7 +313,8 @@
         "lines": "",
         "sceneIndex": "15 / ASK",
         "icon": "insight",
-        "iconCue": ""
+        "iconCue": "",
+        "sub": "“Who do you know in my target field or role that I might talk to for a twenty-minute learning conversation?”"
       }
     },
     {
@@ -335,8 +330,7 @@
         "point4": "",
         "sceneIndex": "16 / FIND THEM",
         "subBeats": "",
-        "subCues": "",
-        "icons": "examine,target"
+        "subCues": ""
       },
       "cues": {
         "pointCues": [
@@ -347,22 +341,22 @@
     },
     {
       "id": "scene-17",
-      "template": "scla-points",
+      "template": "scla-steps",
       "narration": "Third, identify potential sponsors in your current organization or a new one: People one to three levels above you who appreciate your work or seem aligned with your direction, Leaders who are visible in the spaces you want to enter",
       "vars": {
         "label": "Method three",
         "heading": "Identify Potential Sponsors",
-        "point1": "People one to three levels above you",
-        "point2": "Leaders visible in the spaces you want to enter",
-        "point3": "",
-        "point4": "",
         "sceneIndex": "17 / FIND THEM",
         "subBeats": "",
         "subCues": "",
-        "icons": "compass,mentorship2"
+        "step1": "People one to three levels above you",
+        "step2": "Leaders visible in the spaces you want to enter",
+        "step3": "",
+        "step4": "",
+        "icon": "salary"
       },
       "cues": {
-        "pointCues": [
+        "stepCues": [
           "one to three levels above you",
           "leaders who are visible"
         ]

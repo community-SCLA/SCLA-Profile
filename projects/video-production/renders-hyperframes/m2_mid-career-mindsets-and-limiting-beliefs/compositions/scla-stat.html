@@ -1,20 +1,17 @@
-<!doctype html>
-<html
-  lang="en"
-  data-composition-variables='[
-    {"id":"value","type":"number","label":"Stat value (count-up target)","default":5},
-    {"id":"prefix","type":"string","label":"Prefix (before the number)","default":""},
-    {"id":"suffix","type":"string","label":"Suffix (after the number)","default":""},
-    {"id":"statLabel","type":"string","label":"Stat label","default":"[[statLabel]]"},
-    {"id":"ring","type":"string","label":"Ring gauge mode: \"on\" pairs the count-up with a filling closed-circle gauge (empty = split-panel default)","default":""},
-    {"id":"context","type":"string","label":"Context sentence","default":"[[context]]"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"05 / STAT"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"8"}
-  ]'
->
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;value&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Stat value (count-up target)&quot;,&quot;default&quot;:5},
+    {&quot;id&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Prefix (before the number)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;suffix&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Suffix (after the number)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;statLabel&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Stat label&quot;,&quot;default&quot;:&quot;[[statLabel]]&quot;},
+    {&quot;id&quot;:&quot;ring&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Ring gauge mode: \&quot;on\&quot; pairs the count-up with a filling closed-circle gauge (empty = split-panel default)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;context&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Context sentence&quot;,&quot;default&quot;:&quot;[[context]]&quot;},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;05 / STAT&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained; times the late-phase resolve)&quot;,&quot;default&quot;:&quot;8&quot;}
+  ]">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <!--
       STAT HIGHLIGHT — use ONLY when a single number IS the point the narration is
       making (a measured quantity, a percentage, a count that lands as a stat).
@@ -201,30 +198,30 @@
         #root[data-theme="cadence"] #sh-cap { background: #eaab2d; }
       </style>
 
-      <div id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow>
-        <div class="sh-bg"></div>
-        <div id="sh-panel" data-layout-allow-overflow>
-          <div id="sh-panel-ring" data-layout-allow-overflow></div>
-          <div id="sh-panel-ring-2" data-layout-allow-overflow></div>
+      <div data-hf-id="hf-71yc" id="root" data-composition-id="scla-stat" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow="">
+        <div data-hf-id="hf-4whz" class="sh-bg"></div>
+        <div data-hf-id="hf-je5k" id="sh-panel" data-layout-allow-overflow="">
+          <div data-hf-id="hf-eqr7" id="sh-panel-ring" data-layout-allow-overflow=""></div>
+          <div data-hf-id="hf-b4ge" id="sh-panel-ring-2" data-layout-allow-overflow=""></div>
         </div>
-        <div id="sh-ring-wrap" data-layout-allow-overflow>
-          <svg viewBox="0 0 560 560" fill="none">
-            <path id="sh-ring-track" d="" stroke="rgba(255,255,255,0.14)" stroke-width="16" stroke-linecap="round"></path>
-            <path id="sh-ring-fill" d="" stroke="#eaab2d" stroke-width="16" stroke-linecap="round" pathLength="100"></path>
+        <div data-hf-id="hf-ajot" id="sh-ring-wrap" data-layout-allow-overflow="">
+          <svg data-hf-id="hf-mfwh" viewBox="0 0 560 560" fill="none">
+            <path data-hf-id="hf-hpqs" id="sh-ring-track" d="" stroke="rgba(255,255,255,0.14)" stroke-width="16" stroke-linecap="round" />
+            <path data-hf-id="hf-s0qh" id="sh-ring-fill" d="" stroke="#eaab2d" stroke-width="16" stroke-linecap="round" pathLength="100" />
           </svg>
         </div>
-        <div id="sh-number">5</div>
-        <div id="sh-stat-rule"></div>
-        <div id="sh-stat-label">Paths to list — not just one</div>
-        <div id="sh-context-label">The move</div>
-        <div id="sh-context">
+        <div data-hf-id="hf-9weh" id="sh-number">5</div>
+        <div data-hf-id="hf-vafy" id="sh-stat-rule"></div>
+        <div data-hf-id="hf-ha8m" id="sh-stat-label">Paths to list — not just one</div>
+        <div data-hf-id="hf-zba3" id="sh-context-label">The move</div>
+        <div data-hf-id="hf-91yn" id="sh-context">
           If you only compare one job to one other job, your frame is too narrow. List three to five
           possible paths before you decide.
         </div>
-        <div id="sh-bar"></div>
-        <div id="sh-bar-fill"></div>
-        <div id="sh-cap" data-layout-allow-occlusion></div>
-        <div id="sh-index">05 / STAT</div>
+        <div data-hf-id="hf-vqok" id="sh-bar"></div>
+        <div data-hf-id="hf-swnq" id="sh-bar-fill"></div>
+        <div data-hf-id="hf-milh" id="sh-cap" data-layout-allow-occlusion=""></div>
+        <div data-hf-id="hf-ea49" id="sh-index">05 / STAT</div>
       </div>
 
       <script>

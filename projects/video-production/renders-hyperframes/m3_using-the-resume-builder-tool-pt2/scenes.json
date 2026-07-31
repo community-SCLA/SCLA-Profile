@@ -7,7 +7,7 @@
       "narration": "Welcome back.",
       "vars": {
         "eyebrow": "Mid-Career Momentum",
-        "title": "Using the Resume Builder Tool Pt2",
+        "title": "Using the Resume Builder Tool",
         "meta": "",
         "sceneIndex": "01 / TITLE"
       }
@@ -17,7 +17,10 @@
       "template": "scla-statement",
       "narration": "Last video, we talked about the future-you resume—one built around the role you want next, not just everything you've done so far.",
       "cues": {
-        "pointCues": ["the future-you", "done so far"]
+        "pointCues": [
+          "the future-you",
+          "done so far"
+        ]
       },
       "vars": {
         "kicker": "Last time",
@@ -33,7 +36,10 @@
       "template": "scla-points",
       "narration": "Now I'll show you how to actually do that, using two things together: our Resume Builder Tool and a simple four-part lens for rewriting your bullets.",
       "cues": {
-        "pointCues": ["our Resume Builder Tool", "a simple four-part lens for rewriting your bullets"]
+        "pointCues": [
+          "our Resume Builder Tool",
+          "a simple four-part lens for rewriting your bullets"
+        ]
       },
       "vars": {
         "label": "Two things together",
@@ -44,8 +50,7 @@
         "point4": "",
         "sceneIndex": "03 / TWO THINGS",
         "subBeats": "",
-        "subCues": "",
-        "icons": "examine"
+        "subCues": ""
       }
     },
     {
@@ -53,7 +58,11 @@
       "template": "scla-morph",
       "narration": "By the end, you'll see how to turn a vague task like \"managed orientation sessions\" into a clear impact statement that supports your Next Move Statement.",
       "cues": {
-        "pointCues": ["a vague task", "a clear impact statement", "supports your Next Move Statement"]
+        "pointCues": [
+          "a vague task",
+          "a clear impact statement",
+          "supports your Next Move Statement"
+        ]
       },
       "vars": {
         "kicker": "Where you're headed",
@@ -63,7 +72,6 @@
         "bSub": "Supports your Next Move Statement",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,done",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "04 / WHERE YOU'RE HEADED"
@@ -113,7 +121,11 @@
       "template": "scla-morph",
       "narration": "Applying this lens moves you from \"I did tasks\" to \"I created results,\" and from \"I had a job\" to \"I handled responsibility and scope.\"",
       "cues": {
-        "pointCues": ["I did tasks", "I created results", "I handled responsibility and scope"]
+        "pointCues": [
+          "I did tasks",
+          "I created results",
+          "I handled responsibility and scope"
+        ]
       },
       "vars": {
         "kicker": "The shift",
@@ -123,7 +135,6 @@
         "bSub": "I Handled Responsibility and Scope",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "pressure,growth",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "07 / THE SHIFT"
@@ -134,7 +145,11 @@
       "template": "scla-chips",
       "narration": "That's what helps managers, sponsors, and hiring committees see you as ready for your next role.",
       "cues": {
-        "chipCues": ["managers", "sponsors", "hiring committees"]
+        "chipCues": [
+          "managers",
+          "sponsors",
+          "hiring committees"
+        ]
       },
       "vars": {
         "label": "Who notices",
@@ -154,7 +169,10 @@
       "template": "scla-chips",
       "narration": "You don't need perfect numbers for every bullet—even approximate outcomes, like \"reduced time\" or \"improved satisfaction,\" make your impact clearer.",
       "cues": {
-        "chipCues": ["reduced time", "improved satisfaction"]
+        "chipCues": [
+          "reduced time",
+          "improved satisfaction"
+        ]
       },
       "vars": {
         "label": "Approximate is okay",
@@ -174,7 +192,10 @@
       "template": "scla-points",
       "narration": "Now let's use that lens inside our Resume Builder Tool, supported by AI. Start by uploading your current resume or pasting the bullets you want to focus on.",
       "cues": {
-        "pointCues": ["uploading your current resume", "pasting the bullets you want to focus on"]
+        "pointCues": [
+          "uploading your current resume",
+          "pasting the bullets you want to focus on"
+        ]
       },
       "vars": {
         "label": "Getting started",
@@ -185,8 +206,7 @@
         "point4": "",
         "sceneIndex": "10 / GETTING STARTED",
         "subBeats": "",
-        "subCues": "",
-        "icons": "examine"
+        "subCues": ""
       }
     },
     {
@@ -194,7 +214,10 @@
       "template": "scla-statement",
       "narration": "For this example, take a common one: \"Managed orientation sessions for new hires.\" It tells us what you did, but not what difference it made, how often, or how many people it involved.",
       "cues": {
-        "pointCues": ["what you did", "how many people it involved"]
+        "pointCues": [
+          "what you did",
+          "how many people it involved"
+        ]
       },
       "vars": {
         "kicker": "The example",
@@ -210,7 +233,12 @@
       "template": "scla-points",
       "narration": "Next, run it through the AI rewrite feature. Behind the scenes, we're asking the AI to look for responsibility, action, measurable outcome, and scope. Here's what it might return.",
       "cues": {
-        "pointCues": ["responsibility", "action", "measurable outcome", "and scope"]
+        "pointCues": [
+          "responsibility",
+          "action",
+          "measurable outcome",
+          "and scope"
+        ]
       },
       "vars": {
         "label": "The AI rewrite",
@@ -221,8 +249,7 @@
         "point4": "Scope",
         "sceneIndex": "12 / THE AI REWRITE",
         "subBeats": "",
-        "subCues": "",
-        "icons": "insight"
+        "subCues": ""
       }
     },
     {
@@ -251,7 +278,11 @@
       "template": "scla-chips",
       "narration": "Same basic responsibility—but now it reads as leadership, process improvement, and clear impact.",
       "cues": {
-        "chipCues": ["leadership", "process improvement", "clear impact"]
+        "chipCues": [
+          "leadership",
+          "process improvement",
+          "clear impact"
+        ]
       },
       "vars": {
         "label": "Same responsibility, new reading",
@@ -271,7 +302,11 @@
       "template": "scla-condition",
       "narration": "That rewrite is a starting point, not the final version. First, check accuracy. Do the frequency, numbers, and outcomes reflect reality?",
       "cues": {
-        "chipCues": ["a starting point", "the frequency, numbers", "reflect reality"]
+        "chipCues": [
+          "a starting point",
+          "the frequency, numbers",
+          "reflect reality"
+        ]
       },
       "vars": {
         "num": "1",
@@ -309,7 +344,11 @@
       "template": "scla-condition",
       "narration": "Second, align the tone with your field. In higher education or non-profits, you might prefer \"enhanced new-hire onboarding experience\" over \"crushed onboarding KPIs.\" Make it sound like you.",
       "cues": {
-        "chipCues": ["enhanced new-hire onboarding experience", "crushed onboarding KPIs", "sound like you"]
+        "chipCues": [
+          "enhanced new-hire onboarding experience",
+          "crushed onboarding KPIs",
+          "sound like you"
+        ]
       },
       "vars": {
         "num": "2",
@@ -327,7 +366,12 @@
       "template": "scla-condition",
       "narration": "Third, keep the four-part structure intact: responsibility, action, outcome, scope. If someone read only that one bullet, would they understand what you did, how well, and at what level?",
       "cues": {
-        "chipCues": ["responsibility", "action", "outcome", "scope"]
+        "chipCues": [
+          "responsibility",
+          "action",
+          "outcome",
+          "scope"
+        ]
       },
       "vars": {
         "num": "3",
@@ -369,7 +413,11 @@
       "template": "scla-condition",
       "narration": "For a promotion in your current lane, prioritize bullets that show leadership, scope, and strategic decisions—the ones that say \"I'm already operating at the next level.\"",
       "cues": {
-        "chipCues": ["leadership", "scope", "strategic decisions—the ones that say"]
+        "chipCues": [
+          "leadership",
+          "scope",
+          "strategic decisions—the ones that say"
+        ]
       },
       "vars": {
         "num": "1",
@@ -387,7 +435,10 @@
       "template": "scla-condition",
       "narration": "For a lateral move, highlight transferable skills and cross-functional projects—\"I can bring my skills into new contexts.\"",
       "cues": {
-        "chipCues": ["transferable skills", "cross-functional projects—I can bring my skills into new contexts"]
+        "chipCues": [
+          "transferable skills",
+          "cross-functional projects—I can bring my skills into new contexts"
+        ]
       },
       "vars": {
         "num": "2",
@@ -395,7 +446,7 @@
         "heading": "Skills That Move into New Contexts",
         "total": "3",
         "chips": "Transferable skills,Cross-functional projects",
-        "icon": "map",
+        "icon": "growth",
         "iconCue": "",
         "sceneIndex": "21 / LATERAL MOVE"
       }
@@ -405,7 +456,11 @@
       "template": "scla-statement",
       "narration": "For a redesign of your current role, focus on process improvements and innovation—\"I've already started redesigning my role; now I'm formalizing it.\" Don't try to perfect everything at once.",
       "cues": {
-        "pointCues": ["process improvements and", "already started redesigning my role", "perfect everything at once"]
+        "pointCues": [
+          "process improvements and",
+          "already started redesigning my role",
+          "perfect everything at once"
+        ]
       },
       "vars": {
         "kicker": "Redesign your role",
@@ -421,7 +476,11 @@
       "template": "scla-points",
       "narration": "Select the three to five strongest bullets that align with your chosen path, reflect your true impact, and help others see the future you from your Next Move Statement.",
       "cues": {
-        "pointCues": ["align with your chosen path", "reflect your true impact", "the future you from your Next Move Statement"]
+        "pointCues": [
+          "align with your chosen path",
+          "reflect your true impact",
+          "the future you from your Next Move Statement"
+        ]
       },
       "vars": {
         "label": "Choosing your bullets",
@@ -432,8 +491,7 @@
         "point4": "",
         "sceneIndex": "23 / SELECT YOUR BEST",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -441,7 +499,10 @@
       "template": "scla-statement",
       "narration": "Those become your headline stories. The same principles apply to your LinkedIn profile, with one addition: LinkedIn is searchable and public, so it's also a visibility tool.",
       "cues": {
-        "pointCues": ["apply to your LinkedIn profile", "a visibility tool"]
+        "pointCues": [
+          "apply to your LinkedIn profile",
+          "a visibility tool"
+        ]
       },
       "vars": {
         "kicker": "Headline stories",
@@ -457,7 +518,10 @@
       "template": "scla-points",
       "narration": "The words in your headline and About section decide whether the right people—including the opportunity holders you'll meet in Module 4—find you at all.",
       "cues": {
-        "pointCues": ["your headline and About section", "in Module 4—find you at all"]
+        "pointCues": [
+          "your headline and About section",
+          "in Module 4—find you at all"
+        ]
       },
       "vars": {
         "label": "Make it findable",
@@ -468,8 +532,7 @@
         "point4": "",
         "sceneIndex": "25 / MAKE IT FINDABLE",
         "subBeats": "",
-        "subCues": "",
-        "icons": "map"
+        "subCues": ""
       }
     },
     {
@@ -477,7 +540,10 @@
       "template": "scla-statement",
       "narration": "Your headline is the most-read line you own. Most headlines just state a current title; yours should point at future you.",
       "cues": {
-        "pointCues": ["most-read line you own", "state a current title"]
+        "pointCues": [
+          "most-read line you own",
+          "state a current title"
+        ]
       },
       "vars": {
         "kicker": "Your headline",
@@ -493,7 +559,11 @@
       "template": "scla-steps",
       "narration": "Paste your current headline, plus a sentence describing your next move if you have one, and ask the AI to rewrite it so it credibly signals where you're heading—without overclaiming.",
       "cues": {
-        "stepCues": ["paste your current headline", "describing your next move", "ask the AI to rewrite it"]
+        "stepCues": [
+          "paste your current headline",
+          "describing your next move",
+          "ask the AI to rewrite it"
+        ]
       },
       "vars": {
         "label": "Try it yourself",

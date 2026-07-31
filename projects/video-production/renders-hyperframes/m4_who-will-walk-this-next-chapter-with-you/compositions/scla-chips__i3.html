@@ -153,11 +153,35 @@
            bottom 170px so it lives in the content zone with clear air above
            the footer brandline (bottom 58px). 32px = the body-class floor
            (tokens.yml typography.min-size — sub-beats are body copy). */
+        #cc__i3-subbeat-host {
+          /* The sub-beat's containing block must be the FRAME. This host was
+             unstyled, so the `bottom` below resolved against whichever
+             absolutely-positioned wrapper happened to enclose it — putting
+             every sub-beat ABOVE the frame (y=-180 here, y=-222 on
+             scla-chips__i3). That is not a prototype-only artifact: the run-time
+             lines appended to this host inherit the same containing block, so
+             real sub-beats rendered out of place too, which is how scla-loop's
+             sub-beat landed on a caption on 2026-07-29. Two build agents
+             worked around it by abandoning subBeats; the defect belongs here,
+             once, rather than in every scene plan that wants a sub-beat. */
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+
+        /* Sub-beat sits directly UNDER THE HEADING, not at the frame bottom
+           (owner, 2026-07-29: "the body statement that populates at the bottom
+           should really live up below the statement heading", said of two
+           frames in one review). A bottom-anchored live line reads as a caption
+           bolted onto the slide; the same sentence under the heading reads as
+           the heading's second breath, which is what the narration is doing at
+           that moment. The content band below is unaffected — chips start at
+           470 / rows at 370, and check_geometry grades the gap. */
         .cc__i3-subbeat {
           position: absolute;
           left: 120px;
-          right: 120px;
-          bottom: 170px;
+          right: 620px;
+          top: 300px;
           padding-left: 30px;
           text-align: left;
           font-size: 40px;
@@ -212,7 +236,24 @@
           <h2 id="cc__i3-heading">What matters most, the next 3–5 years?</h2>
           <div id="cc__i3-close-rule"></div>
         </div>
-        <div id="cc__i3-field"></div>
+        <!-- Geometry declaration for the chips the script creates at run time.
+             One prototype stands in for the WHOLE list: check_geometry expands
+             `data-geometry-repeat` into one box per comma-separated item, each
+             measured in the real vendored font, and #cc__i3-field's `flex-wrap`
+             packs them into rows. Until 2026-07-29 the field was empty markup,
+             so the gate graded ZERO chip boxes and reported PASS on the frame
+             whose four chips ran through the footer band. It paints nothing
+             itself — the run-time chips replace it. -->
+        <!-- data-geometry-alt-if/-alt: when `icon` is set the script narrows this
+             field to reserve the right column for the hero glyph. That used to be
+             a bare inline style, invisible to check_geometry, which therefore
+             modelled a 1680px field the browser had already cut to 1180px — two
+             rows where the render made four, the fourth through the footer. The
+             script reads the number back OUT of this attribute, so there is one
+             number and the declaration cannot drift from the behaviour. -->
+        <div id="cc__i3-field" data-geometry-alt-if="icon" data-geometry-alt="right: 620px">
+          <div class="cc__i3-chip" data-slot="chips" data-geometry-repeat="," data-geometry-proto></div>
+        </div>
         <div id="cc__i3-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
         <!-- Static append target for cued sub-beats — the 2026-07-27 fix for the
              2026-07-15 "subBeat never renders" bug. Appending to #root by id was the
@@ -298,7 +339,11 @@
           if (ic) {
             // Narrow the chip column and reserve the right column for the icon —
             // inline styles, so nothing depends on a scoping-fragile #root[...] rule.
-            field.style.right = "620px";
+            // The width comes from the element's own data-geometry-alt so that
+            // check_geometry and this line can never disagree about it.
+            const alt = /right:\s*([\d.]+px)/.exec(
+              field.getAttribute("data-geometry-alt") || "");
+            field.style.right = alt ? alt[1] : "620px";
             const iconwrap = document.getElementById("cc__i3-iconwrap");
             iconwrap.style.display = "block";
             const svg = document.querySelector("#cc__i3-iconwrap svg");

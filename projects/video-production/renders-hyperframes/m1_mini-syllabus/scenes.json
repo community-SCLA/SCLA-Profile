@@ -16,13 +16,17 @@
     {
       "id": "scene-02",
       "template": "scla-chips",
-      "narration": "You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better.",
+      "narration": "You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better. This track is part of your broader career journey.",
       "cues": {
         "iconCue": "ready for more",
         "chipCues": [
           "more impact",
           "more recognition",
           "simply a role that fits you better"
+        ],
+        "subCues": [
+          "This track is part",
+          "career journey"
         ]
       },
       "vars": {
@@ -32,7 +36,7 @@
         "accentIndex": "",
         "reveal": "pop",
         "sceneIndex": "02 / READY FOR MORE",
-        "subBeats": "",
+        "subBeats": "This track is part of something broader|Your career journey",
         "subCues": "",
         "icon": "growth",
         "iconCue": ""
@@ -41,15 +45,15 @@
     {
       "id": "scene-03",
       "template": "scla-loop",
-      "narration": "This track is part of your broader Career Accelerator journey. Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting.",
+      "narration": "Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting.",
       "cues": {
         "subCues": [
-          "Career Accelerator journey",
-          "mid-career checkpoint"
+          "mid-career checkpoint",
+          "your career map"
         ],
         "stepCues": [
           "you pause",
-          "reassess, and deliberately",
+          "reassess",
           "choose what comes next"
         ]
       },
@@ -61,7 +65,7 @@
         "step3": "Choose what comes next",
         "step4": "",
         "sceneIndex": "03 / YOUR CHECKPOINT",
-        "subBeats": "Part of your journey|Your mid-career checkpoint",
+        "subBeats": "Your mid-career checkpoint|On your career map",
         "subCues": ""
       }
     },
@@ -109,8 +113,7 @@
         "point4": "AI-powered prompts that analyze your story",
         "sceneIndex": "05 / YOUR TOOLKIT",
         "subBeats": "Helping you analyze|Your own career story",
-        "subCues": "",
-        "icons": "target,insight,examine,question"
+        "subCues": ""
       }
     },
     {
@@ -152,8 +155,7 @@
         "point4": "",
         "sceneIndex": "07 / IT'S A LOT",
         "subBeats": "",
-        "subCues": "",
-        "icons": "mentorship2,target,pressure"
+        "subCues": ""
       }
     },
     {
@@ -200,7 +202,6 @@
         "bSub": "Over the next 6 to 12 months",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "pressure,done",
         "actions": "A,note,B,morph",
         "notes": "This track helps you focus",
         "sceneIndex": "09 / THE REAL MOVE"
@@ -251,8 +252,7 @@
         "point4": "",
         "sceneIndex": "11 / THE COMMITMENT",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {

@@ -4,13 +4,13 @@
   "voice": "442360a3e0894fbd85024ff64cc2b928",
   "speed": "1.0",
   "rate": 44100,
-  "audio_end": 147.235,
+  "audio_end": 146.329,
   "air": 0.3,
   "air_question": 0.45,
   "lead": 0.15,
   "final_hold": 1.8,
   "max_inscene_gap": 0.5,
-  "gap_trimmed": 1.861,
+  "gap_trimmed": 2.121,
   "scenes": [
     {
       "i": 0,
@@ -214,62 +214,50 @@
       "i": 16,
       "id": "scene-17",
       "clip": "scenes/scene-17.wav",
-      "sha": "2a3608549cd072f2",
-      "text_words": 12,
+      "sha": "733d3e587d497e2a",
+      "text_words": 24,
       "question": false,
+      "gap_trimmed": 0.32,
       "start": 116.949,
-      "end": 121.612,
+      "end": 127.28,
       "air": 0.3,
-      "cut": 121.912
+      "cut": 127.58
     },
     {
       "i": 17,
       "id": "scene-18",
       "clip": "scenes/scene-18.wav",
-      "sha": "732615a5a29b08a9",
-      "text_words": 14,
+      "sha": "2e34ee63631bff0b",
+      "text_words": 19,
       "question": false,
-      "gap_trimmed": 0.06,
-      "start": 122.062,
-      "end": 128.187,
+      "start": 127.73,
+      "end": 133.807,
       "air": 0.3,
-      "cut": 128.487
+      "cut": 134.107
     },
     {
       "i": 18,
       "id": "scene-19",
       "clip": "scenes/scene-19.wav",
-      "sha": "2e34ee63631bff0b",
-      "text_words": 19,
+      "sha": "120674ea9b7f932f",
+      "text_words": 20,
       "question": false,
-      "start": 128.637,
-      "end": 134.714,
+      "start": 134.257,
+      "end": 140.463,
       "air": 0.3,
-      "cut": 135.014
+      "cut": 140.763
     },
     {
       "i": 19,
       "id": "scene-20",
       "clip": "scenes/scene-20.wav",
-      "sha": "120674ea9b7f932f",
-      "text_words": 20,
-      "question": false,
-      "start": 135.164,
-      "end": 141.37,
-      "air": 0.3,
-      "cut": 141.67
-    },
-    {
-      "i": 20,
-      "id": "scene-21",
-      "clip": "scenes/scene-21.wav",
       "sha": "587e0645a179e3b1",
       "text_words": 10,
       "question": false,
-      "start": 141.82,
-      "end": 145.435,
+      "start": 140.913,
+      "end": 144.529,
       "air": 0.3,
-      "cut": 147.235
+      "cut": 146.329
     }
   ]
 }

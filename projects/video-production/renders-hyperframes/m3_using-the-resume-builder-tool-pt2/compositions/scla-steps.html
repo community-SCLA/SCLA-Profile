@@ -175,6 +175,22 @@
         }
         /* Sub-beats — narration-synced live line (dead-hold fix, 2026-07-14).
            One beat visible at a time; absent unless subBeats is set. */
+        #st-subbeat-host {
+          /* The sub-beat's containing block must be the FRAME. This host was
+             unstyled, so the `bottom` below resolved against whichever
+             absolutely-positioned wrapper happened to enclose it — putting
+             every sub-beat ABOVE the frame (y=-180 here, y=-222 on
+             scla-chips). That is not a prototype-only artifact: the run-time
+             lines appended to this host inherit the same containing block, so
+             real sub-beats rendered out of place too, which is how scla-loop's
+             sub-beat landed on a caption on 2026-07-29. Two build agents
+             worked around it by abandoning subBeats; the defect belongs here,
+             once, rather than in every scene plan that wants a sub-beat. */
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+
         .st-subbeat {
           position: absolute;
           left: 160px;

@@ -93,3 +93,18 @@ programs:
   mid-career-momentum: "Mid-Career Momentum"
   career-transitions: "Career Transitions"
   entrepreneur-accelerator: "Entrepreneur Accelerator"
+
+# ---------------------------------------------------------------------------
+# Names that must never reach a viewer — in a banner, in on-screen copy, or in
+# the narration a lesson SPEAKS. `programs:` above already stops a retired name
+# being used as a banner label, but that gate only grades the eyebrow: it had
+# nothing to say about "your broader Career Accelerator journey" sitting in an
+# approved script body, which two mid-career-momentum lessons had synthesized
+# into audio by 2026-07-29. The owner's instruction that day was that no render
+# should speak or display the name, so it is data here and a rule in
+# check_copy.py (narration + on-frame copy at the gate, and refined scripts at
+# /refine-scripts, where the fix is a text edit rather than a re-synthesis).
+# Add a name here to retire it everywhere at once; matching is case-insensitive.
+# ---------------------------------------------------------------------------
+retired-names:
+  - "Career Accelerator"

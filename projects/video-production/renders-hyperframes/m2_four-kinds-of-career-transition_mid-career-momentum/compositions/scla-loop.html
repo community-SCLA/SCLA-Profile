@@ -1,23 +1,20 @@
-<!doctype html>
-<html
-  lang="en"
-  data-composition-variables='[
-    {"id":"label","type":"string","label":"Section label","default":"[[label]]"},
-    {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
-    {"id":"step1","type":"string","label":"Step 1 — ONE line (<=560px); a node label, not prose","default":"[[step1]]","maxLines":1},
-    {"id":"step2","type":"string","label":"Step 2 — ONE line (<=500px, side caption)","default":"[[step2]]","maxLines":1},
-    {"id":"step3","type":"string","label":"Step 3 — ONE line (<=560px); a 2nd line lands on the sub-beat","default":"[[step3]]","maxLines":1},
-    {"id":"step4","type":"string","label":"Step 4 — ONE line (<=500px, side caption; empty to hide)","default":"[[step4]]","maxLines":1},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"12 / THE LOOP"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off); ONE line each","default":"","maxLines":1},
-    {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""}
-  ]'
->
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;label&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Section label&quot;,&quot;default&quot;:&quot;[[label]]&quot;},
+    {&quot;id&quot;:&quot;heading&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Heading&quot;,&quot;default&quot;:&quot;[[heading]]&quot;},
+    {&quot;id&quot;:&quot;step1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 1 — ONE line (<=560px); a node label, not prose&quot;,&quot;default&quot;:&quot;[[step1]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;step2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 2 — ONE line (<=500px, side caption)&quot;,&quot;default&quot;:&quot;[[step2]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;step3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 3 — ONE line (<=560px); a 2nd line lands on the sub-beat&quot;,&quot;default&quot;:&quot;[[step3]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;step4&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 4 — ONE line (<=500px, side caption; empty to hide)&quot;,&quot;default&quot;:&quot;[[step4]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;12 / THE LOOP&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;subBeats&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Sub-beats — narration-synced live line, pipe-separated (empty = off); ONE line each&quot;,&quot;default&quot;:&quot;&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;subCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained; times the late-phase resolve)&quot;,&quot;default&quot;:&quot;10&quot;},
+    {&quot;id&quot;:&quot;stepCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-step activation times, local sec, comma-separated (empty = default spread)&quot;,&quot;default&quot;:&quot;&quot;}
+  ]">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
   </head>
   <body>
     <template>
@@ -231,38 +228,38 @@
         #root[data-theme="cadence"] .lp-subbeat { color: #bcd3e4; }
       </style>
 
-      <div id="root" data-composition-id="scla-loop" data-width="1920" data-height="1080" data-duration="8">
-        <div class="lp-bg"></div>
-        <div id="lp-panel"></div>
-        <div id="lp-ghost-num" data-layout-allow-overflow data-layout-allow-occlusion data-layout-allow-overlap>4</div>
-        <div id="lp-head">
-          <div id="lp-label-row">
-            <div id="lp-tick"></div>
-            <div id="lp-label" data-slot="label" data-layout-allow-occlusion>In practice, a simple loop</div>
+      <div data-hf-id="hf-012d" id="root" data-composition-id="scla-loop" data-width="1920" data-height="1080" data-duration="8">
+        <div data-hf-id="hf-z0jg" class="lp-bg"></div>
+        <div data-hf-id="hf-udf4" id="lp-panel"></div>
+        <div data-hf-id="hf-mjan" id="lp-ghost-num" data-layout-allow-overflow="" data-layout-allow-occlusion="" data-layout-allow-overlap="">4</div>
+        <div data-hf-id="hf-sz6k" id="lp-head">
+          <div data-hf-id="hf-l4uv" id="lp-label-row">
+            <div data-hf-id="hf-xhj9" id="lp-tick"></div>
+            <div data-hf-id="hf-0yyh" id="lp-label" data-slot="label" data-layout-allow-occlusion="">In practice, a simple loop</div>
           </div>
-          <h2 id="lp-heading" data-slot="heading" data-layout-allow-occlusion>Human and AI, together</h2>
+          <h2 data-hf-id="hf-7a0p" id="lp-heading" data-slot="heading" data-layout-allow-occlusion="">Human and AI, together</h2>
         </div>
-        <svg id="lp-ring" viewBox="0 0 1920 1080" data-layout-allow-occlusion>
-          <path class="lp-track" d="M 960 485 A 280 130 0 0 1 1240 615 A 280 130 0 0 1 960 745 A 280 130 0 0 1 680 615 A 280 130 0 0 1 960 485 Z" />
-          <path id="lp-fill" class="lp-fill" pathLength="100" d="M 960 485 A 280 130 0 0 1 1240 615 A 280 130 0 0 1 960 745 A 280 130 0 0 1 680 615 A 280 130 0 0 1 960 485 Z" />
-          <polygon id="lp-arrow" class="lp-arrow" points="798,510 770,500 766,524" />
+        <svg data-hf-id="hf-m9hj" id="lp-ring" viewBox="0 0 1920 1080" data-layout-allow-occlusion="">
+          <path data-hf-id="hf-o5ly" class="lp-track" d="M 960 485 A 280 130 0 0 1 1240 615 A 280 130 0 0 1 960 745 A 280 130 0 0 1 680 615 A 280 130 0 0 1 960 485 Z" />
+          <path data-hf-id="hf-bssr" id="lp-fill" class="lp-fill" pathLength="100" d="M 960 485 A 280 130 0 0 1 1240 615 A 280 130 0 0 1 960 745 A 280 130 0 0 1 680 615 A 280 130 0 0 1 960 485 Z" />
+          <polygon data-hf-id="hf-1aak" id="lp-arrow" class="lp-arrow" points="798,510 770,500 766,524" />
         </svg>
-        <div class="lp-node" id="lp-node-1" data-present-if="step1"><div class="lp-node-fill"></div><span>1</span></div>
-        <div class="lp-node" id="lp-node-2" data-present-if="step2"><div class="lp-node-fill"></div><span>2</span></div>
-        <div class="lp-node" id="lp-node-3" data-present-if="step3"><div class="lp-node-fill"></div><span>3</span></div>
-        <div class="lp-node" id="lp-node-4" data-present-if="step4"><div class="lp-node-fill"></div><span>4</span></div>
-        <div class="lp-caption" id="lp-cap-1" data-slot="step1">A human question</div>
-        <div class="lp-caption" id="lp-cap-2" data-slot="step2">An AI draft</div>
-        <div class="lp-caption" id="lp-cap-3" data-slot="step3">A human review</div>
-        <div class="lp-caption" id="lp-cap-4" data-slot="step4">A better result than either alone</div>
+        <div data-hf-id="hf-ym1o" class="lp-node" id="lp-node-1" data-present-if="step1"><div data-hf-id="hf-lmjh" class="lp-node-fill"></div><span data-hf-id="hf-ikog">1</span></div>
+        <div data-hf-id="hf-qk82" class="lp-node" id="lp-node-2" data-present-if="step2"><div data-hf-id="hf-sj8x" class="lp-node-fill"></div><span data-hf-id="hf-hdrd">2</span></div>
+        <div data-hf-id="hf-1gxo" class="lp-node" id="lp-node-3" data-present-if="step3"><div data-hf-id="hf-tq60" class="lp-node-fill"></div><span data-hf-id="hf-hs2e">3</span></div>
+        <div data-hf-id="hf-95vy" class="lp-node" id="lp-node-4" data-present-if="step4"><div data-hf-id="hf-tbuz" class="lp-node-fill"></div><span data-hf-id="hf-gl5b">4</span></div>
+        <div data-hf-id="hf-fyj5" class="lp-caption" id="lp-cap-1" data-slot="step1">A human question</div>
+        <div data-hf-id="hf-umqx" class="lp-caption" id="lp-cap-2" data-slot="step2">An AI draft</div>
+        <div data-hf-id="hf-msvh" class="lp-caption" id="lp-cap-3" data-slot="step3">A human review</div>
+        <div data-hf-id="hf-5e1i" class="lp-caption" id="lp-cap-4" data-slot="step4">A better result than either alone</div>
         <!-- Geometry declaration for the sub-beat line the script creates at run
              time. Empty and opacity:0, so it paints nothing; it exists so
              check_geometry.py can see the box those lines occupy. A box only the
              browser knows about is a box no gate can grade — which is exactly
              how this element collided with #lp-cap-3 on 2026-07-29. -->
-        <div class="lp-subbeat" id="lp-subbeat-proto" data-slot="subBeats" data-geometry-proto></div>
-        <div id="lp-index" data-slot="sceneIndex" data-layout-allow-occlusion>12 / THE LOOP</div>
-        <div id="lp-brandline">SCLA · Lesson System</div>
+        <div data-hf-id="hf-7g1v" class="lp-subbeat" id="lp-subbeat-proto" data-slot="subBeats" data-geometry-proto=""></div>
+        <div data-hf-id="hf-mbw5" id="lp-index" data-slot="sceneIndex" data-layout-allow-occlusion="">12 / THE LOOP</div>
+        <div data-hf-id="hf-p3fe" id="lp-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>

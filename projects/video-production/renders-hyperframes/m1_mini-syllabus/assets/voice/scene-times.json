@@ -4,7 +4,7 @@
   "voice": "442360a3e0894fbd85024ff64cc2b928",
   "speed": "1.0",
   "rate": 44100,
-  "audio_end": 98.229,
+  "audio_end": 96.556,
   "air": 0.3,
   "air_question": 0.45,
   "lead": 0.15,
@@ -28,13 +28,13 @@
       "i": 1,
       "id": "scene-02",
       "clip": "scenes/scene-02.wav",
-      "sha": "99fdbc380dea01a2",
-      "text_words": 35,
+      "sha": "3656633109c35f5c",
+      "text_words": 34,
       "question": false,
       "start": 2.464,
-      "end": 15.41,
+      "end": 13.737,
       "air": 0.3,
-      "cut": 15.71
+      "cut": 14.037
     },
     {
       "i": 2,
@@ -43,10 +43,10 @@
       "sha": "a5ecf5fc13df3e57",
       "text_words": 26,
       "question": false,
-      "start": 15.86,
-      "end": 24.936,
+      "start": 14.187,
+      "end": 23.263,
       "air": 0.3,
-      "cut": 25.236
+      "cut": 23.563
     },
     {
       "i": 3,
@@ -55,10 +55,10 @@
       "sha": "43b777987b1a0923",
       "text_words": 23,
       "question": false,
-      "start": 25.386,
-      "end": 32.299,
+      "start": 23.713,
+      "end": 30.626,
       "air": 0.3,
-      "cut": 32.599
+      "cut": 30.926
     },
     {
       "i": 4,
@@ -67,10 +67,10 @@
       "sha": "6acb36257f648e67",
       "text_words": 28,
       "question": false,
-      "start": 32.749,
-      "end": 43.195,
+      "start": 31.076,
+      "end": 41.522,
       "air": 0.3,
-      "cut": 43.495
+      "cut": 41.822
     },
     {
       "i": 5,
@@ -79,10 +79,10 @@
       "sha": "b88350d1003d35cb",
       "text_words": 18,
       "question": false,
-      "start": 43.645,
-      "end": 49.359,
+      "start": 41.972,
+      "end": 47.686,
       "air": 0.3,
-      "cut": 49.659
+      "cut": 47.986
     },
     {
       "i": 6,
@@ -92,10 +92,10 @@
       "text_words": 15,
       "question": false,
       "gap_trimmed": 1.52,
-      "start": 49.809,
-      "end": 57.993,
+      "start": 48.136,
+      "end": 56.319,
       "air": 0.3,
-      "cut": 58.293
+      "cut": 56.619
     },
     {
       "i": 7,
@@ -104,10 +104,10 @@
       "sha": "75a732f545072abc",
       "text_words": 21,
       "question": true,
-      "start": 58.443,
-      "end": 65.465,
+      "start": 56.769,
+      "end": 63.791,
       "air": 0.45,
-      "cut": 65.915
+      "cut": 64.241
     },
     {
       "i": 8,
@@ -116,10 +116,10 @@
       "sha": "6796366471502210",
       "text_words": 25,
       "question": false,
-      "start": 66.065,
-      "end": 73.755,
+      "start": 64.391,
+      "end": 72.082,
       "air": 0.3,
-      "cut": 74.055
+      "cut": 72.382
     },
     {
       "i": 9,
@@ -128,10 +128,10 @@
       "sha": "bcd4cd71316ae068",
       "text_words": 16,
       "question": false,
-      "start": 74.205,
-      "end": 80.687,
+      "start": 72.532,
+      "end": 79.013,
       "air": 0.3,
-      "cut": 80.987
+      "cut": 79.313
     },
     {
       "i": 10,
@@ -140,10 +140,10 @@
       "sha": "0e9369db87ee4f55",
       "text_words": 23,
       "question": false,
-      "start": 81.137,
-      "end": 87.496,
+      "start": 79.463,
+      "end": 85.823,
       "air": 0.3,
-      "cut": 87.796
+      "cut": 86.123
     },
     {
       "i": 11,
@@ -152,10 +152,10 @@
       "sha": "0a79cc018a3a7d38",
       "text_words": 21,
       "question": false,
-      "start": 87.946,
-      "end": 93.318,
+      "start": 86.273,
+      "end": 91.644,
       "air": 0.3,
-      "cut": 93.618
+      "cut": 91.944
     },
     {
       "i": 12,
@@ -164,10 +164,10 @@
       "sha": "41b705b324fdc3cd",
       "text_words": 7,
       "question": false,
-      "start": 93.768,
-      "end": 96.429,
+      "start": 92.094,
+      "end": 94.756,
       "air": 0.3,
-      "cut": 98.229
+      "cut": 96.556
     }
   ]
 }

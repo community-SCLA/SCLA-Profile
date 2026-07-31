@@ -17,7 +17,11 @@
       "template": "scla-chips",
       "narration": "New degree, new industry, and new identity. In reality, most successful pivots are strategic repositionings of the experience you already have.",
       "cues": {
-        "chipCues": ["New degree", "new industry", "and new identity"]
+        "chipCues": [
+          "New degree",
+          "new industry",
+          "and new identity"
+        ]
       },
       "vars": {
         "label": "The myth",
@@ -41,7 +45,7 @@
         "statement": "You're Re-Telling Your Story Forward",
         "lines": "",
         "sceneIndex": "03 / THE SHIFT",
-        "icon": "",
+        "icon": "insight",
         "iconCue": ""
       }
     },
@@ -50,7 +54,11 @@
       "template": "scla-condition",
       "narration": "Let's look at how three mid-career professionals did exactly that. Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track.",
       "cues": {
-        "chipCues": ["Manager—keeping processes smooth", "teams on their numbers", "projects on track"]
+        "chipCues": [
+          "Manager—keeping processes smooth",
+          "teams on their numbers",
+          "projects on track"
+        ]
       },
       "vars": {
         "num": "1",
@@ -68,7 +76,11 @@
       "template": "scla-morph",
       "narration": "On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions.",
       "cues": {
-        "pointCues": ["looked operational", "led cross-functional projects", "shaped decisions"]
+        "pointCues": [
+          "looked operational",
+          "led cross-functional projects",
+          "shaped decisions"
+        ]
       },
       "vars": {
         "kicker": "Beneath the surface",
@@ -78,7 +90,6 @@
         "bSub": "Redesigned systems, shaped decisions",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "pressure,insight",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "05 / BENEATH THE SURFACE"
@@ -89,14 +100,17 @@
       "template": "scla-statement",
       "narration": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money.",
       "cues": {
-        "pointCues": ["redesigning a workflow", "saved time and money"]
+        "pointCues": [
+          "redesigning a workflow",
+          "saved time and money"
+        ]
       },
       "vars": {
         "kicker": "First move",
         "statement": "Curated Experiences That Showed Strategic Thinking",
         "lines": "Redesigning a workflow|That saved time and money",
         "sceneIndex": "06 / FIRST MOVE",
-        "icon": "",
+        "icon": "examine",
         "iconCue": ""
       }
     },
@@ -105,7 +119,11 @@
       "template": "scla-morph",
       "narration": "Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\"",
       "cues": {
-        "pointCues": ["managed operations", "Led a multi-department initiative", "reduced processing time"]
+        "pointCues": [
+          "managed operations",
+          "Led a multi-department initiative",
+          "reduced processing time"
+        ]
       },
       "vars": {
         "kicker": "Second move",
@@ -115,7 +133,6 @@
         "bSub": "Reduced processing time 25%",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "salary,growth",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "07 / REWRITE THE BULLET"
@@ -123,22 +140,27 @@
     },
     {
       "id": "scene-08",
-      "template": "scla-points",
+      "template": "scla-steps",
       "narration": "And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus.",
       "cues": {
-        "pointCues": ["updated LinkedIn", "didn't claim a title", "surfaced the strategic work", "started applying"]
+        "stepCues": [
+          "updated LinkedIn",
+          "didn't claim a title",
+          "surfaced the strategic work",
+          "started applying"
+        ]
       },
       "vars": {
         "label": "The result",
         "heading": "How Alex Made the Case",
-        "point1": "Updated LinkedIn to point forward",
-        "point2": "Didn't claim an unearned title",
-        "point3": "Surfaced the strategic work already there",
-        "point4": "Started applying with that focus",
         "sceneIndex": "08 / THE RESULT",
         "subBeats": "",
         "subCues": "",
-        "icons": ""
+        "step1": "Updated LinkedIn to point forward",
+        "step2": "Didn't claim an unearned title",
+        "step3": "Surfaced the strategic work already there",
+        "step4": "Started applying with that focus",
+        "icon": "target"
       }
     },
     {
@@ -146,7 +168,11 @@
       "template": "scla-condition",
       "narration": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments.",
       "cues": {
-        "chipCues": ["teaching—designing lessons", "assessments", "learning experiences—and"]
+        "chipCues": [
+          "teaching—designing lessons",
+          "assessments",
+          "learning experiences—and"
+        ]
       },
       "vars": {
         "num": "2",
@@ -164,7 +190,11 @@
       "template": "scla-morph",
       "narration": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\"",
       "cues": {
-        "pointCues": ["teaching tasks", "Designed and implemented", "diverse learners"]
+        "pointCues": [
+          "teaching tasks",
+          "Designed and implemented",
+          "diverse learners"
+        ]
       },
       "vars": {
         "kicker": "Translate the language",
@@ -174,7 +204,6 @@
         "bSub": "For diverse learners",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "mentorship,insight",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "10 / TRANSLATE THE LANGUAGE"
@@ -185,7 +214,12 @@
       "template": "scla-points",
       "narration": "Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\"",
       "cues": {
-        "pointCues": ["used—learning platforms", "data analysis", "collaborative project design—and", "Learning Experience Designer"]
+        "pointCues": [
+          "used—learning platforms",
+          "data analysis",
+          "collaborative project design—and",
+          "Learning Experience Designer"
+        ]
       },
       "vars": {
         "label": "Tools and signals",
@@ -196,8 +230,7 @@
         "point4": "New headline: Learning Experience Designer",
         "sceneIndex": "11 / TOOLS AND SIGNALS",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -205,7 +238,10 @@
       "template": "scla-statement",
       "narration": "The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field.",
       "cues": {
-        "pointCues": ["proof of strong design", "thinking—directly relevant to the new field"]
+        "pointCues": [
+          "proof of strong design",
+          "thinking—directly relevant to the new field"
+        ]
       },
       "vars": {
         "kicker": "What stayed",
@@ -221,7 +257,11 @@
       "template": "scla-condition",
       "narration": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role.",
       "cues": {
-        "chipCues": ["contributor—owning complex work", "building relationships", "delivering results—and"]
+        "chipCues": [
+          "contributor—owning complex work",
+          "building relationships",
+          "delivering results—and"
+        ]
       },
       "vars": {
         "num": "3",
@@ -239,7 +279,11 @@
       "template": "scla-steps",
       "narration": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires.",
       "cues": {
-        "stepCues": ["informally—coordinating project teams", "mentoring colleagues", "onboarding new hires"]
+        "stepCues": [
+          "informally—coordinating project teams",
+          "mentoring colleagues",
+          "onboarding new hires"
+        ]
       },
       "vars": {
         "label": "Informal leadership",
@@ -274,14 +318,17 @@
       "template": "scla-statement",
       "narration": "Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\" Across all three, the pattern is the same.",
       "cues": {
-        "pointCues": ["Emerging people leader", "the pattern is the same"]
+        "pointCues": [
+          "Emerging people leader",
+          "the pattern is the same"
+        ]
       },
       "vars": {
         "kicker": "Priya's new summary",
         "statement": "Emerging People Leader",
         "lines": "A track record of mentoring and coordinating|Growing others while delivering results",
         "sceneIndex": "16 / THE PATTERN",
-        "icon": "",
+        "icon": "done",
         "iconCue": ""
       }
     },
@@ -290,7 +337,11 @@
       "template": "scla-condition",
       "narration": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar.",
       "cues": {
-        "chipCues": ["a promotion", "a lateral move", "a role redesign—and"]
+        "chipCues": [
+          "a promotion",
+          "a lateral move",
+          "a role redesign—and"
+        ]
       },
       "vars": {
         "num": "1",
@@ -308,7 +359,11 @@
       "template": "scla-condition",
       "narration": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need.",
       "cues": {
-        "chipCues": ["future—projects", "responsibilities", "results"]
+        "chipCues": [
+          "future—projects",
+          "responsibilities",
+          "results"
+        ]
       },
       "vars": {
         "num": "2",
@@ -326,7 +381,13 @@
       "template": "scla-chips",
       "narration": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path.",
       "cues": {
-        "chipCues": ["roles—strategy", "design", "leadership", "analytics", "systems"]
+        "chipCues": [
+          "roles—strategy",
+          "design",
+          "leadership",
+          "analytics",
+          "systems"
+        ]
       },
       "vars": {
         "label": "Third",
@@ -346,7 +407,12 @@
       "template": "scla-condition",
       "narration": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning.",
       "cues": {
-        "chipCues": ["resume", "LinkedIn headline", "summary", "career story"]
+        "chipCues": [
+          "resume",
+          "LinkedIn headline",
+          "summary",
+          "career story"
+        ]
       },
       "vars": {
         "num": "4",
@@ -364,7 +430,10 @@
       "template": "scla-statement",
       "narration": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others.",
       "cues": {
-        "pointCues": ["revealing the through-line", "makes your next move feel obvious"]
+        "pointCues": [
+          "revealing the through-line",
+          "makes your next move feel obvious"
+        ]
       },
       "vars": {
         "kicker": "The core idea",
@@ -385,7 +454,8 @@
         "lines": "",
         "sceneIndex": "22 / KEEP ASKING",
         "icon": "question",
-        "iconCue": ""
+        "iconCue": "",
+        "sub": "How can I tell the true story of my experience so it clearly points to the roles I want next?"
       }
     },
     {

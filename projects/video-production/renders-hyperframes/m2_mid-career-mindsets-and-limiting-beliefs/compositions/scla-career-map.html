@@ -1,28 +1,25 @@
-<!doctype html>
-<html
-  lang="en"
-  data-composition-variables='[
-    {"id":"label","type":"string","label":"Section label","default":"[[label]]"},
-    {"id":"heading","type":"string","label":"Heading — ONE line (<=1500px); the stage below is budgeted against it","default":"[[heading]]","maxLines":1},
-    {"id":"startLabel","type":"string","label":"Start node title","default":"[[startLabel]]"},
-    {"id":"startSub","type":"string","label":"Start node subtitle","default":"[[startSub]]"},
-    {"id":"path1","type":"string","label":"Path 1 title (top)","default":"[[path1]]","maxLines":2},
-    {"id":"fit1","type":"string","label":"Path 1 fit line","default":"[[fit1]]","maxLines":1},
-    {"id":"path2","type":"string","label":"Path 2 title (middle)","default":"[[path2]]","maxLines":2},
-    {"id":"fit2","type":"string","label":"Path 2 fit line","default":"[[fit2]]","maxLines":1},
-    {"id":"path3","type":"string","label":"Path 3 title (bottom)","default":"[[path3]]","maxLines":2},
-    {"id":"fit3","type":"string","label":"Path 3 fit line","default":"[[fit3]]","maxLines":1},
-    {"id":"bestLabel","type":"string","label":"Best-fit node title","default":"[[bestLabel]]"},
-    {"id":"bestSub","type":"string","label":"Best-fit node subtitle","default":"[[bestSub]]"},
-    {"id":"winner","type":"string","label":"Winning path the gold route runs through (1 | 2 | 3)","default":"2"},
-    {"id":"mapCue","type":"string","label":"Local sec when the winning route is traced","default":"5.0"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"09 / COMPARE"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"}
-  ]'
->
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;label&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Section label&quot;,&quot;default&quot;:&quot;[[label]]&quot;},
+    {&quot;id&quot;:&quot;heading&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Heading — ONE line (<=1500px); the stage below is budgeted against it&quot;,&quot;default&quot;:&quot;[[heading]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;startLabel&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Start node title&quot;,&quot;default&quot;:&quot;[[startLabel]]&quot;},
+    {&quot;id&quot;:&quot;startSub&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Start node subtitle&quot;,&quot;default&quot;:&quot;[[startSub]]&quot;},
+    {&quot;id&quot;:&quot;path1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 1 title (top)&quot;,&quot;default&quot;:&quot;[[path1]]&quot;,&quot;maxLines&quot;:2},
+    {&quot;id&quot;:&quot;fit1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 1 fit line&quot;,&quot;default&quot;:&quot;[[fit1]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;path2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 2 title (middle)&quot;,&quot;default&quot;:&quot;[[path2]]&quot;,&quot;maxLines&quot;:2},
+    {&quot;id&quot;:&quot;fit2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 2 fit line&quot;,&quot;default&quot;:&quot;[[fit2]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;path3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 3 title (bottom)&quot;,&quot;default&quot;:&quot;[[path3]]&quot;,&quot;maxLines&quot;:2},
+    {&quot;id&quot;:&quot;fit3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Path 3 fit line&quot;,&quot;default&quot;:&quot;[[fit3]]&quot;,&quot;maxLines&quot;:1},
+    {&quot;id&quot;:&quot;bestLabel&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Best-fit node title&quot;,&quot;default&quot;:&quot;[[bestLabel]]&quot;},
+    {&quot;id&quot;:&quot;bestSub&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Best-fit node subtitle&quot;,&quot;default&quot;:&quot;[[bestSub]]&quot;},
+    {&quot;id&quot;:&quot;winner&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Winning path the gold route runs through (1 | 2 | 3)&quot;,&quot;default&quot;:&quot;2&quot;},
+    {&quot;id&quot;:&quot;mapCue&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Local sec when the winning route is traced&quot;,&quot;default&quot;:&quot;5.0&quot;},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;09 / COMPARE&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained; times the late-phase resolve)&quot;,&quot;default&quot;:&quot;10&quot;}
+  ]">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <!--
       TEMPLATE — decision map. A start node fans out to three candidate paths
       against a criteria axis; on mapCue a gold route traces through the winning
@@ -201,34 +198,34 @@
         #root[data-theme="cadence"] .cm-bg::after { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
       </style>
 
-      <div id="root" data-composition-id="scla-career-map" data-width="1920" data-height="1080" data-duration="12">
-        <div class="cm-bg"></div>
-        <div id="cm-head">
-          <div id="cm-label-row">
-            <div id="cm-tick"></div>
-            <div id="cm-label">Step 3 — Compare</div>
+      <div data-hf-id="hf-fdpp" id="root" data-composition-id="scla-career-map" data-width="1920" data-height="1080" data-duration="12">
+        <div data-hf-id="hf-h7uk" class="cm-bg"></div>
+        <div data-hf-id="hf-0pss" id="cm-head">
+          <div data-hf-id="hf-gxuf" id="cm-label-row">
+            <div data-hf-id="hf-9a4l" id="cm-tick"></div>
+            <div data-hf-id="hf-jbzc" id="cm-label">Step 3 — Compare</div>
           </div>
-          <h2 id="cm-heading">Which one fits what matters to you?</h2>
+          <h2 data-hf-id="hf-xl6l" id="cm-heading">Which one fits what matters to you?</h2>
         </div>
-        <div id="cm-stage">
+        <div data-hf-id="hf-ji24" id="cm-stage">
           <!-- viewBox is the stage's own pixel size: 1 unit = 1 frame pixel.
                x340 = the start card's right edge, x560 = the path column's left
                edge, x1060 = its right edge, x1240 = the best-fit card's left
                edge. y74/306/538 are the three slots' one-line centres. -->
-          <svg id="cm-svg" viewBox="0 0 1680 660" preserveAspectRatio="none" fill="none">
-            <path id="cm-edge-1" d="M340 306 C 460 306, 460 74, 560 74" stroke="#cccedf" stroke-width="4" />
-            <path id="cm-edge-2" d="M340 306 L 560 306" stroke="#cccedf" stroke-width="4" />
-            <path id="cm-edge-3" d="M340 306 C 460 306, 460 538, 560 538" stroke="#cccedf" stroke-width="4" />
-            <path id="cm-route" d="M340 306 L 1060 306 C 1140 306, 1160 306, 1240 306" stroke="#eaab2d" stroke-width="7" stroke-linecap="round" />
+          <svg data-hf-id="hf-r4hp" id="cm-svg" viewBox="0 0 1680 660" preserveAspectRatio="none" fill="none">
+            <path data-hf-id="hf-8u5m" id="cm-edge-1" d="M340 306 C 460 306, 460 74, 560 74" stroke="#cccedf" stroke-width="4" />
+            <path data-hf-id="hf-j5oa" id="cm-edge-2" d="M340 306 L 560 306" stroke="#cccedf" stroke-width="4" />
+            <path data-hf-id="hf-b2zi" id="cm-edge-3" d="M340 306 C 460 306, 460 538, 560 538" stroke="#cccedf" stroke-width="4" />
+            <path data-hf-id="hf-f17o" id="cm-route" d="M340 306 L 1060 306 C 1140 306, 1160 306, 1240 306" stroke="#eaab2d" stroke-width="7" stroke-linecap="round" />
           </svg>
-          <div class="cm-node" id="cm-node-start"><div class="cm-role" id="cm-start-role">You, today</div><div class="cm-fit" id="cm-start-sub">Your criteria</div></div>
-          <div class="cm-node" id="cm-node-1"><div class="cm-role" id="cm-role-1">Path A</div><div class="cm-fit" id="cm-fit-1">Fits 2 of 5</div></div>
-          <div class="cm-node" id="cm-node-2"><div class="cm-role" id="cm-role-2">Path B</div><div class="cm-fit" id="cm-fit-2">Fits 4 of 5</div></div>
-          <div class="cm-node" id="cm-node-3"><div class="cm-role" id="cm-role-3">Path C</div><div class="cm-fit" id="cm-fit-3">Fits 1 of 5</div></div>
-          <div class="cm-node" id="cm-node-best"><div class="cm-role" id="cm-best-role">Best fit</div><div class="cm-fit" id="cm-best-sub">Matches what matters</div></div>
+          <div data-hf-id="hf-ggz3" class="cm-node" id="cm-node-start"><div data-hf-id="hf-dou9" class="cm-role" id="cm-start-role">You, today</div><div data-hf-id="hf-d75i" class="cm-fit" id="cm-start-sub">Your criteria</div></div>
+          <div data-hf-id="hf-tjbq" class="cm-node" id="cm-node-1"><div data-hf-id="hf-xsuy" class="cm-role" id="cm-role-1">Path A</div><div data-hf-id="hf-25c8" class="cm-fit" id="cm-fit-1">Fits 2 of 5</div></div>
+          <div data-hf-id="hf-pl7p" class="cm-node" id="cm-node-2"><div data-hf-id="hf-lhew" class="cm-role" id="cm-role-2">Path B</div><div data-hf-id="hf-be1r" class="cm-fit" id="cm-fit-2">Fits 4 of 5</div></div>
+          <div data-hf-id="hf-otjw" class="cm-node" id="cm-node-3"><div data-hf-id="hf-9o0e" class="cm-role" id="cm-role-3">Path C</div><div data-hf-id="hf-40mt" class="cm-fit" id="cm-fit-3">Fits 1 of 5</div></div>
+          <div data-hf-id="hf-2gdv" class="cm-node" id="cm-node-best"><div data-hf-id="hf-ia5m" class="cm-role" id="cm-best-role">Best fit</div><div data-hf-id="hf-fm7p" class="cm-fit" id="cm-best-sub">Matches what matters</div></div>
         </div>
-        <div id="cm-index" data-layout-allow-occlusion>09 / COMPARE</div>
-        <div id="cm-brandline">SCLA · Lesson System</div>
+        <div data-hf-id="hf-xfeh" id="cm-index" data-layout-allow-occlusion="">09 / COMPARE</div>
+        <div data-hf-id="hf-72my" id="cm-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>

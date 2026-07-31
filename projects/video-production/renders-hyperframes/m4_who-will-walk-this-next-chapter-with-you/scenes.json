@@ -40,19 +40,14 @@
       "id": "scene-03",
       "template": "scla-statement",
       "narration": "Before you move into outreach and visibility, it's worth slowing down to ask a deeper one: who do I actually want walking alongside me in this next chapter, and why?",
-      "cues": {
-        "pointCues": [
-          "walking alongside me",
-          "in this next chapter"
-        ]
-      },
       "vars": {
         "kicker": "Slow down and ask",
-        "statement": "Ask a Deeper Question First",
-        "lines": "Who I want walking alongside me|In this next chapter, and why",
+        "statement": "Who Do I Want Walking Alongside Me?",
+        "lines": "",
         "sceneIndex": "03 / THE DEEPER QUESTION",
         "icon": "compass",
-        "iconCue": "worth slowing down to ask a deeper one"
+        "iconCue": "worth slowing down to ask a deeper one",
+        "sub": "In this next chapter, and why."
       }
     },
     {
@@ -144,8 +139,7 @@
         "point4": "",
         "sceneIndex": "07 / NEW POSSIBILITIES",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -275,7 +269,6 @@
         "bSub": "Who genuinely fits your story",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "salary,target",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "13 / REFRAME THE GAME"
@@ -300,8 +293,7 @@
         "point4": "",
         "sceneIndex": "14 / ASK YOURSELF",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -347,8 +339,7 @@
         "point4": "",
         "sceneIndex": "16 / DEFINE THE OUTCOME",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -366,7 +357,7 @@
       "vars": {
         "label": "Pick one outcome",
         "heading": "Ways to Move It Forward",
-        "chips": "A 20-minute conversation,Share your resume for feedback,Explore internal opportunities,Ask for an introduction",
+        "chips": "A 20-minute conversation,Resume feedback,Internal opportunities,An introduction",
         "accentIndex": "",
         "reveal": "pop",
         "sceneIndex": "17 / PICK ONE OUTCOME",
@@ -380,19 +371,14 @@
       "id": "scene-18",
       "template": "scla-statement",
       "narration": "At the end, you'll step back and look at the patterns in your list. Are most of your relationships inside your current organization?",
-      "cues": {
-        "pointCues": [
-          "look at the patterns in your list",
-          "inside your current organization"
-        ]
-      },
       "vars": {
         "kicker": "Step back",
         "statement": "Step Back and Look at Your List",
-        "lines": "What patterns show up?|Inside your current organization?",
+        "lines": "",
         "sceneIndex": "18 / STEP BACK",
         "icon": "insight",
-        "iconCue": ""
+        "iconCue": "",
+        "sub": "Are most of your relationships inside your current organization?"
       }
     },
     {
@@ -415,8 +401,7 @@
         "point4": "",
         "sceneIndex": "19 / CHECK THE BALANCE",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -457,7 +442,6 @@
         "bSub": "As you create your next chapter",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "map,mentorship2",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "21 / YOUR CORNER"

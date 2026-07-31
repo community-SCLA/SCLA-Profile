@@ -88,7 +88,7 @@
     },
     {
       "i": 6,
-      "id": "scene-07a",
+      "id": "scene-07",
       "clip": "scenes/scene-07.wav",
       "sha": "bf4195c9307ec50d",
       "text_words": 14,
@@ -101,9 +101,9 @@
     },
     {
       "i": 7,
-      "id": "scene-07b",
+      "id": "scene-08",
       "clip": "scenes/scene-08.wav",
-      "sha": "3702f9b6d27bd5c0",
+      "sha": "1178b3407bc49d8a",
       "text_words": 16,
       "question": false,
       "start": 63.343,

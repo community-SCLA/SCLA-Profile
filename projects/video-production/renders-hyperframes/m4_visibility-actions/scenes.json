@@ -25,7 +25,7 @@
       },
       "vars": {
         "kicker": "The other half",
-        "statement": "Visibility Is the Other Half",
+        "statement": "Visibility Is the Other Half of Networking",
         "lines": "See your contributions|See your potential|Not self-promotion",
         "sceneIndex": "02 / VISIBILITY",
         "icon": "insight",
@@ -72,8 +72,7 @@
         "point4": "",
         "sceneIndex": "04 / DEFINE",
         "subBeats": "",
-        "subCues": "",
-        "icons": "target,mentorship,growth"
+        "subCues": ""
       }
     },
     {
@@ -126,38 +125,26 @@
       }
     },
     {
-      "id": "scene-07a",
-      "template": "scla-morph",
-      "note": "split from scene-07 at the sentence end (12.5s cap) — carries the misconception half only; card B/morph need scene-07b's own words to anchor, so this scene shows card A plus a mid-scene note beat.",
+      "id": "scene-07",
+      "template": "scla-statement",
       "narration": "Notice that none of these require you to be loud, extroverted, or constantly \"on.\"",
-      "cues": {
-        "pointCues": [
-          "to be loud",
-          "or constantly"
-        ]
-      },
       "vars": {
         "kicker": "Not what you think",
-        "aTitle": "Loud and Extroverted",
-        "aSub": "What people assume visibility means",
-        "bTitle": "",
-        "bSub": "",
-        "winner": "b",
-        "winnerAfter": "",
-        "icons": "question",
-        "actions": "A,note",
-        "notes": "Not what people assume",
-        "sceneIndex": "07 / NOT LOUD"
+        "statement": "None of This Requires You to Be Loud",
+        "lines": "",
+        "sub": "Not extroverted, and not constantly “on.”",
+        "sceneIndex": "07 / NOT LOUD",
+        "icon": "question",
+        "iconCue": "none of these require"
       }
     },
     {
-      "id": "scene-07b",
+      "id": "scene-08",
       "template": "scla-statement",
-      "note": "split from scene-07 — the resolution half, on its own words.",
-      "narration": "They're focused, purposeful moments that help others connect your name to useful contributions and growing capabilities.",
+      "narration": "They're focused, purposeful  moments that help others connect your name to useful contributions and growing capabilities.",
       "cues": {
         "pointCues": [
-          "useful contributions",
+          "connect your name",
           "growing capabilities"
         ]
       },
@@ -165,7 +152,7 @@
         "kicker": "What actually works",
         "statement": "Focused, Purposeful Moments",
         "lines": "Connect your name to useful contributions|And growing capabilities",
-        "sceneIndex": "07 / THE REAL FOCUS",
+        "sceneIndex": "08 / THE REAL FOCUS",
         "icon": "done",
         "iconCue": "growing capabilities"
       }
@@ -188,10 +175,9 @@
         "point2": "Tailored to your Next Move Statement",
         "point3": "",
         "point4": "",
-        "sceneIndex": "08 / THREE ACTIONS",
+        "sceneIndex": "09 / THREE ACTIONS",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -212,7 +198,7 @@
         "step2": "Ask one strategic question at all-staff",
         "step3": "",
         "step4": "",
-        "sceneIndex": "09 / FOR EXAMPLE",
+        "sceneIndex": "10 / FOR EXAMPLE",
         "subBeats": "",
         "subCues": "",
         "icon": "",
@@ -238,7 +224,7 @@
         "chips": "A thirty-minute mini-session,To my team or community",
         "icon": "insight",
         "iconCue": "",
-        "sceneIndex": "09 / THIRD EXAMPLE"
+        "sceneIndex": "11 / THIRD EXAMPLE"
       }
     },
     {
@@ -258,7 +244,7 @@
         "kicker": "Then",
         "statement": "Choose One, Then Test It",
         "lines": "Reflect on what you learn|It doesn't have to be perfect|Practicing small behaviors|That shape your direction",
-        "sceneIndex": "10 / TEST IT",
+        "sceneIndex": "12 / TEST IT",
         "icon": "done",
         "iconCue": ""
       }
@@ -272,7 +258,7 @@
         "cta": "Make it easier to see",
         "next": "And easier for others to support",
         "url": "thescla.org",
-        "sceneIndex": "11 / NEXT STEP"
+        "sceneIndex": "13 / NEXT STEP"
       }
     }
   ]

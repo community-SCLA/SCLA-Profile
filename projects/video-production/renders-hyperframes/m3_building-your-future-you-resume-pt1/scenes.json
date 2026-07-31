@@ -7,7 +7,7 @@
       "narration": "Hi, and welcome to this lesson on your future-you resume.",
       "vars": {
         "eyebrow": "Mid-Career Momentum",
-        "title": "Building Your Future You Resume Pt1",
+        "title": "Building Your Future You Resume",
         "meta": "",
         "sceneIndex": "01 / TITLE"
       }
@@ -17,7 +17,10 @@
       "template": "scla-statement",
       "narration": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.",
       "cues": {
-        "pointCues": ["On the surface", "In practice"]
+        "pointCues": [
+          "On the surface",
+          "In practice"
+        ]
       },
       "vars": {
         "kicker": "The problem",
@@ -33,7 +36,11 @@
       "template": "scla-morph",
       "narration": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.",
       "cues": {
-        "pointCues": ["a historical record", "a strategic tool", "ready for it"]
+        "pointCues": [
+          "a historical record",
+          "a strategic tool",
+          "ready for it"
+        ]
       },
       "vars": {
         "kicker": "The reframe",
@@ -43,7 +50,6 @@
         "bSub": "What it proves now",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "examine,growth",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "03 / REFRAME"
@@ -54,7 +60,11 @@
       "template": "scla-condition",
       "narration": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits. First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\"",
       "cues": {
-        "chipCues": ["Managed projects", "Supported faculty", "Handled student inquiries"]
+        "chipCues": [
+          "Managed projects",
+          "Supported faculty",
+          "Handled student inquiries"
+        ]
       },
       "vars": {
         "num": "1",
@@ -72,7 +82,11 @@
       "template": "scla-points",
       "narration": "Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.",
       "cues": {
-        "pointCues": ["no results", "no scope", "no value added"]
+        "pointCues": [
+          "no results",
+          "no scope",
+          "no value added"
+        ]
       },
       "vars": {
         "label": "What's missing",
@@ -83,8 +97,7 @@
         "point4": "",
         "sceneIndex": "05 / NO IMPACT",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -92,14 +105,18 @@
       "template": "scla-condition",
       "narration": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations.",
       "cues": {
-        "chipCues": ["old sections forward", "a decade ago", "today's expectations"]
+        "chipCues": [
+          "old sections forward",
+          "a decade ago",
+          "today's expectations"
+        ]
       },
       "vars": {
         "num": "2",
         "kicker": "Second",
         "heading": "Outdated or Generic",
         "total": "3",
-        "chips": "Old sections carried forward,Phrases from a decade ago,Doesn't match today's expectations",
+        "chips": "Old sections carried forward,Phrases from a decade ago,Out of step with today",
         "icon": "pressure",
         "iconCue": "",
         "sceneIndex": "06 / SECOND"
@@ -110,7 +127,10 @@
       "template": "scla-condition",
       "narration": "The result looks busy but not sharp or focused. Third — and this is the big one for us — there's often no clear link between your experience and the role you want next.",
       "cues": {
-        "chipCues": ["busy but not sharp", "no clear link"]
+        "chipCues": [
+          "busy but not sharp",
+          "no clear link"
+        ]
       },
       "vars": {
         "num": "3",
@@ -128,7 +148,11 @@
       "template": "scla-morph",
       "narration": "Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\"",
       "cues": {
-        "pointCues": ["what you've done", "connects to the step", "here's why I'm ready"]
+        "pointCues": [
+          "what you've done",
+          "connects to the step",
+          "here's why I'm ready"
+        ]
       },
       "vars": {
         "kicker": "The missing link",
@@ -138,7 +162,6 @@
         "bSub": "How it connects to what's next",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,done",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "08 / THE GAP"
@@ -175,7 +198,11 @@
       "template": "scla-morph",
       "narration": "A future-you resume is built around the role you want, not the role you started in.",
       "cues": {
-        "pointCues": ["the role you want", "not the role", "you started in"]
+        "pointCues": [
+          "the role you want",
+          "not the role",
+          "you started in"
+        ]
       },
       "vars": {
         "kicker": "The reframe",
@@ -185,7 +212,6 @@
         "bSub": "Where you began",
         "winner": "a",
         "winnerAfter": "",
-        "icons": "compass,",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "11 / WHAT IT'S FOR"
@@ -196,7 +222,11 @@
       "template": "scla-chips",
       "narration": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course.",
       "cues": {
-        "chipCues": ["projects", "results", "responsibilities"]
+        "chipCues": [
+          "projects",
+          "results",
+          "responsibilities"
+        ]
       },
       "vars": {
         "label": "Curating evidence",
@@ -242,7 +272,10 @@
       "template": "scla-points",
       "narration": "Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading.",
       "cues": {
-        "pointCues": ["outcomes and scope", "de-emphasizing tasks"]
+        "pointCues": [
+          "outcomes and scope",
+          "de-emphasizing tasks"
+        ]
       },
       "vars": {
         "label": "What shifts",
@@ -253,8 +286,7 @@
         "point4": "",
         "sceneIndex": "15 / SHIFT FOCUS",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -275,7 +307,11 @@
       "template": "scla-chips",
       "narration": "You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months.",
       "cues": {
-        "chipCues": ["promotion", "lateral move", "role redesign"]
+        "chipCues": [
+          "promotion",
+          "lateral move",
+          "role redesign"
+        ]
       },
       "vars": {
         "label": "Your Next Move Statement",
@@ -308,7 +344,12 @@
       "template": "scla-steps",
       "narration": "You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.",
       "cues": {
-        "stepCues": ["responsibility", "action", "measurable outcome", "scope"]
+        "stepCues": [
+          "responsibility",
+          "action",
+          "measurable outcome",
+          "scope"
+        ]
       },
       "vars": {
         "label": "Rewrite each line",
@@ -329,7 +370,11 @@
       "template": "scla-morph",
       "narration": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\"",
       "cues": {
-        "pointCues": ["Managed team projects", "Led a cross-functional team", "time-to-productivity by 30%"]
+        "pointCues": [
+          "Managed team projects",
+          "Led a cross-functional team",
+          "time-to-productivity by 30%"
+        ]
       },
       "vars": {
         "kicker": "See it rewritten",
@@ -339,7 +384,6 @@
         "bSub": "30% faster ramp-up, 20% higher satisfaction",
         "winner": "b",
         "winnerAfter": "",
-        "icons": ",salary",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "20 / THE REWRITE"
@@ -363,7 +407,11 @@
       "template": "scla-points",
       "narration": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement.",
       "cues": {
-        "pointCues": ["upload or paste", "let AI help", "refine the versions"]
+        "pointCues": [
+          "upload or paste",
+          "let AI help",
+          "refine the versions"
+        ]
       },
       "vars": {
         "label": "The Resume Builder Tool",
@@ -374,8 +422,7 @@
         "point4": "",
         "sceneIndex": "22 / THE TOOL",
         "subBeats": "",
-        "subCues": "",
-        "icons": ",insight,"
+        "subCues": ""
       }
     },
     {

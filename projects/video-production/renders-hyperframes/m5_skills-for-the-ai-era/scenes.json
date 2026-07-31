@@ -57,7 +57,6 @@
         "bSub": "And where's the more valuable part",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,target",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "03 / THE QUESTION",
@@ -76,7 +75,8 @@
         "sceneIndex": "04 / YOUR ADVANTAGE",
         "theme": "cadence",
         "icon": "compass",
-        "iconCue": ""
+        "iconCue": "",
+        "sub": "You already understand your role deeply enough to see which parts are shifting."
       }
     },
     {
@@ -85,7 +85,7 @@
       "narration": "Here's a practical way to think about your current role and your next move.",
       "vars": {
         "kicker": "The framework",
-        "statement": "A Practical Way to Think About Your Next Move",
+        "statement": "A Practical Way to Think About Your Current Role and Your Next Move",
         "lines": "",
         "sceneIndex": "05 / THE FRAMEWORK",
         "theme": "cadence",
@@ -148,13 +148,14 @@
       "vars": {
         "num": "3",
         "kicker": "Third",
-        "heading": "How Do You Reposition Toward That?",
+        "heading": "How Do You Reposition Toward That More Valuable Part?",
         "total": "3",
         "chips": "",
         "icon": "compass",
         "iconCue": "",
         "sceneIndex": "08 / THIRD",
-        "theme": "cadence"
+        "theme": "cadence",
+        "sub": "This is where AI-era thinking meets everything else in this course."
       }
     },
     {
@@ -225,8 +226,7 @@
         "sceneIndex": "11 / MORE VALUABLE",
         "theme": "cadence",
         "subBeats": "",
-        "subCues": "",
-        "icons": "salary,examine,mentorship,done"
+        "subCues": ""
       }
     },
     {
@@ -263,7 +263,6 @@
         "bSub": "The hardest thing to automate",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "pressure,growth",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "13 / DIRECT, DON'T COMPETE",
@@ -280,7 +279,7 @@
         "suffix": "",
         "statLabel": "durable, human-centered skills",
         "ring": "on",
-        "context": "So here are the durable, human-centered skills worth investing in",
+        "context": "Starting with judgment and decision-making",
         "sceneIndex": "14 / FIVE SKILLS",
         "theme": "cadence"
       }

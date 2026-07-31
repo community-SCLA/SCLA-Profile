@@ -1,122 +1,152 @@
 [
   {
     "id": "w0",
-    "text": "You'll",
-    "start": 0.119,
-    "end": 0.259
+    "text": "This",
+    "start": 0.159,
+    "end": 0.28
   },
   {
     "id": "w1",
-    "text": "look",
-    "start": 0.28,
-    "end": 0.399
+    "text": "track",
+    "start": 0.34,
+    "end": 0.56
   },
   {
     "id": "w2",
-    "text": "for",
-    "start": 0.439,
-    "end": 0.539
+    "text": "will",
+    "start": 0.599,
+    "end": 0.74
   },
   {
     "id": "w3",
-    "text": "ways",
-    "start": 0.579,
-    "end": 0.799
+    "text": "help",
+    "start": 0.819,
+    "end": 0.979
   },
   {
     "id": "w4",
-    "text": "to",
-    "start": 0.839,
-    "end": 0.939
+    "text": "you",
+    "start": 1,
+    "end": 1.139
   },
   {
     "id": "w5",
-    "text": "adjust",
-    "start": 0.959,
-    "end": 1.339
+    "text": "notice",
+    "start": 1.24,
+    "end": 1.459
   },
   {
     "id": "w6",
-    "text": "projects,",
-    "start": 1.419,
-    "end": 1.979
+    "text": "when",
+    "start": 1.5,
+    "end": 1.599
   },
   {
     "id": "w7",
-    "text": "boundaries,",
-    "start": 2.559,
-    "end": 3.119
+    "text": "a",
+    "start": 1.679,
+    "end": 1.699
   },
   {
     "id": "w8",
-    "text": "responsibilities,",
-    "start": 3.599,
-    "end": 4.579
+    "text": "belief",
+    "start": 1.719,
+    "end": 2.119
   },
   {
     "id": "w9",
-    "text": "and",
-    "start": 4.96,
-    "end": 5.159
+    "text": "is",
+    "start": 2.139,
+    "end": 2.339
   },
   {
     "id": "w10",
-    "text": "skills",
-    "start": 5.199,
-    "end": 5.639
+    "text": "limiting",
+    "start": 2.379,
+    "end": 2.74
   },
   {
     "id": "w11",
-    "text": "so",
-    "start": 5.659,
-    "end": 5.779
+    "text": "you,",
+    "start": 2.74,
+    "end": 2.939
   },
   {
     "id": "w12",
-    "text": "your",
-    "start": 5.819,
-    "end": 5.94
+    "text": "then",
+    "start": 3.419,
+    "end": 3.539
   },
   {
     "id": "w13",
-    "text": "work",
-    "start": 5.96,
-    "end": 6.199
+    "text": "replace",
+    "start": 3.579,
+    "end": 4
   },
   {
     "id": "w14",
-    "text": "better",
-    "start": 6.279,
-    "end": 6.5
+    "text": "it",
+    "start": 4.019,
+    "end": 4.099
   },
   {
     "id": "w15",
-    "text": "matches",
-    "start": 6.519,
-    "end": 6.94
+    "text": "with",
+    "start": 4.139,
+    "end": 4.42
   },
   {
     "id": "w16",
-    "text": "who",
-    "start": 6.96,
-    "end": 7.079
+    "text": "small,",
+    "start": 4.44,
+    "end": 5.019
   },
   {
     "id": "w17",
-    "text": "you",
-    "start": 7.119,
-    "end": 7.199
+    "text": "practical",
+    "start": 5.079,
+    "end": 5.5
   },
   {
     "id": "w18",
-    "text": "are",
-    "start": 7.239,
-    "end": 7.419
+    "text": "experiments",
+    "start": 5.619,
+    "end": 6.44
   },
   {
     "id": "w19",
-    "text": "now.",
-    "start": 7.48,
-    "end": 7.619
+    "text": "that",
+    "start": 6.46,
+    "end": 6.639
+  },
+  {
+    "id": "w20",
+    "text": "build",
+    "start": 6.659,
+    "end": 6.92
+  },
+  {
+    "id": "w21",
+    "text": "confidence",
+    "start": 7,
+    "end": 7.679
+  },
+  {
+    "id": "w22",
+    "text": "instead",
+    "start": 7.699,
+    "end": 8.02
+  },
+  {
+    "id": "w23",
+    "text": "of",
+    "start": 8.02,
+    "end": 8.199
+  },
+  {
+    "id": "w24",
+    "text": "fear.",
+    "start": 8.22,
+    "end": 8.46
   }
 ]

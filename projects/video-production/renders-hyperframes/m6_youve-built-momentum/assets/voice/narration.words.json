@@ -2065,452 +2065,440 @@
   },
   {
     "id": "w344",
-    "text": "The",
-    "start": 116.949,
-    "end": 117.029
+    "text": "SCLA",
+    "start": 116.988,
+    "end": 117.648
   },
   {
     "id": "w345",
-    "text": "Career",
-    "start": 117.068,
-    "end": 117.348
+    "text": "has",
+    "start": 117.668,
+    "end": 117.889
   },
   {
     "id": "w346",
-    "text": "Accelerator",
-    "start": 117.408,
+    "text": "more",
+    "start": 117.928,
     "end": 118.048
   },
   {
     "id": "w347",
-    "text": "has",
-    "start": 118.109,
-    "end": 118.288
+    "text": "tracks,",
+    "start": 118.188,
+    "end": 118.648
   },
   {
     "id": "w348",
     "text": "more",
-    "start": 118.308,
-    "end": 118.489
+    "start": 118.928,
+    "end": 119.028
   },
   {
     "id": "w349",
-    "text": "tracks,",
-    "start": 118.548,
-    "end": 119.008
+    "text": "tools,",
+    "start": 119.168,
+    "end": 119.568
   },
   {
     "id": "w350",
-    "text": "more",
-    "start": 119.368,
-    "end": 119.548
+    "text": "and",
+    "start": 119.908,
+    "end": 119.988
   },
   {
     "id": "w351",
-    "text": "tools,",
-    "start": 119.588,
-    "end": 120.068
+    "text": "a",
+    "start": 120.028,
+    "end": 120.048
   },
   {
     "id": "w352",
-    "text": "and",
-    "start": 120.408,
-    "end": 120.508
+    "text": "member",
+    "start": 120.128,
+    "end": 120.368
   },
   {
     "id": "w353",
-    "text": "a",
-    "start": 120.528,
-    "end": 120.608
+    "text": "community.",
+    "start": 120.468,
+    "end": 120.988
   },
   {
     "id": "w354",
-    "text": "member",
-    "start": 120.648,
-    "end": 120.828
+    "text": "Every",
+    "start": 121.488,
+    "end": 121.728
   },
   {
     "id": "w355",
-    "text": "community.",
-    "start": 120.928,
-    "end": 121.408
+    "text": "conversation,",
+    "start": 121.788,
+    "end": 122.548
   },
   {
     "id": "w356",
-    "text": "Every",
-    "start": 122.062,
-    "end": 122.361
+    "text": "every",
+    "start": 122.929,
+    "end": 123.108
   },
   {
     "id": "w357",
-    "text": "conversation,",
-    "start": 122.421,
-    "end": 123.221
+    "text": "session,",
+    "start": 123.268,
+    "end": 123.668
   },
   {
     "id": "w358",
     "text": "every",
-    "start": 123.681,
-    "end": 123.882
+    "start": 124.108,
+    "end": 124.368
   },
   {
     "id": "w359",
-    "text": "session,",
-    "start": 123.981,
-    "end": 124.441
+    "text": "next",
+    "start": 124.409,
+    "end": 124.669
   },
   {
     "id": "w360",
-    "text": "every",
-    "start": 124.941,
-    "end": 125.141
+    "text": "track",
+    "start": 124.749,
+    "end": 125.068
   },
   {
     "id": "w361",
-    "text": "next",
-    "start": 125.261,
-    "end": 125.481
+    "text": "adds",
+    "start": 125.488,
+    "end": 125.749
   },
   {
     "id": "w362",
-    "text": "track",
-    "start": 125.601,
-    "end": 125.921
+    "text": "to",
+    "start": 125.789,
+    "end": 125.848
   },
   {
     "id": "w363",
-    "text": "adds",
-    "start": 126.341,
-    "end": 126.661
+    "text": "the",
+    "start": 125.909,
+    "end": 126.048
   },
   {
     "id": "w364",
-    "text": "to",
-    "start": 126.702,
-    "end": 126.762
+    "text": "same",
+    "start": 126.088,
+    "end": 126.329
   },
   {
     "id": "w365",
-    "text": "the",
-    "start": 126.802,
-    "end": 126.941
+    "text": "body",
+    "start": 126.428,
+    "end": 126.648
   },
   {
     "id": "w366",
-    "text": "same",
-    "start": 126.981,
-    "end": 127.222
+    "text": "of",
+    "start": 126.688,
+    "end": 126.768
   },
   {
     "id": "w367",
-    "text": "body",
-    "start": 127.341,
-    "end": 127.561
+    "text": "work.",
+    "start": 126.848,
+    "end": 127.128
   },
   {
     "id": "w368",
-    "text": "of",
-    "start": 127.601,
-    "end": 127.701
+    "text": "Whatever",
+    "start": 127.73,
+    "end": 128.029
   },
   {
     "id": "w369",
-    "text": "work.",
-    "start": 127.782,
-    "end": 128.041
+    "text": "your",
+    "start": 128.069,
+    "end": 128.189
   },
   {
     "id": "w370",
-    "text": "Whatever",
-    "start": 128.637,
-    "end": 128.936
+    "text": "next",
+    "start": 128.249,
+    "end": 128.469
   },
   {
     "id": "w371",
-    "text": "your",
-    "start": 128.976,
-    "end": 129.096
+    "text": "move",
+    "start": 128.469,
+    "end": 128.729
   },
   {
     "id": "w372",
-    "text": "next",
-    "start": 129.156,
-    "end": 129.376
+    "text": "ends",
+    "start": 128.789,
+    "end": 128.95
   },
   {
     "id": "w373",
-    "text": "move",
-    "start": 129.376,
-    "end": 129.636
+    "text": "up",
+    "start": 128.989,
+    "end": 129.109
   },
   {
     "id": "w374",
-    "text": "ends",
-    "start": 129.696,
-    "end": 129.857
+    "text": "being",
+    "start": 129.149,
+    "end": 129.369
   },
   {
     "id": "w375",
-    "text": "up",
-    "start": 129.896,
-    "end": 130.016
+    "text": "\u2014",
+    "start": 129.369,
+    "end": 129.369
   },
   {
     "id": "w376",
-    "text": "being",
-    "start": 130.056,
-    "end": 130.276
+    "text": "the",
+    "start": 129.389,
+    "end": 129.469
   },
   {
     "id": "w377",
-    "text": "\u2014",
-    "start": 130.276,
-    "end": 130.276
+    "text": "promotion,",
+    "start": 129.509,
+    "end": 130.09
   },
   {
     "id": "w378",
     "text": "the",
-    "start": 130.296,
-    "end": 130.376
+    "start": 130.449,
+    "end": 130.529
   },
   {
     "id": "w379",
-    "text": "promotion,",
-    "start": 130.416,
-    "end": 130.997
+    "text": "redesigned",
+    "start": 130.57,
+    "end": 131.07
   },
   {
     "id": "w380",
-    "text": "the",
-    "start": 131.356,
-    "end": 131.436
+    "text": "role,",
+    "start": 131.149,
+    "end": 131.369
   },
   {
     "id": "w381",
-    "text": "redesigned",
-    "start": 131.477,
-    "end": 131.977
+    "text": "the",
+    "start": 131.749,
+    "end": 131.869
   },
   {
     "id": "w382",
-    "text": "role,",
-    "start": 132.056,
-    "end": 132.276
+    "text": "lateral",
+    "start": 131.909,
+    "end": 132.289
   },
   {
     "id": "w383",
-    "text": "the",
-    "start": 132.656,
-    "end": 132.776
+    "text": "move",
+    "start": 132.329,
+    "end": 132.609
   },
   {
     "id": "w384",
-    "text": "lateral",
-    "start": 132.816,
-    "end": 133.196
+    "text": "that",
+    "start": 132.649,
+    "end": 132.849
   },
   {
     "id": "w385",
-    "text": "move",
-    "start": 133.236,
-    "end": 133.516
+    "text": "finally",
+    "start": 132.889,
+    "end": 133.349
   },
   {
     "id": "w386",
-    "text": "that",
-    "start": 133.556,
-    "end": 133.756
+    "text": "fits.",
+    "start": 133.369,
+    "end": 133.689
   },
   {
     "id": "w387",
-    "text": "finally",
-    "start": 133.796,
-    "end": 134.256
+    "text": "It",
+    "start": 134.257,
+    "end": 134.336
   },
   {
     "id": "w388",
-    "text": "fits.",
-    "start": 134.276,
-    "end": 134.596
+    "text": "will",
+    "start": 134.376,
+    "end": 134.477
   },
   {
     "id": "w389",
-    "text": "It",
-    "start": 135.164,
-    "end": 135.243
+    "text": "be",
+    "start": 134.516,
+    "end": 134.616
   },
   {
     "id": "w390",
-    "text": "will",
-    "start": 135.283,
-    "end": 135.384
+    "text": "built",
+    "start": 134.656,
+    "end": 134.836
   },
   {
     "id": "w391",
-    "text": "be",
-    "start": 135.423,
-    "end": 135.523
+    "text": "the",
+    "start": 134.856,
+    "end": 134.996
   },
   {
     "id": "w392",
-    "text": "built",
-    "start": 135.563,
-    "end": 135.743
+    "text": "same",
+    "start": 135.136,
+    "end": 135.276
   },
   {
     "id": "w393",
-    "text": "the",
-    "start": 135.763,
-    "end": 135.903
+    "text": "way",
+    "start": 135.317,
+    "end": 135.437
   },
   {
     "id": "w394",
-    "text": "same",
-    "start": 136.043,
-    "end": 136.183
+    "text": "this",
+    "start": 135.476,
+    "end": 135.656
   },
   {
     "id": "w395",
-    "text": "way",
-    "start": 136.224,
-    "end": 136.344
+    "text": "track",
+    "start": 135.656,
+    "end": 135.876
   },
   {
     "id": "w396",
-    "text": "this",
-    "start": 136.383,
-    "end": 136.563
+    "text": "was",
+    "start": 135.937,
+    "end": 136.076
   },
   {
     "id": "w397",
-    "text": "track",
-    "start": 136.563,
-    "end": 136.783
+    "text": "built.",
+    "start": 136.096,
+    "end": 136.716
   },
   {
     "id": "w398",
-    "text": "was",
-    "start": 136.844,
-    "end": 136.983
+    "text": "One",
+    "start": 136.836,
+    "end": 136.936
   },
   {
     "id": "w399",
-    "text": "built.",
-    "start": 137.003,
-    "end": 137.623
+    "text": "action",
+    "start": 137.016,
+    "end": 137.256
   },
   {
     "id": "w400",
-    "text": "One",
-    "start": 137.743,
-    "end": 137.843
+    "text": "at",
+    "start": 137.297,
+    "end": 137.376
   },
   {
     "id": "w401",
-    "text": "action",
-    "start": 137.923,
-    "end": 138.163
+    "text": "a",
+    "start": 137.456,
+    "end": 137.476
   },
   {
     "id": "w402",
-    "text": "at",
-    "start": 138.204,
-    "end": 138.283
+    "text": "time,",
+    "start": 137.516,
+    "end": 137.836
   },
   {
     "id": "w403",
-    "text": "a",
-    "start": 138.363,
-    "end": 138.383
+    "text": "small,",
+    "start": 138.156,
+    "end": 138.537
   },
   {
     "id": "w404",
-    "text": "time,",
-    "start": 138.423,
-    "end": 138.743
+    "text": "consistent,",
+    "start": 138.736,
+    "end": 139.376
   },
   {
     "id": "w405",
-    "text": "small,",
-    "start": 139.063,
-    "end": 139.444
+    "text": "and",
+    "start": 139.596,
+    "end": 139.756
   },
   {
     "id": "w406",
-    "text": "consistent,",
-    "start": 139.643,
-    "end": 140.283
+    "text": "compounding.",
+    "start": 139.776,
+    "end": 140.296
   },
   {
     "id": "w407",
-    "text": "and",
-    "start": 140.503,
-    "end": 140.663
+    "text": "You've",
+    "start": 140.952,
+    "end": 141.192
   },
   {
     "id": "w408",
-    "text": "compounding.",
-    "start": 140.683,
-    "end": 141.203
+    "text": "earned",
+    "start": 141.232,
+    "end": 141.432
   },
   {
     "id": "w409",
-    "text": "You've",
-    "start": 141.859,
-    "end": 142.099
+    "text": "this",
+    "start": 141.473,
+    "end": 141.632
   },
   {
     "id": "w410",
-    "text": "earned",
-    "start": 142.139,
-    "end": 142.339
+    "text": "completion.",
+    "start": 141.672,
+    "end": 142.252
   },
   {
     "id": "w411",
-    "text": "this",
-    "start": 142.38,
-    "end": 142.539
+    "text": "Now",
+    "start": 142.672,
+    "end": 142.852
   },
   {
     "id": "w412",
-    "text": "completion.",
-    "start": 142.579,
-    "end": 143.159
+    "text": "let's",
+    "start": 142.892,
+    "end": 143.092
   },
   {
     "id": "w413",
-    "text": "Now",
-    "start": 143.579,
-    "end": 143.759
+    "text": "talk",
+    "start": 143.132,
+    "end": 143.293
   },
   {
     "id": "w414",
-    "text": "let's",
-    "start": 143.799,
-    "end": 143.999
+    "text": "about",
+    "start": 143.372,
+    "end": 143.632
   },
   {
     "id": "w415",
-    "text": "talk",
-    "start": 144.039,
-    "end": 144.2
+    "text": "what's",
+    "start": 143.632,
+    "end": 143.892
   },
   {
     "id": "w416",
-    "text": "about",
-    "start": 144.279,
-    "end": 144.539
-  },
-  {
-    "id": "w417",
-    "text": "what's",
-    "start": 144.539,
-    "end": 144.799
-  },
-  {
-    "id": "w418",
     "text": "next.",
-    "start": 144.879,
-    "end": 145.2
+    "start": 143.972,
+    "end": 144.293
   }
 ]

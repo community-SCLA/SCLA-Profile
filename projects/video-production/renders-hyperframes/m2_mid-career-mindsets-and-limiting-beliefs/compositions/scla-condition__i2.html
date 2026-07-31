@@ -1,22 +1,20 @@
-<!doctype html>
-<html
-  lang="en"
-  data-composition-variables='[
-    {"id":"num","type":"string","label":"Condition / principle number","default":"[[num]]"},
-    {"id":"kicker","type":"string","label":"Eyebrow (e.g. Condition one)","default":"[[kicker]]"},
-    {"id":"heading","type":"string","label":"Condition heading","default":"[[heading]]"},
-    {"id":"total","type":"string","label":"How many in the set (progress dots)","default":"[[total]]"},
-    {"id":"chips","type":"string","label":"Comma list of detail chips (up to 4)","default":"[[chips]]"},
-    {"id":"chipCues","type":"string","label":"Per-chip reveal times, local sec, comma-separated (compiler-owned)","default":""},
-    {"id":"icon","type":"string","label":"Living icon name (see design-contract.md icon library)","default":"compass"},
-    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"09 / ENGAGING"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained)","default":"8"}
-  ]'
->
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;num&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Condition / principle number&quot;,&quot;default&quot;:&quot;[[num]]&quot;},
+    {&quot;id&quot;:&quot;kicker&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Eyebrow (e.g. Condition one)&quot;,&quot;default&quot;:&quot;[[kicker]]&quot;},
+    {&quot;id&quot;:&quot;heading&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Condition heading&quot;,&quot;default&quot;:&quot;[[heading]]&quot;},
+    {&quot;id&quot;:&quot;total&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;How many in the set (progress dots)&quot;,&quot;default&quot;:&quot;[[total]]&quot;},
+    {&quot;id&quot;:&quot;chips&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Comma list of detail chips (up to 4)&quot;,&quot;default&quot;:&quot;[[chips]]&quot;},
+    {&quot;id&quot;:&quot;sub&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Optional secondary body statement, directly under the heading — ONE sentence, no chip. Use when the beat needs a second breath rather than a list (empty = none).&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;chipCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-chip reveal times, local sec, comma-separated (compiler-owned)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;icon&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Living icon name (see design-contract.md icon library)&quot;,&quot;default&quot;:&quot;compass&quot;},
+    {&quot;id&quot;:&quot;iconCue&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;09 / ENGAGING&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained)&quot;,&quot;default&quot;:&quot;8&quot;}
+  ]">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <!--
       CONDITION / PRINCIPLE CARD — one item of an enumerated set (condition N of M,
       principle N of M, pillar N of M) that the narration introduces one at a time.
@@ -82,6 +80,11 @@
         }
         #cd__i2-rule { position: absolute; left: 274px; top: 356px; width: 120px; height: 4px; background: #eaab2d; transform-origin: left center; }
         #cd__i2-heading { position: absolute; left: 160px; top: 408px; width: 1060px; font-size: 84px; font-weight: 900; color: #0d2437; line-height: 1.06; }
+        /* Secondary body statement (opt-in via `sub`), 2026-07-29 — the same
+           slot scla-statement gained the same day, for the same reason: a beat
+           whose second thought is a sentence, not a list. Sits directly under
+           the heading; the chip row moves down out of its way in JS. */
+        #cd__i2-sub { position: absolute; left: 160px; top: 700px; width: 1120px; font-size: 42px; font-weight: 400; line-height: 1.34; color: #3f4a5a; }
         #cd__i2-chips { position: absolute; left: 160px; top: 652px; width: 1120px; display: flex; flex-wrap: wrap; gap: 22px; }
         .chip { padding: 20px 38px; border: 2px solid #3393d6; border-radius: 100px; font-size: 40px; font-weight: 700; color: #0d2437; white-space: nowrap; background: #ffffff; }
         #cd__i2-iconwrap { position: absolute; left: 1370px; top: 378px; width: 300px; height: 300px; }
@@ -100,20 +103,26 @@
         #root[data-theme="cadence"] .chip { border-color: #0d2437; }
       </style>
 
-      <div id="root" data-composition-id="scla-condition__i2" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow>
-        <div class="cd__i2-bg"></div>
-        <div id="cd__i2-ghost" data-layout-allow-overflow></div>
-        <div class="cd__i2-corner" id="cd__i2-corner-tl"></div>
-        <div class="cd__i2-corner" id="cd__i2-corner-br"></div>
-        <div id="cd__i2-progress"></div>
-        <div id="cd__i2-num">1</div>
-        <div id="cd__i2-iconwrap"><svg viewBox="0 0 96 96" fill="none"></svg></div>
-        <div id="cd__i2-kicker">Condition one</div>
-        <div id="cd__i2-rule"></div>
-        <div id="cd__i2-heading">Engaging work</div>
-        <div id="cd__i2-chips"></div>
-        <div id="cd__i2-index" data-layout-allow-occlusion>09 / ENGAGING</div>
-        <div id="cd__i2-brandline">SCLA · Lesson System</div>
+      <div data-hf-id="hf-z0vd" id="root" data-composition-id="scla-condition__i2" data-width="1920" data-height="1080" data-duration="8" data-layout-allow-overflow="">
+        <div data-hf-id="hf-93i3" class="cd__i2-bg"></div>
+        <div data-hf-id="hf-9r73" id="cd__i2-ghost" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-ay25" class="cd__i2-corner" id="cd__i2-corner-tl"></div>
+        <div data-hf-id="hf-pmnp" class="cd__i2-corner" id="cd__i2-corner-br"></div>
+        <div data-hf-id="hf-glg0" id="cd__i2-progress"></div>
+        <div data-hf-id="hf-hko2" id="cd__i2-num">1</div>
+        <div data-hf-id="hf-xs7y" id="cd__i2-iconwrap"><svg data-hf-id="hf-2787" viewBox="0 0 96 96" fill="none" /></div>
+        <div data-hf-id="hf-pmlb" id="cd__i2-kicker">Condition one</div>
+        <div data-hf-id="hf-vuv7" id="cd__i2-rule"></div>
+        <div data-hf-id="hf-3d56" id="cd__i2-heading">Engaging work</div>
+        <!-- Geometry declaration for the run-time chips (see scla-chips.html for
+             the full note). Without it check_geometry graded ZERO chip boxes on
+             every condition scene in the library. -->
+        <div data-hf-id="hf-43ei" id="cd__i2-sub" data-slot="sub" data-present-if="sub"></div>
+        <div data-hf-id="hf-ce5e" id="cd__i2-chips" data-geometry-alt-if="sub" data-geometry-alt="top: 850px">
+          <div data-hf-id="hf-ee0w" class="chip" data-slot="chips" data-geometry-repeat="," data-geometry-proto=""></div>
+        </div>
+        <div data-hf-id="hf-lyg1" id="cd__i2-index" data-layout-allow-occlusion="">09 / ENGAGING</div>
+        <div data-hf-id="hf-pffb" id="cd__i2-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>
@@ -192,6 +201,12 @@
           var cueArr = String(vars.chipCues || "").split(",").map(function (s) { return parseFloat(s); }).filter(function (v) { return !isNaN(v); });
           var chipEls = [];
           var chost = document.getElementById("cd__i2-chips");
+          // Secondary body statement: absent unless authored. When present the
+          // chip row drops below it so the two never share pixels.
+          var subEl = document.getElementById("cd__i2-sub");
+          var subText = String(vars.sub || "").trim();
+          if (subText) { subEl.textContent = subText; chost.style.top = "850px"; }
+          else { subEl.remove(); }
           chips.forEach(function (t) { var d = document.createElement("div"); d.className = "chip"; d.textContent = t; chost.appendChild(d); chipEls.push(d); });
 
           window.__timelines = window.__timelines || {};

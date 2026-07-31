@@ -32,8 +32,7 @@
         "point4": "",
         "sceneIndex": "02 / THE DEFAULT",
         "subBeats": "",
-        "subCues": "",
-        "icons": ""
+        "subCues": ""
       }
     },
     {
@@ -170,7 +169,7 @@
         "statement": "Let Each Piece Do Its Own Job",
         "lines": "Separate each part with a line|Here's what that shift looks like",
         "sceneIndex": "09 / ONE RULE",
-        "icon": "",
+        "icon": "examine",
         "iconCue": ""
       }
     },
@@ -193,7 +192,6 @@
         "bSub": "Cross-functional initiatives, better outcomes",
         "winner": "b",
         "winnerAfter": "",
-        "icons": "question,done",
         "actions": "A,B,morph",
         "notes": "",
         "sceneIndex": "10 / THE SHIFT"
@@ -201,10 +199,10 @@
     },
     {
       "id": "scene-11",
-      "template": "scla-points",
+      "template": "scla-steps",
       "narration": "Same person. But now the profile points forward. Now for your \"About\" summary. Think of it as a short narrative rather than a resume dump.",
       "cues": {
-        "pointCues": [
+        "stepCues": [
           "profile points forward",
           "a short narrative",
           "rather than a resume dump"
@@ -213,14 +211,14 @@
       "vars": {
         "label": "Same person, new direction",
         "heading": "From This Chapter to the Next",
-        "point1": "Same person, but the profile now points forward",
-        "point2": "Write your About summary as a narrative",
-        "point3": "Not a resume dump",
-        "point4": "",
         "sceneIndex": "11 / NEW CHAPTER",
         "subBeats": "",
         "subCues": "",
-        "icons": ""
+        "step1": "Same person, but the profile now points forward",
+        "step2": "Write your About summary as a narrative",
+        "step3": "Not a resume dump",
+        "step4": "",
+        "icon": "question"
       }
     },
     {
@@ -243,8 +241,7 @@
         "point4": "",
         "sceneIndex": "12 / THE SUMMARY",
         "subBeats": "",
-        "subCues": "",
-        "icons": "growth,insight,examine"
+        "subCues": ""
       }
     },
     {
@@ -256,7 +253,7 @@
         "statement": "Draft a Future-Oriented Headline and Summary",
         "lines": "",
         "sceneIndex": "13 / THE MODULE",
-        "icon": "",
+        "icon": "map",
         "iconCue": ""
       }
     },

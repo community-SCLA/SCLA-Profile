@@ -1,25 +1,22 @@
-<!doctype html>
-<html
-  lang="en"
-  data-composition-variables='[
-    {"id":"label","type":"string","label":"Section label","default":"[[label]]"},
-    {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
-    {"id":"step1","type":"string","label":"Step 1","default":"[[step1]]"},
-    {"id":"step2","type":"string","label":"Step 2","default":"[[step2]]"},
-    {"id":"step3","type":"string","label":"Step 3","default":"[[step3]]"},
-    {"id":"step4","type":"string","label":"Step 4 (empty to hide)","default":"[[step4]]"},
-    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"03 / PROCESS"},
-    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
-    {"id":"subBeats","type":"string","label":"Sub-beats — narration-synced live line, pipe-separated (empty = off)","default":""},
-    {"id":"subCues","type":"string","label":"Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)","default":""},
-    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"10"},
-    {"id":"stepCues","type":"string","label":"Per-step activation times, local sec, comma-separated (empty = default spread)","default":""},
-    {"id":"icon","type":"string","label":"Optional living icon name (see design-contract.md icon library; empty = none). Replaces the ghost numeral when set.","default":""},
-    {"id":"iconCue","type":"string","label":"Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)","default":""}
-  ]'
->
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+    {&quot;id&quot;:&quot;label&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Section label&quot;,&quot;default&quot;:&quot;[[label]]&quot;},
+    {&quot;id&quot;:&quot;heading&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Heading&quot;,&quot;default&quot;:&quot;[[heading]]&quot;},
+    {&quot;id&quot;:&quot;step1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 1&quot;,&quot;default&quot;:&quot;[[step1]]&quot;},
+    {&quot;id&quot;:&quot;step2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 2&quot;,&quot;default&quot;:&quot;[[step2]]&quot;},
+    {&quot;id&quot;:&quot;step3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 3&quot;,&quot;default&quot;:&quot;[[step3]]&quot;},
+    {&quot;id&quot;:&quot;step4&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Step 4 (empty to hide)&quot;,&quot;default&quot;:&quot;[[step4]]&quot;},
+    {&quot;id&quot;:&quot;sceneIndex&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene index label&quot;,&quot;default&quot;:&quot;03 / PROCESS&quot;},
+    {&quot;id&quot;:&quot;theme&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Style package (summit | horizon | cadence)&quot;,&quot;default&quot;:&quot;summit&quot;},
+    {&quot;id&quot;:&quot;subBeats&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Sub-beats — narration-synced live line, pipe-separated (empty = off)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;subCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-sub-beat reveal times, local sec, comma-separated (compiler-owned)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;sceneDuration&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Scene duration in seconds (compiler-maintained; times the late-phase resolve)&quot;,&quot;default&quot;:&quot;10&quot;},
+    {&quot;id&quot;:&quot;stepCues&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Per-step activation times, local sec, comma-separated (empty = default spread)&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;icon&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Optional living icon name (see design-contract.md icon library; empty = none). Replaces the ghost numeral when set.&quot;,&quot;default&quot;:&quot;&quot;},
+    {&quot;id&quot;:&quot;iconCue&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Optional icon draw cue, local sec (empty = entrance-slot draw; Motion v2 2026-07-27)&quot;,&quot;default&quot;:&quot;&quot;}
+  ]">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
   </head>
   <body>
     <template>
@@ -175,6 +172,22 @@
         }
         /* Sub-beats — narration-synced live line (dead-hold fix, 2026-07-14).
            One beat visible at a time; absent unless subBeats is set. */
+        #st-subbeat-host {
+          /* The sub-beat's containing block must be the FRAME. This host was
+             unstyled, so the `bottom` below resolved against whichever
+             absolutely-positioned wrapper happened to enclose it — putting
+             every sub-beat ABOVE the frame (y=-180 here, y=-222 on
+             scla-chips). That is not a prototype-only artifact: the run-time
+             lines appended to this host inherit the same containing block, so
+             real sub-beats rendered out of place too, which is how scla-loop's
+             sub-beat landed on a caption on 2026-07-29. Two build agents
+             worked around it by abandoning subBeats; the defect belongs here,
+             once, rather than in every scene plan that wants a sub-beat. */
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+
         .st-subbeat {
           position: absolute;
           left: 160px;
@@ -212,43 +225,43 @@
         #root[data-theme="cadence"] #st-track-fill { background: #eaab2d; }
       </style>
 
-      <div id="root" data-composition-id="scla-steps" data-width="1920" data-height="1080" data-duration="8">
-        <div class="st-bg"></div>
-        <div id="st-panel"></div>
-        <div id="st-ghost-num" data-layout-allow-overflow data-layout-allow-occlusion>4</div>
-        <div id="st-iconwrap" data-layout-allow-overflow><svg viewBox="0 0 96 96" fill="none"></svg></div>
-        <div id="st-head">
-          <div id="st-label-row">
-            <div id="st-tick"></div>
-            <div id="st-label" data-layout-allow-occlusion>The shift</div>
+      <div data-hf-id="hf-gkya" id="root" data-composition-id="scla-steps" data-width="1920" data-height="1080" data-duration="8">
+        <div data-hf-id="hf-fxrv" class="st-bg"></div>
+        <div data-hf-id="hf-i5ph" id="st-panel"></div>
+        <div data-hf-id="hf-803m" id="st-ghost-num" data-layout-allow-overflow="" data-layout-allow-occlusion="">4</div>
+        <div data-hf-id="hf-564x" id="st-iconwrap" data-layout-allow-overflow=""><svg data-hf-id="hf-2787" viewBox="0 0 96 96" fill="none" /></div>
+        <div data-hf-id="hf-r6en" id="st-head">
+          <div data-hf-id="hf-kyvq" id="st-label-row">
+            <div data-hf-id="hf-0jhe" id="st-tick"></div>
+            <div data-hf-id="hf-y4vy" id="st-label" data-layout-allow-occlusion="">The shift</div>
           </div>
-          <h2 id="st-heading" data-layout-allow-occlusion>From pressure to process</h2>
+          <h2 data-hf-id="hf-8pv5" id="st-heading" data-layout-allow-occlusion="">From pressure to process</h2>
         </div>
-        <div id="st-track"></div>
-        <div id="st-track-fill"></div>
-        <div class="st-node" id="st-node-1"><div class="st-node-fill"></div><span>1</span></div>
-        <div class="st-node" id="st-node-2"><div class="st-node-fill"></div><span>2</span></div>
-        <div class="st-node" id="st-node-3"><div class="st-node-fill"></div><span>3</span></div>
-        <div class="st-node" id="st-node-4"><div class="st-node-fill"></div><span>4</span></div>
-        <div class="st-caption" id="st-cap-1">Define success for the next 3–5 years</div>
-        <div class="st-caption" id="st-cap-2">Broaden your options</div>
-        <div class="st-caption" id="st-cap-3">Compare with your criteria</div>
-        <div class="st-caption" id="st-cap-4">Notice what you still don't know</div>
-        <div id="st-done" data-layout-allow-occlusion><svg viewBox="0 0 96 96" fill="none"><path d="M34 49 L44 60 L64 37" fill="none" stroke="#eaab2d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100"></path></svg></div>
+        <div data-hf-id="hf-7e22" id="st-track"></div>
+        <div data-hf-id="hf-nnis" id="st-track-fill"></div>
+        <div data-hf-id="hf-l4l4" class="st-node" id="st-node-1"><div data-hf-id="hf-pq60" class="st-node-fill"></div><span data-hf-id="hf-ikog">1</span></div>
+        <div data-hf-id="hf-w02r" class="st-node" id="st-node-2"><div data-hf-id="hf-ko0g" class="st-node-fill"></div><span data-hf-id="hf-hdrd">2</span></div>
+        <div data-hf-id="hf-pucy" class="st-node" id="st-node-3"><div data-hf-id="hf-jh3d" class="st-node-fill"></div><span data-hf-id="hf-hs2e">3</span></div>
+        <div data-hf-id="hf-9a91" class="st-node" id="st-node-4"><div data-hf-id="hf-jvee" class="st-node-fill"></div><span data-hf-id="hf-gl5b">4</span></div>
+        <div data-hf-id="hf-wkwo" class="st-caption" id="st-cap-1">Define success for the next 3–5 years</div>
+        <div data-hf-id="hf-rig5" class="st-caption" id="st-cap-2">Broaden your options</div>
+        <div data-hf-id="hf-hyl5" class="st-caption" id="st-cap-3">Compare with your criteria</div>
+        <div data-hf-id="hf-1qyf" class="st-caption" id="st-cap-4">Notice what you still don't know</div>
+        <div data-hf-id="hf-2j5v" id="st-done" data-layout-allow-occlusion=""><svg data-hf-id="hf-fl07" viewBox="0 0 96 96" fill="none"><path data-hf-id="hf-299r" d="M34 49 L44 60 L64 37" fill="none" stroke="#eaab2d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100" /></svg></div>
         <!-- Static append target for cued sub-beats. Appending to #root by id is unsafe:
              every scene's template root is id="root", so in the composited render
              getElementById("root") resolves to the FIRST scene's root (see the
              scla-chips subBeat root-cause note, fixed 2026-07-27). -->
-        <div id="st-subbeat-host">
+        <div data-hf-id="hf-odio" id="st-subbeat-host">
           <!-- Geometry declaration for the sub-beat lines the script creates at
                run time: empty and opacity:0, so it paints nothing. It exists so
                check_geometry.py can see the box those lines occupy. A box only
                the browser knows about is a box no gate can grade — which is how
                scla-loop's sub-beat landed on a caption on 2026-07-29. -->
-          <div class="st-subbeat" id="st-subbeat-proto" data-slot="subBeats" data-geometry-proto></div>
+          <div data-hf-id="hf-slcb" class="st-subbeat" id="st-subbeat-proto" data-slot="subBeats" data-geometry-proto=""></div>
         </div>
-        <div id="st-index" data-layout-allow-occlusion>03 / PROCESS</div>
-        <div id="st-brandline">SCLA · Lesson System</div>
+        <div data-hf-id="hf-a0qc" id="st-index" data-layout-allow-occlusion="">03 / PROCESS</div>
+        <div data-hf-id="hf-0j1z" id="st-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>

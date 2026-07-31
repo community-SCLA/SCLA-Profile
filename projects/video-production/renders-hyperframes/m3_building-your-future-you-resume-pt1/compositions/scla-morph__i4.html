@@ -9,7 +9,6 @@
     {"id":"bSub","type":"string","label":"Card B subtitle","default":"[[bSub]]"},
     {"id":"winner","type":"string","label":"Winning card after morph (a | b)","default":"b"},
     {"id":"winnerAfter","type":"string","label":"Relabel winner title after morph (blank keeps title)","default":""},
-    {"id":"icons","type":"string","label":"Optional per-card living icons — comma list of 2 ICONS names for cards A,B (empty = none)","default":""},
     {"id":"actions","type":"string","label":"Comma list, one per cue: A | B | morph | note","default":"A,B,morph,note,note,note"},
     {"id":"notes","type":"string","label":"Pipe-separated caption lines consumed by note actions","default":""},
     {"id":"pointCues","type":"string","label":"Per-action reveal times, local sec, comma-separated (compiler-owned)","default":""},
@@ -82,15 +81,11 @@
         .mp__i4-note::before { content: ""; position: absolute; left: 0; top: 16px; width: 18px; height: 18px; border-radius: 50%; background: #eaab2d; }
         #mp__i4-index { position: absolute; right: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
         #mp__i4-brandline { position: absolute; left: 120px; bottom: 58px; font-size: 20px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5f6f96; }
-        /* Optional per-card living icon (Motion v2, 2026-07-27) — geometry from the
-           canonical ICONS map (source of truth: scla-condition.html); drawn on with
-           each card's entrance. Absent unless the icons variable is set. */
-        .mp__i4-cicon { position: absolute; right: 24px; top: 24px; width: 56px; height: 56px; }
-        .mp__i4-cicon svg { position: absolute; inset: 0; }
-        .mp__i4-cicon .mci-stroke { stroke: #0d2437; }
-        .mp__i4-cicon .mci-stroke.mci-gold { stroke: #eaab2d; }
-        .mp__i4-cicon .mci-dot { fill: #0d2437; }
-        .mp__i4-cicon .mci-dot.mci-gold { fill: #eaab2d; }
+        /* No per-card icon slot. Removed 2026-07-29 on owner instruction — the
+           same ban as scla-points' row icons ("no future renders should include
+           the icons within this style of illustration"). The `.mci-*` classes
+           below survive because #mp__i4-check, the morph's single resolve glyph,
+           uses them; it is one closing beat, not an icon per card. */
         /* Closing-beat check (Motion v2) — done-style glyph beside the winner's
            top-right corner after the morph resolves. */
         #mp__i4-check { position: absolute; left: 1030px; top: 262px; width: 60px; height: 60px; opacity: 0; }
@@ -102,15 +97,11 @@
         #root[data-theme="horizon"] #mp__i4-rule { background: #3393d6; }
         #root[data-theme="horizon"] .card.win { border-color: #3393d6; box-shadow: 0 0 0 4px rgba(51, 147, 214, 0.18); }
         #root[data-theme="horizon"] .mp__i4-note::before { background: #3393d6; }
-        #root[data-theme="horizon"] .mp__i4-cicon .mci-stroke.mci-gold { stroke: #3393d6; }
-        #root[data-theme="horizon"] .mp__i4-cicon .mci-dot.mci-gold { fill: #3393d6; }
         #root[data-theme="horizon"] #mp__i4-check .mci-stroke.mci-gold { stroke: #3393d6; }
         #root[data-theme="cadence"] .mp__i4-bg { background-image: linear-gradient(rgba(51, 147, 214, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(51, 147, 214, 0.09) 1px, transparent 1px); background-size: 96px 96px; }
         #root[data-theme="cadence"] .mp__i4-bg::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #eaab2d; }
         #root[data-theme="cadence"] #mp__i4-rule { width: 170px; }
         #root[data-theme="cadence"] .card .cn { background: #eaab2d; color: #0d2437; }
-        #root[data-theme="cadence"] .mp__i4-cicon .mci-stroke.mci-gold { stroke: #eaab2d; }
-        #root[data-theme="cadence"] .mp__i4-cicon .mci-dot.mci-gold { fill: #eaab2d; }
         #root[data-theme="cadence"] #mp__i4-check .mci-stroke.mci-gold { stroke: #eaab2d; }
       </style>
 
@@ -123,34 +114,26 @@
         <div id="mp__i4-rule"></div>
         <div class="card" id="mp__i4-cardA"><div class="cn" id="mp__i4-cnA">1</div><div class="ct" id="mp__i4-ctA">Pick the destination</div><div class="cs" id="mp__i4-csA">choose the job first</div></div>
         <div class="card" id="mp__i4-cardB"><div class="cn" id="mp__i4-cnB">2</div><div class="ct" id="mp__i4-ctB">Know what you optimize for</div><div class="cs" id="mp__i4-csB">define good work first</div></div>
-        <div id="mp__i4-notes"></div>
+        <!-- Geometry declaration for the run-time note captions (see
+             scla-chips.html). These are the captions that sat beside a
+             one-card morph on 2026-07-29 with nothing to annotate. -->
+        <div id="mp__i4-notes">
+          <div class="mp__i4-note" data-slot="notes" data-geometry-repeat="|" data-geometry-proto></div>
+        </div>
         <div id="mp__i4-index" data-layout-allow-occlusion>03 / FLIP</div>
         <div id="mp__i4-brandline">SCLA · Lesson System</div>
       </div>
 
       <script>
         (function () {
-          // Living-icon geometry — mirrored VERBATIM from scla-condition.html's ICONS
-          // map (the source of truth; design-contract.md → "Living icon library"). Edit there
-          // first, then re-sync this copy.
+          // RING is the shared circle geometry for #mp__i4-check, the morph's single
+          // resolve glyph. The per-card ICONS library was deleted 2026-07-29 with
+          // the icons slot — see the CSS note above.
           var RING = "M 48 16 A 32 32 0 1 1 48 80 A 32 32 0 1 1 48 16 Z"; // closed circle, r32 @ (48,48)
-          var ICONS = {
-            compass: { paths: [{ d: RING }, { d: "M37 59 L54 42", gd: true }, { d: "M59 37 L52 44 L55 47 Z", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
-            pressure: { paths: [{ d: RING }, { d: "M48 48 L48 28" }, { d: "M48 48 L63 55", gd: true }], circles: [{ cx: 48, cy: 48, r: 3.5, fill: true }] },
-            insight: { paths: [{ d: "M 48 22 A 18 18 0 1 1 48 58 A 18 18 0 1 1 48 22 Z" }, { d: "M40 55 L56 55" }, { d: "M43 61 L53 61" }, { d: "M42 43 L48 36 L54 43", gd: true }], circles: [] },
-            salary: { paths: [{ d: "M26 46 L46 26 L70 26 L70 50 L50 70 Z" }], circles: [{ cx: 58, cy: 38, r: 5, gd: true }] },
-            mentorship: { paths: [{ d: "M20 70 Q36 52 52 70" }, { d: "M50 72 Q64 56 78 72", gd: true }], circles: [{ cx: 36, cy: 34, r: 10 }, { cx: 64, cy: 40, r: 9, gd: true }] },
-            mentorship2: { paths: [{ d: "M20 70 Q36 52 52 70", gd: true }, { d: "M50 72 Q64 56 78 72" }], circles: [{ cx: 36, cy: 34, r: 9, gd: true }, { cx: 64, cy: 40, r: 10 }] },
-            growth: { paths: [{ d: "M22 74 L22 22" }, { d: "M22 74 L76 74" }, { d: "M28 62 L42 50 L54 56 L72 32" }, { d: "M62 32 L72 32 L72 42", gd: true }], circles: [] },
-            target: { paths: [{ d: RING }, { d: "M 48 28 A 20 20 0 1 1 48 68 A 20 20 0 1 1 48 28 Z" }], circles: [{ cx: 48, cy: 48, r: 8, gd: true, fill: true }] },
-            question: { paths: [{ d: RING }, { d: "M39 40 Q39 30 48 30 Q58 30 58 40 Q58 48 48 51 L48 56", gd: true }], circles: [{ cx: 48, cy: 65, r: 3.2, gd: true, fill: true }] },
-            examine: { paths: [{ d: "M 48 12 A 22 22 0 1 1 48 56 A 22 22 0 1 1 48 12 Z" }, { d: "M58 58 L76 76", gd: true }], circles: [] },
-            done: { paths: [{ d: RING }, { d: "M34 49 L44 60 L64 37", gd: true }], circles: [] }
-          };
           var defaults = {
             kicker: "Flip the order", aTitle: "Pick the destination", aSub: "choose the job first",
             bTitle: "Know what you optimize for", bSub: "define good work first", winner: "b", winnerAfter: "",
-            icons: "", actions: "A,B,morph,note,note,note", notes: "", pointCues: "",
+            actions: "A,B,morph,note,note,note", notes: "", pointCues: "",
             sceneIndex: "03 / FLIP", theme: "summit", sceneDuration: "12",
           };
           var vars = Object.assign({}, defaults,
@@ -178,61 +161,10 @@
           var actions = String(vars.actions).split(",").map(function (s) { return s.trim(); });
           var cueArr = String(vars.pointCues || "").split(",").map(function (s) { return parseFloat(s); }).filter(function (v) { return !isNaN(v); });
 
-          // Optional per-card living icons (Motion v2, 2026-07-27): icons = comma list
-          // of up to 2 ICONS names for cards A,B. Empty (the default) = no DOM, no
-          // timeline impact — existing builds compile unchanged.
           var SVGNS = "http://www.w3.org/2000/svg";
-          function buildIcon(host, name, cls) {
-            var ic = ICONS[name];
-            if (!ic) return null;
-            var wrap = document.createElement("div");
-            wrap.className = cls;
-            var svg = document.createElementNS(SVGNS, "svg");
-            svg.setAttribute("viewBox", "0 0 96 96");
-            svg.setAttribute("fill", "none");
-            wrap.appendChild(svg);
-            host.appendChild(wrap);
-            // Hidden until drawIcon() reveals it at its cue (render-qa friction
-            // log, 2026-07-27 B1): round stroke-linecaps paint a filled dot even
-            // at strokeDashoffset 100/zero visible length, so without this the
-            // dot is visible — cascading through the card's own fade-in — before
-            // the draw-on fires.
-            wrap.style.opacity = "0";
-            var draws = [], dots = [];
-            (ic.paths || []).forEach(function (p) {
-              var el = document.createElementNS(SVGNS, "path");
-              el.setAttribute("d", p.d); el.setAttribute("fill", "none");
-              el.setAttribute("class", "mci-stroke" + (p.gd ? " mci-gold" : ""));
-              el.setAttribute("stroke-width", "4"); el.setAttribute("stroke-linecap", "round"); el.setAttribute("stroke-linejoin", "round");
-              el.setAttribute("pathLength", "100"); svg.appendChild(el); draws.push(el);
-            });
-            (ic.circles || []).forEach(function (c) {
-              var el = document.createElementNS(SVGNS, "circle");
-              el.setAttribute("cx", c.cx); el.setAttribute("cy", c.cy); el.setAttribute("r", c.r);
-              if (c.fill) {
-                el.setAttribute("class", "mci-dot" + (c.gd ? " mci-gold" : "")); el.setAttribute("stroke", "none"); dots.push(el);
-              } else {
-                el.setAttribute("class", "mci-stroke" + (c.gd ? " mci-gold" : "")); el.setAttribute("fill", "none");
-                el.setAttribute("stroke-width", "4"); el.setAttribute("pathLength", "100"); draws.push(el);
-              }
-              svg.appendChild(el);
-            });
-            return { wrap: wrap, draws: draws, dots: dots };
-          }
-          var iconNames = String(vars.icons || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
-          var iconA = iconNames[0] ? buildIcon(cardA, iconNames[0], "mp__i4-cicon") : null;
-          var iconB = iconNames[1] ? buildIcon(cardB, iconNames[1], "mp__i4-cicon") : null;
 
           window.__timelines = window.__timelines || {};
           var tl = gsap.timeline({ paused: true });
-          // Living-icon draw-on, fired with its card's entrance (strokeDashoffset,
-          // gold dots pop last — same grammar as scla-condition).
-          function drawIcon(icon, at) {
-            if (!icon) return;
-            tl.set(icon.wrap, { opacity: 1 }, at);
-            if (icon.draws.length) tl.fromTo(icon.draws, { strokeDasharray: "100 100", strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power3.out", stagger: 0.13 }, at);
-            if (icon.dots.length) tl.fromTo(icon.dots, { scale: 0, transformOrigin: "center" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, at + 0.45);
-          }
           // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut).
           tl.fromTo("#mp__i4-ghost", { opacity: 0.4 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo(["#mp__i4-corner-tl", "#mp__i4-corner-br", "#mp__i4-index", "#mp__i4-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
@@ -247,8 +179,8 @@
             // Uncued fallback spread tightened 2 + i*2.5 → 1.4 + i*1.8 (Motion v2,
             // 2026-07-27) so the FLIP payoff lands mid-scene, not at ~7s.
             var at = i < cueArr.length ? cueArr[i] : 1.4 + i * 1.8;
-            if (act === "A") { tl.fromTo(cardA, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, at); drawIcon(iconA, at + 0.15); }
-            else if (act === "B") { tl.fromTo(cardB, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, at); drawIcon(iconB, at + 0.15); }
+            if (act === "A") { tl.fromTo(cardA, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, at); }
+            else if (act === "B") { tl.fromTo(cardB, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, at); }
             else if (act === "morph") {
               morphAt = at;
               // FLIP reorder: winner rises to TOP and grows+gold; loser drops to BOT and dims.
