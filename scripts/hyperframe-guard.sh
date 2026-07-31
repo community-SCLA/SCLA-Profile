@@ -124,10 +124,18 @@ if [ "${1:-}" = "--hook" ]; then
   WS="$(resolve_ws "$FP")" || exit 0
   VIOL="$(check_workspace "$WS" "$KIND")" || true
   [ -n "$VIOL" ] || exit 0
-  MSG="FRAME CONTRACT (automated guard, fired on your ${KIND/scenes/scenes.json} write; graded by preflight.py --static — the same sections the hard gate runs). These are HARD GATES that preflight will fail on — fix them NOW, while the scene plan is still a cheap JSON edit, not after the build is finished:
+  # Freeform (agent-native) lane: no scenes.json, the HTML IS the authored
+  # artifact — the template lane's "never edit index.html" advice is exactly
+  # wrong there. Same gates either way; only the fix instruction differs.
+  if [ ! -f "$WS/scenes.json" ] && [ -f "$WS/audio_request.json" ]; then
+    FIX="This is a FREEFORM workspace: the HTML is the authored artifact — fix the composition (or audio_request.json for narration findings) directly. Contract: /render-lessons \"Freeform build sequence\"."
+  else
+    FIX="Fix the plan in scenes.json and let build_index.py recompile — NEVER edit index.html by hand; it is compiled output and your edit will be overwritten. Contract: design-system/docs/design-contract.md -> \"Variety contract\" and \"Type rules\"."
+  fi
+  MSG="FRAME CONTRACT (automated guard, fired on your ${KIND/scenes/scenes.json} write; graded by preflight.py --static — the same sections the hard gate runs). These are HARD GATES that preflight will fail on — fix them NOW, while the fix is still cheap, not after the build is finished:
 
 ${VIOL}
-Fix the plan in scenes.json and let build_index.py recompile — NEVER edit index.html by hand; it is compiled output and your edit will be overwritten. Contract: design-system/docs/design-contract.md -> \"Variety contract\" and \"Type rules\". Do not proceed to narration synthesis or render with these outstanding."
+${FIX} Do not proceed to narration synthesis or render with these outstanding."
   jq -cn --arg m "$MSG" \
     '{hookSpecificOutput:{hookEventName:"PostToolUse", additionalContext:$m}}'
   exit 0

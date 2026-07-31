@@ -13,8 +13,10 @@
 #       PUBLISH phase, run only after the sampled frames pass review: check the
 #       qa/VERIFIED marker -> file exactly that MP4 -> upload to Wistia ->
 #       record stem+URL in published.tsv AND refinement-log.md -> move script
-#       to rendered/ -> commit -> delete the local MP4 -> prune the workspace
-#       in place (kept editable).
+#       to rendered/ -> commit -> prune the workspace in place (kept editable).
+#       The filed MP4 is KEPT under renders-mp4/ (gitignored) as the local
+#       backup of the delivered cut — owner call 2026-07-29, and what
+#       renders-mp4/README.md said all along.
 #
 # Fail soft, always: a guard failure quarantines THIS video and exits non-zero;
 # the caller moves on to the next. One bad lesson never costs the others.
@@ -245,7 +247,7 @@ if rest and rest[-1] == prog:
 prefix = "_".join(rest)
 
 rendered_cell = f"{rdate} → `../renders-mp4/{prog}/hyperframes/{filed}` · Wistia {url}"
-note = f"published {rdate} (AUTO-BATCH); local MP4 deleted after upload, workspace pruned in place and still editable"
+note = f"published {rdate} (AUTO-BATCH); local MP4 kept in renders-mp4/, workspace pruned in place and still editable"
 
 # Rows abbreviate the stem (`title_..._DATE.txt`), so match on prefix.
 hit = None
@@ -315,11 +317,11 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" \
   || publish_quarantine "git commit failed"
 echo "   committed"
 
-# Prune BEFORE deleting the MP4 — archive-lesson.sh refuses to prune a
-# workspace whose deliverable isn't filed, and that safety check is worth keeping.
+# Prune the workspace (regenerable bulk only). archive-lesson.sh refuses to
+# prune a workspace whose deliverable isn't filed — a check that now holds for
+# good, since the filed MP4 is never removed.
 bash "$REPO/scripts/archive-lesson.sh" "$STEM" --in-place || echo "   (prune skipped)"
-rm -f "$DEST_DIR/$FILED"
-echo "   local MP4 deleted — Wistia is the delivery copy"
+echo "   local MP4 kept: renders-mp4/$PROGRAM/hyperframes/$FILED (gitignored backup)"
 
 echo
 echo "PUBLISHED $STEM $WURL"

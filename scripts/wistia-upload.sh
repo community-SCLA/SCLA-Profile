@@ -6,6 +6,9 @@
 # and the upload API returns 200 + hashed_id with no web-UI step. This script
 # is the reusable form of that call, wired into /render-lessons SHIP.
 #
+# The poster frame is left to Wistia (owner call 2026-07-31 retiring the
+# first-frame poster step): this script uploads and reports the URL, nothing else.
+#
 # Usage:   bash scripts/wistia-upload.sh <mp4-path> <program-slug> [title]
 # Example: bash scripts/wistia-upload.sh \
 #            renders-mp4/early-career-boost/hyperframes/foo_2026-07-22.mp4 \
@@ -62,5 +65,6 @@ fi
 
 echo "Uploaded: $TITLE"
 echo "hashed_id: $HASHED_ID"
+
 echo "Share URL:  https://sclc.wistia.com/medias/$HASHED_ID"
 echo "Embed URL:  https://fast.wistia.net/embed/iframe/$HASHED_ID"

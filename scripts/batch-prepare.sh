@@ -60,9 +60,15 @@ if [[ ! -d "$RUN/scaffold" ]]; then
   rm -rf "$RUN/scaffold/compositions"; cp -a "$DS/compositions" "$RUN/scaffold/compositions"
   rm -rf "$RUN/scaffold/assets";       cp -a "$DS/assets"       "$RUN/scaffold/assets"
 
-  # init writes a CLAUDE.md routing to skills this repo deleted.
-  printf '# Build workspace. Sequence + commands: _run/BUILD-KIT.md. Design contract: design-contract.md (numbers: tokens.yml)\n' \
-    > "$RUN/scaffold/CLAUDE.md"
+  # init writes AGENTS.md and CLAUDE.md that route to the generic hyperframes
+  # workflows this pipeline forbids (/produce-video: "never route SCLA lesson
+  # videos into generic hyperframes workflow skills") and name `npm run check`
+  # as the gate when the real gate is preflight.py. Nothing in the pipeline
+  # reads either file: a cold build subagent is handed _run/BUILD-KIT.md by
+  # path in its prompt, and anyone opening a workspace inherits
+  # projects/video-production/CLAUDE.md from the parent tree. Delete rather
+  # than correct — a workspace carries no agent instructions of its own.
+  rm -f "$RUN/scaffold/AGENTS.md" "$RUN/scaffold/CLAUDE.md"
 
   # The blank example has no rail and no <audio> host, and every build needs
   # both. Wiring them here (per design-contract.md "Host-root progress rail") means no

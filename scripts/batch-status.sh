@@ -121,6 +121,28 @@ for prog in ordered:
     if not refined.is_dir():
         continue
     queued, blocked, built, stranded = [], [], [], []
+    # A workspace FOLDER only proves a build was started. Until 2026-07-29 this
+    # tool called any existing workspace "built", which read as "finished, just
+    # not uploaded" — so a resuming session faced a republish-or-rebuild call
+    # with no evidence either way, and rebuilding discards valid narration audio.
+    # These probes are cheap (no browser, no gate run) and claim only what the
+    # files on disk actually show; preflight remains the sole authority on
+    # gate-clean. Found when 12 of 13 "built" lessons turned out to have never
+    # had compile_timeline.py --apply run against them.
+    def ws_state(ws_dir):
+        if ws_dir is None or not (ws_dir / "scenes.json").is_file():
+            return "no scene plan"
+        if not (ws_dir / "assets" / "voice" / "narration.wav").is_file():
+            return "planned, NOT synthesized"
+        try:
+            html = (ws_dir / "index.html").read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            return "synthesized, NOT compiled"
+        if set(re.findall(r'data-start="([^"]*)"', html)) <= {"0"}:
+            return "synthesized, timeline NOT applied"
+        if (ws_dir / "qa" / "VERIFIED").is_file():
+            return "verified MP4 awaiting publish"
+        return "compiled — run preflight to confirm gate-clean"
     for f in sorted(refined.glob("*.txt")):          # non-recursive: refined/avatar/ is the HeyGen queue
         stem = f.stem
         if base_of(stem) in published:
@@ -130,8 +152,9 @@ for prog in ordered:
         if why:
             blocked.append((stem, why)); totals["blocked"] += 1
         elif base_of(stem) in ws_by_base:
-            # workspace exists but no Wistia URL -> built, unpublished (quarantine or in flight)
-            built.append(stem); totals["built_unpublished"] += 1
+            # workspace exists but no Wistia URL -> unpublished; say WHICH stage it reached
+            built.append((stem, ws_state(ws_by_base.get(base_of(stem)))))
+            totals["built_unpublished"] += 1
         else:
             queued.append(stem); totals["queued"] += 1
     # rendered/ without a published record = stranded mid-pipeline (render,
@@ -152,7 +175,7 @@ for prog in ordered:
             stranded.append((stem, state)); totals["rendered_unpublished"] += 1
     report.append({"program": prog, "queued": queued,
                    "blocked": [{"stem": s, "reason": r} for s, r in blocked],
-                   "built_unpublished": built,
+                   "built_unpublished": [{"stem": s, "state": st} for s, st in built],
                    "rendered_unpublished": [{"stem": s, "state": st} for s, st in stranded]})
 
 # Distinct Wistia media = videos actually live, independent of folder state.
@@ -173,8 +196,8 @@ for r in report:
     for s in r["queued"]:
         n += 1
         print(f"  {n:3d}. {s}")
-    for s in r["built_unpublished"]:
-        print(f"       {D}built, NOT published{O} — {s}   <- verify before re-running")
+    for x in r["built_unpublished"]:
+        print(f"       {D}unpublished{O} — {x['stem']}  ({x['state']})")
     for x in r["rendered_unpublished"]:
         print(f"       \033[33mSTRANDED mid-pipeline{O} — {x['stem']}  ({x['state']})")
     for b in r["blocked"]:
