@@ -38,6 +38,85 @@ changes: only the latest entry in THIS file is current state.
 structure decisions now land in `decisions/log.md`. Handoff docs live in `docs/`.
 
 
+## 2026-07-31 — the freeform freeze gap: a measurement that had been handed to the human
+
+**Open — owner-actionable only.**
+- **build-direction still needs four beats re-authored, then a re-render.** The pilot is
+  blocked (not published, not committed, script still in `refined/`). `check_presence`
+  fails it on three spans of 5.0-5.5s of pixel-identical video under continuous speech —
+  74.0-79.0 (s15), 132.5-138.0 (s23→s24) and 138.5-144.0 (s24→s25) — and the last two
+  run straight THROUGH a scene cut: at 192x108 the frames either side of the 137.1s and
+  141.5s cuts differ by a mean of 0.13/255, so s23/s24/s25 are drawing the same picture.
+  The fix is re-authoring those beats to show different things; adding motion to settled
+  content is banned and `check_motion` rejects it. The gate work below now catches this
+  class BEFORE the render, but it cannot fix this build. *(since 2026-07-31)*
+- **The twin-beats threshold needs a reference build to be pinned against.** `check_diversity`
+  warns on consecutive beats drawing near-identical frames and finds two real pairs on this
+  cut, but it cannot BLOCK until its threshold is calibrated the way `check_variety`'s are
+  pinned to `what-makes-for-a-dream-job` — and no clean freeform reference stills exist on
+  disk. Until then monotony stays owner-owned and advisory (STD-38). Needs one approved
+  freeform cut nominated as the reference. *(since 2026-07-31)*
+- **One-word script edit needs back-porting (or veto).** The freeform pilot's beat
+  manifest deviates from the approved script by exactly one word: s07's four-question
+  run fails the conjunction gate, and the only edit that clears BOTH check_copy and
+  the script-fidelity diff is `Where` → `or` in the final question. The build carries
+  the edit; the refined script
+  `lesson-scripts/early-career-boost/refined/build-direction-before-you-build-a-plan_early-career-boost.txt`
+  still carries the original. Approve = edit the one word in the script; veto = the
+  build re-synthesizes s07. *(since 2026-07-30)*
+- **Variety floor vs. the icon ban.** Removing per-row icons dropped 7 lessons below the
+  artwork-coverage floor (60% of content scenes must carry an illustration). `scla-points`
+  now has NO icon capability at all, so a points-heavy lesson cannot reach the floor. Either
+  those lessons get re-authored onto illustration-capable forms (condition/statement/chips/
+  steps with a hero icon — which is also the fix for "this workspace lacks variety across
+  the frames"), or the floor moves. Re-authoring is the honest option; the floor was
+  calibrated against a reference video that never used row icons, so it is not obviously
+  wrong. Needs the owner's call on scope. *(since 2026-07-29)*
+- **Remaining script rewrites need re-synthesis** — connector words (m3_building f4,
+  m4_finding f9/f17, m4_who f6/f8), "ask two questions" -> "three" (m2_four-kinds f22),
+  question-mark inflection (m4_who f11/f15), and the sentence split across m4_who f16/f17.
+  Each is a text edit plus a HeyGen re-synthesis and re-compile; none is blocked, just
+  not yet done. *(since 2026-07-29)*
+
+**Fixed this session.**
+- `[defect]` **A stopwatch measurement had been delegated to the human eye.** The 2026-07-30
+  lane decision skipped `check_pacing` AND `check_variety` on freeform and named the same
+  compensating control for both — "owned by the per-video human preview". One of those is
+  taste and belongs there; "did the picture hold still for 5 seconds" is not, and the owner
+  approved a cut that was then blocked post-render by exactly that. New `check_diversity.py`
+  takes the measurement back: same rule and same constants as `check_presence`, run over
+  browser snapshots BEFORE the render. Proven end to end on the failing build — 122 stills,
+  no render, hard-fails on all three spans `check_presence` catches, plus two 4.0/4.5s holds
+  it warns on. No misses. (~1 session)
+- `[tooling]` **`check_presence` was blind on the freeform lane and therefore stricter than
+  designed.** It knew only the two flat word files; a freeform build stores words per beat in
+  `audio_meta.json`, so it found none and its `not words` fallback graded every static run as
+  if narration ran wall to wall — it would have failed the deliberate 1.8s FINAL_HOLD every
+  lesson ends on. `hfp_common.load_words()` now reads all three shapes and an absent transcript
+  emits `no-word-timings` naming the lost coverage instead of passing for rigour. Confirmed the
+  three violations really are over speech (64/67/74% word coverage) rather than assumed.
+- `[tooling]` **`batch-precheck.sh` was sampling 5 stills for a 26-beat video.** It used
+  `parse_scenes` (clips), and a freeform clip is an ACT — so the pre-render look at real pixels
+  covered one frame per 30s. It now uses `sample_units` (beats) and, on freeform only, a uniform
+  ~1.25s grid, naming frames with the same `f<t>s_<beat>_<pos>.png` convention `verify_render`
+  writes so one parser serves both. Template lane verified unchanged (27 and 13 frames, gate
+  skipped — `check_pacing` already owns it there).
+- `[defect]` Three calibration traps caught by measuring instead of reasoning, all recorded in
+  the source: a churn-fraction-only test called a span frozen that `check_presence` did not
+  (a small element moved 80/255 across 0.19% of the grid) — fixed by requiring a max-cell
+  criterion too; a lower-bound span graded against the raw threshold MISSED a real 5.0s freeze
+  by 0.02s; and 1/100s filename precision both failed a perfect grid and demoted a real
+  violation, now spent once as `TIME_EPS`.
+
+**Promoted to docs.**
+- Three new rules in `.claude/rules/video-production.md`: a measurement is never delegated to
+  the human preview; monotony stays with the human and is reported not blocked; narration word
+  timings have one loader and a gate that cannot see them says so. Each names a mechanism that
+  exists — STD-35 audit green (113 backed, 0 broken).
+- `render-qa/tests/test_diversity.py` is the firing proof (16 assertions, incl. the negative
+  case: a frozen span over SILENCE must not fire). Registered in `test_firing_coverage.REQUIRED`
+  so deleting the fixture reds CI. Full suite: 91 assertions, lint-refs 11/11 green.
+
 ## 2026-07-30 — freeform-lane infrastructure + the first freeform pilot (build-direction, early-career-boost)
 
 **Open — owner-actionable only.**
