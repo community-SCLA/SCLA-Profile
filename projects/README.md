@@ -1,6 +1,6 @@
 # `projects/` — active project work
 
-Human-managed work in progress. **No pipeline writes here** — files are never overwritten by agents.
+Human-managed work in progress. **No pipeline writes here** — files are never overwritten by agents. One exemption: `video-production/lessons/`, where the lesson-video pipeline owns every file — status records, preserved HyperFrames workspaces and build output are agent-written by design, and each lesson directory belongs to one agent at a time.
 
 ## Subdirectories
 
@@ -9,7 +9,7 @@ Human-managed work in progress. **No pipeline writes here** — files are never 
 | Directory | What goes here |
 |---|---|
 | `grants/` | Grant applications, funder research, award tracking (`new-grant.sh` scaffolds one) |
-| `video-production/` | Lesson script library + the four design-system essentials. The illustrated-lesson pipeline retired 2026-08-02 — see root `CLAUDE.md` |
+| `video-production/` | Lesson scripts, design system, per-lesson status records and workspaces. The illustrated-lesson pipeline is being rebuilt on HyperFrames — see `video-production/README.md` |
 
 New project types get a new subdirectory here rather than a new folder at the repo root.
 

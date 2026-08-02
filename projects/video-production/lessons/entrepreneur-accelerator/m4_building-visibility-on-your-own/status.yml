@@ -1,0 +1,9 @@
+stem: m4_building-visibility-on-your-own
+program: entrepreneur-accelerator
+script: projects/video-production/lesson-scripts/entrepreneur-accelerator/refined/m4_building-visibility-on-your-own.txt
+stage: scripted
+next_action: "Synthesize narration audio from this script with the pinned tokens.yml voice, writing audio/narration.mp3 and audio/narration.words.json, then advance to narrated"
+blocked: null
+wistia_hashed_id: null
+render_date: null
+updated: 2026-08-02

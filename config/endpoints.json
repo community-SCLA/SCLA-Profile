@@ -6,7 +6,7 @@
     "url": null,
     "used_by": "scripts (jq / python3) and AI sessions; humans never need to read this",
     "verified": "2026-07-28",
-    "notes": "Machine-first replacement for endpoints.md (P2, 2026-07-28). Non-secret IDs only \u2014 secrets live exclusively in Infisical; never put credential values here (lint-refs.sh check 10 enforces). Unknown values stay null until confirmed \u2014 never invent IDs. Narrative history lives in decisions/log.md."
+    "notes": "Machine-first replacement for endpoints.md (P2, 2026-07-28). Non-secret IDs only \u2014 secrets live exclusively in Infisical; never put credential values here (lint-refs.sh check 9 enforces). Unknown values stay null until confirmed \u2014 never invent IDs. Narrative history lives in decisions/log.md."
   },
   "wistia": [
     {
@@ -14,16 +14,16 @@
       "type": "account",
       "id": null,
       "url": "https://sclc.wistia.com",
-      "used_by": "lesson-video hosting + analytics \u2014 /render-lessons SHIP (retired 2026-08-02), HeyGen avatar delivery (web UI, manual)",
+      "used_by": "lesson-video hosting + analytics \u2014 the publish stage of projects/video-production/PROCESS.md (illustrated HyperFrames renders; no avatar route)",
       "verified": "2026-07-15",
-      "notes": "Video title = filed MP4 stem <section>_<program-slug>_<render-date>; published URL recorded in projects/video-production/_archive/lesson-scripts/refinement-log.md (frozen 2026-08-02, no longer appended to)"
+      "notes": "Video title = the lesson stem plus its render date; the hashedId of a live video is recorded in that lesson's projects/video-production/lessons/<program>/<stem>/status.yml (never here, never invented)"
     },
     {
       "name": "Lesson videos \u2014 Early Career Boost",
       "type": "project",
       "id": "10733647",
       "url": null,
-      "used_by": "projects/video-production/_archive/scripts/wistia-upload.sh (retired 2026-08-02) program\u2192project mapping",
+      "used_by": "program\u2192project mapping read at the publish stage of projects/video-production/PROCESS.md",
       "verified": "2026-07-15",
       "notes": "hashedId miuwd520zj; one Wistia project per program; programs without an entry here upload to the account default project",
       "program_slug": "early-career-boost"
@@ -33,7 +33,7 @@
       "type": "secret-pointer",
       "id": "infisical:scla-projects-n-joy/dev/WISTIA_API",
       "url": null,
-      "used_by": "projects/video-production/_archive/scripts/wistia-upload.sh (retired 2026-08-02) via scripts/with-secrets.sh",
+      "used_by": "the publish stage of projects/video-production/PROCESS.md, via scripts/with-secrets.sh",
       "verified": "2026-07-15",
       "notes": "Scope: read+write, NOT delete \u2014 media deletion needs an owner-minted read-write-delete-all-data token (probe story: decisions/log.md 2026-07-28)"
     },
@@ -42,7 +42,7 @@
       "type": "project",
       "id": "10838587",
       "url": null,
-      "used_by": "projects/video-production/_archive/scripts/wistia-upload.sh (retired 2026-08-02) program\u2192project mapping",
+      "used_by": "program\u2192project mapping read at the publish stage of projects/video-production/PROCESS.md",
       "verified": "2026-07-28",
       "notes": "hashedId xdcroholux; one Wistia project per program; created by owner 2026-07-28 (the WISTIA_API token has upload scope but not project-management scope, so projects are made in the UI)",
       "program_slug": "mid-career-momentum"
@@ -52,7 +52,7 @@
       "type": "project",
       "id": "10838589",
       "url": null,
-      "used_by": "projects/video-production/_archive/scripts/wistia-upload.sh (retired 2026-08-02) program\u2192project mapping",
+      "used_by": "program\u2192project mapping read at the publish stage of projects/video-production/PROCESS.md",
       "verified": "2026-07-28",
       "notes": "hashedId 36x7dktgz4; one Wistia project per program; created by owner 2026-07-28 (the WISTIA_API token has upload scope but not project-management scope, so projects are made in the UI)",
       "program_slug": "career-transitions"
@@ -62,7 +62,7 @@
       "type": "project",
       "id": "10838590",
       "url": null,
-      "used_by": "projects/video-production/_archive/scripts/wistia-upload.sh (retired 2026-08-02) program\u2192project mapping",
+      "used_by": "program\u2192project mapping read at the publish stage of projects/video-production/PROCESS.md",
       "verified": "2026-07-28",
       "notes": "hashedId hygf05awxd; one Wistia project per program; created by owner 2026-07-28 (the WISTIA_API token has upload scope but not project-management scope, so projects are made in the UI)",
       "program_slug": "entrepreneur-accelerator"
@@ -118,7 +118,7 @@
       "id": "280a3615-40ab-4fd6-a026-7c5fbea1e6bd",
       "url": "https://app.notion.com/p/280a361540ab4fd6a0267c5fbea1e6bd",
       "verified": null,
-      "used_by": "projects/video-production/docs/notion-queue.md (intake retired 2026-07-13; Wistia-link-ledger role is an open decision)",
+      "used_by": "historical video-request queue (intake retired 2026-07-13); no live consumer \u2014 lesson state lives in projects/video-production/lessons/<program>/<stem>/status.yml",
       "notes": null
     },
     {

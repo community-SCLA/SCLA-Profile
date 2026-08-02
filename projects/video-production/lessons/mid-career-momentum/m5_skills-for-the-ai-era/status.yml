@@ -1,0 +1,9 @@
+stem: m5_skills-for-the-ai-era
+program: mid-career-momentum
+script: projects/video-production/lesson-scripts/mid-career-momentum/refined/m5_skills-for-the-ai-era.txt
+stage: scripted
+next_action: "Synthesize narration audio from this script with the pinned tokens.yml voice, writing audio/narration.mp3 and audio/narration.words.json, then advance to narrated"
+blocked: null
+wistia_hashed_id: null
+render_date: null
+updated: 2026-08-02

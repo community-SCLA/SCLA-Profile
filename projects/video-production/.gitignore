@@ -1,0 +1,6 @@
+# Build output for a lesson: regenerable from the script + the workspace.
+# Wistia is the delivery surface for MP4s; the repo keeps scripts, workspaces
+# and status records. Kept here rather than in design-system/.gitignore so a
+# lesson workspace is never silently untracked.
+lessons/**/audio/
+lessons/**/render/

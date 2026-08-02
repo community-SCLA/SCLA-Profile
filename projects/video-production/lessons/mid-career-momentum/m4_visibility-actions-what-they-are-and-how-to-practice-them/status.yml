@@ -1,0 +1,12 @@
+stem: m4_visibility-actions-what-they-are-and-how-to-practice-them
+program: mid-career-momentum
+script: projects/video-production/lesson-scripts/mid-career-momentum/blocked/m4_visibility-actions-what-they-are-and-how-to-practice-them.txt
+stage: blocked
+next_action: "Owner decides: rewrite the script so it defines and demonstrates a visibility action, or drop the lesson from the program"
+blocked:
+  on: owner
+  reason: "The script never defines or demonstrates a visibility action despite its title, so there is nothing to narrate or illustrate"
+  since: 2026-07-22
+wistia_hashed_id: null
+render_date: null
+updated: 2026-08-02

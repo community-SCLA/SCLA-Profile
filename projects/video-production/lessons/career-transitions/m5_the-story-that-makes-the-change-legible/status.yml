@@ -1,0 +1,9 @@
+stem: m5_the-story-that-makes-the-change-legible
+program: career-transitions
+script: projects/video-production/lesson-scripts/career-transitions/refined/m5_the-story-that-makes-the-change-legible.txt
+stage: scripted
+next_action: "Synthesize narration audio from this script with the pinned tokens.yml voice, writing audio/narration.mp3 and audio/narration.words.json, then advance to narrated"
+blocked: null
+wistia_hashed_id: null
+render_date: null
+updated: 2026-08-02

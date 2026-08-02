@@ -1,0 +1,9 @@
+stem: build-direction-before-you-build-a-plan_early-career-boost
+program: early-career-boost
+script: projects/video-production/lesson-scripts/early-career-boost/refined/build-direction-before-you-build-a-plan_early-career-boost.txt
+stage: scripted
+next_action: "Synthesize narration audio from this script with the pinned tokens.yml voice, writing audio/narration.mp3 and audio/narration.words.json, then advance to narrated"
+blocked: null
+wistia_hashed_id: null
+render_date: null
+updated: 2026-08-02

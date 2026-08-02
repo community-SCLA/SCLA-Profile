@@ -17,7 +17,7 @@ EXCLUDES=(--exclude-dir=_archive --exclude-dir=.git --exclude-dir=.remember --ex
 filter_archives() { grep -v "^\./docs/_archive/" | grep -v "^docs/_archive/"; }
 
 # ── 1. Backtick path references in root governance files exist on disk ──────
-echo "[1/12] Backtick path references resolve"
+echo "[1/14] Backtick path references resolve"
 # Intentional non-paths (_archive/ is named by CLAUDE.md's ban rule; no root _archive exists)
 SKIP_PATHS="_archive/ scheduled-tasks/ .claude/agents/ notes/ misc/ tmp/ .env .env.example inbox/ .remember/ decisions-log.md"
 REF_FAIL=0
@@ -37,7 +37,7 @@ done
 [ "$REF_FAIL" -eq 0 ] && ok "all backtick paths in CLAUDE.md exist"
 
 # ── 2. Word budgets ──────────────────────────────────────────────────────────
-echo "[2/12] Root word budgets (CLAUDE<=600)"
+echo "[2/14] Root word budgets (CLAUDE<=600)"
 check_budget() {
   local file=$1 limit=$2 words
   words=$(wc -w < "$file")
@@ -46,21 +46,21 @@ check_budget() {
 check_budget CLAUDE.md 600
 
 # ── 3. No stale decisions-log paths ──────────────────────────────────────────
-echo "[3/12] No references to old decisions-log path"
+echo "[3/14] No references to old decisions-log path"
 # decisions/log.md is excluded: its migration entry legitimately records the old path.
 HITS=$(grep -rn "${EXCLUDES[@]}" -e "source-of-truth/decisions-log" -e "](\./decisions-log" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" || true)
 if [ -n "$HITS" ]; then warn "stale decisions-log references:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 4. No template placeholders ──────────────────────────────────────────────
-echo "[4/12] No unfilled template placeholders"
+echo "[4/14] No unfilled template placeholders"
 # .claude/skills excluded: the onboard/ingest wizards use placeholder strings as instructions.
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=.claude -e "\[YOUR_" -e "\[project-1\]" -e "\[DATE\]" . 2>/dev/null |
        filter_archives | grep -v "scripts/lint-refs.sh" || true)
 if [ -n "$HITS" ]; then warn "template placeholders found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 5. Critical files exist ──────────────────────────────────────────────────
-echo "[5/12] Critical files present"
+echo "[5/14] Critical files present"
 CRITICAL="CLAUDE.md config/endpoints.json scla.config.yml sync.sh .gitignore
 context/me.md decisions/log.md
 brand/visual-identity.md brand/voice-and-tone.md
@@ -72,7 +72,7 @@ done
 [ "$MISSING" -eq 0 ] && ok "all critical files present"
 
 # ── 6. Stale brand hex values ────────────────────────────────────────────────
-echo "[6/12] No stray legacy hex values outside flagged locations"
+echo "[6/14] No stray legacy hex values outside flagged locations"
 # Intent: catch legacy hex hardcoded in docs, not in the actual art. Allowed:
 # .svg files (the logo source art legitimately carries these colors),
 # assets/README.md (describes the SVG file contents), and projects/video-production/
@@ -83,7 +83,7 @@ HITS=$(grep -rni "${EXCLUDES[@]}" -e "#F1B32E" -e "#55A4DD" . 2>/dev/null | filt
 if [ -n "$HITS" ]; then warn "legacy hex values found:"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 7. No archive routing pointers ───────────────────────────────────────────
-echo "[7/12] No '_archive/source-of-truth/' routing pointers in live KB"
+echo "[7/14] No '_archive/source-of-truth/' routing pointers in live KB"
 # Rule: _archive/ is read-only provenance, never a canonical owner / routing target.
 # Flag backtick-quoted `_archive/source-of-truth/...` pointers in the routing/governance
 # files and the live KB. Allowed and NOT flagged:
@@ -99,7 +99,7 @@ HITS=$(grep -rn "${EXCLUDES[@]}" -e '`_archive/source-of-truth/' \
 if [ -n "$HITS" ]; then warn "archive routing pointers found (route to live owner instead):"$'\n'"$HITS"; else ok "none found"; fi
 
 # ── 8. No retired scla/ paths ────────────────────────────────────────────────
-echo "[8/12] No retired scla/ path references in live files"
+echo "[8/14] No retired scla/ path references in live files"
 # Knowledge folders were un-nested from scla/ to root on 2026-07-03. Allowed:
 # decisions/log.md and audits/ (historical records), _archive/ (provenance).
 HITS=$(grep -rn "${EXCLUDES[@]}" --exclude-dir=audits -e 'scla/' . 2>/dev/null |
@@ -112,7 +112,7 @@ if [ -n "$HITS" ]; then warn "retired scla/ paths found (un-nested layout is can
 #  .claude/skills/; no registry to cross-check.)
 
 # ── 9. Endpoints registry parses, matches schema, carries no secrets ─────────
-echo "[9/12] config/endpoints.json valid (schema + no secret material)"
+echo "[9/14] config/endpoints.json valid (schema + no secret material)"
 REG_OUT=$(python3 - <<'PYEOF' 2>&1
 import json, re
 d = json.load(open('config/endpoints.json'))
@@ -140,7 +140,7 @@ else
   warn "config/endpoints.json: $REG_OUT"
 fi
 
-echo "[10/12] STD-35: no doc claims a mechanism that does not exist"
+echo "[10/14] STD-35: no doc claims a mechanism that does not exist"
 # The Repo Structure Playbook v1.1, STD-35 — a written rule is a request; only
 # a mechanism is a guarantee. This cannot make prose enforceable; it makes prose
 # unable to LIE about being enforced. Hard-fails only on a broken claim (a doc
@@ -155,7 +155,7 @@ else
   warn "$(printf '%s' "$ENF_OUT" | sed -n '1,8p')"
 fi
 
-echo "[11/12] render-qa test suite"
+echo "[11/14] render-qa test suite"
 # The render-qa test suite actually runs, WHEN there is one. Until 2026-07-29 the
 # tests existed and nothing executed them: not CI, not run_tests.py (which only ran
 # its own cases and silently skipped its five sibling test_*.py files). The
@@ -181,7 +181,7 @@ else
   ok "no render-qa suite at the live path — pipeline retired 2026-08-02 (idle, not failing)"
 fi
 
-echo "[12/12] Ringer manifests pin the Claude engine and use absolute repo paths"
+echo "[12/14] Ringer manifests pin the Claude engine and use absolute repo paths"
 # Two failure modes, both silent, both verified against ringer.py on 2026-08-02:
 #
 #  1. ENGINE. Claude is SCLA's only worker engine — config/ringer-engines.toml
@@ -256,6 +256,42 @@ case "$MAN_OUT" in
   clean:*) ok "${MAN_OUT#clean:} Ringer manifest(s): all tasks pin engine=claude, paths sound" ;;
   *)       warn "Ringer manifest problems:"$'\n'"$MAN_OUT" ;;
 esac
+
+echo "[13/14] Lesson status records are complete and well-formed"
+# Every lesson video's stage and next action live in one status.yml beside its
+# workspace; a resuming session reads those two fields and acts on them without
+# re-deriving anything. A record that is missing, unparseable, or claims a
+# Wistia ID for a video that was never published is worse than no record at all,
+# so the schema is graded here rather than trusted. The checker prints the file
+# and the reason for every violation.
+#
+# Idle, not failing, before the tree exists: the checker itself reports that.
+SR_CHECK="$REPO/projects/video-production/checks/verify-status-records.py"
+if [ -f "$SR_CHECK" ]; then
+  if SR_OUT="$(python3 "$SR_CHECK" 2>&1)"; then
+    ok "$(printf '%s' "$SR_OUT" | head -1)"
+  else
+    warn "status records:"$'\n'"$(printf '%s' "$SR_OUT" | head -20)"
+  fi
+else
+  ok "no status-record checker on disk (idle, not failing)"
+fi
+
+echo "[14/14] CLAUDE.md's routing table never sends an agent to a README"
+# A README is written for a person: it explains, it does not bind. Anything an
+# agent must obey lives in a PROCESS.md or in a check. The split is decorative
+# unless routing enforces it, and the old routing did the opposite — it named a
+# README as a load target AND carried a standing "open that folder's README hub"
+# fallback, which made every README in the repo agent context by default.
+# The routing table is the markdown table rows; a README named elsewhere in
+# CLAUDE.md (in a rule, in prose) is fine and is not flagged.
+RT_HITS=$(grep -n '^|' CLAUDE.md 2>/dev/null | grep 'README\.md' || true)
+RT_FALLBACK=$(grep -n 'README\.md hub' CLAUDE.md 2>/dev/null || true)
+if [ -n "$RT_HITS$RT_FALLBACK" ]; then
+  warn "CLAUDE.md routes an agent to a README (route to PROCESS.md or a check instead):"$'\n'"$RT_HITS$RT_FALLBACK"
+else
+  ok "no README.md load target in CLAUDE.md's routing table"
+fi
 
 echo
 if [ "$WARNINGS" -gt 0 ]; then
