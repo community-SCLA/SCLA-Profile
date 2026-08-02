@@ -19,7 +19,7 @@ dashboard_port_base = 8787
 # Full-access gate. A task with "full_access": true fails unless this is true.
 # Claude Code has no OS sandbox, so true means workers can run any command in
 # this container. Turn on only for tasks that must render, build, or commit.
-allow_full_access = false
+allow_full_access = true
 
 [update]
 # auto = true

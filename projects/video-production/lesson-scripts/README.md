@@ -36,8 +36,11 @@ builds only the `refined/` root. `/refine-scripts` preserves the split (root →
 Between `refined/` and shipped, an illustrated lesson's in-flight state lives
 outside this folder: a `../renders-hyperframes/<stem>/` workspace = built,
 waiting at the human **hyperframe gate**; a Wistia URL in
-[`refinement-log.md`](refinement-log.md) = published. The log is a ledger
-(history for humans), never a decision input.
+[`refinement-log.md`](../_archive/lesson-scripts/refinement-log.md) = published.
+The log is a ledger (history for humans), never a decision input. **Frozen
+2026-08-02** — moved to `../_archive/` when the skills that appended to it
+(`/refine-scripts`, `/render-lessons`) were retired; it stops at whatever it
+last recorded and gains no new rows.
 
 **Live programs are whatever `ls` of this folder shows** — one subfolder per
 program, no hand-maintained list (don't write down what the file tree already

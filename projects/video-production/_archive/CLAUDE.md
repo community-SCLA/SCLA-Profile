@@ -18,11 +18,23 @@ slate at the owner's instruction. Four essentials stayed live under
 | `package.json` | HyperFrames CLI version pin |
 
 `projects/video-production/lesson-scripts/` also stayed live — it is course
-content, not machinery.
+content, not machinery. One file was pulled out of it after the fact: see
+`lesson-scripts/refinement-log.md` below.
 
 ---
 
 ## What is in here
+
+### `lesson-scripts/refinement-log.md`
+The per-program ledger (created dates, refined dates, Wistia URLs, human notes)
+that `/refine-scripts` and `/render-lessons` used to append to at close-out.
+Archived here on 2026-08-02, after the rest of the archive, because the ledger
+only ever grew from the retired skills' close-out steps — with both gone,
+nothing writes to it again, so it moved from "live folder, stale file" to
+provenance. The `lesson-scripts/` folder itself, and every `.txt` script in it,
+stayed live: this is the one file pulled out of an otherwise-live folder.
+`lesson-scripts/README.md` and `config/endpoints.json` were updated to point
+here instead of the old in-place path.
 
 ### `video-production-root/`
 The three files that sat at `projects/video-production/`.

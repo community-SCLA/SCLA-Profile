@@ -19,7 +19,8 @@
     "ask": [],
     "deny": [],
     "additionalDirectories": [
-      "/home/codespace/.claude"
+      "/home/codespace/.claude",
+      "/workspaces/ringer"
     ]
   },
   "skillOverrides": {

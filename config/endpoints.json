@@ -16,7 +16,7 @@
       "url": "https://sclc.wistia.com",
       "used_by": "lesson-video hosting + analytics \u2014 /render-lessons SHIP (retired 2026-08-02), HeyGen avatar delivery (web UI, manual)",
       "verified": "2026-07-15",
-      "notes": "Video title = filed MP4 stem <section>_<program-slug>_<render-date>; published URL recorded in projects/video-production/lesson-scripts/refinement-log.md"
+      "notes": "Video title = filed MP4 stem <section>_<program-slug>_<render-date>; published URL recorded in projects/video-production/_archive/lesson-scripts/refinement-log.md (frozen 2026-08-02, no longer appended to)"
     },
     {
       "name": "Lesson videos \u2014 Early Career Boost",

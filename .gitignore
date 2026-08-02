@@ -45,6 +45,14 @@ node_modules/
 __pycache__/
 *.pyc
 
+# Ringer lives OUTSIDE this repo at /workspaces/ringer (2026-08-02) — a standalone
+# clone of github.com/NateBJones-Projects/ringer with its own .git, per upstream's
+# design: the clone is disposable code, state lives in ~/.ringer and ~/.config/ringer.
+# This rule is a guard against re-cloning it back inside. Untracked and unignored,
+# `git add -A` (which sync.sh runs) stages a nested repo as a bare gitlink with no
+# .gitmodules, so clones get an empty dir and no way to fill it.
+ringer/
+
 # Video production — per-lesson HyperFrames build workspaces (HTML sources,
 # caches, renders). Local-only; approved scripts live in
 # projects/video-production/lesson-scripts/ (tracked); rendered videos are hosted

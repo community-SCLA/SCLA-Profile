@@ -1,23 +1,17 @@
 # `projects/` — active project work
 
-Human-managed work in progress. **The pipeline does not touch this directory** — files here are never overwritten by agents.
+Human-managed work in progress. **No pipeline writes here** — files are never overwritten by agents.
 
 ## Subdirectories
 
+**Live subdirectories are whatever `ls` of this folder shows** — don't write down what the file tree already says. As of 2026-08-02:
+
 | Directory | What goes here |
 |---|---|
-| `grants/` | Grant applications, funder research, award tracking |
-| `campaigns/` | Outreach, recruitment, and marketing campaigns |
-| `content/` | Newsletters, social posts, blog drafts, and content series |
-| `programs/` | Active program development (**not** the KB reference at `../programs/`) |
-| `video-production/` | AI video pipeline (scoped `CLAUDE.md`, script templates, status) |
+| `grants/` | Grant applications, funder research, award tracking (`new-grant.sh` scaffolds one) |
+| `video-production/` | Lesson script library + the four design-system essentials. The illustrated-lesson pipeline retired 2026-08-02 — see root `CLAUDE.md` |
 
-## Standalone briefs
-
-| File | What it is |
-|---|---|
-| `drive-review-brief.md` | Google Drive review brief |
-| `kb-integration-plan.md` | Plan: wire `member-support/faqs.md` into Gmail / website / Slack / portal |
+New project types get a new subdirectory here rather than a new folder at the repo root.
 
 ## File naming
 
@@ -54,4 +48,4 @@ Use the matching template from `../templates/`:
 
 ## Routing via Claude
 
-Type `/project` in Claude Code to create a new project file routed to the right subdirectory.
+Run `/new-from-template` in Claude Code to create a new project file routed to the right subdirectory.

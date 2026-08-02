@@ -67,7 +67,9 @@ VP = REPO / "projects/video-production"
 # when the decision was made. Restore an entry here the moment its doc becomes
 # a live promise again.
 GRADED = [
-    ".claude/rules/repo-hygiene.md",
+    # .claude/rules/repo-hygiene.md deleted 2026-08-02 — its five rules were folded
+    # into CLAUDE.md's Rules section verbatim (mechanism annotations included), so
+    # they are still graded, just at their new home.
     "CLAUDE.md",
 ]
 
