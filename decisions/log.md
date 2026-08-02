@@ -9,6 +9,80 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-02 (tooling) — Ringer's Claude setup is reproducible, and the engine is pinned per task
+
+**Decision:** three changes make the Ringer-on-Claude setup survive a rebuild and
+fail loudly instead of silently. (1) `config/ringer-engines.toml` is now the canonical
+engine config; `scripts/setup-ringer.sh` installs it to `~/.config/ringer/config.toml`
+and `.devcontainer/devcontainer.json` runs that script on container create. (2)
+`scripts/lint-refs.sh` check 12 fails any manifest whose task omits `"engine": "claude"`,
+or that names a repo-relative path while its `workdir` sits outside the repo. (3) The
+VS Code multi-root workspace file moved from `/workspaces/scla.code-workspace` (tracked
+by nothing) to this repo's root, with `.` and `../ringer` as its two folders.
+`.fleet-agent` is now committed rather than merely present.
+
+**Why the engine pin is a gate and not a note.** `DEFAULT_ENGINE_NAME = "codex"` is a
+hardcoded constant in `ringer.py`, and `TaskSpec.from_obj` falls back to it. No config
+key overrides it — `config.sample.toml` and `docs/` were grepped. The codex binary is
+not installed here, so a task that omits `"engine"` does not quietly run on Claude; it
+fails to launch. Patching the constant locally is not durable either, because Ringer's
+`[update] auto` self-update is on by default and would revert it. Per-task pinning is
+the only reliable answer, and a rule nobody checks is a rule that will be forgotten —
+so it is check 12.
+
+**Why the path rule is in the same gate.** A worker's cwd is `workdir/<task key>`, not
+the repo. When `workdir` is outside the repo, a repo-relative path in a spec resolves
+to nothing, and a worker asked to read a file it cannot find will invent its contents
+instead — the exact failure that put fabricated brand copy into member videos
+(2026-07-22). Absolute paths cost nothing and remove the failure mode.
+
+**What a rebuild actually destroys**, corrected from an earlier session's account:
+`$HOME` is not persisted, so `~/.config/ringer/config.toml`, `~/.ringer/`, and the
+globally npm-installed `claude` CLI all vanish. `~/.claude` does NOT vanish — it is a
+symlink into `/workspaces/.codespaces/.persistedshare/dotfiles/.claude`, so the Ringer
+hooks and skill survive. `/workspaces` survives a rebuild but not a fresh Codespace.
+
+**Root exception:** `scla.code-workspace` joins `.fleet-agent` as a deliberate exception
+to the closed-root convention. VS Code discovers workspace files at a project root; one
+filed under `config/` is a file nobody opens.
+
+**Not decided here:** `allow_full_access` stays `false`. Any task that shells out — a
+render, a build, a commit — needs it true plus `"full_access": true`, and on Claude Code
+that means `--dangerously-skip-permissions`, with the container as the only boundary.
+That is the owner's call to make deliberately, not a default to drift into.
+
+## 2026-08-02 (tooling) — Ringer lives outside the repo, not inside it
+
+**Decision:** the Ringer clone moved from `SCLA-Profile/ringer/` to
+`/workspaces/ringer` — a sibling, outside this repo's git. `.gitignore` keeps a
+`ringer/` rule as a guard against re-cloning it back in. Video-production swarms
+reach it by path; a `.fleet-agent` file at this repo's root (`scla-profile`) names
+this repo's swarms in Ringside and the eval log.
+
+**Why:** Ringer is location-agnostic by design — `repo_root()` is just
+`Path(__file__).parent`, and all state lives in `~/.ringer` and `~/.config/ringer`,
+so the clone is disposable code rather than repo content. Upstream documents it as a
+standalone clone and offers no submodule path. Nesting it anywhere inside SCLA-Profile
+cost three things: `sync.sh` runs `git add -A`, which stages a nested repo as a bare
+gitlink with no `.gitmodules` (verified by dry run — clones would get an empty
+directory); `scripts/lint-refs.sh` greps the whole tree except `_archive`/`.git`/
+`.remember`/`node_modules`, so an upstream `git pull` could turn the KB's own linter
+red over a third-party file; and filing a general-purpose swarm tool under
+`projects/video-production/` would mislabel it as video-only. Keeping it under
+`/workspaces` rather than `~` means it survives a Codespace rebuild.
+
+**Moving it is not just a `mv`.** `install-agent` writes the clone's ABSOLUTE path
+into the two hooks in `~/.claude/settings.json`, and re-running it will NOT repair a
+stale one: `merge_ringer_hook` bails when any existing hook command merely contains
+the substring `ringer_nudge.py`, so it reports "already present" and leaves the dead
+path in place. The sequence is `uninstall-agent` → move → `install-agent`. Upstream's
+README implies the move is harmless; it isn't. The user-level skill copy at
+`~/.claude/skills/ringer/` survives regardless of where the clone sits.
+
+**Root exception:** `.fleet-agent` must sit at the repo root — Ringer walks *up* from
+the working directory, so a copy under `config/` would never be found from the root.
+It is a deliberate exception to the closed-root convention.
+
 ## 2026-07-31 (rules refactor) — The video rules file splits by audience
 
 **Decision:** `.claude/rules/video-production.md` is auto-loaded on every session

@@ -1,0 +1,37 @@
+{
+  // Multi-root workspace: the SCLA knowledge base plus the Ringer clone that
+  // drives its worker swarms. Open this file (File > Open Workspace from File)
+  // and both trees appear side by side in the VS Code explorer.
+  //
+  // Ringer is deliberately NOT nested inside SCLA-Profile (decisions/log.md,
+  // 2026-08-02): it is a separate git repo, and `git add -A` in sync.sh would
+  // stage it as a broken gitlink. This file is how one window shows both trees
+  // without either repo containing the other.
+  //
+  // WHY THIS FILE LIVES IN THE REPO: it used to sit at /workspaces, tracked by
+  // nothing. That survived a container rebuild but not a fresh Codespace, so the
+  // side-by-side view had to be rebuilt by hand each time. Tracking it here makes
+  // it durable; the "../ringer" path below is relative to THIS file, so it
+  // resolves to the sibling clone. Moved 2026-08-02.
+  //
+  // A deliberate exception to the closed-root convention, like .fleet-agent:
+  // VS Code looks for workspace files at a project root, not under config/.
+  "folders": [
+    {
+      "name": "SCLA-Profile",
+      "path": "."
+    },
+    {
+      "name": "ringer (tool)",
+      "path": "../ringer"
+    }
+  ],
+  "settings": {
+    // Ringer's run state lives in ~/.ringer, not here; nothing to exclude.
+    // Keep the KB's own search noise down when searching across both roots.
+    "search.exclude": {
+      "**/__pycache__": true,
+      "**/node_modules": true
+    }
+  }
+}
