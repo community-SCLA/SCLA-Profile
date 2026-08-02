@@ -9,6 +9,17 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-02 (later still) — `allow_full_access` flipped to true
+
+**Decision:** `config/ringer-engines.toml` sets `allow_full_access = true`, superseding
+the "stays false" call below made earlier the same day. Reason: the lesson-video
+narration-fix tasks need to shell out (run `verify-narration-fixes.py` to iterate)
+and were failing instantly (~16s, no worker log, no tokens spent) with config
+rejecting them before launch. Live copy `~/.config/ringer/config.toml` synced to
+match. **How to apply:** if `config/ringer-engines.toml` and the live copy ever
+diverge again, re-run `bash scripts/setup-ringer.sh --force` — it does not
+auto-sync on its own when the live file already exists and merely differs.
+
 ## 2026-08-02 (tooling) — Ringer's Claude setup is reproducible, and the engine is pinned per task
 
 **Decision:** three changes make the Ringer-on-Claude setup survive a rebuild and
