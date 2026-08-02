@@ -30,8 +30,11 @@ Partly-authored build folders (plan written but no narration yet, and so on) are
 
 ## Stuck right now
 
-- **build-direction-before-you-build-a-plan_early-career-boost** (early-career-boost) — a release gate rejected this cut (verify_render.py non-zero)
-  - **To clear it:** read the failure in `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh build-direction-before-you-build-a-plan_early-career-boost early-career-boost`
+- **build-direction-before-you-build-a-plan_early-career-boost** (early-career-boost) — a release gate rejected this cut — verify_render.py non-zero
+  - [stagnant-frame] 74.0 video pixel-static 74.0s → 79.0s (5.0s) while narration speaks — animacy defect (design-contract.md ~2s rule)
+  - [stagnant-frame] 132.5 video pixel-static 132.5s → 138.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
+  - [stagnant-frame] 138.5 video pixel-static 138.5s → 144.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
+  - **To clear it:** read the full failure in `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh build-direction-before-you-build-a-plan_early-career-boost early-career-boost`
 
 ## Published — live on Wistia
 
@@ -58,8 +61,11 @@ Partly-authored build folders (plan written but no narration yet, and so on) are
 *Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
 
 - build-direction-before-you-build-a-plan_early-career-boost
-  - state: a release gate rejected this cut (verify_render.py non-zero)
-  - next: read the failure in `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh build-direction-before-you-build-a-plan_early-career-boost early-career-boost`
+  - state: a release gate rejected this cut — verify_render.py non-zero
+  - gate said: [stagnant-frame] 74.0 video pixel-static 74.0s → 79.0s (5.0s) while narration speaks — animacy defect (design-contract.md ~2s rule)
+  - gate said: [stagnant-frame] 132.5 video pixel-static 132.5s → 138.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
+  - gate said: [stagnant-frame] 138.5 video pixel-static 138.5s → 144.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
+  - next: read the full failure in `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh build-direction-before-you-build-a-plan_early-career-boost early-career-boost`
 
 ## mid-career-momentum
 

@@ -84,8 +84,8 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 
 - Queue = every `*.txt` at the **`refined/` root only** — NOT the
   `refined/avatar/` subfolder, which is the HeyGen avatar-render queue
-  (`avatar-pipeline/`) and must never become a HyperFrames build (that would
-  double-render one lesson two ways). Use a non-recursive list (`ls
+  (rendered manually via the web UI) and must never become a HyperFrames build
+  (that would double-render one lesson two ways). Use a non-recursive list (`ls
   …/refined/*.txt`), not a recursive `find`. A
   gate-clean build moves its script out to `rendered/` (B3), so `refined/`
   already holds only un-built scripts. The workspace check stays as a guard:

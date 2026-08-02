@@ -14,7 +14,8 @@ Pick by output path, not by name:
 - **Illustrated lesson videos** (the default) don't start here. They start at
   `/refine-scripts`, which drains raw `.txt` files from `../lesson-scripts/<program>/`.
 - **HeyGen avatar work** uses `heygen-lesson-script.md` (the scaffold) and
-  `heygen-narration-prompt.md` (plain narration, no cues to strip → `../avatar-pipeline/`).
+  `heygen-narration-prompt.md` (plain narration, no cues to strip → rendered
+  manually via the HeyGen web UI).
 - **Synthesia course/certificate videos** use `course-script-prompt.md` (B-roll markers).
 - **Social** uses `social-script-prompt.md`.
 - **Bulk generation** CSV specs are in `batch-csv-template.md`.

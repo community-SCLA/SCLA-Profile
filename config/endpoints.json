@@ -14,7 +14,7 @@
       "type": "account",
       "id": null,
       "url": "https://sclc.wistia.com",
-      "used_by": "lesson-video hosting + analytics \u2014 /render-lessons SHIP, avatar-pipeline delivery",
+      "used_by": "lesson-video hosting + analytics \u2014 /render-lessons SHIP, HeyGen avatar delivery (web UI, manual)",
       "verified": "2026-07-15",
       "notes": "Video title = filed MP4 stem <section>_<program-slug>_<render-date>; published URL recorded in projects/video-production/lesson-scripts/refinement-log.md"
     },
@@ -74,7 +74,7 @@
       "type": "secret-pointer",
       "id": "infisical:scla-projects-n-joy/dev/HEYGEN_API_KEY",
       "url": null,
-      "used_by": "avatar-pipeline/ renders; HeyGen TTS path in hyperframes-media",
+      "used_by": "HeyGen web UI avatar renders (manual); HeyGen TTS path in hyperframes-media",
       "verified": "2026-07-22",
       "notes": "Header X-Api-Key; rotated 2026-07-21; account skca@thescla.org. A third Infisical secret named plain HEYGEN is intentionally unused (owner call 2026-07-22) \u2014 not a blocker, ignore it. Rotation story: decisions/log.md 2026-07-28"
     }

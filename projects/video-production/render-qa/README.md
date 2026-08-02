@@ -206,13 +206,20 @@ render-qa/logs/snag-log.md            latest entry only: session trail + your op
 probes the files inside it and reports which of five stages it actually
 reached — cheap probes, no browser, no gate run:
 
-| Reported state | What it means |
-|---|---|
-| `no scene plan` | Folder claimed, nothing authored yet |
-| `planned, NOT synthesized` | `scenes.json` exists, no narration audio |
-| `synthesized, timeline NOT applied` | Audio exists, timings never compiled in |
-| `compiled` | Ready for preflight — this is what "at the gate" looks like |
-| `verified MP4 awaiting publish` | Rendered and verified; only the upload is left |
+| Stage key | Reported state | What it means |
+|---|---|---|
+| `no-plan` | build folder exists but holds no scene plan | Folder claimed, nothing authored yet |
+| `planned` | scene plan written; narration not yet synthesized | `scenes.json` exists, no narration audio |
+| `uncompiled` / `untimed` | never compiled / timings never applied | Audio exists, the composition is not renderable |
+| `composition` | HyperFrames composition ready to render; no MP4 exists yet | Ready for preflight — this is what "at the gate" looks like |
+| `verified` | MP4 rendered and gate-verified — waiting only on the Wistia upload | Only the upload is left |
+| `quarantined` | a release gate rejected this cut | A guard said no; the workspace keeps `qa/quarantine-reason.txt`, the guard's own transcript |
+
+The stage key is what `--json` emits and what the generated `PIPELINE-STATUS.md`
+groups its headings by, so the two questions a human actually asks — *which of
+these are compositions still waiting to become MP4s, and which are MP4s waiting
+to be published* — are answered by the heading, not by decoding a state string
+(2026-07-31).
 
 (Added 2026-07-29, after 12 of 13 lessons the tool was calling "built" turned
 out to have never had `compile_timeline.py --apply` run against them. Rebuilding
@@ -229,7 +236,9 @@ buckets:
   publish rather than at build.
 - **blocked** — the script body still contains `TODO: needs input` or
   `SCRIPT PENDING`. Read from the text, not a hand-kept list, so fixing the
-  script re-enters it in the queue with no bookkeeping.
+  script re-enters it in the queue with no bookkeeping. The marker's whole
+  paragraph is reported, because the script always says *which* input it needs
+  and echoing the marker word alone threw that away (2026-07-31).
 - **already on Wistia** — has a `published.tsv` row. Done, by definition.
 
 **"What do I need to watch?" = `bash scripts/review.sh`.** It runs the
@@ -265,7 +274,7 @@ different gate policy.
 |---|---|---|
 | **Illustrated · template** (default) | Author `scenes.json`; `build_index.py` compiles the HTML and the compiler owns every timing | Eligible for AUTO-BATCH — one pilot approval covers the queue |
 | **Illustrated · freeform** (`--freeform`, opt-in) | No templates, no `scenes.json`, no compiler — the HTML is the authored artifact. Narration-first: audio is frozen before a pixel is placed | **Never enters AUTO-BATCH.** Every video stops for its own preview while the quality floor is unproven |
-| **Talking-head · avatar** | Lives in `avatar/` and `refined/avatar/`, rendered by HeyGen via `avatar-pipeline/` | Separate pipeline entirely |
+| **Talking-head · avatar** | Lives in `avatar/` and `refined/avatar/`, rendered manually via the HeyGen web UI | Separate pipeline entirely |
 
 **Render route = location.** A raw script's folder declares how it renders:
 program root → illustrated, `avatar/` subfolder → talking-head. `/render-lessons`
@@ -317,21 +326,25 @@ correct; two pieces of prose around them are not.
    original intent) or by counting `rendered/` and relabelling it a
    published-count rotation — that's a call, not a typo.
 
-### 1.10 Last known state (as of 2026-07-30)
+### 1.10 Last known state (as of 2026-07-31)
 
-From `bash scripts/batch-status.sh`. Re-run that command for the live count —
-this table is a snapshot, not a tracked value.
+From `bash scripts/batch-status.sh`. Re-run that command for the live count, or
+read the generated `projects/video-production/PIPELINE-STATUS.md`, which every
+quarantine and every publish rewrites — this table is a snapshot, not a tracked
+value.
 
 | Bucket | Count |
 |---|---|
 | To build | 20 |
-| Built, unpublished | 14 (13 compiled; 1 has no scene plan) |
+| Built — composition only, no MP4 yet | 13 (all `mid-career-momentum`) |
+| MP4 rendered and verified, awaiting publish | 0 |
+| Quarantined | 1 (`build-direction-before-you-build-a-plan`, three static spans) |
 | Stranded | 0 |
 | Blocked | 2 (mid-career-momentum scripts carrying `TODO: needs input`) |
 | Live on Wistia | 2 |
 
-The 14 built-unpublished are all `mid-career-momentum`, waiting at the gate —
-`bash scripts/review.sh` will preflight them and open the clean ones.
+The 13 composition-only builds are waiting at the gate — `bash
+scripts/review.sh` will preflight them and open the clean ones.
 
 ## 2. The render-qa/ toolchain, in detail
 

@@ -84,14 +84,6 @@ Narration:
 
 Once approved, the narration is ready to render:
 
-1. Save it as a plain `.txt` directly in [`../lesson-scripts/<program-slug>/`](../lesson-scripts/README.md) — its permanent curated home — named per that folder's convention, e.g. `lesson-1.0_early-career-boost_2026-07-06.txt`.
-2. Add the lesson to `avatar-pipeline/config/config.json` under `lessons`:
-   ```json
-   "1.0": {
-     "title": "Your Lesson Title",
-     "source": "local",
-     "file": "../lesson-scripts/early-career-boost/lesson-1.0_early-career-boost_2026-07-06.txt"
-   }
-   ```
-3. Dry-run to preview chunking: `python src/generate_videos.py --lesson 1.0 --dry-run`
-4. Render one chunk to verify, then the rest — see [`../avatar-pipeline/CLAUDE.md`](../avatar-pipeline/CLAUDE.md).
+1. Save it as a plain `.txt` directly in [`../lesson-scripts/<program-slug>/avatar/`](../lesson-scripts/README.md) — its permanent curated home — named per that folder's convention, e.g. `lesson-1.0_early-career-boost_2026-07-06.txt`.
+2. Render it manually via the HeyGen web UI (the batch/resumable code path,
+   `avatar-pipeline/`, was removed 2026-08-02).

@@ -222,7 +222,7 @@ for prog in ordered:
                     # first few into the doc: the point of the transcript is that the
                     # owner should not have to open a transcript to know what broke.
                     txt = reason_file.read_text(encoding="utf-8", errors="replace")
-                    findings = [ln.strip() for ln in txt.splitlines()
+                    findings = [re.sub(r'^-\s*', '', ln.strip()) for ln in txt.splitlines()
                                 if re.match(r'\s+-\s+\[', ln)][:4]
                     nxt = ("read the full failure in "
                            f"`renders-hyperframes/{ws_dir.name}/qa/quarantine-reason.txt`, "
@@ -261,8 +261,9 @@ for prog in ordered:
             stranded.append((stem, state, nxt)); totals["rendered_unpublished"] += 1
     report.append({"program": prog, "queued": queued,
                    "blocked": [{"stem": s, "reason": r, "detail": d} for s, r, d in blocked],
-                   "built_unpublished": [{"stem": s, "stage": g, "state": st, "next": nx}
-                                          for s, g, st, nx in built],
+                   "built_unpublished": [{"stem": s, "stage": g, "state": st, "next": nx,
+                                          "findings": fd}
+                                          for s, g, st, nx, fd in built],
                    "rendered_unpublished": [{"stem": s, "state": st, "next": nx}
                                              for s, st, nx in stranded]})
 
@@ -335,6 +336,8 @@ if mode == "write":
         a("")
         for prog, x in stuck:
             a(f"- **{x['stem']}** ({prog}) — {x['state']}")
+            for fdg in x["findings"]:
+                a(f"  - {fdg}")
             a(f"  - **To clear it:** {x['next']}")
         a("")
     if published_rows:
@@ -382,6 +385,8 @@ if mode == "write":
             for x in group:
                 a(f"- {x['stem']}")
                 a(f"  - state: {x['state']}")
+                for fdg in x["findings"]:
+                    a(f"  - gate said: {fdg}")
                 a(f"  - next: {x['next']}")
             a("")
         if r["rendered_unpublished"]:
@@ -434,6 +439,8 @@ for r in report:
                "quarantined": "\033[31mQUARANTINED" + O}.get(x["stage"],
                               f"{D}composition, no MP4 yet{O}")
         print(f"       {tag} — {x['stem']}  ({x['state']})")
+        for fdg in x["findings"]:
+            print(f"         {D}{fdg}{O}")
         print(f"         {D}next: {x['next']}{O}")
     for x in r["rendered_unpublished"]:
         print(f"       \033[33mSTRANDED mid-pipeline{O} — {x['stem']}  ({x['state']})")

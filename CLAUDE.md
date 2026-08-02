@@ -21,7 +21,6 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/docs/notion-queue.md` |
 | Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
 | HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
-| Render HeyGen videos (code) | `projects/video-production/avatar-pipeline/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
 | Gate-enforcement rebuild (unarmed owner feedback) | `projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md` |

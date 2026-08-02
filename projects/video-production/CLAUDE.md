@@ -11,7 +11,6 @@ Match the task, load the ONE file it names, stop.
 | Produce a video end to end (one call) | `/produce-video` |
 | Illustrated lesson video (default: concepts, frameworks, processes) | `design-system/CLAUDE.md` |
 | Authoring inside a build workspace (`renders-hyperframes/<stem>/`) | `renders-hyperframes/_run/BUILD-KIT.md` — workspaces carry no CLAUDE.md/AGENTS.md of their own |
-| HeyGen avatar rendering (code, batch/resumable) | `avatar-pipeline/CLAUDE.md` |
 | Deterministic render gates / QA toolchain | `render-qa/README.md` |
 | Considering agent-native (template-free) rendering | `render-qa/docs/HANDOFF-agent-native-verdict-2026-07-30.md` |
 | Script/lesson state (raw → refined → rendered) | `lesson-scripts/README.md` |
@@ -27,7 +26,7 @@ Match the task, load the ONE file it names, stop.
 | Video is... | Use |
 | --- | --- |
 | Concept lesson, framework, process (**default**) | **HyperFrames** via `design-system/` — brand motion graphics + pinned TTS voice, no per-minute avatar cost. Style package: `design-system/docs/design-contract.md` → "Style packages" |
-| Translation/multilingual, quick-turn social, needs a human face | **HeyGen** — web UI for one-off/visually-designed videos; `avatar-pipeline/` for repeatable batch rendering from finalized scripts |
+| Translation/multilingual, quick-turn social, needs a human face | **HeyGen** — web UI only; the batch/resumable code path (`avatar-pipeline/`) was removed 2026-08-02 |
 | Long-form avatar course | **Synthesia** — under re-evaluation, setup never completed; decide before any Enterprise commitment |
 | Hosting / analytics | **Wistia** — auto-uploaded by `scripts/wistia-upload.sh` as the last step of SHIP, URL recorded in `refinement-log.md`; auth status in repo-root `config/endpoints.json` → "Wistia" |
 

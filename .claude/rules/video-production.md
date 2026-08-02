@@ -302,8 +302,8 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   output reads as alive while grading nothing. *(Mechanism:
   `render-qa/tests/test_guard_contract.py` resolves the guard's own `RQ` path and
   asserts both entry points exist on disk, so a move breaks a test instead of a
-  build. Why: log 2026-07-29 "Rejected: a telemetry/ledger 'self-improving'
-  pipeline. Adopted: prove every gate fires.")*
+  build. Why: log 2026-07-29 "Rejected: a telemetry/ledger … Adopted: prove
+  every gate fires".)*
 - **The render CLI is pinned, and the pin is checked.** An unpinned `npx
   hyperframes` lets a batch start on one version and finish on another, and lets
   a gate's verdict change because upstream shipped. Staleness is cured by bumping

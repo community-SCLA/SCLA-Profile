@@ -15,17 +15,17 @@ lesson-scripts/
     avatar/<stem>.txt       ← RAW intake, HeyGen-avatar route — /refine-scripts' queue
     refined/<stem>.txt      ← refined — /render-lessons' BUILD queue (illustrated)
                               and the open human review buffer (edit/veto any time)
-    refined/avatar/<stem>.txt  ← refined — avatar-pipeline's queue (talking-head)
+    refined/avatar/<stem>.txt  ← refined — HeyGen web UI queue (talking-head)
     rendered/<stem>.txt     ← gate-clean build exists — MP4 filed in ../renders-mp4/
                               (and on Wistia once shipped)
 ```
 
 **Render route is also a location.** Program root / `refined/` = illustrated
 (HyperFrames); the `avatar/` and `refined/avatar/` subfolders = talking-head
-(HeyGen, `../avatar-pipeline/`). The two queues never mix: `/render-lessons`
-builds only the `refined/` root, `avatar-pipeline/config/config.json` points only into
-`refined/avatar/`. `/refine-scripts` preserves the split (root → `refined/`,
-`avatar/` → `refined/avatar/`).
+(HeyGen, rendered manually via the HeyGen web UI — the batch/resumable code
+path was removed 2026-08-02). The two queues never mix: `/render-lessons`
+builds only the `refined/` root. `/refine-scripts` preserves the split (root →
+`refined/`, `avatar/` → `refined/avatar/`).
 
 Between `refined/` and shipped, an illustrated lesson's in-flight state lives
 outside this folder: a `../renders-hyperframes/<stem>/` workspace = built,
@@ -93,9 +93,9 @@ across shells, URLs, and Wistia titles.
   to Wistia **in one uninterrupted pass** — no separate MP4-review or publish
   step (gate removed 2026-07-22, `decisions/log.md`). The Wistia URL is
   recorded in the ledger and the `.txt` sits in `rendered/`.
-- The avatar path ([`../avatar-pipeline/`](../avatar-pipeline/CLAUDE.md))
-  reads scripts from `refined/avatar/` via `config.json`, renders each lesson as
-  one talking-head video, and stages the MP4 in
+- The avatar path reads scripts from `refined/avatar/` manually via the HeyGen
+  web UI (the batch/resumable code path, `avatar-pipeline/`, was removed
+  2026-08-02), rendering each lesson as one talking-head video staged in
   [`../renders-mp4/<program-slug>/avatar/`](../renders-mp4/README.md).
 
 The `.txt` is plain spoken narration only (no cues, no shot list). Refinement

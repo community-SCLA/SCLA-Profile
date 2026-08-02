@@ -8,24 +8,25 @@ Mid-Career Momentum pipeline setup.
 
 Produce lesson videos that show **Ann (HeyGen avatar) speaking** *and* carry the
 script's **production notes as on-screen text/illustrations** — the one thing
-neither current path does alone. Today: the avatar path
-([`avatar-pipeline/`](avatar-pipeline/CLAUDE.md)) renders a talking head and
+neither current path does alone. Today: the avatar path (HeyGen web UI —
+the batch/resumable code path, `avatar-pipeline/`, was removed 2026-08-02)
+renders a talking head and
 **drops** every `[On screen:]` / `[Graphic:]` cue; the illustrated path
 ([`design-system/`](design-system/CLAUDE.md) via `/render-lessons`) renders the
 cues as motion graphics but has **no avatar**. This build marries the two.
 
 ## Why this is a separate build, not a config change
 
-The avatar pipeline calls HeyGen's `POST /v3/videos` with plain narration and
-gets back a finished MP4 — HeyGen does not composite arbitrary branded graphics
-from our cues. So overlays have to be composited **after** the avatar render, in
-HyperFrames, where we already own timed branded motion. That's a new
-composition pattern (avatar as a media layer + cue-driven overlays), plus a
-timing bridge — real work, gated like any other lesson video.
+HeyGen's `POST /v3/videos` (or the equivalent web UI render) takes plain
+narration and returns a finished MP4 — HeyGen does not composite arbitrary
+branded graphics from our cues. So overlays have to be composited **after** the
+avatar render, in HyperFrames, where we already own timed branded motion.
+That's a new composition pattern (avatar as a media layer + cue-driven
+overlays), plus a timing bridge — real work, gated like any other lesson video.
 
 ## Approach (recommended)
 
-1. **Render the avatar clip** via `avatar-pipeline/` — the pure-narration `.txt`
+1. **Render the avatar clip** via the HeyGen web UI — the pure-narration `.txt`
    for the lesson. Prefer a HeyGen output that eases compositing: transparent /
    green-screen background if the account/avatar supports it, else a plain
    full-frame render. (If green-screen: `hyperframes remove-background` or the
@@ -44,10 +45,10 @@ timing bridge — real work, gated like any other lesson video.
    get word timings, then anchor each cue to its phrase. **Prefer HeyGen's own
    word timestamps if reachable for the avatar render** (the illustrated
    path's `synth_narration.py` now gets these natively from HeyGen starfish —
-   see `decisions/log.md` 2026-07-22 — but the avatar path calls HeyGen
-   differently, via `avatar-pipeline/`, and it isn't confirmed whether that
-   call surfaces word timestamps the same way; check before assuming Whisper
-   is still needed here).
+   see `decisions/log.md` 2026-07-22 — but the avatar path renders via the
+   HeyGen web UI (the code path, `avatar-pipeline/`, was removed 2026-08-02),
+   and it isn't confirmed whether that surfaces word timestamps the same way;
+   check before assuming Whisper is still needed here).
 4. **Gate it** through the existing render-qa stack (`preflight.py`,
    `verify_render.py`, and `qa-presence`, which already checks avatar-visible
    -throughout on avatar videos), then the human hyperframe gate → MP4 review →
@@ -93,7 +94,7 @@ next hybrid is a copy, not a re-invention.
 
 ## Pointers
 
-- Avatar render: [`avatar-pipeline/CLAUDE.md`](avatar-pipeline/CLAUDE.md)
+- Avatar render: HeyGen web UI (the code path, `avatar-pipeline/`, was removed 2026-08-02)
 - Composition contract + media layers: `hyperframes-core`, `hyperframes-creative`
 - Background removal / transcription: `hyperframes-media`
 - Brand tokens + templates: [`design-system/docs/design-contract.md`](design-system/docs/design-contract.md)

@@ -9,17 +9,16 @@ description: Batch-refine SCLA lesson scripts — drains every raw .txt sitting 
 
 ```
 lesson-scripts/<program-slug>/*.txt         raw intake, HyperFrames route — queue
-lesson-scripts/<program-slug>/avatar/*.txt  raw intake, HeyGen-avatar route — queue
 lesson-scripts/<program-slug>/refined/      refined HyperFrames queue — /render-lessons
-lesson-scripts/<program-slug>/refined/avatar/  refined avatar queue — avatar-pipeline
 lesson-scripts/<program-slug>/rendered/     published (MP4 filed + on Wistia)
 ```
 
 **Render route = location.** A raw script's folder declares how it renders:
 program root → illustrated (HyperFrames), `avatar/` subfolder → talking-head
-(HeyGen). Refinement preserves the split: root → `refined/`, `avatar/` →
-`refined/avatar/`. The two never mix — `/render-lessons` builds only `refined/`
-root; `avatar-pipeline/config.json` points only into `refined/avatar/`.
+(HeyGen, rendered manually via the web UI — the batch/resumable code path,
+`avatar-pipeline/`, was removed 2026-08-02). Refinement preserves the split:
+root → `refined/`, `avatar/` → `refined/avatar/`. The two never mix —
+`/render-lessons` builds only `refined/` root.
 
 **Compiled-bundle intake:** when a program arrives as one `.txt` holding every
 lesson, split it into per-lesson raws first. Each lesson block's route comes from

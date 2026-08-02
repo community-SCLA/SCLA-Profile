@@ -9,8 +9,8 @@ SCLA's lesson-video factory. A refined script goes in; a Wistia-hosted MP4 comes
 - **Illustrated** (default for concept lessons) — `design-system/` holds the branded
   scene templates and the design contract; `render-qa/` derives every timing and grades
   every frame. No per-minute avatar cost.
-- **Avatar** — `avatar-pipeline/` drives the HeyGen API for talking-head and
-  translation work.
+- **Avatar** — HeyGen web UI, for talking-head and translation work. The batch/resumable
+  code path (`avatar-pipeline/`) was removed 2026-08-02.
 
 ## How to run it
 

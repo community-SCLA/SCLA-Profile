@@ -12,7 +12,7 @@ committed.
 renders-mp4/
   <program-slug>/
     hyperframes/   ← illustrated (HyperFrames) renders — /render-lessons SHIP
-    avatar/        ← talking-head (HeyGen) renders — avatar-pipeline
+    avatar/        ← talking-head (HeyGen web UI) renders
       <stem>.mp4   ← local only, not committed
 ```
 
@@ -55,8 +55,9 @@ files as-is; the tooling handles both.
    prefix, any render date) before it will archive the build workspace.
 
 **Avatar (HeyGen):**
-1. `avatar-pipeline/src/generate_videos.py` renders each lesson (concatenating its
-   HeyGen chunks into one video) straight into `avatar/` under this program.
+1. Rendered manually via the HeyGen web UI (the batch/resumable code path,
+   `avatar-pipeline/`, was removed 2026-08-02) and filed into `avatar/` under
+   this program.
 2. Human MP4 review, then upload to Wistia; record the URL in the ledger.
 
 Files can stay here after upload — a free local backup of the delivered cut.
