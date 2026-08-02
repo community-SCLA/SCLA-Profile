@@ -1,5 +1,11 @@
 # Lesson Scripts — organized by program, state = folder
 
+> **The pipeline this folder fed was retired 2026-08-02.** The script library is
+> live and unchanged, but every skill and script named below (`/refine-scripts`,
+> `/render-lessons`, `/produce-video`, the `../renders-*` staging trees) now sits
+> under `../_archive/` and does not run. The raw → `refined/` → `rendered/`
+> convention still describes what is on disk, so it is kept as written.
+
 Narration **scripts**, one folder per program. The rendered video does **not**
 live here: finished MP4s stage locally in `../renders-mp4/` and are uploaded to
 **Wistia**, not committed to the repo (see

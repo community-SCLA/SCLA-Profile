@@ -1,3 +1,15 @@
+# ---------------------------------------------------------------------------
+# KEPT FILE — the video pipeline was retired 2026-08-02 to
+# projects/video-production/_archive/, and this is one of four things left live
+# (with assets/fonts/, assets/brand/ and package.json). It is now a DATA SHEET,
+# not a live spec: the loader (render-qa/src/tokens.py) and every gate named in
+# the comments below are archived, so nothing currently reads or enforces these
+# numbers. They are kept because they are the answers — the pinned voice, the
+# type scale, the brand colors, the spacing — and re-deriving them costs more
+# than any pipeline rebuild saves. The per-block comments are left verbatim as
+# the record of WHY each number is what it is; read "the gate grades against
+# this" as "the gate did, and would again".
+# ---------------------------------------------------------------------------
 name: SCLA Lesson System
 canvas: 1920x1080
 colors:

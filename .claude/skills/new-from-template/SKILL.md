@@ -20,5 +20,5 @@ Use this skill to start a **new, greenfield** project under `projects/`.
 
 ## Notes
 
-- Video work never starts here — the video pipeline has its own entry points (`/produce-video`, `projects/video-production/CLAUDE.md`).
+- Video work never started here — and as of 2026-08-02 the video pipeline is retired to `projects/video-production/_archive/`; its skills no longer load.
 - If the target file already exists, treat it as an existing project — confirm before overwriting.

@@ -156,12 +156,19 @@ else
 fi
 
 echo "[11/11] render-qa test suite"
-# The render-qa test suite actually runs. Until 2026-07-29 the tests
-# existed and nothing executed them: not CI, not run_tests.py (which only ran
+# The render-qa test suite actually runs, WHEN there is one. Until 2026-07-29 the
+# tests existed and nothing executed them: not CI, not run_tests.py (which only ran
 # its own cases and silently skipped its five sibling test_*.py files). The
 # thresholds pinned in test_variety.py and test_gates.py are what stop a future
 # session from "fixing" a gate by loosening it until the rejected build passes,
 # so they have to be enforced, not merely present.
+#
+# 2026-08-02: the pipeline was retired to projects/video-production/_archive/ and
+# there are no live gates left to pin, so an absent suite is now reported, not
+# warned about. The check keeps its number deliberately — several docs and log
+# entries cite "lint-refs.sh check 11", and check 10 verifies those citations
+# resolve. Rebuilding the pipeline means restoring a suite at the live path below,
+# and this check starts grading it again the moment one exists.
 RQ_TESTS="$(dirname "$0")/../projects/video-production/render-qa/tests/run_tests.py"
 if [ -f "$RQ_TESTS" ]; then
   if TEST_OUT="$(python3 "$RQ_TESTS" 2>&1)"; then
@@ -171,7 +178,7 @@ if [ -f "$RQ_TESTS" ]; then
 $(printf '%s' "$TEST_OUT" | grep -E 'FAIL|failed' | head -8)"
   fi
 else
-  warn "render-qa test suite missing at $RQ_TESTS"
+  ok "no render-qa suite at the live path — pipeline retired 2026-08-02 (idle, not failing)"
 fi
 
 echo

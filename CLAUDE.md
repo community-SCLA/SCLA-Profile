@@ -14,16 +14,10 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Member-facing answer | `member-support/faqs.md` |
 | Partner org | `partnerships/NIC.md` |
 | Grant work | `projects/grants/` |
-| Video production | `projects/video-production/CLAUDE.md` |
-| Produce a video (one call; stops at the pilot gate) | `/produce-video` |
-| Refine raw lesson scripts (batch) | `/refine-scripts` |
-| Build / ship / publish lesson videos | `/render-lessons` |
-| Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/docs/notion-queue.md` |
-| Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
-| HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
+| Video essentials — voice ID, font, colors, spacing | `projects/video-production/design-system/config/tokens.yml` |
+| Lesson script library (raw / refined / rendered) | `projects/video-production/lesson-scripts/README.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
-| Gate-enforcement rebuild (unarmed owner feedback) | `projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md` |
 | 2026-07 refactor — what ran, why, residues | `audits/2026-07-28-repo-audit-brief.md` (§0.0 ledger: open residues) |
 | Integrations, endpoint IDs | `config/endpoints.json` |
 
@@ -31,19 +25,25 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 
 ```bash
 bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 11 checks,
-                                   # incl. the render-qa suite (check 11) and the STD-35
-                                   # enforcement audit (check 10). CI runs it on every push.
-python3 projects/video-production/render-qa/tests/run_tests.py   # that suite alone
-python3 projects/video-production/render-qa/tests/test_variety.py # one file — each runs standalone
-npm run check                      # in design-system/ — template gate, run after ANY composition edit
-bash scripts/batch-status.sh       # resume key: what's left in the video queue, read from disk alone
-bash scripts/review.sh             # gate every build, serve previews of the clean ones
+                                   # incl. the STD-35 enforcement audit (check 10). Check 11
+                                   # (render-qa suite) idles: the suite retired 2026-08-02.
 bash scripts/with-secrets.sh CMD   # Infisical injection — required for HeyGen/Wistia calls
 ```
 
+## Video production — retired 2026-08-02
+
+The illustrated-lesson factory (skills, gates, render workspaces, scene templates) was
+retired to `projects/video-production/_archive/`, which is **read-only provenance, not a
+routing target** — do not load it to do work. Four essentials stayed live under
+`projects/video-production/design-system/`: the tokens file (HeyGen voice ID, type
+scale, colors, spacing) at `projects/video-production/design-system/config/tokens.yml`,
+plus the vendored fonts, the logo SVGs, and the CLI pin in package.json beside it. The
+script library at `projects/video-production/lesson-scripts/` is untouched. Any new
+pipeline starts from those and from `decisions/log.md`.
+
 ## Rules
 
-Standing rules live in `.claude/rules/` (auto-discovered): `.claude/rules/repo-hygiene.md` (always) and `.claude/rules/video-production.md` (factory work). Headline: **never load or route to `_archive/`**.
+Standing rules live in `.claude/rules/` (auto-discovered): `.claude/rules/repo-hygiene.md`. Headline: **never load or route to `_archive/`**.
 
 ## Tool usage discipline (context budget)
 - Read files with the Read tool, not `cat`/`head`/`tail`. Read specific line ranges when you know roughly where to look.

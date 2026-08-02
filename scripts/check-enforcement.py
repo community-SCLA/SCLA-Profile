@@ -55,16 +55,20 @@ VP = REPO / "projects/video-production"
 # instructions — the single most-read normative doc in the repo was the one
 # nothing audited. `decisions/log.md` is graded because a decision that names
 # a mechanism is making the same promise a rule does.
+#
+# 2026-08-02: the video pipeline was retired to
+# projects/video-production/_archive/, and six of the nine graded docs went with
+# it — the two skills, the video rules file, the pipeline CLAUDE.md, the design
+# contract, and design-system/AGENTS.md. Grading an archived doc is the wrong
+# question: it is provenance, and provenance is allowed to describe mechanisms
+# that no longer run. decisions/log.md left the list for the same reason — its
+# video-era entries cite dozens of checkers now under _archive/, and every one
+# would read as a BROKEN CLAIM while being an accurate record of what was true
+# when the decision was made. Restore an entry here the moment its doc becomes
+# a live promise again.
 GRADED = [
     ".claude/rules/repo-hygiene.md",
-    ".claude/rules/video-production.md",
-    ".claude/skills/render-lessons/SKILL.md",
-    ".claude/skills/refine-scripts/SKILL.md",
     "CLAUDE.md",
-    "decisions/log.md",
-    "projects/video-production/CLAUDE.md",
-    "projects/video-production/design-system/docs/design-contract.md",
-    "projects/video-production/design-system/AGENTS.md",
 ]
 
 # Roots a backticked path in a doc may be relative to.

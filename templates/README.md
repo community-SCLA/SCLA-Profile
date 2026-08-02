@@ -9,4 +9,4 @@ Project scaffolds for new work under `projects/`. Start via `/new-from-template`
 | [project-content.md](./project-content.md) | Newsletters, social posts, blog drafts |
 | [project-program.md](./project-program.md) | Program development projects |
 
-Video script templates live with the production pipeline, not here: `projects/video-production/script-templates/` (HeyGen lesson script, course/social prompts, batch CSV, QA checklist).
+Video script templates went with the production pipeline when it was retired 2026-08-02 — they are provenance now, at `projects/video-production/_archive/script-templates/` (HeyGen lesson script, course/social prompts, batch CSV, QA checklist).

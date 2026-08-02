@@ -2,6 +2,7 @@
   "name": "design-system",
   "private": true,
   "type": "module",
+  "_note": "Kept for the pinned HyperFrames CLI version (0.7.79). The pipeline retired 2026-08-02; compositions, the demo reel and the render-qa checkers moved to ../_archive/, so `check` and `render` have nothing live to grade. The gate commands are left verbatim as the record of what the pin was checked against — repoint them at ../_archive/render-qa/src/ to run them, or rewrite them when a new pipeline exists.",
   "scripts": {
     "dev": "npx --yes hyperframes@0.7.79 preview",
     "check": "npx --yes hyperframes@0.7.79 check && python3 ../render-qa/src/check_text.py . && python3 ../render-qa/src/check_layout.py . && python3 ../render-qa/src/check_motion.py .",
