@@ -21,14 +21,20 @@ VS Code multi-root workspace file moved from `/workspaces/scla.code-workspace` (
 by nothing) to this repo's root, with `.` and `../ringer` as its two folders.
 `.fleet-agent` is now committed rather than merely present.
 
-**Why the engine pin is a gate and not a note.** `DEFAULT_ENGINE_NAME = "codex"` is a
-hardcoded constant in `ringer.py`, and `TaskSpec.from_obj` falls back to it. No config
-key overrides it — `config.sample.toml` and `docs/` were grepped. The codex binary is
-not installed here, so a task that omits `"engine"` does not quietly run on Claude; it
-fails to launch. Patching the constant locally is not durable either, because Ringer's
-`[update] auto` self-update is on by default and would revert it. Per-task pinning is
-the only reliable answer, and a rule nobody checks is a rule that will be forgotten —
-so it is check 12.
+**Claude is the only engine.** `config/ringer-engines.toml` defines exactly one,
+`[engines.claude]`, and every other engine block was deleted from it so no file in this
+repo presents an alternative. Three model lanes are available to any task, worker or
+checker: `claude-opus-5` for judgement and final drafts, `claude-sonnet-5` as the
+default working lane, `claude-haiku-4-5` for mechanical passes and smoke checks. Set
+them per task with `"model"`, and depth with `"engine_args": ["--effort", …]`.
+
+**Why the engine pin is a gate and not a note.** Ringer's own fallback for a task that
+omits `"engine"` is a harness this machine does not have installed, and no config key
+redirects it (`config.sample.toml` and `docs/` were grepped). So an unset engine does
+not quietly run on Claude — the task fails to launch. Patching upstream's constant is
+not durable either: its self-update would revert it. Per-task pinning is the only
+reliable answer, and a rule nobody checks is a rule that gets forgotten, so it is
+check 12.
 
 **Why the path rule is in the same gate.** A worker's cwd is `workdir/<task key>`, not
 the repo. When `workdir` is outside the repo, a repo-relative path in a spec resolves

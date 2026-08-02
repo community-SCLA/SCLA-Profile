@@ -184,12 +184,14 @@ fi
 echo "[12/12] Ringer manifests pin the Claude engine and use absolute repo paths"
 # Two failure modes, both silent, both verified against ringer.py on 2026-08-02:
 #
-#  1. ENGINE. `DEFAULT_ENGINE_NAME = "codex"` is a hardcoded constant
-#     (ringer.py:53) and TaskSpec.from_obj falls back to it (ringer.py:1667).
-#     No config key overrides it — grepped config.sample.toml and docs/. The
-#     codex binary is not installed here, so a task that omits "engine" does not
-#     run on Claude by default; it fails to launch. Pinning it per task is the
-#     only reliable fix short of patching upstream (which self-update reverts).
+#  1. ENGINE. Claude is SCLA's only worker engine — config/ringer-engines.toml
+#     defines exactly one, [engines.claude], across the haiku / sonnet / opus
+#     lanes. Ringer's own fallback for a task that omits "engine" is a harness
+#     this machine does not have installed, and no config key redirects it
+#     (ringer.py:53, :1667 — grepped config.sample.toml and docs/). So an unset
+#     engine does not quietly run on Claude; the task fails to launch. Pinning
+#     it per task is the only durable fix: patching upstream's constant would be
+#     reverted by its own self-update.
 #
 #  2. PATHS. A worker's cwd is workdir/<task key> (ringer.py:9313), NOT the repo.
 #     When workdir sits outside this repo, a repo-relative path in spec/check
@@ -234,7 +236,7 @@ for p in sorted(REPO.rglob('*.json')):
         engine = str(t.get('engine', '')).strip()
         if engine != 'claude':
             problems.append(f"{rel}: task '{key}' has engine "
-                            f"{engine or '<unset -> codex>'!r}; must be 'claude'")
+                            f"{engine or '<unset>'!r}; must be 'claude'")
         if outside:
             for field in ('spec', 'check'):
                 for m in RELPATH.finditer(str(t.get(field, ''))):

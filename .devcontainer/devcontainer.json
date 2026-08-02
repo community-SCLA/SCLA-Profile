@@ -35,8 +35,7 @@
   // rebuild, so ~/.config/ringer/config.toml and the global `claude` CLI vanish
   // while /workspaces/ringer and ~/.claude (a symlink into .persistedshare) survive.
   // Without this, a rebuilt container silently loses the [engines.claude] block and
-  // every swarm falls back to Ringer's hardcoded codex default, which is not
-  // installed. scripts/setup-ringer.sh is idempotent and never overwrites a
+  // no swarm can run. scripts/setup-ringer.sh is idempotent and never overwrites a
   // hand-edited config without --force; `|| true` keeps a Ringer hiccup from
   // failing container creation, since the KB itself does not need Ringer to work.
   "postCreateCommand": "curl -1sLf 'https://artifacts-cli.infisical.com/setup.deb.sh' | sudo -E bash && sudo apt-get install -y infisical ffmpeg && if [ \"$(git config --get core.sparseCheckout 2>/dev/null)\" = \"true\" ]; then echo '-> Materializing brand/ in sparse checkout...'; git sparse-checkout add brand || true; fi; bash scripts/setup-ringer.sh || true",

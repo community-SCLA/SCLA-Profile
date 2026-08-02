@@ -70,7 +70,7 @@ Each rule names its enforcement mechanism, or is honestly labelled a **conventio
 - **The root is closed: `ls` at root is the approved set — new work goes under `projects/`, new config under `config/` or `.claude/`.** *(Convention.)*
 - **No credentials or session state in the repo — secrets live only in Infisical.** *(Mechanisms: the `.gitignore` credential shield; `scripts/lint-refs.sh` check 9's no-secret-material scan.)*
 - **Integration IDs live in `config/endpoints.json`, never hand-written into markdown and never invented (unknown stays `null`).** *(Mechanism: `scripts/lint-refs.sh` check 9 + CI.)*
-- **Ringer tasks pin `"engine": "claude"` — its default, codex, is uninstalled.** *(Mechanism: `scripts/lint-refs.sh` check 12 + CI.)*
+- **Ringer tasks pin `"engine": "claude"` — the only engine; unset never defaults.** *(Mechanism: `scripts/lint-refs.sh` check 12 + CI.)*
 
 ## Tool usage discipline (context budget)
 - Read tool over `cat`/`head`/`tail`; specific line ranges when you know where to look.
