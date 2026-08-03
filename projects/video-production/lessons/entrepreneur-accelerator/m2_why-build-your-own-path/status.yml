@@ -1,8 +1,8 @@
 stem: m2_why-build-your-own-path
 program: entrepreneur-accelerator
 script: projects/video-production/lesson-scripts/entrepreneur-accelerator/refined/m2_why-build-your-own-path.txt
-stage: narrated
-next_action: "Critic panel reviews storyboard draft (studio round 2)"
+stage: storyboarded
+next_action: "Builder implements the approved storyboard in HyperFrames and renders 1920x1080 (studio round 3)"
 blocked: null
 wistia_hashed_id: null
 render_date: null
