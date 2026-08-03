@@ -11,8 +11,10 @@ A preference is not real until it is a gate — this file is the gate.
 
 Gates (all must pass; each prints its measurements):
   render    1920x1080 MP4 with audio, video covers the narration
-  frames    no blank content run >= 0.5s anywhere (content region ink,
-            graded at 4fps — footer furniture does not excuse an empty frame)
+  frames    no blank content run >= 0.3s anywhere (content region ink at
+            10fps — footer furniture does not excuse an empty frame; 0.3s
+            white flashes at two cuts survived the 0.5s/4fps version and both
+            round-2 vision lanes flagged them)
   palette   near-black <= 12% of pixels video-wide; full-dark frames <= 10%
             of samples; brand blue >= 3%; gold >= 0.5%; >= 60% of frames
             carry visible blue/gold accent
@@ -107,7 +109,7 @@ def check_frames_and_palette(mp4):
     sub-0.2s transition dips are legitimate.
     """
     import numpy as np
-    FPS = 4
+    FPS = 10
     raw = run(["ffmpeg", "-v", "error", "-i", str(mp4),
                "-vf", f"fps={FPS},scale=192:108", "-f", "rawvideo",
                "-pix_fmt", "rgb24", "-"]).stdout
@@ -135,7 +137,7 @@ def check_frames_and_palette(mp4):
             j = i
             while j < n and blank_mask[j]:
                 j += 1
-            if j - i >= 2:                           # >= 0.5s at 4fps
+            if j - i >= 3:                           # >= 0.3s at 10fps
                 runs.append((round(i / FPS, 2), round((j - i) / FPS, 2)))
             i = j
         else:
