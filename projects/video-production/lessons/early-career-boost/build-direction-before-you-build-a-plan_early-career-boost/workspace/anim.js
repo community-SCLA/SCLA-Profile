@@ -6,7 +6,9 @@
  * closing-beat / transition seconds, which sit inside spoken silences.
  *
  * Motion follows tokens.yml motion:  entrance 0.4-0.6s (whole entrance settles
- * by 1.2s), stagger 0.12-0.18s, one closing beat per scene, no repeat:-1.
+ * by 1.2s), stagger 0.12-0.18s, one closing beat per scene, no repeat:-1, and
+ * motion.exit-group — an element leaving a scene and the text it carries are a
+ * single tween target, never two.
  */
 window.buildLessonTimeline = function () {
   var C = window.CUE;
@@ -17,10 +19,14 @@ window.buildLessonTimeline = function () {
   var NAVY = "#0d2437",
     BLUE = "#3393d6",
     GOLD = "#eaab2d",
-    INK = "#292f35",
     PAPER = "#ffffff",
     BORDER = "#cccedf",
     MUTED = "#5f6f96";
+
+  // the two rail-marker states (tokens components.step-node: gold fill on
+  // activation, navy number; spent markers fall back to the blue outline chip)
+  var LIVE = { backgroundColor: GOLD, borderColor: NAVY, color: NAVY };
+  var SPENT = { backgroundColor: PAPER, borderColor: BLUE, color: BLUE };
 
   var EASE = "power3.out";
   var D = 0.5; // entrance duration, inside the 0.4-0.6s band
@@ -65,13 +71,19 @@ window.buildLessonTimeline = function () {
   function slideIn(sel, at, from) {
     tl.fromTo(sel, { x: from, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: EASE }, at);
   }
+  function state(sel, at, s, d) {
+    tl.to(sel, Object.assign({ duration: d || 0.45 }, s), at);
+  }
+
+  /* ── CHROME — the progress rail fills across the whole runtime ────────── */
+  tl.fromTo("#rail-fill", { scaleX: 0 }, { scaleX: 1, duration: 146.5, ease: "none" }, 0);
 
   /* ── BEAT 1 — series title lockup ─────────────────────────────────────── */
   hide("#b1-eyebrow, #b1-title .w", 0);
   tl.set("#b1-rings", { opacity: 0 }, 0);
   tl.set("#b1-rule", { scaleX: 0 }, 0);
   rise("#b1-eyebrow", 0.02, { y: 16, d: 0.45 });
-  tl.to("#b1-rings", { opacity: 0.18, duration: 0.6, ease: "power2.out" }, 0.2);
+  tl.to("#b1-rings", { opacity: 0.35, duration: 0.6, ease: "power2.out" }, 0.2);
   rise("#b1-title .w", 0.05, { y: 24, d: 0.45, stagger: 0.12 }); // settles at 1.22s
   draw("#b1-rule", 1.6, 0.5); // closing beat 2.1: the gold rule completes
 
@@ -103,8 +115,7 @@ window.buildLessonTimeline = function () {
   var s4 = start(4);
   hide("#b4-quote, #b4-leadin, #b4-f1, #b4-f2, #b4-f3", s4);
   tl.set("#b4-rule", { scaleX: 0 }, s4);
-  tl.set("#b4-tag", { opacity: 0, y: -30 }, s4);
-  tl.set(".b4-chip", { borderColor: BLUE, color: BLUE }, s4);
+  tl.set(".b4-chip", { borderColor: BLUE, color: BLUE, y: 0, borderRadius: 100 }, s4);
   // 13.13 "labels." — the chips drain to a hairline outline
   tl.to(".b4-chip", { borderColor: BORDER, color: MUTED, duration: 0.6, ease: "power2.out" }, C.b4_labels);
   rise("#b4-quote", C.b4_labels, { y: 20 });
@@ -117,11 +128,11 @@ window.buildLessonTimeline = function () {
   rise("#b4-f1", C.b4_how, { y: 18 });
   rise("#b4-f2", C.b4_what, { y: 18 });
   rise("#b4-f3", C.b4_where, { y: 18 });
-  // closing beat 19.5: one chip peels its label off and drops it as a flat tag
-  tl.to("#b4-peel-label", { opacity: 0, duration: 0.3 }, 19.5);
-  tl.to("#b4-tag", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 19.5);
+  // closing beat 19.5: the last chip drops out of the row as a flat tag. One
+  // tween, one target — the chip carries its word with it (motion.exit-group).
+  tl.to("#b4-peel", { y: 40, borderRadius: 8, duration: 0.5, ease: "power2.out" }, 19.5);
 
-  /* ── BEAT 5 — the paper ground splits, the left half fills navy ───────── */
+  /* ── BEAT 5 — the tinted ground splits, the left half fills navy ──────── */
   var s5 = start(5);
   tl.set("#b5-half", { scaleX: 0, transformOrigin: "right center" }, s5);
   tl.set("#b5-seam", { scaleY: 0 }, s5);
@@ -139,7 +150,7 @@ window.buildLessonTimeline = function () {
   tl.set("#b6-navy, #b6-seam", { x: 0 }, s6);
   hide(".b6-slot", s6);
   hide(".b6-card", s6, { scale: 0.9 });
-  tl.set(".b6-glyph", { opacity: 0.78 }, s6);
+  tl.set(".b6-glyph", { color: NAVY }, s6);
   tl.to("#b6-navy, #b6-seam", { x: 1920, duration: 0.75, ease: "power3.inOut" }, C.b6_think);
   tl.to(".b6-slot", { opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" }, C.b6_think + 0.45);
   var b6cards = ["#b6-k1", "#b6-k2", "#b6-k3", "#b6-k4", "#b6-k5", "#b6-k6"];
@@ -147,29 +158,32 @@ window.buildLessonTimeline = function () {
   b6cards.forEach(function (sel, i) {
     pop(sel, b6cues[i]);
   });
-  tl.to(".b6-glyph", { opacity: 1, duration: 0.4, ease: "power2.out" }, 35.98); // closing beat
+  // closing beat 35.98: the six glyphs brighten together, to gold
+  tl.to(".b6-glyph", { color: GOLD, duration: 0.4, ease: "power2.out" }, 35.98);
 
-  /* ── BEAT 7 — navy floods in radially, four questions stack ───────────── */
+  /* ── BEAT 7 — blue floods in radially, four questions stack ───────────── */
   var s7 = start(7);
   tl.set("#b7-flood", { scale: 0 }, s7);
+  hide("#b7-panel", s7, { scale: 0.96 });
   hide("#b7-q1, #b7-q2, #b7-q3, #b7-q4", s7, { x: 0 });
-  tl.set("#b7-q1 .t-body, #b7-q2 .t-body, #b7-q3 .t-body, #b7-q4 .t-body", { color: PAPER }, s7);
   tl.to("#b7-flood", { scale: 1, duration: 0.45, ease: "power3.inOut" }, s7);
+  tl.to("#b7-panel", { opacity: 1, scale: 1, duration: 0.5, ease: EASE }, s7 + 0.12);
   var b7q = ["#b7-q1", "#b7-q2", "#b7-q3", "#b7-q4"];
   var b7cues = [Math.max(C.b7_q1, s7 + 0.15), C.b7_q2, C.b7_q3, C.b7_q4];
   b7q.forEach(function (sel, i) {
     rise(sel, b7cues[i], { y: 22 });
-    // earlier lines drop from paper to blue so the eye stays on the live question
-    if (i > 0) tl.to(b7q[i - 1] + " .t-body", { color: BLUE, duration: 0.45 }, b7cues[i]);
+    // the spent question recedes as a whole row — marker and line together —
+    // so the eye stays on the live one (motion.exit-group)
+    if (i > 0) tl.to(b7q[i - 1], { opacity: 0.45, duration: 0.45 }, b7cues[i]);
   });
-  tl.to("#b7-q1 .t-body, #b7-q2 .t-body, #b7-q3 .t-body, #b7-q4 .t-body", { color: PAPER, duration: 0.5 }, 43.6);
+  tl.to(b7q.join(", "), { opacity: 1, duration: 0.5 }, 43.6); // closing beat
 
   /* ── BEAT 8 — the paper ground wipes down, the balance scale tips ─────── */
   var s8 = start(8);
   tl.set("#b8-paper", { scaleY: 0, transformOrigin: "top center" }, s8);
   hide("#b8-scale, #b8-h1, #b8-h2", s8);
   tl.set("#b8-beam", { rotation: 0 }, s8);
-  tl.set("#b8-d1, #b8-d2, #b8-d3", { opacity: 0.3 }, s8);
+  tl.set("#b8-d1, #b8-d2, #b8-d3", { opacity: 0.25 }, s8);
   tl.to("#b8-paper", { scaleY: 1, duration: 0.6, ease: "power3.inOut" }, s8);
   rise("#b8-scale", s8 + 0.35, { y: 22, d: 0.6 });
   rise("#b8-h1", C.b8_moments, { y: 20 });
@@ -217,6 +231,7 @@ window.buildLessonTimeline = function () {
   var b11n = ["#b11-n1", "#b11-n2", "#b11-n3", "#b11-n4", "#b11-n5", "#b11-n6"];
   var b11g = ["#b11-g1", "#b11-g2", "#b11-g3", "#b11-g4", "#b11-g5"];
   hide(b11n.join(", "), s11, { scale: 0.5 });
+  tl.set(b11n.join(", "), { backgroundColor: BLUE }, s11);
   hide("#b11-h1, #b11-h2", s11);
   b11g.forEach(function (sel) {
     tl.set(sel, { rotation: Number(document.querySelector(sel).dataset.rot), scaleX: 0 }, s11);
@@ -227,8 +242,9 @@ window.buildLessonTimeline = function () {
   b11g.forEach(function (sel, i) {
     tl.to(sel, { scaleX: 1, duration: 0.6, ease: "power2.out" }, C.b11_early + i * 0.68);
   });
-  tl.to("#b11-n6", { scale: 1.45, duration: 0.22, ease: "power2.out" }, 70.1); // closing beat
-  tl.to("#b11-n6", { scale: 1, duration: 0.28, ease: "power2.inOut" }, 70.32);
+  // closing beat 70.1: the final node of the path pops, and takes the accent
+  tl.to("#b11-n6", { scale: 1.6, backgroundColor: GOLD, duration: 0.22, ease: "power2.out" }, 70.1);
+  tl.to("#b11-n6", { scale: 1.25, duration: 0.28, ease: "power2.inOut" }, 70.32);
 
   /* ── BEAT 12 — the path straightens into a gutter, two quote cards ────── */
   var s12 = start(12);
@@ -257,9 +273,11 @@ window.buildLessonTimeline = function () {
   var num = document.getElementById("b13-num");
   var counter = { v: 0 };
   hide("#b13-label", s13);
+  tl.set("#b13-rule", { scaleX: 0, transformOrigin: "center center" }, s13);
   tl.set("#b13-num", { opacity: 0, scale: 0.85 }, s13);
   tl.set(counter, { v: 0 }, s13);
   rise("#b13-label", Math.max(C.b13_in, s13), { y: 18 });
+  draw("#b13-rule", Math.max(C.b13_in, s13) + 0.2, 0.5);
   tl.to("#b13-num", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, C.b13_three);
   tl.to(
     counter,
@@ -287,14 +305,15 @@ window.buildLessonTimeline = function () {
   rise("#b14-l2", C.b14_how, { y: 18 });
 
   var s15 = start(15);
-  tl.set("#b15-m1", { borderColor: BLUE, color: BLUE }, s15);
-  tl.set("#b15-m2", { borderColor: MUTED, color: MUTED }, s15);
+  tl.set("#b15-m1", LIVE, s15);
+  tl.set("#b15-m2", SPENT, s15);
   tl.set("#b15-ghost", { opacity: 1, x: 0 }, s15);
   hide("#b15-panel", s15, { x: 120 });
   hide("#b15-sub", s15);
   hide("#b15-v1, #b15-v2, #b15-v3, #b15-v4, #b15-v5, #b15-v6", s15, { scale: 0.9 });
-  tl.to("#b15-m1", { borderColor: MUTED, color: MUTED, duration: 0.45 }, C.b15_second);
-  tl.to("#b15-m2", { borderColor: BLUE, color: BLUE, duration: 0.45 }, C.b15_second);
+  state("#b15-m1", C.b15_second, SPENT);
+  state("#b15-m2", C.b15_second, LIVE);
+  // the spent panel leaves as one unit, its copy travelling inside it
   tl.to("#b15-ghost", { opacity: 0, x: -60, duration: 0.45, ease: "power2.in" }, C.b15_second);
   slideIn("#b15-panel", C.b15_values, 120);
   rise("#b15-sub", C.b15_what, { y: 18 });
@@ -305,23 +324,23 @@ window.buildLessonTimeline = function () {
   });
 
   var s16 = start(16);
-  tl.set("#b16-m1", { borderColor: MUTED, color: MUTED }, s16);
-  tl.set("#b16-m2", { borderColor: BLUE, color: BLUE }, s16);
-  tl.set("#b16-m3", { borderColor: MUTED, color: MUTED }, s16);
+  tl.set("#b16-m1", SPENT, s16);
+  tl.set("#b16-m2", LIVE, s16);
+  tl.set("#b16-m3", SPENT, s16);
   tl.set("#b16-ghost", { opacity: 1, x: 0 }, s16);
   hide("#b16-panel", s16, { x: 120 });
   tl.set("#b16-bar1", { scaleY: 0, opacity: 0.55 }, s16);
   tl.set("#b16-bar2", { scaleY: 1, backgroundColor: BLUE }, s16);
-  tl.to("#b16-m2", { borderColor: MUTED, color: MUTED, duration: 0.45 }, C.b16_third);
-  tl.to("#b16-m3", { borderColor: BLUE, color: BLUE, duration: 0.45 }, C.b16_third);
+  state("#b16-m2", C.b16_third, SPENT);
+  state("#b16-m3", C.b16_third, LIVE);
   tl.to("#b16-ghost", { opacity: 0, x: -60, duration: 0.45, ease: "power2.in" }, C.b16_third);
   slideIn("#b16-panel", C.b16_energy, 120);
   tl.to("#b16-bar1", { scaleY: 1, opacity: 1, duration: 1.6, ease: "power2.out" }, C.b16_leaves);
   tl.to("#b16-bar2", { scaleY: 0.25, backgroundColor: MUTED, duration: 1.5, ease: "power2.inOut" }, C.b16_consistently);
-  // closing beat 105.4: all three markers restore to full blue
-  tl.to("#b16-m1, #b16-m2, #b16-m3", { borderColor: BLUE, color: BLUE, duration: 0.45 }, 105.4);
+  // closing beat 105.4: all three markers restore to the live state
+  state("#b16-m1, #b16-m2, #b16-m3", 105.4, LIVE);
 
-  /* ── BEAT 17 — the panel collapses, navy irises out, the badge lands ──── */
+  /* ── BEAT 17 — the panel collapses, blue irises out, the badge lands ──── */
   var s17 = start(17);
   tl.set("#b17-iris", { scale: 0 }, s17);
   hide("#b17-badge", s17, { scale: 0.9, y: -30 });
@@ -352,38 +371,35 @@ window.buildLessonTimeline = function () {
     draw(b18r[i], b18c[i], 0.45);
   });
 
-  /* ── BEAT 19 — the four cards converge into one composite tile ────────── */
+  /* ── BEAT 19 — the four cards converge into one composite tile ──────────
+     Full scale, so every caption stays at the 40px floor and travels inside
+     its own card; the 2x2 keeps the token card-gutter on both axes, so no two
+     cards can touch (owner 2026-08-03). */
   var s19 = start(19);
-  tl.set("#b19-k1", { x: 0, y: 0, scale: 1 }, s19);
-  tl.set("#b19-k2", { x: 0, y: 0, scale: 1 }, s19);
-  tl.set("#b19-k3", { x: 0, y: 0, scale: 1 }, s19);
-  tl.set("#b19-k4", { x: 0, y: 0, scale: 1 }, s19);
-  tl.set("#b19-pill", { opacity: 1 }, s19);
+  tl.set("#b19-k1, #b19-k2, #b19-k3, #b19-k4", { x: 0, y: 0 }, s19);
   tl.set("#b19-tile", { opacity: 0, scale: 1.03 }, s19);
   hide("#b19-h", s19);
-  var conv = [
-    { sel: "#b19-k1", x: 520.45, y: -263.5 },
-    { sel: "#b19-k2", x: 331.55, y: -263.5 },
-    { sel: "#b19-k3", x: -331.55, y: -16.5 },
-    { sel: "#b19-k4", x: -520.45, y: -16.5 },
-  ];
-  conv.forEach(function (c) {
-    tl.to(c.sel, { x: c.x, y: c.y, scale: 0.55, duration: 4.4, ease: "power2.inOut" }, C.b19_dream);
-  });
-  tl.to("#b19-k1 p, #b19-k2 p, #b19-k3 p, #b19-k4 p", { opacity: 0, duration: 1, ease: "power2.in" }, C.b19_dream + 0.6);
-  tl.to("#b19-pill", { opacity: 0, duration: 0.5, ease: "power2.in" }, C.b19_titles);
+  // The two right-hand cards drop to the lower row BEFORE they travel left, so
+  // they slide along an empty row instead of crossing the cards ahead of them —
+  // no two cards ever share space, mid-move or at rest. Both rows finish their
+  // vertical move in the same 1.5s window: the slide may only start once the
+  // full 420px row separation exists, which clears the 396px card height with
+  // the token 24px gutter. A slower rise here re-opens a corner overlap.
+  tl.to("#b19-k1, #b19-k2", { y: -208, duration: 1.5, ease: "power2.inOut" }, C.b19_dream);
+  tl.to("#b19-k3, #b19-k4", { y: 212, duration: 1.5, ease: "power2.inOut" }, C.b19_dream);
+  tl.to("#b19-k3, #b19-k4", { x: -852, duration: 2.9, ease: "power2.inOut" }, C.b19_dream + 1.5);
   rise("#b19-h", C.b19_they, { y: 22 });
   tl.to("#b19-tile", { opacity: 1, duration: 0.45, ease: "power2.out" }, C.b19_ingredients);
   tl.to("#b19-tile", { scale: 1, duration: 0.5, ease: "power2.out" }, 125.5); // closing beat
 
-  /* ── BEAT 20 — navy wipes in from the left, two lanes ─────────────────── */
+  /* ── BEAT 20 — blue wipes in from the left, two lanes ─────────────────── */
   var s20 = start(20);
-  tl.set("#b20-navy", { x: -1920 }, s20);
+  tl.set("#b20-blue", { x: -1920 }, s20);
   hide("#b20-l1, #b20-l2", s20);
   hide("#b20-figure", s20, { y: 20 });
   hide("#b20-spark", s20, { scale: 0.7 });
   hide("#b20-dots .dot", s20, { scale: 0.6 });
-  tl.to("#b20-navy", { x: 0, duration: 0.7, ease: "power3.inOut" }, s20);
+  tl.to("#b20-blue", { x: 0, duration: 0.7, ease: "power3.inOut" }, s20);
   tl.to("#b20-figure", { opacity: 1, y: 0, duration: 0.6, ease: EASE }, s20 + 0.45);
   rise("#b20-l1", C.b20_reflection, { y: 20 });
   tl.to("#b20-spark", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, C.b20_ai1);
@@ -394,9 +410,10 @@ window.buildLessonTimeline = function () {
   var s21 = start(21);
   hide("#b21-cap", s21);
   hide("#b21-marks .mark", s21);
+  tl.set("#b21-marks .mark", { backgroundColor: NAVY }, s21);
   hide("#b21-figure", s21);
-  tl.set("#b21-highlighter", { x: 0, opacity: 0.28 }, s21);
-  tl.to("#b21-marks .mark", { opacity: 0.22, duration: 0.45, stagger: 0.05 }, C.b21_it);
+  tl.set("#b21-highlighter", { x: 0, opacity: 0.3 }, s21);
+  tl.to("#b21-marks .mark", { opacity: 0.3, duration: 0.45, stagger: 0.05 }, C.b21_it);
   tl.to("#b21-figure", { opacity: 0.55, duration: 0.6, ease: "power2.out" }, C.b21_it + 0.2);
   rise("#b21-cap", C.b21_notice, { y: 20 });
   tl.to("#b21-highlighter", { x: 2260, duration: C.b21_you - C.b21_notice + 0.06, ease: "none" }, C.b21_notice);

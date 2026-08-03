@@ -2,7 +2,7 @@ stem: build-direction-before-you-build-a-plan_early-career-boost
 program: early-career-boost
 script: projects/video-production/lesson-scripts/early-career-boost/refined/build-direction-before-you-build-a-plan_early-career-boost.txt
 stage: rendered
-next_action: "QA gauntlet + screening panel (studio round 4)"
+next_action: "QA gauntlet (studio round 4)"
 blocked: null
 wistia_hashed_id: null
 render_date: null

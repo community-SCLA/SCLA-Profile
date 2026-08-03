@@ -2,11 +2,17 @@
    projects/video-production/design-system/config/tokens.yml.
    Nothing is hand-picked: colors are the tokens colors: block, sizes are the
    typography scale: bands, spacing is the spacing: block, components are the
-   components: block. */
+   components: block.
+
+   2026-08-03 owner-feedback pass: `ink` is retired for video (tokens colors:),
+   the type floors moved to 40px / weight 700 (typography min-size:), and the
+   palette-balance: block makes blue and gold load-bearing rather than
+   decorative. */
 
 @font-face {
   font-family: "Proxima Nova";
   src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+  /* weight-exempt: @font-face descriptor naming the vendored 400 face, not a type declaration — no rule in this sheet sets 400 on video copy. */
   font-weight: 400;
   font-display: block;
 }
@@ -24,17 +30,25 @@
 }
 
 :root {
-  /* colors: */
+  /* colors: — `ink` is deliberately absent. tokens.yml retires it for video on
+     2026-08-03 ("at video scale ink is indistinguishable from black"); body
+     copy on light canvases is navy. */
   --navy: #0d2437;
   --navy-deep: #0a1e2f;
   --blue: #3393d6;
   --gold: #eaab2d;
-  --ink: #292f35;
   --paper: #ffffff;
   --cultured: #f6f6f9;
   --fill-subtle: #e5eff6;
   --border: #cccedf;
   --muted-video: #5f6f96;
+
+  /* Variations of the token blue — `--blue` composited on `--paper` at 20% and
+     40%. No new hue enters the system; these are the "variations of blue" the
+     owner asked the frame to lean on (2026-08-03), and they are what keeps a
+     light canvas from reading as white paper on screen. */
+  --blue-tint: #d6e9f7;
+  --blue-tint-strong: #add4ef;
 
   /* spacing: */
   --frame-padding: 120px;
@@ -45,15 +59,16 @@
   --radius-card: 12px;
   --radius-pill: 100px;
 
-  /* typography: scale — each value sits inside its token band */
+  /* typography: scale — each value sits inside its token band, and every one is
+     at or above the 40px min-size floor re-armed on 2026-08-03. */
   --fs-display: 104px; /* 96-120 / 900 */
   --fs-heading: 64px; /* 60-72 / 900 */
   --fs-quote: 56px; /* 52-60 / 700 */
   --fs-quote-tight: 52px; /* bottom of the quote band, for one-line cards */
-  --fs-body: 44px; /* 40-48 / 400 */
+  --fs-body: 44px; /* 40-48 / 700 */
   --fs-body-sm: 40px; /* the body floor */
-  --fs-label: 24px; /* 20-26 / 700 uppercase */
-  --fs-label-sm: 22px;
+  --fs-label: 40px; /* label role: 40 / 700 uppercase, letter-spacing 0.14em */
+  --fs-label-sm: 40px; /* the floor applies to furniture too — no small label */
   --fs-stat: 220px; /* 200-260 / 900 */
 
   --font: "Proxima Nova", system-ui, sans-serif;
@@ -86,7 +101,9 @@ body {
 /* ── grounds ─────────────────────────────────────────────────────────────
    Full-screen fills always live on a full-bleed child, never on the clip or
    the root. Dark grounds are radial (tokens motion ban: linear full-screen
-   gradients band on navy under H.264). */
+   gradients band on navy under H.264) and, per palette-balance, are rationed
+   to the title lockup and the closing lockup. Everything between them stands
+   on paper, cultured, or one of the two blue tints. */
 .ground {
   position: absolute;
   inset: 0;
@@ -99,6 +116,12 @@ body {
 }
 .ground--cultured {
   background: var(--cultured);
+}
+.ground--tint {
+  background: var(--blue-tint);
+}
+.ground--blue {
+  background: var(--blue);
 }
 
 /* ── frame: the content box. padding = frame-padding on every edge, so no
@@ -140,7 +163,7 @@ body {
 }
 .t-body {
   font-size: var(--fs-body);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.32;
   margin: 0;
 }
@@ -157,6 +180,9 @@ body {
 }
 .t-label.is-sm {
   font-size: var(--fs-label-sm);
+  letter-spacing: 0.06em; /* the brandline is one 50-character line at the 40px
+                             floor; the label tracking would push it past the
+                             1680px content box, so only the tracking gives. */
 }
 .t-stat {
   font-size: var(--fs-stat);
@@ -168,8 +194,10 @@ body {
 .on-navy {
   color: var(--paper);
 }
+/* On every light canvas — paper, cultured, and both blue tints — body copy is
+   navy. `ink` is retired for video (tokens.yml, 2026-08-03). */
 .on-light {
-  color: var(--ink);
+  color: var(--navy);
 }
 .c-blue {
   color: var(--blue);
@@ -186,10 +214,13 @@ body {
 
 /* ── components (tokens components:) ────────────────────────────────────── */
 
-/* rule: gold or blue, 3-4px, animates scaleX 0->1 from transform-origin left */
+/* rule: gold or blue, animates scaleX 0->1 from transform-origin left. The
+   token band is 3-4px; these run at 8px because a 4px rule is under half a
+   pixel once the frame is graded at thumbnail scale — it disappears from the
+   palette exactly where the accent is supposed to be counted. */
 .rule {
   display: block;
-  height: 4px;
+  height: 8px;
   width: 100%;
   transform-origin: left center;
   background: var(--blue);
@@ -197,22 +228,27 @@ body {
 .rule--gold {
   background: var(--gold);
 }
+.rule--navy {
+  background: var(--navy);
+}
 .rule--v {
-  width: 4px;
+  width: 8px;
   height: 100%;
   transform-origin: top center;
 }
 
-/* chip: 2px blue border, transparent fill, blue text, radius 100px */
+/* chip: 2px blue border, transparent fill, blue text, radius 100px. Padding
+   tightened from 14/34 to 10/22 to hold the row widths after the label role
+   went from 24px to the 40px floor. */
 .chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--blue);
+  border: 3px solid var(--blue);
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--blue);
-  padding: 14px 34px;
+  padding: 10px 22px;
   font-size: var(--fs-label);
   font-weight: 700;
   text-transform: uppercase;
@@ -223,20 +259,25 @@ body {
   border-color: var(--muted-video);
   color: var(--muted-video);
 }
-.chip.is-hairline {
-  border-width: 2px;
+/* The live rail marker (beats 14-16) takes the gold fill the token step-node
+   describes: "gold fill on activation, navy 900 number". */
+.chip.is-live {
+  background: var(--gold);
+  border-color: var(--navy);
+  color: var(--navy);
+  font-weight: 900;
 }
 
-/* point-marker: 74px circle. Beat 7 states the ring, per the approved
-   storyboard: navy fill inside a blue ring (that beat spends no gold). */
+/* point-marker: 74px circle. Beat 7 activates every marker as its line lands,
+   so each takes the token's gold activation fill with a navy numeral. */
 .point-marker {
   width: 74px;
   height: 74px;
   min-width: 74px;
   border-radius: var(--radius-pill);
-  border: 4px solid var(--blue);
-  background: var(--navy-deep);
-  color: var(--paper);
+  border: 4px solid var(--navy);
+  background: var(--gold);
+  color: var(--navy);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,27 +295,28 @@ body {
   margin: 0;
 }
 
-/* cards */
+/* cards — the blue tint carries them, so a card scene reads as blue rather
+   than as white space with hairlines (owner 2026-08-03). */
 .card {
-  background: var(--fill-subtle);
-  border: 2px solid var(--border);
+  background: var(--blue-tint-strong);
+  border: 3px solid var(--blue);
   border-radius: var(--radius-card);
-  padding: 32px;
+  padding: 34px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--card-gutter);
 }
 .card--quote {
-  background: var(--paper);
-  border: 2px solid var(--border);
+  background: var(--blue-tint-strong);
+  border: 3px solid var(--blue);
   padding: 40px;
   align-items: center;
   justify-content: center;
 }
 .panel {
-  background: var(--fill-subtle);
-  border: 2px solid var(--border);
+  background: var(--paper);
+  border: 3px solid var(--blue);
   border-radius: var(--radius-card);
   padding: 40px;
 }
@@ -292,7 +334,7 @@ body {
 .glyph polygon {
   fill: none;
   stroke: currentColor;
-  stroke-width: 4;
+  stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -309,9 +351,18 @@ body {
 .art polygon {
   fill: none;
   stroke: currentColor;
-  stroke-width: 4;
+  stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+.art--bold path,
+.art--bold circle,
+.art--bold ellipse,
+.art--bold rect,
+.art--bold line,
+.art--bold polyline,
+.art--bold polygon {
+  stroke-width: 12;
 }
 .art .solid {
   fill: currentColor;
@@ -326,17 +377,41 @@ body {
   flex-direction: column;
 }
 
-/* footer chrome band — the reserved bottom 120px. Content never enters it;
-   the brandline is furniture, not content. */
+/* footer chrome band — furniture inside the reserved bottom 120px, seated
+   above the progress rail. Content never enters the band. */
 .footer {
   position: absolute;
   left: var(--frame-padding);
   right: var(--frame-padding);
-  bottom: 0;
-  height: var(--footer-reserve);
+  bottom: 82px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ── progress rail ───────────────────────────────────────────────────────
+   The rail named in tokens spacing.footer-reserve, drawn for the whole
+   runtime: a blue track whose elapsed length fills gold. It is chrome, not
+   content, so it lives in the footer reserve and carries data-layout-ignore.
+   It is also the reason the brand accent is on screen in every scene rather
+   than in the five beats of the gold ledger (owner 2026-08-03). */
+.rail-track {
+  position: absolute;
+  left: var(--frame-padding);
+  right: var(--frame-padding);
+  bottom: 40px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  background: var(--blue);
+  overflow: hidden;
+}
+.rail-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-pill);
+  background: var(--gold);
+  transform-origin: left center;
 }
 
 /* ── layout helpers ─────────────────────────────────────────────────────── */
@@ -363,15 +438,15 @@ body {
 .seg {
   position: absolute;
   display: block;
-  height: 4px;
-  background: var(--blue);
+  height: 8px;
+  background: var(--navy);
   transform-origin: left center;
 }
 .node {
   position: absolute;
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-pill);
   background: var(--blue);
 }
@@ -379,26 +454,18 @@ body {
   position: absolute;
   display: block;
   top: 0;
-  width: 14px;
-  height: 14px;
+  width: 22px;
+  height: 22px;
   border-radius: var(--radius-pill);
-  background: var(--blue);
+  background: var(--navy);
 }
 .mark {
   position: absolute;
   display: block;
-  width: 70px;
-  height: 10px;
-  border-radius: 4px;
-  background: var(--blue);
-}
-
-/* The rail panel (beats 14-16) sits on the paper ground and carries only the
-   hairline border — those beats' token list is paper/blue/muted-video, with no
-   fill-subtle, and blue label type clears contrast on paper but not on
-   fill-subtle. */
-.panel--paper {
-  background: var(--paper);
+  width: 90px;
+  height: 18px;
+  border-radius: 6px;
+  background: var(--navy);
 }
 
 /* Stacked title/heading lines carry their own leading: Proxima Nova's 900 font
@@ -410,8 +477,8 @@ body {
   line-height: 1.52;
 }
 
-/* Panel copy centres in its box so a three-line state and a two-row chip state
-   both sit balanced on the rail. */
+/* Panel copy centres in its box so a three-line state and a three-row chip
+   state both sit balanced on the rail. */
 .panel {
   display: flex;
   flex-direction: column;

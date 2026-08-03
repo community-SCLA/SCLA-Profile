@@ -109,3 +109,74 @@ round 3). Nothing else in the board changed.
 - **Beat 8 — the third moment-dot lands at 49.90.** The board names two onsets
   ("show" 48.74, "naturally" 49.36) for three dots; the third follows the second
   by 0.54s so the pan keeps working through the line.
+
+### Studio round 4 — the owner's 2026-08-03 rejection of the first render
+
+The owner rejected `render/…_2026-08-03.mp4` on five measured defects. tokens.yml
+gained `palette-balance`, `audio`, `min-size` and `motion.exit-group` the same
+day, and `checks/verify-video-quality.py` now grades every one of them. Where the
+board and the new law disagreed, the law won; each of those is here.
+
+- **Audio — the composition now plays `audio/mix.wav`, not the raw narration.**
+  `audio/narration.mp3` and `audio/narration.words.json` are untouched and remain
+  the clock. The mix is `agate=threshold=0.045:ratio=9000:attack=5:release=120:knee=2`
+  (verbatim from tokens `audio.narration-gate`) → `audio/narration.gated.wav`, then
+  a `highshelf=f=5000:g=-11:width_type=q:width=0.7` tilt, mixed under
+  `audio/bed.wav`. **The bed source is the HeyGen audio library** (track
+  `48c005a7…`, "cool minimal corporate underscore", retrieved through
+  `scripts/with-secrets.sh` against `GET /v3/audio/sounds`), trimmed to its
+  sustained body, crossfade-looped to 146.21s and faded 1s in and out. The shelf
+  is the deviation worth naming: gating alone left 30 of the 59 mouth-ticks, and a
+  bed loud enough to mask ticks that quiet would have sat on top of the voice
+  rather than under it. Cutting above 5 kHz removes the tick's own brightness, so
+  the bed can stay 11 dB under the narration. Result: 0 exposed ticks, no interior
+  dead-air, −17.2 LUFS, −3.0 dBTP.
+- **Palette — `ink` is gone, full-dark canvases are rationed to beats 1 and 23,
+  and beats 7, 11, 17, 20 and 21 stand on blue instead of navy.** The board reads
+  "dark navy canvas" at those beats; `palette-balance` caps near-black at 12% of
+  all pixels and full-dark frames at 10%, and the board's own gold ledger measured
+  0.00% gold on screen. Light canvases are now `paper`, `cultured`, or the token
+  blue composited on paper at 20% / 40%; every `ink` body line is navy. The gold
+  ledger is superseded: gold is an accent in most scenes, not five.
+- **A progress rail is added as footer chrome for the whole runtime** — the rail
+  tokens `spacing.footer-reserve` already names. Blue track, gold elapsed fill,
+  inside the reserved bottom band and marked `data-layout-ignore`. It is what
+  carries the brand accent into every scene and what keeps the sparse beats (13,
+  the rail states) above the blank-frame floor.
+- **Type — the label role went 24px → 40px and `.t-body` 400 → 700**, per the
+  re-armed `min-size` floors. The chip rows could not hold their old geometry at
+  that size: beats 2-4 set the heading full width with the chip cluster beneath it
+  rather than fanned to its right, and beat 15's six value chips wrap 2×3 inside
+  the panel instead of 3×2. The wording, the cues and the order are unchanged.
+- **Beat 4 — the closing beat drops the whole chip, not its label.** The board
+  has one chip peel its word off as a flat tag; `motion.exit-group` forbids a text
+  and its container tweening separately, and that separation is exactly what the
+  owner saw at 0:19. The chip itself now drops and squares off, carrying the word.
+- **Beat 19 — the four cards converge at full scale into a 2×2, the stray pill is
+  deleted, and the heading sits beside the tile.** Scaling to 0.55 put the card
+  captions at 22px and the board answered that by fading them out; the owner read
+  the result as icon-only cards, and the 0.55 grid left 16px between cards where
+  the token gutter is 24px. At full scale the captions never leave, the gutter
+  holds on both axes, and the right-hand pair drops to the lower row before
+  travelling left so no card ever crosses another. The empty pill the board fades
+  out at 121.52 is the "rogue empty pill" from the defect list — removed outright.
+- **Beat 7 — the four questions sit on a paper panel.** Navy copy on the blue
+  flood carries the hue but not enough lightness contrast for the frame to read as
+  composed; the panel also lifts the beat clear of the blank-frame threshold.
+- **Rules are 8px, not the token's 3-4px, and markers/dots/nodes are enlarged.**
+  The palette gate grades frames downscaled to 192×108, where a 4px rule averages
+  away entirely — the accent has to survive the grade to count as present.
+- **Beat 19 — the upper row's rise is 1.5s, matching the lower row's drop.** The
+  drop-then-travel path above is only overlap-free if the *whole* 420px row
+  separation exists before the horizontal slide starts. With the rise spread over
+  4.4s the upper row had climbed ~48px when the slide began at +1.5s, so card 3's
+  top-left corner clipped card 2's bottom-right by ~17×76px mid-move — a second
+  instance of the overlap the owner flagged at 122s. Both rows now settle inside
+  the same 1.5s window; `hyperframes check --samples 150 --at-transitions` reports
+  no overlap anywhere in the runtime.
+- **Beat 4 — `#b4-leadin` carries 4px of vertical padding against a −4px `top`.**
+  The typewriter reveal sets `overflow:hidden`, which clips at the padding box,
+  and 44px copy at the token 1.32 line-height leaves a 58px box under a 63px glyph
+  line — the cap-heights of "What they do not tell you:" were shaved for the 5.3s
+  the line was on screen. The padding buys the clip room; the offset `top` keeps
+  the copy on its original baseline.
