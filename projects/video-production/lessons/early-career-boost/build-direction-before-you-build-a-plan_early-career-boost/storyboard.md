@@ -19,17 +19,17 @@ before it is spoken.
 | 8 | 00:44.1 | 00:51.7 | Transition at 44.07 ("These"): the question column lifts off the top edge and the paper ground wipes down behind it. Two-column balance scale illustration — a stack of formal credential sheets on the left pan, a cluster of small live moment-dots on the right. The line enters in two halves, 44.36 and 46.74; the beam tips right at 46.04 ("reveal"). Three moment-dots then brighten in turn at 48.74 ("show") and 49.36 ("naturally") so the pan keeps working. No copy sits over the illustration — the line runs along the bottom content band above the footer reserve. Closing beat 50.9: the beam settles and the pan stops swinging. | These moments often reveal more than formal credentials do. | paper, cultured, ink, blue, quote, entrance, closing-beat |
 | 9 | 00:51.7 | 00:58.2 | Cultured canvas, wide two-panel diptych. Left panel wipes in at 51.72 with loose parts converging into a tidy row under an organizing hand, caption at 52.50 ("organizing"). Right panel wipes in at 54.48 with a scatter of dots, caption at 55.34 ("analyzing"), and the dots resolve into a trend line at 57.10 ("patterns"). Each panel wipes in behind its own caption; captions sit beneath their panels, never across them. | Organizing moving parts. / Analyzing information and finding patterns. | cultured, fill-subtle, ink, blue, body, border, entrance, stagger |
 | 10 | 00:58.2 | 01:05.5 | Diptych continues with two fresh panels so the scene reads as new, not a repeat. Left at 58.22: one figure lighting up as understanding passes to two listeners, caption at 59.29 ("helping"). Right at 61.48: a soft cloud shape that hardens at 62.78 ("turns") into an arrow, which strikes forward at 64.42 ("action"). The arrowhead is blue — this scene spends no gold. Closing beat 65.0: both captions underline together. | Helping other people understand something. / Turning vague ideas into action. | cultured, fill-subtle, ink, blue, body, entrance, closing-beat |
-| 11 | 01:05.5 | 01:10.4 | Dark navy canvas. The scattered dots carried from beats 9 and 10 drift together from 65.52 and connect one segment at a time across 66.10–69.50, so the frame is never static; a heading sits above the arc, entering in two parts at 65.62 and 69.06 ("these"). Motion is one continuous settle — no looping drift anywhere in the beat. Closing beat 70.1: the final node of the path pops in blue. | A strong early-career direction is built from repeated clues. | navy, navy-deep, blue, paper, heading, entrance, closing-beat |
+| 11 | 01:05.5 | 01:10.4 | Dark navy canvas. The scattered dots carried from beats 9 and 10 drift together from 65.52 and connect one segment at a time across 66.10–69.50, so the frame is never static; a heading sits above the arc, entering in two parts at 65.62 and 69.06 ("these"). Motion is one continuous settle — no looping drift anywhere in the beat. Closing beat 70.1: the final node of the path pops in blue. | A strong early-career direction is usually built from these repeated clues. | navy, navy-deep, blue, paper, heading, entrance, closing-beat |
 | 12 | 01:10.4 | 01:19.9 | Transition at 70.38 ("It"): the dotted path straightens into a single vertical gutter line as the ground turns paper. Two quote cards, each 760px wide — widened from 650px so the affirmed line sets on one line at quote scale rather than dropping to body. Left card enters at 72.00 and is struck through with a thin border rule at 73.04 ("path") as the narration rejects it. Right card enters at 75.36 and grows to full weight with a gold left edge at 78.36 ("me"). Cards keep the card gutter between them and end above the footer band. Closing beat 79.0: the struck card fades back a step so only the affirmed one holds weight. | Not: a forever path. / Rather: fits me right now. | paper, fill-subtle, border, ink, gold, quote, entrance, closing-beat |
 | 13 | 01:19.9 | 01:23.2 | Fast transitional card on cultured ground: a short section label sets at 79.86 ("In"), then the numeral three in stat scale counts up centre-frame at 82.08 ("three"), set in navy — the numeral is the largest ink on screen and needs the full navy-on-cultured contrast, so no gold here. Deliberately spare: a breath between the argument and the list. Closing beat 82.83 ("things"): the numeral settles and the label tracks out. | 3 / IN THIS MODULE | cultured, navy, ink, stat, label, entrance, closing-beat |
 | 14 | 01:23.2 | 01:28.3 | A single blue rule draws as a vertical rail down the left third at 83.20 and is held, unchanged, for beats 14–16 — one spine, three states, so the module's three deliverables read as one structure. Three chips ride the rail as its markers. Marker one goes to full-weight blue at 83.94; markers two and three sit at muted-video on the paper ground. Its panel slides in from the right at 84.14 holding the strengths definition, second line at 86.62 ("how"). | 1. STRENGTHS / Not in the abstract — how you actually contribute. | paper, blue, muted-video, chip, rule, label, body, entrance |
-| 15 | 01:28.3 | 01:38.1 | Same rail, unredrawn. Marker one drops to muted-video and marker two goes full-weight at 88.28 ("Second"). Panel heading at 89.30, sub-line at 89.70 ("what"). Six value chips then arrive one per spoken word — learning 92.20, stability 92.98, flexibility 93.94, meaning 95.02, collaboration 95.84, recognition 97.00 — wrapping into two rows so the panel grows downward with the card gutter intact. | 2. VALUES / learning / stability / flexibility / meaning / collaboration / recognition | paper, blue, muted-video, chip, rule, label, entrance |
+| 15 | 01:28.3 | 01:38.1 | Same rail, unredrawn. Marker one drops to muted-video and marker two goes full-weight at 88.28 ("Second"). Panel heading at 89.30, sub-line at 89.70 ("what"). Six value chips then arrive one per spoken word — learning 92.20, stability 92.98, flexibility 93.94, meaning 95.02, collaboration 95.84, recognition 97.00 — wrapping into two rows so the panel grows downward with the card gutter intact. | 2. VALUES / What matters to you in a work experience: / learning / stability / flexibility / meaning / collaboration / recognition | paper, blue, muted-video, chip, rule, label, entrance |
 | 16 | 01:38.1 | 01:45.9 | Same rail, unredrawn. Marker two drops to muted-video and marker three goes full-weight at 98.06 ("Third"). Panel heading at 98.98. Two opposed energy bars beneath their captions: one fills upward and brightens from 100.64 ("leaves"), the other drains downward to muted-video from 103.88 ("consistently"), so the frame is in motion the whole span. Closing beat 105.4: all three markers restore to full blue so the trio reads as complete. | 3. ENERGY PATTERNS / What leaves you stronger. / What consistently drains you. | paper, blue, muted-video, chip, rule, label, body, closing-beat |
 | 17 | 01:45.9 | 01:50.8 | Transition at 105.88 ("You"): the rail panel collapses to a point and navy irises out from it to full bleed. A glowing storybook "dream job" badge floats in on that iris, its copy landing at 107.44 ("dream"), then visibly settles onto a plain drafting-table baseline at 109.22 ("Not") as the narration refuses the fantasy version. One settle, no float loop. Closing beat 110.3: the baseline rule extends past the badge on both sides. | A dream job — not a fantasy version. | navy, navy-deep, paper, blue, heading, rule, entrance, closing-beat |
 | 18 | 01:50.8 | 01:59.8 | Transition at 110.76 ("A"): the badge settles through the frame and the paper ground rises from the baseline behind it. Four ingredient cards deal into a single row like items into a bowl, each keyed to its own spoken word — people 113.06, problems 114.56, structure and autonomy 116.22, growth 118.16 — each with a line-drawn glyph and a short caption. The lead-in "made of ingredients:" sets at 111.96. A thin blue baseline rule extends one segment further with each card rather than wiping the row. Captions are inside their own cards, clear of the glyphs. | made of ingredients: / people / problems / structure and autonomy / growth | paper, fill-subtle, border, ink, blue, body, label, rule, entrance |
-| 19 | 01:59.8 | 02:06.8 | The four cards carried from beat 18 converge to centre from 119.80 and stack into one composite tile, completing at 124.40 ("ingredients"). A lone title-shaped pill fades out at the edge of frame at 121.52 ("titles"). Heading lands beneath the stack at 123.33 ("They"). Closing beat 125.5, inside the 125.02–126.78 silence: the composite tile squares up and its border completes. | Dream jobs are combinations of ingredients, not single titles. | cultured, ink, navy, blue, chip, heading, exit, closing-beat |
+| 19 | 01:59.8 | 02:06.8 | The four cards carried from beat 18 converge to centre from 119.80 and stack into one composite tile, completing at 124.40 ("ingredients"). A lone title-shaped pill fades out at the edge of frame at 121.52 ("titles"). Heading lands beneath the stack at 123.33 ("They"). Closing beat 125.5, inside the 125.02–126.78 silence: the composite tile squares up and its border completes. | Dream jobs are usually not single titles. | cultured, ink, navy, blue, chip, heading, exit, closing-beat |
 | 20 | 02:06.8 | 02:12.6 | Transition at 126.78 ("You"): the composite tile darkens and navy wipes in from the left edge. Two-lane illustration — a reflective figure on the left, a small assistive spark on the right in blue, entering at 128.22 ("AI") — joined by a dotted line that draws at 128.98. The spark is drawn small and off-centre so it never dominates the figure. Second line at 130.60 ("AI"). One settle, no loop. | Reflection and AI support. / The AI is not here to define you. | navy, navy-deep, paper, blue, body, entrance |
-| 21 | 02:12.6 | 02:17.4 | Same navy ground, new composition: a faint scatter of marks sits behind the figure from 132.60, the caption sets at 133.54 ("notice"), and a highlighter sweep runs across them once from 133.54 to 134.36. Three marks brighten to gold at 134.42 — the patterns being noticed, and the last gold before the outro. Closing beat 136.18: the third mark pops a half-step brighter. | It is here to help you notice patterns you might not see on your own. | navy, blue, gold, paper, body, rule, closing-beat |
+| 21 | 02:12.6 | 02:17.4 | Same navy ground, new composition: a faint scatter of marks sits behind the figure from 132.60, the caption sets at 133.54 ("notice"), and a highlighter sweep runs across them once from 133.54 to 134.36. Three marks brighten to gold at 134.42 — the patterns being noticed, and the last gold before the outro. Closing beat 136.18: the third mark pops a half-step brighter. | It is here to help you notice patterns you might not see as easily on your own. | navy, blue, gold, paper, body, rule, closing-beat |
 | 22 | 02:17.4 | 02:22.4 | Transition at 137.36 ("By"): the highlighter sweep runs off the right edge and pulls the paper ground behind it. A blurred self-portrait outline sharpens to a clean line drawing in one pass from 137.36 to 139.28, while the sentence sets beside it in quote scale at 139.28 ("describe") — left of the illustration with a full column of air between. Closing beat 141.74 ("started"): the last contour line completes. | Describe yourself with more clarity. | paper, cultured, ink, blue, quote, entrance, closing-beat |
 | 23 | 02:22.4 | 02:26.0 | Transition at 142.39 ("And"): the portrait line contracts to the brand mark as navy closes in from all four edges. Series closing lockup on full-frame navy: brand mark centred, a gold rule drawing beneath it at 142.90 ("clarity"), and the closing line set as a CTA label with a leading arrow at 143.94 ("next") — text only, never a button. The brandline is seated in the reserved bottom band as footer chrome, present for the whole beat. Closing beat 145.58: the gold rule completes its draw. Frame holds full-bleed to the end rather than exiting. | → That clarity will make the next module much easier. | navy, navy-deep, gold, paper, cta-label, label, rule, closing-beat |
 
@@ -180,3 +180,61 @@ board and the new law disagreed, the law won; each of those is here.
   line — the cap-heights of "What they do not tell you:" were shaved for the 5.3s
   the line was on screen. The padding buys the clip room; the offset `top` keeps
   the copy on its original baseline.
+
+### Studio round 4 QA gauntlet — run `scla-lesson-videos-20260803T174056Z`
+
+Three independent auditors read the rendered pixels of `…_2026-08-03.mp4` and
+filed ten residual defects. The re-render fixes all ten; the board edits they
+required are recorded here, and the on-screen column now carries the script's
+hedges verbatim.
+
+- **Beats 11, 19 and 21 — the on-screen column is re-hedged to the script.**
+  The render had hardened three qualified claims. The board and the composition
+  now both read "A strong early-career direction is usually built from these
+  repeated clues." (11), "Dream jobs are usually not single titles." (19) and
+  "…patterns you might not see as easily on your own." (21) — each word for word
+  from `lesson-scripts/early-career-boost/refined/`. Beat 11's heading box widens
+  to the full 1680px content column so its longer second line still sets on one
+  line; beat 19's heading is shorter than the line it replaces and holds two.
+- **Beat 15 — "What matters to you in a work experience:" is added to the
+  on-screen column.** The sub-line has always rendered, keyed to 89.70 ("what"),
+  and is straight from the script; it was simply undeclared on the board.
+- **Beat 10 — the right caption is given the reveal it was declared to have.**
+  The composition hid `#b10-c2` and never revealed it, so "Turning vague ideas
+  into action." never rendered and its gold underline drew inside an invisible
+  box. It now rises on its declared 62.78 onset.
+- **Beat 12 — the straighten pivots in place instead of travelling.** The five
+  path bars rotated about their left ends with a 700px x-offset, which slid the
+  group's centroid 254px and put its right edge at x=1916, past the 72px safe
+  area. Each bar now pivots about its own centre with no translation at all, so
+  the group cannot travel; the whole straighten runs 0.9s (was ~1.97s) and the
+  vertical gutter drawing through the standing bars from 70.88 is what resolves
+  them into the board's "single vertical gutter line", so the quote card enters
+  over a clean gutter at 72.00.
+- **Beats 2, 18 and 21 — exits and entrances overlap so no frame is empty.** The
+  content region above y=960 went blank for ≥0.5s at three handoffs. Beat 2's
+  navy push and beat 18's paper rise now run 1.15s / 1.20s on a gentle ease so
+  the ground is still travelling when the first copy lands, and beat 21's mark
+  scatter and figure sit at their resting opacity from the beat's first frame
+  rather than fading up from nothing. These are the only three ground
+  transitions in the video that exceed the 0.75s used elsewhere.
+- **Beat 7 — the spent questions dim to token blue, not to 45% opacity.** Fading
+  navy copy on the paper panel produced #909aa3 at 2.89:1, an off-token grey.
+  The dim is now a colour tween to `blue` (3.06:1 on paper), which is what the
+  board's own Design Keys name as this beat's dim state; the closing beat
+  restores the colour rather than the opacity.
+- **Beat 19 — the composite block is lifted 16px and the row gutter opened to
+  34px.** The tile's closing-beat growth carried its bottom border to y=970, 11px
+  past content-bottom, and the gutter measured 20px mid-convergence. The rows now
+  land at y=−4 and y=426, the tile sits 6px clear of them on every side, and the
+  growth scale is 1.02, which tops the tile out at y=956.
+- **Beat 5 — the seam fill is trimmed 0.2s.** The ground transition settled in
+  1.37s, past the 1.2s motion band; the seam now fills in 0.3s, the navy half in
+  0.55s and the figure rises at +0.62s, settling the whole beat at 1.16s.
+- **The progress rail's track takes a navy hairline.** A blue track is invisible
+  on the blue grounds of beats 7, 17, 20 and 21 — the gold fill read as a bar
+  floating with no extent. `navy` is the token that survives every ground the
+  video uses except navy itself, where the blue track already reads.
+- **The thumbnail is pulled at 2.3s.** The old still was taken before the gold
+  eyebrow rule finished its draw at 2.1s, so the title card's only accent was
+  missing from it.

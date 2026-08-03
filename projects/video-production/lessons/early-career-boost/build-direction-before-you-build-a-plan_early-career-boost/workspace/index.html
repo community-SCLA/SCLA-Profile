@@ -309,9 +309,13 @@
       <section id="beat-11" class="clip" data-start="65.5" data-duration="4.9" data-track-index="1" style="z-index: 11">
         <div class="ground ground--tint"></div>
         <div class="canvas">
-          <h2 class="t-heading c-navy" style="position: absolute; left: 0; top: 60px; width: 1400px">
+          <!-- The script hedges this claim ("is usually built from these
+               repeated clues") and the render must not harden it. The box is
+               widened to the full 1680px content column so the longer second
+               line still sets on one line above the path. -->
+          <h2 class="t-heading c-navy" style="position: absolute; left: 0; top: 60px; width: 1680px">
             <span id="b11-h1" class="line">A strong early-career direction</span>
-            <span id="b11-h2" class="line">is built from repeated clues.</span>
+            <span id="b11-h2" class="line">is usually built from these repeated clues.</span>
           </h2>
           <div id="b11-path" style="position: absolute; left: 0; top: 340px; width: 1680px; height: 400px">
             <span id="b11-g1" class="seg" style="left: 120px; top: 278px; width: 311px" data-rot="-14.93"></span>
@@ -505,7 +509,11 @@
       <section id="beat-19" class="clip" data-start="119.8" data-duration="7" data-track-index="1" style="z-index: 19">
         <div class="ground ground--cultured"></div>
         <div class="canvas">
-          <div id="b19-tile" style="position: absolute; left: -10px; top: 2px; width: 848px; height: 836px; border: 6px solid var(--navy); border-radius: var(--radius-card); opacity: 0"></div>
+          <!-- 6px clear of the converged 2x2 block on every side (x 0-828,
+               y -4-822 once the rows land). The closing beat grows it about its
+               centre, so the resting box has to leave that growth room above
+               content-bottom: at scale 1.02 it spans y 102-956. -->
+          <div id="b19-tile" style="position: absolute; left: -6px; top: -10px; width: 840px; height: 838px; border: 6px solid var(--navy); border-radius: var(--radius-card); opacity: 0"></div>
           <div id="b19-k1" class="card" style="position: absolute; left: 0px; top: 220px; width: 402px; height: 396px">
             <svg class="glyph c-navy" viewBox="0 0 88 88"><circle cx="32" cy="30" r="16" /><circle cx="62" cy="36" r="12" /><path d="M10 74c0-16 10-26 22-26s22 10 22 26" /><path d="M56 74c0-12 6-20 14-20s8 6 8 12" /></svg>
             <p class="t-body is-sm on-light">people</p>
@@ -522,7 +530,7 @@
             <svg class="glyph c-navy" viewBox="0 0 88 88"><polyline points="14,70 34,46 50,58 74,22" /><polyline points="56,22 74,22 74,40" /></svg>
             <p class="t-body is-sm on-light">growth</p>
           </div>
-          <h2 id="b19-h" class="t-heading c-navy" style="position: absolute; left: 900px; top: 260px; width: 780px">Dream jobs are combinations of ingredients, not single titles.</h2>
+          <h2 id="b19-h" class="t-heading c-navy" style="position: absolute; left: 900px; top: 260px; width: 780px">Dream jobs are usually not single titles.</h2>
         </div>
       </section>
 
@@ -552,7 +560,7 @@
       <section id="beat-21" class="clip" data-start="132.6" data-duration="4.8" data-track-index="1" style="z-index: 21">
         <div class="ground ground--blue"></div>
         <div class="canvas">
-          <p id="b21-cap" class="t-body c-navy" style="position: absolute; left: 0; top: 20px; width: 1600px">It is here to help you notice patterns you might not see on your own.</p>
+          <p id="b21-cap" class="t-body c-navy" style="position: absolute; left: 0; top: 20px; width: 1600px">It is here to help you notice patterns you might not see as easily on your own.</p>
           <div id="b21-marks" style="position: absolute; left: 60px; top: 330px; width: 1560px; height: 340px">
             <span class="mark" style="left: 40px; top: 40px"></span><span class="mark" style="left: 260px; top: 150px"></span>
             <span id="b21-mk1" class="mark" style="left: 470px; top: 60px"></span><span class="mark" style="left: 690px; top: 210px"></span>

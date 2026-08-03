@@ -92,8 +92,13 @@ window.buildLessonTimeline = function () {
   tl.set("#b2-navy", { yPercent: 0 }, s2);
   tl.set("#b2-paper", { yPercent: 100 }, s2);
   hide("#b2-l1, #b2-l2, #b2-c1, #b2-c2", s2);
-  tl.to("#b2-navy", { yPercent: -100, duration: 0.6, ease: "power3.inOut" }, s2);
-  tl.to("#b2-paper", { yPercent: 0, duration: 0.6, ease: "power3.inOut" }, s2);
+  // 1.15s, gentle ease: the push has to still be ON SCREEN when the heading
+  // lands at 3.52, or the frame is uniform paper from 3.0 to 3.5 — a blank
+  // content run the frames gate fails (QA 20260803T174056Z). power3.inOut
+  // finishes too abruptly to overlap; power1.inOut keeps a navy band travelling
+  // through the handoff.
+  tl.to("#b2-navy", { yPercent: -100, duration: 1.15, ease: "power1.inOut" }, s2);
+  tl.to("#b2-paper", { yPercent: 0, duration: 1.15, ease: "power1.inOut" }, s2);
   rise("#b2-l1", C.b2_career, { y: 20 });
   rise("#b2-l2", C.b2_title, { y: 20 });
   pop("#b2-c1", C.b2_intern);
@@ -138,9 +143,12 @@ window.buildLessonTimeline = function () {
   tl.set("#b5-seam", { scaleY: 0 }, s5);
   hide("#b5-figure, #b5-l1, #b5-l2", s5);
   tl.set("#b5-underline", { scaleX: 0 }, s5);
-  tl.to("#b5-seam", { scaleY: 1, duration: 0.5, ease: "power3.inOut" }, C.b5_before);
-  tl.to("#b5-half", { scaleX: 1, duration: 0.6, ease: "power3.inOut" }, C.b5_before + 0.1);
-  rise("#b5-figure", C.b5_before + 0.9, { y: 22, d: 0.6 });
+  // The seam fill is trimmed 0.2s and the figure pulled forward so the whole
+  // ground transition settles 1.16s after the beat start, inside the 1.2s
+  // motion band (it ran 1.37s — QA 20260803T174056Z).
+  tl.to("#b5-seam", { scaleY: 1, duration: 0.3, ease: "power3.inOut" }, C.b5_before);
+  tl.to("#b5-half", { scaleX: 1, duration: 0.55, ease: "power3.inOut" }, C.b5_before + 0.08);
+  rise("#b5-figure", C.b5_before + 0.62, { y: 22, d: 0.5 });
   rise("#b5-l1", C.b5_understand, { y: 22 });
   rise("#b5-l2", C.b5_that, { y: 22 });
   draw("#b5-underline", C.b5_patterns, 0.54); // closing beat 27.5
@@ -170,13 +178,18 @@ window.buildLessonTimeline = function () {
   tl.to("#b7-panel", { opacity: 1, scale: 1, duration: 0.5, ease: EASE }, s7 + 0.12);
   var b7q = ["#b7-q1", "#b7-q2", "#b7-q3", "#b7-q4"];
   var b7cues = [Math.max(C.b7_q1, s7 + 0.15), C.b7_q2, C.b7_q3, C.b7_q4];
+  // The dim is a COLOUR change to token blue, not an opacity fade: fading navy
+  // copy to 0.45 on the paper panel produced #909aa3 at 2.89:1 — an off-token
+  // grey below the contrast floor (QA 20260803T174056Z). The storyboard's own
+  // Design Keys name blue as this beat's dim state; blue on paper is 3.06:1.
+  var b7copy = b7q.map(function (s) {
+    return s + " .t-body";
+  });
   b7q.forEach(function (sel, i) {
     rise(sel, b7cues[i], { y: 22 });
-    // the spent question recedes as a whole row — marker and line together —
-    // so the eye stays on the live one (motion.exit-group)
-    if (i > 0) tl.to(b7q[i - 1], { opacity: 0.45, duration: 0.45 }, b7cues[i]);
+    if (i > 0) tl.to(b7copy[i - 1], { color: BLUE, duration: 0.45 }, b7cues[i]);
   });
-  tl.to(b7q.join(", "), { opacity: 1, duration: 0.5 }, 43.6); // closing beat
+  tl.to(b7copy.join(", "), { color: NAVY, duration: 0.5 }, 43.6); // closing beat
 
   /* ── BEAT 8 — the paper ground wipes down, the balance scale tips ─────── */
   var s8 = start(8);
@@ -221,6 +234,10 @@ window.buildLessonTimeline = function () {
   tl.to("#b10-ray1, #b10-ray2", { opacity: 1, duration: 0.4, stagger: 0.16 }, C.b10_helping);
   tl.fromTo("#b10-teacher", { scale: 0.94 }, { scale: 1, duration: 0.6, ease: "back.out(1.4)", transformOrigin: "center center" }, C.b10_helping);
   slideIn("#b10-p2", C.b10_right, -40);
+  // The right caption enters on its own declared onset. Without this tween the
+  // paragraph stayed at the opacity 0 the hide() above set, so the line never
+  // rendered and its underline drew inside an invisible box (QA 20260803T174056Z).
+  rise("#b10-c2", C.b10_turns, { y: 18 });
   tl.to("#b10-cloud", { opacity: 0, duration: 0.45, ease: "power2.inOut" }, C.b10_turns);
   tl.to("#b10-arrow", { opacity: 1, duration: 0.45, ease: "power2.out" }, C.b10_turns);
   tl.to("#b10-arrow", { x: 60, duration: 0.5, ease: "power3.out" }, C.b10_action);
@@ -254,10 +271,28 @@ window.buildLessonTimeline = function () {
   hide("#b12-card1, #b12-card2", s12);
   tl.set("#b12-strike", { scaleX: 0 }, s12);
   tl.set("#b12-edge", { scaleY: 0 }, s12);
+  // The straighten pivots each bar about its OWN centre and travels in x only,
+  // so the group converges onto the gutter line instead of being flung across
+  // the frame (QA 20260803T174056Z measured the old bbox reaching x=1916, past
+  // the 72px safe area, and y=956). `.seg` is authored with a left-centre
+  // origin because beat 11 DRAWS these bars from their left end; the seed x/y
+  // below is the offset that makes a centre-origin bar sit exactly where the
+  // left-origin bar it inherits was, so the carry-over from beat 11 cannot pop.
   b12g.forEach(function (sel) {
-    tl.set(sel, { rotation: Number(document.querySelector(sel).dataset.rot), opacity: 1 }, s12);
-    tl.to(sel, { rotation: 90, x: 700, y: -60, duration: 1.35, ease: "power2.inOut" }, C.b12_it);
-    tl.to(sel, { opacity: 0, duration: 0.4, ease: "power2.in" }, C.b12_it + 1.05);
+    var el = document.querySelector(sel);
+    var rot = Number(el.dataset.rot);
+    var half = el.offsetWidth / 2;
+    var rad = (rot * Math.PI) / 180;
+    var x0 = half * (Math.cos(rad) - 1);
+    var y0 = half * Math.sin(rad);
+    tl.set(sel, { transformOrigin: "center center", rotation: rot, x: x0, y: y0, opacity: 1 }, s12);
+    // No translation at all — the bar stands up where it already is, so its
+    // bounding box only ever shrinks in x and grows in y about a fixed centre.
+    // Widest edge in the whole move is x=1680 and the lowest y=857, well inside
+    // safe-area 1848 / content-bottom 960. The gutter drawing through them from
+    // 70.88 is what resolves the five bars into one line.
+    tl.to(sel, { rotation: 90, x: x0, y: y0, duration: 0.9, ease: "power2.inOut" }, C.b12_it);
+    tl.to(sel, { opacity: 0, duration: 0.35, ease: "power2.in" }, C.b12_it + 1.1);
   });
   tl.to("#b12-paper", { scaleY: 1, duration: 0.55, ease: "power3.inOut" }, C.b12_it + 0.1);
   drawV("#b12-gutter", C.b12_it + 0.5, 0.7);
@@ -361,7 +396,10 @@ window.buildLessonTimeline = function () {
   hide("#b18-leadin", s18);
   hide("#b18-k1, #b18-k2, #b18-k3, #b18-k4", s18, { scale: 0.95 });
   tl.set("#b18-r1, #b18-r2, #b18-r3, #b18-r4", { scaleX: 0 }, s18);
-  tl.to("#b18-paper", { scaleY: 1, duration: 0.6, ease: "power3.inOut" }, s18);
+  // 1.2s, gentle ease: the paper has to still be rising when the lead-in lands
+  // at 111.96, or beat 18 opens on a uniform field for 0.75s — the longest of
+  // the three blank content runs the frames gate failed (QA 20260803T174056Z).
+  tl.to("#b18-paper", { scaleY: 1, duration: 1.2, ease: "power1.inOut" }, s18);
   rise("#b18-leadin", C.b18_ingredients, { y: 20 });
   var b18k = ["#b18-k1", "#b18-k2", "#b18-k3", "#b18-k4"];
   var b18r = ["#b18-r1", "#b18-r2", "#b18-r3", "#b18-r4"];
@@ -377,16 +415,24 @@ window.buildLessonTimeline = function () {
      cards can touch (owner 2026-08-03). */
   var s19 = start(19);
   tl.set("#b19-k1, #b19-k2, #b19-k3, #b19-k4", { x: 0, y: 0 }, s19);
-  tl.set("#b19-tile", { opacity: 0, scale: 1.03 }, s19);
+  // 1.03 -> 1.02: the tile grows about its centre, and at 1.03 its bottom edge
+  // reached y=970 — 11px past content-bottom 960 (QA 20260803T174056Z). With the
+  // block lifted 16px and the tile margin at 6px, 1.02 tops out at y=956.
+  tl.set("#b19-tile", { opacity: 0, scale: 1.02 }, s19);
   hide("#b19-h", s19);
   // The two right-hand cards drop to the lower row BEFORE they travel left, so
   // they slide along an empty row instead of crossing the cards ahead of them —
   // no two cards ever share space, mid-move or at rest. Both rows finish their
   // vertical move in the same 1.5s window: the slide may only start once the
-  // full 420px row separation exists, which clears the 396px card height with
-  // the token 24px gutter. A slower rise here re-opens a corner overlap.
-  tl.to("#b19-k1, #b19-k2", { y: -208, duration: 1.5, ease: "power2.inOut" }, C.b19_dream);
-  tl.to("#b19-k3, #b19-k4", { y: 212, duration: 1.5, ease: "power2.inOut" }, C.b19_dream);
+  // full 430px row separation exists, which clears the 396px card height with
+  // 34px to spare. A slower rise here re-opens a corner overlap.
+  // -208/+212 -> -224/+206: the whole block moves up 16px so the tile's grown
+  // edge clears content-bottom, and the lower row lands 10px lower than the
+  // token minimum so the row gutter is 34px rather than exactly 24px — it never
+  // measures under 24 while the lower row travels beneath the upper one
+  // (QA 20260803T174056Z measured a 20px dip mid-convergence).
+  tl.to("#b19-k1, #b19-k2", { y: -224, duration: 1.5, ease: "power2.inOut" }, C.b19_dream);
+  tl.to("#b19-k3, #b19-k4", { y: 206, duration: 1.5, ease: "power2.inOut" }, C.b19_dream);
   tl.to("#b19-k3, #b19-k4", { x: -852, duration: 2.9, ease: "power2.inOut" }, C.b19_dream + 1.5);
   rise("#b19-h", C.b19_they, { y: 22 });
   tl.to("#b19-tile", { opacity: 1, duration: 0.45, ease: "power2.out" }, C.b19_ingredients);
@@ -409,12 +455,14 @@ window.buildLessonTimeline = function () {
   /* ── BEAT 21 — the highlighter sweep, three marks noticed ─────────────── */
   var s21 = start(21);
   hide("#b21-cap", s21);
-  hide("#b21-marks .mark", s21);
-  tl.set("#b21-marks .mark", { backgroundColor: NAVY }, s21);
-  hide("#b21-figure", s21);
+  // The scatter and the figure SIT here from the beat's first frame rather than
+  // fading up from nothing: fading them left the handoff out of beat 20 empty
+  // for 0.5s, which the frames gate fails (QA 20260803T174056Z). Seeded at time
+  // 0 — not at s21 — so the state is already correct on the boundary frame, and
+  // the beat still moves via the highlighter sweep and the three gold marks.
+  tl.set("#b21-marks .mark", { opacity: 0.3, backgroundColor: NAVY }, 0);
+  tl.set("#b21-figure", { opacity: 0.55 }, 0);
   tl.set("#b21-highlighter", { x: 0, opacity: 0.3 }, s21);
-  tl.to("#b21-marks .mark", { opacity: 0.3, duration: 0.45, stagger: 0.05 }, C.b21_it);
-  tl.to("#b21-figure", { opacity: 0.55, duration: 0.6, ease: "power2.out" }, C.b21_it + 0.2);
   rise("#b21-cap", C.b21_notice, { y: 20 });
   tl.to("#b21-highlighter", { x: 2260, duration: C.b21_you - C.b21_notice + 0.06, ease: "none" }, C.b21_notice);
   tl.to("#b21-mk1", { backgroundColor: GOLD, opacity: 1, duration: 0.4 }, C.b21_you);

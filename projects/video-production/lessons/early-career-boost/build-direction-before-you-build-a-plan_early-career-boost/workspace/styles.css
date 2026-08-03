@@ -404,6 +404,12 @@ body {
   height: 36px;
   border-radius: var(--radius-pill);
   background: var(--blue);
+  /* A blue track disappears on the blue grounds of beats 7, 17, 20 and 21 —
+     the rail read as a gold bar floating in the field with no visible extent
+     (QA 20260803T174056Z). The navy hairline is the token that survives every
+     ground the video uses except navy itself, where the blue track already
+     reads. The fill is inset:0 against the padding box, so it stays inside. */
+  border: 3px solid var(--navy);
   overflow: hidden;
 }
 .rail-fill {
