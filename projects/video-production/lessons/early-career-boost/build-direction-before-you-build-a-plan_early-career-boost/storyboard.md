@@ -75,3 +75,37 @@ every scene carries the `closing-beat` that resolves it.
 - Date: 2026-08-03
 - Every confirmed P0/P1 finding resolved and re-verified against the draft gate by the orchestrator: invented outro copy replaced with script-faithful close; title card conformed to the series lockup; enumeration beats keyed to word onsets; gold re-rationed with an accurate ledger; muted-video off dark canvases; token-column contradictions removed.
 - Approved: yes
+
+## Deviations
+
+Implemented deviations from the beats above, recorded by the builder (studio
+round 3). Nothing else in the board changed.
+
+- **Beats 2 and 7 — transition onsets rounded forward by 0.02s.** The board's
+  own beat table starts beat 2 at 00:02.5 and beat 7 at 00:36.4, but names their
+  transition cues at 2.48 ("easy") and 36.38 ("Where"), which fall inside the
+  previous beat. A clip cannot paint before its own start, so both transitions
+  fire at the beat start instead — 2.50 and 36.55. Every other cue is the exact
+  word onset from `audio/narration.words.json`.
+- **Beats 14–16 — the rail panel is paper with a hairline border, not a
+  `fill-subtle` card.** Blue label type on `fill-subtle` measures 2.87:1, under
+  the 3:1 floor `hyperframes check` enforces; these beats' token column names
+  `paper` and not `fill-subtle`, so the panel takes the paper ground and keeps
+  its `border` hairline. Blue on paper clears at 3.49:1.
+- **Beats 15 and 16 — the outgoing panel exits as the new one enters.** The board
+  gives each state its own panel but not the swap; without it the rail stands
+  alone for the ~1s between the marker change and the next panel's cue. The
+  spent panel slides left and fades on the marker change, so the frame is never
+  idle.
+- **Beat 19 — the four card captions fade out as the cards converge.** At the
+  0.55 convergence scale their 40px copy would render at 22px, under the body
+  floor. The captions leave over the first second of the move, so the composite
+  tile is glyphs only — which is what the board's on-screen column for this beat
+  lists (the heading alone).
+- **Beat 13 — "the label tracks out" is a transform, not a letter-spacing
+  tween.** The closing beat widens the label block on `scaleX` (1 → 1.06);
+  tracking is not on the seek-safe animatable set, and the transform reads the
+  same on screen.
+- **Beat 8 — the third moment-dot lands at 49.90.** The board names two onsets
+  ("show" 48.74, "naturally" 49.36) for three dots; the third follows the second
+  by 0.54s so the pan keeps working through the line.

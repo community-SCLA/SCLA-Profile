@@ -1,0 +1,419 @@
+/* styles.css — every value here traces to
+   projects/video-production/design-system/config/tokens.yml.
+   Nothing is hand-picked: colors are the tokens colors: block, sizes are the
+   typography scale: bands, spacing is the spacing: block, components are the
+   components: block. */
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: block;
+}
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+  font-weight: 900;
+  font-display: block;
+}
+
+:root {
+  /* colors: */
+  --navy: #0d2437;
+  --navy-deep: #0a1e2f;
+  --blue: #3393d6;
+  --gold: #eaab2d;
+  --ink: #292f35;
+  --paper: #ffffff;
+  --cultured: #f6f6f9;
+  --fill-subtle: #e5eff6;
+  --border: #cccedf;
+  --muted-video: #5f6f96;
+
+  /* spacing: */
+  --frame-padding: 120px;
+  --safe-area: 72px;
+  --footer-reserve: 120px;
+  --content-bottom: 960px;
+  --card-gutter: 24px;
+  --radius-card: 12px;
+  --radius-pill: 100px;
+
+  /* typography: scale — each value sits inside its token band */
+  --fs-display: 104px; /* 96-120 / 900 */
+  --fs-heading: 64px; /* 60-72 / 900 */
+  --fs-quote: 56px; /* 52-60 / 700 */
+  --fs-quote-tight: 52px; /* bottom of the quote band, for one-line cards */
+  --fs-body: 44px; /* 40-48 / 400 */
+  --fs-body-sm: 40px; /* the body floor */
+  --fs-label: 24px; /* 20-26 / 700 uppercase */
+  --fs-label-sm: 22px;
+  --fs-stat: 220px; /* 200-260 / 900 */
+
+  --font: "Proxima Nova", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.clip {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── grounds ─────────────────────────────────────────────────────────────
+   Full-screen fills always live on a full-bleed child, never on the clip or
+   the root. Dark grounds are radial (tokens motion ban: linear full-screen
+   gradients band on navy under H.264). */
+.ground {
+  position: absolute;
+  inset: 0;
+}
+.ground--navy {
+  background: radial-gradient(circle at 50% 42%, var(--navy) 0%, var(--navy-deep) 78%);
+}
+.ground--paper {
+  background: var(--paper);
+}
+.ground--cultured {
+  background: var(--cultured);
+}
+
+/* ── frame: the content box. padding = frame-padding on every edge, so no
+   content element reaches the 72px safe area and content ends at y = 960
+   (content-bottom). ─────────────────────────────────────────────────────── */
+.frame {
+  position: absolute;
+  inset: 0;
+  padding: var(--frame-padding);
+  display: flex;
+  flex-direction: column;
+}
+.frame--center {
+  justify-content: center;
+}
+
+/* ── type roles ─────────────────────────────────────────────────────────── */
+.t-display {
+  font-size: var(--fs-display);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.t-heading {
+  font-size: var(--fs-heading);
+  font-weight: 900;
+  line-height: 1.16;
+  margin: 0;
+}
+.t-quote {
+  font-size: var(--fs-quote);
+  font-weight: 700;
+  line-height: 1.26;
+  margin: 0;
+}
+.t-quote.is-tight {
+  font-size: var(--fs-quote-tight);
+}
+.t-body {
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.32;
+  margin: 0;
+}
+.t-body.is-sm {
+  font-size: var(--fs-body-sm);
+}
+.t-label {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin: 0;
+}
+.t-label.is-sm {
+  font-size: var(--fs-label-sm);
+}
+.t-stat {
+  font-size: var(--fs-stat);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+}
+
+.on-navy {
+  color: var(--paper);
+}
+.on-light {
+  color: var(--ink);
+}
+.c-blue {
+  color: var(--blue);
+}
+.c-gold {
+  color: var(--gold);
+}
+.c-navy {
+  color: var(--navy);
+}
+.c-muted {
+  color: var(--muted-video);
+}
+
+/* ── components (tokens components:) ────────────────────────────────────── */
+
+/* rule: gold or blue, 3-4px, animates scaleX 0->1 from transform-origin left */
+.rule {
+  display: block;
+  height: 4px;
+  width: 100%;
+  transform-origin: left center;
+  background: var(--blue);
+}
+.rule--gold {
+  background: var(--gold);
+}
+.rule--v {
+  width: 4px;
+  height: 100%;
+  transform-origin: top center;
+}
+
+/* chip: 2px blue border, transparent fill, blue text, radius 100px */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--blue);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--blue);
+  padding: 14px 34px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+.chip.is-spent {
+  border-color: var(--muted-video);
+  color: var(--muted-video);
+}
+.chip.is-hairline {
+  border-width: 2px;
+}
+
+/* point-marker: 74px circle. Beat 7 states the ring, per the approved
+   storyboard: navy fill inside a blue ring (that beat spends no gold). */
+.point-marker {
+  width: 74px;
+  height: 74px;
+  min-width: 74px;
+  border-radius: var(--radius-pill);
+  border: 4px solid var(--blue);
+  background: var(--navy-deep);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-label);
+  font-weight: 900;
+}
+
+/* cta-label: gold text 900 with leading arrow, never a fill or a pill.
+   Set at body scale because a viewer reads it as a sentence. */
+.cta-label {
+  color: var(--gold);
+  font-weight: 900;
+  font-size: var(--fs-body);
+  line-height: 1.28;
+  margin: 0;
+}
+
+/* cards */
+.card {
+  background: var(--fill-subtle);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--card-gutter);
+}
+.card--quote {
+  background: var(--paper);
+  border: 2px solid var(--border);
+  padding: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.panel {
+  background: var(--fill-subtle);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 40px;
+}
+
+.glyph {
+  width: 88px;
+  height: 88px;
+  display: block;
+}
+.glyph path,
+.glyph circle,
+.glyph rect,
+.glyph line,
+.glyph polyline,
+.glyph polygon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.art {
+  display: block;
+}
+.art path,
+.art circle,
+.art ellipse,
+.art rect,
+.art line,
+.art polyline,
+.art polygon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.art .solid {
+  fill: currentColor;
+  stroke: none;
+}
+
+.row {
+  display: flex;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer chrome band — the reserved bottom 120px. Content never enters it;
+   the brandline is furniture, not content. */
+.footer {
+  position: absolute;
+  left: var(--frame-padding);
+  right: var(--frame-padding);
+  bottom: 0;
+  height: var(--footer-reserve);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── layout helpers ─────────────────────────────────────────────────────── */
+
+/* .canvas is the positioning context for absolutely placed content: it IS the
+   frame-padding box (120px inset on every edge), so an element at top 840 sits
+   exactly on content-bottom (y = 960) and nothing can reach the 72px safe
+   area. */
+.canvas {
+  position: absolute;
+  left: var(--frame-padding);
+  top: var(--frame-padding);
+  width: 1680px;
+  height: 840px;
+}
+
+.line {
+  display: block;
+}
+.w {
+  display: inline-block;
+}
+
+.seg {
+  position: absolute;
+  display: block;
+  height: 4px;
+  background: var(--blue);
+  transform-origin: left center;
+}
+.node {
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  background: var(--blue);
+}
+.dot {
+  position: absolute;
+  display: block;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  background: var(--blue);
+}
+.mark {
+  position: absolute;
+  display: block;
+  width: 70px;
+  height: 10px;
+  border-radius: 4px;
+  background: var(--blue);
+}
+
+/* The rail panel (beats 14-16) sits on the paper ground and carries only the
+   hairline border — those beats' token list is paper/blue/muted-video, with no
+   fill-subtle, and blue label type clears contrast on paper but not on
+   fill-subtle. */
+.panel--paper {
+  background: var(--paper);
+}
+
+/* Stacked title/heading lines carry their own leading: Proxima Nova's 900 font
+   box is 1.477em (assets/fonts/metrics.json), so two lines set tighter than
+   that overlap as boxes even though the ink never touches. 1.52 keeps the
+   lockup tight without stacking one line's box into the next. */
+.t-display .line,
+.t-heading .line {
+  line-height: 1.52;
+}
+
+/* Panel copy centres in its box so a three-line state and a two-row chip state
+   both sit balanced on the rail. */
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

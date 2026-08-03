@@ -1,0 +1,13 @@
+{
+  "name": "build-direction-before-you-build-a-plan_early-career-boost",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --no-install hyperframes check",
+    "preview": "npx --no-install hyperframes preview",
+    "render": "npx --no-install hyperframes render"
+  },
+  "devDependencies": {
+    "hyperframes": "0.7.79"
+  }
+}

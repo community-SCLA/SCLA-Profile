@@ -50,6 +50,38 @@ A scene is consecutive beats sharing a layout family; each scene's final beat ca
 - **Text and illustration are always in separate bands or separate columns** — glyph row above chip row (2), copy left / path right (3), heading top-left clear of every route (4), text column beside illustration column (8–9), heading band above the panel (10). No beat asks a reader to read across a drawing.
 - **Motion follows the tokens contract:** every entrance settles by 1.2s, the outgoing illustration takes its 0.3s `exit` before the incoming one enters (9), and each scene's last beat carries one cued `closing-beat` resolve — a rule completing, an accent landing, or dimmed items restoring — never an in-place re-animation.
 
+## Deviations
+
+Recorded by the builder (studio round 3). Each is the closest faithful version of
+the beat as written; no other beat, token or design key changed.
+
+- **Beat 2 — "the third chip's border brightens" is an additive accent ring.** A
+  second 2px `blue` ring lands just outside chip 3's border rather than recolouring
+  the border, because the `chip` component is *defined* as a 2px blue border and the
+  tokens `closing-beat` rule requires an additive resolve, never an in-place
+  re-animation. The cue also moved 6.32 → 6.20 so the accent lands before the band's
+  6.40 exit rather than under it.
+- **Beat 3 — the path starts at the left edge of its own region (x=800), not the
+  frame's left edge.** The same beat reserves the clear left third for the question
+  copy and puts the path in the right two thirds; a path from the frame edge would
+  have run under the copy.
+- **Beat 6 — "node 2's fill settles" is a `blue` accent ring landing on node 2** at
+  20.40. Node 2's fill is already up from 18.56, and re-animating it in place is
+  banned by the tokens motion contract, so the cued resolve is additive.
+- **Beats 9 and 10 — the outgoing line and illustration leave with their own
+  heading, not when the next one lands.** The promotion body line exits at 33.30
+  with its heading and the lateral-move panels exit at 40.30. Holding them to the
+  next entrance left "Deepening your influence and scope" sitting under the *Lateral
+  move* heading, and the department/function panels sitting under *Role redesign*.
+  The storyboard fixes when each new item lands and is silent on when the old one
+  leaves; this is the reading that keeps on-screen copy true to the spoken line.
+- **Beat 13 — the pull-quote "shortens" by fading its trailing words and
+  re-centring, not by re-typesetting.** The quote lifts to the top band as one
+  container (rise + scale 0.92) while "in general." fades out and the container
+  re-centres on the remaining line. Font size is not a seek-safe animatable property
+  in HyperFrames, so a true type-scale change could not be rendered
+  deterministically.
+
 ## Panel Verdict
 
 - Run: scla-lesson-videos-20260803T054157Z-p264328 (critic panel — brand/design-system, motion/engagement, instructional clarity; none the author) and scla-lesson-videos-20260803T061814Z-p457443 (fix swarm — fixers ≠ finders)

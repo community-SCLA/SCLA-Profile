@@ -1,0 +1,18 @@
+{
+  "name": "m2-why-build-your-own-path",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "_note": "HyperFrames CLI pinned to the same version design-system/package.json pins (0.7.79). gsap is vendored into assets/vendor/ so the composition needs no network at render time.",
+  "scripts": {
+    "dev": "npx --no-install hyperframes preview",
+    "check": "npx --no-install hyperframes check",
+    "render": "npx --no-install hyperframes render"
+  },
+  "dependencies": {
+    "hyperframes": "0.7.79"
+  },
+  "devDependencies": {
+    "gsap": "3.14.2"
+  }
+}

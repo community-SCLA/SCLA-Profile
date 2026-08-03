@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Build Direction Before You Build a Plan — Early Career Boost</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="assets/vendor/gsap.min.js"></script>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="lesson"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-fps="30"
+      data-duration="146.5"
+    >
+      <!-- Narration: the composition's clock. A verbatim copy of the lesson's
+           round-1 narration (../audio/narration.mp3), kept inside the project
+           because HyperFrames serves the project root as the base URL and a
+           "../" asset path 404s in preview and renders silent. -->
+      <audio
+        id="narration"
+        src="assets/audio/narration.mp3"
+        data-start="0"
+        data-duration="146.21"
+        data-track-index="20"
+        data-volume="1"
+      ></audio>
+
+      <!-- ═══ BEAT 1 — series title lockup ═══════════════════════════════ -->
+      <section id="beat-1" class="clip" data-start="0" data-duration="2.5" data-track-index="1" style="z-index: 1">
+        <div class="ground ground--navy"></div>
+        <div class="canvas">
+          <svg id="b1-rings" class="art c-blue" width="640" height="560" viewBox="0 0 640 560" style="position: absolute; right: 0; top: 140px; opacity: 0.18" data-layout-ignore>
+            <ellipse cx="320" cy="280" rx="300" ry="230" />
+            <ellipse cx="320" cy="280" rx="215" ry="150" />
+          </svg>
+          <p id="b1-eyebrow" class="t-label on-navy" style="position: absolute; left: 0; top: 0">Early Career Boost</p>
+          <span id="b1-rule" class="rule rule--gold" style="position: absolute; left: 0; top: 58px; width: 300px"></span>
+          <h1 id="b1-title" class="t-display on-navy" style="position: absolute; left: 0; top: 280px; width: 1280px">
+            <span class="line"><span class="w">Build</span> <span class="w">Direction</span></span>
+            <span class="line"><span class="w">Before</span> <span class="w">You</span> <span class="w">Build</span> <span class="w">a</span> <span class="w">Plan</span></span>
+          </h1>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 2 — heading + first two title chips ═══════════════════ -->
+      <section id="beat-2" class="clip" data-start="2.5" data-duration="5.5" data-track-index="2" style="z-index: 2">
+        <div class="ground ground--paper"></div>
+        <div class="ground ground--paper" id="b2-paper" data-layout-allow-overflow></div>
+        <div class="ground ground--navy" id="b2-navy" data-layout-allow-overflow></div>
+        <div class="canvas">
+          <h2 class="t-heading c-navy" style="position: absolute; left: 0; top: 150px; width: 700px">
+            <span id="b2-l1" class="line">a career begins with</span>
+            <span id="b2-l2" class="line">a title:</span>
+          </h2>
+          <div style="position: absolute; right: 0; top: 170px; width: 900px">
+            <div class="row" style="gap: 24px">
+              <span id="b2-c1" class="chip">intern</span>
+              <span id="b2-c2" class="chip">analyst</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 3 — the remaining three chips wrap to row two ═════════ -->
+      <section id="beat-3" class="clip" data-start="8" data-duration="3.9" data-track-index="1" style="z-index: 3">
+        <div class="ground ground--paper"></div>
+        <div class="canvas">
+          <h2 class="t-heading c-navy" style="position: absolute; left: 0; top: 150px; width: 700px">
+            <span class="line">a career begins with</span>
+            <span class="line">a title:</span>
+          </h2>
+          <div id="b3-cluster" style="position: absolute; right: 0; top: 170px; width: 900px">
+            <div class="row" style="gap: 24px">
+              <span class="chip b3-chip">intern</span>
+              <span class="chip b3-chip">analyst</span>
+            </div>
+            <div class="row" style="gap: 24px; margin-top: 24px">
+              <span id="b3-c3" class="chip b3-chip">coordinator</span>
+              <span id="b3-c4" class="chip b3-chip">assistant</span>
+              <span id="b3-c5" class="chip b3-chip">associate</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 4 — chips drain to the thesis ════════════════════════ -->
+      <section id="beat-4" class="clip" data-start="11.9" data-duration="8.4" data-track-index="2" style="z-index: 4">
+        <div class="ground ground--paper"></div>
+        <div class="canvas">
+          <p id="b4-quote" class="t-quote c-navy" style="position: absolute; left: 0; top: 175px; width: 660px">Titles are only labels.</p>
+          <div style="position: absolute; right: 0; top: 170px; width: 900px">
+            <div class="row" style="gap: 24px">
+              <span class="chip b4-chip">intern</span>
+              <span class="chip b4-chip">analyst</span>
+            </div>
+            <div class="row" style="gap: 24px; margin-top: 24px">
+              <span class="chip b4-chip">coordinator</span>
+              <span class="chip b4-chip">assistant</span>
+              <span id="b4-peel" class="chip b4-chip" style="position: relative">
+                <span id="b4-peel-label">associate</span>
+              </span>
+            </div>
+          </div>
+          <span id="b4-tag" class="t-label c-muted" style="position: absolute; right: 34px; top: 366px; opacity: 0">associate</span>
+          <span id="b4-rule" class="rule" style="position: absolute; right: 0; top: 400px; width: 900px"></span>
+          <p id="b4-leadin" class="t-body on-light" style="position: absolute; left: 0; top: 530px; width: 1000px">What they do not tell you:</p>
+          <p class="t-body on-light" style="position: absolute; left: 0; top: 640px; width: 1680px">
+            <span id="b4-f1" class="w">How you work.</span> <span id="b4-f2" class="w">What you care about.</span>
+            <span id="b4-f3" class="w">Where you create value.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 5 — split navy / paper frame ═════════════════════════ -->
+      <section id="beat-5" class="clip" data-start="20.3" data-duration="7.6" data-track-index="1" style="z-index: 5">
+        <div class="ground ground--paper"></div>
+        <div id="b5-half" class="ground ground--navy" style="right: 960px" data-layout-allow-overflow></div>
+        <span id="b5-seam" class="rule rule--v" style="position: absolute; left: 958px; top: 0; height: 1080px" data-layout-ignore></span>
+        <div class="canvas">
+          <svg id="b5-figure" class="art on-navy" width="300" height="440" viewBox="0 0 300 440" style="position: absolute; left: 260px; top: 200px">
+            <ellipse class="solid" cx="150" cy="96" rx="70" ry="80" />
+            <ellipse class="solid" cx="150" cy="316" rx="118" ry="152" />
+            <ellipse cx="150" cy="96" rx="100" ry="110" style="opacity: 0.45" />
+          </svg>
+          <h2 id="b5-l1" class="t-heading c-navy" style="position: absolute; left: 960px; top: 180px; width: 720px">Understand who you are before the title.</h2>
+          <p id="b5-l2" class="t-body on-light" style="position: absolute; left: 960px; top: 500px; width: 720px">
+            Pay attention to your <span id="b5-pat" style="position: relative; display: inline-block">patterns.<span id="b5-underline" class="rule rule--gold" style="position: absolute; left: 0; bottom: -14px; width: 100%"></span></span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 6 — six-card experience grid ════════════════════════ -->
+      <section id="beat-6" class="clip" data-start="27.9" data-duration="8.5" data-track-index="2" style="z-index: 6">
+        <div class="ground ground--cultured"></div>
+        <div id="b6-navy" class="ground ground--navy" style="right: 960px" data-layout-allow-overflow></div>
+        <span id="b6-seam" class="rule rule--v" style="position: absolute; left: 958px; top: 0; height: 1080px" data-layout-ignore></span>
+        <div class="canvas">
+          <div id="b6-grid" style="position: absolute; left: 0; top: 20px; width: 1680px; display: grid; grid-template-columns: repeat(3, 544px); grid-template-rows: 380px 380px; gap: 24px">
+            <div class="b6-slot" style="border: 2px solid var(--border); border-radius: var(--radius-card); grid-area: 1/1"></div>
+            <div class="b6-slot" style="border: 2px solid var(--border); border-radius: var(--radius-card); grid-area: 1/2"></div>
+            <div class="b6-slot" style="border: 2px solid var(--border); border-radius: var(--radius-card); grid-area: 1/3"></div>
+            <div class="b6-slot" style="border: 2px solid var(--border); border-radius: var(--radius-card); grid-area: 2/1"></div>
+            <div class="b6-slot" style="border: 2px solid var(--border); border-radius: var(--radius-card); grid-area: 2/2"></div>
+            <div class="b6-slot" style="border: 2px solid var(--border); border-radius: var(--radius-card); grid-area: 2/3"></div>
+
+            <div id="b6-k1" class="card b6-card" style="grid-area: 1/1">
+              <svg class="glyph c-blue b6-glyph" viewBox="0 0 88 88"><path d="M12 20h28c6 0 8 4 8 8v44c0-4-2-8-8-8H12z" /><path d="M76 20H48c-6 0-8 4-8 8v44c0-4 2-8 8-8h28z" /></svg>
+              <p class="t-body is-sm on-light">school</p>
+            </div>
+            <div id="b6-k2" class="card b6-card" style="grid-area: 1/2">
+              <svg class="glyph c-blue b6-glyph" viewBox="0 0 88 88"><circle cx="44" cy="46" r="32" /><polyline points="44,26 44,46 60,54" /></svg>
+              <p class="t-body is-sm on-light">part-time work</p>
+            </div>
+            <div id="b6-k3" class="card b6-card" style="grid-area: 1/3">
+              <svg class="glyph c-blue b6-glyph" viewBox="0 0 88 88"><circle cx="44" cy="34" r="22" /><polyline points="30,50 26,80 44,68 62,80 58,50" /></svg>
+              <p class="t-body is-sm on-light">internships</p>
+            </div>
+            <div id="b6-k4" class="card b6-card" style="grid-area: 2/1">
+              <svg class="glyph c-blue b6-glyph" viewBox="0 0 88 88"><path d="M18 14h52v58l-26-16-26 16z" /><line x1="30" y1="32" x2="58" y2="32" /></svg>
+              <p class="t-body is-sm on-light">student organizations</p>
+            </div>
+            <div id="b6-k5" class="card b6-card" style="grid-area: 2/2">
+              <svg class="glyph c-blue b6-glyph" viewBox="0 0 88 88"><path d="M44 74C24 58 14 46 14 34c0-10 8-16 16-16 6 0 11 3 14 8 3-5 8-8 14-8 8 0 16 6 16 16 0 12-10 24-30 40z" /></svg>
+              <p class="t-body is-sm on-light">volunteering</p>
+            </div>
+            <div id="b6-k6" class="card b6-card" style="grid-area: 2/3">
+              <svg class="glyph c-blue b6-glyph" viewBox="0 0 88 88"><rect x="16" y="20" width="56" height="38" rx="4" /><line x1="8" y1="70" x2="80" y2="70" /></svg>
+              <p class="t-body is-sm on-light">personal projects</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 7 — four-question stack on navy ═════════════════════ -->
+      <section id="beat-7" class="clip" data-start="36.4" data-duration="7.7" data-track-index="1" style="z-index: 7">
+        <div class="ground ground--cultured"></div>
+        <div id="b7-flood" style="position: absolute; left: 50%; top: 50%; width: 2600px; height: 2600px; margin-left: -1300px; margin-top: -1300px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, var(--navy) 0%, var(--navy-deep) 78%)" data-layout-ignore></div>
+        <div class="canvas">
+          <div style="position: absolute; left: 180px; top: 150px; width: 1320px">
+            <div id="b7-q1" class="row" style="align-items: center; gap: 32px; margin-bottom: 36px">
+              <span class="point-marker">1</span><span class="t-body on-navy">Where did you feel engaged?</span>
+            </div>
+            <div id="b7-q2" class="row" style="align-items: center; gap: 32px; margin-bottom: 36px">
+              <span class="point-marker">2</span><span class="t-body on-navy">Where did you feel capable?</span>
+            </div>
+            <div id="b7-q3" class="row" style="align-items: center; gap: 32px; margin-bottom: 36px">
+              <span class="point-marker">3</span><span class="t-body on-navy">Where did you feel useful?</span>
+            </div>
+            <div id="b7-q4" class="row" style="align-items: center; gap: 32px">
+              <span class="point-marker">4</span><span class="t-body on-navy">Where did you feel proud of the outcome?</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 8 — balance scale ═══════════════════════════════════ -->
+      <section id="beat-8" class="clip" data-start="44.1" data-duration="7.6" data-track-index="2" style="z-index: 8">
+        <div class="ground ground--navy"></div>
+        <div id="b8-paper" class="ground ground--paper" data-layout-allow-overflow></div>
+        <div class="canvas">
+          <svg id="b8-scale" class="art c-navy" width="900" height="470" viewBox="0 0 900 470" style="position: absolute; left: 390px; top: 30px">
+            <line x1="450" y1="120" x2="450" y2="410" />
+            <line x1="360" y1="410" x2="540" y2="410" />
+            <g id="b8-beam" style="transform-origin: 450px 120px">
+              <line x1="150" y1="120" x2="750" y2="120" />
+              <line x1="150" y1="120" x2="150" y2="190" />
+              <line x1="750" y1="120" x2="750" y2="190" />
+              <path d="M70 190h160l-30 60H100z" />
+              <path d="M670 190h160l-30 60H700z" />
+              <rect x="105" y="150" width="90" height="14" rx="3" />
+              <rect x="115" y="126" width="90" height="14" rx="3" />
+              <rect x="125" y="102" width="90" height="14" rx="3" />
+              <circle id="b8-d1" class="solid c-blue" cx="720" cy="168" r="11" style="color: var(--blue)" />
+              <circle id="b8-d2" class="solid c-blue" cx="760" cy="150" r="11" style="color: var(--blue)" />
+              <circle id="b8-d3" class="solid c-blue" cx="790" cy="176" r="11" style="color: var(--blue)" />
+              <circle class="solid" cx="745" cy="186" r="9" style="color: var(--border)" />
+              <circle class="solid" cx="700" cy="140" r="9" style="color: var(--border)" />
+            </g>
+          </svg>
+          <p class="t-quote c-navy" style="position: absolute; left: 0; top: 600px; width: 1500px">
+            <span id="b8-h1" class="w">These moments often reveal</span> <span id="b8-h2" class="w">more than formal credentials do.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 9 — diptych: organizing / analyzing ═════════════════ -->
+      <section id="beat-9" class="clip" data-start="51.7" data-duration="6.5" data-track-index="1" style="z-index: 9">
+        <div class="ground ground--cultured"></div>
+        <div class="canvas">
+          <div id="b9-p1" class="panel" style="position: absolute; left: 0; top: 40px; width: 780px; height: 420px; overflow: hidden">
+            <svg class="art c-blue" width="700" height="340" viewBox="0 0 700 340" style="display: block; margin: 0 auto">
+              <path d="M250 40c30-22 70-22 100 0 26 20 34 44 30 66" />
+              <path d="M350 106c14 10 30 14 44 10" />
+              <rect id="b9-s1" x="60" y="210" width="90" height="90" rx="6" />
+              <rect id="b9-s2" x="200" y="210" width="90" height="90" rx="6" />
+              <rect id="b9-s3" x="340" y="210" width="90" height="90" rx="6" />
+              <rect id="b9-s4" x="480" y="210" width="90" height="90" rx="6" />
+            </svg>
+          </div>
+          <p id="b9-c1" class="t-body is-sm on-light" style="position: absolute; left: 0; top: 500px; width: 780px">Organizing moving parts.</p>
+          <div id="b9-p2" class="panel" style="position: absolute; left: 900px; top: 40px; width: 780px; height: 420px; overflow: hidden">
+            <svg class="art c-blue" width="700" height="340" viewBox="0 0 700 340" style="display: block; margin: 0 auto">
+              <circle class="solid" cx="80" cy="250" r="10" />
+              <circle class="solid" cx="190" cy="210" r="10" />
+              <circle class="solid" cx="300" cy="230" r="10" />
+              <circle class="solid" cx="410" cy="150" r="10" />
+              <circle class="solid" cx="520" cy="120" r="10" />
+              <circle class="solid" cx="620" cy="70" r="10" />
+              <polyline id="b9-trend" points="80,250 190,210 300,230 410,150 520,120 620,70" style="opacity: 0" />
+            </svg>
+          </div>
+          <p id="b9-c2" class="t-body is-sm on-light" style="position: absolute; left: 900px; top: 500px; width: 780px">Analyzing information and finding patterns.</p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 10 — diptych: helping / turning ideas into action ═══ -->
+      <section id="beat-10" class="clip" data-start="58.2" data-duration="7.3" data-track-index="2" style="z-index: 10">
+        <div class="ground ground--cultured"></div>
+        <div class="canvas">
+          <div id="b10-p1" class="panel" style="position: absolute; left: 0; top: 40px; width: 780px; height: 420px; overflow: hidden">
+            <svg class="art c-blue" width="700" height="340" viewBox="0 0 700 340" style="display: block; margin: 0 auto">
+              <g id="b10-teacher">
+                <circle class="solid" cx="150" cy="110" r="46" />
+                <path class="solid" d="M80 320c0-50 32-84 70-84s70 34 70 84z" />
+              </g>
+              <circle cx="380" cy="130" r="34" />
+              <path d="M330 320c0-38 22-64 50-64s50 26 50 64" />
+              <circle cx="560" cy="130" r="34" />
+              <path d="M510 320c0-38 22-64 50-64s50 26 50 64" />
+              <path id="b10-ray1" d="M215 120h60" />
+              <path id="b10-ray2" d="M215 160h60" />
+            </svg>
+          </div>
+          <p id="b10-c1" class="t-body is-sm on-light" style="position: absolute; left: 0; top: 500px; width: 780px">
+            Helping other people understand something.<span id="b10-u1" class="rule" style="position: absolute; left: 0; bottom: -18px; width: 560px"></span>
+          </p>
+          <div id="b10-p2" class="panel" style="position: absolute; left: 900px; top: 40px; width: 780px; height: 420px; overflow: hidden">
+            <svg class="art c-blue" width="700" height="340" viewBox="0 0 700 340" style="display: block; margin: 0 auto">
+              <path id="b10-cloud" d="M170 220c-40 0-70-28-70-62s30-62 70-62c10-30 40-50 76-50 46 0 84 32 90 74 34 4 60 30 60 62 0 22-14 38-34 38z" />
+              <g id="b10-arrow" style="opacity: 0">
+                <line x1="140" y1="180" x2="520" y2="180" />
+                <polyline points="450,130 520,180 450,230" />
+              </g>
+            </svg>
+          </div>
+          <p id="b10-c2" class="t-body is-sm on-light" style="position: absolute; left: 900px; top: 500px; width: 780px">
+            Turning vague ideas into action.<span id="b10-u2" class="rule" style="position: absolute; left: 0; bottom: -18px; width: 440px"></span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 11 — dotted path on navy ════════════════════════════ -->
+      <section id="beat-11" class="clip" data-start="65.5" data-duration="4.9" data-track-index="1" style="z-index: 11">
+        <div class="ground ground--navy"></div>
+        <div class="canvas">
+          <h2 class="t-heading on-navy" style="position: absolute; left: 0; top: 60px; width: 1400px">
+            <span id="b11-h1" class="line">A strong early-career direction</span>
+            <span id="b11-h2" class="line">is built from repeated clues.</span>
+          </h2>
+          <div id="b11-path" style="position: absolute; left: 0; top: 340px; width: 1680px; height: 400px">
+            <span id="b11-g1" class="seg" style="left: 120px; top: 278px; width: 311px" data-rot="-14.93"></span>
+            <span id="b11-g2" class="seg" style="left: 420px; top: 198px; width: 286px" data-rot="12.09"></span>
+            <span id="b11-g3" class="seg" style="left: 700px; top: 258px; width: 327px" data-rot="-23.43"></span>
+            <span id="b11-g4" class="seg" style="left: 1000px; top: 128px; width: 304px" data-rot="9.46"></span>
+            <span id="b11-g5" class="seg" style="left: 1300px; top: 178px; width: 286px" data-rot="-24.78"></span>
+            <span id="b11-n1" class="node" style="left: 112px; top: 272px"></span>
+            <span id="b11-n2" class="node" style="left: 412px; top: 192px"></span>
+            <span id="b11-n3" class="node" style="left: 692px; top: 252px"></span>
+            <span id="b11-n4" class="node" style="left: 992px; top: 122px"></span>
+            <span id="b11-n5" class="node" style="left: 1292px; top: 172px"></span>
+            <span id="b11-n6" class="node" style="left: 1552px; top: 52px"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 12 — opposed quote cards ════════════════════════════ -->
+      <section id="beat-12" class="clip" data-start="70.4" data-duration="9.5" data-track-index="2" style="z-index: 12">
+        <div class="ground ground--navy"></div>
+        <div id="b12-paper" class="ground ground--paper"></div>
+        <div class="canvas">
+          <div id="b12-morph" style="position: absolute; left: 0; top: 340px; width: 1680px; height: 400px">
+            <span id="b12-g1" class="seg" style="left: 120px; top: 278px; width: 311px" data-rot="-14.93"></span>
+            <span id="b12-g2" class="seg" style="left: 420px; top: 198px; width: 286px" data-rot="12.09"></span>
+            <span id="b12-g3" class="seg" style="left: 700px; top: 258px; width: 327px" data-rot="-23.43"></span>
+            <span id="b12-g4" class="seg" style="left: 1000px; top: 128px; width: 304px" data-rot="9.46"></span>
+            <span id="b12-g5" class="seg" style="left: 1300px; top: 178px; width: 286px" data-rot="-24.78"></span>
+          </div>
+          <span id="b12-gutter" class="rule rule--v" style="position: absolute; left: 838px; top: 40px; height: 760px; background: var(--border)"></span>
+          <div id="b12-card1" class="card--quote" style="position: absolute; left: 0; top: 240px; width: 760px; height: 320px; display: flex">
+            <p class="t-quote is-tight c-muted">Not: a forever path.</p>
+            <span id="b12-strike" class="rule" style="position: absolute; left: 40px; top: 160px; width: 680px; height: 4px; background: var(--border)"></span>
+          </div>
+          <div id="b12-card2" class="card--quote" style="position: absolute; left: 920px; top: 240px; width: 760px; height: 320px; display: flex">
+            <p class="t-quote is-tight c-navy">Rather: fits me right now.</p>
+            <span id="b12-edge" style="position: absolute; left: -2px; top: -2px; width: 10px; height: 324px; background: var(--gold); border-radius: 2px; transform-origin: top center"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 13 — stat transitional card ═════════════════════════ -->
+      <section id="beat-13" class="clip" data-start="79.9" data-duration="3.3" data-track-index="1" style="z-index: 13">
+        <div class="ground ground--cultured"></div>
+        <div class="canvas">
+          <div style="position: absolute; left: 0; top: 190px; width: 1680px; text-align: center">
+            <p id="b13-label" class="t-label c-blue" style="display: block">In this module</p>
+            <p id="b13-num" class="t-stat c-navy" style="margin-top: 64px">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 14 — rail, state one: strengths ═════════════════════ -->
+      <section id="beat-14" class="clip" data-start="83.2" data-duration="5.1" data-track-index="2" style="z-index: 14">
+        <div class="ground ground--paper"></div>
+        <div class="canvas">
+          <span id="b14-rail" class="rule rule--v" style="position: absolute; left: 438px; top: 20px; height: 800px"></span>
+          <span id="b14-m1" class="chip" style="position: absolute; left: 398px; top: 84px; background: var(--paper)">1</span>
+          <span id="b14-m2" class="chip is-spent" style="position: absolute; left: 398px; top: 364px; background: var(--paper)">2</span>
+          <span id="b14-m3" class="chip is-spent" style="position: absolute; left: 398px; top: 644px; background: var(--paper)">3</span>
+          <div id="b14-panel" class="panel panel--paper" style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
+            <p class="t-label c-blue">1. Strengths</p>
+            <p id="b14-l1" class="t-body on-light" style="margin-top: 48px">Not in the abstract —</p>
+            <p id="b14-l2" class="t-body on-light" style="margin-top: 16px">how you actually contribute.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 15 — rail, state two: values ════════════════════════ -->
+      <section id="beat-15" class="clip" data-start="88.3" data-duration="9.8" data-track-index="1" style="z-index: 15">
+        <div class="ground ground--paper"></div>
+        <div class="canvas">
+          <span class="rule rule--v" style="position: absolute; left: 438px; top: 20px; height: 800px"></span>
+          <span id="b15-m1" class="chip" style="position: absolute; left: 398px; top: 84px; background: var(--paper)">1</span>
+          <span id="b15-m2" class="chip is-spent" style="position: absolute; left: 398px; top: 364px; background: var(--paper)">2</span>
+          <span id="b15-m3" class="chip is-spent" style="position: absolute; left: 398px; top: 644px; background: var(--paper)">3</span>
+          <div id="b15-ghost" class="panel panel--paper" data-layout-ignore style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
+            <p class="t-label c-blue">1. Strengths</p>
+            <p class="t-body on-light" style="margin-top: 48px">Not in the abstract —</p>
+            <p class="t-body on-light" style="margin-top: 16px">how you actually contribute.</p>
+          </div>
+          <div id="b15-panel" class="panel panel--paper" style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
+            <p id="b15-h" class="t-label c-blue">2. Values</p>
+            <p id="b15-sub" class="t-body is-sm on-light" style="margin-top: 36px">What matters to you in a work experience:</p>
+            <div class="row" style="gap: 24px; margin-top: 48px">
+              <span id="b15-v1" class="chip">learning</span><span id="b15-v2" class="chip">stability</span><span id="b15-v3" class="chip">flexibility</span>
+            </div>
+            <div class="row" style="gap: 24px; margin-top: 24px">
+              <span id="b15-v4" class="chip">meaning</span><span id="b15-v5" class="chip">collaboration</span><span id="b15-v6" class="chip">recognition</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 16 — rail, state three: energy patterns ═════════════ -->
+      <section id="beat-16" class="clip" data-start="98.1" data-duration="7.8" data-track-index="2" style="z-index: 16">
+        <div class="ground ground--paper"></div>
+        <div class="canvas">
+          <span class="rule rule--v" style="position: absolute; left: 438px; top: 20px; height: 800px"></span>
+          <span id="b16-m1" class="chip is-spent" style="position: absolute; left: 398px; top: 84px; background: var(--paper)">1</span>
+          <span id="b16-m2" class="chip" style="position: absolute; left: 398px; top: 364px; background: var(--paper)">2</span>
+          <span id="b16-m3" class="chip is-spent" style="position: absolute; left: 398px; top: 644px; background: var(--paper)">3</span>
+          <div id="b16-ghost" class="panel panel--paper" data-layout-ignore style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
+            <p class="t-label c-blue">2. Values</p>
+            <p class="t-body is-sm on-light" style="margin-top: 36px">What matters to you in a work experience:</p>
+            <div class="row" style="gap: 24px; margin-top: 48px">
+              <span class="chip">learning</span><span class="chip">stability</span><span class="chip">flexibility</span>
+            </div>
+            <div class="row" style="gap: 24px; margin-top: 24px">
+              <span class="chip">meaning</span><span class="chip">collaboration</span><span class="chip">recognition</span>
+            </div>
+          </div>
+          <div id="b16-panel" class="panel panel--paper" style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
+            <p id="b16-h" class="t-label c-blue">3. Energy patterns</p>
+            <div class="row" style="gap: 24px; margin-top: 44px">
+              <div style="width: 476px">
+                <p class="t-body is-sm on-light" style="height: 108px">What leaves you stronger.</p>
+                <div style="height: 200px; display: flex; align-items: flex-end">
+                  <span id="b16-bar1" style="display: block; width: 96px; height: 200px; background: var(--blue); border-radius: 6px; transform-origin: bottom center"></span>
+                </div>
+              </div>
+              <div style="width: 476px">
+                <p class="t-body is-sm on-light" style="height: 108px">What consistently drains you.</p>
+                <div style="height: 200px; display: flex; align-items: flex-start">
+                  <span id="b16-bar2" style="display: block; width: 96px; height: 200px; background: var(--blue); border-radius: 6px; transform-origin: top center"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 17 — dream-job badge ════════════════════════════════ -->
+      <section id="beat-17" class="clip" data-start="105.9" data-duration="4.9" data-track-index="1" style="z-index: 17">
+        <div class="ground ground--paper"></div>
+        <div id="b17-iris" style="position: absolute; left: 1140px; top: 500px; width: 2800px; height: 2800px; margin-left: -1400px; margin-top: -1400px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, var(--navy) 0%, var(--navy-deep) 78%)" data-layout-ignore></div>
+        <div class="canvas">
+          <div id="b17-badge" style="position: absolute; left: 420px; top: 180px; width: 840px; height: 260px; border: 4px solid var(--blue); border-radius: var(--radius-card); background: var(--navy-deep); box-shadow: 0 0 90px rgba(51, 147, 214, 0.45); display: flex; align-items: center; justify-content: center">
+            <p id="b17-badge-copy" class="t-heading on-navy">A dream job</p>
+          </div>
+          <span id="b17-baseline" class="rule" style="position: absolute; left: 420px; top: 480px; width: 840px; transform-origin: center center"></span>
+          <p id="b17-l2" class="t-body on-navy" style="position: absolute; left: 420px; top: 560px; width: 840px; text-align: center">— not a fantasy version.</p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 18 — ingredient row ═════════════════════════════════ -->
+      <section id="beat-18" class="clip" data-start="110.8" data-duration="9" data-track-index="2" style="z-index: 18">
+        <div class="ground ground--navy"></div>
+        <div id="b18-paper" class="ground ground--paper" data-layout-allow-overflow></div>
+        <div class="canvas">
+          <p id="b18-leadin" class="t-body on-light" style="position: absolute; left: 0; top: 30px; width: 1000px">made of ingredients:</p>
+          <div style="position: absolute; left: 0; top: 220px; width: 1680px; display: flex; gap: 24px">
+            <div id="b18-k1" class="card" style="width: 402px; height: 420px">
+              <svg class="glyph c-blue" viewBox="0 0 88 88"><circle cx="32" cy="30" r="16" /><circle cx="62" cy="36" r="12" /><path d="M10 74c0-16 10-26 22-26s22 10 22 26" /><path d="M56 74c0-12 6-20 14-20s8 6 8 12" /></svg>
+              <p class="t-body is-sm on-light">people</p>
+            </div>
+            <div id="b18-k2" class="card" style="width: 402px; height: 420px">
+              <svg class="glyph c-blue" viewBox="0 0 88 88"><path d="M44 14c14 0 24 10 24 22 0 12-14 16-16 26H36c-2-10-16-14-16-26 0-12 10-22 24-22z" /><line x1="34" y1="74" x2="54" y2="74" /></svg>
+              <p class="t-body is-sm on-light">problems</p>
+            </div>
+            <div id="b18-k3" class="card" style="width: 402px; height: 420px">
+              <svg class="glyph c-blue" viewBox="0 0 88 88"><rect x="14" y="46" width="26" height="28" /><rect x="48" y="30" width="26" height="44" /><line x1="14" y1="18" x2="74" y2="18" /></svg>
+              <p class="t-body is-sm on-light">structure and autonomy</p>
+            </div>
+            <div id="b18-k4" class="card" style="width: 402px; height: 420px">
+              <svg class="glyph c-blue" viewBox="0 0 88 88"><polyline points="14,70 34,46 50,58 74,22" /><polyline points="56,22 74,22 74,40" /></svg>
+              <p class="t-body is-sm on-light">growth</p>
+            </div>
+          </div>
+          <div style="position: absolute; left: 0; top: 700px; width: 1680px; display: flex; gap: 24px">
+            <span id="b18-r1" class="rule" style="width: 402px"></span>
+            <span id="b18-r2" class="rule" style="width: 402px"></span>
+            <span id="b18-r3" class="rule" style="width: 402px"></span>
+            <span id="b18-r4" class="rule" style="width: 402px"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 19 — convergence into one composite tile ════════════ -->
+      <section id="beat-19" class="clip" data-start="119.8" data-duration="7" data-track-index="1" style="z-index: 19">
+        <div class="ground ground--cultured"></div>
+        <div class="canvas">
+          <span id="b19-pill" class="chip" style="position: absolute; left: 1420px; top: 40px; width: 240px; height: 68px"></span>
+          <div id="b19-tile" style="position: absolute; left: 611px; top: 51px; width: 458px; height: 478px; border: 4px solid var(--navy); border-radius: var(--radius-card); opacity: 0"></div>
+          <div id="b19-k1" class="card" style="position: absolute; left: 0px; top: 220px; width: 402px; height: 420px">
+            <svg class="glyph c-blue" viewBox="0 0 88 88"><circle cx="32" cy="30" r="16" /><circle cx="62" cy="36" r="12" /><path d="M10 74c0-16 10-26 22-26s22 10 22 26" /><path d="M56 74c0-12 6-20 14-20s8 6 8 12" /></svg>
+              <p class="t-body is-sm on-light">people</p>
+          </div>
+          <div id="b19-k2" class="card" style="position: absolute; left: 426px; top: 220px; width: 402px; height: 420px">
+            <svg class="glyph c-blue" viewBox="0 0 88 88"><path d="M44 14c14 0 24 10 24 22 0 12-14 16-16 26H36c-2-10-16-14-16-26 0-12 10-22 24-22z" /><line x1="34" y1="74" x2="54" y2="74" /></svg>
+            <p class="t-body is-sm on-light">problems</p>
+          </div>
+          <div id="b19-k3" class="card" style="position: absolute; left: 852px; top: 220px; width: 402px; height: 420px">
+            <svg class="glyph c-blue" viewBox="0 0 88 88"><rect x="14" y="46" width="26" height="28" /><rect x="48" y="30" width="26" height="44" /><line x1="14" y1="18" x2="74" y2="18" /></svg>
+            <p class="t-body is-sm on-light">structure and autonomy</p>
+          </div>
+          <div id="b19-k4" class="card" style="position: absolute; left: 1278px; top: 220px; width: 402px; height: 420px">
+            <svg class="glyph c-blue" viewBox="0 0 88 88"><polyline points="14,70 34,46 50,58 74,22" /><polyline points="56,22 74,22 74,40" /></svg>
+            <p class="t-body is-sm on-light">growth</p>
+          </div>
+          <h2 id="b19-h" class="t-heading c-navy" style="position: absolute; left: 140px; top: 589px; width: 1400px; text-align: center">Dream jobs are combinations of ingredients, not single titles.</h2>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 20 — reflection and AI support ══════════════════════ -->
+      <section id="beat-20" class="clip" data-start="126.8" data-duration="5.8" data-track-index="2" style="z-index: 20">
+        <div class="ground ground--cultured"></div>
+        <div id="b20-navy" class="ground ground--navy" data-layout-allow-overflow></div>
+        <div class="canvas">
+          <p id="b20-l1" class="t-body on-navy" style="position: absolute; left: 0; top: 20px; width: 1000px">Reflection and AI support.</p>
+          <svg id="b20-figure" class="art on-navy" width="320" height="400" viewBox="0 0 320 400" style="position: absolute; left: 160px; top: 200px">
+            <circle class="solid" cx="160" cy="96" r="70" />
+            <path class="solid" d="M40 400 Q40 158 160 158 Q280 158 280 400 Z" />
+          </svg>
+          <div id="b20-dots" style="position: absolute; left: 540px; top: 380px; width: 560px; height: 20px">
+            <span class="dot" style="left: 0"></span><span class="dot" style="left: 70px"></span><span class="dot" style="left: 140px"></span>
+            <span class="dot" style="left: 210px"></span><span class="dot" style="left: 280px"></span><span class="dot" style="left: 350px"></span>
+            <span class="dot" style="left: 420px"></span><span class="dot" style="left: 490px"></span>
+          </div>
+          <svg id="b20-spark" class="art c-blue" width="180" height="180" viewBox="0 0 180 180" style="position: absolute; left: 1180px; top: 300px">
+            <path class="solid" d="M90 20l16 46 46 16-46 16-16 46-16-46-46-16 46-16z" />
+          </svg>
+          <p id="b20-l2" class="t-body on-navy" style="position: absolute; left: 0; top: 700px; width: 1400px">The AI is not here to define you.</p>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 21 — noticing patterns ══════════════════════════════ -->
+      <section id="beat-21" class="clip" data-start="132.6" data-duration="4.8" data-track-index="1" style="z-index: 21">
+        <div class="ground ground--navy"></div>
+        <div class="canvas">
+          <p id="b21-cap" class="t-body on-navy" style="position: absolute; left: 0; top: 30px; width: 1500px">It is here to help you notice patterns you might not see on your own.</p>
+          <div id="b21-marks" style="position: absolute; left: 60px; top: 330px; width: 1560px; height: 340px">
+            <span class="mark" style="left: 40px; top: 40px"></span><span class="mark" style="left: 260px; top: 150px"></span>
+            <span id="b21-mk1" class="mark" style="left: 470px; top: 60px"></span><span class="mark" style="left: 690px; top: 210px"></span>
+            <span id="b21-mk2" class="mark" style="left: 900px; top: 110px"></span><span class="mark" style="left: 1120px; top: 250px"></span>
+            <span id="b21-mk3" class="mark" style="left: 1330px; top: 80px"></span><span class="mark" style="left: 150px; top: 250px"></span>
+            <span class="mark" style="left: 590px; top: 300px"></span><span class="mark" style="left: 1010px; top: 20px"></span>
+          </div>
+          <svg id="b21-figure" class="art on-navy" width="260" height="320" viewBox="0 0 260 320" style="position: absolute; left: 710px; top: 360px; opacity: 0.55">
+            <circle class="solid" cx="130" cy="78" r="58" />
+            <path class="solid" d="M25 320 Q25 128 130 128 Q235 128 235 320 Z" />
+          </svg>
+          <span id="b21-highlighter" style="position: absolute; left: -400px; top: 330px; width: 210px; height: 340px; background: var(--gold); opacity: 0.16; border-radius: 8px" data-layout-ignore></span>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 22 — self-portrait resolve ══════════════════════════ -->
+      <section id="beat-22" class="clip" data-start="137.4" data-duration="5" data-track-index="2" style="z-index: 22">
+        <div class="ground ground--cultured"></div>
+        <div id="b22-paper" class="ground ground--paper" data-layout-allow-overflow></div>
+        <div class="canvas">
+          <p id="b22-line" class="t-quote c-navy" style="position: absolute; left: 0; top: 320px; width: 820px">Describe yourself with more clarity.</p>
+          <svg id="b22-soft" class="art c-navy" width="520" height="620" viewBox="0 0 520 620" style="position: absolute; left: 1040px; top: 110px; filter: blur(14px); opacity: 0.55">
+            <circle cx="260" cy="180" r="130" />
+            <path d="M50 610 Q50 322 260 322 Q470 322 470 610" />
+          </svg>
+          <svg id="b22-crisp" class="art c-navy" width="520" height="620" viewBox="0 0 520 620" style="position: absolute; left: 1040px; top: 110px; opacity: 0">
+            <circle cx="260" cy="180" r="130" />
+            <path d="M50 610 Q50 322 260 322 Q470 322 470 610" />
+            <path d="M210 160c14 12 34 12 48 0" />
+            <path d="M302 160c14 12 34 12 48 0" />
+          </svg>
+          <span id="b22-contour" class="rule" style="position: absolute; left: 1090px; top: 700px; width: 420px"></span>
+        </div>
+      </section>
+
+      <!-- ═══ BEAT 23 — series closing lockup ══════════════════════════ -->
+      <section id="beat-23" class="clip" data-start="142.4" data-duration="4.1" data-track-index="1" style="z-index: 23">
+        <div class="ground ground--cultured"></div>
+        <div class="ground ground--navy" id="b23-ground" style="opacity: 0"></div>
+        <div id="b23-close-t" class="ground ground--navy" style="bottom: 50%" data-layout-allow-overflow></div>
+        <div id="b23-close-b" class="ground ground--navy" style="top: 50%" data-layout-allow-overflow></div>
+        <div id="b23-close-l" class="ground ground--navy" style="right: 50%" data-layout-allow-overflow></div>
+        <div id="b23-close-r" class="ground ground--navy" style="left: 50%" data-layout-allow-overflow></div>
+        <div class="canvas">
+          <img id="b23-mark" src="assets/brand/SCLA-logo-icon.svg" alt="SCLA" style="position: absolute; left: 760px; top: 120px; width: 160px; height: 200px" />
+          <span id="b23-rule" class="rule rule--gold" style="position: absolute; left: 680px; top: 400px; width: 320px"></span>
+          <p id="b23-cta" class="cta-label" style="position: absolute; left: 0; top: 500px; width: 1680px; text-align: center">→ That clarity will make the next module much easier.</p>
+        </div>
+        <div class="footer">
+          <p id="b23-brandline" class="t-label is-sm on-navy" style="opacity: 0.75">The Society for Collegiate Leadership &amp; Achievement</p>
+        </div>
+      </section>
+    </div>
+
+    <script src="cues.js"></script>
+    <script src="anim.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["lesson"] = window.buildLessonTimeline();
+    </script>
+  </body>
+</html>

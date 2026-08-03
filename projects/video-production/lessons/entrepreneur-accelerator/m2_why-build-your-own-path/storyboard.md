@@ -64,6 +64,36 @@ final beat carries `closing-beat` in its token column.
 - **Every scene reserves a column or band for illustration that text never enters** — glyphs sit above their captions (2, 4–5, 13), illustrations hold the opposite half from the text column (3, 10, 18, 22–24), and the rail cards alternate above and below the rail (14–17) so no two ever share a band. The bottom band stays empty for footer chrome throughout, until the brandline takes it at 25.
 - **Motion follows the tokens' contract literally:** every entrance settles inside 1.2s on a 0.12–0.18s stagger with the ease varied per element; outgoing content exits before incoming content lands (3, 10, 19, 21) so two illustrations never coexist; each scene resolves with one cued `closing-beat`; the only ambient movement is the finite bloom in beat 7 — nothing repeats indefinitely, and the dark fields use radial falloff, never a linear gradient.
 
+## Deviations
+
+Recorded by the builder (studio round 3). Everything not listed here is built as
+written.
+
+- **Beats 2 and 19 — the two deliberate frame-edge bleeds cross the 72px safe
+  area.** The gap the jumper clears (2) and the long dashed arc (19) are
+  specified to run off the right frame edge, which no element can do while
+  staying inside the safe area. Both are built as drawn and marked
+  `data-layout-ignore` so the layout gate reads them as intentional bleeds; they
+  are line decoratives only. Every text, card, marker and chip box stays inside
+  the safe area and above the 960px content bottom.
+- **Beats 8–9 and 11 — `point-marker` is not gold-filled on entry.** The
+  `tokens.yml` component spec fills the 74px marker with gold, but the gold
+  ration in the Design Keys grants gold to beat 9 only (and never to 11). The
+  markers therefore enter as blue-ringed circles with `paper` numerals on the
+  dark canvas (8) and navy-filled circles with `paper` numerals on the light
+  panel (11); the gold fill lands on all five at once as beat 9's closing beat,
+  exactly as the ledger allows.
+- **Beats 14–17 — each module card exits before the next lands.** The storyboard
+  fixes the alternation (above / below the rail) but not whether cards
+  accumulate; five cards cannot coexist without overlapping their bands, so each
+  card leaves 0.3s before its successor enters. The chips persist, so the rail
+  still reads as one sequence, and the closing beat restores all five at once.
+- **Beat 7 — dark-canvas dimming is opacity, not a second colour.** As the
+  storyboard specifies, dimmed content on `navy` is the same token colour
+  composited toward the canvas; that is implemented as an opacity step on the
+  element rather than a hand-mixed hex, so no hue outside `tokens.yml` exists
+  anywhere in the composition.
+
 ## Panel Verdict
 
 - Run: scla-lesson-videos-20260803T054157Z-p264328 (critic panel — brand/design-system, motion/engagement, instructional clarity; none the author) and scla-lesson-videos-20260803T061814Z-p457443 (fix swarm — fixers ≠ finders)

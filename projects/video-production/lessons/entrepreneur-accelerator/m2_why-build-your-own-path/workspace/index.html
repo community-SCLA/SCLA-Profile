@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Why Build Your Own Path</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* ---------------------------------------------------------------
+         Every colour, type size and spacing value below is copied from
+         projects/video-production/design-system/config/tokens.yml.
+         Nothing here is hand-picked. Dimming on the dark canvases is done
+         with opacity (the same token colour composited toward the canvas),
+         never by introducing a new hue.
+         --------------------------------------------------------------- */
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-display: block;
+      }
+
+      :root {
+        /* tokens.yml colors: */
+        --navy: #0d2437;
+        --navy-deep: #0a1e2f;
+        --blue: #3393d6;
+        --gold: #eaab2d;
+        --ink: #292f35;
+        --paper: #ffffff;
+        --cultured: #f6f6f9;
+        --fill-subtle: #e5eff6;
+        --border: #cccedf;
+        --muted-video: #5f6f96;
+        /* tokens.yml spacing: */
+        --frame-padding: 120px;
+        --safe-area: 72px;
+        --footer-reserve: 120px;
+        --content-bottom: 960px;
+        --card-gutter: 24px;
+        --radius-card: 12px;
+        --radius-pill: 100px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--navy-deep);
+      }
+      body {
+        font-family: "Proxima Nova", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      /* full-screen fill lives on a full-bleed child, never on the root */
+      .canvas {
+        position: absolute;
+        inset: 0;
+      }
+      /* radial only — tokens.yml motion.ban forbids linear gradients on navy */
+      .canvas-dark {
+        background: radial-gradient(118% 118% at 30% 50%, var(--navy) 0%, var(--navy-deep) 74%);
+      }
+      .canvas-dark-ll {
+        /* title card: falloff from the lower left, type sits on the clean upper field */
+        background: radial-gradient(120% 120% at 20% 84%, var(--navy) 0%, var(--navy-deep) 70%);
+      }
+      .canvas-paper {
+        background: var(--paper);
+      }
+      .canvas-cultured {
+        background: var(--cultured);
+      }
+
+      /* ---- type roles (tokens.yml typography.scale) ---- */
+      .t-display {
+        font-size: 104px;
+        font-weight: 900;
+        line-height: 1.5;
+      }
+      .t-heading {
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 1.16;
+      }
+      .t-quote {
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 1.22;
+      }
+      .t-body {
+        font-size: 42px;
+        font-weight: 400;
+        line-height: 1.32;
+      }
+      .t-label {
+        font-size: 26px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        line-height: 1.2;
+      }
+      .t-stat {
+        font-size: 220px;
+        font-weight: 900;
+        line-height: 1.05;
+      }
+      .c-paper {
+        color: var(--paper);
+      }
+      .c-ink {
+        color: var(--ink);
+      }
+      .c-navy {
+        color: var(--navy);
+      }
+      .c-blue {
+        color: var(--blue);
+      }
+      .c-gold {
+        color: var(--gold);
+      }
+      .c-muted {
+        color: var(--muted-video);
+      }
+      .word {
+        display: inline-block;
+        line-height: 1;
+      }
+      .center {
+        text-align: center;
+      }
+
+      /* ---- components (tokens.yml components:) ---- */
+      .rule {
+        height: 4px;
+        position: absolute;
+        transform-origin: left center;
+      }
+      .rule-gold {
+        background: var(--gold);
+      }
+      .rule-blue {
+        background: var(--blue);
+      }
+      .rule-hair {
+        height: 3px;
+        position: absolute;
+        background: var(--blue);
+        transform-origin: left center;
+      }
+      /* chip: 2px blue border, transparent fill, blue text, radius 100px */
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--blue);
+        background: transparent;
+        color: var(--blue);
+        border-radius: var(--radius-pill);
+        padding: 20px 40px;
+        position: relative;
+      }
+      .chip-num {
+        /* text-floor-exempt: marker numeral sized by its pill (card number) */
+        font-size: 40px;
+        font-weight: 900;
+        line-height: 1;
+      }
+      /* point-marker: 74px circle, gold fill on activation, navy 900 number */
+      .pm {
+        position: absolute;
+        width: 74px;
+        height: 74px;
+        border: 4px solid var(--blue);
+        border-radius: var(--radius-pill);
+        display: grid;
+        place-items: center;
+      }
+      .pm-light {
+        border-color: var(--navy);
+      }
+      .pm-fill {
+        position: absolute;
+        inset: -4px;
+        border-radius: var(--radius-pill);
+      }
+      .pm-fill-gold {
+        background: var(--gold);
+      }
+      .pm-fill-navy {
+        background: var(--navy);
+      }
+      .pm-num {
+        /* text-floor-exempt: marker numeral sized by its circle (point marker) */
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        font-size: 34px;
+        font-weight: 900;
+      }
+      .card {
+        position: absolute;
+        border: 2px solid var(--border);
+        background: var(--fill-subtle);
+        border-radius: var(--radius-card);
+        padding: 28px 32px;
+      }
+      .card-glyph {
+        display: block;
+        margin-bottom: 22px;
+      }
+      .card-accent {
+        position: absolute;
+        inset: -12px;
+        border: 3px solid var(--blue);
+        border-radius: var(--radius-card);
+      }
+
+      /* ---- footer furniture: the brandline takes the reserved bottom band
+             at beat 25 only (y >= 960, inside the 72px safe area) ---- */
+      #s10-brand {
+        position: absolute;
+        left: 120px;
+        top: 966px;
+      }
+
+      /* ================= SCENE 1 — beat 1 : title lockup ================= */
+      #s1-block {
+        position: absolute;
+        left: 120px;
+        top: 300px;
+        width: 1560px;
+      }
+      #s1-eyebrow {
+        margin-bottom: 44px;
+      }
+      #s1-rule {
+        position: relative;
+        margin-top: 40px;
+        width: 560px;
+      }
+
+      /* ========= SCENE 2 — beats 2–3 : the stereotype row (light) ========= */
+      #s2-eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 150px;
+      }
+      #s2-row {
+        position: absolute;
+        left: 120px;
+        top: 280px;
+        width: 1680px;
+        display: flex;
+        gap: 60px;
+      }
+      .s2-col {
+        width: 520px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .s2-cap {
+        margin-top: 40px;
+        width: 100%;
+        text-align: center;
+      }
+      #s2-gap {
+        /* the ground the jumper clears — sits inside the glyph band, clear of
+           the caption band below, and runs off the right frame edge */
+        position: absolute;
+        left: 1220px;
+        top: 496px;
+      }
+      #s3-copy {
+        position: absolute;
+        left: 120px;
+        top: 400px;
+        width: 600px;
+      }
+      #s3-step {
+        position: absolute;
+        left: 1060px;
+        top: 470px;
+      }
+
+      /* ========= SCENE 3 — beats 4–6 : the experiment field (light) ========= */
+      .s3-card {
+        height: 270px;
+      }
+      .s3-r1 {
+        top: 360px;
+        width: 528px;
+      }
+      #s3-c1 {
+        left: 120px;
+      }
+      #s3-c2 {
+        left: 696px;
+      }
+      #s3-c3 {
+        left: 1272px;
+      }
+      .s3-r2 {
+        top: 570px;
+        width: 816px;
+      }
+      #s3-c4 {
+        left: 120px;
+      }
+      #s3-c5 {
+        left: 984px;
+      }
+      #s3-heading {
+        position: absolute;
+        left: 120px;
+        top: 260px;
+        width: 1500px;
+      }
+      .s3-pill {
+        position: absolute;
+        top: 560px;
+        width: 110px;
+        padding: 18px 0;
+      }
+      #s3-p1 {
+        left: 165px;
+      }
+      #s3-p2 {
+        left: 505px;
+      }
+      #s3-p3 {
+        left: 845px;
+      }
+      #s3-p4 {
+        left: 1185px;
+      }
+      #s3-p5 {
+        left: 1525px;
+      }
+      #s3-pillrule {
+        left: 120px;
+        top: 700px;
+        width: 1560px;
+      }
+
+      /* ====== SCENE 4 — beats 7–9 : AI acceleration (dark) ====== */
+      #s4-eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 140px;
+      }
+      #s4-bloom {
+        position: absolute;
+        left: 260px;
+        top: 340px;
+        width: 1400px;
+        height: 600px;
+        background: radial-gradient(
+          closest-side,
+          rgba(51, 147, 214, 0.22) 0%,
+          rgba(51, 147, 214, 0) 100%
+        );
+      }
+      #s4-quote {
+        position: absolute;
+        left: 120px;
+        top: 420px;
+        width: 1680px;
+      }
+      #s4-echo {
+        position: absolute;
+        left: 120px;
+        top: 750px;
+        width: 1680px;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+      }
+      .s4-echo-pill {
+        width: 110px;
+        padding: 18px 0;
+        border-color: var(--paper);
+        color: var(--paper);
+      }
+      .s4-pm {
+        left: 360px;
+      }
+      #s4-m1 {
+        top: 300px;
+      }
+      #s4-m2 {
+        top: 420px;
+      }
+      #s4-m3 {
+        top: 540px;
+      }
+      #s4-m4 {
+        top: 660px;
+      }
+      #s4-m5 {
+        top: 780px;
+      }
+      .s4-slot {
+        left: 480px;
+        width: 1080px;
+      }
+      #s4-s1 {
+        top: 370px;
+      }
+      #s4-s2 {
+        top: 490px;
+      }
+      #s4-s3 {
+        top: 610px;
+      }
+      #s4-s4 {
+        top: 730px;
+      }
+      #s4-s5 {
+        top: 850px;
+      }
+      .s4-line {
+        position: absolute;
+        left: 480px;
+        width: 1080px;
+      }
+      #s4-l1 {
+        top: 308px;
+      }
+      #s4-l2 {
+        top: 428px;
+      }
+      #s4-l3 {
+        top: 548px;
+      }
+      #s4-l4 {
+        top: 668px;
+      }
+      #s4-l5 {
+        top: 788px;
+      }
+
+      /* ====== SCENE 5 — beats 10–11 : the human elements (light) ====== */
+      #s5-heading {
+        position: absolute;
+        left: 120px;
+        top: 190px;
+        width: 1680px;
+      }
+      #s5-panel {
+        position: absolute;
+        left: 120px;
+        top: 340px;
+        width: 1680px;
+        height: 520px;
+        border: 2px solid var(--border);
+        background: var(--fill-subtle);
+        border-radius: var(--radius-card);
+      }
+      #s5-hatch {
+        position: absolute;
+        left: 40px;
+        top: 40px;
+      }
+      #s5-boundary {
+        position: absolute;
+        left: 520px;
+        top: 20px;
+      }
+      .s5-pm {
+        border-color: var(--navy);
+      }
+      #s5-pm1 {
+        left: 740px;
+        top: 420px;
+      }
+      #s5-pm2 {
+        left: 1270px;
+        top: 420px;
+      }
+      #s5-pm3 {
+        left: 740px;
+        top: 580px;
+      }
+      #s5-pm4 {
+        left: 1270px;
+        top: 580px;
+      }
+      .s5-lab {
+        position: absolute;
+        width: 380px;
+      }
+      #s5-lab1 {
+        left: 840px;
+        top: 428px;
+      }
+      #s5-lab2 {
+        left: 1370px;
+        top: 428px;
+      }
+      #s5-lab3 {
+        left: 840px;
+        top: 588px;
+      }
+      #s5-lab4 {
+        left: 1370px;
+        top: 588px;
+      }
+      #s5-rule {
+        left: 740px;
+        top: 800px;
+        width: 1000px;
+      }
+
+      /* ====== SCENE 6 — beats 12–13 : not to avoid the work (dark) ====== */
+      #s6-line1 {
+        position: absolute;
+        left: 120px;
+        top: 300px;
+        width: 1680px;
+      }
+      #s6-rule {
+        left: 660px;
+        top: 420px;
+        width: 600px;
+      }
+      #s6-line2wrap {
+        position: absolute;
+        left: 120px;
+        top: 480px;
+        width: 1680px;
+        text-align: center;
+      }
+      #s6-line2 {
+        position: relative;
+        display: inline-block;
+      }
+      #s6-strike {
+        position: absolute;
+        left: 0;
+        top: 26px;
+        width: 100%;
+        height: 4px;
+        background: var(--paper);
+        transform-origin: left center;
+      }
+      #s6-chips {
+        position: absolute;
+        left: 120px;
+        top: 580px;
+        width: 1680px;
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+      }
+      .s6-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+      }
+
+      /* ====== SCENE 7 — beats 14–17 : the module rail (light) ====== */
+      #s7-eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 150px;
+      }
+      #s7-rail {
+        left: 120px;
+        top: 620px;
+        width: 1680px;
+        background: var(--muted-video);
+      }
+      #s7-rail-gold {
+        left: 120px;
+        top: 620px;
+        width: 1680px;
+      }
+      .s7-chip {
+        position: absolute;
+        top: 584px;
+        width: 104px;
+        padding: 16px 0;
+        background: var(--paper);
+        border-color: var(--muted-video);
+        color: var(--muted-video);
+      }
+      .s7-chip-lit {
+        position: absolute;
+        inset: -2px;
+        border: 2px solid var(--blue);
+        border-radius: var(--radius-pill);
+        background: var(--paper);
+        color: var(--blue);
+        display: grid;
+        place-items: center;
+      }
+      #s7-k1 {
+        left: 236px;
+      }
+      #s7-k2 {
+        left: 572px;
+      }
+      #s7-k3 {
+        left: 908px;
+      }
+      #s7-k4 {
+        left: 1244px;
+      }
+      #s7-k5 {
+        left: 1580px;
+      }
+      #s7-card1 {
+        left: 120px;
+        top: 320px;
+        width: 860px;
+      }
+      #s7-card2 {
+        left: 200px;
+        top: 700px;
+        width: 1000px;
+      }
+      #s7-card3 {
+        left: 560px;
+        top: 340px;
+        width: 800px;
+      }
+      #s7-card4 {
+        left: 820px;
+        top: 700px;
+        width: 800px;
+      }
+      #s7-card5 {
+        left: 900px;
+        top: 280px;
+        width: 880px;
+      }
+      #s7-horizon {
+        display: block;
+        margin-top: 22px;
+      }
+
+      /* ====== SCENE 8 — beats 18–20 : the releases (dark) ====== */
+      #s8-spine {
+        position: absolute;
+        left: 120px;
+        top: 400px;
+        width: 900px;
+      }
+      #s8-qual {
+        position: absolute;
+        left: 120px;
+        top: 496px;
+        width: 900px;
+      }
+      #s8-door {
+        position: absolute;
+        left: 1180px;
+        top: 280px;
+      }
+      #s8-forever {
+        position: absolute;
+        left: 120px;
+        top: 440px;
+        width: 1200px;
+      }
+      #s8-arc {
+        position: absolute;
+        left: 1000px;
+        top: 600px;
+      }
+      #s8-num {
+        position: absolute;
+        left: 200px;
+        top: 320px;
+        width: 480px;
+        text-align: center;
+      }
+      #s8-numrule {
+        left: 200px;
+        top: 604px;
+        width: 480px;
+      }
+      #s8-numlabel {
+        position: absolute;
+        left: 200px;
+        top: 646px;
+        width: 480px;
+        text-align: center;
+      }
+      #s8-card {
+        position: absolute;
+        left: 1000px;
+        top: 380px;
+        width: 780px;
+        height: 240px;
+        border: 2px solid var(--paper);
+        border-radius: var(--radius-card);
+        padding: 28px 32px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* ====== SCENE 9 — beats 21–24 : the question (light) ====== */
+      #s9-eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 200px;
+      }
+      #s9-rule {
+        left: 120px;
+        top: 300px;
+        width: 1680px;
+      }
+      #s9-prompt {
+        position: absolute;
+        left: 120px;
+        top: 380px;
+        width: 460px;
+      }
+      #s9-bracket {
+        position: absolute;
+        left: 620px;
+        top: 380px;
+      }
+      .s9-line {
+        position: absolute;
+        left: 720px;
+        width: 760px;
+        display: flex;
+      }
+      .s9-one {
+        display: inline-block;
+      }
+      .s9-pre {
+        width: 90px;
+        flex: 0 0 90px;
+        text-align: right;
+        padding-right: 14px;
+      }
+      #s9-line1 {
+        top: 440px;
+      }
+      #s9-line2 {
+        top: 560px;
+      }
+      #s9-line3 {
+        top: 680px;
+      }
+      #s9-glyph {
+        position: absolute;
+        left: 1540px;
+        top: 420px;
+      }
+
+      /* ====== SCENE 10 — beat 25 : series closing lockup (dark) ====== */
+      #s10-line {
+        position: absolute;
+        left: 120px;
+        top: 420px;
+        width: 1680px;
+      }
+      #s10-rule {
+        left: 660px;
+        top: 560px;
+        width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="101"
+      data-fps="30"
+    >
+      <!-- narration: round-1 audio, referenced relative to workspace/ (the CLI
+           rejects "../" asset paths — Studio preview resolves against the
+           project root, so the round-1 mp3 is staged at workspace/audio/) -->
+      <audio
+        id="narration"
+        src="audio/narration.mp3"
+        data-start="0"
+        data-duration="100.68"
+        data-track-index="0"
+        data-volume="1"
+      ></audio>
+
+      <!-- ============ SCENE 1 — beat 1 : title lockup (dark) ============ -->
+      <section id="s1" class="scene clip" data-start="0" data-duration="2.3" data-track-index="1">
+        <div class="canvas canvas-dark-ll"></div>
+        <div id="s1-block">
+          <!-- eyebrow = tokens.yml programs["entrepreneur-accelerator"] -->
+          <div id="s1-eyebrow" class="t-label c-paper">Entrepreneur Accelerator</div>
+          <div class="t-display c-paper">
+            <div>
+              <span class="word s1-word">Why</span> <span class="word s1-word">Build</span>
+              <span class="word s1-word">Your</span>
+            </div>
+            <div><span class="word s1-word">Own</span> <span class="word s1-word">Path</span></div>
+          </div>
+          <div id="s1-rule" class="rule rule-gold"></div>
+        </div>
+      </section>
+
+      <!-- ====== SCENE 2 — beats 2–3 : what people picture (light) ====== -->
+      <section id="s2" class="scene clip" data-start="2.3" data-duration="9.9" data-track-index="2">
+        <div class="canvas canvas-cultured"></div>
+
+        <!-- the gap the jumper clears, running off the right frame edge -->
+        <svg
+          id="s2-gap"
+          class="s2-out"
+          data-layout-ignore
+          width="700"
+          height="104"
+          viewBox="0 0 700 104"
+          fill="none"
+        >
+          <path d="M0 44 L200 44" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+          <path d="M200 44 L200 104" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+          <path d="M440 44 L700 44" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+          <path d="M440 44 L440 104" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+        </svg>
+
+        <div id="s2-eyebrow" class="t-label c-muted s2-out">What people picture</div>
+        <div id="s2-row">
+          <div class="s2-col">
+            <div id="s2-g1" class="s2-glyph">
+              <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
+                <path
+                  d="M150 24 C196 74 208 126 208 176 L92 176 C92 126 104 74 150 24 Z"
+                  stroke="#3393d6"
+                  stroke-width="8"
+                  stroke-linejoin="round"
+                />
+                <circle cx="150" cy="112" r="24" stroke="#3393d6" stroke-width="8" />
+                <path d="M92 152 L54 200 L92 194" stroke="#3393d6" stroke-width="8" stroke-linejoin="round" />
+                <path d="M208 152 L246 200 L208 194" stroke="#3393d6" stroke-width="8" stroke-linejoin="round" />
+                <path d="M132 200 L150 246 L168 200" stroke="#292f35" stroke-width="8" stroke-linejoin="round" />
+                <path d="M40 276 L260 276" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+                <path d="M74 276 L74 250" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+                <path d="M226 276 L226 250" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div id="s2-c1" class="s2-cap t-body c-ink">Launching a startup</div>
+          </div>
+          <div class="s2-col">
+            <div id="s2-g2" class="s2-glyph">
+              <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
+                <rect x="46" y="212" width="208" height="64" rx="8" stroke="#3393d6" stroke-width="8" />
+                <rect x="72" y="140" width="156" height="64" rx="8" stroke="#3393d6" stroke-width="8" />
+                <rect x="98" y="68" width="104" height="64" rx="8" stroke="#3393d6" stroke-width="8" />
+                <circle cx="150" cy="34" r="26" stroke="#292f35" stroke-width="8" />
+                <path d="M150 20 L150 48" stroke="#292f35" stroke-width="6" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div id="s2-c2" class="s2-cap t-body c-ink">Raising money</div>
+          </div>
+          <div class="s2-col">
+            <div id="s2-g3" class="s2-glyph">
+              <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
+                <circle cx="150" cy="52" r="28" stroke="#3393d6" stroke-width="8" />
+                <path d="M150 84 L138 168" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+                <path d="M138 168 L96 236" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+                <path d="M138 168 L214 210" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+                <path d="M150 104 L64 76" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+                <path d="M150 104 L238 66" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div id="s2-c3" class="s2-cap t-body c-ink">A huge leap into the unknown</div>
+          </div>
+        </div>
+
+        <!-- beat 3 : the same figure resolved into one ordinary first step -->
+        <div id="s3-copy" class="t-quote c-ink">For most people, it begins much smaller</div>
+        <svg id="s3-step" width="440" height="320" viewBox="0 0 440 320" fill="none">
+          <circle cx="150" cy="60" r="24" stroke="#3393d6" stroke-width="8" />
+          <path d="M150 88 L150 168" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+          <path d="M150 168 L112 232" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+          <path d="M150 168 L206 214" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+          <path d="M150 112 L104 140" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+          <path d="M150 112 L200 138" stroke="#3393d6" stroke-width="8" stroke-linecap="round" />
+          <path d="M20 288 L200 288" stroke="#292f35" stroke-width="8" stroke-linecap="round" />
+          <path d="M200 288 L200 232 L380 232" stroke="#292f35" stroke-width="8" stroke-linejoin="round" />
+          <path id="s3-tread" d="M200 228 L380 228" stroke="#eaab2d" stroke-width="10" stroke-linecap="round" />
+        </svg>
+      </section>
+
+      <!-- ====== SCENE 3 — beats 4–6 : the experiment field (light) ====== -->
+      <section id="s3" class="scene clip" data-start="12.2" data-duration="14.5" data-track-index="3">
+        <div class="canvas canvas-paper"></div>
+
+        <div id="s3-c1" class="card s3-card s3-r1">
+          <svg class="card-glyph" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <path d="M10 54 L18 34 L44 8 L56 20 L30 46 Z" stroke="#3393d6" stroke-width="6" stroke-linejoin="round" />
+            <path d="M18 34 L30 46" stroke="#3393d6" stroke-width="6" />
+          </svg>
+          <div class="t-body c-ink">A side project</div>
+        </div>
+        <div id="s3-c2" class="card s3-card s3-r1">
+          <svg class="card-glyph" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="8" width="48" height="48" rx="6" stroke="#3393d6" stroke-width="6" />
+            <path d="M20 26 L44 26" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            <path d="M20 40 C26 32 32 46 44 38" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+          </svg>
+          <div class="t-body c-ink">A freelance client</div>
+        </div>
+        <div id="s3-c3" class="card s3-card s3-r1">
+          <svg class="card-glyph" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect x="6" y="10" width="52" height="30" rx="4" stroke="#3393d6" stroke-width="6" />
+            <path d="M16 52 L26 52" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            <path d="M38 52 L48 52" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+          </svg>
+          <div class="t-body c-ink">A workshop you offer</div>
+        </div>
+        <div id="s3-c4" class="card s3-card s3-r2">
+          <svg class="card-glyph" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect x="10" y="8" width="44" height="48" rx="6" stroke="#3393d6" stroke-width="6" />
+            <path d="M32 20 L32 42" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            <path d="M22 32 L32 42 L42 32" stroke="#3393d6" stroke-width="6" stroke-linejoin="round" />
+          </svg>
+          <div class="t-body c-ink">A digital product you test</div>
+        </div>
+        <div id="s3-c5" class="card s3-card s3-r2">
+          <svg class="card-glyph" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="16" cy="18" r="8" stroke="#3393d6" stroke-width="6" />
+            <circle cx="48" cy="18" r="8" stroke="#3393d6" stroke-width="6" />
+            <path d="M20 40 L44 40" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            <path d="M36 32 L44 40 L36 48" stroke="#3393d6" stroke-width="6" stroke-linejoin="round" />
+          </svg>
+          <div class="t-body c-ink">A service you share with people you already know</div>
+          <span id="s3-c5-accent" class="card-accent"></span>
+        </div>
+
+        <div id="s3-heading" class="t-heading c-navy">
+          Entrepreneurship often begins as a series of experiments.
+        </div>
+        <div id="s3-p1" class="chip s3-pill"><span class="chip-num">1</span></div>
+        <div id="s3-p2" class="chip s3-pill"><span class="chip-num">2</span></div>
+        <div id="s3-p3" class="chip s3-pill"><span class="chip-num">3</span></div>
+        <div id="s3-p4" class="chip s3-pill"><span class="chip-num">4</span></div>
+        <div id="s3-p5" class="chip s3-pill"><span class="chip-num">5</span></div>
+        <div id="s3-pillrule" class="rule rule-blue"></div>
+      </section>
+
+      <!-- ====== SCENE 4 — beats 7–9 : an AI-accelerated world (dark) ====== -->
+      <section id="s4" class="scene clip" data-start="26.7" data-duration="14.1" data-track-index="4">
+        <div class="canvas canvas-dark"></div>
+        <div id="s4-bloom" data-layout-ignore></div>
+        <div id="s4-eyebrow" class="t-label c-blue">An AI-accelerated world</div>
+        <div id="s4-quote" class="t-quote c-paper center">
+          <span class="word s4-qword">This</span> <span class="word s4-qword">kind</span>
+          <span class="word s4-qword">of</span> <span class="word s4-qword">experimentation</span>
+          <span class="word s4-qword">is</span> <span class="word s4-qword">even</span>
+          <span class="word s4-qword">more</span> <span class="word s4-qword">accessible.</span>
+        </div>
+        <div id="s4-echo">
+          <div class="chip s4-echo-pill"><span class="chip-num">1</span></div>
+          <div class="chip s4-echo-pill"><span class="chip-num">2</span></div>
+          <div class="chip s4-echo-pill"><span class="chip-num">3</span></div>
+          <div class="chip s4-echo-pill"><span class="chip-num">4</span></div>
+          <div class="chip s4-echo-pill"><span class="chip-num">5</span></div>
+        </div>
+
+        <div id="s4-s1" class="rule-hair s4-slot"></div>
+        <div id="s4-s2" class="rule-hair s4-slot"></div>
+        <div id="s4-s3" class="rule-hair s4-slot"></div>
+        <div id="s4-s4" class="rule-hair s4-slot"></div>
+        <div id="s4-s5" class="rule-hair s4-slot"></div>
+
+        <div id="s4-m1" class="pm s4-pm s4-mk">
+          <span class="pm-fill pm-fill-gold s4-fill"></span><span class="pm-num c-paper s4-nump" data-layout-allow-overlap>1</span>
+          <span class="pm-num c-navy s4-numn" data-layout-allow-overlap>1</span>
+        </div>
+        <div id="s4-m2" class="pm s4-pm s4-mk">
+          <span class="pm-fill pm-fill-gold s4-fill"></span><span class="pm-num c-paper s4-nump" data-layout-allow-overlap>2</span>
+          <span class="pm-num c-navy s4-numn" data-layout-allow-overlap>2</span>
+        </div>
+        <div id="s4-m3" class="pm s4-pm s4-mk">
+          <span class="pm-fill pm-fill-gold s4-fill"></span><span class="pm-num c-paper s4-nump" data-layout-allow-overlap>3</span>
+          <span class="pm-num c-navy s4-numn" data-layout-allow-overlap>3</span>
+        </div>
+        <div id="s4-m4" class="pm s4-pm s4-mk">
+          <span class="pm-fill pm-fill-gold s4-fill"></span><span class="pm-num c-paper s4-nump" data-layout-allow-overlap>4</span>
+          <span class="pm-num c-navy s4-numn" data-layout-allow-overlap>4</span>
+        </div>
+        <div id="s4-m5" class="pm s4-pm s4-mk">
+          <span class="pm-fill pm-fill-gold s4-fill"></span><span class="pm-num c-paper s4-nump" data-layout-allow-overlap>5</span>
+          <span class="pm-num c-navy s4-numn" data-layout-allow-overlap>5</span>
+        </div>
+
+        <div id="s4-l1" class="s4-line t-body c-paper">Brainstorm ideas</div>
+        <div id="s4-l2" class="s4-line t-body c-paper">Draft offers</div>
+        <div id="s4-l3" class="s4-line t-body c-paper">Organize research</div>
+        <div id="s4-l4" class="s4-line t-body c-paper">Refine marketing language</div>
+        <div id="s4-l5" class="s4-line t-body c-paper">Streamline repetitive work</div>
+      </section>
+
+      <!-- ====== SCENE 5 — beats 10–11 : the human elements (light) ====== -->
+      <section id="s5" class="scene clip" data-start="40.8" data-duration="11.5" data-track-index="5">
+        <div class="canvas canvas-cultured"></div>
+        <div id="s5-heading" class="t-heading c-navy">AI does not replace the human elements</div>
+        <div id="s5-panel">
+          <svg id="s5-hatch" width="480" height="440" viewBox="0 0 480 440" fill="none">
+            <path d="M0 80 L80 0" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M0 160 L160 0" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M0 240 L240 0" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M0 320 L320 0" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M0 400 L400 0" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M0 440 L440 0" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M80 440 L480 40" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M160 440 L480 120" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M240 440 L480 200" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M320 440 L480 280" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+            <path d="M400 440 L480 360" class="s5-hatchline" stroke="#5f6f96" stroke-width="4" />
+          </svg>
+          <svg id="s5-boundary" width="80" height="480" viewBox="0 0 80 480" fill="none">
+            <path
+              id="s5-bpath"
+              class="draw"
+              d="M40 0 C22 84 58 156 36 240 C18 318 54 386 40 480"
+              stroke="#0d2437"
+              stroke-width="6"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <div id="s5-pm1" class="pm s5-pm s5-mk">
+          <span class="pm-fill pm-fill-navy"></span><span class="pm-num c-paper">1</span>
+        </div>
+        <div id="s5-pm2" class="pm s5-pm s5-mk">
+          <span class="pm-fill pm-fill-navy"></span><span class="pm-num c-paper">2</span>
+        </div>
+        <div id="s5-pm3" class="pm s5-pm s5-mk">
+          <span class="pm-fill pm-fill-navy"></span><span class="pm-num c-paper">3</span>
+        </div>
+        <div id="s5-pm4" class="pm s5-pm s5-mk">
+          <span class="pm-fill pm-fill-navy"></span><span class="pm-num c-paper">4</span>
+        </div>
+        <div id="s5-lab1" class="s5-lab t-body c-ink">Judgment</div>
+        <div id="s5-lab2" class="s5-lab t-body c-ink">Trust</div>
+        <div id="s5-lab3" class="s5-lab t-body c-ink">Relationships</div>
+        <div id="s5-lab4" class="s5-lab t-body c-ink">Solving real problems for real people</div>
+        <div id="s5-rule" class="rule rule-blue"></div>
+      </section>
+
+      <!-- ====== SCENE 6 — beats 12–13 : not to avoid the work (dark) ====== -->
+      <section id="s6" class="scene clip" data-start="52.3" data-duration="9.6" data-track-index="6">
+        <div class="canvas canvas-dark"></div>
+        <div id="s6-line1" class="t-quote c-paper center">
+          <span class="word s6-qword">What</span> <span class="word s6-qword">this</span>
+          <span class="word s6-qword">track</span> <span class="word s6-qword">is</span>
+          <span class="word s6-qword">about</span>
+        </div>
+        <div id="s6-rule" class="rule rule-blue"></div>
+        <div id="s6-line2wrap">
+          <span id="s6-line2" class="t-body c-paper"
+            >Using AI to avoid the work<span id="s6-strike"></span
+          ></span>
+        </div>
+        <div id="s6-chips">
+          <div class="s6-col">
+            <svg id="s6-g1" width="96" height="96" viewBox="0 0 96 96" fill="none">
+              <path d="M8 30 L70 30" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+              <path d="M20 50 L82 50" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+              <path d="M8 70 L60 70" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            </svg>
+            <div id="s6-chip1" class="chip t-label">Move faster</div>
+          </div>
+          <div class="s6-col">
+            <svg id="s6-g2" width="96" height="96" viewBox="0 0 96 96" fill="none">
+              <circle cx="42" cy="42" r="26" stroke="#3393d6" stroke-width="6" />
+              <path d="M62 62 L88 88" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+              <path d="M42 28 L42 56" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+              <path d="M28 42 L56 42" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            </svg>
+            <div id="s6-chip2" class="chip t-label">Think more clearly</div>
+          </div>
+          <div class="s6-col">
+            <svg id="s6-g3" width="96" height="96" viewBox="0 0 96 96" fill="none">
+              <path d="M10 76 L86 20" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+              <circle cx="34" cy="60" r="12" stroke="#3393d6" stroke-width="6" />
+              <path d="M64 24 L86 20 L82 42" stroke="#3393d6" stroke-width="6" stroke-linejoin="round" />
+            </svg>
+            <div id="s6-chip3" class="chip t-label">Test ideas with less friction</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== SCENE 7 — beats 14–17 : the module rail (light) ====== -->
+      <section id="s7" class="scene clip" data-start="61.9" data-duration="15.1" data-track-index="7">
+        <div class="canvas canvas-paper"></div>
+        <div id="s7-eyebrow" class="t-label c-muted">In the modules ahead</div>
+        <div id="s7-rail" class="rule"></div>
+        <div id="s7-rail-gold" class="rule rule-gold"></div>
+
+        <div id="s7-card1" class="card s7-card">
+          <div class="t-body c-ink">Design a side hustle or solo-work experiment</div>
+        </div>
+        <div id="s7-card2" class="card s7-card">
+          <div class="t-body c-ink">
+            <span class="word s7-w2">Compare</span> <span class="word s7-w2a">freelancing,</span>
+            <span class="word s7-w2b">consulting,</span> <span class="word s7-w2c">and fractional work</span>
+          </div>
+        </div>
+        <div id="s7-card3" class="card s7-card">
+          <div class="t-body c-ink">Package your first offer</div>
+        </div>
+        <div id="s7-card4" class="card s7-card">
+          <div class="t-body c-ink">Draft simple outreach</div>
+        </div>
+        <div id="s7-card5" class="card s7-card">
+          <div class="t-body c-ink">Create a launch plan for the next 30 to 90 days</div>
+          <svg id="s7-horizon" width="780" height="60" viewBox="0 0 780 60" fill="none">
+            <path d="M10 40 L770 40" stroke="#5f6f96" stroke-width="4" stroke-linecap="round" />
+            <path id="s7-tick1" d="M180 16 L180 40" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+            <path id="s7-tick2" d="M620 16 L620 40" stroke="#eaab2d" stroke-width="6" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <div id="s7-k1" class="chip s7-chip">
+          <span class="chip-num" data-layout-allow-overlap data-layout-allow-occlusion>1</span>
+          <span class="s7-chip-lit"><span class="chip-num" data-layout-allow-overlap>1</span></span>
+        </div>
+        <div id="s7-k2" class="chip s7-chip">
+          <span class="chip-num" data-layout-allow-overlap data-layout-allow-occlusion>2</span>
+          <span class="s7-chip-lit"><span class="chip-num" data-layout-allow-overlap>2</span></span>
+        </div>
+        <div id="s7-k3" class="chip s7-chip">
+          <span class="chip-num" data-layout-allow-overlap data-layout-allow-occlusion>3</span>
+          <span class="s7-chip-lit"><span class="chip-num" data-layout-allow-overlap>3</span></span>
+        </div>
+        <div id="s7-k4" class="chip s7-chip">
+          <span class="chip-num" data-layout-allow-overlap data-layout-allow-occlusion>4</span>
+          <span class="s7-chip-lit"><span class="chip-num" data-layout-allow-overlap>4</span></span>
+        </div>
+        <div id="s7-k5" class="chip s7-chip">
+          <span class="chip-num" data-layout-allow-overlap data-layout-allow-occlusion>5</span>
+          <span class="s7-chip-lit"><span class="chip-num" data-layout-allow-overlap>5</span></span>
+        </div>
+      </section>
+
+      <!-- ====== SCENE 8 — beats 18–20 : the releases (dark) ====== -->
+      <section id="s8" class="scene clip" data-start="77" data-duration="10.5" data-track-index="8">
+        <div class="canvas canvas-dark"></div>
+        <div id="s8-spine" class="t-quote c-paper">You do not need to know</div>
+        <div id="s8-qual" class="t-quote c-paper">whether you want this full-time</div>
+        <svg id="s8-door" width="560" height="540" viewBox="0 0 560 540" fill="none">
+          <path d="M120 520 L120 60 L440 60 L440 520" stroke="#ffffff" stroke-width="8" stroke-linejoin="round" />
+          <path d="M60 520 L500 520" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+          <path d="M180 300 L380 300" stroke="#3393d6" stroke-width="6" stroke-linecap="round" />
+          <path d="M210 340 L350 340" stroke="#3393d6" stroke-width="5" stroke-linecap="round" />
+          <circle cx="400" cy="300" r="10" stroke="#ffffff" stroke-width="6" />
+        </svg>
+        <div id="s8-forever" class="t-quote c-paper">Your forever business</div>
+        <svg id="s8-arc" data-layout-ignore width="920" height="300" viewBox="0 0 920 300" fill="none">
+          <path
+            id="s8-arcpath"
+            class="draw"
+            d="M0 250 C240 250 420 120 920 40"
+            stroke="#3393d6"
+            stroke-width="6"
+            stroke-linecap="round"
+            stroke-dasharray="20 18"
+          />
+        </svg>
+        <div id="s8-num" class="t-stat c-gold">1</div>
+        <div id="s8-numrule" class="rule rule-gold"></div>
+        <div id="s8-numlabel" class="t-label c-paper">One smart experiment</div>
+        <div id="s8-card">
+          <div id="s8-cardline" class="t-body c-paper">and see what you learn</div>
+        </div>
+      </section>
+
+      <!-- ====== SCENE 9 — beats 21–24 : the question (light) ====== -->
+      <section id="s9" class="scene clip" data-start="87.5" data-duration="10.6" data-track-index="9">
+        <div class="canvas canvas-cultured"></div>
+        <div id="s9-eyebrow" class="t-label c-muted">As you move through this track</div>
+        <div id="s9-rule" class="rule rule-blue"></div>
+        <div id="s9-prompt" class="t-heading c-navy">Keep asking yourself</div>
+
+        <svg id="s9-bracket" width="880" height="420" viewBox="0 0 880 420" fill="none">
+          <path id="s9-arm-top" class="draw" d="M30 20 L120 20" stroke="#0d2437" stroke-width="6" stroke-linecap="round" />
+          <path id="s9-seg1" class="draw" d="M30 20 L30 140" stroke="#0d2437" stroke-width="6" stroke-linecap="round" />
+          <path id="s9-seg2" class="draw" d="M30 140 L30 260" stroke="#0d2437" stroke-width="6" stroke-linecap="round" />
+          <path id="s9-seg3" class="draw" d="M30 260 L30 380" stroke="#0d2437" stroke-width="6" stroke-linecap="round" />
+          <path id="s9-arm-bot" class="draw" d="M30 380 L120 380" stroke="#0d2437" stroke-width="6" stroke-linecap="round" />
+          <path id="s9-slot1" d="M100 120 L860 120" stroke="#5f6f96" stroke-width="3" />
+          <path id="s9-slot2" d="M100 240 L860 240" stroke="#5f6f96" stroke-width="3" />
+          <path id="s9-slot3" d="M100 360 L860 360" stroke="#5f6f96" stroke-width="3" />
+        </svg>
+
+        <div id="s9-line1" class="s9-line t-body c-ink">
+          <span class="s9-pre"></span><span><span class="s9-one">One</span> useful thing I can offer</span>
+        </div>
+        <div id="s9-line2" class="s9-line t-body c-ink">
+          <span class="s9-pre">To</span><span><span class="s9-one">one</span> real group of people</span>
+        </div>
+        <div id="s9-line3" class="s9-line t-body c-ink">
+          <span class="s9-pre">In</span><span><span class="s9-one">one</span> realistic way</span>
+        </div>
+
+        <svg id="s9-glyph" width="260" height="360" viewBox="0 0 260 360" fill="none">
+          <g id="s9-hand">
+            <path
+              d="M20 200 C20 160 56 150 76 168 L76 120 C76 104 100 104 100 120 L100 166 L100 116 C100 100 124 100 124 116 L124 168 L124 128 C124 112 148 112 148 128 L148 200 C148 240 110 258 80 244 C50 230 20 232 20 200 Z"
+              stroke="#0d2437"
+              stroke-width="6"
+              stroke-linejoin="round"
+            />
+            <circle cx="176" cy="120" r="26" stroke="#3393d6" stroke-width="6" />
+          </g>
+          <g id="s9-figures">
+            <circle cx="52" cy="290" r="14" stroke="#3393d6" stroke-width="5" />
+            <path d="M34 330 C34 306 70 306 70 330" stroke="#3393d6" stroke-width="5" stroke-linecap="round" />
+            <circle cx="108" cy="282" r="14" stroke="#3393d6" stroke-width="5" />
+            <path d="M90 322 C90 298 126 298 126 322" stroke="#3393d6" stroke-width="5" stroke-linecap="round" />
+            <circle cx="164" cy="290" r="14" stroke="#3393d6" stroke-width="5" />
+            <path d="M146 330 C146 306 182 306 182 330" stroke="#3393d6" stroke-width="5" stroke-linecap="round" />
+          </g>
+          <g id="s9-path">
+            <path
+              id="s9-pathline"
+              class="draw"
+              d="M16 348 L244 348"
+              stroke="#0d2437"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+            <path id="s9-pathstep" d="M120 328 L120 348" stroke="#0d2437" stroke-width="6" stroke-linecap="round" />
+          </g>
+        </svg>
+      </section>
+
+      <!-- ====== SCENE 10 — beat 25 : series closing lockup (dark) ====== -->
+      <section id="s10" class="scene clip" data-start="98.1" data-duration="2.9" data-track-index="10">
+        <div class="canvas canvas-dark"></div>
+        <div id="s10-line" class="t-heading c-paper center">
+          <span class="word s10-word">How</span> <span class="word s10-word">can</span>
+          <span class="word s10-word">AI</span> <span class="word s10-word">help</span>
+          <span class="word s10-word">me</span> <span class="word s10-word">test</span>
+          <span class="word s10-word">that</span> <span class="word s10-word">faster?</span>
+        </div>
+        <div id="s10-rule" class="rule rule-gold"></div>
+        <div id="s10-brand" class="t-label c-blue">Entrepreneur Accelerator</div>
+      </section>
+    </div>
+
+    <script>
+      // Path drawing: measure each drawn path once at load (deterministic),
+      // then the timeline tweens strokeDashoffset back to 0.
+      document.querySelectorAll("path.draw").forEach(function (p) {
+        var L = Math.ceil(p.getTotalLength());
+        p.style.strokeDasharray = L;
+        p.style.strokeDashoffset = L;
+      });
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      var HIDE = { autoAlpha: 0 };
+
+      /* ---------------- initial states (all at t=0) ---------------- */
+      /* scene 1 */
+      gsap.set("#s1-eyebrow", { autoAlpha: 0, y: 16 });
+      gsap.set(".s1-word", { autoAlpha: 0, y: 24 });
+      gsap.set("#s1-rule", { scaleX: 0 });
+
+      /* scene 2 */
+      gsap.set("#s2-eyebrow", { autoAlpha: 0, y: 16 });
+      gsap.set("#s2-g1, #s2-c1", { autoAlpha: 0, y: 30 });
+      gsap.set("#s2-g2, #s2-c2", { autoAlpha: 0, y: 30 });
+      gsap.set("#s2-g3, #s2-c3", { autoAlpha: 0, y: 30 });
+      gsap.set("#s2-gap", { autoAlpha: 0, x: 40 });
+      gsap.set("#s3-copy", { autoAlpha: 0, y: 26 });
+      gsap.set("#s3-step", { autoAlpha: 0, scale: 0.7 });
+      gsap.set("#s3-tread", { autoAlpha: 0 });
+
+      /* scene 3 */
+      gsap.set(".s3-card", { autoAlpha: 0, y: 34, scale: 0.96 });
+      gsap.set("#s3-c5-accent", HIDE);
+      gsap.set("#s3-heading", { autoAlpha: 0, y: 24 });
+      gsap.set(".s3-pill", { autoAlpha: 0, scale: 0.5 });
+      gsap.set("#s3-pillrule", { scaleX: 0 });
+
+      /* scene 4 */
+      gsap.set("#s4-eyebrow", { autoAlpha: 0, y: 14 });
+      gsap.set("#s4-bloom", { autoAlpha: 0, scale: 0.9 });
+      gsap.set(".s4-qword", { autoAlpha: 0, y: 26 });
+      gsap.set("#s4-quote", { autoAlpha: 1 });
+      gsap.set("#s4-echo", { autoAlpha: 0 });
+      gsap.set(".s4-echo-pill", { autoAlpha: 0.34 });
+      gsap.set(".s4-slot", { autoAlpha: 0, scaleX: 0 });
+      gsap.set(".s4-mk", { autoAlpha: 0, scale: 0.6 });
+      gsap.set(".s4-fill, .s4-numn", HIDE);
+      gsap.set(".s4-line", { autoAlpha: 0, y: 18 });
+
+      /* scene 5 */
+      gsap.set("#s5-heading", { autoAlpha: 0, y: 22 });
+      gsap.set("#s5-panel", { autoAlpha: 0, scale: 0.96 });
+      gsap.set(".s5-hatchline", { autoAlpha: 0, x: -26 });
+      gsap.set(".s5-mk", { autoAlpha: 0, scale: 0.6 });
+      gsap.set(".s5-lab", { autoAlpha: 0, x: -18 });
+      gsap.set("#s5-rule", { scaleX: 0 });
+
+      /* scene 6 */
+      gsap.set(".s6-qword", { autoAlpha: 0, y: 24 });
+      gsap.set("#s6-rule", { scaleX: 0 });
+      gsap.set("#s6-line2wrap", { autoAlpha: 0, y: 18 });
+      gsap.set("#s6-strike", { scaleX: 0 });
+      gsap.set("#s6-g1, #s6-chip1", { autoAlpha: 0, y: 22 });
+      gsap.set("#s6-g2, #s6-chip2", { autoAlpha: 0, y: 22 });
+      gsap.set("#s6-g3, #s6-chip3", { autoAlpha: 0, y: 22 });
+
+      /* scene 7 */
+      gsap.set("#s7-eyebrow", { autoAlpha: 0, y: 14 });
+      gsap.set("#s7-rail", { scaleX: 0 });
+      gsap.set("#s7-rail-gold", { scaleX: 0, autoAlpha: 0 });
+      gsap.set(".s7-chip", { autoAlpha: 0, scale: 0.6 });
+      gsap.set(".s7-chip-lit", { autoAlpha: 0 });
+      gsap.set(".s7-card", { autoAlpha: 0, y: 26 });
+      gsap.set("#s7-tick1, #s7-tick2", { autoAlpha: 0 });
+      gsap.set(".s7-w2, .s7-w2a, .s7-w2b, .s7-w2c", { autoAlpha: 0, y: 14 });
+
+      /* scene 8 */
+      gsap.set("#s8-spine", { autoAlpha: 0, y: 24 });
+      gsap.set("#s8-qual", { autoAlpha: 0, y: 24 });
+      gsap.set("#s8-door", { autoAlpha: 0, x: 70 });
+      gsap.set("#s8-forever", { autoAlpha: 0, y: 24 });
+      gsap.set("#s8-arc", { autoAlpha: 0 });
+      gsap.set("#s8-num", { autoAlpha: 0, scale: 0.7 });
+      gsap.set("#s8-numrule", { scaleX: 0 });
+      gsap.set("#s8-numlabel", { autoAlpha: 0, y: 14 });
+      gsap.set("#s8-card", { autoAlpha: 0, y: 22 });
+      gsap.set("#s8-cardline", { autoAlpha: 0, x: 30 });
+
+      /* scene 9 */
+      gsap.set("#s9-eyebrow", { autoAlpha: 0, y: 14 });
+      gsap.set("#s9-rule", { scaleX: 0 });
+      gsap.set("#s9-prompt", { autoAlpha: 0, y: 22 });
+      gsap.set("#s9-slot1, #s9-slot2, #s9-slot3", { autoAlpha: 0 });
+      gsap.set(".s9-line", { autoAlpha: 0, y: 20 });
+      gsap.set("#s9-hand, #s9-figures, #s9-path", { autoAlpha: 0 });
+      gsap.set("#s9-pathstep", { autoAlpha: 0 });
+
+      /* scene 10 */
+      gsap.set(".s10-word", { autoAlpha: 0, y: 26 });
+      gsap.set("#s10-rule", { scaleX: 0 });
+      gsap.set("#s10-brand", { autoAlpha: 0, y: 12 });
+
+      /* ============ SCENE 1 — beat 1 (0.0–2.3) : title lockup ============
+         eyebrow fades up first, title lines rise 24px on a short stagger,
+         the rule wipes left-to-right; the whole entrance settles by 1.2s. */
+      tl.to("#s1-eyebrow", { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.0);
+      tl.to(".s1-word", { autoAlpha: 1, y: 0, duration: 0.42, ease: "power4.out", stagger: 0.13 }, 0.14);
+      tl.to("#s1-rule", { scaleX: 0.55, duration: 0.44, ease: "power3.out" }, 0.72);
+      // closing beat: the rule reaches full width — the card's cued resolve
+      tl.to("#s1-rule", { scaleX: 1, duration: 0.55, ease: "power2.out" }, 1.55);
+
+      /* ============ SCENE 2 — beats 2–3 (2.3–12.2) ============ */
+      // beat 2 — the framing eyebrow lands first, then one vignette per word
+      tl.to("#s2-eyebrow", { autoAlpha: 1, y: 0, duration: 0.42, ease: "power3.out" }, 2.36);
+      tl.to("#s2-g1", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power4.out" }, 3.72);
+      tl.to("#s2-c1", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 3.86);
+      tl.to("#s2-g2", { autoAlpha: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 4.9);
+      tl.to("#s2-c2", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 5.04);
+      tl.to("#s2-g3", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 6.42);
+      tl.to("#s2-gap", { autoAlpha: 1, x: 0, duration: 0.55, ease: "power2.out" }, 6.42);
+      tl.to("#s2-c3", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power4.out" }, 6.58);
+      // beat 3 — the outer vignettes exit 0.3s before the copy lands
+      tl.to("#s2-g1, #s2-c1", { autoAlpha: 0, y: -70, duration: 0.3, ease: "power2.in" }, 7.96);
+      tl.to("#s2-g2, #s2-c2", { autoAlpha: 0, y: -70, duration: 0.3, ease: "power2.in" }, 7.96);
+      tl.to("#s2-eyebrow, #s2-c3", { autoAlpha: 0, y: -40, duration: 0.3, ease: "power2.in" }, 7.96);
+      tl.to("#s3-copy", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 8.26);
+      // the jumping figure and its gap shrink toward the centre and resolve
+      // into one small, ordinary step onto a low first tread (9.60–11.84)
+      tl.to("#s2-g3", { autoAlpha: 0, scale: 0.5, x: -60, y: 90, duration: 1.1, ease: "power2.inOut" }, 9.6);
+      tl.to("#s2-gap", { autoAlpha: 0, scaleX: 0.4, duration: 1.1, ease: "power2.inOut" }, 9.6);
+      tl.to("#s3-step", { autoAlpha: 1, scale: 1, duration: 1.0, ease: "power3.out" }, 10.3);
+      // closing beat: the small step's tread accents
+      tl.to("#s3-tread", { autoAlpha: 1, duration: 0.45, ease: "power2.out" }, 11.5);
+      tl.to("#s3-copy, #s3-step", { autoAlpha: 0, y: -30, duration: 0.3, ease: "power2.in" }, 11.9);
+      tl.set("#s3-copy, #s3-step", { autoAlpha: 0 }, 12.2);
+
+      /* ============ SCENE 3 — beats 4–6 (12.2–26.7) ============ */
+      // beat 4 — one card, one word, no card ahead of its narration
+      tl.to("#s3-c1", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 13.16);
+      tl.to("#s3-c2", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "power4.out" }, 14.34);
+      tl.to("#s3-c3", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 15.68);
+      // beat 5 — the upper row eases up to make room, then two more cards wrap
+      tl.to(".s3-r1", { y: -110, duration: 0.6, ease: "power2.inOut" }, 16.86);
+      tl.to("#s3-c4", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 16.96);
+      tl.to("#s3-c5", { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 18.98);
+      // closing beat: the fifth card's border accents as the set closes
+      tl.to("#s3-c5-accent", { autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 20.5);
+      // beat 6 — the five cards compress into five numbered pills on one rule
+      tl.to(".s3-card", { autoAlpha: 0, scale: 0.82, duration: 0.32, ease: "power2.in" }, 21.02);
+      tl.to("#s3-heading", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 21.34);
+      tl.to("#s3-pillrule", { scaleX: 0.936, duration: 2.62, ease: "none" }, 22.38);
+      tl.to("#s3-p1", { autoAlpha: 1, scale: 1, duration: 0.34, ease: "back.out(1.7)" }, 22.56);
+      tl.to("#s3-p2", { autoAlpha: 1, scale: 1, duration: 0.34, ease: "back.out(1.7)" }, 23.17);
+      tl.to("#s3-p3", { autoAlpha: 1, scale: 1, duration: 0.34, ease: "back.out(1.7)" }, 23.78);
+      tl.to("#s3-p4", { autoAlpha: 1, scale: 1, duration: 0.34, ease: "back.out(1.7)" }, 24.39);
+      tl.to("#s3-p5", { autoAlpha: 1, scale: 1, duration: 0.34, ease: "back.out(1.7)" }, 25.0);
+      tl.to("#s3-p1, #s3-p2, #s3-p3, #s3-p4", { autoAlpha: 0.68, duration: 0.4 }, 25.0);
+      // closing beat: all five pills hold their weight at once and the rule
+      // completes past the fifth
+      tl.to(".s3-pill", { autoAlpha: 1, duration: 0.45, ease: "power2.out" }, 25.62);
+      tl.to("#s3-pillrule", { scaleX: 1, duration: 0.5, ease: "power2.out" }, 25.62);
+
+      /* ============ SCENE 4 — beats 7–9 (26.7–40.8) ============ */
+      // beat 7 — the run of experiments redrawn faintly, moving faster
+      tl.to("#s4-eyebrow", { autoAlpha: 1, y: 0, duration: 0.42, ease: "power3.out" }, 26.7);
+      tl.to("#s4-bloom", { autoAlpha: 1, scale: 1, duration: 0.9, ease: "power2.out" }, 26.8);
+      tl.to("#s4-echo", { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 27.12);
+      tl.to(".s4-echo-pill", { x: 26, duration: 1.5, ease: "power1.inOut", stagger: 0.12 }, 27.3);
+      // the bloom breathes once — the only ambient movement, finite yoyo
+      tl.to("#s4-bloom", { scale: 1.05, duration: 1.6, ease: "sine.inOut", repeat: 1, yoyo: true }, 27.8);
+      tl.to(".s4-qword", { autoAlpha: 1, y: 0, duration: 0.4, ease: "power4.out", stagger: 0.14 }, 28.98);
+      // beat 8 — recompose to a two-column list; structure first, then the words
+      tl.to("#s4-eyebrow, #s4-quote, #s4-echo", { autoAlpha: 0, y: -40, duration: 0.3, ease: "power2.in" }, 31.88);
+      tl.to("#s4-bloom", { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 31.88);
+      tl.to(".s4-slot", { autoAlpha: 0.5, scaleX: 1, duration: 0.5, ease: "power2.out", stagger: 0.13 }, 32.3);
+      tl.to("#s4-m1", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 33.44);
+      tl.to("#s4-l1", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 33.52);
+      tl.to("#s4-m2", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 34.86);
+      tl.to("#s4-l2", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power4.out" }, 34.94);
+      tl.to("#s4-l1", { autoAlpha: 0.55, duration: 0.4 }, 34.94);
+      // beat 9 — the three empty slots fill in turn on their own words
+      tl.to("#s4-m3", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 36.12);
+      tl.to("#s4-l3", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 36.2);
+      tl.to("#s4-l2", { autoAlpha: 0.55, duration: 0.4 }, 36.2);
+      tl.to("#s4-m4", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 37.34);
+      tl.to("#s4-l4", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power4.out" }, 37.42);
+      tl.to("#s4-l3", { autoAlpha: 0.55, duration: 0.4 }, 37.42);
+      tl.to("#s4-m5", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 39.14);
+      tl.to("#s4-l5", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 39.22);
+      tl.to("#s4-l4", { autoAlpha: 0.55, duration: 0.4 }, 39.22);
+      // closing beat: all five markers carry their gold fill at once and the
+      // list holds as one set
+      tl.to(".s4-fill, .s4-numn", { autoAlpha: 1, duration: 0.45, ease: "power2.out" }, 40.02);
+      tl.to(".s4-nump", { autoAlpha: 0, duration: 0.3 }, 40.02);
+      tl.to(".s4-line", { autoAlpha: 1, duration: 0.45 }, 40.02);
+      // beat 10 — the five-line list exits left
+      tl.to(".s4-line, .s4-mk, .s4-slot", { autoAlpha: 0, x: -90, duration: 0.3, ease: "power2.in" }, 40.5);
+      tl.set(".s4-line, .s4-mk, .s4-slot", { autoAlpha: 0 }, 40.8);
+
+      /* ============ SCENE 5 — beats 10–11 (40.8–52.3) ============ */
+      tl.to("#s5-heading", { autoAlpha: 1, y: 0, duration: 0.48, ease: "power3.out" }, 40.86);
+      tl.to("#s5-panel", { autoAlpha: 1, scale: 1, duration: 0.55, ease: "back.out(1.4)" }, 41.16);
+      // the machine-drawn hatching rules itself in line by line while the
+      // boundary draws — the two together carry the whole of beat 10
+      tl.to(
+        ".s5-hatchline",
+        { autoAlpha: 1, x: 0, duration: 0.5, ease: "power2.out", stagger: 0.32 },
+        41.6
+      );
+      // the boundary finishes drawing under "successful"
+      tl.to("#s5-bpath", { strokeDashoffset: 0, duration: 3.5, ease: "power1.inOut" }, 41.9);
+      // beat 11 — the open side fills, one marker per spoken word
+      tl.to("#s5-hatch", { autoAlpha: 0.4, duration: 0.5, ease: "power2.out" }, 46.1);
+      tl.to("#s5-pm1", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 46.18);
+      tl.to("#s5-lab1", { autoAlpha: 1, x: 0, duration: 0.44, ease: "power3.out" }, 46.28);
+      tl.to("#s5-pm2", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 47.02);
+      tl.to("#s5-lab2", { autoAlpha: 1, x: 0, duration: 0.44, ease: "power4.out" }, 47.12);
+      tl.to("#s5-pm3", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 47.76);
+      tl.to("#s5-lab3", { autoAlpha: 1, x: 0, duration: 0.44, ease: "power3.out" }, 47.86);
+      tl.to("#s5-pm4", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 49.82);
+      tl.to("#s5-lab4", { autoAlpha: 1, x: 0, duration: 0.44, ease: "power4.out" }, 49.92);
+      // closing beat: a short accent rule completes beneath the group
+      tl.to("#s5-rule", { scaleX: 1, duration: 0.6, ease: "power2.out" }, 51.4);
+
+      /* ============ SCENE 6 — beats 12–13 (52.3–61.9) ============ */
+      tl.to(".s6-qword", { autoAlpha: 1, y: 0, duration: 0.4, ease: "power4.out", stagger: 0.13 }, 52.36);
+      tl.to("#s6-rule", { scaleX: 1, duration: 0.6, ease: "power3.out" }, 53.38);
+      // the rejected framing enters stepped down, then its strike draws across
+      tl.to("#s6-line2wrap", { autoAlpha: 0.55, y: 0, duration: 0.45, ease: "power3.out" }, 54.26);
+      tl.to("#s6-strike", { scaleX: 1, duration: 1.0, ease: "power1.inOut" }, 54.86);
+      // beat 13 — the struck line exits; three chips lay out on open field
+      tl.to("#s6-line2wrap", { autoAlpha: 0, y: 24, duration: 0.3, ease: "power2.in" }, 56.4);
+      tl.to("#s6-g1", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 57.24);
+      tl.to("#s6-chip1", { autoAlpha: 0.7, y: 0, duration: 0.44, ease: "power3.out" }, 57.38);
+      tl.to("#s6-g2", { autoAlpha: 1, y: 0, duration: 0.44, ease: "back.out(1.4)" }, 58.38);
+      tl.to("#s6-chip2", { autoAlpha: 0.7, y: 0, duration: 0.44, ease: "power4.out" }, 58.52);
+      tl.to("#s6-g3", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 59.9);
+      tl.to("#s6-chip3", { autoAlpha: 0.7, y: 0, duration: 0.44, ease: "power3.out" }, 60.04);
+      // closing beat: the three chips restore to full weight together
+      tl.to("#s6-chip1, #s6-chip2, #s6-chip3", { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, 61.0);
+
+      /* ============ SCENE 7 — beats 14–17 (61.9–77.0) ============ */
+      tl.to("#s7-eyebrow", { autoAlpha: 1, y: 0, duration: 0.42, ease: "power3.out" }, 61.9);
+      // the rail draws in one continuous pass, complete before any module reads
+      tl.to("#s7-rail", { scaleX: 1, duration: 0.95, ease: "power2.out" }, 62.16);
+      tl.to(".s7-chip", { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)", stagger: 0.12 }, 62.6);
+      // beat 14 — chip 1 lights, its card slides in above the rail
+      tl.to("#s7-k1 .s7-chip-lit", { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 63.4);
+      tl.to("#s7-card1", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 63.48);
+      // beat 15 — chip 1 dims back, chip 2 lights, its card lands below the rail
+      tl.to("#s7-k1 .s7-chip-lit", { autoAlpha: 0, duration: 0.3 }, 66.1);
+      tl.to("#s7-card1", { autoAlpha: 0, y: -26, duration: 0.3, ease: "power2.in" }, 66.1);
+      tl.to("#s7-k2 .s7-chip-lit", { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 66.4);
+      tl.to("#s7-card2", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 66.5);
+      tl.to(".s7-w2", { autoAlpha: 1, y: 0, duration: 0.36, ease: "power3.out" }, 66.6);
+      tl.to(".s7-w2a", { autoAlpha: 1, y: 0, duration: 0.36, ease: "power3.out" }, 66.86);
+      tl.to(".s7-w2b", { autoAlpha: 1, y: 0, duration: 0.36, ease: "power4.out" }, 67.78);
+      tl.to(".s7-w2c", { autoAlpha: 1, y: 0, duration: 0.36, ease: "power3.out" }, 68.9);
+      // beat 16 — chips 3 and 4 light in turn, cards above and below
+      tl.to("#s7-k2 .s7-chip-lit", { autoAlpha: 0, duration: 0.3 }, 69.8);
+      tl.to("#s7-card2", { autoAlpha: 0, y: 26, duration: 0.3, ease: "power2.in" }, 69.8);
+      tl.to("#s7-k3 .s7-chip-lit", { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 70.1);
+      tl.to("#s7-card3", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 70.2);
+      tl.to("#s7-k3 .s7-chip-lit", { autoAlpha: 0, duration: 0.3 }, 71.42);
+      tl.to("#s7-card3", { autoAlpha: 0, y: -26, duration: 0.3, ease: "power2.in" }, 71.42);
+      tl.to("#s7-k4 .s7-chip-lit", { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 71.72);
+      tl.to("#s7-card4", { autoAlpha: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 71.82);
+      // beat 17 — chip 5 lights; its card carries a horizon marked at two points
+      tl.to("#s7-k4 .s7-chip-lit", { autoAlpha: 0, duration: 0.3 }, 73.26);
+      tl.to("#s7-card4", { autoAlpha: 0, y: 26, duration: 0.3, ease: "power2.in" }, 73.26);
+      tl.to("#s7-k5 .s7-chip-lit", { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 73.56);
+      tl.to("#s7-card5", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 73.66);
+      tl.to("#s7-tick1", { autoAlpha: 1, duration: 0.3, ease: "power2.out" }, 74.0);
+      tl.to("#s7-tick2", { autoAlpha: 1, duration: 0.35, ease: "back.out(1.4)" }, 75.24);
+      // closing beat: all five chips restore to full weight and the rail's
+      // whole length accents — the route reads as one finished sequence
+      tl.to(".s7-chip-lit", { autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 75.95);
+      tl.to("#s7-rail-gold", { autoAlpha: 1, duration: 0.2 }, 75.95);
+      tl.to("#s7-rail-gold", { scaleX: 1, duration: 0.85, ease: "power2.out" }, 75.95);
+
+      /* ============ SCENE 8 — beats 18–20 (77.0–87.5) ============ */
+      tl.to("#s8-spine", { autoAlpha: 1, y: 0, duration: 0.48, ease: "power3.out" }, 77.08);
+      tl.to("#s8-door", { autoAlpha: 0.5, x: 0, duration: 0.8, ease: "power2.out" }, 77.2);
+      tl.to("#s8-qual", { autoAlpha: 1, y: 0, duration: 0.48, ease: "power4.out" }, 78.42);
+      // beat 19 — the spine re-lands stepped down at the top; the doorway is
+      // replaced by a long dashed arc running off the right edge
+      tl.to("#s8-qual", { autoAlpha: 0, y: -20, duration: 0.3, ease: "power2.in" }, 80.34);
+      tl.to("#s8-door", { autoAlpha: 0, x: 60, duration: 0.3, ease: "power2.in" }, 80.34);
+      tl.to("#s8-spine", { y: -200, autoAlpha: 0.55, duration: 0.55, ease: "power2.inOut" }, 80.64);
+      tl.to("#s8-forever", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 81.58);
+      tl.to("#s8-arc", { autoAlpha: 1, duration: 0.3 }, 81.0);
+      tl.to("#s8-arcpath", { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }, 81.0);
+      tl.to("#s8-arc", { autoAlpha: 0.25, duration: 0.7, ease: "power2.inOut" }, 82.2);
+      // beat 20 — everything clears to an empty numeral slot and one card
+      tl.to("#s8-spine, #s8-forever, #s8-arc", { autoAlpha: 0, y: -30, duration: 0.3, ease: "power2.in" }, 82.64);
+      tl.to("#s8-card", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 82.94);
+      tl.to("#s8-numrule", { scaleX: 0.55, duration: 0.5, ease: "power3.out" }, 83.06);
+      // the numeral counts up and settles
+      var counter = { v: 0 };
+      tl.to("#s8-num", { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 84.72);
+      tl.to(
+        counter,
+        {
+          v: 1,
+          duration: 0.5,
+          ease: "power2.out",
+          onUpdate: function () {
+            document.getElementById("s8-num").textContent = String(Math.round(counter.v));
+          },
+        },
+        84.72
+      );
+      tl.to("#s8-numlabel", { autoAlpha: 1, y: 0, duration: 0.44, ease: "power3.out" }, 85.04);
+      tl.to("#s8-cardline", { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out" }, 86.26);
+      // closing beat: the accent rule completes under the numeral
+      tl.to("#s8-numrule", { scaleX: 1, duration: 0.5, ease: "power2.out" }, 86.94);
+      // beat 21 — the numeral and card exit downward first
+      tl.to("#s8-num, #s8-numrule, #s8-numlabel, #s8-card", { autoAlpha: 0, y: 60, duration: 0.3, ease: "power2.in" }, 87.2);
+      tl.set("#s8-num, #s8-numrule, #s8-numlabel, #s8-card", { autoAlpha: 0 }, 87.5);
+
+      /* ============ SCENE 9 — beats 21–24 (87.5–98.1) ============ */
+      tl.to("#s9-eyebrow", { autoAlpha: 1, y: 0, duration: 0.42, ease: "power3.out" }, 87.52);
+      tl.to("#s9-rule", { scaleX: 1, duration: 0.75, ease: "power3.out" }, 87.7);
+      tl.to("#s9-prompt", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 89.14);
+      // the question bracket opens with three empty ruled slots waiting inside
+      tl.to("#s9-arm-top", { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 89.76);
+      tl.to("#s9-slot1, #s9-slot2, #s9-slot3", { autoAlpha: 1, duration: 0.45, ease: "power2.out", stagger: 0.14 }, 89.9);
+      // beats 22–24 — each line drops into the next waiting slot on its own word
+      // and the bracket's left edge grows down by exactly one slot to hold it
+      tl.to("#s9-seg1", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 91.7);
+      tl.to("#s9-line1", { autoAlpha: 1, y: 0, duration: 0.46, ease: "power3.out" }, 91.7);
+      tl.to("#s9-hand", { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 92.1);
+      tl.to("#s9-seg2", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 94.36);
+      tl.to("#s9-line2", { autoAlpha: 1, y: 0, duration: 0.46, ease: "power4.out" }, 94.36);
+      tl.to("#s9-figures", { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, 94.7);
+      tl.to("#s9-seg3", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 95.9);
+      tl.to("#s9-line3", { autoAlpha: 1, y: 0, duration: 0.46, ease: "power3.out" }, 95.9);
+      tl.to("#s9-path", { autoAlpha: 1, duration: 0.3 }, 96.2);
+      tl.to("#s9-pathline", { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 96.2);
+      tl.to("#s9-pathstep", { autoAlpha: 1, duration: 0.35, ease: "back.out(1.4)" }, 96.8);
+      // closing beat: the bracket closes around all three lines
+      tl.to("#s9-arm-bot", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 97.2);
+      // the three "one"s collapse toward the centre as the scene hands over
+      tl.to(".s9-one", { x: -34, scale: 1.1, duration: 0.3, ease: "power2.in" }, 97.8);
+      tl.to("#s9-eyebrow, #s9-rule, #s9-prompt, #s9-bracket, #s9-glyph, .s9-line", { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 97.8);
+      tl.set("#s9-eyebrow, #s9-rule, #s9-prompt, #s9-bracket, #s9-glyph, .s9-line", { autoAlpha: 0 }, 98.1);
+
+      /* ============ SCENE 10 — beat 25 (98.1–101.0) ============ */
+      tl.to(".s10-word", { autoAlpha: 1, y: 0, duration: 0.38, ease: "power4.out", stagger: 0.12 }, 98.1);
+      tl.to("#s10-brand", { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 98.9);
+      tl.to("#s10-rule", { scaleX: 0.5, duration: 0.5, ease: "power3.out" }, 99.2);
+      // closing beat: the last rule completes beneath the line on "faster?",
+      // then the frame holds full to the end with no further motion
+      tl.to("#s10-rule", { scaleX: 1, duration: 0.55, ease: "power2.out" }, 99.94);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
