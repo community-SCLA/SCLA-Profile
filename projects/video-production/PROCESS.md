@@ -19,7 +19,7 @@ lessons/<program>/<stem>/storyboard.md          the approved design, beat by bea
 lessons/<program>/<stem>/workspace/             the HyperFrames project (tracked)
 lessons/<program>/<stem>/audio/                 narration + word timings (gitignored)
 lessons/<program>/<stem>/render/                the MP4 (gitignored)
-lessons/<program>/<stem>/qa/certification.md    the gauntlet + screening verdict (tracked)
+lessons/<program>/<stem>/qa/certification.md    the check-print + screening verdict (tracked)
 ```
 
 ## How a video is made — the studio, not a lone builder
@@ -40,7 +40,7 @@ creative decision and the next stage**:
 3. **Builder** — one worker per lesson implements the approved storyboard in
    HyperFrames (stage 4) and renders the MP4 (stage 5). A deviation from the
    storyboard is recorded in `storyboard.md`, never silent.
-4. **QA gauntlet** — four auditors per video, none of whom built it, each
+4. **Check print** — four auditors per video, none of whom built it, each
    inspecting rendered pixels (extracted frames), not exit codes: presence
    (no blank/dead/default frames), layout (safe area, type floors, overlap,
    token colors), timing (visuals land on the spoken cue), fidelity
@@ -50,7 +50,7 @@ creative decision and the next stage**:
    watch the actual video and grade hook, clarity, pacing, engagement, and
    whether they would keep watching. The same panel re-runs after changes.
 6. **Fix loop** — confirmed findings go to fix workers who did not find
-   them; the gauntlet and panel then re-run until clean. Only the
+   them; the check print and panel then re-run until clean. Only the
    orchestrator writes `qa/certification.md` — a builder never does.
 
 Two structural rules make this honest: **a finding is only real once the
@@ -162,7 +162,10 @@ safe area or drops below the 960px content bottom; the title-card eyebrow is
 derived from the `programs:` map, never authored; frequent scene changes, no
 static stretch, no text/illustration overlap, no sameness between scenes or
 between videos; the timeline is driven by `audio/narration.words.json` with
-no drift.
+no drift; AND `checks/verify-hedge-integrity.py --script
+lesson-scripts/<program>/refined/<stem>.txt --build workspace/index.html`
+exits 0 — a hedge in the narration ("seems to", "it is easy to think", ...)
+must survive onto the screen, not just into the audio.
 
 ### 5. Rendered
 An MP4 exists on disk.
@@ -179,7 +182,7 @@ clicks, and the 40px/700 type floors in the workspace source.
 Workers who did not build the video looked at its pixels and said so.
 *Exit:* `qa/certification.md` sits in the lesson dir and passes
 `checks/verify-certification.py --lesson lessons/<program>/<stem>` — all four
-gauntlet lanes (presence, layout, timing, fidelity) ran against extracted
+check-print lanes (presence, layout, timing, fidelity) ran against extracted
 frames of the actual MP4 and PASS with zero open P0/P1 findings; the
 screening panel of member personas watched it and a majority would keep
 watching; the file names the Ringer run(s) and date. Written only by the

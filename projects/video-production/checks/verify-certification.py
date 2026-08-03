@@ -4,14 +4,14 @@
     python3 verify-certification.py --lesson <path/to/lessons/<program>/<stem>>
 
 Grades `qa/certification.md` — the record the ORCHESTRATOR writes after the
-QA gauntlet and screening panel ran against the rendered MP4. It proves the
+check print and screening panel ran against the rendered MP4. It proves the
 record is complete and internally honest; it cannot prove the runs happened —
 that is why only the orchestrator, who read the Ringer run artifacts and
 re-ran the verifiers, may write it.
 
 Required shape:
   # Certification — <stem>
-  ## Gauntlet     one line per lane — presence, layout, timing, fidelity —
+  ## Check Print  one line per lane — presence, layout, timing, fidelity —
                   each carrying PASS
   ## Screening    one line per persona (>=3), each ending in
                   'keep watching: yes|no'; a majority must be yes
@@ -52,22 +52,22 @@ def main() -> int:
     cert = lesson / "qa" / "certification.md"
     if not cert.exists():
         print(f"FAIL: {cert} missing — a lesson is certified only when the "
-              f"gauntlet + screening verdict is on disk")
+              f"check print + screening verdict is on disk")
         return 1
     text = cert.read_text(encoding="utf-8")
 
     if not re.search(r"^#\s+Certification", text, re.IGNORECASE | re.MULTILINE):
         fail(f"{cert}: must open with '# Certification — <stem>'")
 
-    gauntlet = section(text, "Gauntlet")
-    if not gauntlet:
-        fail(f"{cert}: no '## Gauntlet' section")
+    checkprint = section(text, "Check Print")
+    if not checkprint:
+        fail(f"{cert}: no '## Check Print' section")
     else:
         for lane in LANES:
-            line = next((ln for ln in gauntlet.splitlines()
+            line = next((ln for ln in checkprint.splitlines()
                          if re.search(rf"\b{lane}\b", ln, re.IGNORECASE)), None)
             if line is None:
-                fail(f"{cert}: Gauntlet has no line for the {lane} lane — all "
+                fail(f"{cert}: Check Print has no line for the {lane} lane — all "
                      f"four lanes must have run")
             elif not re.search(r"\bPASS\b", line):
                 fail(f"{cert}: {lane} lane line does not say PASS: {line.strip()!r}")
@@ -103,7 +103,7 @@ def main() -> int:
         for f in fails:
             print(f"  • {f}")
         return 1
-    print("PASS — certification record complete: 4 gauntlet lanes PASS, "
+    print("PASS — certification record complete: 4 check-print lanes PASS, "
           "screening majority yes, no open findings")
     return 0
 
