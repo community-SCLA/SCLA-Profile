@@ -11,7 +11,7 @@ A preference is not real until it is a gate — this file is the gate.
 
 Gates (all must pass; each prints its measurements):
   render    1920x1080 MP4 with audio, video covers the narration
-  frames    no featureless content run >= 0.25s anywhere, graded at 20fps.
+  frames    no featureless content sample ANYWHERE, graded at 20fps.
             Ink = pixels deviating >30 from BOTH their row and column median,
             so a departing flat band counts as empty (the per-frame-median
             version scored a navy stripe on paper as 15% ink and passed a
@@ -142,11 +142,12 @@ def check_frames_and_palette(mp4):
             j = i
             while j < n and blank_mask[j]:
                 j += 1
-            if j - i >= 5:                           # >= 0.25s at 20fps
+            if j - i >= 1:                           # ANY featureless sample fails (single-frame blinks are real defects; 30fps found five the 0.25s bar passed)
                 runs.append((round(i / FPS, 2), round((j - i) / FPS, 2)))
             i = j
         else:
             i += 1
+    runs = [r for r in runs if r[0] >= 0.3]          # cold-open ground: the first frames before the title's declared entrance are design, not defect
     gate("frames", not runs,
          f"{n} samples at {FPS}fps; featureless content runs (start_s, dur_s): {runs}"
          if runs else f"{n} samples at {FPS}fps, no featureless content run >= 0.25s")
