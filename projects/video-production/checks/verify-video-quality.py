@@ -11,7 +11,8 @@ A preference is not real until it is a gate — this file is the gate.
 
 Gates (all must pass; each prints its measurements):
   render    1920x1080 MP4 with audio, video covers the narration
-  frames    no blank/dead frame anywhere in the runtime
+  frames    no blank content run >= 0.5s anywhere (content region ink,
+            graded at 4fps — footer furniture does not excuse an empty frame)
   palette   near-black <= 12% of pixels video-wide; full-dark frames <= 10%
             of samples; brand blue >= 3%; gold >= 0.5%; >= 60% of frames
             carry visible blue/gold accent
@@ -50,7 +51,7 @@ CLICK_QUIET_RMS = 1200      # full-band RMS below which the tick is exposed
 CLICK_TICKS_MAX = 3
 FONT_PX_MIN = 40
 FONT_WEIGHT_MIN = 700
-BLANK_STDDEV = 4.0
+BLANK_INK_SHARE = 0.003     # content-region ink share below which a frame is blank
 
 fails = []
 
@@ -93,59 +94,62 @@ def check_render(mp4, audio_dur):
     return dur
 
 
-def sample_frames(mp4):
-    """Decode ~2 frames/s thumbnails once; return list of RGB pixel lists."""
-    p = run(["ffmpeg", "-v", "error", "-i", str(mp4),
-             "-vf", "fps=1/2,scale=192:108", "-f", "rawvideo",
-             "-pix_fmt", "rgb24", "-"])
-    raw = p.stdout
-    fsz = 192 * 108 * 3
-    return [raw[i:i + fsz] for i in range(0, len(raw) - fsz + 1, fsz)]
 
 
 def check_frames_and_palette(mp4):
-    frames = sample_frames(mp4)
-    if not frames:
+    """One 4fps decode grades both gates, vectorized.
+
+    frames: a frame is content-blank when <0.3% of its content-region pixels
+    (above the footer band, y<960 full-scale) differ from the region's median
+    color — footer furniture (rail, brandline) does not excuse an empty frame,
+    which is how the 2026-08-03 rebuild's 0.7-0.9s white handoffs passed a
+    whole-frame stddev test. Only runs >= 0.5s (2+ consecutive samples) fail:
+    sub-0.2s transition dips are legitimate.
+    """
+    import numpy as np
+    FPS = 4
+    raw = run(["ffmpeg", "-v", "error", "-i", str(mp4),
+               "-vf", f"fps={FPS},scale=192:108", "-f", "rawvideo",
+               "-pix_fmt", "rgb24", "-"]).stdout
+    n = len(raw) // (192 * 108 * 3)
+    if not n:
         gate("frames", False, "could not decode frames")
         gate("palette", False, "no frames to grade")
         return
-    n_px = 192 * 108
-    blank, dark_frames, accent_frames = [], 0, 0
-    dark_t = blue_t = gold_t = 0
-    for idx, f in enumerate(frames):
-        dark = blue = gold = 0
-        tot = mean = 0
-        for i in range(0, len(f), 3):
-            r, g, b = f[i], f[i + 1], f[i + 2]
-            tot += r + g + b
-            if r < 60 and g < 60 and b < 70:
-                dark += 1
-            elif b > 110 and b > r + 30 and g > 60:
-                blue += 1
-            elif r > 180 and g > 130 and b < 110:
-                gold += 1
-        mean = tot / (3 * n_px)
-        var = 0
-        for i in range(0, len(f), 30):  # subsample for stddev
-            px = (f[i] + f[i + 1] + f[i + 2]) / 3
-            var += (px - mean) ** 2
-        std = (var / (n_px / 10)) ** 0.5
-        if std < BLANK_STDDEV:
-            blank.append(idx * 2)
-        if dark / n_px > 0.60:
-            dark_frames += 1
-        if (blue + gold) / n_px >= 0.005:
-            accent_frames += 1
-        dark_t += dark
-        blue_t += blue
-        gold_t += gold
-    nf = len(frames)
-    tot_px = nf * n_px
-    gate("frames", not blank,
-         f"{nf} samples; blank/dead frames at seconds {blank}" if blank
-         else f"{nf} samples, none blank")
-    d, bl, go = dark_t / tot_px, blue_t / tot_px, gold_t / tot_px
-    df, af = dark_frames / nf, accent_frames / nf
+    a = np.frombuffer(raw[:n * 192 * 108 * 3], np.uint8).reshape(n, 108, 192, 3)
+    a16 = a.astype(np.int16)
+    r, g, b = a16[..., 0], a16[..., 1], a16[..., 2]
+    dark = (r < 60) & (g < 60) & (b < 70)
+    blue = ~dark & (b > 110) & (b > r + 30) & (g > 60)
+    gold = ~dark & ~blue & (r > 180) & (g > 130) & (b < 110)
+
+    content = a16[:, :96, :, :]                      # y<960 at full scale
+    med = np.median(content, axis=(1, 2))            # per-frame dominant color
+    ink = (np.abs(content - med[:, None, None, :]) > 30).any(axis=3)
+    ink_share = ink.mean(axis=(1, 2))
+    blank_mask = ink_share < 0.003
+    runs = []
+    i = 0
+    while i < n:
+        if blank_mask[i]:
+            j = i
+            while j < n and blank_mask[j]:
+                j += 1
+            if j - i >= 2:                           # >= 0.5s at 4fps
+                runs.append((round(i / FPS, 2), round((j - i) / FPS, 2)))
+            i = j
+        else:
+            i += 1
+    gate("frames", not runs,
+         f"{n} samples at {FPS}fps; blank content runs (start_s, dur_s): {runs}"
+         if runs else f"{n} samples at {FPS}fps, no blank content run >= 0.5s")
+
+    px_per, nf = 192 * 108, n
+    d = dark.mean()
+    bl = blue.mean()
+    go = gold.mean()
+    df = (dark.mean(axis=(1, 2)) > 0.60).mean()
+    af = ((blue | gold).mean(axis=(1, 2)) >= 0.005).mean()
     ok = d <= DARK_SHARE_MAX and df <= DARK_FRAME_SHARE_MAX \
         and bl >= BLUE_SHARE_MIN and go >= GOLD_SHARE_MIN and af >= ACCENT_FRAME_MIN
     gate("palette", ok,
