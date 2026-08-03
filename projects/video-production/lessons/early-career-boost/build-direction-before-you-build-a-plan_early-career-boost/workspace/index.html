@@ -53,10 +53,34 @@
       <section id="beat-2" class="clip" data-start="2.5" data-duration="5.5" data-track-index="2" style="z-index: 2">
         <div class="ground ground--paper"></div>
         <div class="ground ground--paper" id="b2-paper" data-layout-allow-overflow></div>
-        <div class="ground ground--navy" id="b2-navy" data-layout-allow-overflow></div>
+        <div class="ground ground--navy" id="b2-navy" data-layout-allow-overflow>
+          <!-- Beat 1's lockup rides the navy field off frame as ONE unit
+               (motion.exit-group). Without it the cut at 2.50 hands over a
+               uniform navy content region — no ink at all — and the frames
+               gate reads a uniform region as blank for the 0.28s until the
+               paper band climbs into view (QA 20260803T190528Z). The lockup is
+               a duplicate of declared beat-1 content on its way out, so every
+               node here is data-layout-ignore. -->
+          <div class="lockup-carry" data-layout-ignore>
+            <svg class="art art--bold c-blue" width="640" height="560" viewBox="0 0 640 560" style="position: absolute; right: 0; top: 140px; opacity: 0.35" data-layout-ignore>
+              <ellipse cx="320" cy="280" rx="300" ry="230" />
+              <ellipse cx="320" cy="280" rx="215" ry="150" />
+            </svg>
+            <p class="t-label c-gold" style="position: absolute; left: 0; top: 0" data-layout-ignore>Early Career Boost</p>
+            <span class="rule rule--gold" style="position: absolute; left: 0; top: 68px; width: 420px" data-layout-ignore></span>
+            <h1 class="t-display on-navy" style="position: absolute; left: 0; top: 280px; width: 1280px" data-layout-ignore>
+              <span class="line">Build Direction</span>
+              <span class="line">Before You Build a Plan</span>
+            </h1>
+          </div>
+        </div>
         <div class="canvas">
+          <!-- The script's own framing: "it is easy to think a career begins
+               with a title:". The qualifier is what makes the next beat's
+               "But titles are only labels." a reversal rather than a
+               contradiction of the frame. -->
           <h2 class="t-heading c-navy" style="position: absolute; left: 0; top: 20px; width: 1680px">
-            <span id="b2-l1" class="line">a career begins with</span>
+            <span id="b2-l1" class="line">it is easy to think a career begins with</span>
             <span id="b2-l2" class="line">a title:</span>
           </h2>
           <div style="position: absolute; left: 0; top: 320px; width: 1680px">
@@ -73,7 +97,7 @@
         <div class="ground ground--paper"></div>
         <div class="canvas">
           <h2 class="t-heading c-navy" style="position: absolute; left: 0; top: 20px; width: 1680px">
-            <span class="line">a career begins with</span>
+            <span class="line">it is easy to think a career begins with</span>
             <span class="line">a title:</span>
           </h2>
           <div id="b3-cluster" style="position: absolute; left: 0; top: 320px; width: 1680px">
@@ -114,7 +138,17 @@
                reveal sets overflow:hidden, which clips at the padding box, and
                44px/1.32 leaves a 58px box under a 63px glyph line. The padding
                buys the clip room; the offset top keeps the copy where it was. -->
-          <p id="b4-leadin" class="t-body on-light" style="position: absolute; left: 0; top: 516px; width: 1000px; padding: 4px 0">What they do not tell you:</p>
+          <!-- The script's qualifier restored: the titles do not tell the
+               WHOLE STORY OF the three fragments below — they are not silent
+               about them. The box grows 1000 -> 1400px because the typewriter
+               reveal tweens width to the nowrap scrollWidth, and the longer
+               string measures 795px — the 1000px box would have wiped 200px of
+               empty paper after the copy had finished arriving. 820px is the
+               copy plus a hair, so the reveal lands with the last glyph. It
+               stays one line at 44px and the box is still 66px tall against a
+               63px glyph line, so the overflow:hidden clip does not shave the
+               cap-heights. -->
+          <p id="b4-leadin" class="t-body on-light" style="position: absolute; left: 0; top: 516px; width: 820px; padding: 4px 0">What they do not tell the whole story of:</p>
           <p class="t-body on-light" style="position: absolute; left: 0; top: 640px; width: 1680px">
             <span id="b4-f1" class="w">How you work.</span> <span id="b4-f2" class="w">What you care about.</span>
             <span id="b4-f3" class="w">Where you create value.</span>
@@ -345,13 +379,21 @@
             <span id="b12-g4" class="seg" style="left: 1000px; top: 128px; width: 304px" data-rot="9.46"></span>
             <span id="b12-g5" class="seg" style="left: 1300px; top: 178px; width: 286px" data-rot="-24.78"></span>
           </div>
-          <span id="b12-gutter" class="rule rule--v" style="position: absolute; left: 836px; top: 40px; height: 760px; background: var(--blue)"></span>
-          <div id="b12-card1" class="card--quote" style="position: absolute; left: 0; top: 240px; width: 800px; height: 320px; display: flex; border-radius: var(--radius-card)">
+          <!-- The affirmed line carries the script's hedge — "seems to fit me
+               right now" — and measures 790px at the 52px tight-quote scale.
+               The pair is re-split 700 / 900 (was 800 / 800) so it still sets
+               on ONE line with the token 40px card padding intact rather than
+               running into it: card2's content box is 814px, 24px clear of the
+               copy. The rejected card needs far less (its line is 455px), the
+               80px gutter between them is unchanged, and card2 still ends on
+               the 1680px content edge. -->
+          <span id="b12-gutter" class="rule rule--v" style="position: absolute; left: 736px; top: 40px; height: 760px; background: var(--blue)"></span>
+          <div id="b12-card1" class="card--quote" style="position: absolute; left: 0; top: 240px; width: 700px; height: 320px; display: flex; border-radius: var(--radius-card)">
             <p class="t-quote is-tight c-muted">Not: a forever path.</p>
-            <span id="b12-strike" class="rule" style="position: absolute; left: 40px; top: 158px; width: 720px; background: var(--muted-video)"></span>
+            <span id="b12-strike" class="rule" style="position: absolute; left: 40px; top: 158px; width: 620px; background: var(--muted-video)"></span>
           </div>
-          <div id="b12-card2" class="card--quote" style="position: absolute; left: 880px; top: 240px; width: 800px; height: 320px; display: flex; border-radius: var(--radius-card)">
-            <p class="t-quote is-tight c-navy">Rather: fits me right now.</p>
+          <div id="b12-card2" class="card--quote" style="position: absolute; left: 780px; top: 240px; width: 900px; height: 320px; display: flex; border-radius: var(--radius-card)">
+            <p class="t-quote is-tight c-navy" style="white-space: nowrap">Rather: seems to fit me right now.</p>
             <span id="b12-edge" style="position: absolute; left: -3px; top: -3px; width: 18px; height: 326px; background: var(--gold); border-radius: 2px; transform-origin: top center"></span>
           </div>
         </div>
@@ -377,8 +419,12 @@
           <span id="b14-m1" class="chip is-live" style="position: absolute; left: 402px; top: 84px">1</span>
           <span id="b14-m2" class="chip" style="position: absolute; left: 402px; top: 364px; background: var(--paper)">2</span>
           <span id="b14-m3" class="chip" style="position: absolute; left: 402px; top: 644px; background: var(--paper)">3</span>
+          <!-- The empty panel slides in WITH the rail draw at 83.20 so the beat
+               never opens on a bare rail line (0.94s of it — QA
+               20260803T190528Z). Its copy still lands on its own spoken word at
+               84.14, so nothing is read before it is said. -->
           <div id="b14-panel" class="panel" style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
-            <p class="t-label c-blue">1. Strengths</p>
+            <p id="b14-h" class="t-label c-blue">1. Strengths</p>
             <p id="b14-l1" class="t-body on-light" style="margin-top: 48px">Not in the abstract —</p>
             <p id="b14-l2" class="t-body on-light" style="margin-top: 16px">how you actually contribute.</p>
           </div>
@@ -437,15 +483,24 @@
           </div>
           <div id="b16-panel" class="panel" style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
             <p id="b16-h" class="t-label c-blue">3. Energy patterns</p>
-            <div class="row" style="gap: 24px; margin-top: 40px">
+            <!-- Each caption is set to its own half-width (380px) inside its
+                 476px column, so the two blocks wrap onto their own lines
+                 instead of sharing one baseline 34px apart and reading as a
+                 single run-on sentence (QA 20260803T190528Z). The columns are
+                 500px apart — the exact pitch of the two bar centres, x=60 and
+                 x=560 — and a 380px caption leaves 120px of clear air before
+                 the next column starts, so each caption reads as the label of
+                 the bar directly beneath it. The 170px box holds three wrapped
+                 lines at the 40px body floor; the bars keep their geometry. -->
+            <div class="row" style="gap: 24px; margin-top: 32px">
               <div style="width: 476px">
-                <p class="t-body is-sm on-light" style="height: 116px">What leaves you stronger.</p>
+                <p class="t-body is-sm on-light" style="width: 380px; height: 170px">What leaves you stronger.</p>
                 <div style="height: 200px; display: flex; align-items: flex-end">
                   <span id="b16-bar1" style="display: block; width: 120px; height: 200px; background: var(--gold); border-radius: 6px; transform-origin: bottom center"></span>
                 </div>
               </div>
               <div style="width: 476px">
-                <p class="t-body is-sm on-light" style="height: 116px">What consistently drains you.</p>
+                <p class="t-body is-sm on-light" style="width: 380px; height: 170px">What consistently drains you.</p>
                 <div style="height: 200px; display: flex; align-items: flex-start">
                   <span id="b16-bar2" style="display: block; width: 120px; height: 200px; background: var(--blue); border-radius: 6px; transform-origin: top center"></span>
                 </div>
@@ -473,6 +528,23 @@
         <div class="ground ground--blue"></div>
         <div id="b18-paper" class="ground ground--paper" data-layout-allow-overflow></div>
         <div class="canvas">
+          <!-- "the badge settles through the frame and the paper ground rises
+               from the baseline behind it" — the board's own transition, which
+               the build had left unstaged: beat 17's content vanished at the
+               cut and beat 18 opened on a uniform blue field, blank for the
+               0.28s until the paper edge climbed into the content region (QA
+               20260803T190528Z). The badge, its baseline and its line hand over
+               at exactly the positions they held at 110.80 and leave as ONE
+               tween target (motion.exit-group), holding ink across the cut
+               until the lead-in lands at 111.96. All handoff copies of declared
+               beat-17 content, so all data-layout-ignore. -->
+          <div id="b18-badge-out" data-layout-ignore style="position: absolute; left: 0; top: 0; width: 1680px; height: 840px">
+            <div data-layout-ignore style="position: absolute; left: 420px; top: 198px; width: 840px; height: 260px; border: 6px solid var(--navy); border-radius: var(--radius-card); background: var(--gold); box-shadow: 0 0 90px rgba(13, 36, 55, 0.35); display: flex; align-items: center; justify-content: center">
+              <p class="t-heading c-navy" data-layout-ignore>A dream job</p>
+            </div>
+            <span class="rule rule--navy" data-layout-ignore style="position: absolute; left: 286px; top: 498px; width: 1109px"></span>
+            <p class="t-body c-navy" data-layout-ignore style="position: absolute; left: 420px; top: 560px; width: 840px; text-align: center">— not a fantasy version.</p>
+          </div>
           <p id="b18-leadin" class="t-body on-light" style="position: absolute; left: 0; top: 30px; width: 1000px">made of ingredients:</p>
           <div style="position: absolute; left: 0; top: 220px; width: 1680px; display: flex; gap: 24px">
             <div id="b18-k1" class="card" style="width: 402px; height: 396px">

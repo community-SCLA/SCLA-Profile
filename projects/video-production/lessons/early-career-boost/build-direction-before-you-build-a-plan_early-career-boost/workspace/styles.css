@@ -434,6 +434,17 @@ body {
   height: 840px;
 }
 
+/* A departing beat's content pinned to the frame-padding box so it can ride a
+   moving ground off screen at exactly the coordinates it held in its own beat.
+   Same geometry as .canvas — it is a handoff copy, never new content. */
+.lockup-carry {
+  position: absolute;
+  left: var(--frame-padding);
+  top: var(--frame-padding);
+  width: 1680px;
+  height: 840px;
+}
+
 .line {
   display: block;
 }

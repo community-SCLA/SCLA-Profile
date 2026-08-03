@@ -97,6 +97,16 @@ window.buildLessonTimeline = function () {
   // content run the frames gate fails (QA 20260803T174056Z). power3.inOut
   // finishes too abruptly to overlap; power1.inOut keeps a navy band travelling
   // through the handoff.
+  //
+  // The navy field alone was not enough: for the first 0.28s of the push it
+  // still fills the whole content region, and a UNIFORM region carries no ink
+  // at all — the frames gate measures ink against the region's own median
+  // colour, so a full-bleed navy frame grades exactly as blank as a full-bleed
+  // white one (QA 20260803T190528Z, 0.30s at ~2.5s). Beat 1's lockup is
+  // therefore carried inside #b2-navy and rides off frame with it: one tween,
+  // one target, the ground and the type it holds (motion.exit-group). Ink is
+  // continuous — lockup 2.50-3.18, the navy/paper two-tone 2.78-3.64, the
+  // heading from 3.55.
   tl.to("#b2-navy", { yPercent: -100, duration: 1.15, ease: "power1.inOut" }, s2);
   tl.to("#b2-paper", { yPercent: 0, duration: 1.15, ease: "power1.inOut" }, s2);
   rise("#b2-l1", C.b2_career, { y: 20 });
@@ -313,7 +323,15 @@ window.buildLessonTimeline = function () {
   tl.set(counter, { v: 0 }, s13);
   rise("#b13-label", Math.max(C.b13_in, s13), { y: 18 });
   draw("#b13-rule", Math.max(C.b13_in, s13) + 0.2, 0.5);
-  tl.to("#b13-num", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, C.b13_three);
+  // 80.4, not C.b13_three (82.08): the beat opened on the label and its rule
+  // alone — 0.65% content ink for 2.2s, a near-bare frame the owner's round-2
+  // list calls out (QA 20260803T190528Z). The numeral is the beat, so it lands
+  // with the beat rather than at its end. It is the one place in the video
+  // where a visual precedes its spoken word; the count-up is still running
+  // through "three" at 82.08 in the sense that the numeral it settled on is
+  // what the narration then names.
+  var B13_NUM = 80.4;
+  tl.to("#b13-num", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, B13_NUM);
   tl.to(
     counter,
     {
@@ -324,7 +342,7 @@ window.buildLessonTimeline = function () {
         num.textContent = String(Math.round(counter.v));
       },
     },
-    C.b13_three,
+    B13_NUM,
   );
   tl.to("#b13-label", { scaleX: 1.06, duration: 0.5, ease: "power2.out", transformOrigin: "center center" }, 82.83);
 
@@ -333,10 +351,17 @@ window.buildLessonTimeline = function () {
   tl.set("#b14-rail", { scaleY: 0 }, s14);
   hide("#b14-m1, #b14-m2, #b14-m3", s14, { scale: 0.6 });
   hide("#b14-panel", s14, { x: 120 });
-  hide("#b14-l2", s14);
+  hide("#b14-h, #b14-l1, #b14-l2", s14);
   drawV("#b14-rail", C.b14_first, 0.6);
   tl.to("#b14-m1, #b14-m2, #b14-m3", { opacity: 1, scale: 1, duration: 0.45, stagger: STAG, ease: "back.out(1.4)" }, C.b14_your);
-  slideIn("#b14-panel", C.b14_strengths, 120);
+  // The panel slides in WITH the rail draw at 83.20, not at 84.14: waiting for
+  // the copy's own cue left the beat opening on a bare rail line for 0.94s (QA
+  // 20260803T190528Z). It arrives EMPTY — the paper card is the ink — and its
+  // label and first line still rise on 84.14 ("strengths"), so the board's rule
+  // that nothing is read before it is spoken is untouched.
+  slideIn("#b14-panel", s14, 120);
+  rise("#b14-h", C.b14_strengths, { y: 18 });
+  rise("#b14-l1", C.b14_strengths + STAG, { y: 18 });
   rise("#b14-l2", C.b14_how, { y: 18 });
 
   var s15 = start(15);
@@ -400,6 +425,17 @@ window.buildLessonTimeline = function () {
   // at 111.96, or beat 18 opens on a uniform field for 0.75s — the longest of
   // the three blank content runs the frames gate failed (QA 20260803T174056Z).
   tl.to("#b18-paper", { scaleY: 1, duration: 1.2, ease: "power1.inOut" }, s18);
+  // Same failure mode as the beat 2 cut: for the first 0.28s the rising paper
+  // is still below the content region, so the region is a uniform blue field
+  // and grades blank (QA 20260803T190528Z, 0.30s at ~110.8s). Beat 17's badge
+  // hands over at the position it held at 110.80 and settles DOWN through the
+  // frame while the paper rises behind it — the board's own transition — then
+  // leaves as one unit once the lead-in has landed. Ink is continuous: badge
+  // 110.80-112.46, the blue/paper two-tone 111.08-112.00, the lead-in from
+  // 112.00.
+  tl.set("#b18-badge-out", { opacity: 1, y: 0 }, s18);
+  tl.to("#b18-badge-out", { y: 180, duration: 1.2, ease: "power2.out" }, s18);
+  tl.to("#b18-badge-out", { opacity: 0, duration: 0.5, ease: "power2.in" }, C.b18_ingredients);
   rise("#b18-leadin", C.b18_ingredients, { y: 20 });
   var b18k = ["#b18-k1", "#b18-k2", "#b18-k3", "#b18-k4"];
   var b18r = ["#b18-r1", "#b18-r2", "#b18-r3", "#b18-r4"];
