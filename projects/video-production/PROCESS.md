@@ -169,7 +169,11 @@ An MP4 exists on disk.
 *Exit:* `render/<stem>_<render-date>.mp4` plays its full length; no dead,
 empty or default frames anywhere in the runtime; audio stays in sync to the
 end; the thumbnail is pulled after entrances settle (the whole entrance settles
-by 1.2s), never frame 0.
+by 1.2s), never frame 0; AND
+`checks/verify-video-quality.py --dir lessons/<program>/<stem>` exits 0 — the
+owner-feedback gates of 2026-08-03: palette balance (blue/gold present,
+near-black rationed), no blank frames, no interior dead-air, no exposed
+clicks, and the 40px/700 type floors in the workspace source.
 
 ### 6. Certified
 Workers who did not build the video looked at its pixels and said so.

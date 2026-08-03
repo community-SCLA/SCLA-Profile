@@ -9,6 +9,11 @@
 # than any pipeline rebuild saves. The per-block comments are left verbatim as
 # the record of WHY each number is what it is; read "the gate grades against
 # this" as "the gate did, and would again".
+#
+# 2026-08-03 UPDATE: partially re-armed. checks/verify-video-quality.py now
+# executes the palette-balance, audio and type-floor blocks below against every
+# rendered MP4 (stage-5 exit in PROCESS.md). Those blocks are live spec again;
+# the rest remains a data sheet.
 # ---------------------------------------------------------------------------
 name: SCLA Lesson System
 canvas: 1920x1080
@@ -17,7 +22,7 @@ colors:
   navy-deep: "#0a1e2f" # Radial edge of dark canvases, deepest panels
   blue: "#3393d6" # Secondary — section labels, structural rules, diagrams
   gold: "#eaab2d" # Accent — CTA fills, highlights, count-ups, rules. Ration it.
-  ink: "#292f35" # Body copy on light canvases
+  ink: "#292f35" # RETIRED for video copy 2026-08-03 — owner: the render read black-and-white; at video scale ink is indistinguishable from black. Body copy on light canvases is navy now. Kept for print/web contexts only
   paper: "#ffffff" # Light canvas base
   cultured: "#f6f6f9" # Light canvas alt / section fill
   fill-subtle: "#e5eff6" # Cards and subtle panels on light
@@ -35,12 +40,13 @@ typography:
     display: "96-120px / 900" # Lesson titles
     heading: "60-72px / 900" # Scene headings
     quote: "52-60px / 700"
-    body: "40-48px / 400"
-    label: "20-26px / 700, uppercase, letter-spacing 0.14em" # Eyebrows, chips, metadata
+    body: "40-48px / 700" # 400 -> 700 on 2026-08-03: owner wants most text bold; 400 is no longer a video weight (weight-exempt comment required to use it)
+    label: "40px / 700, uppercase, letter-spacing 0.14em" # Eyebrows, chips, metadata. 20-26 -> 40 on 2026-08-03: owner set a 40px floor for ALL text after the chip row at 0:19 read too small
     stat: "200-260px / 900" # Count-ups
-  min-size: # Normative floors — preflight `text_size` FAILs below these (2026-07-27)
+  min-size: # Normative floors — checks/verify-video-quality.py `type` gate FAILs below these (re-armed 2026-08-03)
     body: 40 # px. Anything the viewer READS as a sentence: points, captions, sub-beats, card copy. 32 -> 40 on 2026-07-29: the floor was set AT the smallest size in use, so the gate was armed and could never fire — the scene-19 caption the owner called "just too small" was 32px, i.e. exactly compliant. ~1/27 of frame height, which is what survives phone viewing
-    label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
+    label: 40 # px. 20 -> 40 on 2026-08-03: owner reviewed the first HyperFrames pilot and set 40 as the floor for EVERYTHING readable, furniture included
+    weight: 700 # minimum font-weight for all video text (owner 2026-08-03: "most texts bold"); opt out with /* weight-exempt: <reason> */
     exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
 spacing:
   # These four are LOADED, not quoted: render-qa/src/tokens.py parses this block and
@@ -71,9 +77,32 @@ components:
   step-node: "120px circle, 4px navy ring, gold fill on activation, navy 900 number"
   point-marker: "74px circle, gold fill, navy 900 number"
   rule: "gold or blue, 3-4px, animates scaleX 0→1 from transform-origin left"
+# palette-balance: added 2026-08-03 after the owner rejected the first
+# HyperFrames pilot as black-and-white (measured: 26% near-black pixels, 0.6%
+# blue, 0.0% gold). The brand is blue and gold — the render must LOOK it.
+# Enforced per-MP4 by checks/verify-video-quality.py `palette` gate.
+palette-balance:
+  near-black-max: 0.12   # share of all pixels video-wide (navy-deep full-bleeds ration)
+  dark-frame-max: 0.10   # share of sampled frames >60% near-black (title/outro cards only)
+  blue-min: 0.03         # brand blue must be visibly present video-wide
+  gold-min: 0.005        # the accent must actually appear (0.0% shipped once)
+  accent-frame-min: 0.60 # share of frames carrying visible blue/gold
+
+# audio: added 2026-08-03 after the owner heard clicking (~2:06) and awkward
+# dead-air gaps. The HeyGen voice ships pervasive HF mouth-ticks (59 measured
+# in a 2.5min narration) that adeclick cannot remove; the proven treatment is
+# noise-gating the narration and mixing a low music bed under it. Enforced on
+# the final MP4 mix by checks/verify-video-quality.py `silence`+`clicks` gates.
+audio:
+  narration-gate: "agate=threshold=0.045:ratio=9000:attack=5:release=120:knee=2 (halves exposed ticks; never edits timing, so narration.words.json stays the clock)"
+  bed: "low instrumental bed under the full runtime, faded in/out ~1s, level so no interior stretch drops below -45dB for 0.9s; bed masks residual ticks"
+  interior-silence-max-s: 0.9
+  exposed-ticks-max: 3
+
 motion:
   entrance: "0.4-0.6s per element, power3.out / power4.out / back.out(1.4) — vary per element; the WHOLE entrance settles by 1.2s (Motion v2, 2026-07-27)"
   exit: "0.3s power2.in at sceneDuration-0.35 — content layer only, furniture stays; hard-kill set() at the boundary; scla-outro exempt (video ends full-frame)"
+  exit-group: "an exiting element moves as ONE unit — a chip/card/bubble and its text share a single tween target, never separate tweens (owner 2026-08-03: 'associate' slid out of its chip at 0:19). And nothing NEW may appear in a scene's final 0.5s except the declared closing-beat resolve (a rogue empty pill materialized at 2:00)"
   closing-beat: "one cued resolve in each scene's final second (rule completes / accent pops / dimmed items restore) — additive, never in-place re-animation"
   stagger: "0.12-0.18s"
   ambient: "oval rings breathe scale 1→1.05 over 3-4s, finite yoyo repeats sized to the scene"
