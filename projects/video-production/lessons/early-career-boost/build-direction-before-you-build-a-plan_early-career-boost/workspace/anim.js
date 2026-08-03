@@ -109,6 +109,15 @@ window.buildLessonTimeline = function () {
   // heading from 3.55.
   tl.to("#b2-navy", { yPercent: -100, duration: 1.15, ease: "power1.inOut" }, s2);
   tl.to("#b2-paper", { yPercent: 0, duration: 1.15, ease: "power1.inOut" }, s2);
+  // ROUND 4 — the two-band wipe itself carries no ink: a flat band deviates
+  // from neither its row nor its column median, so the lockup riding off inside
+  // #b2-navy was the ONLY ink, and it clears the frame at 3.20 while the
+  // heading does not land until 3.55 (0.30s featureless, QA 20260803T2110Z).
+  // Beat 1's rings therefore stay behind at full opacity, ride the ground swap
+  // in place, and only dissolve once the heading is entering — an exit
+  // EXTENDED into the entrance, no cue moved.
+  tl.set("#b2-rings-carry", { opacity: 0.35 }, s2);
+  tl.to("#b2-rings-carry", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, C.b2_career);
   rise("#b2-l1", C.b2_career, { y: 20 });
   rise("#b2-l2", C.b2_title, { y: 20 });
   pop("#b2-c1", C.b2_intern);
@@ -156,6 +165,12 @@ window.buildLessonTimeline = function () {
   // The seam fill is trimmed 0.2s and the figure pulled forward so the whole
   // ground transition settles 1.16s after the beat start, inside the 1.2s
   // motion band (it ran 1.37s — QA 20260803T174056Z).
+  // ROUND 4 — beat 4's bottom register holds across the split and leaves only
+  // once the figure is entering. The vertical two-band field the split makes is
+  // as featureless as a horizontal one (0.60s from 20.30), and the seam cannot
+  // help: a full-height rule IS its own column median.
+  tl.set("#b5-carry", { opacity: 1 }, s5);
+  tl.to("#b5-carry", { opacity: 0, duration: 0.4, ease: "power2.inOut" }, C.b5_before + 0.62);
   tl.to("#b5-seam", { scaleY: 1, duration: 0.3, ease: "power3.inOut" }, C.b5_before);
   tl.to("#b5-half", { scaleX: 1, duration: 0.55, ease: "power3.inOut" }, C.b5_before + 0.08);
   rise("#b5-figure", C.b5_before + 0.62, { y: 22, d: 0.5 });
@@ -170,7 +185,22 @@ window.buildLessonTimeline = function () {
   hide(".b6-card", s6, { scale: 0.9 });
   tl.set(".b6-glyph", { color: NAVY }, s6);
   tl.to("#b6-navy, #b6-seam", { x: 1920, duration: 0.75, ease: "power3.inOut" }, C.b6_think);
-  tl.to(".b6-slot", { opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" }, C.b6_think + 0.45);
+  // ROUND 4 — beat 5's figure is a child of the panel it stood on, so it rides
+  // the sweep out with it and holds ink from the cut to 28.39, where the slot
+  // grid takes over (which is why the deal starts 0.15s earlier, at 28.22 —
+  // the first slot is already reading when the figure leaves).
+  //
+  // Stagger 0.05 -> 0.18 (still inside the tokens motion band) and the last
+  // slot held back to its own card, because a COMPLETE 3x2 grid of hairlines is
+  // invisible to the frames gate: the verticals span 80% of the content column
+  // and the horizontals 85% of the row, so every line becomes its own median
+  // and the whole grid grades as bare ground (measured 0.005% ink at 29.40).
+  // One slot missing breaks that symmetry and the grid reads as content
+  // throughout — 0.39%. Slot 6 is the one that waits, and it is the slot the
+  // last card falls into, so the grid still fills in reading order.
+  var b6slots = Array.prototype.slice.call(document.querySelectorAll(".b6-slot"));
+  tl.to(b6slots.slice(0, 5), { opacity: 1, duration: 0.4, stagger: 0.18, ease: "power2.out" }, C.b6_think + 0.3);
+  tl.to(b6slots[5], { opacity: 1, duration: 0.4, ease: "power2.out" }, C.b6_personal - 0.55);
   var b6cards = ["#b6-k1", "#b6-k2", "#b6-k3", "#b6-k4", "#b6-k5", "#b6-k6"];
   var b6cues = [C.b6_school, C.b6_parttime, C.b6_internships, C.b6_student, C.b6_volunteering, C.b6_personal];
   b6cards.forEach(function (sel, i) {
@@ -208,6 +238,11 @@ window.buildLessonTimeline = function () {
   tl.set("#b8-beam", { rotation: 0 }, s8);
   tl.set("#b8-d1, #b8-d2, #b8-d3", { opacity: 0.25 }, s8);
   tl.to("#b8-paper", { scaleY: 1, duration: 0.6, ease: "power3.inOut" }, s8);
+  // ROUND 4 — the paper wipes DOWN through beat 7's panel, which holds its
+  // position and its copy until the heading is entering (0.30s featureless from
+  // 44.10 without it). Paper absorbed by paper: only the navy copy fades.
+  tl.set("#b8-carry", { opacity: 1 }, s8);
+  tl.to("#b8-carry", { opacity: 0, duration: 0.4, ease: "power2.inOut" }, C.b8_moments);
   rise("#b8-scale", s8 + 0.35, { y: 22, d: 0.6 });
   rise("#b8-h1", C.b8_moments, { y: 20 });
   rise("#b8-h2", C.b8_than, { y: 20 });
@@ -302,7 +337,11 @@ window.buildLessonTimeline = function () {
     // safe-area 1848 / content-bottom 960. The gutter drawing through them from
     // 70.88 is what resolves the five bars into one line.
     tl.to(sel, { rotation: 90, x: x0, y: y0, duration: 0.9, ease: "power2.inOut" }, C.b12_it);
-    tl.to(sel, { opacity: 0, duration: 0.35, ease: "power2.in" }, C.b12_it + 1.1);
+    // ROUND 4 — the straightened bars used to clear at 71.83 and the first quote
+    // card did not rise until 72.00, leaving the gutter alone in frame: a
+    // full-height rule IS its own column median, so those 0.25s graded empty.
+    // The bars now leave INTO the card's entrance rather than before it.
+    tl.to(sel, { opacity: 0, duration: 0.4, ease: "power2.in" }, C.b12_this1 - 0.15);
   });
   tl.to("#b12-paper", { scaleY: 1, duration: 0.55, ease: "power3.inOut" }, C.b12_it + 0.1);
   drawV("#b12-gutter", C.b12_it + 0.5, 0.7);
@@ -353,7 +392,16 @@ window.buildLessonTimeline = function () {
   hide("#b14-panel", s14, { x: 120 });
   hide("#b14-h, #b14-l1, #b14-l2", s14);
   drawV("#b14-rail", C.b14_first, 0.6);
-  tl.to("#b14-m1, #b14-m2, #b14-m3", { opacity: 1, scale: 1, duration: 0.45, stagger: STAG, ease: "back.out(1.4)" }, C.b14_your);
+  // ROUND 4 — beat 13's stat lockup holds across the cut on the same tint
+  // ground and dissolves behind the arriving panel.
+  tl.set("#b14-carry", { opacity: 1 }, s14);
+  tl.to("#b14-carry", { opacity: 0, duration: 0.4, ease: "power2.inOut" }, s14 + 0.15);
+  // The three markers come in WITH the rail they sit on rather than 0.74s after
+  // it: the rail is a full-height line and the panel a half-frame block, and the
+  // frames gate reads both as their own median — 0.50s of nothing from 83.45.
+  // The markers are the rail's own furniture, unnumbered copy, and the panel's
+  // label still lands on "strengths" at 84.14, so nothing is read early.
+  tl.to("#b14-m1, #b14-m2, #b14-m3", { opacity: 1, scale: 1, duration: 0.45, stagger: STAG, ease: "back.out(1.4)" }, s14 + 0.2);
   // The panel slides in WITH the rail draw at 83.20, not at 84.14: waiting for
   // the copy's own cue left the beat opening on a bare rail line for 0.94s (QA
   // 20260803T190528Z). It arrives EMPTY — the paper card is the ink — and its
@@ -407,6 +455,13 @@ window.buildLessonTimeline = function () {
   hide("#b17-badge-copy", s17);
   hide("#b17-l2", s17);
   tl.set("#b17-baseline", { scaleX: 0 }, s17);
+  // ROUND 4 — "the panel collapses, blue irises out" is the board's own
+  // transition and the build had only staged the iris: beat 16's panel vanished
+  // at the cut and the disc opening on flat tint carried no ink for 0.20s. The
+  // panel now hands over in place and collapses about its centre under the
+  // opening iris, clearing as the badge lands.
+  tl.set("#b17-carry", { opacity: 1, scale: 1, transformOrigin: "center center" }, s17);
+  tl.to("#b17-carry", { opacity: 0, scale: 0.92, duration: 0.45, ease: "power2.in" }, s17 + 0.1);
   tl.to("#b17-iris", { scale: 1, duration: 0.7, ease: "power3.inOut" }, s17);
   tl.to("#b17-badge", { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" }, s17 + 0.3);
   rise("#b17-badge-copy", C.b17_dream, { y: 18 });
@@ -481,6 +536,12 @@ window.buildLessonTimeline = function () {
   hide("#b20-figure", s20, { y: 20 });
   hide("#b20-spark", s20, { scale: 0.7 });
   hide("#b20-dots .dot", s20, { scale: 0.6 });
+  // ROUND 4 — beat 19's composite tile holds where it settled and the blue wipes
+  // in BEHIND it, the beat-18 handoff precedent applied to a horizontal wipe: a
+  // two-band wipe with nothing riding it graded empty for 0.50s from 126.80.
+  // The tile leaves as one unit once the figure is entering.
+  tl.set("#b20-carry", { opacity: 1 }, s20);
+  tl.to("#b20-carry", { opacity: 0, duration: 0.4, ease: "power2.inOut" }, s20 + 0.35);
   tl.to("#b20-blue", { x: 0, duration: 0.7, ease: "power3.inOut" }, s20);
   tl.to("#b20-figure", { opacity: 1, y: 0, duration: 0.6, ease: EASE }, s20 + 0.45);
   rise("#b20-l1", C.b20_reflection, { y: 20 });
@@ -514,6 +575,12 @@ window.buildLessonTimeline = function () {
   tl.set("#b22-crisp", { opacity: 0 }, s22);
   tl.set("#b22-contour", { scaleX: 0 }, s22);
   hide("#b22-line", s22);
+  // ROUND 4 — the scatter beat 21 ends on holds while the paper wipes across it.
+  // The portrait beneath is blue-on-blue until the paper edge reaches x=1160 at
+  // 137.73, so the cut graded empty for 0.35s; gold reads on blue AND on paper,
+  // so the three marked clues are what ride the swap.
+  tl.set("#b22-carry", { opacity: 1 }, s22);
+  tl.to("#b22-carry", { opacity: 0, duration: 0.45, ease: "power2.inOut" }, s22 + 0.42);
   tl.to("#b22-paper", { scaleX: 1, duration: 0.6, ease: "power3.inOut" }, s22);
   tl.to("#b22-soft", { opacity: 0, duration: C.b22_describe - s22, ease: "power2.inOut" }, s22);
   tl.to("#b22-crisp", { opacity: 1, duration: C.b22_describe - s22, ease: "power2.inOut" }, s22);
@@ -531,6 +598,12 @@ window.buildLessonTimeline = function () {
   hide("#b23-brandline", s23);
   hide("#b23-cta", s23);
   tl.set("#b23-rule", { scaleX: 0, transformOrigin: "left center" }, s23);
+  // ROUND 4 — beat 22's resolved portrait holds while the navy shutters close
+  // over it; its gold contour is the one element that reads on paper AND on
+  // navy, so it carries the 0.25s from the cut and the near-bare stretch at
+  // 142.80 straight through to the mark landing at 142.95.
+  tl.set("#b23-carry", { opacity: 1 }, s23);
+  tl.to("#b23-carry", { opacity: 0, duration: 0.35, ease: "power2.inOut" }, s23 + 0.45);
   tl.to("#b23-close-t, #b23-close-b", { yPercent: 0, duration: 0.5, ease: "power3.inOut" }, s23);
   tl.to("#b23-close-l, #b23-close-r", { xPercent: 0, duration: 0.5, ease: "power3.inOut" }, s23);
   tl.to("#b23-ground", { opacity: 1, duration: 0.2 }, s23 + 0.5);

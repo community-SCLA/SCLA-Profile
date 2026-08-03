@@ -62,10 +62,6 @@
                a duplicate of declared beat-1 content on its way out, so every
                node here is data-layout-ignore. -->
           <div class="lockup-carry" data-layout-ignore>
-            <svg class="art art--bold c-blue" width="640" height="560" viewBox="0 0 640 560" style="position: absolute; right: 0; top: 140px; opacity: 0.35" data-layout-ignore>
-              <ellipse cx="320" cy="280" rx="300" ry="230" />
-              <ellipse cx="320" cy="280" rx="215" ry="150" />
-            </svg>
             <p class="t-label c-gold" style="position: absolute; left: 0; top: 0" data-layout-ignore>Early Career Boost</p>
             <span class="rule rule--gold" style="position: absolute; left: 0; top: 68px; width: 420px" data-layout-ignore></span>
             <h1 class="t-display on-navy" style="position: absolute; left: 0; top: 280px; width: 1280px" data-layout-ignore>
@@ -75,6 +71,18 @@
           </div>
         </div>
         <div class="canvas">
+          <!-- Beat 1's rings stay put instead of riding off with the navy: the
+               lockup they belong to clears the frame by 3.20 and the heading
+               does not land until 3.55, so the field between is two flat bands
+               and nothing else — the featureless run the frames gate reads at
+               3.25 (QA 20260803T2110Z). Blue at 0.35 carries on navy AND on
+               paper, so this one element rides the whole ground swap and only
+               dissolves once the heading is entering. Handoff copy of declared
+               beat-1 content, so data-layout-ignore. -->
+          <svg id="b2-rings-carry" class="art art--bold c-blue" width="640" height="560" viewBox="0 0 640 560" style="position: absolute; right: 0; top: 140px; opacity: 0.35" data-layout-ignore>
+            <ellipse cx="320" cy="280" rx="300" ry="230" />
+            <ellipse cx="320" cy="280" rx="215" ry="150" />
+          </svg>
           <!-- The script's own framing: "it is easy to think a career begins
                with a title:". The qualifier is what makes the next beat's
                "But titles are only labels." a reversal rather than a
@@ -162,6 +170,21 @@
         <div id="b5-half" class="ground ground--navy" style="right: 960px" data-layout-allow-overflow></div>
         <span id="b5-seam" class="rule rule--v" style="position: absolute; left: 956px; top: 0; height: 1080px" data-layout-ignore></span>
         <div class="canvas">
+          <!-- Beat 4's bottom register hands over at the coordinates it held at
+               20.30 and leaves as ONE tween target (motion.exit-group). Without
+               it the split opens on a tint field and then on two flat vertical
+               bands — neither carries ink — until the figure lands at 20.96.
+               The navy half fills screen x 0-960, so the right tail of both the
+               rule and the fragment line stays on tint and reads through the
+               whole swap; the rest is erased by the navy as it fills, which is
+               the split doing the erasing rather than a cut. -->
+          <div id="b5-carry" data-layout-ignore style="position: absolute; left: 0; top: 0; width: 1680px; height: 840px">
+            <span class="rule" data-layout-ignore style="position: absolute; left: 0; top: 450px; width: 1680px"></span>
+            <p class="t-body on-light" data-layout-ignore style="position: absolute; left: 0; top: 640px; width: 1680px">
+              <span class="w">How you work.</span> <span class="w">What you care about.</span>
+              <span class="w">Where you create value.</span>
+            </p>
+          </div>
           <svg id="b5-figure" class="art art--bold on-navy" data-layout-allow-overflow width="300" height="440" viewBox="0 0 300 440" style="position: absolute; left: 260px; top: 200px">
             <ellipse class="solid" cx="150" cy="96" rx="70" ry="80" />
             <ellipse class="solid" cx="150" cy="316" rx="118" ry="152" />
@@ -177,7 +200,20 @@
       <!-- ═══ BEAT 6 — six-card experience grid ════════════════════════ -->
       <section id="beat-6" class="clip" data-start="27.9" data-duration="8.5" data-track-index="2" style="z-index: 6">
         <div class="ground ground--cultured"></div>
-        <div id="b6-navy" class="ground ground--navy" style="right: 960px" data-layout-allow-overflow></div>
+        <!-- Beat 5's navy half IS this panel: same rect, same seam. The figure
+             standing on it therefore hands over at exactly the coordinates it
+             held at 27.90 and rides the sweep out as ONE unit with the ground
+             it stands on (motion.exit-group) — without it the sweep is two flat
+             vertical bands, which carry no ink at all, and the beat is
+             featureless until the first card pops at 29.46. It is a child of
+             the panel, so it can never separate from it or overhang it. -->
+        <div id="b6-navy" class="ground ground--navy" style="right: 960px" data-layout-allow-overflow>
+          <svg id="b6-figure-carry" class="art art--bold on-navy" data-layout-ignore width="300" height="440" viewBox="0 0 300 440" style="position: absolute; left: 380px; top: 320px">
+            <ellipse class="solid" cx="150" cy="96" rx="70" ry="80" />
+            <ellipse class="solid" cx="150" cy="316" rx="118" ry="152" />
+            <ellipse cx="150" cy="96" rx="100" ry="110" style="color: var(--gold)" />
+          </svg>
+        </div>
         <span id="b6-seam" class="rule rule--v" style="position: absolute; left: 956px; top: 0; height: 1080px" data-layout-ignore></span>
         <div class="canvas">
           <div id="b6-grid" style="position: absolute; left: 0; top: 20px; width: 1680px; display: grid; grid-template-columns: repeat(3, 544px); grid-template-rows: 380px 380px; gap: 24px">
@@ -248,6 +284,29 @@
         <div class="ground ground--blue"></div>
         <div id="b8-paper" class="ground ground--paper" data-layout-allow-overflow></div>
         <div class="canvas">
+          <!-- Beat 7's question panel hands over at the position it held at
+               44.10 and the paper ground wipes DOWN through it — paper into
+               paper, so the panel is absorbed by the incoming ground rather
+               than cut away, and its navy copy is the ink that carries the
+               swap until the heading lands at 44.40. One tween, one target:
+               the panel and the four questions inside it leave together
+               (motion.exit-group). Handoff copy, so data-layout-ignore. -->
+          <div id="b8-carry" class="panel" data-layout-ignore style="position: absolute; left: 40px; top: 150px; width: 1600px; height: 520px">
+            <div data-layout-ignore style="width: 1400px">
+              <div class="row" data-layout-ignore style="align-items: center; gap: 32px; margin-bottom: 36px">
+                <span class="point-marker" data-layout-ignore>1</span><span class="t-body c-navy" data-layout-ignore>Where did you feel engaged?</span>
+              </div>
+              <div class="row" data-layout-ignore style="align-items: center; gap: 32px; margin-bottom: 36px">
+                <span class="point-marker" data-layout-ignore>2</span><span class="t-body c-navy" data-layout-ignore>Where did you feel capable?</span>
+              </div>
+              <div class="row" data-layout-ignore style="align-items: center; gap: 32px; margin-bottom: 36px">
+                <span class="point-marker" data-layout-ignore>3</span><span class="t-body c-navy" data-layout-ignore>Where did you feel useful?</span>
+              </div>
+              <div class="row" data-layout-ignore style="align-items: center; gap: 32px">
+                <span class="point-marker" data-layout-ignore>4</span><span class="t-body c-navy" data-layout-ignore>Where did you feel proud of the outcome?</span>
+              </div>
+            </div>
+          </div>
           <svg id="b8-scale" class="art c-navy" width="900" height="470" viewBox="0 0 900 470" style="position: absolute; left: 390px; top: 20px">
             <line x1="450" y1="120" x2="450" y2="410" />
             <line x1="360" y1="410" x2="540" y2="410" />
@@ -415,6 +474,14 @@
       <section id="beat-14" class="clip" data-start="83.2" data-duration="5.1" data-track-index="2" style="z-index: 14">
         <div class="ground ground--tint"></div>
         <div class="canvas">
+          <!-- Beat 13's stat lockup hands over on the same tint ground it stood
+               on and dissolves behind the arriving panel, so the cut at 83.20
+               is not a bare frame. Handoff copy, so data-layout-ignore. -->
+          <div id="b14-carry" data-layout-ignore style="position: absolute; left: 0; top: 150px; width: 1680px; text-align: center">
+            <p class="t-label c-navy" data-layout-ignore style="display: block">In this module</p>
+            <span class="rule rule--gold" data-layout-ignore style="display: block; width: 440px; margin: 28px auto 0"></span>
+            <p class="t-stat c-navy" data-layout-ignore style="margin-top: 56px">3</p>
+          </div>
           <span id="b14-rail" class="rule rule--v" style="position: absolute; left: 436px; top: 20px; height: 800px"></span>
           <span id="b14-m1" class="chip is-live" style="position: absolute; left: 402px; top: 84px">1</span>
           <span id="b14-m2" class="chip" style="position: absolute; left: 402px; top: 364px; background: var(--paper)">2</span>
@@ -515,6 +582,30 @@
         <div class="ground ground--tint"></div>
         <div id="b17-iris" style="position: absolute; left: 1140px; top: 500px; width: 2800px; height: 2800px; margin-left: -1400px; margin-top: -1400px; border-radius: 50%; background: var(--blue)" data-layout-ignore></div>
         <div class="canvas">
+          <!-- "the panel collapses, blue irises out" — the board's own
+               transition, which the build had left unstaged: beat 16's panel
+               vanished at the cut and the iris is a flat disc on a flat tint
+               field, so 105.90-106.05 carried no ink. The panel hands over at
+               the position it held at 105.90 and collapses about its own centre
+               as the iris opens under it, one tween, one target
+               (motion.exit-group). Handoff copy, so data-layout-ignore. -->
+          <div id="b17-carry" class="panel" data-layout-ignore style="position: absolute; left: 600px; top: 100px; width: 1080px; height: 560px">
+            <p class="t-label c-blue" data-layout-ignore>3. Energy patterns</p>
+            <div class="row" data-layout-ignore style="gap: 24px; margin-top: 32px">
+              <div data-layout-ignore style="width: 476px">
+                <p class="t-body is-sm on-light" data-layout-ignore style="width: 380px; height: 170px">What leaves you stronger.</p>
+                <div data-layout-ignore style="height: 200px; display: flex; align-items: flex-end">
+                  <span data-layout-ignore style="display: block; width: 120px; height: 200px; background: var(--gold); border-radius: 6px"></span>
+                </div>
+              </div>
+              <div data-layout-ignore style="width: 476px">
+                <p class="t-body is-sm on-light" data-layout-ignore style="width: 380px; height: 170px">What consistently drains you.</p>
+                <div data-layout-ignore style="height: 200px; display: flex; align-items: flex-start">
+                  <span data-layout-ignore style="display: block; width: 120px; height: 50px; background: var(--muted-video); border-radius: 6px"></span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div id="b17-badge" style="position: absolute; left: 420px; top: 180px; width: 840px; height: 260px; border: 6px solid var(--navy); border-radius: var(--radius-card); background: var(--gold); box-shadow: 0 0 90px rgba(13, 36, 55, 0.35); display: flex; align-items: center; justify-content: center">
             <p id="b17-badge-copy" class="t-heading c-navy">A dream job</p>
           </div>
@@ -611,6 +702,32 @@
         <div class="ground ground--cultured"></div>
         <div id="b20-blue" class="ground ground--blue" data-layout-allow-overflow></div>
         <div class="canvas">
+          <!-- Beat 19's composite tile hands over at the position it settled
+               into at 125.50 and the blue wipes in behind it, exactly as the
+               paper rises behind the badge at the beat-18 cut. Without it the
+               wipe is two flat vertical bands from 126.80 until the figure
+               lands at 127.25. One tween, one target: the tile and the four
+               cards inside it leave together (motion.exit-group). Handoff copy
+               of declared beat-19 content, so data-layout-ignore. -->
+          <div id="b20-carry" data-layout-ignore style="position: absolute; left: 0; top: 0; width: 1680px; height: 840px">
+            <div data-layout-ignore style="position: absolute; left: -6px; top: -10px; width: 840px; height: 838px; border: 6px solid var(--navy); border-radius: var(--radius-card)"></div>
+            <div class="card" data-layout-ignore style="position: absolute; left: 0px; top: -4px; width: 402px; height: 396px">
+              <svg class="glyph c-navy" data-layout-ignore viewBox="0 0 88 88"><circle cx="32" cy="30" r="16" /><circle cx="62" cy="36" r="12" /><path d="M10 74c0-16 10-26 22-26s22 10 22 26" /><path d="M56 74c0-12 6-20 14-20s8 6 8 12" /></svg>
+              <p class="t-body is-sm on-light" data-layout-ignore>people</p>
+            </div>
+            <div class="card" data-layout-ignore style="position: absolute; left: 426px; top: -4px; width: 402px; height: 396px">
+              <svg class="glyph c-navy" data-layout-ignore viewBox="0 0 88 88"><path d="M44 14c14 0 24 10 24 22 0 12-14 16-16 26H36c-2-10-16-14-16-26 0-12 10-22 24-22z" /><line x1="34" y1="74" x2="54" y2="74" /></svg>
+              <p class="t-body is-sm on-light" data-layout-ignore>problems</p>
+            </div>
+            <div class="card" data-layout-ignore style="position: absolute; left: 0px; top: 426px; width: 402px; height: 396px">
+              <svg class="glyph c-navy" data-layout-ignore viewBox="0 0 88 88"><rect x="14" y="46" width="26" height="28" /><rect x="48" y="30" width="26" height="44" /><line x1="14" y1="18" x2="74" y2="18" /></svg>
+              <p class="t-body is-sm on-light" data-layout-ignore>structure and autonomy</p>
+            </div>
+            <div class="card" data-layout-ignore style="position: absolute; left: 426px; top: 426px; width: 402px; height: 396px">
+              <svg class="glyph c-navy" data-layout-ignore viewBox="0 0 88 88"><polyline points="14,70 34,46 50,58 74,22" /><polyline points="56,22 74,22 74,40" /></svg>
+              <p class="t-body is-sm on-light" data-layout-ignore>growth</p>
+            </div>
+          </div>
           <p id="b20-l1" class="t-body c-navy" style="position: absolute; left: 0; top: 20px; width: 1000px">Reflection and AI support.</p>
           <svg id="b20-figure" class="art art--bold c-navy" width="320" height="400" viewBox="0 0 320 400" style="position: absolute; left: 160px; top: 200px">
             <circle class="solid" cx="160" cy="96" r="70" />
@@ -653,6 +770,24 @@
         <div class="ground ground--blue"></div>
         <div id="b22-paper" class="ground ground--paper" data-layout-allow-overflow></div>
         <div class="canvas">
+          <!-- The scatter beat 21 ends on hands over on the same blue ground and
+               the paper wipes across it, three gold marks last: without it the
+               portrait is blue-on-blue and invisible until the paper edge
+               reaches x=1160 at 137.73, so the cut carried no ink. Gold reads on
+               blue AND on paper, so the marks ride the whole wipe. Handoff copy
+               of declared beat-21 content, so data-layout-ignore. -->
+          <div id="b22-carry" data-layout-ignore style="position: absolute; left: 60px; top: 330px; width: 1560px; height: 340px">
+            <span class="mark" data-layout-ignore style="left: 40px; top: 40px; opacity: 0.3; background: var(--navy)"></span>
+            <span class="mark" data-layout-ignore style="left: 260px; top: 150px; opacity: 0.3; background: var(--navy)"></span>
+            <span class="mark" data-layout-ignore style="left: 470px; top: 60px; background: var(--gold)"></span>
+            <span class="mark" data-layout-ignore style="left: 690px; top: 210px; opacity: 0.3; background: var(--navy)"></span>
+            <span class="mark" data-layout-ignore style="left: 900px; top: 110px; background: var(--gold)"></span>
+            <span class="mark" data-layout-ignore style="left: 1120px; top: 250px; opacity: 0.3; background: var(--navy)"></span>
+            <span class="mark" data-layout-ignore style="left: 1330px; top: 80px; background: var(--gold)"></span>
+            <span class="mark" data-layout-ignore style="left: 150px; top: 250px; opacity: 0.3; background: var(--navy)"></span>
+            <span class="mark" data-layout-ignore style="left: 590px; top: 300px; opacity: 0.3; background: var(--navy)"></span>
+            <span class="mark" data-layout-ignore style="left: 1010px; top: 20px; opacity: 0.3; background: var(--navy)"></span>
+          </div>
           <p id="b22-line" class="t-quote c-navy" style="position: absolute; left: 0; top: 300px; width: 820px">Describe yourself with more clarity.</p>
           <svg id="b22-soft" class="art art--bold c-blue" width="520" height="620" viewBox="0 0 520 620" style="position: absolute; left: 1040px; top: 110px; filter: blur(14px); opacity: 0.55">
             <circle cx="260" cy="180" r="130" />
@@ -677,6 +812,23 @@
         <div id="b23-close-l" class="ground ground--navy" style="right: 50%" data-layout-allow-overflow></div>
         <div id="b23-close-r" class="ground ground--navy" style="left: 50%" data-layout-allow-overflow></div>
         <div class="canvas">
+          <!-- Beat 22's resolved portrait hands over at the coordinates it held
+               at 142.40 and the navy shutters close over it. Navy strokes go
+               dark against the closing navy, but the gold contour rule under
+               the portrait carries on paper AND on navy, so ink is continuous
+               from the cut through to the mark landing at 142.95 — the same
+               near-bare stretch the gate reads at 142.40 and again at 142.80.
+               Handoff copy of declared beat-22 content, so data-layout-ignore. -->
+          <div id="b23-carry" data-layout-ignore style="position: absolute; left: 0; top: 0; width: 1680px; height: 840px">
+            <p class="t-quote c-navy" data-layout-ignore style="position: absolute; left: 0; top: 300px; width: 820px">Describe yourself with more clarity.</p>
+            <svg class="art art--bold c-navy" data-layout-ignore width="520" height="620" viewBox="0 0 520 620" style="position: absolute; left: 1040px; top: 110px">
+              <circle cx="260" cy="180" r="130" />
+              <path d="M50 610 Q50 322 260 322 Q470 322 470 610" />
+              <path d="M210 160c14 12 34 12 48 0" />
+              <path d="M302 160c14 12 34 12 48 0" />
+            </svg>
+            <span class="rule rule--gold" data-layout-ignore style="position: absolute; left: 1090px; top: 700px; width: 420px"></span>
+          </div>
           <img id="b23-mark" src="assets/brand/SCLA-logo-icon.svg" alt="SCLA" style="position: absolute; left: 760px; top: 120px; width: 160px; height: 200px" />
           <span id="b23-rule" class="rule rule--gold" style="position: absolute; left: 640px; top: 400px; width: 400px"></span>
           <p id="b23-cta" class="cta-label" style="position: absolute; left: 0; top: 500px; width: 1680px; text-align: center">→ That clarity will make the next module much easier.</p>

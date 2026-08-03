@@ -304,3 +304,63 @@ list; nothing else in the board changed, and the Panel Verdict is untouched.
   paper card is the ink; its label and first line still rise on 84.14
   ("strengths") and the second on 86.62, so nothing is read before it is
   spoken. The rail markers are unmoved at 83.94.
+
+### Studio round 6 — the boundary choreography, round-3 QA
+
+Round-3 QA cleared content, palette, type, timing and copy and left ONE defect
+in ten places: at ten scene boundaries the outgoing scene's content cleared
+before the incoming scene's landed, so the frame held nothing but ground bands
+for 0.20–1.05s. This is a single choreography pattern, and it is fixed as one:
+**no cut hands over an empty frame — the outgoing beat's own key element holds
+at full opacity, riding the wipe, until the incoming beat's first element has
+begun entering.** Every handoff is a copy of already-declared content at the
+coordinates it held on the boundary frame, leaves as ONE tween target
+(`motion.exit-group`), and is `data-layout-ignore`. No narration cue moved: the
+timing certified in round 5 (every beat inside ±0.053s) is untouched, and every
+fix is an exit EXTENDED into an entrance, never an entrance delayed.
+
+What the gate taught the board, and why the old transitions read as holes: ink
+is measured against both the row and the column median, so **a flat band has no
+ink at all**. A horizontal push (beat 2), a vertical split (beat 5), a panel
+sweep (beat 6), a full-width rule, a full-height seam or gutter, and a complete
+grid of hairlines all grade exactly as bare ground. A wipe must therefore carry
+something localized in BOTH axes, or it is empty by construction.
+
+- **Beat 2 (2.50) — beat 1's rings stay behind.** The lockup riding off inside
+  `#b2-navy` clears frame at 3.20 and the heading lands at 3.55. The rings leave
+  the carry and hold in place at 0.35 on the canvas — blue reads on navy and on
+  paper alike — dissolving from 3.52 as the heading enters.
+- **Beat 5 (20.30) — beat 4's bottom register rides the split.** The navy half
+  fills screen x 0–960, so the right tail of the rule and of the three fragments
+  stays on tint and reads through the whole swap while the navy erases the rest;
+  it clears at 20.96 as the figure rises.
+- **Beat 6 (27.90) — beat 5's figure rides the panel it stands on, and the grid
+  deals one slot at a time.** Beat 5's navy half and beat 6's sweeping panel are
+  the same rect, so the figure hands over as a child of the panel and can never
+  separate from it. The slot grid then takes over — but only once it is
+  asymmetric: complete, its hairlines span 80% of the column and 85% of the row
+  and become their own median (0.005% ink). Stagger 0.05 → 0.18 and slot 6 waits
+  for the card that falls into it, which holds the grid at 0.39% throughout.
+- **Beat 8 (44.10) — beat 7's question panel is absorbed by the paper.** The
+  paper ground wipes DOWN through it: paper into paper, so only the navy copy
+  fades, from 44.36 as the heading lands.
+- **Beat 12 (71.85) — the straightened bars leave into the card.** They cleared
+  at 71.83 and the first quote card did not rise until 72.00, leaving only the
+  gutter, which is its own column median. The fade now starts at 71.85.
+- **Beat 14 (83.20) — beat 13's stat lockup hands over, and the markers come in
+  with their rail.** Rail and empty panel are both their own median. The lockup
+  holds across the cut on the same tint ground; the three markers, the rail's
+  own furniture, arrive with the rail at 83.40 instead of 83.94. The panel's
+  label still lands on "strengths" at 84.14.
+- **Beat 17 (105.90) — the panel collapses under the iris.** The board's own
+  transition, never staged: beat 16's panel now hands over in place and
+  collapses about its centre as the blue irises out beneath it.
+- **Beat 19 → 20 (126.80) — beat 19's composite tile holds and the blue wipes in
+  behind it.** The beat-18 precedent applied to a horizontal wipe; the tile and
+  its four cards leave together at 127.15 as the figure enters.
+- **Beat 22 (137.40) — the three gold marks ride the paper wipe.** Beat 22's
+  portrait is blue-on-blue until the paper edge reaches x=1160 at 137.73. Gold
+  reads on blue AND on paper, so beat 21's marked clues carry the swap.
+- **Beat 23 (142.40) — beat 22's portrait holds under the closing shutters.**
+  Its gold contour is the one element that survives both grounds, carrying the
+  cut and the near-bare stretch at 142.80 through to the mark at 142.95.
