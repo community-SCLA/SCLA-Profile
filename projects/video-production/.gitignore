@@ -2,5 +2,15 @@
 # Wistia is the delivery surface for MP4s; the repo keeps scripts, workspaces
 # and status records. Kept here rather than in design-system/.gitignore so a
 # lesson workspace is never silently untracked.
-lessons/**/audio/
+#
+# Exception (owner decision 2026-08-03): narration.words.json IS tracked. The
+# workspace alone gives you the visuals; the word timings are what drive every
+# entrance, so without them a retained workspace can be looked at but not
+# faithfully edited — re-synthesizing narration yields slightly different
+# timings and silently re-times the whole composition. It is a small text file;
+# the MP3 and the MP4 stay out. Written as `audio/*` rather than `audio/` so
+# the negation below can take effect (git cannot re-include a file whose parent
+# directory is excluded).
+lessons/**/audio/*
+!lessons/**/audio/narration.words.json
 lessons/**/render/

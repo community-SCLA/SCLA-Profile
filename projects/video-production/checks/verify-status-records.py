@@ -10,7 +10,8 @@ Enforced:
   1. every `lesson-scripts/<program>/refined/<stem>.txt` has a matching
      `lessons/<program>/<stem>/status.yml`
   2. every status.yml parses as a YAML mapping
-  3. `stage` is one of scripted|narrated|composed|rendered|published|blocked
+  3. `stage` is one of
+     scripted|narrated|storyboarded|composed|rendered|certified|published|blocked
   4. `next_action` is a non-empty string unless stage == published
   5. `blocked` is non-null with `on` in owner|vendor|upstream iff stage ==
      blocked
@@ -28,7 +29,8 @@ VP = Path(__file__).resolve().parent.parent
 LESSON_SCRIPTS = VP / "lesson-scripts"
 LESSONS = VP / "lessons"
 
-STAGES = ("scripted", "narrated", "composed", "rendered", "published", "blocked")
+STAGES = ("scripted", "narrated", "storyboarded", "composed", "rendered",
+          "certified", "published", "blocked")
 BLOCKED_ON = ("owner", "vendor", "upstream")
 
 try:
