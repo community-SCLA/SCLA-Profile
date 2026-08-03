@@ -2,7 +2,7 @@ stem: m2_the-value-of-building-mid-career-momentum
 program: mid-career-momentum
 script: projects/video-production/lesson-scripts/mid-career-momentum/refined/m2_the-value-of-building-mid-career-momentum.txt
 stage: rendered
-next_action: "check print + screening panel (studio round 4)"
+next_action: "rebuild-against-defect-list round (fails all 5 quality gates 2026-08-03: frames, palette, silence, clicks, type) + Stage-4 handoff choreography; check print only after verify-video-quality.py exits 0"
 blocked: null
 wistia_hashed_id: null
 render_date: null

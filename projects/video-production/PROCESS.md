@@ -161,8 +161,17 @@ above the 40px floor and labels at or above 20px; no element crosses the 72px
 safe area or drops below the 960px content bottom; the title-card eyebrow is
 derived from the `programs:` map, never authored; frequent scene changes, no
 static stretch, no text/illustration overlap, no sameness between scenes or
-between videos; the timeline is driven by `audio/narration.words.json` with
-no drift; AND `checks/verify-hedge-integrity.py --script
+between videos; **every scene-to-scene cut carries content the whole way
+through — the outgoing beat's own key element holds at full opacity, riding
+the wipe, until the incoming beat's first element has begun entering.** Never
+a hard cut to bare ground and never an entrance delayed to cover one: build
+the handoff as an exit extended, not an entrance moved, so the narration cue
+stays exact. (A flat wipe — a straight push, split, sweep, rule, seam, or
+gutter — grades as bare ground even mid-motion, since ink is measured against
+both the row and column median: it must carry something localized in BOTH
+axes, e.g. the outgoing beat's element parked at a fixed point on the canvas,
+or it reads empty by construction.) The timeline is driven by
+`audio/narration.words.json` with no drift; AND `checks/verify-hedge-integrity.py --script
 lesson-scripts/<program>/refined/<stem>.txt --build workspace/index.html`
 exits 0 — a hedge in the narration ("seems to", "it is easy to think", ...)
 must survive onto the screen, not just into the audio.

@@ -10,11 +10,13 @@
       "WebFetch",
       "WebSearch",
       "Bash(git:*)",
+      "Bash(git worktree remove:*)",
       "Bash(mkdir:*)",
       "Bash(ls:*)",
       "Bash(cp:*)",
       "Bash(python3:*)",
-      "Bash(./sync.sh)"
+      "Bash(./sync.sh)",
+      "Bash(./ringer.py:*)"
     ],
     "ask": [],
     "deny": [],
