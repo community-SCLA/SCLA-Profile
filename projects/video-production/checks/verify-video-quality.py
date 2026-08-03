@@ -11,10 +11,12 @@ A preference is not real until it is a gate — this file is the gate.
 
 Gates (all must pass; each prints its measurements):
   render    1920x1080 MP4 with audio, video covers the narration
-  frames    no blank content run >= 0.3s anywhere (content region ink at
-            10fps — footer furniture does not excuse an empty frame; 0.3s
-            white flashes at two cuts survived the 0.5s/4fps version and both
-            round-2 vision lanes flagged them)
+  frames    no featureless content run >= 0.25s anywhere, graded at 20fps.
+            Ink = pixels deviating >30 from BOTH their row and column median,
+            so a departing flat band counts as empty (the per-frame-median
+            version scored a navy stripe on paper as 15% ink and passed a
+            hole the final-verify lane caught at 00:03); footer furniture
+            never excuses an empty frame
   palette   near-black <= 12% of pixels video-wide; full-dark frames <= 10%
             of samples; brand blue >= 3%; gold >= 0.5%; >= 60% of frames
             carry visible blue/gold accent
@@ -53,7 +55,7 @@ CLICK_QUIET_RMS = 1200      # full-band RMS below which the tick is exposed
 CLICK_TICKS_MAX = 3
 FONT_PX_MIN = 40
 FONT_WEIGHT_MIN = 700
-BLANK_INK_SHARE = 0.003     # content-region ink share below which a frame is blank
+BLANK_INK_SHARE = 0.0002    # content-region ink share below which a frame is featureless — essentially zero; deliberately spare transition frames (a lone rule mid-seam, ~0.1%) are content, a flat field is not
 
 fails = []
 
@@ -109,7 +111,7 @@ def check_frames_and_palette(mp4):
     sub-0.2s transition dips are legitimate.
     """
     import numpy as np
-    FPS = 10
+    FPS = 20
     raw = run(["ffmpeg", "-v", "error", "-i", str(mp4),
                "-vf", f"fps={FPS},scale=192:108", "-f", "rawvideo",
                "-pix_fmt", "rgb24", "-"]).stdout
@@ -126,10 +128,13 @@ def check_frames_and_palette(mp4):
     gold = ~dark & ~blue & (r > 180) & (g > 130) & (b < 110)
 
     content = a16[:, :96, :, :]                      # y<960 at full scale
-    med = np.median(content, axis=(1, 2))            # per-frame dominant color
-    ink = (np.abs(content - med[:, None, None, :]) > 30).any(axis=3)
+    row_med = np.median(content, axis=2)             # (n, 96, 3)
+    col_med = np.median(content, axis=1)             # (n, 192, 3)
+    dev_row = (np.abs(content - row_med[:, :, None, :]) > 30).any(axis=3)
+    dev_col = (np.abs(content - col_med[:, None, :, :]) > 30).any(axis=3)
+    ink = dev_row & dev_col                          # deviates from BOTH
     ink_share = ink.mean(axis=(1, 2))
-    blank_mask = ink_share < 0.003
+    blank_mask = ink_share < BLANK_INK_SHARE
     runs = []
     i = 0
     while i < n:
@@ -137,14 +142,14 @@ def check_frames_and_palette(mp4):
             j = i
             while j < n and blank_mask[j]:
                 j += 1
-            if j - i >= 3:                           # >= 0.3s at 10fps
+            if j - i >= 5:                           # >= 0.25s at 20fps
                 runs.append((round(i / FPS, 2), round((j - i) / FPS, 2)))
             i = j
         else:
             i += 1
     gate("frames", not runs,
-         f"{n} samples at {FPS}fps; blank content runs (start_s, dur_s): {runs}"
-         if runs else f"{n} samples at {FPS}fps, no blank content run >= 0.5s")
+         f"{n} samples at {FPS}fps; featureless content runs (start_s, dur_s): {runs}"
+         if runs else f"{n} samples at {FPS}fps, no featureless content run >= 0.25s")
 
     px_per, nf = 192 * 108, n
     d = dark.mean()
