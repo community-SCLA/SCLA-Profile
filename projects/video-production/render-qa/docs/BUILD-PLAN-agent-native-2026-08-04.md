@@ -315,7 +315,20 @@ commit.
       0.34s after a question against the 0.35s floor. Phase 3's pilot must
       synthesize its final clip with `FINAL_HOLD`.
 - [ ] 2.1 write fence + hook tests
-- [ ] 2.2 AGENTS.md purge + assertion
+- [x] 2.2 AGENTS.md purge + assertion — `batch-prepare.sh` already deleted
+      `scaffold/AGENTS.md` beside CLAUDE.md, and zero workspaces carried one, so
+      the purge itself was done; the missing half was the ASSERTION, now
+      `lint-refs.sh` check 11 (11 -> 12 checks). It fails on a stray workspace
+      `AGENTS.md` AND on `batch-prepare.sh` losing its delete line — the
+      mechanism, not just today's result. One vendor copy remained and was
+      `git rm`'d: `experiments/agent-native-m2/AGENTS.md`, the vendor's generic
+      95-line router. **Out of scope, deliberately:**
+      `design-system/AGENTS.md` is a hand-written SCLA project doc that
+      `design-contract.md` cites by name — not vendor litter, and deleting it
+      would break a live reference. **Bug found by running the failure case:**
+      `grep -c` prints 0 AND exits 1, so `|| echo 0` produced "00" and the
+      mechanism half died with "integer expression expected" — i.e. it would
+      never have evaluated. Fixed and re-proven.
 - [ ] 3 freeform pilot built (1 lesson) — gate failures, if any: _(record here)_
 - [ ] 3 ⛔ owner verdict: _(record here)_
 - [ ] 4 ⛔ retirement commit (owner-approved, queue drained)
