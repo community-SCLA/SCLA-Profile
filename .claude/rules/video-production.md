@@ -115,11 +115,16 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   **2 consecutive** scenes on one template family, **≥6 distinct content forms**
   per lesson ≥90s (≥7 at ≥150s), **no form above 40%** of content seconds.
   Enforced at authoring time: a builder authors only `scenes.json`;
-  `build_index.py` compiles `index.html`. *(Mechanisms: `check_copy.py` +
+  `build_index.py` compiles `index.html`. On the freeform lane the two rules
+  that are about content FORM rather than templates — **one-item-list** and
+  **one-card** — are graded on element structure instead of template slots, so
+  they survive the compiler's retirement. *(Mechanisms: `check_copy.py` +
   `check_variety.py` via `preflight.py` (hard block), `preflight.py --static`
   (plan stage), and `scripts/hyperframe-guard.sh` (`PostToolUse` hook on
-  scenes.json / index.html writes). Thresholds pinned by
-  `render-qa/tests/test_variety.py`. Why: log 2026-07-28 "Owner review: stem
+  scenes.json / index.html writes); `render-qa/src/check_forms.py` for
+  one-item-list / one-card on the freeform lane, run by `preflight.py`.
+  Thresholds pinned by `render-qa/tests/test_variety.py`, freeform forms by
+  `render-qa/tests/test_freeform.py`. Why: log 2026-07-28 "Owner review: stem
   dates become mechanical, and four standing preferences become gates".)*
 - **One thought per scene; no thought split across scenes.** A content scene
   carries at least `MIN_SCENE_SEC` (4.5s). A scene opening with a bare

@@ -70,6 +70,9 @@ REQUIRED = {
     # the brand gate (freeform lane) — colors + typeface from tokens.yml
     "check_brand":      ["off-color", "off-font", "missing-font-asset",
                          "nothing-graded"],
+    # the content-FORM gate (freeform lane) — the two owner rules rehomed off
+    # template slots onto element structure, BUILD-PLAN step 1.3a
+    "check_forms":      ["one-item-list", "one-card", "nothing-graded"],
     "check_motion":     ["keep-alive-motion", "undeclared-target",
                          "freeform-keep-alive"],
     "check_slots":      ["unfilled", "placeholder", "unknown-icon",

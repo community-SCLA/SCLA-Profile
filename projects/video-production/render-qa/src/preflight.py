@@ -1042,10 +1042,24 @@ def main():
     #     bullet/pill illustration around a single fact ("you would never just
     #     render a single bullet point"), which 5 scenes of that build did.
     if freeform:
+        # Template-FAMILY counting genuinely has no referent here (there are no
+        # families), and monotony stays with check_diversity + the human
+        # preview. But the two rules in this file that are about CONTENT FORM
+        # rather than templates — one-item-list and one-card — do have a
+        # referent, and they run: BUILD-PLAN step 1.3a rehomed them onto
+        # element structure in check_forms.py. Leaving them to the preview
+        # would be exactly the deferral the rules file forbids ("a measurement
+        # is never delegated to the human preview").
         sections["variety"] = freeform_skip(
             "template-family counting has no referent here; monotony on this "
-            "lane is owned by the per-video human preview (decisions/log.md "
-            "2026-07-30) until check_diversity exists")
+            "lane is owned by check_diversity + the per-video human preview "
+            "(decisions/log.md 2026-07-30). The one-item-list / one-card rules "
+            "are NOT skipped — see the `forms` section below")
+        rc, out = run_tool([sys.executable,
+                            str(Path(__file__).parent / "check_forms.py"),
+                            str(ws)])
+        sections["forms"] = {"pass": rc == 0, "output": out.strip()}
+        failed |= rc != 0
     else:
         rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_variety.py"),
                             str(ws)])

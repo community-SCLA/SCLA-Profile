@@ -22,6 +22,7 @@ sys.path.insert(0, str(RQ / "src"))
 
 import check_continuity
 import check_copy
+import check_forms
 import check_motion
 from hfp_common import load_beats, onframe_strings
 
@@ -211,6 +212,75 @@ report, problems = check_motion.check(ws)
 check("check_motion grades (not exit-2) and passes a clean freeform build",
       report is not None and report["graded"] >= 1 and not problems,
       f"report={report} problems={problems}")
+
+# ---------------------------------------------------------------------------
+# check_forms — the two owner rules rehomed off template slots (step 1.3a).
+# On the template path these read data-variable-values and so die with the
+# compiler; here they read element structure, which no author has to know a
+# convention to produce.
+
+
+def forms_ws(name, body):
+    return freeform_ws(name, CLEAN_LINES, comp_html=(
+        "<template><style>.x{color:#fff}</style><div id=\"root\">"
+        "<div class=\"big\" data-role=\"heading\">Four Kinds of Transition</div>"
+        f"{body}</div></template>"))
+
+
+rep, probs = check_forms.check(forms_ws("list-one", "<ul><li>Only one</li></ul>"))
+fires("check_forms", "one-item-list",
+      "a <ul> with exactly ONE <li> fires one-item-list",
+      "one-item-list" in rules_of(probs), str(probs))
+
+rep, probs = check_forms.check(forms_ws(
+    "list-two", "<ul><li>First point</li><li>Second point</li></ul>"))
+check("a two-item list passes", not probs, str(probs))
+
+# The nesting case a regex gets wrong: counting <li> between <ul> and </ul>
+# scoops up the nested list's items and reports a real one-item list clean.
+rep, probs = check_forms.check(forms_ws(
+    "list-nested", "<ul><li>Only one<ul><li>sub a</li><li>sub b</li></ul>"
+                   "</li></ul>"))
+fires("check_forms", "one-item-list",
+      "an outer list of one item is caught THROUGH a nested two-item list",
+      sum(1 for r in rules_of(probs) if r == "one-item-list") == 1, str(probs))
+
+rep, probs = check_forms.check(forms_ws(
+    "list-declared", '<div data-role="list"><div>Only one</div></div>'))
+fires("check_forms", "one-item-list",
+      'a declared data-role="list" holding one child fires',
+      "one-item-list" in rules_of(probs), str(probs))
+
+rep, probs = check_forms.check(forms_ws(
+    "compare-one", '<div data-role="compare"><div data-role="card">Stay'
+                   "</div></div>"))
+fires("check_forms", "one-card",
+      "a comparison region holding ONE card fires one-card",
+      "one-card" in rules_of(probs), str(probs))
+
+rep, probs = check_forms.check(forms_ws(
+    "compare-two", '<div data-role="compare"><div data-role="card">Stay</div>'
+                   '<div data-role="card">Move</div></div>'))
+check("a two-card comparison passes", not probs, str(probs))
+
+# Markup quoted inside a <script> string is not markup. HTMLParser's CDATA
+# handling gives this for free; a regex scan would have flagged it.
+rep, probs = check_forms.check(forms_ws(
+    "script-noise", '<script>var s = "<ul><li>x</li></ul>";</script>'))
+check("a list quoted inside a <script> string does not flag", not probs,
+      str(probs))
+
+rep, probs = check_forms.check(forms_ws("no-lists", "<p>No list here.</p>"))
+check("a build with no lists at all is CLEAN, not ungraded",
+      rep is not None and not probs, str(probs))
+
+empty = TMP / "forms-empty"
+shutil.rmtree(empty, ignore_errors=True)
+empty.mkdir(parents=True)
+rep, probs = check_forms.check(empty)
+fires("check_forms", "nothing-graded",
+      "a workspace with no markup at all FAILS rather than passing",
+      rep is None and "nothing-graded" in rules_of(probs), str(probs))
 
 shutil.rmtree(TMP, ignore_errors=True)
 print(f"\n{PASS} passed, {FAIL} failed")

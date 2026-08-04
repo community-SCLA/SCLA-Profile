@@ -243,7 +243,16 @@ commit.
       ambient motion. New rule: a helper-routed tween declares at the CALL
       SITE, because an allow in the helper body exempts every caller — the
       `drift()` laundering vector wearing a different hat.
-- [ ] 1.3a `one-item-list` / `one-card` rehomed
+- [x] 1.3a `one-item-list` / `one-card` rehomed — new `src/check_forms.py`,
+      graded on ELEMENT STRUCTURE (`<ul>`/`<ol>` nesting, plus declared
+      `data-role="list"` / `"compare"` for shapes HTML has no tag for). Not
+      folded into `check_variety.py`: that file is on Phase 4's deletion list,
+      so a rule rehomed there would die with it. Wired into `preflight.py` as
+      its own `forms` section — the freeform `variety` skip previously handed
+      these to the human preview, which is the deferral the rules file forbids.
+      **Stated limit, printed on every run:** a build that draws lists as bare
+      divs and declares nothing is graded on nothing. The real agent-native
+      build is exactly that case, and says so instead of printing a bare PASS.
 - [ ] 1.3b `placeholder-slot` rehomed
 - [ ] 1.3c plan-stage fit rehomed (advisory)
 - [ ] 1.4 ink-band gate in `src/` + tokens region + fixtures + preflight wiring
