@@ -216,7 +216,7 @@
           // background texture only. (Cards are left alone — FLIP owns their y/scale.)
           var sdur = Math.max(4, parseFloat(vars.sceneDuration) || 12);
           tl.fromTo("#mp-ghost", { x: 0, y: 0 }, { x: 24, y: 14, duration: 3.2, ease: "sine.inOut",
-            yoyo: true, repeat: Math.max(1, Math.ceil(sdur / 3.2) - 1) }, 0);
+            yoyo: true, repeat: Math.max(1, Math.ceil(sdur / 3.2) - 1) }, 0);  /* motion-allow: depth-drift on the oversized ghost numeral — decorative texture layer, never content */
           // Closing beat (Motion v2, 2026-07-27): a done-style gold check pops beside
           // the winner's top-right corner once the morph has resolved, in the scene's
           // final second — an additive NEW element, never a re-mark of settled content.

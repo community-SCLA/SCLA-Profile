@@ -355,7 +355,7 @@
           // at QA frame sampling even between cues.
           const sceneDur = Math.max(4, Number(vars.sceneDuration) || 10);
           tl.fromTo("#st-ghost-num", { x: 0 }, { x: 20, duration: 3.2, ease: "sine.inOut",
-            yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);
+            yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);  /* motion-allow: depth-drift on the oversized ghost numeral — decorative texture layer, never content */
           // Idle re-animation of settled content remains banned (owner decisions
           // 2026-07-14/15), but the cued closing beat and the scene exit below are
           // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place

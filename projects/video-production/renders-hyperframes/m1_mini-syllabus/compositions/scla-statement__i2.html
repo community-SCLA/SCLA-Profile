@@ -343,8 +343,8 @@
           });
           tl.fromTo(["#sm__i2-index", "#sm__i2-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
           // Ambient breath (finite, seek-safe) keeps the decorative layer alive.
-          tl.fromTo("#sm__i2-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
-          tl.fromTo("#sm__i2-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);
+          tl.fromTo("#sm__i2-ring-1", { scale: 1 }, { scale: 1.05, duration: 3.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);  /* motion-allow: ring-breath — decorative ambient oval layer, granted by design-contract.md "Depth-drift runs in finite yoyo cycles" */
+          tl.fromTo("#sm__i2-ring-2", { scale: 1 }, { scale: 1.04, duration: 2.8, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.9);  /* motion-allow: ring-breath — decorative ambient oval layer, granted by design-contract.md "Depth-drift runs in finite yoyo cycles" */
           // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the ghost
           // rings drift at different rates — translate-only decorative parallax in
           // finite sine yoyo cycles sized to register at QA frame sampling. (The
@@ -358,9 +358,9 @@
           // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
           // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
           // thumbnail px → read static at frame sampling. ~110/70px clears it.
-          drift("#sm__i2-ring-1", 120, 72, 3.4);
-          drift("#sm__i2-ring-2", -100, -52, 2.9);
-          drift("#sm__i2-ring-3", 70, 44, 2.5);
+          drift("#sm__i2-ring-1", 120, 72, 3.4);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
+          drift("#sm__i2-ring-2", -100, -52, 2.9);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
+          drift("#sm__i2-ring-3", 70, 44, 2.5);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
           // Optional living-icon hero (opt-in via `icon`; owner decision 2026-07-15 —
           // living icons may appear on single-focus statement beats, still sparing and
           // drawn on the cue). Geometry MIRRORED from scla-condition.html's ICONS map

@@ -342,7 +342,7 @@
           tl.fromTo("#kp-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo(["#kp-ghost-ring", "#kp-ghost-ring-2"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo("#kp-ghost-ring", { rotation: 0 }, { rotation: 4, duration: 5.4, ease: "sine.inOut", repeat: 0 }, 1.4);
-          tl.fromTo("#kp-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.9, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);
+          tl.fromTo("#kp-ghost-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.9, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.6);  /* motion-allow: ring-breath — decorative ambient oval layer, granted by design-contract.md "Depth-drift runs in finite yoyo cycles" */
           // Ambient drift cycles (2026-07-15 animacy regression fix): the ghost rings
           // drift in finite translate-only sine yoyo cycles across the whole scene so
           // the decorative layer registers at QA frame sampling even between cues.
@@ -350,8 +350,8 @@
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / per) - 1) }, 0);
           };
-          drift("#kp-ghost-ring", 24, 14, 3.3);
-          drift("#kp-ghost-ring-2", -20, -12, 2.8);
+          drift("#kp-ghost-ring", 24, 14, 3.3);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
+          drift("#kp-ghost-ring-2", -20, -12, 2.8);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
           // Idle re-animation of settled content remains banned (owner decisions
           // 2026-07-14/15), but the cued closing beat and the scene exit below are
           // REQUIRED (Motion v2, 2026-07-27) — additive NEW beats, never in-place

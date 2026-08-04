@@ -5,12 +5,12 @@
 ## Where everything stands
 
 - **3** — **live on Wistia.** Done; links in the *Delivered* table below.
-- **21** — **ready to build.** Script approved; nothing made yet.
+- **22** — **ready to build.** Script approved; nothing made yet.
 - **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
-- **2** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
+- **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
 - **13** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **0** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
@@ -55,6 +55,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **m3_building-your-future-you-resume-pt1** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m3_building-your-future-you-resume-pt1` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - **m3_from-history-to-signal** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
+  - left off after **preflight**, 56 min ago
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m3_from-history-to-signal` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - **m3_how-to-reposition-your-career** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m3_how-to-reposition-your-career` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
@@ -90,20 +91,21 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 - career-building-is-a-repeatable-process_early-career-boost  (freeform lane)
   - state: freeform design written; narration not yet synthesized
-  - last written to: 3 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 4 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: reclaim the lock, then resume: `bash scripts/build-claim.sh career-building-is-a-repeatable-process_early-career-boost early-career-boost --resume` → `/render-lessons` BUILD career-building-is-a-repeatable-process_early-career-boost. Do NOT delete the workspace — it holds work a rebuild would discard
 - do-not-just-ask-what-ai-replaces_early-career-boost  (scaffold lane)
   - state: workspace claimed from the scaffold; no plan and no design authored yet
-  - last written to: 3 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 4 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: nothing authored yet, so nothing is lost — discard and rebuild: `rm -rf projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost && /render-lessons BUILD do-not-just-ask-what-ai-replaces_early-career-boost`
 
 ## mid-career-momentum
 
 **READY — queued to build:**
 
-7. m2_mid-career-mindsets-and-limiting-beliefs
-8. m2_the-value-of-building-mid-career-momentum
-9. m3_discover-experiences-that-support-your-next-move
+7. m0_welcome-to-mid-career-momentum
+8. m2_mid-career-mindsets-and-limiting-beliefs
+9. m2_the-value-of-building-mid-career-momentum
+10. m3_discover-experiences-that-support-your-next-move
 
 **BUILDING — in flight, no MP4 yet:**
 
@@ -120,47 +122,47 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 - m2_four-kinds-of-career-transition_mid-career-momentum  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m2_four-kinds-of-career-transition_mid-career-momentum` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_building-your-future-you-resume-pt1  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_building-your-future-you-resume-pt1` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_from-history-to-signal  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - left off after **preflight**, 56 min ago
   - next: run the gate: `bash scripts/build-gate.sh m3_from-history-to-signal` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_how-to-reposition-your-career  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_how-to-reposition-your-career` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_rewrite-your-linkedin-for-future-you  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_rewrite-your-linkedin-for-future-you` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_using-the-resume-builder-tool-pt2  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_using-the-resume-builder-tool-pt2` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m4_finding-new-peers-sponsors-and-opportunity-holders  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m4_finding-new-peers-sponsors-and-opportunity-holders` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m4_visibility-actions  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m4_visibility-actions` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m4_who-will-walk-this-next-chapter-with-you  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m4_who-will-walk-this-next-chapter-with-you` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m5_skills-for-the-ai-era  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m5_skills-for-the-ai-era` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m6_youve-built-momentum  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 16 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m6_youve-built-momentum` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 
 **NEEDS SCRIPT — only you can finish these:**
@@ -170,31 +172,28 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - m4_visibility-actions-what-they-are-and-how-to-practice-them
   - marker: `SCRIPT PENDING` in `lesson-scripts/mid-career-momentum/inbox/m4_visibility-actions-what-they-are-and-how-to-practice-them.txt`
   - **what's needed:** do not refine or build. Re-confirmed 2026-07-24 (auto drain): body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you; never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row. Owner-actionable: supply real visibility-actions narration.
-- m0_welcome-to-mid-career-momentum
-  - marker: `SCRIPT PENDING` in `lesson-scripts/mid-career-momentum/ready/m0_welcome-to-mid-career-momentum.txt`
-  - **what's needed:** do not build. Requeued from the deleted avatar lane 2026-08-04 with one qa-facts finding still open: line 5 tells the learner to reach out through the "#questionsupport channel", and no channel of that name (or any hyphenated variant) exists in member-support/community-platform.md's directory — every help channel there uses a help-* prefix. Naming a channel that does not exist is spoken narration a learner will act on, so it is the fabrication ban, not a typo. Owner-actionable: confirm the real support channel name, correct line 5, and delete this marker; the lesson rejoins the build queue on the next status run. (The second finding from the 2026-07-23 avatar-route review — "your broader Career Accelerator journey" — is already fixed in the body: line 3 now reads "your broader career journey".)
 
 ## career-transitions
 
 **READY — queued to build:**
 
-10. m2_four-kinds-of-career-transition_career-transitions
-11. m2_welcome-and-using-career-transitions-as-leaps-ahead
-12. m3_the-identity-audit
-13. m3_the-two-sided-work
-14. m4_building-your-carry-forward-inventory
-15. m5_testing-your-next-chapter
-16. m5_the-story-that-makes-the-change-legible
-17. m7_your-reinvention-roadmap
+11. m2_four-kinds-of-career-transition_career-transitions
+12. m2_welcome-and-using-career-transitions-as-leaps-ahead
+13. m3_the-identity-audit
+14. m3_the-two-sided-work
+15. m4_building-your-carry-forward-inventory
+16. m5_testing-your-next-chapter
+17. m5_the-story-that-makes-the-change-legible
+18. m7_your-reinvention-roadmap
 
 ## entrepreneur-accelerator
 
 **READY — queued to build:**
 
-18. m1_reframing-entrepreneurship-and-going-solo
-19. m3_choosing-your-solo-model
-20. m4_building-visibility-on-your-own
-21. m5_making-solo-work-sustainable
+19. m1_reframing-entrepreneurship-and-going-solo
+20. m3_choosing-your-solo-model
+21. m4_building-visibility-on-your-own
+22. m5_making-solo-work-sustainable
 
 **RAW — waiting on refinement:**
 

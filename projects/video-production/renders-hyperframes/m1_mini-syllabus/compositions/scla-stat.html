@@ -308,7 +308,7 @@
           // Second hit: the proportional bar fills as its own distinct beat.
           tl.fromTo("#sh-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0.7);
           tl.fromTo("#sh-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
-          tl.fromTo("#sh-panel-ring", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
+          tl.fromTo("#sh-panel-ring", { scale: 1 }, { scale: 1.05, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);  /* motion-allow: ring-breath — decorative ambient oval layer, granted by design-contract.md "Depth-drift runs in finite yoyo cycles" */
           // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the two panel
           // rings drift at different rates — translate-only decorative parallax in finite
           // sine yoyo cycles sized to register at QA frame sampling. (The promoted single
@@ -322,8 +322,8 @@
           // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
           // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
           // thumbnail px → read static at frame sampling. ~110/70px clears it.
-          drift("#sh-panel-ring", 110, 68, 3.2);
-          drift("#sh-panel-ring-2", -84, -52, 2.7);
+          drift("#sh-panel-ring", 110, 68, 3.2);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
+          drift("#sh-panel-ring-2", -84, -52, 2.7);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
           // Idle re-animation of settled content remains banned (2026-07-14/15) — the
           // settled number stays put — but the cued closing beat and exit below are
           // REQUIRED (Motion v2, 2026-07-27).

@@ -44,6 +44,15 @@ spacing:
   card-gutter: 24 # px. Minimum clear air between two bordered cards stacked in the same column. Cards grow when their copy wraps; the gutter is what proves the growth had somewhere to go. Added 2026-07-29 after a career-map cut left 26px between one pair of cards and 74px between the other, and the owner read the 26 as touching
   radius-card: "12px"
   radius-pill: "100px"
+
+# Declared label-chrome rectangles ("x0,y0,x1,y1") that the pixel bounds gate
+# (render-qa/src/check_ink.py, freeform lane) blanks before grading its
+# keep-out bands. The design contract hands the outer band to label furniture
+# (brandline/eyebrow) BY NAME; a pixel gate cannot tell furniture from content,
+# so the grant is declared here and printed on every run — never absorbed into
+# a loosened threshold. Loaded by tokens.chrome_regions().
+chrome-regions: ["100,50,700,110"]
+
 components:
   cta-label: "gold text 900 with leading → arrow, no fill/pill — video CTAs aren't clickable, so never style them as buttons"
   chip: "2px blue border, transparent fill, blue text, radius 100px"

@@ -62,6 +62,7 @@ SCLA's online member community — referred to internally as **COMMUNITY** — i
 | help-hire-me | Members looking for roles — share what you bring |
 | help-hiring-intros | Request and offer warm intros to companies |
 | help-job-seekers-support | Crowdsourced support for job searchers |
+| questionsupport | Ask a question and get unstuck — the learner-facing support channel on the SCLA dashboard. Added 2026-08-04, owner-confirmed; it does not carry the `help-` prefix the three channels above use |
 
 ### Sharing & resources
 
