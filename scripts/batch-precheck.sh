@@ -45,11 +45,14 @@ echo "   preflight exit=0"
 #
 #   freeform lane — check_pacing is SKIPPED there and cannot be ported (its
 #     input is the compiler's private cue protocol). So the grid becomes uniform
-#     and dense enough for check_diversity to measure a freeze: ~1.25s, which is
-#     STAGNANT_FAIL/4. That costs ~120 stills instead of ~5 on a 150s lesson and
-#     is the whole point — on 2026-07-31 a freeform cut passed this precheck on 5
-#     stills, passed a human preview, and was then blocked post-render by three
-#     5s frozen spans that nothing upstream had been looking for.
+#     and dense enough for check_diversity to measure a freeze: MAX_SAMPLE_GAP,
+#     imported below rather than hand-copied so this comment cannot drift from
+#     the constant again — ~1.5s at STAGNANT_FAIL=6.0 (was ~1.25s at 5.0, raised
+#     BUILD-PLAN A1 2026-08-04). That costs ~100 stills instead of ~5 on a 150s
+#     lesson and is the whole point — on 2026-07-31 a freeform cut passed this
+#     precheck on 5 stills, passed a human preview, and was then blocked
+#     post-render by three 5s+ frozen spans that nothing upstream had been
+#     looking for.
 #
 # sample_units (not parse_scenes) is the beat grid: a freeform clip is an ACT,
 # so per-clip sampling starves every sampler — 26 beats collapse to 5 stills.

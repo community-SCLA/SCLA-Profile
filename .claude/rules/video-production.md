@@ -286,21 +286,52 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   the instrument that answers the question, and "the human" is only a legal
   answer for questions a human can actually answer. *(Mechanism:
   `render-qa/src/check_diversity.py` rule `static-span`, run pre-render by
-  `scripts/batch-precheck.sh` over a uniform ~1.25s snapshot grid; same rule and
-  constants as `check_presence`, which stays authoritative post-render.
-  `grid-too-sparse` fails a grid too coarse to see a `STAGNANT_FAIL` freeze.
-  `TIME_EPS = 0.02` absorbs the 1/100s filename-timestamp slop, and
-  `batch-precheck.sh` rounds its emitted grid to match. Pinned by
-  `render-qa/tests/test_diversity.py`. Why: log 2026-07-31 (freeform gates) "A
-  measurement is never delegated to the human preview".)*
-- **Monotony stays with the human, and is reported rather than blocked on.** The
-  twin threshold is not calibrated against the owner's reference video, and a
-  gate that blocks on an unpinned taste number is one that gets switched off. Per
-  STD-38 it teaches first; pin it against a reference build before arming it.
-  *(Mechanism: `check_diversity.py` rule `twin-beats`, advisory, printed by
-  `verify_render.py`'s `monotony` section; `test_diversity.py` asserts it fires
-  AND that it stays out of the blocking list. Why: log 2026-07-31 (freeform
-  gates).)*
+  `scripts/batch-precheck.sh` over a uniform ~1.5s snapshot grid (was ~1.25s;
+  moved with `STAGNANT_FAIL` 5.0 → 6.0, BUILD-PLAN A1 2026-08-04 — the
+  quarantine on the owner-approved cut fired on spans the owner had already
+  watched and approved); same rule and constants as `check_presence`, which
+  stays authoritative post-render. `grid-too-sparse` fails a grid too coarse
+  to see a `STAGNANT_FAIL` freeze. `TIME_EPS = 0.02` absorbs the 1/100s
+  filename-timestamp slop, and `batch-precheck.sh` rounds its emitted grid to
+  match. Pinned by `render-qa/tests/test_diversity.py`. Why: log 2026-07-31
+  (freeform gates) "A measurement is never delegated to the human preview".)*
+- **Monotony (twin-share) is a reported, non-blocking backstop, not a taste
+  rule.** The per-pair `twin-beats` defect this bullet used to name is
+  RETIRED: the owner-approved reference cut scores worse on it (2 pairs) than
+  the cut the owner rejected (0), so arming it would have pushed every future
+  build toward the boring one. `twin-share` replaces it — but as an anti-
+  gaming BACKSTOP for the Pace rule below, not a quality signal: its 25%
+  ceiling is deliberately chosen NOT to discriminate between the two
+  reference cuts (both pass it), so it never reports on taste, only on
+  whether beats are being split with no visual change to satisfy `beat-pace`
+  for free. *(Mechanism: `check_pace.py` rule `twin-share`, BLOCKING in the
+  full gate over the `snapshots/` grid via `preflight.py`; `check_diversity.py`
+  still computes the same per-beat share as `report["twin_share"]`
+  (informational only) for `verify_render.py`'s `monotony` section to quote.
+  Pinned by `render-qa/tests/test_pace.py` (planted-fixture only — the rule
+  has no naturally-occurring failing build) and
+  `render-qa/tests/test_diversity.py`. Why: log 2026-08-04 "Owner verdict:
+  gate set approved the rejected cut, quarantined the approved one".)*
+- **A lesson delivers roughly one idea every six seconds, against a carrying
+  object that persists.** Median beat duration ≤7.0s, ≥8.0 beats/minute, and
+  no more than 60% of runtime spent inside beats over 8.0s — thresholds sit in
+  the gap between one owner-approved freeform cut and one the owner rejected
+  as "SO boring", with margin on both sides, the same calibration idiom
+  `check_diversity` uses for `FREEZE_MAXDIFF`. **Stated limit: calibrated on
+  n=2, one lesson, two cuts** — enough to fix a direction, not enough to claim
+  a general law; a lesson that genuinely wants a slower shape is an owner
+  decision that pins a second reference build in `decisions/log.md`, never a
+  loosened constant. *(Mechanism: `render-qa/src/check_pace.py` rules
+  `beat-pace` + `long-beat-share`, wired into `preflight.py`'s freeform branch
+  — timing rules in `--static`, `carrier-drift` (the carrying-object band) in
+  the full gate over `snapshots/`. BLOCKING, not advisory: an advisory pace
+  gate would reproduce the exact failure that exposed this — the boring cut
+  passed everything advisory and shipped to the gate clean. Pinned by
+  `render-qa/tests/test_pace.py`, calibrated against the owner-approved
+  `build-direction-before-you-build-a-plan_early-career-boost` (2026-07-31,
+  live at the Wistia URL in `published.tsv`) and the rejected
+  `..._2026-08-04-freeform-backup`. Why: log 2026-08-04 "Owner verdict: gate
+  set approved the rejected cut, quarantined the approved one".)*
 - **Narration word timings have one loader, and a gate that cannot see them says
   so.** *(Mechanisms: `hfp_common.load_words()` reads all three shapes — the two
   flat word files and the freeform per-beat one (`audio_meta.json`), offsetting

@@ -9,6 +9,46 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-04 — Owner verdict: gate set approved the rejected cut, quarantined the approved one
+
+**Decision:** the freeform pipeline gains a Pace rule (`render-qa/src/check_pace.py`,
+BLOCKING) — median beat ≤7.0s, ≥8.0 beats/minute, ≤60% of runtime in beats over
+8.0s, and a carrying-object churn band (`carrier-drift`) — and `check_diversity`'s
+per-pair `twin-beats` defect is retired in favor of `twin-share`, an anti-gaming
+backstop for `beat-pace` with a 25% ceiling that deliberately does not
+discriminate between the two cuts below.
+
+**Why:** the owner reviewed two freeform cuts of the same lesson on 2026-08-04.
+`build-direction-before-you-build-a-plan_early-career-boost` (built 2026-07-30/31,
+26 beats, 10.26 beats/min, median 5.15s) was **approved to ship** — and was
+QUARANTINED by `verify_render`'s presence check on three static spans (5.0s,
+5.5s, 5.5s) the owner had already watched and approved. A second cut of the same
+lesson (17 beats, 6.47 beats/min, median 9.12s) passed every gate in `src/`
+clean and was called **"SO boring."** The gate set had it backwards in both
+directions at once.
+
+A prediction was made and refuted: the expectation was that the boring cut
+would fail `check_presence` harder. It does not — its longest static span is
+3.75s, under the (then) 5.0s floor, and it changes something every ~2.5s,
+scoring as the *more* animated build by every metric the pipeline owned. The
+refutation is what found the real discriminators: the rejected cut delivers
+one idea every 9.3s and nothing on screen accumulates, while the approved
+cut's low inter-beat churn (3.34%, two twin pairs) is the *signature* of a
+persisting carrying object — one field of 48 marks, built once and thereafter
+only re-grouped. The gate set measured animacy; the owner was responding to
+idea rate and whether the frame accumulates.
+
+**Two follow-on changes, same session:** `STAGNANT_FAIL` moves 5.0 → 6.0 (the
+quarantine floor sat below a span the owner had already approved; it does not
+rescue the rejected cut, whose worst span is already under the old floor) and
+the existing MP4 ships unmodified — **live at the Wistia URL recorded in
+`published.tsv`** against `build-direction-before-you-build-a-plan_early-career-boost`.
+
+**Stated limit:** the pace thresholds are calibrated on n=2 — one lesson, two
+cuts. Enough to fix a direction, not enough to claim a general law. A future
+lesson that genuinely wants a slower shape is an owner decision that pins a
+second reference build here, never a loosened constant or a CLI flag.
+
 ## 2026-08-04 — The write fence
 
 **Decision:** a `PreToolUse` hook (`scripts/write-fence.sh`) hard-blocks writes

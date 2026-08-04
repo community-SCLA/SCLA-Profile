@@ -838,7 +838,24 @@ Track B.
       says its snapshot grid feeds `carrier-drift` + `twin-share` too, not
       ink alone. Step 8's gate list gained `pace`. `lint-refs.sh` 12/12 green;
       full suite 0 failures.
-- [ ] B4 ⛔ `.claude/rules/video-production.md` mechanism lines
+- [x] B4 `.claude/rules/video-production.md` mechanism lines — the
+      `~1.25s` snapshot-grid figure corrected to `~1.5s` (moved with A1's
+      `STAGNANT_FAIL`; found the same stale-comment shape in
+      `scripts/batch-precheck.sh` line 48 while here and fixed it too, now
+      importing `MAX_SAMPLE_GAP` in prose rather than restating a number).
+      The monotony bullet rewritten: `twin-beats` (retired) → `twin-share`
+      (an anti-gaming backstop, explicitly NOT a quality rule — its ceiling
+      doesn't discriminate between the two reference cuts). New Pace bullet
+      added, mechanism `check_pace.py`, the n=2 stated limit carried into the
+      rule text itself, not just the module docstring. Both new bullets cite
+      `Why: log 2026-08-04 "Owner verdict: gate set approved the rejected
+      cut, quarantined the approved one"` — added that entry to
+      `decisions/log.md` (this plan's own "why" belongs there per the file's
+      stated discipline, and the citation needs a real grep target). Deleted
+      `PENDING-pace-gates.md`: every piece it described (check_pace.py → src/,
+      the STAGNANT_FAIL move, the SKILL.md steps, these mechanism lines) is
+      now applied — same hand-off discipline as `PENDING-write-fence-fix.md`.
+      `lint-refs.sh` 12/12 green (95 assertions, STD-35 still 0 broken).
 - [ ] B5 ⛔ one new freeform pilot built UNDER the pace gates → owner verdict.
       Restores Phase 4's precondition.
 
