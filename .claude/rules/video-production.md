@@ -155,10 +155,15 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
 - **The narration wav carries its own trailing hold.** Every scene gets real
   silence after it, including the last; video outliving audio proves nothing, the
   release has to be in the file. A lesson's ending needs longer to land than a
-  scene boundary does — `FINAL_HOLD` is **1.8s**. *(Mechanisms:
+  scene boundary does — `FINAL_HOLD` is **1.8s**. On the freeform lane there is
+  no mixdown, so the file in question is the final CLIP's own wav; the video
+  running longer is not a substitute there either. *(Mechanisms:
   `synth_narration.py` (final clip is not tail-trimmed and gets `FINAL_HOLD`);
   `check_boundaries.py` rules `audio-tail-clipped` + `final-hold` against
-  `MIN_FINAL_HOLD`; `test_gates.py` asserts the producer clears its own floor.
+  `MIN_FINAL_HOLD`, on the template path and via `check_boundaries.py`'s
+  `check_freeform()` per-clip adapter on the freeform lane, both run by
+  `preflight.py`; `test_gates.py` asserts the producer clears its own floor and
+  `render-qa/tests/test_freeform.py` pins the per-clip form.
   Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
 
 ## Layout and geometry

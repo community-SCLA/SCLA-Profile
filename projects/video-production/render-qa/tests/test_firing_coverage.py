@@ -46,7 +46,12 @@ RQ = HERE.parent
 # fixture that backs a row is not.
 REQUIRED = {
     "check_boundaries": ["mid-sentence-cut", "mid-word-cut", "insufficient-air",
-                         "final-hold", "tail-after-last-scene"],
+                         "final-hold", "tail-after-last-scene",
+                         # the freeform lane: 24 clip wavs instead of one
+                         # narration.wav. The ending floor was bought with two
+                         # owner rejections and must not be lost in the move.
+                         "freeform-audio-tail", "freeform-final-hold",
+                         "freeform-insufficient-air", "freeform-mid-sentence"],
     "check_capacity":   ["maxlines"],
     "check_continuity": ["blip", "split-list", "split-sentence",
                          "freeform-opens-lowercase", "nothing-graded"],

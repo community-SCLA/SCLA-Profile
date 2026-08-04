@@ -300,7 +300,20 @@ commit.
       each freeform clip's words by its `timing.json` `audio_start`.
       `test_diversity.py` pins the per-beat offset case; `check_presence` and
       `check_diversity` both call it.
-- [ ] 1.5d `check_boundaries` per-clip adapter + `FINAL_HOLD`
+- [x] 1.5d `check_boundaries` per-clip adapter + `FINAL_HOLD` —
+      `check_freeform()` grades the same rules with the same rule ids from
+      `audio_request.json` + `audio_meta.json` + `timing.json`, and preflight no
+      longer skips boundaries on this lane (still skipped under `--static`,
+      where the wavs do not exist yet). **Finding, and it is the one the plan
+      predicted:** the agent-native reference build FAILS `audio-tail-clipped`.
+      Its final clip's wav holds **0.261s** of real audio past the last word
+      against a 1.5s floor (the producer gives 1.8s). The video does hold 2.06s,
+      which is exactly the defence the rules file already rejects — "video
+      outliving audio proves nothing, the release has to be in the file." That
+      is the ending the owner rejected twice, and it was shipping ungraded
+      because this gate exited 2 on the whole build. Also caught: `s06` gets
+      0.34s after a question against the 0.35s floor. Phase 3's pilot must
+      synthesize its final clip with `FINAL_HOLD`.
 - [ ] 2.1 write fence + hook tests
 - [ ] 2.2 AGENTS.md purge + assertion
 - [ ] 3 freeform pilot built (1 lesson) — gate failures, if any: _(record here)_

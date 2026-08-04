@@ -841,11 +841,10 @@ def main():
         failed |= rc != 0
 
     # 2. boundary rules (independent checker)
-    if freeform:
-        sections["boundaries"] = freeform_skip(
-            "check_boundaries wants narration.wav + a flat words file (the "
-            "freeform adapter is deferred) — the final-hold floor is graded "
-            "in compile_check above from timing.json")
+    if freeform and static_mode:
+        # Plan stage: the clip wavs and their word timings do not exist yet.
+        sections["boundaries"] = static_skip(
+            "the per-clip wavs + audio_meta.json word timings")
     elif static_mode:
         sections["boundaries"] = static_skip("the transcript + narration.wav")
     else:

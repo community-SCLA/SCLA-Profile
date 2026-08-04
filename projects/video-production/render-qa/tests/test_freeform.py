@@ -20,6 +20,7 @@ from pathlib import Path
 RQ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RQ / "src"))
 
+import check_boundaries
 import check_continuity
 import check_copy
 import check_fit
@@ -399,6 +400,96 @@ rep, probs = check_fit.check(None, strings=[])
 fires("check_fit", "nothing-graded",
       "a build with no on-frame strings FAILS rather than passing",
       rep is None and "nothing-graded" in rules_of(probs), str(probs))
+
+# ---------------------------------------------------------------------------
+# check_boundaries — the freeform adapter (step 1.5d).
+#
+# check() exited 2 on every freeform build ("wants narration.wav"), which took
+# the ENDING FLOOR with it. That floor was bought with two owner rejections:
+# MIN_FINAL_HOLD was raised 1.0 -> 1.5 because a 1.1s ending read as abrupt,
+# and synth_narration gives the final clip 1.8s of real silence. An adapter
+# that moved the boundary rules but left final-hold behind would un-enforce
+# exactly the rule those rejections paid for — so it is fixtured first.
+
+def audio_ws(name, beats, root):
+    """beats: [(id, text, audio_start, [(w,s,e)], clip_dur, vis_start, vis_dur)]"""
+    ws = TMP / name
+    shutil.rmtree(ws, ignore_errors=True)
+    (ws / "compositions").mkdir(parents=True)
+    (ws / "compositions" / "main.html").write_text(CLEAN_COMP)
+    (ws / "index.html").write_text(
+        f'<div id="root" data-duration="{root}">'
+        f'<div class="clip" data-composition-src="compositions/main.html"'
+        f' data-composition-id="main" data-start="0"'
+        f' data-duration="{root}"></div></div>')
+    (ws / "audio_request.json").write_text(json.dumps({"provider": "heygen",
+        "lines": [{"id": b[0], "text": b[1]} for b in beats]}))
+    (ws / "audio_meta.json").write_text(json.dumps({"voices": [
+        {"id": b[0], "path": f"assets/voice/{b[0]}.wav", "duration_s": b[4],
+         "words": [{"text": w, "start": s, "end": e} for w, s, e in b[3]]}
+        for b in beats]}))
+    (ws / "timing.json").write_text(json.dumps({"total": root, "rows": [
+        {"id": b[0], "audio_start": b[2], "audio_dur": b[4],
+         "vis_start": b[5], "vis_dur": b[6]} for b in beats]}))
+    return ws
+
+
+#            id     text                 a0    words(clip-rel)          clip  vis0 visdur
+CLEAN_AUDIO = [
+    ("s01", "You have built years of experience.", 0.5,
+     [("You", 0.2, 0.5), ("experience.", 2.6, 3.0)], 3.4, 0.0, 4.0),
+    ("s02", "Your next move can build on it.", 4.5,
+     [("Your", 0.2, 0.5), ("it.", 2.7, 3.0)], 4.8, 4.0, 5.5),
+]
+res = check_boundaries.check(audio_ws("bounds-clean", CLEAN_AUDIO, 9.5))
+check("a clean freeform build GRADES (no longer exit-2) and passes",
+      res["verdict"] == "PASS" and res.get("lane") == "freeform", str(res))
+
+# The final clip's own wav holds only 0.2s past the last word.
+short_tail = [CLEAN_AUDIO[0],
+              ("s02", "Your next move can build on it.", 4.5,
+               [("Your", 0.2, 0.5), ("it.", 2.7, 3.0)], 3.2, 4.0, 5.5)]
+res = check_boundaries.check(audio_ws("bounds-tail", short_tail, 9.5))
+fires("check_boundaries", "freeform-audio-tail",
+      "a final clip whose FILE stops 0.2s after the last word FAILS — the "
+      "video holding longer does not put the release back",
+      any(v["rule"] == "audio-tail-clipped" for v in res["violations"]),
+      str(res["violations"]))
+
+# ...and the video holding a long time is explicitly not a defence: root runs
+# well past the audio here, and it still fires.
+check("a long VIDEO tail does not excuse a clipped AUDIO tail",
+      any(v["rule"] == "audio-tail-clipped" for v in
+          check_boundaries.check(audio_ws("bounds-tail2", short_tail,
+                                          14.0))["violations"]))
+
+# Video cuts 0.4s after the last word: under the 1.5s ending floor.
+res = check_boundaries.check(audio_ws("bounds-hold", [
+    CLEAN_AUDIO[0],
+    ("s02", "Your next move can build on it.", 4.5,
+     [("Your", 0.2, 0.5), ("it.", 2.7, 3.0)], 4.8, 4.0, 2.4)], 7.9))
+fires("check_boundaries", "freeform-final-hold",
+      "an ending that cuts 0.4s after the last spoken word FAILS the floor",
+      any(v["rule"] == "final-hold" for v in res["violations"]),
+      str(res["violations"]))
+
+res = check_boundaries.check(audio_ws("bounds-air", [
+    ("s01", "You have built years of experience.", 0.5,
+     [("You", 0.2, 0.5), ("experience.", 2.6, 3.0)], 3.4, 0.0, 3.55),
+    CLEAN_AUDIO[1]], 9.5))
+fires("check_boundaries", "freeform-insufficient-air",
+      "a beat cutting 0.05s after its last word FAILS the air floor",
+      any(v["rule"] == "insufficient-air" for v in res["violations"]),
+      str(res["violations"]))
+
+res = check_boundaries.check(audio_ws("bounds-split", [
+    ("s01", "You have built years of experience and", 0.5,
+     [("You", 0.2, 0.5), ("and", 2.6, 3.0)], 3.4, 0.0, 4.0),
+    CLEAN_AUDIO[1]], 9.5))
+fires("check_boundaries", "freeform-mid-sentence",
+      "a beat ending mid-sentence FAILS — the boundary splits a thought",
+      any(v["rule"] == "mid-sentence-cut" for v in res["violations"]),
+      str(res["violations"]))
 
 empty = TMP / "forms-empty"
 shutil.rmtree(empty, ignore_errors=True)

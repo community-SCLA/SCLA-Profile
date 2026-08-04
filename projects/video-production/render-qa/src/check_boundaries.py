@@ -91,6 +91,148 @@ def parse_scenes(index_html: str):
     return scenes, root_duration
 
 
+# ---------------------------------------------------------------------------
+# Freeform (agent-native) lane — BUILD-PLAN step 1.5d
+#
+# The template path synthesises ONE narration.wav plus a flat words file. A
+# freeform build has neither: 24 per-beat clip wavs, their words timed from
+# each clip's own zero in audio_meta.json, and timing.json placing each clip on
+# the timeline. check() therefore exited 2 on every freeform build — "wants
+# narration.wav" — which took the ending floor with it. That floor is not a
+# nice-to-have: the owner rejected the ending of two separate builds for
+# stopping too abruptly, MIN_FINAL_HOLD was raised 1.0 -> 1.5 because of it,
+# and synth_narration gives the final clip FINAL_HOLD = 1.8s of real silence.
+# An adapter that moved the boundary rules but left final-hold behind would
+# un-enforce precisely the rule that was bought with two rejections.
+#
+# The rules are identical and keep their rule ids; only where the numbers come
+# from changes. The one that needs saying out loud is audio-tail-clipped: the
+# release has to be IN THE FILE. A freeform build's last clip is its own file,
+# so its tail is measured against that clip, not against a mixdown, and the
+# video running longer does not substitute for it.
+# ---------------------------------------------------------------------------
+
+def freeform_inputs(ws: Path):
+    """(beats, root_duration) for a freeform build, or (None, None).
+
+    A beat carries: id, cut (visual end), text, spoken_end (absolute), and for
+    the last clip the tail its own wav actually holds past the last word.
+    """
+    ws = Path(ws)
+    req, meta, timing = (ws / "audio_request.json", ws / "audio_meta.json",
+                         ws / "timing.json")
+    if not (req.exists() and meta.exists() and timing.exists()):
+        return None, None
+    try:
+        lines = (json.loads(req.read_text(encoding="utf-8")) or {}).get("lines") or []
+        voices = {v.get("id"): v for v in
+                  (json.loads(meta.read_text(encoding="utf-8")).get("voices") or [])}
+        rows = {r.get("id"): r for r in
+                (json.loads(timing.read_text(encoding="utf-8")).get("rows") or [])}
+    except (ValueError, OSError, AttributeError):
+        return None, None
+
+    root = re.search(r'id="root"[^>]*data-duration="([\d.]+)"',
+                     (ws / "index.html").read_text(encoding="utf-8",
+                                                   errors="replace"))
+    beats = []
+    for i, ln in enumerate(lines):
+        bid = ln.get("id") if isinstance(ln, dict) else None
+        bid = bid or f"s{i + 1:02d}"
+        text = (ln.get("text") if isinstance(ln, dict) else ln) or ""
+        row, voice = rows.get(bid), voices.get(bid)
+        if not row or not voice:
+            continue
+        words = voice.get("words") or []
+        if not words:
+            continue
+        a0 = float(row.get("audio_start", 0.0))
+        last_rel = max(float(w["end"]) for w in words)
+        try:
+            clip_dur = float(voice.get("duration_s"))
+        except (TypeError, ValueError):
+            clip_dur = None
+        beats.append({
+            "id": bid, "text": text.strip(),
+            "cut": float(row.get("vis_start", 0.0)) + float(row.get("vis_dur", 0.0)),
+            "spoken_end": a0 + last_rel,
+            # What THIS clip's own file holds past its last word.
+            "clip_tail": None if clip_dur is None else clip_dur - last_rel,
+            "audio_end": None if clip_dur is None else a0 + clip_dur,
+        })
+    if not beats:
+        return None, None
+    return beats, (float(root.group(1)) if root else None)
+
+
+def check_freeform(ws: Path):
+    """Same rules, same rule ids, freeform inputs."""
+    beats, root_duration = freeform_inputs(ws)
+    if beats is None:
+        raise FileNotFoundError(
+            f"{ws} has no usable freeform boundary inputs (needs "
+            f"audio_request.json + audio_meta.json + timing.json with words)")
+
+    findings, report = [], []
+    audio_end = max((b["audio_end"] for b in beats
+                     if b["audio_end"] is not None), default=None)
+    for i, b in enumerate(beats):
+        is_last = i == len(beats) - 1
+        gap = round(b["cut"] - b["spoken_end"], 3)
+        text = b["text"].split()[-1] if b["text"] else ""
+        sentence_end = bool(re.search(r"[.!?][\"')\]]*$", text))
+        is_question = text.rstrip("\"')]").endswith("?")
+        report.append({"scene": b["id"], "cut_at": b["cut"],
+                       "last_word": text, "last_word_end": b["spoken_end"],
+                       "gap": gap, "sentence_end": sentence_end})
+
+        if gap < 0:
+            findings.append({"scene": b["id"], "rule": "mid-word-cut",
+                             "detail": f"beat cuts {abs(gap):.2f}s BEFORE its "
+                                       f"last word '{text}' finishes"})
+        elif not is_last and gap < MIN_AIR:
+            findings.append({"scene": b["id"], "rule": "insufficient-air",
+                             "detail": f"only {gap:.2f}s after '{text}' "
+                                       f"(need >= {MIN_AIR}s)"})
+        if is_question and not is_last and gap < MIN_QUESTION_AIR:
+            findings.append({"scene": b["id"], "rule": "question-clipped",
+                             "detail": f"question '{text}' gets {gap:.2f}s air "
+                                       f"(need >= {MIN_QUESTION_AIR}s)"})
+        if not sentence_end and not is_last:
+            findings.append({"scene": b["id"], "rule": "mid-sentence-cut",
+                             "detail": f"beat's last word '{text}' does not "
+                                       f"end a sentence — the boundary splits "
+                                       f"a thought"})
+        if is_last:
+            if root_duration is not None:
+                hold = round(root_duration - b["spoken_end"], 3)
+                if hold < MIN_FINAL_HOLD:
+                    findings.append({
+                        "scene": b["id"], "rule": "final-hold",
+                        "detail": f"video holds {hold:.2f}s after the last "
+                                  f"spoken word (need >= {MIN_FINAL_HOLD}s)"})
+                if audio_end is not None and root_duration < audio_end:
+                    findings.append({
+                        "scene": b["id"], "rule": "audio-outlives-video",
+                        "detail": f"root duration {root_duration}s < audio "
+                                  f"{audio_end:.2f}s — narration gets clipped"})
+            # The rule the owner bought with two rejections. The release has to
+            # be in the FILE; a freeform build's last clip IS the file, and the
+            # video running longer does not put the decay back.
+            if b["clip_tail"] is not None and b["clip_tail"] < MIN_FINAL_HOLD:
+                findings.append({
+                    "scene": b["id"], "rule": "audio-tail-clipped",
+                    "detail": f"the final clip's wav holds only "
+                              f"{b['clip_tail']:.3f}s of real audio after the "
+                              f"last spoken word (need >= {MIN_FINAL_HOLD}s; "
+                              f"synth_narration gives the final clip 1.8s). "
+                              f"The video holding longer does not fix this — "
+                              f"the word's release is not in the file."})
+    return {"scenes": report, "violations": findings,
+            "root_duration": root_duration, "audio_end": audio_end,
+            "verdict": "FAIL" if findings else "PASS", "lane": "freeform"}
+
+
 def check(ws: Path):
     """Grade one workspace's scene boundaries. Returns the result dict (the same
     object --json prints). Raises FileNotFoundError when index.html or the
@@ -104,6 +246,13 @@ def check(ws: Path):
     index_path = ws / "index.html"
     transcript_path = words_path_for(ws)
     wav_path = ws / "assets" / "voice" / "narration.wav"
+    # Freeform lane first: it has no narration.wav and no flat words file, so
+    # the template path below would raise and the whole gate — final-hold
+    # included — would be skipped. Detected by its own artifacts rather than by
+    # the absence of the template's, so a half-built template workspace still
+    # fails loudly instead of being quietly graded as freeform.
+    if not transcript_path.exists() and (ws / "audio_meta.json").exists():
+        return check_freeform(ws)
     if not index_path.exists() or not transcript_path.exists():
         raise FileNotFoundError(f"missing {index_path} or {transcript_path}")
 
