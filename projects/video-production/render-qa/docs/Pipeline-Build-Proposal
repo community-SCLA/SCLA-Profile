@@ -1,4 +1,6 @@
 Pipeline Review & Proposal — getting to "no review needed"
+2026-07-31
+
 1. The current state of things
 The good news first: the core design is already right. Agents author exactly two artifacts — the refined script and scenes.json — and everything downstream is computed by scripts: build_index.py compiles the HTML, compile_timeline.py owns every timing number, and batch-ship.sh never reads a word of what a subagent says — it re-runs preflight, re-hashes the MP4, and refuses to publish anything without a qa/VERIFIED marker. The "agent lied about success" problem is already designed out of the ship phase.
 

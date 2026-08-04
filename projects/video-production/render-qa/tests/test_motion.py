@@ -80,13 +80,32 @@ check("a one-shot entrance on content PASSES",
 check("`repeat: 0` is a one-shot, not keep-alive",
       not rules(tween('"#sm-statement"',
                       '{ y: -10, duration: 0.4, repeat: 0 }')))
-check("ring-breath on decoration PASSES",
-      not rules(tween('"#t-ring-1"', BOB)))
-check("ghost-layer depth drift PASSES",
-      not rules(tween('"#cd-ghost"', BOB)))
 check("a declared exception is honoured",
       not rules(tween('"#cc-iconwrap"', BOB).replace(
           ");", "); /* motion-allow: deliberate, owner-approved */", 1)))
+check("ring-breath PASSES once DECLARED",
+      not rules(tween('"#t-ring-1"', BOB).replace(
+          ");", "); /* motion-allow: ring-breath texture */", 1)))
+
+print("== a decorative NAME earns nothing (the allow-list is gone, 2026-08-04) ==")
+# Until 2026-08-04 nine substrings ("ghost", "ring", "-bg", …) bought a silent
+# exemption. That encoded SCLA template naming into the checker: freeform HTML
+# could not earn an exemption it followed no convention for, and any element
+# NAMED decoratively got one it never asked for. Measured when the list came
+# out: the agent-native reference build's #bg-glow had been exempt on its name
+# alone, and had never declared anything.
+fires(check, "check_motion", "keep-alive-motion",
+      "a ring-breath tween with NO declaration now FAILS on its name alone",
+      "keep-alive-motion" in rules(tween('"#t-ring-1"', BOB)),
+      str(rules(tween('"#t-ring-1"', BOB))))
+fires(check, "check_motion", "keep-alive-motion",
+      "an undeclared #...-ghost tween FAILS — 'ghost' is not a declaration",
+      "keep-alive-motion" in rules(tween('"#cd-ghost"', BOB)),
+      str(rules(tween('"#cd-ghost"', BOB))))
+fires(check, "check_motion", "keep-alive-motion",
+      "an undeclared '-bg' tween FAILS (the freeform #bg-glow case)",
+      "keep-alive-motion" in rules(tween('"#bg-glow"', BOB)),
+      str(rules(tween('"#bg-glow"', BOB))))
 
 print("== the laundering vector: a content tween routed through a helper ==")
 # scla-condition passed the living-icon hero through the SAME drift() helper as
@@ -98,17 +117,38 @@ helper = """<script>(function(){
     tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per,
       ease: "sine.inOut", yoyo: true, repeat: 4 }, 0);
   };
-  drift("#cd-ghost", 24, 14, 3.2);
+  drift("#cd-ghost", 24, 14, 3.2);  /* motion-allow: decorative ghost layer */
   drift("#cd-iconwrap", 0, -10, 2.7);
 })();</script>"""
 found = check_motion.grade(helper)
 check("a bob laundered through the drift() helper is still caught",
       any(f["rule"] == "keep-alive-motion" and "#cd-iconwrap" in f["detail"]
           for f in found), str(found))
-check("...and the decorative call through the SAME helper is not flagged",
+check("...and the DECLARED call through the SAME helper is not flagged",
       not any("#cd-ghost" in f["detail"] for f in found), str(found))
 check("the finding names the helper it came through",
       any("drift()" in f["detail"] for f in found), str(found))
+check("the finding points the author at the CALL SITE, not the helper body",
+      any("call site" in f["detail"] for f in found), str(found))
+
+# The blanket exemption, refused. A helper body serves every caller, so an
+# allow declared there would exempt content and decoration through one comment
+# — which is the drift() laundering above wearing a different hat. Only a call
+# site can speak for its own selector.
+blanket = """<script>(function(){
+  var drift = function (sel, ax, ay, per) {
+    tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per,
+      ease: "sine.inOut", yoyo: true, repeat: 4 }, 0);
+      /* motion-allow: all drift is decorative, trust me */
+  };
+  drift("#cd-ghost", 24, 14, 3.2);
+  drift("#cd-iconwrap", 0, -10, 2.7);
+})();</script>"""
+found = check_motion.grade(blanket)
+fires(check, "check_motion", "keep-alive-motion",
+      "a motion-allow in the HELPER BODY exempts no call site",
+      sum(1 for f in found if f["rule"] == "keep-alive-motion") == 2,
+      str(found))
 
 print("== an unreadable target is a coverage hole, not a pass ==")
 fires(check, "check_motion", "undeclared-target",

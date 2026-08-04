@@ -262,7 +262,7 @@
             tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
               yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
           };
-          drift("#cd-ghost", 24, 14, 3.2);
+          drift("#cd-ghost", 24, 14, 3.2);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
           // REMOVED 2026-07-29 (owner): drift("#cd-iconwrap", …), the living-icon bob.
           // (Mechanism: `render-qa/src/check_motion.py`.)
           // Closing beat (Motion v2, 2026-07-27) — one additive resolve in the final

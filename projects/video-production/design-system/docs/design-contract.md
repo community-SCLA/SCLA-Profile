@@ -104,11 +104,15 @@ a style choice. These are hard rules, checked at the QA gate.
   gone from the templates, so there is nothing left to select.
   *(Mechanism: `render-qa/src/check_motion.py`, run by `preflight.py` in both full
   and `--static` mode and by `npm run check` over the demo reel. It grades every
-  repeating tween — `yoyo`, or `repeat` other than 0 — and allows only
-  decorative ghost/ring targets, following a selector through a helper's call
-  sites so a content tween cannot be laundered through the drift helper the way
-  the icon bob was. A deliberate exception is declared on the tween with
-  `/* motion-allow: <reason> */`, never assumed. Firing fixtures:
+  repeating tween — `yoyo`, or `repeat` other than 0 — and allows NOTHING by
+  name, following a selector through a helper's call sites so a content tween
+  cannot be laundered through the drift helper the way the icon bob was. Every
+  exemption is declared with `/* motion-allow: <reason> */`, never assumed and
+  never inferred from an id: the nine-substring allow-list (`ghost`, `ring`,
+  `-bg`, …) was removed 2026-08-04 because it read a NAME as an intention, and
+  because agent-authored HTML follows no such convention. For a helper-routed
+  tween the declaration sits on the CALL SITE — a helper body serves every
+  caller, so an allow there is a blanket exemption. Firing fixtures:
   `render-qa/tests/test_motion.py`; full-length mutation in
   `render-qa/tests/test_mutations.py`.)*
 - **Furniture paints at t=0.** The scene's frame furniture — canvas texture,

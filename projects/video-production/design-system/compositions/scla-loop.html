@@ -391,7 +391,7 @@
           // scene (x-only — its entrance owns y) so the decorative layer registers at
           // QA frame sampling even between cues.
           tl.fromTo("#lp-ghost-num", { x: 0 }, { x: 20, duration: 3.2, ease: "sine.inOut",
-            yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);
+            yoyo: true, repeat: Math.max(1, Math.ceil(sceneDur / 3.2) - 1) }, 0);  /* motion-allow: depth-drift on the oversized ghost numeral — decorative texture layer, never content */
           // Sub-beats: a cued live line that swaps text on each spoken cue — covers
           // narration spans between primary reveals (mirrors scla-steps). Empty subBeats
           // (the default) = no DOM, no timeline impact. Seek-safe: tween-only swaps.

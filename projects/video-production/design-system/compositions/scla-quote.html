@@ -244,8 +244,8 @@
           tl.fromTo(["#q-index", "#q-brandline"], { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
           tl.fromTo("#q-ring", { opacity: 0.55, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
           tl.fromTo("#q-ring-2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.06);
-          tl.fromTo("#q-ring", { scale: 1 }, { scale: 1.04, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.5);
-          tl.fromTo("#q-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.6, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);
+          tl.fromTo("#q-ring", { scale: 1 }, { scale: 1.04, duration: 3.0, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.5);  /* motion-allow: ring-breath — decorative ambient oval layer, granted by design-contract.md "Depth-drift runs in finite yoyo cycles" */
+          tl.fromTo("#q-ring-2", { scale: 1 }, { scale: 1.05, duration: 2.6, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.8);  /* motion-allow: ring-breath — decorative ambient oval layer, granted by design-contract.md "Depth-drift runs in finite yoyo cycles" */
           // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the two ghost
           // rings drift at different rates behind the card — translate-only decorative
           // parallax in finite sine yoyo cycles sized to register at QA frame sampling.
@@ -259,8 +259,8 @@
           // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
           // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
           // thumbnail px → read static at frame sampling. ~110/70px clears it.
-          drift("#q-ring", 110, -70, 3.3);
-          drift("#q-ring-2", -92, 52, 2.8);
+          drift("#q-ring", 110, -70, 3.3);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
+          drift("#q-ring-2", -92, 52, 2.8);  /* motion-allow: depth-drift parallax on the decorative ghost/ring layer */
           // Idle re-animation of settled content remains banned (owner decisions
           // 2026-07-14/15 — no late-phase card drift, no in-place motion of the
           // settled card), but the cued closing beat and the exit below are

@@ -12,7 +12,7 @@ Match the task, load the ONE file it names, stop.
 | Illustrated lesson video (default: concepts, frameworks, processes) | `design-system/CLAUDE.md` |
 | Authoring inside a build workspace (`renders-hyperframes/<stem>/`) | `renders-hyperframes/_run/BUILD-KIT.md` — workspaces carry no CLAUDE.md/AGENTS.md of their own |
 | Deterministic render gates / QA toolchain | `render-qa/README.md` |
-| Considering agent-native (template-free) rendering | `render-qa/docs/HANDOFF-agent-native-verdict-2026-07-30.md` |
+| Considering agent-native (template-free) rendering | `render-qa/docs/PROPOSAL-agent-native-adoption-2026-08-04.md` (the plan; cites the 2026-07-30 verdict handoff for evidence) |
 | Script/lesson state (raw → refined → rendered) | `lesson-scripts/README.md` |
 | Notion / Wistia link ledger (Notion retired as intake 2026-07-13) | `docs/notion-queue.md` |
 | Standing constraints (fabrication ban, PILOT GATE, mechanized guards...) | `.claude/rules/video-production.md` (auto-loaded here; cold subagents read it first) |

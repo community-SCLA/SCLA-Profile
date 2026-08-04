@@ -35,12 +35,22 @@ TWO RULES:
                       checker that cannot see the target must not report clean;
                       that is the `nothing-graded` lesson from check_geometry.
 
-The allow-list is by ID/class SUBSTRING and is deliberately short. Widening it
-is how this gate dies: the living-icon bob survived review for two weeks partly
+There is NO name-based allow-list. An exemption is DECLARED, on the tween or on
+the helper call site, as a trailing `/* motion-allow: <reason> */` comment —
+stated, never inferred. Until 2026-08-04 this gate also exempted any selector
+whose id/class contained one of nine substrings ("ghost", "ring", "-bg", …).
+That encoded SCLA template naming into the checker, so it did two bad things at
+once: agent-authored HTML that follows no such convention got no exemption it
+could earn, and any template element that happened to be NAMED decoratively got
+one it never asked for. The living-icon bob survived review for two weeks partly
 because `scla-condition` routed it through the same `drift()` helper as the
-genuinely decorative `#cd-ghost`, so it read as background motion at a glance.
-An intentional exception is declared on the tween with a trailing
-`/* motion-allow: <reason> */` comment — stated, never assumed.
+genuinely decorative `#cd-ghost` — a name read as an intention.
+
+Hence the one asymmetry worth stating: for a helper-routed tween the
+declaration must sit on the CALL SITE, never in the helper body. A helper body
+serves every caller, so an allow there is a blanket exemption — precisely the
+`drift()` failure above. `grade()` therefore ignores a helper body's own
+declaration when resolving call sites, and each call answers for itself.
 
 Usage:  python3 check_motion.py <workspace-or-design-system> [--json]
 Exit:   0 clean · 1 violation · 2 bad args / nothing to grade
@@ -54,11 +64,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import Finding, typed
-
-# Substrings that mark an element as background decoration. design-contract.md grants
-# depth-drift and ring-breath to these and only these.
-DECORATIVE = ("ghost", "ring", "-bg", "bg-", "canvas", "texture", "corner",
-              "grain", "vignette")
 
 # A tween call: tl.fromTo(<target>, ...) / tl.to(...) / tl.from(...).
 # Captures the target expression and the option soup that follows it.
@@ -77,8 +82,7 @@ ALLOW = re.compile(r"/\*\s*motion-allow\s*:\s*([^*]+?)\s*\*/", re.I)
 
 # Compound selectors ("#root .big", ".panel > .line") are ordinary in freeform
 # HTML; a single-token pattern degraded them to undeclared-target — a failure,
-# but the wrong rule with a misleading message. The decorative test is a
-# substring scan, so it reads a compound selector fine.
+# but the wrong rule with a misleading message.
 SELECTOR = re.compile(r"""["']([#.][\w$\s.#>-]*[\w$-])["']""")
 
 # A tween target is often a helper parameter: every template wraps its
@@ -99,9 +103,16 @@ def _targets(expr: str) -> list[str]:
     return SELECTOR.findall(expr)
 
 
-def _helper_args(html: str, ident: str) -> tuple[str | None, list[str]]:
-    """If `ident` is a helper's first parameter, return (helper, selectors it
-    is actually called with)."""
+def _helper_args(html: str, ident: str):
+    """If `ident` is a helper's first parameter, return (helper, [(selector,
+    declared)]) for the selectors it is actually called with.
+
+    `declared` is per CALL SITE — whether that individual call carries a
+    trailing `/* motion-allow: … */` on its own line. A declaration inside the
+    helper body is deliberately NOT consulted: the body serves every caller, so
+    honouring it there would exempt content and decoration alike through one
+    comment. That is the `drift()` blanket exemption this gate exists to stop.
+    """
     for m in HELPER.finditer(html):
         params = [p.strip() for p in m.group("params").split(",") if p.strip()]
         if not params or params[0] != ident:
@@ -111,9 +122,15 @@ def _helper_args(html: str, ident: str) -> tuple[str | None, list[str]]:
         # drifts its ring pairs as `drift(["#o-ring-l1", "#o-ring-l2"], …)`, and
         # a string-only pattern reported that template `undeclared-target`
         # while it was in fact perfectly readable.
-        calls = re.findall(
-            rf"\b{re.escape(name)}\s*\(\s*(\[[^\]]*\]|\"[^\"]*\"|'[^']*')", html)
-        return name, [s for c in calls for s in SELECTOR.findall(c)]
+        out = []
+        for c in re.finditer(
+                rf"\b{re.escape(name)}\s*\(\s*(\[[^\]]*\]|\"[^\"]*\"|'[^']*')",
+                html):
+            eol = html.find("\n", c.end())
+            tail = html[c.end():] if eol < 0 else html[c.end():eol]
+            declared = bool(ALLOW.search(tail))
+            out += [(s, declared) for s in SELECTOR.findall(c.group(1))]
+        return name, out
     return None, []
 
 
@@ -138,11 +155,6 @@ def _strip_comments(js: str) -> str:
     return "\n".join(out)
 
 
-def _decorative(sel: str) -> bool:
-    s = sel.lstrip("#.").lower()
-    return any(d in s for d in DECORATIVE)
-
-
 def grade(raw_html: str):
     """Findings for one composition's script."""
     findings = []
@@ -161,14 +173,20 @@ def grade(raw_html: str):
             rep and rep.group(1) not in ("0",))
         if not repeats:
             continue
-        if ALLOW.search(m.group(0)):
-            continue
 
         target = m.group("target").strip()
-        sels = _targets(target)
+        # A declaration on THIS tween covers the selectors this tween names
+        # literally. It is not consulted for helper routing (see _helper_args).
+        declared = bool(ALLOW.search(m.group(0)))
+        sels = [(s, declared) for s in _targets(target)]
         via = None
         if not sels and re.fullmatch(r"[A-Za-z_$][\w$]*", target):
             via, sels = _helper_args(html, target)
+            if not sels and declared:
+                # An opaque target the author has explicitly spoken for.
+                continue
+        elif not sels and declared:
+            continue
         if not sels:
             findings.append({
                 "rule": "undeclared-target",
@@ -178,9 +196,11 @@ def grade(raw_html: str):
                            f"on what it could not read"),
             })
             continue
-        for sel in sels:
-            if _decorative(sel):
+        for sel, sel_declared in sels:
+            if sel_declared:
                 continue
+            where = (f"on the {via}() call site" if via
+                     else "on the tween")
             findings.append({
                 "rule": "keep-alive-motion",
                 "detail": (f"{sel} is re-animated in place (repeating tween"
@@ -189,7 +209,7 @@ def grade(raw_html: str):
                            f"re-marks (owner 2026-07-14, reaffirmed 07-15). If "
                            f"the scene holds static, re-author it: cue a new "
                            f"beat or split the scene. If {sel} is genuinely "
-                           f"background decoration, say so on the tween with "
+                           f"background decoration, say so {where} with "
                            f"/* motion-allow: <reason> */"),
             })
     return findings

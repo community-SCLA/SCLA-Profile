@@ -232,7 +232,17 @@ commit.
       "Mid-Career Momentum" is plainly a heading and the gate could not know it.
       The coverage hole is in the BUILD, not the gate, and the gate now says so
       instead of printing PASS. Phase 3's pilot must declare its headings.
-- [ ] 1.2 `check_motion` glob + `motion-allow` replaces `DECORATIVE` list
+- [x] 1.2 `check_motion` glob + `motion-allow` replaces `DECORATIVE` list
+      — glob widened in `d3fab3c`; the nine-substring allow-list is now DELETED.
+      33 decorative tweens across 11 templates were exempt by NAME and now
+      declare themselves; `design-system` still passes (200 tweens graded).
+      **Finding:** removing name-matching immediately caught one real case —
+      the agent-native reference build's `#bg-glow` was exempt purely because
+      its id contains `bg-`, and had declared nothing. Left unfixed on purpose:
+      `experiments/` is evidence, and Phase 3's pilot must declare its own
+      ambient motion. New rule: a helper-routed tween declares at the CALL
+      SITE, because an allow in the helper body exempts every caller — the
+      `drift()` laundering vector wearing a different hat.
 - [ ] 1.3a `one-item-list` / `one-card` rehomed
 - [ ] 1.3b `placeholder-slot` rehomed
 - [ ] 1.3c plan-stage fit rehomed (advisory)
