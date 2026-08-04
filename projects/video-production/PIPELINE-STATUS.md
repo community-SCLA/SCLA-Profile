@@ -4,13 +4,13 @@
 
 ## Where everything stands
 
-- **20** — **queued to build.** Script approved; nothing made yet.
-- **13** — **built as compositions, no MP4 yet.** The animated lesson exists as HyperFrames HTML + narration audio; it still has to be rendered to video.
+- **23** — **queued to build.** Script approved; nothing made yet.
+- **12** — **built as compositions, no MP4 yet.** The animated lesson exists as HyperFrames HTML + narration audio; it still has to be rendered to video.
 - **0** — **MP4 rendered and verified, not yet published.** The video file exists and passed the gates; only the Wistia upload is left.
-- **1** — **rejected by a gate.** A finished attempt a release check refused; needs a fix and a re-render.
+- **0** — **rejected by a gate.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **stranded mid-pipeline.** Filed as rendered but never recorded as published; an interrupted run left it here.
-- **2** — **blocked, needs owner input.** The script itself is incomplete; see the exact question under each program below.
-- **2** — **live on Wistia.** Done.
+- **0** — **blocked, needs owner input.** The script itself is incomplete; see the exact question under each program below.
+- **3** — **live on Wistia.** Done.
 
 ### What the stages mean
 
@@ -28,20 +28,13 @@ The pipeline has no database — the folders on disk *are* the state, and this t
 
 Partly-authored build folders (plan written but no narration yet, and so on) are counted under *built as compositions* and name their own half-finished stage in the per-program list.
 
-## Stuck right now
-
-- **build-direction-before-you-build-a-plan_early-career-boost** (early-career-boost) — a release gate rejected this cut — verify_render.py non-zero
-  - [stagnant-frame] 74.0 video pixel-static 74.0s → 79.0s (5.0s) while narration speaks — animacy defect (design-contract.md ~2s rule)
-  - [stagnant-frame] 132.5 video pixel-static 132.5s → 138.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
-  - [stagnant-frame] 138.5 video pixel-static 138.5s → 144.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
-  - **To clear it:** read the full failure in `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh build-direction-before-you-build-a-plan_early-career-boost early-career-boost`
-
 ## Published — live on Wistia
 
 | Lesson | Program | Render date | Wistia URL |
 |---|---|---|---|
 | what-makes-for-a-dream-job_early-career-boost | early-career-boost | 2026-07-17 | https://sclc.wistia.com/medias/gryylc7qns |
 | better-decisions-come-from-better-criteria_early-career-boost | early-career-boost | 2026-07-29 | https://sclc.wistia.com/medias/t6cathsymi |
+| build-direction-before-you-build-a-plan_early-career-boost | early-career-boost | 2026-08-04 | https://sclc.wistia.com/medias/v2gnkvdcbc |
 
 ## early-career-boost
 
@@ -56,18 +49,13 @@ Partly-authored build folders (plan written but no narration yet, and so on) are
 7. using-the-career-map-tool_early-career-boost
 8. what-energizes-me_early-career-boost
 
-**Quarantined — a gate rejected this cut:**
-
-*Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
-
-- build-direction-before-you-build-a-plan_early-career-boost
-  - state: a release gate rejected this cut — verify_render.py non-zero
-  - gate said: [stagnant-frame] 74.0 video pixel-static 74.0s → 79.0s (5.0s) while narration speaks — animacy defect (design-contract.md ~2s rule)
-  - gate said: [stagnant-frame] 132.5 video pixel-static 132.5s → 138.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
-  - gate said: [stagnant-frame] 138.5 video pixel-static 138.5s → 144.0s (5.5s) while narration speaks — animacy defect (design-contract.md ~2s rule)
-  - next: read the full failure in `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh build-direction-before-you-build-a-plan_early-career-boost early-career-boost`
-
 ## mid-career-momentum
+
+**Queued to build:**
+
+9. m2_mid-career-mindsets-and-limiting-beliefs
+10. m2_the-value-of-building-mid-career-momentum
+11. m3_discover-experiences-that-support-your-next-move
 
 **Built — composition only, no MP4 yet:**
 
@@ -79,9 +67,6 @@ Partly-authored build folders (plan written but no narration yet, and so on) are
 - m2_four-kinds-of-career-transition_mid-career-momentum
   - state: HyperFrames composition ready to render; no MP4 exists yet
   - next: render + verify it: `bash scripts/batch-ship.sh m2_four-kinds-of-career-transition_mid-career-momentum mid-career-momentum`
-- m2_mid-career-mindsets-and-limiting-beliefs
-  - state: HyperFrames composition ready to render; no MP4 exists yet
-  - next: render + verify it: `bash scripts/batch-ship.sh m2_mid-career-mindsets-and-limiting-beliefs mid-career-momentum`
 - m3_building-your-future-you-resume-pt1
   - state: HyperFrames composition ready to render; no MP4 exists yet
   - next: render + verify it: `bash scripts/batch-ship.sh m3_building-your-future-you-resume-pt1 mid-career-momentum`
@@ -113,38 +98,27 @@ Partly-authored build folders (plan written but no narration yet, and so on) are
   - state: HyperFrames composition ready to render; no MP4 exists yet
   - next: render + verify it: `bash scripts/batch-ship.sh m6_youve-built-momentum mid-career-momentum`
 
-**Blocked — needs owner input:**
-
-*The refined script carries an unanswered question. Answer it in the script and delete the marker line; the lesson rejoins the build queue on the next status run, with no other bookkeeping.*
-
-- m2_the-value-of-building-mid-career-momentum
-  - marker: `TODO: needs input` in `lesson-scripts/mid-career-momentum/refined/m2_the-value-of-building-mid-career-momentum.txt`
-  - **what's needed:** the title promises the *value* of building mid-career momentum, but the source body only maps the three paths and never states why momentum matters. Value/"why now" section not in source.
-- m3_discover-experiences-that-support-your-next-move
-  - marker: `TODO: needs input` in `lesson-scripts/mid-career-momentum/refined/m3_discover-experiences-that-support-your-next-move.txt`
-  - **what's needed:** the RAW names the four parts of the bullet formula (Responsibility, Action, Measurable outcome, Scope) but never defines what each one means.
-
 ## career-transitions
 
 **Queued to build:**
 
-9. m2_four-kinds-of-career-transition_career-transitions
-10. m2_welcome-and-using-career-transitions-as-leaps-ahead
-11. m3_the-identity-audit
-12. m3_the-two-sided-work
-13. m4_building-your-carry-forward-inventory
-14. m5_testing-your-next-chapter
-15. m5_the-story-that-makes-the-change-legible
-16. m7_your-reinvention-roadmap
+12. m2_four-kinds-of-career-transition_career-transitions
+13. m2_welcome-and-using-career-transitions-as-leaps-ahead
+14. m3_the-identity-audit
+15. m3_the-two-sided-work
+16. m4_building-your-carry-forward-inventory
+17. m5_testing-your-next-chapter
+18. m5_the-story-that-makes-the-change-legible
+19. m7_your-reinvention-roadmap
 
 ## entrepreneur-accelerator
 
 **Queued to build:**
 
-17. m1_reframing-entrepreneurship-and-going-solo
-18. m3_choosing-your-solo-model
-19. m4_building-visibility-on-your-own
-20. m5_making-solo-work-sustainable
+20. m1_reframing-entrepreneurship-and-going-solo
+21. m3_choosing-your-solo-model
+22. m4_building-visibility-on-your-own
+23. m5_making-solo-work-sustainable
 
 ---
 Resume: `/render-lessons` AUTO-BATCH starts at the top of the queued list above. Full state model: `bash scripts/batch-status.sh` (terminal) or `bash scripts/batch-status.sh --json` (machine).
