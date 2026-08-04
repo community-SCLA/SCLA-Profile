@@ -46,11 +46,13 @@ __pycache__/
 *.pyc
 
 # Video production — per-lesson HyperFrames build workspaces (HTML sources,
-# caches, renders). Local-only: active builds live in renders-hyperframes/<stem>/,
-# delivered ones move to renders-hyperframes/_archive/<stem>/ (see that folder's
-# README.md). Approved scripts live in projects/video-production/lesson-scripts/
-# (tracked); rendered videos are hosted on Wistia, not committed
-# (decisions/log.md, 2026-07-08).
+# caches, renders). Local-only: active builds live in renders-hyperframes/<stem>/;
+# retired ones move to projects/video-production/_archive/renders-hyperframes/
+# (ignored below — _archive/status.md is that tree's index). Approved scripts
+# live in projects/video-production/lesson-scripts/ (tracked); rendered videos
+# are hosted on Wistia, not committed (decisions/log.md, 2026-07-08).
+# The _run/ build kit under renders-hyperframes/ is tracked despite the blanket
+# rule below: it predates the rule. Do not untrack it.
 projects/video-production/renders-hyperframes/*
 !projects/video-production/renders-hyperframes/README.md
 projects/video-production/lesson-scripts/**/*.mp4
@@ -62,6 +64,13 @@ projects/video-production/renders-mp4/**/*.qa/
 # per-lesson .qa/ packets above, but written under design-system/ so the rule
 # there doesn't catch them. Local-only; the durable output is the templates.
 projects/video-production/design-system/qa/
+# _archive/ is read-only local provenance and never a routing target
+# (.claude/rules/repo-hygiene.md) — QA frame dumps, retired build workspaces,
+# voice caches. Keep the tree out of the index entirely. status.md is the one
+# tracked file; the negation works because _archive itself is not excluded,
+# only its children (same pattern as .vscode/* above).
+projects/video-production/_archive/*
+!projects/video-production/_archive/status.md
 
 # HyperFrames per-workspace derived caches (regenerated on demand; the render
 # workspaces under renders-hyperframes/ are wholly gitignored already — this
