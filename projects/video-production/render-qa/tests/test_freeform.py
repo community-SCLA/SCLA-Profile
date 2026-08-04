@@ -24,8 +24,9 @@ import check_continuity
 import check_copy
 import check_fit
 import check_forms
+import check_layout
 import check_motion
-from hfp_common import load_beats, onframe_strings
+from hfp_common import load_beats, onframe_strings, parse_scenes, sample_units
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from firing import fires as _fires
@@ -301,6 +302,65 @@ check("a list quoted inside a <script> string does not flag", not probs,
 rep, probs = check_forms.check(forms_ws("no-lists", "<p>No list here.</p>"))
 check("a build with no lists at all is CLEAN, not ungraded",
       rep is not None and not probs, str(probs))
+
+# ---------------------------------------------------------------------------
+# sample_units — the sampling grid every time-sampled gate walks (steps 1.5a/b).
+#
+# These two collapses "survived" the migration while quietly inspecting far
+# less: check_layout sampled one point per composition CLIP (27 -> 3 on a
+# LONGER video) and verify_render extracted 3 frames per clip (81 -> 9 stills
+# for 200s, one per 22s). Both still exited 0. That is the same nothing-graded
+# shape as everything else here — a gate reporting clean on what it never
+# looked at — so the grid gets its own fixtures rather than being trusted
+# because the code reads right. check_layout and verify_render themselves are
+# declared SLOW in test_firing_coverage (browser / rendered MP4), which is
+# exactly why the SHARED grid they both delegate to has to be pinned in-process.
+
+ACT_INDEX = """<div id="root" data-duration="200">
+  <div class="clip" data-composition-src="compositions/opening.html"
+       data-composition-id="opening" data-start="0" data-duration="40"></div>
+  <div class="clip" data-composition-src="compositions/map.html"
+       data-composition-id="map" data-start="40" data-duration="120"></div>
+  <div class="clip" data-composition-src="compositions/closing.html"
+       data-composition-id="closing" data-start="160" data-duration="40"></div>
+</div>"""
+
+# 24 beats over 3 clips — the agent-native reference build's real shape.
+BEATS_24 = [{"id": f"s{i:02d}", "text": f"Beat number {i} speaks a full line."}
+            for i in range(1, 25)]
+TIMING_24 = {"total": 200.0, "rows": [
+    {"id": f"s{i:02d}", "audio_start": (i - 1) * 8.0, "audio_dur": 7.0,
+     "vis_start": (i - 1) * 8.0, "vis_dur": 8.0} for i in range(1, 25)]}
+
+ws = freeform_ws("grid", BEATS_24, index=ACT_INDEX, timing=TIMING_24)
+units = sample_units(ws)
+check("a freeform clip is an ACT: parse_scenes still sees only the 3 clips",
+      len(parse_scenes((ws / "index.html").read_text())) == 3)
+check("sample_units samples per BEAT (24), not per clip (3) — the 1.5a/b fix",
+      len(units) == 24, f"{len(units)} unit(s)")
+check("verify_render's 3-frames-per-unit now yields 72 stills, not 9",
+      3 * len(units) == 72, str(3 * len(units)))
+times = check_layout.scene_times(ws)
+check("check_layout samples 24 midpoints, each inside its own beat",
+      len(times) == 24 and all(s <= mid <= e for mid, _, s, e in times),
+      str(times[:3]))
+
+# The template path must be untouched: there, a clip IS a beat, and the grid
+# has to stay the clips or every existing workspace re-samples overnight.
+tmpl_index = ACT_INDEX.replace(
+    '<div class="clip" data-composition-src="compositions/opening.html"',
+    '<div class="clip" data-narration="One beat per clip here."'
+    ' data-composition-src="compositions/opening.html"')
+ws = freeform_ws("grid-template", BEATS_24, index=tmpl_index, timing=TIMING_24)
+check("template path (any data-narration present) still samples per CLIP",
+      len(sample_units(ws)) == 3, str(len(sample_units(ws))))
+
+# No timings yet: the grid is EMPTY, and callers treat an empty grid as
+# ungradeable. Silently sampling zero points and exiting 0 is the failure this
+# whole plan exists to close.
+ws = freeform_ws("grid-untimed", BEATS_24, index=ACT_INDEX)
+check("no timing.json -> an EMPTY grid (ungradeable), never a silent pass",
+      sample_units(ws) == [], str(sample_units(ws)))
 
 # ---------------------------------------------------------------------------
 # check_fit — plan-stage copy fit (step 1.3c), the rehome of check_capacity's

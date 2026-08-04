@@ -296,9 +296,15 @@ def sample_units(ws: Path):
     the clips are the grid. Freeform path: a clip is an ACT (the agent-native
     reference has 3 clips on a 200s video), so sampling per clip starves every
     sampler — 27 → 3 layout samples, 81 → 9 verify stills (HANDOFF §2). There
-    the grid is timing.json's beat rows via load_beats(). Falls back to clips
-    when no usable beat timing exists; callers treat an empty grid as
-    ungradeable, never as clean."""
+    the grid is timing.json's beat rows via load_beats().
+
+    A freeform build whose beats carry no usable timing yet returns an EMPTY
+    grid, and callers treat that as ungradeable — check_layout exits 2, and
+    verify_render fails on `not units`. It deliberately does NOT fall back to
+    the clips: on a freeform build that fallback IS the 27 → 3 collapse this
+    function exists to remove, and it would reappear silently whenever
+    timing.json happened to be missing. A build with no beat manifest at all is
+    a different case (nothing claims to be freeform), so it keeps the clips."""
     ws = Path(ws)
     scenes = parse_scenes((ws / "index.html").read_text(
         encoding="utf-8", errors="replace"))
@@ -315,9 +321,12 @@ def sample_units(ws: Path):
         return out
 
     if not any(s["narration"] is not None for s in scenes):
-        beats = timed(load_beats(ws) or [])
-        if beats:
-            return beats
+        raw = load_beats(ws)
+        if raw:
+            # A beat manifest exists, so this build IS freeform and its beats
+            # are the only honest grid. Timed or not, the clips are not an
+            # acceptable substitute here.
+            return timed(raw)
     return timed(scenes)
 
 

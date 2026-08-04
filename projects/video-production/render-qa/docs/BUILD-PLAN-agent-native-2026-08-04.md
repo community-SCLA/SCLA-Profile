@@ -279,9 +279,27 @@ commit.
       a bound no real heading could reach — a rule that could not fire dressed
       as a rule — and was corrected to "cannot be one line at any legal size".
 - [ ] 1.4 ink-band gate in `src/` + tokens region + fixtures + preflight wiring
-- [ ] 1.5a `check_layout` per-beat sampling
-- [ ] 1.5b `verify_render` per-beat stills
-- [ ] 1.5c `check_presence` word-timestamp adapter
+- [x] 1.5a `check_layout` per-beat sampling — code landed in `d3fab3c` via the
+      shared `hfp_common.sample_units` grid; this step added the fixtures it
+      had none of. Both consumers are declared SLOW in `test_firing_coverage`
+      (browser / rendered MP4), which is precisely why the grid they delegate
+      to has to be pinned in-process. 24 beats over 3 act-clips now samples 24
+      midpoints, each inside its own beat; the template path still samples per
+      clip.
+- [x] 1.5b `verify_render` per-beat stills — same grid; 3-per-unit now yields
+      72 stills where per-clip gave 9. **Defect found while writing the test:**
+      `sample_units` fell back to the CLIPS when a freeform build had no usable
+      beat timing — which is the 27 → 3 collapse restored silently, on exactly
+      the builds not yet timed. It now returns an EMPTY grid there, and both
+      callers already treat empty as ungradeable (`check_layout` exits 2,
+      `verify_render` fails on `not units`). A build with no beat manifest at
+      all still keeps the clips: nothing there claims to be freeform.
+- [x] 1.5c `check_presence` word-timestamp adapter — landed in `d3fab3c` and
+      already pinned: `hfp_common.load_words()` is the ONE loader (the plan
+      warned against writing a second), reading all three shapes and offsetting
+      each freeform clip's words by its `timing.json` `audio_start`.
+      `test_diversity.py` pins the per-beat offset case; `check_presence` and
+      `check_diversity` both call it.
 - [ ] 1.5d `check_boundaries` per-clip adapter + `FINAL_HOLD`
 - [ ] 2.1 write fence + hook tests
 - [ ] 2.2 AGENTS.md purge + assertion
