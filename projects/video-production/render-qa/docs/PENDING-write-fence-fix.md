@@ -3,12 +3,13 @@
 **Date:** 2026-08-04 · **Status:** ready to apply, BLOCKED on session type ·
 **Owner action required:** relaunch Claude Code with `SCLA_SYSTEM_SESSION=1`.
 
-**Second session (2026-08-04, later) re-confirmed the block and the defect got
-worse.** The flag was still unset (`SCLA_SYSTEM_SESSION=[]`), a probe write
-under the fenced set was refused as designed, and the staged fix still proves
-out. But that session hit a *new* shape while starting the Phase 3 pilot, and
-it is not a nuisance shape — see defect 3 below. The fix is unchanged; only the
-urgency is.
+**Third session (2026-08-04, the one that built the Phase 3 pilot) re-probed
+and DOWNGRADED the urgency.** The flag is still unset (`SCLA_SYSTEM_SESSION=[]`)
+and a `touch` under `scripts/` is still refused as designed, so the fix still
+cannot be applied from a build session. But the second session's "shipping-path
+block" was **wrong and is withdrawn** — see defect 3. The pilot built and
+synthesized end to end with the fence live and unmodified. The fix is unchanged
+and still worth applying; it buys back ordinary diagnosis, not the pipeline.
 
 This is BUILD-PLAN step 2.1's open defect, carried out of the session that
 installed the fence. The fence works — it blocks every write it should. It also
@@ -33,27 +34,39 @@ Two consequences, both wrong, both observed live within minutes of install:
    `env | sed 's/=.*/=<set>/' ; head -20 scripts/with-secrets.sh` was blocked by
    a `>` that was inside a quoted sed replacement and was not a redirect at all.
 
-3. **The credential path is fenced, and every credentialed call must cross it.**
-   `scripts/with-secrets.sh` is the mandatory Infisical entry point for every
-   HeyGen and Wistia call — the rules file requires it, "never a bare env." It
-   also lives under `scripts/`, so it is a fenced token. Combine that with
-   defect 2 and an **ordinary, correct build command is refused**:
+3. **~~The credential path is fenced~~ — CORRECTED 2026-08-04.** An earlier
+   session claimed the fence blocks the shipping path, because
+   `scripts/with-secrets.sh` is both the mandatory Infisical entry point and a
+   fenced token. **That claim was wrong and is withdrawn.** It rested on a
+   command form the procedure does not use: the documented TTS call passes its
+   output path as a FLAG, not a shell redirect —
 
    ```
-   bash scripts/with-secrets.sh node audio.mjs --provider heygen \
-     > projects/video-production/renders-hyperframes/<stem>/audio_meta.json
+   bash scripts/with-secrets.sh node <media-skill>/scripts/audio.mjs \
+     --request ./audio_request.json --hyperframes . --out ./audio_meta.json \
+     --only tts --provider heygen --voice <id>
    ```
 
-   That redirect writes into the build's OWN workspace — the one place the
-   fence explicitly leaves writable — and it is blocked, because the token scan
-   sees `scripts/with-secrets.sh` as an argument. So does the same command with
-   a plain `2>/dev/null`. This was found by being bitten by it while claiming
-   the Phase 3 pilot stem.
+   With no `>` anywhere, `DESTRUCTIVE|REDIRECT|SED_INPLACE|GIT_MUTATE` all miss,
+   the token scan never runs, and the fence exits 0. Confirmed twice on
+   2026-08-04: the payload was graded by the live `write-fence.sh` (exit 0), and
+   then the real call ran and synthesized 17 clips with `HEYGEN_API_KEY` from
+   Infisical. **The fence has never blocked TTS.**
 
-   **This escalates the defect from friction to a shipping-path block.** TTS
-   synthesis and Wistia publish both run through that script. A build session —
-   the exact session type the fence is designed to constrain — cannot reliably
-   invoke it.
+4. **What IS true: any redirect at all poisons an otherwise read-only command.**
+   Two live false positives, both observed while building the Phase 3 pilot,
+   both on commands that WRITE NOTHING FENCED:
+
+   ```
+   ls .claude/skills/hyperframes-media/ 2>/dev/null
+   python3 render-qa/src/preflight.py <ws> > <scratchpad>/pf.txt
+   ```
+
+   The first is a bare `ls`. The second redirects into a NON-fenced scratch
+   path and is refused purely because `preflight.py` appears as a read
+   argument — so **the fence currently refuses to let you capture any gate's
+   own output to a file.** That is the strongest case for the fix: not that the
+   pipeline cannot run, but that ordinary diagnosis cannot.
 
 This is the "too tight" failure mode, and it is the one that matters: a fence
 that refuses ordinary read-only work is a fence somebody switches off. The
@@ -144,6 +157,26 @@ check("a credentialed publish with 2>/dev/null is ALLOWED",
 check("but leaking the injected env INTO a fenced path is still blocked",
       blocked("Bash", {"command":
               "bash scripts/with-secrets.sh env > scripts/leaked.env"}))
+
+print("== FP6/FP7: read-only commands, observed live on 2026-08-04 ==")
+check("a bare `ls` of a fenced dir with 2>/dev/null is ALLOWED",
+      allowed("Bash", {"command":
+              "ls .claude/skills/hyperframes-media/ 2>/dev/null"}))
+check("capturing a GATE's own output to a non-fenced scratch path is ALLOWED",
+      allowed("Bash", {"command":
+              "python3 projects/video-production/render-qa/src/preflight.py "
+              "projects/video-production/renders-hyperframes/m2_demo "
+              "> /tmp/pf.txt"}))
+check("...but writing INTO the gate directory is still blocked",
+      blocked("Bash", {"command":
+              "echo x > projects/video-production/render-qa/src/preflight.py"}))
+
+print("== the documented TTS form has no redirect and must stay ALLOWED ==")
+check("audio.mjs --out (a flag, not a redirect) through with-secrets",
+      allowed("Bash", {"command":
+              "bash scripts/with-secrets.sh node m/scripts/audio.mjs "
+              "--request ./audio_request.json --hyperframes . "
+              "--out ./audio_meta.json --only tts --provider heygen"}))
 ```
 
 ## Then delete this hand-off

@@ -368,17 +368,32 @@ commit.
       redirect by WHAT IT WRITES TO rather than by a `>` existing at all. The
       fenced set, the default-deny posture and the opt-out are unchanged.
 
-      ⚠ **ESCALATED 2026-08-04 (later session): this is a shipping-path block,
-      not friction.** `scripts/with-secrets.sh` is the mandatory Infisical entry
-      point for every HeyGen and Wistia call AND is a fenced token, so an
-      ordinary credentialed build command whose redirect targets the build's
-      OWN workspace is refused — `bash scripts/with-secrets.sh node audio.mjs
-      > …/renders-hyperframes/<stem>/audio_meta.json`, and the same with a plain
-      `2>/dev/null`. TTS synthesis and publish both cross that script, so a
-      BUILD session — the very session type the fence exists to constrain —
-      cannot reliably run the pipeline. Found by being bitten by it while
-      claiming the Phase 3 pilot stem; pinned as FP4/FP5 in the proof harness.
-      **Apply the fix before any further build work on either lane.**
+      ⚠ **ESCALATED 2026-08-04 (later session), then CORRECTED 2026-08-04 by
+      the session that actually ran the pilot. The escalation was WRONG: this
+      is friction, not a shipping-path block.** The escalation rested on a
+      command form the procedure does not use. The documented TTS invocation
+      passes its output path as a FLAG, not a shell redirect —
+      `audio.mjs --request … --hyperframes . --out ./audio_meta.json`
+      (`hyperframes-media/SKILL.md`; the same form the reference build records
+      in `PROVENANCE.md` §4). With no `>` in the command there is no token scan,
+      so the fence returns **exit 0**. Verified twice, not argued: the crafted
+      payload was graded by the live `write-fence.sh` (exit 0), and then the
+      real call ran — 17 clips synthesized through `scripts/with-secrets.sh`
+      with `HEYGEN_API_KEY` from Infisical. **The fence has never blocked the
+      credential path.** Wistia publish is untested only because Phase 3 stops
+      before publish.
+
+      The underlying defect is still REAL and still worth fixing — it just
+      costs a re-phrasing, not the pipeline. Two FRESH false positives were
+      observed live this session, both on **read-only** commands:
+      · `ls .claude/skills/hyperframes-media/ 2>/dev/null` — BLOCKED. The
+        `2>/dev/null` widened the scan and `.claude/…` was an argument.
+      · `python3 render-qa/src/preflight.py <ws> > <scratchpad>/pf.txt` —
+        BLOCKED. The redirect targets a NON-fenced scratch path; the refusal is
+        entirely because `preflight.py` appears as a read argument. **So the
+        fence currently refuses to let you redirect any gate's own output
+        anywhere.** That is the sharpest case yet for the fix and belongs in
+        the harness beside FP4/FP5.
 - [x] 2.2 AGENTS.md purge + assertion — `batch-prepare.sh` already deleted
       `scaffold/AGENTS.md` beside CLAUDE.md, and zero workspaces carried one, so
       the purge itself was done; the missing half was the ASSERTION, now
@@ -393,24 +408,71 @@ commit.
       `grep -c` prints 0 AND exits 1, so `|| echo 0` produced "00" and the
       mechanism half died with "integer expression expected" — i.e. it would
       never have evaluated. Fixed and re-proven.
-- [ ] 3 freeform pilot built (1 lesson) — gate failures, if any: _(record here)_
-      **NOT STARTED — deliberately halted 2026-08-04, owner instruction "do not
-      render the pilot yet."** Scoping done and recorded so the next session
-      does not redo it:
-      · **Lesson:** queue top is
-      `build-direction-before-you-build-a-plan_early-career-boost` (7-paragraph
-      refined script, present and readable).
-      · **Stem lock:** claimed, verified canonical via `stem.py check`, then
-      **released** (`rmdir`, dir was empty) — an empty locked workspace would
-      read as a stalled build to `batch-status.sh`. The next session re-claims it.
-      · **Credentials:** `HEYGEN_API_KEY` present via Infisical (the pinned
-      Oxana voice's provider). `WISTIA_API_TOKEN` and `ELEVENLABS_API_KEY` are
-      **MISSING** — irrelevant to Phase 3, which stops before publish, but
-      Wistia must be restored before any SHIP.
-      · **Procedure:** already written — `.claude/skills/render-lessons/SKILL.md`
-      "Freeform build sequence", 8 steps, narration-first. No new plumbing
-      needed; `preflight.py` auto-detects the lane.
-      · **Blocker:** the 2.1 escalation above. The freeform sequence's step 4 is
-      a `with-secrets.sh` TTS call, which the live fence refuses.
+- [x] 3 freeform pilot BUILT (1 lesson) — **gates: a clean sweep.**
+      `preflight.py` exit 0 (boundaries, script-match, brand, text, title,
+      forms, copy, continuity, ink, motion, per-beat layout) and the framework's
+      `npm run check` 0/0/0/0 with 20/20 contrast AA. Nothing was loosened to
+      get there. Stem
+      `build-direction-before-you-build-a-plan_early-career-boost`, 17 beats,
+      **157.545s**, HeyGen/Oxana. Stops at the hyperframe gate: **not rendered**,
+      per the standing owner instruction and the freeform sequence's own step 8.
+
+      The three pre-set conditions from Phase 1 were all met, and each was
+      earned rather than assumed:
+      · **Headings declared** — every heading is an `<h1>`/`<h2>`, so Title Case
+        graded real strings instead of reporting `no-headings-declared`. It
+        immediately caught two: `Built From Repeated Clues` ("from" is a minor
+        word) and one below.
+      · **Ambient motion declared** — the single `#bg-lift` breath carries
+        `/* motion-allow: … */` with a finite `repeat: 19`. **Placement matters
+        and is not obvious:** the declaration must sit INSIDE the tween call,
+        because `check_motion` reads `ALLOW.search(m.group(0))` over the tween
+        match. A block comment immediately ABOVE the call is not seen — the
+        `PostToolUse` guard caught exactly that and the gate said
+        `keep-alive-motion`.
+      · **FINAL_HOLD synthesized** — the engine tail-trims, so `s17` came back
+        holding **0.215s** past its last word, the reference build's exact
+        failure. The wav was padded to a true **1.800s** and `audio_meta.json`
+        corrected, so the release is IN THE FILE.
+
+      **Finding worth carrying — there are TWO different "final hold"
+      measurements and satisfying one does not satisfy the other:**
+      · `check_boundaries` `audio-tail-clipped`: `wav_duration - last_word_end`
+      · `preflight` `compile_check` "final hold": `total - (audio_start +
+        audio_dur)` — i.e. the VIDEO must also outlive the last wav.
+      Padding the wav alone left compile_check reporting `final hold 0.00s`.
+      Both floors are 1.5s; this build gives 1.8s to each (3.6s of visual hold
+      after the last spoken word). Any freeform build will hit this.
+
+      **New gate defect, reported not patched (`render-qa/src/` is fenced):**
+      `check_copy.titlecase()` mangles a dotted initialism. `WORD_RX` matches
+      only the leading `A` of `A.I.`, and since `"a"` is in `MINOR`, a heading
+      containing `A.I.` anywhere but first or last position is graded against
+      the expected form `a.I.` — unsatisfiable. Reproduce: heading
+      `Reflection and A.I. Support`. Worked around by wording the heading
+      `A.I. Supports Your Reflection`, where first position forces the cap.
+      Suggested fix: treat a dotted initialism as one carrier token.
+
+      **Script edit, before synthesis (the only point where it is a text edit
+      rather than a re-synthesis):** `check_copy` in script mode flagged the
+      four-question run in paragraph 2. Per the rules file the fix is to join
+      the list into one sentence, so
+      "Where did you feel engaged? / capable? / useful? / proud of the
+      outcome?" became "Where did you feel engaged, capable, useful, or proud
+      of the outcome?" Script-vs-beats then diffed 375 vs 375 words, 0.00%.
+      **Owner: this is the one wording change to the approved script — say the
+      word and it reverts.** Related gate observation: the run the checker
+      named ended one item early, because the true final item (8 words) exceeds
+      the 5-word cap and drops out of the run, so the finding is attributed to
+      the wrong item even though the defect it points at is real.
+
+      **Credentials (correcting the previous session's note):** `HEYGEN_API_KEY`
+      is present AND working — it synthesized this pilot. `WISTIA_API_TOKEN` and
+      `ELEVENLABS_API_KEY` are absent from the `dev` environment, which is the
+      only one `with-secrets.sh` reads by default. Whether they live in another
+      Infisical environment or folder is UNVERIFIED: the probe was refused by
+      the session's permission classifier, not by Infisical. Check the console
+      before any SHIP.
+- [ ] 3 ⛔ hyperframe gate — owner preview of the pilot, then render decision
 - [ ] 3 ⛔ owner verdict: _(record here)_
 - [ ] 4 ⛔ retirement commit (owner-approved, queue drained)
