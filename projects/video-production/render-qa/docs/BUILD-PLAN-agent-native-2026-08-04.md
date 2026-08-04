@@ -360,6 +360,13 @@ commit.
       `scripts/`, so repairing it requires a flagged session
       (`SCLA_SYSTEM_SESSION=1`) — which is the fence behaving exactly as
       designed, and is why it is reported here rather than patched.
+      **The fix is WRITTEN and PROVEN, just not applied** — see
+      `render-qa/docs/PENDING-write-fence-fix.md`. `verify_fence_fix.py` runs 21
+      cases against the live fence and the fixed one side by side: the 4 false
+      positives become ALLOW and every safety case still BLOCKs. Two narrowing
+      changes only — strip heredoc/`-m` bodies before matching, and grade a
+      redirect by WHAT IT WRITES TO rather than by a `>` existing at all. The
+      fenced set, the default-deny posture and the opt-out are unchanged.
 - [x] 2.2 AGENTS.md purge + assertion — `batch-prepare.sh` already deleted
       `scaffold/AGENTS.md` beside CLAUDE.md, and zero workspaces carried one, so
       the purge itself was done; the missing half was the ASSERTION, now
