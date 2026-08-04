@@ -17,6 +17,16 @@ Gates (all must pass; each prints its measurements):
             version scored a navy stripe on paper as 15% ink and passed a
             hole the final-verify lane caught at 00:03); footer furniture
             never excuses an empty frame
+  regions   no container (card, slot, panel, badge) stands visible and empty
+            for >= 0.5s. The frames gate grades the WHOLE frame, so one
+            populated box out of six still scores ink and passes -- which is
+            how the 2026-08-03 render shipped a 3x2 grid whose slots sat
+            empty up to 5.0s, a VALUES card empty for 0.8s and a gold badge
+            empty for 1.1s, and still passed every gate the owner then called
+            "absolute shit". Worse, anim.js:193-200 had TUNED that empty
+            skeleton to score ink against the frames gate. A container is
+            found as an enclosed, rectangular, flat-interior region; it is
+            hollow when <0.6% of its interior deviates from its own median
   palette   near-black <= 12% of pixels video-wide; full-dark frames <= 10%
             of samples; brand blue >= 3%; gold >= 0.5%; >= 60% of frames
             carry visible blue/gold accent
@@ -56,6 +66,23 @@ CLICK_TICKS_MAX = 3
 FONT_PX_MIN = 40
 FONT_WEIGHT_MIN = 700
 BLANK_INK_SHARE = 0.0002    # content-region ink share below which a frame is featureless — essentially zero; deliberately spare transition frames (a lone rule mid-seam, ~0.1%) are content, a flat field is not
+
+# --- regions gate (owner review 2026-08-04: "absolute shit" on a render that
+#     passed all six gates above). Measured hollow holds on the three renders
+#     that existed that day: 5.0/3.8/2.9/1.9/1.2/0.6s (six-card grid slots),
+#     1.1s (gold badge), 0.8s (VALUES card), 6.3s x3 (mid-career role bars),
+#     3.3s + 1.2s (entrepreneur panels) — all real defects. Everything that is
+#     merely a cross-fade measured 0.1-0.4s, so 0.5s splits them with margin. ---
+REGION_FPS = 10             # 0.1s resolution: enough to separate a held box from a wipe
+REGION_W, REGION_H = 960, 540
+REGION_CONTENT_H = 480      # y<960 at full scale — same content band as the frames gate
+REGION_EDGE_T = 16          # per-channel gradient that reads as a drawn boundary
+REGION_MIN_AREA = 11000     # at 960x540; ~210x210 full-scale, under the smallest token card
+REGION_MIN_FILL = 0.80      # component must nearly fill its bbox => it is a rectangle
+REGION_INSET = 4            # px shaved per side so the container's own border is not ink
+REGION_HOLLOW_INK = 0.006   # interior ink share below which the container reads empty
+REGION_DEV = 25             # per-channel deviation from the region median that counts as ink
+REGION_HOLD_MIN_S = 0.5     # a shorter hollow moment is a transition, not a held defect
 
 fails = []
 
@@ -121,19 +148,33 @@ def check_frames_and_palette(mp4):
         gate("palette", False, "no frames to grade")
         return
     a = np.frombuffer(raw[:n * 192 * 108 * 3], np.uint8).reshape(n, 108, 192, 3)
-    a16 = a.astype(np.int16)
-    r, g, b = a16[..., 0], a16[..., 1], a16[..., 2]
-    dark = (r < 60) & (g < 60) & (b < 70)
-    blue = ~dark & (b > 110) & (b > r + 30) & (g > 60)
-    gold = ~dark & ~blue & (r > 180) & (g > 130) & (b < 110)
+    # Graded in blocks: the ink test broadcasts every content pixel against a
+    # float64 median, so grading all n frames at once allocates ~13GB for a
+    # 2.5min lesson and the gate is OOM-killed before it prints a verdict.
+    # Every statistic below is either per-frame or a sum, so blocking is exact.
+    BLK = 256
+    ink_share = np.empty(n)
+    dark_frac = np.empty(n)
+    accent_frac = np.empty(n)
+    dark_sum = blue_sum = gold_sum = 0
+    for s in range(0, n, BLK):
+        a16 = a[s:s + BLK].astype(np.int16)
+        r, g, b = a16[..., 0], a16[..., 1], a16[..., 2]
+        dark = (r < 60) & (g < 60) & (b < 70)
+        blue = ~dark & (b > 110) & (b > r + 30) & (g > 60)
+        gold = ~dark & ~blue & (r > 180) & (g > 130) & (b < 110)
+        dark_sum += int(dark.sum())
+        blue_sum += int(blue.sum())
+        gold_sum += int(gold.sum())
+        dark_frac[s:s + BLK] = dark.mean(axis=(1, 2))
+        accent_frac[s:s + BLK] = (blue | gold).mean(axis=(1, 2))
 
-    content = a16[:, :96, :, :]                      # y<960 at full scale
-    row_med = np.median(content, axis=2)             # (n, 96, 3)
-    col_med = np.median(content, axis=1)             # (n, 192, 3)
-    dev_row = (np.abs(content - row_med[:, :, None, :]) > 30).any(axis=3)
-    dev_col = (np.abs(content - col_med[:, None, :, :]) > 30).any(axis=3)
-    ink = dev_row & dev_col                          # deviates from BOTH
-    ink_share = ink.mean(axis=(1, 2))
+        content = a16[:, :96, :, :]                  # y<960 at full scale
+        row_med = np.median(content, axis=2)         # (blk, 96, 3), float64 as before
+        col_med = np.median(content, axis=1)         # (blk, 192, 3)
+        dev_row = (np.abs(content - row_med[:, :, None, :]) > 30).any(axis=3)
+        dev_col = (np.abs(content - col_med[:, None, :, :]) > 30).any(axis=3)
+        ink_share[s:s + BLK] = (dev_row & dev_col).mean(axis=(1, 2))
     blank_mask = ink_share < BLANK_INK_SHARE
     runs = []
     i = 0
@@ -152,12 +193,12 @@ def check_frames_and_palette(mp4):
          f"{n} samples at {FPS}fps; featureless content runs (start_s, dur_s): {runs}"
          if runs else f"{n} samples at {FPS}fps, no featureless content run >= 0.25s")
 
-    px_per, nf = 192 * 108, n
-    d = dark.mean()
-    bl = blue.mean()
-    go = gold.mean()
-    df = (dark.mean(axis=(1, 2)) > 0.60).mean()
-    af = ((blue | gold).mean(axis=(1, 2)) >= 0.005).mean()
+    total_px = n * 192 * 108
+    d = dark_sum / total_px
+    bl = blue_sum / total_px
+    go = gold_sum / total_px
+    df = float((dark_frac > 0.60).mean())
+    af = float((accent_frac >= 0.005).mean())
     ok = d <= DARK_SHARE_MAX and df <= DARK_FRAME_SHARE_MAX \
         and bl >= BLUE_SHARE_MIN and go >= GOLD_SHARE_MIN and af >= ACCENT_FRAME_MIN
     gate("palette", ok,
@@ -165,6 +206,107 @@ def check_frames_and_palette(mp4):
          f"(max {DARK_FRAME_SHARE_MAX:.0%}), blue {bl:.1%} (min {BLUE_SHARE_MIN:.0%}), "
          f"gold {go:.2%} (min {GOLD_SHARE_MIN:.1%}), frames with accent {af:.0%} "
          f"(min {ACCENT_FRAME_MIN:.0%})")
+
+
+def _hollow_regions(img, np, ndimage):
+    """Enclosed, rectangular, flat-interior regions => containers holding nothing.
+
+    A container is found from the render alone, not from the source: dilated
+    colour gradients are the drawn boundaries, so every connected run of
+    non-boundary pixels is a candidate surface. The ground plane is rejected
+    because it reaches the frame edge; text and glyphs are rejected because
+    they are small and ragged. What survives is a bordered box, and its
+    interior is then graded against its OWN median — a populated token card
+    runs 2-5% ink, an empty one is flat zero.
+    """
+    c = img[:REGION_CONTENT_H].astype(np.int16)
+    gx = np.zeros(c.shape[:2], bool)
+    gy = np.zeros(c.shape[:2], bool)
+    gx[:, :-1] = (np.abs(c[:, 1:] - c[:, :-1]) > REGION_EDGE_T).any(axis=2)
+    gy[:-1, :] = (np.abs(c[1:, :] - c[:-1, :]) > REGION_EDGE_T).any(axis=2)
+    lab, n = ndimage.label(~ndimage.binary_dilation(gx | gy, np.ones((3, 3), bool)))
+    out = []
+    for sl, idx in zip(ndimage.find_objects(lab), range(1, n + 1)):
+        if sl is None:
+            continue
+        y0, y1, x0, x1 = sl[0].start, sl[0].stop, sl[1].start, sl[1].stop
+        bh, bw = y1 - y0, x1 - x0
+        area = bh * bw
+        if area < REGION_MIN_AREA:
+            continue
+        if y0 <= 1 or x0 <= 1 or y1 >= REGION_CONTENT_H - 1 or x1 >= REGION_W - 1:
+            continue                                  # touches the edge => it is the ground
+        if (lab[sl] == idx).sum() / area < REGION_MIN_FILL:
+            continue                                  # ragged => not a container
+        if not 0.2 < bw / bh < 6.0:
+            continue
+        iy0, iy1 = y0 + REGION_INSET, y1 - REGION_INSET
+        ix0, ix1 = x0 + REGION_INSET, x1 - REGION_INSET
+        if iy1 - iy0 < 20 or ix1 - ix0 < 20:
+            continue
+        inner = c[iy0:iy1, ix0:ix1]
+        med = np.median(inner.reshape(-1, 3), axis=0)
+        ink = float((np.abs(inner - med) > REGION_DEV).any(axis=2).mean())
+        if ink < REGION_HOLLOW_INK:
+            out.append((x0 * 2, y0 * 2, bw * 2, bh * 2, ink))
+    return out
+
+
+def _iou(a, b):
+    ax, ay, aw, ah = a[:4]
+    bx, by, bw, bh = b[:4]
+    ix = max(0, min(ax + aw, bx + bw) - max(ax, bx))
+    iy = max(0, min(ay + ah, by + bh) - max(ay, by))
+    inter = ix * iy
+    return inter / (aw * ah + bw * bh - inter or 1)
+
+
+def check_regions(mp4):
+    """Track each hollow container across frames; a held one is the defect."""
+    import numpy as np
+    from scipy import ndimage
+    proc = subprocess.Popen(
+        ["ffmpeg", "-v", "error", "-i", str(mp4), "-vf",
+         f"fps={REGION_FPS},scale={REGION_W}:{REGION_H}",
+         "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+    nbytes = REGION_W * REGION_H * 3
+    live, done, i = [], [], 0
+    while True:
+        buf = proc.stdout.read(nbytes)
+        if len(buf) < nbytes:
+            break
+        t = i / REGION_FPS
+        img = np.frombuffer(buf, np.uint8).reshape(REGION_H, REGION_W, 3)
+        nxt = []
+        for r in _hollow_regions(img, np, ndimage):
+            for run in live:                          # same box still hollow => extend
+                if not run["hit"] and _iou(run["box"], r) > 0.5:
+                    run["hit"], run["end"] = True, t
+                    break
+            else:
+                nxt.append({"box": r, "start": t, "end": t, "hit": True})
+        for run in live:
+            (nxt if run["hit"] else done).append(run)
+        live = nxt
+        for run in live:
+            run["hit"] = False
+        i += 1
+    proc.stdout.close()
+    proc.wait()
+    done += live
+    if not i:
+        gate("regions", False, "could not decode frames")
+        return
+    held = sorted(
+        (round(r["start"], 1), round(r["end"] - r["start"] + 1 / REGION_FPS, 1), r["box"])
+        for r in done
+        if r["end"] - r["start"] + 1 / REGION_FPS >= REGION_HOLD_MIN_S and r["start"] >= 0.3)
+    detail = ", ".join(f"{s}s for {d}s ({b[2]}x{b[3]} at {b[0]},{b[1]})"
+                       for s, d, b in held[:8])
+    gate("regions", not held,
+         f"{len(held)} container(s) visible and empty >= {REGION_HOLD_MIN_S}s: {detail}"
+         f"{' ...' if len(held) > 8 else ''}" if held else
+         f"{i} samples at {REGION_FPS}fps, no container empty >= {REGION_HOLD_MIN_S}s")
 
 
 def check_silence(mp4, dur):
@@ -259,6 +401,7 @@ def main():
             audio_dur = float(meta["format"]["duration"])
     dur = check_render(mp4, audio_dur)
     check_frames_and_palette(mp4)
+    check_regions(mp4)
     check_silence(mp4, dur)
     check_clicks(mp4)
     check_type(d / "workspace")
