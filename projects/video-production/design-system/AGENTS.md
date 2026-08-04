@@ -16,7 +16,7 @@ are NOT in generic web docs. Skipping them produces broken compositions.
 
 **This is SCLA's illustrated-lesson design-system project.** Every SCLA
 lesson/program video runs through the two-skill pipeline: **`/refine-scripts`**
-(raw script → `refined/`) and **`/render-lessons`** (refined script → hyperframe
+(`inbox/` → `ready/`) and **`/render-lessons`** (ready script → hyperframe
 → human preview gate → MP4; **owns the build sequence and every command** —
 this file does not restate them). `/produce-video` is the one-call dispatcher
 over both. Start there; do not route SCLA lesson videos into generic

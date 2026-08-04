@@ -34,7 +34,7 @@
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/write-fence.sh\"",
             "timeout": 15,
-            "statusMessage": "Write fence: shared pipeline machinery is read-only in a build session (export SCLA_SYSTEM_SESSION=1 for deliberate template/gate work)"
+            "statusMessage": "Write fence: only armed while a build is in flight (scripts/build-session.sh status)"
           }
         ]
       }

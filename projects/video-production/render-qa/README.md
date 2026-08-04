@@ -50,13 +50,13 @@ Everything downstream of your approval is exit codes.
                         THE MACHINE                                   YOU
   ┌─────────────────────────────────────────────────────┐   ┌──────────────────┐
   │                                                     │   │                  │
-  │  raw script (.txt)                                  │   │  drop scripts at │
-  │  lesson-scripts/<program>/            ◄─────────────┼───┤  program root;   │
+  │  RAW script (.txt)                                  │   │  drop scripts in │
+  │  lesson-scripts/<program>/inbox/      ◄─────────────┼───┤  inbox/;         │
   │        │                                            │   │  edit any time   │
   │        ▼  /refine-scripts  (qa-facts pass — no      │   │                  │
   │        │                    fabrication survives)   │   │                  │
-  │  refined script                                     │   │  open review     │
-  │  lesson-scripts/<program>/refined/    ◄─────────────┼───┤  buffer: edit or │
+  │  READY script                                       │   │  open review     │
+  │  lesson-scripts/<program>/ready/      ◄─────────────┼───┤  buffer: edit or │
   │        │   ── the script STAYS here through build,  │   │  veto any script │
   │        │      gate, render and verify ──            │   │  before build    │
   │        ▼  /render-lessons BUILD  (cold subagent)    │   │                  │
@@ -92,7 +92,7 @@ Everything downstream of your approval is exit codes.
   │          ▼        ─► encode spot-check (vision)     │   │                  │
   │   --publish: file MP4 ─► Wistia upload ─►           │   │                  │
   │   published.tsv row + ledger row ─► script moves    │   │                  │
-  │   refined/ → rendered/ ─► commit ─► prune workspace │   │  Wistia URL      │
+  │   ready/ → published/ ─► commit ─► prune workspace  │   │  Wistia URL      │
   │          │        ── ALL of it in one pass ──       │   │  reported to you │
   │          ▼                                          │   │  as confirmation │
   │   next video in the queue (fail = quarantine that   │   │                  │
@@ -100,20 +100,22 @@ Everything downstream of your approval is exit codes.
   └─────────────────────────────────────────────────────┘   └──────────────────┘
 ```
 
-**Only two things ever move a script.** `/refine-scripts` moves it raw →
-`refined/`. `batch-ship.sh --publish` moves it `refined/` → `rendered/`, in the
-same commit that records the Wistia URL. Nothing else — not building, not
-gating, not rendering, not verifying. (Changed 2026-07-28: a gate-clean build
-used to move its own script. Moving at publish is what makes `rendered/`
-without a publish row a *detectable* state — see STRANDED in §1.6.)
+**Only two things ever move a script, and each move renames its stage.**
+`/refine-scripts` moves it `inbox/` → `ready/`. `batch-ship.sh --publish` moves
+it `ready/` → `published/`, in the same commit that records the Wistia URL.
+Nothing else — not building, not gating, not rendering, not verifying. (Changed
+2026-07-28: a gate-clean build used to move its own script. Moving at publish is
+what makes `published/` without a `published.tsv` row a *detectable* state — see
+STRANDED in §1.6. The folders were renamed to match on 2026-08-04, when
+`rendered/` had been meaning *published* for a week.)
 
 ### 1.3 What you invoke, and when
 
 | You want | You say / run |
 |---|---|
 | A video (or many) produced end to end | `/produce-video` — refines whatever is raw, builds, stops at the pilot gate |
-| Just refine raw scripts | `/refine-scripts` — drains program-root `.txt`s into `refined/` |
-| Just build from refined scripts | `/render-lessons` — BUILD is the default; a queue >1 runs AUTO-BATCH (pilot first) |
+| Just refine raw scripts | `/refine-scripts` — drains `inbox/` into `ready/` |
+| Just build from ready scripts | `/render-lessons` — BUILD is the default; a queue >1 runs AUTO-BATCH (pilot first) |
 | **See what's ready to watch** | `bash scripts/review.sh` — gates every build and opens a preview only for the clean ones |
 | Preview one specific build | `bash scripts/preview.sh <stem>` |
 | Approve the pilot / a one-off | watch it, then reply **`ship <stem>`** |
@@ -124,7 +126,7 @@ without a publish row a *detectable* state — see STRANDED in §1.6.)
 
 **Your two writing surfaces:** drop raw scripts at
 `lesson-scripts/<program-slug>/` root (intake), and edit/veto anything in
-`refined/` any time before it builds (the open review buffer). Nothing else in
+`ready/` any time before it builds (the open review buffer). Nothing else in
 the pipeline is hand-edited — `index.html` is a build artifact, timing numbers
 are compiler-owned, and a preference you state becomes a checker, not a memo.
 
@@ -152,7 +154,7 @@ No batch cap: the queue is the batch. Up to 3 builds run concurrently
   video then runs build → precheck → render → verify → publish unattended,
   each protected by the mechanized guards below. A failing pilot stops the run.
   For a single one-off video, the pilot *is* that video.
-- **Standing right, not a gate:** `refined/` is yours to edit or veto at any
+- **Standing right, not a gate:** `ready/` is yours to edit or veto at any
   moment before build. After your pilot approval there is no second look —
   that's deliberate (the per-video human eye was replaced 2026-07-28 by the
   guard chain below, `decisions/log.md`).
@@ -190,12 +192,11 @@ unpublished, logged in `render-qa/quarantine.log`) and the batch moves on:
 ### 1.6 Where things live (state IS the folder — nothing narrates it)
 
 ```
-lesson-scripts/<program>/*.txt        raw — waiting to be refined
-lesson-scripts/<program>/refined/     refined — YOUR review buffer, BUILD's queue
-lesson-scripts/<program>/refined/avatar/   HeyGen avatar queue (different pipeline)
-renders-hyperframes/<base>/           built — waiting at the pilot gate
-lesson-scripts/<program>/rendered/    published (or publishing) — moved at publish
-renders-mp4/<program>/hyperframes/    delivered MP4s (gitignored; kept after upload)
+lesson-scripts/<program>/inbox/       RAW — captured, waiting to be refined
+lesson-scripts/<program>/ready/       READY — YOUR review buffer, BUILD's queue
+renders-hyperframes/<base>/           BUILDING → NEEDS REVIEW → RENDERED
+lesson-scripts/<program>/published/   PUBLISHED — live on Wistia, moved at publish
+renders-mp4/<program>/                delivered MP4s (gitignored; kept after upload)
 lesson-scripts/published.tsv          THE machine truth: a stem is done iff it has a row
 lesson-scripts/refinement-log.md      your human-facing ledger (Wistia URLs)
 render-qa/quarantine.log              videos a guard pulled out of a batch
@@ -229,9 +230,9 @@ one of those discards valid narration audio, so the distinction is worth money.)
 queue in priority order from the folders + tsv + quarantine log alone, into five
 buckets:
 
-- **to build** — in `refined/`, no workspace yet
+- **to build** — in `ready/`, no workspace yet
 - **built-unpublished** — workspace exists, annotated with the stage above
-- **STRANDED** — in `rendered/` with no publish row: render, verify, upload or
+- **STRANDED** — in `published/` with no `published.tsv` row: upload or
   commit did not complete. This bucket is the whole reason the script moves at
   publish rather than at build.
 - **blocked** — the script body still contains `TODO: needs input` or
@@ -250,8 +251,8 @@ and the session is required to ask you about those directly at close-out —
 you should never have to go dig.
 
 **Naming: a working artifact carries no date.** A lesson's identity is
-`<title>_<program>` — the **base** — and that one name is the raw script, the
-refined script, the build workspace, and the rendered script. The only artifact
+`<title>_<program>` — the **base** — and that one name is the `inbox/` script,
+the `ready/` script, the build workspace, and the `published/` script. The only artifact
 that gains a date is the delivered MP4 (`<base>_<render-date>.mp4`), frozen at
 publish because it records an event that happened once. "When was this last
 acted on" is mtime, which the filesystem tracks natively and cannot drift.
@@ -265,7 +266,7 @@ holds still. Under the old rule a rebuild restamped its way into a *second*
 workspace, leaving one lesson holding both `..._2026-07-28` and
 `..._2026-07-29`.
 
-### 1.7 Three lanes through the same folders
+### 1.7 Two lanes through the same folders
 
 Same stems, same locks, same state model — different authoring method and a
 different gate policy.
@@ -274,12 +275,12 @@ different gate policy.
 |---|---|---|
 | **Illustrated · template** (default) | Author `scenes.json`; `build_index.py` compiles the HTML and the compiler owns every timing | Eligible for AUTO-BATCH — one pilot approval covers the queue |
 | **Illustrated · freeform** (`--freeform`, opt-in) | No templates, no `scenes.json`, no compiler — the HTML is the authored artifact. Narration-first: audio is frozen before a pixel is placed | **Never enters AUTO-BATCH.** Every video stops for its own preview while the quality floor is unproven |
-| **Talking-head · avatar** | Lives in `avatar/` and `refined/avatar/`, rendered manually via the HeyGen web UI | Separate pipeline entirely |
 
-**Render route = location.** A raw script's folder declares how it renders:
-program root → illustrated, `avatar/` subfolder → talking-head. `/render-lessons`
-reads `refined/` non-recursively, so `refined/avatar/` is never picked up and no
-lesson is ever rendered both ways.
+The talking-head lane that used to be a third row here — `avatar/` and
+`refined/avatar/`, rendered by hand through the HeyGen web UI — was **deleted
+2026-08-04**. It had one script in it, which was requeued as illustrated. Every
+lesson in this tree is illustrated now, which is why `ready/` has no subfolders
+and there is no render route to infer from a location.
 
 Freeform's reference build — a visual bar plus a working example of every
 artifact — is `experiments/agent-native-m2/`; read its `design.md` and
@@ -311,20 +312,25 @@ adopting it more widely is `render-qa/docs/HANDOFF-agent-native-verdict-2026-07-
 Found while tracing the flow for the 2026-07-30 rewrite. The mechanisms are
 correct; two pieces of prose around them are not.
 
-1. **`.claude/skills/render-lessons/SKILL.md` lines 21–26 and 55–57** still
-   state the pre-2026-07-28 rule — that a gate-clean build moves its own script
-   to `rendered/`. They contradict line 50 and lines 328–332 of the same file
-   and the actual behaviour of `batch-ship.sh`. Harmless to the machine,
-   misleading to a reader.
-2. **`.claude/skills/render-lessons/SKILL.md` line 116** is a live defect.
-   Style packages rotate summit → horizon → cadence on
-   `count(*.txt in rendered/) mod 3`, justified in the text as the
-   *started-build* count. Since the move went to publish-time that folder holds
-   only *published* scripts, so mid-career-momentum's 14 built videos count as
-   zero and every fresh batch there restarts the rotation at `summit`. Fixable
-   either by counting workspaces in `renders-hyperframes/` (restores the
-   original intent) or by counting `rendered/` and relabelling it a
-   published-count rotation — that's a call, not a typo.
+**Both were fixed on 2026-08-04, and both fixes were mechanisms rather than
+corrected prose.** Kept here because the *shape* of these two defects is worth
+recognizing again.
+
+1. **A folder whose name lied.** `render-lessons/SKILL.md` said in one place
+   that a gate-clean build moves its own script to `rendered/`, and in another
+   that publish does — because `rendered/` had silently come to mean
+   *published* on 2026-07-28. One stale name produced four disagreeing status
+   narratives. Fixed by renaming the folders to the stage names they actually
+   carry: `inbox/` → `ready/` → `published/`.
+2. **A count read from the wrong folder.** Style packages rotated summit →
+   horizon → cadence on `count(*.txt in rendered/) mod 3`, described in the text
+   as the *started-build* count. Once the move went to publish-time, that folder
+   held only published scripts — mid-career-momentum's 14 built videos counted
+   as zero, and every fresh batch there restarted at `summit`. Fixed by moving
+   the rule out of prose entirely: `render-qa/src/theme_for.py <program>` is now
+   the only thing that answers it, counting the union of `published.tsv` rows
+   and live workspaces. Prose that restates a computation will drift from it;
+   prose that cites a script cannot.
 
 ### 1.10 Last known state (as of 2026-07-31)
 
@@ -387,7 +393,7 @@ this file per-workspace and prefer it over `transcript.json` when present —
       data-start="0" data-duration="1" …>
 ```
 
-- `data-narration` — the scene's verbatim span of the refined script (split at
+- `data-narration` — the scene's verbatim span of the ready script (split at
   sentence ends; HTML-escape inner double quotes as `&quot;`). The
   concatenation across scenes must equal the script — `synth_narration.py`
   enforces this exactly, before any TTS.

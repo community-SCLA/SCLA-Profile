@@ -48,8 +48,11 @@ def make_fixture(stem, script_text, transcript_words):
     (ws / "assets" / "voice" / "transcript.json").write_text(json.dumps(words))
     slug = stem.split("_")[1]
     scripts_root = TMP / "lesson-scripts"
-    (scripts_root / slug).mkdir(parents=True)
-    (scripts_root / slug / f"{stem}.txt").write_text(script_text)
+    # inbox/ is where a raw script lives. Since 2026-08-04 the folder name IS
+    # the stage name and nothing sits loose at the program root, so locate_script
+    # searches ready/ → inbox/ → published/ and never the root itself.
+    (scripts_root / slug / "inbox").mkdir(parents=True)
+    (scripts_root / slug / "inbox" / f"{stem}.txt").write_text(script_text)
     return ws, scripts_root
 
 
@@ -87,17 +90,17 @@ check("deletion run length counts dropped words", run == 4)
 print("== unit: script location from workspace stem ==")
 ws, root = make_fixture(STEM, SCRIPT, SCRIPT_WORDS)
 found = locate_script(ws, scripts_root=root)
-check("stem resolves to lesson-scripts/<slug>/<stem>.txt",
+check("stem resolves to lesson-scripts/<slug>/inbox/<stem>.txt",
       found is not None and found.name == f"{STEM}.txt"
-      and found.parent.name == "early-career-boost")
+      and found.parent.name == "inbox")
 check("malformed stem (no 3 parts) returns None",
       locate_script(ws.parent / "just-one-part", scripts_root=root) is None)
-refined_dir = root / "early-career-boost" / "refined"
-refined_dir.mkdir()
-(refined_dir / f"{STEM}.txt").write_text(SCRIPT)
-check("refined/ copy wins over program root",
-      locate_script(ws, scripts_root=root).parent.name == "refined")
-(refined_dir / f"{STEM}.txt").unlink()
+ready_dir = root / "early-career-boost" / "ready"
+ready_dir.mkdir()
+(ready_dir / f"{STEM}.txt").write_text(SCRIPT)
+check("ready/ copy wins over inbox/",
+      locate_script(ws, scripts_root=root).parent.name == "ready")
+(ready_dir / f"{STEM}.txt").unlink()
 
 print("== gate: clean match passes ==")
 sec = check_script_match(ws, scripts_root=root)
@@ -162,7 +165,7 @@ print("== gate: a missing script FAILS (it does not warn and skip) ==")
 # word of on-screen content. "I could not check" is not "it is fine", and a test
 # enshrines a defect exactly as easily as a doc does.
 ws, root = make_fixture(STEM, SCRIPT, SCRIPT_WORDS)
-(root / "early-career-boost" / f"{STEM}.txt").unlink()
+(root / "early-career-boost" / "inbox" / f"{STEM}.txt").unlink()
 sec = check_script_match(ws, scripts_root=root)
 check("missing script: gate FAILS", not sec["pass"], sec["output"])
 check("missing script: names the stem, the root searched, and the --script "

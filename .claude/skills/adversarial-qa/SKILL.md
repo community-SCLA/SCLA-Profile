@@ -57,7 +57,7 @@ of the script, not the render.
    all lanes; text-only variable fix → Layout + Facts, with Timing/Presence
    clears carrying over only if preflight + verify still pass).
 6. Note any real snag the audit surfaced in
-   `projects/video-production/render-qa/snag-log.md` (one line under Known
+   `projects/video-production/render-qa/logs/snag-log.md` (one line under Known
    snags if it's recurrent-worthy).
 
 Lanes never edit files and never soften a finding; the human QA gate still
@@ -84,4 +84,3 @@ failing.
 - Layout tokens/bounds: `config/tokens.yml` + "The frame" + "Type rules"
 - Facts: `projects/video-production/CLAUDE.md` → "Never fabricate SCLA content";
   the source material named in the request
-- Avatar-path presence: avatar visible the full runtime (HeyGen builds only)

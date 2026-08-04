@@ -13,7 +13,7 @@
 #       PUBLISH phase, run only after the sampled frames pass review: check the
 #       qa/VERIFIED marker -> file exactly that MP4 -> upload to Wistia ->
 #       record stem+URL in published.tsv AND refinement-log.md -> move script
-#       to rendered/ -> commit -> prune the workspace in place (kept editable).
+#       to published/ -> commit -> prune the workspace in place (kept editable).
 #       The filed MP4 is KEPT under renders-mp4/ (gitignored) as the local
 #       backup of the delivered cut — owner call 2026-07-29, and what
 #       renders-mp4/README.md said all along.
@@ -48,7 +48,7 @@ WS="$VP/renders-hyperframes/$STEM"
 [[ -d "$WS" ]] || { echo "FATAL: no workspace at $WS" >&2; exit 2; }
 
 # Stem naming has exactly one owner: render-qa/src/stem.py. A WORKING artifact
-# (workspace, refined/ script, rendered/ script) is named `<title>_<program>`
+# (workspace, ready/ script, published/ script) is named `<title>_<program>`
 # with no date at all, so its name is its identity and never moves. Only the
 # DELIVERED MP4 gains a date, the render date, frozen at publish. `stem_base`
 # is tolerant of legacy dated names, so a workspace built before 2026-07-29
@@ -218,11 +218,11 @@ RENDER_DATE="$(date +%F)"
 SHIP_STEM="$(stem_delivered "$STEM" "$RENDER_DATE")" \
   || quarantine "could not build delivered name for '$STEM'"
 FILED="${SHIP_STEM}.mp4"
-DEST_DIR="$VP/renders-mp4/$PROGRAM/hyperframes"
+DEST_DIR="$VP/renders-mp4/$PROGRAM"
 mkdir -p "$DEST_DIR"
 [[ ! -f "$DEST_DIR/$FILED" ]] || quarantine "filed MP4 already exists: $FILED (same-day re-publish?)"
 cp "$MP4_SRC" "$DEST_DIR/$FILED" || quarantine "could not file MP4"
-echo "== filed: renders-mp4/$PROGRAM/hyperframes/$FILED"
+echo "== filed: renders-mp4/$PROGRAM/$FILED"
 
 echo "== wistia upload"
 UPLOAD_OUT="$(bash "$REPO/scripts/wistia-upload.sh" "$DEST_DIR/$FILED" "$PROGRAM" 2>&1)" || {
@@ -264,7 +264,7 @@ if rest and rest[-1] == prog:
     rest = rest[:-1]
 prefix = "_".join(rest)
 
-rendered_cell = f"{rdate} → `../renders-mp4/{prog}/hyperframes/{filed}` · Wistia {url}"
+rendered_cell = f"{rdate} → `../renders-mp4/{prog}/{filed}` · Wistia {url}"
 note = f"published {rdate} (AUTO-BATCH); local MP4 kept in renders-mp4/, workspace pruned in place and still editable"
 
 # Rows abbreviate the stem (`title_..._DATE.txt`), so match on prefix.
@@ -309,20 +309,20 @@ print(f"   ledger row updated ({'in place' if hit is not None else 'appended'})"
 PY
 
 # The script leaves the queue only now, when the video is actually live. It
-# keeps its name: rendered/ is a working folder, and a working artifact is
+# keeps its name: published/ is a working folder, and a working artifact is
 # named for its base alone. The render date is recorded in published.tsv's own
 # column and on the filed MP4, which is where a date belongs. (Destination is
 # BASE rather than STEM so a legacy dated script migrates on its way through.)
-SRC_SCRIPT="$VP/lesson-scripts/$PROGRAM/refined/$STEM.txt"
-DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/rendered/$BASE.txt"
+SRC_SCRIPT="$VP/lesson-scripts/$PROGRAM/ready/$STEM.txt"
+DST_SCRIPT="$VP/lesson-scripts/$PROGRAM/published/$BASE.txt"
 if [[ -f "$SRC_SCRIPT" ]]; then
   mkdir -p "$(dirname "$DST_SCRIPT")"
   git -C "$REPO" mv "$SRC_SCRIPT" "$DST_SCRIPT" 2>/dev/null || mv "$SRC_SCRIPT" "$DST_SCRIPT"
-  echo "   script -> rendered/"
+  echo "   script -> published/"
 fi
 
 # Regenerate the human-facing status doc in the same pass that publishes —
-# it's a build artifact of published.tsv/refined//rendered/, never hand-edited,
+# it's a build artifact of published.tsv + ready/ + published/, never hand-edited,
 # so it rides in this commit alongside the ledger rows it's derived from.
 bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
 
@@ -344,7 +344,7 @@ echo "   committed"
 # prune a workspace whose deliverable isn't filed — a check that now holds for
 # good, since the filed MP4 is never removed.
 bash "$REPO/scripts/archive-lesson.sh" "$STEM" --in-place || echo "   (prune skipped)"
-echo "   local MP4 kept: renders-mp4/$PROGRAM/hyperframes/$FILED (gitignored backup)"
+echo "   local MP4 kept: renders-mp4/$PROGRAM/$FILED (gitignored backup)"
 
 echo
 echo "PUBLISHED $STEM $WURL"

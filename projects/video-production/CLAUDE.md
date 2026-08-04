@@ -13,7 +13,7 @@ Match the task, load the ONE file it names, stop.
 | Authoring inside a build workspace (`renders-hyperframes/<stem>/`) | `renders-hyperframes/_run/BUILD-KIT.md` — workspaces carry no CLAUDE.md/AGENTS.md of their own |
 | Deterministic render gates / QA toolchain | `render-qa/README.md` |
 | Considering agent-native (template-free) rendering | `render-qa/docs/PROPOSAL-agent-native-adoption-2026-08-04.md` (the plan; cites the 2026-07-30 verdict handoff for evidence) |
-| Script/lesson state (raw → refined → rendered) | `lesson-scripts/README.md` |
+| Script/lesson state (`inbox/` → `ready/` → `published/`) | `lesson-scripts/README.md` |
 | Notion / Wistia link ledger (Notion retired as intake 2026-07-13) | `docs/notion-queue.md` |
 | Standing constraints (fabrication ban, PILOT GATE, mechanized guards...) | `.claude/rules/video-production.md` (auto-loaded here; cold subagents read it first) |
 | Session close-out retro | `render-qa/logs/snag-log.md` (read ONLY the latest entry) |
@@ -42,4 +42,4 @@ Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — needs Synthesia Enterpri
 ## Current Phase
 
 State is the folder — nothing narrates it, so read it directly:
-`lesson-scripts/<program>/refined/*.txt` = queued to build · `renders-hyperframes/<stem>/` = built, waiting at the hyperframe gate · `lesson-scripts/<program>/rendered/*.txt` = gate-clean build exists · Wistia URL in `lesson-scripts/refinement-log.md` = published.
+The folder name IS the stage name: `lesson-scripts/<program>/inbox/*.txt` = raw · `ready/*.txt` = queued to build · `renders-hyperframes/<stem>/` = in flight, read its stage with `bash scripts/batch-status.sh` · `published/*.txt` + a `published.tsv` row = live on Wistia. Anything in `published/` without that row is STRANDED.

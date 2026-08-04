@@ -1,9 +1,9 @@
 ---
 name: render-lessons
-description: Build and ship SCLA lesson videos from refined scripts. AUTO-BATCH (default for a queue) builds ONE pilot video, stops for a single human preview, and on approval drains the whole queue in priority order — build → render → verify → publish to Wistia — one cold subagent per video, no batch cap, each video published and committed before the next starts so an interrupted run never strands work. BUILD and SHIP ("ship <stem>") remain for one-off work. Downstream half of the SCLA lesson pipeline (dispatcher: /produce-video; upstream: /refine-scripts).
+description: Build and ship SCLA lesson videos from approved scripts. AUTO-BATCH (default for a queue) builds ONE pilot video, stops for a single human preview, and on approval drains the whole queue in priority order — build → render → verify → publish to Wistia — one cold subagent per video, no batch cap, each video published and committed before the next starts so an interrupted run never strands work. BUILD and SHIP ("ship <stem>") remain for one-off work. Downstream half of the SCLA lesson pipeline (dispatcher: /produce-video; upstream: /refine-scripts).
 ---
 
-# render-lessons — refined script → hyperframe → (gate) → MP4 → (review) → Wistia
+# render-lessons — ready script → hyperframe → (gate) → MP4 → (review) → Wistia
 
 **This file owns the build/ship/publish sequence and every command.** The
 design contract (tokens, animacy rules, anchor/timing contract, templates,
@@ -18,10 +18,10 @@ build subagent reads it while assembling; nothing from it is restated here.
    approval per stem and made a 30-video queue impossible to drain. For a
    single one-off video, the pilot *is* that video, so nothing changes.)
 
-`refined/` is your finalize-before-build buffer — it holds only scripts not
+`ready/` is your finalize-before-build buffer — it holds only scripts not
 yet built (edit or veto any of them there, any time *before* you invoke
-BUILD). The moment a build is gate-clean, its script moves `refined/ →
-rendered/` (B3), so `refined/` always shows exactly what's left to build and
+BUILD). The moment a lesson is live on Wistia, its script moves `ready/ →
+published/` (B3), so `ready/` always shows exactly what's left to build and
 parallel BUILD sessions see a shrinking queue; the human pilot gate then
 reviews a built workspace, not the script. Everything on either side of that
 gate is machine work behind deterministic gates: BUILD may not render; a batch
@@ -43,22 +43,22 @@ delivered MP4 carries one, the render date, frozen at publish (2026-07-29,
 `decisions/log.md`).
 
 ```
-lesson-scripts/<program-slug>/refined/<base>.txt    BUILD's queue — scripts not yet built
-                                                    (refined/avatar/ is the HeyGen avatar
-                                                    queue — NOT built here; see B1)
-renders-hyperframes/<base>/                         built — sitting at the HYPERFRAME GATE
-lesson-scripts/<program-slug>/rendered/<base>.txt   its script, moved here at publish (B3)
-renders-mp4/<program-slug>/hyperframes/<base>_<render-date>.mp4
-                                                    shipped — filed locally, then published to Wistia
+lesson-scripts/<program-slug>/inbox/<base>.txt      RAW — captured, not yet refined
+lesson-scripts/<program-slug>/ready/<base>.txt      READY — BUILD's queue, refined + approved
+renders-hyperframes/<base>/                         BUILDING → NEEDS REVIEW → RENDERED
+lesson-scripts/<program-slug>/published/<base>.txt  PUBLISHED — live on Wistia
+renders-mp4/<program-slug>/<base>_<render-date>.mp4 the delivered file
 ```
 
-(`rendered/` means "a gate-clean build exists for this script," not
-"published." Publishing to Wistia closes the books but no longer moves the
-file — B3 already did.)
+**The folder name IS the stage name** (2026-08-04). `published/` means
+published — live at a Wistia URL — and `batch-ship.sh --publish` is the one
+thing that moves a script there, in the same pass that records the URL. It is
+not "a gate-clean build exists"; that state is the workspace's own, read from
+`renders-hyperframes/<base>/` by `batch-status.sh`.
 
 ---
 
-## Phase BUILD (default) — drain `refined/` into workspaces, then stop
+## Phase BUILD (default) — drain `ready/` into workspaces, then stop
 
 ### B0 — Environment preflight (orchestrator, once per session)
 
@@ -75,21 +75,19 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 - If `npx hyperframes tts` fails on a missing `kokoro_onnx`, set
   `HYPERFRAMES_PYTHON` to an interpreter that has it (`findPython()` respects it).
 - **Snag memory: read ONLY the latest entry** of
-  `projects/video-production/render-qa/snag-log.md` (the first `## ` entry —
+  `projects/video-production/render-qa/logs/snag-log.md` (the first `## ` entry —
   use Read with a line limit; never load the whole file). Its **Open** list
   rolls forward until fixed — carry it into every build-subagent prompt and
   into your close-out.
 
 ### B1 — Queue and batch
 
-- Queue = every `*.txt` at the **`refined/` root only** — NOT the
-  `refined/avatar/` subfolder, which is the HeyGen avatar-render queue
-  (rendered manually via the web UI) and must never become a HyperFrames build
-  (that would double-render one lesson two ways). Use a non-recursive list (`ls
-  …/refined/*.txt`), not a recursive `find`. A
-  gate-clean build moves its script out to `rendered/` (B3), so `refined/`
-  already holds only un-built scripts. The workspace check stays as a guard:
-  if a script still in `refined/` already has a `renders-hyperframes/<base>/`
+- Queue = every `*.txt` in **`ready/`** (`ls …/ready/*.txt`, non-recursive —
+  `ready/` has no subfolders; the `refined/avatar/` HeyGen lane was deleted
+  2026-08-04 along with the rest of the avatar lane). A published lesson's
+  script moves out to `published/` (B3), so `ready/` holds only lessons not yet
+  live. The workspace check is what tells built from unbuilt:
+  if a script in `ready/` already has a `renders-hyperframes/<base>/`
   workspace, it's built and waiting at the gate — skip it (never rebuild one
   without being asked; point the human at its preview instead). Since a
   workspace is named for its base and nothing restamps it, that check is exact;
@@ -130,7 +128,7 @@ Strong model for bespoke/illustration-heavy lessons;
 a routine template instantiation runs fine one tier down. The prompt carries
 **paths + facts, never file bodies** (except the snag block):
 
-- the stem, the refined script path, the workspace parent
+- the stem, the `ready/` script path, the workspace parent
   `projects/video-production/renders-hyperframes/`, and the assigned theme;
 - the **Open + rules block from the latest snag-log entry**, pasted verbatim;
 - "Follow the **Build sequence** section of
@@ -170,7 +168,7 @@ thing you write; `render-qa/src/build_index.py` compiles it into `index.html`
 deterministically (host boilerplate, progress rail, `<audio>` host, per-slot
 template clones and instance repointing are all compiler-owned — the generated
 file's banner comment says so). One scene entry per beat: `template` (a
-design-system composition), `narration` (its verbatim span of the refined
+design-system composition), `narration` (its verbatim span of the ready
 script), every slot filled or explicitly `""`, cue **anchor phrases** never
 numbers. Learn the shape from any newer dated build's `scenes.json`, or
 regenerate one from an existing build with `build_index.py --extract <ws>`.
@@ -207,7 +205,7 @@ rules when choosing templates and copy. Standing landmines:
   — the same checkers the hard gate runs, before any TTS or render exists. The
   guard hook fires that same suite on every `scenes.json` write.
 - **Never type a timing number.** Each scene's `narration` is its verbatim
-  span of the refined script (split only at sentence ends); reveals are cue
+  span of the ready script (split only at sentence ends); reveals are cue
   **anchor phrases** in the plan; the compiler owns every number
   (`data-start`/`data-duration`/cue seconds are placeholders until
   `compile_timeline.py --apply`). `data-anchor-end` is legacy-only — never
@@ -224,7 +222,7 @@ rules when choosing templates and copy. Standing landmines:
 
 **Synthesize per scene, then compile + gates** (from the workspace — loop
 until all green). `synth_narration.py` verifies data-narration against the
-refined script BEFORE any TTS, synthesizes one clip per scene (cached —
+ready script BEFORE any TTS, synthesizes one clip per scene (cached —
 edits only re-synthesize changed scenes), and concatenates with REAL boundary
 silence; never hand-run single-take `hyperframes tts` for a lesson (the
 old insert-silence flow spliced words — decisions/log.md 2026-07-14). Default
@@ -293,7 +291,7 @@ never a re-synthesis):
    face come from `tokens.yml` / `brand/visual-identity.md`; hierarchy by
    weight/size/color, headings Title Case without terminal periods.
 3. **`audio_request.json`** — the beat manifest: `lines: [{id, text}]`, the
-   refined script **verbatim** (TTS normalizations only), split into
+   ready script **verbatim** (TTS normalizations only), split into
    narration beats. **Pace target: ~10 beats per minute** — a ~150s lesson is
    ~25 beats, not ~17; a beat manifest that undershoots this by a wide margin
    is what the owner rejected as "SO boring" (`PENDING-pace-gates.md` §1).
@@ -344,10 +342,9 @@ python3 projects/video-production/render-qa/src/preflight.py projects/video-prod
 ```
 
 **Once your independent preflight exits 0**, the build is gate-clean. The
-script STAYS in `refined/` until publish — `batch-ship.sh --publish` moves it
-to `rendered/` in the same pass that records the Wistia URL (changed
-2026-07-28: `rendered/` now means published-or-publishing, so
-`batch-status.sh` can flag anything stranded between render and publish).
+script STAYS in `ready/` until publish — `batch-ship.sh --publish` moves it
+to `published/` in the same pass that records the Wistia URL, so
+`batch-status.sh` can flag anything stranded between render and publish.
 
 Then **stop and hand the human the gate**, per video: stem, theme, scene
 count, and how to watch it. **Never print `<stem>` as a placeholder** — give
@@ -408,10 +405,10 @@ Publish refuses to run without a fresh `qa/VERIFIED` marker (and re-hashes the
 MP4 against it), refuses a stem already in `published.tsv`, then: file the MP4
 → Wistia upload (retried, time-capped) → append `lesson-scripts/published.tsv`
 (the machine resume key: full stem + URL) → update the `refinement-log.md` row
-→ move the script `refined/ → rendered/` → commit (a commit failure
+→ move the script `ready/ → published/` → commit (a commit failure
 quarantines WITH the URL and keeps the MP4) → prune the workspace in place
 (`archive-lesson.sh --in-place`; moving a workspace into `_archive/` stays a
-human-only call). The filed MP4 stays in `renders-mp4/<program>/hyperframes/`
+human-only call). The filed MP4 stays in `renders-mp4/<program>/`
 as a local backup — gitignored, never deleted.
 
 Report the Wistia URL to the human as confirmation of what happened, not as a
@@ -453,9 +450,10 @@ still happens, once, at close-out.
 
 Drain **program by program**, highest value first, not alphabetically. Each
 video is published and committed before the next starts, so if the session
-dies the top-priority programs are already live. Priority is the human's call;
-absent one, use `refinement-log.md`'s published counts (a program already
-shipping is the one with an audience waiting).
+dies the top-priority programs are already live. **Priority has one
+definition**: the `PRIORITY` default at `scripts/batch-status.sh:28`, override
+with `VIDEO_PRIORITY="slug-a slug-b …"`. `batch-status.sh` already emits the
+queue in that order, so drain it top to bottom rather than re-deriving it.
 
 ### A2 — Pilot
 
@@ -468,8 +466,8 @@ run economics on video 1 rather than at 3am.
 
 ### A3 — The loop, three tool calls per video
 
-1. **Cold build subagent** — prompt carries *paths only*: the stem, its refined
-   script, `_run/BUILD-KIT.md`, the assigned theme, and the verbatim snag Open
+1. **Cold build subagent** — prompt carries *paths only*: the stem, its
+   `ready/` script, `_run/BUILD-KIT.md`, the assigned theme, and the verbatim snag Open
    block. It clones the scaffold, authors `scenes.json`, loops
    `build_index.py` + `preflight.py --static` until the plan is clean, then
    synth → compile → full preflight → check until green. It returns **five
@@ -490,7 +488,7 @@ run economics on video 1 rather than at 3am.
    subagent, sampled frames only. On PASS,
    `batch-ship.sh <stem> <program-slug> --publish`: marker + sha guard →
    file MP4 → Wistia upload → `published.tsv` +
-   ledger row → `git mv` script to `rendered/` → commit → prune in place
+   ledger row → `git mv` script to `published/` → commit → prune in place
    (the filed MP4 is kept as a local backup). Publish
    refuses a stem already in `published.tsv`, so re-running is safe.
 
@@ -530,7 +528,8 @@ committed in the same pass that publishes — `refinement-log.md` stays the
 human-facing ledger but its rows abbreviate stems and are not machine-matched).
 `bash scripts/batch-status.sh` reconstructs the remaining queue in priority
 order from the folders, the tsv and `render-qa/quarantine.log` alone — and
-flags any script in `rendered/` without a published row as **STRANDED**, the
+flags any script in `published/` without a `published.tsv` row as
+**STRANDED**, the
 bucket that catches every state between render and commit. A fresh session
 resumes with that one command; nothing depends on the previous session's
 context surviving, which also makes mid-run context compaction a non-event.
@@ -540,7 +539,7 @@ same read, rendered as a document a human can open without running anything.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 
-Append a **new entry at the top** of `render-qa/snag-log.md` following the
+Append a **new entry at the top** of `render-qa/logs/snag-log.md` following the
 rules in its header: new snags tagged `[env]/[tooling]/[authoring]/[upstream]/[defect]`
 with resolution + time cost, **Open items carried forward verbatim from the
 previous entry until actually fixed**, and durable lessons promoted into the

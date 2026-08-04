@@ -222,9 +222,10 @@ def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
     rather than parsing program out of the name. This is convention-agnostic:
     it works for both <section>_<program>_<date> and m<#>_<title>_<date> stems.
 
-    Scripts live in state folders (location = lifecycle state): refined/ (the
-    render queue) is the normal home while a build exists; root is raw intake;
-    rendered/ covers re-verification of a shipped lesson.
+    Scripts live in state folders (location = lifecycle state, and the folder
+    name IS the stage name since 2026-08-04): ready/ (the render queue) is the
+    normal home while a build exists; inbox/ is raw intake; published/ covers
+    re-verification of a shipped lesson.
 
     Matched on BASE, not the full stem. Since 2026-07-28 a stem's date is the
     date of the most recent action on *that artifact*, so a workspace built on
@@ -242,7 +243,7 @@ def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
         # to raise FileNotFoundError straight out of the gate (2026-07-29).
         return None
     for program in sorted(p for p in scripts_root.iterdir() if p.is_dir()):
-        for sub in ("refined", "", "rendered"):
+        for sub in ("ready", "inbox", "published"):
             exact = program / sub / f"{ws.name}.txt"
             if exact.is_file():
                 return exact
@@ -281,7 +282,7 @@ def check_script_match(ws: Path, script_path=None, scripts_root=LESSON_SCRIPTS):
                     f"--script given. The script-vs-transcript diff is the "
                     f"render-stage half of the fabrication ban — it cannot be "
                     f"skipped silently. File the script in the program's "
-                    f"refined/ folder, or pass --script <path> explicitly."}
+                    f"ready/ folder, or pass --script <path> explicitly."}
     script_path = Path(script_path)
     if not script_path.is_file():
         return {"pass": False,

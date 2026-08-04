@@ -73,7 +73,7 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   Wistia URL land in `lesson-scripts/published.tsv` (the machine resume key) and
   the human-facing `refinement-log.md` row, committed in the same pass — a commit
   failure quarantines the video with its URL and keeps the MP4. A stem is done if
-  and only if it has a `published.tsv` row; anything in `rendered/` without one
+  and only if it has a `published.tsv` row; anything in `published/` without one
   is flagged **STRANDED**. Publish runs only against `qa/VERIFIED` and refuses
   stems already published. *(Mechanisms: `scripts/batch-ship.sh` guards. Read the
   queue with `scripts/batch-status.sh`, or open the generated
@@ -83,17 +83,22 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
 - **A build session cannot write the shared machinery.** `design-system/`
   (templates, `tokens.yml`, contracts), `renders-hyperframes/_run/` (the
   scaffold every workspace is copied from), `render-qa/src/` (the gates),
-  `scripts/` and `.claude/` are read-only during a build; a workspace's own
-  files stay fully writable. One edit to any of them changes every future
-  build, so template/gate work is a DELIBERATE separate session that exports
-  `SCLA_SYSTEM_SESSION=1` — a build subagent never sets it and cannot set it
-  for itself. A builder that finds a template or gate genuinely wrong REPORTS
-  it; it does not patch it. *(Mechanism: `scripts/write-fence.sh`, a
-  `PreToolUse` hook on Write/Edit/Bash — Bash included because a shell
-  redirect or `cp` is the obvious way around a Write-only fence. Pinned by
-  `render-qa/tests/test_write_fence.py`, which invokes the real script with
-  crafted payloads and asserts BOTH failure modes: too loose, and too tight.
-  Why: log 2026-08-04 "The write fence".)*
+  `scripts/` and `.claude/` are read-only **while a build is in flight**; a
+  workspace's own files stay fully writable, and outside a build nothing is
+  fenced at all. One edit to any of them changes every future build, so a
+  builder that finds a template or gate genuinely wrong REPORTS it and carries
+  on; it does not patch it. The fence is armed by the sentinel
+  `renders-hyperframes/.build-in-progress` — not by a session env flag, which
+  cannot tell the owner from the subagents they dispatch because both share one
+  process. *(Mechanisms: `scripts/write-fence.sh`, a `PreToolUse` hook on
+  Write/Edit/Bash — Bash included because a shell redirect or `cp` is the
+  obvious way around a Write-only fence; `scripts/build-session.sh`
+  arm/disarm/status, driven by `build-claim.sh` and `build-release.sh`. The
+  sentinel path is itself fenced and expires after `VIDEO_BUILD_SESSION_TTL`
+  (6h). Pinned by `render-qa/tests/test_write_fence.py`, which invokes the real
+  script with crafted payloads against a throwaway project dir and asserts BOTH
+  failure modes armed AND disarmed: too loose, and too tight. Why: log
+  2026-08-04 "The write fence".)*
 - **One render at a time, machine-wide; builds run up to 3-wide.** Authoring and
   TTS are network-bound and overlap cleanly; a render is CPU-bound and two on a
   4-core box thrash. *(Mechanism: `batch-ship.sh` takes
@@ -105,7 +110,7 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
 
 - **A working artifact carries NO date; only a delivered MP4 does.** A lesson's
   identity is `<title>_<program>` — the **base** — and that names the raw script,
-  the `refined/` script, the build workspace and the `rendered/` script. It never
+  the `ready/` script, the build workspace and the `published/` script. It never
   changes, which is what makes it a lock: `mkdir renders-hyperframes/<base>`
   succeeds exactly once, so concurrent build subagents cannot collide. Only the
   delivered MP4 gains a date (`<base>_<render-date>.mp4`). "When was this last

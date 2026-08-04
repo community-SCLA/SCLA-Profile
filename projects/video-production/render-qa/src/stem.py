@@ -5,9 +5,9 @@ A lesson's identity is `<title>_<program>` — the **base**. That is the name of
 every working artifact, and it never changes.
 
   working    lesson-scripts/<prog>/<base>.txt           raw
-             lesson-scripts/<prog>/refined/<base>.txt   queued to build
+             lesson-scripts/<prog>/ready/<base>.txt     queued to build
              renders-hyperframes/<base>/                build workspace
-             lesson-scripts/<prog>/rendered/<base>.txt  gate-clean build exists
+             lesson-scripts/<prog>/published/<base>.txt live on Wistia
   delivered  renders-mp4/<prog>/**/<base>_<DATE>.mp4    render date, frozen
 
 Two rules, and everything else follows:

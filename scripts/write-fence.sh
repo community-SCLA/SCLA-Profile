@@ -22,12 +22,23 @@
 # WHAT IS NOT: a workspace's own files. renders-hyperframes/<stem>/ stays fully
 # writable — that is where building happens, and fencing it would fence the job.
 #
-# DEFAULT DENY. Template and gate work is a DELIBERATE, SEPARATE session type,
-# marked by exporting SCLA_SYSTEM_SESSION=1 in the shell that launches Claude
-# Code. A build subagent never sets it and cannot set it for itself: the value
-# is read from the agent process's own environment, which a Bash tool call
-# cannot reach back into. Defaulting the other way would mean the fence is off
-# in exactly the sessions nobody remembered to think about.
+# WHEN IT IS ON: only while a build is running, which is announced by the
+# sentinel file renders-hyperframes/.build-in-progress (written by
+# scripts/build-session.sh arm, from scripts/build-claim.sh). No sentinel means
+# no build, which means an owner session — and an owner is never fenced.
+#
+# WHY NOT A SESSION ENV FLAG. The first cut of this fence default-DENIED and
+# expected template/gate work to export SCLA_SYSTEM_SESSION=1. That
+# discriminator cannot work: the owner and the build subagents they dispatch
+# share ONE process, so one env value has to answer for both, and it answered
+# for the wrong one — it fenced the owner out of their own repo within a day of
+# install and was switched off. The sentinel discriminates on what is actually
+# happening (a build is in flight) rather than on which session type someone
+# remembered to declare. The env flag is kept as an explicit override.
+#
+# The sentinel path is itself fenced, so an armed builder cannot rm its way out.
+# A sentinel a dead run never cleaned up expires after VIDEO_BUILD_SESSION_TTL
+# seconds (default 6h) — a stale lock file must not fence the repo forever.
 #
 # Exit 0 = allow. Exit 2 = block, with stderr fed back to the model as the
 # reason (the documented PreToolUse blocking contract).
@@ -41,9 +52,31 @@ set -uo pipefail
 
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 
+SENTINEL_REL="projects/video-production/renders-hyperframes/.build-in-progress"
+SENTINEL="$PROJECT_DIR/$SENTINEL_REL"
+
 # A deliberately flagged system session: template/gate/orchestration work.
+# Kept as an explicit override for anyone who wants the old behaviour back.
 if [ "${SCLA_SYSTEM_SESSION:-0}" = "1" ]; then
   exit 0
+fi
+
+# No build in flight -> this is an owner session -> the fence is OFF entirely.
+# An expired sentinel counts as absent: a run that died without disarming must
+# not leave the repo read-only until someone notices.
+if [ ! -f "$SENTINEL" ]; then
+  exit 0
+fi
+TTL="${VIDEO_BUILD_SESSION_TTL:-21600}"
+case "$TTL" in ''|*[!0-9]*) TTL=21600 ;; esac
+if [ "$TTL" -gt 0 ]; then
+  NOW="$(date +%s)"
+  ARMED_AT="$(stat -c %Y "$SENTINEL" 2>/dev/null \
+              || stat -f %m "$SENTINEL" 2>/dev/null \
+              || printf '%s' "$NOW")"
+  if [ "$((NOW - ARMED_AT))" -ge "$TTL" ]; then
+    exit 0
+  fi
 fi
 
 FENCED_PREFIXES=(
@@ -52,6 +85,10 @@ FENCED_PREFIXES=(
   "projects/video-production/render-qa/src/"
   "scripts/"
   ".claude/"
+  # The sentinel itself: an armed builder must not be able to disarm the fence
+  # it is standing inside. build-session.sh does the rm, and the hook grades
+  # tool calls, not what a script does after it starts.
+  "$SENTINEL_REL"
 )
 
 PAYLOAD="$(cat)"
@@ -96,16 +133,20 @@ BLOCKED by scripts/write-fence.sh — $1 is shared pipeline machinery.
   target: $2
   fenced: $3
 
-One edit here changes every future build, so this is not a build-session
-action. Nothing about your current task requires it:
+A build is in flight (renders-hyperframes/.build-in-progress is armed), and one
+edit here changes every future build. Nothing about building a video requires
+it:
 
   - Authoring a video?  Write inside your own workspace
     (renders-hyperframes/<stem>/) — that is fully writable.
   - Hit a template, token, gate or script that is genuinely WRONG?  That is a
-    real finding and it should be REPORTED, not patched from here. Say what is
-    wrong and what you would change; a flagged system session
-    (SCLA_SYSTEM_SESSION=1) makes the change deliberately, with the gates and
-    tests that go with it.
+    real finding, and the right move is to REPORT it: say what is wrong, what
+    you would change, and carry on with the build. The owner makes machinery
+    changes outside a build, when the fence is down, with the gates and tests
+    that go with them.
+
+There is no flag for you to set. The fence is armed by the build you are part
+of, and it comes down at close-out (scripts/build-release.sh).
 
 Do not attempt to route around this with another path form, a shell redirect,
 or a copy — the fence matches on the resolved path, and working around a guard

@@ -1,16 +1,16 @@
 # Video production
 
-SCLA's lesson-video factory. A refined script goes in; a Wistia-hosted MP4 comes out.
+SCLA's lesson-video factory. An approved script goes in; a Wistia-hosted MP4 comes out.
 
 **Agents: read `CLAUDE.md`, not this file.** This is the human door.
 
-## The two render paths
+## What it makes
 
-- **Illustrated** (default for concept lessons) — `design-system/` holds the branded
-  scene templates and the design contract; `render-qa/` derives every timing and grades
-  every frame. No per-minute avatar cost.
-- **Avatar** — HeyGen web UI, for talking-head and translation work. The batch/resumable
-  code path (`avatar-pipeline/`) was removed 2026-08-02.
+**Illustrated lesson videos** — `design-system/` holds the branded scene templates and
+the design contract; `render-qa/` derives every timing and grades every frame. No
+per-minute avatar cost. This is the only path in this tree: the talking-head lane was
+deleted 2026-08-04 (its code path had already gone on 2026-08-02), and a lesson that
+genuinely needs a human face is a HeyGen web-UI job done by hand, outside the factory.
 
 ## How to run it
 
@@ -20,9 +20,10 @@ you what's left, read from disk alone.
 
 ## Two things that will confuse you otherwise
 
-**State is the folder.** Nothing narrates the pipeline. A script's location *is* its
-stage — raw at a program root, then `refined/`, then `rendered/`. A stem carries exactly
-one date: the most recent action.
+**State is the folder, and the folder is named for the stage.** Nothing narrates the
+pipeline. A script's location *is* its stage — `inbox/` (raw), then `ready/` (approved,
+waiting to build), then `published/` (live on Wistia). A working artifact carries no
+date at all; only the delivered MP4 does.
 
 **Authors declare text; tools compute every number.** A builder writes narration spans
 and cue phrases into `scenes.json`. Timings, boundaries and durations are derived. A

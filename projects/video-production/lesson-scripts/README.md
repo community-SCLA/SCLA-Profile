@@ -11,32 +11,33 @@ tracks the durable source (the `.txt`); Wistia holds the build output.
 ```
 lesson-scripts/
   <program-slug>/
-    <stem>.txt              ← RAW intake, illustrated route — /refine-scripts' queue
-    avatar/<stem>.txt       ← RAW intake, HeyGen-avatar route — /refine-scripts' queue
-    refined/<stem>.txt      ← refined — /render-lessons' BUILD queue (illustrated)
+    inbox/<stem>.txt        ← RAW — captured, not yet refined; /refine-scripts' queue
+    ready/<stem>.txt        ← READY — refined + approved; /render-lessons' BUILD queue,
                               and the open human review buffer (edit/veto any time)
-    refined/avatar/<stem>.txt  ← refined — HeyGen web UI queue (talking-head)
-    rendered/<stem>.txt     ← gate-clean build exists — MP4 filed in ../renders-mp4/
-                              (and on Wistia once shipped)
+    published/<stem>.txt    ← PUBLISHED — live on Wistia, with a published.tsv row
 ```
 
-**Render route is also a location.** Program root / `refined/` = illustrated
-(HyperFrames); the `avatar/` and `refined/avatar/` subfolders = talking-head
-(HeyGen, rendered manually via the HeyGen web UI — the batch/resumable code
-path was removed 2026-08-02). The two queues never mix: `/render-lessons`
-builds only the `refined/` root. `/refine-scripts` preserves the split (root →
-`refined/`, `avatar/` → `refined/avatar/`).
+**The folder name IS the stage name** (2026-08-04). Three folders, three
+stages, same words — no folder means something other than what it is called,
+and **a raw script is never left loose at the program root**: it goes in
+`inbox/`. `lint-refs.sh` check 13 fails a program that breaks either rule.
 
-Between `refined/` and shipped, an illustrated lesson's in-flight state lives
-outside this folder: a `../renders-hyperframes/<stem>/` workspace = built,
-waiting at the human **hyperframe gate**; a Wistia URL in
-[`refinement-log.md`](refinement-log.md) = published. The log is a ledger
-(history for humans), never a decision input.
+There is one route now. The `avatar/` and `refined/avatar/` subfolders — the
+HeyGen talking-head lane — were deleted 2026-08-04 with the rest of that lane;
+every lesson here is illustrated (HyperFrames). A lesson that genuinely needs a
+human face is a HeyGen web-UI job the owner does by hand, outside this tree.
+
+Between `ready/` and `published/`, a lesson's in-flight state lives outside this
+folder, in its `../renders-hyperframes/<stem>/` workspace — read it with `bash
+scripts/batch-status.sh`, or open the generated `../PIPELINE-STATUS.md`, which
+also carries the Wistia link for everything delivered.
+[`refinement-log.md`](refinement-log.md) is a ledger (history for humans), never
+a decision input.
 
 **Live programs are whatever `ls` of this folder shows** — one subfolder per
 program, no hand-maintained list (don't write down what the file tree already
-says). Create `refined/`/`rendered/` with their first file (`mkdir -p`), not
-ahead of need. Add a new program folder only when it actually starts producing
+says). A new program starts with all three folders, so nothing has to remember
+to create them mid-flight. Add one only when it actually starts producing
 videos, and log it in `decisions/log.md`.
 
 ## Naming convention
@@ -52,8 +53,8 @@ m<#>_<title>_<date>.mp4   the delivered MP4 only — the render date
 - **title** — the video title, kebab-case: `the-value-of-building-mid-career-momentum`.
 
 Underscores separate the parts; hyphens go *inside* a part. **A working artifact
-carries no date at all** — the raw script, the `refined/` script, the build
-workspace and the `rendered/` script all share one name, which never changes as
+carries no date at all** — the `inbox/` script, the `ready/` script, the build
+workspace and the `published/` script all share one name, which never changes as
 the file moves between state folders. That name is therefore the lesson's
 identity, and `mkdir renders-hyperframes/<name>` is what stops two concurrent
 build agents landing on the same lesson.
@@ -62,7 +63,7 @@ Only the delivered MP4 gains a date, the date it was rendered — a fact about a
 event that happened once, frozen at publish:
 
 ```
-m1_the-value-of-building-mid-career-momentum.txt          ← raw / refined/ / rendered/
+m1_the-value-of-building-mid-career-momentum.txt          ← inbox/ ready/ published/
 m1_the-value-of-building-mid-career-momentum_2026-07-22.mp4  ← the delivered video
 ```
 
@@ -81,10 +82,10 @@ across shells, URLs, and Wistia titles.
 
 ## How scripts move
 
-- **In:** a raw capture or draft lands at the program root. `/refine-scripts`
-  drains roots into `refined/` (one subagent per script + qa-facts pass);
-  scripts with open human questions stay at root with a ledger note.
-- **Through:** `/render-lessons` BUILD drains `refined/` into hyperframe
+- **In:** a raw capture or draft lands in `inbox/`. `/refine-scripts`
+  drains `inbox/` into `ready/` (one subagent per script + qa-facts pass);
+  scripts with open human questions stay in `inbox/` with a ledger note.
+- **Through:** `/render-lessons` BUILD drains `ready/` into hyperframe
   workspaces and **stops at the human hyperframe gate** — a human previews
   every hyperframe before any MP4 exists.
 - **Out:** an explicit `ship <stem>` (the one human trigger after the gate)
@@ -92,11 +93,8 @@ across shells, URLs, and Wistia titles.
   [`../renders-mp4/<program-slug>/`](../renders-mp4/README.md), and publishes
   to Wistia **in one uninterrupted pass** — no separate MP4-review or publish
   step (gate removed 2026-07-22, `decisions/log.md`). The Wistia URL is
-  recorded in the ledger and the `.txt` sits in `rendered/`.
-- The avatar path reads scripts from `refined/avatar/` manually via the HeyGen
-  web UI (the batch/resumable code path, `avatar-pipeline/`, was removed
-  2026-08-02), rendering each lesson as one talking-head video staged in
-  [`../renders-mp4/<program-slug>/avatar/`](../renders-mp4/README.md).
+  recorded in `published.tsv` and the ledger, and the `.txt` moves to
+  `published/` in that same pass.
 
 The `.txt` is plain spoken narration only (no cues, no shot list). Refinement
 rules live in `/refine-scripts`; drafting prompt templates in

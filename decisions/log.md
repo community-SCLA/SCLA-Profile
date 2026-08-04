@@ -92,6 +92,39 @@ workspace write succeeded.
 genuinely wrong is a real finding, and gets REPORTED rather than patched from a
 build session. The block message says so.
 
+**Amended the same day — the discriminator changes, the fence stays.** The
+`SCLA_SYSTEM_SESSION` gate above was wrong, and the fence is now armed by a
+sentinel file instead: `renders-hyperframes/.build-in-progress`, written by
+`scripts/build-session.sh arm` (called from `scripts/build-claim.sh`) and
+removed at close-out by `scripts/build-release.sh`. No sentinel, no fence — an
+owner session is completely unrestricted.
+
+The reason is a fact about the harness, not a change of mind about the risk. A
+whole-session env flag cannot separate the owner from a subagent, **because they
+share one process**: the subagents a build dispatches inherit the environment of
+the session that dispatched them, so one value has to answer for both. It
+answered for the wrong one. Within a day of install the fence had refused the
+owner's own edits to `scripts/` and `.claude/`, including the patch that would
+have fixed it, and the owner disabled it by deleting the hook's `command` key —
+the "too tight" failure mode `test_write_fence.py` was written to catch, landing
+on the axis the test did not grade. Defaulting to DENY was the error: it made
+every unflagged session a build session, and most sessions are not.
+
+The sentinel discriminates on *what is happening* rather than on *what someone
+remembered to declare*, which is the same reason the rest of this pipeline reads
+state from the folders. Three properties make it safe to trust: the sentinel
+path is itself fenced, so an armed builder cannot `rm` its way out; it expires
+after `VIDEO_BUILD_SESSION_TTL` (default 6h), so a run that dies without
+releasing does not leave the repo read-only until someone notices; and arming
+appends rather than truncates, so overlapping builds (up to 3-wide) each hold it
+and the last one out lowers it. `SCLA_SYSTEM_SESSION=1` survives as an explicit
+override. The block message no longer names it — a build subagent that reads
+about an escape hatch will try the escape hatch.
+
+`test_write_fence.py` was retargeted to grade the gate itself: every block is
+asserted twice, once armed and once disarmed, and it now runs against a
+throwaway project dir so a test run can never leave the live repo fenced.
+
 ## 2026-07-31 (rules refactor) — The video rules file splits by audience
 
 **Decision:** `.claude/rules/video-production.md` is auto-loaded on every session

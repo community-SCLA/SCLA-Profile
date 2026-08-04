@@ -1,7 +1,6 @@
-# Renders (MP4) — organized by program, split by render path
+# Renders (MP4) — organized by program
 
-Local staging for finished lesson-video MP4s — **both render paths file here**,
-one folder per program, mirroring [`lesson-scripts/`](../lesson-scripts/README.md).
+Local staging for finished lesson-video MP4s — one folder per program, mirroring [`lesson-scripts/`](../lesson-scripts/README.md).
 This is where a video lives after it's rendered and QA-passed, so it's viewable
 locally before — and during — the Wistia upload. Gitignored: nothing here is
 committed.
@@ -11,17 +10,16 @@ committed.
 ```
 renders-mp4/
   <program-slug>/
-    hyperframes/   ← illustrated (HyperFrames) renders — /render-lessons SHIP
-    avatar/        ← talking-head (HeyGen web UI) renders
-      <stem>.mp4   ← local only, not committed
+    <stem>_<render-date>.mp4   ← local only, not committed
 ```
 
-One subfolder per program (slug matches its folder in
+One folder per program (slug matches its folder in
 [`../lesson-scripts/`](../lesson-scripts/README.md) and
-[`programs/`](../../../programs/)); inside it, `hyperframes/` and `avatar/`
-separate the two render paths so a program's two kinds of video never collide.
-Subfolders are created with their first real render, not ahead of need (the
-governance hook rejects empty placeholder dirs).
+[`programs/`](../../../programs/)), and the MP4s sit directly in it. The
+per-lane `hyperframes/` and `avatar/` subfolders were flattened away on
+2026-08-04: they existed only to keep two render paths apart, and the avatar
+lane was deleted. Program folders are created with their first real render, not
+ahead of need.
 
 ## Naming — universal `m<#>_<title>_<render-date>`
 
@@ -31,8 +29,8 @@ well after its script doesn't carry a stale date. The stem is also the Wistia
 title. The current scheme is `m<#>_<title-slug>_<render-date>`:
 
 ```
-lesson-scripts/mid-career-momentum/refined/avatar/m1_the-value-of-building-mid-career-momentum_2026-07-20.txt   ← script, approved 07-20
-renders-mp4/mid-career-momentum/avatar/m1_the-value-of-building-mid-career-momentum_2026-07-22.mp4              ← same video, rendered 07-22
+lesson-scripts/mid-career-momentum/ready/m1_the-value-of-building-mid-career-momentum.txt          ← the script — no date, ever
+renders-mp4/mid-career-momentum/m1_the-value-of-building-mid-career-momentum_2026-07-22.mp4        ← the delivered video, rendered 07-22
 ```
 
 - **m<#>** — the lesson's module number (`m1`, `m2`, …).
@@ -46,18 +44,13 @@ files as-is; the tooling handles both.
 
 ## Lifecycle
 
-**Illustrated (HyperFrames):**
 1. HyperFrames renders to `../renders-hyperframes/<script-stem>/renders/*.mp4`.
-2. Once `verify_render.py` passes, the file is renamed (date → render date) and
-   moved to `hyperframes/`.
-3. Upload to Wistia (title = the filename's stem); record the URL in the ledger.
+2. Once `verify_render.py` passes, `batch-ship.sh --publish` copies exactly that
+   verified file here, adding the render date to its name.
+3. Upload to Wistia (title = the filename's stem); the URL is recorded in
+   `published.tsv` and the ledger in the same commit.
 4. `scripts/archive-lesson.sh` checks a matching file exists here (by stem
-   prefix, any render date) before it will archive the build workspace.
-
-**Avatar (HeyGen):**
-1. Rendered manually via the HeyGen web UI (the batch/resumable code path,
-   `avatar-pipeline/`, was removed 2026-08-02) and filed into `avatar/` under
-   this program.
-2. Human MP4 review, then upload to Wistia; record the URL in the ledger.
+   prefix, any render date) before it will prune or archive the build
+   workspace.
 
 Files can stay here after upload — a free local backup of the delivered cut.

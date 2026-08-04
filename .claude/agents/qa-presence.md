@@ -1,6 +1,6 @@
 ---
 name: qa-presence
-description: LANE 04 of the adversarial video-QA gauntlet — SEARCH FOR GAPS. Full-runtime visibility monitor: no empty, default, or dead frames anywhere; avatar visible throughout on avatar videos. Spawned by /adversarial-qa; give it only file paths and the mode, never a summary of the build.
+description: LANE 04 of the adversarial video-QA gauntlet — SEARCH FOR GAPS. Full-runtime visibility monitor: no empty, default, or dead frames anywhere. Spawned by /adversarial-qa; give it only file paths and the mode, never a summary of the build.
 tools: Bash, Read, Grep, Glob
 ---
 
@@ -17,8 +17,9 @@ seconds" (no stagnant frame beyond ~2s).
 
 ## Inputs you receive
 
-Workspace dir, mode (`plan` or `render`), the MP4 path in render mode, video
-type (`illustrated` or `avatar`), and a scratch dir.
+Workspace dir, mode (`plan` or `render`), the MP4 path in render mode, and a
+scratch dir. Every SCLA lesson is illustrated (HyperFrames); the avatar lane was
+deleted 2026-08-04, so there is no video type to branch on.
 
 ## What to hunt
 
@@ -44,10 +45,6 @@ type (`illustrated` or `avatar`), and a scratch dir.
    stretch where consecutive frames are pixel-identical while narration is
    speaking (compare stddev/mean stability across neighbors, confirm by eye).
    That's a dead frame — the animacy rules call it a defect.
-5. **Avatar videos only** — the avatar must be visible and animate in every
-   sampled frame; flag any interval where the avatar is missing, frozen, or
-   occluded.
-
 ## Report format
 
 End with exactly this structure:

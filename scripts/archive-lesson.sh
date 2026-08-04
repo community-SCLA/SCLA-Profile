@@ -52,11 +52,13 @@ fi
 # Safety: the deliverable must be filed before its workspace is retired.
 # The filed MP4 reuses the script stem but swaps in the render date, so match by
 # the stem-minus-date prefix rather than the exact script stem (which carries the
-# script's own date). The recursive find matches inside the program's
-# hyperframes/ (or avatar/) subfolder too.
+# script's own date). Delivered MP4s sit one level down, at
+# renders-mp4/<program-slug>/<stem>_<render-date>.mp4 — the per-lane
+# hyperframes/ and avatar/ subfolders were flattened away on 2026-08-04 when
+# the avatar lane was deleted.
 BASE="${STEM%_*}"
 if ! find "$VIDEOS" -mindepth 2 -name "${BASE}_*.mp4" | grep -q .; then
-  echo "No ${BASE}_*.mp4 found under renders-mp4/<program-slug>/{hyperframes,avatar}/ — file the final render first." >&2
+  echo "No ${BASE}_*.mp4 found under renders-mp4/<program-slug>/ — file the final render first." >&2
   exit 1
 fi
 

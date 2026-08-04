@@ -117,8 +117,8 @@ needs tracking:
 (claude.ai cloud, ID + URL in `config/endpoints.json` → "Claude Code routines") is now
 named **"SCLA lesson pipeline worker"**, runs hourly, and no longer touches
 Notion at all — it runs `/produce-video` against the `.txt`-file intake
-described at the top of this doc (raw script → `refined/` → hyperframe
-workspace → HYPERFRAME GATE). It never ships or publishes; those stay
+described at the top of this doc (`inbox/` → `ready/` → hyperframe
+workspace → the pilot gate). It never ships or publishes; those stay
 human-triggered. See `config/endpoints.json` for the current routine config and
 `decisions/log.md` (2026-07-22) for why. The paragraph below describes the
 retired Notion-polling behavior for history only.
