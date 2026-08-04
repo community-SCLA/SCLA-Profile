@@ -9,6 +9,49 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-04 — The write fence
+
+**Decision:** a `PreToolUse` hook (`scripts/write-fence.sh`) hard-blocks writes
+to the shared pipeline machinery — `design-system/` (templates, `tokens.yml`,
+contracts), `renders-hyperframes/_run/` (the scaffold), `render-qa/src/` (the
+gates), `scripts/`, `.claude/` — unless the session exports
+`SCLA_SYSTEM_SESSION=1`. A workspace's own files stay fully writable. Default is
+DENY, and the flag marks template/gate work as a deliberate, separate session
+type; a build subagent never sets it and cannot set it for itself, because the
+value is read from the agent process's environment and a Bash tool call cannot
+reach back into that.
+
+**Why:** `.claude/settings.json` granted Write and Edit with no path
+restriction, and the only hook (`hyperframe-guard.sh`) exits 0 for anything
+outside a workspace's `scenes.json`/`index.html`. When a pacing agent decided to
+"improve" the shared `scla-stat` template and 14 workspace copies of it, nothing
+slowed it down. "You author `scenes.json` only" was a sentence, not a mechanism
+— the failure class this log already quantifies as 14 defects from rules that
+existed but did not fire, and 0 from rules anyone forgot. The agent-native
+experiment then showed the existing guard is LOCATION-shaped and can be routed
+around (`PROVENANCE.md` §2), so the fence is PATH-shaped instead.
+
+**The hook matches Bash as well as Write/Edit,** because a shell redirect or a
+`cp` is the obvious way around a Write-only fence. Reading and *running* fenced
+files stays free — `python3 render-qa/src/check_copy.py` and
+`bash scripts/lint-refs.sh` are the pipeline working normally, and a fence that
+blocked those would be switched off within a day. Direction matters for the
+copy family: copying OUT of a fenced path is a read (`batch-prepare.sh` does
+exactly that on every prepare), while copying IN is a write. `mv` out is still
+blocked — it removes the original.
+
+**Two failure modes, both graded.** `render-qa/tests/test_write_fence.py`
+invokes the real script with crafted payloads and asserts it is neither too
+loose (the machinery stays writable) nor too tight (ordinary build work is
+blocked). An unparseable payload is REFUSED rather than waved through: a guard
+that cannot see the call it is grading is not a guard. Verified live in the
+session that installed it — `touch scripts/__fence_probe` was blocked, a
+workspace write succeeded.
+
+**What a builder does instead:** a template, token, gate or script that is
+genuinely wrong is a real finding, and gets REPORTED rather than patched from a
+build session. The block message says so.
+
 ## 2026-07-31 (rules refactor) — The video rules file splits by audience
 
 **Decision:** `.claude/rules/video-production.md` is auto-loaded on every session

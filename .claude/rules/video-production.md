@@ -80,6 +80,20 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
   `projects/video-production/PIPELINE-STATUS.md`, regenerated on every quarantine
   and publish. Why: log 2026-07-28 "Video batch: certification protocol + machine
   resume key"; log 2026-07-31 (status doc) "The queue read becomes a document".)*
+- **A build session cannot write the shared machinery.** `design-system/`
+  (templates, `tokens.yml`, contracts), `renders-hyperframes/_run/` (the
+  scaffold every workspace is copied from), `render-qa/src/` (the gates),
+  `scripts/` and `.claude/` are read-only during a build; a workspace's own
+  files stay fully writable. One edit to any of them changes every future
+  build, so template/gate work is a DELIBERATE separate session that exports
+  `SCLA_SYSTEM_SESSION=1` — a build subagent never sets it and cannot set it
+  for itself. A builder that finds a template or gate genuinely wrong REPORTS
+  it; it does not patch it. *(Mechanism: `scripts/write-fence.sh`, a
+  `PreToolUse` hook on Write/Edit/Bash — Bash included because a shell
+  redirect or `cp` is the obvious way around a Write-only fence. Pinned by
+  `render-qa/tests/test_write_fence.py`, which invokes the real script with
+  crafted payloads and asserts BOTH failure modes: too loose, and too tight.
+  Why: log 2026-08-04 "The write fence".)*
 - **One render at a time, machine-wide; builds run up to 3-wide.** Authoring and
   TTS are network-bound and overlap cleanly; a render is CPU-bound and two on a
   4-core box thrash. *(Mechanism: `batch-ship.sh` takes

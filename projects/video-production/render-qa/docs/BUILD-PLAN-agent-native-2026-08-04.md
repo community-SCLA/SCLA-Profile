@@ -314,7 +314,39 @@ commit.
       because this gate exited 2 on the whole build. Also caught: `s06` gets
       0.34s after a question against the 0.35s floor. Phase 3's pilot must
       synthesize its final clip with `FINAL_HOLD`.
-- [ ] 2.1 write fence + hook tests
+- [x] 2.1 write fence + hook tests — `scripts/write-fence.sh`, a `PreToolUse`
+      hook on Write/Edit/NotebookEdit/**Bash** (Bash included: a shell redirect
+      or a copy is the obvious way around a Write-only fence). Default DENY;
+      `SCLA_SYSTEM_SESSION=1` marks the deliberate system session, and a build
+      subagent cannot set it for itself because the value is read from the agent
+      process's environment. **Observed live, not assumed**, in the session that
+      installed it: a probe write under `scripts/` was BLOCKED with its reason
+      printed, and a workspace write succeeded. 42 assertions in
+      `render-qa/tests/test_write_fence.py` invoke the real script with crafted
+      payloads and grade BOTH failure modes — too loose, and too tight (a fence
+      that blocks ordinary build work gets switched off within a day).
+      **Design point worth keeping:** direction matters for the copy family.
+      Copying OUT of a fenced path is a READ — `batch-prepare.sh` does exactly
+      that on every prepare — while copying IN is a write; a move out is still
+      blocked because it removes the original. The first cut fenced the source
+      too and would have broken `batch-prepare.sh`. Decision recorded at
+      `decisions/log.md` 2026-08-04 "The write fence".
+
+      ⚠ **OPEN DEFECT — the fence is too tight on Bash, found by being bitten
+      by it.** It scans the RAW command string, so a `git commit` whose MESSAGE
+      merely mentions a mutator word near a fenced path is blocked, even though
+      the command writes nothing fenced. It first fired on a commit message
+      containing the words "…probe under scripts/…". Heredoc bodies and `-m`
+      message text are DATA, not commands, and must be stripped before the
+      token scan. **Fix:** in `write-fence.sh`, before the `DESTRUCTIVE` /
+      `COPY_FAMILY` matching, delete heredoc bodies (`<<'WORD'` … up to a line
+      equal to `WORD`) and the argument of `-m`/`--message`. Then add fixtures
+      to `test_write_fence.py` asserting a commit whose message names a fenced
+      path is ALLOWED, while a real redirect into that path is still blocked.
+      **This could not be fixed in the installing session:** the fence covers
+      `scripts/`, so repairing it requires a flagged session
+      (`SCLA_SYSTEM_SESSION=1`) — which is the fence behaving exactly as
+      designed, and is why it is reported here rather than patched.
 - [x] 2.2 AGENTS.md purge + assertion — `batch-prepare.sh` already deleted
       `scaffold/AGENTS.md` beside CLAUDE.md, and zero workspaces carried one, so
       the purge itself was done; the missing half was the ASSERTION, now
