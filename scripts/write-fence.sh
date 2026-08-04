@@ -116,11 +116,18 @@ relativize() {
 }
 
 is_fenced() {
-  local rel
+  local rel bare
   rel="$(relativize "$1")"
+  rel="${rel%/}"
   for prefix in "${FENCED_PREFIXES[@]}"; do
+    bare="${prefix%/}"
+    # Both the DIRECTORY and anything under it. Matching the prefix alone left
+    # the fenced directory itself unfenced — `rm -rf render-qa/src` names no
+    # trailing slash, so the one command that would destroy every gate at once
+    # was the one command this fence let through (found 2026-08-04 by a test
+    # written for a different bug).
     case "$rel" in
-      "$prefix"*) printf '%s' "$prefix"; return 0 ;;
+      "$bare"|"$bare"/*) printf '%s' "$prefix"; return 0 ;;
     esac
   done
   return 1
@@ -222,24 +229,47 @@ case "$TOOL" in
       printf '%s' "$1" | tr '"'"'"'`=(){}[]<>|&;,' ' '
     }
 
-    if printf '%s' "$SCAN" | grep -Eq "$DESTRUCTIVE|$SED_INPLACE|$GIT_MUTATE"; then
-      for tok in $(tokens_of "$SCAN"); do
-        case "$tok" in -*) continue ;; esac
-        if PREFIX="$(is_fenced "$tok")"; then
-          deny "a Bash-mediated write touching this path" "$tok" "$PREFIX"
+    # ---------------------------------------------------------------------
+    # A MUTATOR TAINTS ITS OWN SUB-COMMAND, NOT THE WHOLE LINE (fix
+    # 2026-08-04, observed live within minutes of the sentinel rebuild).
+    #
+    #   find <workspace> -exec touch {} + ; bash scripts/batch-status.sh
+    #
+    # was refused: `touch` is destructive, and the whole-line token scan then
+    # matched `scripts/batch-status.sh` — an argument to `bash` in a DIFFERENT
+    # sub-command, which the touch never goes near. Reading and running fenced
+    # files is supposed to stay free, and a guard that refuses a read because
+    # something else on the line was a write is the "too tight" failure mode
+    # that gets guards switched off.
+    #
+    # Grading each segment on its own keeps the verb and its arguments
+    # together, which is the only pairing that ever mattered.
+    # ---------------------------------------------------------------------
+    SEGMENTS="$(printf '%s' "$SCAN" | sed -E 's/(\|\||&&|[;|&])/\n/g')"
+
+    while IFS= read -r seg; do
+      [ -z "${seg// /}" ] && continue
+      if printf '%s' "$seg" | grep -Eq "$DESTRUCTIVE|$SED_INPLACE|$GIT_MUTATE"; then
+        for tok in $(tokens_of "$seg"); do
+          case "$tok" in -*) continue ;; esac
+          if PREFIX="$(is_fenced "$tok")"; then
+            deny "a Bash-mediated write touching this path" "$tok" "$PREFIX"
+          fi
+        done
+      elif printf '%s' "$seg" | grep -Eq "$COPY_FAMILY"; then
+        # Destination only: the last non-flag token of THIS sub-command.
+        DEST=""
+        for tok in $(tokens_of "$seg"); do
+          case "$tok" in -*) continue ;; esac
+          DEST="$tok"
+        done
+        if [ -n "$DEST" ] && PREFIX="$(is_fenced "$DEST")"; then
+          deny "a Bash-mediated copy INTO this path" "$DEST" "$PREFIX"
         fi
-      done
-    elif printf '%s' "$SCAN" | grep -Eq "$COPY_FAMILY"; then
-      # Destination only: the last non-flag token.
-      DEST=""
-      for tok in $(tokens_of "$SCAN"); do
-        case "$tok" in -*) continue ;; esac
-        DEST="$tok"
-      done
-      if [ -n "$DEST" ] && PREFIX="$(is_fenced "$DEST")"; then
-        deny "a Bash-mediated copy INTO this path" "$DEST" "$PREFIX"
       fi
-    fi
+    done <<EOF
+$SEGMENTS
+EOF
     ;;
 esac
 

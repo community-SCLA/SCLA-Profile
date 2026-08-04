@@ -38,6 +38,172 @@ changes: only the latest entry in THIS file is current state.
 structure decisions now land in `decisions/log.md`. Handoff docs live in `docs/`.
 
 
+## 2026-08-04 — one honest status: the folders get their real names, and the fence stops fencing the owner
+
+**Open — owner-actionable only.**
+- **`m0_welcome-to-mid-career-momentum` names a support channel that does not
+  exist.** Line 5 sends the learner to the "#questionsupport channel"; no channel
+  of that name or any hyphenated variant is in
+  `member-support/community-platform.md` (every help channel uses a `help-*`
+  prefix). This script was the deleted avatar lane's only occupant and is now
+  requeued as illustrated, so the defect is one build away from being spoken
+  aloud. The script carries a `SCRIPT PENDING` marker naming exactly this, so it
+  reports as **NEEDS SCRIPT** rather than sitting in the queue. Confirm the real
+  channel name, fix the line, delete the marker. *(since 2026-08-04)*
+- **`m4_visibility-actions-what-they-are-and-how-to-practice-them` has never had
+  a script.** Its body is byte-identical (post-normalization) to
+  `m4_who-will-walk-this-next-chapter-with-you` and never defines or demonstrates
+  a visibility action; the dashboard lists it as a distinct Mod 4 video, so the
+  stem is legitimate and the capture is simply missing. Supply the real
+  narration. It has been carrying a `SCRIPT PENDING` marker since 2026-07-24 and
+  became visible in the status report only today — the scan covered the render
+  queue but not raw intake, so it reported as nothing at all. *(since 2026-07-22)*
+- **Variety floor vs. the icon ban.** Removing per-row icons dropped 7 lessons below the
+  artwork-coverage floor (60% of content scenes must carry an illustration). `scla-points`
+  now has NO icon capability at all, so a points-heavy lesson cannot reach the floor. Either
+  those lessons get re-authored onto illustration-capable forms (condition/statement/chips/
+  steps with a hero icon — which is also the fix for "this workspace lacks variety across
+  the frames"), or the floor moves. Re-authoring is the honest option; the floor was
+  calibrated against a reference video that never used row icons, so it is not obviously
+  wrong. Needs the owner's call on scope. *(since 2026-07-29)*
+- **Remaining script rewrites need re-synthesis** — connector words (m3_building f4,
+  m4_finding f9/f17, m4_who f6/f8), "ask two questions" -> "three" (m2_four-kinds f22),
+  question-mark inflection (m4_who f11/f15), and the sentence split across m4_who f16/f17.
+  Each is a text edit plus a HeyGen re-synthesis and re-compile; none is blocked, just
+  not yet done. *(since 2026-07-29)*
+
+*Three items from 2026-07-31 close here.* `build-direction`'s four beats: the
+approved cut shipped unmodified on 2026-08-04 and is live in `published.tsv`. The
+twin-beats threshold: the defect was retired the same day in favour of
+`twin-share`, so there is nothing left to calibrate. The one-word script edit:
+the published script now passes `check_copy` clean.
+
+**Fixed this session.**
+- `[defect]` **The write fence was fencing the owner, and had been switched off.**
+  It gated on `SCLA_SYSTEM_SESSION=1`, which cannot discriminate: the owner and
+  the subagents they dispatch **share one process**, so one env value answered for
+  both — and it answered for the wrong one. Within a day of install it had refused
+  the owner's own edits to `scripts/` and `.claude/`, including the patch that
+  would have fixed it, and the hook was disabled by deleting its `command` key.
+  Rebuilt on a sentinel (`renders-hyperframes/.build-in-progress`, armed by
+  `build-session.sh`): no build in flight, no fence. The sentinel path is itself
+  fenced, expires after 6h, and appends so overlapping builds each hold it.
+  `test_write_fence.py` retargeted — every block asserted twice, armed AND
+  disarmed, against a throwaway project dir. Defaulting to DENY was the original
+  error: it made every unflagged session a build session, and most sessions are
+  not. (~1 session)
+- `[defect]` **A mutator in one sub-command tainted the whole command line.**
+  Observed live minutes after the rebuild: `find <workspace> -exec touch {} + ;
+  bash scripts/batch-status.sh` was refused, because `touch` is destructive and
+  the whole-line token scan then matched `scripts/batch-status.sh` — an argument
+  to `bash` in a *different* sub-command that the touch never goes near. The
+  fence now grades each `;`/`&&`/`||`/`|` segment on its own, which is the only
+  pairing that ever mattered. This is the "too tight" mode that gets a guard
+  switched off, caught by the guard biting the session that was fixing it.
+- `[defect]` **`rm -rf render-qa/src` was not fenced.** Prefixes were matched
+  with a trailing slash, so the fenced DIRECTORY ITSELF matched nothing — the one
+  command that destroys every gate at once was the one command the fence let
+  through. Found by a test written for the segment bug above, which is the
+  argument for writing the failing case rather than the passing one.
+- `[defect]` **`rendered/` meant *published* and had for a week.** That single
+  stale name produced a self-contradiction inside `render-lessons/SKILL.md`
+  (lines 50 vs 55), a silently broken style-package rotation, and four competing
+  status narratives. Renamed the folders to the stage names they actually carry:
+  `inbox/` → `ready/` → `published/`, and raw scripts moved out of the program
+  root into `inbox/`. `lint-refs.sh` check 13 now fails a loose `.txt` at a
+  program root or any retired stage folder.
+- `[defect]` **Style-package rotation was stuck on `summit` and nothing could
+  notice.** It rotated on `count(*.txt in rendered/) mod 3`, described as the
+  *started-build* count — true until the script move went to publish time.
+  mid-career-momentum had 14 builds and 0 published lessons, so the count was 0,
+  so the next 12 videos would all have looked alike. No gate fires on that; only
+  a human eventually notices. Replaced the prose with
+  `render-qa/src/theme_for.py`, which counts the **union** of `published.tsv`
+  rows and live workspaces (summing double-counts — a workspace survives
+  publication). `test_theme_rotation.py` asserts it actually moves.
+- `[defect]` **`batch-status.sh` assumed the template lane everywhere**, so a
+  freeform workspace — which has no `scenes.json` by design — reported as "build
+  folder exists but holds no scene plan — nothing authored yet", with a
+  next-action of *restart the build*. That advice collides with the `mkdir` lock
+  (the folder already exists, so BUILD exits at once) and, taken literally,
+  discards finished narration. `ws_state()` now detects the lane first and walks
+  that lane's own probes, and every resume action reclaims the lock rather than
+  ordering a delete — only a scaffold-only workspace is safe to discard, and it
+  says so.
+- `[defect]` **Four states were invisible to every code path.** NEEDS SCRIPT was
+  scanned in the render queue only (so today's genuinely-blocked raw script
+  reported as `0 blocked`); STALLED did not exist, so an abandoned workspace and
+  an actively-written one looked identical; ORPHAN did not exist, so a workspace
+  matching no script was never looked up at all; and REJECTED was suppressed by
+  accident — quarantine rows were hidden only because the published branch
+  happened to run first. All four are now derived and reported by name, with
+  `test_pipeline_status.py` grading each against a fixture tree whose answer is
+  known in advance.
+- `[defect]` **An interrupted build left no trace of where it stopped.** Two
+  workspaces created today held a scaffold and no record of what the builder that
+  made them had done. `renders-hyperframes/<stem>/.build-log.tsv` is now an
+  append-only journal — one row per COMPLETED step, never rewritten, so it cannot
+  lie the way a status field can — and `batch-status.sh` prints *left off after
+  **voice**, 41 min ago*.
+- `[defect]` **`PIPELINE-STATUS.md` went stale (23/12 in the doc, 21/14 on
+  disk).** Nothing on the BUILD side regenerated it; only publish did, and the
+  skill's `mkdir` was prose with no hook point. `build-claim.sh` is now the one
+  way a build starts (lock + fence + journal + status, four things that have to
+  happen together and that prose only ever got one of), `build-gate.sh` writes
+  `qa/PREFLIGHT-OK` on exit 0 and only exit 0, and `build-release.sh` closes out.
+  `lint-refs.sh` check 14 fails if the doc has drifted from a fresh
+  regeneration — and caught its first real drift within the hour.
+- `[authoring]` **The avatar lane was deleted.** One script, no code path since
+  2026-08-02, and a `refined/avatar/` subfolder that every queue scan had to
+  remember to exclude. The script was requeued as illustrated;
+  `renders-mp4/<program>/hyperframes/` was flattened.
+- `[defect]` **Three competing definitions of priority, and a retired doc still
+  describing a live process.** `docs/notion-queue.md` carried a nine-status
+  model, its own priority order and its own rotation formula — a second answer to
+  every question the pipeline already answers, with no way for a cold subagent to
+  tell which of two plausible models it was holding. Reduced to its retirement
+  banner. `scripts/batch-status.sh:28` is the one definition of priority.
+- `[defect]` **A ledger block that was meant to be hidden was not.**
+  `refinement-log.md:138` opened an HTML comment and closed it on the same line,
+  so 15 superseded rows rendered as live entrepreneur-accelerator entries and a
+  dangling `-->` printed as text. Deleted — the live 2026-07-23 rows above it say
+  the same things, and git history is the archive.
+- `[env]` **The rejected reference cut was reporting as an ORPHAN.** Filed to
+  `renders-hyperframes/_reference/` (underscore folders are skipped by every
+  workspace scan, so naming *is* the disposition) and cited from
+  `decisions/log.md` beside the pace thresholds it calibrates — with the honest
+  note that `renders-hyperframes/` is gitignored, so that evidence is local-only
+  and the numbers in the log are the durable record.
+
+**Promoted to docs.**
+- `decisions/log.md` — the 2026-08-04 "The write fence" entry amended in place
+  (not replaced: its provenance is why the fence exists) with the change of
+  discriminator and the reason a whole-session env flag cannot work.
+- `.claude/rules/video-production.md` — the fence bullet rewritten to the
+  sentinel mechanism; the naming bullet to `ready/`/`published/`.
+- `render-qa/README.md` §1.9 — the two known prose defects it had been carrying
+  are now recorded as FIXED, with the shape of each kept because both will recur:
+  a folder whose name lied, and a count read from the wrong folder.
+- `render-lessons/SKILL.md` — `build-claim.sh` / `build-log.sh` / `build-gate.sh`
+  / `build-release.sh` replace the hand-rolled `mkdir` and the close-out prose;
+  the priority paragraph now cites `batch-status.sh:28` instead of restating it;
+  two dead `PENDING-pace-gates.md` citations repointed at `decisions/log.md`.
+- `design-contract.md` "Style packages" — cites `theme_for.py` instead of
+  restating its formula.
+- `lesson-scripts/README.md`, `renders-mp4/README.md`,
+  `renders-hyperframes/README.md`, `video-production/README.md` + `CLAUDE.md`,
+  root `CLAUDE.md` — one vocabulary. The `renders-hyperframes` "What lives where"
+  table had been filing the final MP4 under `lesson-scripts/` (which holds only
+  `.txt`) and sending QA snapshots to Notion, retired as intake 2026-07-13.
+
+**The loop that should have caught most of this is the one that did not run.**
+The newest entry before this one was 2026-07-31, and 2026-08-04 had a full day of
+render and gate work — the owner verdict on two cuts, the pace gates, the write
+fence, the fence being switched off — with no retro written, despite a PostToolUse
+hook that demands one after every render. Every defect above was found by reading
+the tree today, not by reading a log. A close-out that does not happen is
+indistinguishable from a session that had nothing to report.
+
 ## 2026-07-31 — the freeform freeze gap: a measurement that had been handed to the human
 
 **Open — owner-actionable only.**

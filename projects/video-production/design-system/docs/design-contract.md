@@ -599,15 +599,16 @@ Package rules:
 - Packages are **CSS-only overrides**; GSAP timelines are identical across
   packages (determinism and timing untouched). Palette stays exactly the
   frontmatter — a package re-weights the same tokens, never adds hues.
-- Assignment: the requester picks in the Notion queue; on "No preference",
-  rotate `summit → horizon → cadence` by the program's **started-build** count
-  (count mod 3) — the number of `*.txt` in the program's
-  `lesson-scripts/<program-slug>/rendered/`. Every gate-clean build's script
-  lands there at B3, so this count covers delivered **and** at-gate builds
-  without ever scanning `_archive/` (which the hard rules forbid routing to).
-  An in-flight build claims its theme immediately — consecutive builds in one
-  batch keep incrementing the count locally; counting deliveries lets
-  consecutive videos ship in the same look.
+- Assignment: the human picks, or **`render-qa/src/theme_for.py <program-slug>`**
+  answers. It rotates `summit → horizon → cadence` by the program's
+  **started-build** count and is the only thing that computes this — including
+  the `--offset N` an orchestrator passes for the Nth video of a batch, so
+  consecutive builds keep rotating instead of all reading one pre-batch count.
+  This paragraph used to restate the computation (`count(*.txt in rendered/)
+  mod 3`) and drifted from it silently on 2026-07-28, when that folder came to
+  mean *published* — leaving mid-career-momentum at a count of 0 with 14 builds
+  on disk, and every one of its next 12 videos assigned `summit`. Prose that
+  restates a computation drifts from it; prose that cites a script cannot.
 - A new package = a new `data-theme` override block in **all twelve** templates
   plus a row here. Never fork a template to make a look.
 

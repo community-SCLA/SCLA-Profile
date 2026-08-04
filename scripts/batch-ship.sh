@@ -323,7 +323,10 @@ fi
 
 # Regenerate the human-facing status doc in the same pass that publishes —
 # it's a build artifact of published.tsv + ready/ + published/, never hand-edited,
-# so it rides in this commit alongside the ledger rows it's derived from.
+# so it rides in this commit alongside the ledger rows it's derived from. This is
+# one of four triggers; build-claim.sh, build-gate.sh and build-release.sh cover
+# the build side, which had none until 2026-08-04 (which is why the doc could sit
+# at 23/12 while disk said 21/14).
 bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
 
 # Commit is part of the publish contract — a failure here is a quarantine

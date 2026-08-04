@@ -49,6 +49,24 @@ cuts. Enough to fix a direction, not enough to claim a general law. A future
 lesson that genuinely wants a slower shape is an owner decision that pins a
 second reference build here, never a loosened constant or a CLI flag.
 
+**Where the two reference cuts are (added 2026-08-04).** The APPROVED cut is
+live at the Wistia URL recorded against
+`build-direction-before-you-build-a-plan_early-career-boost` in `published.tsv`.
+The REJECTED cut is filed at
+`renders-hyperframes/_reference/build-direction-before-you-build-a-plan_early-career-boost_2026-08-04-freeform-backup`
+— moved there from the workspace root, where it had been reporting as an ORPHAN
+because it matches no script. Underscore folders are skipped by every workspace
+scan, so filing it is what makes it stop looking like unfinished work.
+
+**Say the honest thing about that evidence: `renders-hyperframes/` is
+gitignored, so the rejected cut exists only on the machine that built it.** It
+is not recoverable from this repository. The durable record of the calibration
+is the numbers written above — 17 beats, 6.47 beats/min, median 9.12s, longest
+static span 3.75s, against the approved cut's 26 beats, 10.26 beats/min, median
+5.15s — plus the fixtures in `render-qa/tests/test_pace.py`. If the folder is
+lost, the thresholds still stand on those; what is lost is the ability to re-run
+a new gate against a build whose verdict is already known.
+
 ## 2026-08-04 — The write fence
 
 **Decision:** a `PreToolUse` hook (`scripts/write-fence.sh`) hard-blocks writes

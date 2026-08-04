@@ -297,6 +297,31 @@ check("but leaking the injected env INTO a fenced path is still blocked",
       blocked("Bash", {"command":
               f"bash scripts/with-secrets.sh env > {PROJ}/scripts/leaked.env"}))
 
+print("== FP8: a mutator taints its own sub-command, not the whole line ==")
+check("a destructive verb in ONE sub-command does not fence a fenced path "
+      "named in ANOTHER — this exact command was refused on install day",
+      allowed("Bash", {"command":
+              f"find {PROJ}/projects/video-production/renders-hyperframes/m2_demo "
+              "-exec touch {} + ; bash scripts/batch-status.sh"}))
+check("...and the same shape with && instead of ;",
+      allowed("Bash", {"command":
+              f"rm -rf {PROJ}/projects/video-production/renders-hyperframes/m2_demo/qa "
+              "&& bash scripts/lint-refs.sh"}))
+check("but a mutator in the SAME sub-command as a fenced path still blocks",
+      blocked("Bash", {"command":
+              f"bash scripts/lint-refs.sh ; rm -f {PROJ}/scripts/batch-ship.sh"}))
+check("...and the segment split does not lose a verb from its own arguments",
+      blocked("Bash", {"command":
+              f"echo start && rm -rf {PROJ}/projects/video-production/render-qa/src "
+              "&& echo done"}))
+check("the fenced DIRECTORY is fenced, not only its contents — `rm -rf` on the "
+      "gates directory itself named no trailing slash and went through",
+      blocked("Bash", {"command": f"rm -rf {PROJ}/scripts"})
+      and blocked("Bash", {"command": f"rm -rf {PROJ}/scripts/"})
+      and blocked("Write", {"file_path": str(PROJ / "projects/video-production/render-qa/src")}))
+check("...while a SIBLING whose name merely starts the same is not fenced",
+      allowed("Bash", {"command": f"rm -rf {PROJ}/scripts-scratch/x"}))
+
 print("== FP6/FP7: read-only commands, observed live on 2026-08-04 ==")
 check("a bare `ls` of a fenced dir with 2>/dev/null is ALLOWED",
       allowed("Bash", {"command":

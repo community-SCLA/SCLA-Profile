@@ -109,14 +109,17 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
   atomic. (2026-07-29 — before this, "sequentially" was a sentence in this file
   and a session was already running 4 concurrent builds against no render lock
   at all.)
-- Style package: the human's pick if given; otherwise rotate
-  summit → horizon → cadence by the program's **started-build** count —
-  `count(*.txt in lesson-scripts/<program-slug>/rendered/) mod 3` (rule:
-  `design-contract.md` → "Style packages"). Never scan `_archive/` for this — `rendered/`
-  already holds every gate-clean build's script, so it covers delivered +
-  at-gate builds. The orchestrator computes the theme per queued video
-  (consecutive builds in one batch keep rotating) and passes it to the subagent.
-  Say which was picked.
+- Style package: the human's pick if given; otherwise ask the script — never
+  count folders yourself:
+
+  ```bash
+  python3 projects/video-production/render-qa/src/theme_for.py <program-slug> --offset <N>
+  ```
+
+  `<N>` is the video's position in THIS batch (0 for the first), which is what
+  keeps consecutive builds rotating. Pass the answer to the subagent and say
+  which was picked. (Until 2026-08-04 this bullet restated the computation and
+  had been wrong for a week — see `theme_for.py`'s own header.)
 
 ### B2 — One cold build subagent per video
 
@@ -143,19 +146,38 @@ a routine template instantiation runs fine one tier down. The prompt carries
 
 The workspace is named `<title>_<program>` — no date (`.claude/rules/
 video-production.md`). `render-qa/src/stem.py` owns the rule; never hand-slice a
-suffix. **`mkdir` is the build lock** — atomic, so it is what makes concurrent
-builds safe. Never `mkdir -p`, never test-then-create.
+suffix.
+
+**`build-claim.sh` starts every build. There is no other way in.** It does the
+four things that have to happen together and that prose only ever got one of:
+takes the `mkdir` lock (atomic — exactly one of N concurrent subagents wins),
+arms the write fence, opens the build journal, and regenerates
+`PIPELINE-STATUS.md`. Never `mkdir` by hand, never `mkdir -p`, never
+test-then-create.
 
 ```bash
-cd projects/video-production/renders-hyperframes
-WS="$(python3 ../render-qa/src/stem.py base <script-stem>)"   # -> title_program
-mkdir "$WS" || { echo "$WS already claimed by another build — STOP"; exit 1; }
-HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init "$WS" --example=blank --non-interactive
-# copy design-contract.md, compositions/, assets/ in from ../design-system/
-cd "$WS"
+bash scripts/build-claim.sh <base> <program-slug>     # exits non-zero if claimed
+cd projects/video-production/renders-hyperframes/<base>
+HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init . --example=blank --non-interactive
+# copy design-contract.md, compositions/, assets/ in from ../../design-system/
 # init regenerates a CLAUDE.md routing to skills this repo deleted — replace it:
 printf '# Build workspace. Sequence + commands: /render-lessons. Design contract: ../../design-system/docs/design-contract.md\n' > CLAUDE.md
 ```
+
+**Journal every step you finish**, as you finish it — one row, append-only:
+
+```bash
+bash scripts/build-log.sh <base> voice "26 beats synthesized"
+```
+
+That row is the only reason an interrupted build can be resumed rather than
+restarted. `batch-status.sh` reads the last one and prints *left off after
+**voice**, 41 min ago*; without it a dead session leaves a folder and no
+evidence, and the next session's only option is a rebuild that throws away
+finished narration.
+
+**A workspace that already exists is RESUMED, never re-claimed and never
+deleted:** `bash scripts/build-claim.sh <base> <program-slug> --resume`.
 
 <!-- BUILD-KIT:BEGIN — scripts/batch-prepare.sh extracts everything between
      these two markers verbatim into _run/BUILD-KIT.md for cold build
@@ -275,7 +297,7 @@ enters AUTO-BATCH** while its quality floor is unproven.
 Build order is narration-first (a late visual fix then costs an HTML edit,
 never a re-synthesis):
 
-1. **Claim + init** exactly as the template sequence above (`mkdir` lock,
+1. **Claim + init** exactly as the template sequence above (`build-claim.sh`,
    `hyperframes init --example=blank`), then copy in `tokens.yml` from
    `../design-system/config/` and the Proxima woff2 set from
    `../design-system/assets/fonts/`.
@@ -285,7 +307,7 @@ never a re-synthesis):
    map, built once, never left") **and the beat range it persists across —
    this must cover ≥60% of the runtime.** ("Laid down, read twice, then hands
    off" is a rejected cut's own honest description of itself and is not a
-   concept angle; see `render-qa/docs/PENDING-pace-gates.md` §2.) State the
+   concept angle; see `decisions/log.md` 2026-08-04 "Owner verdict".) State the
    rule out loud and hold to it: *if an element cannot be justified as
    another way of reading the same object, it does not exist.* Palette and
    face come from `tokens.yml` / `brand/visual-identity.md`; hierarchy by
@@ -294,7 +316,8 @@ never a re-synthesis):
    ready script **verbatim** (TTS normalizations only), split into
    narration beats. **Pace target: ~10 beats per minute** — a ~150s lesson is
    ~25 beats, not ~17; a beat manifest that undershoots this by a wide margin
-   is what the owner rejected as "SO boring" (`PENDING-pace-gates.md` §1).
+   is what the owner rejected as "SO boring" (`decisions/log.md` 2026-08-04
+   "Owner verdict"; the numbers are gated by `render-qa/src/check_pace.py`).
    This file is the gates' narration source (`preflight --static` diffs it
    against the approved script — run it now, it is free).
 4. **Synthesize** via the HyperFrames audio engine (`audio.mjs` from the
@@ -327,10 +350,11 @@ never a re-synthesis):
    (`carrier-drift` + `twin-share`, run automatically inside the full
    `preflight.py`). Fewer stills than beats is a preflight FAIL either way.
    Review them yourself before presenting the gate.
-8. **Gates, same bar as the template lane:** `preflight.py .` (auto-detects
-   the lane; runs script-vs-beats, copy, continuity, brand, text, title,
-   ink, motion, pace, per-beat layout) exit 0, then `npm run check`. **Stop —
-   no render.** The human preview gate is per video on this lane.
+8. **Gates, same bar as the template lane:** `bash scripts/build-gate.sh
+   <stem>` (runs `preflight.py`, which auto-detects the lane: script-vs-beats,
+   copy, continuity, brand, text, title, ink, motion, pace, per-beat layout)
+   exit 0, then `npm run check`. **Stop — no render.** The human preview gate
+   is per video on this lane.
 
 ### B3 — Verify + present the gate (orchestrator)
 
@@ -338,13 +362,25 @@ For each returned workspace, independently re-run the deterministic gate —
 trust exit codes you produced, not subagent prose:
 
 ```bash
-python3 projects/video-production/render-qa/src/preflight.py projects/video-production/renders-hyperframes/<stem>
+bash scripts/build-gate.sh <stem>
 ```
 
-**Once your independent preflight exits 0**, the build is gate-clean. The
-script STAYS in `ready/` until publish — `batch-ship.sh --publish` moves it
+That runs the real `preflight.py` and, **on exit 0 and only on exit 0**, writes
+`qa/PREFLIGHT-OK` — the marker that makes NEEDS REVIEW readable from disk after
+this session ends. Without it "gate-clean, awaiting your eyes" lives only in
+your context, and the next session sees a half-finished build. A non-zero run
+deletes any marker an earlier pass left: a stale green is worse than no green.
+
+The script STAYS in `ready/` until publish — `batch-ship.sh --publish` moves it
 to `published/` in the same pass that records the Wistia URL, so
 `batch-status.sh` can flag anything stranded between render and publish.
+
+Then close the build out, which lowers the write fence and regenerates the
+status doc:
+
+```bash
+bash scripts/build-release.sh <stem> "gate-clean, at the preview gate"
+```
 
 Then **stop and hand the human the gate**, per video: stem, theme, scene
 count, and how to watch it. **Never print `<stem>` as a placeholder** — give
@@ -468,9 +504,10 @@ run economics on video 1 rather than at 3am.
 
 1. **Cold build subagent** — prompt carries *paths only*: the stem, its
    `ready/` script, `_run/BUILD-KIT.md`, the assigned theme, and the verbatim snag Open
-   block. It clones the scaffold, authors `scenes.json`, loops
-   `build_index.py` + `preflight.py --static` until the plan is clean, then
-   synth → compile → full preflight → check until green. It returns **five
+   block. It claims with `build-claim.sh`, clones the scaffold, authors
+   `scenes.json`, loops `build_index.py` + `preflight.py --static` until the
+   plan is clean, then synth → compile → `build-gate.sh` → check until green,
+   journalling each finished step with `build-log.sh`. It returns **five
    fields, no prose**: `workspace · scenes · theme · gate exits · one-line
    status`. Run on a fast model; escalate to a strong model only on a retry
    after a gate failure.
@@ -491,6 +528,12 @@ run economics on video 1 rather than at 3am.
    ledger row → `git mv` script to `published/` → commit → prune in place
    (the filed MP4 is kept as a local backup). Publish
    refuses a stem already in `published.tsv`, so re-running is safe.
+
+Each video ends with `bash scripts/build-release.sh <stem>` — the final
+journal row, the write fence lowered, `PIPELINE-STATUS.md` regenerated. A build
+that never releases leaves the fence armed until its 6h TTL expires, which is a
+nuisance rather than a disaster, but the status doc then lies about what is in
+flight.
 
 **Pipelining:** because the driver is backgrounded, videos N+1..N+3 *build*
 (network- and authoring-bound) while video N *renders* (CPU-bound). Different
@@ -533,9 +576,13 @@ flags any script in `published/` without a `published.tsv` row as
 bucket that catches every state between render and commit. A fresh session
 resumes with that one command; nothing depends on the previous session's
 context surviving, which also makes mid-run context compaction a non-event.
-`batch-ship.sh` calls `batch-status.sh --write` on every quarantine and every
-publish, regenerating `projects/video-production/PIPELINE-STATUS.md` — the
-same read, rendered as a document a human can open without running anything.
+Four things regenerate `projects/video-production/PIPELINE-STATUS.md`, so a
+build can no longer happen without the status doc noticing: `build-claim.sh`
+(a build starts), `build-gate.sh` (it passes or fails the gate),
+`build-release.sh` (it ends) and `batch-ship.sh` (quarantine, publish). It is
+the same read as this command, rendered as a document a human can open without
+running anything — and `lint-refs.sh` check 14 fails if it has drifted from a
+fresh regeneration.
 
 ## Close-out — the self-improvement loop (every session, both phases)
 

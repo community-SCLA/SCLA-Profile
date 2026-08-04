@@ -18,7 +18,7 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Produce a video (one call; stops at the pilot gate) | `/produce-video` |
 | Refine raw lesson scripts (batch) | `/refine-scripts` |
 | Build / ship / publish lesson videos | `/render-lessons` |
-| Wistia links in Notion (intake retired 2026-07-13) | `projects/video-production/docs/notion-queue.md` |
+| What shipped where (Wistia links) | `projects/video-production/PIPELINE-STATUS.md` → Delivered |
 | Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
 | HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
 | Start a new project | `/new-from-template` |
@@ -30,13 +30,16 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 ## Commands
 
 ```bash
-bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 11 checks,
-                                   # incl. the render-qa suite (check 11) and the STD-35
-                                   # enforcement audit (check 10). CI runs it on every push.
+bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 14 checks,
+                                   # incl. the render-qa suite (12), the STD-35 audit (10),
+                                   # lesson-script layout (13) and PIPELINE-STATUS
+                                   # freshness (14). CI runs it on every push.
 python3 projects/video-production/render-qa/tests/run_tests.py   # that suite alone
 python3 projects/video-production/render-qa/tests/test_variety.py # one file — each runs standalone
 npm run check                      # in design-system/ — template gate, run after ANY composition edit
-bash scripts/batch-status.sh       # resume key: what's left in the video queue, read from disk alone
+bash scripts/batch-status.sh       # resume key: the whole pipeline, read from disk alone
+bash scripts/build-claim.sh S P    # the ONE way a build starts (lock + fence + journal + status)
+bash scripts/build-release.sh S    # ...and the one way it ends
 bash scripts/review.sh             # gate every build, serve previews of the clean ones
 bash scripts/with-secrets.sh CMD   # Infisical injection — required for HeyGen/Wistia calls
 ```

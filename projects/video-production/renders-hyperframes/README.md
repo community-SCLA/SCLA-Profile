@@ -31,18 +31,27 @@ renders-hyperframes/
    source: `npm install && npm run render` brings it back.
 
 `renders-hyperframes/` contains this README, workspaces (in production *and*
-delivered), and `_archive/`. Delivered folders lingering here are expected —
-they are only cleared when a human runs `archive-lesson.sh`.
+delivered), `_run/` (the scaffold every workspace is copied from), `_reference/`
+(builds kept as measurement evidence) and `_archive/`. Underscore folders are
+skipped by every workspace scan, which is what keeps them out of the queue.
+Delivered folders lingering at the root are expected — they are only cleared
+when a human runs `archive-lesson.sh`.
 
 ## What lives where (durable vs. scaffolding)
 
 | Artifact | Home | In git? |
 |---|---|---|
-| Approved narration script `.txt` | `../lesson-scripts/<program-slug>/` | Yes |
-| Final `.mp4` | `../lesson-scripts/<program-slug>/` (+ linked on the Notion row) | No — gitignored; the Wistia upload is the durable copy |
-| QA snapshots / progress | Posted to the video's Notion page | No (Notion) |
-| Scene HTML + build sources | `renders-hyperframes/<stem>/` → `renders-hyperframes/_archive/<stem>/` after delivery | No (local) |
+| Approved narration script `.txt` | `../lesson-scripts/<program-slug>/ready/` → `published/` at publish | Yes |
+| Final `.mp4` | `../renders-mp4/<program-slug>/<stem>_<render-date>.mp4` | No — gitignored; the Wistia upload is the durable copy |
+| The Wistia URL | `../lesson-scripts/published.tsv` (machine) + the *Delivered* table in `../PIPELINE-STATUS.md` (human) | Yes |
+| QA frames / snapshots | `renders-hyperframes/<stem>/qa/`, pruned in place after publish | No (local) |
+| Build journal | `renders-hyperframes/<stem>/.build-log.tsv` — one row per completed step | No (local) |
+| Scene HTML + build sources | `renders-hyperframes/<stem>/`; retiring one to `_archive/<stem>/` is a human-only call | No (local) |
 | Scene *templates* (reusable) | `../design-system/compositions/` | Yes |
+
+*(Corrected 2026-08-04: this table used to file the final MP4 under
+`lesson-scripts/<program-slug>/` — which holds only `.txt` — and route QA
+snapshots to Notion, which was retired as intake on 2026-07-13.)*
 
 **Note:** because workspaces are local-only, they exist on the machine that built
 them. That's acceptable — the approved script (tracked) plus the design-system
