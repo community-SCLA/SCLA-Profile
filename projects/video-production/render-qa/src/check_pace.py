@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """check_pace.py — does this build deliver ideas fast enough, against a
-backdrop that holds?  (PENDING — see PENDING-pace-gates.md)
+backdrop that holds?
 
 THE HOLE THIS CLOSES.  On 2026-08-04 the owner reviewed two freeform cuts of
 the same lesson, approved one and called the other "SO boring".  Every gate in
@@ -47,6 +47,23 @@ cut, with margin on both sides — the calibration idiom `check_diversity` uses
 for FREEZE_MAXDIFF.  A number pulled from taste rather than from a build is
 exactly the kind of gate the repo has switched off before.
 
+STATED LIMIT — these thresholds are calibrated on n=2, and both cuts are the
+SAME LESSON.  That is enough to fix a direction (idea rate over animacy) and
+not enough to claim a general law about pace across every lesson this pipeline
+will ever build.  A future lesson that genuinely wants a slower shape is an
+OWNER DECISION that pins a second reference build, recorded in
+`decisions/log.md` — never a CLI flag, never a loosened constant here. Same
+posture as the ink gate's declared keep-out region (`check_ink.py`).
+
+Wired into `preflight.py`'s freeform branch: the two timing rules
+(`beat-pace`, `long-beat-share`) run in `--static` (the fix is re-splitting
+`audio_request.json`, free before synthesis); `carrier-drift` runs in the full
+gate over the `snapshots/` grid `check_freeform_ink` already produces.
+Blocking, not advisory — STD-38's teach-first posture is for unpinned taste
+numbers, and an advisory pace gate would reproduce the exact failure this file
+exists to close: the boring cut passed everything advisory and shipped to the
+gate clean.
+
     python3 check_pace.py <workspace>            # timing rules (plan stage)
     python3 check_pace.py <workspace> --stills   # + carrier-drift, needs snapshots
 """
@@ -55,8 +72,7 @@ import statistics
 import sys
 from pathlib import Path
 
-RQ = Path(__file__).resolve().parent.parent / "src"
-sys.path.insert(0, str(RQ))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import Finding, typed  # noqa: E402
 
 # ---------------------------------------------------------------------------
@@ -156,7 +172,6 @@ def check_timing(ws: Path):
 def check_stills(ws: Path):
     """carrier-drift over one still per beat (the snapshots/ grid the freeform
     sequence already produces at step 7 — no extra render is spent)."""
-    sys.path.insert(0, str(RQ))
     from check_diversity import cells, churn, load_frames  # noqa: E402
 
     snaps = ws / "snapshots"

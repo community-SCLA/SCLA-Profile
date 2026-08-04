@@ -85,6 +85,11 @@ REQUIRED = {
                          "nothing-graded"],
     "check_motion":     ["keep-alive-motion", "undeclared-target",
                          "freeform-keep-alive"],
+    # the pace gate (freeform lane, BUILD-PLAN B1 2026-08-04) — idea rate and
+    # the carrying-object rule made measurable. Calibrated on n=2 (one lesson,
+    # two owner-verdicted cuts); see check_pace.py's module docstring.
+    "check_pace":       ["beat-pace", "long-beat-share", "carrier-drift",
+                         "nothing-graded"],
     "check_slots":      ["unfilled", "placeholder", "unknown-icon",
                          "banned-row-icons", "scene-index-badge"],
     "check_text":       ["min-size", "restatement"],

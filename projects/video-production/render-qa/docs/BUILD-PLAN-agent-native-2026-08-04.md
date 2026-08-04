@@ -766,8 +766,36 @@ Track B.
 
 *TRACK B — stop the next build being boring*
 
-- [ ] B1 ⛔ `check_pace.py` → `src/` + `preflight` wiring + firing test + the
-      n=2 calibration limit stated in the module docstring
+- [x] B1 `check_pace.py` → `src/` + `preflight` wiring + firing test + the
+      n=2 calibration limit stated in the module docstring — promoted from
+      `docs/check_pace.py` (two-line shim dropped, per the plan). Re-proven
+      against the two live reference workspaces before wiring anything:
+      approved → `PACE: PASS` (26 beats/152.11s, 10.26 bpm, median 5.15s, 45%
+      long, churn n/a — snapshots were pruned post-publish so only timing
+      rules ran), rejected → `PACE: FAIL (4)` (17 beats/157.54s, 6.47 bpm,
+      median 9.12s, 79% long, churn 10.07%) — exact match to the numbers this
+      doc already recorded. Wired into `preflight.py`'s freeform branch as a
+      new `pace` section (`check_freeform_pace`): timing rules
+      (`beat-pace`, `long-beat-share`) run in `--static` (read `timing.json`
+      alone); `carrier-drift` runs in the full gate over the `snapshots/`
+      grid `check_freeform_ink` already requires. Confirmed end to end via
+      `preflight.py --json`: approved workspace `--static` → `pace` section
+      PASS; rejected workspace full gate → overall `verdict: FAIL`, `pace`
+      section carries all four findings verbatim. Template lane gets a new
+      `template_skip` (the mirror of `freeform_skip`) — pace has no template-
+      lane referent; idea rate there is the existing `pacing`/cue-gap section
+      and monotony is `check_variety`'s job. `test_pace.py` (11 assertions):
+      `nothing-graded` (no `timing.json`), `beat-pace` (median+bpm together,
+      shaped like the rejected cut), `long-beat-share` in isolation (a
+      fixture that clears median/bpm but still parks 77% of runtime in two
+      long beats — proves the rule earns its keep, not redundant with
+      `beat-pace`), `carrier-drift` at BOTH the over-ceiling and the
+      frozen-floor end (the module's own disclaimer that a ceiling alone
+      would license a still image), plus three clean-pass fixtures shaped
+      like the approved cut. `check_pace` added to `test_firing_coverage.py`'s
+      `REQUIRED` — coverage moved 16→17 checker modules, 75/75 rule-level
+      proofs recorded. `lint-refs.sh` 12/12 green (95 render-qa assertions,
+      was 93); full suite 0 failures.
 - [ ] B2 ⛔ `twin-beats` per-pair defect retired, replaced by `twin-share` (25%
       ceiling) as the anti-gaming backstop for `beat-pace` — lands with a
       planted-defect firing test or does not land

@@ -784,6 +784,25 @@ def check_freeform_ink(ws: Path):
     return {"pass": rc == 0, "output": out.strip()}
 
 
+def check_freeform_pace(ws: Path, static: bool):
+    """BUILD-PLAN B1 (2026-08-04): the owner approved one freeform cut of a
+    lesson and rejected another, and every rule in this file passed the
+    rejected cut while QUARANTINING the approved one — the gate set measured
+    animacy, and the owner was responding to idea rate and a carrying object
+    (see check_pace.py's module docstring for the full story and its stated
+    n=2 calibration limit). The two timing rules (beat-pace, long-beat-share)
+    read timing.json alone, so they run in --static; carrier-drift needs the
+    snapshots/ grid check_freeform_ink already requires a still per beat for,
+    so it only runs in the full gate. BLOCKING, not advisory — an advisory
+    pace gate would reproduce the exact failure this file exists to close:
+    the boring cut passed everything advisory and shipped to the gate clean."""
+    args = [sys.executable, str(Path(__file__).parent / "check_pace.py"), str(ws)]
+    if not static:
+        args.append("--stills")
+    rc, out = run_tool(args)
+    return {"pass": rc == 0, "output": out.strip()}
+
+
 def main():
     argv = sys.argv[1:]
     as_json = "--json" in argv
@@ -825,6 +844,11 @@ def main():
         informational pass that SAYS why, so a skipped rule is always visible
         and never silently lost (the §3 unowned-rules lesson)."""
         return {"pass": True, "output": f"SKIPPED (freeform lane) — {why}"}
+
+    def template_skip(why):
+        """A freeform-lane section with no referent on the template lane —
+        the reverse of freeform_skip, same visibility discipline."""
+        return {"pass": True, "output": f"SKIPPED (template lane) — {why}"}
 
     # 1. compiler check — freeform has no compiler; its timing contract
     # (every beat timed, timeline covers root, MIN_FINAL_HOLD kept) is graded
@@ -959,6 +983,21 @@ def main():
     else:
         sections["pacing"] = check_pacing(scenes)
         failed |= not sections["pacing"]["pass"]
+
+    # 6b. pace — beat-pace / long-beat-share / carrier-drift (BUILD-PLAN B1,
+    #     2026-08-04, check_pace.py). Freeform-only: the template lane's idea
+    #     rate is bounded by its own scene-duration caps and cue-gap budget
+    #     (the `pacing` section above), and monotony there is `check_variety`'s
+    #     job. Calibrated on n=2 (one lesson, two cuts) — see check_pace.py's
+    #     docstring for the stated limit before tightening these numbers.
+    if freeform:
+        sections["pace"] = check_freeform_pace(ws, static_mode)
+        failed |= not sections["pace"]["pass"]
+    else:
+        sections["pace"] = template_skip(
+            "idea rate is bounded by the template lane's own scene-duration "
+            "caps and cue-gap budget (the pacing section above); monotony "
+            "there is check_variety's job")
 
     # 7. text — minimum on-frame text size + no restatement of label/heading
     #    (owner calls 2026-07-27; tokens.yml typography.min-size + "Type rules").
