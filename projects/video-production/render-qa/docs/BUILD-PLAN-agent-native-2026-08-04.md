@@ -278,7 +278,20 @@ commit.
       ink gate. First heading threshold (3 lines at the floor, ~240 chars) was
       a bound no real heading could reach — a rule that could not fire dressed
       as a rule — and was corrected to "cannot be one line at any legal size".
-- [ ] 1.4 ink-band gate in `src/` + tokens region + fixtures + preflight wiring
+- [x] 1.4 ink-band gate in `src/` + tokens region + fixtures + preflight wiring
+      — landed whole in `d3fab3c` and verified against this step's own
+      done-condition rather than assumed: promoted to `src/check_ink.py`, the
+      brandline keep-out DECLARED in `tokens.yml` `chrome-regions` and loaded
+      via `tokens.chrome_regions()` (never a CLI flag, never a loosened
+      threshold), fixtures in `tests/test_ink.py`, and wired into `preflight.py`
+      as `check_freeform_ink` over one snapshot still per beat. All three
+      planted defects fire and DISCRIMINATE (x=80 fires padding and NOT
+      safe-area); `test_firing_coverage` carries the three rules. The gate
+      FAILS on missing/thin snapshots rather than passing — nothing-graded is
+      never a pass. The "21 clean stills" half of the done-condition is
+      historical evidence (HANDOFF §5 A3): renders are gitignored, so the
+      stills are not in the repo and Phase 3's pilot is what re-exercises it on
+      fresh pixels.
 - [x] 1.5a `check_layout` per-beat sampling — code landed in `d3fab3c` via the
       shared `hfp_common.sample_units` grid; this step added the fixtures it
       had none of. Both consumers are declared SLOW in `test_firing_coverage`
