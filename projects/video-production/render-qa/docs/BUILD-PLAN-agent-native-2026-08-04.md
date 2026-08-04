@@ -1,10 +1,26 @@
 # BUILD PLAN — agent-native adoption, execution order
 
-**Date:** 2026-08-04 · **Status:** approved for execution through Phase 2;
-Phases 3–4 have hard human stops. Phase 3 was scaled down from a 3-lesson A/B
-to a single freeform pilot on 2026-08-04 — the owner is already confident in
-the agent-native direction · **Audience:** a fresh session with no memory of
-the conversation that produced this.
+**Date:** 2026-08-04 · **Status:** Phases 1–2 landed. **Phase 3's pilot was
+REJECTED by the owner on 2026-08-04 ("SO boring"), and a different, earlier
+freeform cut was approved instead — see Phase 3R, which is now the live work.**
+Phase 4's precondition was rewritten 2026-08-04 (it referenced a pilot that no
+longer exists) and it still needs an explicit owner go-ahead ·
+**Audience:** a fresh session with no memory of the conversation that produced
+this.
+
+> **Read Phase 3R before Phase 1.** The owner verdict reversed the direction of
+> a gate that Phases 1–2 spent their whole effort tightening, and it re-scopes a
+> rule the snag-log has been queued to arm. Executing Phase 1's ledger forward
+> without Phase 3R will rebuild the boring cut.
+
+> **Phase 3R is TWO independent tracks and they were previously tangled.**
+> **Track A ships the video the owner already approved** and needs exactly one
+> code change plus a credential. **Track B stops the next build being boring**
+> and is the larger job. Track A does not depend on Track B. Do Track A first —
+> it delivers a finished lesson, and it is four hours of work behind a
+> one-line constant. *(Split 2026-08-04 by the advising session; the previous
+> revision listed the shipping blocker as ledger item 3R.6, last, behind five
+> gate edits it does not depend on.)*
 
 **This plan executes** `render-qa/docs/PROPOSAL-agent-native-adoption-2026-08-04.md`
 (the reasoning and all measurements), plus the two surviving pieces of
@@ -200,12 +216,194 @@ rule or is consciously declined — never a verbal preference.
 
 ---
 
+## Phase 3R — Re-evaluation after the owner verdict ⛔ needs a flagged session
+
+**This supersedes Phase 3's remaining boxes.** Phase 3 delivered a gate-clean
+pilot and the owner rejected it. A second cut of the same lesson, built
+2026-07-30/31 and sitting QUARANTINED at
+`renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost`,
+was approved to ship. Full measurements, thresholds and the exact edits:
+**`render-qa/docs/PENDING-pace-gates.md`**, with the working checker beside it
+at `render-qa/docs/check_pace.py`.
+
+**The verdict in one line:** the gate set approved the cut the owner rejected
+and quarantined the cut the owner approved.
+
+**Why nothing in `src/` could have caught it.** Phase 1 assumed the freeform
+risk was *coverage* — gates grading zero elements. That was real and is closed.
+The rejected pilot exposes a second failure the plan did not model: **the
+surviving gates all measure animacy, and the owner was responding to
+structure.** Measured on the rejected cut — 22 stills on a 1.25s grid across its
+two longest beats — it changes something every ~2.5s, its longest static span is
+**3.75s** (under `STAGNANT_FAIL`), it draws a new picture every beat, and it has
+**zero** twin pairs. By every metric this pipeline owns it is the *healthier*
+build. It is boring because each idea takes 9.3s to arrive and nothing on screen
+accumulates.
+
+A prediction was made here and refuted: the expectation was that the boring cut
+would fail `check_presence` harder. It does not. The refutation is what
+identified the real discriminators.
+
+| | approved | rejected |
+| --- | ---: | ---: |
+| beats per minute | **10.26** | **6.47** |
+| median beat | **5.15s** | **9.12s** |
+| runtime in >8s beats | **45%** | **79%** |
+| mean inter-beat churn | **3.34%** | **10.07%** |
+| twin pairs / longest static span | 2 / 5.5s | 0 / 3.75s |
+
+The last row is inverted, and it is load-bearing: **low inter-beat churn is the
+signature of the carrying object**, not a defect. The approved cut's field of 48
+marks arrives once and is thereafter only re-grouped.
+
+---
+
+### TRACK A — ship the cut the owner approved
+
+Independent of Track B. Two blockers, one of them not code.
+
+**A1. `STAGNANT_FAIL` 5.0 → 6.0** *(fenced — needs `SCLA_SYSTEM_SESSION=1`)*
+
+The quarantine fired on exactly three spans: **5.0s, 5.5s, 5.5s** (re-read from
+`qa/quarantine-reason.txt` 2026-08-04, not recalled). **The owner watched those
+three spans and approved the cut**, so a hard floor at 5.0 sits below the owner's
+line. 6.0 clears the worst with 0.5s of margin and still fails the 7s+ dead hold
+nothing defends. Every other `verify_render` section on that build is already
+`ok` — container, frames, and monotony-as-advisory — so this one constant is the
+whole quarantine.
+
+It does **not** rescue the rejected cut (worst span 3.75s, already under the old
+floor), so it cannot be mistaken for a general loosening. Track B's pace gates
+are what replace the pressure.
+
+`check_diversity` derives `MAX_SAMPLE_GAP = STAGNANT_FAIL / 4.0`, so its grid
+relaxes 1.25s → 1.5s automatically; its calibration comment (lines 76–99) is
+written against `FAIL = 5.0` and must be re-stated in the same commit or it
+becomes a lie about the current constant. `test_diversity.py` pins the derived
+gap — expect it to move.
+
+**A2. `WISTIA_API_TOKEN` is absent and publish will fail without it**
+*(owner/infra action, not code)*
+
+Probed 2026-08-04 against the live vault: `scripts/with-secrets.sh` resolves
+`HEYGEN_API_KEY` and **nothing else** — `WISTIA_API_TOKEN` and
+`ELEVENLABS_API_KEY` do not appear in the `dev` environment, which is the only
+one the wrapper reads by default. This is now a measured fact, not the previous
+revision's "UNVERIFIED, probe was refused". SHIP's last step is
+`scripts/wistia-upload.sh`, so Track A completes to a filed, verified MP4 and
+then stops. Either add the token to `dev` or point the wrapper at the
+environment that holds it.
+
+**A3. s07 script fidelity — RESOLVED 2026-08-04, no longer a blocker.**
+See the ledger entry for what was done and why; `script_match` reads
+**386 vs 386 words, 0.00%**, and full `preflight --static` on that workspace is
+**PASS**.
+
+**Track A done when:** `verify_render` exits 0 on the existing
+`..._2026-07-31.mp4`, the quarantine marker is cleared, `qa/VERIFIED` is written,
+the MP4 is filed to `renders-mp4/early-career-boost/`, and — once A2 lands — the
+Wistia URL is in `published.tsv` + `refinement-log.md` in the same commit.
+**Do not re-render.** The approved artifact is the file on disk; a re-render
+changes what the owner approved.
+
+---
+
+### TRACK B — stop the next build being boring
+
+**B1. `check_pace.py` into `src/`** — `beat-pace`, `long-beat-share`,
+`carrier-drift`; thresholds pinned in the gap between the two cuts with margin on
+both sides. Re-proven 2026-08-04 by the advising session against both live
+workspaces, not carried over as a claim: approved → `PACE: PASS` exit 0;
+rejected → `PACE: FAIL (4)` exit 1 with `--stills`, `FAIL (3)` without. Wire into
+`preflight.py`'s freeform branch — timing rules in `--static` (where the fix is
+re-splitting the beat manifest and is free), `carrier-drift` in the full gate
+over the existing `snapshots/` grid.
+
+**Blocking, not advisory.** The boring cut passed everything advisory and reached
+the owner clean. The usual objection to a blocking taste number — "it gets
+switched off within a day" — is answered by *where* it fires: the timing rules
+run at plan stage, so a false stop costs a beat re-split before any audio exists,
+not a re-render.
+
+**Stated limit, and it must be written into the module docstring:** these
+thresholds are calibrated on **n=2, and both cuts are the same lesson**. That is
+enough to fix a direction and not enough to claim a general law. A future lesson
+that genuinely wants a slower shape is an **owner decision that pins a second
+reference build**, recorded in `decisions/log.md` — never a CLI flag, never a
+loosened constant. Same posture as the ink gate's declared keep-out region.
+
+**B2. `twin-beats` — re-scope, do not simply delete** *(changed 2026-08-04 by the
+advising session; the previous revision said "retire it on this lane", full
+stop)*
+
+The retirement half is right and the reasoning holds: `logs/snag-log.md`
+2026-07-31 has the rule waiting on "one approved freeform cut nominated as the
+reference", that cut now exists, and it scores **worse** on the per-pair rule
+(2 twins) than the rejected one (0). Arming it as a per-pair defect drives every
+future build toward the boring cut. **So the per-pair defect dies.**
+
+But deleting it outright leaves a hole that B1 itself opens. **`beat-pace` reads
+the audio manifest, not the pixels.** Split one 12s beat into two 6s beats with
+the same picture on screen and `beat-pace` goes green while nothing changed for
+the viewer. `carrier-drift`'s `FROZEN_MEAN_CHURN = 0.004` floor only catches a
+build that is nearly a still image; a build sitting at 1–2% churn passes
+everything. That is a live gaming vector, and it is the *cheapest* way to satisfy
+the new gate.
+
+**Replace the per-pair defect with a share ceiling — `twin-share`.** Fraction of
+consecutive beat pairs that are twins: approved reads **2/25 = 8%**, rejected
+**0/16 = 0%**. Ceiling at **25%**. Being honest about what this is: it does
+**not** discriminate between the two cuts — both pass — so it is not a quality
+rule and must not be described as one. It is a backstop that exists only because
+B1 created something worth gaming. **It therefore has no naturally-occurring
+failing build, which by this repo's own discipline means it lands with a
+planted-defect firing test in `test_pace.py` or it does not land at all.**
+
+**B3. `.claude/skills/render-lessons/SKILL.md`, freeform sequence** — steps 2, 3
+and 7. Both builders followed this sequence faithfully; its only quality
+instruction is an ungraded one-sentence "concept angle", and the rejected cut's
+`design.md` states plainly that its carrying object "hands off". The carrying
+object must now declare the beat range it persists across (≥60% of runtime), and
+step 3 states the pace target (~10 beats/min — a ~150s lesson is ~25 beats, not
+~17). Add step 3's `check_pace.py --static` call beside the existing
+`preflight --static` advice: that is the step where the fix is free.
+
+**B4. `.claude/rules/video-production.md`** — a Pace rule with `check_pace.py`
+as its mechanism; update the stagnation number to 6.0 and rewrite the monotony
+bullet to describe `twin-share` rather than a rule awaiting a pin.
+`lint-refs.sh` check 10 audits these claims, so this lands in the same commit.
+
+**B5. One new freeform pilot, built under the pace gates, to the owner.**
+*(Added 2026-08-04 by the advising session — the plan had no step that tests
+whether B1's numbers produce a good video rather than merely a passing one.)*
+B1–B4 are calibrated on a single rejected build. The only way to know they aim at
+the right thing is to build one lesson under them and put the pixels in front of
+the owner. Same stop as Phase 3: **ends at the hyperframe gate, no Phase 4 in the
+same session.** This is also what restores Phase 4's precondition, which the
+rejection invalidated.
+
+**Blocked on:** every path in A1 and B1–B4 is inside the Step 2.1 write fence
+(`render-qa/src/`, `.claude/`). Needs a session exporting
+`SCLA_SYSTEM_SESSION=1`. This is the fence working as designed, not a defect.
+**Fix `PENDING-write-fence-fix.md` in that same session before anything else** —
+its false positives block redirecting any gate's own output anywhere, which is
+friction every step below will hit.
+
+---
+
 ## Phase 4 — Retirement ⛔ requires explicit owner go-ahead
 
-**Preconditions:** the Phase 3 pilot cleared the owner gate; owner has said "go"
-on retirement specifically; the mid-career batch has drained (no live
-workspace still depends on the template path — check `batch-status.sh` and
-`published.tsv`).
+**Preconditions** *(first one rewritten 2026-08-04 — it named the Phase 3 pilot,
+which the owner REJECTED, so as written this phase was permanently unreachable)*:
+
+1. **The Track B pilot (3R.B5) cleared the owner gate** — a freeform build
+   produced under the pace gates and approved on its pixels. The Jul 30–31 cut
+   does not satisfy this: it was approved, but it was built *before* the gates
+   and is the reference they are calibrated against, so passing them is
+   circular. Retirement needs one build that the new rules *steered*.
+2. Owner has said "go" on retirement specifically.
+3. The mid-career batch has drained — no live workspace still depends on the
+   template path (check `batch-status.sh` and `published.tsv`).
 
 **Do:** one commit, all of it or CI goes red — the checklist is HANDOFF §5
 Test D. Scope measured in proposal §4: `boxmodel.py`, `check_capacity.py`,
@@ -473,6 +671,61 @@ commit.
       Infisical environment or folder is UNVERIFIED: the probe was refused by
       the session's permission classifier, not by Infisical. Check the console
       before any SHIP.
-- [ ] 3 ⛔ hyperframe gate — owner preview of the pilot, then render decision
-- [ ] 3 ⛔ owner verdict: _(record here)_
-- [ ] 4 ⛔ retirement commit (owner-approved, queue drained)
+- [x] 3 ⛔ hyperframe gate — owner previewed the pilot 2026-08-04.
+- [x] 3 ⛔ **owner verdict: REJECTED — "SO boring."** The owner instead approved
+      the earlier freeform cut at
+      `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost`
+      (built 2026-07-30/31, rendered, and QUARANTINED by `verify_render`), and
+      directed that the pipeline follow the path that produced it. The gate set
+      approved the rejected cut and blocked the approved one. **Phase 3 is
+      closed; Phase 3R is the live work.** Per the certification protocol this
+      verdict becomes checkers, not a remembered preference — the checker is
+      written and proven (`docs/check_pace.py`), and blocked on the write fence.
+**Ledger re-ordered 2026-08-04 by the advising session** to follow the Track
+A / Track B split above. Track A ships a finished lesson and does not wait on
+Track B.
+
+*TRACK A — ship the approved cut*
+
+- [x] **A3 s07 script fidelity — RESOLVED, and the owner delegated the call.**
+      The choice was framed as "revert to the July wording" vs "re-synthesize and
+      re-render". **Both framings were wrong, because the July SCRIPT and the
+      approved AUDIO were never the same string** — the July build satisfied the
+      conjunction rule with a one-word edit in its own beat manifest
+      (`Where` → `or`) and never back-ported it, which is the snag-log's
+      "needs back-porting (or veto)" entry from 2026-07-30. Reverting the script
+      to its pre-`ab3c19d` text would therefore have left `script_match` failing
+      anyway.
+      **What was done instead: the script was set to what the approved video
+      actually says** — "Where did you feel engaged? Where did you feel capable?
+      Where did you feel useful, or did you feel proud of the outcome?"
+      Verified, not assumed: `script_match` went 375 vs 386 words / 2.93% /
+      longest miss run 4 → **386 vs 386 / 0.00% / run 0**, and full
+      `preflight --static` on that workspace is **PASS** including `COPY` — the
+      `or` satisfies the conjunction rule, so nothing was traded away to get
+      here. The MP4 is untouched and still the artifact the owner approved.
+- [ ] A1 ⛔ `STAGNANT_FAIL` 5.0 → 6.0 (+ `check_diversity` gap & comment) —
+      clears the quarantine; the only code change Track A needs
+- [ ] A2 ⛔ `WISTIA_API_TOKEN` into the `dev` environment (owner/infra) — measured
+      absent 2026-08-04; SHIP's publish step cannot run without it
+- [ ] A4 ⛔ `verify_render` exit 0 → `qa/VERIFIED` → file the MP4 → publish +
+      `published.tsv` row. **No re-render.**
+
+*TRACK B — stop the next build being boring*
+
+- [ ] B1 ⛔ `check_pace.py` → `src/` + `preflight` wiring + firing test + the
+      n=2 calibration limit stated in the module docstring
+- [ ] B2 ⛔ `twin-beats` per-pair defect retired, replaced by `twin-share` (25%
+      ceiling) as the anti-gaming backstop for `beat-pace` — lands with a
+      planted-defect firing test or does not land
+- [ ] B3 ⛔ `render-lessons` freeform sequence — steps 2, 3, 7
+- [ ] B4 ⛔ `.claude/rules/video-production.md` mechanism lines
+- [ ] B5 ⛔ one new freeform pilot built UNDER the pace gates → owner verdict.
+      Restores Phase 4's precondition.
+
+*Prerequisite for both tracks*
+
+- [ ] W ⛔ apply `PENDING-write-fence-fix.md` first in the flagged session — its
+      false positives block redirecting any gate's output anywhere
+
+- [ ] 4 ⛔ retirement commit (owner-approved, queue drained, B5 pilot approved)
