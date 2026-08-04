@@ -22,6 +22,7 @@ sys.path.insert(0, str(RQ / "src"))
 
 import check_continuity
 import check_copy
+import check_fit
 import check_forms
 import check_motion
 from hfp_common import load_beats, onframe_strings
@@ -300,6 +301,44 @@ check("a list quoted inside a <script> string does not flag", not probs,
 rep, probs = check_forms.check(forms_ws("no-lists", "<p>No list here.</p>"))
 check("a build with no lists at all is CLEAN, not ungraded",
       rep is not None and not probs, str(probs))
+
+# ---------------------------------------------------------------------------
+# check_fit — plan-stage copy fit (step 1.3c), the rehome of check_capacity's
+# question onto the FRAME instead of a template slot. Advisory per STD-38, so
+# these prove it FIRES, not that it blocks.
+fit_budget = check_fit.budget()
+check("the fit budget is LOADED from tokens.yml, not hand-copied",
+      fit_budget["avail_w"] == 1920 - 2 * 72 and fit_budget["max_lines"] > 5,
+      str(fit_budget))
+
+long_body = ("Your accumulated experience across projects and teams and "
+             "stakeholders is the raw material of your next move. ") * 14
+rep, probs = check_fit.check(None, strings=[("main.html", "text", long_body)])
+fires("check_fit", "fit-impossible",
+      "copy too long for the content area AT THE MINIMUM size fires",
+      "fit-impossible" in rules_of(probs), str(probs))
+check("...and it is advisory (severity warning), never an error",
+      all(getattr(p, "severity", "error") == "warning" for p in probs),
+      str([getattr(p, "severity", "?") for p in probs]))
+
+rep, probs = check_fit.check(None, strings=[
+    ("main.html", "heading",
+     "Four Kinds Of Career Transition And What Each One Asks Of You When You "
+     "Have Already Built Years Of Real Experience In A Field")])
+fires("check_fit", "fit-heading-long",
+      "a heading that cannot be ONE line even at the floor fires (it is a "
+      "title, not a sentence)",
+      "fit-heading-long" in rules_of(probs), str(probs))
+
+rep, probs = check_fit.check(None, strings=[
+    ("main.html", "heading", "Four Kinds of Transition"),
+    ("main.html", "text", "Same core strengths, new context.")])
+check("ordinary copy passes the fit budget", not probs, str(probs))
+
+rep, probs = check_fit.check(None, strings=[])
+fires("check_fit", "nothing-graded",
+      "a build with no on-frame strings FAILS rather than passing",
+      rep is None and "nothing-graded" in rules_of(probs), str(probs))
 
 empty = TMP / "forms-empty"
 shutil.rmtree(empty, ignore_errors=True)

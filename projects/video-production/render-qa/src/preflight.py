@@ -1103,11 +1103,22 @@ def main():
     #      a 240px card, which grew to three lines and pushed through the footer
     #      rule. Static and cheap, so a builder learns at plan stage.
     if freeform:
+        # Slot capacity needs slots, and a freeform layout is designed around
+        # its copy — so the per-slot maxLines budget genuinely cannot move.
+        # The plan-stage QUESTION does move, and no longer counts as an
+        # accepted loss (BUILD-PLAN step 1.3c): check_fit.py asks "does this
+        # string fit the content area at the MINIMUM legal type size", still
+        # measured in the real vendored font. ADVISORY per STD-38 — it is
+        # deliberately not OR-ed into `failed`. The hard backstop is the ink
+        # gate below, which grades real pixels and does block.
         sections["capacity"] = freeform_skip(
-            "slot capacity needs slots; freeform layout is designed around "
-            "its copy, and overflow is graded from real pixels (geometry/ink "
-            "below + the per-beat layout inspector) — an accepted loss of the "
-            "plan-stage fit check, decisions/log.md 2026-07-30")
+            "per-slot maxLines needs slots. The plan-stage fit question moved "
+            "to the `fit` section below (check_fit.py); hard enforcement is "
+            "the pixel ink gate")
+        rc, out = run_tool([sys.executable,
+                            str(Path(__file__).parent / "check_fit.py"),
+                            str(ws)])
+        sections["fit"] = {"pass": True, "output": out.strip()}
     else:
         rc, out = run_tool([sys.executable,
                             str(Path(__file__).parent / "check_capacity.py"),

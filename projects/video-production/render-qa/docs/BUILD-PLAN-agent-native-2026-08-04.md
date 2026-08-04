@@ -262,7 +262,22 @@ commit.
       this lane entirely. An ellipsis is punctuation in speech and deliberately
       does NOT transfer from the on-frame rule, where a slot whose whole value
       is "…" is a defect.
-- [ ] 1.3c plan-stage fit rehomed (advisory)
+- [x] 1.3c plan-stage fit rehomed (advisory) — new `src/check_fit.py`.
+      **Deviation from the plan's wording, stated:** the plan said "a
+      conservative character/line budget on the beat manifest". Narration never
+      lands in a box, so a fit budget on it would grade the wrong artifact; the
+      copy that must fit is the on-frame string set, available at the same
+      moment (`preflight --static`, before render). The proposal's own wording —
+      "fail a too-long string" — is what is implemented, and the proposal wins
+      on details. Also kept the half of `check_capacity` that was actually
+      valuable: measurement in the REAL vendored font via `textmetrics.py`
+      (not on Phase 4's deletion list), rather than a character estimate. The
+      budget is the content area at the MINIMUM legal type size, so a finding
+      is a geometric fact — every legal size is larger. Advisory per STD-38 and
+      genuinely not OR-ed into preflight's `failed`; the hard backstop is the
+      ink gate. First heading threshold (3 lines at the floor, ~240 chars) was
+      a bound no real heading could reach — a rule that could not fire dressed
+      as a rule — and was corrected to "cannot be one line at any legal size".
 - [ ] 1.4 ink-band gate in `src/` + tokens region + fixtures + preflight wiring
 - [ ] 1.5a `check_layout` per-beat sampling
 - [ ] 1.5b `verify_render` per-beat stills

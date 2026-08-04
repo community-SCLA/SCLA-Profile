@@ -166,8 +166,15 @@ designs belong in the log entry. *(Split by audience 2026-07-31; `Why: log
 - **Copy must fit the box the template gives it.** Slot capacity is measured in
   the real vendored font, not estimated. A template declares each constrained
   slot's `maxLines` in its own variable schema, beside the CSS that creates the
-  constraint. *(Mechanisms: `check_capacity.py` + `textmetrics.py` against
-  committed `design-system/assets/fonts/metrics.json`. Why: log 2026-07-29 "The
+  constraint. On the freeform lane there is no slot to measure against, so the
+  question becomes "does this string fit the CONTENT AREA at the minimum legal
+  type size" — still measured in the real font, and a finding there is a
+  geometric fact because every legal size is larger. Advisory per STD-38; the
+  hard backstop is the pixel ink gate. *(Mechanisms: `check_capacity.py` +
+  `textmetrics.py` against committed
+  `design-system/assets/fonts/metrics.json`; `render-qa/src/check_fit.py` on
+  the freeform lane, run non-blocking by `preflight.py`, fixtures in
+  `render-qa/tests/test_freeform.py`. Why: log 2026-07-29 "The
   gates the `better-decisions` rejection exposed".)*
 - **No text may land on other text, and the gate does not depend on a browser to
   know it.** *Given the wrapped line count, does this box intersect anything?* is

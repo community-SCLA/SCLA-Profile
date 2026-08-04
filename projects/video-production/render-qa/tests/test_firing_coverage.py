@@ -74,6 +74,10 @@ REQUIRED = {
     # the content-FORM gate (freeform lane) — the two owner rules rehomed off
     # template slots onto element structure, BUILD-PLAN step 1.3a
     "check_forms":      ["one-item-list", "one-card", "nothing-graded"],
+    # plan-stage copy fit (freeform lane), ADVISORY per STD-38 — it must
+    # still be proven to fire, or it rots into the vacuous PASS it replaces
+    "check_fit":        ["fit-impossible", "fit-heading-long",
+                         "nothing-graded"],
     "check_motion":     ["keep-alive-motion", "undeclared-target",
                          "freeform-keep-alive"],
     "check_slots":      ["unfilled", "placeholder", "unknown-icon",
