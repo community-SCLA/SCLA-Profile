@@ -3,6 +3,13 @@
 **Date:** 2026-08-04 · **Status:** ready to apply, BLOCKED on session type ·
 **Owner action required:** relaunch Claude Code with `SCLA_SYSTEM_SESSION=1`.
 
+**Second session (2026-08-04, later) re-confirmed the block and the defect got
+worse.** The flag was still unset (`SCLA_SYSTEM_SESSION=[]`), a probe write
+under the fenced set was refused as designed, and the staged fix still proves
+out. But that session hit a *new* shape while starting the Phase 3 pilot, and
+it is not a nuisance shape — see defect 3 below. The fix is unchanged; only the
+urgency is.
+
 This is BUILD-PLAN step 2.1's open defect, carried out of the session that
 installed the fence. The fence works — it blocks every write it should. It also
 blocks a class of writes it should not, and it cannot repair itself, because
@@ -26,10 +33,32 @@ Two consequences, both wrong, both observed live within minutes of install:
    `env | sed 's/=.*/=<set>/' ; head -20 scripts/with-secrets.sh` was blocked by
    a `>` that was inside a quoted sed replacement and was not a redirect at all.
 
+3. **The credential path is fenced, and every credentialed call must cross it.**
+   `scripts/with-secrets.sh` is the mandatory Infisical entry point for every
+   HeyGen and Wistia call — the rules file requires it, "never a bare env." It
+   also lives under `scripts/`, so it is a fenced token. Combine that with
+   defect 2 and an **ordinary, correct build command is refused**:
+
+   ```
+   bash scripts/with-secrets.sh node audio.mjs --provider heygen \
+     > projects/video-production/renders-hyperframes/<stem>/audio_meta.json
+   ```
+
+   That redirect writes into the build's OWN workspace — the one place the
+   fence explicitly leaves writable — and it is blocked, because the token scan
+   sees `scripts/with-secrets.sh` as an argument. So does the same command with
+   a plain `2>/dev/null`. This was found by being bitten by it while claiming
+   the Phase 3 pilot stem.
+
+   **This escalates the defect from friction to a shipping-path block.** TTS
+   synthesis and Wistia publish both run through that script. A build session —
+   the exact session type the fence is designed to constrain — cannot reliably
+   invoke it.
+
 This is the "too tight" failure mode, and it is the one that matters: a fence
 that refuses ordinary read-only work is a fence somebody switches off. The
 existing suite already asserts the fence is not too tight — it just did not
-imagine these three shapes.
+imagine these shapes.
 
 ## The fix (written, proven, not applied)
 
@@ -46,11 +75,12 @@ Nothing about the fenced set, the default-deny posture, or the
 
 ## Evidence
 
-`verify_fence_fix.py` runs 21 cases against the LIVE fence and the FIXED one
-side by side. Result: the 4 false positives become ALLOW, and **every** safety
+`verify_fence_fix.py` runs 24 cases against the LIVE fence and the FIXED one
+side by side. Result: the 5 false positives become ALLOW, and **every** safety
 case still BLOCKs — real redirects into fenced paths, `rm`/`mv`/`tee`/`sed -i`,
-`git checkout`, `cp` INTO a fenced path, `mv` OUT of one, and all three
-Write/Edit cases.
+`git checkout`, `cp` INTO a fenced path, `mv` OUT of one, all three Write/Edit
+cases, and the direct counterpart to FP4 (`with-secrets.sh env > scripts/…`,
+which must stay blocked and does).
 
 ```
 PASS — every case correct after the fix, and no safety case regressed
@@ -100,6 +130,20 @@ check("...and a redirect into a WORKSPACE file is still allowed",
       allowed("Bash", {"command":
               "echo x > projects/video-production/renders-hyperframes/"
               "m2_demo/timing.json"}))
+
+print("== the credential path: with-secrets.sh is fenced AND mandatory ==")
+check("TTS via with-secrets, redirecting into the build's OWN workspace",
+      allowed("Bash", {"command":
+              "bash scripts/with-secrets.sh node audio.mjs --provider heygen "
+              "> projects/video-production/renders-hyperframes/"
+              "m2_demo/audio_meta.json"}))
+check("a credentialed publish with 2>/dev/null is ALLOWED",
+      allowed("Bash", {"command":
+              "bash scripts/with-secrets.sh bash scripts/wistia-upload.sh "
+              "out.mp4 2>/dev/null"}))
+check("but leaking the injected env INTO a fenced path is still blocked",
+      blocked("Bash", {"command":
+              "bash scripts/with-secrets.sh env > scripts/leaked.env"}))
 ```
 
 ## Then delete this hand-off

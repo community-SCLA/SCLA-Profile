@@ -44,7 +44,23 @@ CASES = [
      {"command": "ls x 2>/dev/null | head -12; grep -rn freeform scripts/*.sh"},
      0),
 
+    # --- FP4: the credential path. scripts/with-secrets.sh is BOTH fenced and
+    # the mandatory entry point for every HeyGen/Wistia call, so an ordinary
+    # build command that runs it and redirects output into its OWN WORKSPACE is
+    # refused by the live fence. This is not a nuisance — it is the shipping
+    # path. Observed 2026-08-04 while starting the Phase 3 pilot.
+    ("FP4 TTS via with-secrets, redirecting into the WORKSPACE", "Bash",
+     {"command": "bash scripts/with-secrets.sh node audio.mjs --provider heygen "
+                 "> projects/video-production/renders-hyperframes/"
+                 "m2_demo/audio_meta.json"}, 0),
+    ("FP5 with-secrets run with 2>/dev/null", "Bash",
+     {"command": "bash scripts/with-secrets.sh bash scripts/wistia-upload.sh "
+                 "out.mp4 2>/dev/null"}, 0),
+
     # --- safety must not regress -------------------------------------------
+    ("a redirect INTO a fenced path is still blocked while running with-secrets",
+     "Bash",
+     {"command": "bash scripts/with-secrets.sh env > scripts/leaked.env"}, 2),
     ("real redirect INTO a fenced path", "Bash",
      {"command": "echo x > scripts/batch-ship.sh"}, 2),
     ("real append INTO a fenced path", "Bash",

@@ -361,12 +361,24 @@ commit.
       (`SCLA_SYSTEM_SESSION=1`) — which is the fence behaving exactly as
       designed, and is why it is reported here rather than patched.
       **The fix is WRITTEN and PROVEN, just not applied** — see
-      `render-qa/docs/PENDING-write-fence-fix.md`. `verify_fence_fix.py` runs 21
-      cases against the live fence and the fixed one side by side: the 4 false
+      `render-qa/docs/PENDING-write-fence-fix.md`. `verify_fence_fix.py` runs 24
+      cases against the live fence and the fixed one side by side: the 5 false
       positives become ALLOW and every safety case still BLOCKs. Two narrowing
       changes only — strip heredoc/`-m` bodies before matching, and grade a
       redirect by WHAT IT WRITES TO rather than by a `>` existing at all. The
       fenced set, the default-deny posture and the opt-out are unchanged.
+
+      ⚠ **ESCALATED 2026-08-04 (later session): this is a shipping-path block,
+      not friction.** `scripts/with-secrets.sh` is the mandatory Infisical entry
+      point for every HeyGen and Wistia call AND is a fenced token, so an
+      ordinary credentialed build command whose redirect targets the build's
+      OWN workspace is refused — `bash scripts/with-secrets.sh node audio.mjs
+      > …/renders-hyperframes/<stem>/audio_meta.json`, and the same with a plain
+      `2>/dev/null`. TTS synthesis and publish both cross that script, so a
+      BUILD session — the very session type the fence exists to constrain —
+      cannot reliably run the pipeline. Found by being bitten by it while
+      claiming the Phase 3 pilot stem; pinned as FP4/FP5 in the proof harness.
+      **Apply the fix before any further build work on either lane.**
 - [x] 2.2 AGENTS.md purge + assertion — `batch-prepare.sh` already deleted
       `scaffold/AGENTS.md` beside CLAUDE.md, and zero workspaces carried one, so
       the purge itself was done; the missing half was the ASSERTION, now
@@ -382,5 +394,23 @@ commit.
       mechanism half died with "integer expression expected" — i.e. it would
       never have evaluated. Fixed and re-proven.
 - [ ] 3 freeform pilot built (1 lesson) — gate failures, if any: _(record here)_
+      **NOT STARTED — deliberately halted 2026-08-04, owner instruction "do not
+      render the pilot yet."** Scoping done and recorded so the next session
+      does not redo it:
+      · **Lesson:** queue top is
+      `build-direction-before-you-build-a-plan_early-career-boost` (7-paragraph
+      refined script, present and readable).
+      · **Stem lock:** claimed, verified canonical via `stem.py check`, then
+      **released** (`rmdir`, dir was empty) — an empty locked workspace would
+      read as a stalled build to `batch-status.sh`. The next session re-claims it.
+      · **Credentials:** `HEYGEN_API_KEY` present via Infisical (the pinned
+      Oxana voice's provider). `WISTIA_API_TOKEN` and `ELEVENLABS_API_KEY` are
+      **MISSING** — irrelevant to Phase 3, which stops before publish, but
+      Wistia must be restored before any SHIP.
+      · **Procedure:** already written — `.claude/skills/render-lessons/SKILL.md`
+      "Freeform build sequence", 8 steps, narration-first. No new plumbing
+      needed; `preflight.py` auto-detects the lane.
+      · **Blocker:** the 2.1 escalation above. The freeform sequence's step 4 is
+      a `with-secrets.sh` TTS call, which the live fence refuses.
 - [ ] 3 ⛔ owner verdict: _(record here)_
 - [ ] 4 ⛔ retirement commit (owner-approved, queue drained)
