@@ -216,7 +216,11 @@ after:   386 script words vs 386 beat words — 0.00%, longest miss run 0   ok
 included: the `or` satisfies the conjunction rule, so the doctrinal objection to
 option 1 does not apply here. The MP4 is untouched. **Do not re-render it.**
 
-With 3b applied, Track A is a filed and published lesson — subject only to
-`WISTIA_API_TOKEN`, which was probed against the live vault on 2026-08-04 and is
-**absent** from the `dev` environment (`with-secrets.sh` resolves `HEYGEN_API_KEY`
-and nothing else). That is an infra action, not a code one.
+**With 3b applied, Track A is a filed and published lesson. There is no second
+blocker.** An earlier draft of this section claimed the Wistia credential was
+missing; that was a naming error — the secret is **`WISTIA_API`**, not
+`WISTIA_API_TOKEN`, it is in `dev`, `scripts/wistia-upload.sh` already reads it,
+and it authenticates (`GET /v1/account.json` → HTTP 200, account `SCLA`).
+`config/endpoints.json` line 34 had the correct name the whole time. The one real
+follow-up is a stale usage comment in `with-secrets.sh` that names the
+non-existent variable — fix it beside the write-fence fix.

@@ -282,17 +282,34 @@ written against `FAIL = 5.0` and must be re-stated in the same commit or it
 becomes a lie about the current constant. `test_diversity.py` pins the derived
 gap — expect it to move.
 
-**A2. `WISTIA_API_TOKEN` is absent and publish will fail without it**
-*(owner/infra action, not code)*
+**A2. The Wistia credential is present and working — NOT a blocker.**
+*(This entry previously said the opposite. Corrected 2026-08-04 on owner
+information, then verified.)*
 
-Probed 2026-08-04 against the live vault: `scripts/with-secrets.sh` resolves
-`HEYGEN_API_KEY` and **nothing else** — `WISTIA_API_TOKEN` and
-`ELEVENLABS_API_KEY` do not appear in the `dev` environment, which is the only
-one the wrapper reads by default. This is now a measured fact, not the previous
-revision's "UNVERIFIED, probe was refused". SHIP's last step is
-`scripts/wistia-upload.sh`, so Track A completes to a filed, verified MP4 and
-then stops. Either add the token to `dev` or point the wrapper at the
-environment that holds it.
+**The secret is named `WISTIA_API`, not `WISTIA_API_TOKEN`.** Two consecutive
+sessions probed for the wrong name and concluded the credential was missing. It
+is in Infisical `scla-projects-n-joy/dev`, exactly where `config/endpoints.json`
+line 34 has recorded it all along, and the publish script already reads the right
+variable — `scripts/wistia-upload.sh` line 55 passes `api_password=$WISTIA_API`.
+
+Verified live 2026-08-04, not inferred: `GET /v1/account.json` → **HTTP 200**,
+account `SCLA` (id 372521, 565 medias, 60 projects). Nothing to do here; the
+publish path works.
+
+**Root cause of the false alarm, and it is a one-line fix inside the fence:**
+`scripts/with-secrets.sh` line 9's usage comment gives the example
+`curl -H "Authorization: Bearer $WISTIA_API_TOKEN"` — a variable name that does
+not exist in the vault. That comment is the only place the wrong name appears in
+live code, and it is what a session reads first when it wants to know what is
+available. **Fix it in the flagged session** (see W in the ledger): correct it to
+`$WISTIA_API`.
+
+**Still genuinely absent:** `ELEVENLABS_API_KEY`. Irrelevant to this lane — the
+narration voice is pinned to HeyGen/Oxana.
+
+**Standing constraint, unchanged (`decisions/log.md` 2026-07-15):** the token is
+read+write but **not delete**. A bad auto-published video cannot be pulled back
+via the API; removal is an owner action in the Wistia UI.
 
 **A3. s07 script fidelity — RESOLVED 2026-08-04, no longer a blocker.**
 See the ledger entry for what was done and why; `script_match` reads
@@ -664,13 +681,16 @@ commit.
       the 5-word cap and drops out of the run, so the finding is attributed to
       the wrong item even though the defect it points at is real.
 
-      **Credentials (correcting the previous session's note):** `HEYGEN_API_KEY`
-      is present AND working — it synthesized this pilot. `WISTIA_API_TOKEN` and
-      `ELEVENLABS_API_KEY` are absent from the `dev` environment, which is the
-      only one `with-secrets.sh` reads by default. Whether they live in another
-      Infisical environment or folder is UNVERIFIED: the probe was refused by
-      the session's permission classifier, not by Infisical. Check the console
-      before any SHIP.
+      **Credentials — this note was itself wrong; superseded by Track A's A2,
+      read that instead.** It reported `HEYGEN_API_KEY` present and working
+      (true — it synthesized this pilot) and `WISTIA_API_TOKEN` absent
+      (**false, and the reason is a naming error**). The Wistia secret is named
+      **`WISTIA_API`**, is in `dev`, and authenticates: `GET /v1/account.json` →
+      HTTP 200. `config/endpoints.json` line 34 has recorded the correct name
+      since 2026-07-28 — the probe trusted `with-secrets.sh`'s stale usage
+      comment over the registry, which is the whole reason the repo keeps a
+      machine-first registry. `ELEVENLABS_API_KEY` really is absent and is
+      irrelevant: the voice is pinned to HeyGen/Oxana.
 - [x] 3 ⛔ hyperframe gate — owner previewed the pilot 2026-08-04.
 - [x] 3 ⛔ **owner verdict: REJECTED — "SO boring."** The owner instead approved
       the earlier freeform cut at
@@ -706,8 +726,11 @@ Track B.
       here. The MP4 is untouched and still the artifact the owner approved.
 - [ ] A1 ⛔ `STAGNANT_FAIL` 5.0 → 6.0 (+ `check_diversity` gap & comment) —
       clears the quarantine; the only code change Track A needs
-- [ ] A2 ⛔ `WISTIA_API_TOKEN` into the `dev` environment (owner/infra) — measured
-      absent 2026-08-04; SHIP's publish step cannot run without it
+- [x] A2 Wistia credential — **no action needed; the blocker was a naming
+      error, twice.** The secret is `WISTIA_API` (not `WISTIA_API_TOKEN`), it is
+      in `dev`, `wistia-upload.sh` already reads it, and it authenticates:
+      `GET /v1/account.json` → HTTP 200, account `SCLA`. The wrong name comes
+      from `with-secrets.sh`'s own usage comment — folded into W below.
 - [ ] A4 ⛔ `verify_render` exit 0 → `qa/VERIFIED` → file the MP4 → publish +
       `published.tsv` row. **No re-render.**
 
@@ -726,6 +749,9 @@ Track B.
 *Prerequisite for both tracks*
 
 - [ ] W ⛔ apply `PENDING-write-fence-fix.md` first in the flagged session — its
-      false positives block redirecting any gate's output anywhere
+      false positives block redirecting any gate's output anywhere. **Same
+      commit, one line:** correct `scripts/with-secrets.sh` line 9's usage
+      comment from `$WISTIA_API_TOKEN` to `$WISTIA_API` — the wrong name in that
+      comment cost two sessions a false "credential missing" finding.
 
 - [ ] 4 ⛔ retirement commit (owner-approved, queue drained, B5 pilot approved)
