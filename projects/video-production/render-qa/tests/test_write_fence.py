@@ -176,6 +176,62 @@ check("the block tells the agent to REPORT the problem, not patch it",
           REPO / "scripts/x.sh")})[1])
 
 # ---------------------------------------------------------------------------
+print("== data is not command, and a redirect is graded by its TARGET ==")
+check("a commit whose MESSAGE names a fenced path is ALLOWED",
+      allowed("Bash", {"command":
+              "git commit -F - <<'MSG'\n"
+              "a probe write under scripts/ was blocked\n"
+              "we ran touch scripts/__fence_probe to verify\n"
+              "MSG"}))
+check("`2>/dev/null` on a read-only command naming a fenced path is ALLOWED",
+      allowed("Bash", {"command":
+              "python3 projects/video-production/render-qa/src/check_ink.py "
+              "frames 2>/dev/null"}))
+check("a '>' inside a quoted sed replacement is not a redirect",
+      allowed("Bash", {"command":
+              "env | sed 's/=.*/=<set>/' ; head -20 scripts/with-secrets.sh"}))
+check("but a REAL redirect into a fenced path is still blocked",
+      blocked("Bash", {"command": "echo x > scripts/batch-ship.sh"}))
+check("...and a redirect into a WORKSPACE file is still allowed",
+      allowed("Bash", {"command":
+              "echo x > projects/video-production/renders-hyperframes/"
+              "m2_demo/timing.json"}))
+
+print("== the credential path: with-secrets.sh is fenced AND mandatory ==")
+check("TTS via with-secrets, redirecting into the build's OWN workspace",
+      allowed("Bash", {"command":
+              "bash scripts/with-secrets.sh node audio.mjs --provider heygen "
+              "> projects/video-production/renders-hyperframes/"
+              "m2_demo/audio_meta.json"}))
+check("a credentialed publish with 2>/dev/null is ALLOWED",
+      allowed("Bash", {"command":
+              "bash scripts/with-secrets.sh bash scripts/wistia-upload.sh "
+              "out.mp4 2>/dev/null"}))
+check("but leaking the injected env INTO a fenced path is still blocked",
+      blocked("Bash", {"command":
+              "bash scripts/with-secrets.sh env > scripts/leaked.env"}))
+
+print("== FP6/FP7: read-only commands, observed live on 2026-08-04 ==")
+check("a bare `ls` of a fenced dir with 2>/dev/null is ALLOWED",
+      allowed("Bash", {"command":
+              "ls .claude/skills/hyperframes-media/ 2>/dev/null"}))
+check("capturing a GATE's own output to a non-fenced scratch path is ALLOWED",
+      allowed("Bash", {"command":
+              "python3 projects/video-production/render-qa/src/preflight.py "
+              "projects/video-production/renders-hyperframes/m2_demo "
+              "> /tmp/pf.txt"}))
+check("...but writing INTO the gate directory is still blocked",
+      blocked("Bash", {"command":
+              "echo x > projects/video-production/render-qa/src/preflight.py"}))
+
+print("== the documented TTS form has no redirect and must stay ALLOWED ==")
+check("audio.mjs --out (a flag, not a redirect) through with-secrets",
+      allowed("Bash", {"command":
+              "bash scripts/with-secrets.sh node m/scripts/audio.mjs "
+              "--request ./audio_request.json --hyperframes . "
+              "--out ./audio_meta.json --only tts --provider heygen"}))
+
+# ---------------------------------------------------------------------------
 print("== the hook is actually registered, or none of the above runs ==")
 settings = json.loads((REPO / ".claude" / "settings.json").read_text())
 pre = settings.get("hooks", {}).get("PreToolUse", [])

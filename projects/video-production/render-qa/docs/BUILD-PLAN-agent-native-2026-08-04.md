@@ -748,10 +748,17 @@ Track B.
 
 *Prerequisite for both tracks*
 
-- [ ] W ⛔ apply `PENDING-write-fence-fix.md` first in the flagged session — its
-      false positives block redirecting any gate's output anywhere. **Same
-      commit, one line:** correct `scripts/with-secrets.sh` line 9's usage
-      comment from `$WISTIA_API_TOKEN` to `$WISTIA_API` — the wrong name in that
-      comment cost two sessions a false "credential missing" finding.
+- [x] W apply `PENDING-write-fence-fix.md` — `scripts/write-fence.sh` now grades
+      Bash by stripping heredoc/`-m` payload text before matching and by grading
+      each redirect on WHAT IT WRITES TO rather than the mere presence of `>`.
+      Re-proven with `verify_fence_fix.py` before folding the 15 regression
+      cases into `render-qa/tests/test_write_fence.py` (54 assertions total, all
+      pass); the fenced set, default-deny posture and `SCLA_SYSTEM_SESSION`
+      opt-out are unchanged. Same commit: `scripts/with-secrets.sh` line 9's
+      usage comment corrected `$WISTIA_API_TOKEN` → `$WISTIA_API`. Per the
+      hand-off's own closing instruction, `write-fence.fixed.sh`,
+      `verify_fence_fix.py` and `PENDING-write-fence-fix.md` are `git rm`'d — the
+      fix is now the live script, not a second source of truth. `lint-refs.sh`
+      12/12 green (93 render-qa assertions).
 
 - [ ] 4 ⛔ retirement commit (owner-approved, queue drained, B5 pilot approved)

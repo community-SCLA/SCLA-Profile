@@ -6,7 +6,7 @@
 # file on disk. Do not add an `infisical export` path here.
 #
 # Usage:   scripts/with-secrets.sh <command> [args...]
-# Example: scripts/with-secrets.sh curl -H "Authorization: Bearer $WISTIA_API_TOKEN" ...
+# Example: scripts/with-secrets.sh curl -H "Authorization: Bearer $WISTIA_API" ...
 #
 # Auth: machine identity (universal-auth) via Codespaces repo secrets
 #   INFISICAL_CLIENT_ID + INFISICAL_SECRET_KEY.

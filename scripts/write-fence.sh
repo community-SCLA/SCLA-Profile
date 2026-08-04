@@ -126,38 +126,72 @@ case "$TOOL" in
   Bash)
     CMD="$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.command // ""')"
     [ -z "$CMD" ] && exit 0
-    # Only commands that can actually MUTATE are candidates. Reading, running
-    # and grepping fenced files stay free — `python3 render-qa/src/check_copy.py`
-    # and `bash scripts/lint-refs.sh` are the pipeline working normally, and a
-    # fence that blocked them would be removed within a day.
+
+    # ---------------------------------------------------------------------
+    # DATA IS NOT COMMAND (fix 2026-08-04, the day this fence shipped).
+    #
+    # Heredoc bodies and -m/-F message arguments are payload text. A commit
+    # whose MESSAGE merely mentions a mutator word near a fenced path writes
+    # nothing fenced, and refusing it is the "too tight" failure mode that gets
+    # a guard switched off within a day. This fence was bitten by exactly that
+    # within minutes of install: the commit describing its own probe was
+    # refused, and so was the patch that would have fixed it.
+    # ---------------------------------------------------------------------
+    SCAN="$(printf '%s' "$CMD" | awk '
+      BEGIN { skip = 0 }
+      {
+        if (skip) { if ($0 == term) skip = 0; next }
+        if (match($0, /<<-?[ ]*.?[A-Za-z_][A-Za-z0-9_]*.?[ ]*$/)) {
+          t = substr($0, RSTART, RLENGTH)
+          gsub(/^<<-?[ ]*/, "", t); gsub(/[^A-Za-z0-9_]/, "", t)
+          term = t; skip = 1
+        }
+        print
+      }')"
+    SCAN="$(printf '%s' "$SCAN" | sed -E \
+      's/(^|[[:space:]])(-m|-F|--message)[[:space:]]+("[^"]*"|'"'"'[^'"'"']*'"'"'|[^[:space:]]+)/\1\2 MSG/g')"
+
+    # ---------------------------------------------------------------------
+    # A redirect is graded by WHAT IT WRITES TO, never by merely existing.
+    # `2>/dev/null` writes nothing fenced. Treating any ">" as a fence-wide
+    # alarm refused ordinary read-only commands that happened to name a fenced
+    # path — three times on install day, including one where the ">" was inside
+    # a quoted sed replacement and was not a redirect at all.
+    # ---------------------------------------------------------------------
+    for tgt in $(printf '%s' "$SCAN" \
+      | grep -oE '[0-9]*>>?[[:space:]]*[^[:space:];&|<>]+' \
+      | sed -E 's/^[0-9]*>>?[[:space:]]*//'); do
+      if PREFIX="$(is_fenced "$tgt")"; then
+        deny "a shell redirect writing into this path" "$tgt" "$PREFIX"
+      fi
+    done
+
     # Destructive: the fenced path is damaged wherever it appears, including as
     # a SOURCE (`mv fenced/x /tmp` removes it just as surely as rm does).
     DESTRUCTIVE='(^|[[:space:];&|(])(rm|mv|tee|touch|truncate|dd|patch|shred|chmod|chown)([[:space:]]|$)'
-    REDIRECT='>[[:space:]]*[^|&[:space:]]'
     SED_INPLACE='(^|[[:space:];&|(])(sed|perl)([[:space:]]+[^;&|]*)?[[:space:]]-[a-zA-Z]*i'
     GIT_MUTATE='(^|[[:space:];&|(])git[[:space:]]+(checkout|restore|rm|mv|apply|clean|reset)([[:space:]]|$)'
     # Copy-family: only the DESTINATION is written. Copying OUT of a fenced
     # path is a read — and it is what batch-prepare.sh does on every prepare
     # (`cp design-system/config/tokens.yml <scaffold>/`). A fence that blocked
-    # that would block the pipeline doing its job correctly, which is how a
-    # guard gets switched off inside a day.
+    # that would block the pipeline doing its job correctly.
     COPY_FAMILY='(^|[[:space:];&|(])(cp|install|ln|rsync)([[:space:]]|$)'
 
     tokens_of() {
       printf '%s' "$1" | tr '"'"'"'`=(){}[]<>|&;,' ' '
     }
 
-    if printf '%s' "$CMD" | grep -Eq "$DESTRUCTIVE|$REDIRECT|$SED_INPLACE|$GIT_MUTATE"; then
-      for tok in $(tokens_of "$CMD"); do
+    if printf '%s' "$SCAN" | grep -Eq "$DESTRUCTIVE|$SED_INPLACE|$GIT_MUTATE"; then
+      for tok in $(tokens_of "$SCAN"); do
         case "$tok" in -*) continue ;; esac
         if PREFIX="$(is_fenced "$tok")"; then
           deny "a Bash-mediated write touching this path" "$tok" "$PREFIX"
         fi
       done
-    elif printf '%s' "$CMD" | grep -Eq "$COPY_FAMILY"; then
+    elif printf '%s' "$SCAN" | grep -Eq "$COPY_FAMILY"; then
       # Destination only: the last non-flag token.
       DEST=""
-      for tok in $(tokens_of "$CMD"); do
+      for tok in $(tokens_of "$SCAN"); do
         case "$tok" in -*) continue ;; esac
         DEST="$tok"
       done
