@@ -284,14 +284,21 @@ never a re-synthesis):
 2. **`design.md`** — brand truth for THIS video plus the one thing no checker
    can grade: the **concept angle**, one sentence naming the single carrying
    visual idea (the reference's: "four transitions are four positions on ONE
-   map, built once, never left"). Palette and face come from `tokens.yml` /
-   `brand/visual-identity.md`; hierarchy by weight/size/color, headings Title
-   Case without terminal periods.
+   map, built once, never left") **and the beat range it persists across —
+   this must cover ≥60% of the runtime.** ("Laid down, read twice, then hands
+   off" is a rejected cut's own honest description of itself and is not a
+   concept angle; see `render-qa/docs/PENDING-pace-gates.md` §2.) State the
+   rule out loud and hold to it: *if an element cannot be justified as
+   another way of reading the same object, it does not exist.* Palette and
+   face come from `tokens.yml` / `brand/visual-identity.md`; hierarchy by
+   weight/size/color, headings Title Case without terminal periods.
 3. **`audio_request.json`** — the beat manifest: `lines: [{id, text}]`, the
    refined script **verbatim** (TTS normalizations only), split into
-   narration beats. This file is the gates' narration source
-   (`preflight --static` diffs it against the approved script — run it now,
-   it is free).
+   narration beats. **Pace target: ~10 beats per minute** — a ~150s lesson is
+   ~25 beats, not ~17; a beat manifest that undershoots this by a wide margin
+   is what the owner rejected as "SO boring" (`PENDING-pace-gates.md` §1).
+   This file is the gates' narration source (`preflight --static` diffs it
+   against the approved script — run it now, it is free).
 4. **Synthesize** via the HyperFrames audio engine (`audio.mjs` from the
    `hyperframes-media` skill), pinned voice from `tokens.yml`, through
    `scripts/with-secrets.sh` — never a bare env. Output: `audio_meta.json`
@@ -300,6 +307,13 @@ never a re-synthesis):
    vis_dur}]}` COMPUTED from `audio_meta.json` durations (a script computes
    it; never hand-tune a number). The tail after the last word ≥ **1.8s**
    (`FINAL_HOLD` — the gate floor is 1.5s and the owner rejected 1.1s twice).
+   **Run `python3 projects/video-production/render-qa/src/check_pace.py
+   projects/video-production/renders-hyperframes/<stem> --static` here** —
+   this is the step where a pace fix is still free (re-splitting
+   `audio_request.json` and re-synthesizing), not after HTML is authored
+   against these timings. `beat-pace` / `long-beat-share` are BLOCKING in the
+   real gate (`preflight --static`); catch them here first, where the fix
+   costs nothing.
 6. **Author** `index.html` + `compositions/*.html` against the frozen
    timings, word-timestamp-driven reveals. The freeform contract the gates
    read: on-frame copy lives in **markup, never JS strings**; headings carry
@@ -310,13 +324,15 @@ never a re-synthesis):
    every `font-family` leads with the brand face; body text ≥ 40px.
 7. **Snapshot every beat midpoint** with the pinned CLI:
    `npx hyperframes@<pin> snapshot . --at <beat midpoints from timing.json>
-   --no-end -o snapshots` — the pixel bounds gate (`check_ink`) grades these;
-   fewer stills than beats is a preflight FAIL. Review them yourself before
-   presenting the gate.
+   --no-end -o snapshots` — this grid is not ink-only: the pixel bounds gate
+   (`check_ink`) grades it, and so does `check_pace.py --stills`
+   (`carrier-drift` + `twin-share`, run automatically inside the full
+   `preflight.py`). Fewer stills than beats is a preflight FAIL either way.
+   Review them yourself before presenting the gate.
 8. **Gates, same bar as the template lane:** `preflight.py .` (auto-detects
    the lane; runs script-vs-beats, copy, continuity, brand, text, title,
-   ink, motion, per-beat layout) exit 0, then `npm run check`. **Stop — no
-   render.** The human preview gate is per video on this lane.
+   ink, motion, pace, per-beat layout) exit 0, then `npm run check`. **Stop —
+   no render.** The human preview gate is per video on this lane.
 
 ### B3 — Verify + present the gate (orchestrator)
 

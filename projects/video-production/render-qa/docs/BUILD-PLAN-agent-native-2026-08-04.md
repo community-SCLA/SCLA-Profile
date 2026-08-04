@@ -821,7 +821,23 @@ Track B.
       12/12 green; full suite 0 failures. `PENDING-pace-gates.md` stays until
       B3+B4 land too (same hand-off discipline as `PENDING-write-fence-fix.md`
       — delete only once every piece it describes is applied).
-- [ ] B3 ⛔ `render-lessons` freeform sequence — steps 2, 3, 7
+- [x] B3 `render-lessons` freeform sequence — steps 2, 3, 5, 7, 8. Step 2's
+      concept angle now requires the beat range it persists across (≥60% of
+      runtime) and states the rule plainly: *if an element cannot be
+      justified as another way of reading the same object, it does not
+      exist.* Step 3 states the pace target (~10 beats/min, ~150s ≈ 25 beats
+      not ~17). **Deviation from the plan's exact wording, stated:** the
+      `check_pace.py --static` call went to step 5, not step 3 — its timing
+      rules read `timing.json`, which `compute_timing.py` doesn't produce
+      until step 5 (step 3 has only `audio_request.json`, no durations yet);
+      running it at step 3 as literally written would always report
+      nothing-graded. Step 5 is still the point where the fix is free (before
+      HTML is authored against the frozen timings in step 6), so the plan's
+      actual intent — catch it before the expensive step — is preserved,
+      just at the step where `check_pace.py` can see anything. Step 7 now
+      says its snapshot grid feeds `carrier-drift` + `twin-share` too, not
+      ink alone. Step 8's gate list gained `pace`. `lint-refs.sh` 12/12 green;
+      full suite 0 failures.
 - [ ] B4 ⛔ `.claude/rules/video-production.md` mechanism lines
 - [ ] B5 ⛔ one new freeform pilot built UNDER the pace gates → owner verdict.
       Restores Phase 4's precondition.
