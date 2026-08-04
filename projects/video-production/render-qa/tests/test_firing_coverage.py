@@ -56,7 +56,8 @@ REQUIRED = {
                          # beat-manifest adapter — HANDOFF-agent-native §1
                          "freeform-conjunction", "freeform-retired-name",
                          "freeform-titlecase", "freeform-heading-period",
-                         "placeholder", "no-headings", "nothing-graded"],
+                         "placeholder", "spoken-placeholder", "no-headings",
+                         "nothing-graded"],
     # the pre-render freeze gate (freeform lane) — the same rule check_presence
     # applies to the delivered MP4, run over snapshot stills before the render
     # is spent. twin-beats WARNS by design (STD-38) but must still be proven to

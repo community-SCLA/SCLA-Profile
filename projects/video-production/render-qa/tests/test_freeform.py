@@ -157,6 +157,33 @@ fires("check_copy", "placeholder",
       "placeholder-slot" in rules_of(check_copy.check(ws)),
       str(check_copy.check(ws)))
 
+# The spoken half of the same guard: a marker in the BEAT MANIFEST is read
+# aloud, and costs a re-synthesis to fix once the wavs exist. check_slots only
+# ever saw compiled template slots, so this half was ungraded on the freeform
+# lane entirely.
+ws = freeform_ws("spoken-placeholder", [
+    {"id": "s01", "text": "Welcome to [[program name]], where you build "
+                          "momentum."}])
+fires("check_copy", "spoken-placeholder",
+      "a merge field in the beat manifest fires — it would be SPOKEN",
+      "placeholder-slot" in rules_of(check_copy.check(ws)),
+      str(check_copy.check(ws)))
+
+ws = freeform_ws("spoken-todo", [
+    {"id": "s01", "text": "Your next move depends on TODO finish this line."}])
+fires("check_copy", "spoken-placeholder",
+      "an unresolved TODO marker in narration fires",
+      "placeholder-slot" in rules_of(check_copy.check(ws)),
+      str(check_copy.check(ws)))
+
+# An ellipsis is legitimate punctuation in SPEECH, and must not be dragged in
+# from the on-frame rule, where a slot whose entire value is "…" is a defect.
+ws = freeform_ws("spoken-ellipsis", [
+    {"id": "s01", "text": "You pause, you reflect… and then you decide."}])
+check("an ellipsis inside narration is punctuation, not a placeholder",
+      "placeholder-slot" not in rules_of(check_copy.check(ws)),
+      str(check_copy.check(ws)))
+
 no_heading = CLEAN_COMP.replace(' data-role="heading"', "")
 ws = freeform_ws("noheadings", CLEAN_LINES, comp_html=no_heading)
 fires("check_copy", "no-headings",

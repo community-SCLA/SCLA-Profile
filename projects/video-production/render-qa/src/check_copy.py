@@ -360,6 +360,11 @@ def enumeration_problems(scenes):
 PLACEHOLDER_RX = re.compile(
     r"^\s*(\[\[.*\]\]|\.{3}|…|TODO\b.*|TBD\b.*|xxx+)\s*$", re.I)
 MERGE_FIELD_RX = re.compile(r"\[\[[^\]]*\]\]")
+# Narration is prose, so the whole-string form above cannot apply: a merge
+# field or an unresolved marker sits INSIDE a sentence. "…" is deliberately not
+# listed here — an ellipsis is legitimate punctuation in speech, while it is
+# never legitimate as an entire on-frame slot value.
+SPOKEN_PLACEHOLDER_RX = re.compile(r"\[\[[^\]]*\]\]|\b(?:TODO|TBD|XXX+)\b", re.I)
 
 
 def placeholder_problems(strings):
@@ -373,6 +378,26 @@ def placeholder_problems(strings):
                 f"authored copy — {text!r}. Placeholder text reaching the "
                 f"frame violates the fabrication ban; write the line from "
                 f"the lesson script."))
+    return problems
+
+
+def spoken_placeholder_problems(beats):
+    """The same fabrication-ban guard on the BEAT MANIFEST.
+
+    A placeholder in narration is worse than one on frame, not better: it is
+    read aloud by the voice, and the fix costs a re-synthesis once the wavs
+    exist. check_slots.py caught this only in compiled template slots, so on
+    the freeform lane the spoken half was ungraded entirely.
+    """
+    problems = []
+    for b in beats:
+        for m in SPOKEN_PLACEHOLDER_RX.finditer(b.get("narration") or ""):
+            problems.append(Finding(
+                "placeholder-slot",
+                f"{b['id']}: narration carries the unresolved marker "
+                f"{m.group(0)!r} — it would be SPOKEN. Placeholder copy in the "
+                f"beat manifest violates the fabrication ban; write the line "
+                f"from the lesson script."))
     return problems
 
 
@@ -399,7 +424,8 @@ def check(ws: Path):
 
     # Freeform: narration rules on the beats, on-frame rules on the markup.
     problems = (enumeration_problems(beats) + retired_name_problems(beats)
-                + part_reference_problems(beats))
+                + part_reference_problems(beats)
+                + spoken_placeholder_problems(beats))
     if not beats:
         problems.append(Finding(
             "nothing-graded",

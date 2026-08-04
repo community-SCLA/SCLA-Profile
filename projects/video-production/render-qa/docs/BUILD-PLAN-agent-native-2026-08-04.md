@@ -253,7 +253,15 @@ commit.
       **Stated limit, printed on every run:** a build that draws lists as bare
       divs and declares nothing is graded on nothing. The real agent-native
       build is exactly that case, and says so instead of printing a bare PASS.
-- [ ] 1.3b `placeholder-slot` rehomed
+- [x] 1.3b `placeholder-slot` rehomed — the on-frame half landed in `d3fab3c`
+      (`check_copy.placeholder_problems` over `onframe_strings`); this step
+      added the half the plan also asked for and that was still missing, the
+      BEAT MANIFEST. A marker in narration is worse than one on frame — it gets
+      spoken, and costs a re-synthesis once the wavs exist. `check_slots.py`
+      only ever saw compiled template slots, so the spoken half was ungraded on
+      this lane entirely. An ellipsis is punctuation in speech and deliberately
+      does NOT transfer from the on-frame rule, where a slot whose whole value
+      is "…" is a defect.
 - [ ] 1.3c plan-stage fit rehomed (advisory)
 - [ ] 1.4 ink-band gate in `src/` + tokens region + fixtures + preflight wiring
 - [ ] 1.5a `check_layout` per-beat sampling
