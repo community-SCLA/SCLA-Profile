@@ -8,7 +8,8 @@ parsed in pure Python — no PIL needed) and hunts GAPS:
     blank; content-pixel counting fixes that false-positive class, 2026-07-10)
   - stagnant frames: >=3.0s of pixel-identical video while narration is
     speaking (design-contract.md's animacy rule is stated in these same numbers —
-    3.0s WARN / 5.0s FAIL; the lane agent judges the 3-5s gray zone)
+    3.0s WARN / 6.0s FAIL, raised from 5.0s in BUILD-PLAN A1, 2026-08-04; the
+    lane agent judges the 3-6s gray zone)
   - audio stream outliving the video stream (clipped narration / blank tail)
 
 With --workspace <dir> (recommended) the checker reads index.html scene starts
@@ -41,7 +42,15 @@ MIN_CONTENT_PX = 15    # fewer content pixels than this + low stddev = blank
 HARD_BLANK_STDDEV = 1.5  # below this even an entrance window is a violation
 ENTRANCE_GRACE = 0.7   # seconds after a scene start where entrances are legal
 STAGNANT_WARN = 3.0    # pixel-identical this long while narration speaks: warn
-STAGNANT_FAIL = 5.0    # ... this long: violation (nothing in design-contract.md allows it)
+# 6.0, was 5.0 (BUILD-PLAN A1, 2026-08-04). The quarantine on the owner-approved
+# cut fired on exactly three spans: 5.0s, 5.5s, 5.5s (qa/quarantine-reason.txt) —
+# the owner watched those three spans and approved the cut, so a hard floor at
+# 5.0 sat below the owner's own line. 6.0 clears the worst with 0.5s of margin
+# and still fails a 7s+ dead hold nothing defends. It does NOT rescue the
+# rejected cut (worst static span 3.75s, already under the old floor) — Track
+# B's pace gates (check_pace.py) are what replace the pressure this floor
+# loosened.
+STAGNANT_FAIL = 6.0    # ... this long: violation (nothing in design-contract.md allows it)
 FPS = 2
 
 

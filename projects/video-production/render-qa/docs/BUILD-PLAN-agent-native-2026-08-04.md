@@ -724,8 +724,22 @@ Track B.
       `preflight --static` on that workspace is **PASS** including `COPY` — the
       `or` satisfies the conjunction rule, so nothing was traded away to get
       here. The MP4 is untouched and still the artifact the owner approved.
-- [ ] A1 ⛔ `STAGNANT_FAIL` 5.0 → 6.0 (+ `check_diversity` gap & comment) —
-      clears the quarantine; the only code change Track A needs
+- [x] A1 `STAGNANT_FAIL` 5.0 → 6.0 (+ `check_diversity` gap & comment) —
+      clears the quarantine; the only code change Track A needs. Derived
+      `MAX_SAMPLE_GAP` (`check_diversity.py`) auto-relaxed 1.25s → 1.5s (it's
+      computed from `STAGNANT_FAIL / 4.0`, not hand-copied). Its calibration
+      comment now states the worked Δ/threshold examples were measured when
+      `STAGNANT_FAIL` was 5.0, so they read as historical evidence for the
+      `FAIL/4` relationship rather than a false restatement at 6.0.
+      `test_diversity.py` needed no edits — it imports both constants, so its
+      "densest legal grid" and floor-relative assertions moved with them (all
+      16 pass; the frozen-run fixture now spans 7.5s, was 6.25s). Also updated
+      (doc-only, "no code reads it" per design-contract.md, but a stale number
+      identical to the mechanism's own docstring is exactly the drift this repo
+      deletes): `check_presence.py`'s module docstring and
+      `design-system/docs/design-contract.md`'s animacy-rule bullet, both of
+      which stated "3.0s WARN / 5.0s FAIL" verbatim. `lint-refs.sh` 12/12
+      green (93 render-qa assertions); full suite 0 failures.
 - [x] A2 Wistia credential — **no action needed; the blocker was a naming
       error, twice.** The secret is `WISTIA_API` (not `WISTIA_API_TOKEN`), it is
       in `dev`, `wistia-upload.sh` already reads it, and it authenticates:

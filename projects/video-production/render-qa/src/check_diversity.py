@@ -85,7 +85,11 @@ TWIN_CHURN = 0.004
 #
 # A freeze loses part of an interval at EACH end, so density is what buys
 # accuracy — not a looser threshold. Both were tuned against the three spans
-# check_presence fails on the 2026-07-31 cut, and the grid is what moved:
+# check_presence fails on the 2026-07-31 cut, when STAGNANT_FAIL was still 5.0
+# (it moved to 6.0 in BUILD-PLAN A1, 2026-08-04 — see check_presence.py). The
+# Δ = FAIL/4 relationship below is what the formula still expresses; the worked
+# numbers are the historical measurement that chose it, not a restatement at
+# the new constant:
 #     Δ = FAIL/3, threshold FAIL-Δ  -> the 5.0s freeze at 74.0s measured 3.32s
 #                                      against 3.34s and was MISSED by 0.02s
 #     Δ = FAIL/4, threshold FAIL-2Δ -> 11 violations where the MP4 has 3; every

@@ -44,7 +44,8 @@ The frame is never allowed to sit still. A scene that finishes its entrance and
 then holds a static image while the narration keeps talking is a **defect**, not
 a style choice. These are hard rules, checked at the QA gate.
 
-- **No stagnant frame beyond 3.0s (WARN) / 5.0s (FAIL).** Once a scene's opening beat lands, something
+- **No stagnant frame beyond 3.0s (WARN) / 6.0s (FAIL, raised from 5.0s 2026-08-04 —
+  BUILD-PLAN A1, `render-qa/src/check_presence.py`).** Once a scene's opening beat lands, something
   must keep resolving — the next item, an illustration, a highlight, a figure —
   timed to what the narration is saying *right now*. If nothing can happen for
   the next few seconds, the scene is too long: split it into more scenes.
