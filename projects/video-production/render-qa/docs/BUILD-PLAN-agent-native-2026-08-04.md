@@ -745,8 +745,24 @@ Track B.
       in `dev`, `wistia-upload.sh` already reads it, and it authenticates:
       `GET /v1/account.json` → HTTP 200, account `SCLA`. The wrong name comes
       from `with-secrets.sh`'s own usage comment — folded into W below.
-- [ ] A4 ⛔ `verify_render` exit 0 → `qa/VERIFIED` → file the MP4 → publish +
-      `published.tsv` row. **No re-render.**
+- [x] A4 `verify_render` exit 0 → `qa/VERIFIED` → file the MP4 → publish +
+      `published.tsv` row. **No re-render — shipped the existing
+      `..._2026-07-31.mp4` unchanged.** `verify_render.py` re-run against the
+      A1 floor: PASS, 0 violations (the three former failures — 5.0s/5.5s/5.5s
+      — now read as advisory warnings in the 3-6s gray zone), `qa/VERIFIED`
+      written with the MP4's sha256. `bash scripts/batch-ship.sh
+      build-direction-before-you-build-a-plan_early-career-boost
+      early-career-boost --publish` then ran the standing publish contract
+      unmodified: filed to
+      `renders-mp4/early-career-boost/hyperframes/..._2026-08-04.mp4`,
+      uploaded via `wistia-upload.sh` (which reads `$WISTIA_API` through
+      `with-secrets.sh`, per W), **live at
+      https://sclc.wistia.com/medias/v2gnkvdcbc**, `published.tsv` +
+      `refinement-log.md` rows written, script moved to `rendered/`,
+      committed (`26e357d`), workspace pruned in place. `qa/quarantine-reason.txt`
+      is gone — the marker was removed by the same PASS `verify_render` run
+      that wrote `qa/VERIFIED` (`verify_render.py` unlinks it on success).
+      **Track A is done: the owner-approved cut is live.**
 
 *TRACK B — stop the next build being boring*
 
