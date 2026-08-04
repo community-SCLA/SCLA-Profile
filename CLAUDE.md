@@ -11,8 +11,6 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Brand colors, logo, type | `brand/visual-identity.md` |
 | Voice & tone | `brand/voice-and-tone.md` |
 | Naming, tagline | `brand/brand-guide.md` |
-| Member-facing answer | `member-support/faqs.md` |
-| Partner org | `partnerships/NIC.md` |
 | Grant work | `projects/grants/` |
 | Video production | `projects/video-production/CLAUDE.md` |
 | Produce a video (one call; stops at the pilot gate) | `/produce-video` |
@@ -53,3 +51,8 @@ Standing rules live in `.claude/rules/` (auto-discovered): `.claude/rules/repo-h
 - Use plain `ls` scoped to ONE directory. No `ls -la`, no recursive/whole-tree listings.
 - Use Grep/Glob for searching, not `find` or `grep` in Bash.
 - Never re-read a file already read this session.
+
+## Response Output
+- Each session output is to be clear, concise and to the point
+- It is to follow the What(the situation), So What (What was done), and Now What (the path forward,actions items, etc)
+- You are to use lay language, avoid jargon and technical language
