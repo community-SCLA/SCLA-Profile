@@ -134,21 +134,27 @@ check("an empty stills dir returns report=None too",
       report is None and problems, f"report={report}")
 
 # ---------------------------------------------------------------------------
-# 4. Twin beats — advisory, and only graded when stills carry beat labels.
+# 4. Twins — REPORTED as twin_share, never a per-pair defect (retired
+#    BUILD-PLAN B2, 2026-08-04: the owner-approved reference cut scores WORSE
+#    on the old per-pair rule than the rejected one, so arming it would have
+#    pushed every future build toward the boring cut). check_pace.py's
+#    twin-share rule is the actual (blocking) anti-gaming gate; this file only
+#    computes and reports the same share for verify_render's monotony section.
 twins = stills("twins", [(0, "s01"), (0, "s01"), (0, "s02"), (0, "s02"),
                          (240, "s03"), (240, "s03")])
 report, problems, warns = check_diversity.check(twins)
-fires("check_diversity", "twin-beats",
-      "two consecutive beats drawing near-identical frames warn as twin-beats",
-      "twin-beats" in rules_of(warns), str(warns))
-check("…and twin-beats WARNS rather than blocking (STD-38, uncalibrated)",
-      "twin-beats" not in rules_of(problems), str(problems))
-check("beat-labelled stills report twins_graded=True",
-      report and report.get("twins_graded"), str(report))
+check("no per-pair twin-beats finding exists anymore — WARN or FAIL",
+      "twin-beats" not in rules_of(warns) and "twin-beats" not in rules_of(problems),
+      str(warns) + str(problems))
+check("beat-labelled stills report twins_graded=True and a twin_share fraction "
+      "(s01~s02 identical, s02~s03 not: 1 of 2 pairs is a twin)",
+      report and report.get("twins_graded") and report.get("twin_share") == 0.5,
+      str(report))
 
 report, _, warns = check_diversity.check(moving)
-check("unlabelled stills report the twin rule graded NOTHING, not clean",
-      report and not report["twins_graded"]
+fires("check_diversity", "twin-beats-not-graded",
+      "unlabelled stills report the twin metric graded NOTHING, not clean",
+      report and not report["twins_graded"] and report.get("twin_share") is None
       and "twin-beats-not-graded" in rules_of(warns), str(warns))
 
 # ---------------------------------------------------------------------------

@@ -26,7 +26,7 @@ rejected cut changes something every ~2.5s and draws a brand-new picture every
 beat; it is MORE animated by every metric the pipeline owns.  It is boring
 because each idea takes 9.3s to arrive and nothing on screen accumulates.
 
-So the three rules here grade the two things that DO discriminate:
+So the first three rules here grade the two things that DO discriminate:
 
   1. `beat-pace`        — ideas per minute.  Graded on `timing.json` at PLAN
                           stage, before a pixel is authored, because the fix is
@@ -41,6 +41,24 @@ So the three rules here grade the two things that DO discriminate:
                           produces high churn.  This is a BAND, not a floor:
                           the bottom of the band is owned by `check_presence`'s
                           stagnation rules, which stay authoritative.
+
+A fourth rule is NOT a fourth discriminator — it is a backstop `beat-pace`
+itself creates:
+
+  4. `twin-share`       — BUILD-PLAN B2 (2026-08-04). `beat-pace` reads
+                          `timing.json`, not pixels: split one long beat into
+                          two with the SAME picture on screen and `beat-pace`
+                          goes green while nothing changed for the viewer.
+                          Replaces `check_diversity`'s retired PER-PAIR
+                          `twin-beats` defect — arming that rule would have
+                          pushed every build toward the cut the owner
+                          rejected, since the approved cut scores WORSE on it
+                          (2 twin pairs vs 0; see the table above). Ceiling
+                          25%, deliberately NOT chosen to discriminate between
+                          the two reference cuts (both pass) — this is not a
+                          quality signal, only an anti-gaming floor, and has
+                          no naturally-occurring failing build. Proven only by
+                          a planted-defect fixture in `test_pace.py`.
 
 Every threshold below sits in the GAP between the approved and the rejected
 cut, with margin on both sides — the calibration idiom `check_diversity` uses
@@ -104,6 +122,22 @@ MAX_MEAN_CHURN = 0.060
 # belongs to check_presence/check_diversity rather than here.  Stated so this
 # file cannot be read as licensing a still image.
 FROZEN_MEAN_CHURN = 0.004
+
+# twin-share — the anti-gaming backstop for beat-pace, not a quality rule.
+# `beat-pace` reads timing.json, not pixels: split one 12s beat into two 6s
+# beats with the SAME picture on screen and beat-pace goes green while nothing
+# changed for the viewer. That is a live gaming vector and the cheapest way to
+# satisfy the new gate, so this rule exists solely to close it.
+#
+# 8% (approved) | 25% ceiling | 0% (rejected) — deliberately does NOT
+# discriminate between the two reference cuts (both pass), so this is not a
+# quality signal and must not be read as one. It replaces `check_diversity`'s
+# retired PER-PAIR `twin-beats` defect (BUILD-PLAN B2, 2026-08-04): arming
+# that rule would have pushed every future build toward the cut the owner
+# rejected, since the approved cut scores WORSE on it (2 twin pairs vs 0).
+# Because it has no naturally-occurring failing build, it is proven only by a
+# planted-defect fixture in test_pace.py — never by a real reference cut.
+MAX_TWIN_SHARE = 0.25
 
 
 def beats(ws: Path):
@@ -170,9 +204,12 @@ def check_timing(ws: Path):
 
 
 def check_stills(ws: Path):
-    """carrier-drift over one still per beat (the snapshots/ grid the freeform
-    sequence already produces at step 7 — no extra render is spent)."""
-    from check_diversity import cells, churn, load_frames  # noqa: E402
+    """carrier-drift + twin-share over one still per beat (the snapshots/ grid
+    the freeform sequence already produces at step 7 — no extra render is
+    spent)."""
+    # "Twin" uses check_diversity's own churn floor — one definition of "these
+    # two frames are the same picture", not a second number that could drift.
+    from check_diversity import TWIN_CHURN, cells, churn, load_frames  # noqa: E402
 
     snaps = ws / "snapshots"
     frames = load_frames(snaps) if snaps.is_dir() else []
@@ -211,6 +248,19 @@ def check_stills(ws: Path):
             f"that is not a carrying object, it is a still image. The floor "
             f"here is deliberately low because stagnation is check_presence's "
             f"call, so reaching it at all means the beats are not doing work."))
+
+    twins = sum(1 for c in churns if c < TWIN_CHURN)
+    twin_share = twins / len(churns)
+    report["twin_share"] = round(twin_share, 3)
+    if twin_share > MAX_TWIN_SHARE:
+        problems.append(Finding(
+            "twin-share",
+            f"{twins}/{len(churns)} consecutive beat pairs ({twin_share*100:.0f}%) "
+            f"draw the same picture, against a {MAX_TWIN_SHARE*100:.0f}% ceiling. "
+            f"This is not a quality rule — it is the backstop against gaming "
+            f"beat-pace by splitting one long beat into two with no visual "
+            f"change. Split beats where something actually happens, not to "
+            f"make the count go up."))
 
     return report, problems
 

@@ -126,16 +126,23 @@ def main():
     # Reported, never fatal — the twin threshold is uncalibrated against the
     # owner's reference video, and blocking a ship on an unpinned taste number is
     # how a gate earns its way into being switched off (STD-38).
+    # check_diversity's per-pair `twin-beats` finding is retired (BUILD-PLAN
+    # B2, 2026-08-04): the owner-approved reference cut scores WORSE on it (2
+    # pairs) than the rejected one (0), so a per-pair defect here would have
+    # pushed every future build toward the boring cut. `twin_share` — the same
+    # underlying measurement, reported rather than flagged per pair — is what
+    # replaces it; check_pace.py's `twin-share` rule is the actual (pre-render,
+    # blocking) anti-gaming gate. This section stays purely informational.
     try:
         from check_diversity import check as diversity_check
         _rep, _probs, _warns = diversity_check(frames_dir, ws=ws)
-        twins = [w for w in _warns if getattr(w, "rule_id", "") == "twin-beats"]
-        sections["monotony"] = {
-            "pass": True,
-            "output": ("no consecutive beats drawing the same picture"
-                       if not twins else
-                       f"{len(twins)} twin-beat pair(s) — ADVISORY, not blocking:"
-                       + "".join(f"\n  ? {t}" for t in twins))}
+        share = _rep.get("twin_share") if _rep else None
+        if share is None:
+            output = "not graded (stills carry no beat labels)"
+        else:
+            output = (f"twin_share {share*100:.0f}% of consecutive beat pairs "
+                      f"draw the same picture — ADVISORY, not blocking")
+        sections["monotony"] = {"pass": True, "output": output}
     except Exception as exc:                       # never fail a ship on advice
         sections["monotony"] = {"pass": True,
                                 "output": f"not graded ({exc.__class__.__name__}: {exc})"}

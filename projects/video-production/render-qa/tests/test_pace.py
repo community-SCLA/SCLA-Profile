@@ -152,6 +152,25 @@ check("a build with real but modest churn (a re-sorting carrier) passes",
       report is not None and not problems, str(problems))
 
 # ---------------------------------------------------------------------------
+# 7. twin-share — the anti-gaming backstop for beat-pace (BUILD-PLAN B2).
+#    Deliberately has NO naturally-occurring failing build (it does not
+#    discriminate between the two reference cuts), so it is proven ONLY here,
+#    by a planted fixture: half the consecutive pairs are pixel-identical
+#    ("gamed" beats — split with no visual change) and the rest carry real,
+#    modest churn so this does not also trip carrier-drift's ceiling.
+gamed = workspace("gamed", [(f"s{i:02d}", 5.0) for i in range(6)])
+snapshots(gamed, [0, 0, 15, 15, 30, 45])
+report, problems = check_pace.check_stills(gamed)
+fires("check_pace", "twin-share",
+      "2 of 5 consecutive pairs pixel-identical (40%, over the 25% ceiling) "
+      "fires twin-share",
+      "twin-share" in rules_of(problems), str(problems))
+check("...and it does not also trip carrier-drift on this fixture",
+      "carrier-drift" not in rules_of(problems), str(problems))
+check("...report carries the raw fraction, not just the verdict",
+      report and report.get("twin_share") == 0.4, str(report))
+
+# ---------------------------------------------------------------------------
 # 6. carrier-drift nothing-graded — fewer than 3 stills cannot measure drift.
 sparse = workspace("sparse-stills", [(f"s{i:02d}", 5.0) for i in range(2)])
 snapshots(sparse, [0, 50])

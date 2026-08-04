@@ -67,8 +67,12 @@ REQUIRED = {
     # applies to the delivered MP4, run over snapshot stills before the render
     # is spent. twin-beats WARNS by design (STD-38) but must still be proven to
     # fire, or it rots into the vacuous PASS it exists to replace.
-    "check_diversity":  ["static-span", "grid-too-sparse", "twin-beats",
-                         "nothing-graded"],
+    # twin-beats' per-pair defect is RETIRED (BUILD-PLAN B2, 2026-08-04) —
+    # check_pace.py's twin-share is the anti-gaming gate now; this module only
+    # reports the same share (twin-beats-not-graded still fires when stills
+    # carry no beat labels to compute it from).
+    "check_diversity":  ["static-span", "grid-too-sparse",
+                         "twin-beats-not-graded", "nothing-graded"],
     "check_geometry":   ["text-collision", "nothing-graded", "safe-area-breach",
                          "footer-breach", "padding-breach", "card-gutter"],
     # the pixel bounds gate (freeform lane) — same three bands, real pixels
@@ -89,7 +93,7 @@ REQUIRED = {
     # the carrying-object rule made measurable. Calibrated on n=2 (one lesson,
     # two owner-verdicted cuts); see check_pace.py's module docstring.
     "check_pace":       ["beat-pace", "long-beat-share", "carrier-drift",
-                         "nothing-graded"],
+                         "twin-share", "nothing-graded"],
     "check_slots":      ["unfilled", "placeholder", "unknown-icon",
                          "banned-row-icons", "scene-index-badge"],
     "check_text":       ["min-size", "restatement"],

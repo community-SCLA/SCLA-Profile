@@ -796,9 +796,31 @@ Track B.
       `REQUIRED` — coverage moved 16→17 checker modules, 75/75 rule-level
       proofs recorded. `lint-refs.sh` 12/12 green (95 render-qa assertions,
       was 93); full suite 0 failures.
-- [ ] B2 ⛔ `twin-beats` per-pair defect retired, replaced by `twin-share` (25%
+- [x] B2 `twin-beats` per-pair defect retired, replaced by `twin-share` (25%
       ceiling) as the anti-gaming backstop for `beat-pace` — lands with a
-      planted-defect firing test or does not land
+      planted-defect firing test, per the plan's own condition. `twin-share`
+      lives in `check_pace.py` (not `check_diversity.py`) — it exists solely
+      because `beat-pace` reads `timing.json`, not pixels, so it belongs
+      beside the rule it backstops. `check_diversity.py` keeps its reps/groups
+      computation (still needed to pick the settled representative frame per
+      beat) but no longer emits a per-pair Finding; it reports the same
+      measurement as `report["twin_share"]` for `verify_render.py`'s
+      post-render `monotony` section to quote — informational only, unchanged
+      non-blocking posture. Re-checked live: the rejected reference cut's own
+      `check_pace.py --stills` run now reports `twin_share: 0.0` (matches this
+      doc's recorded 0/16), still `PACE: FAIL (4)` — twin-share adds no new
+      failure to either reference cut, exactly as designed (a 25% ceiling
+      deliberately chosen not to discriminate between them). Since it
+      therefore has no naturally-occurring failing build, `test_pace.py`
+      proves it with a planted fixture (2 of 5 consecutive pairs pixel-
+      identical, 40% > 25%) that deliberately does NOT also trip
+      `carrier-drift`, isolating the two rules. `test_firing_coverage.py`:
+      `check_diversity` swaps `twin-beats` → `twin-beats-not-graded` (now
+      itself proven via `fires()`, not a bare assertion); `check_pace` gains
+      `twin-share` — 76/76 rule-level proofs recorded (was 75). `lint-refs.sh`
+      12/12 green; full suite 0 failures. `PENDING-pace-gates.md` stays until
+      B3+B4 land too (same hand-off discipline as `PENDING-write-fence-fix.md`
+      — delete only once every piece it describes is applied).
 - [ ] B3 ⛔ `render-lessons` freeform sequence — steps 2, 3, 7
 - [ ] B4 ⛔ `.claude/rules/video-production.md` mechanism lines
 - [ ] B5 ⛔ one new freeform pilot built UNDER the pace gates → owner verdict.

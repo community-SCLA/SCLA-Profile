@@ -71,6 +71,8 @@ FREEZE_CHURN = 0.002
 # 11, so 6 sits in the gap with margin on both sides. A gate that reports a
 # freeze the authoritative gate cannot see would be retired within a week.
 FREEZE_MAXDIFF = 6
+# "Is this pair a twin" — the shared definition `check_pace.py`'s twin-share
+# rule imports rather than restating (BUILD-PLAN B2, 2026-08-04).
 TWIN_CHURN = 0.004
 
 # SAMPLING MATH — why the grid is this dense and why the threshold is relaxed.
@@ -236,7 +238,16 @@ def check(target: Path, ws=None, freeze_churn=FREEZE_CHURN,
                 "static-span", entry + f" [{STAGNANT_WARN:.0f}-"
                 f"{STAGNANT_FAIL:.0f}s gray zone]", "warn"))
 
-    # 3. Twins — advisory until pinned to the owner's reference video.
+    # 3. Twins — REPORTED, never a per-pair defect (retired BUILD-PLAN B2,
+    #    2026-08-04). The owner approved a freeform cut that scores WORSE on
+    #    per-pair twins (2 pairs / 25 = 8%) than the cut the owner rejected
+    #    (0 / 16 = 0%) — arming a per-pair finding here would have pushed
+    #    every future build toward the boring one. `check_pace.py`'s
+    #    `twin-share` rule is the anti-gaming BACKSTOP that replaces it (a
+    #    ceiling deliberately chosen not to discriminate between these two
+    #    cuts, so it is not a quality rule); this function keeps computing the
+    #    same share purely as REPORT metadata, for verify_render.py's
+    #    post-render monotony section to quote.
     #    One representative per beat, and it must be the SETTLED frame: an
     #    entrance still is mid-animation, so comparing first-frames measures how
     #    alike two entrances look rather than how alike two beats look.
@@ -245,6 +256,7 @@ def check(target: Path, ws=None, freeze_churn=FREEZE_CHURN,
     #    into a second, noisier copy of the freeze rule above — it must report
     #    that it graded nothing rather than emit that noise.
     reps, twins_graded = [], any(b for _, b, _ in frames)
+    twin_share = None
     if twins_graded:
         groups = {}
         for t, beat, p in frames:
@@ -254,22 +266,22 @@ def check(target: Path, ws=None, freeze_churn=FREEZE_CHURN,
             t, p = items[len(items) // 2]
             reps.append((t, key, p))
         reps.sort()
-        for (ta, ka, pa), (tb, kb, pb) in zip(reps, reps[1:]):
+        pairs = list(zip(reps, reps[1:]))
+        twins = 0
+        for (ta, ka, pa), (tb, kb, pb) in pairs:
             c, _ = churn(px[pa], px[pb])
             if c < twin_churn:
-                warns.append(Finding(
-                    "twin-beats",
-                    f"{ka} ({ta:.1f}s) and {kb} ({tb:.1f}s) differ by only "
-                    f"{c:.4f} churn — consecutive beats are drawing nearly the "
-                    f"same picture", "warn"))
+                twins += 1
+        twin_share = round(twins / len(pairs), 3) if pairs else 0.0
     else:
         warns.append(Finding(
             "twin-beats-not-graded",
-            "stills carry no beat labels, so the twin-beats rule graded "
+            "stills carry no beat labels, so the twin-share metric graded "
             "nothing (it needs f<t>s_<beat>_<pos>.png naming)", "warn"))
 
     report = {"stills": len(frames), "beats": len(reps) or None,
               "max_gap_s": round(worst[0], 2), "twins_graded": twins_graded,
+              "twin_share": twin_share,
               "words": len(words), "static_runs": len(runs)}
     return report, problems, warns
 
@@ -296,11 +308,13 @@ def main(argv):
                           "findings": typed(problems + warns)}, indent=1))
     else:
         if report:
+            twin_note = (f", twin_share {report['twin_share']*100:.0f}%"
+                         if report["twin_share"] is not None else "")
             print(f"[diversity] {report['stills']} still(s) over "
                   f"{report["beats"]} beat(s), widest gap "
                   f"{report['max_gap_s']}s (limit {MAX_SAMPLE_GAP:.1f}s), "
                   f"{report['words']} narration word(s), "
-                  f"{report['static_runs']} static run(s)")
+                  f"{report['static_runs']} static run(s){twin_note}")
         for p in problems:
             print(f"  !! {p}")
         for w in warns:
