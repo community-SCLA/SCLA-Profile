@@ -4,12 +4,12 @@
 
 ## Where everything stands
 
-- **5** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **6** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **27** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
 - **1** — **approved to render.** Gate-clean and covered by the active batch pilot approval.
-- **2** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
+- **1** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
 - **2** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
@@ -43,6 +43,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 |---|---|---|---|---|
 | career-building-is-a-repeatable-process_early-career-boost | early-career-boost | 2026-08-05 | [cnj1463xuw](https://sclc.wistia.com/medias/cnj1463xuw) | `renders-mp4/early-career-boost/career-building-is-a-repeatable-process_early-career-boost_2026-08-05.mp4` |
 | finding-creating-a-career-purpose-statement_early-career-boost | early-career-boost | 2026-08-05 | [0szz79g9m7](https://sclc.wistia.com/medias/0szz79g9m7) | `renders-mp4/early-career-boost/finding-creating-a-career-purpose-statement_early-career-boost_2026-08-05.mp4` |
+| how-to-make-strong-career-decisions_early-career-boost | early-career-boost | 2026-08-05 | [u54hifguqf](https://sclc.wistia.com/medias/u54hifguqf) | `renders-mp4/early-career-boost/how-to-make-strong-career-decisions_early-career-boost_2026-08-05.mp4` |
 | build-direction-before-you-build-a-plan_early-career-boost | early-career-boost | 2026-08-04 | [v2gnkvdcbc](https://sclc.wistia.com/medias/v2gnkvdcbc) | `renders-mp4/early-career-boost/build-direction-before-you-build-a-plan_early-career-boost_2026-08-04.mp4` |
 | better-decisions-come-from-better-criteria_early-career-boost | early-career-boost | 2026-07-29 | [t6cathsymi](https://sclc.wistia.com/medias/t6cathsymi) | `renders-mp4/early-career-boost/better-decisions-come-from-better-criteria_early-career-boost_2026-07-29.mp4` |
 | what-makes-for-a-dream-job_early-career-boost | early-career-boost | 2026-07-17 | [gryylc7qns](https://sclc.wistia.com/medias/gryylc7qns) | `renders-mp4/early-career-boost/what-makes-for-a-dream-job_early-career-boost_2026-07-17.mp4` |
@@ -68,10 +69,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 *The video file exists and passed every gate. Nothing left but the upload.*
 
-- how-to-make-strong-career-decisions_early-career-boost
-  - state: MP4 rendered and gate-verified — waiting only on the Wistia upload
-  - last completed **release** at 2026-08-05 20:31 UTC
-  - next: publish it: `bash projects/video-production/run.sh ship how-to-make-strong-career-decisions_early-career-boost --publish`
 - what-energizes-me_early-career-boost
   - state: MP4 rendered and gate-verified — waiting only on the Wistia upload
   - last completed **release** at 2026-08-05 16:40 UTC
