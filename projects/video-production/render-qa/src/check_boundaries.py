@@ -2,7 +2,7 @@
 """Deterministic timing checker for SCLA HyperFrames lesson builds.
 
 Checks every scene boundary in index.html against the narration transcript:
-  - >=0.2s of air between a scene's last spoken word and its cut (design-contract.md ->
+  - >=0.2s of air between a scene's last spoken word and its cut (rule:
     "Scene boundaries, padding & endings")
   - no mid-word cuts (boundary before the last word's end = negative gap)
   - boundaries land on sentence ends (last word in the scene carries . ! ? )

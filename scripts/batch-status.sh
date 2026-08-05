@@ -607,7 +607,7 @@ if mode == "write":
             a(f"*{blurb}*")
             a("")
             for x in group:
-                a(f"- {x['stem']}  ({x['lane']} lane)")
+                a(f"- {x['stem']}")
                 a(f"  - state: {x['state']}")
                 if x["journal"]:
                     a(f"  - {x['journal']}")

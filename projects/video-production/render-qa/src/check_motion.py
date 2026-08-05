@@ -21,9 +21,9 @@ is what "keep-alive" means mechanically. The target selector decides the
 verdict:
 
   * DECORATION (ghost layers, ring furniture, canvas texture) — allowed.
-    design-contract.md sanctions background depth-drift parallax and ring-breath by name.
+    the house motion language sanctions background depth-drift parallax and ring-breath by name.
   * ANYTHING ELSE — a finding. Text, chips, rows, nodes, numbers, CTAs, cards
-    and the living-icon hero are content. design-contract.md's allow-list covers
+    and the living-icon hero are content. The sanctioned-motion allow-list covers
     "the light templates' GHOST layers"; it has never covered a content hero.
 
 TWO RULES:
@@ -33,7 +33,7 @@ TWO RULES:
                       literal selector (a variable, a computed array). Not a
                       violation of the ban — a violation of gradeability. A
                       checker that cannot see the target must not report clean;
-                      that is the `nothing-graded` lesson from check_geometry.
+                      that is the standing `nothing-graded` lesson.
 
 There is NO name-based allow-list. An exemption is DECLARED, on the tween or on
 the helper call site, as a trailing `/* motion-allow: <reason> */` comment —

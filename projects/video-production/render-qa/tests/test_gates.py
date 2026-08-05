@@ -17,17 +17,12 @@ from pathlib import Path
 RQ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RQ / "src"))
 
-import boxmodel
 import check_boundaries
-import check_capacity
 import check_continuity
 import check_copy
-import check_geometry
-import check_slots
 import check_text
 import preflight
 import textmetrics
-import tokens
 from hfp_common import parse_scenes
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -184,11 +179,13 @@ check("the comma-joined list carrying its 'or' passes", not probs, str(probs))
 
 
 # --------------------------------------------------------------------------
-print("== capacity: copy that cannot fit its box ==")
+print("== textmetrics: the real vendored font, never an estimate ==")
 
-# Owner's slide 16: the card grew to three lines and crossed the footer.
+# Owner's slide 16 (2026-07-28): a card grew to three lines and crossed the
+# footer because capacity had been estimated from a ratio. textmetrics measures
+# in the committed Proxima metrics; check_fit.py consumes it on every build.
 S = "Different learning opportunities"
-check("shipped career-map geometry wraps it to 3 lines",
+check("the shipped card geometry wraps it to 3 lines",
       textmetrics.line_count(S, 240, 34, 900) == 3,
       str(textmetrics.wrap_lines(S, 240, 34, 900)))
 check("hardened geometry holds it in 2",
@@ -197,57 +194,6 @@ check("hardened geometry holds it in 2",
 check("uppercase + tracking widens a label measurably",
       textmetrics.width("lesson system", 20, 700, 0.22, True)
       > textmetrics.width("lesson system", 20, 700) * 1.2)
-
-CARD = """<html data-composition-variables='[
- {"id":"path3","type":"string","label":"Path 3","default":"[[path3]]","maxLines":2}
-]'><body><template><style>
-.cm-node { position: absolute; width: 340px; padding: 26px 30px; }
-.cm-node .cm-role { font-size: 30px; font-weight: 900; }
-</style>
-<div id="root"><div class="cm-node" id="cm-node-3">
-<div class="cm-role" id="cm-role-3">Path C</div></div></div>
-<script>document.getElementById("cm-role-3").textContent = vars.path3;</script>
-</template></body></html>"""
-
-over = [scene_div(16, "card", "They might be different roles.", 6.36,
-                  variables={"path3": "Different learning opportunities and next steps"})]
-fits = [scene_div(16, "card", "They might be different roles.", 6.36,
-                  variables={"path3": "Different learning opportunities"})]
-f = check_capacity.check(workspace(over, {"card": CARD}))
-fires("check_capacity", "maxlines",
-      "a value over its maxLines budget FAILS",
-      any("path3" in x for x in f), str(f))
-f = check_capacity.check(workspace(fits, {"card": CARD}))
-check("a value inside its budget passes", not f, str(f))
-
-
-# --------------------------------------------------------------------------
-print("== tokens: design-contract.md is loaded, not quoted ==")
-# The literals that used to live here (safe_area() == 72, footer_reserve() ==
-# 120, min_size() == (40, 20)) were the hand-copy tokens.py exists to abolish:
-# they failed only if *design-contract.md* changed and never if a *video* violated the
-# number, which is the opposite of what a gate is for. tests/test_tokens_coverage.py
-# now asserts the real property — every normative scalar has an accessor AND a
-# non-test consumer — so a token nobody reads is a red test. (2026-07-29.)
-check("content-bottom is DERIVED, never declared twice",
-      tokens.content_bottom() == tokens.canvas()[1] - tokens.footer_reserve())
-# The floor had been pinned AT the smallest size any template used, so the gate
-# was armed and structurally unable to fire. The caption the owner called "just
-# too small" measured 32px — exactly compliant. A floor equal to the minimum in
-# use is not a floor.
-body_floor, _ = tokens.min_size()
-smallest_body = min(
-    float(m.group(1))
-    for p in sorted((RQ.parent / "design-system" / "compositions").glob("*.html"))
-    for m in [check_text.FONT_SIZE_RE.search(d)
-              for sel, d in check_text.RULE_RE.findall(p.read_text())
-              if check_text.classify(d) == "body"
-              and not check_text.EXEMPT_RE.search(
-                  p.read_text()[:p.read_text().find(sel)][-200:])]
-    if m)
-check("the body floor is not merely the smallest size in use",
-      smallest_body >= body_floor,
-      f"smallest body rule {smallest_body}px vs floor {body_floor}px")
 
 
 # --------------------------------------------------------------------------
@@ -349,188 +295,6 @@ check("every stage folder in the live library is known to preflight",
 
 
 # --------------------------------------------------------------------------
-print("== geometry: no text may land on other text (scene-19, 2026-07-29) ==")
-# The real numbers from the shipped frame: a 320px caption box at top:855 holding
-# 407px of Proxima 700, wrapping to two lines, against a sub-beat line whose band
-# starts at y=907. check_layout's browser pass reported nothing at all.
-LOOP = """<html data-composition-variables='[
- {"id":"step3","type":"string","label":"Step 3","default":"[[step3]]"},
- {"id":"subBeats","type":"string","label":"Sub-beats","default":""}
-]'><body><template><style>
-#root { position: absolute; inset: 0; }
-.lp-caption { position: absolute; width: %dpx; font-size: 32px;
-              font-weight: 700; line-height: 1.3; }
-#lp-cap-3 { left: 800px; top: 855px; text-align: center; }
-.lp-subbeat { position: absolute; left: 160px; right: 160px; bottom: 132px;
-              text-align: center; font-size: 34px; font-weight: 700; }
-</style>
-<div id="root">
-<div class="lp-caption" id="lp-cap-3" data-slot="step3">x</div>
-<div class="lp-subbeat" id="lp-subbeat-proto" data-slot="subBeats"></div>
-</div></template></body></html>"""
-
-VARS = {"step3": "Grounded in what you value",
-        "subBeats": "Use it on any career decision"}
-hits, _, painted = check_geometry.grade(LOOP % 320, VARS)
-fires("check_geometry", "text-collision",
-      "the shipped 320px box collides — and is caught",
-      any(h["rule"] == "text-collision" for h in hits), str(hits))
-check("both boxes were actually measured", len(painted) == 2, str(painted))
-# The fix is a wider box so the caption stays on ONE line, not a looser gate.
-hits, _, _ = check_geometry.grade(LOOP % 560, VARS)
-check("a one-line caption in a 560px box passes", not hits, str(hits))
-
-# A template the model cannot read must never read as clean.
-BLIND = ('<html><body><template><style>#root{position:absolute;inset:0;}</style>'
-         '<div id="root"></div></template></body></html>')
-ws = workspace([scene_div(1, "blind", "n", variables={})], {"blind": BLIND})
-_, probs = check_geometry.check(ws)
-fires("check_geometry", "nothing-graded",
-      "a scene where nothing could be graded FAILS rather than passing",
-      any("nothing-graded" in p or "looked at nothing" in p for p in probs),
-      str(probs))
-
-# The parser bug that silently orphaned half of scla-stat: `</circle>` popped
-# elements it never pushed, so everything after the ring SVG left the tree.
-VOIDPAIR = ('<html><body><template><style>#root{position:absolute;inset:0;}'
-            '#after{position:absolute;left:100px;top:100px;font-size:40px;}'
-            '</style><div id="root"><svg><circle r="1"></circle></svg>'
-            '<div id="after">still in the tree</div></div>'
-            '</template></body></html>')
-doc = boxmodel.Doc(VOIDPAIR)
-chain = []
-n = doc.by_id["after"]
-while n:
-    chain.append(n["id"] or n["tag"])
-    n = n["parent"]
-check("a paired void tag does not unbalance the element tree",
-      "root" in chain, " < ".join(chain))
-
-# A CSS comment inside a declaration block parsed as a declaration and silently
-# displaced `left`, so the model read x=0 for an element at left:120 and
-# invented breaches that were not there. A model that mis-measures is worse
-# than no model. (2026-07-29, found while arming frame-padding.)
-COMMENTED = ('<html><body><template><style>#root{position:absolute;inset:0;}'
-             '#a{position:absolute;/* moved: 110 -> 120 on 2026-07-29 */'
-             'left:120px;top:200px;font-size:40px;}</style>'
-             '<div id="root"><div id="a" data-slot="s">x</div></div>'
-             '</template></body></html>')
-_doc = boxmodel.Doc(COMMENTED)
-check("a CSS comment inside a block does not displace the box",
-      _doc.decls(_doc.by_id["a"]).get("left") == "120px",
-      str(_doc.decls(_doc.by_id["a"])))
-
-# --- geometry: the bounds rules, each proven to return a finding -----------
-# spacing.frame-padding was declared when the system was built and read by
-# NOTHING until 2026-07-29 — tokens.py exposed frame_padding() and no caller
-# ever called it. tests/test_tokens_coverage.py now keeps that from recurring;
-# these prove the rules that consume the numbers actually fire.
-BOUNDS = """<html data-composition-variables='[
- {"id":"body","type":"string","label":"Body","default":"[[body]]"}
-]'><body><template><style>
-#root { position: absolute; inset: 0; }
-.bd { position: absolute; width: 600px; font-size: 40px; font-weight: 400;
-      line-height: 1.3; }
-</style>
-<div id="root"><div class="bd" id="bd" data-slot="body">x</div>
-</div></template></body></html>"""
-
-
-def bounds_rules(css_pos):
-    html = BOUNDS.replace("#root { position: absolute; inset: 0; }",
-                          "#root { position: absolute; inset: 0; }\n"
-                          f"#bd {{ {css_pos} }}")
-    hits, _, _ = check_geometry.grade(html, {"body": "A line of real copy"})
-    return {h["rule"] for h in hits}
-
-
-fires("check_geometry", "safe-area-breach",
-      "content crossing the 72px keep-out FAILS",
-      "safe-area-breach" in bounds_rules("left: 20px; top: 400px;"),
-      str(bounds_rules("left: 20px; top: 400px;")))
-fires("check_geometry", "footer-breach",
-      "content running into the footer band FAILS",
-      "footer-breach" in bounds_rules("left: 300px; top: 980px;"),
-      str(bounds_rules("left: 300px; top: 980px;")))
-fires("check_geometry", "padding-breach",
-      "body content outside the 120px content inset FAILS",
-      "padding-breach" in bounds_rules("left: 90px; top: 400px;"),
-      str(bounds_rules("left: 90px; top: 400px;")))
-check("body content inside every bound passes",
-      not bounds_rules("left: 200px; top: 400px;"),
-      str(bounds_rules("left: 200px; top: 400px;")))
-# Declared decorative bleed is stated, never tolerated by a loosened threshold.
-_bleed = BOUNDS.replace('id="bd" data-slot="body"',
-                        'id="bd" data-slot="body" data-layout-allow-overflow')
-check("declared bleed (data-layout-allow-overflow) is exempt",
-      not check_geometry.grade(
-          _bleed.replace("#root { position: absolute; inset: 0; }",
-                         "#root { position: absolute; inset: 0; }\n"
-                         "#bd { left: 20px; top: 400px; }"),
-          {"body": "A line of real copy"})[0])
-# Label-class furniture is NOT graded against the content inset: design-contract.md hands
-# the outer band to the brandline, scene index and rail label by name, so a
-# padding rule that graded them would fail every template in the system.
-LABELISH = BOUNDS.replace(
-    ".bd { position: absolute; width: 600px; font-size: 40px; font-weight: 400;",
-    ".bd { position: absolute; width: 600px; font-size: 20px; font-weight: 700;"
-    " text-transform: uppercase; letter-spacing: 0.14em;")
-_lab = check_geometry.grade(
-    LABELISH.replace("#root { position: absolute; inset: 0; }",
-                     "#root { position: absolute; inset: 0; }\n"
-                     "#bd { left: 90px; top: 400px; }"),
-    {"body": "SCLA lesson system"})[0]
-check("label-class furniture is not graded against the content inset",
-      not any(h["rule"] == "padding-breach" for h in _lab), str(_lab))
-
-# --- geometry: card gutters (owner, 2026-07-29) ----------------------------
-# "two boxes even touch each other where they should be evenly spread out." The
-# ink inside those cards was nowhere near colliding — it is the BORDERS that
-# touched, so this is the one rule graded on layout boxes. The fixture is the
-# real failure mode: two top-anchored cards on slots sized for one line, where
-# the upper card's copy wraps to two and eats the gutter.
-CARDS = """<html data-composition-variables='[
- {"id":"a","type":"string","label":"A","default":"[[a]]"},
- {"id":"b","type":"string","label":"B","default":"[[b]]"}
-]'><body><template><style>
-#root { position: absolute; inset: 0; }
-.card { position: absolute; left: 700px; width: 300px; padding: 26px 30px;
-        border: 2px solid #cccedf; background: #f6f6f9; }
-.role { font-size: 40px; font-weight: 900; line-height: 1.2; }
-#c1 { top: 300px; }
-#c2 { top: 470px; }
-.ghost { position: absolute; left: 700px; top: 300px; width: 300px;
-         height: 300px; border: 2px solid #eee; border-radius: 50%; }
-</style>
-<div id="root"><div class="card" id="c1"><div class="role" data-slot="a">x</div></div>
-<div class="card" id="c2"><div class="role" data-slot="b">y</div></div>
-<div class="ghost" id="g1"></div><div class="ghost" id="g2"></div>
-</div></template></body></html>"""
-
-
-def card_rules(a, b):
-    hits, _, _ = check_geometry.grade(CARDS, {"a": a, "b": b})
-    return {h["rule"] for h in hits}
-
-
-# One line each: 300+136 = 436, next card at 470 -> 34px gutter, clean.
-check("evenly spaced one-line cards pass",
-      not card_rules("Short", "Short"), str(card_rules("Short", "Short")))
-# The upper card's copy wraps to two lines and eats the gutter.
-fires("check_geometry", "card-gutter",
-      "a card that grew into the one below it FAILS",
-      "card-gutter" in card_rules("Different learning opportunities", "Short"),
-      str(card_rules("Different learning opportunities", "Short")))
-# The decorative-ring exclusion is load-bearing, not incidental: two concentric
-# empty bordered circles are in every second template in the system, and before
-# the text-bearing condition they fired on all of them.
-_, _lay, _paint = check_geometry.grade(CARDS, {"a": "Short", "b": "Short"})
-_card_ids = {n["id"] for n, _ in check_geometry._card_nodes(_lay, _paint)}
-check("empty decorative rings are not cards",
-      _card_ids == {"c1", "c2"}, str(sorted(_card_ids)))
-
-
-# --------------------------------------------------------------------------
 # Everything below is BUILD-enforcement-rebuild-2026-07-29 Phase 1: the
 # checkers that were armed with no fixture proving they ever returned a
 # finding. Each case asserts a POSITIVE finding on a minimal crafted input —
@@ -609,141 +373,6 @@ check("minor words stay lowercase mid-heading",
 
 
 # --------------------------------------------------------------------------
-print("== slots: an unfilled slot renders FABRICATED placeholder copy ==")
-# The worst failure this repo has: a slot omitted from data-variable-values
-# renders the template's schema default — plausible, on-brand words the lesson
-# script never said. Every other gate passes it (size and restatement are not
-# provenance). check_slots.py has enforced this since it was written and had
-# no fixture proving it fires.
-POINTS = """<html data-composition-variables='[
- {"id":"heading","type":"string","label":"Heading","default":"[[heading]]"},
- {"id":"point1","type":"string","label":"Point 1","default":"A plausible first point"},
- {"id":"point2","type":"string","label":"Point 2 (empty to hide)","default":"A plausible second point"}
-]'><body><template><div id="root"></div></template></body></html>"""
-
-unfilled = [scene_div(5, "pts", "Two things matter here.", 8.0,
-                      variables={"heading": "What Matters", "point1": "Cost"})]
-found, err = check_slots.check(workspace(unfilled, {"pts": POINTS}))
-fires("check_slots", "unfilled",
-      "an omitted slot that would render its default FAILS",
-      any("point2" in f["unfilled"] for f in found), f"{found} {err}")
-
-placeheld = [scene_div(5, "pts", "Two things matter here.", 8.0,
-                       variables={"heading": "What Matters", "point1": "Cost",
-                                  "point2": "[[point2]]"})]
-found, err = check_slots.check(workspace(placeheld, {"pts": POINTS}))
-fires("check_slots", "placeholder",
-      "placeholder text passed EXPLICITLY is the same fabrication",
-      any("point2" in f["placeholder"] for f in found), f"{found} {err}")
-
-blanked = [scene_div(5, "pts", "One thing matters here.", 8.0,
-                     variables={"heading": "What Matters", "point1": "Cost",
-                                "point2": ""})]
-found, err = check_slots.check(workspace(blanked, {"pts": POINTS}))
-check("a slot explicitly blanked with \"\" passes", not found, f"{found} {err}")
-
-# An icon name the template's own library doesn't have draws NOTHING and reports
-# nothing — `ICONS[name]` is just undefined. scene-17 of the 2026-07-29 criteria
-# build asked scla-points for `map`, which existed in scla-statement and
-# scla-steps but not in scla-points, and shipped with a hole where row 2's icon
-# belonged. A divergence between two copies of one library is only visible to a
-# gate that reads the library it is actually calling.
-ICONED = POINTS.replace(
-    "<div id=\"root\"></div>",
-    "<div id=\"root\"></div><script>const ICONS = {"
-    "compass: { paths: [{ d: \"M0 0\" }] }, target: { paths: [{ d: \"M0 0\" }] },"
-    "};</script>")
-BASE = {"heading": "What Matters", "point1": "Cost", "point2": "Time"}
-
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icon="map"))],
-              {"pts": ICONED}))
-fires("check_slots", "unknown-icon",
-      "an icon name the template's library does not have FAILS",
-      any("map" in " ".join(f.get("unknown_icons", [])) for f in found),
-      f"{found} {err}")
-
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icon="target"))],
-              {"pts": ICONED}))
-check("an icon name the library does have passes", not found, f"{found} {err}")
-# A template with no library at all is not graded — most of them draw no icons,
-# and failing them for a slot they never read would be a gate crying wolf.
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icon="anything"))],
-              {"pts": POINTS}))
-check("a template with no ICONS library is not graded for icon names",
-      not found, f"{found} {err}")
-
-# --- the on-frame scene badge must match the frame's real position ---------
-# m4_visibility-actions numbered 13 scenes 1..11 (two 07s, two 09s), so a whole
-# round of frame-numbered owner feedback could not be resolved against the plan.
-def _badged(nums):
-    return [{"id": f"scene-{n:02d}", "variables": {"sceneIndex": f"{n:02d} / X"}}
-            for n in nums]
-
-
-fires("check_slots", "scene-index-badge",
-      "a badge that disagrees with the frame's position FAILS",
-      any("renumber it 03" in f["badge"]
-          for f in check_slots.scene_index_problems(_badged([1, 2, 2, 4]))),
-      str(check_slots.scene_index_problems(_badged([1, 2, 2, 4]))))
-check("a correctly numbered run passes",
-      not check_slots.scene_index_problems(_badged([1, 2, 3, 4])))
-check("a badge with no leading number FAILS",
-      any("does not start with a scene number" in f["badge"]
-          for f in check_slots.scene_index_problems(
-              [{"id": "scene-01", "variables": {"sceneIndex": "TITLE"}}])))
-# An absent badge is not this rule's business — check_slots' own unfilled-slot
-# rule governs whether a slot must be authored at all.
-check("an absent badge is not flagged here",
-      not check_slots.scene_index_problems(
-          [{"id": "scene-01", "variables": {}}]))
-
-# --- banned per-row / per-card icons (owner, 2026-07-29) --------------------
-# The plural `icons` slot drew a glyph beside every bullet row and in every
-# card corner. It was removed from scla-points and scla-morph; this rule is
-# what stops it coming back, and what catches a workspace still carrying the
-# variable (the compiler would otherwise drop it in silence). Note the two
-# fixtures below previously asserted the OPPOSITE — that `icons="compass,target"`
-# passes — which is exactly how a test enshrines a defect.
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icons="compass,target"))],
-              {"pts": ICONED}))
-fires("check_slots", "banned-row-icons",
-      "a scene authoring the plural `icons` slot FAILS",
-      any(f["rule_id"] == "banned-row-icons" for f in found), f"{found} {err}")
-
-# One defect, one finding: a banned slot must not ALSO be reported as an
-# unknown icon name, or the actionable message gets buried.
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icons="notarealicon"))],
-              {"pts": ICONED}))
-check("a banned `icons` slot reports once, not also as unknown-icon",
-      [f["rule_id"] for f in found] == ["banned-row-icons"], f"{found} {err}")
-
-# Explicitly blanked is how every other unused slot is spelled; it must stay legal.
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icons=""))],
-              {"pts": ICONED}))
-check("an explicitly blanked `icons` slot passes", not found, f"{found} {err}")
-
-# The SINGULAR hero icon is untouched by the ban — one illustration per frame is
-# the thing the statement/chips/steps/condition families are for.
-found, err = check_slots.check(
-    workspace([scene_div(5, "pts", "Two things matter here.", 8.0,
-                         variables=dict(BASE, icon="compass"))],
-              {"pts": ICONED}))
-check("the singular hero `icon` is not banned", not found, f"{found} {err}")
-
-
-# --------------------------------------------------------------------------
 print("== text: the size floor and the restatement rule ==")
 # check_text had only a token-import assertion — nothing showed either rule
 # returning a finding. The floor moved 32 -> 40 on 2026-07-29 precisely
@@ -756,7 +385,7 @@ SMALL_CSS.write_text(
     ".eyebrow { font-size: 20px; text-transform: uppercase; letter-spacing: 0.14em; }\n")
 small, graded = check_text.check_sizes([SMALL_CSS])
 fires("check_text", "min-size",
-      "body copy below the design-contract.md floor FAILS",
+      "body copy below the tokens.yml floor FAILS",
       any("tiny-caption" in f for f in small), str(small))
 check("the compliant body rule and the label rule are not flagged",
       len(small) == 1 and graded == 3, f"{graded} graded, {small}")
@@ -803,7 +432,7 @@ def rules_of(ws):
 
 
 # A boundary landing mid-thought: scene-01's script span ends on "criteria"
-# with no terminator, which is the split design-contract.md forbids.
+# with no terminator, which is the split the boundary rules forbid.
 mid = boundary_ws(
     [scene_div(1, "scla-points", "You need clear criteria", 5.0, start=0.0),
      scene_div(2, "scla-statement", "That is the whole idea.", 5.0, start=5.0)],

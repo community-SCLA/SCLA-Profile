@@ -27,8 +27,8 @@ renders-hyperframes/
    This moves the workspace to `renders-hyperframes/_archive/<script-stem>/` and deletes the
    regenerable bulk (`node_modules/`, `.thumbnails/`, `.waveform-cache/`,
    `.hyperframes/`, `snapshots/`, `renders/`, logs). What remains — `index.html`,
-   `compositions/`, `design-contract.md`, `assets/`, configs — is a complete, re-renderable
-   source: `npm install && npm run render` brings it back.
+   `compositions/`, `design.md`, `tokens.yml`, `assets/`, configs — is a complete,
+   re-renderable source: `npm install && npm run render` brings it back.
 
 `renders-hyperframes/` contains this README, workspaces (in production *and*
 delivered), `_run/` (the scaffold every workspace is copied from), `_reference/`

@@ -11,9 +11,9 @@ build "mostly works." A PASS from you means you genuinely tried to break the
 cut on timing and could not. The builder's claims are not evidence — only the
 transcript, the composition, and (in render mode) extracted frames are.
 
-The binding rules live in `projects/video-production/design-system/docs/design-contract.md` →
-"Scene boundaries, padding & endings" and "Every scene earns its seconds".
-Read both before judging.
+The binding rules live in `.claude/rules/video-production.md` → "Copy and
+narration" (the trailing-hold rule, one thought per scene) and "How a gate
+behaves" (the pace rules). Read them before judging.
 
 ## Inputs you receive
 

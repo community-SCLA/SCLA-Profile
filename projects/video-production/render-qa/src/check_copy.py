@@ -393,9 +393,9 @@ def enumeration_problems(scenes):
 
 
 # Placeholder text reaching the frame is a fabrication-ban violation, not
-# template mechanics — rehomed here from check_slots.py (whose copy grades
+# template mechanics — rehomed here from the retired slot checker (whose copy graded
 # data-variable-values and dies with the template path; HANDOFF §3.2). Whole-
-# string match mirrors check_slots' PLACEHOLDER_RX; the embedded [[...]] scan
+# string match mirrors its PLACEHOLDER_RX; the embedded [[...]] scan
 # is added because a merge-field marker ANYWHERE on frame is always a defect.
 PLACEHOLDER_RX = re.compile(
     r"^\s*(\[\[.*\]\]|\.{3}|…|TODO\b.*|TBD\b.*|xxx+)\s*$", re.I)
@@ -426,7 +426,7 @@ def spoken_placeholder_problems(beats):
 
     A placeholder in narration is worse than one on frame, not better: it is
     read aloud by the voice, and the fix costs a re-synthesis once the wavs
-    exist. check_slots.py caught this only in compiled template slots, so on
+    exist. The retired slot checker caught this only in compiled template slots, so on
     the freeform lane the spoken half was ungraded entirely.
     """
     problems = []
@@ -458,7 +458,7 @@ def check(ws: Path):
             "nothing-graded",
             f"{len(scenes)} scene slot(s) carry no data-narration and no "
             f"audio_request.json beat manifest exists — this gate can grade "
-            f"NOTHING. A template build authors narration via build_index.py; "
+            f"NOTHING. A build's narration lives in its beat manifest; "
             f"a freeform build ships audio_request.json. A gate that passes "
             f"having looked at nothing is the most expensive bug class in "
             f"this pipeline (HANDOFF-agent-native-verdict §1).")]

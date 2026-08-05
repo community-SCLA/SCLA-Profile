@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """check_fit.py — plan-stage copy fit for the freeform lane. ADVISORY.
 
-`check_capacity.py` is the pipeline's cheapest gate: it fails a too-long string
+The retired per-slot capacity gate was the pipeline's cheapest: it failed a too-long string
 while the fix is still a text edit, rather than after a render has been spent.
 It does that by resolving a TEMPLATE's declared `maxLines` and slot CSS, so it
 dies with the compiler. This is its rehome (BUILD-PLAN step 1.3c).

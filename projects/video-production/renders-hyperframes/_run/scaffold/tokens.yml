@@ -31,19 +31,29 @@ typography:
     label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
     exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
 spacing:
-  # These four are LOADED, not quoted: render-qa/src/tokens.py parses this block and
-  # render-qa/src/check_geometry.py grades every scene against all four, in preflight's
-  # full AND --static modes. Changing a number here changes the gate's verdict —
-  # proven by tests/test_tokens_coverage.py, which fails if any accessor here loses
-  # its non-test consumer, and by preflight's composition_freshness section, which
-  # fails a workspace whose copied design-contract.md declares different numbers.
+  # LOADED, not quoted: render-qa/src/tokens.py parses this block; the pixel
+  # bounds gate (check_ink.py, over per-beat snapshot stills) grades frame-padding,
+  # safe-area and content-bottom, and check_fit.py reads safe-area + content-bottom
+  # for its plan-stage fit question. Changing a number here changes a gate's
+  # verdict — proven by tests/test_tokens_coverage.py, which fails if any accessor
+  # loses its non-test consumer, and by preflight's composition_freshness section,
+  # which fails a workspace whose copied tokens.yml declares different numbers.
   frame-padding: 120 # px. Nominal content inset — the design target for primary content
   safe-area: 72 # px. HARD outer keep-out. No content element's box may cross into the outer 72px on any edge
-  footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). No content element may enter it — content must end above y = canvas_h - 120
+  footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). Read only to derive content-bottom (tokens.py _footer_reserve)
   content-bottom: 960 # px. Derived: canvas_h - footer-reserve. The lowest y any content element may occupy
-  card-gutter: 24 # px. Minimum clear air between two bordered cards stacked in the same column. Cards grow when their copy wraps; the gutter is what proves the growth had somewhere to go. Added 2026-07-29 after a career-map cut left 26px between one pair of cards and 74px between the other, and the owner read the 26 as touching
+  card-gutter: 24 # px. Minimum clear air between two bordered cards stacked in the same column. CONVENTION since 2026-08-05: its checker retired with the template lane (decisions/log.md); the number stays as the design target. Added 2026-07-29 after the owner read a 26px gap as touching
   radius-card: "12px"
   radius-pill: "100px"
+
+# Declared label-chrome rectangles ("x0,y0,x1,y1") that the pixel bounds gate
+# (render-qa/src/check_ink.py, freeform lane) blanks before grading its
+# keep-out bands. The design contract hands the outer band to label furniture
+# (brandline/eyebrow) BY NAME; a pixel gate cannot tell furniture from content,
+# so the grant is declared here and printed on every run — never absorbed into
+# a loosened threshold. Loaded by tokens.chrome_regions().
+chrome-regions: ["100,50,700,110"]
+
 components:
   cta-label: "gold text 900 with leading → arrow, no fill/pill — video CTAs aren't clickable, so never style them as buttons"
   chip: "2px blue border, transparent fill, blue text, radius 100px"
@@ -77,7 +87,7 @@ voice:
 # ---------------------------------------------------------------------------
 # Program display names — the title card's `eyebrow` is DERIVED from this map,
 # never authored. Moved out of the prose spec 2026-07-29: preflight.py used to
-# parse this as a markdown table out of design-contract.md, which made a human document
+# parse this as a markdown table out of the old prose spec, which made a human document
 # machine-load-bearing. It is data, so it lives with the data.
 # A display name is NOT free text: it must slugify back to its own key, because
 # the key IS the lesson-scripts folder and the folder IS the program's name.
@@ -93,3 +103,18 @@ programs:
   mid-career-momentum: "Mid-Career Momentum"
   career-transitions: "Career Transitions"
   entrepreneur-accelerator: "Entrepreneur Accelerator"
+
+# ---------------------------------------------------------------------------
+# Names that must never reach a viewer — in a banner, in on-screen copy, or in
+# the narration a lesson SPEAKS. `programs:` above already stops a retired name
+# being used as a banner label, but that gate only grades the eyebrow: it had
+# nothing to say about "your broader Career Accelerator journey" sitting in an
+# approved script body, which two mid-career-momentum lessons had synthesized
+# into audio by 2026-07-29. The owner's instruction that day was that no render
+# should speak or display the name, so it is data here and a rule in
+# check_copy.py (narration + on-frame copy at the gate, and refined scripts at
+# /refine-scripts, where the fix is a text edit rather than a re-synthesis).
+# Add a name here to retire it everywhere at once; matching is case-insensitive.
+# ---------------------------------------------------------------------------
+retired-names:
+  - "Career Accelerator"

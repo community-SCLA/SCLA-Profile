@@ -4,7 +4,7 @@
 BUILD-PLAN step 2.1's done-condition is explicit that the block must be
 "observed, not assumed", and test_guard_contract.py already established why: a
 guard is checked by running it, never by reading it. The 2026-07-28 layout
-refactor left hyperframe-guard.sh pointing at a moved path, so every firing
+refactor left the then-live plan-stage guard pointing at a moved path, so every firing
 printed "can't open file" instead of a verdict — output that looked alive while
 grading nothing. Reading the script would not have caught that. Running it does.
 

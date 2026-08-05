@@ -17,8 +17,7 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Refine raw lesson scripts (batch) | `/refine-scripts` |
 | Build / ship / publish lesson videos | `/render-lessons` |
 | What shipped where (Wistia links) | `projects/video-production/PIPELINE-STATUS.md` → Delivered |
-| Illustrated lesson video (default) | `projects/video-production/design-system/CLAUDE.md` |
-| HeyGen lesson script | `projects/video-production/script-templates/heygen-lesson-script.md` |
+| Illustrated lesson video (default) | `projects/video-production/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
 | Gate-enforcement rebuild (unarmed owner feedback) | `projects/video-production/render-qa/docs/HANDOFF-self-improving-gates-2026-07-29.md` |
@@ -34,7 +33,6 @@ bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 1
                                    # freshness (14). CI runs it on every push.
 python3 projects/video-production/render-qa/tests/run_tests.py   # that suite alone
 python3 projects/video-production/render-qa/tests/test_variety.py # one file — each runs standalone
-npm run check                      # in design-system/ — template gate, run after ANY composition edit
 bash scripts/batch-status.sh       # resume key: the whole pipeline, read from disk alone
 bash scripts/build-claim.sh S P    # the ONE way a build starts (lock + fence + journal + status)
 bash scripts/build-release.sh S    # ...and the one way it ends

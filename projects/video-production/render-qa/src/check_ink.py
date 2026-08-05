@@ -2,7 +2,7 @@
 """check_ink.py — the bounds half of geometry, measured from real pixels.
 
 The three bounds rules (safe-area, frame-padding, content-bottom) all ask one
-question: is there INK where there must not be? boxmodel.py answers it by
+question: is there INK where there must not be? The retired static box model answered it by
 resolving template CSS to boxes — a model that is CONFIDENTLY WRONG on freeform
 HTML (281 findings on a build verified clean across 34 stills; HANDOFF-agent-
 native-verdict §2). This answers it from the rendered frame — no CSS model, no
@@ -37,7 +37,7 @@ from hfp_common import Finding, typed  # noqa: E402
 
 DEFAULT_THRESHOLD = 60
 DEFAULT_MIN_PX = 40
-# Same slack check_geometry.py allows: the difference between a glyph line
+# Same slack the retired geometry gate allowed: the difference between a glyph line
 # box and its ink, plus antialiasing at the exact band edge. Without it the
 # brandline at left:120px reports a padding-breach from its own left
 # antialias column at x=119.
@@ -97,7 +97,7 @@ def grade(path, ws=None, threshold=DEFAULT_THRESHOLD, min_px=DEFAULT_MIN_PX,
         ("safe-area-breach", ring(safe)),
         # frame-padding targets PRIMARY CONTENT; the design contract hands the
         # bottom band to label furniture by name, so the bottom edge is excluded
-        # here exactly as check_geometry exempts footer chrome.
+        # here exactly as the retired geometry gate exempted footer chrome.
         ("padding-breach", ring(pad, include_bottom=False)),
         ("footer-breach", [(0, bottom + TOLERANCE, w, h)]),
     ):

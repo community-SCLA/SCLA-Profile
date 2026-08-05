@@ -2,7 +2,7 @@
 # write-fence.sh — PreToolUse fence around the shared pipeline machinery.
 #
 # THE HOLE THIS CLOSES. .claude/settings.json grants Write and Edit with no path
-# restriction, and the only hook (hyperframe-guard.sh) exits 0 for anything
+# restriction, and no other PreToolUse hook restricts anything
 # outside a workspace's scenes.json / index.html. So when a build agent decided
 # to "improve" the shared scla-stat template and 14 workspace copies of it,
 # nothing even slowed it down. "You author scenes.json only" was a sentence, not

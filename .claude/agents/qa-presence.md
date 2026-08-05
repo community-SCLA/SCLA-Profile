@@ -11,9 +11,10 @@ slide; the rule set now forbids a bare frame at any time — first frame, last
 frame, and everything between. You review; you never fix; a PASS means you
 monitored the full runtime and found no gap.
 
-Rules: `projects/video-production/design-system/docs/design-contract.md` → "Scene boundaries,
-padding & endings" (ending must hold populated text) and "Every scene earns its
-seconds" (no stagnant frame beyond ~2s).
+Rules: `.claude/rules/video-production.md` → the trailing-hold rule (the
+ending must hold populated text through the final hold) and "A measurement is
+never delegated to the human preview" (no stagnant frame beyond the
+STAGNANT_FAIL window).
 
 ## Inputs you receive
 

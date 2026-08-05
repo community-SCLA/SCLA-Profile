@@ -9,6 +9,80 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-05 — The template lane is retired
+
+**Decision:** following the owner's approval of the freeform `m1_mini-syllabus`
+trial (entry below), the template lane is **fully retired, now, not staged** —
+freeform (agent-native) is the default and ONLY way an SCLA lesson video is
+built. This entry supersedes, by name, the 2026-07-30 clauses *"Nothing is
+retired yet… the template lane keeps shipping untouched"*, the `--freeform`
+opt-in flag, and *"freeform never enters AUTO-BATCH while its quality floor is
+unproven"* — the floor was proven by the approved trial and the B1 pace gates.
+A future session that reads 2026-07-30 without this entry rebuilds the old
+default; do not.
+
+**Archived, not deleted — an explicit owner override of `repo-hygiene.md`'s
+delete-first default.** Everything moved to a nested `_archive/` inside its own
+directory, read-only provenance:
+
+- `render-qa/_archive/src/` — the scenes.json → index.html compiler
+  (`build_index.py`, `instance_templates.py`) and the template-shaped gates:
+  `boxmodel.py` + `check_geometry.py` (measured confidently wrong on freeform
+  CSS: 281 false findings on a build verified clean across 34 stills),
+  `check_capacity.py` (per-slot maxLines needs slots), `check_slots.py` (its
+  one lane-neutral rule, the placeholder scan, was already rehomed into
+  `check_copy.py`), `check_variety.py` (one-item-list/one-card rehomed onto
+  element structure in `check_forms.py`; three rules orphaned — below), and
+  `theme_for.py` (style-package rotation fed compiler slot variables).
+- `render-qa/_archive/tests/` — `test_build_index.py`, `test_variety.py`,
+  `test_theme_rotation.py`, and the compiler mutation harness's base fixture.
+- `scripts/_archive/hyperframe-guard.sh` — the PostToolUse write guard retired
+  WITH the compiler it recompiled for; its hook registration is removed from
+  `.claude/settings.json` (a hook that crashes is a gate that is off). Its
+  `preflight --json` wire-contract lesson lives on in
+  `test_preflight_contract.py`.
+- `design-system/_archive/` — the twelve `scla-*.html` templates and the demo
+  reel; `design-system/docs/_archive/design-contract.md` — the template
+  authoring menu. `design-system/` itself survives as a brand token & asset
+  store: `config/tokens.yml`, the vendored Proxima set + `metrics.json`, the
+  brand SVGs, and the `hyperframes` version pin in `package.json`.
+- `render-qa/docs/_archive/` — the adoption proposal, the 2026-07-30 verdict
+  handoff and the 2026-08-04 build plan (decision made, documents superseded);
+  `script-templates/_archive/` + `docs/_archive/` — avatar-lane and
+  Notion-intake residue.
+
+**`preflight.py` collapsed to one lane:** the `freeform` detection boolean and
+every fork are gone; the freeform branch is the code path. `check_freeform_*`
+functions dropped the prefix. The `inscene_gaps` rule was NOT deleted — it is
+lane-neutral (the owner read a >0.8s mid-scene hole as "a major glitch"); its
+flat-words adapter for per-beat clip audio stays deferred, so it WARNs
+visibly (`no-word-timings`) instead of grading. `tokens.py` lost
+`card_gutter()` (orphaned) and made `footer_reserve()` private (it survives
+only to derive `content_bottom()`, which `check_ink`/`check_fit` read).
+
+**Three owner rules are now honest Conventions, not gates** — retiring
+`check_variety` orphaned "max 2 consecutive scenes on one visual family",
+"≥6 distinct content forms" and "no one form above 40%". They are labelled
+`*(Convention — mechanism retired…)*` in `.claude/rules/video-production.md`,
+NOT silently dropped and NOT ported: the owner decision on what visual variety
+means for freeform (where `carrier-drift` actively rewards one persisting
+carrying object) is **pending** — see the open items below.
+
+**Still open, deliberately not closed here** (carried from the entry below):
+1. **The variety contract is unowned** — the three Conventions above have no
+   checker; the trial used essentially one content form for 17 beats.
+2. **The fabrication ban is structurally blind on-frame** — the beat-manifest
+   diff never reads markup; the trial's "Course Introduction" eyebrow proves
+   the hole.
+3. **The two ending gates disagree** — `check_boundaries` measures the final
+   hold from the wav, the timing gate from the timeline; only a wav pad PLUS a
+   video hold clears both, and the trial ships 3.6s of silence where
+   `FINAL_HOLD` is 1.8s.
+4. ~~13 stalled template-lane workspaces are ungradeable~~ — closed 2026-08-05:
+   the 12 dead template workspaces were deleted (their `ready/` scripts are
+   untouched and lane-neutral; rebuilds are freeform from the script), and the
+   one freeform build among them resumes.
+
 ## 2026-08-05 — The freeform lane is approved, and a symbol the voice cannot say
 
 **Decision:** the owner reviewed the 2026-08-04 freeform (agent-native,

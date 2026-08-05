@@ -9,12 +9,11 @@ Match the task, load the ONE file it names, stop.
 | Task | Load |
 | --- | --- |
 | Produce a video end to end (one call) | `/produce-video` |
-| Illustrated lesson video (default: concepts, frameworks, processes) | `design-system/CLAUDE.md` |
+| Illustrated lesson video (default: concepts, frameworks, processes) | `/render-lessons` → "Build sequence" (freeform — the HTML is the authored artifact; brand tokens: `design-system/CLAUDE.md`) |
 | Authoring inside a build workspace (`renders-hyperframes/<stem>/`) | `renders-hyperframes/_run/BUILD-KIT.md` — workspaces carry no CLAUDE.md/AGENTS.md of their own |
 | Deterministic render gates / QA toolchain | `render-qa/README.md` |
-| Considering agent-native (template-free) rendering | `render-qa/docs/PROPOSAL-agent-native-adoption-2026-08-04.md` (the plan; cites the 2026-07-30 verdict handoff for evidence) |
 | Script/lesson state (`inbox/` → `ready/` → `published/`) | `lesson-scripts/README.md` |
-| Notion / Wistia link ledger (Notion retired as intake 2026-07-13) | `docs/notion-queue.md` |
+| Wistia link ledger | `lesson-scripts/published.tsv` (machine key) + `lesson-scripts/refinement-log.md` (human-facing) |
 | Standing constraints (fabrication ban, PILOT GATE, mechanized guards...) | `.claude/rules/video-production.md` (auto-loaded here; cold subagents read it first) |
 | Session close-out retro | `render-qa/logs/snag-log.md` (read ONLY the latest entry) |
 | Brand facts — colors, logo, type, voice | `brand/visual-identity.md`, `brand/voice-and-tone.md` |
@@ -25,7 +24,7 @@ Match the task, load the ONE file it names, stop.
 
 | Video is... | Use |
 | --- | --- |
-| Concept lesson, framework, process (**default**) | **HyperFrames** via `design-system/` — brand motion graphics + pinned TTS voice, no per-minute avatar cost. Style package: `design-system/docs/design-contract.md` → "Style packages" |
+| Concept lesson, framework, process (**default**) | **HyperFrames**, freeform-authored — brand motion graphics + pinned TTS voice, no per-minute avatar cost. Tokens/fonts: `design-system/`; sequence: `/render-lessons` |
 | Translation/multilingual, quick-turn social, needs a human face | **HeyGen** — web UI only; the batch/resumable code path (`avatar-pipeline/`) was removed 2026-08-02 |
 | Long-form avatar course | **Synthesia** — under re-evaluation, setup never completed; decide before any Enterprise commitment |
 | Hosting / analytics | **Wistia** — auto-uploaded by `scripts/wistia-upload.sh` as the last step of SHIP, URL recorded in `refinement-log.md`; auth status in repo-root `config/endpoints.json` → "Wistia" |
@@ -35,7 +34,7 @@ Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — needs Synthesia Enterpri
 ## Layout (what `ls` can't tell you)
 
 - `design-system/` is the one layout exception — HyperFrames dictates its shape (`design-system/docs/README.md` explains the divergence).
-- Three files, not interchangeable: `design-system/config/tokens.yml` (the numbers, loaded by `render-qa/src/tokens.py` — what the gates grade against), `.claude/rules/video-production.md` (every gated rule, each naming its checker), and `design-system/docs/design-contract.md` (the authoring menu a builder reads before writing `scenes.json` — visual language, templates, icons, style packages, motion recipes; it restates no gated rule and no code reads it).
+- Two files, not interchangeable: `design-system/config/tokens.yml` (the numbers, loaded by `render-qa/src/tokens.py` — what the gates grade against) and `.claude/rules/video-production.md` (every gated rule, each naming its checker). The template lane's authoring-menu doc retired with the lane 2026-08-05 (decisions/log.md); a freeform build's design intent lives in its own `design.md`.
 - `renders-hyperframes/` and `renders-mp4/` are local, gitignored staging. Delivered builds stay put; retiring one to `_archive/` is a human-only call, never automated.
 - Rendered MP4s are **never committed** — only the `.txt` script is tracked.
 

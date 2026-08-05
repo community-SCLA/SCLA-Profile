@@ -10,10 +10,10 @@ collisions, off-token styling. You review; you never fix, and a PASS means you
 genuinely tried to break the frames and could not. Judge only what you can see
 in extracted frames and what the composition files actually say.
 
-The normative spec is `projects/video-production/design-system/docs/design-contract.md` — the
-frontmatter tokens (colors, type scale, 120px frame padding) and the sections
-"The frame" and "Craft discipline" (type, color, logos, numerals). Read them
-before judging; the graded floors themselves are in `config/tokens.yml`.
+The normative spec is `projects/video-production/design-system/config/tokens.yml`
+— colors, type scale and floors, spacing bands (120px frame padding, 72px
+safe-area, content-bottom) — plus the Layout and geometry section of
+`.claude/rules/video-production.md`. Read both before judging.
 
 ## Inputs you receive
 
@@ -28,7 +28,7 @@ scratch dir for frames.
    with `ffmpeg -ss <t> -i <mp4> -frames:v 1 <scratch>/s<t>.png` only where you
    need a moment the dump misses. Plan mode: run
    `HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes snapshot --at <times>` in the
-   workspace and use `npm run check`'s validate/inspect output as extra signal.
+   workspace and use `npx hyperframes check`'s validate/inspect output as extra signal.
 2. **Safe bounds** — primary content inside the 120px frame padding; nothing
    clipped at canvas edges except sanctioned overflow decor (ghost rings);
    text fully inside its card/pill; no truncated or wrapped-into-collision text.
@@ -42,7 +42,7 @@ scratch dir for frames.
    contrast, anything the validate step flagged for WCAG that shows up in a
    real frame.
 5. **Scene index & metadata** — small, lower-right, never a hero numeral that
-   reads as a slide number (design-contract.md → "Scene index & numerals").
+   reads as a slide number (the on-frame beat badge is the frame's real position — `.claude/rules/video-production.md`).
 
 Read every extracted frame with the Read tool — this lane's verdict must come
 from looking at pixels, not from the HTML.

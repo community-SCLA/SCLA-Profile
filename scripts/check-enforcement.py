@@ -63,7 +63,6 @@ GRADED = [
     "CLAUDE.md",
     "decisions/log.md",
     "projects/video-production/CLAUDE.md",
-    "projects/video-production/design-system/docs/design-contract.md",
     "projects/video-production/design-system/AGENTS.md",
 ]
 
@@ -130,9 +129,10 @@ def invokers() -> dict[str, str]:
 
     Two false-negative directions, both closed 2026-07-29:
 
-      * the caller list was a fixed six and omitted `hyperframe-guard.sh` and
-        `batch-precheck.sh` — two of the pipeline's real gate runners, so a
-        checker invoked only from those read as "invoked by nothing".
+      * the caller list was a fixed six and omitted two of the pipeline's
+        real gate runners (the plan-stage guard, retired 2026-08-05, and
+        `batch-precheck.sh`), so a checker invoked only from those read as
+        "invoked by nothing".
       * a filename was matched ANYWHERE in a caller, comments included, so a
         checker merely *mentioned* in a comment counted as invoked. That is the
         dangerous direction: it manufactures the exact false safety this script
@@ -142,7 +142,6 @@ def invokers() -> dict[str, str]:
     for caller in [VP / "render-qa/src/preflight.py", VP / "render-qa/src/verify_render.py",
                    REPO / "scripts/batch-ship.sh", REPO / "scripts/lint-refs.sh",
                    REPO / "scripts/batch-prepare.sh", REPO / "scripts/batch-status.sh",
-                   REPO / "scripts/hyperframe-guard.sh",
                    REPO / "scripts/batch-precheck.sh"]:
         if not caller.is_file():
             continue

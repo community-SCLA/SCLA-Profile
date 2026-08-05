@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """textmetrics.py — how wide a string actually renders in Proxima Nova.
 
-check_capacity.py needs to know whether "Different learning opportunities" fits
+check_fit.py needs to know whether "Different learning opportunities" fits
 a 240px card. Estimating from a characters-per-line ratio is guesswork that
 drifts per weight and per string; measuring is exact and costs nothing.
 
@@ -54,7 +54,7 @@ def normal_line_height(weight=400) -> float:
 
     Chrome resolves `normal` from the font's hhea ascent/descent/lineGap (OS/2
     USE_TYPO_METRICS is off on this kit), which puts Proxima at 1.404/1.447/
-    1.477 by weight. boxmodel.py assumed 1.2 until 2026-07-29 and therefore
+    1.477 by weight. The retired box model assumed 1.2 until 2026-07-29 and therefore
     under-measured the height of every block that does not set line-height
     explicitly — by 20% on a 44px chip, which is how four wrapped chip rows
     were modelled as ending 43px higher than they really do, clear of a footer

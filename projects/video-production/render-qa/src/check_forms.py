@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """check_forms.py — the owner's content-FORM rules, on markup instead of slots.
 
-Two standing owner rules have lived since 2026-07-29 in `check_variety.py`,
-which reads `data-variable-values` — `build_index.py`'s private authoring
-protocol. Both therefore die with the compiler, and neither is about templates:
+Two standing owner rules lived from 2026-07-29 in the retired template-family
+variety checker, which read `data-variable-values` — the retired compiler's
+private authoring protocol. Both would have died with the compiler, and
+neither is about templates:
 
   one-item-list   "a list slot with exactly one item is a defect" — it draws
                   the bullet/pill illustration around a single fact. The owner's

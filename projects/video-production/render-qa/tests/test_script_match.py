@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Synthetic-fixture tests for preflight.py's script-fidelity gate (check 5).
 
-Attacks the failure modes the gate exists for: a TTS misread sailing through
-(dropped sentence, wrong text), plus the noise it must tolerate (whisper
-small.en's ~1-in-360 mishears, dash-compound tokens like 'buzzwords—just').
-No TTS, whisper, or render is run — transcripts are hand-built JSON.
+The gate diffs the BEAT MANIFEST — audio_request.json, the exact text sent to
+the TTS engine — against the approved lesson script. Attacks the failure modes
+the gate exists for: a rewritten or dropped sentence sailing through, plus the
+noise it must tolerate (TTS-normalization differences, dash-compound tokens
+like 'buzzwords—just'). No TTS or render is run — manifests are hand-built.
 
 Run:  python3 tests/test_script_match.py   (exit 0 = all pass)
 """
@@ -12,6 +13,7 @@ Run:  python3 tests/test_script_match.py   (exit 0 = all pass)
 import json
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 PIPE = Path(__file__).resolve().parents[1] / "src"
@@ -20,7 +22,7 @@ from preflight import (RATE_FAIL, RATE_WARN, RUN_FAIL, check_script_match,
                        diff_script_transcript, locate_script,
                        tokenize_for_diff)
 
-TMP = Path("/tmp/claude-1000/-workspaces-SCLA-Profile/a8d1e2cc-c774-48f0-990a-1419eccd5a79/scratchpad/script-match-tests")
+TMP = Path(tempfile.gettempdir()) / "scla-script-match-tests"
 
 PASS, FAIL = 0, 0
 
@@ -35,17 +37,17 @@ def check(name, cond, detail=""):
         print(f"  FAIL {name}  {detail}")
 
 
-def make_fixture(stem, script_text, transcript_words):
-    """Workspace named <stem> + a lesson-scripts tree the stem resolves into."""
+def make_fixture(stem, script_text, beat_words):
+    """Workspace named <stem> carrying a beat manifest built from beat_words,
+    plus a lesson-scripts tree the stem resolves into."""
     if TMP.exists():
         shutil.rmtree(TMP)
     ws = TMP / "renders" / stem
-    (ws / "assets" / "voice").mkdir(parents=True)
-    t, words = 0.0, []
-    for w in transcript_words:
-        words.append({"text": w, "start": round(t, 2), "end": round(t + 0.3, 2)})
-        t += 0.35
-    (ws / "assets" / "voice" / "transcript.json").write_text(json.dumps(words))
+    ws.mkdir(parents=True)
+    # Split the spoken words into a few beats — the gate joins them back.
+    n = max(1, len(beat_words) // 4)
+    lines = [" ".join(beat_words[i:i + n]) for i in range(0, len(beat_words), n)]
+    (ws / "audio_request.json").write_text(json.dumps({"lines": lines}))
     slug = stem.split("_")[1]
     scripts_root = TMP / "lesson-scripts"
     # inbox/ is where a raw script lives. Since 2026-08-04 the folder name IS
@@ -108,29 +110,29 @@ check("clean match: PASS", sec["pass"], sec["output"])
 check("clean match: rate 0.00% reported", "0.00%" in sec["output"])
 check("clean match: no mismatch warnings", "WARN @" not in sec["output"])
 
-print("== gate: 1-in-360 mishear passes with warning ==")
+print("== gate: an isolated normalization flub passes with warning ==")
 heard = list(SCRIPT_WORDS)
-heard[100] = "mishear"  # one whisper flub in ~360 words
+heard[100] = "normalized"  # one engine-side rewrite in ~360 words
 ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
-check("noise-floor mishear: PASS", sec["pass"], sec["output"])
-check("noise-floor mishear: diff printed as warning",
-      "WARN @" in sec["output"] and "mishear" in sec["output"])
+check("noise-floor flub: PASS", sec["pass"], sec["output"])
+check("noise-floor flub: diff printed as warning",
+      "WARN @" in sec["output"] and "normalized" in sec["output"])
 
 print("== gate: dropped sentence fails ==")
-heard = SCRIPT_WORDS[:60] + SCRIPT_WORDS[90:]  # sentence 3 never spoken
+heard = SCRIPT_WORDS[:60] + SCRIPT_WORDS[90:]  # sentence 3 never sent
 ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
 check("dropped sentence: FAIL", not sec["pass"], sec["output"])
 check("dropped sentence: run rule named",
       "consecutive mismatched words" in sec["output"])
 
-print("== gate: misread sentence fails ==")
+print("== gate: rewritten sentence fails ==")
 heard = list(SCRIPT_WORDS)
-heard[150:156] = ["totally", "different", "words", "were", "spoken", "here"]
+heard[150:156] = ["totally", "different", "words", "were", "written", "here"]
 ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
-check("misread sentence (6-word run): FAIL", not sec["pass"], sec["output"])
+check("rewritten sentence (6-word run): FAIL", not sec["pass"], sec["output"])
 
 print("== gate: high scatter rate fails ==")
 heard = list(SCRIPT_WORDS)
@@ -140,7 +142,7 @@ ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
 check("scattered >2% mismatch: FAIL", not sec["pass"], sec["output"])
 check("scattered >2%: rate rule named", "mismatch rate" in sec["output"]
-      and "does not match" in sec["output"])
+      and "does not carry" in sec["output"])
 
 print("== gate: middle zone passes with elevated warning ==")
 heard = list(SCRIPT_WORDS)
@@ -150,7 +152,7 @@ ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
 check("middle zone: PASS", sec["pass"], sec["output"])
 check("middle zone: noise-floor warning printed",
-      "above the whisper" in sec["output"])
+      "noise floor" in sec["output"])
 
 print("== gate: dash compounds don't count as misses ==")
 ws, root = make_fixture(STEM, "No buzzwords — just plain talk.",
@@ -176,11 +178,19 @@ print("== gate: explicit --script override ==")
 ws, root = make_fixture(STEM, SCRIPT, SCRIPT_WORDS)
 override = TMP / "elsewhere.txt"
 override.write_text(SCRIPT)
-sec = check_script_match(ws, script_path=override, scripts_root=root / "nonexistent")
+sec = check_script_match(ws, script_override=override,
+                         scripts_root=root / "nonexistent")
 check("--script override used: PASS", sec["pass"], sec["output"])
-sec = check_script_match(ws, script_path=TMP / "missing.txt", scripts_root=root)
+sec = check_script_match(ws, script_override=TMP / "missing.txt",
+                         scripts_root=root)
 check("--script pointing at a missing file: FAIL (explicit path must exist)",
       not sec["pass"], sec["output"])
+
+print("== gate: an empty beat manifest FAILS ==")
+ws, root = make_fixture(STEM, SCRIPT, SCRIPT_WORDS)
+(ws / "audio_request.json").write_text(json.dumps({"lines": []}))
+sec = check_script_match(ws, scripts_root=root)
+check("no narration lines in the manifest: FAIL", not sec["pass"], sec["output"])
 
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

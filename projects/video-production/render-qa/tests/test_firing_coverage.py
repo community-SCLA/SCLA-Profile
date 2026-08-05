@@ -5,12 +5,11 @@ Every `render-qa/check_*.py` must be covered by at least one test asserting a
 POSITIVE finding. A checker that cannot be shown to fire is not a gate; it is a
 file that runs.
 
-On 2026-07-29 this repo had 10 checker modules and 4 firing fixtures.
-`check_slots`, `check_boundaries`, `check_layout`, `check_presence` and
-`check_geometry`'s size rules had none; `check_text` had only a token-import
-assertion; `check_copy.titlecase()` was armed with zero fixture proving it ever
-returned a finding — and frame.md actively contradicted it. All of that read as
-covered, because "covered" meant "a test file mentions it".
+On 2026-07-29 this repo had 10 checker modules and 4 firing fixtures. Most
+checkers had no fixture proving a positive finding; `check_text` had only a
+token-import assertion; `check_copy.titlecase()` was armed with zero fixture
+proving it ever returned a finding — and frame.md actively contradicted it.
+All of that read as covered, because "covered" meant "a test file mentions it".
 
 HOW IT WORKS. This suite runs every sibling `test_*.py` as a subprocess with
 `SCLA_FIRING_REGISTRY` pointing at a scratch file. `tests/firing.fires()` — the
@@ -52,7 +51,6 @@ REQUIRED = {
                          # owner rejections and must not be lost in the move.
                          "freeform-audio-tail", "freeform-final-hold",
                          "freeform-insufficient-air", "freeform-mid-sentence"],
-    "check_capacity":   ["maxlines"],
     "check_continuity": ["blip", "split-list", "split-sentence",
                          "freeform-opens-lowercase", "nothing-graded"],
     "check_copy":       ["conjunction", "dangling", "dangling-fragment",
@@ -77,8 +75,6 @@ REQUIRED = {
     # carry no beat labels to compute it from).
     "check_diversity":  ["static-span", "grid-too-sparse",
                          "twin-beats-not-graded", "nothing-graded"],
-    "check_geometry":   ["text-collision", "nothing-graded", "safe-area-breach",
-                         "footer-breach", "padding-breach", "card-gutter"],
     # the pixel bounds gate (freeform lane) — same three bands, real pixels
     "check_ink":        ["safe-area", "padding", "footer"],
     # the brand gate (freeform lane) — colors + typeface from tokens.yml
@@ -98,12 +94,7 @@ REQUIRED = {
     # two owner-verdicted cuts); see check_pace.py's module docstring.
     "check_pace":       ["beat-pace", "long-beat-share", "carrier-drift",
                          "twin-share", "nothing-graded"],
-    "check_slots":      ["unfilled", "placeholder", "unknown-icon",
-                         "banned-row-icons", "scene-index-badge"],
     "check_text":       ["min-size", "restatement"],
-    "check_variety":    ["consecutive-run", "min-forms", "artwork", "share",
-                         "canvas-run", "canvas-seconds", "two-region",
-                         "one-item-list", "one-card"],
 }
 
 # Checkers that cannot be fired from a pure-Python fixture: they need a live

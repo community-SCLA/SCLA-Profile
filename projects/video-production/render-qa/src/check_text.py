@@ -141,7 +141,7 @@ def check_restatement(scenes):
                             f"\"{vars_[ref_key]}\" ({overlap:.0%} of its words "
                             f"are already on the frame) — drop the line or give "
                             f"it something the frame is not already showing "
-                            f"(design-contract.md \"Never restate the label or heading\")"))
+                            f"(rule: never restate the label or heading)"))
                         break
     return findings, graded
 

@@ -5,7 +5,7 @@ The ban is the most-violated rule in the repo's history: given 2026-07-14
 ("I fully want ripples off"), reaffirmed 07-15, and broken the next day by a
 session that restored the banned motion so renders would clear the stagnation
 gate. Three MP4s shipped with it and one was published. It was written in
-design-contract.md, in `.claude/rules/video-production.md`, AND in comments inside the
+the prose spec, in `.claude/rules/video-production.md`, AND in comments inside the
 very templates that violated it — prose lost to a gate three times over.
 
 On 2026-07-29 the owner's instruction was to make the motion unselectable
@@ -29,8 +29,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import check_motion              # noqa: E402
 from firing import fires         # noqa: E402
-
-DESIGN_SYSTEM = RQ.parent / "design-system"
 
 PASS = FAIL = 0
 
@@ -74,7 +72,7 @@ check("`repeat: -1` (infinite) on content FAILS",
       "keep-alive-motion" in rules(
           tween('"#cc-iconwrap"', '{ y: -10, duration: 2.7, repeat: -1 }')))
 
-print("== ...and does not fire on what design-contract.md sanctions ==")
+print("== ...and does not fire on what the motion language sanctions ==")
 check("a one-shot entrance on content PASSES",
       not rules(tween('"#cc-iconwrap"', ONCE)))
 check("`repeat: 0` is a one-shot, not keep-alive",
@@ -168,14 +166,6 @@ commented = """<script>(function(){
 })();</script>"""
 check("a removal recorded in a comment does not read as a live violation",
       not rules(commented), str(check_motion.grade(commented)))
-
-print("== the live design system ==")
-report, problems = check_motion.check(DESIGN_SYSTEM)
-check("every scla-* template is clean of keep-alive motion",
-      not problems, "\n        ".join(str(p) for p in problems))
-check("the gate actually looked at the templates (a zero-tween PASS is a lie)",
-      report and report["graded"] > 100,
-      f"graded {report['graded'] if report else 0} tween(s)")
 
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

@@ -134,7 +134,7 @@ def parse_scenes(index_html: str):
 # Freeform (agent-native) beat manifest + on-frame text (2026-07-30)
 #
 # A freeform build carries no data-narration / data-variable-values — those are
-# build_index.py's private authoring protocol, not HyperFrames contract. Its
+# the retired compiler's private authoring protocol, not HyperFrames contract. Its
 # narration contract is audio_request.json (the audio engine's own input:
 # lines[{id,text}]) plus timing.json once computed. This adapter is the §1
 # coupling fix from docs/HANDOFF-agent-native-verdict-2026-07-30.md: without

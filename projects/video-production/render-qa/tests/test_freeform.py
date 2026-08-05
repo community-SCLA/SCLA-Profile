@@ -161,7 +161,7 @@ fires("check_copy", "placeholder",
       str(check_copy.check(ws)))
 
 # The spoken half of the same guard: a marker in the BEAT MANIFEST is read
-# aloud, and costs a re-synthesis to fix once the wavs exist. check_slots only
+# aloud, and costs a re-synthesis to fix once the wavs exist. The retired slot checker only
 # ever saw compiled template slots, so this half was ungraded on the freeform
 # lane entirely.
 ws = freeform_ws("spoken-placeholder", [
@@ -364,7 +364,7 @@ check("no timing.json -> an EMPTY grid (ungradeable), never a silent pass",
       sample_units(ws) == [], str(sample_units(ws)))
 
 # ---------------------------------------------------------------------------
-# check_fit — plan-stage copy fit (step 1.3c), the rehome of check_capacity's
+# check_fit — plan-stage copy fit (step 1.3c), the rehome of the per-slot capacity gate's
 # question onto the FRAME instead of a template slot. Advisory per STD-38, so
 # these prove it FIRES, not that it blocks.
 fit_budget = check_fit.budget()

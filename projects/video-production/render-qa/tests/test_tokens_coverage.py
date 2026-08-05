@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """test_tokens_coverage.py — a token nobody reads is a red test.
 
-tokens.yml (then design-contract.md's frontmatter) carried `spacing.frame-padding: 120` from the day the
+tokens.yml (then the prose spec's frontmatter) carried `spacing.frame-padding: 120` from the day the
 system was built. `tokens.py` grew a `frame_padding()` accessor for it. Nothing
 ever called that accessor, and the block above it claimed the four
 spacing tokens were "LOADED, not quoted: every checker imports from it." The
@@ -38,10 +38,12 @@ ACCESSOR_FOR = {
     ("typography", "min-size", "label"): "min_size",
     ("spacing", "frame-padding"):        "frame_padding",
     ("spacing", "safe-area"):            "safe_area",
-    ("spacing", "footer-reserve"):       "footer_reserve",
     ("spacing", "content-bottom"):       "content_bottom",
-    ("spacing", "card-gutter"):          "card_gutter",
 }
+# spacing.footer-reserve is deliberately absent: no gate reads it directly since
+# the template lane retired (2026-08-05) — tokens._footer_reserve() exists only
+# to derive content_bottom(), which IS mapped above. spacing.card-gutter lost
+# its checker in the same retirement and is an honest Convention in tokens.yml.
 
 # Accessors that are structural rather than a frontmatter scalar.
 #

@@ -13,7 +13,7 @@ the owner rejected it for reasons no checker had an opinion about:
 
 Nothing graded scene CONTENT WEIGHT. check_boundaries verified the cut landed on
 a sentence terminator — and it did, because "Growth?" is a punctuated fragment.
-check_variety graded template distribution. check_copy graded the words. A scene
+the variety checker graded template distribution. check_copy graded the words. A scene
 carrying two words was structurally invisible.
 
 Worse, fragmentation actively DISABLED the rule the owner has repeated most: a
@@ -59,7 +59,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import Finding, get_attr, load_beats, parse_scenes, typed
 
-# Forms that frame the lesson rather than carry a beat (mirrors check_variety).
+# Forms that frame the lesson rather than carry a beat.
 CHROME = {"scla-title", "scla-outro"}
 
 # A scene shorter than this is a blip, not a beat. Calibrated on the rejected

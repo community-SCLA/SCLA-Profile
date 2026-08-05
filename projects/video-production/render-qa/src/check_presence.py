@@ -7,7 +7,7 @@ parsed in pure Python — no PIL needed) and hunts GAPS:
     stddev-only heuristic flagged textured white canvases and navy cards as
     blank; content-pixel counting fixes that false-positive class, 2026-07-10)
   - stagnant frames: >=3.0s of pixel-identical video while narration is
-    speaking (design-contract.md's animacy rule is stated in these same numbers —
+    speaking (the animacy rule is stated in these same numbers —
     3.0s WARN / 6.0s FAIL, raised from 5.0s in BUILD-PLAN A1, 2026-08-04; the
     lane agent judges the 3-6s gray zone)
   - audio stream outliving the video stream (clipped narration / blank tail)
@@ -16,7 +16,7 @@ With --workspace <dir> (recommended) the checker reads index.html scene starts
 and assets/voice/transcript.json:
   - a low-variance frame inside the 0.7s entrance window after a scene start
     is reported as a WARN note, not a violation, unless it is truly featureless
-    — templates paint furniture at t=0 (design-contract.md), so a genuinely bare
+    — compositions paint furniture at t=0, so a genuinely bare
     entrance is still caught
   - stagnation is only a violation while spoken words overlap the static run
 
@@ -50,7 +50,7 @@ STAGNANT_WARN = 3.0    # pixel-identical this long while narration speaks: warn
 # rejected cut (worst static span 3.75s, already under the old floor) — Track
 # B's pace gates (check_pace.py) are what replace the pressure this floor
 # loosened.
-STAGNANT_FAIL = 6.0    # ... this long: violation (nothing in design-contract.md allows it)
+STAGNANT_FAIL = 6.0    # ... this long: violation (no rule allows it)
 FPS = 2
 
 
@@ -202,7 +202,7 @@ def main():
             entry = {"rule": "stagnant-frame", "t": round(a, 2),
                      "detail": f"video pixel-static {a:.1f}s → {b:.1f}s "
                                f"({b - a:.1f}s) while narration speaks "
-                               f"— animacy defect (design-contract.md ~2s rule)"}
+                               f"— animacy defect (the ~2s animacy rule)"}
             if b - a >= STAGNANT_FAIL:
                 findings.append(entry)
             else:

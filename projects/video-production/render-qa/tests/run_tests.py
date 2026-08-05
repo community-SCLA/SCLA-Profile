@@ -477,14 +477,14 @@ check("guard ignores the SCENE-BOUNDARY gap (air + lead is deliberate)",
       sec["pass"], sec["output"])
 gp.unlink()
 sec = check_inscene_gaps(ws)
-check("guard skips (WARN, not FAIL) with no words file",
-      sec["pass"] and "SKIPPED" in sec["output"], sec["output"])
+check("guard skips (WARN no-word-timings, not FAIL) with no words file",
+      sec["pass"] and "no-word-timings" in sec["output"], sec["output"])
 
 print(f"\n{PASS} passed, {FAIL} failed  (run_tests.py's own cases)")
 
 # The sibling test_*.py files used to be runnable but unrun: nothing invoked
-# them, so `python3 tests/run_tests.py` reported green while test_variety.py,
-# test_gates.py, test_stem.py, test_build_index.py and test_script_match.py were
+# them, so `python3 tests/run_tests.py` reported green while five sibling
+# suites (test_gates.py, test_stem.py, test_script_match.py among them) were
 # never executed by anything, in CI or out. A test that nothing runs is a
 # convention, not a mechanism (repo-hygiene STD-35). One command now runs them
 # all, and scripts/lint-refs.sh runs that command.

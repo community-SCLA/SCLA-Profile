@@ -11,10 +11,10 @@ this file needs a fix.*
 **Why these tools exist:** the first at-scale builds hand-typed scene
 boundaries and cue times, reconciled against the narration *after* the
 fact — 26 boundary violations, mid-word cuts, 14 cue-phrase mismatches. The
-inversion: **authors declare text (per-scene narration spans + cue phrases);
-these tools compute every number.** Used by `/render-lessons` (BUILD gates +
-SHIP verify) and `/adversarial-qa`; the authoring contract lives in
-`design-system/docs/design-contract.md`.
+inversion: **authors declare text (the beat manifest); a script computes every
+timing number.** Used by `/render-lessons` (BUILD gates + SHIP verify) and
+`/adversarial-qa`; the gated rules live in `.claude/rules/video-production.md`
+and the authoring sequence in `/render-lessons` → "Build sequence".
 
 **Folder shape:** `src/` tool code · `tests/` the suite that pins it ·
 `docs/` handoffs and working notes · `logs/` the rolling snag-log and rotated
@@ -31,13 +31,14 @@ syntax error. If you move one, re-derive its `parents[n]` and run
 
 ### 1.1 The idea in one paragraph
 
-Agent judgment is confined to exactly two artifacts: the **refined script**
-(what is said) and the **`scenes.json` plan** (what is shown — beats, template
-per beat, on-frame copy, cue anchor phrases, icons). Everything else is
-compiled or gated by machines: a compiler emits the HTML, a compiler owns every
-timing number, checkers enforce your standing preferences at the moment the
-plan is written, snapshots are vision-reviewed *before* a render is spent, and
-a verifier hashes what actually rendered before anything is published. **State
+Agent judgment is confined to the **refined script** (what is said) and the
+**authored composition** (what is shown — `design.md` concept, the beat
+manifest, the HTML itself). Every number is machine-owned: timings are
+COMPUTED from the synthesized audio (`timing.json`, never hand-tuned),
+checkers enforce your standing preferences from plan stage onward, per-beat
+snapshots are graded on real pixels and vision-reviewed *before* a render is
+spent, and a verifier hashes what actually rendered before anything is
+published. **State
 is the folder** — a script's location *is* its stage; no database tracks it,
 no hook moves it, every transition is a `git mv` performed by a named script,
 and every "where is everything?" question is answered by reading the folders
@@ -62,22 +63,21 @@ Everything downstream of your approval is exit codes.
   │        ▼  /render-lessons BUILD  (cold subagent)    │   │                  │
   │        │                                            │   │                  │
   │   ┌────┴──────────── the authoring loop ─────────┐  │   │                  │
-  │   │  agent authors scenes.json   [ONLY judgment] │  │   │                  │
+  │   │  design.md + beat manifest    [judgment]     │  │   │                  │
   │   │      │                ▲                      │  │   │                  │
-  │   │      ▼                │ fix plan (seconds)   │  │   │                  │
-  │   │  build_index.py ──► index.html  [COMPILED]   │  │   │                  │
-  │   │  preflight --static  [GATES: variety, copy,  │  │   │                  │
-  │   │      │                slots, text, geometry] │  │   │                  │
+  │   │      ▼                │ fix (free, seconds)  │  │   │                  │
+  │   │  preflight --static  [GATES: script-vs-beats,│  │   │                  │
+  │   │      │                copy, forms, pace]     │  │   │                  │
   │   └──────┼── exit 0 ──────────────────────────────┘ │   │                  │
   │          ▼                                          │   │                  │
-  │   synth_narration.py    [HeyGen TTS, cached,        │   │                  │
-  │          │               silence-capped]            │   │                  │
-  │   compile_timeline.py   [owns EVERY number]         │   │                  │
-  │   preflight.py (full)   [+ script-vs-transcript]    │   │                  │
-  │   npm run check         [lint + validate]           │   │                  │
-  │          │                                          │   │                  │
-  │   batch-precheck.sh     [1 snapshot per scene,      │   │                  │
-  │          │               blank-scene flags,         │   │                  │
+  │   audio engine (TTS)    [per-beat wavs, cached]     │   │                  │
+  │   timing.json           [COMPUTED — owns EVERY      │   │                  │
+  │          │               number; FINAL_HOLD floor]  │   │                  │
+  │   author the HTML       [judgment: the composition] │   │                  │
+  │   per-beat snapshots ─► preflight.py (full)         │   │                  │
+  │          │               [+ ink, pace, layout]      │   │                  │
+  │   batch-precheck.sh     [dense snapshot grid,       │   │                  │
+  │          │               freeze + blank flags,      │   │                  │
   │          │               vision review of pixels    │   │                  │
   │          │               — BEFORE the render spend] │   │                  │
   │          ▼                                          │   │                  │
@@ -182,12 +182,13 @@ unpublished, logged in `render-qa/quarantine.log`) and the batch moves on:
 4. Publish refuses to run without a fresh `VERIFIED` marker, re-hashes the
    MP4 against it, and refuses any stem already in `published.tsv` — so
    re-running is always safe, and nothing ships twice.
-5. Your taste, mechanized: Title Case headings, no one-item lists, "and/or"
-   before final list items, max 2 consecutive same-template scenes, ≥6 content
-   forms, no form >40%, artwork coverage, canvas-monotony cap, two-region
-   minimum — all calibrated against your reference video
-   (`what-makes-for-a-dream-job`), and the calibration itself is pinned by
-   tests: **a gate that rejects the reference is a broken gate.**
+5. Your taste, mechanized: Title Case headings, no one-item lists or
+   one-card comparisons, "and/or" before final list items, the pace rules
+   (one idea every ~6s against a persisting carrying object), the pixel
+   bounds bands — calibrated against your owner-verdicted reference cuts,
+   and the calibration itself is pinned by tests: **a gate that rejects the
+   reference is a broken gate.** (The template-family variety thresholds are
+   Conventions since 2026-08-05, pending your call — `decisions/log.md`.)
 
 ### 1.6 Where things live (state IS the folder — nothing narrates it)
 
@@ -209,9 +210,9 @@ reached — cheap probes, no browser, no gate run:
 
 | Stage key | Reported state | What it means |
 |---|---|---|
-| `no-plan` | build folder exists but holds no scene plan | Folder claimed, nothing authored yet |
-| `planned` | scene plan written; narration not yet synthesized | `scenes.json` exists, no narration audio |
-| `uncompiled` / `untimed` | never compiled / timings never applied | Audio exists, the composition is not renderable |
+| `scaffolded` | build folder exists but holds no design | Folder claimed, nothing authored yet |
+| `planned` | design written; narration not yet synthesized | `design.md`/beat manifest exist, no clip wavs |
+| `untimed` | narration synthesized; timings not computed or never applied | Audio exists, the composition is not renderable |
 | `composition` | HyperFrames composition ready to render; no MP4 exists yet | Ready for preflight — this is what "at the gate" looks like |
 | `verified` | MP4 rendered and gate-verified — waiting only on the Wistia upload | Only the upload is left |
 | `quarantined` | a release gate rejected this cut | A guard said no; the workspace keeps `qa/quarantine-reason.txt`, the guard's own transcript |
@@ -266,15 +267,15 @@ holds still. Under the old rule a rebuild restamped its way into a *second*
 workspace, leaving one lesson holding both `..._2026-07-28` and
 `..._2026-07-29`.
 
-### 1.7 Two lanes through the same folders
+### 1.7 One lane through the folders
 
-Same stems, same locks, same state model — different authoring method and a
-different gate policy.
-
-| Lane | How it's authored | Gate policy |
-|---|---|---|
-| **Illustrated · template** (default) | Author `scenes.json`; `build_index.py` compiles the HTML and the compiler owns every timing | Eligible for AUTO-BATCH — one pilot approval covers the queue |
-| **Illustrated · freeform** (`--freeform`, opt-in) | No templates, no `scenes.json`, no compiler — the HTML is the authored artifact. Narration-first: audio is frozen before a pixel is placed | **Never enters AUTO-BATCH.** Every video stops for its own preview while the quality floor is unproven |
+Every video is **freeform (agent-native)**: no templates, no `scenes.json`,
+no compiler — the HTML is the authored artifact, narration-first (audio is
+frozen before a pixel is placed), eligible for AUTO-BATCH under the one pilot
+approval. The template lane — scenes.json compiled against twelve
+design-system templates — was **retired 2026-08-05** after the owner approved
+the freeform `m1_mini-syllabus` trial; its compiler and slot-shaped gates are
+provenance under `render-qa/_archive/` (`decisions/log.md` 2026-08-05).
 
 The talking-head lane that used to be a third row here — `avatar/` and
 `refined/avatar/`, rendered by hand through the HeyGen web UI — was **deleted
@@ -282,10 +283,9 @@ The talking-head lane that used to be a third row here — `avatar/` and
 lesson in this tree is illustrated now, which is why `ready/` has no subfolders
 and there is no render route to infer from a location.
 
-Freeform's reference build — a visual bar plus a working example of every
-artifact — is `experiments/agent-native-m2/`; read its `design.md` and
-`PROVENANCE.md`, never copy its compositions. The measured per-module verdict on
-adopting it more widely is `render-qa/docs/HANDOFF-agent-native-verdict-2026-07-30.md`.
+The reference build — a visual bar plus a working example of every artifact —
+is `experiments/m1-mini-syllabus-freeform-trial/` (the owner-approved
+2026-08-05 cut); read its `design.md`, never copy its compositions.
 
 ### 1.8 Capabilities and costs, plainly
 
@@ -293,11 +293,9 @@ adopting it more widely is `render-qa/docs/HANDOFF-agent-native-verdict-2026-07-
   `/render-lessons`). AUTO-BATCH drains program by program in priority order,
   one pilot approval total, each video published and committed before the next
   starts, so an interruption strands nothing. No batch cap.
-- **Cheap failure:** a variety/copy mistake now costs a 30-line JSON edit
-  caught in milliseconds — not a re-authored video (minutes), a re-synth
-  (TTS credits), or a re-render (7 minutes). Gates fire on every save of
-  `scenes.json` via a hook; the agent literally cannot write a bad plan
-  without being told immediately.
+- **Cheap failure:** a copy/pace mistake costs a manifest edit caught by a
+  free `preflight --static` run at plan stage — not a re-authored video
+  (minutes), a re-synth (TTS credits), or a re-render (7 minutes).
 - **TTS spend** happens once per changed scene (per-scene cache); the voice is
   pinned (Oxana) with no fallback — a credential failure stops loudly rather
   than shipping a wrong voice.
@@ -327,10 +325,10 @@ recognizing again.
    as the *started-build* count. Once the move went to publish-time, that folder
    held only published scripts — mid-career-momentum's 14 built videos counted
    as zero, and every fresh batch there restarted at `summit`. Fixed by moving
-   the rule out of prose entirely: `render-qa/src/theme_for.py <program>` is now
-   the only thing that answers it, counting the union of `published.tsv` rows
-   and live workspaces. Prose that restates a computation will drift from it;
-   prose that cites a script cannot.
+   the rule out of prose entirely into a script that counted the union of
+   `published.tsv` rows and live workspaces (since retired with the template
+   lane's style-package rotation, 2026-08-05). Prose that restates a
+   computation will drift from it; prose that cites a script cannot.
 
 ### 1.10 Last known state (as of 2026-07-31)
 
@@ -378,29 +376,31 @@ this file per-workspace and prefer it over `transcript.json` when present —
 | --- | --- | --- |
 | `synth_narration.py <ws> [--provider heygen\|kokoro]` | after assembling `index.html` | Per-scene TTS: verifies every scene's `data-narration` against the approved script (exact token match, BEFORE any TTS), synthesizes one clip per scene (cached by a hash of provider+voice+speed+text — edits re-synthesize only changed scenes; default provider **heygen**, needs `$HEYGEN_API_KEY` — run under `scripts/with-secrets.sh`), trims clip edge silence, **caps IN-SCENE silence at 0.5s** (`--max-gap`; HeyGen's Oxana pauses 0.98–1.26s mid-scene at sentence/clause boundaries, non-deterministically — audio and picture both die there because the cues derive from the same word timestamps, so the excess samples are excised, faded, and subtracted from that clip's later word times; 2026-07-28), concatenates with REAL boundary gaps (0.3s air + 0.15s lead; 0.45s air after questions), writes `narration.wav` + the sample-exact boundary manifest `assets/voice/scene-times.json` + (heygen path) `assets/voice/narration.words.json`, and deletes stale `transcript.json`/a stale words file from a different provider so a forgotten re-transcribe or a leftover words file fails loudly. |
 | `compile_timeline.py <ws> --apply` | after synth (+ transcribe on the kokoro path) | Manifest mode (default for new builds): scene boundaries come from `scene-times.json`; cue phrases in `data-cue-anchors` resolve against `narration.words.json` (HeyGen) or the whisper transcript (kokoro), whichever exists, inside each scene's manifest window; writes every `data-start`/`data-duration`, numeric cue, `sceneDuration`, audio + root duration. No silence is ever inserted. Legacy mode (no manifest): `data-anchor-end` anchoring + boundary-silence insertion, kept for old workspaces. Idempotent. `--check` = drift detector (exit 1 on any). |
-| `preflight.py <ws> [--script <path>]` | before every render | One-command pre-render gate: compiler drift check + `check_boundaries.py` (independent pacing rules; manifest = ground truth for spoken ends and question flags — transcript word ends can drift into silence) + one-template-file-per-slot (`instance_templates.py --check`) + **compositions/ freshness** (workspace `compositions/*.html` is copied once at init and never refreshed — compares each non-instanced file's `<style>`/`<script>` content against the current `design-system/compositions/` source; a full-file diff would false-positive on every scene because HyperFrames re-serializes HTML on catalog/build, so this hashes just the RAWTEXT blocks that pass through unchanged; instanced clones (`basename__suffix.html`) are skipped — added 2026-07-27, C2) + clip coverage (tile 0→root, no gaps/overlaps) + one-theme-per-video + script fidelity (approved `lesson-scripts/` `.txt` vs `narration.words.json`/whisper transcript, word-level diff — threshold-based because whisper small.en mishears ~1/360 (HeyGen's exact-text words pass well inside the same thresholds): isolated misses PASS with warnings, mismatch rate >2% or ≥4 consecutive missed words FAILs; spelled numbers fold to digits on both sides; script auto-located from the workspace stem or passed via `--script`; missing script = WARN + skip) + **in-scene silence** (no inter-word hole INSIDE a scene above 0.8s; scene-boundary air is excluded via `scene-times.json`, and it reads the whole-file `narration.words.json`, never the per-scene files — those keep the provider's uncompressed pauses. Regression guard for `synth_narration.py`'s 0.5s cap, 2026-07-28). Exit 0 = cleared to render. |
-| `check_text.py <ws>` | inside `preflight.py` (section 7); standalone against `design-system/` to grade the templates | Static on-frame TEXT gate. **size:** every `font-size` rule in `<ws>/compositions/*.html` graded against `design-contract.md`'s `typography.min-size` floors — body ≥32px, label ≥20px — with the class read off the typesetting (`text-transform: uppercase` **and** `letter-spacing` = label furniture, everything else = body copy). Opt a rule out with `/* text-floor-exempt: <reason> */` above it (marker numerals sized by their circle). **restate:** FAILs any `subBeats`/point/step/caption/line whose words are a subset of, or ≥80% overlap with, that scene's own `label`/`heading`/`kicker`/`statement` — a second, smaller copy of a line already on the frame at full size. Both owner calls, 2026-07-27. |
+| `preflight.py <ws> [--script <path>] [--static]` | before every render (`--static` at plan stage, free) | One-command pre-render gate, one lane since 2026-08-05: **timing contract** (every beat timed, timeline covers root, `MIN_FINAL_HOLD` kept) + `check_boundaries.py` per-clip adapter (air, mid-word cuts, final hold on the clip wavs) + **tokens freshness** (the gates read the WORKSPACE's copied `tokens.yml`; drift from the spec hard-fails) + clip coverage (tile 0→root, no gaps/overlaps) + **script fidelity** (the beat manifest — the exact text sent to the TTS engine — vs the approved `lesson-scripts/` `.txt`, word-level diff; threshold-based: isolated normalization flubs PASS with warnings, mismatch rate >2% or ≥4 consecutive missed words FAILs; spelled numbers fold to digits on both sides; a MISSING approved script is a hard FAIL, never a skip) + **pace** (`check_pace.py`: beat-pace / long-beat-share static, carrier-drift + twin-share over `snapshots/`) + copy/continuity/forms/brand/text/title-card + **ink** (`check_ink.py` pixel bounds over one still per beat) + **motion** + **layout** (browser inspector at every beat) + **in-scene silence** (lane-neutral rule; WARNs `no-word-timings` while the per-beat flat-words adapter stays deferred) + **stem**. Exit 0 = cleared to render. |
+| `check_text.py <ws>` | inside `preflight.py` (section 7) | Static on-frame TEXT gate. **size:** every `font-size` rule in `<ws>/compositions/*.html` graded against `tokens.yml`'s `typography.min-size` floors (LOADED via `tokens.py` — body 40px, label 20px) — with the class read off the typesetting (`text-transform: uppercase` **and** `letter-spacing` = label furniture, everything else = body copy). Opt a rule out with `/* text-floor-exempt: <reason> */` above it (marker numerals sized by their circle). **restate:** FAILs any `subBeats`/point/step/caption/line whose words are a subset of, or ≥80% overlap with, that scene's own `label`/`heading`/`kicker`/`statement` — a second, smaller copy of a line already on the frame at full size. Both owner calls, 2026-07-27. |
 | `verify_render.py <ws> [mp4]` | after every render | Container truth (streams/duration/resolution) + presence v2 (blank frames by stddev **and** content pixels, ≥5s stagnation tripwire, audio-vs-video) + writes the shared QA frame evidence: `<ws>/qa/frames/` — 3 full-res stills per scene for the gauntlet lanes and the human gate. Exit 0 before anyone reviews the cut. |
 | `hfp_common.py` | library | Transcript loading, normalized duplicate-safe phrase matching (forward pointer, positional), scene-slot parse/rewrite (incl. `data-narration`), apostrophe-safe attribute JSON. |
 | `tests/run_tests.py` | after editing any tool | 36 adversarial fixtures: duplicate words, missing/unresolvable anchors, cue-count mismatches, unclaimed transcript tails, question air, legacy padding idempotency, `data-hf-id` parsing trap, apostrophe injection, per-scene synth (clip cache, trim, real-silence gaps, stale-artifact hygiene), manifest-mode compile (boundaries, cue windows, idempotency, count mismatch). Must print `36 passed, 0 failed`. |
-| `tests/test_script_match.py` | after editing `preflight.py` | Synthetic fixtures for the script-fidelity gate: clean match, noise-floor mishear (passes with warning), dropped/misread sentence (fails), >2% mismatch rate (fails), dash-compound tokenization, stem-based script location, missing script warn+skip. |
+| `tests/test_script_match.py` | after editing `preflight.py` | Synthetic fixtures for the script-fidelity gate (beat manifest vs approved script): clean match, noise-floor flub (passes with warning), dropped/rewritten sentence (fails), >2% mismatch rate (fails), dash-compound tokenization, stem-based script location, missing script = hard FAIL. |
 
-## 3. The authoring contract (normative copy: `design-system/docs/design-contract.md`)
+## 3. The authoring contract (sequence: `/render-lessons` → "Build sequence")
 
-```html
-<div … data-narration="Ask where you are hiding somewhere. …"
-      data-cue-anchors='{"chipCues":["right job","right major","right city","right path"]}'
-      data-start="0" data-duration="1" …>
-```
+The freeform contract the gates read, in one list:
 
-- `data-narration` — the scene's verbatim span of the ready script (split at
-  sentence ends; HTML-escape inner double quotes as `&quot;`). The
-  concatenation across scenes must equal the script — `synth_narration.py`
-  enforces this exactly, before any TTS.
-- `data-cue-anchors` — one transcript phrase per cue item, in spoken order.
-  On-screen labels may paraphrase; anchors may not. (`subCues` pairs with the
-  pipe-separated `subBeats` variable; other cue lists pair comma-separated.)
-- `data-anchor-end` — legacy only (pre-manifest workspaces). Never author it
-  on a new build.
-- Numbers in `data-start`/`data-duration`/cue variables are compiler-owned.
-  Hand-editing them is a defect: re-run `--apply`.
+- **`audio_request.json`** — the beat manifest: `lines: [{id, text}]`, the
+  ready script **verbatim** (TTS normalizations only). The concatenation
+  across beats must equal the script — `preflight.py`'s `script_match` diffs
+  it, statically and for free, so it fails at plan stage.
+- **`timing.json`** — `{total, rows:[{id, audio_start, audio_dur, vis_start,
+  vis_dur}]}`, COMPUTED from `audio_meta.json` durations. Never hand-tune a
+  number; the tail after the last word keeps the `FINAL_HOLD` floor.
+- **On-frame copy lives in markup, never JS strings.** Headings carry
+  `data-role="heading"` (or are `<h1>`–`<h3>`); declared non-`<ul>` lists
+  carry `data-role="list"`, comparisons `data-role="compare"`. The program
+  display name and lesson title appear on the title card in markup.
+- **Deliberate exceptions are declared where they live** — `/* motion-allow:
+  … */`, `/* brand-allow: … */`, `/* text-floor-exempt: … */`,
+  `data-layout-allow-overlap` — never bought by loosening a gate.
+- **Snapshots:** one still per beat midpoint under `snapshots/` — the pixel
+  bounds gate and the pace gate both grade this grid; fewer stills than beats
+  is a preflight FAIL.

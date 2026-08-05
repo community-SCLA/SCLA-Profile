@@ -12,7 +12,7 @@ exactly nothing, and a career-map card ran straight through the footer on the
 2026-07-28 build.
 
 On 2026-07-29 the file was split: the numbers became `config/tokens.yml` (this
-module's source) and the prose became `docs/design-contract.md`, which no code
+module's source) and the prose became a separate contract doc, which no code
 reads. That split is the point — a human document that is also machine
 load-bearing gets edited by humans and silently breaks gates. The program
 display-name map moved here for the same reason: preflight.py had been parsing
@@ -172,8 +172,11 @@ def safe_area(ws=None) -> float:
     return px(_spacing(ws).get("safe-area"), 72)
 
 
-def footer_reserve(ws=None) -> float:
-    """Height of the bottom band owned by footer chrome. Content stays above."""
+def _footer_reserve(ws=None) -> float:
+    """Height of the bottom band owned by footer chrome. Content stays above.
+    Private: no gate reads it directly since the template lane retired
+    (2026-08-05) — it exists to derive content_bottom(), which the live gates
+    (check_ink, check_fit) do read."""
     return px(_spacing(ws).get("footer-reserve"), 120)
 
 
@@ -182,12 +185,7 @@ def content_bottom(ws=None) -> float:
     declared = _spacing(ws).get("content-bottom")
     if declared is not None:
         return px(declared)
-    return canvas(ws)[1] - footer_reserve(ws)
-
-
-def card_gutter(ws=None) -> float:
-    """Minimum clear air between two bordered cards stacked in one column."""
-    return px(_spacing(ws).get("card-gutter"), 24)
+    return canvas(ws)[1] - _footer_reserve(ws)
 
 
 def palette(ws=None) -> dict:
@@ -297,7 +295,7 @@ def summary(ws=None) -> dict:
         "spacing": {
             "frame_padding": frame_padding(ws),
             "safe_area": safe_area(ws),
-            "footer_reserve": footer_reserve(ws),
+            "footer_reserve": _footer_reserve(ws),
             "content_bottom": content_bottom(ws),
         },
     }

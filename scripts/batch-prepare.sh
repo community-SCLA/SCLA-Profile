@@ -3,20 +3,17 @@
 #
 # Creates renders-hyperframes/_run/ holding:
 #   BUILD-KIT.md   the hot path: command sequence + landmines + scaffold usage,
-#                  extracted VERBATIM from the owning docs (never summarised —
-#                  a lossy paraphrase of a design contract is how brand drift
-#                  starts). It navigates design-contract.md; it does not replace it.
+#                  extracted VERBATIM from the owning docs (never summarised).
 #   scaffold/      a workspace already `hyperframes init`'d at the pinned
-#                  version with compositions/, assets/, the host-root progress
-#                  rail and the <audio> host in place, plus one commented slot
-#                  example. Builds `cp -a` this instead of running init 30 times.
+#                  version with tokens.yml, the vendored Proxima set and the
+#                  brand SVGs in place. Builds `cp -a` this instead of a
+#                  network install per video.
 #
-# Why this exists: each build subagent had been cold-reading the design contract, the
-# pattern exemplar's full index.html and all 12 composition templates —
-# ~25-45k tokens of re-derivation per video. The scaffold removes the exemplar
-# and template reads (real working markup beats reading an example), leaving
-# design-contract.md, which stays mandatory because it is the authoring menu —
-# the templates, icons, style packages and syntax a builder cannot derive.
+# Why this exists: each build subagent had been cold-running `hyperframes init`
+# (a network install) and re-copying the same token/font/brand assets per
+# video. The scaffold does both once per run. The template lane's compositions
+# and its authoring-menu doc retired 2026-08-05 (decisions/log.md) — a freeform
+# build authors its own HTML, so the scaffold ships assets, not templates.
 #
 # _run/ is gitignored and regenerated every run, so unlike a hand-maintained
 # doc it cannot drift out of sync with its sources.
@@ -36,10 +33,10 @@ PIN="$(grep -o 'hyperframes@[0-9.]*' "$DS/package.json" | head -1)"
 [[ "${1:-}" == "--force" ]] && rm -rf "$RUN"
 mkdir -p "$RUN"
 
-# A scaffold built at a different pin (or before a design-system edit) is
+# A scaffold built at a different pin (or before a token/asset edit) is
 # stale — rebuild rather than silently reusing it.
 if [[ -d "$RUN/scaffold" ]]; then
-  DS_SIG="$PIN $(find "$DS/compositions" "$DS/config/tokens.yml" "$DS/docs/design-contract.md" -type f -newer "$RUN/scaffold" 2>/dev/null | wc -l)"
+  DS_SIG="$PIN $(find "$DS/config/tokens.yml" "$DS/assets" -type f -newer "$RUN/scaffold" 2>/dev/null | wc -l)"
   if [[ "$(cat "$RUN/scaffold/.pin" 2>/dev/null)" != "$PIN" || "${DS_SIG#* }" != "0" ]]; then
     echo "== scaffold stale (pin or design-system changed) — rebuilding"
     rm -rf "$RUN/scaffold"
@@ -53,13 +50,13 @@ if [[ ! -d "$RUN/scaffold" ]]; then
       --example=blank --non-interactive ) || {
     echo "FATAL: hyperframes init failed" >&2; exit 1; }
 
-  # tokens.yml is what the GATES read (tokens.py prefers the workspace copy);
-  # design-contract.md is what the BUILDER reads. Split 2026-07-29 — copy both,
-  # or preflight's composition_freshness section reports a missing token file.
+  # tokens.yml is what the GATES read (tokens.py prefers the workspace copy) AND
+  # what the builder designs against — palette, type floors, pinned voice,
+  # program display names. The fonts and brand SVGs are the only other design
+  # inputs a freeform build consumes.
   cp "$DS/config/tokens.yml" "$RUN/scaffold/tokens.yml"
-  cp "$DS/docs/design-contract.md" "$RUN/scaffold/design-contract.md"
-  rm -rf "$RUN/scaffold/compositions"; cp -a "$DS/compositions" "$RUN/scaffold/compositions"
-  rm -rf "$RUN/scaffold/assets";       cp -a "$DS/assets"       "$RUN/scaffold/assets"
+  rm -rf "$RUN/scaffold/assets"; cp -a "$DS/assets" "$RUN/scaffold/assets"
+  mkdir -p "$RUN/scaffold/compositions"
 
   # init writes AGENTS.md and CLAUDE.md that route to the generic hyperframes
   # workflows this pipeline forbids (/produce-video: "never route SCLA lesson
@@ -71,84 +68,8 @@ if [[ ! -d "$RUN/scaffold" ]]; then
   # than correct — a workspace carries no agent instructions of its own.
   rm -f "$RUN/scaffold/AGENTS.md" "$RUN/scaffold/CLAUDE.md"
 
-  # The blank example has no rail and no <audio> host, and every build needs
-  # both. Wiring them here (per design-contract.md "Host-root progress rail") means no
-  # build can forget them, and no subagent has to read another build to copy
-  # the pattern. Colours are tokens.yml's, not restated anywhere else.
-  cat > "$RUN/scaffold/index.html" <<'HTML'
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920, height=1080" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
-      body { font-family: "Inter", sans-serif; }
-      code, pre, .monospace { font-family: "JetBrains Mono", monospace; }
-
-      /* Host-root progress rail — spans the whole runtime, not scene motion.
-         Not a scene clip, so the deterministic gates ignore it. */
-      #hf-rail-track { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #cccedf; opacity: .28; }
-      #hf-rail-fill  { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #eaab2d;
-                       transform-origin: left center; transform: scaleX(0); }
-    </style>
-  </head>
-  <body>
-    <!-- data-duration is COMPILER-OWNED. Leave the placeholder; never type a real number. -->
-    <div id="root" data-composition-id="main" data-start="0" data-duration="10"
-         data-width="1920" data-height="1080">
-
-      <!-- SCENE SLOTS GO HERE — one per beat of the refined script.
-           Copy this shape EXACTLY; every attribute below is load-bearing and
-           each was a real gate failure caught on the 2026-07-28 pilot build:
-
-        <div class="clip" id="scene-01" data-composition-id="scene-01"
-             data-composition-src="compositions/scla-title.html"
-             data-start="0" data-duration="1" data-track-index="1"
-             data-narration="The first sentence of the script, verbatim."
-             data-variable-values='{"eyebrow":"...","title":"...","sceneIndex":"01 / TITLE","theme":"summit","sceneDuration":""}'></div>
-
-           - `data-variable-values` is the ONLY attribute compile_timeline.py
-             reads. Naming it `data-vars` silently yields zero cue resolution.
-           - `data-composition-id` is a hard lint error when missing.
-           - `sceneDuration` must be PRE-DECLARED (even empty) — the compiler
-             updates existing keys, it never adds new ones.
-           - timing numbers here are placeholders; the compiler owns them.
-
-           Where a scene has reveals, add cue anchors quoting phrases verbatim
-           from the transcript:
-             data-cue-anchors='{"chipCues":["exact phrase","another phrase"]}'
-           Available templates: see compositions/ (scla-title, scla-chips,
-           scla-steps, scla-stat, scla-quote, scla-points, scla-statement,
-           scla-loop, scla-morph, scla-condition, scla-career-map, scla-outro).
-      -->
-
-      <div id="hf-rail-track"></div>
-      <div id="hf-rail-fill"></div>
-
-      <!-- id + data-start are REQUIRED. Without them lint warns "audio will be
-           SILENT in renders" — and the render really is silent. -->
-      <audio id="narration-audio" src="assets/voice/narration.wav" data-audio-track data-start="0"></audio>
-    </div>
-
-    <script>
-      window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-
-      // Rail span is read from the compiler-owned data-duration — never hand-typed.
-      const total = parseFloat(document.getElementById("root").dataset.duration) || 0;
-      tl.fromTo("#hf-rail-fill", { scaleX: 0 }, { scaleX: 1, duration: total, ease: "none" }, 0);
-
-      window.__timelines["main"] = tl;
-    </script>
-  </body>
-</html>
-HTML
-
   echo "$PIN" > "$RUN/scaffold/.pin"
-  echo "   scaffold ready ($(du -sh "$RUN/scaffold" | cut -f1)) — rail + audio host wired"
+  echo "   scaffold ready ($(du -sh "$RUN/scaffold" | cut -f1)) — tokens + fonts + brand assets wired"
 else
   echo "== scaffold already present — reusing (use --force to rebuild)"
 fi
@@ -157,18 +78,19 @@ fi
 echo "== writing BUILD-KIT.md"
 {
   cat <<'HDR'
-# BUILD-KIT — read this, then design-contract.md, then your script. Nothing else.
+# BUILD-KIT — read this, then your script. Nothing else.
 
 Generated per run by `scripts/batch-prepare.sh`. Never edit by hand; never
-commit. If this contradicts `.claude/rules/video-production.md`, `design-contract.md`
-or the render-lessons SKILL, THEY WIN — report the contradiction rather than
+commit. If this contradicts `.claude/rules/video-production.md` or the
+render-lessons SKILL, THEY WIN — report the contradiction rather than
 following this file. Where a gate and any prose disagree, the gate is right.
 
 ## Your job
 
-Turn ONE refined script into a gate-clean HyperFrames workspace. You do not
-render. You do not publish. You stop when compile, preflight and check are all
-green, and you report five fields.
+Turn ONE refined script into a gate-clean HyperFrames workspace. You author
+the HTML yourself — there are no templates and no compiler (the template lane
+retired 2026-08-05). You do not render. You do not publish. You stop when the
+gates are green, and you report five fields.
 
 ## Start from the scaffold — do NOT run `hyperframes init`
 
@@ -176,50 +98,40 @@ The workspace is named `<title>_<program>` — the script's name with any date
 suffix stripped. No date. `render-qa/src/stem.py` owns that; never hand-slice a
 suffix. (Dates live on the delivered MP4 only.)
 
-**`mkdir` IS the lock.** Other builds may be running right now against this same
-folder. `mkdir` either creates the directory or fails because someone else got
-there first — that is atomic, and it is the only thing standing between you and
-two agents building the same lesson on top of each other. Never `mkdir -p`, and
-never test-then-create: the gap between the test and the create is the bug.
+**`build-claim.sh` starts every build — there is no other way in.** It takes
+the atomic `mkdir` lock (exactly one of N concurrent subagents wins), arms the
+write fence, opens the build journal, and regenerates `PIPELINE-STATUS.md`:
 
 ```bash
-cd projects/video-production/renders-hyperframes
-WS="$(python3 ../render-qa/src/stem.py base <script-stem>)"   # -> title_program
-mkdir "$WS" || { echo "workspace $WS already claimed — STOP, report, do not build"; exit 1; }
-cp -a _run/scaffold/. "$WS"/     # note the /. — copies CONTENTS into the dir you just claimed
-cd "$WS"
+bash scripts/build-claim.sh <base> <program-slug>   # exits non-zero if claimed
+cd projects/video-production/renders-hyperframes/<base>
+cp -a ../_run/scaffold/. .     # note the /. — copies CONTENTS into the claimed dir
 ```
 
-The trailing `/.` is load-bearing: `cp -a _run/scaffold "$WS"` would nest the
-scaffold *inside* your workspace and every gate would then read stale files.
+The trailing `/.` is load-bearing: without it the scaffold nests *inside* your
+workspace and every gate then reads stale files.
 
-If `mkdir` fails, STOP and report it. Do not delete the other directory, do not
-pick a different name, do not build into it.
+If the claim fails, STOP and report it. Do not delete the other directory, do
+not pick a different name, do not build into it.
 
-The scaffold already has `compositions/`, `assets/`, `design-contract.md`, `tokens.yml` and the pinned
-toolchain. You never touch its `index.html` — you author `scenes.json` and
-`render-qa/src/build_index.py` compiles the markup (boilerplate, progress rail,
-`<audio>` host, template clones included).
+The scaffold has `tokens.yml` (palette, type floors, pinned voice, program
+display names — the gates read the workspace copy), the vendored Proxima
+woff2 set and the brand SVGs under `assets/`, and the pinned toolchain.
 
 ## What to read, in order
 
 1. **This file.**
-2. **`design-contract.md`** (in your workspace) — the authoring menu: what exists
-   and how to reach it. Mandatory sections: *Every scene earns its seconds*,
-   *Authoring contract*, *Illustration over text*, *Craft discipline*,
-   *Scene templates*, *Style packages* for your assigned theme, and
-   *Host-root progress rail*. It restates no gated rule — those are in
-   `.claude/rules/video-production.md`, with every number in `tokens.yml`.
-3. **Your refined script.** Verbatim source for every scene's narration.
+2. **`tokens.yml`** (in your workspace) — every normative number and name.
+3. **Your refined script.** Verbatim source for every beat's narration.
 
-Do not read other builds' `index.html`, the demo reel, or other skills.
+Do not read other builds' `index.html`, archived templates, or other skills.
 
 HDR
 
-  # The authoring landmines and the command sequence are extracted verbatim
-  # from the SKILL rather than restated, so they cannot drift. Marker-bounded:
-  # the old regex anchors matched mid-paragraph text and silently dumped the
-  # whole SKILL (orchestrator phases included) into every builder's context.
+  # The authoring sequence and landmines are extracted verbatim from the SKILL
+  # rather than restated, so they cannot drift. Marker-bounded: the old regex
+  # anchors matched mid-paragraph text and silently dumped the whole SKILL
+  # (orchestrator phases included) into every builder's context.
   KIT_BODY="$(awk '/<!-- BUILD-KIT:BEGIN/,/<!-- BUILD-KIT:END/' "$SKILL" | sed '1d;$d')"
   [[ -n "$KIT_BODY" ]] || { echo "FATAL: BUILD-KIT markers missing from $SKILL" >&2; exit 1; }
   if grep -qE 'Phase (SHIP|AUTO-BATCH)|batch-ship' <<<"$KIT_BODY"; then
@@ -234,112 +146,57 @@ HDR
 Discovered by real pilot builds that passed every static check and still
 produced broken videos. None are optional.
 
-### 1. The build loop — plan first, TTS only when the plan is clean
+### 1. On-screen copy must trace to the narration
 
-If two scenes point at the same `compositions/<name>.html`, **every scene that
-shares a template renders completely blank** — background and footer only, no
-heading, no content. On one pilot that was 18 of 21 scenes. `build_index.py`
-clones shared templates into per-scene files itself — which is one more reason
-`index.html` is never hand-authored: a hand-written file skips the cloning.
-
-```bash
-python3 ../../render-qa/src/build_index.py .                 # scenes.json -> index.html (+ per-scene template clones)
-python3 ../../render-qa/src/preflight.py . --static          # plan gates: variety, copy, slots, text, stem — seconds per loop
-# iterate on scenes.json until --static exits 0, ONLY THEN spend TTS:
-../../../../scripts/with-secrets.sh python3 ../../render-qa/src/synth_narration.py .
-python3 ../../render-qa/src/compile_timeline.py . --apply
-python3 ../../render-qa/src/preflight.py .
-npm run check
-```
-
-Re-run `build_index.py` after ANY `scenes.json` edit — the compiled
-`index.html` and its clones are artifacts, never edited directly.
-
-### 2. Every slot is authored copy or an explicit "" — nothing in between
-
-Each template declares its variables in a JSON schema block at the top of
-`compositions/<name>.html`. Slot defaults are `[[slot-name]]` placeholders: a
-slot you leave out of a scene's variables in `scenes.json` renders its
-placeholder ON SCREEN, and `preflight.py` (`check_slots.py`) fails the build for it — as it
-also fails any slot whose value still IS placeholder text (`[[...]]`, `...`,
-`TODO`).
-
-Before authoring a scene, read the schema block at the top of its template
-(the first ~15 lines — not the whole file) and enumerate its slots. Every
-content slot gets either copy authored from YOUR SCRIPT, or `""` to hide it.
-`sceneDuration`, every `*Cues` slot, and the title card's `meta` are
-compiler-owned: pre-declare them (empty or placeholder value) and never type
-their content yourself.
-
-### 3. On-screen copy must trace to the narration
-
-Headings, labels and points may compress or excerpt the scene's own narration
+Headings, labels and points may compress or excerpt the beat's own narration
 — they must never introduce facts, counts, or sequence claims the narration
 does not say ("two more ways", "step 3 of 5", a stat). When unsure, use the
-narration's own words. Never reuse wording from THIS document or from any
-template's schema block: those are instructions to you, not lesson content.
+narration's own words. Never reuse wording from THIS document: these are
+instructions to you, not lesson content.
 
-### 4. No dead air — an event at least every ~3 seconds
+### 2. Title card is DERIVED — never invent it
 
-After a scene's entrance settles (~1.2s), something visible must keep
-happening on what the narration is saying: the next cued item, a `subBeats`
-live line, an illustration beat. `preflight.py` FAILS any event gap over 4.0s
-and warns over 3.0s. If the narration for a scene has a long span with
-nothing to cue, split the scene at a sentence end or add `subBeats` — never
-stretch a heading over silence.
+The eyebrow is the program display name from tokens.yml's `programs:` map;
+the title is the stem's title segment, hyphens to spaces — never the opening
+narration sentence, never a paraphrase. Both must appear in on-frame MARKUP
+text (chrome built in JS is invisible to every gate). `preflight.py` fails
+both.
 
-### 5. Title card and outro are DERIVED — never invent them
+### 3. Headings stand alone — never a fragment completed by later copy
 
-`eyebrow` = the program display name from tokens.yml's `programs:` map ("Title card & outro
-sources" table. `title` = the stem's title segment, hyphens to spaces,
-sentence case — never the opening narration sentence, never a paraphrase.
-`preflight.py` fails both. Outro: `next` may quote the closing narration;
-`cta` is a short imperative pulled from it; they must not restate each other.
+A heading must read as a complete phrase by itself ("Where people look for
+the answer"), never a fragment that later items finish ("The right" + "The
+right job / The right major" — a real pilot defect that read as truncated
+text on screen). If a beat would show a title plus a large empty area at its
+midpoint, give it a sub-line or tighten the beat.
 
-### 6. Headings stand alone — never a fragment completed by chips or points
+### 4. The freeform contract the gates read
 
-A heading must read as a complete phrase by itself ("Where people look for the
-answer"), never a sentence fragment that later chips finish ("The right" +
-chips "The right job / The right major" — a real pilot defect that read as
-truncated text on screen). Same for morph/step card titles. If a card or
-scene would show a title plus a large empty area at its midpoint, give it a
-sub-line or tighten the scene.
-
-### 7. Enumerated set spread across the lesson -> `scla-condition`, NOT `scla-steps`
-
-`scla-steps` renders nodes `1..N` where N = the count of non-empty step slots,
-and activates them in sequence **within one scene**. It has no notion of "this
-scene is step 3 of 4." So if you give one steps scene a single step, it renders
-a lone node numbered "1" on an empty four-node rail — even when the scene is
-labelled STEP TWO. The pilot did this four times.
-
-Choose by how the narration delivers the set:
-
-- **All items spoken together, one passage** -> ONE `scla-steps` scene with
-  every step slot filled and one `stepCues` entry per step.
-- **Items introduced one at a time, separated by other scenes** ->
-  `scla-condition` per item (number badge + "N of M" progress dots), which is
-  exactly what design-contract.md prescribes: *"Split an enumerated set into one of these
-  per item, not a timed 5-row list."*
-
-Same rule for `scla-loop` (it shares the steps contract).
+On-frame copy lives in **markup, never JS strings**; headings carry
+`data-role="heading"` (or are `<h1>`–`<h3>`); declared lists that are not
+`<ul>`/`<ol>` carry `data-role="list"`, comparisons `data-role="compare"`.
+Deliberate exceptions are declared where they live (`/* motion-allow: … */`,
+`/* brand-allow: … */`, `/* text-floor-exempt: … */`). Colors are
+`tokens.yml colors:` at any alpha; every `font-family` leads with the brand
+face; body text ≥ 40px.
 
 ## Report exactly these five fields, no prose
 
 ```
 workspace: <path>
-scenes:    <n>
-theme:     <summit|horizon|cadence>
-gates:     static=<exit> synth=<exit> compile=<exit> preflight=<exit> check=<exit>
+beats:     <n>
+concept:   <the design.md concept angle, one line>
+gates:     static=<exit> synth=<exit> pace=<exit> preflight=<exit> check=<exit>
 status:    <one line>
 ```
 
 ## Hard rules
 
-- **Never type a timing number.** The compiler owns every number.
+- **Never hand-tune a timing number.** timing.json is COMPUTED from
+  audio_meta.json durations.
 - **Never fabricate SCLA content.** Work only from the refined script.
 - **No FERPA/PII** in any prompt sent to an AI tool.
-- Never call `synth_narration.py` bare — only via `scripts/with-secrets.sh`
+- Never synthesize bare — only via `scripts/with-secrets.sh`
   (the ambient `HEYGEN_API_KEY` is stale and returns 403).
 - Do **not** run `npm run render`. The orchestrator ships.
 FTR

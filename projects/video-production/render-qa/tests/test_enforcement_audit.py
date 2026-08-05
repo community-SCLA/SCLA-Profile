@@ -19,8 +19,9 @@ because a passing check is read as evidence.
      check that did not exist at the time.
   2. PATHISH did not match `.jsonl` (or `.tsv`), so an annotation citing a
      ledger read as "names no mechanism".
-  3. invokers() scanned a fixed six-file list that omitted `hyperframe-guard.sh`
-     and `batch-precheck.sh` — two real gate runners.
+  3. invokers() scanned a fixed six-file list that omitted two real gate
+     runners (the plan-stage guard, retired 2026-08-05, and
+     `batch-precheck.sh`).
   4. invokers() matched a filename ANYWHERE in a caller, comments included, so
      a checker merely mentioned in a comment counted as invoked. This is the
      dangerous direction: it manufactures the false safety the script exists to
@@ -81,8 +82,6 @@ for tok in ("published.tsv", "transcript.jsonl", "preflight.py", "review.sh"):
 tmp = Path(tempfile.mkdtemp(prefix="scla-enf-"))
 (tmp / "scripts").mkdir(parents=True)
 (tmp / "render-qa").mkdir(parents=True)
-(tmp / "scripts/hyperframe-guard.sh").write_text(
-    "#!/bin/sh\npython3 check_only_the_guard_runs.py \"$1\"\n")
 (tmp / "scripts/batch-precheck.sh").write_text(
     "#!/bin/sh\n# we should really run check_nothing_at_all.py here\n"
     "python3 check_only_precheck_runs.py \"$1\"\n")
@@ -93,9 +92,6 @@ try:
 finally:
     ce.REPO, ce.VP = orig_repo, orig_vp
 
-check("hyperframe-guard.sh is scanned as a caller — the plan-stage guard runs "
-      "checkers and its callees are not orphans",
-      "check_only_the_guard_runs.py" in found, str(sorted(found)))
 check("batch-precheck.sh is scanned as a caller",
       "check_only_precheck_runs.py" in found, str(sorted(found)))
 check("a checker named ONLY in a comment does not count as invoked",
@@ -113,7 +109,7 @@ for prose in ("# render-lessons — refined script → hyperframe → (gate) →
 
 # ...while the real annotation forms still are.
 for real, kind in (("*(Mechanism: `preflight.py`)*", "mech"),
-                   ("*(Mechanisms: `check_copy.py`, `check_variety.py`)*", "mech"),
+                   ("*(Mechanisms: `check_copy.py`, `check_forms.py`)*", "mech"),
                    ("*(Gate: `lint-refs.sh` check 10)*", "mech"),
                    ("*(Convention.)*", "conv")):
     m = ce.ANNOTATION.search(real)

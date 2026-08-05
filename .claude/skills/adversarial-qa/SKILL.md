@@ -79,8 +79,9 @@ failing.
 
 ## Failure-class references
 
-- Timing + Presence rules: `projects/video-production/design-system/docs/design-contract.md`
-  → "Scene boundaries, padding & endings" + "Every scene earns its seconds"
-- Layout tokens/bounds: `config/tokens.yml` + "The frame" + "Craft discipline"
+- Timing + Presence rules: `.claude/rules/video-production.md` → "Copy and
+  narration" + "How a gate behaves"
+- Layout tokens/bounds: `design-system/config/tokens.yml` + the rules file's
+  "Layout and geometry" section
 - Facts: `projects/video-production/CLAUDE.md` → "Never fabricate SCLA content";
   the source material named in the request

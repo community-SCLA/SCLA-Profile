@@ -6,10 +6,10 @@ WHY THIS EXISTS. On the template lane `preflight.py` check 6 (`check_pacing`)
 answers "how long does this scene sit with no visual event?" from the compiled
 cue list — arithmetic on the plan, no browser, no render. That gate is SKIPPED
 on the freeform lane and cannot be ported: its input is `data-variable-values`,
-`build_index.py`'s private authoring protocol, and a freeform build's reveals
+the retired compiler's private authoring protocol, and a freeform build's reveals
 live in arbitrary GSAP JS, which this repo has already established cannot be
 scanned reliably (it is why the ripple ban was re-specced as a pixel test,
-PIPELINE-IF-ADOPTED §2). `check_variety` is skipped for the same class of
+PIPELINE-IF-ADOPTED §2). The template-family variety checker retired for the same class of
 reason. Both deferrals named the same compensating control — "owned by the
 per-video human preview" (decisions/log.md 2026-07-30) — and on 2026-07-31 that
 control was measured against a real cut: a human watched
@@ -43,7 +43,7 @@ snapshot dither can never manufacture motion that is not there.
 
 THE TWIN RULE REPORTS, IT DOES NOT BLOCK (STD-38). "These two beats look too
 alike" needs a threshold calibrated against the owner's reference video, the way
-`check_variety`'s thresholds are pinned to `what-makes-for-a-dream-job` — and no
+the retired variety checker's thresholds were pinned to `what-makes-for-a-dream-job` — and no
 clean reference stills exist on disk to calibrate against. Blocking on an
 uncalibrated taste threshold is how a gate starts rejecting good work and gets
 switched off. It warns until someone pins it; the freeze rule blocks today.

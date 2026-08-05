@@ -1,36 +1,39 @@
 # SCLA video design system
 
-The brand-owned illustrated-video system: twelve reusable scene templates, one token
-file, a pinned narration voice, and a demo reel that renders all twelve with real
-lesson content.
+The brand token & asset store for SCLA lesson videos: one token file, the
+vendored brand typeface, the logo SVGs, and the pinned render-CLI version.
+The twelve scene templates and the demo reel retired to `_archive/` on
+2026-08-05 with the template lane (`decisions/log.md`) — nothing renderable
+lives here anymore; every video is authored freeform in its own workspace.
 
 **Agents: read `AGENTS.md`.** This is the human door.
 
 ## The one thing to understand
 
-There are two spec files and they are not interchangeable:
+`config/tokens.yml` is **the numbers**: colors, type scale, minimum text
+sizes, spacing bands, the pinned voice, the program display names, the retired
+names. `render-qa/src/tokens.py` parses it and the gates grade against it —
+change a number here and a gate's verdict changes.
 
-| | |
-|---|---|
-| `config/tokens.yml` | **The numbers.** Colors, type scale, minimum text sizes, spacing, the pinned voice, the program display names. `render-qa/src/tokens.py` parses this and the gates grade against it. Change a number here and a gate's verdict changes. |
-| `docs/design-contract.md` | **The prose.** Animacy rules, pacing, the variety contract, the template table. No code reads it. |
-
-They were one 709-line file called `frame.md` until 2026-07-29. Splitting them was the
-point: a human document that is also machine load-bearing gets edited by humans and
-silently breaks gates — and on more than one occasion its prose *outranked* the owner,
-because the pipeline correctly obeyed the spec and violated the instruction.
-
-If a sentence in the contract disagrees with `tokens.yml`, `tokens.yml` wins and the
-sentence is a bug.
+The gated *rules* (each naming its checker) live in
+`.claude/rules/video-production.md`. A build's own design intent lives in that
+build's `design.md`. There is deliberately no prose spec in this folder: a
+human document that is also machine load-bearing gets edited by humans and
+silently breaks gates — and on more than one occasion the old prose spec
+*outranked* the owner, because the pipeline correctly obeyed the spec and
+violated the instruction.
 
 ## Working here
 
-`npm run check` after **any** composition edit — it runs the framework's own lint plus
-the repo's text, layout and motion gates over the demo reel, so a shared template
-defect is caught once, here, instead of once per video that later uses it.
+Treat any `tokens.yml` edit as a gate edit: run `bash scripts/lint-refs.sh`
+(it runs the render-qa suite) after. Workspaces grade against their own copied
+`tokens.yml`; preflight's freshness section catches drift.
 
-`npm run dev` is a long-running server. Background it.
+`package.json` exists to carry the pinned `hyperframes` version —
+`check_layout.py` reads it and every render runs at it. Bump deliberately,
+never drop.
 
 ## Why this folder isn't shaped like the others
 
-HyperFrames dictates the layout — see `docs/README.md`.
+HyperFrames dictated the layout when this was a renderable project — see
+`docs/README.md` for what that cost and why the shell remains.

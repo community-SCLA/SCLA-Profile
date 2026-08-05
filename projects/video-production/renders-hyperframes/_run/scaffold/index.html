@@ -5,64 +5,54 @@
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
-      body { font-family: "Inter", sans-serif; }
-      code, pre, .monospace { font-family: "JetBrains Mono", monospace; }
-
-      /* Host-root progress rail — spans the whole runtime, not scene motion.
-         Not a scene clip, so the deterministic gates ignore it. */
-      #hf-rail-track { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #cccedf; opacity: .28; }
-      #hf-rail-fill  { position: absolute; left: 0; bottom: 48px; width: 1920px; height: 4px; background: #eaab2d;
-                       transform-origin: left center; transform: scaleX(0); }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      code,
+      pre,
+      .monospace {
+        font-family: "JetBrains Mono", monospace;
+      }
     </style>
   </head>
   <body>
-    <!-- data-duration is COMPILER-OWNED. Leave the placeholder; never type a real number. -->
-    <div id="root" data-composition-id="main" data-start="0" data-duration="10"
-         data-width="1920" data-height="1080">
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1920"
+      data-height="1080"
+    >
+      
+      
 
-      <!-- SCENE SLOTS GO HERE — one per beat of the refined script.
-           Copy this shape EXACTLY; every attribute below is load-bearing and
-           each was a real gate failure caught on the 2026-07-28 pilot build:
-
-        <div class="clip" id="scene-01" data-composition-id="scene-01"
-             data-composition-src="compositions/scla-title.html"
-             data-start="0" data-duration="1" data-track-index="1"
-             data-narration="The first sentence of the script, verbatim."
-             data-variable-values='{"eyebrow":"...","title":"...","sceneIndex":"01 / TITLE","theme":"summit","sceneDuration":""}'></div>
-
-           - `data-variable-values` is the ONLY attribute compile_timeline.py
-             reads. Naming it `data-vars` silently yields zero cue resolution.
-           - `data-composition-id` is a hard lint error when missing.
-           - `sceneDuration` must be PRE-DECLARED (even empty) — the compiler
-             updates existing keys, it never adds new ones.
-           - timing numbers here are placeholders; the compiler owns them.
-
-           Where a scene has reveals, add cue anchors quoting phrases verbatim
-           from the transcript:
-             data-cue-anchors='{"chipCues":["exact phrase","another phrase"]}'
-           Available templates: see compositions/ (scla-title, scla-chips,
-           scla-steps, scla-stat, scla-quote, scla-points, scla-statement,
-           scla-loop, scla-morph, scla-condition, scla-career-map, scla-outro).
+      <!--
+        Add your clips here. Example:
+        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="font-size: 64px; color: #fff; padding: 40px">
+          Hello World
+        </div>
       -->
-
-      <div id="hf-rail-track"></div>
-      <div id="hf-rail-fill"></div>
-
-      <!-- id + data-start are REQUIRED. Without them lint warns "audio will be
-           SILENT in renders" — and the render really is silent. -->
-      <audio id="narration-audio" src="assets/voice/narration.wav" data-audio-track data-start="0"></audio>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-
-      // Rail span is read from the compiler-owned data-duration — never hand-typed.
-      const total = parseFloat(document.getElementById("root").dataset.duration) || 0;
-      tl.fromTo("#hf-rail-fill", { scaleX: 0 }, { scaleX: 1, duration: total, ease: "none" }, 0);
-
+      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
       window.__timelines["main"] = tl;
     </script>
   </body>

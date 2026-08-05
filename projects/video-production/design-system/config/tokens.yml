@@ -31,17 +31,18 @@ typography:
     label: 20 # px. Uppercase + tracked furniture only: eyebrows, scene index, brandline, chips
     exempt: "marker numerals sized by their circle (step node, point marker, card number) — opt out with /* text-floor-exempt: <reason> */ on the rule"
 spacing:
-  # These four are LOADED, not quoted: render-qa/src/tokens.py parses this block and
-  # render-qa/src/check_geometry.py grades every scene against all four, in preflight's
-  # full AND --static modes. Changing a number here changes the gate's verdict —
-  # proven by tests/test_tokens_coverage.py, which fails if any accessor here loses
-  # its non-test consumer, and by preflight's composition_freshness section, which
-  # fails a workspace whose copied design-contract.md declares different numbers.
+  # LOADED, not quoted: render-qa/src/tokens.py parses this block; the pixel
+  # bounds gate (check_ink.py, over per-beat snapshot stills) grades frame-padding,
+  # safe-area and content-bottom, and check_fit.py reads safe-area + content-bottom
+  # for its plan-stage fit question. Changing a number here changes a gate's
+  # verdict — proven by tests/test_tokens_coverage.py, which fails if any accessor
+  # loses its non-test consumer, and by preflight's composition_freshness section,
+  # which fails a workspace whose copied tokens.yml declares different numbers.
   frame-padding: 120 # px. Nominal content inset — the design target for primary content
   safe-area: 72 # px. HARD outer keep-out. No content element's box may cross into the outer 72px on any edge
-  footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). No content element may enter it — content must end above y = canvas_h - 120
+  footer-reserve: 120 # px. Bottom band owned by footer chrome (brandline, scene index, progress rail). Read only to derive content-bottom (tokens.py _footer_reserve)
   content-bottom: 960 # px. Derived: canvas_h - footer-reserve. The lowest y any content element may occupy
-  card-gutter: 24 # px. Minimum clear air between two bordered cards stacked in the same column. Cards grow when their copy wraps; the gutter is what proves the growth had somewhere to go. Added 2026-07-29 after a career-map cut left 26px between one pair of cards and 74px between the other, and the owner read the 26 as touching
+  card-gutter: 24 # px. Minimum clear air between two bordered cards stacked in the same column. CONVENTION since 2026-08-05: its checker retired with the template lane (decisions/log.md); the number stays as the design target. Added 2026-07-29 after the owner read a 26px gap as touching
   radius-card: "12px"
   radius-pill: "100px"
 
@@ -86,7 +87,7 @@ voice:
 # ---------------------------------------------------------------------------
 # Program display names — the title card's `eyebrow` is DERIVED from this map,
 # never authored. Moved out of the prose spec 2026-07-29: preflight.py used to
-# parse this as a markdown table out of design-contract.md, which made a human document
+# parse this as a markdown table out of the old prose spec, which made a human document
 # machine-load-bearing. It is data, so it lives with the data.
 # A display name is NOT free text: it must slugify back to its own key, because
 # the key IS the lesson-scripts folder and the folder IS the program's name.

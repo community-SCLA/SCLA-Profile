@@ -6,7 +6,7 @@
 # the bug classes someone has already met; one cheap look at real pixels catches
 # the ones nobody has met yet.
 #
-# Renders one snapshot per scene at its midpoint (~40s for a 21-scene lesson),
+# Renders a dense uniform snapshot grid across the runtime,
 # then prints a sampled spread of frame paths for a vision subagent to review.
 # Also flags low-ink frames deterministically: a scene that renders only its
 # background and footer compresses far smaller than one carrying real content,
@@ -37,74 +37,40 @@ if [[ $rc -ne 0 ]]; then
 fi
 echo "   preflight exit=0"
 
-# Snapshot times. Two grids, because two questions need different densities:
-#
-#   template lane — one frame per scene midpoint, as it has always been. The
-#     freeze question is answered upstream and for free by preflight check 6
-#     (check_pacing), from the compiled cue list.
-#
-#   freeform lane — check_pacing is SKIPPED there and cannot be ported (its
-#     input is the compiler's private cue protocol). So the grid becomes uniform
-#     and dense enough for check_diversity to measure a freeze: MAX_SAMPLE_GAP,
-#     imported below rather than hand-copied so this comment cannot drift from
-#     the constant again — ~1.5s at STAGNANT_FAIL=6.0 (was ~1.25s at 5.0, raised
-#     BUILD-PLAN A1 2026-08-04). That costs ~100 stills instead of ~5 on a 150s
-#     lesson and is the whole point — on 2026-07-31 a freeform cut passed this
-#     precheck on 5 stills, passed a human preview, and was then blocked
-#     post-render by three 5s+ frozen spans that nothing upstream had been
-#     looking for.
-#
-# sample_units (not parse_scenes) is the beat grid: a freeform clip is an ACT,
-# so per-clip sampling starves every sampler — 26 beats collapse to 5 stills.
-#
-# The lane is decided ONCE, here, and read back as a flag. It was briefly
-# inferred downstream from "more than 5 snapshot times", which every template
-# lesson also satisfies (~27 scenes) — that would have run the dense-grid gate
-# against a sparse per-scene grid and hard-failed the entire template lane on
-# grid-too-sparse. A lane is a fact to be read, never a count to be guessed at.
-FREEFORM="$(WS="$WS" RQ="$VP/render-qa/src" python3 - <<'PY'
+# Snapshot times: a uniform dense grid, MAX_SAMPLE_GAP apart (imported below
+# rather than hand-copied so this comment cannot drift from the constant) —
+# ~1.5s at STAGNANT_FAIL=6.0 (BUILD-PLAN A1, 2026-08-04). ~100 stills on a
+# 150s lesson instead of ~5, and that is the whole point: on 2026-07-31 a cut
+# passed this precheck on 5 stills, passed a human preview, and was then
+# blocked post-render by three 5s+ frozen spans nothing upstream had been
+# looking for. sample_units (not parse_scenes) is the beat grid: a freeform
+# clip is an ACT, so per-clip sampling starves every sampler — 26 beats
+# collapse to 5 stills. (The template lane's sparse per-scene-midpoint grid
+# retired with the lane, 2026-08-05.)
+mapfile -t TIMES < <(WS="$WS" RQ="$VP/render-qa/src" python3 - <<'PY'
 import os, pathlib, sys
 sys.path.insert(0, os.environ["RQ"])
-from hfp_common import parse_scenes
-html = pathlib.Path(os.environ["WS"], "index.html").read_text(
-    encoding="utf-8", errors="replace")
-print("0" if any(s["narration"] is not None for s in parse_scenes(html)) else "1")
-PY
-)"
-[[ "$FREEFORM" == "0" || "$FREEFORM" == "1" ]] \
-  || { echo "PRECHECK_FAIL $STEM could not determine lane" >&2; exit 3; }
-
-mapfile -t TIMES < <(FREEFORM="$FREEFORM" WS="$WS" RQ="$VP/render-qa/src" python3 - <<'PY'
-import os, pathlib, sys
-sys.path.insert(0, os.environ["RQ"])
-from hfp_common import parse_scenes, sample_units
+from hfp_common import sample_units
 from check_diversity import MAX_SAMPLE_GAP
 
 ws = pathlib.Path(os.environ["WS"])
-html = (ws / "index.html").read_text(encoding="utf-8", errors="replace")
 units = sample_units(ws)
-freeform = os.environ["FREEFORM"] == "1"
-
-if not freeform:
+end = max((u["start"] + u["duration"] for u in units), default=0.0)
+# Label every sample with the beat containing it, so check_diversity's
+# twin-beats rule has a beat to group by instead of one "beat" per still.
+def beat_at(t):
     for u in units:
-        print(f"{u['start'] + u['duration'] / 2:.2f}\t{u['id']}")
-else:
-    end = max((u["start"] + u["duration"] for u in units), default=0.0)
-    # Label every sample with the beat containing it, so check_diversity's
-    # twin-beats rule has a beat to group by instead of one "beat" per still.
-    def beat_at(t):
-        for u in units:
-            if u["start"] <= t < u["start"] + u["duration"]:
-                return u["id"]
-        return units[-1]["id"] if units else "s00"
-    # Start half an interval in, not at 0.0: t=0 is the pre-roll frame before
-    # the opening beat has animated anything, so it is legitimately dim and
-    # tripped the LOWINK blank-scene flag on every single freeform run. A flag
-    # that always fires is a flag people learn to skip past.
-    t = MAX_SAMPLE_GAP / 2.0
-    while t < end:
-        print(f"{round(t, 2):.2f}\t{beat_at(t)}")
-        t += MAX_SAMPLE_GAP
+        if u["start"] <= t < u["start"] + u["duration"]:
+            return u["id"]
+    return units[-1]["id"] if units else "s00"
+# Start half an interval in, not at 0.0: t=0 is the pre-roll frame before
+# the opening beat has animated anything, so it is legitimately dim and
+# tripped the LOWINK blank-scene flag on every single freeform run. A flag
+# that always fires is a flag people learn to skip past.
+t = MAX_SAMPLE_GAP / 2.0
+while t < end:
+    print(f"{round(t, 2):.2f}\t{beat_at(t)}")
+    t += MAX_SAMPLE_GAP
 PY
 )
 [[ ${#TIMES[@]} -gt 0 ]] || { echo "PRECHECK_FAIL $STEM no beats found" >&2; exit 3; }
@@ -152,28 +118,24 @@ sizes = [p.stat().st_size for p in pngs]
 med = statistics.median(sizes)
 # A frame under 45% of the median is almost always background + chrome only.
 flagged = [(p, s) for p, s in zip(pngs, sizes) if s < med * 0.45]
-print(f"   ink: median {med//1024}KB across {len(pngs)} scenes")
+print(f"   ink: median {med//1024}KB across {len(pngs)} stills")
 for p, s in flagged:
     print(f"LOWINK {p}  ({s//1024}KB vs median {med//1024}KB) — likely blank scene")
 if not flagged:
     print("   ink: no blank-scene outliers")
 PY
 
-# The freeze gate — the reason the freeform grid is dense. Fatal, and it runs
-# BEFORE the vision handoff so a frozen build never reaches a reviewer's eyes:
+# The freeze gate — the reason the grid is dense. Fatal, and it runs BEFORE
+# the vision handoff so a frozen build never reaches a reviewer's eyes:
 # "did the picture hold perfectly still for five seconds" is a stopwatch
 # measurement, and handing it to a human is what let the 2026-07-31 cut through.
-# Template lane: skipped, because preflight check 6 (check_pacing) owns it from
-# the compiled cue list and a second opinion here would just cost snapshots.
-if [[ "$FREEFORM" == "1" ]]; then
-  echo "== diversity (freeze + monotony, from real pixels)"
-  DIV_OUT="$(python3 "$VP/render-qa/src/check_diversity.py" "$OUT" --ws "$WS" 2>&1)"
-  rc=$?
-  echo "$DIV_OUT" | sed 's/^/   /'
-  if [[ $rc -ne 0 ]]; then
-    echo "PRECHECK_FAIL $STEM check_diversity exit=$rc" >&2
-    exit 3
-  fi
+echo "== diversity (freeze + monotony, from real pixels)"
+DIV_OUT="$(python3 "$VP/render-qa/src/check_diversity.py" "$OUT" --ws "$WS" 2>&1)"
+rc=$?
+echo "$DIV_OUT" | sed 's/^/   /'
+if [[ $rc -ne 0 ]]; then
+  echo "PRECHECK_FAIL $STEM check_diversity exit=$rc" >&2
+  exit 3
 fi
 
 # Sampled spread for the vision reviewer.

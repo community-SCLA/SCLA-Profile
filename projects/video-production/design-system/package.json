@@ -2,10 +2,8 @@
   "name": "design-system",
   "private": true,
   "type": "module",
+  "comment": "Token/asset store since 2026-08-05 (template lane retired) — no renderable compositions live here. This file's remaining job is the hyperframes version pin below: check_layout.py reads it and every render runs at it. Bump deliberately, never drop.",
   "scripts": {
-    "dev": "npx --yes hyperframes@0.7.79 preview",
-    "check": "npx --yes hyperframes@0.7.79 check && python3 ../render-qa/src/check_text.py . && python3 ../render-qa/src/check_layout.py . && python3 ../render-qa/src/check_motion.py .",
-    "render": "npx --yes hyperframes@0.7.79 render",
-    "publish": "npx --yes hyperframes@0.7.79 publish"
+    "pin": "npx --yes hyperframes@0.7.79 --version"
   }
 }
