@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Brand face — vendored woff2, declared once in the HOST head. Sub-comps
+         are cloned INTO this document, so the face resolves for them too. */
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+      }
+      body {
+        font-family: "Proxima Nova", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+
+      /* Full-bleed fill lives on a CHILD, never on the composition root. */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: #0a1e2f;
+      }
+      #bg-glow {
+        position: absolute;
+        left: 960px;
+        top: 620px;
+        width: 1800px;
+        height: 1100px;
+        margin: -550px 0 0 -900px;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(51, 147, 214, 0.15) 0%,
+          rgba(13, 36, 55, 0.5) 44%,
+          rgba(10, 30, 47, 0) 74%
+        );
+        will-change: transform;
+      }
+      #bg-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 50% 50%,
+          rgba(10, 30, 47, 0) 56%,
+          rgba(10, 30, 47, 0.7) 100%
+        );
+      }
+
+      /* Persistent program banner. Sits in the top keep-out band that
+         tokens.yml `chrome-regions` declares by name for label furniture. */
+      #chrome {
+        position: absolute;
+        left: 120px;
+        top: 62px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+      }
+      #chrome-mark {
+        display: block;
+        width: 10px;
+        height: 30px;
+        background: #eaab2d;
+      }
+      #chrome-text {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-knmw" id="root" data-composition-id="main" data-start="0" data-duration="106.627" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-2xc0" id="bg">
+        <div data-hf-id="hf-isbq" id="bg-glow"></div>
+        <div data-hf-id="hf-s60r" id="bg-vignette"></div>
+      </div>
+
+      <div data-hf-id="hf-rwb7" id="chrome">
+        <span data-hf-id="hf-ptn2" id="chrome-mark"></span>
+        <span data-hf-id="hf-oun7" id="chrome-text">Mid-Career Momentum</span>
+      </div>
+
+      <!-- ONE carrying object for the whole runtime: the career track.
+           s01 -> s17, built once, never left. See design.md. -->
+      <div data-hf-id="hf-oq8h" id="el-track" data-composition-id="track" data-composition-src="compositions/track.html" data-start="0" data-duration="106.627" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — HeyGen starfish, Oxana (tokens.yml voice.voice_id).
+           One element per beat at GLOBAL time; every number below is
+           timing.json's, computed by make_timing.py from the real wavs. -->
+      <audio data-hf-id="hf-7jj8" id="vo-s01" src="assets/voice/s01.wav" data-start="0.6" data-duration="2.116" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-8yb4" id="vo-s02" src="assets/voice/s02.wav" data-start="3.266" data-duration="9.273" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-k3oa" id="vo-s03" src="assets/voice/s03.wav" data-start="13.089" data-duration="2.926" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-eilb" id="vo-s04" src="assets/voice/s04.wav" data-start="16.565" data-duration="8.934" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-8czh" id="vo-s05" src="assets/voice/s05.wav" data-start="26.049" data-duration="6.844" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-hhh7" id="vo-s06" src="assets/voice/s06.wav" data-start="33.443" data-duration="10.971" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-uvam" id="vo-s07" src="assets/voice/s07.wav" data-start="44.964" data-duration="5.277" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-f5gk" id="vo-s08" src="assets/voice/s08.wav" data-start="50.791" data-duration="2.482" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ibf6" id="vo-s09" src="assets/voice/s09.wav" data-start="53.823" data-duration="6.113" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-lpid" id="vo-s10" src="assets/voice/s10.wav" data-start="60.486" data-duration="3.291" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-k4v6" id="vo-s11" src="assets/voice/s11.wav" data-start="64.327" data-duration="2.064" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-llzt" id="vo-s12" src="assets/voice/s12.wav" data-start="66.941" data-duration="2.247" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-hq7b" id="vo-s13" src="assets/voice/s13.wav" data-start="69.738" data-duration="8.385" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ypr0" id="vo-s14" src="assets/voice/s14.wav" data-start="78.673" data-duration="7.158" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-lvql" id="vo-s15" src="assets/voice/s15.wav" data-start="86.381" data-duration="7.576" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-s0eq" id="vo-s16" src="assets/voice/s16.wav" data-start="94.507" data-duration="5.851" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-sc5m" id="vo-s17" src="assets/voice/s17.wav" data-start="100.908" data-duration="3.919" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // The banner settles once, then never moves again.
+      tl.fromTo("#chrome", { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+
+      // One shared ambient breath, on the background GLOW only — never on
+      // content. Finite legs (7s half-period x 15 legs = 105s ~= data-duration).
+      tl.fromTo(
+        "#bg-glow",
+        { scale: 1, opacity: 0.92 },
+        { scale: 1.05, opacity: 1, duration: 7, ease: "sine.inOut", yoyo: true, repeat: 14 }, /* motion-allow: background depth-drift on a non-content layer; the design contract sanctions ambient breath on the background glow only */
+        0,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

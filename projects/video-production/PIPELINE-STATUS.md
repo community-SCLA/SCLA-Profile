@@ -48,14 +48,15 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 - **career-building-is-a-repeatable-process_early-career-boost** (early-career-boost) — STALLED: freeform design written; narration not yet synthesized
   - **To clear it:** reclaim the lock, then resume: `bash scripts/build-claim.sh career-building-is-a-repeatable-process_early-career-boost early-career-boost --resume` → `/render-lessons` BUILD career-building-is-a-repeatable-process_early-career-boost. Do NOT delete the workspace — it holds work a rebuild would discard
-- **do-not-just-ask-what-ai-replaces_early-career-boost** (early-career-boost) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
-  - **To clear it:** nothing authored yet, so nothing is lost — discard and rebuild: `rm -rf projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost && /render-lessons BUILD do-not-just-ask-what-ai-replaces_early-career-boost`
+- **m1_mini-syllabus** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
+  - left off after **preflight**, 2 h ago
+  - **To clear it:** run the gate: `bash scripts/build-gate.sh m1_mini-syllabus` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m2_four-kinds-of-career-transition_mid-career-momentum` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - **m3_building-your-future-you-resume-pt1** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m3_building-your-future-you-resume-pt1` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - **m3_from-history-to-signal** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
-  - left off after **preflight**, 56 min ago
+  - left off after **preflight**, 2 h ago
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m3_from-history-to-signal` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - **m3_how-to-reposition-your-career** (mid-career-momentum) — STALLED: HyperFrames composition ready — the gate has not run yet
   - **To clear it:** run the gate: `bash scripts/build-gate.sh m3_how-to-reposition-your-career` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
@@ -85,18 +86,23 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 5. using-the-career-map-tool_early-career-boost
 6. what-energizes-me_early-career-boost
 
+**BUILDING — in flight, no MP4 yet:**
+
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+
+- do-not-just-ask-what-ai-replaces_early-career-boost  (scaffold lane)
+  - state: workspace claimed from the scaffold; no plan and no design authored yet
+  - last written to: 8 min ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: nothing authored yet, so nothing is lost — discard and rebuild: `rm -rf projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost && /render-lessons BUILD do-not-just-ask-what-ai-replaces_early-career-boost`
+
 **STALLED — the build folder stopped moving:**
 
 *Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
 - career-building-is-a-repeatable-process_early-career-boost  (freeform lane)
   - state: freeform design written; narration not yet synthesized
-  - last written to: 4 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 6 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: reclaim the lock, then resume: `bash scripts/build-claim.sh career-building-is-a-repeatable-process_early-career-boost early-career-boost --resume` → `/render-lessons` BUILD career-building-is-a-repeatable-process_early-career-boost. Do NOT delete the workspace — it holds work a rebuild would discard
-- do-not-just-ask-what-ai-replaces_early-career-boost  (scaffold lane)
-  - state: workspace claimed from the scaffold; no plan and no design authored yet
-  - last written to: 4 h ago (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: nothing authored yet, so nothing is lost — discard and rebuild: `rm -rf projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost && /render-lessons BUILD do-not-just-ask-what-ai-replaces_early-career-boost`
 
 ## mid-career-momentum
 
@@ -107,62 +113,57 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 9. m2_the-value-of-building-mid-career-momentum
 10. m3_discover-experiences-that-support-your-next-move
 
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
-
-- m1_mini-syllabus  (template lane)
-  - state: HyperFrames composition ready — the gate has not run yet
-  - left off after **preflight**, just now
-  - next: run the gate: `bash scripts/build-gate.sh m1_mini-syllabus` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
-
 **STALLED — the build folder stopped moving:**
 
 *Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
+- m1_mini-syllabus  (template lane)
+  - state: HyperFrames composition ready — the gate has not run yet
+  - left off after **preflight**, 2 h ago
+  - next: run the gate: `bash scripts/build-gate.sh m1_mini-syllabus` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m2_four-kinds-of-career-transition_mid-career-momentum  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m2_four-kinds-of-career-transition_mid-career-momentum` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_building-your-future-you-resume-pt1  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_building-your-future-you-resume-pt1` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_from-history-to-signal  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - left off after **preflight**, 56 min ago
+  - left off after **preflight**, 2 h ago
   - next: run the gate: `bash scripts/build-gate.sh m3_from-history-to-signal` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_how-to-reposition-your-career  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_how-to-reposition-your-career` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_rewrite-your-linkedin-for-future-you  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_rewrite-your-linkedin-for-future-you` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m3_using-the-resume-builder-tool-pt2  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m3_using-the-resume-builder-tool-pt2` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m4_finding-new-peers-sponsors-and-opportunity-holders  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m4_finding-new-peers-sponsors-and-opportunity-holders` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m4_visibility-actions  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m4_visibility-actions` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m4_who-will-walk-this-next-chapter-with-you  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m4_who-will-walk-this-next-chapter-with-you` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m5_skills-for-the-ai-era  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m5_skills-for-the-ai-era` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 - m6_youve-built-momentum  (template lane)
   - state: HyperFrames composition ready — the gate has not run yet
-  - last written to: 18 h ago (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 19 h ago (no `.build-log.tsv` — this workspace predates the build journal)
   - next: run the gate: `bash scripts/build-gate.sh m6_youve-built-momentum` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
 
 **NEEDS SCRIPT — only you can finish these:**

@@ -1,0 +1,25 @@
+{
+  "provider": "heygen",
+  "lang": "en",
+  "speed": 1.0,
+  "bgm": { "mode": "none" },
+  "lines": [
+    { "id": "s01", "text": "Welcome to Mid-Career Momentum." },
+    { "id": "s02", "text": "You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better." },
+    { "id": "s03", "text": "This track is part of your broader career journey." },
+    { "id": "s04", "text": "Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting." },
+    { "id": "s05", "text": "As you move through the course, you'll see your progress bar update, so you always know exactly where you are and what's ahead." },
+    { "id": "s06", "text": "You'll use a few simple tools in this platform: click-through activities, short reflections, uploads, and a handful of AI-powered prompts that help you analyze your own career story." },
+    { "id": "s07", "text": "If you ever get stuck, you can reach us through the #questionsupport channel or our member support team." },
+    { "id": "s08", "text": "Mid-career can feel complicated." },
+    { "id": "s09", "text": "You may have family responsibilities, leadership expectations, and a full calendar." },
+    { "id": "s10", "text": "And you might be wondering: Should I push for a promotion?" },
+    { "id": "s11", "text": "Redesign my role to fit better?" },
+    { "id": "s12", "text": "Or change lanes entirely?" },
+    { "id": "s13", "text": "Rather than trying to solve everything at once, this track helps you focus on your next realistic move over the next 6 to 12 months." },
+    { "id": "s14", "text": "We'll help you define that move, reposition your experience, and build momentum through small consistent steps." },
+    { "id": "s15", "text": "Before we dive in, I want you to set a simple, powerful commitment: \"Over the next 90 days, my main career goal is...\"" },
+    { "id": "s16", "text": "You'll write and submit that statement in a short activity, and it becomes your anchor for the rest of the track." },
+    { "id": "s17", "text": "When you're ready, click Next to begin." }
+  ]
+}

@@ -4,8 +4,9 @@
 Standing owner rules, every one of them given repeatedly as feedback and none
 previously written anywhere a machine could read (owner, 2026-07-28: "I have
 given preferences that, for whatever reason, have not been recorded down and
-not enforced"). Rules (c) dangling-fragment, (d) retired-name and (e)
-part-reference are documented at their own functions below.
+not enforced"). Rules (c) dangling-fragment, (d) retired-name, (e)
+part-reference and (f) unspoken-symbol are documented at their own functions
+below.
 
   1. HEADINGS ARE TITLE CASE. On-frame headings are headings, not prose. Every
      principal word is capitalised; articles, coordinating conjunctions and
@@ -181,6 +182,45 @@ def part_reference_problems(scenes):
                     f"{sc['id']} '{field}': {m.group(0)!r} is the lesson's "
                     f"filing suffix, not lesson copy — drop it from the "
                     f"rendered words ({text.strip()!r})"))
+    return problems
+
+
+# (f) A SYMBOL IS NOT A WORD. The voice reads narration literally: on the
+# 2026-08-04 freeform trial Oxana read "#questionsupport" as "pound sign
+# questionsupport". Owner, 2026-08-04, on an otherwise approved cut: 'the audio
+# is pronounced "#" as "pound sign" instead of "hashtag"'.
+#
+# The SCRIPT is the narration source of truth, so the spoken form belongs in
+# the script — not in a normalisation step at synthesis. Rewriting the text on
+# its way to HeyGen would hand back word timings ("hashtag", "questionsupport")
+# that no longer match the script tokens `check_freeform_script_match` and the
+# cue anchors diff against, trading a mispronunciation for a gate failure.
+#
+# Graded on NARRATION ONLY. On-frame copy keeps "#questionsupport" — that is
+# the channel's real written name and reads correctly on a slide.
+#
+# Deliberately one symbol. A sweep of all 36 refined scripts found "%" ("by
+# 30%") and "&" in live copy, both of which the voice already speaks correctly;
+# grading those would cost false positives and buy nothing.
+SPOKEN_SYMBOLS = {"#": ("hashtag", "pound sign")}
+
+
+def spoken_symbol_problems(scenes):
+    """(f) A symbol the voice cannot say is a defect in the script."""
+    problems = []
+    for sc in scenes:
+        text = sc.get("narration") or ""
+        for sym, (spoken, misread) in SPOKEN_SYMBOLS.items():
+            if sym not in text:
+                continue
+            m = re.search(r"\S*" + re.escape(sym) + r"\S*", text)
+            token = m.group(0) if m else sym
+            problems.append(Finding(
+                "unspoken-symbol",
+                f"{sc['id']} narration: {token!r} is SPOKEN as {misread!r}, "
+                f"not {spoken!r}. Write the spoken form in the script — "
+                f"{token.replace(sym, spoken + ' ')!r}. On-frame copy keeps "
+                f"the symbol."))
     return problems
 
 
@@ -405,7 +445,8 @@ def check(ws: Path):
     scenes = parse_scenes((ws / "index.html").read_text())
     if scenes and any(s["narration"] is not None for s in scenes):
         return (heading_problems(scenes) + enumeration_problems(scenes)
-                + retired_name_problems(scenes) + part_reference_problems(scenes))
+                + retired_name_problems(scenes) + part_reference_problems(scenes)
+                + spoken_symbol_problems(scenes))
 
     # No data-narration anywhere: either a freeform (agent-native) build whose
     # narration contract is the beat manifest, or a build this gate cannot see.
@@ -425,7 +466,8 @@ def check(ws: Path):
     # Freeform: narration rules on the beats, on-frame rules on the markup.
     problems = (enumeration_problems(beats) + retired_name_problems(beats)
                 + part_reference_problems(beats)
-                + spoken_placeholder_problems(beats))
+                + spoken_placeholder_problems(beats)
+                + spoken_symbol_problems(beats))
     if not beats:
         problems.append(Finding(
             "nothing-graded",
@@ -474,7 +516,8 @@ def check_script(path: Path):
     scenes = [{"id": f"line {i}", "narration": p, "variables": {}}
               for i, p in enumerate(paragraphs, 1)]
     return (enumeration_problems(scenes) + retired_name_problems(scenes)
-            + part_reference_problems(scenes))
+            + part_reference_problems(scenes)
+            + spoken_symbol_problems(scenes))
 
 
 def main() -> int:

@@ -62,7 +62,11 @@ REQUIRED = {
                          "freeform-conjunction", "freeform-retired-name",
                          "freeform-titlecase", "freeform-heading-period",
                          "placeholder", "spoken-placeholder", "no-headings",
-                         "nothing-graded"],
+                         "nothing-graded",
+                         # a symbol the voice reads as its own name — owner
+                         # 2026-08-04, "#" spoken as "pound sign". Graded in
+                         # script mode too, where the fix is a text edit.
+                         "unspoken-symbol", "script-unspoken-symbol"],
     # the pre-render freeze gate (freeform lane) — the same rule check_presence
     # applies to the delivered MP4, run over snapshot stills before the render
     # is spent. twin-beats WARNS by design (STD-38) but must still be proven to

@@ -1,0 +1,11 @@
+{
+  "name": "m1-mini-syllabus-freeform-trial",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.7.79 preview",
+    "check": "npx --yes hyperframes@0.7.79 check",
+    "render": "npx --yes hyperframes@0.7.79 render",
+    "publish": "npx --yes hyperframes@0.7.79 publish"
+  }
+}

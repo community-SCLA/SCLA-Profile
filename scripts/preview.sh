@@ -69,7 +69,7 @@ fi
 # render path does its own blanket sweep before preflight (scripts/batch-ship.sh's
 # pkill "hyperframes preview"), which is what actually keeps a stale Studio out
 # of a render.
-# Bracketed pattern so we never kill this shell (see render-qa/snag-log.md).
+# Bracketed pattern so we never kill this shell (see render-qa/logs/snag-log.md).
 pkill -f "[h]yperframes.* preview --port $PORT" 2>/dev/null || true
 
 if [ -n "${CODESPACE_NAME:-}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}" ]; then

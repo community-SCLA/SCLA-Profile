@@ -283,6 +283,49 @@ check("an ordinary clause opening with 'But' is not dangling",
 
 
 # --------------------------------------------------------------------------
+print("== copy: a symbol the voice reads as its own name (2026-08-04) ==")
+# Owner on an otherwise approved cut: 'the audio is pronounced "#" as "pound
+# sign" instead of "hashtag"'. The channel name reached HeyGen verbatim from
+# three approved scripts, and nothing between the script and the wav could see
+# that a symbol is not a word.
+def symbol_problems(narration):
+    return check_copy.spoken_symbol_problems(
+        [{"id": "s07", "narration": narration, "variables": {}}])
+
+
+hashed = symbol_problems("Reach us through the #questionsupport channel.")
+fires("check_copy", "unspoken-symbol",
+      "a '#' in narration FAILS", any("pound sign" in p for p in hashed),
+      str(hashed))
+check("the finding names the spoken rewrite",
+      any("'hashtag questionsupport'" in p for p in hashed), str(hashed))
+check("the spoken form passes",
+      not symbol_problems("Reach us through the hashtag questionsupport "
+                          "channel."))
+# Symbols the voice already speaks correctly stay out of it — both are live
+# copy in the refined library, and flagging them would retire the rule.
+check("a percentage is not flagged",
+      not symbol_problems("You cut time-to-productivity by 30%."))
+check("an ampersand is not flagged",
+      not symbol_problems("Personal fit & energy."))
+# The rule that matters most is the SCRIPT-mode one: caught there, the fix is a
+# text edit instead of a re-synthesis.
+_sym_script = TMP / "symbol-script.txt"
+_sym_script.parent.mkdir(parents=True, exist_ok=True)
+_sym_script.write_text("If you get stuck, reach us in the #questionsupport "
+                       "channel.\n")
+_script_probs = check_copy.check_script(_sym_script)
+fires("check_copy", "script-unspoken-symbol",
+      "a '#' in a refined script FAILS at refine time",
+      any("pound sign" in p for p in _script_probs), str(_script_probs))
+# On-frame copy keeps the symbol: the channel's written name is "#questionsupport".
+check("the on-frame string is not graded for symbols",
+      not check_copy.spoken_symbol_problems(
+          [{"id": "beat-07", "narration": "",
+            "variables": {"text#1": "The #questionsupport channel"}}]))
+
+
+# --------------------------------------------------------------------------
 print("== geometry: no text may land on other text (scene-19, 2026-07-29) ==")
 # The real numbers from the shipped frame: a 320px caption box at top:855 holding
 # 407px of Proxima 700, wrapping to two lines, against a sub-beat line whose band

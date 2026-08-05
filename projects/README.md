@@ -12,12 +12,11 @@ Human-managed work in progress. **The pipeline does not touch this directory** â
 | `programs/` | Active program development (**not** the KB reference at `../programs/`) |
 | `video-production/` | AI video pipeline (scoped `CLAUDE.md`, script templates, status) |
 
-## Standalone briefs
+## Related standalone briefs (they live outside `projects/`)
 
 | File | What it is |
 |---|---|
-| `drive-review-brief.md` | Google Drive review brief |
-| `kb-integration-plan.md` | Plan: wire `member-support/faqs.md` into Gmail / website / Slack / portal |
+| [`../audits/drive-review-brief.md`](../audits/drive-review-brief.md) | Google Drive review brief |
 
 ## File naming
 

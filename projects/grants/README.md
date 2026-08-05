@@ -13,7 +13,6 @@ Active grant applications, funder research, and award tracking.
 - `context/me.md` — org identity, mission, founding facts
 - `context/goals.md` — mission and success criteria
 - `programs/programs-overview.md` — program names (use these exactly)
-- `member-support/` — FAQs and org facts
 
 ## Status lifecycle
 

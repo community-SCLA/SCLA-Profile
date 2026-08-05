@@ -9,6 +9,22 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-04 — `member-support/` and `partnerships/` deleted
+
+**Decision:** Deleted both folders outright (owner instruction, not archived —
+repo-hygiene default). Removed their two routing rows from root `CLAUDE.md`
+("Member-facing answer" → `member-support/faqs.md`, "Partner org" →
+`partnerships/NIC.md`), the `member-support/faqs.md` critical-file check and
+the `member-support partnerships` directory args in `scripts/lint-refs.sh`
+(checks 5 and 7), the dangling `../member-support/kb-integration-plan.md` row
+in `projects/README.md`, and the `member-support/` bullet in
+`projects/grants/README.md`. Historical mentions in this log, `audits/`,
+`refinement-log.md`, and `render-qa/logs/snag-log.md` are left as record —
+history is not rewritten.
+
+**Why:** owner-directed deletion; no successor location was given for FAQ /
+partner-org content.
+
 ## 2026-08-04 — Owner verdict: gate set approved the rejected cut, quarantined the approved one
 
 **Decision:** the freeform pipeline gains a Pace rule (`render-qa/src/check_pace.py`,

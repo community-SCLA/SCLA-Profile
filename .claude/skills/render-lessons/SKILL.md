@@ -487,7 +487,7 @@ still happens, once, at close-out.
 Drain **program by program**, highest value first, not alphabetically. Each
 video is published and committed before the next starts, so if the session
 dies the top-priority programs are already live. **Priority has one
-definition**: the `PRIORITY` default at `scripts/batch-status.sh:28`, override
+definition**: the `PRIORITY=` default in `scripts/batch-status.sh`, override
 with `VIDEO_PRIORITY="slug-a slug-b …"`. `batch-status.sh` already emits the
 queue in that order, so drain it top to bottom rather than re-deriving it.
 

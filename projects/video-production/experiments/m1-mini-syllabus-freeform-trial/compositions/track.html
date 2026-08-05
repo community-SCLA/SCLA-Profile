@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per-file so this composition is self-contained.
+           Kept in its OWN <style> block: sub-comp CSS is scoped to the
+           data-composition-id, and an at-rule must not be able to take the
+           layout rules down with it. url() resolves against the HOST document,
+           which is where this template gets cloned. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #ffffff;
+        }
+
+        /* ---------------------------------------------------------------
+           THE CARRYING OBJECT — one career track, built in s01, never left.
+           Rail centre line y=620, x 200 -> 1720, five nodes.
+           --------------------------------------------------------------- */
+        .tk-rail-base {
+          position: absolute;
+          left: 200px;
+          top: 619px;
+          width: 1520px;
+          height: 3px;
+          background: rgba(51, 147, 214, 0.55);
+          transform-origin: left center;
+        }
+        .tk-past {
+          position: absolute;
+          left: 200px;
+          top: 616px;
+          width: 760px;
+          height: 6px;
+          background: #eaab2d;
+          transform-origin: left center;
+        }
+        .tk-ahead {
+          position: absolute;
+          left: 960px;
+          top: 617px;
+          width: 760px;
+          height: 5px;
+          opacity: 0;
+          background: repeating-linear-gradient(
+            90deg,
+            rgba(51, 147, 214, 0.85) 0px,
+            rgba(51, 147, 214, 0.85) 14px,
+            rgba(51, 147, 214, 0) 14px,
+            rgba(51, 147, 214, 0) 30px
+          );
+        }
+        .tk-node {
+          position: absolute;
+          top: 607px;
+          width: 26px;
+          height: 26px;
+          border: 4px solid #3393d6;
+          border-radius: 100px;
+          background: #0a1e2f;
+          opacity: 0;
+        }
+        .tk-core {
+          position: absolute;
+          top: 613px;
+          width: 14px;
+          height: 14px;
+          border-radius: 100px;
+          background: #eaab2d;
+          opacity: 0;
+        }
+        .tk-halo {
+          position: absolute;
+          top: 587px;
+          width: 66px;
+          height: 66px;
+          border: 4px solid #eaab2d;
+          border-radius: 100px;
+          opacity: 0;
+        }
+
+        /* ---------------------------------------------------------------
+           HEAD BAND — the beat's words. One slot, mutually exclusive lines.
+           --------------------------------------------------------------- */
+        .tk-title {
+          position: absolute;
+          left: 200px;
+          top: 292px;
+          width: 1520px;
+          font-size: 104px;
+          font-weight: 900;
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+          opacity: 0;
+        }
+        .tk-hd {
+          position: absolute;
+          left: 200px;
+          top: 240px;
+          width: 1520px;
+          font-size: 68px;
+          font-weight: 900;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
+          opacity: 0;
+        }
+        .tk-b1 {
+          position: absolute;
+          left: 200px;
+          top: 380px;
+          width: 1420px;
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.3;
+          color: rgba(255, 255, 255, 0.78);
+          opacity: 0;
+        }
+        .tk-b2 {
+          position: absolute;
+          left: 200px;
+          top: 460px;
+          width: 1420px;
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.3;
+          color: rgba(255, 255, 255, 0.78);
+          opacity: 0;
+        }
+        .tk-quote {
+          position: absolute;
+          left: 200px;
+          top: 372px;
+          width: 1420px;
+          font-size: 52px;
+          font-weight: 700;
+          line-height: 1.22;
+          color: #eaab2d;
+          opacity: 0;
+        }
+        .tk-gold {
+          color: #eaab2d;
+        }
+
+        /* Label furniture — uppercase and tracked, so the 20px label floor
+           applies (tokens.yml typography.min-size). */
+        .tk-lbl {
+          position: absolute;
+          font-size: 26px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          color: rgba(51, 147, 214, 0.95);
+          opacity: 0;
+        }
+        #tk-lbl01 {
+          left: 200px;
+          top: 240px;
+        }
+        /* Width is set so the label sets on ONE line — at 400px it wrapped to
+           two and the second line landed in the 710px row band. */
+        #tk-n3label {
+          left: 700px;
+          top: 655px;
+          width: 520px;
+          text-align: center;
+          color: #eaab2d;
+        }
+        #tk-wlabel {
+          left: 1030px;
+          top: 536px;
+          color: #eaab2d;
+        }
+        #tk-flaglabel {
+          left: 1208px;
+          top: 700px;
+          color: #eaab2d;
+        }
+
+        /* ---------------------------------------------------------------
+           DETAIL BAND — what hangs off the track. Rows at 710/768/826/884.
+           --------------------------------------------------------------- */
+        .tk-list {
+          position: absolute;
+          top: 710px;
+        }
+        .tk-list-left {
+          left: 200px;
+          width: 1300px;
+        }
+        .tk-list-right {
+          left: 1010px;
+          width: 710px;
+        }
+        .tk-row {
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          height: 52px;
+          margin-bottom: 6px;
+          opacity: 0;
+        }
+        .tk-tick {
+          display: block;
+          width: 16px;
+          height: 16px;
+          background: #eaab2d;
+          flex: none;
+        }
+        .tk-tick-open {
+          display: block;
+          width: 16px;
+          height: 16px;
+          border: 3px solid #3393d6;
+          flex: none;
+        }
+        .tk-row-text {
+          font-size: 42px;
+          font-weight: 700;
+          color: #ffffff;
+          white-space: nowrap;
+        }
+
+        /* The 6-to-12-month window, bracketed on the rail. */
+        #tk-window {
+          position: absolute;
+          left: 1030px;
+          top: 574px;
+          width: 470px;
+          height: 26px;
+          border: 3px solid #eaab2d;
+          border-bottom: none;
+          opacity: 0;
+          transform-origin: left bottom;
+        }
+        /* The branch spine the three questions leave the checkpoint on. */
+        #tk-spine {
+          position: absolute;
+          left: 985px;
+          top: 622px;
+          width: 3px;
+          height: 200px;
+          background: rgba(234, 171, 45, 0.7);
+          transform-origin: top center;
+        }
+        /* The 90-day commitment, planted inside the window. */
+        #tk-flagstem {
+          position: absolute;
+          left: 1268px;
+          top: 622px;
+          width: 3px;
+          height: 54px;
+          background: #eaab2d;
+          transform-origin: top center;
+        }
+        #tk-flaghead {
+          position: absolute;
+          left: 1260px;
+          top: 668px;
+          width: 19px;
+          height: 19px;
+          background: #eaab2d;
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-l066" id="root" data-composition-id="track" data-width="1920" data-height="1080">
+        <!-- ---- the track itself ---- -->
+        <div data-hf-id="hf-lz6k" class="tk-rail-base" id="tk-rail"></div>
+        <div data-hf-id="hf-cq9a" class="tk-ahead" id="tk-ahead"></div>
+        <div data-hf-id="hf-wziq" class="tk-past" id="tk-past"></div>
+        <div data-hf-id="hf-voyw" class="tk-node" id="tk-n1" style="left: 187px"></div>
+        <div data-hf-id="hf-ofhp" class="tk-node" id="tk-n2" style="left: 567px"></div>
+        <div data-hf-id="hf-80vi" class="tk-node" id="tk-n3" style="left: 947px"></div>
+        <div data-hf-id="hf-87s0" class="tk-node" id="tk-n4" style="left: 1327px"></div>
+        <div data-hf-id="hf-wug9" class="tk-node" id="tk-n5" style="left: 1707px"></div>
+        <div data-hf-id="hf-chgo" class="tk-halo" id="tk-n3halo" style="left: 927px"></div>
+        <div data-hf-id="hf-e6q0" class="tk-halo" id="tk-n5halo" style="left: 1687px"></div>
+        <div data-hf-id="hf-5jfr" class="tk-core" id="tk-n3core" style="left: 953px"></div>
+        <div data-hf-id="hf-9s18" class="tk-core" id="tk-n5core" style="left: 1713px"></div>
+        <div data-hf-id="hf-aar4" class="tk-lbl" id="tk-n3label">Mid-Career Checkpoint</div>
+
+        <div data-hf-id="hf-7cug" id="tk-spine"></div>
+        <div data-hf-id="hf-wt8j" id="tk-window"></div>
+        <div data-hf-id="hf-zeed" class="tk-lbl" id="tk-wlabel">Next 6–12 Months</div>
+        <div data-hf-id="hf-nlxi" id="tk-flagstem"></div>
+        <div data-hf-id="hf-c583" id="tk-flaghead"></div>
+        <div data-hf-id="hf-9shg" class="tk-lbl" id="tk-flaglabel">Your Anchor</div>
+
+        <!-- ---- s01 — the title card ---- -->
+        <div data-hf-id="hf-xf5q" class="tk-lbl" id="tk-lbl01">Course Introduction</div>
+        <h1 data-hf-id="hf-i8hn" class="tk-title" id="tk-h01">Mini Syllabus</h1>
+
+        <!-- ---- head band ---- -->
+        <h2 data-hf-id="hf-38bz" class="tk-hd" id="tk-h02">You’re Ready for More</h2>
+        <h2 data-hf-id="hf-s8wa" class="tk-hd" id="tk-h03">Your Broader Career Journey</h2>
+        <h2 data-hf-id="hf-8yst" class="tk-hd" id="tk-h04">The Mid-Career Checkpoint</h2>
+        <h2 data-hf-id="hf-gdwz" class="tk-hd" id="tk-h05">Your Progress, Always Visible</h2>
+        <h2 data-hf-id="hf-teh3" class="tk-hd" id="tk-h06">A Few Simple Tools</h2>
+        <h2 data-hf-id="hf-n74o" class="tk-hd" id="tk-h07">If You Ever Get Stuck</h2>
+        <h2 data-hf-id="hf-r4eb" class="tk-hd" id="tk-h08">Mid-Career Can Feel Complicated</h2>
+        <h2 data-hf-id="hf-f0i4" class="tk-hd" id="tk-h10">You Might Be Wondering</h2>
+        <h2 data-hf-id="hf-9qij" class="tk-hd" id="tk-h13">Not Everything at Once</h2>
+        <h2 data-hf-id="hf-zugs" class="tk-hd" id="tk-h15">Set One Commitment</h2>
+        <h2 data-hf-id="hf-jl7s" class="tk-hd tk-gold" id="tk-h17">Click Next to Begin</h2>
+
+        <div data-hf-id="hf-xp42" class="tk-b1" id="tk-b02">You’ve built meaningful experience.</div>
+        <div data-hf-id="hf-18l6" class="tk-b1" id="tk-b04">Pause, reassess, and deliberately choose what comes next.</div>
+        <div data-hf-id="hf-d985" class="tk-b1" id="tk-b05">You always know exactly where you are and what’s ahead.</div>
+        <div data-hf-id="hf-xwjd" class="tk-b1" id="tk-b13">This track helps you focus on your next realistic move.</div>
+        <div data-hf-id="hf-8x8g" class="tk-quote" id="tk-q15">“Over the next 90 days, my main career goal is…”</div>
+        <div data-hf-id="hf-l1kn" class="tk-b2" id="tk-b16">Write and submit it in a short activity.</div>
+
+        <!-- ---- detail band ---- -->
+        <div data-hf-id="hf-fifs" class="tk-list tk-list-left" id="tk-list02" data-role="list">
+          <div data-hf-id="hf-11se" class="tk-row" id="tk-i02a"><span data-hf-id="hf-k73k" class="tk-tick"></span><span data-hf-id="hf-dinw" class="tk-row-text">More impact</span></div>
+          <div data-hf-id="hf-x3od" class="tk-row" id="tk-i02b"><span data-hf-id="hf-e4lk" class="tk-tick"></span><span data-hf-id="hf-sfql" class="tk-row-text">More recognition</span></div>
+          <div data-hf-id="hf-wc0k" class="tk-row" id="tk-i02c"><span data-hf-id="hf-cxoh" class="tk-tick"></span><span data-hf-id="hf-z9js" class="tk-row-text">A role that fits you better</span></div>
+        </div>
+
+        <div data-hf-id="hf-2wfw" class="tk-list tk-list-left" id="tk-list06" data-role="list">
+          <div data-hf-id="hf-nmhu" class="tk-row" id="tk-i06a"><span data-hf-id="hf-rabd" class="tk-tick-open"></span><span data-hf-id="hf-f45q" class="tk-row-text">Click-through activities</span></div>
+          <div data-hf-id="hf-jodt" class="tk-row" id="tk-i06b"><span data-hf-id="hf-8i4t" class="tk-tick-open"></span><span data-hf-id="hf-rw65" class="tk-row-text">Short reflections</span></div>
+          <div data-hf-id="hf-iwq0" class="tk-row" id="tk-i06c"><span data-hf-id="hf-9p1w" class="tk-tick-open"></span><span data-hf-id="hf-lyd7" class="tk-row-text">Uploads</span></div>
+          <div data-hf-id="hf-eylz" class="tk-row" id="tk-i06d"><span data-hf-id="hf-9aqv" class="tk-tick-open"></span><span data-hf-id="hf-uqqj" class="tk-row-text">AI-powered prompts</span></div>
+        </div>
+
+        <div data-hf-id="hf-3o3p" class="tk-list tk-list-left" id="tk-list07" data-role="list">
+          <div data-hf-id="hf-8f7l" class="tk-row" id="tk-i07a"><span data-hf-id="hf-dbzi" class="tk-tick"></span><span data-hf-id="hf-o74l" class="tk-row-text">The #questionsupport channel</span></div>
+          <div data-hf-id="hf-cdbm" class="tk-row" id="tk-i07b"><span data-hf-id="hf-c52f" class="tk-tick"></span><span data-hf-id="hf-4865" class="tk-row-text">Our member support team</span></div>
+        </div>
+
+        <div data-hf-id="hf-yybv" class="tk-list tk-list-left" id="tk-list09" data-role="list">
+          <div data-hf-id="hf-n8xf" class="tk-row" id="tk-i09a"><span data-hf-id="hf-ahny" class="tk-tick-open"></span><span data-hf-id="hf-m4er" class="tk-row-text">Family responsibilities</span></div>
+          <div data-hf-id="hf-el1k" class="tk-row" id="tk-i09b"><span data-hf-id="hf-a3cx" class="tk-tick-open"></span><span data-hf-id="hf-c87v" class="tk-row-text">Leadership expectations</span></div>
+          <div data-hf-id="hf-fcpd" class="tk-row" id="tk-i09c"><span data-hf-id="hf-baa0" class="tk-tick-open"></span><span data-hf-id="hf-osrr" class="tk-row-text">A full calendar</span></div>
+        </div>
+
+        <div data-hf-id="hf-7rpc" class="tk-list tk-list-right" id="tk-forks" data-role="list">
+          <div data-hf-id="hf-zvbl" class="tk-row" id="tk-f1"><span data-hf-id="hf-cjdg" class="tk-tick"></span><span data-hf-id="hf-cudj" class="tk-row-text">Push for a promotion?</span></div>
+          <div data-hf-id="hf-611e" class="tk-row" id="tk-f2"><span data-hf-id="hf-bcgd" class="tk-tick"></span><span data-hf-id="hf-udjv" class="tk-row-text">Redesign my role?</span></div>
+          <div data-hf-id="hf-9z5f" class="tk-row" id="tk-f3"><span data-hf-id="hf-bqre" class="tk-tick"></span><span data-hf-id="hf-oxmb" class="tk-row-text">Change lanes entirely?</span></div>
+        </div>
+
+        <div data-hf-id="hf-fwdq" class="tk-list tk-list-right" id="tk-steps" data-role="list">
+          <div data-hf-id="hf-1vta" class="tk-row" id="tk-s1"><span data-hf-id="hf-gwqr" class="tk-tick"></span><span data-hf-id="hf-un6u" class="tk-row-text">Define that move</span></div>
+          <div data-hf-id="hf-xxp9" class="tk-row" id="tk-s2"><span data-hf-id="hf-hb1s" class="tk-tick"></span><span data-hf-id="hf-gjas" class="tk-row-text">Reposition your experience</span></div>
+          <div data-hf-id="hf-x61g" class="tk-row" id="tk-s3"><span data-hf-id="hf-uxd4" class="tk-tick"></span><span data-hf-id="hf-xlxt" class="tk-row-text">Build momentum</span></div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power3.out";
+          const OUT = "power2.in";
+
+          // Arrivals are binary (set opacity 1) + a whip from below — never a
+          // fade-in. Every time below is absolute and comes from timing.json
+          // (beat starts) or audio_meta.json (the word that earns the reveal).
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.3, ease: OUT }, t);
+          }
+          function node(sel, t) {
+            tl.fromTo(sel, { scale: 0.3, opacity: 0 },
+                      { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(1.6)" }, t);
+          }
+
+          // ---- s01 (0.000) — the track is drawn; the lesson names itself.
+          tl.fromTo("#tk-rail", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: IN }, 0.15);
+          node("#tk-n1", 0.55);
+          node("#tk-n2", 0.65);
+          node("#tk-n3", 0.75);
+          node("#tk-n4", 0.85);
+          node("#tk-n5", 0.95);
+          arrive("#tk-lbl01", 0.45, 24, 0.2);
+          arrive("#tk-h01", 0.80, 72, 0.24);
+
+          // ---- s02 (3.016) — "ready for more": three readings above the track.
+          // Both leave on the SAME y, so the 15px gap between them is preserved
+          // through the exit — at -24 the eyebrow stalled while the title rose
+          // into it and check_layout caught a real overlap at t=3.17s.
+          leave("#tk-h01", 3.02, -46);
+          leave("#tk-lbl01", 3.02, -46);
+          arrive("#tk-h02", 3.40, 66, 0.24);
+          arrive("#tk-b02", 4.54, 40, 0.20);        // "built" 4.64
+          arrive("#tk-i02a", 8.35, 38, 0.16);       // "impact," 8.45
+          arrive("#tk-i02b", 9.31, 38, 0.16);       // "recognition," 9.41
+          arrive("#tk-i02c", 11.47, 38, 0.16);      // "fits" 11.57
+
+          // ---- s03 (12.839) — the track is the journey; it brightens.
+          leave("#tk-h02", 12.84, -44);
+          leave("#tk-b02", 12.84, -28);
+          leave("#tk-list02", 12.84, 24);
+          arrive("#tk-h03", 13.21, 62, 0.22);       // "This" 13.31
+          tl.to("#tk-rail", { opacity: 1, duration: 0.6, ease: "power2.out" }, 14.43);
+
+          // ---- s04 (16.315) — node 3 is named the mid-career checkpoint.
+          leave("#tk-h03", 16.32, -44);
+          arrive("#tk-h04", 16.62, 62, 0.22);       // "Think" 16.72
+          tl.fromTo("#tk-n3halo", { scale: 0.4, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, 18.04);
+          tl.set("#tk-n3core", { opacity: 1 }, 18.12);   // "checkpoint" 18.14
+          arrive("#tk-n3label", 18.60, 18, 0.2);
+          arrive("#tk-b04", 20.64, 38, 0.20);       // "pause," 20.74
+
+          // ---- s05 (25.799) — the travelled rail IS the progress bar.
+          leave("#tk-h04", 25.80, -44);
+          leave("#tk-b04", 25.80, -26);
+          arrive("#tk-h05", 26.11, 62, 0.22);       // "As" 26.21
+          tl.fromTo("#tk-past", { scaleX: 0 },
+                    { scaleX: 1, duration: 1.5, ease: "power2.out" }, 28.29);  // "progress" 28.39
+          arrive("#tk-b05", 30.21, 38, 0.20);       // "always" 30.31
+
+          // ---- s06 (33.193) — four tools hang off the travelled segment.
+          leave("#tk-h05", 33.19, -44);
+          leave("#tk-b05", 33.19, -26);
+          arrive("#tk-h06", 33.52, 62, 0.22);       // "You'll" 33.62
+          arrive("#tk-i06a", 36.48, 36, 0.16);      // "activities," 36.58
+          arrive("#tk-i06b", 37.66, 36, 0.16);      // "reflections," 37.76
+          arrive("#tk-i06c", 38.80, 36, 0.16);      // "uploads," 38.90
+          arrive("#tk-i06d", 41.24, 36, 0.16);      // "prompts" 41.34
+
+          // ---- s07 (44.714) — where support hangs.
+          leave("#tk-h06", 44.71, -44);
+          leave("#tk-list06", 44.71, 22);
+          arrive("#tk-h07", 44.98, 58, 0.22);       // "If" 45.08
+          arrive("#tk-i07a", 47.22, 36, 0.16);      // "#questionsupport" 47.32
+          arrive("#tk-i07b", 49.04, 36, 0.16);      // "member" 49.14
+
+          // ---- s08 (50.541) — the rail past the checkpoint goes uncertain.
+          leave("#tk-h07", 50.54, -44);
+          leave("#tk-list07", 50.54, 22);
+          arrive("#tk-h08", 50.91, 58, 0.22);       // "Mid-career" 51.01
+          tl.to("#tk-ahead", { opacity: 1, duration: 0.6, ease: "power2.out" }, 51.63);
+          tl.to("#tk-n4", { opacity: 0.35, duration: 0.5, ease: "power2.out" }, 51.63);
+          tl.to("#tk-n5", { opacity: 0.35, duration: 0.5, ease: "power2.out" }, 51.73);
+
+          // ---- s09 (53.573) — the constraints, under the same stretch of track.
+          arrive("#tk-i09a", 55.04, 36, 0.16);      // "responsibilities," 55.14
+          arrive("#tk-i09b", 57.04, 36, 0.16);      // "expectations," 57.14
+          arrive("#tk-i09c", 58.96, 36, 0.16);      // "calendar." 59.06
+
+          // ---- s10-s12 (60.236 / 64.077 / 66.691) — three forks off node 3.
+          leave("#tk-list09", 60.24, 22);
+          leave("#tk-h08", 60.30, -44);
+          arrive("#tk-h10", 60.62, 58, 0.22);       // "And" 60.58
+          tl.fromTo("#tk-spine", { scaleY: 0 },
+                    { scaleY: 1, duration: 0.5, ease: IN }, 61.90);
+          arrive("#tk-f1", 62.04, 32, 0.16);        // "Should" 62.14
+          arrive("#tk-f2", 64.47, 32, 0.16);        // "Redesign" 64.57
+          arrive("#tk-f3", 67.00, 32, 0.16);        // "Or" 67.10
+
+          // ---- s13 (69.488) — one window, bracketed just past the checkpoint.
+          leave("#tk-forks", 69.49, 20);
+          tl.to("#tk-spine", { opacity: 0, duration: 0.3, ease: OUT }, 69.49);
+          leave("#tk-h10", 69.55, -44);
+          arrive("#tk-h13", 69.84, 58, 0.22);       // "Rather" 69.94
+          arrive("#tk-b13", 72.80, 38, 0.20);       // "track" 72.92
+          arrive("#tk-wlabel", 76.18, 20, 0.2);     // "next" 76.28
+          tl.fromTo("#tk-window", { scaleX: 0, opacity: 0 },
+                    { scaleX: 1, opacity: 1, duration: 0.6, ease: IN }, 76.72);  // "6" 76.82
+
+          // ---- s14 (78.423) — three steps inside that window.
+          leave("#tk-b13", 78.42, -26);
+          arrive("#tk-s1", 79.27, 32, 0.16);        // "define" 79.37
+          arrive("#tk-s2", 80.59, 32, 0.16);        // "reposition" 80.69
+          arrive("#tk-s3", 82.71, 32, 0.16);        // "momentum" 82.81
+
+          // ---- s15 (86.131) — the commitment is planted on the track.
+          leave("#tk-steps", 86.13, 20);
+          leave("#tk-h13", 86.20, -44);
+          arrive("#tk-h15", 86.48, 58, 0.22);       // "Before" 86.58
+          tl.fromTo("#tk-flagstem", { scaleY: 0 },
+                    { scaleY: 1, duration: 0.4, ease: IN }, 89.66);   // "commitment:" 89.76
+          tl.fromTo("#tk-flaghead", { scale: 0, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 89.98);
+          arrive("#tk-q15", 90.14, 38, 0.22);       // "Over" 90.24
+
+          // ---- s16 (94.257) — that marker becomes the anchor.
+          leave("#tk-h15", 94.26, -44);
+          arrive("#tk-b16", 94.63, 36, 0.20);       // "You'll" 94.73
+          arrive("#tk-flaglabel", 98.55, 18, 0.18); // "anchor" 98.65
+
+          // ---- s17 (100.658) — the far end of the same track.
+          leave("#tk-b16", 100.66, -26);
+          leave("#tk-q15", 100.66, -30);
+          leave("#tk-flaglabel", 100.66, 16);
+          arrive("#tk-h17", 101.05, 58, 0.24);      // "When" 101.05
+          tl.set("#tk-n5core", { opacity: 1 }, 102.19);   // "Next" 102.27
+          tl.fromTo("#tk-n5halo", { scale: 0.4, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, 102.17);
+          tl.to("#tk-n5", { opacity: 1, duration: 0.4, ease: "power2.out" }, 102.17);
+
+          window.__timelines["track"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

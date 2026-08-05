@@ -63,8 +63,7 @@ if [ -n "$HITS" ]; then warn "template placeholders found:"$'\n'"$HITS"; else ok
 echo "[5/14] Critical files present"
 CRITICAL="CLAUDE.md config/endpoints.json scla.config.yml sync.sh .gitignore
 context/me.md decisions/log.md
-brand/visual-identity.md brand/voice-and-tone.md
-member-support/faqs.md"
+brand/visual-identity.md brand/voice-and-tone.md"
 MISSING=0
 for f in $CRITICAL; do
   if [ ! -f "$f" ]; then warn "critical file missing: $f"; MISSING=1; fi
@@ -92,7 +91,7 @@ echo "[7/14] No '_archive/source-of-truth/' routing pointers in live KB"
 #   - decisions/log.md (its history legitimately cites old/archived paths)
 #   - scripts/lint-refs.sh (this file)
 HITS=$(grep -rn "${EXCLUDES[@]}" -e '`_archive/source-of-truth/' \
-         CLAUDE.md brand member-support partnerships projects context 2>/dev/null |
+         CLAUDE.md brand projects context 2>/dev/null |
        filter_archives |
        grep -v "scripts/lint-refs.sh" | grep -v "decisions/log.md" |
        grep -viE '^[^:]*:[0-9]+:[[:space:]]*source:' || true)

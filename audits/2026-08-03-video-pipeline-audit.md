@@ -1,3 +1,31 @@
+> **SUPERSEDED 2026-08-04 — historical record. Do not act on the body below.**
+> Its state descriptions were true on 2026-08-03 and are now wrong: `refined/`/`rendered/`
+> became `inbox/`/`ready/`/`published/`, and the tool blind spots it catalogues are fixed.
+> Kept in `audits/` (not archived — see `.claude/rules/repo-hygiene.md`, no new `_archive/`
+> folders) because three of its items are still open.
+>
+> **Verified walk of its recommendations, 2026-08-04** — each checked against live `HEAD`,
+> not inherited from the commit messages:
+>
+> | Recommendation | Status | Evidence |
+> |---|---|---|
+> | Make `batch-status.sh` freeform-aware | **DONE** | live run emits `(freeform lane)` / `(scaffold lane)` sub-states |
+> | Add a stall detector | **DONE** | 13 `STALLED` rows, each with "left off after **&lt;step&gt;**, N ago" |
+> | Reclaim rule for the `mkdir` lock | **DONE** | STALLED rows print reclaim-vs-discard, and say which loses work |
+> | Scan raws so `BLOCKED` is visible | **DONE** | live run reports `1 raw · 1 NEEDS SCRIPT` |
+> | Delete the commented-out block in `refinement-log.md` | **DONE** | no HTML comments remain in the file |
+> | Delete the Notion doc's competing status model | **DONE** | `docs/notion-queue.md` is retired down to a links-only copy |
+> | Fix the stale `renders-hyperframes/README.md` | **DONE** | re-verified clean 2026-08-04 |
+> | Resolve `rendered/` meaning two things | **DONE** | folders renamed; `published/` = live; `lint-refs.sh` check 13 pins the layout |
+> | Re-point style rotation at started builds | **DONE** | `theme_for.py` counts live workspaces + published rows |
+> | Fix the snag-log path both skills cite | **DONE** | all 3 skills + both scripts now say `render-qa/logs/snag-log.md` |
+> | Give priority order one definition | **DONE** | `PRIORITY=` in `batch-status.sh`; the skill's prose rule now defers to it |
+> | Owner call — the `..._freeform-backup` reference cut | **DONE** | registered at `renders-hyperframes/_reference/` with a README |
+> | Owner call — the HeyGen avatar lane | **DONE** | lane deleted (`2e2cff0`); no `avatar/` directory survives |
+> | Clear `quarantine.log` rows on publish | **OPEN** | still 2 rows, both naming lessons that later published |
+> | Watchdog on build subagents | **OPEN** | no idle-kill/retry rule in `render-lessons/SKILL.md` |
+> | Owner call — `m4_visibility-actions` build-vs-scrap | **OPEN** | workspace still on disk; its raw is still marked SCRIPT PENDING |
+
 1. Lesson script tree — projects/video-production/lesson-scripts/
 Four program directories (the ledger also names career-readiness-accelerator and scla-leadership-program as "No scripts yet" — neither directory exists).
 
