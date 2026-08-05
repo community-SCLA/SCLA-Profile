@@ -4,8 +4,8 @@
 
 ## Where everything stands
 
-- **3** — **live on Wistia.** Done; links in the *Delivered* table below.
-- **36** — **ready to build.** Script approved; nothing made yet.
+- **4** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **35** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
@@ -40,6 +40,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 | Lesson | Program | Rendered | Watch | Local MP4 |
 |---|---|---|---|---|
+| career-building-is-a-repeatable-process_early-career-boost | early-career-boost | 2026-08-05 | [cnj1463xuw](https://sclc.wistia.com/medias/cnj1463xuw) | `renders-mp4/early-career-boost/career-building-is-a-repeatable-process_early-career-boost_2026-08-05.mp4` |
 | build-direction-before-you-build-a-plan_early-career-boost | early-career-boost | 2026-08-04 | [v2gnkvdcbc](https://sclc.wistia.com/medias/v2gnkvdcbc) | `renders-mp4/early-career-boost/build-direction-before-you-build-a-plan_early-career-boost_2026-08-04.mp4` |
 | better-decisions-come-from-better-criteria_early-career-boost | early-career-boost | 2026-07-29 | [t6cathsymi](https://sclc.wistia.com/medias/t6cathsymi) | `renders-mp4/early-career-boost/better-decisions-come-from-better-criteria_early-career-boost_2026-07-29.mp4` |
 | what-makes-for-a-dream-job_early-career-boost | early-career-boost | 2026-07-17 | [gryylc7qns](https://sclc.wistia.com/medias/gryylc7qns) | `renders-mp4/early-career-boost/what-makes-for-a-dream-job_early-career-boost_2026-07-17.mp4` |
@@ -48,35 +49,34 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-1. career-building-is-a-repeatable-process_early-career-boost
-2. do-not-just-ask-what-ai-replaces_early-career-boost
-3. finding-creating-a-career-purpose-statement_early-career-boost
-4. how-to-make-strong-career-decisions_early-career-boost
-5. mini-syllabus_early-career-boost
-6. skills-for-the-ai-era-future_early-career-boost
-7. using-the-career-map-tool_early-career-boost
-8. what-energizes-me_early-career-boost
+1. do-not-just-ask-what-ai-replaces_early-career-boost
+2. finding-creating-a-career-purpose-statement_early-career-boost
+3. how-to-make-strong-career-decisions_early-career-boost
+4. mini-syllabus_early-career-boost
+5. skills-for-the-ai-era-future_early-career-boost
+6. using-the-career-map-tool_early-career-boost
+7. what-energizes-me_early-career-boost
 
 ## mid-career-momentum
 
 **READY — queued to build:**
 
-9. m0_welcome-to-mid-career-momentum
-10. m1_mini-syllabus
-11. m2_four-kinds-of-career-transition_mid-career-momentum
-12. m2_mid-career-mindsets-and-limiting-beliefs
-13. m2_the-value-of-building-mid-career-momentum
-14. m3_building-your-future-you-resume-pt1
-15. m3_discover-experiences-that-support-your-next-move
-16. m3_from-history-to-signal
-17. m3_how-to-reposition-your-career
-18. m3_rewrite-your-linkedin-for-future-you
-19. m3_using-the-resume-builder-tool-pt2
-20. m4_finding-new-peers-sponsors-and-opportunity-holders
-21. m4_visibility-actions
-22. m4_who-will-walk-this-next-chapter-with-you
-23. m5_skills-for-the-ai-era
-24. m6_youve-built-momentum
+8. m0_welcome-to-mid-career-momentum
+9. m1_mini-syllabus
+10. m2_four-kinds-of-career-transition_mid-career-momentum
+11. m2_mid-career-mindsets-and-limiting-beliefs
+12. m2_the-value-of-building-mid-career-momentum
+13. m3_building-your-future-you-resume-pt1
+14. m3_discover-experiences-that-support-your-next-move
+15. m3_from-history-to-signal
+16. m3_how-to-reposition-your-career
+17. m3_rewrite-your-linkedin-for-future-you
+18. m3_using-the-resume-builder-tool-pt2
+19. m4_finding-new-peers-sponsors-and-opportunity-holders
+20. m4_visibility-actions
+21. m4_who-will-walk-this-next-chapter-with-you
+22. m5_skills-for-the-ai-era
+23. m6_youve-built-momentum
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -90,23 +90,23 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-25. m2_four-kinds-of-career-transition_career-transitions
-26. m2_welcome-and-using-career-transitions-as-leaps-ahead
-27. m3_the-identity-audit
-28. m3_the-two-sided-work
-29. m4_building-your-carry-forward-inventory
-30. m5_testing-your-next-chapter
-31. m5_the-story-that-makes-the-change-legible
-32. m7_your-reinvention-roadmap
+24. m2_four-kinds-of-career-transition_career-transitions
+25. m2_welcome-and-using-career-transitions-as-leaps-ahead
+26. m3_the-identity-audit
+27. m3_the-two-sided-work
+28. m4_building-your-carry-forward-inventory
+29. m5_testing-your-next-chapter
+30. m5_the-story-that-makes-the-change-legible
+31. m7_your-reinvention-roadmap
 
 ## entrepreneur-accelerator
 
 **READY — queued to build:**
 
-33. m1_reframing-entrepreneurship-and-going-solo
-34. m3_choosing-your-solo-model
-35. m4_building-visibility-on-your-own
-36. m5_making-solo-work-sustainable
+32. m1_reframing-entrepreneurship-and-going-solo
+33. m3_choosing-your-solo-model
+34. m4_building-visibility-on-your-own
+35. m5_making-solo-work-sustainable
 
 **RAW — waiting on refinement:**
 
