@@ -4,15 +4,15 @@
 
 ## Where everything stands
 
-- **7** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **8** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **27** — **ready to build.** Script approved; nothing made yet.
-- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
-- **1** — **approved to render.** Gate-clean and covered by the active batch pilot approval.
+- **0** — **approved to render.** Gate-clean and covered by the active batch pilot approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **2** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **1** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **2** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -45,6 +45,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | finding-creating-a-career-purpose-statement_early-career-boost | early-career-boost | 2026-08-05 | [0szz79g9m7](https://sclc.wistia.com/medias/0szz79g9m7) | `renders-mp4/early-career-boost/finding-creating-a-career-purpose-statement_early-career-boost_2026-08-05.mp4` |
 | how-to-make-strong-career-decisions_early-career-boost | early-career-boost | 2026-08-05 | [u54hifguqf](https://sclc.wistia.com/medias/u54hifguqf) | `renders-mp4/early-career-boost/how-to-make-strong-career-decisions_early-career-boost_2026-08-05.mp4` |
 | what-energizes-me_early-career-boost | early-career-boost | 2026-08-05 | [0lbi1p8due](https://sclc.wistia.com/medias/0lbi1p8due) | `renders-mp4/early-career-boost/what-energizes-me_early-career-boost_2026-08-05.mp4` |
+| skills-for-the-ai-era-future_early-career-boost | early-career-boost | 2026-08-05 | [r21mwmy2tn](https://sclc.wistia.com/medias/r21mwmy2tn) | `renders-mp4/early-career-boost/skills-for-the-ai-era-future_early-career-boost_2026-08-05.mp4` |
 | build-direction-before-you-build-a-plan_early-career-boost | early-career-boost | 2026-08-04 | [v2gnkvdcbc](https://sclc.wistia.com/medias/v2gnkvdcbc) | `renders-mp4/early-career-boost/build-direction-before-you-build-a-plan_early-career-boost_2026-08-04.mp4` |
 | better-decisions-come-from-better-criteria_early-career-boost | early-career-boost | 2026-07-29 | [t6cathsymi](https://sclc.wistia.com/medias/t6cathsymi) | `renders-mp4/early-career-boost/better-decisions-come-from-better-criteria_early-career-boost_2026-07-29.mp4` |
 | what-makes-for-a-dream-job_early-career-boost | early-career-boost | 2026-07-17 | [gryylc7qns](https://sclc.wistia.com/medias/gryylc7qns) | `renders-mp4/early-career-boost/what-makes-for-a-dream-job_early-career-boost_2026-07-17.mp4` |
@@ -57,31 +58,19 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **mini-syllabus_early-career-boost** (early-career-boost) — REJECTED: a release gate rejected this cut — cloud render failed or timed out
   - last completed **preflight** at 2026-08-05 16:41 UTC
   - **To clear it:** inspect cloud credentials/backend, then use run.sh retry after the path is corrected
-- **using-the-career-map-tool_early-career-boost** (early-career-boost) — STALLED: freeform composition timed and ready — the gate has not run yet
-  - last completed **release** at 2026-08-05 20:31 UTC
-  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only using-the-career-map-tool_early-career-boost. Do not delete the workspace
 - **m0_welcome-to-mid-career-momentum** (mid-career-momentum) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
   - last completed **release** at 2026-08-05 20:31 UTC
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
 
 ## early-career-boost
 
-**APPROVED — gate-clean, ready to render:**
+**BUILDING — in flight, no MP4 yet:**
 
-*The active batch pilot approval already covers this video.*
-
-- skills-for-the-ai-era-future_early-career-boost
-  - state: gate-clean; the active batch pilot is approved
-  - last completed **release** at 2026-08-05 20:31 UTC
-  - next: render it: `bash projects/video-production/run.sh ship skills-for-the-ai-era-future_early-career-boost`
-
-**STALLED — the build folder stopped moving:**
-
-*Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
 - using-the-career-map-tool_early-career-boost
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **release** at 2026-08-05 20:31 UTC
+  - last completed **preflight** at 2026-08-05 22:56 UTC
   - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only using-the-career-map-tool_early-career-boost. Do not delete the workspace
 
 **REJECTED — a gate refused this cut:**
