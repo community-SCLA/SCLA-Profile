@@ -6,8 +6,8 @@
 
 - **3** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **35** — **ready to build.** Script approved; nothing made yet.
-- **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
+- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **1** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
@@ -56,14 +56,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 6. using-the-career-map-tool_early-career-boost
 7. what-energizes-me_early-career-boost
 
-**BUILDING — in flight, no MP4 yet:**
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*The pilot gate. Watch it, then reply `ship <stem>`.*
 
 - career-building-is-a-repeatable-process_early-career-boost
-  - state: freeform design written; narration not yet synthesized
-  - left off after **resume**, just now
-  - next: reclaim the lock, then resume: `bash scripts/build-claim.sh career-building-is-a-repeatable-process_early-career-boost early-career-boost --resume` → `/render-lessons` BUILD career-building-is-a-repeatable-process_early-career-boost. Do NOT delete the workspace — it holds work a rebuild would discard
+  - state: gate-clean and waiting on your eyes — no MP4 yet
+  - left off after **release**, just now
+  - next: watch it, then ship: `bash scripts/preview.sh career-building-is-a-repeatable-process_early-career-boost` → `ship career-building-is-a-repeatable-process_early-career-boost`
 
 ## mid-career-momentum
 

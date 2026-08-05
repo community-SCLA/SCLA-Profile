@@ -38,6 +38,59 @@ changes: only the latest entry in THIS file is current state.
 structure decisions now land in `decisions/log.md`. Handoff docs live in `docs/`.
 
 
+## 2026-08-05 — the template lane retires, the board clears, and the pilot waits at the gate
+
+**Open — owner-actionable only.**
+- **`m0_welcome-to-mid-career-momentum` names a support channel that may not
+  exist.** Line 5 sends the learner to "hashtag questionsupport"; the doc that
+  would verify the channel name (`member-support/community-platform.md`) was
+  deleted 2026-08-04, so there is now nothing to check against. Confirm the
+  real channel name, fix the line, delete the `SCRIPT PENDING` marker.
+  *(since 2026-08-04)*
+- **`m4_visibility-actions-what-they-are-and-how-to-practice-them` has never
+  had a script.** Body byte-identical to `m4_who-will-walk-…`; never defines a
+  visibility action. Supply the real narration. *(since 2026-07-22)*
+- **`m2_why-build-your-own-path` (entrepreneur-accelerator) is byte-identical
+  to the already-refined m1 script.** The dashboard lists M1 and M2 as
+  distinct videos over one capture. Supply a distinct M2 script, or confirm
+  the two modules intentionally share one video. *(since 2026-07-24,
+  re-confirmed today at /refine-scripts)*
+- **The freeform variety contract needs your call.** Retiring the template
+  lane demoted "max 2 consecutive on one family", "≥6 distinct forms" and
+  "no form above 40%" to Conventions with no checker; `carrier-drift`
+  actively rewards one persisting object. Your pilot review doubles as the
+  visual-variety check until this is decided (decisions/log.md 2026-08-05,
+  open item 1). *(since 2026-08-05)*
+
+*Two items from 2026-08-04 close here.* "Variety floor vs. the icon ban":
+its rules (`check_variety` artwork coverage) retired with the template lane;
+the surviving decision is the variety-contract item above. "Remaining script
+rewrites need re-synthesis": those template workspaces were deleted with the
+lane — every rebuild is a fresh freeform synthesis from the (already-fixed)
+`ready/` scripts, so there is nothing left to patch.
+
+**Fixed this session.**
+- `[authoring]` **The template lane retired as one commit and CI stayed
+  green** (2f40618) — preflight collapsed to one lane, 8 modules + 3 tests +
+  the guard hook archived, 10 test files rewired, 13 broken rule claims
+  rewritten, board cleared to 0 stalled (66696d3). Full trail in
+  `decisions/log.md` 2026-08-05 "The template lane is retired". (~1 session)
+- `[defect]` **The approved freeform trial's beat manifest still carried
+  `#questionsupport`** — the script was fixed to the spoken form on 2026-08-05
+  but the trial's `audio_request.json` predated it, failing the new
+  `unspoken-symbol` gate. Manifest updated to "hashtag questionsupport";
+  full preflight on the trial now passes every content gate. (minutes)
+- `[tooling]` **Pilot synthesis hit 7 transient HeyGen failures, all
+  recovered on retry** by the build subagent; 37/37 clips landed. No action
+  needed unless the rate climbs. (absorbed in build time)
+
+**Promoted to docs.** Everything durable went to its owning doc in-session:
+the retirement decision + 3 open gaps → `decisions/log.md`; the rewritten
+rule set → `.claude/rules/video-production.md`; the freeform build sequence →
+`/render-lessons` (BUILD-KIT extracts from it); the wire-contract lesson →
+`tests/test_preflight_contract.py`.
+
+
 ## 2026-08-04 — one honest status: the folders get their real names, and the fence stops fencing the owner
 
 **Open — owner-actionable only.**
