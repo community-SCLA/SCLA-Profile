@@ -1,0 +1,131 @@
+{
+ "total": 97.434,
+ "rows": [
+  {
+   "id": "s01",
+   "audio_start": 0.6,
+   "audio_dur": 2.194,
+   "vis_start": 0.0,
+   "vis_dur": 3.194
+  },
+  {
+   "id": "s02",
+   "audio_start": 3.444,
+   "audio_dur": 1.541,
+   "vis_start": 3.194,
+   "vis_dur": 2.191
+  },
+  {
+   "id": "s03",
+   "audio_start": 5.635,
+   "audio_dur": 7.236,
+   "vis_start": 5.385,
+   "vis_dur": 7.886
+  },
+  {
+   "id": "s04",
+   "audio_start": 13.521,
+   "audio_dur": 4.624,
+   "vis_start": 13.271,
+   "vis_dur": 5.274
+  },
+  {
+   "id": "s05",
+   "audio_start": 18.795,
+   "audio_dur": 6.243,
+   "vis_start": 18.545,
+   "vis_dur": 6.893
+  },
+  {
+   "id": "s06",
+   "audio_start": 25.688,
+   "audio_dur": 4.885,
+   "vis_start": 25.438,
+   "vis_dur": 5.535
+  },
+  {
+   "id": "s07",
+   "audio_start": 31.223,
+   "audio_dur": 3.944,
+   "vis_start": 30.973,
+   "vis_dur": 4.594
+  },
+  {
+   "id": "s08",
+   "audio_start": 35.817,
+   "audio_dur": 6.165,
+   "vis_start": 35.567,
+   "vis_dur": 6.815
+  },
+  {
+   "id": "s09",
+   "audio_start": 42.632,
+   "audio_dur": 2.038,
+   "vis_start": 42.382,
+   "vis_dur": 2.688
+  },
+  {
+   "id": "s10",
+   "audio_start": 45.32,
+   "audio_dur": 3.265,
+   "vis_start": 45.07,
+   "vis_dur": 3.915
+  },
+  {
+   "id": "s11",
+   "audio_start": 49.235,
+   "audio_dur": 5.355,
+   "vis_start": 48.985,
+   "vis_dur": 6.005
+  },
+  {
+   "id": "s12",
+   "audio_start": 55.24,
+   "audio_dur": 4.153,
+   "vis_start": 54.99,
+   "vis_dur": 4.803
+  },
+  {
+   "id": "s13",
+   "audio_start": 60.043,
+   "audio_dur": 2.743,
+   "vis_start": 59.793,
+   "vis_dur": 3.393
+  },
+  {
+   "id": "s14",
+   "audio_start": 63.436,
+   "audio_dur": 5.695,
+   "vis_start": 63.186,
+   "vis_dur": 6.345
+  },
+  {
+   "id": "s15",
+   "audio_start": 69.781,
+   "audio_dur": 7.471,
+   "vis_start": 69.531,
+   "vis_dur": 8.121
+  },
+  {
+   "id": "s16",
+   "audio_start": 77.902,
+   "audio_dur": 2.403,
+   "vis_start": 77.652,
+   "vis_dur": 3.053
+  },
+  {
+   "id": "s17",
+   "audio_start": 80.955,
+   "audio_dur": 5.59,
+   "vis_start": 80.705,
+   "vis_dur": 6.24
+  },
+  {
+   "id": "s18",
+   "audio_start": 87.195,
+   "audio_dur": 8.439,
+   "vis_start": 86.945,
+   "vis_dur": 10.489
+  }
+ ]
+}

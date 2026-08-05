@@ -1,0 +1,78 @@
+{
+  "provider": "heygen",
+  "lang": "en",
+  "speed": 1.0,
+  "bgm": {
+    "mode": "none"
+  },
+  "lines": [
+    {
+      "id": "s01",
+      "text": "When people are just starting out, it is easy to think a career begins with a title: intern, analyst, coordinator, assistant, or associate. But titles are only labels."
+    },
+    {
+      "id": "s02",
+      "text": "They do not tell the whole story of how you work, what you care about, or where you create value."
+    },
+    {
+      "id": "s03",
+      "text": "Before you make strong career decisions, it helps to understand who you are before the title."
+    },
+    {
+      "id": "s04",
+      "text": "That means paying attention to your patterns. Think about recent experiences — from school, part-time work, internships, student organizations, volunteering, or personal projects."
+    },
+    {
+      "id": "s05",
+      "text": "Where did you feel engaged, capable, useful, or proud of the outcome?"
+    },
+    {
+      "id": "s06",
+      "text": "These moments matter because they often reveal more than formal credentials do. They show how you naturally contribute."
+    },
+    {
+      "id": "s07",
+      "text": "Maybe you like organizing moving parts. Maybe you enjoy analyzing information and finding patterns. Maybe you come alive helping other people understand something. Maybe you are the one who turns vague ideas into action."
+    },
+    {
+      "id": "s08",
+      "text": "A strong early-career direction is usually built from these repeated clues. It is less about saying, this is my forever path, and more about saying, this is the kind of work and environment that seems to fit me right now."
+    },
+    {
+      "id": "s09",
+      "text": "In this module, you will identify three things. First, your strengths — not in the abstract, but in terms of how you actually contribute."
+    },
+    {
+      "id": "s10",
+      "text": "Second, your values — what matters to you in a work experience: learning, stability, flexibility, meaning, collaboration, recognition."
+    },
+    {
+      "id": "s11",
+      "text": "Third, your energy patterns — what kind of work leaves you feeling stronger and more interested, and what kind consistently drains you."
+    },
+    {
+      "id": "s12",
+      "text": "You will also begin shaping what a dream job means for you. Not a fantasy version."
+    },
+    {
+      "id": "s13",
+      "text": "A grounded definition made of ingredients: the people you want around you, the problems you want to solve, the structure and autonomy you want, and the growth you hope to have."
+    },
+    {
+      "id": "s14",
+      "text": "Dream jobs are usually not single titles. They are combinations of ingredients."
+    },
+    {
+      "id": "s15",
+      "text": "You will use reflection and A.I. support in this module, but the A.I. is not here to define you."
+    },
+    {
+      "id": "s16",
+      "text": "It is here to help you notice patterns you might not see as easily on your own."
+    },
+    {
+      "id": "s17",
+      "text": "By the end, you should be able to describe yourself with more clarity than when you started. And that clarity will make the next module much easier."
+    }
+  ]
+}

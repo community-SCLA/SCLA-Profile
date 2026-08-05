@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+
+        .hd {
+          position: absolute;
+          left: 200px;
+          top: 170px;
+          width: 1560px;
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+          opacity: 0;
+        }
+
+        /* Four ways of contributing, 2 x 2, each paired with a gold mark that
+           came out of the field below. */
+        .cn-way {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          opacity: 0;
+        }
+        #cn-w1 {
+          left: 250px;
+          top: 330px;
+        }
+        #cn-w2 {
+          left: 1000px;
+          top: 330px;
+        }
+        #cn-w3 {
+          left: 250px;
+          top: 440px;
+        }
+        #cn-w4 {
+          left: 1000px;
+          top: 440px;
+        }
+        .cn-dot {
+          display: block;
+          width: 14px;
+          height: 14px;
+          border-radius: 100px;
+          background: #eaab2d;
+        }
+        .cn-text {
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: rgba(255, 255, 255, 0.78);
+          white-space: nowrap;
+        }
+
+        /* The turn at the end of the act takes the band the four ways vacate. */
+        #cn-close {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+        }
+        #cn-less {
+          position: absolute;
+          left: 250px;
+          top: 350px;
+          font-size: 46px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.78);
+          white-space: nowrap;
+          opacity: 0;
+        }
+        #cn-more {
+          position: absolute;
+          left: 250px;
+          top: 440px;
+          font-size: 54px;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.4;
+          color: #eaab2d;
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        #cn-field {
+          position: absolute;
+          left: 300px;
+          top: 600px;
+          width: 1334px;
+          height: 326px;
+        }
+        .mk {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          border-radius: 100px;
+          background: rgba(51, 147, 214, 0.55);
+        }
+        .mk-lit {
+          background: #eaab2d;
+        }
+        .mk-dim {
+          background: rgba(51, 147, 214, 0.4);
+        }
+        .cn-rule {
+          position: absolute;
+          height: 3px;
+          width: 480px;
+          left: 0;
+          background: #eaab2d;
+          transform-origin: 0% 50%;
+        }
+      </style>
+
+      <div data-hf-id="hf-yp2s" id="root" data-composition-id="contribute" data-width="1920" data-height="1080">
+        <h2 data-hf-id="hf-vevc" class="hd" id="cn-h1" data-role="heading">How You Naturally Contribute</h2>
+        <h2 data-hf-id="hf-yvnn" class="hd" id="cn-h2" data-role="heading">Built from Repeated Clues</h2>
+
+        <div data-hf-id="hf-6mv1" class="cn-way" id="cn-w1">
+          <span data-hf-id="hf-8pl8" class="cn-dot"></span>
+          <span data-hf-id="hf-36b0" class="cn-text">Organizing moving parts</span>
+        </div>
+        <div data-hf-id="hf-akz2" class="cn-way" id="cn-w2">
+          <span data-hf-id="hf-lqxw" class="cn-dot"></span>
+          <span data-hf-id="hf-in77" class="cn-text">Finding patterns in information</span>
+        </div>
+        <div data-hf-id="hf-ej33" class="cn-way" id="cn-w3">
+          <span data-hf-id="hf-kk0t" class="cn-dot"></span>
+          <span data-hf-id="hf-ncme" class="cn-text">Helping other people understand</span>
+        </div>
+        <div data-hf-id="hf-ih74" class="cn-way" id="cn-w4">
+          <span data-hf-id="hf-kybu" class="cn-dot"></span>
+          <span data-hf-id="hf-uvxf" class="cn-text">Turning vague ideas into action</span>
+        </div>
+
+        <div data-hf-id="hf-rxwt" id="cn-close">
+          <div data-hf-id="hf-cy6v" id="cn-less">Less about a forever path</div>
+          <div data-hf-id="hf-dgkz" id="cn-more">More about what fits you right now</div>
+        </div>
+
+        <div data-hf-id="hf-x5y9" id="cn-field"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          var COLS = 12;
+          var ROWS = 4;
+          var COL_PITCH = 120;
+          var ROW_PITCH = 104;
+
+          /* The sixteen clue marks Act 2 lit, in the cells Act 2 left them in.
+             This act only ever MOVES them — the field is never rebuilt. */
+          var GOLD = [
+            [1, 0], [4, 2], [7, 1], [10, 3],
+            [2, 3], [5, 0], [8, 2], [11, 1],
+            [0, 2], [3, 1], [6, 3], [9, 0],
+            [2, 1], [5, 3], [8, 0], [11, 2]
+          ];
+          var goldIdx = GOLD.map(function (g) {
+            return g[1] * COLS + g[0];
+          });
+
+          var field = document.getElementById("cn-field");
+          var marks = [];
+          for (var r = 0; r < ROWS; r++) {
+            for (var c = 0; c < COLS; c++) {
+              var n = r * COLS + c;
+              var m = document.createElement("div");
+              m.className = "mk " + (goldIdx.indexOf(n) === -1 ? "mk-dim" : "mk-lit");
+              m.id = "cn-m" + n;
+              m.style.left = c * COL_PITCH + "px";
+              m.style.top = r * ROW_PITCH + "px";
+              field.appendChild(m);
+              marks.push(m);
+            }
+          }
+          for (var q = 0; q < ROWS; q++) {
+            var rule = document.createElement("div");
+            rule.className = "cn-rule";
+            rule.id = "cn-r" + q;
+            rule.style.top = q * ROW_PITCH + 22 + "px";
+            field.appendChild(rule);
+          }
+
+          /* The re-sort is a PERMUTATION: every clue mark that is not already in
+             the left block trades places with the mark standing in the cell it
+             wants. Forty-eight marks in, forty-eight marks out, no cell empty
+             and no cell doubled. */
+          var targets = [];
+          for (var tr = 0; tr < 4; tr++) {
+            for (var tc = 0; tc < 4; tc++) targets.push([tc, tr]);
+          }
+          var targetIdx = targets.map(function (t) {
+            return t[1] * COLS + t[0];
+          });
+          var movers = [];
+          for (var g = 0; g < GOLD.length; g++) {
+            if (targetIdx.indexOf(goldIdx[g]) === -1) movers.push(GOLD[g]);
+          }
+          var vacancies = [];
+          for (var v = 0; v < targets.length; v++) {
+            if (goldIdx.indexOf(targetIdx[v]) === -1) vacancies.push(targets[v]);
+          }
+
+          var tl = gsap.timeline({ paused: true });
+          var IN = "power3.out";
+          var OUT = "power2.in";
+
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.28, ease: OUT }, t);
+          }
+
+          /* ---- s09 (audio 0.25) — how you naturally contribute.
+             On the word "contribute" (1.81) the clues gather to the left. */
+          arrive("#cn-h1", 0.35, 62, 0.24);
+          for (var p = 0; p < movers.length; p++) {
+            var from = movers[p];
+            var to = vacancies[p];
+            var mover = marks[from[1] * COLS + from[0]];
+            var swapped = marks[to[1] * COLS + to[0]];
+            var t0 = 1.71 + p * 0.028;
+            tl.to(
+              mover,
+              {
+                x: (to[0] - from[0]) * COL_PITCH,
+                y: (to[1] - from[1]) * ROW_PITCH,
+                duration: 0.9,
+                ease: "power3.inOut"
+              },
+              t0
+            );
+            tl.to(
+              swapped,
+              {
+                x: (from[0] - to[0]) * COL_PITCH,
+                y: (from[1] - to[1]) * ROW_PITCH,
+                duration: 0.9,
+                ease: "power3.inOut"
+              },
+              t0
+            );
+          }
+
+          /* ---- s10-s13 — four ways of contributing, each on its own verb:
+             organizing 3.79 · analyzing 6.45 · helping 10.53 · turns 14.30.
+             Each line also draws the rule beside its row of clues. */
+          var WAYS = [
+            { at: 3.69, id: "#cn-w1", rule: "#cn-r0" },
+            { at: 6.35, id: "#cn-w2", rule: "#cn-r1" },
+            { at: 10.43, id: "#cn-w3", rule: "#cn-r2" },
+            { at: 14.2, id: "#cn-w4", rule: "#cn-r3" }
+          ];
+          for (var w = 0; w < WAYS.length; w++) {
+            arrive(WAYS[w].id, WAYS[w].at, 40, 0.22);
+            tl.fromTo(
+              WAYS[w].rule,
+              { scaleX: 0 },
+              { scaleX: 1, duration: 0.7, ease: IN },
+              WAYS[w].at + 0.1
+            );
+          }
+
+          /* ---- s14 (audio 16.57) — built from repeated clues ("repeated" 19.55). */
+          leave("#cn-h1", 19.45, -44);
+          arrive("#cn-h2", 19.77, 58, 0.24);
+
+          /* ---- s15 (audio 21.08) — not a forever path ("forever" 23.26), but
+             what fits right now ("more" 24.64). */
+          for (var x = 0; x < WAYS.length; x++) {
+            leave(WAYS[x].id, 21.2 + x * 0.05, -30);
+            tl.to(WAYS[x].rule, { opacity: 0, duration: 0.3, ease: OUT }, 21.2 + x * 0.05);
+          }
+          tl.set("#cn-close", { opacity: 1 }, 22.6);
+          arrive("#cn-less", 23.16, 44, 0.22);
+          arrive("#cn-more", 24.54, 48, 0.24);
+
+          window.__timelines["contribute"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

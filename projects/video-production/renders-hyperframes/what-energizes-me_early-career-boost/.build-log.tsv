@@ -1,0 +1,10 @@
+2026-08-05T15:31:14Z	claim	program=early-career-boost
+2026-08-05T15:37:39Z	resume	program=early-career-boost
+2026-08-05T15:54:24Z	manifest	40 beats authored from ready script; copy gate clean (1 word 'and' added to s07 list, 2 sentence re-punctuations)
+2026-08-05T16:05:04Z	timing	40/40 clips synthesized (HeyGen Oxana, concurrency 1 + top-up); timing.json computed: 166.5s, 14.41 bpm, median 4.14s
+2026-08-05T16:34:00Z	preflight	exit 0 — gate-clean
+2026-08-05T16:35:12Z	collision	COLD BUILDER STALL: I claimed 15:31:14Z, then my Read tool hook went unresponsive for ~60min. A second agent took the workspace via --resume 15:37:39Z and has authored it to preflight. Two builders on one lock. I am standing down; not racing.
+2026-08-05T16:35:50Z	gate	build-gate.sh exit 0 + npm run check exit 0; 40 snapshots, mean churn 4.85%, no twin pairs
+2026-08-05T16:36:47Z	preflight	exit 0 — gate-clean
+2026-08-05T16:36:59Z	preflight	exit 0 — gate-clean
+2026-08-05T16:40:21Z	release	gate-clean; render deferred — cloud backend down

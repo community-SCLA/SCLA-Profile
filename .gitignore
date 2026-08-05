@@ -45,16 +45,28 @@ node_modules/
 __pycache__/
 *.pyc
 
-# Video production — per-lesson HyperFrames build workspaces (HTML sources,
-# caches, renders). Local-only: active builds live in renders-hyperframes/<stem>/;
-# retired ones move to projects/video-production/_archive/renders-hyperframes/
+# Video production — per-lesson HyperFrames build workspaces. Local-only:
+# generated/derived material per stem (node_modules, voice assets, renders,
+# snapshots, QA frame/log dumps, build/render/publish locks) is ignored;
+# workspace source (HTML, tokens.yml, meta.json, BUILD-KIT.md) is tracked.
+# Retired workspaces move to projects/video-production/_archive/renders-hyperframes/
 # (ignored below — _archive/status.md is that tree's index). Approved scripts
 # live in projects/video-production/lesson-scripts/ (tracked); rendered videos
 # are hosted on Wistia, not committed (decisions/log.md, 2026-07-08).
-# The _run/ build kit under renders-hyperframes/ is tracked despite the blanket
-# rule below: it predates the rule. Do not untrack it.
-projects/video-production/renders-hyperframes/*
-!projects/video-production/renders-hyperframes/README.md
+# The _run/ build kit is listed below too, but its current contents were
+# already tracked before this rule existed (the S16 lint check depends on
+# them) — the ignore only blocks new files there from auto-staging; do not
+# untrack the existing ones.
+projects/video-production/renders-hyperframes/*/node_modules/
+projects/video-production/renders-hyperframes/*/assets/voice/
+projects/video-production/renders-hyperframes/*/renders/
+projects/video-production/renders-hyperframes/*/snapshots/
+projects/video-production/renders-hyperframes/*/qa/frames/
+projects/video-production/renders-hyperframes/*/qa/logs/
+projects/video-production/renders-hyperframes/.build-in-progress/
+projects/video-production/renders-hyperframes/.render.lock/
+projects/video-production/renders-hyperframes/.publish.lock/
+projects/video-production/renders-hyperframes/_run/
 projects/video-production/lesson-scripts/**/*.mp4
 projects/video-production/renders-mp4/**/*.mp4
 # QA packets (binary frame dumps + verify summary) staged next to each MP4 —
@@ -73,8 +85,8 @@ projects/video-production/_archive/*
 !projects/video-production/_archive/status.md
 
 # HyperFrames per-workspace derived caches (regenerated on demand; the render
-# workspaces under renders-hyperframes/ are wholly gitignored already — this
-# covers experiment/spike projects that ARE tracked)
+# workspaces under renders-hyperframes/ already ignore their derived material
+# above — this covers experiment/spike projects that ARE tracked)
 .thumbnails/
 .waveform-cache/
 snapshots/

@@ -1,7 +1,8 @@
 # SCLA Profile — Company Knowledge Base
 
 **Session boot:** match the task below, load the ONE file it names, stop.
-No matching row? Open that folder's README.md hub if it has one — never the whole folder.
+No matching row? Ask for scope or use the nearest AGENTS.md/CLAUDE.md route.
+Human-facing overview files are never agent sources.
 
 ## Task Routing
 
@@ -14,9 +15,9 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 | Grant work | `projects/grants/` |
 | Video production | `projects/video-production/CLAUDE.md` |
 | Produce a video (one call; stops at the pilot gate) | `/produce-video` |
-| Refine raw lesson scripts (batch) | `/refine-scripts` |
+| Refine raw lesson scripts (one stem; explicit batch) | `/refine-scripts` |
 | Build / ship / publish lesson videos | `/render-lessons` |
-| What shipped where (Wistia links) | `projects/video-production/PIPELINE-STATUS.md` → Delivered |
+| What shipped where (Wistia links) | `projects/video-production/run.sh status --json` |
 | Illustrated lesson video (default) | `projects/video-production/CLAUDE.md` |
 | Start a new project | `/new-from-template` |
 | Why a decision was made | `decisions/log.md` |
@@ -27,10 +28,12 @@ No matching row? Open that folder's README.md hub if it has one — never the wh
 ## Commands
 
 ```bash
-bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 14 checks,
+bash scripts/lint-refs.sh          # the repo's ONLY lint/test entry point — 16 checks,
                                    # incl. the render-qa suite (12), the STD-35 audit (10),
                                    # lesson-script layout (13) and PIPELINE-STATUS
-                                   # freshness (14). CI runs it on every push.
+                                   # freshness (14), agent-source routing (15),
+                                   # and compact build infrastructure (16).
+                                   # CI runs it on every push.
 python3 projects/video-production/render-qa/tests/run_tests.py   # that suite alone
 python3 projects/video-production/render-qa/tests/test_variety.py # one file — each runs standalone
 bash scripts/batch-status.sh       # resume key: the whole pipeline, read from disk alone

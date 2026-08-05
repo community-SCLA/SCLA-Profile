@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+        .bd-ground {
+          position: absolute;
+          inset: 0;
+          background: #0a1e2f;
+        }
+        .bd-grid {
+          position: absolute;
+          inset: 0;
+          background:
+            repeating-linear-gradient(90deg, rgba(51, 147, 214, 0.05) 0 1px, rgba(51, 147, 214, 0) 1px 120px),
+            repeating-linear-gradient(0deg, rgba(51, 147, 214, 0.05) 0 1px, rgba(51, 147, 214, 0) 1px 120px);
+        }
+        .bd-lift {
+          position: absolute;
+          left: 740px;
+          top: -20px;
+          width: 1200px;
+          height: 1200px;
+          background: radial-gradient(circle at center, rgba(13, 36, 55, 0.95) 0%, rgba(13, 36, 55, 0) 62%);
+        }
+        .bd-ring {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        .band {
+          position: absolute;
+          left: 130px;
+          top: 190px;
+          width: 700px;
+        }
+        .band-low {
+          position: absolute;
+          left: 130px;
+          top: 490px;
+          width: 700px;
+        }
+        h2 {
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+        }
+        .body-copy {
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: rgba(255, 255, 255, 0.78);
+        }
+        .under-heading {
+          margin-top: 30px;
+        }
+        .accent-line {
+          font-size: 48px;
+          font-weight: 700;
+          line-height: 1.3;
+          color: #ffffff;
+          padding-left: 28px;
+          border-left: 5px solid #eaab2d;
+        }
+        .accent-line + .accent-line {
+          margin-top: 34px;
+        }
+        .gold-claim {
+          margin-top: 34px;
+          font-size: 52px;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.25;
+          color: #eaab2d;
+        }
+        .plan-list {
+          list-style: none;
+          margin-top: 40px;
+        }
+        .plan-list li {
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.4;
+          color: rgba(255, 255, 255, 0.78);
+          padding-left: 34px;
+          border-left: 4px solid #3393d6;
+          opacity: 0;
+          visibility: hidden;
+        }
+        .plan-list li + li {
+          margin-top: 30px;
+        }
+        .bwrap,
+        .stage {
+          opacity: 0;
+          visibility: hidden;
+        }
+        .svg-hide {
+          opacity: 0;
+          visibility: hidden;
+        }
+        .arc {
+          stroke-dasharray: 629;
+          stroke-dashoffset: 629;
+        }
+        .spoke {
+          stroke-dasharray: 210;
+          stroke-dashoffset: 210;
+        }
+      </style>
+
+      <div data-hf-id="hf-jvg5" id="root" data-composition-id="build" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-ui12" class="bd-ground"></div>
+        <div data-hf-id="hf-0gjb" class="bd-grid"></div>
+        <div data-hf-id="hf-sij6" class="bd-lift" id="bd-lift"></div>
+
+        <!-- The SAME ring — opening's end state recomputed: closed track, five marks -->
+        <svg data-hf-id="hf-l68g" class="bd-ring" viewBox="0 0 1920 1080" width="1920" height="1080">
+          <circle data-hf-id="hf-54dw" id="bd-track" cx="1340" cy="580" r="300" fill="none" stroke="rgba(51,147,214,0.55)" stroke-width="3" />
+          <!-- three module arcs on the same track -->
+          <path data-hf-id="hf-vv5v" id="bd-arc1" class="arc svg-hide" d="M 1340 280 A 300 300 0 0 1 1599.8 730" fill="none" stroke="#eaab2d" stroke-width="10" stroke-linecap="round" />
+          <path data-hf-id="hf-a07l" id="bd-arc2" class="arc svg-hide" d="M 1599.8 730 A 300 300 0 0 1 1080.2 730" fill="none" stroke="#eaab2d" stroke-width="10" stroke-linecap="round" />
+          <path data-hf-id="hf-zx1c" id="bd-arc3" class="arc svg-hide" d="M 1080.2 730 A 300 300 0 0 1 1340 280" fill="none" stroke="#eaab2d" stroke-width="10" stroke-linecap="round" />
+          <!-- the five marks laid down in the opening -->
+          <circle data-hf-id="hf-5boz" id="bd-m0" cx="1340" cy="280" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-z7dr" id="bd-m1" cx="1625.3" cy="487.3" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-ylwu" id="bd-m2" cx="1516.3" cy="822.7" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-tgnt" id="bd-m3" cx="1163.7" cy="822.7" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-uoei" id="bd-m4" cx="1054.7" cy="487.3" r="11" fill="#3393d6" />
+          <!-- whole-ring resolve halo (transient, s11) -->
+          <circle data-hf-id="hf-8xuy" id="bd-halo" class="svg-hide" cx="1340" cy="580" r="300" fill="none" stroke="#eaab2d" stroke-width="6" />
+          <!-- the faint earlier ring (s13) -->
+          <circle data-hf-id="hf-9hf3" id="bd-ghost" class="svg-hide" cx="1150" cy="330" r="90" fill="none" stroke="rgba(51,147,214,0.35)" stroke-width="3" stroke-dasharray="10 12" />
+          <!-- the hub, and four spokes off it (s16–s19) -->
+          <circle data-hf-id="hf-r1hw" id="bd-hub" class="svg-hide" cx="1340" cy="580" r="10" fill="#eaab2d" />
+          <line data-hf-id="hf-39vn" id="bd-sp1" class="spoke svg-hide" x1="1340" y1="580" x2="1488.5" y2="431.5" stroke="#eaab2d" stroke-width="5" stroke-linecap="round" />
+          <line data-hf-id="hf-ivzr" id="bd-sp2" class="spoke svg-hide" x1="1340" y1="580" x2="1488.5" y2="728.5" stroke="#eaab2d" stroke-width="5" stroke-linecap="round" />
+          <line data-hf-id="hf-avoj" id="bd-sp3" class="spoke svg-hide" x1="1340" y1="580" x2="1191.5" y2="728.5" stroke="#eaab2d" stroke-width="5" stroke-linecap="round" />
+          <line data-hf-id="hf-rbjv" id="bd-sp4" class="spoke svg-hide" x1="1340" y1="580" x2="1191.5" y2="431.5" stroke="#eaab2d" stroke-width="5" stroke-linecap="round" />
+        </svg>
+
+        <!-- s07 -->
+        <div data-hf-id="hf-3wkd" id="bd-b07" class="clip band" data-start="0" data-duration="1.463" data-track-index="2">
+          <div data-hf-id="hf-mu0g" id="bd-b07-w" class="bwrap">
+            <h2 data-hf-id="hf-1oj9">Look Back at Where You Started</h2>
+          </div>
+        </div>
+
+        <!-- s08 — Module 1, arc one -->
+        <div data-hf-id="hf-vwq2" id="bd-b08" class="clip band" data-start="1.463" data-duration="7.236" data-track-index="2">
+          <div data-hf-id="hf-hjen" id="bd-b08-w" class="bwrap">
+            <h2 data-hf-id="hf-zpa8">Module 1</h2>
+            <p data-hf-id="hf-5ayx" class="body-copy under-heading stage" id="bd-b08-p">You named an uncertainty and clarified your strengths, values, and energy.</p>
+          </div>
+        </div>
+
+        <!-- s09 — Module 2, arc two -->
+        <div data-hf-id="hf-7rja" id="bd-b09" class="clip band" data-start="8.699" data-duration="8.986" data-track-index="2">
+          <div data-hf-id="hf-uhxu" id="bd-b09-w" class="bwrap">
+            <h2 data-hf-id="hf-yid5">Module 2</h2>
+            <p data-hf-id="hf-snn3" class="body-copy under-heading stage" id="bd-b09-p">The five criteria that make work engaging, and a repeatable way to compare options.</p>
+          </div>
+        </div>
+
+        <!-- s10 — Module 3, arc three -->
+        <div data-hf-id="hf-8mhu" id="bd-b10" class="clip band" data-start="17.685" data-duration="9.982" data-track-index="2">
+          <div data-hf-id="hf-iphg" id="bd-b10-w" class="bwrap">
+            <h2 data-hf-id="hf-ywo6">Module 3</h2>
+            <p data-hf-id="hf-tsq9" class="body-copy under-heading stage" id="bd-b10-p">Your Career Purpose Statement, and planning in a world shaped by AI.</p>
+          </div>
+        </div>
+
+        <!-- s11 + s12 heading -->
+        <div data-hf-id="hf-u8e8" id="bd-b11" class="clip band" data-start="27.667" data-duration="8.503" data-track-index="2">
+          <div data-hf-id="hf-hy5d" id="bd-b11-w" class="bwrap">
+            <h2 data-hf-id="hf-6hnu">That Is Genuine Progress</h2>
+          </div>
+        </div>
+
+        <!-- s12 body -->
+        <div data-hf-id="hf-kazx" id="bd-b12" class="clip band-low" data-start="29.529" data-duration="6.641" data-track-index="3">
+          <div data-hf-id="hf-vavu" id="bd-b12-w" class="bwrap">
+            <p data-hf-id="hf-a332" class="body-copy">Clarity and confidence are not switches you flip once — they are things you build.</p>
+            <p data-hf-id="hf-xg86" class="body-copy under-heading stage" id="bd-b12-p2">You just built a real foundation.</p>
+          </div>
+        </div>
+
+        <!-- s13 -->
+        <div data-hf-id="hf-zlnv" id="bd-b13" class="clip band" data-start="36.17" data-duration="3.124" data-track-index="2">
+          <div data-hf-id="hf-p9mv" id="bd-b13-w" class="bwrap">
+            <p data-hf-id="hf-tu59" class="body-copy">Go back to what you wrote at the very start of this track.</p>
+          </div>
+        </div>
+
+        <!-- s14 + s15 heading -->
+        <div data-hf-id="hf-0xwq" id="bd-b14" class="clip band" data-start="39.294" data-duration="10.265" data-track-index="2">
+          <div data-hf-id="hf-2mdc" id="bd-b14-w" class="bwrap">
+            <h2 data-hf-id="hf-l42i">Notice What Has Shifted</h2>
+          </div>
+        </div>
+
+        <!-- s15 body + claim -->
+        <div data-hf-id="hf-9vq8" id="bd-b15" class="clip band-low" data-start="40.897" data-duration="8.662" data-track-index="3">
+          <div data-hf-id="hf-exv1" id="bd-b15-w" class="bwrap">
+            <p data-hf-id="hf-4sot" class="body-copy">Even without every answer, you almost certainly have a clearer question.</p>
+            <p data-hf-id="hf-5ah0" class="gold-claim stage" id="bd-b15-c">A Clearer Question Moves a Career Forward</p>
+          </div>
+        </div>
+
+        <!-- s16–s18 heading -->
+        <div data-hf-id="hf-mucy" id="bd-b16" class="clip band" data-start="49.559" data-duration="12.6" data-track-index="2">
+          <div data-hf-id="hf-833a" id="bd-b16-w" class="bwrap">
+            <h2 data-hf-id="hf-dvj4">Turn It into a Practical Plan</h2>
+          </div>
+        </div>
+
+        <!-- s17 body -->
+        <div data-hf-id="hf-pvpr" id="bd-b17" class="clip band-low" data-start="53.373" data-duration="2.543" data-track-index="3">
+          <div data-hf-id="hf-75wj" id="bd-b17-w" class="bwrap">
+            <p data-hf-id="hf-k76u" class="body-copy">A useful plan does not need to be elaborate.</p>
+          </div>
+        </div>
+
+        <!-- s18 — the two properties of a useful plan -->
+        <div data-hf-id="hf-njao" id="bd-b18" class="clip band-low" data-start="55.916" data-duration="6.243" data-track-index="3">
+          <div data-hf-id="hf-efws" id="bd-b18-w" class="bwrap">
+            <p data-hf-id="hf-ivxc" class="accent-line stage" id="bd-b18-a1">Specific enough to guide action</p>
+            <p data-hf-id="hf-8f5y" class="accent-line stage" id="bd-b18-a2">Flexible enough to update when you learn something new</p>
+          </div>
+        </div>
+
+        <!-- s19 — four spokes, word-timed -->
+        <div data-hf-id="hf-incg" id="bd-b19" class="clip band" data-start="62.159" data-duration="12.04" data-track-index="2">
+          <div data-hf-id="hf-wu4p" id="bd-b19-w" class="bwrap">
+            <h2 data-hf-id="hf-7esn">Decide a Few Things</h2>
+            <ul data-hf-id="hf-e4gk" class="plan-list" data-role="list">
+              <li data-hf-id="hf-mblk" id="bd-pl1">What direction to explore first</li>
+              <li data-hf-id="hf-vjj9" id="bd-pl2">What skills to strengthen</li>
+              <li data-hf-id="hf-2i0j" id="bd-pl3">Which people or communities to stay connected to</li>
+              <li data-hf-id="hf-7yjj" id="bd-pl4">What actions to take over the next ninety days</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const IN = { duration: 0.55, ease: "power3.out" };
+        const OUT = { autoAlpha: 0, duration: 0.28, ease: "power2.in" };
+        const rest = "rgba(51,147,214,0.7)";
+
+        tl.fromTo("#bd-lift", { scale: 1 }, { scale: 1.035, duration: 3.6, ease: "sine.inOut", yoyo: true, repeat: 19 }, 0); /* motion-allow: ambient radial-lift background breath, finite yoyo (tokens motion.ambient) */
+
+        // s07
+        tl.fromTo("#bd-b07-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.05);
+        tl.to("#bd-b07-w", OUT, 1.16);
+
+        // s08 — Module 1: first arc lights
+        tl.fromTo("#bd-b08-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 1.5);
+        tl.fromTo("#bd-b08-p", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 3.3);
+        tl.to("#bd-b08-w", OUT, 8.4);
+        tl.set("#bd-arc1", { autoAlpha: 1 }, 1.68);
+        tl.fromTo("#bd-arc1", { strokeDashoffset: 629 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 1.7);
+
+        // s09 — Module 2: second arc lights, first settles
+        tl.fromTo("#bd-b09-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 8.75);
+        tl.fromTo("#bd-b09-p", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 10.9);
+        tl.to("#bd-b09-w", OUT, 17.38);
+        tl.to("#bd-arc1", { stroke: rest, duration: 0.5, ease: "power2.out" }, 8.8);
+        tl.set("#bd-arc2", { autoAlpha: 1 }, 8.88);
+        tl.fromTo("#bd-arc2", { strokeDashoffset: 629 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 8.9);
+
+        // s10 — Module 3: third arc lights, second settles
+        tl.fromTo("#bd-b10-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 17.73);
+        tl.fromTo("#bd-b10-p", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 19.9);
+        tl.to("#bd-b10-w", OUT, 27.2);
+        tl.to("#bd-arc2", { stroke: rest, duration: 0.5, ease: "power2.out" }, 17.8);
+        tl.set("#bd-arc3", { autoAlpha: 1 }, 17.88);
+        tl.fromTo("#bd-arc3", { strokeDashoffset: 629 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 17.9);
+
+        // s11 — the whole ring resolves (transient halo)
+        tl.fromTo("#bd-b11-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 27.71);
+        tl.to("#bd-b11-w", OUT, 35.41);
+        tl.to("#bd-arc3", { stroke: rest, duration: 0.5, ease: "power2.out" }, 27.76);
+        tl.fromTo("#bd-halo", { opacity: 0.8, attr: { r: 300 } }, { opacity: 0, attr: { r: 344 }, duration: 0.9, ease: "power2.out" }, 27.81);
+
+        // s12
+        tl.fromTo("#bd-b12-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 29.6);
+        tl.fromTo("#bd-b12-p2", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 32.95);
+        tl.to("#bd-b12-w", OUT, 35.41);
+
+        // s13 — the faint earlier ring
+        tl.fromTo("#bd-b13-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 36.22);
+        tl.to("#bd-b13-w", OUT, 38.41);
+        tl.fromTo("#bd-ghost", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: "power3.out" }, 36.36);
+
+        // s14 — what shifted: the ghost fades
+        tl.fromTo("#bd-b14-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 39.34);
+        tl.to("#bd-b14-w", OUT, 48.42);
+        tl.to("#bd-ghost", { autoAlpha: 0, duration: 0.7, ease: "power2.in" }, 39.48);
+
+        // s15 — a clearer question tags a node
+        tl.fromTo("#bd-b15-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 40.95);
+        tl.fromTo("#bd-b15-c", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 44.92);
+        tl.to("#bd-b15-w", OUT, 48.42);
+        tl.to("#bd-m1", { fill: "#eaab2d", attr: { r: 16 }, duration: 0.45, ease: "back.out(1.4)" }, 44.92);
+
+        // s16 — the hub appears; the tagged node hands focus back
+        tl.fromTo("#bd-b16-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 49.61);
+        tl.to("#bd-b16-w", OUT, 60.88);
+        tl.to("#bd-m1", { fill: "#3393d6", attr: { r: 11 }, duration: 0.4, ease: "power2.out" }, 49.64);
+        tl.fromTo("#bd-hub", { autoAlpha: 0, attr: { r: 4 } }, { autoAlpha: 1, attr: { r: 10 }, duration: 0.5, ease: "back.out(1.4)" }, 49.74);
+
+        // s17
+        tl.fromTo("#bd-b17-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 53.42);
+        tl.to("#bd-b17-w", OUT, 54.64);
+
+        // s18 — specific, then flexible
+        tl.fromTo("#bd-b18-w", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 55.98);
+        tl.fromTo("#bd-b18-a1", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 56.08);
+        tl.fromTo("#bd-b18-a2", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 58.68);
+        tl.to("#bd-b18-w", OUT, 60.88);
+
+        // s19 — four spokes off the same hub, word-timed
+        tl.fromTo("#bd-b19-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 62.21);
+        tl.fromTo("#bd-pl1", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 64.578);
+        tl.fromTo("#bd-pl2", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 66.838);
+        tl.fromTo("#bd-pl3", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 68.659);
+        tl.fromTo("#bd-pl4", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 71.858);
+        tl.set("#bd-sp1", { autoAlpha: 1 }, 64.56);
+        tl.fromTo("#bd-sp1", { strokeDashoffset: 210 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 64.578);
+        tl.to("#bd-sp1", { stroke: rest, duration: 0.4 }, 66.838);
+        tl.set("#bd-sp2", { autoAlpha: 1 }, 66.82);
+        tl.fromTo("#bd-sp2", { strokeDashoffset: 210 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 66.838);
+        tl.to("#bd-sp2", { stroke: rest, duration: 0.4 }, 68.659);
+        tl.set("#bd-sp3", { autoAlpha: 1 }, 68.64);
+        tl.fromTo("#bd-sp3", { strokeDashoffset: 210 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 68.659);
+        tl.to("#bd-sp3", { stroke: rest, duration: 0.4 }, 71.858);
+        tl.set("#bd-sp4", { autoAlpha: 1 }, 71.84);
+        tl.fromTo("#bd-sp4", { strokeDashoffset: 210 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 71.858);
+
+        window.__timelines["build"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

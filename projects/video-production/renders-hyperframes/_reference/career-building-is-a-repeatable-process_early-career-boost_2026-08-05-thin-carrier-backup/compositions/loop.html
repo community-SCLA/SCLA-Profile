@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+        .lp-ground {
+          position: absolute;
+          inset: 0;
+          background: #0a1e2f;
+        }
+        .lp-grid {
+          position: absolute;
+          inset: 0;
+          background:
+            repeating-linear-gradient(90deg, rgba(51, 147, 214, 0.05) 0 1px, rgba(51, 147, 214, 0) 1px 120px),
+            repeating-linear-gradient(0deg, rgba(51, 147, 214, 0.05) 0 1px, rgba(51, 147, 214, 0) 1px 120px);
+        }
+        .lp-lift {
+          position: absolute;
+          left: 740px;
+          top: -20px;
+          width: 1200px;
+          height: 1200px;
+          background: radial-gradient(circle at center, rgba(13, 36, 55, 0.95) 0%, rgba(13, 36, 55, 0) 62%);
+        }
+        .lp-ring {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        .band {
+          position: absolute;
+          left: 130px;
+          top: 190px;
+          width: 700px;
+        }
+        .band-low {
+          position: absolute;
+          left: 130px;
+          top: 430px;
+          width: 700px;
+        }
+        h2 {
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+        }
+        .body-copy {
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: rgba(255, 255, 255, 0.78);
+        }
+        .under-heading {
+          margin-top: 30px;
+        }
+        .step-list {
+          list-style: none;
+        }
+        .step-list li {
+          font-size: 46px;
+          font-weight: 700;
+          line-height: 1.3;
+          color: #ffffff;
+          padding-left: 34px;
+          border-left: 5px solid #eaab2d;
+          opacity: 0;
+          visibility: hidden;
+        }
+        .step-list li + li {
+          margin-top: 32px;
+        }
+        .bwrap,
+        .stage {
+          opacity: 0;
+          visibility: hidden;
+        }
+        .svg-hide {
+          opacity: 0;
+          visibility: hidden;
+        }
+        #lp-rot {
+          position: absolute;
+          left: 1340px;
+          top: 580px;
+          width: 0;
+          height: 0;
+        }
+        #lp-marker {
+          position: absolute;
+          left: -14px;
+          top: -314px;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: #eaab2d;
+          opacity: 0;
+          visibility: hidden;
+        }
+        #lp-pin-label {
+          position: absolute;
+          left: 1140px;
+          top: 622px;
+          width: 400px;
+          text-align: center;
+          font-size: 40px;
+          font-weight: 700;
+          line-height: 1.3;
+          color: #ffffff;
+          opacity: 0;
+          visibility: hidden;
+        }
+      </style>
+
+      <div data-hf-id="hf-28q5" id="root" data-composition-id="loop" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-xmdo" class="lp-ground"></div>
+        <div data-hf-id="hf-3fh1" class="lp-grid"></div>
+        <div data-hf-id="hf-48yq" class="lp-lift" id="lp-lift"></div>
+
+        <!-- The SAME ring — closed track, five marks waiting -->
+        <svg data-hf-id="hf-5wki" class="lp-ring" viewBox="0 0 1920 1080" width="1920" height="1080">
+          <circle data-hf-id="hf-m8ge" id="lp-track" cx="1340" cy="580" r="300" fill="none" stroke="rgba(51,147,214,0.55)" stroke-width="3" />
+          <circle data-hf-id="hf-7yvu" id="lp-n0" cx="1340" cy="280" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-p266" id="lp-n1" cx="1625.3" cy="487.3" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-ads7" id="lp-n2" cx="1516.3" cy="822.7" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-rxdo" id="lp-n3" cx="1163.7" cy="822.7" r="11" fill="#3393d6" />
+          <circle data-hf-id="hf-4qdj" id="lp-n4" cx="1054.7" cy="487.3" r="11" fill="#3393d6" />
+          <!-- the pin at the hub (s32) -->
+          <circle data-hf-id="hf-h2m4" id="lp-pin" class="svg-hide" cx="1340" cy="580" r="16" fill="#eaab2d" />
+        </svg>
+
+        <!-- the marker that travels one lap around the same ring -->
+        <div data-hf-id="hf-sz7t" id="lp-rot">
+          <div data-hf-id="hf-5708" id="lp-marker"></div>
+        </div>
+
+        <!-- s20 -->
+        <div data-hf-id="hf-bda5" id="lp-b20" class="clip band" data-start="0" data-duration="2.456" data-track-index="2">
+          <div data-hf-id="hf-difz" id="lp-b20-w" class="bwrap">
+            <h2 data-hf-id="hf-rgw8">Meant to Be Reused</h2>
+          </div>
+        </div>
+
+        <!-- s21 -->
+        <div data-hf-id="hf-y3q9" id="lp-b21" class="clip band" data-start="2.456" data-duration="2.612" data-track-index="2">
+          <div data-hf-id="hf-nape" id="lp-b21-w" class="bwrap">
+            <p data-hf-id="hf-70wt" class="body-copy">Your workbook is not a one-time assignment.</p>
+          </div>
+        </div>
+
+        <!-- s22 -->
+        <div data-hf-id="hf-g5rk" id="lp-b22" class="clip band" data-start="5.068" data-duration="1.561" data-track-index="2">
+          <div data-hf-id="hf-87kp" id="lp-b22-w" class="bwrap">
+            <p data-hf-id="hf-thn7" class="body-copy">Your map is not frozen.</p>
+          </div>
+        </div>
+
+        <!-- s23 -->
+        <div data-hf-id="hf-1qkt" id="lp-b23" class="clip band" data-start="6.629" data-duration="4.177" data-track-index="2">
+          <div data-hf-id="hf-cwws" id="lp-b23-w" class="bwrap">
+            <p data-hf-id="hf-gml9" class="body-copy">Your direction can and will change as you gather evidence and gain experience.</p>
+          </div>
+        </div>
+
+        <!-- s24 -->
+        <div data-hf-id="hf-dbny" id="lp-b24" class="clip band" data-start="10.806" data-duration="6.582" data-track-index="2">
+          <div data-hf-id="hf-xfbv" id="lp-b24-w" class="bwrap">
+            <h2 data-hf-id="hf-0deu">A Repeatable Loop, Not a Fixed Plan</h2>
+            <p data-hf-id="hf-xj4h" class="body-copy under-heading stage" id="lp-b24-p">That is not a sign you did something wrong.</p>
+          </div>
+        </div>
+
+        <!-- s25 -->
+        <div data-hf-id="hf-vnco" id="lp-b25" class="clip band" data-start="17.388" data-duration="6.844" data-track-index="2">
+          <div data-hf-id="hf-0k4e" id="lp-b25-w" class="bwrap">
+            <h2 data-hf-id="hf-l620">You Now Own a Process</h2>
+            <p data-hf-id="hf-5636" class="body-copy under-heading stage" id="lp-b25-p">Not just a set of answers — the most important takeaway of the whole course.</p>
+          </div>
+        </div>
+
+        <!-- s26–s31 heading -->
+        <div data-hf-id="hf-746g" id="lp-b26" class="clip band" data-start="24.232" data-duration="13.405" data-track-index="2">
+          <div data-hf-id="hf-4x2d" id="lp-b26-w" class="bwrap">
+            <h2 data-hf-id="hf-tkrj">Run the Loop Again</h2>
+          </div>
+        </div>
+
+        <!-- s26 body -->
+        <div data-hf-id="hf-yzzd" id="lp-b26b" class="clip band-low" data-start="24.232" data-duration="4.284" data-track-index="3">
+          <div data-hf-id="hf-0p71" id="lp-b26b-w" class="bwrap">
+            <p data-hf-id="hf-xyb3" class="body-copy">Any time you face a career decision</p>
+          </div>
+        </div>
+
+        <!-- s27–s31 — the five steps light the five waiting nodes -->
+        <div data-hf-id="hf-k18m" id="lp-steps" class="clip band-low" data-start="28.516" data-duration="9.121" data-track-index="3">
+          <div data-hf-id="hf-964i" id="lp-steps-w" class="bwrap">
+            <ol data-hf-id="hf-q2it" class="step-list" data-role="list">
+              <li data-hf-id="hf-6rar" id="lp-st1">Clarify the Decision</li>
+              <li data-hf-id="hf-yk8x" id="lp-st2">Widen Your Options</li>
+              <li data-hf-id="hf-g06w" id="lp-st3">Set Your Criteria</li>
+              <li data-hf-id="hf-lo1j" id="lp-st4">Test Your Biggest Uncertainty</li>
+              <li data-hf-id="hf-wmgh" id="lp-st5">Decide, Act, and Review</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- s32 -->
+        <div data-hf-id="hf-kk6v" id="lp-b32" class="clip band" data-start="37.637" data-duration="5.982" data-track-index="2">
+          <div data-hf-id="hf-iyde" id="lp-b32-w" class="bwrap">
+            <p data-hf-id="hf-jdva" class="body-copy">Keep your Career Purpose Statement somewhere you will see it — update it whenever it stops feeling true.</p>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-4kbz" id="lp-pin-label">Career Purpose Statement</div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const IN = { duration: 0.55, ease: "power3.out" };
+        const OUT = { autoAlpha: 0, duration: 0.28, ease: "power2.in" };
+
+        tl.fromTo("#lp-lift", { scale: 1 }, { scale: 1.035, duration: 3.6, ease: "sine.inOut", yoyo: true, repeat: 10 }, 0); /* motion-allow: ambient radial-lift background breath, finite yoyo (tokens motion.ambient) */
+
+        // s20 — the marker joins the ring
+        tl.fromTo("#lp-b20-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 0.05);
+        tl.to("#lp-b20-w", OUT, 2.16);
+        tl.fromTo("#lp-marker", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45, ease: "power3.out" }, 0.35);
+
+        // s21 — first leg of the lap
+        tl.fromTo("#lp-b21-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 2.5);
+        tl.to("#lp-b21-w", OUT, 4.77);
+        tl.fromTo("#lp-rot", { rotation: 0 }, { rotation: 72, duration: 2.0, ease: "power1.inOut" }, 2.6);
+
+        // s22 — second leg
+        tl.fromTo("#lp-b22-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 5.11);
+        tl.to("#lp-b22-w", OUT, 6.18);
+        tl.fromTo("#lp-rot", { rotation: 72 }, { rotation: 144, duration: 1.2, ease: "power1.inOut" }, 5.15);
+
+        // s23 — third leg
+        tl.fromTo("#lp-b23-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 6.68);
+        tl.to("#lp-b23-w", OUT, 10.17);
+        tl.fromTo("#lp-rot", { rotation: 144 }, { rotation: 216, duration: 2.6, ease: "power1.inOut" }, 6.75);
+
+        // s24 — the lap completes
+        tl.fromTo("#lp-b24-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 10.86);
+        tl.fromTo("#lp-b24-p", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 13.83);
+        tl.to("#lp-b24-w", OUT, 16.63);
+        tl.fromTo("#lp-rot", { rotation: 216 }, { rotation: 360, duration: 2.8, ease: "power1.inOut" }, 10.93);
+
+        // s25 — the marker's job is done
+        tl.fromTo("#lp-b25-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 17.44);
+        tl.fromTo("#lp-b25-p", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 20.66);
+        tl.to("#lp-b25-w", OUT, 23.47);
+        tl.to("#lp-marker", { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, 17.76);
+
+        // s26 — run the loop again
+        tl.fromTo("#lp-b26-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 24.28);
+        tl.to("#lp-b26-w", OUT, 36.77);
+        tl.fromTo("#lp-b26b-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 24.46);
+        tl.to("#lp-b26b-w", OUT, 27.76);
+
+        // s27–s31 — the five steps light the five waiting nodes
+        tl.fromTo("#lp-steps-w", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 28.516);
+        tl.fromTo("#lp-st1", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 28.56);
+        tl.to("#lp-n0", { fill: "#eaab2d", attr: { r: 18 }, duration: 0.4, ease: "back.out(1.4)" }, 28.56);
+        tl.fromTo("#lp-st2", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 30.11);
+        tl.to("#lp-n1", { fill: "#eaab2d", attr: { r: 18 }, duration: 0.4, ease: "back.out(1.4)" }, 30.11);
+        tl.fromTo("#lp-st3", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 31.52);
+        tl.to("#lp-n2", { fill: "#eaab2d", attr: { r: 18 }, duration: 0.4, ease: "back.out(1.4)" }, 31.52);
+        tl.fromTo("#lp-st4", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 32.91);
+        tl.to("#lp-n3", { fill: "#eaab2d", attr: { r: 18 }, duration: 0.4, ease: "back.out(1.4)" }, 32.91);
+        tl.fromTo("#lp-st5", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }, 35.02);
+        tl.to("#lp-n4", { fill: "#eaab2d", attr: { r: 18 }, duration: 0.4, ease: "back.out(1.4)" }, 35.02);
+        tl.to("#lp-steps-w", OUT, 36.77);
+
+        // s32 — the pin marks the hub
+        tl.fromTo("#lp-b32-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 37.69);
+        tl.fromTo("#lp-pin", { autoAlpha: 0, attr: { r: 6 } }, { autoAlpha: 1, attr: { r: 16 }, duration: 0.5, ease: "back.out(1.4)" }, 37.87);
+        tl.fromTo("#lp-pin-label", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 38.12);
+
+        window.__timelines["loop"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

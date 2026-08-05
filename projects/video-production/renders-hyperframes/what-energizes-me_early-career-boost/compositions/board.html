@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400; font-style: normal; font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700; font-style: normal; font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900; font-style: normal; font-display: block;
+        }
+      </style>
+      <style>
+      #root { position: absolute; inset: 0; width: 1920px; height: 1080px;
+               font-family: "Proxima Nova", sans-serif; overflow: hidden; }
+      #bd-wall { position: absolute; inset: 0; background: rgb(246,246,249); }
+      #bd-wash { position: absolute; left: 960px; top: 540px; width: 2000px;
+                  height: 1300px; margin: -650px 0 0 -1000px;
+                  background: radial-gradient(ellipse at center,
+                    rgba(51,147,214,0.1) 0%, rgba(51,147,214,0.04) 42%,
+                    rgba(246,246,249,0) 72%); will-change: transform; }
+      #bd-board { position: absolute; left: 150px; top: 126px;
+                   width: 1620px; height: 832px;
+                   background: rgb(255,255,255); border: 2px solid rgb(204,206,223);
+                   border-radius: 10px; opacity: 0; }
+      .bd-pin { position: absolute; width: 14px; height: 14px; border-radius: 50%;
+                 background: rgba(51,147,214,0.55); opacity: 0; }
+      .bd-rule { position: absolute; height: 2px; background: rgb(204,206,223);
+                  transform-origin: left center; opacity: 0; }
+      .bd-ruled { position: absolute; height: 2px; background: rgba(204,206,223,0.7);
+                   transform-origin: left center; opacity: 0; }
+      #bd-gutter { position: absolute; left: 905px; top: 406px;
+                    width: 2px; height: 464px;
+                    background: rgba(51,147,214,0.55); transform-origin: top center; }
+      #bd-gstrike { position: absolute; width: 480px; height: 5px;
+                     left: 665px; top: 636px; background: rgb(234,171,45);
+                     transform-origin: center center; opacity: 0; }
+      .bd-hd { position: absolute; left: 190px; top: 142px; width: 1080px;
+                font-size: 58px; font-weight: 900; line-height: 1.18;
+                letter-spacing: -0.015em; color: rgb(13,36,55); opacity: 0; }
+      #bd-title { position: absolute; left: 190px; top: 392px; width: 1300px;
+                   font-size: 104px; font-weight: 900; line-height: 1.08;
+                   letter-spacing: -0.02em; color: rgb(13,36,55); opacity: 0; }
+      #bd-titlerule { position: absolute; left: 190px; top: 348px; width: 220px;
+                       height: 8px; background: rgb(234,171,45);
+                       transform-origin: left center; transform: scaleX(0); }
+      #bd-corner { position: absolute; left: 1478px; top: 140px; width: 268px;
+                    opacity: 0; }
+      .bd-cap { font-size: 26px; font-weight: 700; letter-spacing: 0.14em;
+                 text-transform: uppercase; color: rgb(95,111,150); }
+      #bd-cticks { margin-top: 14px; display: flex; gap: 12px; }
+      #bd-cticks span { display: block; width: 40px; height: 6px;
+                         background: rgba(51,147,214,0.5); }
+      #bd-chips { position: absolute; left: 190px; top: 890px; display: flex;
+                   gap: 40px; align-items: center; }
+      .bd-chip { position: relative; font-size: 40px; font-weight: 700;
+                  color: rgb(41,47,53); opacity: 0; white-space: nowrap; }
+      .bd-chip i { position: absolute; left: -6px; top: 50%; display: block;
+                    width: calc(100% + 12px); height: 4px; background: rgb(234,171,45);
+                    transform-origin: left center; transform: scaleX(0);
+                    font-style: normal; }
+      #bd-rail { position: absolute; left: 250px; top: 270px; width: 1310px;
+                  display: flex; gap: 26px; }
+      .bd-tag { font-size: 26px; font-weight: 700; letter-spacing: 0.14em;
+                 text-transform: uppercase; color: rgb(13,36,55);
+                 border: 2px solid rgba(51,147,214,0.45); border-radius: 100px;
+                 padding: 8px 22px; opacity: 0; }
+      #bd-railline { position: absolute; left: 250px; top: 262px;
+                      width: 1310px; height: 2px; background: rgba(51,147,214,0.3);
+                      transform-origin: left center; transform: scaleX(0); }
+      #bd-colheads { position: absolute; left: 250px; top: 342px;
+                      width: 1310px; display: flex; }
+      .bd-colhead { flex: 1; text-align: center; font-size: 30px; font-weight: 900;
+                     letter-spacing: 0.14em; text-transform: uppercase;
+                     color: rgb(13,36,55); opacity: 0; }
+      .bd-slip { position: absolute; width: 96px; height: 64px;
+                  border: 2px solid rgb(204,206,223); border-radius: 6px;
+                  background: rgba(229,239,246,0.5); opacity: 0; }
+      .bd-slip .edge { position: absolute; left: 0; bottom: -2px; width: 100%;
+                        height: 8px; opacity: 0; }
+      .bd-slip .flat { background: rgba(95,111,150,0.75); }
+      .bd-slip .stroke { position: absolute; left: 14px; height: 6px;
+                          background: rgba(41,47,53,0.62); transform-origin: left center;
+                          transform: scaleX(0); }
+      .bd-bar { position: absolute; left: 1580px; width: 160px;
+                 height: 10px; background: rgba(13,36,55,0.32);
+                 border-radius: 2px; opacity: 0; }
+      #bd-resout { position: absolute; left: 1574px; width: 172px;
+                    border: 2px dashed rgb(204,206,223); border-radius: 6px;
+                    opacity: 0; }
+      #bd-threads { position: absolute; inset: 0; }
+      #bd-track { position: absolute; left: 196px; top: 406px;
+                   width: 2px; height: 464px;
+                   background: rgb(204,206,223); transform-origin: top center;
+                   transform: scaleY(0); }
+      #bd-qpin { position: absolute; left: 185px;
+                  top: 394px; width: 24px; height: 24px;
+                  border-radius: 50%; background: rgb(234,171,45); opacity: 0; }
+      #bd-qtick { position: absolute; left: 202px;
+                   top: 404px; width: 44px; height: 3px;
+                   background: rgba(234,171,45,0.7); opacity: 0; }
+      #bd-dir { position: absolute; left: 1752px; top: 406px; width: 3px;
+                 height: 464px; background: rgba(234,171,45,0.25);
+                 transform-origin: top center; transform: scaleY(0); }
+      .bd-dtick { position: absolute; left: 1740px; width: 26px; height: 3px;
+                   background: rgba(234,171,45,0.35); opacity: 0; }
+      #bd-arrow { position: absolute; left: 1739px; top: 866px;
+                   width: 28px; height: 28px;
+                   border-right: 4px solid rgb(234,171,45);
+                   border-bottom: 4px solid rgb(234,171,45);
+                   transform-origin: center; opacity: 0; }
+      .bd-band { position: absolute; left: 250px; width: 1490px;
+                  background: rgba(229,239,246,0.75);
+                  border-top: 3px solid rgba(234,171,45,0.55);
+                  border-radius: 6px; opacity: 0; }
+      .bd-bandhead { position: absolute; left: 268px; font-size: 26px;
+                      font-weight: 700; letter-spacing: 0.14em;
+                      text-transform: uppercase; color: rgb(13,36,55);
+                      opacity: 0; }
+    
+      </style>
+
+      <div id="root" data-composition-id="board" data-width="1920" data-height="1080">
+        
+<div id="bd-wall"></div><div id="bd-wash" data-layout-allow-overflow></div>
+        <div id="bd-board"></div>
+        <span class="bd-pin" id="bd-pin0" style="left:176px;top:152px"></span>
+        <span class="bd-pin" id="bd-pin1" style="left:1730px;top:152px"></span>
+        <span class="bd-pin" id="bd-pin2" style="left:176px;top:918px"></span>
+        <span class="bd-pin" id="bd-pin3" style="left:1730px;top:918px"></span>
+        <div class="bd-rule" id="bd-headrule" style="left:150px;top:250px;width:1620px"></div>
+        <div class="bd-rule" id="bd-colrule" style="left:250px;top:394px;width:1310px"></div>
+        <div class="bd-ruled" id="bd-r0" style="left:262px;top:414px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r1" style="left:262px;top:452px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r2" style="left:262px;top:490px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r3" style="left:262px;top:528px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r4" style="left:262px;top:566px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r5" style="left:262px;top:604px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r6" style="left:262px;top:642px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r7" style="left:262px;top:680px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r8" style="left:262px;top:718px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r9" style="left:262px;top:756px;width:1286px"></div>
+        <div class="bd-ruled" id="bd-r10" style="left:262px;top:794px;width:1286px"></div>
+        <div id="bd-gutter"></div><div id="bd-gstrike"></div>
+        <h1 id="bd-title">What Energizes Me</h1>
+        <div id="bd-titlerule"></div>
+        <div id="bd-corner"><div class="bd-cap">Last Lesson</div><div id="bd-cticks"><span></span><span></span><span></span><span></span><span></span></div></div>
+        <h2 class="bd-hd" id="bd-hd-s02" data-role="heading">Specific to You</h2>
+        <h2 class="bd-hd" id="bd-hd-s03" data-role="heading">A More Reliable Question</h2>
+        <h2 class="bd-hd" id="bd-hd-s05" data-role="heading">Energy Is Observable</h2>
+        <h2 class="bd-hd" id="bd-hd-s06" data-role="heading">You Already Have Data</h2>
+        <h2 class="bd-hd" id="bd-hd-s10" data-role="heading">That Pattern Is a Signal</h2>
+        <h2 class="bd-hd" id="bd-hd-s11" data-role="heading">Two Columns</h2>
+        <h2 class="bd-hd" id="bd-hd-s12" data-role="heading">The Energizing Work Worksheet</h2>
+        <h2 class="bd-hd" id="bd-hd-s13" data-role="heading">What You're Not Doing</h2>
+        <h2 class="bd-hd" id="bd-hd-s15" data-role="heading">Look for Patterns</h2>
+        <h2 class="bd-hd" id="bd-hd-s17" data-role="heading">The Ingredients of Work That Fits You</h2>
+        <h2 class="bd-hd" id="bd-hd-s18" data-role="heading">Genuinely Hard to Name</h2>
+        <h2 class="bd-hd" id="bd-hd-s20" data-role="heading">Not Always Obvious</h2>
+        <h2 class="bd-hd" id="bd-hd-s21" data-role="heading">Several Experiences, Side by Side</h2>
+        <h2 class="bd-hd" id="bd-hd-s22" data-role="heading">The Tasks That Feel Most Engaging</h2>
+        <h2 class="bd-hd" id="bd-hd-s23" data-role="heading">The Ways You Like to Contribute</h2>
+        <h2 class="bd-hd" id="bd-hd-s24" data-role="heading">Early Clues About Roles or Paths</h2>
+        <h2 class="bd-hd" id="bd-hd-s25" data-role="heading">A Structured Conversation</h2>
+        <h2 class="bd-hd" id="bd-hd-s27" data-role="heading">Not One Path</h2>
+        <h2 class="bd-hd" id="bd-hd-s28" data-role="heading">Better Language and Insight</h2>
+        <h2 class="bd-hd" id="bd-hd-s29" data-role="heading">Now It's Your Turn</h2>
+        <h2 class="bd-hd" id="bd-hd-s30" data-role="heading">Your AI Energy Coach</h2>
+        <h2 class="bd-hd" id="bd-hd-s32" data-role="heading">Answer Honestly</h2>
+        <h2 class="bd-hd" id="bd-hd-s33" data-role="heading">One Question at a Time</h2>
+        <h2 class="bd-hd" id="bd-hd-s34" data-role="heading">It Reflects Back the Patterns</h2>
+        <h2 class="bd-hd" id="bd-hd-s36" data-role="heading">Be Specific and Honest</h2>
+        <h2 class="bd-hd" id="bd-hd-s38" data-role="heading">End the Conversation Any Time</h2>
+        <h2 class="bd-hd" id="bd-hd-s39" data-role="heading">Two or Three Patterns</h2>
+        <h2 class="bd-hd" id="bd-hd-s40" data-role="heading">Enough to Point Yourself Somewhere</h2>
+        <div id="bd-chips" data-role="list">
+          <div class="bd-chip" id="bd-c1">Passion<i></i></div>
+          <div class="bd-chip" id="bd-c2">A Lightning-Bolt Answer<i></i></div>
+          <div class="bd-chip" id="bd-c3">A Job Title<i></i></div>
+          <div class="bd-chip" id="bd-c4">What You Should Enjoy<i></i></div>
+        </div>
+        <div id="bd-railline"></div>
+        <div id="bd-rail" data-role="list">
+          <span class="bd-tag" id="bd-tag0">Organizing</span>
+          <span class="bd-tag" id="bd-tag1">Creating</span>
+          <span class="bd-tag" id="bd-tag2">Helping</span>
+          <span class="bd-tag" id="bd-tag3">Solving</span>
+          <span class="bd-tag" id="bd-tag4">Analyzing</span>
+        </div>
+        <div id="bd-colheads" data-role="compare">
+          <div class="bd-colhead" id="bd-colL" data-role="card">Energizes</div>
+          <div class="bd-colhead" id="bd-colR" data-role="card">Drains</div>
+        </div>
+        <div id="bd-track"></div><div id="bd-qpin"></div><div id="bd-qtick"></div>
+        <div id="bd-dir"></div>
+        <div class="bd-dtick" id="bd-dt0" style="top:520px"></div>
+        <div class="bd-dtick" id="bd-dt1" style="top:660px"></div>
+        <div class="bd-dtick" id="bd-dt2" style="top:800px"></div>
+        <div id="bd-arrow"></div>
+        <div class="bd-band" id="bd-band0" style="top:406px;height:140px"></div>
+        <div class="bd-band" id="bd-band1" style="top:568px;height:140px"></div>
+        <div class="bd-band" id="bd-band2" style="top:730px;height:140px"></div>
+        <div class="bd-bandhead" id="bd-bh0" style="top:460px">Organizing</div>
+        <div class="bd-bandhead" id="bd-bh1" style="top:622px">Creating</div>
+        <div class="bd-bandhead" id="bd-bh2" style="top:784px">Solving</div>
+        <div class="bd-bar" id="bd-bar0" style="top:860px"></div>
+        <div class="bd-bar" id="bd-bar1" style="top:846px"></div>
+        <div class="bd-bar" id="bd-bar2" style="top:832px"></div>
+        <div class="bd-bar" id="bd-bar3" style="top:818px"></div>
+        <div class="bd-bar" id="bd-bar4" style="top:804px"></div>
+        <div class="bd-bar" id="bd-bar5" style="top:790px"></div>
+        <div class="bd-bar" id="bd-bar6" style="top:776px"></div>
+        <div class="bd-bar" id="bd-bar7" style="top:762px"></div>
+        <div class="bd-bar" id="bd-bar8" style="top:748px"></div>
+        <div class="bd-bar" id="bd-bar9" style="top:734px"></div>
+        <div class="bd-bar" id="bd-bar10" style="top:720px"></div>
+        <div class="bd-bar" id="bd-bar11" style="top:706px"></div>
+        <div class="bd-bar" id="bd-bar12" style="top:692px"></div>
+        <div class="bd-bar" id="bd-bar13" style="top:678px"></div>
+        <div class="bd-bar" id="bd-bar14" style="top:664px"></div>
+        <div class="bd-bar" id="bd-bar15" style="top:650px"></div>
+        <div class="bd-bar" id="bd-bar16" style="top:636px"></div>
+        <div class="bd-bar" id="bd-bar17" style="top:622px"></div>
+        <div class="bd-bar" id="bd-bar18" style="top:608px"></div>
+        <div class="bd-bar" id="bd-bar19" style="top:594px"></div>
+        <div class="bd-bar" id="bd-bar20" style="top:580px"></div>
+        <div class="bd-bar" id="bd-bar21" style="top:566px"></div>
+        <div class="bd-bar" id="bd-bar22" style="top:552px"></div>
+        <div class="bd-bar" id="bd-bar23" style="top:538px"></div>
+        <div class="bd-bar" id="bd-bar24" style="top:524px"></div>
+        <div class="bd-bar" id="bd-bar25" style="top:510px"></div>
+        <div class="bd-bar" id="bd-bar26" style="top:496px"></div>
+        <div class="bd-bar" id="bd-bar27" style="top:482px"></div>
+        <div class="bd-bar" id="bd-bar28" style="top:468px"></div>
+        <div class="bd-bar" id="bd-bar29" style="top:454px"></div>
+        <div class="bd-bar" id="bd-bar30" style="top:440px"></div>
+        <div class="bd-bar" id="bd-bar31" style="top:426px"></div>
+        <div id="bd-resout" style="top:420px;height:456px"></div>
+        <svg id="bd-threads" viewBox="0 0 1920 1080" width="1920" height="1080">
+          <line id="bd-th0" x1="698" y1="438" x2="990" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th1" x1="456" y1="438" x2="1111" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th2" x1="577" y1="630" x2="1111" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th3" x1="990" y1="438" x2="990" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th4" x1="698" y1="438" x2="456" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th5" x1="577" y1="534" x2="1232" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th6" x1="577" y1="438" x2="990" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th7" x1="335" y1="438" x2="1474" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th8" x1="335" y1="534" x2="456" y2="726" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th9" x1="577" y1="438" x2="1353" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th10" x1="335" y1="534" x2="1353" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th11" x1="335" y1="438" x2="335" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th12" x1="990" y1="630" x2="456" y2="726" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th13" x1="335" y1="534" x2="990" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th14" x1="1232" y1="438" x2="1474" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th15" x1="1111" y1="438" x2="577" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th16" x1="456" y1="534" x2="1111" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th17" x1="698" y1="534" x2="1474" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th18" x1="1111" y1="438" x2="335" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th19" x1="1232" y1="438" x2="698" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th20" x1="1232" y1="534" x2="1111" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th21" x1="819" y1="438" x2="456" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th22" x1="698" y1="438" x2="1474" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th23" x1="698" y1="438" x2="335" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th24" x1="698" y1="438" x2="1474" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th25" x1="698" y1="438" x2="1232" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th26" x1="335" y1="438" x2="1111" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th27" x1="335" y1="438" x2="1111" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th28" x1="698" y1="438" x2="1232" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th29" x1="698" y1="438" x2="698" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th30" x1="1111" y1="438" x2="1111" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th31" x1="577" y1="534" x2="1111" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th32" x1="577" y1="438" x2="1111" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th33" x1="1111" y1="438" x2="1111" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th34" x1="1474" y1="438" x2="990" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th35" x1="577" y1="438" x2="1111" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th36" x1="335" y1="534" x2="1232" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th37" x1="819" y1="534" x2="990" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th38" x1="456" y1="534" x2="1111" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th39" x1="1111" y1="534" x2="698" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th40" x1="335" y1="534" x2="1111" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th41" x1="577" y1="438" x2="1474" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th42" x1="990" y1="534" x2="819" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th43" x1="335" y1="726" x2="1111" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th44" x1="335" y1="630" x2="819" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th45" x1="577" y1="630" x2="819" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th46" x1="990" y1="534" x2="335" y2="726" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th47" x1="577" y1="438" x2="1474" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th48" x1="698" y1="534" x2="1232" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th49" x1="335" y1="630" x2="990" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th50" x1="335" y1="438" x2="1353" y2="438" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th51" x1="577" y1="534" x2="990" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th52" x1="1232" y1="438" x2="456" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th53" x1="1474" y1="438" x2="335" y2="726" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th54" x1="1232" y1="438" x2="698" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th55" x1="990" y1="534" x2="1232" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th56" x1="335" y1="438" x2="698" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th57" x1="1474" y1="438" x2="1232" y2="534" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th58" x1="1232" y1="438" x2="819" y2="630" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+          <line id="bd-th59" x1="1353" y1="534" x2="335" y2="726" stroke="rgba(51,147,214,0.42)" stroke-width="2" opacity="0"></line>
+        </svg>
+        <div class="bd-slip" id="bd-s0" style="left:287px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s1" style="left:408px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s2" style="left:942px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s3" style="left:529px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s4" style="left:1063px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s5" style="left:650px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s6" style="left:771px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s7" style="left:1184px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s8" style="left:1305px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s9" style="left:1426px;top:406px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s10" style="left:287px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s11" style="left:942px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s12" style="left:408px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s13" style="left:529px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s14" style="left:1063px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s15" style="left:650px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s16" style="left:771px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s17" style="left:287px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s18" style="left:1184px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s19" style="left:408px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s20" style="left:529px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s21" style="left:1305px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s22" style="left:650px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s23" style="left:1426px;top:502px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s24" style="left:771px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s25" style="left:942px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s26" style="left:287px;top:694px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s27" style="left:408px;top:694px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s28" style="left:1063px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s29" style="left:529px;top:694px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s30" style="left:1184px;top:598px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+        <div class="bd-slip" id="bd-s31" style="left:650px;top:694px"><span class="edge"></span><span class="stroke" style="top:12px;width:64px"></span><span class="stroke" style="top:24px;width:48px"></span><span class="stroke" style="top:36px;width:68px"></span><span class="stroke" style="top:48px;width:42px"></span></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power3.out";
+          const POP = "back.out(1.5)";
+          function arrive(sel, t, dy, dur) {
+            tl.set(sel, { opacity: 1, y: dy }, t);
+            tl.to(sel, { y: 0, duration: dur || 0.42, ease: IN }, t);
+          }
+          function leave(sel, t, dy) {
+            tl.to(sel, { opacity: 0, y: dy, duration: 0.28, ease: "power2.in" }, t);
+          }
+          function ink(sel, t, dur) {
+            tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: dur || 0.5, ease: "power2.out" }, t);
+          }
+          function grow(sel, t, dur) {
+            tl.fromTo(sel, { scaleY: 0 }, { scaleY: 1, duration: dur || 0.6, ease: "power2.out" }, t);
+          }
+          function show(sel, t, dur) {
+            tl.to(sel, { opacity: 1, duration: dur || 0.35, ease: "power2.out" }, t);
+          }
+          function pop(sel, t) {
+            tl.fromTo(sel, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: POP }, t);
+          }
+          
+          tl.fromTo("#bd-wash", { scale: 1, opacity: 0.9 }, { scale: 1.045, opacity: 1, duration: 8, ease: "sine.inOut", yoyo: true, repeat: 39 }, 0); /* motion-allow: background depth-drift on a non-content wash layer; design.md sanctions ambient breath on the background only */
+          
+          tl.set("#bd-gutter", { scaleY: 0 }, 0);
+          tl.set("#bd-arrow", { rotation: 45 }, 0);
+          
+          tl.set("#bd-s0", { x: 413, y: 254, rotation: -2.4 }, 0);
+          tl.set("#bd-s1", { x: 432, y: 254, rotation: 1.8 }, 0);
+          tl.set("#bd-s2", { x: 38, y: 254, rotation: -1.2 }, 0);
+          tl.set("#bd-s3", { x: 591, y: 254, rotation: 2.6 }, 0);
+          tl.set("#bd-s4", { x: 197, y: 254, rotation: -1.8 }, 0);
+          tl.set("#bd-s5", { x: 750, y: 254, rotation: 1.1 }, 0);
+          tl.set("#bd-s6", { x: -71, y: 310, rotation: -2.4 }, 0);
+          tl.set("#bd-s7", { x: -344, y: 310, rotation: 1.8 }, 0);
+          tl.set("#bd-s8", { x: -325, y: 310, rotation: -1.2 }, 0);
+          tl.set("#bd-s9", { x: -306, y: 310, rotation: 2.6 }, 0);
+          tl.set("#bd-s10", { x: 973, y: 214, rotation: -1.8 }, 0);
+          tl.set("#bd-s11", { x: 458, y: 214, rotation: 1.1 }, 0);
+          tl.set("#bd-s12", { x: 292, y: 270, rotation: -2.4 }, 0);
+          tl.set("#bd-s13", { x: 311, y: 270, rotation: 1.8 }, 0);
+          tl.set("#bd-s14", { x: -83, y: 270, rotation: -1.2 }, 0);
+          tl.set("#bd-s15", { x: 470, y: 270, rotation: 2.6 }, 0);
+          tl.set("#bd-s16", { x: 489, y: 270, rotation: -1.8 }, 0);
+          
+          arrive("#bd-hd-s02", 6.582, 54);
+          leave("#bd-hd-s02", 11.516, -38);
+          arrive("#bd-hd-s03", 11.876, 54);
+          leave("#bd-hd-s03", 18.859, -38);
+          arrive("#bd-hd-s05", 19.219, 54);
+          leave("#bd-hd-s05", 20.754, -38);
+          arrive("#bd-hd-s06", 21.114, 54);
+          leave("#bd-hd-s06", 31.965, -38);
+          arrive("#bd-hd-s10", 32.325, 54);
+          leave("#bd-hd-s10", 33.938, -38);
+          arrive("#bd-hd-s11", 34.298, 54);
+          leave("#bd-hd-s11", 39.281, -38);
+          arrive("#bd-hd-s12", 39.641, 54);
+          leave("#bd-hd-s12", 44.572, -38);
+          arrive("#bd-hd-s13", 44.932, 54);
+          leave("#bd-hd-s13", 49.537, -38);
+          arrive("#bd-hd-s15", 49.897, 54);
+          leave("#bd-hd-s15", 57.768, -38);
+          arrive("#bd-hd-s17", 58.128, 54);
+          leave("#bd-hd-s17", 62.981, -38);
+          arrive("#bd-hd-s18", 63.341, 54);
+          leave("#bd-hd-s18", 71.029, -38);
+          arrive("#bd-hd-s20", 71.389, 54);
+          leave("#bd-hd-s20", 73.603, -38);
+          arrive("#bd-hd-s21", 73.963, 54);
+          leave("#bd-hd-s21", 80.279, -38);
+          arrive("#bd-hd-s22", 80.639, 54);
+          leave("#bd-hd-s22", 84.081, -38);
+          arrive("#bd-hd-s23", 84.441, 54);
+          leave("#bd-hd-s23", 90.678, -38);
+          arrive("#bd-hd-s24", 91.038, 54);
+          leave("#bd-hd-s24", 94.349, -38);
+          arrive("#bd-hd-s25", 94.709, 54);
+          leave("#bd-hd-s25", 101.326, -38);
+          arrive("#bd-hd-s27", 101.686, 54);
+          leave("#bd-hd-s27", 103.9, -38);
+          arrive("#bd-hd-s28", 104.26, 54);
+          leave("#bd-hd-s28", 110.445, -38);
+          arrive("#bd-hd-s29", 110.805, 54);
+          leave("#bd-hd-s29", 115.475, -38);
+          arrive("#bd-hd-s30", 115.835, 54);
+          leave("#bd-hd-s30", 121.747, -38);
+          arrive("#bd-hd-s32", 122.107, 54);
+          leave("#bd-hd-s32", 127.273, -38);
+          arrive("#bd-hd-s33", 127.633, 54);
+          leave("#bd-hd-s33", 134.184, -38);
+          arrive("#bd-hd-s34", 134.544, 54);
+          leave("#bd-hd-s34", 141.866, -38);
+          arrive("#bd-hd-s36", 142.226, 54);
+          leave("#bd-hd-s36", 153.179, -38);
+          arrive("#bd-hd-s38", 153.539, 54);
+          leave("#bd-hd-s38", 157.686, -38);
+          arrive("#bd-hd-s39", 158.046, 54);
+          leave("#bd-hd-s39", 159.686, -38);
+          arrive("#bd-hd-s40", 160.046, 54);
+          
+          ink("#bd-titlerule", 0.708, 0.5);
+          arrive("#bd-title", 0.925, 70, 0.5);
+          tl.set("#bd-corner", { x: -1288, y: 486, scale: 1.5, opacity: 0 }, 0);
+          show("#bd-corner", 4.539, 0.4);
+          leave("#bd-title", 6.402, -60);
+          tl.to("#bd-titlerule", { opacity: 0, duration: 0.3 }, 6.402);
+          tl.fromTo("#bd-board", { opacity: 0, scale: 0.965 }, { opacity: 1, scale: 1, duration: 0.6, ease: IN }, 6.402);
+          tl.to("#bd-corner", { x: 0, y: 0, scale: 1, duration: 0.7, ease: IN }, 6.502);
+          ink("#bd-r0", 7.1, 0.45);
+          tl.set("#bd-r0", { opacity: 1 }, 7.1);
+          ink("#bd-r1", 7.15, 0.45);
+          tl.set("#bd-r1", { opacity: 1 }, 7.15);
+          ink("#bd-r2", 7.2, 0.45);
+          tl.set("#bd-r2", { opacity: 1 }, 7.2);
+          ink("#bd-r3", 7.25, 0.45);
+          tl.set("#bd-r3", { opacity: 1 }, 7.25);
+          ink("#bd-r4", 7.3, 0.45);
+          tl.set("#bd-r4", { opacity: 1 }, 7.3);
+          ink("#bd-r5", 7.35, 0.45);
+          tl.set("#bd-r5", { opacity: 1 }, 7.35);
+          ink("#bd-r6", 7.4, 0.45);
+          tl.set("#bd-r6", { opacity: 1 }, 7.4);
+          ink("#bd-r7", 7.45, 0.45);
+          tl.set("#bd-r7", { opacity: 1 }, 7.45);
+          ink("#bd-r8", 7.5, 0.45);
+          tl.set("#bd-r8", { opacity: 1 }, 7.5);
+          ink("#bd-r9", 7.55, 0.45);
+          tl.set("#bd-r9", { opacity: 1 }, 7.55);
+          ink("#bd-r10", 7.6, 0.45);
+          tl.set("#bd-r10", { opacity: 1 }, 7.6);
+          ink("#bd-headrule", 9.776, 0.6);
+          tl.set("#bd-headrule", { opacity: 1 }, 9.776);
+          tl.fromTo("#bd-gutter", { scaleY: 0 }, { scaleY: 0.3, duration: 0.55, ease: "power2.out" }, 9.896);
+          pop("#bd-c1", 14.556);
+          tl.to("#bd-colL", { opacity: 0.4, duration: 0.35 }, 14.405);
+          tl.to("#bd-colR", { opacity: 0.4, duration: 0.35 }, 14.525);
+          tl.to("#bd-gutter", { scaleY: 0.75, duration: 0.6, ease: "power2.out" }, 16.271);
+          tl.to("#bd-colL", { opacity: 1, duration: 0.4 }, 16.371);
+          tl.to("#bd-colR", { opacity: 1, duration: 0.4 }, 16.471);
+          ink("#bd-c1 i", 17.766, 0.42);
+          pop("#bd-pin0", 18.135);
+          pop("#bd-pin1", 18.225);
+          pop("#bd-pin2", 18.315);
+          pop("#bd-pin3", 18.405);
+          tl.to("#bd-gutter", { scaleY: 0.9, duration: 0.5, ease: "power2.out" }, 20.099);
+          tl.to("#bd-board", { borderColor: "rgba(13,36,55,0.35)", duration: 0.5 }, 20.199);
+          tl.fromTo("#bd-bar0", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.454);
+          tl.fromTo("#bd-bar1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.476);
+          tl.fromTo("#bd-bar2", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.498);
+          tl.fromTo("#bd-bar3", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.52);
+          tl.fromTo("#bd-bar4", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.542);
+          tl.fromTo("#bd-bar5", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.564);
+          tl.fromTo("#bd-bar6", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.586);
+          tl.fromTo("#bd-bar7", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.608);
+          tl.fromTo("#bd-bar8", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.63);
+          tl.fromTo("#bd-bar9", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.652);
+          tl.fromTo("#bd-bar10", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.674);
+          tl.fromTo("#bd-bar11", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.696);
+          tl.fromTo("#bd-bar12", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.718);
+          tl.fromTo("#bd-bar13", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.74);
+          tl.fromTo("#bd-bar14", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.762);
+          tl.fromTo("#bd-bar15", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.784);
+          tl.fromTo("#bd-bar16", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.806);
+          tl.fromTo("#bd-bar17", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.828);
+          tl.fromTo("#bd-bar18", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.85);
+          tl.fromTo("#bd-bar19", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.872);
+          tl.fromTo("#bd-bar20", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.894);
+          tl.fromTo("#bd-bar21", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.916);
+          tl.fromTo("#bd-bar22", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.938);
+          tl.fromTo("#bd-bar23", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.96);
+          tl.fromTo("#bd-bar24", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 22.982);
+          tl.fromTo("#bd-bar25", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.004);
+          tl.fromTo("#bd-bar26", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.026);
+          tl.fromTo("#bd-bar27", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.048);
+          tl.fromTo("#bd-bar28", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.07);
+          tl.fromTo("#bd-bar29", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.092);
+          tl.fromTo("#bd-bar30", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.114);
+          tl.fromTo("#bd-bar31", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3, ease: IN }, 23.136);
+          tl.to("#bd-bar31", { opacity: 0, duration: 0.18 }, 23.834);
+          tl.fromTo("#bd-s0", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 23.834);
+          tl.to("#bd-bar30", { opacity: 0, duration: 0.18 }, 24.733);
+          tl.fromTo("#bd-s1", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 24.733);
+          tl.to("#bd-bar29", { opacity: 0, duration: 0.18 }, 25.433);
+          tl.fromTo("#bd-s2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 25.433);
+          tl.to("#bd-bar28", { opacity: 0, duration: 0.18 }, 26.353);
+          tl.fromTo("#bd-s3", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 26.353);
+          tl.to("#bd-bar27", { opacity: 0, duration: 0.18 }, 27.633);
+          tl.fromTo("#bd-s4", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 27.633);
+          tl.to("#bd-bar26", { opacity: 0, duration: 0.18 }, 28.764);
+          tl.fromTo("#bd-s5", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 28.764);
+          tl.to("#bd-bar25", { opacity: 0, duration: 0.18 }, 29.509);
+          tl.fromTo("#bd-s6", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 29.509);
+          tl.to("#bd-bar24", { opacity: 0, duration: 0.18 }, 29.649);
+          tl.fromTo("#bd-s7", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 29.649);
+          tl.to("#bd-bar23", { opacity: 0, duration: 0.18 }, 30.733);
+          tl.fromTo("#bd-s8", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 30.733);
+          tl.to("#bd-bar22", { opacity: 0, duration: 0.18 }, 31.456);
+          tl.fromTo("#bd-s9", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 31.456);
+          tl.to("#bd-bar21", { opacity: 0, duration: 0.18 }, 32.71);
+          tl.fromTo("#bd-s10", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 32.71);
+          tl.to("#bd-bar20", { opacity: 0, duration: 0.18 }, 33.455);
+          tl.fromTo("#bd-s11", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 33.455);
+          tl.to("#bd-bar19", { opacity: 0, duration: 0.18 }, 33.595);
+          tl.fromTo("#bd-s12", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 33.595);
+          tl.to("#bd-bar18", { opacity: 0, duration: 0.18 }, 45.301);
+          tl.fromTo("#bd-s13", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 45.301);
+          tl.to("#bd-bar17", { opacity: 0, duration: 0.18 }, 45.97);
+          tl.fromTo("#bd-s14", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 45.97);
+          tl.to("#bd-bar16", { opacity: 0, duration: 0.18 }, 47.237);
+          tl.fromTo("#bd-s15", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 47.237);
+          tl.to("#bd-bar15", { opacity: 0, duration: 0.18 }, 48.684);
+          tl.fromTo("#bd-s16", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 48.684);
+          tl.to("#bd-bar14", { opacity: 0, duration: 0.18 }, 56.146);
+          tl.fromTo("#bd-s17", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 56.146);
+          tl.to("#bd-bar13", { opacity: 0, duration: 0.18 }, 57.117);
+          tl.fromTo("#bd-s18", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 57.117);
+          tl.to("#bd-bar12", { opacity: 0, duration: 0.18 }, 57.257);
+          tl.fromTo("#bd-s19", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 57.257);
+          tl.to("#bd-bar11", { opacity: 0, duration: 0.18 }, 58.905);
+          tl.fromTo("#bd-s20", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 58.905);
+          tl.to("#bd-bar10", { opacity: 0, duration: 0.18 }, 59.045);
+          tl.fromTo("#bd-s21", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 59.045);
+          tl.to("#bd-bar9", { opacity: 0, duration: 0.18 }, 61.41);
+          tl.fromTo("#bd-s22", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 61.41);
+          tl.to("#bd-bar8", { opacity: 0, duration: 0.18 }, 61.55);
+          tl.fromTo("#bd-s23", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 61.55);
+          tl.to("#bd-bar7", { opacity: 0, duration: 0.18 }, 63.998);
+          tl.fromTo("#bd-s24", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 63.998);
+          tl.to("#bd-bar6", { opacity: 0, duration: 0.18 }, 68.271);
+          tl.fromTo("#bd-s25", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 68.271);
+          tl.to("#bd-bar5", { opacity: 0, duration: 0.18 }, 71.839);
+          tl.fromTo("#bd-s26", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 71.839);
+          tl.to("#bd-bar4", { opacity: 0, duration: 0.18 }, 72.876);
+          tl.fromTo("#bd-s27", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 72.876);
+          tl.to("#bd-bar3", { opacity: 0, duration: 0.18 }, 73.016);
+          tl.fromTo("#bd-s28", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 73.016);
+          tl.set("#bd-s0 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 29.538);
+          tl.fromTo("#bd-s0 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.32, ease: "power2.out" }, 29.538);
+          tl.set("#bd-s1 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 29.638);
+          tl.fromTo("#bd-s1 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.32, ease: "power2.out" }, 29.638);
+          tl.set("#bd-s3 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 29.738);
+          tl.fromTo("#bd-s3 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.32, ease: "power2.out" }, 29.738);
+          tl.set("#bd-s2 .edge", { background: "rgba(95,111,150,0.75)" }, 31.572);
+          tl.fromTo("#bd-s2 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.32, ease: "power2.out" }, 31.572);
+          tl.set("#bd-s4 .edge", { background: "rgba(95,111,150,0.75)" }, 31.672);
+          tl.fromTo("#bd-s4 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.32, ease: "power2.out" }, 31.672);
+          tl.set("#bd-s7 .edge", { background: "rgba(95,111,150,0.75)" }, 31.772);
+          tl.fromTo("#bd-s7 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.32, ease: "power2.out" }, 31.772);
+          tl.set("#bd-s5 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 29.064);
+          tl.fromTo("#bd-s5 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 29.064);
+          tl.set("#bd-s6 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 29.809);
+          tl.fromTo("#bd-s6 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 29.809);
+          tl.set("#bd-s8 .edge", { background: "rgba(95,111,150,0.75)" }, 31.033);
+          tl.fromTo("#bd-s8 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 31.033);
+          tl.set("#bd-s9 .edge", { background: "rgba(95,111,150,0.75)" }, 31.756);
+          tl.fromTo("#bd-s9 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 31.756);
+          tl.set("#bd-s10 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 33.01);
+          tl.fromTo("#bd-s10 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 33.01);
+          tl.set("#bd-s11 .edge", { background: "rgba(95,111,150,0.75)" }, 33.755);
+          tl.fromTo("#bd-s11 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 33.755);
+          tl.set("#bd-s12 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 33.895);
+          tl.fromTo("#bd-s12 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 33.895);
+          tl.set("#bd-s13 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 45.601);
+          tl.fromTo("#bd-s13 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 45.601);
+          tl.set("#bd-s14 .edge", { background: "rgba(95,111,150,0.75)" }, 46.27);
+          tl.fromTo("#bd-s14 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 46.27);
+          tl.set("#bd-s15 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 47.537);
+          tl.fromTo("#bd-s15 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 47.537);
+          tl.set("#bd-s16 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 48.984);
+          tl.fromTo("#bd-s16 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 48.984);
+          tl.set("#bd-s17 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 56.446);
+          tl.fromTo("#bd-s17 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 56.446);
+          tl.set("#bd-s18 .edge", { background: "rgba(95,111,150,0.75)" }, 57.417);
+          tl.fromTo("#bd-s18 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 57.417);
+          tl.set("#bd-s19 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 57.557);
+          tl.fromTo("#bd-s19 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 57.557);
+          tl.set("#bd-s20 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 59.205);
+          tl.fromTo("#bd-s20 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 59.205);
+          tl.set("#bd-s21 .edge", { background: "rgba(95,111,150,0.75)" }, 59.345);
+          tl.fromTo("#bd-s21 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 59.345);
+          tl.set("#bd-s22 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 61.71);
+          tl.fromTo("#bd-s22 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 61.71);
+          tl.set("#bd-s23 .edge", { background: "rgba(95,111,150,0.75)" }, 61.85);
+          tl.fromTo("#bd-s23 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 61.85);
+          tl.set("#bd-s24 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 64.298);
+          tl.fromTo("#bd-s24 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 64.298);
+          tl.set("#bd-s25 .edge", { background: "rgba(95,111,150,0.75)" }, 68.571);
+          tl.fromTo("#bd-s25 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 68.571);
+          tl.set("#bd-s26 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 72.139);
+          tl.fromTo("#bd-s26 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 72.139);
+          tl.set("#bd-s27 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 73.176);
+          tl.fromTo("#bd-s27 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 73.176);
+          tl.set("#bd-s28 .edge", { background: "rgba(95,111,150,0.75)" }, 73.316);
+          tl.fromTo("#bd-s28 .edge", { scaleX: 0 }, { scaleX: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, 73.316);
+          tl.to("#bd-gutter", { scaleY: 1, duration: 0.7, ease: IN }, 35.977);
+          ink("#bd-colrule", 37.289, 0.6);
+          tl.set("#bd-colrule", { opacity: 1 }, 37.289);
+          ink("#bd-railline", 42.401, 0.6);
+          tl.to("#bd-colrule", { backgroundColor: "rgba(13,36,55,0.45)", duration: 0.4 }, 42.601);
+          pop("#bd-c2", 48.515);
+          ink("#bd-c2 i", 48.845, 0.4);
+          pop("#bd-c3", 57.43);
+          ink("#bd-c3 i", 57.459, 0.4);
+          tl.to("#bd-s0", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 50.876);
+          tl.to("#bd-s1", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 50.911);
+          tl.to("#bd-s2", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 50.946);
+          tl.to("#bd-s3", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 50.981);
+          tl.to("#bd-s4", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.016);
+          tl.to("#bd-s5", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.051);
+          tl.to("#bd-s6", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.086);
+          tl.to("#bd-s7", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.121);
+          tl.to("#bd-s8", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.156);
+          tl.to("#bd-s9", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.191);
+          tl.to("#bd-s10", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.226);
+          tl.to("#bd-s11", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.261);
+          tl.to("#bd-s12", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.296);
+          tl.to("#bd-s13", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.331);
+          tl.to("#bd-s14", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.366);
+          tl.to("#bd-s15", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.401);
+          tl.to("#bd-s16", { x: 0, y: 0, rotation: 0, duration: 0.75, ease: IN }, 51.436);
+          grow("#bd-dir", 53.932, 0.6);
+          grow("#bd-track", 65.744, 0.5);
+          tl.set("#bd-track", { opacity: 1 }, 65.744);
+          pop("#bd-qpin", 65.994);
+          show("#bd-qtick", 66.044, 0.3);
+          tl.fromTo("#bd-s0 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 69.881);
+          tl.fromTo("#bd-s1 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 69.951);
+          tl.fromTo("#bd-s3 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 70.021);
+          tl.fromTo("#bd-s5 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 70.091);
+          tl.fromTo("#bd-s6 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 72.799);
+          tl.fromTo("#bd-s2 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 72.869);
+          tl.fromTo("#bd-s4 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 72.939);
+          tl.fromTo("#bd-s7 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 73.009);
+          tl.fromTo("#bd-s8 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 73.079);
+          tl.fromTo("#bd-s0 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 81.248);
+          tl.fromTo("#bd-s1 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 81.318);
+          tl.fromTo("#bd-s3 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 81.388);
+          tl.fromTo("#bd-s5 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 81.458);
+          tl.fromTo("#bd-s6 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 81.528);
+          tl.fromTo("#bd-s2 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 81.598);
+          tl.fromTo("#bd-s9 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 95.368);
+          tl.fromTo("#bd-s10 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 95.438);
+          tl.fromTo("#bd-s12 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 95.508);
+          tl.fromTo("#bd-s13 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 95.578);
+          tl.fromTo("#bd-s15 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 95.648);
+          tl.fromTo("#bd-s16 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 102.158);
+          tl.fromTo("#bd-s11 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 102.228);
+          tl.fromTo("#bd-s14 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 102.298);
+          tl.fromTo("#bd-s18 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 102.368);
+          tl.fromTo("#bd-s4 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 108.15);
+          tl.fromTo("#bd-s7 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 108.22);
+          tl.fromTo("#bd-s8 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 108.29);
+          tl.fromTo("#bd-s9 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 108.36);
+          tl.fromTo("#bd-s21 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 111.546);
+          tl.fromTo("#bd-s23 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 111.616);
+          tl.fromTo("#bd-s17 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 111.686);
+          tl.fromTo("#bd-s19 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 111.756);
+          tl.fromTo("#bd-s10 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 120.232);
+          tl.fromTo("#bd-s12 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 120.302);
+          tl.fromTo("#bd-s13 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 120.372);
+          tl.fromTo("#bd-s15 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 120.442);
+          tl.fromTo("#bd-s20 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 125.402);
+          tl.fromTo("#bd-s22 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 125.472);
+          tl.fromTo("#bd-s24 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 125.542);
+          tl.fromTo("#bd-s25 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 125.612);
+          tl.fromTo("#bd-s0 .stroke:nth-of-type(4)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 131.758);
+          tl.fromTo("#bd-s1 .stroke:nth-of-type(4)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 131.828);
+          tl.fromTo("#bd-s3 .stroke:nth-of-type(4)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 131.898);
+          tl.fromTo("#bd-s5 .stroke:nth-of-type(4)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 131.968);
+          tl.fromTo("#bd-s6 .stroke:nth-of-type(4)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 132.038);
+          tl.fromTo("#bd-s2 .stroke:nth-of-type(4)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 132.108);
+          tl.fromTo("#bd-s16 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 137.181);
+          tl.fromTo("#bd-s11 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 137.251);
+          tl.fromTo("#bd-s14 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 137.321);
+          tl.fromTo("#bd-s18 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 137.391);
+          tl.fromTo("#bd-s28 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 139.59);
+          tl.fromTo("#bd-s26 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 139.66);
+          tl.fromTo("#bd-s27 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 139.73);
+          tl.fromTo("#bd-s0 .stroke:nth-of-type(5)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 142.921);
+          tl.fromTo("#bd-s1 .stroke:nth-of-type(5)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 142.991);
+          tl.fromTo("#bd-s3 .stroke:nth-of-type(5)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 143.061);
+          tl.fromTo("#bd-s5 .stroke:nth-of-type(5)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 143.131);
+          tl.fromTo("#bd-s6 .stroke:nth-of-type(5)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 143.201);
+          tl.fromTo("#bd-s2 .stroke:nth-of-type(5)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 143.271);
+          tl.fromTo("#bd-s21 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 150.734);
+          tl.fromTo("#bd-s23 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 150.804);
+          tl.fromTo("#bd-s17 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 150.874);
+          tl.fromTo("#bd-s19 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 150.944);
+          tl.fromTo("#bd-th0", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 74.915);
+          tl.fromTo("#bd-th1", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 75.025);
+          tl.fromTo("#bd-th2", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 75.135);
+          tl.fromTo("#bd-th3", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 75.245);
+          tl.fromTo("#bd-th4", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 75.355);
+          tl.fromTo("#bd-th5", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 77.842);
+          tl.fromTo("#bd-th6", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 77.952);
+          tl.fromTo("#bd-th7", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 78.062);
+          tl.fromTo("#bd-th8", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 78.172);
+          tl.fromTo("#bd-th9", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 82.803);
+          tl.fromTo("#bd-th10", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 82.913);
+          tl.fromTo("#bd-th11", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 83.023);
+          tl.fromTo("#bd-th12", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 93.117);
+          tl.fromTo("#bd-th13", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 93.227);
+          tl.fromTo("#bd-th14", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 93.337);
+          tl.fromTo("#bd-th15", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 97.124);
+          tl.fromTo("#bd-th16", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 97.234);
+          tl.fromTo("#bd-th17", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 99.431);
+          tl.fromTo("#bd-th18", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 99.541);
+          tl.fromTo("#bd-th19", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 99.651);
+          tl.fromTo("#bd-th20", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 103.165);
+          tl.fromTo("#bd-th21", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 103.275);
+          tl.fromTo("#bd-th22", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 105.19);
+          tl.fromTo("#bd-th23", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 105.3);
+          tl.fromTo("#bd-th24", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 105.41);
+          tl.fromTo("#bd-th25", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 105.52);
+          tl.fromTo("#bd-th26", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 113.628);
+          tl.fromTo("#bd-th27", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 113.738);
+          tl.fromTo("#bd-th28", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 116.448);
+          tl.fromTo("#bd-th29", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 116.558);
+          tl.fromTo("#bd-th30", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 116.668);
+          tl.fromTo("#bd-th31", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 118.022);
+          tl.fromTo("#bd-th32", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 118.132);
+          tl.fromTo("#bd-th33", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 120.232);
+          tl.fromTo("#bd-th34", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 120.342);
+          tl.fromTo("#bd-th35", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 120.999);
+          tl.fromTo("#bd-th36", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 121.109);
+          tl.fromTo("#bd-th37", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 121.219);
+          tl.fromTo("#bd-th38", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 125.303);
+          tl.fromTo("#bd-th39", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 125.413);
+          tl.fromTo("#bd-th40", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 125.523);
+          tl.fromTo("#bd-th41", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 135.232);
+          tl.fromTo("#bd-th42", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 135.342);
+          tl.fromTo("#bd-th43", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 135.452);
+          tl.fromTo("#bd-th44", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 139.59);
+          tl.fromTo("#bd-th45", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 139.7);
+          tl.fromTo("#bd-th46", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 140.866);
+          tl.fromTo("#bd-th47", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 140.976);
+          tl.fromTo("#bd-th48", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 144.821);
+          tl.fromTo("#bd-th49", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 144.931);
+          tl.fromTo("#bd-th50", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 147.685);
+          tl.fromTo("#bd-th51", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 147.795);
+          tl.fromTo("#bd-th52", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 147.905);
+          tl.fromTo("#bd-th53", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 148.015);
+          tl.fromTo("#bd-th54", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 148.125);
+          tl.fromTo("#bd-th55", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 150.612);
+          tl.fromTo("#bd-th56", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 150.722);
+          tl.fromTo("#bd-th57", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 150.832);
+          tl.fromTo("#bd-th58", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 156.05);
+          tl.fromTo("#bd-th59", { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 156.16);
+          pop("#bd-tag0", 86.96);
+          pop("#bd-tag1", 87.78);
+          pop("#bd-tag2", 88.52);
+          pop("#bd-tag3", 89.3);
+          pop("#bd-tag4", 90.02);
+          tl.to("#bd-railline", { backgroundColor: "rgb(51,147,214)", duration: 0.4 }, 89.532);
+          show("#bd-dt0", 91.692, 0.3);
+          show("#bd-dt1", 91.832, 0.3);
+          show("#bd-dt2", 91.972, 0.3);
+          pop("#bd-c4", 100.4);
+          ink("#bd-c4 i", 100.851, 0.4);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 55, duration: 0.45, ease: IN }, 81.377);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 110, duration: 0.45, ease: IN }, 95.514);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 165, duration: 0.45, ease: IN }, 102.242);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 220, duration: 0.45, ease: IN }, 111.719);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 275, duration: 0.45, ease: IN }, 120.296);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 330, duration: 0.45, ease: IN }, 130.093);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 385, duration: 0.45, ease: IN }, 131.112);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 440, duration: 0.45, ease: IN }, 132.392);
+          tl.to(["#bd-qpin", "#bd-qtick"], { y: 440, duration: 0.5, ease: IN }, 139.696);
+          tl.to("#bd-qpin", { backgroundColor: "rgb(204,206,223)", duration: 0.4 }, 154.523);
+          tl.to("#bd-qtick", { opacity: 0.35, duration: 0.4 }, 154.523);
+          tl.to("#bd-dt0", { opacity: 0.75, duration: 0.35 }, 156.127);
+          tl.to("#bd-dt1", { opacity: 0.75, duration: 0.35 }, 156.227);
+          tl.to("#bd-dt2", { opacity: 0.75, duration: 0.35 }, 156.327);
+          tl.fromTo("#bd-s25 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 148.953);
+          tl.fromTo("#bd-s28 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 149.752);
+          tl.fromTo("#bd-s26 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 150.332);
+          tl.fromTo("#bd-s27 .stroke:nth-of-type(3)", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 150.953);
+          tl.set("#bd-gstrike", { rotation: 75.4, scaleX: 0, opacity: 1 }, 159.035);
+          tl.to("#bd-gstrike", { scaleX: 1, duration: 0.45, ease: IN }, 159.045);
+          tl.to("#bd-gutter", { opacity: 0.22, duration: 0.4 }, 159.145);
+          tl.fromTo("#bd-band0", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: IN }, 159.225);
+          tl.fromTo("#bd-band1", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: IN }, 159.345);
+          tl.fromTo("#bd-band2", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: IN }, 159.465);
+          tl.to("#bd-bar2", { opacity: 0, duration: 0.18 }, 159.136);
+          tl.fromTo("#bd-s29", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 159.136);
+          tl.to("#bd-bar1", { opacity: 0, duration: 0.18 }, 159.256);
+          tl.fromTo("#bd-s30", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 159.256);
+          tl.to("#bd-bar0", { opacity: 0, duration: 0.18 }, 159.376);
+          tl.fromTo("#bd-s31", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: POP }, 159.376);
+          tl.set("#bd-s29 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 159.396);
+          tl.to("#bd-s29 .edge", { opacity: 1, duration: 0.25 }, 159.396);
+          tl.fromTo("#bd-s29 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.28 }, 159.496);
+          tl.set("#bd-s30 .edge", { background: "rgba(95,111,150,0.75)" }, 159.516);
+          tl.to("#bd-s30 .edge", { opacity: 1, duration: 0.25 }, 159.516);
+          tl.fromTo("#bd-s30 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.28 }, 159.616);
+          tl.set("#bd-s31 .edge", { background: "repeating-linear-gradient(135deg, rgb(234,171,45) 0 6px, rgba(234,171,45,0) 6px 12px)" }, 159.636);
+          tl.to("#bd-s31 .edge", { opacity: 1, duration: 0.25 }, 159.636);
+          tl.fromTo("#bd-s31 .stroke:nth-of-type(2)", { scaleX: 0 }, { scaleX: 1, duration: 0.28 }, 159.736);
+          show("#bd-resout", 159.443, 0.4);
+          tl.to("#bd-s0", { x: 183.0, y: 38.0, duration: 0.8, ease: IN }, 160.426);
+          tl.to("#bd-s5", { x: -72.0, y: 38.0, duration: 0.8, ease: IN }, 160.444);
+          tl.to("#bd-s12", { x: 278.0, y: -58.0, duration: 0.8, ease: IN }, 160.462);
+          tl.to("#bd-s16", { x: 23.0, y: -58.0, duration: 0.8, ease: IN }, 160.48);
+          tl.to("#bd-s20", { x: 373.0, y: -154.0, duration: 0.8, ease: IN }, 160.498);
+          tl.to("#bd-s26", { x: 723.0, y: -250.0, duration: 0.8, ease: IN }, 160.516);
+          tl.to("#bd-s31", { x: 468.0, y: -250.0, duration: 0.8, ease: IN }, 160.534);
+          tl.to("#bd-s7", { x: 42.0, y: 38.0, duration: 0.8, ease: IN }, 160.552);
+          tl.to("#bd-s11", { x: 392.0, y: -58.0, duration: 0.8, ease: IN }, 160.57);
+          tl.to("#bd-s21", { x: 137.0, y: -58.0, duration: 0.8, ease: IN }, 160.588);
+          tl.to("#bd-s28", { x: 487.0, y: -154.0, duration: 0.8, ease: IN }, 160.606);
+          tl.to("#bd-s1", { x: 62.0, y: 200.0, duration: 0.8, ease: IN }, 160.426);
+          tl.to("#bd-s6", { x: -193.0, y: 200.0, duration: 0.8, ease: IN }, 160.444);
+          tl.to("#bd-s13", { x: 157.0, y: 104.0, duration: 0.8, ease: IN }, 160.462);
+          tl.to("#bd-s17", { x: 507.0, y: 8.0, duration: 0.8, ease: IN }, 160.48);
+          tl.to("#bd-s22", { x: 252.0, y: 8.0, duration: 0.8, ease: IN }, 160.498);
+          tl.to("#bd-s27", { x: 602.0, y: -88.0, duration: 0.8, ease: IN }, 160.516);
+          tl.to("#bd-s2", { x: 176.0, y: 200.0, duration: 0.8, ease: IN }, 160.534);
+          tl.to("#bd-s8", { x: -79.0, y: 200.0, duration: 0.8, ease: IN }, 160.552);
+          tl.to("#bd-s14", { x: 271.0, y: 104.0, duration: 0.8, ease: IN }, 160.57);
+          tl.to("#bd-s23", { x: 16.0, y: 104.0, duration: 0.8, ease: IN }, 160.588);
+          tl.to("#bd-s30", { x: 366.0, y: 8.0, duration: 0.8, ease: IN }, 160.606);
+          tl.to("#bd-s3", { x: -59.0, y: 362.0, duration: 0.8, ease: IN }, 160.426);
+          tl.to("#bd-s10", { x: 292.3, y: 266.0, duration: 0.8, ease: IN }, 160.444);
+          tl.to("#bd-s15", { x: 38.7, y: 266.0, duration: 0.8, ease: IN }, 160.462);
+          tl.to("#bd-s19", { x: 390.0, y: 170.0, duration: 0.8, ease: IN }, 160.48);
+          tl.to("#bd-s24", { x: 136.3, y: 170.0, duration: 0.8, ease: IN }, 160.498);
+          tl.to("#bd-s29", { x: 487.7, y: 74.0, duration: 0.8, ease: IN }, 160.516);
+          tl.to("#bd-s4", { x: 63.0, y: 362.0, duration: 0.8, ease: IN }, 160.534);
+          tl.to("#bd-s9", { x: -190.7, y: 362.0, duration: 0.8, ease: IN }, 160.552);
+          tl.to("#bd-s18", { x: 160.7, y: 266.0, duration: 0.8, ease: IN }, 160.57);
+          tl.to("#bd-s25", { x: 512.0, y: 170.0, duration: 0.8, ease: IN }, 160.588);
+          tl.to("#bd-threads", { opacity: 0.18, duration: 0.5 }, 160.426);
+          tl.to("#bd-tag0", { opacity: 0, duration: 0.25 }, 161.649);
+          pop("#bd-bh0", 161.769);
+          tl.to("#bd-tag1", { opacity: 0, duration: 0.25 }, 161.789);
+          pop("#bd-bh1", 161.909);
+          tl.to("#bd-tag3", { opacity: 0, duration: 0.25 }, 161.929);
+          pop("#bd-bh2", 162.049);
+          tl.to("#bd-tag2", { opacity: 0.28, duration: 0.4 }, 161.649);
+          tl.to("#bd-tag4", { opacity: 0.28, duration: 0.4 }, 161.649);
+          tl.to("#bd-dir", { backgroundColor: "rgb(234,171,45)", duration: 0.5 }, 161.849);
+          pop("#bd-arrow", 162.069);
+          window.__timelines["board"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

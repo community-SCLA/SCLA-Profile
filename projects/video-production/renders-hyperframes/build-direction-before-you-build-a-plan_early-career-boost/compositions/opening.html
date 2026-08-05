@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per file so the composition is self-contained.
+           url() resolves against the HOST document, which is where this
+           template gets cloned. Kept in its own block so an at-rule can never
+           take the layout rules down with it. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+
+        /* ---- title card ------------------------------------------------ */
+        #op-title {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          top: 340px;
+          text-align: center;
+          font-weight: 900;
+          letter-spacing: -0.02em;
+          /* 1.5 clears Proxima 900's real normal line-height (1.477): below it
+             the ink overflows its own line box and the two display lines
+             collide, which is exactly what the layout inspector caught. */
+          line-height: 1.5;
+        }
+        #op-title span {
+          display: block;
+          font-size: 96px;
+          color: #ffffff;
+          opacity: 0;
+        }
+        #op-rule {
+          position: absolute;
+          left: 840px;
+          top: 690px;
+          width: 240px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: 50% 50%;
+        }
+
+        /* ---- borrowed titles ------------------------------------------- */
+        #op-chips {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          top: 500px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+        }
+        .op-chip {
+          display: block;
+          border: 2px solid #3393d6;
+          border-radius: 100px;
+          padding: 16px 34px;
+          font-size: 42px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: #ffffff;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        .op-cw {
+          display: inline-block;
+        }
+
+        /* ---- what a title does not tell you ---------------------------- */
+        /* Occupies the same band the pills vacate — never at the same time as
+           them, so the two blocks can never share pixels. */
+        #op-lines {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          top: 500px;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 90px;
+          opacity: 0;
+        }
+        .op-item {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+          opacity: 0;
+        }
+        .op-tick {
+          display: block;
+          width: 56px;
+          height: 4px;
+          background: #eaab2d;
+        }
+        .op-item-text {
+          font-size: 46px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: rgba(255, 255, 255, 0.78);
+          white-space: nowrap;
+        }
+
+        /* ---- heading --------------------------------------------------- */
+        #op-heading {
+          position: absolute;
+          left: 200px;
+          top: 170px;
+          width: 1560px;
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-nrhd" id="root" data-composition-id="opening" data-width="1920" data-height="1080">
+        <h1 data-hf-id="hf-l11r" id="op-title">
+          <span data-hf-id="hf-rucx" id="op-title-a">Build Direction</span>
+          <span data-hf-id="hf-29z7" id="op-title-b">Before You Build a Plan</span>
+        </h1>
+        <div data-hf-id="hf-awtv" id="op-rule"></div>
+
+        <div data-hf-id="hf-re7q" id="op-chips">
+          <span data-hf-id="hf-emuh" class="op-chip" id="op-c1"><span data-hf-id="hf-dmi7" class="op-cw">Intern</span></span>
+          <span data-hf-id="hf-ikyi" class="op-chip" id="op-c2"><span data-hf-id="hf-73sj" class="op-cw">Analyst</span></span>
+          <span data-hf-id="hf-mj2j" class="op-chip" id="op-c3"><span data-hf-id="hf-k1z3" class="op-cw">Coordinator</span></span>
+          <span data-hf-id="hf-z1l0" class="op-chip" id="op-c4"><span data-hf-id="hf-g5xd" class="op-cw">Assistant</span></span>
+          <span data-hf-id="hf-zt8t" class="op-chip" id="op-c5"><span data-hf-id="hf-tzr3" class="op-cw">Associate</span></span>
+        </div>
+
+        <h2 data-hf-id="hf-w4gw" id="op-heading" data-role="heading">Titles Are Only Labels</h2>
+
+        <div data-hf-id="hf-76om" id="op-lines">
+          <div data-hf-id="hf-m7kn" class="op-item" id="op-i1">
+            <span data-hf-id="hf-qd9m" class="op-tick"></span>
+            <span data-hf-id="hf-5q6y" class="op-item-text">How you work</span>
+          </div>
+          <div data-hf-id="hf-djos" class="op-item" id="op-i2">
+            <span data-hf-id="hf-22r2" class="op-tick"></span>
+            <span data-hf-id="hf-axlr" class="op-item-text">What you care about</span>
+          </div>
+          <div data-hf-id="hf-ebcl" class="op-item" id="op-i3">
+            <span data-hf-id="hf-2h23" class="op-tick"></span>
+            <span data-hf-id="hf-wwkd" class="op-item-text">Where you create value</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var IN = "power3.out";
+          var OUT = "power2.in";
+
+          /* Arrivals are binary (opacity set to 1) plus a whip from below —
+             never a fade used as an arrival. */
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.28, ease: OUT }, t);
+          }
+
+          /* ---- s01 (audio 0.90) — the title card, then the borrowed titles.
+             Cues are HeyGen word timestamps: "intern," 5.68 · "analyst," 6.46 ·
+             "coordinator," 7.30 · "assistant," 8.20 · "associate." 9.26 */
+          arrive("#op-title-a", 0.18, 74, 0.24);
+          arrive("#op-title-b", 0.34, 74, 0.24);
+          tl.fromTo("#op-rule", { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 1.0, ease: IN }, 0.95);
+
+          leave("#op-title-a", 4.92, -44);
+          leave("#op-title-b", 4.98, -44);
+          tl.to("#op-rule", { opacity: 0, duration: 0.28, ease: OUT }, 4.92);
+
+          arrive("#op-c1", 5.58, 40, 0.2);
+          arrive("#op-c2", 6.36, 40, 0.2);
+          arrive("#op-c3", 7.2, 40, 0.2);
+          arrive("#op-c4", 8.1, 40, 0.2);
+          arrive("#op-c5", 9.16, 40, 0.2);
+
+          /* ---- s02 (audio 10.40) — "But titles are only labels."
+             The heading lands, and the words drain out of the pills: the label
+             stays, the content it stood for does not. */
+          arrive("#op-heading", 10.46, 62, 0.24);
+          tl.to(
+            ".op-cw",
+            { opacity: 0, duration: 0.45, ease: OUT, stagger: 0.07 },
+            10.78
+          );
+
+          /* ---- s03 (audio 12.50) — what the label never told you.
+             Cues: "how" 14.38 · "what" 15.42 · "where" 16.78 */
+          tl.to("#op-chips", { opacity: 0, y: -30, duration: 0.3, ease: OUT }, 12.56);
+          tl.set("#op-lines", { opacity: 1 }, 13.06);
+          arrive("#op-i1", 14.28, 44, 0.22);
+          arrive("#op-i2", 15.32, 44, 0.22);
+          arrive("#op-i3", 16.68, 44, 0.22);
+
+          window.__timelines["opening"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

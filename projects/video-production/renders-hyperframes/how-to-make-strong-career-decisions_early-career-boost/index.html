@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face{font-family:"Proxima Nova";src:url("assets/fonts/proxima-nova-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block;}@font-face{font-family:"Proxima Nova";src:url("assets/fonts/proxima-nova-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:block;}@font-face{font-family:"Proxima Nova";src:url("assets/fonts/proxima-nova-900.woff2") format("woff2");font-weight:900;font-style:normal;font-display:block;}
+    </style>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+      }
+      body {
+        font-family: "Proxima Nova", system-ui, sans-serif;
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: #0a1e2f;
+      }
+      #bg-lift {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          124% 80% at 52% 64%,
+          rgba(13, 36, 55, 1) 0%,
+          rgba(10, 30, 47, 1) 74%
+        );
+      }
+      #chrome-text {
+        position: absolute;
+        left: 120px;
+        top: 60px;
+        font-family: "Proxima Nova", system-ui, sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(51, 147, 214, 0.95);
+      }
+      #chrome-rule {
+        position: absolute;
+        left: 120px;
+        top: 99px;
+        width: 128px;
+        height: 4px;
+        background: #eaab2d;
+      }
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="182.106" data-width="1920" data-height="1080">
+      <div id="bg"><div id="bg-lift"></div></div>
+
+      <div id="chrome"><span id="chrome-text">Early Career Boost</span><span id="chrome-rule"></span></div>
+
+      <!-- ONE carrying object for the whole runtime: the decision board.
+           s01 -> s25 — marked, punched, re-sorted once, then stripped back.
+           Never rebuilt, never left. See design.md. -->
+      <div id="el-board" data-composition-id="board" data-composition-src="compositions/board.html" data-start="0" data-duration="182.106" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — HeyGen, Oxana (tokens.yml voice.voice_id). One element
+           per beat at GLOBAL time; every number is read from timing.json. -->
+      <audio id="vo-s01" src="assets/voice/s01.wav" data-start="0.6" data-duration="8.786" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s02" src="assets/voice/s02.wav" data-start="10.036" data-duration="4.791" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s03" src="assets/voice/s03.wav" data-start="15.477" data-duration="5.897" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s04" src="assets/voice/s04.wav" data-start="22.024" data-duration="10.035" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s05" src="assets/voice/s05.wav" data-start="32.709" data-duration="6.965" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s06" src="assets/voice/s06.wav" data-start="40.324" data-duration="4.917" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s07" src="assets/voice/s07.wav" data-start="45.891" data-duration="10.6" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s08" src="assets/voice/s08.wav" data-start="57.141" data-duration="6.252" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s09" src="assets/voice/s09.wav" data-start="64.043" data-duration="9.04" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s10" src="assets/voice/s10.wav" data-start="73.733" data-duration="5.754" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s11" src="assets/voice/s11.wav" data-start="80.137" data-duration="5.805" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s12" src="assets/voice/s12.wav" data-start="86.592" data-duration="4.405" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s13" src="assets/voice/s13.wav" data-start="91.647" data-duration="6.266" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s14" src="assets/voice/s14.wav" data-start="98.563" data-duration="4.422" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s15" src="assets/voice/s15.wav" data-start="103.635" data-duration="8.751" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s16" src="assets/voice/s16.wav" data-start="113.036" data-duration="7.082" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s17" src="assets/voice/s17.wav" data-start="120.768" data-duration="9.605" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s18" src="assets/voice/s18.wav" data-start="131.023" data-duration="5.315" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s19" src="assets/voice/s19.wav" data-start="136.988" data-duration="6.171" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s20" src="assets/voice/s20.wav" data-start="143.809" data-duration="4.616" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s21" src="assets/voice/s21.wav" data-start="149.075" data-duration="4.923" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s22" src="assets/voice/s22.wav" data-start="154.648" data-duration="4.542" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s23" src="assets/voice/s23.wav" data-start="159.84" data-duration="6.224" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s24" src="assets/voice/s24.wav" data-start="166.714" data-duration="6.043" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s25" src="assets/voice/s25.wav" data-start="173.407" data-duration="6.899" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#chrome", { opacity: 1 }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -75,6 +75,9 @@ else
     echo "       Check what it finished: bash scripts/batch-status.sh" >&2
     exit 1
   }
+  # New control-plane workspaces opt into the compact v2 build contract.
+  # Legacy workspaces remain resumable without forcing destructive migration.
+  : > "$WS/.scla-control-v2"
   echo "== claimed workspace renders-hyperframes/$STEM"
 fi
 

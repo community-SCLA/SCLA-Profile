@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+
+        .hd {
+          position: absolute;
+          left: 200px;
+          top: 170px;
+          width: 1560px;
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+          opacity: 0;
+        }
+
+        .th-row {
+          position: absolute;
+          left: 250px;
+          white-space: nowrap;
+          line-height: 1.5;
+          opacity: 0;
+        }
+        #th-r1 {
+          top: 330px;
+        }
+        #th-r2 {
+          top: 415px;
+        }
+        #th-r3 {
+          top: 500px;
+        }
+        .th-k {
+          font-size: 46px;
+          font-weight: 700;
+          color: #eaab2d;
+        }
+        .th-d {
+          font-size: 46px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.78);
+        }
+
+        #th-field {
+          position: absolute;
+          left: 300px;
+          top: 600px;
+          width: 1334px;
+          height: 326px;
+        }
+        .mk {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          border-radius: 100px;
+          background: rgba(51, 147, 214, 0.55);
+        }
+        .mk-lit {
+          background: #eaab2d;
+        }
+        .mk-dim {
+          background: rgba(51, 147, 214, 0.4);
+        }
+      </style>
+
+      <div data-hf-id="hf-m139" id="root" data-composition-id="three" data-width="1920" data-height="1080">
+        <h2 data-hf-id="hf-2yiz" class="hd" id="th-h1" data-role="heading">You Will Identify Three Things</h2>
+
+        <div data-hf-id="hf-qy2h" class="th-row" id="th-r1">
+          <span data-hf-id="hf-haqd" class="th-k">Strengths</span><span data-hf-id="hf-f9tf" class="th-d"> — how you actually contribute</span>
+        </div>
+        <div data-hf-id="hf-uw6i" class="th-row" id="th-r2">
+          <span data-hf-id="hf-19rb" class="th-k">Values</span><span data-hf-id="hf-8ygx" class="th-d"> — what matters in a work experience</span>
+        </div>
+        <div data-hf-id="hf-yuaj" class="th-row" id="th-r3">
+          <span data-hf-id="hf-qz6p" class="th-k">Energy</span><span data-hf-id="hf-92bu" class="th-d"> — what leaves you stronger or drains you</span>
+        </div>
+
+        <div data-hf-id="hf-lnpe" id="th-field"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          var COLS = 12;
+          var ROWS = 4;
+          var COL_PITCH = 120;
+          var ROW_PITCH = 104;
+          /* Inside a block the marks close up to 92px; between blocks the gap
+             opens to 190px. Same 48 marks, three groups. */
+          var TIGHT = 92;
+          var BLOCK_LEFT = [35, 515, 995];
+
+          var field = document.getElementById("th-field");
+          var marks = [];
+          for (var r = 0; r < ROWS; r++) {
+            for (var c = 0; c < COLS; c++) {
+              var m = document.createElement("div");
+              /* Act 3 left the sixteen clue marks in the left block. */
+              m.className = "mk " + (c < 4 ? "mk-lit" : "mk-dim");
+              m.id = "th-m" + (r * COLS + c);
+              m.style.left = c * COL_PITCH + "px";
+              m.style.top = r * ROW_PITCH + "px";
+              field.appendChild(m);
+              marks.push(m);
+            }
+          }
+          function at(c, r) {
+            return marks[r * COLS + c];
+          }
+
+          var tl = gsap.timeline({ paused: true });
+          var IN = "power3.out";
+
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function light(cells, t0, step) {
+            for (var i = 0; i < cells.length; i++) {
+              tl.to(
+                at(cells[i][0], cells[i][1]),
+                { backgroundColor: "#eaab2d", duration: 0.3, ease: IN },
+                t0 + i * step
+              );
+            }
+          }
+
+          /* ---- s16 (audio 0.25) — three things ("three" 2.51). The field
+             separates into three blocks and resets to unread. */
+          arrive("#th-h1", 0.35, 62, 0.24);
+          for (var c2 = 0; c2 < COLS; c2++) {
+            var dx = BLOCK_LEFT[(c2 / 4) | 0] + (c2 % 4) * TIGHT - c2 * COL_PITCH;
+            for (var r2 = 0; r2 < ROWS; r2++) {
+              tl.to(
+                at(c2, r2),
+                {
+                  x: dx,
+                  backgroundColor: "rgba(51, 147, 214, 0.4)",
+                  duration: 0.85,
+                  ease: "power3.inOut"
+                },
+                2.41 + c2 * 0.02
+              );
+            }
+          }
+
+          /* ---- s17 (audio 3.84) — strengths ("strengths" 5.02). */
+          arrive("#th-r1", 4.92, 42, 0.22);
+          var b0 = [];
+          for (var r3 = 0; r3 < ROWS; r3++) {
+            for (var c3 = 0; c3 < 4; c3++) b0.push([c3, r3]);
+          }
+          light(b0, 5.05, 0.075);
+
+          /* ---- s18 (audio 10.31) — values ("values" 11.55), then the six the
+             script names: learning 14.39 · stability 15.11 · flexibility 16.03 ·
+             meaning 17.11 · collaboration 17.83 · recognition 18.87. */
+          arrive("#th-r2", 11.45, 42, 0.22);
+          var VALUE_CUES = [14.29, 15.01, 15.93, 17.01, 17.73, 18.77];
+          var VALUE_GROUPS = [
+            [[4, 0], [5, 0], [6, 0]],
+            [[7, 0], [4, 1], [5, 1]],
+            [[6, 1], [7, 1], [4, 2]],
+            [[5, 2], [6, 2], [7, 2]],
+            [[4, 3], [5, 3]],
+            [[6, 3], [7, 3]]
+          ];
+          for (var v = 0; v < VALUE_CUES.length; v++) {
+            light(VALUE_GROUPS[v], VALUE_CUES[v], 0.06);
+          }
+
+          /* ---- s19 (audio 20.17) — energy patterns ("energy" 21.31), what
+             leaves you stronger (24.31) and what drains you (27.83). */
+          arrive("#th-r3", 21.21, 42, 0.22);
+          var upper = [];
+          var lower = [];
+          for (var c4 = 8; c4 < 12; c4++) {
+            upper.push([c4, 0]);
+            upper.push([c4, 1]);
+            lower.push([c4, 2]);
+            lower.push([c4, 3]);
+          }
+          light(upper, 24.21, 0.06);
+          light(lower, 27.73, 0.06);
+
+          window.__timelines["three"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

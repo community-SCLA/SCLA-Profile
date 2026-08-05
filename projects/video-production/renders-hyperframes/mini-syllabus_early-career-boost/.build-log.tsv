@@ -1,0 +1,18 @@
+2026-08-05T07:14:32Z	claim	program=early-career-boost
+2026-08-05T07:26:13Z	plan	design.md + 18-beat audio_request; static preflight: script_match 0.00%, continuity/copy-narration clean
+2026-08-05T07:37:02Z	author	index.html + compositions/wall.html authored against frozen timings; static preflight PASS
+2026-08-05T07:47:30Z	preflight	exit 1
+2026-08-05T07:49:29Z	preflight	exit 0 — gate-clean
+2026-08-05T07:52:50Z	preflight	exit 0 — gate-clean
+2026-08-05T07:53:48Z	gate	preflight exit 0 + npm run check exit 0; 18 beats, 11.08 bpm, churn 5.70%, 0 twins, WCAG AA 25/25
+2026-08-05T07:53:48Z	release	gate-clean, awaiting render — cold build subagent done
+2026-08-05T08:03:18Z	resume	program=early-career-boost
+2026-08-05T15:26:44Z	resume	program=early-career-boost
+2026-08-05T15:37:51Z	resume	program=early-career-boost
+2026-08-05T15:58:44Z	preflight	exit 0 — gate-clean
+2026-08-05T15:59:18Z	preflight	exit 0 — gate-clean
+2026-08-05T15:59:41Z	preflight	exit 0 — gate-clean
+2026-08-05T16:03:19Z	preflight	exit 0 — gate-clean
+2026-08-05T16:04:43Z	revision	stagnation fix: 9 beats gain word-cued back-half arrivals (starting datum + build envelope s03, rail-ahead s05, tether pay-out s08, per-move sill notches s14, per-source feeds s15, per-thing queue slabs + goal line/mark s18); no settled content re-animated; longest hold 6.0s -> 2.7s; churn 5.70% -> 5.77% (ceiling 6.0); build-gate 0, npm check 0
+2026-08-05T16:07:15Z	release	stagnation revision gate-clean, re-rendering
+2026-08-05T16:41:42Z	preflight	exit 0 — gate-clean

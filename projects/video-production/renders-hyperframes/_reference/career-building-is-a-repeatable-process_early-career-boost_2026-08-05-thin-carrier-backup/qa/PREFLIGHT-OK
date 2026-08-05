@@ -1,0 +1,4 @@
+preflight.py exit 0
+when:      2026-08-05T02:21:47Z
+workspace: renders-hyperframes/career-building-is-a-repeatable-process_early-career-boost
+command:   python3 render-qa/src/preflight.py <workspace>

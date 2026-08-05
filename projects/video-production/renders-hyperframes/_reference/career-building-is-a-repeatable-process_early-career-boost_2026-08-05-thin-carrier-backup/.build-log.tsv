@@ -1,0 +1,14 @@
+2026-08-05T01:27:32Z	resume	program=early-career-boost
+2026-08-05T01:33:13Z	design	verified design.md (ring concept, 35/37 beats ~92% runtime); refreshed tokens.yml+brand assets+metrics.json from scaffold; reset CLI pin 0.7.92->0.7.79
+2026-08-05T01:33:38Z	manifest	audio_request.json: 37 beats verbatim (0.00% mismatch); fixed s10 A.I.->AI dangling-fragment flag; remaining static fails are pace(no timing yet)+unauthored HTML, expected at plan stage
+2026-08-05T01:37:13Z	synth	37/37 beats via HeyGen (Oxana pinned) through with-secrets.sh; 7 transient failures (s31-s37) recovered at concurrency 1; s37 padded +1.7s silence (tail 1.914s >= 1.8 FINAL_HOLD); total 159.06s
+2026-08-05T01:39:00Z	timing	timing.json computed from audio_meta.json (compute_timing.py): 37 rows, 159.06s total; check_pace --static PASS (13.96 beats/min, median 3.81s, 25% long-beat share, final hold in s37 wav)
+2026-08-05T02:01:45Z	author	index.html + 4 sub-compositions authored against frozen timing.json (ring concept; word-timed reveals s04/s19; title card s01; persistent eyebrow chrome)
+2026-08-05T02:10:09Z	static-pass	preflight --static exit 0 (final hold 1.80s timing-level + 1.91s in-wav; Title Case + motion-allow findings fixed)
+2026-08-05T02:15:03Z	snapshots	37/37 beat-midpoint stills captured (hyperframes@0.7.79); reviewed all 5 contact sheets; fixed round-cap dash-dot artifact on undrawn arcs/spokes and re-snapshotted
+2026-08-05T02:15:34Z	preflight	exit 1
+2026-08-05T02:19:28Z	preflight	exit 0 — gate-clean
+2026-08-05T02:19:59Z	preflight	exit 0 — gate-clean
+2026-08-05T02:20:36Z	gates	build-gate exit 0 (all 19 preflight sections PASS incl. boundaries after +0.3s air pads on 17 tight clips, ink 37/37, pace 13.6bpm) + npm run check exit 0 (0 errors, 0 warnings, contrast 13/13 AA). STOPPED before render per AUTO-BATCH pilot sequence
+2026-08-05T02:21:47Z	preflight	exit 0 — gate-clean
+2026-08-05T02:21:55Z	release	pilot gate-clean, at the preview gate

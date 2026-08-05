@@ -1,0 +1,11 @@
+{
+  "name": "career-building-is-a-repeatable-process_early-career-boost",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.7.79 preview",
+    "check": "npx --yes hyperframes@0.7.79 check",
+    "render": "npx --yes hyperframes@0.7.79 render",
+    "publish": "npx --yes hyperframes@0.7.79 publish"
+  }
+}

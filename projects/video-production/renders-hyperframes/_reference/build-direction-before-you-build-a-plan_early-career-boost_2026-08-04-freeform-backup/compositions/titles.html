@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per-file so this composition is self-contained.
+           Kept in its OWN <style> block: sub-comp CSS is scoped to the
+           data-composition-id, and an at-rule must not be able to take the
+           layout rules down with it. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #0d2437;
+        }
+
+        /* The title card. */
+        #t-title {
+          position: absolute;
+          left: 120px;
+          top: 260px;
+          width: 1560px;
+          font-size: 104px;
+          font-weight: 900;
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* The titles that are only labels. */
+        #t-chips {
+          position: absolute;
+          left: 120px;
+          top: 620px;
+          width: 1560px;
+          display: flex;
+          gap: 24px;
+        }
+        .chip {
+          display: block;
+          padding: 16px 36px;
+          border: 2px solid #3393d6;
+          border-radius: 100px;
+          font-size: 40px;
+          font-weight: 700;
+          color: #3393d6;
+          white-space: nowrap;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        #t-verdict {
+          position: absolute;
+          left: 120px;
+          top: 300px;
+          width: 1560px;
+          font-size: 72px;
+          font-weight: 900;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        #t-list {
+          position: absolute;
+          left: 120px;
+          top: 520px;
+          width: 1560px;
+          list-style: none;
+        }
+        #t-list li {
+          display: flex;
+          align-items: center;
+          gap: 28px;
+          height: 86px;
+          font-size: 46px;
+          font-weight: 400;
+          color: #292f35;
+          opacity: 0;
+          will-change: transform;
+        }
+        #t-list li::before {
+          content: "";
+          display: block;
+          width: 44px;
+          height: 4px;
+          background: #eaab2d;
+          flex: 0 0 auto;
+        }
+      </style>
+
+      <div data-hf-id="hf-tf8w" id="root" data-composition-id="titles" data-width="1920" data-height="1080">
+        <h1 data-hf-id="hf-q9p7" id="t-title">Build Direction Before You Build a Plan</h1>
+
+        <div data-hf-id="hf-iy59" id="t-chips">
+          <span data-hf-id="hf-4a47" class="chip" id="t-chip1">Intern</span>
+          <span data-hf-id="hf-zkby" class="chip" id="t-chip2">Analyst</span>
+          <span data-hf-id="hf-z73h" class="chip" id="t-chip3">Coordinator</span>
+          <span data-hf-id="hf-6zoq" class="chip" id="t-chip4">Assistant</span>
+          <span data-hf-id="hf-xe6z" class="chip" id="t-chip5">Associate</span>
+        </div>
+
+        <h2 data-hf-id="hf-dshg" id="t-verdict">Titles Are Only Labels</h2>
+
+        <ul data-hf-id="hf-4xx0" id="t-list" data-role="list">
+          <li data-hf-id="hf-vmp6" id="t-li1">How you work</li>
+          <li data-hf-id="hf-7zmu" id="t-li2">What you care about</li>
+          <li data-hf-id="hf-n5a7" id="t-li3">Where you create value</li>
+        </ul>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power4.out";
+          const OUT = "power2.in";
+
+          // Arrivals are binary (set opacity 1) + a whip from below — never a
+          // fade-in. Nothing here re-animates once it has settled.
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.3, ease: OUT }, t);
+          }
+
+          // ---- s01 (audio 0.80) — the title card, then the labels.
+          arrive("#t-title", 0.55, 78, 0.24);
+          // Each chip lands on its own spoken word: intern 5.48, analyst 6.34,
+          // coordinator 6.98, assistant 7.78, associate 8.70.
+          arrive("#t-chip1", 5.48, 44, 0.16);
+          arrive("#t-chip2", 6.34, 44, 0.16);
+          arrive("#t-chip3", 6.98, 44, 0.16);
+          arrive("#t-chip4", 7.78, 44, 0.16);
+          arrive("#t-chip5", 8.7, 44, 0.16);
+
+          // "But titles are only labels." (9.86) — the title clears, the chips
+          // recede to evidence, and the verdict takes the headline slot.
+          leave("#t-title", 9.62, -46);
+          tl.to("#t-chips", { opacity: 0.26, duration: 0.5, ease: "power2.out" }, 9.86);
+          arrive("#t-verdict", 10.0, 70, 0.24);
+
+          // ---- s02 (audio 12.271) — what a title does not tell you.
+          tl.to("#t-chips", { opacity: 0, duration: 0.32, ease: OUT }, 13.4);
+          arrive("#t-li1", 14.09, 40, 0.18);
+          arrive("#t-li2", 14.97, 40, 0.18);
+          arrive("#t-li3", 16.33, 40, 0.18);
+
+          // Clear the frame for the board.
+          leave("#t-verdict", 17.66, -40);
+          leave("#t-list", 17.66, -28);
+
+          window.__timelines["titles"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

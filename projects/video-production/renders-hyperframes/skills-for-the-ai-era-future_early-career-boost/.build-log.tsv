@@ -1,0 +1,10 @@
+2026-08-05T15:23:45Z	claim	program=early-career-boost
+2026-08-05T15:37:28Z	resume	program=early-career-boost
+2026-08-05T15:53:32Z	design	design.md — concept angle: brick skyline on one horizon rule, s02-s31, crest stroke payoff
+2026-08-05T15:54:34Z	manifest	audio_request.json — 31 beats; script_match 0.00% (one punctuation-only join, zero token change); narration prose confirmed, not a raw capture
+2026-08-05T16:05:48Z	synth	HeyGen Oxana, 31/31 clips (13 re-run sequentially after a concurrency burst rejection, 1 more singly); timing.json computed — 196.69s, pace PASS 9.46 bpm / median 5.51s / 44% long
+2026-08-05T16:14:37Z	script-fix	joined the P4 list: 'and decision-making. Social skills.' -> 'decision-making, and social skills.' — ready script failed check_copy missing-conjunction (blocking at the gate)
+2026-08-05T16:20:00Z	collision	SECOND builder (this one) found a LIVE build already in this workspace (claimed 15:23, resumed 15:37, 31 beats synthesized, HTML authored, snapshotting now). It briefly overwrote audio_request.json (39-beat re-split) and design.md, and edited the ready script; ALL THREE RESTORED — manifest rebuilt verbatim from audio_meta.json word timings, ready script reverted to approved text. preflight --static back to PASS (31 beats, 196.69s, 9.46 bpm). This builder STOPPED without building. Root cause: two build subagents on one stem; --resume takes a workspace that mkdir already locked.
+2026-08-05T16:45:44Z	preflight	exit 1
+2026-08-05T16:51:54Z	preflight	exit 0 — gate-clean
+2026-08-05T20:31:12Z	release	stale lease closed before control-plane refactor

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Brand face — vendored woff2, declared once in the HOST head. Sub-comps
+         are cloned INTO this document, so the face resolves for them too. */
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700; font-style: normal; font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900; font-style: normal; font-display: block;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden;
+                    background: rgb(246,246,249); }
+      body { font-family: "Proxima Nova", sans-serif;
+              -webkit-font-smoothing: antialiased; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      /* The program eyebrow — the ONLY element in the top keep-out, inside the
+         rectangle tokens.yml `chrome-regions` grants to label furniture. */
+      #chrome { position: absolute; left: 120px; top: 58px; display: flex;
+                 align-items: center; gap: 18px; opacity: 0; z-index: 5; }
+      #chrome-mark { display: block; width: 10px; height: 28px;
+                      background: rgb(234,171,45); }
+      #chrome-text { font-size: 26px; font-weight: 700; letter-spacing: 0.16em;
+                      text-transform: uppercase; color: rgb(95,111,150); }
+      #root > div[data-composition-src] { position: absolute; inset: 0; z-index: 1; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0"
+         data-duration="166.525" data-width="1920" data-height="1080">
+      <div id="chrome">
+        <span id="chrome-mark"></span>
+        <span id="chrome-text">Early Career Boost</span>
+      </div>
+
+      <!-- ONE carrying object for the whole runtime: the Energizing Work
+           Worksheet at wall size. s02 -> s40, built once, never left.
+           See design.md. -->
+      <div id="el-board" data-composition-id="board"
+           data-composition-src="compositions/board.html" data-start="0"
+           data-duration="166.525" data-track-index="1"
+           data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — HeyGen starfish, Oxana (tokens.yml voice.voice_id).
+           One element per beat at GLOBAL time; every number below is
+           timing.json's, computed by make_timing.py from the real wavs. -->
+      <audio id="vo-s01" src="assets/voice/s01.wav" data-start="0.6" data-duration="5.642" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s02" src="assets/voice/s02.wav" data-start="6.622" data-duration="5.094" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s03" src="assets/voice/s03.wav" data-start="12.096" data-duration="3.631" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s04" src="assets/voice/s04.wav" data-start="16.107" data-duration="2.952" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s05" src="assets/voice/s05.wav" data-start="19.439" data-duration="1.515" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s06" src="assets/voice/s06.wav" data-start="21.334" data-duration="1.62" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s07" src="assets/voice/s07.wav" data-start="23.334" data-duration="4.885" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s08" src="assets/voice/s08.wav" data-start="28.599" data-duration="1.593" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s09" src="assets/voice/s09.wav" data-start="30.572" data-duration="1.593" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s10" src="assets/voice/s10.wav" data-start="32.545" data-duration="1.593" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s11" src="assets/voice/s11.wav" data-start="34.518" data-duration="4.963" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s12" src="assets/voice/s12.wav" data-start="39.861" data-duration="4.911" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s13" src="assets/voice/s13.wav" data-start="45.152" data-duration="1.384" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s14" src="assets/voice/s14.wav" data-start="46.916" data-duration="2.821" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s15" src="assets/voice/s15.wav" data-start="50.117" data-duration="5.433" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s16" src="assets/voice/s16.wav" data-start="55.93" data-duration="2.038" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s17" src="assets/voice/s17.wav" data-start="58.348" data-duration="4.833" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s18" src="assets/voice/s18.wav" data-start="63.561" data-duration="3.944" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s19" src="assets/voice/s19.wav" data-start="67.885" data-duration="3.344" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s20" src="assets/voice/s20.wav" data-start="71.609" data-duration="2.194" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s21" src="assets/voice/s21.wav" data-start="74.183" data-duration="6.296" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s22" src="assets/voice/s22.wav" data-start="80.859" data-duration="3.422" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s23" src="assets/voice/s23.wav" data-start="84.661" data-duration="6.217" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s24" src="assets/voice/s24.wav" data-start="91.258" data-duration="3.291" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s25" src="assets/voice/s25.wav" data-start="94.929" data-duration="3.892" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s26" src="assets/voice/s26.wav" data-start="99.201" data-duration="2.325" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s27" src="assets/voice/s27.wav" data-start="101.906" data-duration="2.194" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s28" src="assets/voice/s28.wav" data-start="104.48" data-duration="6.165" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s29" src="assets/voice/s29.wav" data-start="111.025" data-duration="4.65" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s30" src="assets/voice/s30.wav" data-start="116.055" data-duration="3.605" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s31" src="assets/voice/s31.wav" data-start="120.04" data-duration="1.907" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s32" src="assets/voice/s32.wav" data-start="122.327" data-duration="5.146" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s33" src="assets/voice/s33.wav" data-start="127.853" data-duration="6.531" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s34" src="assets/voice/s34.wav" data-start="134.764" data-duration="4.127" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s35" src="assets/voice/s35.wav" data-start="139.271" data-duration="2.795" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s36" src="assets/voice/s36.wav" data-start="142.446" data-duration="4.127" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s37" src="assets/voice/s37.wav" data-start="146.953" data-duration="6.426" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s38" src="assets/voice/s38.wav" data-start="153.759" data-duration="4.127" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s39" src="assets/voice/s39.wav" data-start="158.266" data-duration="1.62" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-s40" src="assets/voice/s40.wav" data-start="160.266" data-duration="4.459" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#chrome", { opacity: 0, x: -20 },
+                { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 0.25);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

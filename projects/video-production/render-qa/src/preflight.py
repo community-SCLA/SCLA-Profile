@@ -600,6 +600,67 @@ def check_pace(ws: Path, static: bool):
     return {"pass": rc == 0, "output": out.strip()}
 
 
+def check_audio_contract(ws: Path, static: bool):
+    """The request and provider receipt must match the pinned production voice."""
+    problems, notes = [], []
+    declared = tokens.load(ws).get("voice") or {}
+    expected_request = {
+        "provider": declared.get("provider"),
+        "voice": declared.get("voice_id"),
+        "speed": float(declared.get("speed", 1.0)),
+    }
+    try:
+        request = json.loads((ws / "audio_request.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"pass": False, "output": f"audio_request.json unreadable: {exc}"}
+    for key, wanted in expected_request.items():
+        actual = request.get(key)
+        if key == "speed" and actual is not None:
+            actual = float(actual)
+        if actual != wanted:
+            problems.append(f"request {key}={actual!r}; production requires {wanted!r}")
+
+    if static:
+        notes.append("provider receipt deferred until synthesis")
+    else:
+        try:
+            meta = json.loads((ws / "audio_meta.json").read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            return {"pass": False, "output": f"audio_meta.json unreadable: {exc}"}
+        receipt = {"provider": meta.get("tts_provider"),
+                   "voice": meta.get("voice_id"), "speed": meta.get("speed")}
+        for key, wanted in expected_request.items():
+            actual = receipt[key]
+            if key == "speed" and actual is None and not (ws / ".scla-control-v2").exists():
+                notes.append("legacy metadata has no speed receipt")
+                continue
+            if key == "speed" and actual is not None:
+                actual = float(actual)
+            if actual != wanted:
+                problems.append(f"metadata {key}={actual!r}; production requires {wanted!r}")
+        voices = meta.get("voices")
+        if not isinstance(voices, list) or not voices:
+            problems.append("audio metadata declares no voice clips")
+        else:
+            for voice in voices:
+                rel = voice.get("path") if isinstance(voice, dict) else None
+                if not rel or not (ws / rel).is_file():
+                    problems.append(f"declared audio clip is missing: {rel!r}")
+    output = "\n".join(problems + [f"note: {x}" for x in notes]) or "ok"
+    return {"pass": not problems, "output": output}
+
+
+def check_workspace_sources(ws: Path):
+    """Mechanical generators are shared infrastructure, not build artifacts."""
+    if not (ws / ".scla-control-v2").exists():
+        return {"pass": True, "output": "legacy workspace; v2 source policy not applied"}
+    forbidden = sorted(path.name for path in ws.glob("make_*.py") if path.is_file())
+    if forbidden:
+        return {"pass": False,
+                "output": "workspace generators are forbidden: " + ", ".join(forbidden)}
+    return {"pass": True, "output": "ok"}
+
+
 def main():
     argv = sys.argv[1:]
     as_json = "--json" in argv
@@ -652,6 +713,16 @@ def main():
     #     copies are graded for any workspace that carries them.
     sections["composition_freshness"] = check_composition_freshness(ws)
     failed |= not sections["composition_freshness"]["pass"]
+
+    # Production request + provider receipt. This catches voice drift before an
+    # expensive render and verifies arbitrary clip ids through the manifest.
+    sections["audio_contract"] = check_audio_contract(ws, static_mode)
+    failed |= not sections["audio_contract"]["pass"]
+
+    # New workspaces author the composition directly. Mechanical timing/audio
+    # work belongs to tracked shared utilities, never bespoke make_*.py files.
+    sections["workspace_sources"] = check_workspace_sources(ws)
+    failed |= not sections["workspace_sources"]["pass"]
 
     # 3. coverage
     if static_mode:

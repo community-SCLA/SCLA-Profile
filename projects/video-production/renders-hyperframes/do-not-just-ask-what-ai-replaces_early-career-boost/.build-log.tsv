@@ -1,0 +1,7 @@
+2026-08-05T07:14:03Z	claim	program=early-career-boost
+2026-08-05T07:21:32Z	plan	design.md + 35-beat manifest; script_match 0.00%, continuity PASS
+2026-08-05T07:42:57Z	author	index.html + compositions/wall.html; static preflight PASS
+2026-08-05T07:49:04Z	preflight	exit 1
+2026-08-05T07:51:56Z	preflight	exit 1
+2026-08-05T08:08:16Z	preflight	exit 0 — gate-clean
+2026-08-05T08:08:25Z	gate	preflight exit 0; pace 10.56 bpm / churn 5.45%

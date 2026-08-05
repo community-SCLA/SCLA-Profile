@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+      }
+      body {
+        font-family: "Proxima Nova", system-ui, sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      #base-ground {
+        position: absolute;
+        inset: 0;
+        background: #0a1e2f;
+      }
+      #chrome-eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 62px;
+        font-family: "Proxima Nova", system-ui, sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #3393d6;
+        z-index: 40;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-7z4u" id="root" data-composition-id="main" data-start="0" data-duration="163.301" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-9d7m" id="base-ground"></div>
+
+      <!-- Program chrome — persistent eyebrow, inside the declared chrome region (tokens.yml chrome-regions) -->
+      <div data-hf-id="hf-gk6h" id="chrome-eyebrow">Early Career Boost</div>
+
+      <!-- Acts — four sub-compositions, windows butt-joined on the computed beat grid (timing.json) -->
+      <div data-hf-id="hf-lb28" id="sc-opening" data-composition-id="opening" data-composition-src="compositions/opening.html" data-start="0" data-duration="23.457" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-q20q" id="sc-build" data-composition-id="build" data-composition-src="compositions/build.html" data-start="23.457" data-duration="74.199" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-0wtb" id="sc-loop" data-composition-id="loop" data-composition-src="compositions/loop.html" data-start="97.656" data-duration="43.619" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-z7ya" id="sc-closing" data-composition-id="closing" data-composition-src="compositions/closing.html" data-start="141.275" data-duration="22.026" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — one clip per beat, starts/durations computed from audio_meta.json (timing.json) -->
+      <audio data-hf-id="hf-1oac" id="au-s01" src="assets/voice/s01.wav" data-start="0" data-duration="4.436" data-track-index="8"></audio>
+      <audio data-hf-id="hf-i490" id="au-s02" src="assets/voice/s02.wav" data-start="4.436" data-duration="2.534" data-track-index="8"></audio>
+      <audio data-hf-id="hf-tvzp" id="au-s03" src="assets/voice/s03.wav" data-start="6.97" data-duration="4.206" data-track-index="8"></audio>
+      <audio data-hf-id="hf-nx9d" id="au-s04" src="assets/voice/s04.wav" data-start="11.176" data-duration="6.792" data-track-index="8"></audio>
+      <audio data-hf-id="hf-1zb4" id="au-s05" src="assets/voice/s05.wav" data-start="17.968" data-duration="3.814" data-track-index="8"></audio>
+      <audio data-hf-id="hf-il7s" id="au-s06" src="assets/voice/s06.wav" data-start="21.782" data-duration="1.675" data-track-index="8"></audio>
+      <audio data-hf-id="hf-pn0y" id="au-s07" src="assets/voice/s07.wav" data-start="23.457" data-duration="1.463" data-track-index="8"></audio>
+      <audio data-hf-id="hf-fkyc" id="au-s08" src="assets/voice/s08.wav" data-start="24.92" data-duration="7.236" data-track-index="8"></audio>
+      <audio data-hf-id="hf-v61n" id="au-s09" src="assets/voice/s09.wav" data-start="32.156" data-duration="8.986" data-track-index="8"></audio>
+      <audio data-hf-id="hf-4l0r" id="au-s10" src="assets/voice/s10.wav" data-start="41.142" data-duration="9.982" data-track-index="8"></audio>
+      <audio data-hf-id="hf-o1op" id="au-s11" src="assets/voice/s11.wav" data-start="51.124" data-duration="1.862" data-track-index="8"></audio>
+      <audio data-hf-id="hf-l0f4" id="au-s12" src="assets/voice/s12.wav" data-start="52.986" data-duration="6.641" data-track-index="8"></audio>
+      <audio data-hf-id="hf-a7u4" id="au-s13" src="assets/voice/s13.wav" data-start="59.627" data-duration="3.124" data-track-index="8"></audio>
+      <audio data-hf-id="hf-9ad6" id="au-s14" src="assets/voice/s14.wav" data-start="62.751" data-duration="1.603" data-track-index="8"></audio>
+      <audio data-hf-id="hf-snrh" id="au-s15" src="assets/voice/s15.wav" data-start="64.354" data-duration="8.662" data-track-index="8"></audio>
+      <audio data-hf-id="hf-4sms" id="au-s16" src="assets/voice/s16.wav" data-start="73.016" data-duration="3.814" data-track-index="8"></audio>
+      <audio data-hf-id="hf-8ww3" id="au-s17" src="assets/voice/s17.wav" data-start="76.83" data-duration="2.543" data-track-index="8"></audio>
+      <audio data-hf-id="hf-ans9" id="au-s18" src="assets/voice/s18.wav" data-start="79.373" data-duration="6.243" data-track-index="8"></audio>
+      <audio data-hf-id="hf-fgm0" id="au-s19" src="assets/voice/s19.wav" data-start="85.616" data-duration="12.04" data-track-index="8"></audio>
+      <audio data-hf-id="hf-7cz9" id="au-s20" src="assets/voice/s20.wav" data-start="97.656" data-duration="2.456" data-track-index="8"></audio>
+      <audio data-hf-id="hf-nvxx" id="au-s21" src="assets/voice/s21.wav" data-start="100.112" data-duration="2.612" data-track-index="8"></audio>
+      <audio data-hf-id="hf-uwtq" id="au-s22" src="assets/voice/s22.wav" data-start="102.724" data-duration="1.561" data-track-index="8"></audio>
+      <audio data-hf-id="hf-03t0" id="au-s23" src="assets/voice/s23.wav" data-start="104.285" data-duration="4.177" data-track-index="8"></audio>
+      <audio data-hf-id="hf-8nfn" id="au-s24" src="assets/voice/s24.wav" data-start="108.462" data-duration="6.582" data-track-index="8"></audio>
+      <audio data-hf-id="hf-klbm" id="au-s25" src="assets/voice/s25.wav" data-start="115.044" data-duration="6.844" data-track-index="8"></audio>
+      <audio data-hf-id="hf-1gct" id="au-s26" src="assets/voice/s26.wav" data-start="121.888" data-duration="4.284" data-track-index="8"></audio>
+      <audio data-hf-id="hf-rtff" id="au-s27" src="assets/voice/s27.wav" data-start="126.172" data-duration="1.541" data-track-index="8"></audio>
+      <audio data-hf-id="hf-lqfi" id="au-s28" src="assets/voice/s28.wav" data-start="127.713" data-duration="1.416" data-track-index="8"></audio>
+      <audio data-hf-id="hf-ns0d" id="au-s29" src="assets/voice/s29.wav" data-start="129.129" data-duration="1.384" data-track-index="8"></audio>
+      <audio data-hf-id="hf-e2c8" id="au-s30" src="assets/voice/s30.wav" data-start="130.513" data-duration="2.116" data-track-index="8"></audio>
+      <audio data-hf-id="hf-a3f8" id="au-s31" src="assets/voice/s31.wav" data-start="132.629" data-duration="2.664" data-track-index="8"></audio>
+      <audio data-hf-id="hf-3qay" id="au-s32" src="assets/voice/s32.wav" data-start="135.293" data-duration="5.982" data-track-index="8"></audio>
+      <audio data-hf-id="hf-btjy" id="au-s33" src="assets/voice/s33.wav" data-start="141.275" data-duration="3.761" data-track-index="8"></audio>
+      <audio data-hf-id="hf-qf68" id="au-s34" src="assets/voice/s34.wav" data-start="145.036" data-duration="2.583" data-track-index="8"></audio>
+      <audio data-hf-id="hf-vbyr" id="au-s35" src="assets/voice/s35.wav" data-start="147.619" data-duration="6.635" data-track-index="8"></audio>
+      <audio data-hf-id="hf-igtz" id="au-s36" src="assets/voice/s36.wav" data-start="154.254" data-duration="2.674" data-track-index="8"></audio>
+      <audio data-hf-id="hf-xhwj" id="au-s37" src="assets/voice/s37.wav" data-start="156.928" data-duration="4.573" data-track-index="8"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

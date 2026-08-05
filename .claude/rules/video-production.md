@@ -1,92 +1,74 @@
----
-description: Standing SCLA video-pipeline constraints — load for any work in the factory
-paths: ["projects/video-production/**"]
----
+# Video Production Invariants
 
-# Video production — standing constraints
+These rules apply to SCLA lesson-video work. They are the safety and lifecycle
+contract, not an operating manual. Commands and machine gates own procedure.
 
-**How to read this.** One rule per line: the **claim**, then a parenthesised italic annotation naming the enforcing file — or an honest Convention label — then a `Why: log <date> "<title>"` grep target into `decisions/log.md`, where the reasoning, incident narrative and calibration numbers live. Keep each rule on ONE line: the STD-35 auditor pairs a claim with the annotation on its own line, and a rule split across lines reads to it as an unbacked promise. *(Convention. Why: log 2026-07-31 (rules refactor) "The video rules file splits by audience".)*
+## Scope and sources
 
-## Content fidelity
+- `projects/video-production/run.sh` is the only public control surface.
+- A named stem is the default scope. A program or the whole queue requires an
+  explicit `batch --program …` or `batch --all` command.
+- Human-facing overview/status documents are not agent input. Obtain live state
+  from `run.sh status --json`.
+- Never load, route to, search, move, or modify `_archive/`.
+- Never inspect another build for inspiration. A builder gets one script, one
+  selected concept, the compact builder contract, and its local `tokens.yml`.
 
-- **Never fabricate SCLA course content** — work only from the provided outline and source material. *(Mechanisms: mandatory qa-facts pass at `/refine-scripts`; script-vs-transcript diff in `preflight.py`; brand re-materialize safeguard in `.devcontainer/devcontainer.json`. Why: log 2026-07-27 "Cold pipeline subagents promoted to agent charters".)*
-- **The banner is the program folder's name — no aliases** — a lesson's title-card eyebrow names the `lesson-scripts/<slug>/` folder its script lives in; a display name is legal only if it slugifies back to its own key. *(Mechanisms: `tokens.py` `programs_problems()` → `preflight.py` check 7b, full and `--static`; `test_programs.py` via `lint-refs.sh` check 11. Why: log 2026-07-29 "The banner is the program folder's name".)*
-- **A lesson's part number is a filing convention, never on-screen copy** — `-pt1`/`-pt2` tell two halves apart on disk and reach neither the frame nor the narration. *(Mechanisms: `check_copy.py` rule `part-reference`, graded on narration and every on-frame string; `preflight.py`'s `title_card` strips the same suffix. Why: log 2026-07-29 (owner review) "Eight defects from the career-map and visibility-actions cuts".)*
-- **No FERPA/PII in any prompt sent to an AI tool.** *(Convention.)*
-- **Brand facts come from `brand/visual-identity.md` and `brand/voice-and-tone.md`** — never restate hex values in pipeline docs; they drift. *(Mechanism: `lint-refs.sh` check 6 flags stray legacy hex.)*
-- **The narration voice is pinned** — Oxana, ID in `design-system/config/tokens.yml`; do not audition, swap, or reference retired voices. *(Convention.)*
+## Script and build lifecycle
 
-## The batch — gates, locks, resume
+- Preserve `inbox/ → ready/ → workspace → published/`. Do not skip or invent a
+  lifecycle folder.
+- A working workspace is the undated canonical stem. The dated name belongs to
+  the delivered MP4.
+- Start or resume only with `scripts/build-claim.sh`. End every claimed session
+  with `scripts/build-release.sh`; the driver also releases its lease on exit.
+- A lease is one file per stem. Never delete another stem's lease or workspace.
+  TTL recovery is for hard crashes, not normal cleanup.
+- Preserve usable narration, snapshots, and verified renders on resume. Never
+  delete an active or stalled workspace merely to reacquire a lock.
+- The workspace must not contain `make_*.py` or other bespoke infrastructure.
+  Use tracked shared audio and timing commands; author the HTML directly.
 
-- **PILOT GATE — one human approval per batch, not per video** — a batch builds ONE pilot and stops for a human preview; only on explicit approval do the rest run build → render → verify → publish unattended. A failing pilot stops the run. *(Convention at the pilot itself. Why: log 2026-07-28 "Video pipeline: per-video gate → pilot gate; batch cap deleted".)*
-- **These guards replace the per-video human eye — every video, no exceptions.** Any one failing quarantines that video — built, unpublished, logged — and the batch continues. *(Mechanisms: `batch-ship.sh` fails soft per video and refuses to publish a video that failed a guard; `batch-precheck.sh` exits 3 to quarantine pre-render. Why: log 2026-07-28 "Video pipeline: per-video gate → pilot gate".)*
-  1. `preflight.py` exit 0 — before render.
-  2. `batch-precheck.sh` — before render: authoritative preflight re-run, one snapshot per beat, deterministic low-ink flags, vision review of real pixels.
-  3. `verify_render.py` exit 0 — after render: stream durations vs `#root data-duration` ±0.15s, exact 1920×1080, 3 frames/scene.
-  4. `check_presence.py` — blank and stagnation detection.
-  5. A sampled vision review of `qa/frames/`.
-- **SHIP is one uninterrupted pass** — render, verify, file to `renders-mp4/<program-slug>/`, upload to Wistia; no second human review before publish. *(Convention. Why: log 2026-07-22 "MP4 REVIEW / PUBLISH human gate removed".)*
-- **A published video is recorded before the next one starts** — the full stem + Wistia URL land in `lesson-scripts/published.tsv`, the machine resume key, and the human-facing `lesson-scripts/refinement-log.md` row, committed in the same pass; a commit failure quarantines the video with its URL and keeps the MP4. A stem is done if and only if it has a published.tsv row; anything in `published/` without one is **STRANDED**. Publish runs only against `qa/VERIFIED` and refuses stems already published. *(Mechanisms: `batch-ship.sh` guards; read the queue with `batch-status.sh` or the generated `PIPELINE-STATUS.md`. Why: log 2026-07-28 "Video batch: certification protocol + machine resume key"; log 2026-07-31 (status doc) "The queue read becomes a document".)*
-- **A build session cannot write the shared machinery** — `design-system/`, `renders-hyperframes/_run/`, `render-qa/src/`, `scripts/` and `.claude/` are read-only **while a build is in flight**; a workspace's own files stay fully writable, and outside a build nothing is fenced. A builder that finds a template or gate genuinely wrong REPORTS it and carries on — it does not patch it. *(Mechanisms: `write-fence.sh`, a PreToolUse hook on Write/Edit/Bash; armed by the sentinel `renders-hyperframes/.build-in-progress`, never by a session env flag; `build-session.sh` arm/disarm/status, driven by `build-claim.sh` and `build-release.sh`; expires after `VIDEO_BUILD_SESSION_TTL`, 6h. Pinned by `test_write_fence.py`, which asserts both failure modes armed AND disarmed. Why: log 2026-08-04 "The write fence".)*
-- **Local renders serialize machine-wide; cloud renders run parallel; builds run up to 3-wide (4-wide when the backend is cloud)** — authoring and TTS are network-bound and overlap; a LOCAL render is CPU-bound on this 4-core box, while a HeyGen-hosted cloud render burns none of this machine's CPU, so the lock guards exactly the local case; the backend is the one-line file `renders-hyperframes/_run/RENDER-BACKEND` (`local` default / `cloud`), a file rather than an env flag for the write-fence reason. *(Mechanisms: `batch-ship.sh` reads the backend file, takes `renders-hyperframes/.render.lock` via `mkdir` only on the local path and exits 2 if another holds it; the cloud path renders via `hyperframes cloud render` under `with-secrets.sh`. Why: log 2026-07-29 (owner review) "Eight defects…", closing section; log 2026-08-05 "Cloud rendering, and the overnight drain".)*
-- **A gate failure buys at most two revision passes, then the video quarantines and the batch continues** — a stuck build must never eat a lane for hours; quarantine is recoverable per-video triage, and systemic causes (two consecutive quarantines, same reason) stop the line instead. *(Convention at authoring time; at ship time `batch-ship.sh` fails soft per video. Why: log 2026-08-05 "Cloud rendering, and the overnight drain".)*
+## Content and design
 
-## Naming and filing
+- Narration and on-screen claims come only from the approved lesson script.
+  Compression is allowed; new facts, counts, steps, quotations, or promises are
+  not.
+- No student records, FERPA data, or personal information may be sent to an AI
+  or media provider.
+- The program banner is derived from `tokens.yml programs:`. The lesson title is
+  derived from the canonical stem. Neither is improvised.
+- The workspace copy of `tokens.yml` owns palette, type, layout floors, timing,
+  program names, and voice settings. Do not load the full visual-identity file.
+- On-frame copy is markup, not hidden JavaScript strings. Required semantic
+  roles and any narrow exceptions are declared where they occur.
 
-- **A working artifact carries NO date; only a delivered MP4 does** — a lesson's identity is `<title>_<program>`, the **base**, naming the raw script, the `ready/` script, the build workspace and the `published/` script. It never changes, which is what makes it a lock: `mkdir renders-hyperframes/<base>` succeeds exactly once, so concurrent build subagents cannot collide. Only the delivered MP4 gains a date, `<base>_<render-date>.mp4`. "When was this last acted on" is mtime. *(Mechanisms: `stem.py` is the sole owner; `preflight.py` check 12 fails a dated workspace name; `batch-ship.sh` files the MP4 via `stem.py delivered`. Pinned by `test_stem.py`. Why: log 2026-07-29 "Working artifacts lose their date suffix; the name becomes the lock".)*
-- **Never archive automatically** — retiring a workspace to `renders-hyperframes/_archive/` is a human-only call; a shipped video's workspace is pruned in place with `archive-lesson.sh <stem> --in-place` and stays put, editable. *(Convention, stated in `projects/video-production/CLAUDE.md`.)*
+## Audio and timing
 
-## Copy and narration
+- Production audio uses the configured provider, voice ID, and speed. There is
+  no automatic fallback and no unpinned direct provider call.
+- Invoke production TTS through `scripts/video-audio.sh`; it injects secrets,
+  pins the request, and records the effective metadata.
+- Generate timing only with `render-qa/src/plan_timing.py`. Never hand-tune a
+  timestamp or create a workspace timing generator.
+- `audio_meta.json` is the authority for synthesized clips. Clip IDs may use any
+  prefix; all declared paths must exist.
 
-- **Standing owner preferences are gated, not remembered** — enforced at authoring time, at plan stage and again at the hard gate. *(Mechanisms: `check_copy.py` + `check_forms.py` via `preflight.py` as a hard block and in `preflight.py --static` at plan stage; `check_forms.py` grades one-item-list and one-card on element structure. Pinned by `test_gates.py` and `test_freeform.py`. Why: log 2026-07-28 "Owner review: stem dates become mechanical, and four standing preferences become gates".)*
-  - Headings — `heading` / `statement` / `title` — are **Title Case with no terminal period**; body copy stays sentence case.
-  - Every spoken list of ≥3 items takes **"and"/"or" before the final item**.
-  - A list with **exactly one item** is a defect.
-- **Max 2 consecutive scenes on one visual family.** *(Convention — checker retired with the template lane; owner resolved 2026-08-05 that freeform variety is JUDGED by the taste stage, never re-armed as a numeric checker. Why: log 2026-08-05 "Taste becomes a judged stage".)*
-- **≥6 distinct content forms per lesson ≥90s; ≥7 at ≥150s.** *(Convention — checker retired with the template lane; owner resolved 2026-08-05 that freeform variety is JUDGED by the taste stage, never re-armed as a numeric checker. Why: log 2026-08-05 "Taste becomes a judged stage".)*
-- **No one form above 40% of content seconds.** *(Convention — checker retired with the template lane; owner resolved 2026-08-05 that freeform variety is JUDGED by the taste stage, never re-armed as a numeric checker. Why: log 2026-08-05 "Taste becomes a judged stage".)*
-- **One thought per scene; no thought split across scenes** — a content scene carries at least `MIN_SCENE_SEC`, **4.5s**; a scene opening with a bare coordinating conjunction is the back half of the previous sentence and must be merged; a spoken list lives on ONE scene. *(Mechanism: `check_continuity.py`, run by `preflight.py` and `--static`; pinned by `test_gates.py`. Why: log 2026-07-28 "Owner review…".)*
-- **The conjunction rule is graded on the WHOLE narration, not per scene** — scoped per scene it silently disables itself: a seven-item list split 3/2/2 leaves no run reaching the ≥3 threshold. *(Mechanism: `check_copy.py`, joined-stream enumeration. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed: scope, sampling, severity".)*
-- **The conjunction rule is graded on the SCRIPT too, at refine time** — **reports, does not block**, because a minority of flags are rhetoric or definitions rather than lists. *(Mechanism: `check_copy.py` script mode — pass a `.txt` instead of a workspace; non-blocking at first per STD-38. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
-- **A conjunction is added by joining the list, never by bolting the word onto a fragment** — "The right job. The right major. Or the right path." satisfies the rule and sounds wrong; the fix is one sentence. Question lists are exempt, so the terminal mark is the discriminator and only the LAST fragment of a run can dangle. *(Mechanism: `check_copy.py` rule c, run by `preflight.py` and in script mode at `/refine-scripts`. Why: log 2026-07-29 "A gate must be able to fail. Three that structurally could not.".)*
-- **A symbol the voice cannot say is written out in the script** — narration reaches TTS verbatim, so `#questionsupport` is read aloud as "pound sign questionsupport"; the script carries the spoken form (`hashtag questionsupport`) while on-frame copy keeps the symbol. Narration only, and one symbol — `%` and `&` are live copy the voice already speaks correctly. *(Mechanism: `check_copy.py` rule `unspoken-symbol`, graded on narration by `preflight.py` and on the raw `.txt` in script mode at `/refine-scripts`; pinned by `test_gates.py`. Why: log 2026-08-05 "The freeform lane is approved, and a symbol the voice cannot say".)*
-- **A script's stage folder is not its program** — `lesson-scripts/<program>/<stage>/<stem>.txt`; every slug derivation steps over the stage folder using one list, because two hand-written copies both missed the 2026-08-04 `inbox/ready/published` rename and resolved every current script to the program `ready`, failing the title card on EVERY build. *(Mechanism: `preflight.py` `STAGE_DIRS` + `program_of()`, the single reader for `locate_script` and the title-card check; pinned by `test_gates.py`, which grades the LIVE library so a future rename turns a test red. Why: log 2026-08-05 "The freeform lane is approved, and a symbol the voice cannot say".)*
-- **The narration wav carries its own trailing hold** — every scene gets real silence after it, including the last; video outliving audio proves nothing, the release has to be in the file. `FINAL_HOLD` is **1.8s**. There is no mixdown, so the file in question is the final CLIP's own wav. *(Mechanisms: `synth_narration.py` leaves the final clip untrimmed and gives it `FINAL_HOLD`; `check_boundaries.py` rules `audio-tail-clipped` + `final-hold` against `MIN_FINAL_HOLD` via its per-clip `check_freeform()` adapter, run by `preflight.py`; pinned by `test_gates.py` and `test_freeform.py`. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
+## Quality and approval
 
-## Layout and geometry
-
-- **Copy must fit the content area at the minimum legal type size** — measured in the real vendored font, never estimated. Advisory per STD-38; the hard backstop is the pixel ink gate. *(Mechanisms: `check_fit.py` + `textmetrics.py` against committed `design-system/assets/fonts/metrics.json`, run non-blocking by `preflight.py`, fixtures in `test_freeform.py`. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
-- **Bounds are graded on real pixels** — `check_ink.py` grades one snapshot still per beat against the safe-area, frame-padding and content-bottom bands from `tokens.yml`; a missing or thin snapshot grid FAILS, because nothing-graded is never a pass. The static CSS box model that once answered this without a browser was measured confidently wrong on freeform CSS (281 false findings on a build verified clean across 34 stills) and retired with the template lane. *(Mechanisms: `check_ink.py` via `preflight.py`'s full gate; pinned by `test_ink.py`. Why: log 2026-08-05 "The template lane is retired".)*
-- **The minimum text size is a real floor, not the smallest size in use** — the body floor is **40px**, about 1/27 of frame height; `design-system/config/tokens.yml` is the single source. *(Mechanisms: `tokens.yml` `typography.min-size` → `tokens.py` → `check_text.py`. Why: log 2026-07-29 "A gate must be able to fail"; originally log 2026-07-27 "Minimum on-frame text size".)*
-- **Even spacing between stacked cards — a 26px gap reads as touching** — size for the widest legal copy and give bordered neighbours clear air (`tokens.yml` `spacing.card-gutter`, 24px). *(Convention — mechanism retired with the template lane 2026-08-05; the pixel ink and layout gates do not grade card-to-card air. Why: log 2026-07-29 (owner review) "Eight defects…".)*
-- **No icons beside bullet rows or cards — only ONE hero illustration per frame.** *(Convention — the slot checker enforcing it retired with the template lane 2026-08-05; the preference stands. Why: log 2026-07-29 (owner review) "Eight defects…".)*
-- **A one-card comparison is the one-item list in the form the list rules could not see** — a comparison region holding one card is a comparison with nothing to compare. *(Mechanism: `check_forms.py` rule `one-card`, graded on element structure via `preflight.py`, full and `--static`. Fixtures: `test_freeform.py`. Why: log 2026-07-29 (owner review) "Eight defects…".)*
-- **The on-frame scene badge is the frame's real position** — a beat index on screen is how the owner names a frame when reviewing a cut, so a duplicated number makes a round of feedback unresolvable against the plan. *(Convention — the slot checker enforcing it retired with the template lane 2026-08-05; the preference stands. Why: log 2026-07-29 (owner review) "Eight defects…".)*
-- **`line-height: normal` is measured in the real vendored font, never assumed** — Proxima Nova resolves to **1.404 / 1.447 / 1.477** by weight; assuming 1.2 models every unset block ~20% short. *(Mechanism: `textmetrics.py` `normal_line_height()` from committed `design-system/assets/fonts/metrics.json`, consumed by `check_fit.py`. Why: log 2026-07-29 (owner review) "Eight defects…".)*
-- **A body statement belongs under the heading, not at the foot of the frame.** *(Convention on placement; the pixel and layout gates enforce that whatever is placed fits. Why: log 2026-07-29 (owner review) "Eight defects…".)*
-- **The layout inspector runs at every scene, and its verdict is not discarded** — overlap is fatal whatever severity upstream assigns it, and transition seams are sampled because static sampling misses collisions that only appear there. *(Mechanism: `check_layout.py`, run by `preflight.py`. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
-
-## Motion
-
-- **Settled content never re-animates in place** — no wobble, drift, ripple, pulse or re-mark of text, chips, rows, nodes, numbers, CTAs or the living-icon hero once it has entered. A pixel-static hold is an AUTHORING defect with exactly one fix: re-author the scene. Deliberate exceptions are declared inline with `/* motion-allow: <reason> */`. *(Mechanism: `check_motion.py` via `preflight.py`, full AND `--static`; it follows a selector through a helper's call sites. Fixtures: `test_motion.py`. Why: log 2026-07-15 "In-place keep-alive motion stays banned" — the repo's most-violated rule.)*
-
-## Taste — the judged layer above the gates
-
-- **Taste is a judged stage with pinned references, never a new numeric threshold** — every build's concept angle is chosen by a concept competition (two independent pitch lenses, one vision judge writing `_concepts/<stem>/CONCEPT.md`) and every precheck vision review runs a second, advisory taste lane; both grade against the three-reference bracket (approved-rich vs rejected-slow vs rejected-thin) in `design-system/docs/taste.md`, a FLAT verdict buys exactly one revision pass, and taste alone never quarantines — the bracket is n=3, and the last constants derived from one example approved the boring cut. *(Mechanisms: `/render-lessons` B2 + B4/SHIP two-lane review; `batch-precheck.sh` names both lanes in its vision handoff. Why: log 2026-08-05 "Taste becomes a judged stage".)*
-
-## How a gate behaves
-
-- **A measurement is never delegated to the human preview** — a deferral must name the instrument that answers the question, and "the human" is only a legal answer for a question a human can actually answer. *(Mechanism: `check_diversity.py` rule `static-span`, run pre-render by `batch-precheck.sh` over a uniform ~1.5s snapshot grid with `STAGNANT_FAIL` 6.0, both widened 2026-08-04 per BUILD-PLAN A1; same rule and constants as `check_presence.py`, authoritative post-render. `grid-too-sparse` fails a grid too coarse to see a `STAGNANT_FAIL` freeze; `TIME_EPS` 0.02 absorbs filename-timestamp slop. Pinned by `test_diversity.py`. Why: log 2026-07-31 (freeform gates) "A measurement is never delegated to the human preview".)*
-- **Monotony (twin-share) is an anti-gaming backstop, not a taste rule** — the per-pair `twin-beats` defect is RETIRED: the owner-approved cut scores worse on it than the cut the owner rejected, so arming it would push every future build toward the boring one. The 25% ceiling is deliberately chosen NOT to discriminate between the two reference cuts, so it reports only on beats split with no visual change to satisfy `beat-pace` for free. *(Mechanism: `check_pace.py` rule `twin-share`, BLOCKING in the full gate over the `snapshots/` grid via `preflight.py`; `check_diversity.py` computes the same per-beat share as an informational value for `verify_render.py`'s `monotony` section. Pinned by `test_pace.py` — planted-fixture only — and `test_diversity.py`. Why: log 2026-08-04 "Owner verdict: gate set approved the rejected cut, quarantined the approved one".)*
-- **A lesson delivers roughly one idea every six seconds, against a carrying object that persists** — median beat duration **≤7.0s**, **≥8.0 beats/minute**, **no more than 60%** of runtime inside beats over 8.0s. **Stated limit: calibrated on n=2**, one lesson and two cuts — enough to fix a direction, not to claim a general law; a lesson that genuinely wants a slower shape is an owner decision that pins a second reference build in `decisions/log.md`, never a loosened constant. *(Mechanism: `check_pace.py` rules `beat-pace` + `long-beat-share` in `preflight.py`'s freeform branch — timing rules in `--static`, `carrier-drift` in the full gate over `snapshots/`. BLOCKING, not advisory: the boring cut passed everything advisory and reached the gate clean. Pinned by `test_pace.py`, calibrated against the approved `build-direction-before-you-build-a-plan_early-career-boost` and the rejected `..._2026-08-04-freeform-backup`. Why: log 2026-08-04 "Owner verdict: gate set approved the rejected cut, quarantined the approved one".)*
-- **Narration word timings have one loader, and a gate that cannot see them says so** — an absent transcript emits a `no-word-timings` warning instead of passing for rigour. *(Mechanisms: `hfp_common.py` `load_words()` reads all three shapes — the two flat word files and the freeform per-beat audio_meta.json — offsetting each clip's words by the audio_start in its timing.json; `check_diversity.py` and `check_presence.py` both call it. Pinned by `test_diversity.py`. Why: log 2026-07-31 (freeform gates).)*
-- **tokens.yml is LOADED, not quoted, and a number nobody reads is a red test** — normative numbers (type floors, frame-padding, safe-area, content-bottom) are parsed from the spec and read by a gate, never hand-copied into Python under a "keep in sync" comment. *(Mechanisms: `tokens.py` → `check_text.py` for `min_size`, `check_ink.py` + `check_fit.py` for the spacing bands; `test_tokens_coverage.py` fails if any accessor loses its non-test consumer. Why: log 2026-07-29 "One project shape, and frame.md split into the numbers and the prose".)*
-- **A workspace's copied tokens.yml is graded against the spec, because the gates read the COPY** — raising a token in `design-system/config/tokens.yml` does not reach workspaces already on disk. *(Mechanism: `preflight.py`'s `composition_freshness` section diffs the workspace's normative tokens against the spec and hard-fails on drift. Why: log 2026-07-29 "One project shape…".)*
-- **Intentional layering is *stated*, never tolerated by a loosened gate** — declared decorative overlap uses `data-layout-allow-overlap`; the same doctrine names label-chrome regions in `tokens.yml` for the pixel gate. *(Mechanisms: `check_layout.py` honours the declaration; `tokens.py` `chrome_regions()` → `check_ink.py`. Why: log 2026-07-29 "A gate must be able to fail".)*
-- **A hook that crashes is a gate that is off** — a guard that still produces output reads as alive while grading nothing. *(Mechanism: `test_write_fence.py` resolves the write-fence hook's own paths and asserts both its armed AND disarmed behaviour, so a move breaks a test instead of a build. Why: log 2026-07-29 "Rejected: a telemetry/ledger … Adopted: prove every gate fires".)*
-- **The render CLI is pinned, and the pin is checked** — an unpinned `npx hyperframes` lets a batch start on one version and finish on another; staleness is cured by bumping deliberately and validating, never by dropping the pin. *(Mechanism: single pin in `design-system/package.json`, read by `check_layout.py`. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
-- **The test suite runs in CI** — `run_tests.py` executes its own cases AND every sibling `test_*.py`. *(Mechanism: `lint-refs.sh` check 11. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
-
-## Close-out
-
-- **Close the books after a render** — any session that ran a HyperFrames render prepends a snag-log retro entry per the `render-qa/logs/snag-log.md` header rules before ending. *(Mechanism: PostToolUse hook in `.claude/settings.json`.)*
+- A deterministic gate must be green before visual review or rendering.
+- The one pre-render reviewer reports two independent verdicts:
+  `BLOCKING_DEFECT: PASS|FAIL` and `TASTE: ALIVE|FLAT`. A taste concern does not
+  disguise a blocking defect, and a clean implementation does not imply taste.
+- Exactly one pilot requires human approval for an explicit batch. Record that
+  approval in `run.json` and reuse it across sessions. Do not add per-video human
+  checkpoints after the pilot.
+- Retain sampled post-render encode review until run state records three
+  consecutive clean cloud renders. Deterministic verification always remains.
+- A failed external command writes its command, exit code, error class, attempt,
+  full log path, and correct recovery action to `qa/failure.json`.
+- Refuse a third attempt for the same stem and error class. Stop a batch after
+  two consecutive distinct stems fail with the same error class. Only an
+  explicit `run.sh retry … --reason …` may reopen work after the cause changes.
+- Publish and clean up through the run driver. MP4 naming and Wistia ledger
+  semantics remain unchanged.

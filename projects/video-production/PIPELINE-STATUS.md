@@ -5,13 +5,14 @@
 ## Where everything stands
 
 - **5** — **live on Wistia.** Done; links in the *Delivered* table below.
-- **29** — **ready to build.** Script approved; nothing made yet.
-- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **27** — **ready to build.** Script approved; nothing made yet.
+- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
-- **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
-- **2** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
+- **1** — **approved to render.** Gate-clean and covered by the active batch pilot approval.
+- **2** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
+- **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **0** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **2** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **2** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -48,71 +49,93 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
-- **do-not-just-ask-what-ai-replaces_early-career-boost** (early-career-boost) — REJECTED: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
-  - left off after **gate**, 7 h ago
-  - **To clear it:** re-run the gate to see what it objected to: `python3 projects/video-production/render-qa/src/verify_render.py projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost`
-- **mini-syllabus_early-career-boost** (early-career-boost) — REJECTED: a release gate rejected this cut — the rendered MP4 failed post-render verification (verify_render.py)
-  - [stagnant-frame] 6.5 video pixel-static 6.5s → 12.5s (6.0s) while narration speaks — animacy defect (the ~2s animacy rule)
-  - left off after **resume**, 3 min ago
-  - **To clear it:** read the full failure in `renders-hyperframes/mini-syllabus_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh mini-syllabus_early-career-boost early-career-boost`
+- **do-not-just-ask-what-ai-replaces_early-career-boost** (early-career-boost) — REJECTED: a release gate rejected this cut — cloud render failed or timed out
+  - last completed **gate** at 2026-08-05 08:08 UTC
+  - **To clear it:** inspect cloud credentials/backend, then use run.sh retry after the path is corrected
+- **mini-syllabus_early-career-boost** (early-career-boost) — REJECTED: a release gate rejected this cut — cloud render failed or timed out
+  - last completed **preflight** at 2026-08-05 16:41 UTC
+  - **To clear it:** inspect cloud credentials/backend, then use run.sh retry after the path is corrected
+- **using-the-career-map-tool_early-career-boost** (early-career-boost) — STALLED: freeform composition timed and ready — the gate has not run yet
+  - last completed **release** at 2026-08-05 20:31 UTC
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only using-the-career-map-tool_early-career-boost. Do not delete the workspace
+- **m0_welcome-to-mid-career-momentum** (mid-career-momentum) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
+  - last completed **release** at 2026-08-05 20:31 UTC
+  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
 
 ## early-career-boost
 
-**READY — queued to build:**
+**RENDERED — MP4 verified, waiting on publish:**
 
-1. what-energizes-me_early-career-boost
-
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*The video file exists and passed every gate. Nothing left but the upload.*
 
 - how-to-make-strong-career-decisions_early-career-boost
-  - state: freeform composition timed and ready — the gate has not run yet
-  - left off after **resume**, 7 min ago
-  - next: run the gate: `bash scripts/build-gate.sh how-to-make-strong-career-decisions_early-career-boost` — it runs preflight and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read as NEEDS REVIEW tomorrow
+  - state: MP4 rendered and gate-verified — waiting only on the Wistia upload
+  - last completed **release** at 2026-08-05 20:31 UTC
+  - next: publish it: `bash projects/video-production/run.sh ship how-to-make-strong-career-decisions_early-career-boost --publish`
+- what-energizes-me_early-career-boost
+  - state: MP4 rendered and gate-verified — waiting only on the Wistia upload
+  - last completed **release** at 2026-08-05 16:40 UTC
+  - next: publish it: `bash projects/video-production/run.sh ship what-energizes-me_early-career-boost --publish`
+
+**APPROVED — gate-clean, ready to render:**
+
+*The active batch pilot approval already covers this video.*
+
 - skills-for-the-ai-era-future_early-career-boost
-  - state: workspace claimed from the scaffold; no plan and no design authored yet
-  - left off after **claim**, 6 min ago
-  - next: nothing authored yet, so nothing is lost — discard and rebuild: `rm -rf projects/video-production/renders-hyperframes/skills-for-the-ai-era-future_early-career-boost && /render-lessons BUILD skills-for-the-ai-era-future_early-career-boost`
+  - state: gate-clean; the active batch pilot is approved
+  - last completed **release** at 2026-08-05 20:31 UTC
+  - next: render it: `bash projects/video-production/run.sh ship skills-for-the-ai-era-future_early-career-boost`
+
+**STALLED — the build folder stopped moving:**
+
+*Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
+
+- using-the-career-map-tool_early-career-boost
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **release** at 2026-08-05 20:31 UTC
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only using-the-career-map-tool_early-career-boost. Do not delete the workspace
 
 **REJECTED — a gate refused this cut:**
 
 *Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
 
 - do-not-just-ask-what-ai-replaces_early-career-boost
-  - state: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
-  - left off after **gate**, 7 h ago
-  - next: re-run the gate to see what it objected to: `python3 projects/video-production/render-qa/src/verify_render.py projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost`
+  - state: a release gate rejected this cut — cloud render failed or timed out
+  - last completed **gate** at 2026-08-05 08:08 UTC
+  - next: inspect cloud credentials/backend, then use run.sh retry after the path is corrected
 - mini-syllabus_early-career-boost
-  - state: a release gate rejected this cut — the rendered MP4 failed post-render verification (verify_render.py)
-  - left off after **resume**, 3 min ago
-  - gate said: [stagnant-frame] 6.5 video pixel-static 6.5s → 12.5s (6.0s) while narration speaks — animacy defect (the ~2s animacy rule)
-  - next: read the full failure in `renders-hyperframes/mini-syllabus_early-career-boost/qa/quarantine-reason.txt`, fix the authoring, then re-render: `bash scripts/batch-ship.sh mini-syllabus_early-career-boost early-career-boost`
-
-**RAW — waiting on refinement:**
-
-- using-the-career-map-tool_early-career-boost — `/refine-scripts`
+  - state: a release gate rejected this cut — cloud render failed or timed out
+  - last completed **preflight** at 2026-08-05 16:41 UTC
+  - next: inspect cloud credentials/backend, then use run.sh retry after the path is corrected
 
 ## mid-career-momentum
 
 **READY — queued to build:**
 
-2. m0_welcome-to-mid-career-momentum
-3. m1_mini-syllabus
-4. m2_four-kinds-of-career-transition_mid-career-momentum
-5. m2_mid-career-mindsets-and-limiting-beliefs
-6. m2_the-value-of-building-mid-career-momentum
-7. m3_building-your-future-you-resume-pt1
-8. m3_discover-experiences-that-support-your-next-move
-9. m3_from-history-to-signal
-10. m3_how-to-reposition-your-career
-11. m3_rewrite-your-linkedin-for-future-you
-12. m3_using-the-resume-builder-tool-pt2
-13. m4_finding-new-peers-sponsors-and-opportunity-holders
-14. m4_visibility-actions
-15. m4_who-will-walk-this-next-chapter-with-you
-16. m5_skills-for-the-ai-era
-17. m6_youve-built-momentum
+1. m1_mini-syllabus
+2. m2_four-kinds-of-career-transition_mid-career-momentum
+3. m2_mid-career-mindsets-and-limiting-beliefs
+4. m2_the-value-of-building-mid-career-momentum
+5. m3_building-your-future-you-resume-pt1
+6. m3_discover-experiences-that-support-your-next-move
+7. m3_from-history-to-signal
+8. m3_how-to-reposition-your-career
+9. m3_rewrite-your-linkedin-for-future-you
+10. m3_using-the-resume-builder-tool-pt2
+11. m4_finding-new-peers-sponsors-and-opportunity-holders
+12. m4_visibility-actions
+13. m4_who-will-walk-this-next-chapter-with-you
+14. m5_skills-for-the-ai-era
+15. m6_youve-built-momentum
+
+**STALLED — the build folder stopped moving:**
+
+*Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
+
+- m0_welcome-to-mid-career-momentum
+  - state: workspace claimed from the scaffold; no plan and no design authored yet
+  - last completed **release** at 2026-08-05 20:31 UTC
+  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -126,23 +149,23 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-18. m2_four-kinds-of-career-transition_career-transitions
-19. m2_welcome-and-using-career-transitions-as-leaps-ahead
-20. m3_the-identity-audit
-21. m3_the-two-sided-work
-22. m4_building-your-carry-forward-inventory
-23. m5_testing-your-next-chapter
-24. m5_the-story-that-makes-the-change-legible
-25. m7_your-reinvention-roadmap
+16. m2_four-kinds-of-career-transition_career-transitions
+17. m2_welcome-and-using-career-transitions-as-leaps-ahead
+18. m3_the-identity-audit
+19. m3_the-two-sided-work
+20. m4_building-your-carry-forward-inventory
+21. m5_testing-your-next-chapter
+22. m5_the-story-that-makes-the-change-legible
+23. m7_your-reinvention-roadmap
 
 ## entrepreneur-accelerator
 
 **READY — queued to build:**
 
-26. m1_reframing-entrepreneurship-and-going-solo
-27. m3_choosing-your-solo-model
-28. m4_building-visibility-on-your-own
-29. m5_making-solo-work-sustainable
+24. m1_reframing-entrepreneurship-and-going-solo
+25. m3_choosing-your-solo-model
+26. m4_building-visibility-on-your-own
+27. m5_making-solo-work-sustainable
 
 **RAW — waiting on refinement:**
 

@@ -1,0 +1,3 @@
+# Gate artifacts are outputs, never render inputs — keeps the cloud zip small.
+# (renders/ and snapshots/ are auto-excluded by the CLI.)
+/qa/

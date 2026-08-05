@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+        .cl-ground {
+          position: absolute;
+          inset: 0;
+          background: #0a1e2f;
+        }
+        .cl-grid {
+          position: absolute;
+          inset: 0;
+          background:
+            repeating-linear-gradient(90deg, rgba(51, 147, 214, 0.05) 0 1px, rgba(51, 147, 214, 0) 1px 120px),
+            repeating-linear-gradient(0deg, rgba(51, 147, 214, 0.05) 0 1px, rgba(51, 147, 214, 0) 1px 120px);
+        }
+        .cl-lift {
+          position: absolute;
+          left: 740px;
+          top: -20px;
+          width: 1200px;
+          height: 1200px;
+          background: radial-gradient(circle at center, rgba(13, 36, 55, 0.95) 0%, rgba(13, 36, 55, 0) 62%);
+        }
+        .cl-ring {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        .band {
+          position: absolute;
+          left: 130px;
+          top: 190px;
+          width: 700px;
+        }
+        h2 {
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+        }
+        .body-copy {
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: rgba(255, 255, 255, 0.78);
+        }
+        .under-heading {
+          margin-top: 30px;
+        }
+        .gold-claim {
+          font-size: 52px;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.3;
+          color: #eaab2d;
+        }
+        .bwrap,
+        .stage {
+          opacity: 0;
+          visibility: hidden;
+        }
+        #cl-rot {
+          position: absolute;
+          left: 1340px;
+          top: 580px;
+          width: 0;
+          height: 0;
+        }
+        #cl-you {
+          position: absolute;
+          left: -16px;
+          top: -316px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: #ffffff;
+          opacity: 0;
+          visibility: hidden;
+        }
+        #cl-you-label {
+          position: absolute;
+          left: -60px;
+          top: -366px;
+          width: 120px;
+          text-align: center;
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #eaab2d;
+          opacity: 0;
+          visibility: hidden;
+        }
+      </style>
+
+      <div data-hf-id="hf-2qee" id="root" data-composition-id="closing" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-9iu3" class="cl-ground"></div>
+        <div data-hf-id="hf-6t0q" class="cl-grid"></div>
+        <div data-hf-id="hf-46ho" class="cl-lift" id="cl-lift"></div>
+
+        <!-- The SAME ring — all five steps lit, the pin still at the hub -->
+        <svg data-hf-id="hf-kf6r" class="cl-ring" viewBox="0 0 1920 1080" width="1920" height="1080">
+          <circle data-hf-id="hf-y4sn" id="cl-track" cx="1340" cy="580" r="300" fill="none" stroke="rgba(51,147,214,0.55)" stroke-width="3" />
+          <circle data-hf-id="hf-bakb" id="cl-n0" cx="1340" cy="280" r="18" fill="#eaab2d" />
+          <circle data-hf-id="hf-clu3" id="cl-n1" cx="1625.3" cy="487.3" r="18" fill="#eaab2d" />
+          <circle data-hf-id="hf-1kdu" id="cl-n2" cx="1516.3" cy="822.7" r="18" fill="#eaab2d" />
+          <circle data-hf-id="hf-clxt" id="cl-n3" cx="1163.7" cy="822.7" r="18" fill="#eaab2d" />
+          <circle data-hf-id="hf-eaim" id="cl-n4" cx="1054.7" cy="487.3" r="18" fill="#eaab2d" />
+          <circle data-hf-id="hf-3j69" id="cl-pin" cx="1340" cy="580" r="16" fill="#eaab2d" />
+        </svg>
+
+        <!-- your marker, joining the same ring -->
+        <div data-hf-id="hf-zdl8" id="cl-rot">
+          <div data-hf-id="hf-mate" id="cl-you"></div>
+          <div data-hf-id="hf-y0o2" id="cl-you-label">You</div>
+        </div>
+
+        <!-- s33 -->
+        <div data-hf-id="hf-txto" id="cl-b33" class="clip band" data-start="0" data-duration="3.761" data-track-index="2">
+          <div data-hf-id="hf-8lva" id="cl-b33-w" class="bwrap">
+            <h2 data-hf-id="hf-3046">The Same Loop</h2>
+            <p data-hf-id="hf-vx94" class="body-copy under-heading">Every professional you admire is running some version of it.</p>
+          </div>
+        </div>
+
+        <!-- s34 -->
+        <div data-hf-id="hf-pssb" id="cl-b34" class="clip band" data-start="3.761" data-duration="2.583" data-track-index="2">
+          <div data-hf-id="hf-jfld" id="cl-b34-w" class="bwrap">
+            <p data-hf-id="hf-0mjj" class="body-copy">They just started earlier — now, so have you.</p>
+          </div>
+        </div>
+
+        <!-- s35 -->
+        <div data-hf-id="hf-ee5k" id="cl-b35" class="clip band" data-start="6.344" data-duration="6.635" data-track-index="2">
+          <div data-hf-id="hf-zaz8" id="cl-b35-w" class="bwrap">
+            <h2 data-hf-id="hf-8c1e">Finish with Momentum</h2>
+            <p data-hf-id="hf-y2m1" class="body-copy under-heading stage" id="cl-b35-p">Not a perfect future mapped out — a stronger way of navigating whatever comes next.</p>
+          </div>
+        </div>
+
+        <!-- s36 -->
+        <div data-hf-id="hf-q4vd" id="cl-b36" class="clip band" data-start="12.979" data-duration="2.674" data-track-index="2">
+          <div data-hf-id="hf-lqfr" id="cl-b36-w" class="bwrap">
+            <p data-hf-id="hf-40t9" class="gold-claim">That near-term step you named for yourself?</p>
+          </div>
+        </div>
+
+        <!-- s37 -->
+        <div data-hf-id="hf-ct92" id="cl-b37" class="clip band" data-start="15.653" data-duration="4.573" data-track-index="2">
+          <div data-hf-id="hf-7uei" id="cl-b37-w" class="bwrap">
+            <h2 data-hf-id="hf-licp">Take It This Week</h2>
+            <p data-hf-id="hf-0jyz" class="body-copy under-heading">While the momentum is hot.</p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const IN = { duration: 0.55, ease: "power3.out" };
+        const OUT = { autoAlpha: 0, duration: 0.28, ease: "power2.in" };
+
+        tl.fromTo("#cl-lift", { scale: 1 }, { scale: 1.035, duration: 3.6, ease: "sine.inOut", yoyo: true, repeat: 4 }, 0); /* motion-allow: ambient radial-lift background breath, finite yoyo (tokens motion.ambient) */
+
+        // s33
+        tl.fromTo("#cl-b33-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 0.05);
+        tl.to("#cl-b33-w", OUT, 3.33);
+
+        // s34 — you join the ring at node one
+        tl.fromTo("#cl-b34-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 3.81);
+        tl.to("#cl-b34-w", OUT, 5.73);
+        tl.fromTo("#cl-you", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45, ease: "power3.out" }, 4.03);
+        tl.fromTo("#cl-you-label", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 4.18);
+
+        // s35 — your first legs of the lap
+        tl.fromTo("#cl-b35-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 6.39);
+        tl.fromTo("#cl-b35-p", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 9.14);
+        tl.to("#cl-b35-w", OUT, 12.37);
+        tl.fromTo("#cl-rot", { rotation: 0 }, { rotation: 144, duration: 4.0, ease: "power1.inOut" }, 6.81);
+        tl.fromTo("#cl-you-label", { rotation: 0 }, { rotation: -144, duration: 4.0, ease: "power1.inOut" }, 6.81);
+
+        // s36 — the near-term step ahead
+        tl.fromTo("#cl-b36-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, 13.02);
+        tl.to("#cl-b36-w", OUT, 14.9);
+        tl.fromTo("#cl-rot", { rotation: 144 }, { rotation: 216, duration: 1.85, ease: "power1.inOut" }, 13.06);
+        tl.fromTo("#cl-you-label", { rotation: -144 }, { rotation: -216, duration: 1.85, ease: "power1.inOut" }, 13.06);
+
+        // s37 — you come to rest on the fifth step
+        tl.fromTo("#cl-b37-w", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, ...IN }, 15.7);
+        tl.fromTo("#cl-rot", { rotation: 216 }, { rotation: 288, duration: 1.9, ease: "power2.inOut" }, 15.85);
+        tl.fromTo("#cl-you-label", { rotation: -216 }, { rotation: -288, duration: 1.9, ease: "power2.inOut" }, 15.85);
+        tl.to("#cl-you", { backgroundColor: "#eaab2d", duration: 0.4, ease: "power2.out" }, 17.85);
+
+        window.__timelines["closing"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

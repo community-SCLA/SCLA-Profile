@@ -15,8 +15,7 @@
 #       record stem+URL in published.tsv AND refinement-log.md -> move script
 #       to published/ -> commit -> prune the workspace in place (kept editable).
 #       The filed MP4 is KEPT under renders-mp4/ (gitignored) as the local
-#       backup of the delivered cut — owner call 2026-07-29, and what
-#       renders-mp4/README.md said all along.
+#       backup of the delivered cut — owner call 2026-07-29.
 #
 # Fail soft, always: a guard failure quarantines THIS video and exits non-zero;
 # the caller moves on to the next. One bad lesson never costs the others.
@@ -32,6 +31,7 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VP="$REPO/projects/video-production"
 QLOG="$VP/render-qa/quarantine.log"
 PUBTSV="$VP/lesson-scripts/published.tsv"
+RUN_STATE="$VP/render-qa/src/run_state.py"
 
 STEM="${1:-}"; PROGRAM="${2:-}"; MODE_ARG="${3:-}"
 if [[ -z "$STEM" || -z "$PROGRAM" ]]; then
@@ -46,6 +46,19 @@ esac
 
 WS="$VP/renders-hyperframes/$STEM"
 [[ -d "$WS" ]] || { echo "FATAL: no workspace at $WS" >&2; exit 2; }
+
+# Shipping is a workspace-writing session too. Refresh one idempotent lease and
+# release exactly this stem on every exit; TTL remains only a hard-crash backup.
+RLOCK=""
+LOCK=""
+bash "$REPO/scripts/build-session.sh" arm "$STEM" >/dev/null
+cleanup_ship() {
+  [[ -z "$RLOCK" ]] || rm -rf "$RLOCK" 2>/dev/null || true
+  [[ -z "$LOCK" ]] || rmdir "$LOCK" 2>/dev/null || true
+  bash "$REPO/scripts/build-session.sh" release "$STEM" >/dev/null 2>&1 || true
+  bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
+}
+trap cleanup_ship EXIT
 
 # Stem naming has exactly one owner: render-qa/src/stem.py. A WORKING artifact
 # (workspace, ready/ script, published/ script) is named `<title>_<program>`
@@ -68,19 +81,35 @@ BASE="$(stem_base "$STEM")" || { echo "FATAL: malformed stem '$STEM'" >&2; exit 
 # streams; pipefail keeps the guard's own status, not tee's.
 guarded() {
   local label="$1"; shift
-  mkdir -p "$WS/qa"
-  { printf '=== %s — %s\n' "$(date -u +%FT%TZ)" "$label"; } > "$WS/qa/quarantine-reason.txt"
-  "$@" 2>&1 | tee -a "$WS/qa/quarantine-reason.txt"
+  local stamp logfile
+  stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+  mkdir -p "$WS/qa/logs"
+  logfile="$WS/qa/logs/${stamp}-${label}.log"
+  LAST_GUARD_LOG="$logfile"
+  LAST_GUARD_COMMAND="$(printf '%q ' "$@")"
+  { printf '=== %s — %s\n' "$(date -u +%FT%TZ)" "$label"; } > "$logfile"
+  "$@" 2>&1 | tee -a "$logfile"
   local rc=${PIPESTATUS[0]}
-  [[ $rc -eq 0 ]] && rm -f "$WS/qa/quarantine-reason.txt"
+  LAST_GUARD_EXIT_CODE="$rc"
   return $rc
 }
 
 quarantine() {
   local reason="$1"
+  local error_class="${2:-pipeline}"
+  local next_action="${3:-inspect ${LAST_GUARD_LOG:-the command output}, correct the cause, then use run.sh retry $STEM --reason \"cause corrected\"}"
+  local log_path="${LAST_GUARD_LOG:-}"
+  local command="${LAST_GUARD_COMMAND:-unknown}"
+  local exit_code="${LAST_GUARD_EXIT_CODE:-1}"
   mkdir -p "$(dirname "$QLOG")"
   printf '%s\t%s\t%s\t%s\n' "$(date -u +%FT%TZ)" "$STEM" "$PROGRAM" "$reason" >> "$QLOG"
+  python3 "$RUN_STATE" record-failure \
+    --workspace "$WS" --stem "$STEM" --program "$PROGRAM" \
+    --error-class "$error_class" --reason "$reason" --command "$command" \
+    --exit-code "$exit_code" --log "$log_path" --next-action "$next_action" \
+    >/dev/null 2>&1 || true
   echo "QUARANTINE: $STEM — $reason" >&2
+  [[ -z "$log_path" ]] || echo "  full output: $log_path" >&2
   echo "  workspace kept at renders-hyperframes/$STEM; not published." >&2
   bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
   exit 3
@@ -93,6 +122,7 @@ FREE_MB="$(df -Pm "$WS" 2>/dev/null | awk 'NR==2{print $4}')"
 
 # ---------------------------------------------------------------- RENDER phase
 if [[ "$MODE" == "render" ]]; then
+  python3 "$RUN_STATE" can-attempt "$WS" || exit $?
   # Render backend: `local` (default) or `cloud`, chosen by the one-line file
   # renders-hyperframes/_run/RENDER-BACKEND. A file, not an env flag — owner
   # and subagents must read the same state (the write-fence lesson,
@@ -125,7 +155,6 @@ if [[ "$MODE" == "render" ]]; then
       exit 2
     fi
     echo "$STEM" > "$RLOCK/stem" 2>/dev/null || true
-    trap 'rm -rf "$RLOCK" 2>/dev/null' EXIT
   fi
 
   # Previews contaminate renders (they hold the same ports and GPU/shm state).
@@ -133,13 +162,16 @@ if [[ "$MODE" == "render" ]]; then
 
   echo "== preflight: $STEM"
   guarded "preflight" python3 "$VP/render-qa/src/preflight.py" "$WS" \
-    || quarantine "preflight rejected the plan (preflight.py)"
+    || quarantine "preflight rejected the plan (preflight.py)" "preflight" \
+      "inspect $LAST_GUARD_LOG, fix the authoring, then run the build gate"
 
   # A pruned workspace (post-publish revisit, or the 3x stability loop) has no
   # node_modules; reinstall instead of false-quarantining "render failed".
   if [[ ! -d "$WS/node_modules" ]]; then
     echo "== npm install (workspace was pruned)"
-    ( cd "$WS" && npm install --no-audit --no-fund ) || quarantine "npm install failed"
+    guarded "npm-install" bash -c 'cd "$1" && npm install --no-audit --no-fund' _ "$WS" \
+      || quarantine "npm install failed" "dependency-install" \
+        "inspect $LAST_GUARD_LOG and restore package access before retrying"
   fi
 
   # Stale MP4s from earlier renders must not survive into this run: publish
@@ -156,14 +188,17 @@ if [[ "$MODE" == "render" ]]; then
     OUT_MP4="$WS/renders/$(stem_delivered "$STEM" "$RENDER_DATE").mp4"
     mkdir -p "$WS/renders"
     echo "== cloud render: $STEM  (HeyGen-hosted; hard cap 60 min)"
-    ( cd "$WS" && timeout -k 30 3600 bash "$REPO/scripts/with-secrets.sh" \
-        npx hyperframes cloud render . --quality high \
-        --output "$OUT_MP4" --idempotency-key "scla-${STEM}-${RENDER_DATE}" ) \
-      || quarantine "cloud render failed or timed out (hyperframes cloud render)"
+    guarded "cloud-render" bash -c \
+      'cd "$1" && timeout -k 30 3600 bash "$2" npx hyperframes cloud render . --quality high --output "$3" --idempotency-key "$4"' \
+      _ "$WS" "$REPO/scripts/with-secrets.sh" "$OUT_MP4" "scla-${STEM}-${RENDER_DATE}" \
+      || quarantine "cloud render failed or timed out (hyperframes cloud render)" \
+        "cloud-render" "inspect $LAST_GUARD_LOG and the cloud credential/backend before retrying"
     [[ -s "$OUT_MP4" ]] || quarantine "cloud render exited 0 but no MP4 landed in renders/"
   else
     echo "== render: $STEM  (~7 min; hard cap 25)"
-    ( cd "$WS" && timeout -k 30 1500 npm run render ) || quarantine "npm run render failed or timed out"
+    guarded "local-render" bash -c 'cd "$1" && timeout -k 30 1500 npm run render' _ "$WS" \
+      || quarantine "npm run render failed or timed out" "local-render" \
+        "inspect $LAST_GUARD_LOG before retrying"
   fi
 
   # The HyperFrames CLI names its LOCAL output `<workspace-dir>_<date>_<clock>.mp4`,
@@ -183,9 +218,20 @@ if [[ "$MODE" == "render" ]]; then
   shopt -u nullglob
 
   echo "== verify_render"
-  guarded "verify_render" python3 "$VP/render-qa/src/verify_render.py" "$WS" \
-    || quarantine "the rendered MP4 failed post-render verification (verify_render.py)"
+  guarded "verify-render" python3 "$VP/render-qa/src/verify_render.py" "$WS" \
+    || quarantine "the rendered MP4 failed post-render verification (verify_render.py)" \
+      "verify-render" "inspect $LAST_GUARD_LOG, fix the named defect, then re-render"
   [[ -f "$WS/qa/VERIFIED" ]] || quarantine "verify passed but wrote no qa/VERIFIED marker"
+  python3 "$RUN_STATE" record-success --workspace "$WS" --stem "$STEM" \
+    --phase "$([[ "$RENDER_BACKEND" == "cloud" ]] && echo cloud-render || echo local-render)" \
+    >/dev/null 2>&1 || true
+
+  if ! python3 "$RUN_STATE" post-review-required >/dev/null 2>&1; then
+    echo
+    echo "READY_TO_PUBLISH $STEM — deterministic verification passed; " \
+         "post-render encode review retired after three clean cloud renders"
+    exit 0
+  fi
 
   # Sample frames for the vision guard. verify_render dumps 3 per scene; a
   # 15-scene video is 45 images (~65k tokens) and a 30-video batch would be ~2M
@@ -221,7 +267,6 @@ if ! mkdir "$LOCK" 2>/dev/null; then
   echo "FATAL: another publish is in flight ($LOCK exists). Retry when it finishes." >&2
   exit 2
 fi
-trap 'rmdir "$LOCK" 2>/dev/null' EXIT
 
 # Idempotency: a lesson with a published.tsv row is done — never re-upload.
 # Keyed on BASE, not the full stem: the date is a state stamp that moves with
@@ -258,9 +303,10 @@ cp "$MP4_SRC" "$DEST_DIR/$FILED" || quarantine "could not file MP4"
 echo "== filed: renders-mp4/$PROGRAM/$FILED"
 
 echo "== wistia upload"
-UPLOAD_OUT="$(bash "$REPO/scripts/wistia-upload.sh" "$DEST_DIR/$FILED" "$PROGRAM" 2>&1)" || {
-  echo "$UPLOAD_OUT" >&2; quarantine "wistia-upload.sh failed"; }
-echo "$UPLOAD_OUT"
+guarded "wistia-upload" bash "$REPO/scripts/wistia-upload.sh" "$DEST_DIR/$FILED" "$PROGRAM" \
+  || quarantine "wistia-upload.sh failed" "wistia-upload" \
+    "inspect $LAST_GUARD_LOG and correct Wistia credentials/access before retrying"
+UPLOAD_OUT="$(cat "$LAST_GUARD_LOG")"
 WURL="$(grep -o 'https://[a-z0-9.-]*wistia\.com/medias/[A-Za-z0-9]*' <<<"$UPLOAD_OUT" | head -1)"
 [[ -n "$WURL" ]] || quarantine "no Wistia URL returned"
 
@@ -364,11 +410,12 @@ bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
 
 # Commit is part of the publish contract — a failure here is a quarantine
 # (with the URL), not a shrug, and the local MP4 must survive it.
-git -C "$REPO" add -A "$VP/lesson-scripts" "$VP/PIPELINE-STATUS.md" || publish_quarantine "git add failed"
+guarded "git-add-publish" git -C "$REPO" add -A "$VP/lesson-scripts" "$VP/PIPELINE-STATUS.md" \
+  || publish_quarantine "git add failed"
 if git -C "$REPO" diff --cached --quiet; then
   publish_quarantine "nothing staged after publish — ledger writes did not land"
 fi
-git -C "$REPO" commit -q -m "ship($PROGRAM): $STEM → Wistia
+guarded "git-commit-publish" git -C "$REPO" commit -q -m "ship($PROGRAM): $STEM → Wistia
 
 $WURL
 
@@ -381,6 +428,8 @@ echo "   committed"
 # good, since the filed MP4 is never removed.
 bash "$REPO/scripts/archive-lesson.sh" "$STEM" --in-place || echo "   (prune skipped)"
 echo "   local MP4 kept: renders-mp4/$PROGRAM/$FILED (gitignored backup)"
+python3 "$RUN_STATE" record-success --workspace "$WS" --stem "$STEM" --phase publish \
+  >/dev/null 2>&1 || true
 
 echo
 echo "PUBLISHED $STEM $WURL"

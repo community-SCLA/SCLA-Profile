@@ -1,6 +1,5 @@
-# SCLA Video Design System — Claude entry point
+# SCLA Video Design System — Agent Pointer
 
-Canonical instructions for this folder live in `AGENTS.md` (single source for
-all agent tools, per STD-31); Claude Code inlines it via the import below.
+The compact machine-facing contract for this folder is `CONTRACT.md`.
 
-@AGENTS.md
+@CONTRACT.md

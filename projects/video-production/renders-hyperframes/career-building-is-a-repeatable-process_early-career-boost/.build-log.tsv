@@ -1,0 +1,24 @@
+2026-08-05T03:33:50Z	claim	program=early-career-boost
+2026-08-05T03:48:50Z	resume	program=early-career-boost
+2026-08-05T04:02:45Z	design	design.md authored — stone path carrier, wheel payoff at s26
+2026-08-05T04:02:45Z	plan	audio_request.json: 38 beats, one sentence each; script_match 0.00%
+2026-08-05T04:27:25Z	voice	38/38 clips via audio.mjs (HeyGen Oxana); paced in chunks — provider 429s at ~30 req/window
+2026-08-05T04:27:25Z	timing	timing.json computed: 184.331s, 12.37 beats/min, median 4.32s — check_pace --static PASS
+2026-08-05T04:27:25Z	compile	index.html + compositions/path.html authored; preflight --static PASS
+2026-08-05T04:34:24Z	preflight	exit 0 — gate-clean
+2026-08-05T04:38:03Z	preflight	exit 0 — gate-clean
+2026-08-05T04:39:01Z	preflight	re-run after taste revision pass (look-back mark at s13) — exit 0
+2026-08-05T04:39:01Z	gate	npm run check PASS (0 err, 1 advisory file-size warning); carrier churn 3.14%; STOPPED before render
+2026-08-05T04:40:36Z	preflight	exit 0 — gate-clean
+2026-08-05T04:59:38Z	preflight	exit 0 — gate-clean
+2026-08-05T05:05:11Z	compile	re-authored 20 beats: accumulation staged across each beat on narration word onsets (no idle motion added)
+2026-08-05T05:05:11Z	preflight	exit 0 after static-span re-author
+2026-08-05T05:05:11Z	precheck	PRECHECK_OK exit 0 — DIVERSITY PASS, 0 blocking static spans (was 9), 4 x 1.5s gray-zone warns
+2026-08-05T05:06:33Z	preflight	exit 0 — gate-clean
+2026-08-05T05:41:09Z	preflight	exit 1
+2026-08-05T05:50:29Z	preflight	exit 0 — gate-clean
+2026-08-05T05:51:14Z	preflight	exit 0 — gate-clean
+2026-08-05T05:54:41Z	compile	seam made atomic (no headless frame, no two-heading overlap); other-journeys re-routed clear of every label; labels knock out crossing lines
+2026-08-05T05:54:41Z	preflight	exit 0
+2026-08-05T05:54:41Z	precheck	PRECHECK_OK exit 0 — DIVERSITY PASS; 148-still seam audit + 123-still grid show no headless frame
+2026-08-05T05:55:47Z	release	build session ended

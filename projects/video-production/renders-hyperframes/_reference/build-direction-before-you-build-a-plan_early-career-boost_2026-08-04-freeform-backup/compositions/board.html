@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #0d2437;
+        }
+
+        /* Region A — the headline slot. Five mutually-exclusive headings share
+           it; each is its own element so the copy lives in markup. */
+        .head-slot {
+          position: absolute;
+          left: 120px;
+          top: 220px;
+          width: 1560px;
+          font-size: 72px;
+          font-weight: 900;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* s03 carries a heading and nothing else. Left in the headline slot it
+           reads as missing content rather than as a statement, so the one beat
+           that is deliberately a single line is composed as one: centred in the
+           frame, at display size. */
+        #b-head1 {
+          top: 430px;
+          font-size: 88px;
+        }
+
+        /* Region B — the board of moments. */
+        #b-board {
+          position: absolute;
+          left: 120px;
+          top: 420px;
+          width: 1560px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 30px;
+        }
+        .moment {
+          position: relative;
+          width: 500px;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          padding: 0 30px 0 54px;
+          background: #e5eff6;
+          border: 2px solid #cccedf;
+          border-radius: 12px;
+          font-size: 42px;
+          font-weight: 700;
+          line-height: 1.2;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+        /* Additive accent — arrives on its own cue, never a re-mark of the
+           card that already settled. */
+        .moment-mark {
+          position: absolute;
+          left: 22px;
+          top: 50%;
+          width: 8px;
+          height: 56px;
+          margin-top: -28px;
+          background: #eaab2d;
+          border-radius: 100px;
+          opacity: 0;
+        }
+
+        /* Region C — the four questions asked of the board. */
+        #b-questions {
+          position: absolute;
+          left: 120px;
+          top: 806px;
+          width: 1560px;
+          display: flex;
+          gap: 24px;
+        }
+        .qchip {
+          display: block;
+          padding: 14px 36px;
+          border: 2px solid #eaab2d;
+          border-radius: 100px;
+          font-size: 40px;
+          font-weight: 700;
+          color: #0d2437;
+          white-space: nowrap;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* Region B' — what the board reveals. Same region, next reading. */
+        #b-modes {
+          position: absolute;
+          left: 120px;
+          top: 420px;
+          width: 1560px;
+          list-style: none;
+        }
+        #b-modes li {
+          display: flex;
+          align-items: center;
+          gap: 28px;
+          height: 104px;
+          font-size: 46px;
+          font-weight: 400;
+          color: #292f35;
+          opacity: 0;
+          will-change: transform;
+        }
+        #b-modes li::before {
+          content: "";
+          display: block;
+          width: 44px;
+          height: 4px;
+          background: #eaab2d;
+          flex: 0 0 auto;
+        }
+
+        /* Region B'' — the contrast the clues resolve into. */
+        #b-compare {
+          position: absolute;
+          left: 120px;
+          top: 470px;
+          width: 1560px;
+          display: flex;
+          gap: 40px;
+        }
+        .cmp {
+          width: 760px;
+          min-height: 260px;
+          padding: 36px 40px;
+          border-radius: 12px;
+          border: 2px solid #cccedf;
+          background: #f6f6f9;
+          opacity: 0;
+          will-change: transform;
+        }
+        .cmp-label {
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        .cmp-text {
+          margin-top: 20px;
+          font-size: 46px;
+          font-weight: 700;
+          line-height: 1.24;
+          color: #0d2437;
+        }
+        #b-cmp2 {
+          border-color: #eaab2d;
+          background: #ffffff;
+        }
+        #b-cmp2 .cmp-label {
+          color: #eaab2d;
+        }
+      </style>
+
+      <div data-hf-id="hf-428t" id="root" data-composition-id="board" data-width="1920" data-height="1080">
+        <h2 data-hf-id="hf-j673" class="head-slot" id="b-head1">Who You Are Before the Title</h2>
+        <h2 data-hf-id="hf-2bla" class="head-slot" id="b-head2">Pay Attention to Your Patterns</h2>
+        <h2 data-hf-id="hf-ahou" class="head-slot" id="b-head3">More Than Credentials</h2>
+        <h2 data-hf-id="hf-55yx" class="head-slot" id="b-head4">How You Naturally Contribute</h2>
+        <h2 data-hf-id="hf-vr9y" class="head-slot" id="b-head5">Built from Repeated Clues</h2>
+
+        <div data-hf-id="hf-az9u" id="b-board">
+          <div data-hf-id="hf-kk5z" class="moment" id="b-m1"><span data-hf-id="hf-zkyd" class="moment-mark"></span>School</div>
+          <div data-hf-id="hf-6jli" class="moment" id="b-m2"><span data-hf-id="hf-v7rd" class="moment-mark"></span>Part-time work</div>
+          <div data-hf-id="hf-826w" class="moment" id="b-m3"><span data-hf-id="hf-weog" class="moment-mark"></span>Internships</div>
+          <div data-hf-id="hf-2zq9" class="moment" id="b-m4"><span data-hf-id="hf-w0df" class="moment-mark"></span>Student organizations</div>
+          <div data-hf-id="hf-cec9" class="moment" id="b-m5"><span data-hf-id="hf-u0ua" class="moment-mark"></span>Volunteering</div>
+          <div data-hf-id="hf-ppfi" class="moment" id="b-m6"><span data-hf-id="hf-tmj9" class="moment-mark"></span>Personal projects</div>
+        </div>
+
+        <div data-hf-id="hf-309t" id="b-questions" data-role="list">
+          <span data-hf-id="hf-81rw" class="qchip" id="b-q1">Engaged</span>
+          <span data-hf-id="hf-9f8g" class="qchip" id="b-q2">Capable</span>
+          <span data-hf-id="hf-u163" class="qchip" id="b-q3">Useful</span>
+          <span data-hf-id="hf-ph24" class="qchip" id="b-q4">Proud</span>
+        </div>
+
+        <ul data-hf-id="hf-en72" id="b-modes" data-role="list">
+          <li data-hf-id="hf-7ghk" id="b-mode1">Organizing moving parts</li>
+          <li data-hf-id="hf-7gxx" id="b-mode2">Analyzing information and finding patterns</li>
+          <li data-hf-id="hf-hgxo" id="b-mode3">Helping other people understand something</li>
+          <li data-hf-id="hf-u7io" id="b-mode4">Turning vague ideas into action</li>
+        </ul>
+
+        <div data-hf-id="hf-kuo2" id="b-compare" data-role="compare">
+          <div data-hf-id="hf-1990" class="cmp" id="b-cmp1">
+            <div data-hf-id="hf-vf2h" class="cmp-label">Less about</div>
+            <div data-hf-id="hf-oqhs" class="cmp-text">This is my forever path</div>
+          </div>
+          <div data-hf-id="hf-c4qn" class="cmp" id="b-cmp2">
+            <div data-hf-id="hf-8qjt" class="cmp-label">More about</div>
+            <div data-hf-id="hf-ph4u" class="cmp-text">The kind of work and environment that fits me right now</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          // Local time = global - 18.126 (this act's data-start).
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power4.out";
+          const OUT = "power2.in";
+
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.3, ease: OUT }, t);
+          }
+          // Additive accent reveal — the mark was never on screen before, so
+          // this is an arrival, not a re-animation of settled content.
+          function mark(sel, t) {
+            tl.set(sel, { opacity: 0, scaleY: 0.2 }, t);
+            tl.to(sel, { opacity: 1, scaleY: 1, duration: 0.34, ease: IN }, t);
+          }
+
+          // ---- s03 (audio 18.126 / local 0) — who you are before the title.
+          arrive("#b-head1", 0.3, 66, 0.24);
+
+          // ---- s04 (audio 23.798 / local 5.672) — the patterns, then the board.
+          leave("#b-head1", 5.55, -40);
+          arrive("#b-head2", 5.9, 62, 0.24);
+          // Each moment lands on its own spoken source word.
+          arrive("#b-m1", 10.634, 46, 0.18);   // school 28.76
+          arrive("#b-m2", 11.314, 46, 0.18);   // part-time work 29.44
+          arrive("#b-m3", 12.294, 46, 0.18);   // internships 30.42
+          arrive("#b-m4", 13.354, 46, 0.18);   // student organizations 31.48
+          arrive("#b-m5", 14.974, 46, 0.18);   // volunteering 33.10
+          arrive("#b-m6", 16.214, 46, 0.18);   // personal projects 34.34
+
+          // ---- s05 (audio 36.21 / local 18.084) — the four questions.
+          arrive("#b-q1", 19.224, 36, 0.16);   // engaged 37.35
+          arrive("#b-q2", 20.124, 36, 0.16);   // capable 38.25
+          arrive("#b-q3", 21.044, 36, 0.16);   // useful 39.17
+          arrive("#b-q4", 22.104, 36, 0.16);   // proud 40.23
+
+          // ---- s06 (audio 42.422 / local 24.296) — the moments are evidence.
+          leave("#b-questions", 24.1, -26);
+          leave("#b-head2", 24.1, -40);
+          arrive("#b-head3", 24.45, 62, 0.24);
+          // "They show how you naturally contribute." (47.76 / local 29.634)
+          mark("#b-m1 .moment-mark", 29.634);
+          mark("#b-m2 .moment-mark", 29.754);
+          mark("#b-m3 .moment-mark", 29.874);
+          mark("#b-m4 .moment-mark", 29.994);
+          mark("#b-m5 .moment-mark", 30.114);
+          mark("#b-m6 .moment-mark", 30.234);
+
+          // ---- s07 (audio 50.445 / local 32.319) — the four contributions.
+          leave("#b-board", 31.9, -34);
+          leave("#b-head3", 31.9, -40);
+          arrive("#b-head4", 32.25, 62, 0.24);
+          arrive("#b-mode1", 33.424, 42, 0.18);   // organizing 51.55
+          arrive("#b-mode2", 36.894, 42, 0.18);   // analyzing 55.02
+          arrive("#b-mode3", 40.704, 42, 0.18);   // come alive 58.83
+          arrive("#b-mode4", 44.834, 42, 0.18);   // turns 62.96
+
+          // ---- s08 (audio 65.469 / local 47.343) — repeated clues, and the
+          //      shift from "forever path" to "fits me right now".
+          leave("#b-modes", 46.95, -30);
+          leave("#b-head4", 46.95, -40);
+          arrive("#b-head5", 47.35, 62, 0.24);
+          // Each card lands WHOLE on the phrase that names it — an empty
+          // labelled box reads as an unfinished placeholder, which is worse
+          // than the white space it was meant to fill.
+          arrive("#b-cmp1", 51.944, 44, 0.2);   // "less about saying" 70.07
+          arrive("#b-cmp2", 55.304, 44, 0.2);   // "more about saying" 73.43
+
+          // Clear the frame for the closing act.
+          leave("#b-head5", 60.0, -40);
+          leave("#b-compare", 60.0, -28);
+
+          window.__timelines["board"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

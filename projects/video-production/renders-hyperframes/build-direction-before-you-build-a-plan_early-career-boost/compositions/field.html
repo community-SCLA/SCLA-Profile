@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", system-ui, sans-serif;
+          color: #ffffff;
+        }
+
+        .hd {
+          position: absolute;
+          left: 200px;
+          top: 170px;
+          width: 1560px;
+          font-size: 68px;
+          font-weight: 900;
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #ffffff;
+          opacity: 0;
+        }
+
+        #fd-sub {
+          position: absolute;
+          left: 200px;
+          top: 300px;
+          font-size: 46px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.78);
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        /* The four clues take the band the sub-line vacates — never at the
+           same time, so the two can never share pixels. */
+        #fd-clues {
+          position: absolute;
+          left: 200px;
+          top: 296px;
+          display: flex;
+          align-items: baseline;
+          gap: 64px;
+          opacity: 0;
+        }
+        .fd-clue {
+          display: block;
+          font-size: 54px;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.4;
+          color: #eaab2d;
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        /* The carrying object: 12 x 4 marks, 120px column pitch, 104px row
+           pitch, 14px marks. Bottom edge 926px — clear of the 960px content
+           floor; right edge 1634px — clear of the 120px frame padding. */
+        #fd-field {
+          position: absolute;
+          left: 300px;
+          top: 600px;
+          width: 1334px;
+          height: 326px;
+        }
+        .mk {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          border-radius: 100px;
+          background: rgba(51, 147, 214, 0.55);
+          opacity: 0;
+        }
+        .mk-lit {
+          background: #eaab2d;
+        }
+        .mk-dim {
+          background: rgba(51, 147, 214, 0.4);
+        }
+        /* The four row baselines the marks land on. They draw before any mark
+           exists, so the frame is never just a heading on navy while the
+           narration is still naming what the field will hold. */
+        .fd-base {
+          position: absolute;
+          left: 0;
+          width: 1334px;
+          height: 2px;
+          background: rgba(51, 147, 214, 0.3);
+          transform-origin: 0% 50%;
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-qkep" id="root" data-composition-id="field" data-width="1920" data-height="1080">
+        <h2 data-hf-id="hf-lt0s" class="hd" id="fd-h1" data-role="heading">Who You Are Before the Title</h2>
+        <h2 data-hf-id="hf-omtf" class="hd" id="fd-h2" data-role="heading">More Than Formal Credentials</h2>
+
+        <div data-hf-id="hf-9syt" id="fd-sub">Pay attention to your patterns</div>
+
+        <div data-hf-id="hf-jthu" id="fd-clues">
+          <span data-hf-id="hf-ttvv" class="fd-clue" id="fd-q1">Engaged</span>
+          <span data-hf-id="hf-gewb" class="fd-clue" id="fd-q2">Capable</span>
+          <span data-hf-id="hf-6woe" class="fd-clue" id="fd-q3">Useful</span>
+          <span data-hf-id="hf-93tr" class="fd-clue" id="fd-q4">Proud</span>
+        </div>
+
+        <div data-hf-id="hf-kx9o" id="fd-field"></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          var COLS = 12;
+          var ROWS = 4;
+          var COL_PITCH = 120;
+          var ROW_PITCH = 104;
+
+          /* The 48 marks are built once, here, and every later act inherits the
+             same grid. Pure index arithmetic — no clock, no randomness. */
+          var field = document.getElementById("fd-field");
+          var marks = [];
+          for (var r = 0; r < ROWS; r++) {
+            for (var c = 0; c < COLS; c++) {
+              var m = document.createElement("div");
+              m.className = "mk";
+              m.id = "fd-m" + (r * COLS + c);
+              m.style.left = c * COL_PITCH + "px";
+              m.style.top = r * ROW_PITCH + "px";
+              field.appendChild(m);
+              marks.push(m);
+            }
+          }
+          for (var b = 0; b < ROWS; b++) {
+            var base = document.createElement("div");
+            base.className = "fd-base";
+            base.id = "fd-b" + b;
+            base.style.top = b * ROW_PITCH + 6 + "px";
+            field.appendChild(base);
+          }
+          function at(c, r) {
+            return marks[r * COLS + c];
+          }
+
+          var tl = gsap.timeline({ paused: true });
+          var IN = "power3.out";
+          var OUT = "power2.in";
+
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.28, ease: OUT }, t);
+          }
+
+          /* ---- s04 (audio 0.25) — who you are before the title. */
+          arrive("#fd-h1", 0.35, 62, 0.24);
+
+          for (var bl = 0; bl < ROWS; bl++) {
+            tl.fromTo(
+              "#fd-b" + bl,
+              { scaleX: 0, opacity: 1 },
+              { scaleX: 1, duration: 0.9, ease: IN },
+              0.9 + bl * 0.32
+            );
+          }
+
+          /* ---- s05 (audio 5.54) — pay attention to your patterns. */
+          arrive("#fd-sub", 5.62, 46, 0.22);
+
+          /* ---- s06 (audio 8.32) — the field arrives in six waves, one per
+             experience the narration names. Word cues: school 10.02 ·
+             part-time 10.78 · internships 11.88 · student 13.02 ·
+             volunteering 14.44 · projects 15.88 */
+          var WAVES = [9.92, 10.68, 11.78, 12.92, 14.34, 15.78];
+          for (var w = 0; w < WAVES.length; w++) {
+            for (var k = 0; k < 8; k++) {
+              var col = 2 * w + (k % 2);
+              var row = (k / 2) | 0;
+              var el = at(col, row);
+              var t0 = WAVES[w] + k * 0.035;
+              tl.set(el, { opacity: 1, scale: 0.3 }, t0);
+              tl.to(el, { scale: 1, duration: 0.42, ease: "back.out(1.7)" }, t0);
+            }
+          }
+
+          /* ---- s07 (audio 16.75) — the four questions. Each one lands on its
+             own spoken word and lights four marks: engaged? 17.71 ·
+             capable? 19.21 · useful, 21.37 · proud 23.31 */
+          leave("#fd-sub", 16.85, -34);
+          tl.set("#fd-clues", { opacity: 1 }, 17.3);
+
+          var CLUES = [
+            { at: 17.61, id: "#fd-q1", cells: [[1, 0], [4, 2], [7, 1], [10, 3]] },
+            { at: 19.11, id: "#fd-q2", cells: [[2, 3], [5, 0], [8, 2], [11, 1]] },
+            { at: 21.27, id: "#fd-q3", cells: [[0, 2], [3, 1], [6, 3], [9, 0]] },
+            { at: 23.21, id: "#fd-q4", cells: [[2, 1], [5, 3], [8, 0], [11, 2]] }
+          ];
+          var lit = [];
+          for (var q = 0; q < CLUES.length; q++) {
+            arrive(CLUES[q].id, CLUES[q].at, 40, 0.22);
+            for (var n = 0; n < CLUES[q].cells.length; n++) {
+              var cell = CLUES[q].cells[n];
+              var mark = at(cell[0], cell[1]);
+              lit.push(cell[1] * COLS + cell[0]);
+              tl.to(
+                mark,
+                { backgroundColor: "#eaab2d", duration: 0.3, ease: IN },
+                CLUES[q].at + 0.04 + n * 0.05
+              );
+            }
+          }
+
+          /* ---- s08 (audio 25.12) — the clues read louder than the record.
+             The heading turns over, then everything that is not a clue steps
+             back so the sixteen that are keep the frame. */
+          leave("#fd-h1", 25.3, -44);
+          arrive("#fd-h2", 25.62, 58, 0.24);
+
+          var rest = [];
+          for (var i = 0; i < marks.length; i++) {
+            if (lit.indexOf(i) === -1) rest.push(marks[i]);
+          }
+          tl.to(
+            rest,
+            { backgroundColor: "rgba(51, 147, 214, 0.4)", duration: 0.7, ease: "power2.out", stagger: 0.006 },
+            28.6
+          );
+          tl.to(".fd-base", { opacity: 0, duration: 0.6, ease: OUT, stagger: 0.05 }, 28.6);
+
+          window.__timelines["field"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

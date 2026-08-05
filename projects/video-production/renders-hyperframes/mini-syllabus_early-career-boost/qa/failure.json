@@ -1,0 +1,19 @@
+{
+  "attempt": 2,
+  "attempts_by_class": {
+    "cloud-render": 2
+  },
+  "command": "legacy failure; command was not preserved",
+  "error_class": "cloud-render",
+  "exit_code": null,
+  "failed_at": "2026-08-05T16:00:00Z",
+  "legacy_import": true,
+  "log": null,
+  "next_action": "inspect cloud credentials/backend, then use run.sh retry after the path is corrected",
+  "program": "early-career-boost",
+  "reason": "cloud render failed or timed out",
+  "reset_reason": "cloud path corrected",
+  "resolved_at": "2026-08-05T21:20:01Z",
+  "stem": "mini-syllabus_early-career-boost",
+  "version": 1
+}

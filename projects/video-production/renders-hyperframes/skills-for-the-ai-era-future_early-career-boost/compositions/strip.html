@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+        font-family: "Proxima Nova", system-ui, sans-serif;
+        color: #ffffff;
+      }
+      .ground {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        background: radial-gradient(
+          ellipse 1200px 620px at 52% 74%,
+          rgba(13, 36, 55, 1) 0%,
+          rgba(10, 30, 47, 1) 72%
+        );
+      }
+      .stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      .hid {
+        opacity: 0;
+      }
+      .brick {
+        fill: rgba(229, 239, 246, 0.93);
+      }
+      .brick-dim {
+        fill: rgba(229, 239, 246, 0.44);
+      }
+      .bedbrick {
+        fill: rgba(95, 111, 150, 0.72);
+      }
+      .ghostbrick {
+        fill: none;
+        stroke: rgba(51, 147, 214, 0.95);
+        stroke-width: 3;
+        stroke-dasharray: 11 8;
+      }
+      .rule {
+        fill: rgba(255, 255, 255, 0.92);
+      }
+      .band {
+        fill: rgba(51, 147, 214, 0.14);
+      }
+      .bandline {
+        fill: rgba(51, 147, 214, 0.75);
+      }
+      .notch {
+        fill: rgba(234, 171, 45, 0.95);
+      }
+      .step {
+        fill: rgba(234, 171, 45, 0.62);
+      }
+      .figure {
+        fill: none;
+        stroke: rgba(234, 171, 45, 0.98);
+        stroke-width: 5;
+        stroke-linecap: round;
+      }
+      .rackframe {
+        fill: none;
+        stroke: rgba(234, 171, 45, 0.9);
+        stroke-width: 3;
+      }
+      .racktile {
+        fill: rgba(234, 171, 45, 0.88);
+      }
+      .crest {
+        fill: none;
+        stroke: rgba(234, 171, 45, 0.95);
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .leader {
+        fill: none;
+        stroke: rgba(234, 171, 45, 0.6);
+        stroke-width: 2;
+      }
+      .totalline {
+        fill: none;
+        stroke: rgba(234, 171, 45, 0.7);
+        stroke-width: 3;
+        stroke-dasharray: 18 12;
+      }
+      .eyebrow {
+        position: absolute;
+        left: 150px;
+        top: 58px;
+        font-size: 22px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.72);
+      }
+      .title {
+        position: absolute;
+        left: 180px;
+        top: 300px;
+        width: 1500px;
+        font-size: 92px;
+        font-weight: 900;
+        line-height: 106px;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        visibility: hidden;
+        opacity: 0;
+      }
+      .titlesub {
+        position: absolute;
+        left: 182px;
+        top: 440px;
+        width: 1300px;
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 56px;
+        color: rgba(255, 255, 255, 0.78);
+        visibility: hidden;
+        opacity: 0;
+      }
+      .hd {
+        position: absolute;
+        left: 180px;
+        top: 140px;
+        width: 1320px;
+        font-size: 56px;
+        font-weight: 900;
+        line-height: 68px;
+        letter-spacing: -0.005em;
+        color: #ffffff;
+        visibility: hidden;
+        opacity: 0;
+      }
+      .group {
+        position: absolute;
+        left: 182px;
+        top: 236px;
+        width: 1140px;
+        visibility: hidden;
+      }
+      .row {
+        height: 44px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 44px;
+        margin-bottom: 18px;
+        color: rgba(255, 255, 255, 0.8);
+        visibility: hidden;
+        opacity: 0;
+      }
+      #g-trans {
+        width: 1540px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      #g-trans .row {
+        width: 730px;
+        margin-right: 40px;
+      }
+      .sub {
+        position: absolute;
+        left: 182px;
+        top: 236px;
+        width: 1080px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 48px;
+        color: rgba(255, 255, 255, 0.8);
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="strip"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div class="ground"></div>
+      <svg class="stage" viewBox="0 0 1920 1080" aria-hidden="true">
+        <g id="g-ghost"></g>
+        <g id="g-bands"></g>
+        <g id="g-rule"></g>
+        <g id="g-bed"></g>
+        <g id="g-cols"></g>
+        <g id="g-notch"></g>
+        <g id="g-lead"></g>
+        <g id="g-trail"></g>
+        <g id="g-fig"></g>
+        <g id="g-rack"></g>
+        <g id="g-crest"></g>
+      </svg>
+
+      <div class="eyebrow">Early Career Boost</div>
+
+      <h1 class="title" id="lesson-title">Skills for the AI Era Future</h1>
+      <p class="titlesub" id="titlesub">
+        The headlines announce that AI is coming for every job.
+      </p>
+
+      <h2 class="hd" id="hd-s02">Careers Are More Than Tasks</h2>
+      <h2 class="hd" id="hd-s03">The Skills Hardest to Automate</h2>
+      <h2 class="hd" id="hd-s04">Direct AI Rather Than Compete</h2>
+      <h2 class="hd" id="hd-s05">Think Back Ten Years</h2>
+      <h2 class="hd" id="hd-s06">Learn to Code, and It Worked</h2>
+      <h2 class="hd" id="hd-s07">Today That Advice Is Ambiguous</h2>
+      <h2 class="hd" id="hd-s08">That Is the Real Lesson</h2>
+      <h2 class="hd" id="hd-s09">A Long Stretch Comes First</h2>
+      <h2 class="hd" id="hd-s10">Some Values Fall, Others Rise</h2>
+      <h2 class="hd" id="hd-s11">Keep Moving Toward Rising Skills</h2>
+      <h2 class="hd" id="hd-s12">Which Skills Rise in Value?</h2>
+      <h2 class="hd" id="hd-s13">Four Categories Worth Watching</h2>
+      <h2 class="hd" id="hd-s14">Work That Needs Human Judgment</h2>
+      <h2 class="hd" id="hd-s15">Building and Deploying AI</h2>
+      <h2 class="hd" id="hd-s16">Things People Want More Of</h2>
+      <h2 class="hd" id="hd-s17">Specialized Skills Take Time</h2>
+      <h2 class="hd" id="hd-s18">You Do Not Need All Four</h2>
+      <h2 class="hd" id="hd-s19">Look for Two at Once</h2>
+      <h2 class="hd" id="hd-s20">Transferable to Almost Any Career</h2>
+      <h2 class="hd" id="hd-s21">Use AI to Get Work Done</h2>
+      <h2 class="hd" id="hd-s22">Take Care of Yourself</h2>
+      <h2 class="hd" id="hd-s23">Agency and Decision-Making</h2>
+      <h2 class="hd" id="hd-s24">Above All, Learning How to Learn</h2>
+      <h2 class="hd" id="hd-s25">You Do Not Out-Compute a Machine</h2>
+      <h2 class="hd" id="hd-s26">A Thoughtful Human with Powerful Tools</h2>
+      <h2 class="hd" id="hd-s27">What the History Tells Us</h2>
+      <h2 class="hd" id="hd-s28">Only When It Is Nearly Total</h2>
+      <h2 class="hd" id="hd-s29">Some Down, Others Up</h2>
+      <h2 class="hd" id="hd-s30">The Goal Is Not One Safe Job</h2>
+      <h2 class="hd" id="hd-s31">Ride the Wave</h2>
+
+      <div class="group" id="g-skills" data-role="list">
+        <div class="row" id="r-judg">Judgment and decision-making</div>
+        <div class="row" id="r-mod3">Built back in Module 3</div>
+        <div class="row" id="r-comm">Communication</div>
+        <div class="row" id="r-rel">Relationships</div>
+        <div class="row" id="r-learn">The ability to keep learning</div>
+      </div>
+
+      <div class="group" id="g-code">
+        <div class="row" id="r-code">Learn to code</div>
+      </div>
+
+      <div class="group" id="g-tilt" data-role="list">
+        <div class="row" id="r-down">The skills it has mastered</div>
+        <div class="row" id="r-up">The skills it has not</div>
+      </div>
+
+      <div class="group" id="g-cats" data-role="list">
+        <div class="row" id="r-cat1">Messy, long-horizon work</div>
+        <div class="row" id="r-cat2">Developing and deploying AI</div>
+        <div class="row" id="r-cat3">Things people would use far more of</div>
+        <div class="row" id="r-cat4">Specialized skills others take time to learn</div>
+      </div>
+
+      <div class="group" id="g-trans" data-role="list">
+        <div class="row" id="r-t1">Using AI to get real work done</div>
+        <div class="row" id="r-t2">Taking care of yourself</div>
+        <div class="row" id="r-t3">Personal effectiveness and agency</div>
+        <div class="row" id="r-t4">Prioritization and forecasting</div>
+        <div class="row" id="r-t5">Social skills</div>
+        <div class="row" id="r-t6">Learning how to learn</div>
+      </div>
+
+      <p class="sub" id="sub-wealth">
+        Automation creates enormous wealth and raises wages on average.
+      </p>
+    </div>
+
+    <script>
+      // -------------------------------------------------------------------
+      // Frozen beat grid. Every number below is COMPUTED — `t`/`d` come
+      // straight from timing.json, and each `c` entry is the absolute onset of
+      // a real narration word in audio_meta.json (evenly spaced through that
+      // beat's word list). Nothing here is hand-tuned.
+      // -------------------------------------------------------------------
+      const BEATS = [
+        { id: "s01", t: 0.0, d: 7.013, c: [0.0, 2.84, 5.739] },
+        { id: "s02", t: 7.013, d: 9.536, c: [7.013, 10.022, 12.143, 14.782] },
+        { id: "s03", t: 16.549, d: 12.932, c: [16.549, 19.279, 21.739, 25.398, 27.858] },
+        { id: "s04", t: 29.481, d: 9.954, c: [29.481, 33.43, 35.61, 38.151] },
+        { id: "s05", t: 39.435, d: 2.143, c: [39.435, 40.025, 40.824] },
+        { id: "s06", t: 41.578, d: 7.29, c: [41.578, 44.507, 47.228] },
+        { id: "s07", t: 48.868, d: 4.233, c: [48.868, 50.537, 51.657] },
+        { id: "s08", t: 53.101, d: 2.17, c: [53.101, 53.811, 54.37] },
+        { id: "s09", t: 55.271, d: 11.391, c: [55.271, 58.64, 61.2, 64.66] },
+        { id: "s10", t: 66.662, d: 7.708, c: [66.662, 69.412, 71.471, 72.812] },
+        { id: "s11", t: 74.37, d: 6.924, c: [74.37, 76.919, 79.979] },
+        { id: "s12", t: 81.294, d: 3.162, c: [81.294, 82.803, 83.483] },
+        { id: "s13", t: 84.456, d: 2.823, c: [84.456, 86.285] },
+        { id: "s14", t: 87.279, d: 10.503, c: [87.279, 89.828, 93.148, 96.388] },
+        { id: "s15", t: 97.782, d: 4.494, c: [97.782, 99.892, 101.111] },
+        { id: "s16", t: 102.276, d: 6.872, c: [102.276, 105.865, 107.745] },
+        { id: "s17", t: 109.148, d: 5.513, c: [109.148, 112.177, 113.597] },
+        { id: "s18", t: 114.661, d: 2.457, c: [114.661, 116.19] },
+        { id: "s19", t: 117.118, d: 4.886, c: [117.118, 119.207, 121.067] },
+        { id: "s20", t: 122.004, d: 9.092, c: [122.004, 123.673, 125.873, 128.033, 129.533] },
+        { id: "s21", t: 131.096, d: 3.554, c: [131.096, 133.566] },
+        { id: "s22", t: 134.65, d: 3.554, c: [134.65, 137.219] },
+        { id: "s23", t: 138.204, d: 7.655, c: [138.204, 140.013, 142.113, 144.573] },
+        { id: "s24", t: 145.859, d: 12.253, c: [145.859, 149.168, 151.188, 153.308, 156.508] },
+        { id: "s25", t: 158.112, d: 3.737, c: [158.112, 159.761, 160.721] },
+        { id: "s26", t: 161.849, d: 5.435, c: [161.849, 163.638, 166.038] },
+        { id: "s27", t: 167.284, d: 4.573, c: [167.284, 169.053, 170.774] },
+        { id: "s28", t: 171.857, d: 4.756, c: [171.857, 174.246, 175.347] },
+        { id: "s29", t: 176.613, d: 6.036, c: [176.613, 179.442, 181.602] },
+        { id: "s30", t: 182.649, d: 3.972, c: [182.649, 184.098, 185.498] },
+        { id: "s31", t: 186.621, d: 10.069, c: [186.621, 188.33, 190.31, 192.47] },
+      ];
+      const B = {};
+      BEATS.forEach(function (b) {
+        B[b.id] = b;
+      });
+      const T = function (id, k) {
+        return B[id].c[k];
+      };
+
+      // -------------------------------------------------------------------
+      // Strip geometry — one horizon rule, columns above it, bed below it.
+      // -------------------------------------------------------------------
+      const SVGNS = "http://www.w3.org/2000/svg";
+      const RULE_Y = 800;
+      const BRICK_H = 40;
+      const PITCH = 46;
+      const BRICK_TOP = 754; // top of brick 0; brick k top = BRICK_TOP - PITCH*k
+      const BED_H = 32;
+      const MAXB = 7;
+      const BED_Y = [812, 848, 884];
+
+      const COLS = [
+        { x: 200, w: 92 },
+        { x: 304, w: 80 },
+        { x: 396, w: 98 },
+        { x: 506, w: 84 },
+        { x: 602, w: 94 },
+        { x: 708, w: 78 },
+        { x: 798, w: 96 },
+        { x: 906, w: 86 },
+        { x: 1004, w: 82 },
+        { x: 1098, w: 98 },
+        { x: 1208, w: 88 },
+      ];
+      // The single re-arrangement of the whole runtime: the three twice-banded
+      // columns leave the line and land as one block to the RIGHT of
+      // everything, which is why the strip is physically wider at the end.
+      const CLUSTER = { 4: 1316, 8: 1420, 10: 1512 };
+      const DETACH = { x: 1690, w: 96 };
+
+      const GHOSTS = [
+        { x: 250, w: 86, n: 6 },
+        { x: 366, w: 74, n: 6 },
+        { x: 470, w: 92, n: 7 },
+        { x: 572, w: 78, n: 6 },
+        { x: 678, w: 88, n: 6 },
+        { x: 768, w: 72, n: 6 },
+      ];
+      const SPIKE = 2; // index of the tall ghost column — the learn-to-code advice
+      const GHOST_DX = -30;
+      const GHOST_DY = 18;
+
+      const BANDS = [
+        { x: 186, w: 530, bar: 604 },
+        { x: 592, w: 500, bar: 588 },
+        { x: 996, w: 314, bar: 572 },
+        { x: 1190, w: 430, bar: 556 },
+      ];
+
+      function mk(parent, tag, attrs, cls) {
+        const el = document.createElementNS(SVGNS, tag);
+        for (const k in attrs) el.setAttribute(k, attrs[k]);
+        if (cls) el.setAttribute("class", cls);
+        parent.appendChild(el);
+        return el;
+      }
+      const gGhost = document.getElementById("g-ghost");
+      const gBands = document.getElementById("g-bands");
+      const gRule = document.getElementById("g-rule");
+      const gBed = document.getElementById("g-bed");
+      const gCols = document.getElementById("g-cols");
+      const gNotch = document.getElementById("g-notch");
+      const gLead = document.getElementById("g-lead");
+      const gTrail = document.getElementById("g-trail");
+      const gFig = document.getElementById("g-fig");
+      const gRack = document.getElementById("g-rack");
+      const gCrest = document.getElementById("g-crest");
+
+      // jitter: hand-laid brick, never measurement — deterministic, no random
+      function jx(ci, k) {
+        return ((ci * 5 + k * 3) % 3) * 7 - 7;
+      }
+
+      // --- the bed ---------------------------------------------------------
+      const BED = [];
+      (function () {
+        const wcycle = [78, 86, 94, 102];
+        let cur = 190,
+          i = 0;
+        while (cur + wcycle[i % 4] <= 1750) {
+          BED.push({ x: cur, w: wcycle[i % 4] });
+          cur += wcycle[i % 4] + 8;
+          i += 1;
+        }
+      })();
+      const bedEl = [[], [], []];
+      for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < BED.length; i++) {
+          bedEl[j].push(
+            mk(
+              gBed,
+              "rect",
+              {
+                x: BED[i].x,
+                y: BED_Y[j],
+                width: BED[i].w,
+                height: BED_H,
+                rx: 6,
+              },
+              "bedbrick hid"
+            )
+          );
+        }
+      }
+
+      // --- the ghost stratum ----------------------------------------------
+      const ghostEl = [];
+      GHOSTS.forEach(function (g, gi) {
+        const arr = [];
+        for (let k = 0; k < g.n; k++) {
+          arr.push(
+            mk(
+              gGhost,
+              "rect",
+              {
+                x: g.x + GHOST_DX + jx(gi + 3, k),
+                y: BRICK_TOP + GHOST_DY - PITCH * k,
+                width: g.w - 6,
+                height: BRICK_H,
+                rx: 6,
+              },
+              "ghostbrick hid"
+            )
+          );
+        }
+        ghostEl.push(arr);
+      });
+
+      // --- bands (outline first, wash second) ------------------------------
+      const bandLine = [];
+      const bandWash = [];
+      BANDS.forEach(function (b) {
+        bandWash.push(
+          mk(
+            gBands,
+            "rect",
+            { x: b.x, y: b.bar + 10, width: b.w, height: RULE_Y - b.bar - 10, rx: 10 },
+            "band hid"
+          )
+        );
+        bandLine.push(
+          mk(gBands, "rect", { x: b.x, y: b.bar, width: b.w, height: 5, rx: 2 }, "bandline hid")
+        );
+      });
+
+      // --- the horizon rule, drawn in three strokes ------------------------
+      const ruleSeg = [
+        mk(gRule, "rect", { x: 180, y: RULE_Y, width: 540, height: 5 }, "rule hid"),
+        mk(gRule, "rect", { x: 720, y: RULE_Y, width: 540, height: 5 }, "rule hid"),
+        mk(gRule, "rect", { x: 1260, y: RULE_Y, width: 530, height: 5 }, "rule hid"),
+      ];
+
+      // --- the columns -----------------------------------------------------
+      const colEl = [];
+      COLS.forEach(function (c, ci) {
+        const arr = [];
+        for (let k = 0; k < MAXB; k++) {
+          arr.push(
+            mk(
+              gCols,
+              "rect",
+              {
+                x: c.x + jx(ci, k),
+                y: BRICK_TOP - PITCH * k,
+                width: c.w - 6,
+                height: BRICK_H,
+                rx: 6,
+              },
+              "brick hid"
+            )
+          );
+        }
+        colEl.push(arr);
+      });
+
+      // the detached column the crest stroke never touches
+      const detachEl = [];
+      for (let k = 0; k < MAXB; k++) {
+        detachEl.push(
+          mk(
+            gCols,
+            "rect",
+            {
+              x: DETACH.x + jx(9, k),
+              y: BRICK_TOP - PITCH * k,
+              width: DETACH.w - 6,
+              height: BRICK_H,
+              rx: 6,
+            },
+            "brick-dim hid"
+          )
+        );
+      }
+
+      // --- notches: one per band a brick falls inside ----------------------
+      const notchEl = {};
+      [4, 8, 10].forEach(function (ci) {
+        notchEl[ci] = [];
+        for (let k = 0; k < MAXB; k++) {
+          const bx = COLS[ci].x + jx(ci, k) + COLS[ci].w - 6;
+          const by = BRICK_TOP - PITCH * k;
+          notchEl[ci].push([
+            mk(gNotch, "rect", { x: bx - 19, y: by + 5, width: 13, height: 13, rx: 2 }, "notch hid"),
+            mk(gNotch, "rect", { x: bx - 19, y: by + 22, width: 13, height: 13, rx: 2 }, "notch hid"),
+          ]);
+        }
+      });
+
+      // --- leaders (only where exactly one column is being named) ----------
+      const leadCol = mk(gLead, "polyline", { points: "246,330 246,690" }, "leader hid");
+      const leadGhost = mk(gLead, "polyline", { points: "516,330 516,486" }, "leader hid");
+
+      // --- the "nearly total" line ----------------------------------------
+      const totalLine = mk(gLead, "polyline", { points: "190,505 1600,505" }, "totalline hid");
+
+      // --- the walker, its trail and its rack ------------------------------
+      // Outer group carries POSITION (x/y translate); the inner group carries
+      // the entrance. Keeping them apart matters: an entrance tween that
+      // animates y would otherwise reset the placement translate to zero.
+      const figWrap = mk(gFig, "g", {});
+      const figure = mk(figWrap, "g", {}, "hid");
+      mk(figure, "circle", { cx: 0, cy: -52, r: 12 }, "figure");
+      mk(figure, "polyline", { points: "0,-40 0,-19" }, "figure");
+      mk(figure, "polyline", { points: "-15,0 0,-19 15,0" }, "figure");
+      mk(figure, "polyline", { points: "-16,-34 16,-29" }, "figure");
+
+      const rackWrap = mk(gRack, "g", {});
+      const rack = mk(rackWrap, "g", {}, "hid");
+      mk(rack, "rect", { x: 0, y: 0, width: 100, height: 62, rx: 5 }, "rackframe");
+      const rackTile = [];
+      for (let i = 0; i < 6; i++) {
+        rackTile.push(
+          mk(
+            rack,
+            "rect",
+            { x: 8 + (i % 3) * 30, y: 8 + Math.floor(i / 3) * 25, width: 24, height: 19, rx: 3 },
+            "racktile hid"
+          )
+        );
+      }
+
+      const trailEl = [];
+      function trailAt(cx, cy) {
+        const g = mk(gTrail, "g", {}, "hid");
+        mk(g, "circle", { cx: cx - 11, cy: cy - 9, r: 5 }, "step");
+        mk(g, "circle", { cx: cx + 11, cy: cy - 9, r: 5 }, "step");
+        trailEl.push(g);
+        return g;
+      }
+
+      // -------------------------------------------------------------------
+      // Simulation state: heights, positions. Ops mutate it in schedule order,
+      // so the walker and the crest always read the strip as it really is.
+      // -------------------------------------------------------------------
+      const H = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      const DX = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      function colTop(ci) {
+        return BRICK_TOP - PITCH * (H[ci] - 1);
+      }
+      function colMid(ci) {
+        return COLS[ci].x + DX[ci] + COLS[ci].w / 2;
+      }
+
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- primitives -----------------------------------------------------
+      function show(sel, t, dy) {
+        tl.set(sel, { visibility: "visible" }, t);
+        tl.fromTo(
+          sel,
+          { opacity: 0, y: dy === undefined ? 16 : dy },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+          t
+        );
+      }
+      function hide(sel, t) {
+        tl.to(sel, { opacity: 0, duration: 0.3, ease: "power2.in" }, t);
+        tl.set(sel, { visibility: "hidden" }, t + 0.32);
+      }
+      function pop(el, t, dy) {
+        tl.fromTo(
+          el,
+          { opacity: 0, y: dy === undefined ? 20 : dy },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" },
+          t
+        );
+      }
+      function fade(el, t, to, dur) {
+        tl.to(el, { opacity: to, duration: dur === undefined ? 0.45 : dur, ease: "power2.out" }, t);
+      }
+
+      // ---- strip ops ------------------------------------------------------
+      function bed(course, slots, t) {
+        slots.forEach(function (i, n) {
+          pop(bedEl[course][i], t + n * 0.05, -14);
+        });
+      }
+      function grow(ci, n, t) {
+        for (let k = H[ci]; k < H[ci] + n; k++) pop(colEl[ci][k], t + (k - H[ci]) * 0.12, 26);
+        H[ci] += n;
+      }
+      function ghostGrow(gi, from, to, t) {
+        for (let k = from; k < to; k++) pop(ghostEl[gi][k], t + (k - from) * 0.09, 22);
+      }
+      // A brick that leaves a column is never deleted — it lands in the bed, and
+      // it stays white, so the bed visibly holds what the columns lost.
+      //
+      // The falling brick is its OWN element, handed off from the column brick at
+      // the instant it leaves. The column's own brick slot is freed, because a
+      // column that later re-grows would otherwise re-reveal the very brick now
+      // lying in the bed and yank it back up.
+      function sink(ci, course, slot, t) {
+        const k = H[ci] - 1;
+        const x0 = COLS[ci].x + DX[ci] + jx(ci, k);
+        const y0 = BRICK_TOP - PITCH * k;
+        const faller = mk(
+          gBed,
+          "rect",
+          { x: x0, y: y0, width: COLS[ci].w - 6, height: BRICK_H, rx: 6 },
+          "brick hid"
+        );
+        tl.set(colEl[ci][k], { opacity: 0 }, t);
+        tl.set(faller, { opacity: 1 }, t);
+        tl.to(
+          faller,
+          {
+            x: BED[slot].x + BED[slot].w / 2 - (x0 + (COLS[ci].w - 6) / 2),
+            y: BED_Y[course] - y0,
+            duration: 0.8,
+            ease: "power2.in",
+          },
+          t
+        );
+        H[ci] -= 1;
+      }
+      function ghostSink(gi, k, course, slot, t) {
+        const el = ghostEl[gi][k];
+        const g = GHOSTS[gi];
+        const dx =
+          BED[slot].x + BED[slot].w / 2 - (g.x + GHOST_DX + jx(gi + 3, k) + (g.w - 6) / 2);
+        const dy = BED_Y[course] - (BRICK_TOP + GHOST_DY - PITCH * k);
+        tl.to(el, { x: dx, y: dy, duration: 0.85, ease: "power2.in" }, t);
+      }
+      function notch(ci, rows, t) {
+        for (let k = 0; k < H[ci]; k++)
+          for (let r = 0; r < rows; r++) pop(notchEl[ci][k][r], t + k * 0.07 + r * 0.05, -8);
+      }
+      function slide(ci, t) {
+        const dx = CLUSTER[ci] - COLS[ci].x;
+        for (let k = 0; k < MAXB; k++)
+          tl.to(colEl[ci][k], { x: dx, duration: 0.9, ease: "power3.inOut" }, t);
+        for (let k = 0; k < MAXB; k++)
+          notchEl[ci][k].forEach(function (n) {
+            tl.to(n, { x: dx, duration: 0.9, ease: "power3.inOut" }, t);
+          });
+        DX[ci] = dx;
+      }
+      let walkerCol = -1;
+      function walkTo(ci, t) {
+        if (walkerCol >= 0) {
+          const g = trailAt(colMid(walkerCol), colTop(walkerCol));
+          pop(g, t, -10);
+        }
+        const x = colMid(ci);
+        const y = colTop(ci);
+        if (walkerCol < 0) {
+          tl.set(figWrap, { x: x, y: y }, 0);
+          pop(figure, t, -24);
+        } else {
+          tl.to(figWrap, { x: x, y: y, duration: 0.85, ease: "power2.inOut" }, t);
+        }
+        walkerCol = ci;
+      }
+      function rackTo(t) {
+        tl.set(rackWrap, { x: colMid(walkerCol) + 26, y: colTop(walkerCol) - 62 }, 0);
+        pop(rack, t, -12);
+      }
+      function rackMove(t) {
+        tl.to(
+          rackWrap,
+          {
+            x: colMid(walkerCol) + 26,
+            y: colTop(walkerCol) - 62,
+            duration: 0.85,
+            ease: "power2.inOut",
+          },
+          t
+        );
+      }
+
+      // -------------------------------------------------------------------
+      // THE CUT. One copy arrival in the front half of every beat, one strip
+      // arrival in its back half — never the same picture twice running.
+      // -------------------------------------------------------------------
+
+      // s01 — one rule, and nothing standing on it yet.
+      show("#lesson-title", T("s01", 0));
+      pop(ruleSeg[0], T("s01", 0) + 0.2, 0);
+      show("#titlesub", T("s01", 1));
+      pop(ruleSeg[1], T("s01", 1) + 0.2, 0);
+      pop(ruleSeg[2], T("s01", 2), 0);
+
+      // s02 — the bed is what AI is very good at; columns are the rest.
+      hide("#lesson-title", T("s02", 0));
+      hide("#titlesub", T("s02", 0));
+      show("#hd-s02", T("s02", 0) + 0.28);
+      bed(0, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], T("s02", 1));
+      grow(4, 2, T("s02", 1) + 0.5);
+      grow(5, 2, T("s02", 1) + 0.66);
+      grow(6, 2, T("s02", 2));
+      grow(7, 2, T("s02", 2) + 0.16);
+      [4, 5, 6, 7].forEach(function (ci, i) {
+        grow(ci, 1, T("s02", 3) + i * 0.12);
+      });
+
+      // s03 — the first named column, and the tallest so far.
+      hide("#hd-s02", T("s03", 0));
+      show("#hd-s03", T("s03", 0) + 0.28);
+      grow(0, 2, T("s03", 1));
+      show("#r-judg", T("s03", 1) + 0.1);
+      pop(leadCol, T("s03", 1) + 0.35, 0);
+      grow(0, 1, T("s03", 2));
+      show("#r-mod3", T("s03", 3));
+      grow(0, 1, T("s03", 4));
+
+      // s04 — three more standing skills.
+      hide("#hd-s03", T("s04", 0));
+      show("#hd-s04", T("s04", 0) + 0.28);
+      fade(leadCol, T("s04", 0), 0, 0.3);
+      grow(1, 3, T("s04", 1));
+      show("#r-comm", T("s04", 1) + 0.1);
+      grow(2, 3, T("s04", 2));
+      show("#r-rel", T("s04", 2) + 0.1);
+      grow(3, 3, T("s04", 3));
+      show("#r-learn", T("s04", 3) + 0.1);
+
+      // s05 — ten years ago: the ghost stratum arrives behind the strip.
+      hide("#hd-s04", T("s05", 0));
+      ["#r-judg", "#r-mod3", "#r-comm", "#r-rel", "#r-learn"].forEach(function (s) {
+        hide(s, T("s05", 0));
+      });
+      show("#hd-s05", T("s05", 0) + 0.28);
+      tl.set(gGhost, { opacity: 0.55 }, 0);
+      GHOSTS.forEach(function (g, gi) {
+        if (gi !== SPIKE) ghostGrow(gi, 0, 5, T("s05", gi < SPIKE ? 1 : 2) + gi * 0.08);
+      });
+
+      // s06 — the one falling thing the script names, at full height. [M1]
+      hide("#hd-s05", T("s06", 0));
+      show("#hd-s06", T("s06", 0) + 0.28);
+      ghostGrow(SPIKE, 0, 7, T("s06", 1));
+      show("#r-code", T("s06", 1) + 0.2);
+      pop(leadGhost, T("s06", 2), 0);
+
+      // s07 — the advice is ambiguous now: bricks leave the spike.
+      hide("#hd-s06", T("s07", 0));
+      show("#hd-s07", T("s07", 0) + 0.28);
+      fade(leadGhost, T("s07", 0), 0, 0.3);
+      ghostSink(SPIKE, 6, 1, 3, T("s07", 1));
+      ghostSink(SPIKE, 5, 1, 4, T("s07", 1) + 0.18);
+      ghostSink(SPIKE, 4, 1, 5, T("s07", 2));
+
+      // s08 — the real lesson: what fell is still on the board, lying down.
+      hide("#hd-s07", T("s08", 0));
+      hide("#r-code", T("s08", 0));
+      show("#hd-s08", T("s08", 0) + 0.28);
+      ghostSink(SPIKE, 3, 1, 6, T("s08", 1));
+      bed(1, [0, 1, 2, 7], T("s08", 2));
+
+      // s09 — a long stretch of rising wages: the bed thickens.
+      hide("#hd-s08", T("s09", 0));
+      show("#hd-s09", T("s09", 0) + 0.28);
+      show("#sub-wealth", T("s09", 1));
+      bed(1, [8, 9, 10, 11], T("s09", 2));
+      bed(2, [0, 1, 3, 4], T("s09", 3));
+
+      // s10 — the tilt. Three bricks sink, three rise.
+      hide("#hd-s09", T("s10", 0));
+      hide("#sub-wealth", T("s10", 0));
+      show("#hd-s10", T("s10", 0) + 0.28);
+      show("#r-down", T("s10", 1));
+      show("#r-up", T("s10", 1) + 0.25);
+      sink(4, 2, 5, T("s10", 2));
+      sink(6, 2, 7, T("s10", 2) + 0.2);
+      sink(7, 2, 8, T("s10", 2) + 0.4);
+      grow(1, 2, T("s10", 3));
+      grow(2, 2, T("s10", 3) + 0.16);
+      grow(5, 2, T("s10", 3) + 0.32);
+
+      // s11 — someone starts walking the tops.
+      hide("#hd-s10", T("s11", 0));
+      hide("#r-down", T("s11", 0));
+      hide("#r-up", T("s11", 0));
+      show("#hd-s11", T("s11", 0) + 0.28);
+      walkTo(2, T("s11", 1));
+      pop(trailAt(colMid(0), colTop(0)), T("s11", 2), -10);
+      pop(trailAt(colMid(1), colTop(1)), T("s11", 2) + 0.15, -10);
+
+      // s12 — the strip starts growing to the right.
+      hide("#hd-s11", T("s12", 0));
+      show("#hd-s12", T("s12", 0) + 0.28);
+      fade(gGhost, T("s12", 0), 0.25, 0.8);
+      walkTo(3, T("s12", 1));
+      grow(8, 1, T("s12", 2));
+      grow(9, 1, T("s12", 2) + 0.15);
+
+      // s13 — four categories pencilled across the strip.
+      hide("#hd-s12", T("s13", 0));
+      show("#hd-s13", T("s13", 0) + 0.28);
+      bandLine.forEach(function (b, i) {
+        pop(b, T("s13", 1) + i * 0.12, 0);
+      });
+
+      // s14 — band one washes. [M2]
+      hide("#hd-s13", T("s14", 0));
+      show("#hd-s14", T("s14", 0) + 0.28);
+      show("#r-cat1", T("s14", 1));
+      pop(bandWash[0], T("s14", 2), 0);
+      grow(0, 1, T("s14", 3));
+
+      // s15 — band two.
+      hide("#hd-s14", T("s15", 0));
+      show("#hd-s15", T("s15", 0) + 0.28);
+      show("#r-cat2", T("s15", 0) + 0.4);
+      pop(bandWash[1], T("s15", 1), 0);
+      grow(8, 2, T("s15", 2));
+
+      // s16 — band three.
+      hide("#hd-s15", T("s16", 0));
+      show("#hd-s16", T("s16", 0) + 0.28);
+      show("#r-cat3", T("s16", 0) + 0.4);
+      pop(bandWash[2], T("s16", 1), 0);
+      grow(7, 2, T("s16", 2));
+      grow(9, 3, T("s16", 2) + 0.2);
+
+      // s17 — band four, and a new column right of everything.
+      hide("#hd-s16", T("s17", 0));
+      show("#hd-s17", T("s17", 0) + 0.28);
+      show("#r-cat4", T("s17", 0) + 0.4);
+      pop(bandWash[3], T("s17", 1), 0);
+      grow(10, 4, T("s17", 2));
+
+      // s18 — you do not chase all four; the walk carries on.
+      hide("#hd-s17", T("s18", 0));
+      show("#hd-s18", T("s18", 0) + 0.28);
+      grow(6, 2, T("s18", 1));
+      walkTo(5, T("s18", 1) + 0.2);
+
+      // s19 — the bricks inside two bands are notched.
+      hide("#hd-s18", T("s19", 0));
+      ["#r-cat1", "#r-cat2", "#r-cat3", "#r-cat4"].forEach(function (s) {
+        hide(s, T("s19", 0));
+      });
+      show("#hd-s19", T("s19", 0) + 0.28);
+      notch(4, 2, T("s19", 1));
+      notch(8, 2, T("s19", 2));
+      notch(10, 2, T("s19", 2) + 0.3);
+
+      // s20 — the single re-arrangement of the whole runtime.
+      hide("#hd-s19", T("s20", 0));
+      show("#hd-s20", T("s20", 0) + 0.28);
+      slide(4, T("s20", 1));
+      slide(8, T("s20", 1) + 0.18);
+      slide(10, T("s20", 1) + 0.36);
+      grow(4, 4, T("s20", 2));
+      grow(8, 2, T("s20", 3));
+      grow(10, 1, T("s20", 3) + 0.2);
+      rackTo(T("s20", 4));
+
+      // s21..s24 — the rack fills, one transferable skill at a time.
+      hide("#hd-s20", T("s21", 0));
+      show("#hd-s21", T("s21", 0) + 0.28);
+      show("#r-t1", T("s21", 0) + 0.5);
+      pop(rackTile[0], T("s21", 1), -10);
+
+      hide("#hd-s21", T("s22", 0));
+      show("#hd-s22", T("s22", 0) + 0.28);
+      show("#r-t2", T("s22", 0) + 0.5);
+      pop(rackTile[1], T("s22", 1), -10);
+
+      hide("#hd-s22", T("s23", 0));
+      show("#hd-s23", T("s23", 0) + 0.28);
+      show("#r-t3", T("s23", 1));
+      pop(rackTile[2], T("s23", 1) + 0.3, -10);
+      show("#r-t4", T("s23", 2));
+      pop(rackTile[3], T("s23", 2) + 0.3, -10);
+      show("#r-t5", T("s23", 3));
+      pop(rackTile[4], T("s23", 3) + 0.3, -10);
+
+      // s24 — the rack is full. [M3]
+      hide("#hd-s23", T("s24", 0));
+      show("#hd-s24", T("s24", 0) + 0.28);
+      show("#r-t6", T("s24", 1));
+      pop(rackTile[5], T("s24", 2), -10);
+      grow(8, 1, T("s24", 3));
+      walkTo(9, T("s24", 4));
+      rackMove(T("s24", 4));
+
+      // s25 — none of this is out-computing a machine.
+      hide("#hd-s24", T("s25", 0));
+      ["#r-t1", "#r-t2", "#r-t3", "#r-t4", "#r-t5", "#r-t6"].forEach(function (s) {
+        hide(s, T("s25", 0));
+      });
+      show("#hd-s25", T("s25", 0) + 0.28);
+      walkTo(4, T("s25", 1));
+      rackMove(T("s25", 1));
+      pop(trailAt(colMid(7), colTop(7)), T("s25", 2), -10);
+
+      // s26 — a thoughtful human, at the crest.
+      hide("#hd-s25", T("s26", 0));
+      show("#hd-s26", T("s26", 0) + 0.28);
+      walkTo(8, T("s26", 1));
+      rackMove(T("s26", 1));
+      walkTo(10, T("s26", 2));
+      rackMove(T("s26", 2));
+
+      // s27 — the history re-lights at the far left.
+      hide("#hd-s26", T("s27", 0));
+      show("#hd-s27", T("s27", 0) + 0.28);
+      fade(gGhost, T("s27", 1), 0.6, 0.7);
+      GHOSTS.forEach(function (g, gi) {
+        if (gi !== SPIKE) ghostGrow(gi, 5, 6, T("s27", 2) + gi * 0.09);
+      });
+
+      // s28 — "nearly total" is a line the bed never reaches.
+      hide("#hd-s27", T("s28", 0));
+      show("#hd-s28", T("s28", 0) + 0.28);
+      pop(totalLine, T("s28", 1), -12);
+      bed(2, [6, 9, 10, 11], T("s28", 2));
+
+      // s29 — until then, some down and others up.
+      hide("#hd-s28", T("s29", 0));
+      show("#hd-s29", T("s29", 0) + 0.28);
+      fade(totalLine, T("s29", 0), 0, 0.3);
+      sink(1, 2, 2, T("s29", 1));
+      grow(10, 1, T("s29", 2));
+      walkTo(10, T("s29", 2) + 0.1);
+      rackMove(T("s29", 2) + 0.1);
+
+      // s30 — the one job that is never automated: drawn, apart, unreached.
+      hide("#hd-s29", T("s30", 0));
+      show("#hd-s30", T("s30", 0) + 0.28);
+      for (let k = 0; k < 4; k++) pop(detachEl[k], T("s30", 1) + k * 0.1, 26);
+      for (let k = 4; k < 7; k++) pop(detachEl[k], T("s30", 2) + (k - 4) * 0.1, 26);
+
+      // s31 — the crest stroke traces every top the runtime accumulated. [M4]
+      hide("#hd-s30", T("s31", 0));
+      show("#hd-s31", T("s31", 0) + 0.28);
+      (function () {
+        const pts = [];
+        pts.push([180, RULE_Y - 26]);
+        const order = [0, 1, 2, 3, 5, 6, 7, 9, 4, 8, 10];
+        order.forEach(function (ci) {
+          if (H[ci] > 0) pts.push([colMid(ci), colTop(ci) - 9]);
+        });
+        pts.sort(function (a, b) {
+          return a[0] - b[0];
+        });
+        pts.push([1604, pts[pts.length - 1][1]]);
+        // Catmull-Rom through the tops, so the accumulated profile resolves
+        // as one drawn curve rather than a plotted line.
+        const smooth = [];
+        for (let i = 0; i < pts.length - 1; i++) {
+          const p0 = pts[Math.max(0, i - 1)];
+          const p1 = pts[i];
+          const p2 = pts[i + 1];
+          const p3 = pts[Math.min(pts.length - 1, i + 2)];
+          for (let u = 0; u < 10; u++) {
+            const q = u / 10;
+            const q2 = q * q;
+            const q3 = q2 * q;
+            smooth.push([
+              0.5 * (2 * p1[0] + (p2[0] - p0[0]) * q + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * q2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * q3),
+              0.5 * (2 * p1[1] + (p2[1] - p0[1]) * q + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * q2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * q3),
+            ]);
+          }
+        }
+        smooth.push(pts[pts.length - 1]);
+        const segs = 6;
+        const per = Math.ceil((smooth.length - 1) / segs);
+        const times = [T("s31", 1), T("s31", 2), T("s31", 3)];
+        for (let sg = 0; sg < segs; sg++) {
+          const a = sg * per;
+          const b = Math.min(smooth.length - 1, a + per);
+          if (b <= a) break;
+          const el = mk(
+            gCrest,
+            "polyline",
+            {
+              points: smooth
+                .slice(a, b + 1)
+                .map(function (q) {
+                  return Math.round(q[0]) + "," + Math.round(q[1]);
+                })
+                .join(" "),
+            },
+            "crest hid"
+          );
+          pop(el, times[Math.floor(sg / 2)] + (sg % 2) * 0.55, 0);
+        }
+      })();
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["strip"] = tl;
+    </script>
+  </body>
+</html>

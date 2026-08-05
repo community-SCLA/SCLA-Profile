@@ -1,0 +1,26 @@
+{
+  "provider": "heygen",
+  "lang": "en",
+  "speed": 1.0,
+  "bgm": { "mode": "none" },
+  "lines": [
+    { "id": "s01", "text": "Welcome to Early Career Boost." },
+    { "id": "s02", "text": "We’re really glad you’re here." },
+    { "id": "s03", "text": "Whether you’re exploring your future or figuring out what comes next, this is your starting point — part of your broader Early Career Boost journey." },
+    { "id": "s04", "text": "As you move through this track, each step builds your career foundation." },
+    { "id": "s05", "text": "Check off milestones as you go, and your progress bar always shows where you are and what’s ahead." },
+    { "id": "s06", "text": "You’ll learn by doing — click-through activities, short reflections, and uploads." },
+    { "id": "s07", "text": "You’ll use tools like the Career Mapping Tool to explore different pathways." },
+    { "id": "s08", "text": "And if you ever get stuck, help is one click away in the hashtag questionsupport channel." },
+    { "id": "s09", "text": "Now — what you’ll actually learn." },
+    { "id": "s10", "text": "A fulfilling career starts with the right mindset." },
+    { "id": "s11", "text": "We’ll help you spot the limiting beliefs holding you back and build a growth mindset instead." },
+    { "id": "s12", "text": "Then you’ll dig into the real questions: What makes a dream job today?" },
+    { "id": "s13", "text": "Which skills matter in an AI-driven world?" },
+    { "id": "s14", "text": "And how do you actually move — networking, building a résumé, and searching for the right opportunities?" },
+    { "id": "s15", "text": "Early on, you’ll write a short but powerful career commitment statement — in your Workbook, or with the AI-Career Commitment tool." },
+    { "id": "s16", "text": "Try both for the practice; it’s up to you." },
+    { "id": "s17", "text": "You’ll submit it as your first step — because career development isn’t about thinking, it’s about doing." },
+    { "id": "s18", "text": "From here, you’ll complete short activities, hit milestones, and build skills that move you toward your goals." }
+  ]
+}

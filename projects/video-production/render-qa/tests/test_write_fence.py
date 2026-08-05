@@ -13,8 +13,8 @@ A fence has TWO failure modes and both are graded here:
   - too tight — it blocks work that must keep happening, which is how a guard
     gets switched off within a day.
 
-The 2026-08-04 rebuild widened "too tight" past the build lane. The fence is now
-gated on a SENTINEL (renders-hyperframes/.build-in-progress) rather than on an
+The fence is gated on per-stem leases under
+`renders-hyperframes/.build-in-progress/` rather than on an
 SCLA_SYSTEM_SESSION env flag, because that flag could not tell the owner from
 the subagents they dispatch — the two share one process — and so it fenced the
 owner out of their own repo. Every block below is therefore asserted twice: it
@@ -39,11 +39,13 @@ REPO = RQ.parents[2]
 FENCE = REPO / "scripts" / "write-fence.sh"
 
 # A disposable stand-in for the repo. The fence only ever string-matches paths
-# against CLAUDE_PROJECT_DIR and stats one sentinel file, so a bare directory
-# tree is a faithful subject — and arming it cannot fence the real session
+# against CLAUDE_PROJECT_DIR and asks build-session.sh for live leases, so a
+# minimal copied driver is a faithful subject — and arming it cannot fence the real session
 # running these tests.
 PROJ = Path(tempfile.mkdtemp(prefix="write-fence-test-"))
 SENTINEL = PROJ / "projects/video-production/renders-hyperframes/.build-in-progress"
+(PROJ / "scripts").mkdir(parents=True)
+shutil.copy2(REPO / "scripts" / "build-session.sh", PROJ / "scripts" / "build-session.sh")
 
 PASS = FAIL = 0
 
@@ -59,12 +61,13 @@ def check(label, cond, detail=""):
 
 
 def arm(stem="m2_demo"):
-    SENTINEL.parent.mkdir(parents=True, exist_ok=True)
-    SENTINEL.write_text(f"2026-08-04T00:00:00Z\t{stem}\n")
+    SENTINEL.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["bash", str(PROJ / "scripts" / "build-session.sh"),
+                    "arm", stem], check=True, capture_output=True, text=True)
 
 
 def disarm():
-    SENTINEL.unlink(missing_ok=True)
+    shutil.rmtree(SENTINEL, ignore_errors=True)
 
 
 def run(tool, payload_input, system_session=False, env_extra=None):
@@ -132,8 +135,9 @@ check("...and so is the close-out command the skill actually issues",
       allowed("Bash", {"command": "bash scripts/build-release.sh m2_demo"}))
 
 print("== a sentinel a dead run never cleaned up expires ==")
-old = SENTINEL.stat().st_mtime - 40000        # ~11h, past the 6h default
-os.utime(SENTINEL, (old, old))
+lease = SENTINEL / "m2_demo"
+old = lease.stat().st_mtime - 40000        # ~11h, past the 6h default
+os.utime(lease, (old, old))
 check("an EXPIRED sentinel does not fence (default 6h TTL)",
       allowed("Write", {"file_path": str(PROJ / "scripts/batch-ship.sh")}))
 check("...and a fresh one still does, with the same TTL in force",

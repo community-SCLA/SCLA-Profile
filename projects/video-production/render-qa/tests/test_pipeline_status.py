@@ -82,7 +82,12 @@ class Tree:
             (ws / "design.md").write_text("# design")
             (ws / "audio_request.json").write_text("{}")
             if voiced:
-                (ws / "assets" / "voice" / "s01.wav").write_bytes(b"\0")
+                # Beat ids are deliberately not s-prefixed. Status must trust
+                # the manifest and verify its paths, never guess a filename.
+                (ws / "assets" / "voice" / "b01.wav").write_bytes(b"\0")
+                (ws / "audio_meta.json").write_text(json.dumps({
+                    "voices": [{"id": "b01", "path": "assets/voice/b01.wav"}]
+                }))
                 (ws / "timing.json").write_text("{}")
         if lane:
             (ws / "index.html").write_text(
@@ -191,8 +196,9 @@ check("THE 2026-08-04 DEFECT: a freeform workspace with a design and no audio is
       f["ff-planned_prog-a"]["stage"] == "planned", f["ff-planned_prog-a"])
 check("...and it is never told to restart the build",
       "rm -rf" not in f["ff-planned_prog-a"]["next"], f["ff-planned_prog-a"]["next"])
-check("...it is told to reclaim the lock instead",
-      "build-claim.sh" in f["ff-planned_prog-a"]["next"], f["ff-planned_prog-a"]["next"])
+check("...an unselected stem is explicitly selected through the control plane",
+      "run.sh produce --stem" in f["ff-planned_prog-a"]["next"],
+      f["ff-planned_prog-a"]["next"])
 check("a template workspace with no narration is 'planned'",
       f["tpl-planned_prog-a"]["stage"] == "planned", f["tpl-planned_prog-a"])
 check("voiced but untimed is 'untimed' on the template lane",
@@ -202,8 +208,10 @@ check("voiced but untimed is 'untimed' on the freeform lane too",
 check("timed on both lanes reaches 'composed'",
       f["tpl-composed_prog-a"]["stage"] == "composed"
       and f["ff-composed_prog-a"]["stage"] == "composed")
-check("a scaffold-only workspace IS safe to discard, and says so",
-      "rm -rf" in f["tpl-scaffold_prog-a"]["next"], f["tpl-scaffold_prog-a"]["next"])
+check("a scaffold-only workspace is restarted through explicit named scope",
+      "run.sh produce --stem" in f["tpl-scaffold_prog-a"]["next"] and
+      "rm -rf" not in f["tpl-scaffold_prog-a"]["next"],
+      f["tpl-scaffold_prog-a"]["next"])
 t.clean()
 
 # ---------------------------------------------------------------------------
@@ -285,8 +293,10 @@ t.workspace("interrupted_prog-a", lane="freeform", voiced=True, journal="voice",
 f = flat(t.status())
 check("the last completed step is reported by name",
       "voice" in (f["interrupted_prog-a"]["journal"] or ""), f["interrupted_prog-a"])
-check("...with how long ago it happened",
-      "ago" in (f["interrupted_prog-a"]["journal"] or ""), f["interrupted_prog-a"])
+check("...with a stable UTC timestamp (generated status cannot age into drift)",
+      "UTC" in (f["interrupted_prog-a"]["journal"] or "") and
+      "ago" not in (f["interrupted_prog-a"]["journal"] or ""),
+      f["interrupted_prog-a"])
 t.clean()
 
 # ---------------------------------------------------------------------------

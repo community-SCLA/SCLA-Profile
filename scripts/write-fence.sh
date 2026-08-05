@@ -23,7 +23,7 @@
 # writable — that is where building happens, and fencing it would fence the job.
 #
 # WHEN IT IS ON: only while a build is running, which is announced by the
-# sentinel file renders-hyperframes/.build-in-progress (written by
+# sentinel lease directory renders-hyperframes/.build-in-progress (written by
 # scripts/build-session.sh arm, from scripts/build-claim.sh). No sentinel means
 # no build, which means an owner session — and an owner is never fenced.
 #
@@ -36,9 +36,8 @@
 # happening (a build is in flight) rather than on which session type someone
 # remembered to declare. The env flag is kept as an explicit override.
 #
-# The sentinel path is itself fenced, so an armed builder cannot rm its way out.
-# A sentinel a dead run never cleaned up expires after VIDEO_BUILD_SESSION_TTL
-# seconds (default 6h) — a stale lock file must not fence the repo forever.
+# The lease path is itself fenced, so an armed builder cannot rm its way out.
+# Each dead lease expires after VIDEO_BUILD_SESSION_TTL seconds (default 6h).
 #
 # Exit 0 = allow. Exit 2 = block, with stderr fed back to the model as the
 # reason (the documented PreToolUse blocking contract).
@@ -61,22 +60,9 @@ if [ "${SCLA_SYSTEM_SESSION:-0}" = "1" ]; then
   exit 0
 fi
 
-# No build in flight -> this is an owner session -> the fence is OFF entirely.
-# An expired sentinel counts as absent: a run that died without disarming must
-# not leave the repo read-only until someone notices.
-if [ ! -f "$SENTINEL" ]; then
+# No live build lease -> this is an owner session -> the fence is OFF.
+if ! bash "$PROJECT_DIR/scripts/build-session.sh" status >/dev/null 2>&1; then
   exit 0
-fi
-TTL="${VIDEO_BUILD_SESSION_TTL:-21600}"
-case "$TTL" in ''|*[!0-9]*) TTL=21600 ;; esac
-if [ "$TTL" -gt 0 ]; then
-  NOW="$(date +%s)"
-  ARMED_AT="$(stat -c %Y "$SENTINEL" 2>/dev/null \
-              || stat -f %m "$SENTINEL" 2>/dev/null \
-              || printf '%s' "$NOW")"
-  if [ "$((NOW - ARMED_AT))" -ge "$TTL" ]; then
-    exit 0
-  fi
 fi
 
 FENCED_PREFIXES=(

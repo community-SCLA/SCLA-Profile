@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # build-session.sh — arm / disarm / report the write-fence sentinel.
 #
-# The sentinel is one file:
+# The sentinel is one directory containing one lease per stem:
 #   projects/video-production/renders-hyperframes/.build-in-progress
 #
 # Its presence is the ONLY thing that turns scripts/write-fence.sh on. Absent,
@@ -18,9 +18,10 @@
 # allows even while armed: the hook grades the tool call, and `bash
 # scripts/build-release.sh <stem>` writes nothing itself.
 #
+# A resume refreshes the same stem file; it never appends a duplicate holder.
 # Usage:
 #   bash scripts/build-session.sh arm <stem>
-#   bash scripts/build-session.sh disarm
+#   bash scripts/build-session.sh release <stem>
 #   bash scripts/build-session.sh status      # exit 0 armed, 1 disarmed
 set -uo pipefail
 
@@ -30,9 +31,9 @@ TTL="${VIDEO_BUILD_SESSION_TTL:-21600}"
 case "$TTL" in ''|*[!0-9]*) TTL=21600 ;; esac
 
 age_seconds() {
-  local mtime now
+  local lease="$1" mtime now
   now="$(date +%s)"
-  mtime="$(stat -c %Y "$SENTINEL" 2>/dev/null || stat -f %m "$SENTINEL" 2>/dev/null || printf '%s' "$now")"
+  mtime="$(stat -c %Y "$lease" 2>/dev/null || stat -f %m "$lease" 2>/dev/null || printf '%s' "$now")"
   printf '%s' "$((now - mtime))"
 }
 
@@ -45,49 +46,87 @@ case "${1:-status}" in
            "diagnosed instead of guessed at." >&2
       exit 2
     fi
-    mkdir -p "$(dirname "$SENTINEL")"
-    # Append, never truncate: two builds can legitimately overlap (builds run up
-    # to 3-wide), and the fence must stay armed until the LAST one releases.
-    printf '%s\t%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$STEM" >> "$SENTINEL"
+    # Migrate the retired append-only file shape without discarding any live
+    # holder. This branch is normally exercised only once after the upgrade.
+    if [ -f "$SENTINEL" ]; then
+      OLD="$SENTINEL.old.$$"
+      mv "$SENTINEL" "$OLD"
+      mkdir -p "$SENTINEL"
+      while IFS=$'\t' read -r when old_stem; do
+        [ -n "$old_stem" ] || continue
+        printf '%s\t%s\n' "$when" "$old_stem" > "$SENTINEL/$old_stem"
+      done < "$OLD"
+      rm -f "$OLD"
+    else
+      mkdir -p "$SENTINEL"
+    fi
+    # One file per stem makes arm idempotent and parallel builds independent.
+    printf '%s\t%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$STEM" > "$SENTINEL/$STEM"
     echo "write fence ARMED for $STEM (expires after ${TTL}s if never released)"
     ;;
 
-  disarm)
+  disarm|release)
     STEM="${2:-}"
-    if [ ! -f "$SENTINEL" ]; then
+    if [ -z "$STEM" ]; then
+      echo "build-session: release needs one stem; refusing to remove other leases" >&2
+      exit 2
+    fi
+    if [ ! -e "$SENTINEL" ]; then
       echo "write fence already down"
       exit 0
     fi
-    if [ -n "$STEM" ]; then
-      REMAINING="$(grep -v -F "	$STEM" "$SENTINEL" 2>/dev/null)"
-      if [ -n "$REMAINING" ]; then
-        printf '%s\n' "$REMAINING" > "$SENTINEL"
-        echo "write fence stays ARMED — $(printf '%s\n' "$REMAINING" | wc -l | tr -d ' ') other build(s) still hold it"
-        exit 0
-      fi
+    if [ ! -d "$SENTINEL" ]; then
+      echo "build-session: legacy lease file requires an arm migration before release" >&2
+      exit 2
     fi
-    rm -f "$SENTINEL"
+    rm -f "$SENTINEL/$STEM"
+    REMAINING=0
+    for lease in "$SENTINEL"/*; do
+      [ -f "$lease" ] && REMAINING=$((REMAINING + 1))
+    done
+    if [ "$REMAINING" -gt 0 ]; then
+      echo "write fence stays ARMED — $REMAINING other build(s) still hold it"
+      exit 0
+    fi
+    rmdir "$SENTINEL" 2>/dev/null || true
     echo "write fence DISARMED"
     ;;
 
   status)
-    if [ ! -f "$SENTINEL" ]; then
+    if [ ! -e "$SENTINEL" ]; then
       echo "write fence: DOWN (no build in flight — the machinery is writable)"
       exit 1
     fi
-    AGE="$(age_seconds)"
-    if [ "$TTL" -gt 0 ] && [ "$AGE" -ge "$TTL" ]; then
-      echo "write fence: EXPIRED (${AGE}s old, TTL ${TTL}s) — treated as DOWN."
-      echo "A run died without releasing it. Clear it: bash scripts/build-session.sh disarm"
+    if [ -f "$SENTINEL" ]; then
+      AGE="$(age_seconds "$SENTINEL")"
+      [ "$TTL" -le 0 ] || [ "$AGE" -lt "$TTL" ] || {
+        echo "write fence: EXPIRED legacy sentinel (${AGE}s old) — treated as DOWN."
+        exit 1
+      }
+      echo "write fence: ARMED by legacy sentinel"
+      sed 's/^/  /' "$SENTINEL"
+      exit 0
+    fi
+    ACTIVE=0
+    for lease in "$SENTINEL"/*; do
+      [ -f "$lease" ] || continue
+      AGE="$(age_seconds "$lease")"
+      if [ "$TTL" -gt 0 ] && [ "$AGE" -ge "$TTL" ]; then
+        continue
+      fi
+      [ "$ACTIVE" -gt 0 ] || echo "write fence: ARMED, held by:"
+      sed 's/^/  /' "$lease"
+      ACTIVE=$((ACTIVE + 1))
+    done
+    if [ "$ACTIVE" -eq 0 ]; then
+      echo "write fence: DOWN (all leases expired; TTL ${TTL}s)"
       exit 1
     fi
-    echo "write fence: ARMED (${AGE}s), held by:"
-    sed 's/^/  /' "$SENTINEL"
     exit 0
     ;;
 
   *)
-    echo "usage: build-session.sh {arm <stem>|disarm [stem]|status}" >&2
+    echo "usage: build-session.sh {arm <stem>|release <stem>|status}" >&2
     exit 2
     ;;
 esac

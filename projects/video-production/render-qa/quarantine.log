@@ -1,2 +1,11 @@
 2026-07-29T13:57:39Z	better-decisions-come-from-better-criteria_early-career-boost	early-career-boost	frame review FAIL: scene-12 start node rendered 3x (clipped) in MP4 at ~76.5-81.5s; browser snapshot at same timestamp is clean -> render-stage defect, not authoring
 2026-07-31T01:00:21Z	build-direction-before-you-build-a-plan_early-career-boost	early-career-boost	verify_render.py non-zero
+2026-08-05T15:22:12Z	do-not-just-ask-what-ai-replaces_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T15:25:06Z	mini-syllabus_early-career-boost	early-career-boost	the rendered MP4 failed post-render verification (verify_render.py)
+2026-08-05T15:27:20Z	do-not-just-ask-what-ai-replaces_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T15:29:56Z	do-not-just-ask-what-ai-replaces_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T16:07:43Z	mini-syllabus_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T16:10:19Z	mini-syllabus_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T16:11:43Z	mini-syllabus_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T16:48:04Z	mini-syllabus_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)
+2026-08-05T16:49:01Z	do-not-just-ask-what-ai-replaces_early-career-boost	early-career-boost	cloud render failed or timed out (hyperframes cloud render)

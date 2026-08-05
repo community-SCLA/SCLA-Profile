@@ -1,0 +1,17 @@
+2026-08-05T07:14:21Z	claim	program=early-career-boost
+2026-08-05T07:33:34Z	scaffold	scaffold copied; contract read (BUILD-KIT, tokens.yml, script, CONCEPT.md, taste.md)
+2026-08-05T07:58:59Z	narration	25 beats synthesised (HeyGen Oxana); audio hygiene + timing.json computed; pace PASS 8.24 bpm / median 6.82s / 38% long-share
+2026-08-05T15:23:33Z	resume	program=early-career-boost
+2026-08-05T15:30:46Z	author	index.html + compositions/board.html authored from timing.json (build_board.py); static preflight all-green
+2026-08-05T15:37:38Z	preflight	exit 0 — gate-clean
+2026-08-05T15:38:03Z	release	gate-clean, going to cloud render
+2026-08-05T15:49:48Z	resume	program=early-career-boost
+2026-08-05T16:24:29Z	preflight	exit 0 — gate-clean
+2026-08-05T16:29:12Z	preflight	exit 0 — gate-clean
+2026-08-05T16:41:21Z	preflight	exit 1
+2026-08-05T16:42:26Z	preflight	exit 0 — gate-clean
+2026-08-05T16:43:17Z	preflight	exit 0 — gate-clean
+2026-08-05T16:44:15Z	preflight	exit 0 — gate-clean
+2026-08-05T16:49:24Z	preflight	exit 0 — gate-clean
+2026-08-05T16:51:31Z	revision	revision pass 1 (vision-review defects): s09 list now matches the spoken four items joined with 'or'; s11 container populated before its midpoint (slots open, options seat into them); s15 shows a six-slot criteria bar filled one per named factor and no mark crosses the boundary; s05/s06/s07, s11/s12 and s20/s21 re-authored to different pictures (verbatim pairs 0.02-0.05% -> 4.0-4.8%); s23's 0.42-opacity node and stray stroke removed - no mark settles at a partial alpha anywhere. Every beat now lands a reveal after its own midpoint (was 0.00% for all 25); measured back-half change 0.26-8.9%. Structural strokes raised above the pixel gates' measurement floor. carrier-drift mean churn 5.74% (ceiling 6.0), 0 twin pairs. build-gate exit 0, npm run check exit 0. Narration, timing.json and audio_request.json untouched.
+2026-08-05T20:31:13Z	release	stale lease closed before control-plane refactor

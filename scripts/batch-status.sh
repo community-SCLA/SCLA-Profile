@@ -56,6 +56,7 @@ esac
 PRIORITY="$PRIORITY" LESSONS="$VP/lesson-scripts" SRC="$SRC" \
 WS="$VP/renders-hyperframes" LEDGER="$VP/lesson-scripts/refinement-log.md" \
 PUBTSV="$VP/lesson-scripts/published.tsv" QLOG="$VP/render-qa/quarantine.log" \
+RUNSTATE="$VP/renders-hyperframes/_run/run.json" \
 STALL_MINUTES="${VIDEO_STALL_MINUTES:-30}" \
 MODE="$MODE" OUTPATH="$OUTPATH" python3 - <<'PY'
 import json, os, re, sys, time
@@ -66,6 +67,7 @@ ws_root = Path(os.environ["WS"])
 ledger  = Path(os.environ["LEDGER"])
 pubtsv  = Path(os.environ["PUBTSV"])
 qlog    = Path(os.environ["QLOG"])
+runstate = Path(os.environ["RUNSTATE"])
 mode    = os.environ["MODE"]
 outpath = Path(os.environ["OUTPATH"])
 priority = os.environ["PRIORITY"].split()
@@ -74,6 +76,15 @@ try:
 except ValueError:
     STALL_SEC = 30 * 60
 NOW = time.time()
+
+try:
+    active_run = json.loads(runstate.read_text(encoding="utf-8"))
+except (OSError, json.JSONDecodeError):
+    active_run = {}
+run_items = {x.get("stem") for x in active_run.get("items", []) if x.get("stem")}
+pilot = active_run.get("pilot") or {}
+batch_approved = (active_run.get("mode") == "batch" and
+                  bool(pilot.get("stem")) and bool(pilot.get("approved_at")))
 
 ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exists() else ""
 
@@ -102,6 +113,11 @@ def ago(seconds: float) -> str:
     if h < 48:
         return f"{h:.0f} h ago"
     return f"{h / 24:.0f} days ago"
+
+
+def at_utc(epoch: float) -> str:
+    """Stable timestamp for generated files; relative ages make lint flap."""
+    return time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime(epoch))
 
 
 # ── the ledgers ──────────────────────────────────────────────────────────────
@@ -219,7 +235,20 @@ def timed_html(ws_dir: Path) -> bool:
     return bool(set(re.findall(r'data-start="([^"]*)"', html)) - {"0"})
 
 
-def ws_state(ws_dir):
+def audio_ready(ws_dir: Path) -> bool:
+    """Trust the audio manifest, not a builder-chosen beat-id prefix."""
+    try:
+        meta = json.loads((ws_dir / "audio_meta.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    voices = meta.get("voices")
+    if not isinstance(voices, list) or not voices:
+        return False
+    return all(isinstance(v, dict) and v.get("path") and
+               (ws_dir / v["path"]).is_file() for v in voices)
+
+
+def ws_state(ws_dir, stem=None):
     """(stage, label, next-action). Cheap file probes only — no browser, no gate
     run — claiming exactly what the files show and nothing more. preflight
     remains the sole authority on gate-clean; qa/PREFLIGHT-OK is that verdict
@@ -229,66 +258,59 @@ def ws_state(ws_dir):
     folder holding a half-written plan from a finished MP4 waiting on an upload
     (2026-07-31). Every branch names what to DO, not which tool exited non-zero.
     """
-    # RESUME, never restart. `/render-lessons BUILD` claims a workspace with
-    # mkdir, so telling a human to "restart the build" against a folder that
-    # already exists names a command that exits immediately — the lesson never
-    # moves. Only a scaffold-only workspace is safe to delete; every later stage
-    # holds narration audio or a plan that a rebuild would throw away, so those
-    # reclaim the lock instead (2026-08-04).
-    DISCARD = ("nothing authored yet, so nothing is lost — discard and rebuild: "
-               "`rm -rf projects/video-production/renders-hyperframes/{ws} && "
-               "/render-lessons BUILD {stem}`")
-    # Always build-gate.sh, never a bare preflight.py: the marker it writes is
-    # what carries "gate-clean" past the end of this session, so advice that runs
-    # the gate WITHOUT writing it leaves the state exactly where it was.
-    GATE = ("run the gate: `bash scripts/build-gate.sh {stem}` — it runs preflight "
-            "and writes qa/PREFLIGHT-OK on exit 0, which is what makes this read "
-            "as NEEDS REVIEW tomorrow")
-    RESUME = ("reclaim the lock, then resume: `bash scripts/build-claim.sh {stem} "
-              "{program} --resume` → `/render-lessons` BUILD {stem}. Do NOT delete "
-              "the workspace — it holds work a rebuild would discard")
+    # Scope and recovery both enter through run.sh. Never delete a workspace to
+    # get around its lock; cached plans and narration are resume state.
+    START = ("select only this lesson: `bash projects/video-production/run.sh "
+             "produce --stem {stem}`; then continue `/render-lessons BUILD {stem}`")
+    RESUME = ("resume through the control plane: `bash projects/video-production/"
+              "run.sh resume`; continue only {stem}. Do not delete the workspace")
+    CONTINUE = RESUME if stem in run_items else START
     if ws_dir is None:
-        return ("scaffolded", "no build folder", "start the build: `/render-lessons` BUILD {stem}")
+        return ("scaffolded", "no build folder", START)
     if (ws_dir / "qa" / "VERIFIED").is_file():
         return ("rendered", "MP4 rendered and gate-verified — waiting only on the Wistia upload",
-                "publish it: `bash scripts/batch-ship.sh {stem} {program} --publish`")
+                "publish it: `bash projects/video-production/run.sh ship {stem} --publish`")
     if (ws_dir / "qa" / "PREFLIGHT-OK").is_file():
+        if batch_approved and stem in run_items:
+            return ("approved", "gate-clean; the active batch pilot is approved",
+                    "render it: `bash projects/video-production/run.sh ship {stem}`")
         return ("needs-review", "gate-clean and waiting on your eyes — no MP4 yet",
-                "watch it, then ship: `bash scripts/preview.sh {stem}` → `ship {stem}`")
+                "watch it, then continue: `bash scripts/preview.sh {stem}` → "
+                "`bash projects/video-production/run.sh ship {stem}`")
 
     lane = ws_lane(ws_dir)
     if lane == "scaffold":
         return ("scaffolded",
                 "workspace claimed from the scaffold; no plan and no design authored yet",
-                DISCARD)
+                START)
     if lane == "freeform":
         # design.md -> per-beat wavs -> timing.json -> timed index.html
-        if not list((ws_dir / "assets" / "voice").glob("s*.wav")):
+        if not audio_ready(ws_dir):
             return ("planned", "freeform design written; narration not yet synthesized",
-                    RESUME)
+                    CONTINUE)
         if not (ws_dir / "timing.json").is_file():
             return ("untimed", "freeform narration synthesized; clip timings not yet computed",
-                    RESUME)
+                    CONTINUE)
         if not timed_html(ws_dir):
             return ("untimed", "freeform timings computed but never applied to the composition",
-                    RESUME)
+                    CONTINUE)
         return ("composed", "freeform composition timed and ready — the gate has not run yet",
-                GATE)
+                CONTINUE)
     # template lane
     if not (ws_dir / "assets" / "voice" / "narration.wav").is_file():
         return ("planned", "scene plan written; narration voice-over not yet synthesized",
-                RESUME)
+                CONTINUE)
     if not (ws_dir / "index.html").is_file():
         return ("uncompiled", "narration synthesized; the composition was never compiled",
-                RESUME)
+                CONTINUE)
     if not timed_html(ws_dir):
         return ("untimed", "composition compiled, but scene timings were never applied",
-                RESUME)
+                CONTINUE)
     return ("composed", "HyperFrames composition ready — the gate has not run yet",
-            GATE)
+            CONTINUE)
 
 
-DONE_STAGES = {"rendered", "needs-review"}
+DONE_STAGES = {"rendered", "needs-review", "approved"}
 
 ws_by_base = {}
 if ws_root.is_dir():
@@ -338,7 +360,7 @@ ordered  = [p for p in priority if p in programs] + [p for p in programs if p no
 
 report = []
 totals = {"raw": 0, "needs_script": 0, "queued": 0, "building": 0, "stalled": 0,
-          "needs_review": 0, "rendered": 0, "rejected": 0, "stranded": 0,
+          "needs_review": 0, "approved": 0, "rendered": 0, "rejected": 0, "stranded": 0,
           "published": 0, "orphan": 0}
 known_bases = set()
 
@@ -371,7 +393,7 @@ for prog in ordered:
                 queued.append(stem)
                 totals["queued"] += 1
                 continue
-            stage, state, nxt = ws_state(ws_dir)
+            stage, state, nxt = ws_state(ws_dir, stem)
             findings, jrn = [], journal(ws_dir)
             q = quarantined.get(base_of(stem))
             if q:
@@ -381,8 +403,20 @@ for prog in ordered:
                 # a citation, not a reason.
                 stage = "rejected"
                 state = f"a release gate rejected this cut — {q['reason']}"
+                failure_file = ws_dir / "qa" / "failure.json"
                 reason_file = ws_dir / "qa" / "quarantine-reason.txt"
-                if reason_file.is_file():
+                if failure_file.is_file():
+                    try:
+                        failure = json.loads(failure_file.read_text(encoding="utf-8"))
+                    except json.JSONDecodeError:
+                        failure = {}
+                    state = f"a release gate rejected this cut — {failure.get('reason', q['reason'])}"
+                    log = failure.get("log")
+                    findings = ([f"full command output: {log}"] if log else [])
+                    nxt = failure.get("next_action") or (
+                        f"authorize a deliberate retry: `bash projects/video-production/run.sh "
+                        f"retry {stem} --reason \"failure corrected\"`")
+                elif reason_file.is_file():
                     txt = reason_file.read_text(encoding="utf-8", errors="replace")
                     findings = [re.sub(r'^-\s*', '', ln.strip()) for ln in txt.splitlines()
                                 if re.match(r'\s+-\s+\[', ln)][:4]
@@ -391,12 +425,18 @@ for prog in ordered:
                            "fix the authoring, then re-render: "
                            f"`bash scripts/batch-ship.sh {stem} {prog}`")
                 else:
-                    nxt = ("re-run the gate to see what it objected to: "
-                           f"`python3 projects/video-production/render-qa/src/verify_render.py "
-                           f"projects/video-production/renders-hyperframes/{ws_dir.name}`")
+                    if "cloud render" in q["reason"].lower():
+                        nxt = ("inspect the cloud credential/backend, then authorize one "
+                               f"deliberate retry: `bash projects/video-production/run.sh retry "
+                               f"{stem} --reason \"cloud path corrected\"`")
+                    else:
+                        nxt = ("re-run the release command that failed after inspecting its "
+                               f"output: `bash projects/video-production/run.sh ship {stem}`")
                 totals["rejected"] += 1
             elif stage in DONE_STAGES:
-                totals["needs_review" if stage == "needs-review" else "rendered"] += 1
+                key = {"needs-review": "needs_review", "approved": "approved",
+                       "rendered": "rendered"}[stage]
+                totals[key] += 1
             else:
                 # Incomplete. STALLED is report-only and never kills anything —
                 # but its next-action must RELEASE THE LOCK. "restart the build"
@@ -411,11 +451,12 @@ for prog in ordered:
                     totals["stalled"] += 1
                 else:
                     totals["building"] += 1
+            touched = newest_mtime(ws_dir)
             in_flight.append({
                 "stem": stem, "stage": stage, "lane": ws_lane(ws_dir),
                 "workspace": ws_dir.name, "state": state, "findings": findings,
-                "idle": ago(NOW - newest_mtime(ws_dir)),
-                "journal": (f"left off after **{jrn['step']}**, {ago(NOW - jrn['when'])}"
+                "idle": ago(NOW - touched), "last_touched": at_utc(touched),
+                "journal": (f"last completed **{jrn['step']}** at {at_utc(jrn['when'])}"
                             if jrn else None),
                 "next": nxt.replace("{stem}", stem).replace("{program}", prog)
                            .replace("{ws}", ws_dir.name)})
@@ -438,9 +479,9 @@ for prog in ordered:
                 state += ", MP4 verified and awaiting publish"
             if base_of(stem) in quarantined:
                 state += f", rejected by a gate ({quarantined[base_of(stem)]['reason']})"
-            nxt = (f"finish the publish: `bash scripts/batch-ship.sh {stem} {prog} --publish`"
+            nxt = (f"finish the publish: `bash projects/video-production/run.sh ship {stem} --publish`"
                    if verified else
-                   f"re-run the tail: `bash scripts/batch-ship.sh {stem} {prog}`")
+                   f"re-run the tail: `bash projects/video-production/run.sh ship {stem}`")
             stranded.append({"stem": stem, "state": state, "next": nxt})
             totals["stranded"] += 1
 
@@ -455,9 +496,10 @@ orphans = []
 for base, d in sorted(ws_by_base.items()):
     if base in known_bases or base in published:
         continue
-    stage, state, _ = ws_state(d)
+    stage, state, _ = ws_state(d, d.name)
+    touched = newest_mtime(d)
     orphans.append({"workspace": d.name, "stage": stage, "state": state,
-                    "idle": ago(NOW - newest_mtime(d))})
+                    "idle": ago(NOW - touched), "last_touched": at_utc(touched)})
     totals["orphan"] += 1
 
 # Distinct Wistia media = videos actually live, independent of folder state.
@@ -489,6 +531,8 @@ if mode == "write":
       "moving; each names the step it last completed.")
     a(f"- **{totals['needs_review']}** — **waiting on your eyes.** Gate-clean, no MP4 "
       "yet — this is the pilot gate.")
+    a(f"- **{totals['approved']}** — **approved to render.** Gate-clean and covered by "
+      "the active batch pilot approval.")
     a(f"- **{totals['rendered']}** — **rendered, not yet published.** The MP4 exists "
       "and passed every gate; only the Wistia upload is left.")
     a(f"- **{totals['raw']}** — **raw, not yet refined.** Sitting in `inbox/`, waiting "
@@ -564,7 +608,7 @@ if mode == "write":
             a(f"  - **To clear it:** {x['next']}")
         for o in orphans:
             a(f"- **{o['workspace']}** — ORPHAN: a build folder matching no script in "
-              f"any program ({o['state']}; last touched {o['idle']})")
+              f"any program ({o['state']}; last touched {o['last_touched']})")
             a("  - **To clear it:** name what it is. Reference material belongs in "
               "`renders-hyperframes/_reference/` (underscore folders are skipped by "
               "this scan); anything else can be deleted.")
@@ -588,6 +632,8 @@ if mode == "write":
              "The video file exists and passed every gate. Nothing left but the upload."),
             (("needs-review",), "NEEDS REVIEW — gate-clean, waiting on your eyes",
              "The pilot gate. Watch it, then reply `ship <stem>`."),
+            (("approved",), "APPROVED — gate-clean, ready to render",
+             "The active batch pilot approval already covers this video."),
             (("scaffolded", "planned", "uncompiled", "untimed", "composed"),
              "BUILDING — in flight, no MP4 yet",
              "A workspace exists and is part-way through. Each names the last step it "
@@ -612,7 +658,7 @@ if mode == "write":
                 if x["journal"]:
                     a(f"  - {x['journal']}")
                 else:
-                    a(f"  - last written to: {x['idle']} (no `.build-log.tsv` — this "
+                    a(f"  - last written to: {x['last_touched']} (no `.build-log.tsv` — this "
                       "workspace predates the build journal)")
                 for fdg in x["findings"]:
                     a(f"  - gate said: {fdg}")
@@ -675,6 +721,7 @@ for r in report:
     for x in r["in_flight"]:
         tag = {"rendered":     f"{GRN}RENDERED — ready to publish{O}",
                "needs-review": f"{CYN}NEEDS REVIEW — your eyes{O}",
+               "approved":     f"{GRN}APPROVED — ready to render{O}",
                "rejected":     f"{RED}REJECTED{O}",
                "stalled":      f"{YEL}STALLED{O}"}.get(x["stage"],
                               f"{D}BUILDING ({x['stage']}){O}")
@@ -705,7 +752,7 @@ if orphans:
 
 t = totals
 print(f"{B}{t['published']} live{O} · {t['queued']} ready · {t['building']} building · "
-      f"{t['needs_review']} needs review · {t['rendered']} rendered · "
+      f"{t['needs_review']} needs review · {t['approved']} approved · {t['rendered']} rendered · "
       f"{t['raw']} raw · {t['needs_script']} NEEDS SCRIPT · {t['stalled']} STALLED · "
       f"{t['rejected']} REJECTED · {t['stranded']} STRANDED · {t['orphan']} ORPHAN\n")
 if t["queued"]:

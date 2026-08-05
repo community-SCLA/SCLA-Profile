@@ -10,7 +10,7 @@ Your operating manual, indexes, and wikis are claims about what exists and what'
 
 **Read-only.** Never fix, move, rename, or delete anything during the audit. The only write is the report file at the end. Fixes happen after the user approves them.
 
-**Works on any Claude Code project.** Look for patterns and intent, not exact paths. The operating manual might be CLAUDE.md, AGENTS.md, or a README with a routing table. An index might be `_index.md`, `INDEX.md`, or a catalog section. A wiki might be one folder or ten. Detect by role, not by name. Never assume a specific person's folder layout.
+**Works on any Claude Code project.** Look for patterns and intent, not exact paths. The operating manual might be CLAUDE.md or AGENTS.md. An index might be `_index.md`, `INDEX.md`, or a catalog section. A wiki might be one folder or ten. Detect by role, not by name. Never assume a specific person's folder layout.
 
 ## Today's context
 
@@ -56,7 +56,7 @@ For a large project (100+ folders), fan out one Explore subagent per check below
 
 ### Check 2 — Index truth ("do the indexes match the disk?")
 
-1. Find every index file: `_index*.md`, `INDEX.md`, catalog sections in READMEs, hot-cache/summary files. For each, diff its entries against the actual directory contents, both directions: rows with no folder (phantoms) and folders with no row (orphans).
+1. Find every agent index file: `_index*.md`, `INDEX.md`, hot-cache/summary files. For each, diff its entries against the actual directory contents, both directions: rows with no folder (phantoms) and folders with no row (orphans).
 2. Check any counts the index claims ("55 folders", "page_count: 50") against reality.
 3. Check any freshness claims ("Recently Active", "updated weekly", `updated:` frontmatter) against real file dates. An index that says "last 14 days" but whose newest entry is a month old is actively lying to the agent.
 
@@ -81,7 +81,7 @@ For a large project (100+ folders), fan out one Explore subagent per check below
 3. Scratch contamination: temp files, API response dumps, `_tmp_*`, `__pycache__`, empty stub files or folders sitting inside the knowledge tree where a blind search will treat them as knowledge.
 4. Always-loaded weight: word-count the files loaded every session (operating manual, memory index, hot cache). Flag growth; every extra line here taxes every future session.
 5. Rule violations: if the manual states placement rules ("all X goes in one folder per Y"), find violators.
-6. **Root hygiene.** The project root should read like a table of contents: folders, the operating manual, a README, and almost nothing else. Every loose file at root is a finding. Classify each by role and recommend a home that ALREADY EXISTS in the project:
+6. **Root hygiene.** The project root should read like a table of contents: folders, the operating manual, one human overview, and almost nothing else. Every loose file at root is a finding. Classify each by role and recommend a home that ALREADY EXISTS in the project:
    - temp/scratch output (API response dumps, one-session JSON, stray exports) → the archive or tmp folder
    - reusable assets (logos, face cutouts, brand images) → the assets/brand folder
    - media sources (recordings, renders) → their project's folder, or the archive if the project shipped

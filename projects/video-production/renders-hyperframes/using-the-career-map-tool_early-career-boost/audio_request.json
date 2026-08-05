@@ -1,0 +1,190 @@
+{
+  "provider": "heygen",
+  "lang": "en",
+  "speed": 1.0,
+  "bgm": {
+    "mode": "none"
+  },
+  "lines": [
+    {
+      "id": "b01",
+      "text": "The Career Map Tool builds a personalized roadmap out of your goals and your preferences."
+    },
+    {
+      "id": "b02",
+      "text": "We will walk through the tool first. Then we will take the career ideas it gives you and put them to work."
+    },
+    {
+      "id": "b03",
+      "text": "Open the Career Map Tool from your course or your dashboard."
+    },
+    {
+      "id": "b04",
+      "text": "On the landing screen, look for the section titled Map Your Career."
+    },
+    {
+      "id": "b05",
+      "text": "Click the button to begin. Depending on your setup, it might read Start or Get started."
+    },
+    {
+      "id": "b06",
+      "text": "Next comes the screen for choosing your career paths."
+    },
+    {
+      "id": "b07",
+      "text": "Select up to three approaches that fit your aspirations and your values."
+    },
+    {
+      "id": "b08",
+      "text": "The options may include Traditional path, Fast track, Entrepreneurial, Work-life balance, Location independent, and Social impact."
+    },
+    {
+      "id": "b09",
+      "text": "Click the tiles that resonate most, then continue."
+    },
+    {
+      "id": "b10",
+      "text": "Now fill in the profile section so the tool can tailor your map."
+    },
+    {
+      "id": "b11",
+      "text": "It asks for things like your name, your preferred industry, and your general background."
+    },
+    {
+      "id": "b12",
+      "text": "In the experience area, upload or select a resume if it asks for one."
+    },
+    {
+      "id": "b13",
+      "text": "That lines your map up with the skills you already have."
+    },
+    {
+      "id": "b14",
+      "text": "For each approach you selected, you can add more detail, like target industries and specific goals."
+    },
+    {
+      "id": "b15",
+      "text": "Then click the button to generate or update your career map."
+    },
+    {
+      "id": "b16",
+      "text": "You can regenerate the map later. Choosing to regenerate brings up a confirmation first."
+    },
+    {
+      "id": "b17",
+      "text": "It warns you that regenerating removes your old career approaches and jobs."
+    },
+    {
+      "id": "b18",
+      "text": "Click Regenerate if you are sure, or Cancel if you are not."
+    },
+    {
+      "id": "b19",
+      "text": "When your map is ready, you get a summary."
+    },
+    {
+      "id": "b20",
+      "text": "It tells you how many paths and how many jobs it generated, such as one path holding three jobs."
+    },
+    {
+      "id": "b21",
+      "text": "Click Show more to expand the details on any path or job."
+    },
+    {
+      "id": "b22",
+      "text": "Then the tool lists your generated paths with quick stats."
+    },
+    {
+      "id": "b23",
+      "text": "Those stats cover the number of roles, the industry, or the focus, like goal-oriented or work-life balance."
+    },
+    {
+      "id": "b24",
+      "text": "Confirm with the button that selects your path."
+    },
+    {
+      "id": "b25",
+      "text": "On the Career Map overview page, review your personalized roadmap."
+    },
+    {
+      "id": "b26",
+      "text": "Check the time frame, your preferred industry, and your five-year goal."
+    },
+    {
+      "id": "b27",
+      "text": "Then do the same for every job in your path. You will see how responsibilities and expectations grow over time."
+    },
+    {
+      "id": "b28",
+      "text": "Now you have real ideas in front of you."
+    },
+    {
+      "id": "b29",
+      "text": "The Career Map is a simple way to see your options side by side, instead of agonizing over them one at a time."
+    },
+    {
+      "id": "b30",
+      "text": "Plot each option you are considering on two axes."
+    },
+    {
+      "id": "b31",
+      "text": "The horizontal axis is personal fit and energy."
+    },
+    {
+      "id": "b32",
+      "text": "How well does this option match what you are good at and what energizes you?"
+    },
+    {
+      "id": "b33",
+      "text": "Use the themes you named in the previous activity."
+    },
+    {
+      "id": "b34",
+      "text": "The vertical axis is long-term value, or career capital."
+    },
+    {
+      "id": "b35",
+      "text": "How much does this build skills, connections, credentials, and options you will value later?"
+    },
+    {
+      "id": "b36",
+      "text": "Four zones come out of that. High fit and high value is your Prioritize zone, so pursue those first."
+    },
+    {
+      "id": "b37",
+      "text": "High value with uncertain fit lands in Explore, promising but unproven, and worth a cheap test."
+    },
+    {
+      "id": "b38",
+      "text": "High fit and lower value is your Enjoy or Side zone, so keep that energy as a backup or a side pursuit."
+    },
+    {
+      "id": "b39",
+      "text": "Low fit and low value goes to Park, and you set those aside without guilt."
+    },
+    {
+      "id": "b40",
+      "text": "The value is not the score itself. It is what you notice while you score."
+    },
+    {
+      "id": "b41",
+      "text": "You might catch yourself thinking that the safe option is weak on everything you said mattered most."
+    },
+    {
+      "id": "b42",
+      "text": "That noticing is the point. There is a quadrant worksheet attached to this lesson, so use it while you plot."
+    },
+    {
+      "id": "b43",
+      "text": "Seeing your options mapped does two things at once."
+    },
+    {
+      "id": "b44",
+      "text": "It widens your frame, because you consider more than one path."
+    },
+    {
+      "id": "b45",
+      "text": "It also applies the same criteria to every option you are weighing."
+    }
+  ]
+}

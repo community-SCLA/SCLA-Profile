@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <!-- Brand face, declared per-file so this composition is self-contained.
+           Kept in its OWN <style> block: sub-comp CSS is scoped to the
+           data-composition-id, and an at-rule must not be able to take the
+           layout rules down with it. url() resolves against the HOST document,
+           which is where this template gets cloned. -->
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: relative;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          font-family: "Proxima Nova", sans-serif;
+        }
+
+        #world {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+
+        /* ---- the ground and the route ---------------------------------- */
+        .trail {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.14;
+          stroke-width: 44;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .route {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.62;
+          stroke-width: 6;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 1000;
+        }
+        .guide {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.5;
+          stroke-width: 4;
+          stroke-dasharray: 14 18;
+          stroke-linecap: round;
+        }
+        .hint {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.34;
+          stroke-width: 4;
+          stroke-dasharray: 10 16;
+          stroke-linecap: round;
+        }
+        .route-gold {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.92;
+          stroke-width: 7;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 1000;
+        }
+        .walked {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.7;
+          stroke-width: 7;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 1000;
+        }
+        .kept {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.5;
+          stroke-width: 3;
+          stroke-dasharray: 3 11;
+          stroke-linecap: round;
+        }
+        .owned {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.55;
+          stroke-width: 3;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 1000;
+        }
+        .slab {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.28;
+          stroke-width: 12;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 1000;
+        }
+        .par {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.4;
+          stroke-width: 5;
+          stroke-dasharray: 40 26;
+          stroke-linecap: round;
+        }
+        .par-ring {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.55;
+          stroke-width: 4;
+        }
+
+        /* ---- stones ---------------------------------------------------- */
+        .stone {
+          fill: #ffffff;
+          fill-opacity: 0.88;
+        }
+        .stone.min {
+          fill-opacity: 0.68;
+        }
+        .slot {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.9;
+          stroke-width: 4;
+          stroke-dasharray: 10 8;
+        }
+        .rock {
+          fill: #ffffff;
+          fill-opacity: 0.6;
+        }
+        .strike {
+          stroke: #eaab2d;
+          stroke-opacity: 0.9;
+          stroke-width: 5;
+          stroke-linecap: round;
+        }
+
+        /* ---- marks ----------------------------------------------------- */
+        .ring {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.8;
+          stroke-width: 4;
+        }
+        .ring-dash {
+          fill: none;
+          stroke: #eaab2d;
+          stroke-opacity: 0.42;
+          stroke-width: 3;
+          stroke-dasharray: 7 11;
+        }
+        .lookback-line {
+          stroke: #eaab2d;
+          stroke-opacity: 0.6;
+          stroke-width: 3;
+          stroke-dasharray: 16 12;
+          stroke-linecap: round;
+        }
+        .fwd-line {
+          stroke: #eaab2d;
+          stroke-opacity: 0.7;
+          stroke-width: 3;
+          stroke-linecap: round;
+        }
+        .arrowhead {
+          fill: #eaab2d;
+          fill-opacity: 0.75;
+        }
+        .start-tick {
+          stroke: #eaab2d;
+          stroke-opacity: 0.75;
+          stroke-width: 4;
+          stroke-linecap: round;
+        }
+        .leader {
+          stroke: #3393d6;
+          stroke-opacity: 0.45;
+          stroke-width: 2;
+        }
+        .rule {
+          stroke: #eaab2d;
+          stroke-opacity: 0.75;
+          stroke-width: 3;
+          stroke-linecap: round;
+        }
+        .pole {
+          stroke: #3393d6;
+          stroke-opacity: 0.6;
+          stroke-width: 3;
+        }
+        .pennant {
+          fill: #3393d6;
+          fill-opacity: 0.62;
+        }
+        .tickdot {
+          fill: #eaab2d;
+          fill-opacity: 0.95;
+        }
+        .startdot {
+          fill: #eaab2d;
+          fill-opacity: 0.95;
+        }
+
+        /* ---- the wheel ------------------------------------------------- */
+        .rim {
+          fill: none;
+          stroke: #3393d6;
+          stroke-opacity: 0.7;
+          stroke-width: 6;
+        }
+        .hub {
+          fill: #eaab2d;
+          fill-opacity: 0.92;
+        }
+        .spoke {
+          stroke: #eaab2d;
+          stroke-opacity: 0.9;
+          stroke-width: 6;
+          stroke-linecap: round;
+          stroke-dasharray: 100;
+        }
+        .node {
+          fill: #eaab2d;
+          fill-opacity: 0.95;
+        }
+
+        /* ---- type ------------------------------------------------------ */
+        .lbl {
+          paint-order: stroke fill;
+          stroke: #0a1e2f;
+          stroke-width: 9px;
+          stroke-opacity: 0.95;
+          stroke-linejoin: round;
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          fill: #ffffff;
+          fill-opacity: 0.74;
+        }
+        .lbl-gold {
+          fill: #eaab2d;
+          fill-opacity: 0.95;
+        }
+        .mid {
+          text-anchor: middle;
+        }
+        .end {
+          text-anchor: end;
+        }
+        .cap {
+          paint-order: stroke fill;
+          stroke: #0a1e2f;
+          stroke-width: 10px;
+          stroke-opacity: 0.95;
+          stroke-linejoin: round;
+          font-size: 40px;
+          font-weight: 400;
+          fill: #ffffff;
+          fill-opacity: 0.84;
+        }
+
+        .title {
+          position: absolute;
+          left: 130px;
+          top: 150px;
+          width: 1400px;
+          font-size: 104px;
+          font-weight: 900;
+          line-height: 1.08;
+          letter-spacing: -0.01em;
+          color: #ffffff;
+        }
+        .head {
+          position: absolute;
+          left: 130px;
+          top: 140px;
+          width: 1080px;
+          font-size: 60px;
+          font-weight: 900;
+          line-height: 1.12;
+          color: #ffffff;
+        }
+        .sub {
+          position: absolute;
+          left: 130px;
+          top: 302px;
+          width: 1080px;
+          font-size: 40px;
+          font-weight: 400;
+          line-height: 1.4;
+          color: rgba(255, 255, 255, 0.78);
+        }
+      </style>
+
+      <div data-hf-id="hf-s8go" id="root" data-composition-id="path" data-width="1920" data-height="1080">
+        <svg data-hf-id="hf-r7d2" id="world" width="1920" height="1080" viewBox="0 0 1920 1080">
+          <!-- s33/s34: three fainter journeys, unlabelled, each starting further back -->
+          <g data-hf-id="hf-vptl" id="parallels">
+            <polyline data-hf-id="hf-fia3" id="par-a" class="par" points="702,655 775,628 847,599 918,568 989,535 1059,502 1130,469 1200,436 1270,403 1341,372 1413,341 1485,313" />
+            <polyline data-hf-id="hf-cxd6" id="par-b" class="par" points="1295,289 1365,256 1435,223 1506,192 1578,161 1650,133" />
+            <polyline data-hf-id="hf-ud9y" id="par-c" class="par" points="734,920 804,887 875,854 945,821 1015,788 1086,757 1158,726 1230,698" />
+          </g>
+          <g data-hf-id="hf-je2m" id="par-ext">
+            <circle data-hf-id="hf-kd6a" id="par-o-a" class="par-ring" cx="702" cy="655" r="12" />
+            <circle data-hf-id="hf-rz2s" id="par-o-b" class="par-ring" cx="1295" cy="289" r="12" />
+            <circle data-hf-id="hf-jyrm" id="par-o-c" class="par-ring" cx="734" cy="920" r="12" />
+          </g>
+
+          <!-- the ground the whole journey is walked on — present from s01,
+               unmarked: it is terrain, not a plan and not the loop -->
+          <polyline data-hf-id="hf-ww5m" id="trail" class="trail" points="200,900 278,899 356,893 432,881 508,865 583,844 657,820 730,793 802,764 873,733 944,700 1014,667 1085,634 1155,601 1225,568 1296,537 1368,506 1440,478" />
+
+          <!-- s12/s21: the foundation the walked stretch rests on -->
+          <polyline data-hf-id="hf-ncrz" id="slab" class="slab" points="200.4,930 279.3,929 359.5,922.8 437.4,910.5 515.1,894.1 591.7,872.7 666.8,848.3 740.8,821 813.6,791.7 885.3,760.4 956.7,727.2 1026.7,694.2 1097.7,661.2 1167.8,628.1 1237.8,595.1" stroke-dashoffset="1000" pathLength="1000" />
+
+          <!-- the route itself -->
+          <polyline data-hf-id="hf-xfwl" id="guide-a" class="guide" points="873,733 944,700 1014,667 1085,634 1155,601" />
+          <polyline data-hf-id="hf-lpqo" id="guide-b" class="guide" points="1155,601 1225,568 1296,537 1368,506 1440,478" />
+          <polyline data-hf-id="hf-mqj3" id="route-main" class="route" points="200,900 278,899 356,893 432,881 508,865 583,844 657,820 730,793 802,764 873,733 944,700 1014,667 1085,634 1155,601 1225,568" stroke-dashoffset="1000" pathLength="1000" />
+          <polyline data-hf-id="hf-pmiy" id="route-tail" class="route" points="1225,568 1296,537 1368,506 1440,478" stroke-dashoffset="1000" pathLength="1000" />
+          <polyline data-hf-id="hf-2wtg" id="kept1" class="kept" points="1225,568 1296,537" />
+          <polyline data-hf-id="hf-j0d1" id="kept2" class="kept" points="1296,537 1368,506" />
+          <polyline data-hf-id="hf-e4qn" id="kept3" class="kept" points="1368,506 1440,478" />
+          <polyline data-hf-id="hf-m0o0" id="alt-hint" class="hint" points="1225,568 1288,480 1352,424" />
+          <polyline data-hf-id="hf-l77b" id="route-alt" class="route-gold" points="1225,568 1288,480 1352,424 1418,380" stroke-dashoffset="1000" pathLength="1000" />
+          <polyline data-hf-id="hf-fqk4" id="route-ext" class="route-gold" points="1418,380 1484,348" stroke-dashoffset="1000" pathLength="1000" />
+          <polyline data-hf-id="hf-u6pr" id="walked-gold" class="walked" points="200,900 278,899 356,893 432,881 508,865 583,844 657,820 730,793 802,764" stroke-dashoffset="1000" pathLength="1000" />
+          <polyline data-hf-id="hf-9kmy" id="owned" class="owned" points="199.7,876 276.9,875 353.2,869.2 427.7,857.4 502.3,841.7 576.1,821 649.1,797.3 721.4,770.6 792.7,741.9 863.1,711.1 933.8,678.3 1003.8,645.3 1074.8,612.3 1144.8,579.3 1208.8,550.2 1270,464.1 1337.4,405 1404.7,360" stroke-dashoffset="1000" pathLength="1000" />
+
+          <!-- s01/s02/s05: the one big right choice, abandoned off-trail -->
+          <g data-hf-id="hf-4pq6" id="boulder">
+            <polygon data-hf-id="hf-97wf" id="boulder-body" class="rock" points="172,690 158,640 186,606 232,596 276,614 292,656 274,700 224,712" />
+            <text data-hf-id="hf-ozqi" id="boulder-label" class="lbl" x="150" y="576">One big right choice</text>
+          </g>
+          <line data-hf-id="hf-d99l" id="boulder-strike" class="strike" x1="150" y1="702" x2="302" y2="598" />
+
+          <!-- laid stones, one seat each -->
+          <g data-hf-id="hf-8qnt" transform="translate(200,900) rotate(1.6)"><rect data-hf-id="hf-8omk" id="st01" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-hng6" transform="translate(278,899) rotate(-2.7)"><rect data-hf-id="hf-tweb" id="st02" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+          <g data-hf-id="hf-bnsc" transform="translate(356,893) rotate(-6.8)"><rect data-hf-id="hf-bi8y" id="st03" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-l2zy" transform="translate(432,881) rotate(-10.5)"><rect data-hf-id="hf-fo4x" id="st04" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+          <g data-hf-id="hf-e0eb" transform="translate(508,865) rotate(-13.9)"><rect data-hf-id="hf-utzk" id="st05" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-4u4z" transform="translate(583,844) rotate(-16.8)"><rect data-hf-id="hf-igev" id="st06" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+          <g data-hf-id="hf-3mvx" transform="translate(657,820) rotate(-19.3)"><rect data-hf-id="hf-t2gy" id="st07" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+          <g data-hf-id="hf-cijh" transform="translate(730,793) rotate(-21.3)"><rect data-hf-id="hf-13xj" id="st08" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-31m0" transform="translate(802,764) rotate(-22.9)"><rect data-hf-id="hf-1tro" id="st09" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-8aay" transform="translate(873,733) rotate(-24.1)"><rect data-hf-id="hf-5zf6" id="st10" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+
+          <!-- s17: four empty slots wait on the route; s19 fills them -->
+          <g data-hf-id="hf-lzd2" id="slots" data-role="list">
+            <g data-hf-id="hf-20sd" transform="translate(944,700) rotate(-24.9)"><rect data-hf-id="hf-lc01" id="sl-r1" class="slot" x="-31" y="-20" width="62" height="40" rx="11" /></g>
+            <g data-hf-id="hf-rt7r" transform="translate(1014,667) rotate(-25.3)"><rect data-hf-id="hf-u1z8" id="sl-r2" class="slot" x="-31" y="-20" width="62" height="40" rx="11" /></g>
+            <g data-hf-id="hf-5oyw" transform="translate(1085,634) rotate(-25.4)"><rect data-hf-id="hf-olbv" id="sl-r3" class="slot" x="-31" y="-20" width="62" height="40" rx="11" /></g>
+            <g data-hf-id="hf-d6xp" transform="translate(1155,601) rotate(-25.1)"><rect data-hf-id="hf-8qau" id="sl-r4" class="slot" x="-31" y="-20" width="62" height="40" rx="11" /></g>
+          </g>
+          <g data-hf-id="hf-ivtd" transform="translate(944,700) rotate(-24.9)"><rect data-hf-id="hf-00jl" id="st11" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-xcnb" transform="translate(1014,667) rotate(-25.3)"><rect data-hf-id="hf-pshs" id="st12" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-0mg0" transform="translate(1085,634) rotate(-25.4)"><rect data-hf-id="hf-b4w3" id="st13" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-mv75" transform="translate(1155,601) rotate(-25.1)"><rect data-hf-id="hf-g4wi" id="st14" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+
+          <g data-hf-id="hf-lqi4" transform="translate(1225,568) rotate(-24.5)"><rect data-hf-id="hf-g0lp" id="st15" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-rqff" transform="translate(1296,537) rotate(-23.5)"><rect data-hf-id="hf-reqg" id="st16" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+          <g data-hf-id="hf-oxpj" transform="translate(1368,506) rotate(-22.2)"><rect data-hf-id="hf-1xsf" id="st17" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-dzss" transform="translate(1440,478) rotate(-20.6)"><rect data-hf-id="hf-i0h6" id="st18" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+
+          <!-- s23: the corrected run — laid on a better line, nothing erased -->
+          <g data-hf-id="hf-7za2" transform="translate(1288,480) rotate(-50)"><rect data-hf-id="hf-l4j8" id="st16b" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-wt4v" transform="translate(1352,424) rotate(-42)"><rect data-hf-id="hf-ctrp" id="st17b" class="stone min" x="-21" y="-13" width="42" height="26" rx="8" /></g>
+          <g data-hf-id="hf-0gnm" transform="translate(1418,380) rotate(-34)"><rect data-hf-id="hf-jwsm" id="st18b" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+          <g data-hf-id="hf-cvzo" transform="translate(1484,348) rotate(-26)"><rect data-hf-id="hf-su95" id="st19" class="stone" x="-29" y="-18" width="58" height="36" rx="10" /></g>
+
+          <!-- s04: what those decisions shape — one caption per named thing,
+               each landing on the word that names it -->
+          <g data-hf-id="hf-v7tm" id="cap1">
+            <line data-hf-id="hf-h58z" class="leader" x1="278" y1="880" x2="378" y2="752" />
+            <text data-hf-id="hf-rbbt" class="cap" x="388" y="748">Skills</text>
+          </g>
+          <g data-hf-id="hf-p23t" id="cap2">
+            <line data-hf-id="hf-04x6" class="leader" x1="356" y1="874" x2="456" y2="682" />
+            <text data-hf-id="hf-5g7g" class="cap" x="466" y="678">Confidence</text>
+          </g>
+          <g data-hf-id="hf-oag0" id="cap3">
+            <line data-hf-id="hf-gnim" class="leader" x1="432" y1="862" x2="532" y2="612" />
+            <text data-hf-id="hf-18sd" class="cap" x="542" y="608">Relationships</text>
+          </g>
+          <g data-hf-id="hf-kcbz" id="cap4">
+            <line data-hf-id="hf-nvfe" class="leader" x1="508" y1="846" x2="608" y2="542" />
+            <text data-hf-id="hf-t4ab" class="cap" x="618" y="538">Opportunities</text>
+          </g>
+
+          <!-- s07/s13/s14/s15/s35: where you started, how far that now is,
+               and which way it points -->
+          <g data-hf-id="hf-rchx" id="origin">
+            <circle data-hf-id="hf-v95f" id="origin-ring" class="ring" cx="200" cy="900" r="44" />
+            <text data-hf-id="hf-78e5" id="origin-label" class="lbl" x="150" y="778">Where you started</text>
+          </g>
+          <circle data-hf-id="hf-u0vg" id="origin-ring2" class="ring-dash" cx="200" cy="900" r="62" />
+          <g data-hf-id="hf-9qdz" id="lookback">
+            <line data-hf-id="hf-mogj" class="lookback-line" x1="700" y1="505" x2="248" y2="505" />
+            <polygon data-hf-id="hf-mvj0" class="arrowhead" points="230,505 254,493 254,517" />
+          </g>
+          <line data-hf-id="hf-m93q" id="fwd-line" class="fwd-line" x1="700" y1="505" x2="980" y2="505" stroke-dasharray="100" stroke-dashoffset="100" pathLength="100" />
+          <polygon data-hf-id="hf-eyf8" id="fwd-head" class="arrowhead" points="1000,505 976,493 976,517" />
+          <circle data-hf-id="hf-ce7h" id="now-ring" class="ring" cx="802" cy="764" r="46" />
+          <circle data-hf-id="hf-f3zu" id="start-gold" class="startdot" cx="200" cy="900" r="13" />
+          <line data-hf-id="hf-yd3v" id="start-tick" class="start-tick" x1="200" y1="846" x2="200" y2="954" />
+
+          <!-- s08/s09/s10: the three module gains. The pole draws, the pennant
+               lands, the label arrives — each on its own narrated word. -->
+          <g data-hf-id="hf-so3y" id="flag1">
+            <line data-hf-id="hf-fdiv" id="f1-pole" class="pole" x1="356" y1="878" x2="356" y2="732" stroke-dasharray="100" stroke-dashoffset="100" pathLength="100" />
+            <polygon data-hf-id="hf-hre1" id="f1-pennant" class="pennant" points="356,732 444,748 356,764" />
+            <text data-hf-id="hf-xmi7" id="f1-label" class="lbl" x="372" y="718">Strengths, values, energy</text>
+          </g>
+          <g data-hf-id="hf-mie5" id="flag2">
+            <line data-hf-id="hf-qizq" id="f2-pole" class="pole" x1="583" y1="829" x2="583" y2="594" stroke-dasharray="100" stroke-dashoffset="100" pathLength="100" />
+            <polygon data-hf-id="hf-gp41" id="f2-pennant" class="pennant" points="583,594 671,610 583,626" />
+            <text data-hf-id="hf-xvq5" id="f2-label" class="lbl" x="599" y="580">Five criteria</text>
+          </g>
+          <g data-hf-id="hf-lqqc" id="flag3">
+            <line data-hf-id="hf-3qxm" id="f3-pole" class="pole" x1="802" y1="749" x2="802" y2="464" stroke-dasharray="100" stroke-dashoffset="100" pathLength="100" />
+            <polygon data-hf-id="hf-74el" id="f3-pennant" class="pennant" points="802,464 890,480 802,496" />
+            <text data-hf-id="hf-5nvn" id="f3-label" class="lbl end" x="786" y="450">Career Purpose Statement</text>
+          </g>
+          <circle data-hf-id="hf-i2yx" id="keep-mark" class="ring" cx="846" cy="480" r="34" />
+
+          <!-- s18: each slot reaches up to the line that will name it -->
+          <g data-hf-id="hf-56ti" id="lead1">
+            <line data-hf-id="hf-fnrt" class="leader" x1="900" y1="682" x2="900" y2="676" />
+            <line data-hf-id="hf-0118" class="rule" x1="812" y1="678" x2="987" y2="678" />
+          </g>
+          <g data-hf-id="hf-18ph" id="lead2">
+            <line data-hf-id="hf-x82n" class="leader" x1="1014" y1="649" x2="1014" y2="613" />
+            <line data-hf-id="hf-gg2n" class="rule" x1="954" y1="613" x2="1074" y2="613" />
+          </g>
+          <g data-hf-id="hf-y9fw" id="lead3">
+            <line data-hf-id="hf-ogfk" class="leader" x1="1085" y1="616" x2="1085" y2="548" />
+            <line data-hf-id="hf-f243" class="rule" x1="1020" y1="548" x2="1150" y2="548" />
+          </g>
+          <g data-hf-id="hf-lqxf" id="lead4">
+            <line data-hf-id="hf-fcz9" class="leader" x1="1155" y1="583" x2="1155" y2="483" />
+            <line data-hf-id="hf-due6" class="rule" x1="1047" y1="483" x2="1262" y2="483" />
+          </g>
+          <g data-hf-id="hf-8vsh" id="slot-labels">
+            <text data-hf-id="hf-xf4d" id="sl1" class="lbl mid" x="900" y="666">Direction</text>
+            <text data-hf-id="hf-9afh" id="sl2" class="lbl mid" x="1014" y="601">Skills</text>
+            <text data-hf-id="hf-vdj4" id="sl3" class="lbl mid" x="1085" y="536">People</text>
+            <text data-hf-id="hf-2geo" id="sl4" class="lbl mid" x="1155" y="471">Ninety days</text>
+          </g>
+
+          <!-- s26-s31: the wheel that turns out to have been pressing the path -->
+          <g data-hf-id="hf-s8uk" id="wheel">
+            <circle data-hf-id="hf-vrq9" id="wheel-rim" class="rim" cx="1500" cy="700" r="185" stroke-dasharray="100" stroke-dashoffset="100" pathLength="100" />
+            <circle data-hf-id="hf-znlc" id="wheel-hub" class="hub" cx="1500" cy="700" r="24" />
+            <line data-hf-id="hf-j06b" id="spoke1" class="spoke" x1="1500" y1="700" x2="1500" y2="515" stroke-dashoffset="100" pathLength="100" />
+            <line data-hf-id="hf-p7t2" id="spoke2" class="spoke" x1="1500" y1="700" x2="1660.2" y2="607.5" stroke-dashoffset="100" pathLength="100" />
+            <line data-hf-id="hf-5mc6" id="spoke3" class="spoke" x1="1500" y1="700" x2="1660.2" y2="792.5" stroke-dashoffset="100" pathLength="100" />
+            <line data-hf-id="hf-p8cm" id="spoke4" class="spoke" x1="1500" y1="700" x2="1500" y2="885" stroke-dashoffset="100" pathLength="100" />
+            <line data-hf-id="hf-ggop" id="spoke5" class="spoke" x1="1500" y1="700" x2="1339.8" y2="792.5" stroke-dashoffset="100" pathLength="100" />
+            <line data-hf-id="hf-3wjj" id="spoke6" class="spoke" x1="1500" y1="700" x2="1339.8" y2="607.5" stroke-dashoffset="100" pathLength="100" />
+            <circle data-hf-id="hf-wuw1" id="node1" class="node" cx="1500" cy="515" r="13" />
+            <circle data-hf-id="hf-4eza" id="node2" class="node" cx="1660.2" cy="607.5" r="13" />
+            <circle data-hf-id="hf-i9bu" id="node3" class="node" cx="1660.2" cy="792.5" r="13" />
+            <circle data-hf-id="hf-7ves" id="node4" class="node" cx="1500" cy="885" r="13" />
+            <circle data-hf-id="hf-fjy7" id="node5" class="node" cx="1339.8" cy="792.5" r="13" />
+            <circle data-hf-id="hf-bb7l" id="node6" class="node" cx="1339.8" cy="607.5" r="13" />
+          </g>
+
+          <!-- s27-s31: each spoke adds its tick to the stretch it explains -->
+          <g data-hf-id="hf-6bpl" id="tk1">
+            <circle data-hf-id="hf-0goa" class="tickdot" cx="278" cy="899" r="11" />
+            <text data-hf-id="hf-urb6" class="lbl lbl-gold mid" x="278" y="838">Clarify</text>
+          </g>
+          <g data-hf-id="hf-a9tm" id="tk2">
+            <circle data-hf-id="hf-iztv" class="tickdot" cx="432" cy="881" r="11" />
+            <text data-hf-id="hf-oyms" class="lbl lbl-gold mid" x="432" y="831">Widen</text>
+          </g>
+          <g data-hf-id="hf-e7xn" id="tk3">
+            <circle data-hf-id="hf-5n3z" class="tickdot" cx="657" cy="820" r="11" />
+            <text data-hf-id="hf-dmd1" class="lbl lbl-gold mid" x="657" y="765">Criteria</text>
+          </g>
+          <g data-hf-id="hf-qqg4" id="tk4">
+            <circle data-hf-id="hf-gx52" class="tickdot" cx="873" cy="733" r="11" />
+            <text data-hf-id="hf-frcx" class="lbl lbl-gold mid" x="890" y="800">Test</text>
+          </g>
+          <g data-hf-id="hf-tppp" id="tk5">
+            <circle data-hf-id="hf-4p4g" class="tickdot" cx="1014" cy="667" r="11" />
+            <text data-hf-id="hf-hyas" class="lbl lbl-gold mid" x="1014" y="617">Decide</text>
+          </g>
+          <g data-hf-id="hf-xntq" id="tk6">
+            <circle data-hf-id="hf-7qf0" class="tickdot" cx="1155" cy="601" r="11" />
+            <text data-hf-id="hf-aaql" class="lbl lbl-gold mid" x="1200" y="675">Review</text>
+          </g>
+          <circle data-hf-id="hf-jgsn" id="week-ring" class="ring" cx="1484" cy="348" r="44" stroke-dasharray="100" stroke-dashoffset="100" pathLength="100" />
+          <text data-hf-id="hf-udj5" id="week-label" class="lbl lbl-gold mid" x="1484" y="292">This week</text>
+        </svg>
+
+        <div data-hf-id="hf-xtne" id="h-title" class="title" data-role="heading">Career Building Is a Repeatable Process</div>
+        <div data-hf-id="hf-8tby" id="h02" class="head" data-role="heading">Careers Do Not Work That Way</div>
+        <div data-hf-id="hf-1y8n" id="h03" class="head" data-role="heading">A Series of Decisions</div>
+        <div data-hf-id="hf-6dq1" id="h04" class="head" data-role="heading">What Those Decisions Shape</div>
+        <div data-hf-id="hf-199q" id="h05" class="head" data-role="heading">Not a Perfect Answer</div>
+        <div data-hf-id="hf-n6wx" id="h06" class="head" data-role="heading">It Gave You a Process</div>
+        <div data-hf-id="hf-4yk9" id="h07" class="head" data-role="heading">Look Back at Where You Started</div>
+        <div data-hf-id="hf-souf" id="h08" class="head" data-role="heading">Module 1</div>
+        <div data-hf-id="hf-b1j3" id="h09" class="head" data-role="heading">Module 2</div>
+        <div data-hf-id="hf-zjxy" id="h10" class="head" data-role="heading">Module 3</div>
+        <div data-hf-id="hf-j30z" id="h11" class="head" data-role="heading">That Is Genuine Progress</div>
+        <div data-hf-id="hf-x60j" id="h12" class="head" data-role="heading">Things You Build</div>
+        <div data-hf-id="hf-j0qm" id="h13" class="head" data-role="heading">Go Back to What You Wrote</div>
+        <div data-hf-id="hf-1tri" id="h14" class="head" data-role="heading">Notice What Has Shifted</div>
+        <div data-hf-id="hf-7ub9" id="h15" class="head" data-role="heading">A Clearer Question Moves You Forward</div>
+        <div data-hf-id="hf-vfae" id="h16" class="head" data-role="heading">A Practical Plan</div>
+        <div data-hf-id="hf-k7ey" id="h17" class="head" data-role="heading">A Useful Plan Is Not Elaborate</div>
+        <div data-hf-id="hf-ywug" id="h18" class="head" data-role="heading">Specific Enough to Guide Action</div>
+        <div data-hf-id="hf-3plp" id="h19" class="head" data-role="heading">Deciding a Few Things</div>
+        <div data-hf-id="hf-tsjx" id="h20" class="head" data-role="heading">Meant to Be Reused</div>
+        <div data-hf-id="hf-lnsg" id="h21" class="head" data-role="heading">Not a One-Time Assignment</div>
+        <div data-hf-id="hf-bt74" id="h22" class="head" data-role="heading">Your Map Is Not Frozen</div>
+        <div data-hf-id="hf-e2qc" id="h23" class="head" data-role="heading">Your Direction Can and Will Change</div>
+        <div data-hf-id="hf-6xry" id="h24" class="head" data-role="heading">Not a Sign You Did Something Wrong</div>
+        <div data-hf-id="hf-fqtk" id="h25" class="head" data-role="heading">You Now Own a Process</div>
+        <div data-hf-id="hf-kin0" id="h26" class="head" data-role="heading">Run the Loop Again</div>
+        <div data-hf-id="hf-2bao" id="h27" class="head" data-role="heading">Clarify the Decision</div>
+        <div data-hf-id="hf-cypq" id="h28" class="head" data-role="heading">Widen Your Options</div>
+        <div data-hf-id="hf-3eml" id="h29" class="head" data-role="heading">Set Your Criteria</div>
+        <div data-hf-id="hf-d8bx" id="h30" class="head" data-role="heading">Test Your Biggest Uncertainty</div>
+        <div data-hf-id="hf-dec3" id="h31" class="head" data-role="heading">Decide, Act, and Review</div>
+        <div data-hf-id="hf-igtz" id="h32" class="head" data-role="heading">Keep It Where You Will See It</div>
+        <div data-hf-id="hf-5d55" id="h33" class="head" data-role="heading">Every Professional Is Running This Loop</div>
+        <div data-hf-id="hf-77xa" id="h34" class="head" data-role="heading">They Just Started Earlier</div>
+        <div data-hf-id="hf-ads3" id="h35" class="head" data-role="heading">So Have You</div>
+        <div data-hf-id="hf-7pir" id="h36" class="head" data-role="heading">Momentum, Not a Perfect Future</div>
+        <div data-hf-id="hf-emmp" id="h37" class="head" data-role="heading">The Step You Named for Yourself</div>
+        <div data-hf-id="hf-rfdv" id="h38" class="head" data-role="heading">Take It This Week</div>
+
+        <!-- Sub-lines arrive CLAUSE BY CLAUSE, each span on the word that earns
+             it. A hidden span keeps its layout box, so revealing the next one
+             never reflows the clause already on screen. -->
+        <div data-hf-id="hf-gd3w" id="sb03" class="sub"><span data-hf-id="hf-ny6t" id="sb03a">Some small, some major.</span></div>
+        <div data-hf-id="hf-xle7" id="sb08" class="sub"><span data-hf-id="hf-wfej" id="sb08a">You named an uncertainty</span> <span data-hf-id="hf-8ydb" id="sb08b">and clarified your strengths, values, and energy.</span></div>
+        <div data-hf-id="hf-tna6" id="sb09" class="sub"><span data-hf-id="hf-q6e1" id="sb09a">The five criteria that make work engaging,</span> <span data-hf-id="hf-diw8" id="sb09b">and a repeatable way</span> <span data-hf-id="hf-8ufv" id="sb09c">to compare options.</span></div>
+        <div data-hf-id="hf-57ws" id="sb10" class="sub"><span data-hf-id="hf-8ced" id="sb10a">You wrote your own Career Purpose Statement,</span> <span data-hf-id="hf-0vir" id="sb10b">and explored planning</span> <span data-hf-id="hf-nh09" id="sb10c">in a world shaped by AI.</span></div>
+        <div data-hf-id="hf-c5ae" id="sb12" class="sub"><span data-hf-id="hf-fj3e" id="sb12a">Clarity and confidence are not switches you flip once.</span> <span data-hf-id="hf-5e57" id="sb12b">You just built a real foundation.</span></div>
+        <div data-hf-id="hf-kt69" id="sb15" class="sub"><span data-hf-id="hf-2r9z" id="sb15a">Even if you do not have every answer,</span> <span data-hf-id="hf-aoqa" id="sb15b">you almost certainly have a clearer question.</span></div>
+        <div data-hf-id="hf-dsb8" id="sb18" class="sub"><span data-hf-id="hf-ujkt" id="sb18a">Flexible enough to update when you learn something new.</span></div>
+        <div data-hf-id="hf-p73t" id="sb24" class="sub"><span data-hf-id="hf-t88p" id="sb24a">It is exactly why you learned a repeatable loop</span> <span data-hf-id="hf-tkhm" id="sb24b">instead of a fixed plan.</span></div>
+        <div data-hf-id="hf-ofg0" id="sb25" class="sub"><span data-hf-id="hf-x9z1" id="sb25a">Not just a set of answers.</span></div>
+        <div data-hf-id="hf-86a0" id="sb32" class="sub"><span data-hf-id="hf-wtht" id="sb32a">Update it whenever</span> <span data-hf-id="hf-t0ue" id="sb32b">it stops feeling true.</span></div>
+        <div data-hf-id="hf-vka4" id="sb36" class="sub"><span data-hf-id="hf-4ibc" id="sb36a">A stronger way of navigating whatever comes next.</span></div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Beat starts, COPIED FROM timing.json's vis_start column — computed by
+        // make_timing.py from the real clip durations, never hand-tuned. Index
+        // 0 is s01. T(n) is beat n's visual start.
+        var B = [0, 5.336, 8.47, 13.276, 20.668, 25.082, 27.197, 29.26, 37.096,
+                 46.682, 57.104, 59.376, 66.507, 70.111, 72.174, 81.316, 85.73,
+                 88.733, 95.576, 108.036, 111.092, 114.304, 116.315, 120.912,
+                 127.964, 135.408, 140.292, 142.433, 144.339, 146.323, 149.039,
+                 152.303, 158.885, 163.116, 165.127, 167.503, 174.738, 177.872];
+        var T = function (n) { return B[n - 1]; };
+
+        // EVERY other absolute time below is a narration WORD ONSET, read from
+        // audio_meta.json's per-clip word timestamps offset by that clip's
+        // audio_start in timing.json. A beat's own accumulation is spread ACROSS
+        // the beat, word by word, so the picture never holds still while the
+        // voice keeps speaking — the only compliant answer to a static span.
+        // Nothing settled is re-animated: every cue below lands a mark, extends
+        // a line, or reveals a clause for the first and only time.
+
+        // Everything the path has not yet earned starts absent. autoAlpha, so a
+        // not-yet-laid stone is visibility:hidden and cannot be measured, drawn
+        // or read before its beat. Lines that DRAW are held back by their dash
+        // offset instead, so their container groups stay visible.
+        gsap.set([
+          "#h-title", "#h02", "#h03", "#h04", "#h05", "#h06", "#h07", "#h08",
+          "#h09", "#h10", "#h11", "#h12", "#h13", "#h14", "#h15", "#h16",
+          "#h17", "#h18", "#h19", "#h20", "#h21", "#h22", "#h23", "#h24",
+          "#h25", "#h26", "#h27", "#h28", "#h29", "#h30", "#h31", "#h32",
+          "#h33", "#h34", "#h35", "#h36", "#h37", "#h38",
+          "#sb03", "#sb08", "#sb09", "#sb10", "#sb12", "#sb15", "#sb18",
+          "#sb24", "#sb25", "#sb32", "#sb36",
+          "#sb03a", "#sb08a", "#sb08b", "#sb09a", "#sb09b", "#sb09c",
+          "#sb10a", "#sb10b", "#sb10c", "#sb12a", "#sb12b", "#sb15a",
+          "#sb15b", "#sb18a", "#sb24a", "#sb24b", "#sb25a", "#sb32a",
+          "#sb32b", "#sb36a",
+          "#st01", "#st02", "#st03", "#st04", "#st05", "#st06", "#st07",
+          "#st08", "#st09", "#st10", "#st11", "#st12", "#st13", "#st14",
+          "#st15", "#st16", "#st17", "#st18", "#st16b", "#st17b", "#st18b",
+          "#st19",
+          "#boulder-body", "#boulder-label", "#boulder-strike",
+          "#sl-r1", "#sl-r2", "#sl-r3", "#sl-r4",
+          "#lead1", "#lead2", "#lead3", "#lead4",
+          "#sl1", "#sl2", "#sl3", "#sl4",
+          "#guide-a", "#guide-b", "#alt-hint",
+          "#kept1", "#kept2", "#kept3",
+          "#origin", "#origin-ring2", "#lookback", "#fwd-head", "#now-ring",
+          "#start-gold", "#start-tick",
+          "#f1-pennant", "#f1-label", "#f2-pennant", "#f2-label",
+          "#f3-pennant", "#f3-label", "#keep-mark",
+          "#wheel-hub", "#node1", "#node2", "#node3", "#node4", "#node5",
+          "#node6", "#tk1", "#tk2", "#tk3", "#tk4", "#tk5", "#tk6",
+          "#cap1", "#cap2", "#cap3", "#cap4",
+          "#par-a", "#par-b", "#par-c", "#par-ext",
+          "#week-label", "#trail",
+        ], { autoAlpha: 0 });
+
+        // ---- helpers. One-shot entrances only; nothing here repeats, so no
+        //      tween in this file can be keep-alive motion.
+        // THE SEAM IS ATOMIC. Two constraints meet here and only one shape
+        // satisfies both. (1) The heading band may never be empty: the old
+        // exit finished 0.04s BEFORE the next heading began, which is the
+        // headless frame the review caught at 29.25s and 174.75s. (2) Two
+        // headings may never be on screen together: the layout inspector reads
+        // BOXES, not opacity, so any cross-fade — however brief — is a fatal
+        // content_overlap, and the band is far too shallow to separate two
+        // 2-line headings in y. So the swap happens on ONE instant: the
+        // outgoing heading is cut and the incoming one is lit in the same
+        // frame, and only the 26px settle is animated.
+        //
+        // Both halves are `tl.set()` on purpose. A zero-duration set records
+        // the value it found (autoAlpha 0, from the initial gsap.set) and
+        // restores it when the playhead scrubs back before it, so seeking is
+        // exact. A `fromTo` whose FROM state is autoAlpha:1 is not an option:
+        // gsap renders a fromTo immediately on build, which put all 37
+        // headings on frame at t=0.
+        var head = function (sel, n) {
+          tl.set(sel, { autoAlpha: 1 }, T(n));
+          tl.fromTo(sel, { y: 26 }, { y: 0, duration: 0.4, ease: "power3.out" }, T(n));
+          if (n < B.length) {
+            tl.set(sel, { autoAlpha: 0 }, T(n + 1));
+          }
+        };
+        // A sub-line block opens (its clauses are still hidden) and closes with
+        // its beat; each clause is revealed by say() on its own word.
+        var openSub = function (sel, t, n) {
+          tl.set(sel, { autoAlpha: 1 }, t);
+          if (n < B.length) {
+            tl.set(sel, { autoAlpha: 0 }, T(n + 1));
+          }
+        };
+        var say = function (sel, t) {
+          tl.fromTo(sel, { autoAlpha: 0, y: 12 },
+                    { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }, t);
+        };
+        // A new mark ARRIVES on the path and then holds, forever.
+        var lay = function (sel, t) {
+          tl.fromTo(sel, { autoAlpha: 0, y: -16 },
+                    { autoAlpha: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" }, t);
+        };
+        var fade = function (sel, t) {
+          tl.fromTo(sel, { autoAlpha: 0 },
+                    { autoAlpha: 1, duration: 0.6, ease: "power2.out" }, t);
+        };
+        var clear = function (sel, t) {
+          tl.to(sel, { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, t);
+        };
+        // A line is only ever EXTENDED — one pass, then static.
+        var draw = function (sel, t, to, dur) {
+          tl.to(sel, { strokeDashoffset: to, duration: dur,
+                       ease: "power2.inOut" }, t);
+        };
+
+        // ---- s01 the myth: one big right choice, alone -------------------
+        head("#h-title", 1);
+        fade("#trail", 0.1);
+        lay("#boulder-body", 1.50);          // "think career success"
+        fade("#boulder-label", 3.35);        // "one big right choice"
+
+        // ---- s02 careers do not work that way: the path begins -----------
+        head("#h02", 2);
+        tl.to("#boulder-body", { fill: "#5f6f96", fillOpacity: 0.4, duration: 0.8,
+                                 ease: "power2.out" }, 5.34);
+        tl.to("#boulder-label", { fillOpacity: 0.4, duration: 0.8 }, 5.34);
+        draw("#route-main", 5.50, 928.3, 1.0);
+        lay("#st01", 5.70);
+        lay("#st02", 6.90);
+
+        // ---- s03 a series of decisions, some small, some major -----------
+        head("#h03", 3);
+        openSub("#sb03", 8.60, 3);
+        draw("#route-main", 8.70, 714.4, 1.4);
+        lay("#st03", 8.90);                  // "built"
+        lay("#st04", 9.73);                  // "series"
+        lay("#st05", 10.21);                 // "decisions"
+        say("#sb03a", 10.95);                // "some small,"
+
+        // ---- s04 what those decisions shape ------------------------------
+        head("#h04", 4);
+        fade("#cap1", 15.70);                // "skills,"
+        fade("#cap2", 16.70);                // "confidence,"
+        fade("#cap3", 17.70);                // "relationships,"
+        fade("#cap4", 19.08);                // "your opportunities."
+
+        // ---- s05 not a perfect answer ------------------------------------
+        head("#h05", 5);
+        clear("#cap1", 20.75);
+        clear("#cap2", 20.80);
+        clear("#cap3", 20.85);
+        clear("#cap4", 20.90);
+        draw("#route-main", 20.95, 571.3, 1.0);
+        lay("#st06", 21.15);
+        lay("#st07", 21.99);                 // "track"
+        fade("#boulder-strike", 23.40);      // "a perfect answer"
+
+        // ---- s06 it gave you a process -----------------------------------
+        head("#h06", 6);
+        draw("#route-main", 25.18, 428.4, 0.9);
+        lay("#st08", 25.30);
+        lay("#st09", 25.90);
+
+        // ---- s07 look back at where you started --------------------------
+        head("#h07", 7);
+        fade("#origin", 27.35);
+
+        // ---- s08 module 1 ------------------------------------------------
+        head("#h08", 8);
+        openSub("#sb08", 29.50, 8);
+        draw("#f1-pole", 29.86, 0, 1.0);     // "Module"
+        lay("#f1-pennant", 31.00);
+        say("#sb08a", 31.54);                // "named"
+        fade("#f1-label", 33.30);            // "clarified"
+        say("#sb08b", 34.90);                // "values,"
+
+        // ---- s09 module 2 ------------------------------------------------
+        head("#h09", 9);
+        openSub("#sb09", 37.30, 9);
+        draw("#f2-pole", 37.70, 0, 1.3);     // "Module"
+        lay("#f2-pennant", 39.10);
+        say("#sb09a", 39.54);                // "five criteria"
+        say("#sb09b", 41.40);                // "work engaging"
+        fade("#f2-label", 43.30);            // "science-backed"
+        say("#sb09c", 45.00);                // "compare options"
+
+        // ---- s10 module 3 ------------------------------------------------
+        head("#h10", 10);
+        openSub("#sb10", 46.90, 10);
+        draw("#f3-pole", 47.30, 0, 1.6);     // "Module"
+        lay("#f3-pennant", 49.24);           // "wrote"
+        fade("#f3-label", 50.10);            // "Career Purpose Statement"
+        say("#sb10a", 51.00);
+        say("#sb10b", 53.04);                // "plan"
+        say("#sb10c", 55.30);                // "technological change"
+
+        // ---- s11 that is genuine progress: the walked stretch turns gold --
+        head("#h11", 11);
+        draw("#walked-gold", 57.25, 0, 1.5);
+
+        // ---- s12 things you build: a foundation under the walked stretch --
+        head("#h12", 12);
+        openSub("#sb12", 59.60, 12);
+        say("#sb12a", 59.90);                // "Clarity"
+        draw("#slab", 61.23, 428.4, 2.8);    // "switches you flip once"
+        say("#sb12b", 64.56);                // "you just built"
+
+        // ---- s13 go back to what you wrote -------------------------------
+        head("#h13", 13);
+        fade("#origin-ring2", 66.90);        // "Go back"
+        fade("#lookback", 68.29);            // "the very start"
+
+        // ---- s14 notice what has shifted ---------------------------------
+        head("#h14", 14);
+        fade("#now-ring", 70.40);
+
+        // ---- s15 a clearer question moves you forward --------------------
+        head("#h15", 15);
+        openSub("#sb15", 72.40, 15);
+        draw("#route-main", 72.50, 357.2, 1.0);
+        lay("#st10", 72.90);
+        say("#sb15a", 73.60);                // "answer,"
+        say("#sb15b", 75.05);                // "almost certainly"
+        draw("#fwd-line", 77.39, 0, 1.6);    // "and a clearer question"
+        lay("#fwd-head", 79.53);             // "moves a career forward"
+
+        // ---- s16 a practical plan: the route ahead becomes visible -------
+        head("#h16", 16);
+        fade("#guide-a", 81.94);             // "the final step"
+        fade("#guide-b", 83.90);             // "into a practical plan"
+
+        // ---- s17 four empty slots wait on the route ----------------------
+        head("#h17", 17);
+        lay("#sl-r1", 85.95);
+        lay("#sl-r2", 86.40);
+        lay("#sl-r3", 86.85);
+        lay("#sl-r4", 87.30);
+
+        // ---- s18 each slot reaches up to the line that will name it ------
+        head("#h18", 18);
+        openSub("#sb18", 88.90, 18);
+        fade("#lead1", 89.69);               // "specific"
+        fade("#lead2", 90.25);               // "enough"
+        fade("#lead3", 90.93);               // "guide"
+        fade("#lead4", 91.60);               // "action,"
+        say("#sb18a", 93.17);                // "update"
+
+        // ---- s19 the slots fill, one per phrase --------------------------
+        head("#h19", 19);
+        lay("#st11", 96.90);
+        fade("#sl1", 97.10);
+        lay("#st12", 99.60);
+        fade("#sl2", 99.80);
+        lay("#st13", 102.40);
+        fade("#sl3", 102.60);
+        lay("#st14", 105.20);
+        fade("#sl4", 105.40);
+
+        // ---- s20 meant to be reused: the guide goes solid ----------------
+        head("#h20", 20);
+        draw("#route-main", 108.24, 0, 1.4);
+        lay("#st15", 108.90);
+
+        // ---- s21 not a one-time assignment: the foundation runs on -------
+        head("#h21", 21);
+        clear("#guide-a", 111.30);
+        clear("#guide-b", 111.30);
+        draw("#slab", 111.20, 0, 1.4);
+        draw("#route-tail", 111.40, 0, 1.2);
+        lay("#st16", 111.60);
+        lay("#st17", 112.00);
+        lay("#st18", 112.40);
+
+        // ---- s22 your map is not frozen ----------------------------------
+        head("#h22", 22);
+        fade("#alt-hint", 114.50);
+
+        // ---- s23 the corrected run is laid; the old line stays as history -
+        head("#h23", 23);
+        clear("#alt-hint", 116.32);
+        draw("#route-alt", 116.60, 0, 1.5);
+        lay("#st16b", 117.00);
+        lay("#st17b", 117.80);
+        lay("#st18b", 118.60);
+        tl.to("#st16, #st17, #st18", { fill: "#5f6f96", fillOpacity: 0.45,
+                                       duration: 1.0, ease: "power2.out" }, 117.00);
+        tl.to("#route-tail", { strokeOpacity: 0.2, duration: 1.0 }, 117.00);
+
+        // ---- s24 not a sign you did something wrong: kept, not erased -----
+        head("#h24", 24);
+        openSub("#sb24", 121.10, 24);
+        fade("#kept1", 121.61);              // "sign"
+        fade("#kept2", 122.85);              // "wrong"
+        say("#sb24a", 123.69);               // "exactly"
+        fade("#kept3", 124.90);              // "repeatable"
+        say("#sb24b", 126.07);               // "instead"
+
+        // ---- s25 you now own a process -----------------------------------
+        head("#h25", 25);
+        openSub("#sb25", 128.20, 25);
+        draw("#owned", 128.40, 0, 4.0);
+        say("#sb25a", 133.46);               // "not just"
+
+        // ---- s26 THE PAYOFF: the wheel that has been pressing the path ----
+        head("#h26", 26);
+        clear("#sl1", 135.45);
+        clear("#sl2", 135.50);
+        clear("#sl3", 135.55);
+        clear("#sl4", 135.60);
+        clear("#lead1", 135.45);
+        clear("#lead2", 135.50);
+        clear("#lead3", 135.55);
+        clear("#lead4", 135.60);
+        draw("#wheel-rim", 135.90, 0, 2.0);  // "Any time you face"
+        lay("#wheel-hub", 138.63);           // "run the loop again"
+
+        // ---- s27-s31 one spoke per station, one tick per stretch ---------
+        head("#h27", 27);
+        draw("#spoke1", 140.40, 0, 0.55);
+        lay("#node1", 141.00);
+        fade("#tk1", 141.30);
+
+        head("#h28", 28);
+        draw("#spoke2", 142.55, 0, 0.55);
+        lay("#node2", 143.15);
+        fade("#tk2", 143.45);
+
+        head("#h29", 29);
+        draw("#spoke3", 144.45, 0, 0.55);
+        lay("#node3", 145.05);
+        fade("#tk3", 145.35);
+
+        head("#h30", 30);
+        draw("#spoke4", 146.45, 0, 0.55);
+        lay("#node4", 147.05);
+        fade("#tk4", 147.40);
+
+        head("#h31", 31);
+        draw("#spoke5", 149.15, 0, 0.55);
+        lay("#node5", 149.75);
+        fade("#tk5", 150.05);
+        draw("#spoke6", 150.60, 0, 0.55);
+        lay("#node6", 151.20);
+        fade("#tk6", 151.50);
+
+        // ---- s32 keep it where you will see it ---------------------------
+        head("#h32", 32);
+        openSub("#sb32", 155.90, 32);
+        tl.to("#f3-pennant", { fill: "#eaab2d", fillOpacity: 0.92,
+                               duration: 0.7, ease: "power2.out" }, 153.10);
+        fade("#keep-mark", 154.26);          // "somewhere"
+        say("#sb32a", 156.16);               // "update"
+        say("#sb32b", 157.20);               // "stops feeling true"
+
+        // ---- s33/s34/s35 the pull-back: your path is one of many ---------
+        head("#h33", 33);
+        fade("#par-a", 159.30);              // "Every professional"
+        fade("#par-b", 160.68);              // "is running"
+        fade("#par-c", 162.05);              // "this same loop"
+        head("#h34", 34);
+        fade("#par-ext", 163.40);
+        head("#h35", 35);
+        lay("#start-gold", 165.51);          // "Now,"
+        fade("#start-tick", 166.41);         // "so have you"
+
+        // ---- s36 finish with momentum: the wheel presses the next stone ---
+        head("#h36", 36);
+        openSub("#sb36", 167.70, 36);
+        tl.to("#wheel", { rotation: 44, x: -26, y: -20, svgOrigin: "1500 700",
+                          duration: 2.2, ease: "power2.inOut" }, 168.08);
+        draw("#route-ext", 170.74, 0, 0.9);  // "mapped out"
+        lay("#st19", 171.62);                // "a stronger way"
+        say("#sb36a", 172.48);               // "navigating"
+
+        // ---- s37/s38 the one stone to press this week --------------------
+        head("#h37", 37);
+        tl.to("#st19", { fill: "#eaab2d", fillOpacity: 0.95, duration: 0.7,
+                         ease: "power2.out" }, 175.30);
+        head("#h38", 38);
+        fade("#week-label", 178.53);         // "this week,"
+        draw("#week-ring", 180.10, 0, 1.6);  // "the momentum is hot"
+
+        window.__timelines["path"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

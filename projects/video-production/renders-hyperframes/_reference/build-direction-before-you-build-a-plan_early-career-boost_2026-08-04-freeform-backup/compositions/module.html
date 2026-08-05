@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- head is metadata for this source file only; the runtime discards it -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Proxima Nova";
+          src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+          font-weight: 900;
+          font-style: normal;
+          font-display: block;
+        }
+      </style>
+
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          font-family: "Proxima Nova", sans-serif;
+          color: #0d2437;
+        }
+
+        .head-slot {
+          position: absolute;
+          left: 120px;
+          top: 220px;
+          width: 1560px;
+          font-size: 72px;
+          font-weight: 900;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* s12 is the other single-line beat — composed as a statement rather
+           than left as a heading stranded above an empty frame. */
+        #m-head2 {
+          top: 430px;
+          font-size: 88px;
+        }
+
+        /* Region A — the three things this module identifies. */
+        #m-three {
+          position: absolute;
+          left: 120px;
+          top: 380px;
+          width: 1560px;
+          list-style: none;
+        }
+        #m-three li {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          height: 124px;
+          opacity: 0;
+          will-change: transform;
+        }
+        .num {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 74px;
+          height: 74px;
+          flex: 0 0 auto;
+          border-radius: 100px;
+          background: #eaab2d;
+          font-size: 40px;
+          font-weight: 900;
+          color: #0d2437;
+        }
+        .three-text {
+          font-size: 44px;
+          font-weight: 400;
+          line-height: 1.24;
+          color: #292f35;
+        }
+
+        /* Region B — what "values" is actually made of. */
+        #m-values {
+          position: absolute;
+          left: 120px;
+          top: 790px;
+          width: 1560px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px 20px;
+        }
+        .vchip {
+          display: block;
+          padding: 10px 26px;
+          border: 2px solid #3393d6;
+          border-radius: 100px;
+          font-size: 40px;
+          font-weight: 700;
+          color: #3393d6;
+          white-space: nowrap;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* Region C — the ingredients of a dream job. */
+        #m-ingredients {
+          position: absolute;
+          left: 120px;
+          top: 420px;
+          width: 1560px;
+          display: flex;
+          gap: 30px;
+        }
+        .ing {
+          width: 367px;
+          min-height: 300px;
+          padding: 32px 28px;
+          border-radius: 12px;
+          border: 2px solid #cccedf;
+          background: #e5eff6;
+          opacity: 0;
+          will-change: transform;
+        }
+        .ing-label {
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #5f6f96;
+        }
+        .ing-text {
+          margin-top: 18px;
+          font-size: 40px;
+          font-weight: 700;
+          line-height: 1.26;
+          color: #0d2437;
+        }
+
+        #m-statement {
+          position: absolute;
+          left: 120px;
+          top: 780px;
+          width: 1560px;
+          font-size: 52px;
+          font-weight: 700;
+          line-height: 1.2;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+
+        /* Region D — reflection and A.I. support. */
+        #m-ai-chips {
+          position: absolute;
+          left: 120px;
+          top: 430px;
+          width: 1560px;
+          display: flex;
+          gap: 24px;
+        }
+        .aichip {
+          display: block;
+          padding: 14px 36px;
+          border: 2px solid #eaab2d;
+          border-radius: 100px;
+          font-size: 40px;
+          font-weight: 700;
+          color: #0d2437;
+          white-space: nowrap;
+          opacity: 0;
+          will-change: transform;
+        }
+        .ai-line {
+          position: absolute;
+          left: 120px;
+          width: 1560px;
+          font-size: 56px;
+          font-weight: 700;
+          line-height: 1.2;
+          color: #0d2437;
+          opacity: 0;
+          will-change: transform;
+        }
+        #m-ai1 {
+          top: 600px;
+          color: #5f6f96;
+        }
+        #m-ai2 {
+          top: 730px;
+        }
+
+        /* Region E — the close. */
+        #m-closesub {
+          position: absolute;
+          left: 120px;
+          top: 400px;
+          width: 1560px;
+          font-size: 52px;
+          font-weight: 400;
+          line-height: 1.28;
+          color: #292f35;
+          opacity: 0;
+          will-change: transform;
+        }
+      </style>
+
+      <div data-hf-id="hf-f5k7" id="root" data-composition-id="module" data-width="1920" data-height="1080">
+        <h2 data-hf-id="hf-86rz" class="head-slot" id="m-head1">Three Things to Identify</h2>
+        <h2 data-hf-id="hf-mll5" class="head-slot" id="m-head2">What a Dream Job Means</h2>
+        <h2 data-hf-id="hf-rmsb" class="head-slot" id="m-head3">Made of Ingredients</h2>
+        <h2 data-hf-id="hf-zhks" class="head-slot" id="m-head4">A.I. Supports Your Reflection</h2>
+        <h2 data-hf-id="hf-njav" class="head-slot" id="m-head5">More Clarity Than When You Started</h2>
+
+        <ol data-hf-id="hf-0b7r" id="m-three">
+          <li data-hf-id="hf-fcm8" id="m-t1">
+            <span data-hf-id="hf-kud6" class="num">1</span>
+            <span data-hf-id="hf-4nps" class="three-text">Strengths — how you actually contribute</span>
+          </li>
+          <li data-hf-id="hf-o0i3" id="m-t2">
+            <span data-hf-id="hf-l8o7" class="num">2</span>
+            <span data-hf-id="hf-63v4" class="three-text">Values — what matters in a work experience</span>
+          </li>
+          <li data-hf-id="hf-k2e2" id="m-t3">
+            <span data-hf-id="hf-lmz8" class="num">3</span>
+            <span data-hf-id="hf-w190" class="three-text">Energy patterns — what strengthens you, what drains you</span>
+          </li>
+        </ol>
+
+        <div data-hf-id="hf-b8nl" id="m-values" data-role="list">
+          <span data-hf-id="hf-j7ra" class="vchip" id="m-v1">Learning</span>
+          <span data-hf-id="hf-dnjq" class="vchip" id="m-v2">Stability</span>
+          <span data-hf-id="hf-sdh1" class="vchip" id="m-v3">Flexibility</span>
+          <span data-hf-id="hf-6jl4" class="vchip" id="m-v4">Meaning</span>
+          <span data-hf-id="hf-hgk5" class="vchip" id="m-v5">Collaboration</span>
+          <span data-hf-id="hf-ce1a" class="vchip" id="m-v6">Recognition</span>
+        </div>
+
+        <div data-hf-id="hf-osot" id="m-ingredients" data-role="list">
+          <div data-hf-id="hf-id5e" class="ing" id="m-i1">
+            <div data-hf-id="hf-sp66" class="ing-label">People</div>
+            <div data-hf-id="hf-8smp" class="ing-text">The people you want around you</div>
+          </div>
+          <div data-hf-id="hf-ef1d" class="ing" id="m-i2">
+            <div data-hf-id="hf-axvh" class="ing-label">Problems</div>
+            <div data-hf-id="hf-xtw2" class="ing-text">The problems you want to solve</div>
+          </div>
+          <div data-hf-id="hf-bfrs" class="ing" id="m-i3">
+            <div data-hf-id="hf-dydi" class="ing-label">Structure</div>
+            <div data-hf-id="hf-ooj2" class="ing-text">The structure and autonomy you want</div>
+          </div>
+          <div data-hf-id="hf-7hnr" class="ing" id="m-i4">
+            <div data-hf-id="hf-o7xi" class="ing-label">Growth</div>
+            <div data-hf-id="hf-cq9g" class="ing-text">The growth you hope to have</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-ru0b" id="m-statement">Combinations of ingredients, not single titles</div>
+
+        <div data-hf-id="hf-ppkn" id="m-ai-chips" data-role="list">
+          <span data-hf-id="hf-wwua" class="aichip" id="m-a1">Reflection</span>
+          <span data-hf-id="hf-1sf3" class="aichip" id="m-a2">A.I. support</span>
+        </div>
+        <div data-hf-id="hf-r4f2" class="ai-line" id="m-ai1">Not here to define you</div>
+        <div data-hf-id="hf-3d05" class="ai-line" id="m-ai2">Here to help you notice patterns</div>
+
+        <div data-hf-id="hf-ket8" id="m-closesub">That clarity makes the next module easier</div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          // Local time = global - 78.612 (this act's data-start).
+          const tl = gsap.timeline({ paused: true });
+          const IN = "power4.out";
+          const OUT = "power2.in";
+
+          function arrive(sel, t, y, dur) {
+            tl.set(sel, { opacity: 1, y: y }, t);
+            tl.to(sel, { y: 0, duration: dur, ease: IN }, t);
+          }
+          function leave(sel, t, y) {
+            tl.to(sel, { opacity: 0, y: y, duration: 0.3, ease: OUT }, t);
+          }
+
+          // ---- s09 (audio 78.612 / local 0) — three things, first one.
+          arrive("#m-head1", 0.3, 66, 0.24);
+          arrive("#m-t1", 4.238, 44, 0.18);    // strengths 82.85
+
+          // ---- s10 (audio 87.732 / local 9.12) — values, and what they are.
+          arrive("#m-t2", 10.178, 44, 0.18);   // values 88.79
+          arrive("#m-v1", 13.218, 30, 0.15);   // learning 91.83
+          arrive("#m-v2", 13.818, 30, 0.15);   // stability 92.43
+          arrive("#m-v3", 14.518, 30, 0.15);   // flexibility 93.13
+          arrive("#m-v4", 15.478, 30, 0.15);   // meaning 94.09
+          arrive("#m-v5", 16.078, 30, 0.15);   // collaboration 94.69
+          arrive("#m-v6", 17.138, 30, 0.15);   // recognition 95.75
+
+          // ---- s11 (audio 97.218 / local 18.606) — energy patterns.
+          arrive("#m-t3", 19.888, 44, 0.18);   // energy 98.50
+
+          // ---- s12 (audio 105.502 / local 26.89) — a dream job, defined.
+          leave("#m-three", 26.6, -34);
+          leave("#m-values", 26.6, -24);
+          leave("#m-head1", 26.6, -40);
+          arrive("#m-head2", 27.0, 62, 0.24);
+
+          // ---- s13 (audio 111.018 / local 32.406) — the ingredients.
+          leave("#m-head2", 32.3, -40);
+          arrive("#m-head3", 32.7, 62, 0.24);
+          arrive("#m-i1", 35.688, 46, 0.2);    // people 114.30
+          arrive("#m-i2", 37.348, 46, 0.2);    // problems 115.96
+          arrive("#m-i3", 39.148, 46, 0.2);    // structure 117.76
+          arrive("#m-i4", 41.988, 46, 0.2);    // growth 120.60
+
+          // ---- s14 (audio 122.62 / local 44.008) — combinations, not titles.
+          arrive("#m-statement", 47.188, 38, 0.2);  // combinations 125.80
+
+          // ---- s15 (audio 128.083 / local 49.471) — reflection and A.I.
+          leave("#m-ingredients", 49.2, -30);
+          leave("#m-statement", 49.2, -24);
+          leave("#m-head3", 49.2, -40);
+          arrive("#m-head4", 49.7, 62, 0.24);
+          arrive("#m-a1", 50.448, 32, 0.16);   // reflection 129.06
+          arrive("#m-a2", 54.148, 32, 0.16);   // support 132.76
+          arrive("#m-ai1", 59.888, 40, 0.2);   // not 138.50
+
+          // ---- s16 (audio 140.599 / local 61.987) — what it IS here to do.
+          arrive("#m-ai2", 63.108, 40, 0.2);   // notice 141.72
+
+          // ---- s17 (audio 145.226 / local 66.614) — the close. The closing
+          //      card holds through FINAL_HOLD; the frame never goes empty.
+          leave("#m-ai-chips", 68.6, -26);
+          leave("#m-ai1", 68.6, -30);
+          leave("#m-ai2", 68.6, -30);
+          leave("#m-head4", 68.6, -40);
+          arrive("#m-head5", 69.6, 70, 0.26);  // clarity 148.50
+          arrive("#m-closesub", 72.698, 40, 0.2);  // clarity 151.31
+
+          window.__timelines["module"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

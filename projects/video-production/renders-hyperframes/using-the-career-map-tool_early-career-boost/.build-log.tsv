@@ -1,0 +1,11 @@
+2026-08-05T15:23:52Z	claim	program=early-career-boost
+2026-08-05T15:28:45Z	blocked	STOP before synthesis: ready/ script is an unrefined raw lesson-editor capture. preflight --static script_match FAIL: 762 script words vs 666 best-case beat words, 12.60% mismatch (RATE_FAIL 2%), longest miss run 75 (RUN_FAIL 4) — the 75-word intake front-matter + 3 bracket markers cannot be dropped from the beat manifest. Also copy FAIL part-reference on Part 1/2/3. Needs /refine-scripts upstream; builder must not edit the approved script. Diagnostic audio_request.json removed; no TTS spend.
+2026-08-05T15:30:03Z	release	blocked — ready/ script is a raw capture, sent back to inbox for refinement
+2026-08-05T15:47:09Z	resume	program=early-career-boost
+2026-08-05T15:53:11Z	beats	45-beat manifest written from the refined ready script; preflight --static script_match 0.00% mismatch, continuity PASS
+2026-08-05T16:25:25Z	author	45 beats synthesized (Oxana), timing computed (237.82s, 11.35 bpm, median 4.83s), index.html + compositions/sheet.html authored; preflight --static PASS
+2026-08-05T16:28:08Z	preflight	exit 1
+2026-08-05T16:38:19Z	preflight	exit 0 — gate-clean
+2026-08-05T16:43:55Z	preflight	exit 0 — gate-clean
+2026-08-05T16:52:48Z	preflight	exit 1
+2026-08-05T20:31:12Z	release	stale lease closed before control-plane refactor

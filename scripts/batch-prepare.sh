@@ -2,8 +2,7 @@
 # batch-prepare.sh — build the per-run kit that every build subagent shares.
 #
 # Creates renders-hyperframes/_run/ holding:
-#   BUILD-KIT.md   the hot path: command sequence + landmines + scaffold usage,
-#                  extracted VERBATIM from the owning docs (never summarised).
+#   BUILD-KIT.md   an exact copy of the compact tracked builder contract.
 #   scaffold/      a workspace already `hyperframes init`'d at the pinned
 #                  version with tokens.yml, the vendored Proxima set and the
 #                  brand SVGs in place. Builds `cp -a` this instead of a
@@ -25,28 +24,41 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VP="$REPO/projects/video-production"
 DS="$VP/design-system"
 RUN="$VP/renders-hyperframes/_run"
-SKILL="$REPO/.claude/skills/render-lessons/SKILL.md"
+CONTRACT="$VP/contracts/builder.md"
 
 PIN="$(grep -o 'hyperframes@[0-9.]*' "$DS/package.json" | head -1)"
 [[ -n "$PIN" ]] || { echo "FATAL: no hyperframes pin in design-system/package.json" >&2; exit 1; }
 
-[[ "${1:-}" == "--force" ]] && rm -rf "$RUN"
+FORCE_REBUILD=0
+if [[ "${1:-}" == "--force" ]]; then
+  # Preserve run.json: scope, approval and retry state must survive a scaffold
+  # refresh and a new agent session.
+  FORCE_REBUILD=1
+  rm -f "$RUN/BUILD-KIT.md"
+fi
 mkdir -p "$RUN"
 
 # A scaffold built at a different pin (or before a token/asset edit) is
 # stale — rebuild rather than silently reusing it.
+REBUILD="$FORCE_REBUILD"
 if [[ -d "$RUN/scaffold" ]]; then
   DS_SIG="$PIN $(find "$DS/config/tokens.yml" "$DS/assets" -type f -newer "$RUN/scaffold" 2>/dev/null | wc -l)"
   if [[ "$(cat "$RUN/scaffold/.pin" 2>/dev/null)" != "$PIN" || "${DS_SIG#* }" != "0" ]]; then
     echo "== scaffold stale (pin or design-system changed) — rebuilding"
-    rm -rf "$RUN/scaffold"
+    REBUILD=1
   fi
+else
+  REBUILD=1
 fi
 
 # ---------------------------------------------------------------- scaffold
-if [[ ! -d "$RUN/scaffold" ]]; then
+if [[ "$REBUILD" == "1" ]]; then
   echo "== scaffolding a workspace at $PIN (once for the whole batch)"
-  ( cd "$RUN" && HYPERFRAMES_SKIP_SKILLS=1 npx --yes "$PIN" init scaffold \
+  NEXT="$RUN/scaffold-next-$$"
+  OLD_CREATED="$(jq -r '.createdAt // empty' "$RUN/scaffold/meta.json" 2>/dev/null || true)"
+  rm -rf "$NEXT"
+  trap 'rm -rf "$NEXT" 2>/dev/null || true' EXIT
+  ( cd "$RUN" && HYPERFRAMES_SKIP_SKILLS=1 npx --yes "$PIN" init "$(basename "$NEXT")" \
       --example=blank --non-interactive ) || {
     echo "FATAL: hyperframes init failed" >&2; exit 1; }
 
@@ -54,9 +66,9 @@ if [[ ! -d "$RUN/scaffold" ]]; then
   # what the builder designs against — palette, type floors, pinned voice,
   # program display names. The fonts and brand SVGs are the only other design
   # inputs a freeform build consumes.
-  cp "$DS/config/tokens.yml" "$RUN/scaffold/tokens.yml"
-  rm -rf "$RUN/scaffold/assets"; cp -a "$DS/assets" "$RUN/scaffold/assets"
-  mkdir -p "$RUN/scaffold/compositions"
+  cp "$DS/config/tokens.yml" "$NEXT/tokens.yml"
+  rm -rf "$NEXT/assets"; cp -a "$DS/assets" "$NEXT/assets"
+  mkdir -p "$NEXT/compositions"
 
   # init writes AGENTS.md and CLAUDE.md that route to the generic hyperframes
   # workflows this pipeline forbids (/produce-video: "never route SCLA lesson
@@ -66,9 +78,20 @@ if [[ ! -d "$RUN/scaffold" ]]; then
   # path in its prompt, and anyone opening a workspace inherits
   # projects/video-production/CLAUDE.md from the parent tree. Delete rather
   # than correct — a workspace carries no agent instructions of its own.
-  rm -f "$RUN/scaffold/AGENTS.md" "$RUN/scaffold/CLAUDE.md"
+  rm -f "$NEXT/AGENTS.md" "$NEXT/CLAUDE.md"
 
-  echo "$PIN" > "$RUN/scaffold/.pin"
+  # The temporary directory is an atomic-build detail, not project identity.
+  # Normalize vendor metadata so every refresh is stable and cache-friendly.
+  CREATED="${OLD_CREATED:-$(date -u +%Y-%m-%dT%H:%M:%S.000Z)}"
+  jq --arg created "$CREATED" '.id="scaffold" | .name="scaffold" | .createdAt=$created' \
+    "$NEXT/meta.json" > "$NEXT/meta.json.tmp" && mv "$NEXT/meta.json.tmp" "$NEXT/meta.json"
+  jq '.name="scaffold"' "$NEXT/package.json" > "$NEXT/package.json.tmp" \
+    && mv "$NEXT/package.json.tmp" "$NEXT/package.json"
+
+  echo "$PIN" > "$NEXT/.pin"
+  rm -rf "$RUN/scaffold"
+  mv "$NEXT" "$RUN/scaffold"
+  trap - EXIT
   echo "   scaffold ready ($(du -sh "$RUN/scaffold" | cut -f1)) — tokens + fonts + brand assets wired"
 else
   echo "== scaffold already present — reusing (use --force to rebuild)"
@@ -76,138 +99,19 @@ fi
 
 # ---------------------------------------------------------------- build kit
 echo "== writing BUILD-KIT.md"
-{
-  cat <<'HDR'
-# BUILD-KIT — read this, then your script. Nothing else.
+[[ -f "$CONTRACT" ]] || { echo "FATAL: missing builder contract: $CONTRACT" >&2; exit 1; }
+cp "$CONTRACT" "$RUN/BUILD-KIT.md"
 
-Generated per run by `scripts/batch-prepare.sh`. Never edit by hand; never
-commit. If this contradicts `.claude/rules/video-production.md` or the
-render-lessons SKILL, THEY WIN — report the contradiction rather than
-following this file. Where a gate and any prose disagree, the gate is right.
-
-## Your job
-
-Turn ONE refined script into a gate-clean HyperFrames workspace. You author
-the HTML yourself — there are no templates and no compiler (the template lane
-retired 2026-08-05). You do not render. You do not publish. You stop when the
-gates are green, and you report five fields.
-
-## Start from the scaffold — do NOT run `hyperframes init`
-
-The workspace is named `<title>_<program>` — the script's name with any date
-suffix stripped. No date. `render-qa/src/stem.py` owns that; never hand-slice a
-suffix. (Dates live on the delivered MP4 only.)
-
-**`build-claim.sh` starts every build — there is no other way in.** It takes
-the atomic `mkdir` lock (exactly one of N concurrent subagents wins), arms the
-write fence, opens the build journal, and regenerates `PIPELINE-STATUS.md`:
-
-```bash
-bash scripts/build-claim.sh <base> <program-slug>   # exits non-zero if claimed
-cd projects/video-production/renders-hyperframes/<base>
-cp -a ../_run/scaffold/. .     # note the /. — copies CONTENTS into the claimed dir
-```
-
-The trailing `/.` is load-bearing: without it the scaffold nests *inside* your
-workspace and every gate then reads stale files.
-
-If the claim fails, STOP and report it. Do not delete the other directory, do
-not pick a different name, do not build into it.
-
-The scaffold has `tokens.yml` (palette, type floors, pinned voice, program
-display names — the gates read the workspace copy), the vendored Proxima
-woff2 set and the brand SVGs under `assets/`, and the pinned toolchain.
-
-## What to read, in order
-
-1. **This file.**
-2. **`tokens.yml`** (in your workspace) — every normative number and name.
-3. **Your refined script.** Verbatim source for every beat's narration.
-4. **Your `CONCEPT.md`** (path in your prompt) — the judge-selected concept
-   angle and milestone frames. It is your starting contract: sharpen it
-   against the real timings if needed, never silently replace it. Its
-   taste calibration lives in `design-system/docs/taste.md` — read that
-   before authoring visuals.
-
-Do not read other builds' `index.html`, archived templates, or other skills.
-
-HDR
-
-  # The authoring sequence and landmines are extracted verbatim from the SKILL
-  # rather than restated, so they cannot drift. Marker-bounded: the old regex
-  # anchors matched mid-paragraph text and silently dumped the whole SKILL
-  # (orchestrator phases included) into every builder's context.
-  KIT_BODY="$(awk '/<!-- BUILD-KIT:BEGIN/,/<!-- BUILD-KIT:END/' "$SKILL" | sed '1d;$d')"
-  [[ -n "$KIT_BODY" ]] || { echo "FATAL: BUILD-KIT markers missing from $SKILL" >&2; exit 1; }
-  if grep -qE 'Phase (SHIP|AUTO-BATCH)|batch-ship' <<<"$KIT_BODY"; then
-    echo "FATAL: orchestrator content leaked between BUILD-KIT markers in $SKILL" >&2; exit 1
-  fi
-  printf '%s\n' "$KIT_BODY"
-
-  cat <<'FTR'
-
-## RULES THAT NO OTHER DOC WILL TEACH YOU
-
-Discovered by real pilot builds that passed every static check and still
-produced broken videos. None are optional.
-
-### 1. On-screen copy must trace to the narration
-
-Headings, labels and points may compress or excerpt the beat's own narration
-— they must never introduce facts, counts, or sequence claims the narration
-does not say ("two more ways", "step 3 of 5", a stat). When unsure, use the
-narration's own words. Never reuse wording from THIS document: these are
-instructions to you, not lesson content.
-
-### 2. Title card is DERIVED — never invent it
-
-The eyebrow is the program display name from tokens.yml's `programs:` map;
-the title is the stem's title segment, hyphens to spaces — never the opening
-narration sentence, never a paraphrase. Both must appear in on-frame MARKUP
-text (chrome built in JS is invisible to every gate). `preflight.py` fails
-both.
-
-### 3. Headings stand alone — never a fragment completed by later copy
-
-A heading must read as a complete phrase by itself ("Where people look for
-the answer"), never a fragment that later items finish ("The right" + "The
-right job / The right major" — a real pilot defect that read as truncated
-text on screen). If a beat would show a title plus a large empty area at its
-midpoint, give it a sub-line or tighten the beat.
-
-### 4. The freeform contract the gates read
-
-On-frame copy lives in **markup, never JS strings**; headings carry
-`data-role="heading"` (or are `<h1>`–`<h3>`); declared lists that are not
-`<ul>`/`<ol>` carry `data-role="list"`, comparisons `data-role="compare"`.
-Deliberate exceptions are declared where they live (`/* motion-allow: … */`,
-`/* brand-allow: … */`, `/* text-floor-exempt: … */`). Colors are
-`tokens.yml colors:` at any alpha; every `font-family` leads with the brand
-face; body text ≥ 40px.
-
-## Report exactly these five fields, no prose
-
-```
-workspace: <path>
-beats:     <n>
-concept:   <the design.md concept angle, one line>
-gates:     static=<exit> synth=<exit> pace=<exit> preflight=<exit> check=<exit>
-status:    <one line>
-```
-
-## Hard rules
-
-- **Never hand-tune a timing number.** timing.json is COMPUTED from
-  audio_meta.json durations.
-- **Never fabricate SCLA content.** Work only from the refined script.
-- **No FERPA/PII** in any prompt sent to an AI tool.
-- Never synthesize bare — only via `scripts/with-secrets.sh`
-  (the ambient `HEYGEN_API_KEY` is stale and returns 403).
-- Do **not** run `npm run render`. The orchestrator ships.
-FTR
-} > "$RUN/BUILD-KIT.md"
+if grep -q 'BUILD-KIT:BEGIN\|BUILD-KIT:END' "$RUN/BUILD-KIT.md"; then
+  echo "FATAL: extraction-marker residue in generated build kit" >&2
+  exit 1
+fi
 
 WORDS="$(wc -w < "$RUN/BUILD-KIT.md")"
+if (( WORDS > 3000 )); then
+  echo "FATAL: builder route budget exceeded ($WORDS > 3000 words)" >&2
+  exit 1
+fi
 echo "   BUILD-KIT.md: $WORDS words"
 echo
 echo "Run kit ready at renders-hyperframes/_run/  (pin $PIN)"

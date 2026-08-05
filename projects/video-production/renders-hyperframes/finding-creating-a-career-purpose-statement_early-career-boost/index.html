@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Brand face — vendored woff2, declared once in the HOST head. Sub-comps
+         are cloned INTO this document, so the face resolves for them too. */
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a1e2f;
+      }
+      body {
+        font-family: "Proxima Nova", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+
+      /* Full-bleed fill lives on a CHILD, never on the composition root. */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: #0a1e2f;
+      }
+      #bg-glow {
+        position: absolute;
+        left: 830px;
+        top: 520px;
+        width: 1900px;
+        height: 1200px;
+        margin: -600px 0 0 -950px;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(51, 147, 214, 0.16) 0%,
+          rgba(13, 36, 55, 0.52) 46%,
+          rgba(10, 30, 47, 0) 76%
+        );
+        will-change: transform;
+      }
+      #bg-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 50% 50%,
+          rgba(10, 30, 47, 0) 56%,
+          rgba(10, 30, 47, 0.72) 100%
+        );
+      }
+
+      /* Persistent program banner. Sits in the top keep-out band that
+         tokens.yml `chrome-regions` declares by name for label furniture. */
+      #chrome {
+        position: absolute;
+        left: 120px;
+        top: 62px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+      }
+      #chrome-mark {
+        display: block;
+        width: 10px;
+        height: 30px;
+        background: #eaab2d;
+      }
+      #chrome-text {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="141.489" data-width="1920" data-height="1080">
+      <div id="bg">
+        <div id="bg-glow"></div>
+        <div id="bg-vignette"></div>
+      </div>
+
+      <div id="chrome">
+        <span id="chrome-mark"></span>
+        <span id="chrome-text">Early Career Boost</span>
+      </div>
+
+      <!-- ONE carrying object for the whole runtime: the board — a field of
+           blank scraps, three feeder columns and one dashed statement strip.
+           b01 -> b29, nothing on it is ever cleared. See design.md. -->
+      <div id="el-board" data-composition-id="board" data-composition-src="compositions/board.html" data-start="0" data-duration="141.489" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — HeyGen, Oxana (tokens.yml voice.voice_id). One element
+           per beat at GLOBAL time; every number below is timing.json's,
+           computed by make_timing.py from the real wavs. -->
+      <audio id="vo-b01" src="assets/voice/b01.wav" data-start="0.6" data-duration="10.397" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b02" src="assets/voice/b02.wav" data-start="11.547" data-duration="2.612" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b03" src="assets/voice/b03.wav" data-start="14.709" data-duration="3.631" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b04" src="assets/voice/b04.wav" data-start="18.89" data-duration="3.997" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b05" src="assets/voice/b05.wav" data-start="23.437" data-duration="6.374" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b06" src="assets/voice/b06.wav" data-start="30.361" data-duration="5.721" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b07" src="assets/voice/b07.wav" data-start="36.632" data-duration="2.064" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b08" src="assets/voice/b08.wav" data-start="39.246" data-duration="5.303" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b09" src="assets/voice/b09.wav" data-start="45.099" data-duration="5.564" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b10" src="assets/voice/b10.wav" data-start="51.213" data-duration="4.833" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b11" src="assets/voice/b11.wav" data-start="56.596" data-duration="2.038" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b12" src="assets/voice/b12.wav" data-start="59.184" data-duration="6.792" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b13" src="assets/voice/b13.wav" data-start="66.526" data-duration="4.833" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b14" src="assets/voice/b14.wav" data-start="71.909" data-duration="3.997" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b15" src="assets/voice/b15.wav" data-start="76.456" data-duration="1.515" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b16" src="assets/voice/b16.wav" data-start="78.521" data-duration="3.344" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b17" src="assets/voice/b17.wav" data-start="82.415" data-duration="1.907" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b18" src="assets/voice/b18.wav" data-start="84.872" data-duration="3.5" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b19" src="assets/voice/b19.wav" data-start="88.922" data-duration="2.534" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b20" src="assets/voice/b20.wav" data-start="92.006" data-duration="3.631" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b21" src="assets/voice/b21.wav" data-start="96.187" data-duration="3.5" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b22" src="assets/voice/b22.wav" data-start="100.237" data-duration="3.5" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b23" src="assets/voice/b23.wav" data-start="104.287" data-duration="3.605" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b24" src="assets/voice/b24.wav" data-start="108.442" data-duration="2.873" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b25" src="assets/voice/b25.wav" data-start="111.865" data-duration="4.545" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b26" src="assets/voice/b26.wav" data-start="116.96" data-duration="6.792" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b27" src="assets/voice/b27.wav" data-start="124.302" data-duration="3.213" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b28" src="assets/voice/b28.wav" data-start="128.065" data-duration="3.135" data-track-index="10" data-volume="1"></audio>
+      <audio id="vo-b29" src="assets/voice/b29.wav" data-start="131.75" data-duration="7.939" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // The banner settles once, then never moves again.
+      tl.fromTo("#chrome", { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+
+      // One shared ambient breath, on the background GLOW only — never on
+      // content. Finite legs (7s half-period x 21 legs ~= the 141.5s runtime).
+      tl.fromTo(
+        "#bg-glow",
+        { y: 0, opacity: 0.94 },
+        { y: -18, opacity: 1, duration: 7, ease: "sine.inOut", yoyo: true, repeat: 20 }, /* motion-allow: background depth-drift on a non-content layer; translate-only, per the design contract's ambient-breath grant */
+        0,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

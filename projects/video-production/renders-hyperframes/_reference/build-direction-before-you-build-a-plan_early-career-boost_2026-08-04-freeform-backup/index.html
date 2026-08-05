@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* ---- Brand face: Proxima Nova, self-hosted (tokens.yml typography:) ----
+         Declared once in the HOST head. Sub-compositions are cloned INTO this
+         document, so the face resolves for them too. */
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #ffffff;
+      }
+      body {
+        font-family: "Proxima Nova", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+
+      /* Full-bleed fill lives on a CHILD, never on the composition root — the
+         producer can drop a root background and render the frame black. */
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+      }
+      /* The lift is the only ambient layer in the piece. */
+      #bg-lift {
+        position: absolute;
+        left: 50%;
+        top: 48%;
+        width: 1760px;
+        height: 1240px;
+        margin: -620px 0 0 -880px;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(246, 246, 249, 1) 0%,
+          rgba(229, 239, 246, 0.72) 44%,
+          rgba(255, 255, 255, 0) 74%
+        );
+        will-change: transform;
+      }
+      #bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(204, 206, 223, 0.34) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(204, 206, 223, 0.34) 1px, transparent 1px);
+        background-size: 120px 120px;
+        background-position: 0 0;
+      }
+
+      /* Persistent chrome — the program banner, present for the whole runtime.
+         Sits inside the declared chrome region (tokens.yml chrome-regions). */
+      #chrome {
+        position: absolute;
+        left: 120px;
+        top: 62px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+      }
+      #chrome-mark {
+        display: block;
+        width: 10px;
+        height: 32px;
+        background: #eaab2d;
+      }
+      #chrome-text {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #5f6f96;
+      }
+
+      /* Sub-composition slots fill the frame. */
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-sput" id="root" data-composition-id="main" data-start="0" data-duration="157.545" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-2xc0" id="bg">
+        <div data-hf-id="hf-ndg6" id="bg-lift"></div>
+        <div data-hf-id="hf-r3kh" id="bg-grid"></div>
+      </div>
+
+      <div data-hf-id="hf-rwb7" id="chrome">
+        <span data-hf-id="hf-ptn2" id="chrome-mark"></span>
+        <span data-hf-id="hf-4r54" id="chrome-text">Early Career Boost</span>
+      </div>
+
+      <!-- ACT 1 (s01-s02) — the title, and the titles that are only labels. -->
+      <div data-hf-id="hf-g72p" id="el-titles" data-composition-id="titles" data-composition-src="compositions/titles.html" data-start="0" data-duration="18.126" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- ACT 2 (s03-s08) — the board of moments, built once and re-read. -->
+      <div data-hf-id="hf-capg" id="el-board" data-composition-id="board" data-composition-src="compositions/board.html" data-start="18.126" data-duration="60.486" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- ACT 3 (s09-s17) — what the module asks of you, and the close. -->
+      <div data-hf-id="hf-6elc" id="el-module" data-composition-id="module" data-composition-src="compositions/module.html" data-start="78.612" data-duration="78.933" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <!-- Narration — HeyGen TTS, voice Oxana (442360a3e0894fbd85024ff64cc2b928).
+           One element per beat at GLOBAL time, on a track above the visuals.
+           Starts/durations are timing.json, computed from the real wavs. -->
+      <audio data-hf-id="hf-3iym" id="vo-s01" src="assets/voice/s01.wav" data-start="0.8" data-duration="10.971" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-3f3b" id="vo-s02" src="assets/voice/s02.wav" data-start="12.271" data-duration="5.355" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-393n" id="vo-s03" src="assets/voice/s03.wav" data-start="18.126" data-duration="5.172" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-59l3" id="vo-s04" src="assets/voice/s04.wav" data-start="23.798" data-duration="11.912" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-fx9r" id="vo-s05" src="assets/voice/s05.wav" data-start="36.21" data-duration="5.512" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-74rx" id="vo-s06" src="assets/voice/s06.wav" data-start="42.422" data-duration="7.523" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-gqg6" id="vo-s07" src="assets/voice/s07.wav" data-start="50.445" data-duration="14.524" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-ymfy" id="vo-s08" src="assets/voice/s08.wav" data-start="65.469" data-duration="12.643" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-hdc6" id="vo-s09" src="assets/voice/s09.wav" data-start="78.612" data-duration="8.62" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-wqu4" id="vo-s10" src="assets/voice/s10.wav" data-start="87.732" data-duration="8.986" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-gd5t" id="vo-s11" src="assets/voice/s11.wav" data-start="97.218" data-duration="7.784" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-gl5d" id="vo-s12" src="assets/voice/s12.wav" data-start="105.502" data-duration="5.016" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-m0ob" id="vo-s13" src="assets/voice/s13.wav" data-start="111.018" data-duration="11.102" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-rfct" id="vo-s14" src="assets/voice/s14.wav" data-start="122.62" data-duration="4.963" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-3g8a" id="vo-s15" src="assets/voice/s15.wav" data-start="128.083" data-duration="12.016" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-442e" id="vo-s16" src="assets/voice/s16.wav" data-start="140.599" data-duration="4.127" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-wlqo" id="vo-s17" src="assets/voice/s17.wav" data-start="145.226" data-duration="10.519" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Chrome settles once, then never moves again.
+      tl.fromTo("#chrome", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+
+      // The one ambient layer of the piece. The declaration lives INSIDE the
+      // tween, which is where check_motion reads it.
+      tl.fromTo(
+        "#bg-lift",
+        { scale: 1, opacity: 0.94 },
+        {
+          scale: 1.05,
+          opacity: 1,
+          duration: 8,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: 19,
+          /* motion-allow: background lift only, never content — the single ambient layer, finite repeats (8s x 20 legs = 160s covers the 157.545s runtime) */
+        },
+        0,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

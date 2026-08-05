@@ -1,0 +1,135 @@
+{
+  "provider": "heygen",
+  "lang": "en",
+  "speed": 1.0,
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
+  "bgm": {
+    "mode": "none"
+  },
+  "lines": [
+    {
+      "id": "s01",
+      "text": "It is easy to feel anxious about starting a career while the headlines announce that AI is coming for every job."
+    },
+    {
+      "id": "s02",
+      "text": "So let's use a calmer, more accurate frame: AI is very good at tasks, and careers are made of far more than tasks."
+    },
+    {
+      "id": "s03",
+      "text": "The skills that stay valuable are the ones that are hardest to automate — starting with judgment and decision-making, exactly what you built back in Module 3, since deciding what is worth doing is harder to automate than doing it."
+    },
+    {
+      "id": "s04",
+      "text": "Add communication, relationships, and the ability to keep learning, and you have the person who can direct AI well, rather than compete with it."
+    },
+    {
+      "id": "s05",
+      "text": "Think back about ten years."
+    },
+    {
+      "id": "s06",
+      "text": "A lot of people were told they should learn to code, and for those who did, it worked out well — software jobs grew for years."
+    },
+    {
+      "id": "s07",
+      "text": "Today, that same advice is much more ambiguous."
+    },
+    {
+      "id": "s08",
+      "text": "And that is the real lesson."
+    },
+    {
+      "id": "s09",
+      "text": "Even if AI eventually does many economically important tasks, that will likely be preceded by a long stretch where automation creates enormous wealth and raises wages on average."
+    },
+    {
+      "id": "s10",
+      "text": "During that stretch, as AI drives down the value of the skills it has mastered, it drives up the value of the skills it has not."
+    },
+    {
+      "id": "s11",
+      "text": "Your best strategy as a job seeker is to keep moving toward those rising skills, staying one step ahead."
+    },
+    {
+      "id": "s12",
+      "text": "So which skills are likely to rise in value?"
+    },
+    {
+      "id": "s13",
+      "text": "Four categories are worth watching."
+    },
+    {
+      "id": "s14",
+      "text": "First, skills that are hard to automate — messy, long-horizon work that requires real human judgment, like building something over years or setting a strategy."
+    },
+    {
+      "id": "s15",
+      "text": "Second, skills needed to develop and deploy AI itself."
+    },
+    {
+      "id": "s16",
+      "text": "Third, skills that produce things people would happily use far more of as they get cheaper and better."
+    },
+    {
+      "id": "s17",
+      "text": "And fourth, specialized skills that take time for others to learn."
+    },
+    {
+      "id": "s18",
+      "text": "You do not need to chase all four."
+    },
+    {
+      "id": "s19",
+      "text": "Look for skills that are valuable today and satisfy at least two of them."
+    },
+    {
+      "id": "s20",
+      "text": "The good news is that some of the most valuable skills are transferable to almost any career, and you can start building them in whatever you are doing right now."
+    },
+    {
+      "id": "s21",
+      "text": "Learning to actually use AI to get real work done."
+    },
+    {
+      "id": "s22",
+      "text": "Taking care of yourself, so you do not burn out."
+    },
+    {
+      "id": "s23",
+      "text": "Personal effectiveness and agency, prioritization, forecasting, and decision-making. Social skills."
+    },
+    {
+      "id": "s24",
+      "text": "And above all, learning how to learn — because when tools change this fast, the ability to retrain quickly beats mastery of any single tool."
+    },
+    {
+      "id": "s25",
+      "text": "None of these require you to out-compute a machine."
+    },
+    {
+      "id": "s26",
+      "text": "They require you to be a thoughtful, capable human who uses powerful tools well."
+    },
+    {
+      "id": "s27",
+      "text": "And remember what the history of automation actually tells us."
+    },
+    {
+      "id": "s28",
+      "text": "Automation only drives wages down when it is nearly total."
+    },
+    {
+      "id": "s29",
+      "text": "Until then, it lowers the value of some skills and raises the value of others."
+    },
+    {
+      "id": "s30",
+      "text": "So the goal is not to find one job that will never be automated."
+    },
+    {
+      "id": "s31",
+      "text": "The goal is to ride the wave — moving into the skills that become most valuable at each stage along the way."
+    }
+  ]
+}

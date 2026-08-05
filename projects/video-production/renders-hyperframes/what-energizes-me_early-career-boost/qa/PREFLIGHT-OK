@@ -1,0 +1,4 @@
+preflight.py exit 0
+when:      2026-08-05T16:36:59Z
+workspace: renders-hyperframes/what-energizes-me_early-career-boost
+command:   python3 render-qa/src/preflight.py <workspace>

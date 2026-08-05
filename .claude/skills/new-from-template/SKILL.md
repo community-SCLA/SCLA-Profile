@@ -9,7 +9,7 @@ Use this skill to start a **new, greenfield** project under `projects/`.
 
 ## Steps
 
-1. **Pick the scaffold** that matches the work (see `templates/README.md`):
+1. **Pick the scaffold** that matches the work from the template names:
    - `templates/project-grant.md` — grant applications
    - `templates/project-campaign.md` — outreach, recruitment, marketing campaigns
    - `templates/project-content.md` — newsletters, social posts, blog drafts
