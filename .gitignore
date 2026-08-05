@@ -59,10 +59,11 @@ __pycache__/
 # untrack the existing ones.
 projects/video-production/renders-hyperframes/*/node_modules/
 projects/video-production/renders-hyperframes/*/assets/voice/
+projects/video-production/renders-hyperframes/*/assets/fonts/
+projects/video-production/renders-hyperframes/*/assets/brand/
 projects/video-production/renders-hyperframes/*/renders/
 projects/video-production/renders-hyperframes/*/snapshots/
-projects/video-production/renders-hyperframes/*/qa/frames/
-projects/video-production/renders-hyperframes/*/qa/logs/
+projects/video-production/renders-hyperframes/*/qa/
 projects/video-production/renders-hyperframes/.build-in-progress/
 projects/video-production/renders-hyperframes/.render.lock/
 projects/video-production/renders-hyperframes/.publish.lock/
