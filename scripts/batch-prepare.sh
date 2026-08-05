@@ -15,7 +15,8 @@
 # pattern exemplar's full index.html and all 12 composition templates —
 # ~25-45k tokens of re-derivation per video. The scaffold removes the exemplar
 # and template reads (real working markup beats reading an example), leaving
-# design-contract.md, which stays mandatory because it IS the contract.
+# design-contract.md, which stays mandatory because it is the authoring menu —
+# the templates, icons, style packages and syntax a builder cannot derive.
 #
 # _run/ is gitignored and regenerated every run, so unlike a hand-maintained
 # doc it cannot drift out of sync with its sources.
@@ -159,8 +160,9 @@ echo "== writing BUILD-KIT.md"
 # BUILD-KIT — read this, then design-contract.md, then your script. Nothing else.
 
 Generated per run by `scripts/batch-prepare.sh`. Never edit by hand; never
-commit. If this contradicts `design-contract.md` or the render-lessons SKILL, THEY WIN —
-report the contradiction rather than following this file.
+commit. If this contradicts `.claude/rules/video-production.md`, `design-contract.md`
+or the render-lessons SKILL, THEY WIN — report the contradiction rather than
+following this file. Where a gate and any prose disagree, the gate is right.
 
 ## Your job
 
@@ -202,10 +204,12 @@ toolchain. You never touch its `index.html` — you author `scenes.json` and
 ## What to read, in order
 
 1. **This file.**
-2. **`design-contract.md`** (in your workspace) — the design contract, and it is
-   normative. Mandatory sections: *the animacy rules*, *the pacing rules*,
-   *illustration over text*, *type rules*, *scene templates*, *style packages*
-   for your assigned theme, and *host-root progress rail*.
+2. **`design-contract.md`** (in your workspace) — the authoring menu: what exists
+   and how to reach it. Mandatory sections: *Every scene earns its seconds*,
+   *Authoring contract*, *Illustration over text*, *Craft discipline*,
+   *Scene templates*, *Style packages* for your assigned theme, and
+   *Host-root progress rail*. It restates no gated rule — those are in
+   `.claude/rules/video-production.md`, with every number in `tokens.yml`.
 3. **Your refined script.** Verbatim source for every scene's narration.
 
 Do not read other builds' `index.html`, the demo reel, or other skills.

@@ -112,6 +112,13 @@ session's context.
   different next steps." Without the conjunction the narration doesn't resolve,
   it just stops, and the listener can't hear the list ended. (Owner has raised
   this twice — 2026-07-27 and 2026-07-28.)
+- **Write out any symbol the voice cannot say.** The line reaches HeyGen
+  verbatim, so `#questionsupport` is read aloud as "pound sign questionsupport"
+  (owner, 2026-08-04, on an otherwise approved cut). Write `hashtag
+  questionsupport`; the frame keeps `#questionsupport`, which is the channel's
+  real written name. `render-qa/src/check_copy.py` rule `unspoken-symbol` fails
+  it here in script mode and again at preflight. `%` and `&` are fine — the
+  voice already speaks those correctly.
 - Spoken enumerations should otherwise resolve (end on a question or closing
   item) so scenes can cut cleanly.
 - **~14-word declarative sentences; no long comma chains.** A comma-heavy

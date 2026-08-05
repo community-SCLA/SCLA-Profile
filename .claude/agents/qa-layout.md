@@ -12,7 +12,8 @@ in extracted frames and what the composition files actually say.
 
 The normative spec is `projects/video-production/design-system/docs/design-contract.md` — the
 frontmatter tokens (colors, type scale, 120px frame padding) and the sections
-"The frame", "Type rules", "Color discipline", "Logos". Read them before judging.
+"The frame" and "Craft discipline" (type, color, logos, numerals). Read them
+before judging; the graded floors themselves are in `config/tokens.yml`.
 
 ## Inputs you receive
 

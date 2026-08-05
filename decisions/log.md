@@ -9,6 +9,65 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-05 — The freeform lane is approved, and a symbol the voice cannot say
+
+**Decision:** the owner reviewed the 2026-08-04 freeform (agent-native,
+template-free) trial of `m1_mini-syllabus` — 17 beats, 106.63s, one career-track
+rail carried end to end — and called it "fantastic", confirming **the freeform
+lane is the direction for SCLA lesson video**, with one defect: the voice read
+`#questionsupport` as "pound sign questionsupport".
+
+Two mechanisms, both armed:
+
+1. `check_copy.py` rule `unspoken-symbol` — a symbol the voice reads as its own
+   name is a defect in NARRATION (both lanes, plus script mode at
+   `/refine-scripts`, where the fix costs a text edit instead of a
+   re-synthesis). On-frame copy keeps `#questionsupport`: that is the channel's
+   real written name and reads correctly on a slide. The three approved scripts
+   carrying it — `m1_mini-syllabus`, `m0_welcome-to-mid-career-momentum`,
+   `mini-syllabus_early-career-boost` — now read "hashtag questionsupport".
+2. `preflight.py` `STAGE_DIRS` + `program_of()` — one reader for the program
+   slug, replacing two hand-written folder lists that both missed the
+   2026-08-04 `inbox/ready/published` rename. Every script in a `ready/` folder
+   resolved to the program `ready`, so `title_card` failed on **every current
+   build, template and freeform alike**. Found on the trial; the pin grades the
+   live library, so the next rename turns a test red instead of a gate into
+   noise.
+
+**Why the fix is in the script, not at synthesis:** rewriting the text on its
+way to HeyGen hands back word timings ("hashtag", "questionsupport") that no
+longer match the script tokens `check_freeform_script_match` and the cue anchors
+diff against — trading a mispronunciation for a gate failure. The script is the
+narration source of truth, so the spoken form belongs in the script.
+
+**Deliberately one symbol.** A sweep of all 36 refined scripts found `%` ("by
+30%") and `&` in live copy; the voice speaks both correctly, and grading them
+would cost false positives and retire the rule.
+
+**Still open, and NOT cleared by this approval** — each surfaced by the trial:
+- The **variety contract is unowned on the freeform lane.** `check_variety` is
+  skipped entirely; `check_forms` rehomes only `one-item-list`/`one-card`. So
+  "≥6 distinct content forms", "max 2 consecutive on one family" and "no form
+  above 40%" grade nothing. The trial used essentially ONE content form for all
+  17 beats — a build the template lane would fail instantly — and `carrier-drift`
+  actively rewards that, because a frame that barely changes shape scores well
+  on churn. An owner decision is owed before freeform goes near a batch.
+- The **fabrication ban is structurally blind on-frame** in freeform.
+  `check_freeform_script_match` diffs the beat manifest against the script and
+  never looks at on-frame markup. The trial's own "Course Introduction" (an
+  eyebrow the script never says) proves the hole is live; both instances were
+  benign, but an invented statistic or policy line would sail through.
+- The **one-item-list rule is defeated by progressive reveals.** `check_forms`
+  reads markup structure, so declared 2/3/4-item lists pass — while at 3 of 17
+  beat midpoints the frame renders exactly one bullet, the defect the rule
+  describes, visible in the stills the gate itself requires.
+- The **two ending gates measure the final hold from different places and both
+  are armed**: `check_boundaries` `audio-tail-clipped` wants ≥1.5s of wav after
+  the last word; `preflight.check_freeform_timing` wants ≥1.5s of timeline after
+  the last clip file ends. Padding the wav moves `audio_dur` with it, so only a
+  wav pad PLUS a separate video hold clears both — the trial ships 3.6s of
+  silence where `FINAL_HOLD` is 1.8s.
+
 ## 2026-08-04 — `member-support/` and `partnerships/` deleted
 
 **Decision:** Deleted both folders outright (owner instruction, not archived —

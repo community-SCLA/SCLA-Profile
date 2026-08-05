@@ -22,10 +22,11 @@ this file does not restate them). `/produce-video` is the one-call dispatcher
 over both. Start there; do not route SCLA lesson videos into generic
 HyperFrames workflow skills.
 
-- **Design contract — read `docs/design-contract.md` first** (numbers in
-  `config/tokens.yml`): frame/animacy
-  rules, the anchor/timing contract, the twelve scene templates, the style
-  packages, and the motion rotation. Read it while assembling any composition.
+- **Design contract — read `docs/design-contract.md` first**: the house visual
+  language, the anchor/timing syntax, the twelve scene templates, the icon set,
+  the style packages, and the motion rotation. Read it while assembling any
+  composition. It is a menu, not a rulebook — the gated rules are in
+  `.claude/rules/video-production.md` and the numbers in `config/tokens.yml`.
 - **Authoring & rendering mechanics:** `/hyperframes-core` (the composition
   contract), `/hyperframes-animation`, `/hyperframes-creative`, `/hyperframes-cli`,
   `/hyperframes-media`, `/hyperframes-registry`.
@@ -41,7 +42,7 @@ HyperFrames workflow skills.
 | Path | What it is |
 |---|---|
 | `config/tokens.yml` | **The normative numbers** — colors, type scale, min text sizes, spacing, pinned voice, program display names. `render-qa/src/tokens.py` LOADS this; the gates grade against it. Changing a number here changes a gate's verdict. Never hand-copy one into code. |
-| `docs/design-contract.md` | **The prose contract** — animacy, pacing, variety, the template table. No code reads it. If it disagrees with `tokens.yml`, `tokens.yml` wins and the sentence is a bug. |
+| `docs/design-contract.md` | **The authoring menu** — house visual language, the twelve templates, the icon set, style packages, motion recipes, and the `data-*` syntax you can't guess. Copied into every build scaffold; it is what the builder reads. It deliberately restates no gated rule — those live in `.claude/rules/video-production.md`, with the numbers in `tokens.yml`. |
 | `docs/README.md` | Why this folder ignores the repo's project convention (HyperFrames dictates the layout) and what we gave up by doing so. |
 | `compositions/scla-*.html` | The twelve scene templates (sub-compositions with variables, referenced via `data-composition-src`) — see table in `docs/design-contract.md` |
 | `index.html` | Demo reel: all twelve templates with real approved-lesson content. Living style guide — render it after any template change. |
@@ -108,7 +109,7 @@ Approved alternate: **Seema — Professional** `166aa8d7acd1495a839d34024ccb1505
 via `--voice`. Neither voice supports pause tags — pace narration with sentence
 structure. Returns native per-word timestamps with the
 synthesis, so the Whisper transcribe step no longer runs on new builds (see
-`config/tokens.yml` → `voice:` + `docs/design-contract.md` → "Narration is synthesized per scene", and
+`config/tokens.yml` → `voice:` + `docs/design-contract.md` → "Authoring contract", and
 `decisions/log.md` 2026-07-22). Superseded 2026-07-07's Kokoro `af_heart`
 decision once the 2026-07-21 HeyGen key rotation cleared the 403 that had
 blocked this path.

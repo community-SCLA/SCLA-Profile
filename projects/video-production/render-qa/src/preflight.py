@@ -7,7 +7,7 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
   1. compile_timeline.py --check   — anchors resolve, no boundary/cue drift,
                                      no missing padding (the 2026-07-10
                                      cue-mismatch class dies here)
-  2. check_boundaries.py           — design-contract.md pacing rules vs transcript
+  2. check_boundaries.py           — pacing/boundary rules vs transcript
                                      (independent implementation: air, mid-word
                                      /mid-sentence cuts, question air, final
                                      hold, root-vs-audio)
@@ -30,8 +30,8 @@ ad-hoc scripts, in one pass, BEFORE the expensive render:
                                      (also enforced by the compiler)
   5. script_match                  — approved lesson script (.txt) vs the
                                      whisper transcript, word-level diff.
-  6. pacing                        — Motion v2 (design-contract.md "Pacing budget",
-                                     2026-07-27): per scene, visual events =
+  6. pacing                        — Motion v2 (2026-07-27; the constants below
+                                     are normative): per scene, visual events =
                                      entrance settle (1.2s) + every compiled
                                      cue + the closing beat (duration-0.5);
                                      largest event gap FAILs above 4.0s (WARN
@@ -94,8 +94,8 @@ from stem import StemError, base as stem_base, is_canonical
 CHECK_BOUNDARIES = Path(__file__).resolve().parent / "check_boundaries.py"
 TOL = 0.002
 
-# pacing gate (Motion v2, 2026-07-27 — normative numbers in design-contract.md
-# "Pacing budget"): a failing scene is re-authored (split it, add cues, move
+# pacing gate (Motion v2, 2026-07-27 — the constants below are the normative
+# source; no doc restates them): a failing scene is re-authored (split it, add cues, move
 # the boundary), never waved through on background drift.
 GAP_FAIL = 4.0        # s without a visual event -> FAIL (tightened 2026-07-28:
                       # the pilot's 4.5s empty-heading hold passed at 4.5)
@@ -1018,7 +1018,7 @@ def main():
             "there is check_variety's job")
 
     # 7. text — minimum on-frame text size + no restatement of label/heading
-    #    (owner calls 2026-07-27; tokens.yml typography.min-size + "Type rules").
+    #    (owner calls 2026-07-27; floors LOADED from tokens.yml typography.min-size).
     #    Static: reads the workspace's composition CSS and scene variables, so
     #    it costs nothing and catches unreadable/duplicate copy pre-render.
     rc, out = run_tool([sys.executable, str(Path(__file__).parent / "check_text.py"),
@@ -1026,8 +1026,9 @@ def main():
     sections["text"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
 
-    # 7b. title card — eyebrow and title are DERIVED, never authored (design-contract.md
-    #     "Title card & outro sources"). eyebrow must be the program's display
+    # 7b. title card — eyebrow and title are DERIVED, never authored (rule stated in
+    #     .claude/rules/video-production.md "The banner is the program folder's
+    #     name"). eyebrow must be the program's display
     #     name from tokens.yml's `programs:` map (run 2 of the 2026-07-28 stability loop
     #     invented a program name; run 1 used the pre-rebrand one — neither
     #     traceable); title must be the stem's title segment, de-kebabed.

@@ -23,9 +23,10 @@ this.
 > gate edits it does not depend on.)*
 
 **This plan executes** `render-qa/docs/PROPOSAL-agent-native-adoption-2026-08-04.md`
-(the reasoning and all measurements), plus the two surviving pieces of
-`render-qa/docs/Pipeline-Build-Proposal` (its B1 write fence and AGENTS.md
-purge). Evidence base: `experiments/agent-native-m2/PROVENANCE.md` and
+(the reasoning and all measurements), plus the two surviving pieces of the
+retired Pipeline Build Proposal (its B1 write fence and AGENTS.md purge — the
+proposal itself was deleted 2026-08-05, superseded by this plan; see git
+history). Evidence base: `experiments/agent-native-m2/PROVENANCE.md` and
 `render-qa/docs/HANDOFF-agent-native-verdict-2026-07-30.md`. When this plan and
 the proposal disagree on a detail, the proposal wins — it carries the
 measurements.

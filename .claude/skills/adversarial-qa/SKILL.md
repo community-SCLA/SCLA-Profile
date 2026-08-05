@@ -81,6 +81,6 @@ failing.
 
 - Timing + Presence rules: `projects/video-production/design-system/docs/design-contract.md`
   → "Scene boundaries, padding & endings" + "Every scene earns its seconds"
-- Layout tokens/bounds: `config/tokens.yml` + "The frame" + "Type rules"
+- Layout tokens/bounds: `config/tokens.yml` + "The frame" + "Craft discipline"
 - Facts: `projects/video-production/CLAUDE.md` → "Never fabricate SCLA content";
   the source material named in the request

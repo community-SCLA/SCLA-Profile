@@ -130,7 +130,7 @@ if [ "${1:-}" = "--hook" ]; then
   if [ ! -f "$WS/scenes.json" ] && [ -f "$WS/audio_request.json" ]; then
     FIX="This is a FREEFORM workspace: the HTML is the authored artifact — fix the composition (or audio_request.json for narration findings) directly. Contract: /render-lessons \"Freeform build sequence\"."
   else
-    FIX="Fix the plan in scenes.json and let build_index.py recompile — NEVER edit index.html by hand; it is compiled output and your edit will be overwritten. Contract: design-system/docs/design-contract.md -> \"Variety contract\" and \"Type rules\"."
+    FIX="Fix the plan in scenes.json and let build_index.py recompile — NEVER edit index.html by hand; it is compiled output and your edit will be overwritten. Rules and the checker enforcing each: .claude/rules/video-production.md -> \"Copy and narration\" + \"Layout and geometry\"."
   fi
   MSG="FRAME CONTRACT (automated guard, fired on your ${KIND/scenes/scenes.json} write; graded by preflight.py --static — the same sections the hard gate runs). These are HARD GATES that preflight will fail on — fix them NOW, while the fix is still cheap, not after the build is finished:
 

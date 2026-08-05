@@ -4,20 +4,22 @@
 Two checks, both static (no browser, no render) — they run in preflight, before
 the expensive render:
 
-  1. size   — minimum on-frame text size (design-contract.md -> "Type rules" ->
-              "Minimum on-frame text size", frontmatter typography.min-size).
+  1. size   — minimum on-frame text size. Both floors are LOADED from
+              config/tokens.yml `typography.min-size` via tokens.py and are
+              never hand-copied into this file.
               Every `font-size: <n>px` rule in the workspace's compositions is
               graded against a floor picked from how the rule is TYPESET:
                 * label class  (`text-transform: uppercase` AND `letter-spacing`)
-                  -> 20px floor. Eyebrows, scene index, brandline, chips,
+                  -> label floor. Eyebrows, scene index, brandline, chips,
                   attribution — the tracked furniture.
-                * body class   (everything else) -> 32px floor. Anything the
+                * body class   (everything else) -> body floor. Anything the
                   viewer reads as a sentence: points, captions, card copy,
                   sub-beats, notes.
               A rule opts out with `/* text-floor-exempt: <reason> */` on the
               line above it (marker numerals sized by their circle).
 
-  2. restate — no line restates the label or heading (design-contract.md -> "Type rules").
+  2. restate — no line restates the label or heading. This checker owns the rule;
+              it is stated once in .claude/rules/video-production.md.
               A sub-beat / caption / point whose words are a subset of, or >=80%
               overlap with, that scene's `label` or `heading` is a second,
               smaller copy of a line already on the frame at full size. Owner

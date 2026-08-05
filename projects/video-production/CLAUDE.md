@@ -35,7 +35,7 @@ Peak months (Jun/Jul/Aug/Nov) hit ~30 hrs/1,800 min — needs Synthesia Enterpri
 ## Layout (what `ls` can't tell you)
 
 - `design-system/` is the one layout exception — HyperFrames dictates its shape (`design-system/docs/README.md` explains the divergence).
-- `design-system/config/tokens.yml` (the numbers, loaded by `render-qa/src/tokens.py` — what the gates grade against) and `design-system/docs/design-contract.md` (the prose, no code reads it) are two files, not interchangeable — split from one `frame.md` on 2026-07-29.
+- Three files, not interchangeable: `design-system/config/tokens.yml` (the numbers, loaded by `render-qa/src/tokens.py` — what the gates grade against), `.claude/rules/video-production.md` (every gated rule, each naming its checker), and `design-system/docs/design-contract.md` (the authoring menu a builder reads before writing `scenes.json` — visual language, templates, icons, style packages, motion recipes; it restates no gated rule and no code reads it).
 - `renders-hyperframes/` and `renders-mp4/` are local, gitignored staging. Delivered builds stay put; retiring one to `_archive/` is a human-only call, never automated.
 - Rendered MP4s are **never committed** — only the `.txt` script is tracked.
 

@@ -200,8 +200,8 @@ init artifact routing to generic hyperframes workflows this pipeline forbids —
 delete it, do not follow it. Follow `design-contract.md`'s animacy + illustration
 rules when choosing templates and copy. Standing landmines:
 
-- **Vary the form, or the gate fails you** (`design-contract.md` → "Variety contract";
-  gate: `render-qa/src/check_variety.py`). The hard rules: **never a one-item
+- **Vary the form, or the gate fails you** (`.claude/rules/video-production.md` →
+  "Copy and narration"; gate: `render-qa/src/check_variety.py`). The hard rules: **never a one-item
   list** (a list slot with exactly one entry draws the bullet/pill illustration
   around a single fact — give it ≥2 items or use a form that states one idea);
   **max 2 consecutive** scenes on one template family; **≥5 distinct content
