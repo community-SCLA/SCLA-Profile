@@ -215,6 +215,26 @@ def diff_script_transcript(script_toks, heard_toks):
     return mismatch / len(script_toks), max_run, segments
 
 
+# The stage folders a script can sit in, newest naming first. The stage folder
+# is NOT the program — `lesson-scripts/<program>/<stage>/<stem>.txt` — so every
+# slug derivation has to step over it. Keeping the retired `refined`/`rendered`
+# names costs nothing and keeps pre-rename workspaces resolving.
+#
+# This list used to be written out twice more, and both copies missed the
+# 2026-08-04 inbox/ready/published rename: `check_title_card` and
+# `check_freeform_title` stepped over "refined"/"rendered" only, so every
+# script in a `ready/` folder resolved to the program 'ready' and the title
+# card check failed on EVERY current build, template and freeform alike.
+# One constant, three readers (found on the 2026-08-04 freeform trial).
+STAGE_DIRS = ("ready", "inbox", "published", "refined", "rendered")
+
+
+def program_of(script_path) -> str:
+    """The program folder a script belongs to, stepping over its stage folder."""
+    p = Path(script_path)
+    return p.parents[1].name if p.parent.name in STAGE_DIRS else p.parent.name
+
+
 def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
     """The workspace dir name IS the script stem. The program is the folder the
     script lives in (lesson-scripts/<program>/…), not a segment of the stem — so
@@ -243,7 +263,7 @@ def locate_script(ws: Path, scripts_root: Path = LESSON_SCRIPTS):
         # to raise FileNotFoundError straight out of the gate (2026-07-29).
         return None
     for program in sorted(p for p in scripts_root.iterdir() if p.is_dir()):
-        for sub in ("ready", "inbox", "published"):
+        for sub in STAGE_DIRS:
             exact = program / sub / f"{ws.name}.txt"
             if exact.is_file():
                 return exact
@@ -482,8 +502,7 @@ def check_title_card(ws: Path, scenes, script_override=None,
     if script is None:
         return {"pass": False,
                 "output": "cannot locate script to derive the program slug"}
-    program = script.parent.parent.name if script.parent.name in (
-        "refined", "rendered") else script.parent.name
+    program = program_of(script)
 
     # Display names come from the workspace's tokens.yml copy. This used to
     # scrape a markdown table out of design-contract.md — a checker parsing prose, which
@@ -730,9 +749,7 @@ def check_freeform_title(ws: Path, script_override=None):
     script_path = script_override or locate_script(ws)
     slug = None
     if script_path is not None:
-        p = Path(script_path)
-        slug = (p.parent.name if p.parent.name not in ("refined", "rendered")
-                else p.parents[1].name)
+        slug = program_of(script_path)
     joined = tokens.slugify(" ".join(t for _, _, t in onframe_strings(ws)))
     if slug is None:
         problems.append("cannot resolve the program folder (no approved "

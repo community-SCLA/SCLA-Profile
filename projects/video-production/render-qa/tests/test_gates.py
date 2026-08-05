@@ -25,6 +25,7 @@ import check_copy
 import check_geometry
 import check_slots
 import check_text
+import preflight
 import textmetrics
 import tokens
 from hfp_common import parse_scenes
@@ -323,6 +324,28 @@ check("the on-frame string is not graded for symbols",
       not check_copy.spoken_symbol_problems(
           [{"id": "beat-07", "narration": "",
             "variables": {"text#1": "The #questionsupport channel"}}]))
+
+
+# --------------------------------------------------------------------------
+print("== preflight: the stage folder is not the program (2026-08-04 rename) ==")
+# Both title-card checks stepped over "refined"/"rendered" only, so after the
+# inbox/ready/published rename every script resolved to the program 'ready' and
+# the title card failed on EVERY build. The rename is the recurring failure, so
+# the live library is the fixture: a stage folder nobody taught preflight about
+# turns this red instead of turning a gate into noise.
+check("a ready/ script resolves to its program, not to 'ready'",
+      preflight.program_of(
+          "lesson-scripts/mid-career-momentum/ready/m1_mini-syllabus.txt")
+      == "mid-career-momentum")
+check("a published/ script resolves the same way",
+      preflight.program_of(
+          "lesson-scripts/early-career-boost/published/what-energizes-me.txt")
+      == "early-career-boost")
+_live_stages = {p.parent.name for p in
+                (RQ.parent / "lesson-scripts").glob("*/*/*.txt")}
+check("every stage folder in the live library is known to preflight",
+      _live_stages <= set(preflight.STAGE_DIRS),
+      f"unknown: {sorted(_live_stages - set(preflight.STAGE_DIRS))}")
 
 
 # --------------------------------------------------------------------------
