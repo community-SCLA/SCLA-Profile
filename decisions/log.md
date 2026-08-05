@@ -9,6 +9,46 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-05 — Cloud rendering, and the overnight drain
+
+**The deadline that forced it:** owner needs all 35 READY lessons live on
+Wistia within 24 hours (evening 2026-08-05). Serial local drain projected
+35–45h; the binding constraints were the machine-wide render lock (4-core
+box) and single-lane draining, not the gates.
+
+**Decisions (owner-approved 2026-08-05):**
+
+1. **The pilot ships, but is NOT a reference.** Owner on the rebuilt
+   `career-building-is-a-repeatable-process` cut: ship it under deadline,
+   "definitely not my favorite … don't use this as an example for design
+   elements." Recorded as a fourth verdict row (SHIPPED — not a reference)
+   in `design-system/docs/taste.md`; the two APPROVED rows remain the only
+   design bar. The batch pilot gate is thereby SATISFIED for this batch.
+2. **Render backend becomes selectable; cloud renders parallelize.**
+   `batch-ship.sh` reads `renders-hyperframes/_run/RENDER-BACKEND`
+   (`local` default / `cloud`). Cloud = `hyperframes cloud render`
+   (HeyGen-hosted Chromium/FFmpeg) under `with-secrets.sh`; output lands
+   pre-normalised at the delivered name; `verify_render.py` and every
+   downstream guard grade the cloud MP4 identically. The CPU render lock is
+   taken only on the local path — a cloud render burns no local CPU, so
+   serializing it guards nothing. Verified before adoption: HEYGEN_API_KEY
+   authenticates (`auth status`: wallet $225.72), pilot zip 122MB → small
+   with `/qa/` in `.hyperframesignore` (added to scaffold), one paid
+   validation render of the pilot workspace timed and priced this session.
+3. **The drain runs unattended, 4 lanes wide, cloud backend.** Owner:
+   "You can bypass human approval" — one pilot approval per batch is the
+   standing design; this batch's is given. 4-wide (up from 3) is legal only
+   because renders leave the box; the shared HeyGen TTS quota is the
+   remaining ceiling, so lanes stagger ~10 min.
+4. **Bounded retry: two revision passes per failing gate, then quarantine.**
+   The pilot burned ~80 min iterating against gates while calibrating the
+   new lane; in a deadline drain a stuck video must never eat a lane —
+   quarantine and continue, triage at the end. Two consecutive quarantines
+   with the same cause = systemic = stop the line.
+
+**Handoff for the executing session:**
+`projects/video-production/docs/HANDOFF-overnight-drain-2026-08-05.md`.
+
 ## 2026-08-05 — Taste becomes a judged stage (concept competition + critic lane)
 
 **The verdict that forced it:** the owner rejected the

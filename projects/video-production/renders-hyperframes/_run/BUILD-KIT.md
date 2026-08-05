@@ -43,6 +43,11 @@ woff2 set and the brand SVGs under `assets/`, and the pinned toolchain.
 1. **This file.**
 2. **`tokens.yml`** (in your workspace) — every normative number and name.
 3. **Your refined script.** Verbatim source for every beat's narration.
+4. **Your `CONCEPT.md`** (path in your prompt) — the judge-selected concept
+   angle and milestone frames. It is your starting contract: sharpen it
+   against the real timings if needed, never silently replace it. Its
+   taste calibration lives in `design-system/docs/taste.md` — read that
+   before authoring visuals.
 
 Do not read other builds' `index.html`, archived templates, or other skills.
 
@@ -67,9 +72,17 @@ HTML edit, never a re-synthesis):
    off" is a rejected cut's own honest description of itself and is not a
    concept angle; see `decisions/log.md` 2026-08-04 "Owner verdict".) State the
    rule out loud and hold to it: *if an element cannot be justified as
-   another way of reading the same object, it does not exist.* Palette and
-   face come from `tokens.yml` / `brand/visual-identity.md`; hierarchy by
-   weight/size/color, headings Title Case without terminal periods.
+   another way of reading the same object, it does not exist.* **A batch
+   build receives a judge-selected `CONCEPT.md` (path in your prompt):
+   design.md's concept angle starts from it — sharpen it against the real
+   timings if needed, never silently replace it — and its milestone frames
+   are your accumulation contract: the frame at each milestone must be a
+   genuinely different picture, because the object has gained, lost, or
+   re-arranged something.** A carrier that persists without accumulating is
+   the 2026-08-05 thin-carrier rejection (`design-system/docs/taste.md`).
+   Palette and face come from `tokens.yml` / `brand/visual-identity.md`;
+   hierarchy by weight/size/color, headings Title Case without terminal
+   periods.
 2. **`audio_request.json`** — the beat manifest: `lines: [{id, text}]`, the
    ready script **verbatim** (TTS normalizations only), split into
    narration beats. **Pace target: ~10 beats per minute** — a ~150s lesson is
@@ -107,7 +120,10 @@ HTML edit, never a re-synthesis):
    (`check_ink`) grades it, and so does `check_pace.py --stills`
    (`carrier-drift` + `twin-share`, run automatically inside the full
    `preflight.py`). Fewer stills than beats is a preflight FAIL either way.
-   Review them yourself before presenting the gate.
+   Review them yourself before presenting the gate — against the
+   critic-lane questions in `design-system/docs/taste.md`: if the frames at
+   25/50/75/100% could be shuffled without anyone noticing, re-author the
+   flat beats now, before the gate ever sees them.
 7. **Gates:** `bash scripts/build-gate.sh <stem>` (runs `preflight.py`:
    timing contract, script-vs-beats, copy, continuity, forms, brand, text,
    title, ink, motion, pace, per-beat layout) exit 0, then `npm run check`.
@@ -121,12 +137,13 @@ Standing landmines:
   `render-qa/src/check_forms.py` on element structure) — a list with one
   entry draws the bullet/pill illustration around a single fact; give it ≥2
   items or state the idea in a form that is not a list.
-- **Vary the form.** The variety thresholds (max 2 consecutive scenes on one
-  visual family, ≥6 distinct content forms, no form above 40%) are
-  Conventions since 2026-08-05 — their checker retired with the template
-  lane and the owner call on freeform variety is pending — but the taste
-  they encode is unchanged: rotate the connective device (an arrow between
-  two statements, a comparison scale, a split frame), not a fourth pill row.
+- **Vary the form.** The old numeric variety thresholds retired with the
+  template lane and stay retired — the owner resolved 2026-08-05 that
+  variety is JUDGED (concept judge + taste critic against
+  `design-system/docs/taste.md`), not counted. The taste they encoded is
+  unchanged: rotate the connective device (an arrow between two statements,
+  a comparison scale, a split frame), not a fourth pill row — and every form
+  must still read as another way of reading the ONE carrying object.
 - **Settled content never re-animates in place** (gate:
   `render-qa/src/check_motion.py`) — idle pulses are banned; deliberate
   exceptions are declared inline with `/* motion-allow: <reason> */`.

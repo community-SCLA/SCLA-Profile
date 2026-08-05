@@ -93,23 +93,40 @@ FREE_MB="$(df -Pm "$WS" 2>/dev/null | awk 'NR==2{print $4}')"
 
 # ---------------------------------------------------------------- RENDER phase
 if [[ "$MODE" == "render" ]]; then
-  # ONE render at a time, machine-wide. Builds run N-wide (authoring + network
-  # TTS), but a render is CPU-bound and two of them on a 4-core box thrash and
-  # cost more than they save. Until 2026-07-29 this was a sentence in the SKILL
-  # asking the orchestrator not to — and a session running 4 concurrent builds
-  # was one gate-pass away from disproving it. mkdir is atomic, so the lock is
-  # the mechanism (STD-35); the publish phase below has had the same shape all
-  # along, and this is that guard extended to the phase that actually burns
-  # the CPU. Held for the render, released on any exit.
-  RLOCK="$VP/renders-hyperframes/.render.lock"
-  if ! mkdir "$RLOCK" 2>/dev/null; then
-    HOLDER="$(cat "$RLOCK/stem" 2>/dev/null || echo "unknown")"
-    echo "FATAL: another render is in flight ($HOLDER). Renders are serialised;" >&2
-    echo "       retry when it finishes, or remove $RLOCK if it is stale." >&2
-    exit 2
+  # Render backend: `local` (default) or `cloud`, chosen by the one-line file
+  # renders-hyperframes/_run/RENDER-BACKEND. A file, not an env flag — owner
+  # and subagents must read the same state (the write-fence lesson,
+  # decisions/log.md 2026-08-04). `cloud` renders on HeyGen's own
+  # Chromium/FFmpeg via `hyperframes cloud render`: only the zip upload and
+  # the MP4 download touch this box, so cloud renders run in PARALLEL and the
+  # CPU lock below is skipped. (Added 2026-08-05, the overnight drain.)
+  BACKEND_FILE="$VP/renders-hyperframes/_run/RENDER-BACKEND"
+  RENDER_BACKEND="local"
+  [[ -f "$BACKEND_FILE" ]] && RENDER_BACKEND="$(tr -d '[:space:]' < "$BACKEND_FILE")"
+  case "$RENDER_BACKEND" in
+    local|cloud) ;;
+    *) quarantine "unknown RENDER-BACKEND '$RENDER_BACKEND' (only local|cloud)" ;;
+  esac
+
+  if [[ "$RENDER_BACKEND" == "local" ]]; then
+    # ONE local render at a time, machine-wide. Builds run N-wide (authoring +
+    # network TTS), but a local render is CPU-bound and two of them on a
+    # 4-core box thrash and cost more than they save. Until 2026-07-29 this
+    # was a sentence in the SKILL asking the orchestrator not to — and a
+    # session running 4 concurrent builds was one gate-pass away from
+    # disproving it. mkdir is atomic, so the lock is the mechanism (STD-35);
+    # the publish phase below has had the same shape all along. Held for the
+    # render, released on any exit.
+    RLOCK="$VP/renders-hyperframes/.render.lock"
+    if ! mkdir "$RLOCK" 2>/dev/null; then
+      HOLDER="$(cat "$RLOCK/stem" 2>/dev/null || echo "unknown")"
+      echo "FATAL: another render is in flight ($HOLDER). Renders are serialised;" >&2
+      echo "       retry when it finishes, or remove $RLOCK if it is stale." >&2
+      exit 2
+    fi
+    echo "$STEM" > "$RLOCK/stem" 2>/dev/null || true
+    trap 'rm -rf "$RLOCK" 2>/dev/null' EXIT
   fi
-  echo "$STEM" > "$RLOCK/stem" 2>/dev/null || true
-  trap 'rm -rf "$RLOCK" 2>/dev/null' EXIT
 
   # Previews contaminate renders (they hold the same ports and GPU/shm state).
   pkill -f "hyperframes[ ]preview" 2>/dev/null || true
@@ -130,16 +147,32 @@ if [[ "$MODE" == "render" ]]; then
   rm -f "$WS/renders/"*.mp4 2>/dev/null
   rm -f "$WS/qa/VERIFIED" 2>/dev/null
 
-  echo "== render: $STEM  (~7 min; hard cap 25)"
-  ( cd "$WS" && timeout -k 30 1500 npm run render ) || quarantine "npm run render failed or timed out"
+  RENDER_DATE="$(date +%F)"
+  if [[ "$RENDER_BACKEND" == "cloud" ]]; then
+    # Output straight to the delivered name — the normalise loop below then
+    # no-ops. npx resolves the workspace's own pinned hyperframes install
+    # (node_modules guaranteed by the install block above). with-secrets.sh
+    # injects HEYGEN_API_KEY, the credential cloud render authenticates with.
+    OUT_MP4="$WS/renders/$(stem_delivered "$STEM" "$RENDER_DATE").mp4"
+    mkdir -p "$WS/renders"
+    echo "== cloud render: $STEM  (HeyGen-hosted; hard cap 60 min)"
+    ( cd "$WS" && timeout -k 30 3600 bash "$REPO/scripts/with-secrets.sh" \
+        npx hyperframes cloud render . --quality high \
+        --output "$OUT_MP4" --idempotency-key "scla-${STEM}-${RENDER_DATE}" ) \
+      || quarantine "cloud render failed or timed out (hyperframes cloud render)"
+    [[ -s "$OUT_MP4" ]] || quarantine "cloud render exited 0 but no MP4 landed in renders/"
+  else
+    echo "== render: $STEM  (~7 min; hard cap 25)"
+    ( cd "$WS" && timeout -k 30 1500 npm run render ) || quarantine "npm run render failed or timed out"
+  fi
 
-  # The HyperFrames CLI names its output `<workspace-dir>_<date>_<clock>.mp4`,
+  # The HyperFrames CLI names its LOCAL output `<workspace-dir>_<date>_<clock>.mp4`,
   # so the renderer's own output violates the one-date rule by construction.
   # Normalise it here, BEFORE verify_render.py records the path and sha in
   # qa/VERIFIED — otherwise the marker pins the malformed name and publish
   # would upload it. The date used is the render date, which is what the name
-  # is supposed to mean.
-  RENDER_DATE="$(date +%F)"
+  # is supposed to mean. (A cloud MP4 is already delivered-named; the loop
+  # no-ops on it.)
   shopt -s nullglob
   for raw in "$WS/renders/"*.mp4; do
     want="$(stem_delivered "$(basename "$raw")" "$RENDER_DATE").mp4"

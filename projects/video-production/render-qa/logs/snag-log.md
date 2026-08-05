@@ -38,6 +38,56 @@ changes: only the latest entry in THIS file is current state.
 structure decisions now land in `decisions/log.md`. Handoff docs live in `docs/`.
 
 
+## 2026-08-05 (evening) — the pilot ships, printing moves to HeyGen's cloud, and the overnight drain is armed
+
+**Open — owner-actionable only.**
+- **`m0_welcome-to-mid-career-momentum` names a support channel that may not
+  exist.** Line 5 sends the learner to "hashtag questionsupport"; the doc that
+  would verify the channel name was deleted 2026-08-04. Asked again
+  2026-08-05 at the drain authorization; owner chose to ship as written
+  under deadline — the item stays open only as a post-publish correction
+  (fix the line, re-render, replace the Wistia media). *(since 2026-08-04)*
+- **`m4_visibility-actions-what-they-are-and-how-to-practice-them` has never
+  had a script.** Body byte-identical to `m4_who-will-walk-…`; never defines a
+  visibility action. Supply the real narration. *(since 2026-07-22)*
+- **`m2_why-build-your-own-path` (entrepreneur-accelerator) is byte-identical
+  to the already-refined m1 script.** Supply a distinct M2 script, or confirm
+  the two modules intentionally share one video. *(since 2026-07-24)*
+
+*One item closes.* "The freeform variety contract needs your call" — resolved
+2026-08-05: variety is JUDGED (concept competition + advisory critic against
+`design-system/docs/taste.md`), never re-armed as a numeric checker
+(decisions/log.md "Taste becomes a judged stage"). Tonight's addendum: the
+shipped career-building cut is a fourth verdict row there — **SHIPPED, not a
+reference** — so no judge ever anchors on it.
+
+**Fixed this session.**
+- `[tooling]` **Rendering moved off-box.** `batch-ship.sh` gained a `cloud`
+  backend (HeyGen-hosted via `hyperframes cloud render` under
+  `with-secrets.sh`), selected by `renders-hyperframes/_run/RENDER-BACKEND`
+  — a file, not an env flag, per the write-fence lesson. Validated
+  end-to-end on the pilot before adoption: 3m13s upload-to-download, $0.40
+  (wallet $225.72→$225.32), output spec-exact (1920×1080 h264/aac,
+  184.334s vs 184.331s target). `.hyperframesignore` (`/qa/`) added to the
+  scaffold and pilot cut the zip 122MB→10.7MB. Backend file armed `cloud`.
+  Local benchmark for contrast: 5530 frames ≈ 23 min, serialized. (~40 min)
+- `[authoring]` **The pilot published**: preflight → local render → verify →
+  6-frame vision review (defect lane PASS: brand-clean, no overflow, carrier
+  accumulates path→stones→flags→labeled climb→wheel payoff) →
+  `https://sclc.wistia.com/medias/cnj1463xuw`, ledgers + commit + prune in
+  the same pass. Owner shipped it under deadline calling it "definitely not
+  my favorite" — hence the not-a-reference row above.
+- `[env]` Preview server SIGTERM'd by ship's preview pkill — by design.
+
+**Promoted to docs.** decisions/log.md "Cloud rendering, and the overnight
+drain" (4 owner decisions); `.claude/rules/video-production.md` — the render
+rule now reads *local serializes / cloud parallelizes / 4-wide on cloud*,
+plus the new bounded-retry rule (2 revision passes then quarantine);
+`taste.md` fourth verdict row; the operative runbook for the executing
+session is `projects/video-production/docs/HANDOFF-overnight-drain-2026-08-05.md`;
+auto-memory updated (throughput authorization extended to the unattended
+cloud drain).
+
 ## 2026-08-05 — the template lane retires, the board clears, and the pilot waits at the gate
 
 **Open — owner-actionable only.**

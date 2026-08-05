@@ -24,6 +24,11 @@ advances, and pays off**: the closing frame could not have been drawn at 0:10.
 | **APPROVED — rich carrier** | `build-direction-before-you-build-a-plan` Jul 30–31 cut | A field of 48 marks arrives once, then is only ever re-grouped; 10.26 beats/min, churn 3.34% | `renders-hyperframes/build-direction-before-you-build-a-plan_early-career-boost/` — `design.md` (snapshots pruned; numbers in `decisions/log.md` 2026-08-04) |
 | **REJECTED — slow** ("SO boring") | same lesson, 2026-08-04 pilot | 6.47 beats/min, each idea takes ~9s, nothing accumulates. Now caught by `check_pace.py` | `renders-hyperframes/_reference/…_2026-08-04-freeform-backup/snapshots/` |
 | **REJECTED — thin** ("lackluster illustrations") | `career-building-is-a-repeatable-process`, 2026-08-05 pilot | Passed every gate incl. pace; carrier is a 6-dot circle on near-empty frames, never gains detail, no payoff — the cheapest legal pass | `renders-hyperframes/_reference/…_2026-08-05-thin-carrier-backup/snapshots/contact-sheet-*.jpg` |
+| **SHIPPED — not a reference** | `career-building-is-a-repeatable-process`, 2026-08-05 rebuilt cut (the one delivered) | Gate-clean after the taste re-author; owner shipped it under the 24-hour deadline while calling it "definitely not my favorite" — never cite it as approved, never anchor a concept or design element on it | `renders-hyperframes/career-building-is-a-repeatable-process_early-career-boost/` |
+
+**A shipped cut is not automatically a reference.** The 2026-08-05
+career-building ship was a deadline call; the owner's standing instruction is
+to keep judging against the two APPROVED rows alone.
 
 The two rejections fail in OPPOSITE directions. The slow cut had churn and no
 pace; the thin cut had pace and no substance. The approved cuts sit between:
