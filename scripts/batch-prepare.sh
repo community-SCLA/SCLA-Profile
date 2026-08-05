@@ -123,6 +123,11 @@ woff2 set and the brand SVGs under `assets/`, and the pinned toolchain.
 1. **This file.**
 2. **`tokens.yml`** (in your workspace) — every normative number and name.
 3. **Your refined script.** Verbatim source for every beat's narration.
+4. **Your `CONCEPT.md`** (path in your prompt) — the judge-selected concept
+   angle and milestone frames. It is your starting contract: sharpen it
+   against the real timings if needed, never silently replace it. Its
+   taste calibration lives in `design-system/docs/taste.md` — read that
+   before authoring visuals.
 
 Do not read other builds' `index.html`, archived templates, or other skills.
 

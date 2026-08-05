@@ -23,7 +23,7 @@ either is restated here.
 `ready/` is your finalize-before-build buffer — it holds only scripts not
 yet built (edit or veto any of them there, any time *before* you invoke
 BUILD). The moment a lesson is live on Wistia, its script moves `ready/ →
-published/` (B3), so `ready/` always shows exactly what's left to build and
+published/` (B4), so `ready/` always shows exactly what's left to build and
 parallel BUILD sessions see a shrinking queue; the human pilot gate then
 reviews a built workspace, not the script. Everything on either side of that
 gate is machine work behind deterministic gates: BUILD may not render; a batch
@@ -87,7 +87,7 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
 - Queue = every `*.txt` in **`ready/`** (`ls …/ready/*.txt`, non-recursive —
   `ready/` has no subfolders; the `refined/avatar/` HeyGen lane was deleted
   2026-08-04 along with the rest of the avatar lane). A published lesson's
-  script moves out to `published/` (B3), so `ready/` holds only lessons not yet
+  script moves out to `published/` (B4), so `ready/` holds only lessons not yet
   live. The workspace check is what tells built from unbuilt:
   if a script in `ready/` already has a `renders-hyperframes/<base>/`
   workspace, it's built and waiting at the gate — skip it (never rebuild one
@@ -111,7 +111,40 @@ grep /dev/shm /proc/mounts                           # need >=256M for headless 
   atomic. (2026-07-29 — before this, "sequentially" was a sentence in this file
   and a session was already running 4 concurrent builds against no render lock
   at all.)
-### B2 — One cold build subagent per video
+### B2 — Concept competition (orchestrator, per video, before the builder)
+
+The gates are floors against defects; nothing mechanical rewards visual
+ambition, and a gate-optimizing builder lands on minimum-viable-pass — the
+2026-08-05 thin-carrier rejection passed every gate including pace
+(`decisions/log.md` 2026-08-05 "Taste becomes a judged stage"). Taste is
+therefore a judged stage: independent pitches compete, one judge picks.
+
+Three cheap subagent calls, the first two in parallel, before each build
+dispatch:
+
+1. **Two concept pitchers** (parallel, text-only; prompt carries paths: the
+   `ready/` script and `design-system/docs/taste.md`). Each pitches ONE
+   concept from its assigned lens and returns: the carrying object (named,
+   concrete), frame descriptions at 25/50/75/100% of runtime, what
+   accumulates, and the payoff beat.
+   - **Lens A, metaphor-first:** what single concrete object or scene could
+     carry this entire lesson and visibly accumulate as it advances?
+   - **Lens B, accumulation-first:** what should the frame have GAINED by
+     30/60/90/120s — design the build-up first, then name the object it
+     builds.
+2. **One judge** (needs vision — it reads the reference contact sheets named
+   in `taste.md` plus both pitches). It scores both against the concept-judge
+   questions in `taste.md`, picks a winner, grafts the loser's best idea, and
+   writes `renders-hyperframes/_concepts/<stem>/CONCEPT.md`: the chosen
+   angle (one sentence), the milestone frames, what accumulates, the payoff
+   beat. Mutual peer-review between pitchers is deliberately NOT used —
+   competition judged once stays sharp; review meshes converge.
+
+The judge's CONCEPT.md rides into the builder prompt as a path. It is the
+builder's starting contract, not a cage: the builder may sharpen it against
+the real timings, never silently replace it.
+
+### B3 — One cold build subagent per video
 
 Dispatch a general-purpose subagent per script, **up to 3 concurrently** (they
 share the toolchain and `/dev/shm`, but builds are network- and authoring-bound;
@@ -122,6 +155,7 @@ Every freeform build is bespoke authoring — run builders on a strong model. Th
 
 - the stem, the `ready/` script path, and the workspace parent
   `projects/video-production/renders-hyperframes/`;
+- the path to the judge-written `_concepts/<stem>/CONCEPT.md` from B2;
 - the **Open + rules block from the latest snag-log entry**, pasted verbatim;
 - "Follow the **Build sequence** section of
   `.claude/skills/render-lessons/SKILL.md` exactly. The HTML is the authored
@@ -191,9 +225,17 @@ HTML edit, never a re-synthesis):
    off" is a rejected cut's own honest description of itself and is not a
    concept angle; see `decisions/log.md` 2026-08-04 "Owner verdict".) State the
    rule out loud and hold to it: *if an element cannot be justified as
-   another way of reading the same object, it does not exist.* Palette and
-   face come from `tokens.yml` / `brand/visual-identity.md`; hierarchy by
-   weight/size/color, headings Title Case without terminal periods.
+   another way of reading the same object, it does not exist.* **A batch
+   build receives a judge-selected `CONCEPT.md` (path in your prompt):
+   design.md's concept angle starts from it — sharpen it against the real
+   timings if needed, never silently replace it — and its milestone frames
+   are your accumulation contract: the frame at each milestone must be a
+   genuinely different picture, because the object has gained, lost, or
+   re-arranged something.** A carrier that persists without accumulating is
+   the 2026-08-05 thin-carrier rejection (`design-system/docs/taste.md`).
+   Palette and face come from `tokens.yml` / `brand/visual-identity.md`;
+   hierarchy by weight/size/color, headings Title Case without terminal
+   periods.
 2. **`audio_request.json`** — the beat manifest: `lines: [{id, text}]`, the
    ready script **verbatim** (TTS normalizations only), split into
    narration beats. **Pace target: ~10 beats per minute** — a ~150s lesson is
@@ -231,7 +273,10 @@ HTML edit, never a re-synthesis):
    (`check_ink`) grades it, and so does `check_pace.py --stills`
    (`carrier-drift` + `twin-share`, run automatically inside the full
    `preflight.py`). Fewer stills than beats is a preflight FAIL either way.
-   Review them yourself before presenting the gate.
+   Review them yourself before presenting the gate — against the
+   critic-lane questions in `design-system/docs/taste.md`: if the frames at
+   25/50/75/100% could be shuffled without anyone noticing, re-author the
+   flat beats now, before the gate ever sees them.
 7. **Gates:** `bash scripts/build-gate.sh <stem>` (runs `preflight.py`:
    timing contract, script-vs-beats, copy, continuity, forms, brand, text,
    title, ink, motion, pace, per-beat layout) exit 0, then `npm run check`.
@@ -245,12 +290,13 @@ Standing landmines:
   `render-qa/src/check_forms.py` on element structure) — a list with one
   entry draws the bullet/pill illustration around a single fact; give it ≥2
   items or state the idea in a form that is not a list.
-- **Vary the form.** The variety thresholds (max 2 consecutive scenes on one
-  visual family, ≥6 distinct content forms, no form above 40%) are
-  Conventions since 2026-08-05 — their checker retired with the template
-  lane and the owner call on freeform variety is pending — but the taste
-  they encode is unchanged: rotate the connective device (an arrow between
-  two statements, a comparison scale, a split frame), not a fourth pill row.
+- **Vary the form.** The old numeric variety thresholds retired with the
+  template lane and stay retired — the owner resolved 2026-08-05 that
+  variety is JUDGED (concept judge + taste critic against
+  `design-system/docs/taste.md`), not counted. The taste they encoded is
+  unchanged: rotate the connective device (an arrow between two statements,
+  a comparison scale, a split frame), not a fourth pill row — and every form
+  must still read as another way of reading the ONE carrying object.
 - **Settled content never re-animates in place** (gate:
   `render-qa/src/check_motion.py`) — idle pulses are banned; deliberate
   exceptions are declared inline with `/* motion-allow: <reason> */`.
@@ -274,7 +320,7 @@ re-run the gates — a stale manifest fails loudly instead of misaligning.
 
 <!-- BUILD-KIT:END -->
 
-### B3 — Verify + present the gate (orchestrator)
+### B4 — Verify + present the gate (orchestrator)
 
 For each returned workspace, independently re-run the deterministic gate —
 trust exit codes you produced, not subagent prose:
@@ -282,6 +328,13 @@ trust exit codes you produced, not subagent prose:
 ```bash
 bash scripts/build-gate.sh <stem>
 ```
+
+On exit 0, look at real pixels before a human does: run
+`bash scripts/batch-precheck.sh <stem>` and hand its printed spread to the
+**two vision lanes** (defect + advisory taste — see Phase SHIP; both are
+subagents, paths only). A FLAT taste verdict buys exactly one revision pass
+(re-author the named beats, re-snapshot, re-gate, re-precheck) before the
+gate is presented; it never blocks the presentation after that pass.
 
 That runs the real `preflight.py` and, **on exit 0 and only on exit 0**, writes
 `qa/PREFLIGHT-OK` — the marker that makes NEEDS REVIEW readable from disk after
@@ -337,9 +390,22 @@ chain (2026-07-28; the hand-run step list this section used to carry had none
 of the guards). Look at real pixels before spending the render:
 
 ```bash
-bash scripts/batch-precheck.sh <stem>                       # preflight + per-beat snapshots + low-ink flags (~40s) — vision subagent reviews the printed spread
+bash scripts/batch-precheck.sh <stem>                       # preflight + per-beat snapshots + low-ink flags (~40s) — TWO vision lanes review the printed spread
 bash scripts/batch-ship.sh <stem> <program-slug>            # render phase — BACKGROUND it (~7 min)
 ```
+
+The precheck spread goes to **two vision lanes**, dispatched in parallel,
+each a cold subagent given paths only (the printed contact sheets + frames):
+
+1. **Defect lane** (blocking): every beat carries real content, frames depict
+   their sentences, nothing clipped or off-brand — a FAIL quarantines before
+   the render is spent.
+2. **Taste lane** (advisory): grades the sheets against the critic-lane
+   questions in `design-system/docs/taste.md` (shuffle test, carrier earning
+   its frame, gain-in-detail, where a viewer checks out) and returns
+   `ALIVE`/`FLAT` with beats named. FLAT buys exactly ONE revision pass —
+   re-author the named beats, re-snapshot, re-gate, re-precheck — then the
+   build proceeds either way; taste alone never quarantines.
 
 That runs preflight → `npm install` if the workspace was pruned → clean
 `renders/` → render (25-min cap) → `verify_render.py` (writes the
@@ -417,10 +483,14 @@ batch.** The pilot exists to prove the credential path, the version pin, local
 rendering, and the upload *before* 29 more run unattended — and to prove the
 run economics on video 1 rather than at 3am.
 
-### A3 — The loop, three tool calls per video
+### A3 — The loop, per video
 
+0. **Concept competition** (B2, ~3 cheap calls): two pitch lanes in
+   parallel, one vision judge → `_concepts/<stem>/CONCEPT.md`. Runs while
+   the previous video renders, so it costs no wall-clock on the batch.
 1. **Cold build subagent** — prompt carries *paths only*: the stem, its
-   `ready/` script, `_run/BUILD-KIT.md`, and the verbatim snag Open block. It
+   `ready/` script, `_run/BUILD-KIT.md`, its `CONCEPT.md`, and the verbatim
+   snag Open block. It
    claims with `build-claim.sh`, copies the scaffold, then runs the Build
    sequence: design.md → beat manifest (+ `preflight.py --static`, free) →
    synth → computed timing.json (+ `check_pace.py --static`) → author HTML →
@@ -431,9 +501,12 @@ run economics on video 1 rather than at 3am.
 2. **`bash scripts/batch-precheck.sh <stem>`** — look before the render is
    spent: authoritative preflight re-run, one midpoint snapshot per beat
    (~40s), deterministic low-ink (blank-frame) flags, then a printed frame
-   spread. A vision subagent reviews it (paths only): every beat carries real
-   content, frames depict their sentences, nothing clipped or off-brand. FAIL
-   → quarantine here, before the 7-minute render.
+   spread. **Two vision lanes** review it in parallel (paths only; full lane
+   contract in Phase SHIP): the defect lane (real content, frames depict
+   their sentences, nothing clipped/off-brand — FAIL → quarantine here,
+   before the 7-minute render) and the advisory taste lane
+   (`design-system/docs/taste.md`; FLAT → one revision pass, then proceed —
+   in a batch this lane is the only taste check a post-pilot video gets).
 3. **`bash scripts/batch-ship.sh <stem> <program-slug>`** — the deterministic
    tail, **backgrounded**. Render phase: re-verify preflight → render (25-min
    cap) → `verify_render.py` (writes `qa/VERIFIED`) → prints `AWAITING_VISION`

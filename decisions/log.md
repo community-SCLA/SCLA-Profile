@@ -9,6 +9,55 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-05 — Taste becomes a judged stage (concept competition + critic lane)
+
+**The verdict that forced it:** the owner rejected the
+`career-building-is-a-repeatable-process_early-career-boost` pilot as "pretty
+boring … lackluster illustrations, not a lot of illustrative variation or
+movement" — a build that was **gate-clean including the armed pace gates**.
+Its carrier was a minimal 6-dot circle on near-empty navy frames for all 42
+beats: the cheapest legal satisfaction of carrier persistence + low churn.
+Where the 2026-08-04 rejection was SLOW (pace, no carrier), this one is THIN
+(pace fine, carrier without substance) — the two failures point in opposite
+directions and the approved cuts sit between them. Root cause: every gate is
+a floor against a known defect; nothing in the pipeline exerted pressure
+toward visual ambition, so a gate-optimizing builder lands on
+minimum-viable-pass.
+
+**Decision (owner-approved):** taste is judged by agents against pinned
+references, at the two cheapest points in the pipeline — both BEFORE the
+render, which is the machine-wide serialized bottleneck:
+
+1. **Concept competition** (`/render-lessons` B2): per video, two independent
+   pitch lenses (metaphor-first, accumulation-first) + one vision judge that
+   grades against the reference contact sheets and writes
+   `_concepts/<stem>/CONCEPT.md` — chosen angle, milestone frames, what
+   accumulates, payoff beat. The builder starts from it and may sharpen,
+   never silently replace. Competition judged once was chosen over a mutual
+   peer-review mesh deliberately: reviewers reviewing each other converge
+   and get polite; independent pitches + one judge stay sharp and cost less.
+2. **Advisory taste lane** in every precheck vision review, beside the
+   blocking defect lane: grades real contact-sheet pixels against the
+   critic questions in `design-system/docs/taste.md`, verdict ALIVE/FLAT
+   with beats named. FLAT buys exactly ONE revision pass; taste alone never
+   quarantines a video or stops a batch.
+
+**Explicitly NOT done, and why:** no numeric "richness" thresholds — the
+bracket is three cuts, and 2026-08-04 already proved what constants derived
+from too few references do (approved the boring cut, quarantined the approved
+one). This entry also **closes the open "freeform variety contract" item**
+(snag-log 2026-08-05): the retired variety checkers (consecutive-family,
+distinct-forms, 40% ceiling) stay retired as Conventions; freeform variety is
+judged by the taste stage, not counted.
+
+**Artifacts:** rubric + bracket at `design-system/docs/taste.md`; the
+rejected cut filed to
+`renders-hyperframes/_reference/…_2026-08-05-thin-carrier-backup` (local-only
+evidence, contact sheets intact); mechanisms in `/render-lessons` B2/B4/SHIP,
+`batch-precheck.sh`'s two-lane handoff, and `batch-prepare.sh`'s builder read
+order. The pilot rebuilds through the new stages and stops at the same human
+gate.
+
 ## 2026-08-05 — The template lane is retired
 
 **Decision:** following the owner's approval of the freeform `m1_mini-syllabus`

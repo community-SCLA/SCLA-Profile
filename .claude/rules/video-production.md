@@ -41,9 +41,9 @@ paths: ["projects/video-production/**"]
   - Headings — `heading` / `statement` / `title` — are **Title Case with no terminal period**; body copy stays sentence case.
   - Every spoken list of ≥3 items takes **"and"/"or" before the final item**.
   - A list with **exactly one item** is a defect.
-- **Max 2 consecutive scenes on one visual family.** *(Convention — mechanism retired with the template lane 2026-08-05; owner decision pending on whether the rule survives at all. Why: log 2026-08-05 "The template lane is retired".)*
-- **≥6 distinct content forms per lesson ≥90s; ≥7 at ≥150s.** *(Convention — mechanism retired with the template lane 2026-08-05; owner decision pending on whether the rule survives at all. Why: log 2026-08-05 "The template lane is retired".)*
-- **No one form above 40% of content seconds.** *(Convention — mechanism retired with the template lane 2026-08-05; owner decision pending on whether the rule survives at all. Why: log 2026-08-05 "The template lane is retired".)*
+- **Max 2 consecutive scenes on one visual family.** *(Convention — checker retired with the template lane; owner resolved 2026-08-05 that freeform variety is JUDGED by the taste stage, never re-armed as a numeric checker. Why: log 2026-08-05 "Taste becomes a judged stage".)*
+- **≥6 distinct content forms per lesson ≥90s; ≥7 at ≥150s.** *(Convention — checker retired with the template lane; owner resolved 2026-08-05 that freeform variety is JUDGED by the taste stage, never re-armed as a numeric checker. Why: log 2026-08-05 "Taste becomes a judged stage".)*
+- **No one form above 40% of content seconds.** *(Convention — checker retired with the template lane; owner resolved 2026-08-05 that freeform variety is JUDGED by the taste stage, never re-armed as a numeric checker. Why: log 2026-08-05 "Taste becomes a judged stage".)*
 - **One thought per scene; no thought split across scenes** — a content scene carries at least `MIN_SCENE_SEC`, **4.5s**; a scene opening with a bare coordinating conjunction is the back half of the previous sentence and must be merged; a spoken list lives on ONE scene. *(Mechanism: `check_continuity.py`, run by `preflight.py` and `--static`; pinned by `test_gates.py`. Why: log 2026-07-28 "Owner review…".)*
 - **The conjunction rule is graded on the WHOLE narration, not per scene** — scoped per scene it silently disables itself: a seven-item list split 3/2/2 leaves no run reaching the ≥3 threshold. *(Mechanism: `check_copy.py`, joined-stream enumeration. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed: scope, sampling, severity".)*
 - **The conjunction rule is graded on the SCRIPT too, at refine time** — **reports, does not block**, because a minority of flags are rhetoric or definitions rather than lists. *(Mechanism: `check_copy.py` script mode — pass a `.txt` instead of a workspace; non-blocking at first per STD-38. Why: log 2026-07-29 "The gates the `better-decisions` rejection exposed".)*
@@ -68,6 +68,10 @@ paths: ["projects/video-production/**"]
 ## Motion
 
 - **Settled content never re-animates in place** — no wobble, drift, ripple, pulse or re-mark of text, chips, rows, nodes, numbers, CTAs or the living-icon hero once it has entered. A pixel-static hold is an AUTHORING defect with exactly one fix: re-author the scene. Deliberate exceptions are declared inline with `/* motion-allow: <reason> */`. *(Mechanism: `check_motion.py` via `preflight.py`, full AND `--static`; it follows a selector through a helper's call sites. Fixtures: `test_motion.py`. Why: log 2026-07-15 "In-place keep-alive motion stays banned" — the repo's most-violated rule.)*
+
+## Taste — the judged layer above the gates
+
+- **Taste is a judged stage with pinned references, never a new numeric threshold** — every build's concept angle is chosen by a concept competition (two independent pitch lenses, one vision judge writing `_concepts/<stem>/CONCEPT.md`) and every precheck vision review runs a second, advisory taste lane; both grade against the three-reference bracket (approved-rich vs rejected-slow vs rejected-thin) in `design-system/docs/taste.md`, a FLAT verdict buys exactly one revision pass, and taste alone never quarantines — the bracket is n=3, and the last constants derived from one example approved the boring cut. *(Mechanisms: `/render-lessons` B2 + B4/SHIP two-lane review; `batch-precheck.sh` names both lanes in its vision handoff. Why: log 2026-08-05 "Taste becomes a judged stage".)*
 
 ## How a gate behaves
 

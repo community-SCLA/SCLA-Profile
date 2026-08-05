@@ -159,5 +159,11 @@ for cs in "$OUT"/contact-sheet*.jpg; do
 done
 for f in "${FRAMES[@]}"; do echo "FRAME $f"; done
 echo
-echo "Review these BEFORE rendering. Every scene must carry real content —"
-echo "a background + footer with no heading or body copy is the blank-scene bug."
+echo "TWO vision lanes review these BEFORE rendering (parallel subagents, paths only):"
+echo "  1. DEFECT lane (blocking) — every scene carries real content; frames depict"
+echo "     their sentences; nothing clipped or off-brand. A background + footer with"
+echo "     no heading or body copy is the blank-scene bug. FAIL -> quarantine."
+echo "  2. TASTE lane (advisory) — grade the contact sheets against the critic-lane"
+echo "     questions in projects/video-production/design-system/docs/taste.md."
+echo "     Verdict ALIVE or FLAT with beats named; FLAT buys exactly one revision"
+echo "     pass (re-author, re-snapshot, re-gate, re-precheck), never a quarantine."
