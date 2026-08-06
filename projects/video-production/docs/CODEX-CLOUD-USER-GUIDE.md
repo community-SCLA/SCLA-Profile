@@ -20,9 +20,10 @@ To limit a new run to one program:
 /render-lessons AUTO-BATCH mid-career-momentum
 ```
 
-The sequence pauses only for the one required pilot approval or a genuine
-external blocker. Reply to that pause in the same conversation; you do not need
-to restart the sequence.
+The sequence first builds every selected lesson into a gate-clean HyperFrames
+workspace, then pauses once for review of the complete program set. Nothing
+renders or publishes before that full-set approval. Reply to the pause in the
+same conversation; you do not need to restart the sequence.
 
 ## What runs where
 
@@ -46,17 +47,24 @@ Start with the active run and let each lesson's stage determine the action:
 bash projects/video-production/run.sh resume
 bash projects/video-production/run.sh status
 ```
+Use Sol High for a full program batch.
+Sol High: Best default for this pipeline. It balances creative judgment, coding, QA, and persistence.
+Extra High (xhigh): Use for recovering rejected/stalled builds or solving difficult visual/technical failures. It is slower and more expensive, and usually unnecessary for every lesson.
+Medium: Fine for status checks, clean reruns, and mechanical fixes—not ideal for unattended authoring.
+Light/Low: Avoid for building lesson videos. It’s better suited to simple, latency-sensitive tasks.
+So for Mid-Career Momentum: Sol High + /render-lessons AUTO-BATCH. Escalate individual problem lessons to Extra High if they fail gates repeatedly.
 
 | Stage shown | What to do |
 | --- | --- |
-| `READY` | Generate a Codex Cloud prompt with `run.sh delegate --stem STEM` |
+| `READY` | Generate a Codex Cloud prompt with `run.sh delegate --stem STEM` The lesson script is approved and placed in the build queue.|
 | `STALLED` | Resume the existing workspace; never delegate or recreate it |
-| `APPROVED` | Render it with `run.sh ship STEM` |
-| `RENDERED` | Publish it with `run.sh ship STEM --publish` |
+| `NEEDS REVIEW` | Review all selected workspaces; after the complete set is ready, run `run.sh approve BATCH` |
+| `APPROVED` | Render it with `run.sh ship STEM` The workspace/composition has passed review and is cleared to become an MP4.|
+| `RENDERED` | Publish it with `run.sh ship STEM --publish` The workspace has been converted into a finished, verified MP4, but it has not yet been published.|
 | `REJECTED` | Correct the recorded cause, authorize retry if required, then ship again |
 | `RAW` | Refine the script first |
 | `NEEDS SCRIPT` | Stop; the owner must supply narration |
-| `PUBLISHED` | Nothing; it is complete |
+| `PUBLISHED` | Nothing; it is complete The MP4 has been uploaded to Wistia.|
 
 Do not start another `batch --program` while the current program still has
 unfinished work: selecting a new batch replaces the active scope. Delegate only
@@ -160,16 +168,17 @@ bash projects/video-production/run.sh ship STEM
 Separate coordinator workers may issue `ship` for different approved stems.
 The shared queue admits only two cloud renders at once; extra jobs wait.
 
-After three consecutive cloud renders pass verification, raise the limit:
+After the complete batch review is approved and three consecutive cloud renders
+pass verification, raise the limit:
 
 ```bash
 bash projects/video-production/run.sh cloud-limit 4
 bash projects/video-production/run.sh limits
 ```
 
-The command refuses to raise the limit before the clean streak reaches 3/3. A
-later cloud-render failure resets the clean streak and automatically returns the
-limit to two. To lower it manually at any time:
+The command refuses to raise the limit before both the full-set approval and the
+3/3 clean streak. A later cloud-render failure resets the clean streak and
+automatically returns the limit to two. To lower it manually at any time:
 
 ```bash
 bash projects/video-production/run.sh cloud-limit 2

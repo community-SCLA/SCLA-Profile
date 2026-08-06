@@ -13,7 +13,7 @@ refresh_human_status() {
 }
 
 usage() {
-  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all)|delegate --stem STEM|limits|cloud-limit (2|4)|approve STEM|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
+  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all)|delegate --stem STEM|limits|cloud-limit (2|4)|approve (STEM|BATCH)|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
   exit 2
 }
 

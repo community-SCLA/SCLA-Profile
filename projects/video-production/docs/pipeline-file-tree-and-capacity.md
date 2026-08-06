@@ -32,7 +32,9 @@ replaces the old ten-minute stagger with an enforced capacity limit.
        ↓
 [4] claim one stem → author HTML → synthesize audio → compute timing
        ↓
-[5] deterministic gate → combined visual/taste review → pilot approval
+[5] deterministic gate → combined visual/taste review for every selected workspace
+       ↓
+[5a] owner reviews the complete set → one batch approval
        ↓
 [6] cloud/local render → MP4 verification → temporary encode review
        ↓
@@ -58,7 +60,7 @@ SCLA-Profile/
 │   │   voice pinning, gates, retries, publishing, and archive boundaries.
 │   ├── skills/
 │   │   ├── produce-video/SKILL.md                 [0]
-│   │   │   Selects one explicit stem and stops at the existing pilot gate.
+│   │   │   Selects one explicit stem and stops at its review gate.
 │   │   ├── refine-scripts/SKILL.md                [1]
 │   │   │   Refines one script without widening scope or starting a build.
 │   │   ├── render-lessons/SKILL.md                [2–8]
@@ -135,7 +137,7 @@ SCLA-Profile/
 │   ├── renders-hyperframes/                       [2–8]
 │   │   ├── _run/
 │   │   │   ├── run.json
-│   │   │   │   Persistent scope, selected items, pilot approval, backend,
+│   │   │   │   Persistent scope, selected items, full-set review approval, backend,
 │   │   │   │   stage-specific limits, retry counts, results, and circuit breaker.
 │   │   │   ├── RENDER-BACKEND
 │   │   │   │   One shared choice: `cloud` or `local`; currently `cloud`.
@@ -321,7 +323,7 @@ Infisical credentials, narration cache, or gitignored render artifacts.
 The safest split is:
 
 1. Keep one coordinator in the live checkout. It owns `run.sh`, run scope,
-   leases, the circuit breaker, pilot approval, and publishing.
+   leases, the circuit breaker, full-set review approval, and publishing.
 2. Use one Codex or Claude worker per stem for concept planning, HTML authoring,
    and composition revision. Give each worker only its script, selected concept,
    local tokens, and compact builder contract.

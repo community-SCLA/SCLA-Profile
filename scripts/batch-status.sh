@@ -82,9 +82,11 @@ try:
 except (OSError, json.JSONDecodeError):
     active_run = {}
 run_items = {x.get("stem") for x in active_run.get("items", []) if x.get("stem")}
-pilot = active_run.get("pilot") or {}
+review = active_run.get("review") or {}
+reviewed_stems = set(review.get("stems") or [])
 batch_approved = (active_run.get("mode") == "batch" and
-                  bool(pilot.get("stem")) and bool(pilot.get("approved_at")))
+                  bool(review.get("approved_at")) and
+                  run_items.issubset(reviewed_stems))
 
 backend = active_run.get("backend", "local")
 legacy_concurrency = int(active_run.get(
@@ -286,8 +288,12 @@ def ws_state(ws_dir, stem=None):
                 "publish it: `bash projects/video-production/run.sh ship {stem} --publish`")
     if (ws_dir / "qa" / "PREFLIGHT-OK").is_file():
         if batch_approved and stem in run_items:
-            return ("approved", "gate-clean; the active batch pilot is approved",
+            return ("approved", "gate-clean; the complete batch review is approved",
                     "render it: `bash projects/video-production/run.sh ship {stem}`")
+        if active_run.get("mode") == "batch" and stem in run_items:
+            return ("needs-review", "gate-clean and waiting on the full-program review — no MP4 yet",
+                    "review every selected workspace; when the complete set is ready, "
+                    "run `bash projects/video-production/run.sh approve BATCH`")
         return ("needs-review", "gate-clean and waiting on your eyes — no MP4 yet",
                 "watch it, then continue: `bash scripts/preview.sh {stem}` → "
                 "`bash projects/video-production/run.sh ship {stem}`")
@@ -545,9 +551,9 @@ if mode == "write":
     a(f"- **{totals['building']}** — **building now.** A workspace exists and is "
       "moving; each names the step it last completed.")
     a(f"- **{totals['needs_review']}** — **waiting on your eyes.** Gate-clean, no MP4 "
-      "yet — this is the pilot gate.")
+      "yet — this is the full-program review gate.")
     a(f"- **{totals['approved']}** — **approved to render.** Gate-clean and covered by "
-      "the active batch pilot approval.")
+      "the approved full-program review set.")
     a(f"- **{totals['rendered']}** — **rendered, not yet published.** The MP4 exists "
       "and passed every gate; only the Wistia upload is left.")
     a(f"- **{totals['raw']}** — **raw, not yet refined.** Sitting in `inbox/`, waiting "
@@ -646,9 +652,9 @@ if mode == "write":
             (("rendered",), "RENDERED — MP4 verified, waiting on publish",
              "The video file exists and passed every gate. Nothing left but the upload."),
             (("needs-review",), "NEEDS REVIEW — gate-clean, waiting on your eyes",
-             "The pilot gate. Watch it, then reply `ship <stem>`."),
+             "Review every selected workspace; approve the batch only when the full set is ready."),
             (("approved",), "APPROVED — gate-clean, ready to render",
-             "The active batch pilot approval already covers this video."),
+             "The approved full-program review set covers this video."),
             (("scaffolded", "planned", "uncompiled", "untimed", "composed"),
              "BUILDING — in flight, no MP4 yet",
              "A workspace exists and is part-way through. Each names the last step it "

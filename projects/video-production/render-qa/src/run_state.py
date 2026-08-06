@@ -2,7 +2,7 @@
 """Persistent control state for SCLA video runs and per-workspace failures.
 
 Video lifecycle remains folder-owned.  This file stores only facts folders
-cannot represent: explicit run scope, pilot approval, retry counts and the
+cannot represent: explicit run scope, batch review approval, retry counts and the
 cross-video circuit breaker.
 """
 from __future__ import annotations
@@ -128,11 +128,11 @@ def new_run(mode: str, scope_kind: str, scope_value: str | None,
         backend = "local"
     created = now()
     state = {
-        "version": 2,
+        "version": 3,
         "mode": mode,
         "scope": {"kind": scope_kind, "value": scope_value},
         "items": selected,
-        "pilot": {"stem": None, "approved_at": None, "approved_by": None},
+        "review": {"approved_at": None, "approved_by": None, "stems": []},
         "backend": backend,
         # These stages consume different resources and must not share one
         # ambiguous lane count. Cloud authoring is isolated; provider calls,
@@ -169,21 +169,43 @@ def cmd_select(args) -> int:
 
 
 def cmd_approve(args) -> int:
-    workspace = VP / "renders-hyperframes" / args.stem
-    if not (workspace / "qa" / "PREFLIGHT-OK").is_file():
-        raise SystemExit(
-            f"FATAL: pilot {args.stem} is not gate-clean (qa/PREFLIGHT-OK missing)")
     with run_write_lock():
         state = load_run()
         if not state:
             raise SystemExit("FATAL: no active run; select a stem or batch first")
-        selected = {x.get("stem") for x in state.get("items", [])}
-        if args.stem not in selected:
-            raise SystemExit(f"FATAL: pilot {args.stem} is outside the active run")
-        state["pilot"] = {"stem": args.stem, "approved_at": now(),
-                          "approved_by": args.approved_by}
+        selected = [x.get("stem") for x in state.get("items", []) if x.get("stem")]
+        if state.get("mode") == "batch":
+            if not selected:
+                raise SystemExit(
+                    "FATAL: the active batch has no selected workspaces to review")
+            if args.target.upper() != "BATCH":
+                raise SystemExit(
+                    "FATAL: batch review approval covers the complete selected set; "
+                    "use run.sh approve BATCH after reviewing every workspace")
+            missing = [stem for stem in selected if not (
+                VP / "renders-hyperframes" / stem / "qa" / "PREFLIGHT-OK").is_file()]
+            if missing:
+                raise SystemExit(
+                    "FATAL: batch review is incomplete; these selected workspaces are "
+                    "not gate-clean: " + ", ".join(missing))
+            state["review"] = {"approved_at": now(),
+                               "approved_by": args.approved_by,
+                               "stems": selected}
+            message = f"approved batch review: {len(selected)} workspaces"
+        else:
+            if args.target not in selected:
+                raise SystemExit(f"FATAL: {args.target} is outside the active run")
+            workspace = VP / "renders-hyperframes" / args.target
+            if not (workspace / "qa" / "PREFLIGHT-OK").is_file():
+                raise SystemExit(
+                    f"FATAL: {args.target} is not gate-clean "
+                    "(qa/PREFLIGHT-OK missing)")
+            state["review"] = {"approved_at": now(),
+                               "approved_by": args.approved_by,
+                               "stems": [args.target]}
+            message = f"approved review: {args.target}"
         save_run(state)
-    print(f"approved pilot: {args.stem}")
+    print(message)
     return 0
 
 
@@ -194,8 +216,9 @@ def cmd_migrate_approval(args) -> int:
         if not state:
             raise SystemExit("FATAL: no active run to migrate")
         locate(args.stem)
-        state["pilot"] = {"stem": args.stem, "approved_at": args.approved_at,
-                          "approved_by": "owner", "source": "legacy-approved-pilot"}
+        state["review"] = {"stems": [args.stem],
+                           "approved_at": args.approved_at,
+                           "approved_by": "owner", "source": "legacy-approved-pilot"}
         save_run(state)
     print(f"migrated approved pilot: {args.stem}")
     return 0
@@ -244,6 +267,17 @@ def cmd_set_cloud_concurrency(args) -> int:
             raise SystemExit(
                 "FATAL: four cloud renders require three consecutive clean cloud "
                 f"renders; current streak is {limits['cloud_clean_streak']}/3")
+        if value > 2 and state.get("mode") == "batch":
+            selected = {
+                x.get("stem") for x in state.get("items", []) if x.get("stem")
+            }
+            review = state.get("review") or {}
+            reviewed = set(review.get("stems") or [])
+            if (not selected or not review.get("approved_at") or
+                    not selected.issubset(reviewed)):
+                raise SystemExit(
+                    "FATAL: four cloud renders require approval of the complete "
+                    "batch review set")
         state["cloud_render_concurrency"] = value
         state["cloud_render_max"] = MAX_CLOUD_RENDER_CONCURRENCY
         save_run(state)
@@ -284,11 +318,12 @@ def cmd_can_ship(args) -> int:
     if args.stem not in selected:
         raise SystemExit(f"FATAL: {args.stem} is outside the active run")
     if state.get("mode") == "batch":
-        pilot = state.get("pilot") or {}
-        if not pilot.get("stem") or not pilot.get("approved_at"):
+        review = state.get("review") or {}
+        approved = set(review.get("stems") or [])
+        if not review.get("approved_at") or not selected.issubset(approved):
             raise SystemExit(
-                "FATAL: batch pilot is not approved; preview one gate-clean pilot "
-                "and record approval with run.sh approve STEM")
+                "FATAL: batch review is not approved; build and review every "
+                "selected workspace, then record approval with run.sh approve BATCH")
     return 0
 
 
@@ -509,7 +544,7 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--scope-value")
     s.set_defaults(func=cmd_select)
     s = sub.add_parser("approve")
-    s.add_argument("stem")
+    s.add_argument("target")
     s.add_argument("--approved-by", default="owner")
     s.set_defaults(func=cmd_approve)
     s = sub.add_parser("migrate-approval", help=argparse.SUPPRESS)

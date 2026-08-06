@@ -60,9 +60,11 @@ contract, not an operating manual. Commands and machine gates own procedure.
 - The one pre-render reviewer reports two independent verdicts:
   `BLOCKING_DEFECT: PASS|FAIL` and `TASTE: ALIVE|FLAT`. A taste concern does not
   disguise a blocking defect, and a clean implementation does not imply taste.
-- Exactly one pilot requires human approval for an explicit batch. Record that
-  approval in `run.json` and reuse it across sessions. Do not add per-video human
-  checkpoints after the pilot.
+- For an explicit program batch, author and gate every selected lesson before
+  rendering any of them. The owner reviews the complete set of gate-clean
+  HyperFrames workspaces, then records one batch-review approval in `run.json`.
+  Reuse that approval across sessions; do not render or publish a selected lesson
+  before the complete set is ready and approved.
 - Retain sampled post-render encode review until run state records three
   consecutive clean cloud renders. Deterministic verification always remains.
 - A failed external command writes its command, exit code, error class, attempt,
