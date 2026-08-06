@@ -6,13 +6,13 @@
 
 - **11** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **22** — **ready to build.** Script approved; nothing made yet.
-- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
 - **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **5** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **3** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **1** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -55,11 +55,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
-- **m0_welcome-to-mid-career-momentum** (mid-career-momentum) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
-  - last completed **release** at 2026-08-05 20:31 UTC
-  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
-- **m1_mini-syllabus** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
-  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 19:09 UTC
   - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
@@ -91,18 +86,23 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 12. m5_skills-for-the-ai-era
 13. m6_youve-built-momentum
 
+**BUILDING — in flight, no MP4 yet:**
+
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+
+- m0_welcome-to-mid-career-momentum
+  - state: workspace claimed from the scaffold; no plan and no design authored yet
+  - last completed **resume** at 2026-08-06 23:13 UTC
+  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
+- m1_mini-syllabus
+  - state: freeform design written; narration not yet synthesized
+  - last completed **resume** at 2026-08-06 23:13 UTC
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
+
 **STALLED — the build folder stopped moving:**
 
 *Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
-- m0_welcome-to-mid-career-momentum
-  - state: workspace claimed from the scaffold; no plan and no design authored yet
-  - last completed **release** at 2026-08-05 20:31 UTC
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
-- m1_mini-syllabus
-  - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-06 20:27 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - m2_four-kinds-of-career-transition_mid-career-momentum
   - state: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 19:09 UTC
