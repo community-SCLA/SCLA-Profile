@@ -1,0 +1,22 @@
+{
+  "title": "Welcome and Using Career Transitions as Leaps Ahead",
+  "program": "Career Transitions",
+  "concept": "A continuous career route turns disruption into a deliberate leap forward.",
+  "visual_metaphor": "A gold traveler moving along a changing route from SHIFT to NEXT CHAPTER",
+  "beats": [
+    {"id": "ct-welcome", "purpose": "welcome", "visual": "title and opening route"},
+    {"id": "ct-something-shifted", "purpose": "recognition", "visual": "many disruptions bend one path"},
+    {"id": "ct-name-it", "purpose": "pause", "visual": "single naming point"},
+    {"id": "ct-research-horizon", "purpose": "evidence", "visual": "3–5 transitions and a 5-year horizon"},
+    {"id": "ct-five-weeks-months", "purpose": "contrast", "visual": "short expectations compress"},
+    {"id": "ct-five-years", "purpose": "emphasis", "visual": "the true horizon expands"},
+    {"id": "ct-permission-slip", "purpose": "reframe", "visual": "permission slip"},
+    {"id": "ct-three-tracks", "purpose": "orientation", "visual": "foundation, momentum, redirection"},
+    {"id": "ct-three-things", "purpose": "preview", "visual": "three runway checkpoints"},
+    {"id": "ct-internal-shift", "purpose": "framework", "visual": "external move over internal shift"},
+    {"id": "ct-experiments", "purpose": "framework", "visual": "small test paths"},
+    {"id": "ct-runway", "purpose": "framework", "visual": "story, plan, runway"},
+    {"id": "ct-honest-promise", "purpose": "trust", "visual": "route through hard terrain"},
+    {"id": "ct-question", "purpose": "handoff", "visual": "illuminated transition junction"}
+  ]
+}

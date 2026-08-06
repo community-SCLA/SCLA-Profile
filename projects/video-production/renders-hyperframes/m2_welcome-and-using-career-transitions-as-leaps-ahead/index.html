@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome and Using Career Transitions as Leaps Ahead</title>
+  <style>
+    :root {
+      --navy: #0d2437;
+      --navy-deep: #0a1e2f;
+      --blue: #3393d6;
+      --gold: #eaab2d;
+      --paper: #ffffff;
+      --cultured: #f6f6f9;
+      --muted-video: #5f6f96;
+      --font: "proxima-nova", "Proxima Nova", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--navy-deep);
+      color: var(--paper);
+      font-family: var(--font);
+    }
+
+    #composition {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: var(--navy-deep);
+    }
+
+    .clip {
+      position: absolute;
+      inset: 0;
+      padding: 156px 120px 120px;
+      display: grid;
+      align-content: center;
+      opacity: 0;
+    }
+
+    .clip:first-of-type { opacity: 1; }
+
+    .eyebrow,
+    .route-label {
+      position: absolute;
+      top: 68px;
+      z-index: 20;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { left: 120px; color: var(--gold); }
+    .route-label { right: 120px; color: var(--blue); }
+
+    h1, h2, p { margin: 0; }
+    h1 { max-width: 1320px; font-size: 108px; line-height: 0.98; font-weight: 900; letter-spacing: -0.035em; }
+    h2 { max-width: 1300px; font-size: 68px; line-height: 1.05; font-weight: 900; letter-spacing: -0.025em; }
+    .anchor { max-width: 1100px; margin-top: 28px; font-size: 44px; line-height: 1.15; color: var(--cultured); }
+    .gold { color: var(--gold); }
+    .blue { color: var(--blue); }
+
+    .rule {
+      width: 100%;
+      height: 8px;
+      margin-top: 62px;
+      border-radius: 100px;
+      background: var(--muted-video);
+      position: relative;
+    }
+
+    .rule::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 12px rgba(234, 171, 45, 0.18);
+    }
+
+    .signals,
+    .track-grid,
+    .three-grid,
+    .terrain,
+    .junction {
+      display: grid;
+      gap: 24px;
+      margin-top: 54px;
+    }
+
+    .signals { grid-template-columns: repeat(5, 1fr); }
+    .track-grid, .three-grid { grid-template-columns: repeat(3, 1fr); }
+    .terrain { grid-template-columns: repeat(3, 1fr); }
+    .junction { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      min-height: 150px;
+      padding: 32px;
+      border: 2px solid var(--muted-video);
+      border-radius: 12px;
+      background: rgba(13, 36, 55, 0.88);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .card.active { border-color: var(--gold); background: var(--paper); color: var(--navy); }
+    .card .kicker { font-size: 22px; line-height: 1; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
+    .card strong { font-size: 42px; line-height: 1.05; font-weight: 900; }
+    .card span { font-size: 40px; line-height: 1.08; }
+
+    .stat-row { display: flex; align-items: flex-end; gap: 84px; margin-top: 44px; }
+    .stat { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; }
+    .stat strong { font-size: 180px; line-height: 0.8; color: var(--gold); }
+    .stat span { max-width: 300px; font-size: 40px; line-height: 1.05; font-weight: 700; }
+
+    .permission {
+      width: 1260px;
+      padding: 58px 70px;
+      background: var(--paper);
+      color: var(--navy);
+      border-left: 18px solid var(--gold);
+      border-radius: 12px;
+      box-shadow: 28px 30px 0 var(--blue);
+    }
+
+    .permission .label { font-size: 22px; line-height: 1; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
+    .permission strong { display: block; margin-top: 24px; font-size: 64px; line-height: 1.02; }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 110px 1fr;
+      align-items: center;
+      gap: 30px;
+      margin-top: 52px;
+    }
+
+    .compare .arrow { text-align: center; font-size: 76px; color: var(--gold); }
+    .compare .card { min-height: 230px; }
+
+    .mini-paths { position: relative; height: 290px; margin-top: 38px; }
+    .mini-paths::before, .mini-paths::after { content: ""; position: absolute; left: 80px; width: 1220px; height: 6px; border-radius: 20px; background: var(--blue); transform-origin: left center; }
+    .mini-paths::before { top: 105px; transform: rotate(-7deg); }
+    .mini-paths::after { top: 180px; transform: rotate(6deg); }
+    .test-node { position: absolute; top: 108px; width: 96px; height: 96px; border: 8px solid var(--navy-deep); border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px var(--gold); }
+    .test-node:nth-child(1) { left: 120px; }
+    .test-node:nth-child(2) { left: 600px; top: 52px; }
+    .test-node:nth-child(3) { left: 1090px; top: 168px; }
+
+    .promise-line { margin-top: 56px; height: 12px; border-radius: 20px; background: linear-gradient(90deg, var(--muted-video) 0 26%, var(--blue) 26% 63%, var(--gold) 63% 100%); /* brand-allow: brand-token-only segmented route */ }
+
+    .question { max-width: 1540px; }
+    .junction .card { min-height: 170px; text-align: center; align-items: center; }
+    .junction .card::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); }
+  </style>
+</head>
+<body>
+  <main id="composition" data-composition-id="career-transition-leap">
+    <section class="clip" data-scene="ct-welcome" data-beat-id="ct-welcome">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h1>Welcome to<br><span class="gold">Career Transitions</span></h1>
+      <p class="anchor">Welcome and Using Career Transitions as Leaps Ahead</p>
+      <div class="rule"></div>
+    </section>
+
+    <section class="clip" data-scene="ct-something-shifted" data-beat-id="ct-something-shifted">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Something Has <span class="gold">Shifted</span></h2>
+      <div class="signals" data-role="list">
+        <div class="card"><span>Industry</span></div><div class="card"><span>Role</span></div><div class="card"><span>Layoff</span></div><div class="card"><span>Life</span></div><div class="card active"><span>Next chapter</span></div>
+      </div>
+    </section>
+
+    <section class="clip" data-scene="ct-name-it" data-beat-id="ct-name-it">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Start by <span class="gold">Naming</span> Where You Are</h2>
+      <div class="rule"></div>
+    </section>
+
+    <section class="clip" data-scene="ct-research-horizon" data-beat-id="ct-research-horizon">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Transitions Have a Longer Horizon Than We Expect</h2>
+      <div class="stat-row">
+        <div class="stat"><strong>3–5</strong><span>major life transitions</span></div>
+        <div class="stat"><strong>5</strong><span>years, on average</span></div>
+      </div>
+    </section>
+
+    <section class="clip" data-scene="ct-five-weeks-months" data-beat-id="ct-five-weeks-months">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Not Weeks<br>Not Months</h2>
+      <div class="rule"></div>
+    </section>
+
+    <section class="clip" data-scene="ct-five-years" data-beat-id="ct-five-years">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <div class="stat-row"><div class="stat"><strong>5</strong><span>years to fully complete</span></div></div>
+      <div class="rule"></div>
+    </section>
+
+    <section class="clip" data-scene="ct-permission-slip" data-beat-id="ct-permission-slip">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <div class="permission"><span class="label">Permission slip</span><strong>Taking longer does not mean doing it wrong.</strong></div>
+    </section>
+
+    <section class="clip" data-scene="ct-three-tracks" data-beat-id="ct-three-tracks">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Track 3 Changes the <span class="gold">Direction Itself</span></h2>
+      <div class="track-grid" data-role="list">
+        <div class="card"><span class="kicker">Track 1</span><strong>Foundation</strong></div>
+        <div class="card"><span class="kicker">Track 2</span><strong>Momentum</strong></div>
+        <div class="card active"><span class="kicker">Track 3</span><strong>Redirection</strong></div>
+      </div>
+    </section>
+
+    <section class="clip" data-scene="ct-three-things" data-beat-id="ct-three-things">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Three Things Build the Runway</h2>
+      <div class="three-grid" data-role="list">
+        <div class="card"><span class="kicker">01</span><strong>Look honestly</strong></div>
+        <div class="card"><span class="kicker">02</span><strong>Test safely</strong></div>
+        <div class="card"><span class="kicker">03</span><strong>Build credibly</strong></div>
+      </div>
+    </section>
+
+    <section class="clip" data-scene="ct-internal-shift" data-beat-id="ct-internal-shift">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>The Move Beneath the Move</h2>
+      <div class="compare" data-role="compare">
+        <div class="card"><span class="kicker">Visible</span><strong>External move</strong></div><div class="arrow">→</div><div class="card active"><span class="kicker">Decisive</span><strong>Internal shift</strong></div>
+      </div>
+    </section>
+
+    <section class="clip" data-scene="ct-experiments" data-beat-id="ct-experiments">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Test the Next Chapter with <span class="gold">Small Bets</span></h2>
+      <div class="mini-paths"><i class="test-node"></i><i class="test-node"></i><i class="test-node"></i></div>
+    </section>
+
+    <section class="clip" data-scene="ct-runway" data-beat-id="ct-runway">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>Build What Makes the Move Real</h2>
+      <div class="three-grid" data-role="list">
+        <div class="card active"><span class="kicker">Grounded</span><strong>Story</strong></div><div class="card active"><span class="kicker">Credible</span><strong>Plan</strong></div><div class="card active"><span class="kicker">Yours</span><strong>Runway</strong></div>
+      </div>
+    </section>
+
+    <section class="clip" data-scene="ct-honest-promise" data-beat-id="ct-honest-promise">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2>An Honest Framework for a Human Process</h2>
+      <div class="terrain" data-role="list">
+        <div class="card"><strong>Grief</strong></div><div class="card"><strong>Uncertainty</strong></div><div class="card"><strong>Doubt</strong></div>
+      </div>
+      <div class="promise-line"></div>
+    </section>
+
+    <section class="clip" data-scene="ct-question" data-beat-id="ct-question">
+      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
+      <h2 class="question">What Kind of Transition Are You Actually In?</h2>
+      <div class="junction" data-role="list"><div class="card"><strong>Ending</strong></div><div class="card"><strong>Crossing</strong></div><div class="card active"><strong>Beginning</strong></div></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { gsap } from "gsap";
+
+    const clips = [...document.querySelectorAll(".clip")];
+    const timeline = gsap.timeline({ paused: true });
+    clips.forEach((clip, index) => {
+      timeline.set(clip, { opacity: 1 }, index * 10);
+      if (index > 0) timeline.set(clips[index - 1], { opacity: 0 }, index * 10);
+      timeline.from(clip.querySelectorAll("h1, h2, .anchor, .card, .stat, .permission, .rule, .mini-paths, .promise-line"), {
+        y: 24,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.14,
+        ease: "power2.out"
+      }, index * 10 + 0.1);
+    });
+
+    window.__SCLA_TIMELINE__ = timeline;
+  </script>
+</body>
+</html>
