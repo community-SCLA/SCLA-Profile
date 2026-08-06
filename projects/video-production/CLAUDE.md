@@ -45,8 +45,8 @@ Do not load the full brand guide for a build. The builder consumes the copied
 - Script lifecycle remains `inbox → ready → workspace → published`.
 - Every new workspace starts through `scripts/build-claim.sh` and ends through
   `scripts/build-release.sh`.
-- Every selected program lesson reaches a gate-clean HyperFrames workspace before
-  one approval of the complete review set is recorded; that approval survives sessions.
+- Every gate-clean lesson is returned for rolling review immediately. Approval
+  is recorded per lesson and survives sessions; siblings may remain in progress.
 - Deterministic preflight, one combined pre-render visual review, post-render
   encode review, MP4 verification, and per-video publishing remain required.
 - Production voice has one provider, voice ID, and speed; there is no fallback.

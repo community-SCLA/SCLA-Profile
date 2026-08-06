@@ -4,7 +4,7 @@
 # Wired to the VS Code task "Review lesson videos" (.vscode/tasks.json), so the
 # normal way to run this is the Run Task menu, not typing it.
 #
-# For every build in renders-hyperframes/ it runs the deterministic gate
+# For every build in renders-hyperframes/ (or one optional stem argument) it runs the deterministic gate
 # (render-qa/src/preflight.py, ~0.4s each). Gate-clean builds get a preview server
 # started on their own port and a clickable link printed. Everything else is
 # listed as "not ready" so you know to skip it.
@@ -58,12 +58,24 @@ PY
 
 [ -d "$ROOT" ] || { echo "No renders-hyperframes/ at $ROOT" >&2; exit 1; }
 
+TARGET="${1:-}"
+if [ -n "${2:-}" ]; then
+  echo "usage: scripts/review.sh [stem]" >&2
+  exit 2
+fi
+if [ -n "$TARGET" ]; then
+  [ -d "$ROOT/$TARGET" ] || { echo "No workspace at $ROOT/$TARGET" >&2; exit 1; }
+  CANDIDATES=("$ROOT/$TARGET/")
+else
+  CANDIDATES=("$ROOT"/*/)
+fi
+
 echo ""
 echo "${bold}Checking every build against the Motion v2 gate...${off}"
 echo ""
 
 READY=(); BLOCKED=(); BLOCKED_WHY=()
-for d in "$ROOT"/*/; do
+for d in "${CANDIDATES[@]}"; do
   stem="$(basename "$d")"
   case "$stem" in _*) continue ;; esac
   [ -f "$d/index.html" ] || continue

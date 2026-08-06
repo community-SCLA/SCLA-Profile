@@ -7,8 +7,8 @@
 - **11** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **22** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the full-program review gate.
-- **0** — **approved to render.** Gate-clean and covered by the approved full-program review set.
+- **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
+- **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
@@ -59,17 +59,17 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - last completed **release** at 2026-08-05 20:31 UTC
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
 - **m1_mini-syllabus** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
-  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m1_mini-syllabus`; then continue `/render-lessons BUILD m1_mini-syllabus`
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 19:09 UTC
-  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m2_four-kinds-of-career-transition_mid-career-momentum`; then continue `/render-lessons BUILD m2_four-kinds-of-career-transition_mid-career-momentum`
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
 - **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — safe local render failed or timed out
   - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log
   - last completed **release** at 2026-08-06 09:42 UTC
   - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log before retrying
 - **m2_welcome-and-using-career-transitions-as-leaps-ahead** (career-transitions) — STALLED: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 15:39 UTC
-  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m2_welcome-and-using-career-transitions-as-leaps-ahead`; then continue `/render-lessons BUILD m2_welcome-and-using-career-transitions-as-leaps-ahead`
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_welcome-and-using-career-transitions-as-leaps-ahead. Do not delete the workspace
 - **m3_the-identity-audit** (career-transitions) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m3_the-identity-audit`; then continue `/render-lessons BUILD m3_the-identity-audit`
 
@@ -102,11 +102,11 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - m1_mini-syllabus
   - state: freeform design written; narration not yet synthesized
   - last written to: 2026-08-06 20:27 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m1_mini-syllabus`; then continue `/render-lessons BUILD m1_mini-syllabus`
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - m2_four-kinds-of-career-transition_mid-career-momentum
   - state: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 19:09 UTC
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m2_four-kinds-of-career-transition_mid-career-momentum`; then continue `/render-lessons BUILD m2_four-kinds-of-career-transition_mid-career-momentum`
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -133,7 +133,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
   - state: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 15:39 UTC
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m2_welcome-and-using-career-transitions-as-leaps-ahead`; then continue `/render-lessons BUILD m2_welcome-and-using-career-transitions-as-leaps-ahead`
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_welcome-and-using-career-transitions-as-leaps-ahead. Do not delete the workspace
 - m3_the-identity-audit
   - state: workspace claimed from the scaffold; no plan and no design authored yet
   - last written to: 2026-08-06 02:00 UTC (no `.build-log.tsv` — this workspace predates the build journal)

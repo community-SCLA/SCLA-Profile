@@ -81,8 +81,9 @@ check("AUTO-BATCH owns stem selection and parallel scheduling",
       "Never ask the user to choose, copy, or" in render_skill and
       "parallel in-session subagents" in render_skill and
       "`--cloud` uses Cloud tasks" in render_skill and
-      "build and gate every selected stem" in render_skill and
-      "only when every selected stem is `PUBLISHED`" in render_skill)
+      "Return each passing lesson immediately" in render_skill and
+      "must not be redelegated" in render_skill and
+      "approve STEM" in render_skill)
 audio_wrapper = (REPO / "scripts/video-audio.sh").read_text()
 check("TTS failures use bounded retries and durable receipts",
       'VIDEO_TTS_RETRIES:-2' in audio_wrapper and
@@ -124,7 +125,7 @@ check("batch requires explicit program or all scope",
       r.returncode == 2 and state_file.read_bytes() == before_bad_batch)
 r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
 state = json.loads(state_file.read_text())
-check("explicit program batch selects that program", r.returncode == 0 and
+check("explicit rolling batch replaces an unfinished named scope", r.returncode == 0 and
       {x["stem"] for x in state["items"]} == {"lesson-a_prog-a", "lesson-b_prog-a"})
 check("normal batch keeps local source authoring",
       state["authoring_backend"] == "local" and
@@ -150,24 +151,35 @@ check("selected stems get an exact source-only cloud prompt",
       "bash scripts/cloud-review-ready.sh lesson-a_prog-a" in r.stdout and
       "REVIEW_READY: PASS" in r.stdout and
       "Do not call HeyGen" in r.stdout, r.stderr + r.stdout)
+(test_vp / "renders-hyperframes/lesson-b_prog-a").mkdir()
+r = run(["bash", str(RUN), "delegate", "--stem", "lesson-b_prog-a"], env=env)
+check("existing workspaces resume locally instead of duplicate Cloud delegation",
+      r.returncode != 0 and "resume it locally" in r.stderr, r.stderr)
 check("new runs separate authoring, TTS, render, and publish capacity",
       state["authoring_concurrency"] == 3 and state["tts_concurrency"] == 2 and
       state["cloud_render_concurrency"] == 2 and state["publish_concurrency"] == 1,
       state)
 (test_vp / "renders-hyperframes/lesson-a_prog-a/qa").mkdir(parents=True)
 r = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
-check("batch shipping is mechanically blocked before full-set approval",
-      r.returncode != 0 and "batch review is not approved" in r.stderr, r.stderr)
+check("batch shipping is blocked before that lesson's rolling approval",
+      r.returncode != 0 and "rolling review approval" in r.stderr, r.stderr)
 state = json.loads(state_file.read_text())
 state["cloud_clean_streak"] = 3
 state_file.write_text(json.dumps(state))
 r = run(["bash", str(RUN), "cloud-limit", "4"], env=env)
-check("batch render capacity cannot scale before full-set approval",
-      r.returncode != 0 and "complete batch review set" in r.stderr, r.stderr)
+check("clean cloud streak scales independently of unfinished siblings",
+      r.returncode == 0, r.stderr)
 state = json.loads(state_file.read_text())
 state["cloud_clean_streak"] = 0
 state_file.write_text(json.dumps(state))
 (test_vp / "renders-hyperframes/lesson-a_prog-a/qa/PREFLIGHT-OK").write_text("")
+r = run(["bash", str(RUN), "approve", "lesson-a_prog-a"], env=env)
+approved_one = json.loads(state_file.read_text())["review"]
+r_a = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
+r_b = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-b_prog-a"], env=env)
+check("one clean batch lesson can be approved and shipped independently",
+      r.returncode == 0 and approved_one["stems"] == ["lesson-a_prog-a"] and
+      r_a.returncode == 0 and r_b.returncode != 0, r.stderr + r_b.stderr)
 r = run(["bash", str(RUN), "approve", "BATCH"], env=env)
 check("batch approval refuses a partial review set",
       r.returncode != 0 and "lesson-b_prog-a" in r.stderr, r.stderr)
@@ -177,7 +189,7 @@ r = run(["bash", str(RUN), "approve", "BATCH"], env=env)
 approved = json.loads(state_file.read_text())["review"]
 r3 = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
 r2 = run(["bash", str(RUN), "resume"], env=env)
-check("full-set approval persists across sessions", r.returncode == 0 and
+check("optional full-batch approval persists across sessions", r.returncode == 0 and
       approved["approved_at"] and set(approved["stems"]) ==
       {"lesson-a_prog-a", "lesson-b_prog-a"} and
       json.loads(state_file.read_text())["review"] == approved and

@@ -81,11 +81,11 @@ Everything downstream of your approval is exit codes.
   │          │               vision review of pixels    │   │                  │
   │          │               — BEFORE the render spend] │   │                  │
   │          ▼                                          │   │                  │
-  │  built workspace                                    │   │ ★ SET REVIEW ★   │
+  │  built workspace                                    │   │ ★ ROLLING REVIEW │
   │  renders-hyperframes/<base>/  ══════════════════════╪═══╡ review every     │
   │          │      (mkdir <base> IS the build lock)    │   │ selected lesson  │
-  │          │  "approve BATCH" unlocks ▼               │   │ (one full-set    │
-  │          ▼                                          │   │  approval)       │
+  │          │  "approve STEM" unlocks ▼                │   │ each clean stem  │
+  │          ▼                                          │   │ returns at once  │
   │   batch-ship.sh: render (~7 min) ─► verify_render   │   │                  │
   │          │        [duration ±0.15s, 1920×1080,      │   │                  │
   │          │         presence check, sha-256 marker]  │   │                  │
@@ -115,10 +115,10 @@ STRANDED in §1.6. The folders were renamed to match on 2026-08-04, when
 |---|---|
 | A video produced end to end | `/produce-video` — selects one lesson and stops at its review gate |
 | Just refine raw scripts | `/refine-scripts` — drains `inbox/` into `ready/` |
-| Build and ship a ready program | `/render-lessons AUTO-BATCH PROGRAM` — builds the complete review set first |
+| Build and ship a ready program | `/render-lessons AUTO-BATCH PROGRAM` — advances lessons independently |
 | **See what's ready to watch** | `bash scripts/review.sh` — gates every build and opens a preview only for the clean ones |
 | Preview one specific build | `bash scripts/preview.sh <stem>` |
-| Approve a program batch | review every selected workspace, then run **`run.sh approve BATCH`** |
+| Approve one lesson | review its workspace, then run **`run.sh approve STEM`** |
 | See what's outstanding | `bash scripts/batch-status.sh` |
 | Resume an interrupted batch | `bash scripts/batch-status.sh` — then tell the agent to continue; state is on disk, no session memory needed |
 | Deep-audit a suspicious cut | `/adversarial-qa` (escalation only — not part of the normal run) |
@@ -136,9 +136,9 @@ are compiler-owned, and a preference you state becomes a checker, not a memo.
 |---|---|---|
 | `/produce-video` | One explicitly selected lesson | At its review gate |
 | `/refine-scripts` | Every raw script in every program | Doesn't stop — never renders, never asks |
-| `/render-lessons` AUTO-BATCH | The whole queue, program by program, build → render → verify → publish | **Once per selected program**, after every workspace is gate-clean |
-| `/render-lessons` BUILD | Builds workspaces for the whole queue | Before any render — every video waits at the gate |
-| `ship <stem>` | One video covered by the approved review set, all the way to Wistia | Doesn't stop — full-set approval was the gate |
+| `/render-lessons` AUTO-BATCH | The whole queue, program by program, build → render → verify → publish | Pauses each clean lesson for rolling review while siblings continue |
+| `/render-lessons` BUILD | Builds workspaces for the whole queue | Returns each workspace when its own gate passes |
+| `ship <stem>` | One individually approved video, all the way to Wistia | Doesn't wait for sibling lessons |
 
 Drain order defaults to `early-career-boost` → `mid-career-momentum` →
 `career-transitions` → `entrepreneur-accelerator`, so an interrupted run leaves
@@ -147,14 +147,13 @@ No batch cap: the queue is the batch. Up to 3 builds run concurrently
 (network-bound); renders are serialised one at a time by `.render.lock`
 (CPU-bound).
 
-### 1.4 Your gate — one complete-set review, plus one standing right
+### 1.4 Your gate — rolling lesson review, plus one standing right
 
-- **★ COMPLETE-SET REVIEW (blocking).** A program batch builds and gates every
-  selected lesson, then stops once so you can review all HyperFrames workspaces.
-  `run.sh approve BATCH` authorizes render and publish for that exact selected
-  set. The command refuses approval while any selected workspace is not clean.
+- **★ ROLLING REVIEW.** Each gate-clean lesson returns immediately while its
+  siblings continue. `run.sh approve STEM` authorizes render and publish for
+  that lesson only; a stalled or rejected sibling does not withhold it.
 - **Standing right, not a gate:** `ready/` is yours to edit or veto at any
-  moment before build. After complete-set approval there is no second look;
+  moment before build. After that lesson's approval there is no second look;
   every render remains protected by the guard chain below.
 
 ### 1.5 What protects every video when you're not looking
@@ -269,8 +268,8 @@ workspace, leaving one lesson holding both `..._2026-07-28` and
 
 Every video is **freeform (agent-native)**: no templates, no `scenes.json`,
 no compiler — the HTML is the authored artifact, narration-first (audio is
-frozen before a pixel is placed), eligible for AUTO-BATCH under one approval of
-the complete selected workspace set. The template lane — scenes.json compiled against twelve
+frozen before a pixel is placed), eligible for AUTO-BATCH with rolling
+per-lesson approval. The template lane — scenes.json compiled against twelve
 design-system templates — was **retired 2026-08-05** after the owner approved
 the freeform `m1_mini-syllabus` trial; its compiler and slot-shaped gates are
 provenance under `render-qa/_archive/` (`decisions/log.md` 2026-08-05).

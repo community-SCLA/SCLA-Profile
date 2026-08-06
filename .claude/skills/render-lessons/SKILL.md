@@ -17,47 +17,52 @@ Never ask the user to choose, copy, or paste stems.
 
 It authorizes the coordinator to:
 
-- resume and drain an unfinished active run;
-- when that run is complete, select the remaining queue with `run.sh batch
-  --all` and drain programs in the status priority order;
+- preserve unfinished work in its workspace and failure receipt while
+  selecting the requested batch; stalled or rejected lessons do not block
+  fresh READY authoring;
+- select the remaining queue with `run.sh batch --all` and drain programs in
+  status priority order;
 - launch parallel in-session subagents for different stems, up to the available
   agent slots and the recorded stage capacity;
 - run normal build, queued TTS, gate, cloud-render, verification, and serial
   publish commands inside the selected scope.
 
-`AUTO-BATCH PROGRAM` limits new selection to that program. If another run is
-unfinished, finish it before replacing its scope.
+`AUTO-BATCH PROGRAM` limits new selection to that program. Existing unfinished
+work remains durable and recoverable when the batch selection replaces scope.
 
 `AUTO-BATCH [PROGRAM] --cloud` records cloud source authoring through the
 matching `run.sh batch ... --cloud` command. Print one `run.sh delegate` prompt
-per selected `READY` lesson instead of building locally. Submission remains in
-the Codex Cloud UI. After its branch/PR is merged, resume narration and gates
-locally. Never delegate `STALLED` work.
+per selected untouched `READY` lesson instead of building locally. Submission
+remains in the chosen Cloud task UI. After each branch/PR is merged, resume narration
+and gates locally. Never delegate a stem that already has a workspace; resume
+it locally instead.
 
-Pause only for review of the complete selected workspace set or a genuine external blocker. Do not hand
-routine commands back to the user.
+Return each passing lesson immediately and launch its Studio preview with
+`bash scripts/review.sh STEM`; continue other work. Pause that stem
+for review without pausing its siblings. Do not hand routine commands
+back to the user.
 
-Retry only after the recorded cause changes. A run is complete only when every selected stem is `PUBLISHED`.
+Retry only after the recorded cause changes. A stem is complete only when it is
+`PUBLISHED`; unresolved siblings stay visible without withholding completed work.
 
 ### Automatic dispatch loop
 
-1. Run `run.sh resume` and read the persisted selection plus live JSON status.
-2. Intersect work with the active run's selected items. The broader status
-   backlog is context, not permission to choose unrelated stems.
-3. If a batch has no approved review set, build and gate every selected stem.
-   Do not render or publish any selected stem while another selected, buildable
-   lesson has not reached a gate-clean HyperFrames workspace. When the complete
-   set is ready, present preview commands for all workspaces and pause once for
-   the owner to review the full program.
+1. Run `run.sh resume` and read persisted selection plus live JSON status.
+2. For AUTO-BATCH, select the explicitly requested program or `--all` even when
+   earlier work is unfinished. Folder state and `qa/failure.json` preserve it;
+   never delete or silently retry it.
+3. Advance each selected stem independently. As soon as one becomes gate-clean,
+   run `bash scripts/review.sh STEM`, return its Studio URL, and await approval
+   for that stem while continuing every other unblocked stem.
 4. Drain stages without asking for stems:
    - `RENDERED`: publish serially.
-   - `APPROVED`: render through the cloud/local queue, verify, then publish.
-   - `STALLED`: resume the existing workspace at its recorded next action;
-     preserve narration and completed work.
-   - `REJECTED`: diagnose the recorded failure. Retry only after evidence that
-     its cause changed; respect retry exhaustion and the circuit breaker.
-   - selected `READY`: assign parallel workers, or generate Cloud assignments
-     when `authoring_backend` is `cloud`.
+   - `APPROVED`: render, verify, then publish without waiting for siblings.
+   - `STALLED`: resume locally at its recorded next action; preserve completed work.
+   - `REJECTED`: diagnose independently. Retry only after its cause changed;
+     do not block unrelated authoring, review, rendering, or publishing.
+   - selected untouched `READY`: assign workers, or generate Cloud assignments
+     when `authoring_backend` is `cloud`. A READY stem with an existing
+     workspace resumes locally and must not be redelegated.
    - `RAW` or `NEEDS SCRIPT`: do not build; surface only if it blocks scope.
 5. Give every worker one unique stem. A worker owns concept, direct HTML
    authoring, queued narration, computed timing, gate fixes, and lease release.
@@ -65,12 +70,10 @@ Retry only after the recorded cause changes. A run is complete only when every s
 6. Re-read live status after every completion and refill open worker slots.
    Use `status.priority` for program order and each program's displayed queue
    order for stems. At a 3/3 clean cloud streak, run `run.sh cloud-limit 4`
-   automatically only after batch review approval. Before approval, continue
-   authoring until all selected workspaces are gate-clean, then pause. After
-   approval, continue until selected work is published or truly blocked.
-7. After an unfinished run is fully published, select a requested program with
-   `run.sh batch --program PROGRAM`; otherwise AUTO-BATCH uses `run.sh batch
-   --all` for the remaining backlog.
+   automatically. Continue authoring while individual lessons await review.
+7. AUTO-BATCH selects a requested program with `run.sh batch --program PROGRAM`;
+   otherwise it uses `run.sh batch --all`. Durable failures remain recoverable
+   after the new selection is recorded.
 
 Use available slots and enforce provider/render queues. Normal AUTO-BATCH uses
 in-session workers; `--cloud` uses Cloud tasks.
@@ -137,20 +140,24 @@ After rendering, sample the beginning, middle, transitions, and ending for
 missing frames, audio damage, drift, blanks, truncation, or preview differences.
 Retain this review through three clean cloud renders; MP4 verification remains.
 
-## Batch review and continuation
+## Rolling review and continuation
 
-An explicit program batch has one complete review set. After every selected
-lesson is gate-clean and the owner has reviewed all HyperFrames workspaces,
-record approval with:
+Each lesson is handed back as soon as it is gate-clean. Launch its detached
+Studio server and print the live URL:
 
 ```bash
-bash projects/video-production/run.sh approve BATCH
+bash scripts/review.sh STEM
 ```
 
-The command refuses approval if any selected workspace lacks `qa/PREFLIGHT-OK`.
-Approval persists in `run.json`; never request it again on resume. After the
-complete set is approved, render, verify, and publish the selected lessons. A
-named single-video run has no hidden queue continuation.
+After the owner reviews that lesson, record only its approval:
+
+```bash
+bash projects/video-production/run.sh approve STEM
+```
+
+Approval persists in `run.json`. Render, verify, and publish that stem without
+waiting for the rest. `approve BATCH` remains an optional convenience only when
+the owner has actually reviewed every selected gate-clean workspace.
 
 ## Failure policy
 

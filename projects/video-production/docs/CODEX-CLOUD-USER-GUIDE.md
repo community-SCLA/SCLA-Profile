@@ -36,10 +36,10 @@ To limit a new run to one program:
 /render-lessons AUTO-BATCH mid-career-momentum
 ```
 
-The sequence first builds every selected lesson into a gate-clean HyperFrames
-workspace, then pauses once for review of the complete program set. Nothing
-renders or publishes before that full-set approval. Reply to the pause in the
-same conversation; you do not need to restart the sequence.
+The sequence advances lessons independently. Each gate-clean HyperFrames
+workspace is returned and opened for review immediately while other lessons
+continue. Only that lesson waits for approval; stalled or rejected siblings do
+not block its review, render, or publish path.
 
 ## What runs where
 
@@ -63,7 +63,7 @@ Start with the active run and let each lesson's stage determine the action:
 bash projects/video-production/run.sh resume
 bash projects/video-production/run.sh status
 bash projects/video-production/run.sh batch --all --cloud
-bash projects/video-production/run.sh batch --program --cloud
+bash projects/video-production/run.sh batch --program PROGRAM --cloud
 ```
 Use Sol High for a full program batch.
 Sol High: Best default for this pipeline. It balances creative judgment, coding, QA, and persistence.
@@ -76,7 +76,7 @@ So for Mid-Career Momentum: Sol High + /render-lessons AUTO-BATCH. Escalate indi
 | --- | --- |
 | `READY` | Generate a Codex Cloud prompt with `run.sh delegate --stem STEM` The lesson script is approved and placed in the build queue.|
 | `STALLED` | Resume the existing workspace; never delegate or recreate it |
-| `NEEDS REVIEW` | Review all selected workspaces; after the complete set is ready, run `run.sh approve BATCH` |
+| `NEEDS REVIEW` | Review this workspace now, then run `run.sh approve STEM` |
 | `APPROVED` | Render it with `run.sh ship STEM` The workspace/composition has passed review and is cleared to become an MP4.|
 | `RENDERED` | Publish it with `run.sh ship STEM --publish` The workspace has been converted into a finished, verified MP4, but it has not yet been published.|
 | `REJECTED` | Correct the recorded cause, authorize retry if required, then ship again |
@@ -84,18 +84,54 @@ So for Mid-Career Momentum: Sol High + /render-lessons AUTO-BATCH. Escalate indi
 | `NEEDS SCRIPT` | Stop; the owner must supply narration |
 | `PUBLISHED` | Nothing; it is complete The MP4 has been uploaded to Wistia.|
 
-Do not start another `batch --program` while the current program still has
-unfinished work: selecting a new batch replaces the active scope. Delegate only
-stems displayed as `READY` inside the active run. The command refuses a stem
-outside that scope.
+Refined script
+     ↓
+READY
+     ↓
+Cloud lesson task begins
+     ↓
+Two visual concepts proposed
+     ↓
+Best visual concept selected
+     ↓
+Design and motion language created
+     ↓
+HyperFrames HTML authored
+     ↓
+REVIEW_READY: PASS
+
+STALLED / scaffold means a workspace exists but creative authoring has barely or not yet begun.
+STALLED / freeform design written means some creative judgment has already occurred and should be preserved.
+REJECTED means work was produced but a later check refused it; the recorded failure determines whether the next work is creative or mechanical.
+
+| Stage | Work performed | Creative judgment | Recommended model |
+|---|---|---:|---|
+| Batch launcher | Select queue, exclude existing workspaces, print task prompts | Very low | Luna Light or Terra Low |
+| Cloud lesson author | Develop visual concept, choose visual metaphor, design scenes, motion, hierarchy, typography, and HTML | **Very high** | **Sol High** |
+| Cloud source gate repair | Diagnose animation, layout, timing, and motion-assertion failures | Medium–high | Sol Medium or High |
+| Local narration | Submit approved words to TTS | Low | Terra Low |
+| Timing calculation | Compute exact beat timings | None; deterministic script | Terra Low |
+| Apply timing | Connect computed times to authored composition | Low–medium | Terra Medium |
+| Full gate repair | Correct layout, pacing, motion, copy, or rendering defects | Medium–high | Sol Medium; High for difficult failures |
+| Owner Studio review | Decide whether the work feels alive, clear, and on-brand | **Human judgment** | You |
+| Render, verify, publish | Produce MP4, run checks, upload | Mostly mechanical | Terra Low |
+
+Starting an explicit AUTO-BATCH may replace an older active scope because each
+workspace and failure receipt remains durable on disk. Delegate only untouched
+stems displayed as `READY` inside the selected run. A stem with an existing
+workspace must resume locally; the command refuses duplicate Cloud authoring.
 
 For a fresh coordinator session, paste:
 
 ```text
-Resume the active SCLA video run. Do not ask me to choose a stem and do not
-start a new batch. Read the live status, stay inside its recorded scope, and
-continue the highest-priority safe next action. Tell me when owner approval or
-an external fix is actually required.
+Run /render-lessons AUTO-BATCH --cloud as a rolling pipeline. Select the whole
+ready queue now even though older work is stalled or rejected. Resume every
+existing workspace locally at its recorded next action while, at the same time,
+generating one run.sh delegate prompt for every selected untouched READY lesson.
+Never redelegate a stem that already has a workspace. Return and launch each
+gate-clean Studio preview immediately; do not wait for sibling lessons. A
+failure stops only its own stem. Do not render or publish a stem until I approve
+that stem.
 ```
 
 ## Start a new batch
@@ -117,18 +153,19 @@ lesson separately. Commit and push the pipeline and scaffold source changes
 before opening cloud tasks. Codex Cloud works from the pushed repository state,
 not uncommitted files in the Codespace.
 
-## Optional advanced mode: separate Codex Cloud tasks
+## Dispatch the separate Cloud tasks while local work resumes
 
-This mode is optional. Use it only when you specifically want separate isolated
-pull requests instead of the one-command in-session coordinator. For each ready
-stem, generate its exact task prompt:
+The coordinator keeps existing work local and prints one exact assignment for
+each untouched ready stem. For every printed stem, generate or reprint its task:
 
 ```bash
 bash projects/video-production/run.sh delegate --stem STEM
 ```
 
-Copy the entire output into a fresh Codex Cloud task. Open one task per stem,
-up to six at once. Every task must use a different stem.
+Copy the entire output into a fresh Codex Cloud or Claude cloud task. Open one
+task per stem, up to six at once. Every task must use a different stem. These
+Cloud tasks run independently while the live coordinator resumes stalled local
+work; neither lane waits for the other.
 
 The cloud task will:
 
@@ -186,16 +223,15 @@ bash projects/video-production/run.sh ship STEM
 Separate coordinator workers may issue `ship` for different approved stems.
 The shared queue admits only two cloud renders at once; extra jobs wait.
 
-After the complete batch review is approved and three consecutive cloud renders
-pass verification, raise the limit:
+After three consecutive cloud renders pass verification, raise the limit:
 
 ```bash
 bash projects/video-production/run.sh cloud-limit 4
 bash projects/video-production/run.sh limits
 ```
 
-The command refuses to raise the limit before both the full-set approval and the
-3/3 clean streak. A later cloud-render failure resets the clean streak and
+The command refuses to raise the limit before the 3/3 clean streak. A later
+cloud-render failure resets the clean streak and
 automatically returns the limit to two. To lower it manually at any time:
 
 ```bash

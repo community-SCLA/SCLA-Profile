@@ -2,8 +2,8 @@
 """Persistent control state for SCLA video runs and per-workspace failures.
 
 Video lifecycle remains folder-owned.  This file stores only facts folders
-cannot represent: explicit run scope, batch review approval, retry counts and the
-cross-video circuit breaker.
+cannot represent: explicit run scope, rolling review approval, retry counts and
+the cross-video circuit breaker.
 """
 from __future__ import annotations
 
@@ -181,20 +181,36 @@ def cmd_approve(args) -> int:
             if not selected:
                 raise SystemExit(
                     "FATAL: the active batch has no selected workspaces to review")
-            if args.target.upper() != "BATCH":
-                raise SystemExit(
-                    "FATAL: batch review approval covers the complete selected set; "
-                    "use run.sh approve BATCH after reviewing every workspace")
-            missing = [stem for stem in selected if not (
-                VP / "renders-hyperframes" / stem / "qa" / "PREFLIGHT-OK").is_file()]
-            if missing:
-                raise SystemExit(
-                    "FATAL: batch review is incomplete; these selected workspaces are "
-                    "not gate-clean: " + ", ".join(missing))
-            state["review"] = {"approved_at": now(),
-                               "approved_by": args.approved_by,
-                               "stems": selected}
-            message = f"approved batch review: {len(selected)} workspaces"
+            if args.target.upper() == "BATCH":
+                missing = [stem for stem in selected if not (
+                    VP / "renders-hyperframes" / stem / "qa" / "PREFLIGHT-OK").is_file()]
+                if missing:
+                    raise SystemExit(
+                        "FATAL: batch review is incomplete; these selected workspaces are "
+                        "not gate-clean: " + ", ".join(missing))
+                state["review"] = {"approved_at": now(),
+                                   "approved_by": args.approved_by,
+                                   "stems": selected}
+                message = f"approved batch review: {len(selected)} workspaces"
+            else:
+                if args.target not in selected:
+                    raise SystemExit(
+                        f"FATAL: {args.target} is outside the active batch")
+                workspace = VP / "renders-hyperframes" / args.target
+                if not (workspace / "qa" / "PREFLIGHT-OK").is_file():
+                    raise SystemExit(
+                        f"FATAL: {args.target} is not gate-clean "
+                        "(qa/PREFLIGHT-OK missing)")
+                review = state.get("review") or {}
+                approved = list(review.get("stems") or [])
+                if args.target not in approved:
+                    approved.append(args.target)
+                state["review"] = {
+                    "approved_at": review.get("approved_at") or now(),
+                    "approved_by": args.approved_by,
+                    "stems": approved,
+                }
+                message = f"approved rolling review: {args.target}"
         else:
             if args.target not in selected:
                 raise SystemExit(f"FATAL: {args.target} is outside the active run")
@@ -270,17 +286,6 @@ def cmd_set_cloud_concurrency(args) -> int:
             raise SystemExit(
                 "FATAL: four cloud renders require three consecutive clean cloud "
                 f"renders; current streak is {limits['cloud_clean_streak']}/3")
-        if value > 2 and state.get("mode") == "batch":
-            selected = {
-                x.get("stem") for x in state.get("items", []) if x.get("stem")
-            }
-            review = state.get("review") or {}
-            reviewed = set(review.get("stems") or [])
-            if (not selected or not review.get("approved_at") or
-                    not selected.issubset(reviewed)):
-                raise SystemExit(
-                    "FATAL: four cloud renders require approval of the complete "
-                    "batch review set")
         state["cloud_render_concurrency"] = value
         state["cloud_render_max"] = MAX_CLOUD_RENDER_CONCURRENCY
         save_run(state)
@@ -308,6 +313,11 @@ def cmd_delegate_info(args) -> int:
     ready = VP / "lesson-scripts" / str(program) / "ready" / f"{args.stem}.txt"
     if not program or not ready.is_file():
         raise SystemExit(f"FATAL: no ready script for selected stem {args.stem}")
+    workspace = VP / "renders-hyperframes" / args.stem
+    if workspace.is_dir():
+        raise SystemExit(
+            f"FATAL: {args.stem} already has a workspace; resume it locally "
+            "instead of creating a duplicate Cloud authoring task")
     print(json.dumps({"stem": args.stem, "program": program,
                       "stage": "ready"}))
     return 0
@@ -323,10 +333,10 @@ def cmd_can_ship(args) -> int:
     if state.get("mode") == "batch":
         review = state.get("review") or {}
         approved = set(review.get("stems") or [])
-        if not review.get("approved_at") or not selected.issubset(approved):
+        if not review.get("approved_at") or args.stem not in approved:
             raise SystemExit(
-                "FATAL: batch review is not approved; build and review every "
-                "selected workspace, then record approval with run.sh approve BATCH")
+                f"FATAL: {args.stem} has not received rolling review approval; "
+                f"review it, then run run.sh approve {args.stem}")
     return 0
 
 

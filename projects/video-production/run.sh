@@ -85,7 +85,8 @@ This is source-only authoring. Do not call HeyGen, render, publish, or modify
 run.json, PIPELINE-STATUS.md, shared scripts, contracts, or another workspace.
 Run bash scripts/cloud-review-ready.sh ${stem}. Do not call the task complete
 unless it prints REVIEW_READY: PASS. Commit only this workspace's trackable
-source, and return the commit or pull-request link with the required summary.
+source, and return the commit or pull-request link with the required summary
+immediately; never wait for another lesson.
 EOF
     ;;
   limits)

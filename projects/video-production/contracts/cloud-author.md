@@ -40,7 +40,7 @@ lesson workspace.
    failed authoring attempt, not review-ready work.
 6. Fix every finding, rerun the gate to `REVIEW_READY: PASS`, then commit only
    the assigned workspace's trackable source files and return the commit or
-   pull-request link.
+   pull-request link immediately. Never wait for sibling Cloud tasks.
 
 ## Stop here
 

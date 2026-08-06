@@ -32,9 +32,9 @@ replaces the old ten-minute stagger with an enforced capacity limit.
        ↓
 [4] claim one stem → author HTML → synthesize audio → compute timing
        ↓
-[5] deterministic gate → combined visual/taste review for every selected workspace
+[5] deterministic gate → combined visual/taste review per workspace
        ↓
-[5a] owner reviews the complete set → one batch approval
+[5a] each passing workspace returns immediately → rolling owner approval
        ↓
 [6] cloud/local render → MP4 verification → temporary encode review
        ↓
