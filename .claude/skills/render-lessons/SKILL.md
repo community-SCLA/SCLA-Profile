@@ -31,9 +31,9 @@ It authorizes the coordinator to:
 work remains durable and recoverable when the batch selection replaces scope.
 
 `AUTO-BATCH [PROGRAM] --cloud` records cloud source authoring through the
-matching `run.sh batch ... --cloud` command. Print one `run.sh delegate` prompt
-per selected untouched `READY` lesson instead of building locally. Submission
-remains in the chosen Cloud task UI. After each branch/PR is merged, resume narration
+matching `run.sh batch ... --cloud` command. Submit untouched `READY` lessons
+with `run.sh dispatch --stem STEM`; return task URLs. `run.sh delegate` only
+previews assignments. After each branch/PR is merged, resume narration
 and gates locally. Never delegate a stem that already has a workspace; resume
 it locally instead.
 
@@ -60,7 +60,7 @@ Retry only after the recorded cause changes. A stem is complete only when it is
    - `STALLED`: resume locally at its recorded next action; preserve completed work.
    - `REJECTED`: diagnose independently. Retry only after its cause changed;
      do not block unrelated authoring, review, rendering, or publishing.
-   - selected untouched `READY`: assign workers, or generate Cloud assignments
+   - selected untouched `READY`: assign workers, or submit Cloud tasks
      when `authoring_backend` is `cloud`. A READY stem with an existing
      workspace resumes locally and must not be redelegated.
    - `RAW` or `NEEDS SCRIPT`: do not build; surface only if it blocks scope.
@@ -86,7 +86,7 @@ BUILD STEM   → run.sh produce --stem STEM, then the four-call flow below
 SHIP STEM    → run.sh ship STEM [--publish]
 RESUME       → run.sh resume, then continue only selected unfinished items
 AUTO-BATCH   → resume, select, parallelize, render, and publish automatically
-AUTO-BATCH --cloud → select cloud authoring and prepare one Cloud task per READY stem
+AUTO-BATCH --cloud → select cloud authoring and dispatch one Cloud task per untouched READY stem
 ```
 
 Program and whole-queue work require `run.sh batch --program PROGRAM` or

@@ -155,15 +155,16 @@ not uncommitted files in the Codespace.
 
 ## Dispatch the separate Cloud tasks while local work resumes
 
-The coordinator keeps existing work local and prints one exact assignment for
-each untouched ready stem. For every printed stem, generate or reprint its task:
+The coordinator keeps existing work local and submits one task for each
+untouched ready stem:
 
 ```bash
-bash projects/video-production/run.sh delegate --stem STEM
+bash projects/video-production/run.sh dispatch --stem STEM
 ```
 
-Copy the entire output into a fresh Codex Cloud or Claude cloud task. Open one
-task per stem, up to six at once. Every task must use a different stem. These
+The command calls `codex cloud exec` and returns the Cloud task URL. `delegate`
+only prints the assignment for inspection; it does not submit anything. Open
+one task per stem, up to six at once. Every task must use a different stem. These
 Cloud tasks run independently while the live coordinator resumes stalled local
 work; neither lane waits for the other.
 

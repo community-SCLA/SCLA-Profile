@@ -73,6 +73,7 @@ check("builder fixed route <= 3000 words", words(builder) <= 3000, words(builder
 kit = (VP / "contracts/builder.md").read_text()
 prepare = (REPO / "scripts/batch-prepare.sh").read_text()
 render_skill = (REPO / ".claude/skills/render-lessons/SKILL.md").read_text()
+cloud_dispatch = (REPO / "scripts/cloud-dispatch.sh").read_text()
 check("generated kit source has no extraction-marker residue",
       "BUILD-KIT:BEGIN" not in kit and "BUILD-KIT:END" not in kit)
 check("build kit is copied from one tracked contract",
@@ -83,7 +84,12 @@ check("AUTO-BATCH owns stem selection and parallel scheduling",
       "`--cloud` uses Cloud tasks" in render_skill and
       "Return each passing lesson immediately" in render_skill and
       "must not be redelegated" in render_skill and
-      "approve STEM" in render_skill)
+      "approve STEM" in render_skill and
+      "run.sh dispatch --stem STEM" in render_skill)
+check("Cloud dispatch submits instead of merely printing",
+      "CODEX_CLOUD_BIN:-codex" in cloud_dispatch and
+      "cloud exec --env" in cloud_dispatch and
+      "commit and push local changes" in cloud_dispatch)
 audio_wrapper = (REPO / "scripts/video-audio.sh").read_text()
 check("TTS failures use bounded retries and durable receipts",
       'VIDEO_TTS_RETRIES:-2' in audio_wrapper and
@@ -151,6 +157,16 @@ check("selected stems get an exact source-only cloud prompt",
       "bash scripts/cloud-review-ready.sh lesson-a_prog-a" in r.stdout and
       "REVIEW_READY: PASS" in r.stdout and
       "Do not call HeyGen" in r.stdout, r.stderr + r.stdout)
+fake_codex = tmp / "fake-codex"
+fake_codex.write_text("#!/usr/bin/env bash\nprintf '%s\\n' \"$@\"\n")
+fake_codex.chmod(0o755)
+dispatch_env = dict(env, CODEX_CLOUD_BIN=str(fake_codex),
+                    CODEX_CLOUD_ALLOW_DIRTY="1")
+r = run(["bash", str(RUN), "dispatch", "--stem", "lesson-a_prog-a"],
+        env=dispatch_env)
+check("dispatch submits the generated assignment through codex cloud exec",
+      r.returncode == 0 and "cloud\nexec\n--env\n6a74d3f8935c819189b90cf480d" in r.stdout and
+      "Work only on lesson-a_prog-a" in r.stdout, r.stderr + r.stdout)
 (test_vp / "renders-hyperframes/lesson-b_prog-a").mkdir()
 r = run(["bash", str(RUN), "delegate", "--stem", "lesson-b_prog-a"], env=env)
 check("existing workspaces resume locally instead of duplicate Cloud delegation",

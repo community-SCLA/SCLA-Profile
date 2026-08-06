@@ -111,6 +111,17 @@
       "notes": "Main branch: main"
     }
   ],
+  "codex_cloud": [
+    {
+      "name": "SCLA Profile Cloud environment",
+      "type": "environment",
+      "id": "6a74d3f8935c819189b90cf480d",
+      "url": null,
+      "used_by": "scripts/cloud-dispatch.sh via run.sh dispatch",
+      "verified": "2026-08-06",
+      "notes": "Non-secret environment ID confirmed in the Codex Cloud picker; task submission uses codex cloud exec."
+    }
+  ],
   "notion": [
     {
       "name": "SCLA Video Production Queue",

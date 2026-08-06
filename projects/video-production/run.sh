@@ -13,7 +13,7 @@ refresh_human_status() {
 }
 
 usage() {
-  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|delegate --stem STEM|limits|cloud-limit (2|4)|approve (STEM|BATCH)|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
+  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|delegate --stem STEM|dispatch --stem STEM|limits|cloud-limit (2|4)|approve (STEM|BATCH)|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
   exit 2
 }
 
@@ -88,6 +88,10 @@ unless it prints REVIEW_READY: PASS. Commit only this workspace's trackable
 source, and return the commit or pull-request link with the required summary
 immediately; never wait for another lesson.
 EOF
+    ;;
+  dispatch)
+    stem="$(stem_arg "${1:-}" "${2:-}")"
+    bash "$REPO/scripts/cloud-dispatch.sh" "$stem"
     ;;
   limits)
     python3 "$STATE" capacity
