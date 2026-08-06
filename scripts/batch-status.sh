@@ -86,6 +86,20 @@ pilot = active_run.get("pilot") or {}
 batch_approved = (active_run.get("mode") == "batch" and
                   bool(pilot.get("stem")) and bool(pilot.get("approved_at")))
 
+backend = active_run.get("backend", "local")
+legacy_concurrency = int(active_run.get(
+    "concurrency", 4 if backend == "cloud" else 3))
+run_capacity = {
+    "backend": backend,
+    "authoring": int(active_run.get(
+        "authoring_concurrency", 6 if backend == "cloud" else legacy_concurrency)),
+    "tts": int(active_run.get("tts_concurrency", 2)),
+    "cloud_render": int(active_run.get("cloud_render_concurrency", 2)),
+    "cloud_render_max": int(active_run.get("cloud_render_max", 4)),
+    "publish": int(active_run.get("publish_concurrency", 1)),
+    "cloud_clean_streak": int(active_run.get("cloud_clean_streak", 0)),
+}
+
 ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exists() else ""
 
 # Every comparison here is on BASE (title_program). Since 2026-07-29 a working
@@ -506,7 +520,8 @@ for base, d in sorted(ws_by_base.items()):
 totals["published"] = len(media_ids)
 
 if mode == "json":
-    print(json.dumps({"priority": ordered, "totals": totals, "programs": report,
+    print(json.dumps({"run": run_capacity, "priority": ordered,
+                       "totals": totals, "programs": report,
                        "orphans": orphans, "published": published_rows}, indent=2))
     sys.exit(0)
 

@@ -1,0 +1,25 @@
+2026-08-06T02:25:51Z	resume	program=career-transitions
+2026-08-06T02:27:29Z	preflight	exit 1
+2026-08-06T02:27:41Z	release	build session ended
+2026-08-06T02:38:22Z	resume	program=career-transitions
+2026-08-06T02:40:33Z	precheck	source-gate conflict resolved; static COPY PASS and 0.00% script mismatch; TTS then blocked by provider access approval
+2026-08-06T02:40:42Z	release	build session ended
+2026-08-06T03:59:13Z	resume	program=career-transitions
+2026-08-06T03:59:53Z	static	source contract verified; 671/671 words; full gate awaits narration timing
+2026-08-06T04:01:23Z	blocked	production TTS requires explicit approval to send this lesson narration through Infisical to HeyGen; no provider call completed
+2026-08-06T04:01:23Z	release	build session ended
+2026-08-06T04:36:28Z	resume	program=career-transitions
+2026-08-06T04:37:51Z	timing	10 beats; timing.json total 276.499s applied exactly to composition
+2026-08-06T04:39:06Z	preflight	exit 1
+2026-08-06T04:52:38Z	preflight	exit 1
+2026-08-06T05:02:32Z	preflight	exit 1
+2026-08-06T05:06:43Z	preflight	exit 0 — gate-clean
+2026-08-06T05:07:00Z	gate	deterministic gate PASS; 56 beats; 306.649s; layout PASS
+2026-08-06T05:07:00Z	release	build session ended
+2026-08-06T05:09:20Z	resume	program=career-transitions
+2026-08-06T05:13:45Z	compose	taste revision: narration-paced reveals, sequential focus, semantic compass route, muted-video token resolved; static gate PASS
+2026-08-06T05:15:20Z	preflight	exit 1
+2026-08-06T05:18:09Z	preflight	exit 1
+2026-08-06T05:20:47Z	preflight	exit 0 — gate-clean
+2026-08-06T05:21:05Z	gate	revision gate PASS; 56 beats; 306.649s; carrier churn 5.34%; geometry/layout PASS
+2026-08-06T05:21:05Z	release	build session ended

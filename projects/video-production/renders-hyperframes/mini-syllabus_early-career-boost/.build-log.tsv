@@ -16,3 +16,20 @@
 2026-08-05T16:04:43Z	revision	stagnation fix: 9 beats gain word-cued back-half arrivals (starting datum + build envelope s03, rail-ahead s05, tether pay-out s08, per-move sill notches s14, per-source feeds s15, per-thing queue slabs + goal line/mark s18); no settled content re-animated; longest hold 6.0s -> 2.7s; churn 5.70% -> 5.77% (ceiling 6.0); build-gate 0, npm check 0
 2026-08-05T16:07:15Z	release	stagnation revision gate-clean, re-rendering
 2026-08-05T16:41:42Z	preflight	exit 0 — gate-clean
+2026-08-05T23:09:46Z	resume	program=early-career-boost
+2026-08-05T23:10:12Z	audio-contract	pinned existing production voice 442360a3e0894fbd85024ff64cc2b928; preserved narration and timing
+2026-08-05T23:11:29Z	preflight	exit 1
+2026-08-05T23:12:41Z	preflight	exit 0 — gate-clean
+2026-08-05T23:14:14Z	visual-review	BLOCKING_DEFECT=PASS; TASTE=ALIVE; RECOMMENDATION=PROCEED; wall carrier evolves across 65 sampled frames; no visible correctness defects
+2026-08-05T23:14:14Z	release	build session ended
+2026-08-05T23:28:09Z	resume	program=early-career-boost
+2026-08-05T23:34:50Z	concept	career-route lens selected; scored 19/20
+2026-08-05T23:34:50Z	composition	standalone current-contract rebuild; preserved matching Oxana narration and timing
+2026-08-05T23:36:11Z	preflight	exit 1
+2026-08-05T23:39:32Z	composition	converted fresh route design to one continuous current-contract composition slot
+2026-08-05T23:40:53Z	preflight	exit 1
+2026-08-05T23:41:34Z	preflight	exit 1
+2026-08-05T23:44:43Z	preflight	exit 1
+2026-08-05T23:46:21Z	preflight	exit 1
+2026-08-05T23:55:42Z	preflight	exit 0 — gate-clean
+2026-08-05T23:55:47Z	release	build session ended

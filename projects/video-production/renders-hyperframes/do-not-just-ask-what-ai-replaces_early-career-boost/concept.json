@@ -1,0 +1,60 @@
+{
+  "lenses": [
+    {
+      "name": "The Opening Map",
+      "visual_thesis": "AI compresses routine tasks while expanding a visible opening around higher-value human work.",
+      "recurring_carrier": "A role field that splits into task lanes, becomes a document surface and skills constellation, then curls into a human-AI loop and forward path.",
+      "beat_progression": [
+        "Threat question holds over an intact role field",
+        "Role splits into tasks and the opening appears",
+        "Three-part task audit reallocates value",
+        "Drafting example separates speed from purpose, judgment, and audience trust",
+        "Durable human skills connect above the AI current",
+        "Human question and AI draft combine in a review loop",
+        "Judgment, range, and tool fluency lead through openings"
+      ],
+      "milestone_frames": [
+        "The role is not the task",
+        "Value moves",
+        "Better together"
+      ],
+      "motion_logic": "Blue elements accelerate and condense; gold elements open, connect, and gain space through continuous shape transformations.",
+      "primary_risk": "The evolving map could feel abstract without concrete document and audience imagery.",
+      "scores": {
+        "claim_fidelity": 5,
+        "visual_evolution": 5,
+        "attention": 5,
+        "feasibility": 4
+      }
+    },
+    {
+      "name": "Career Weather Radar",
+      "visual_thesis": "AI is moving weather to navigate rather than a rival to defeat.",
+      "recurring_carrier": "A radar sweep that identifies fast-changing task zones, stable human terrain, and navigable openings.",
+      "beat_progression": [
+        "Anxiety appears as a storm front",
+        "Radar separates roles from changing tasks",
+        "A three-pass scan identifies automation, rising value, and position",
+        "A drafting signal is checked by human instruments",
+        "Human skills become stable navigation beacons",
+        "Human and AI inputs converge on a route",
+        "Curiosity steers through the opening"
+      ],
+      "milestone_frames": [
+        "Storm is not destination",
+        "Human beacons persist",
+        "A navigable route appears"
+      ],
+      "motion_logic": "A rotating scan reveals or recolors zones while route vectors update toward the next stable beacon.",
+      "primary_risk": "Weather metaphors may imply prediction or danger more strongly than the script supports.",
+      "scores": {
+        "claim_fidelity": 4,
+        "visual_evolution": 4,
+        "attention": 4,
+        "feasibility": 5
+      }
+    }
+  ],
+  "selected": "The Opening Map",
+  "selection_reason": "The Opening Map makes the lesson's core causal claim visible: when AI compresses one task, human judgment and relationship work gain space and value. It supports the concrete drafting example and the practical four-step collaboration loop without adding a threat-heavy metaphor. Its carrier can evolve across every beat, so the lesson feels like one argument unfolding rather than a sequence of slides."
+}

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="opening-map-template">
+      <style>
+        @font-face { font-family: "Proxima Nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Proxima Nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Proxima Nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; }
+
+        :root {
+          --navy: #0d2437;
+          --navy-deep: #0a1e2f;
+          --blue: #3393d6;
+          --gold: #eaab2d;
+          --paper: #ffffff;
+          --muted: #5f6f96;
+          --line: #cccedf;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: var(--navy-deep); }
+        body { font-family: "Proxima Nova", system-ui, sans-serif; }
+        #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: var(--paper); background: var(--navy-deep); }
+        #stage-bg { position: absolute; inset: 0; background: radial-gradient(circle at 72% 48%, var(--navy) 0%, var(--navy-deep) 58%); }
+        #stage-grid { position: absolute; inset: 0; opacity: .14; background-image: linear-gradient(90deg, var(--blue) 1px, transparent 1px), linear-gradient(var(--blue) 1px, transparent 1px); background-size: 120px 120px; mask-image: radial-gradient(ellipse at center, black 10%, transparent 78%); }
+
+        #chrome { position: absolute; z-index: 50; left: 120px; top: 58px; height: 48px; display: flex; align-items: center; gap: 18px; }
+        #chrome-mark { width: 10px; height: 32px; background: var(--gold); }
+        #program-name { font-size: 24px; line-height: 1; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+
+        #beat-region { position: absolute; z-index: 30; left: 120px; right: 120px; top: 145px; height: 176px; }
+        .scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+        .beat-card { position: absolute; left: 0; top: 0; width: 1560px; min-height: 150px; padding: 0 0 12px 0; }
+        .beat-kicker { margin: 0 0 12px; color: var(--blue); font-size: 22px; line-height: 1; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
+        .beat-title { margin: 0; max-width: 1540px; color: var(--paper); font-size: 54px; line-height: 1.02; font-weight: 900; letter-spacing: -.02em; }
+        .beat-title .gold { color: var(--gold); }
+        .beat-title .blue { color: var(--blue); }
+
+        #map-carrier { position: absolute; z-index: 10; left: 120px; right: 120px; top: 340px; height: 500px; border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); }
+        #map-label { position: absolute; left: 0; top: 22px; color: var(--muted); font-size: 22px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+        #map-prompt { position: absolute; right: 0; top: 22px; color: var(--gold); font-size: 22px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+        #motion-beacon { position: absolute; left: 0; top: -72px; width: 96px; height: 82px; display: flex; align-items: center; justify-content: center; gap: 9px; }
+        #motion-beacon span { display: block; width: 18px; border-radius: 999px; background: var(--gold); }
+        #motion-beacon span:nth-child(1) { height: 10px; opacity: .48; }
+        #motion-beacon span:nth-child(2) { height: 20px; opacity: .72; }
+        #motion-beacon span:nth-child(3) { height: 30px; }
+        #route-svg { position: absolute; left: 36px; right: 36px; top: 88px; width: 1608px; height: 292px; overflow: visible; }
+        #route-svg polyline { fill: none; stroke: var(--blue); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; opacity: .82; }
+        #route-svg .route-glow { stroke: var(--gold); stroke-width: 2; opacity: .38; }
+        #node-field { position: absolute; left: 28px; right: 28px; top: 96px; height: 278px; display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(2, 1fr); align-items: center; justify-items: center; }
+        .map-node { width: 42px; height: 42px; border: 4px solid var(--blue); border-radius: 50%; display: grid; place-items: center; background: var(--navy-deep); color: var(--muted); font-size: 20px; line-height: 1; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; box-shadow: 0 0 0 7px var(--navy-deep); }
+        .map-node:nth-child(n+15) { align-self: end; margin-bottom: 5px; }
+        .map-node:nth-child(-n+14) { align-self: start; margin-top: 4px; }
+        .map-phase { position: absolute; bottom: 48px; padding: 10px 18px 9px; border: 2px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--navy-deep); font-size: 20px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+        #phase-1 { left: 30px; }
+        #phase-2 { left: 365px; }
+        #phase-3 { left: 700px; }
+        #phase-4 { left: 1035px; }
+        #phase-5 { right: 30px; border-color: var(--gold); color: var(--gold); }
+
+        #journey { position: absolute; z-index: 40; left: 120px; right: 120px; top: 892px; height: 58px; display: flex; align-items: center; gap: 20px; }
+        #journey-start, #journey-end { color: var(--paper); font-size: 20px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
+        #journey-track { position: relative; flex: 1; height: 5px; background: var(--line); }
+        #journey-progress { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--gold); }
+      </style>
+
+      <div id="root" data-composition-id="opening-map" data-start="0" data-duration="154.5" data-width="1920" data-height="1080">
+        <div id="stage-bg"></div>
+        <div id="stage-grid"></div>
+
+        <header id="chrome" data-role="chrome">
+          <span id="chrome-mark"></span>
+          <span id="program-name">Early Career Boost</span>
+        </header>
+
+        <div id="map-carrier">
+          <div id="map-label">One role · many moving parts</div>
+          <div id="map-prompt">Follow the opening</div>
+          <div id="motion-beacon" aria-hidden="true"><span></span><span></span><span></span></div>
+          <svg id="route-svg" viewBox="0 0 1608 292" aria-hidden="true">
+            <polyline points="20,35 1588,35 1588,255 20,255" />
+            <polyline class="route-glow" points="20,35 1588,35 1588,255 20,255" />
+          </svg>
+          <div id="node-field">
+            <span id="node-01" class="map-node">01</span><span id="node-02" class="map-node">02</span><span id="node-03" class="map-node">03</span><span id="node-04" class="map-node">04</span><span id="node-05" class="map-node">05</span><span id="node-06" class="map-node">06</span><span id="node-07" class="map-node">07</span><span id="node-08" class="map-node">08</span><span id="node-09" class="map-node">09</span><span id="node-10" class="map-node">10</span><span id="node-11" class="map-node">11</span><span id="node-12" class="map-node">12</span><span id="node-13" class="map-node">13</span><span id="node-14" class="map-node">14</span>
+            <span id="node-28" class="map-node">28</span><span id="node-27" class="map-node">27</span><span id="node-26" class="map-node">26</span><span id="node-25" class="map-node">25</span><span id="node-24" class="map-node">24</span><span id="node-23" class="map-node">23</span><span id="node-22" class="map-node">22</span><span id="node-21" class="map-node">21</span><span id="node-20" class="map-node">20</span><span id="node-19" class="map-node">19</span><span id="node-18" class="map-node">18</span><span id="node-17" class="map-node">17</span><span id="node-16" class="map-node">16</span><span id="node-15" class="map-node">15</span>
+          </div>
+          <span id="phase-1" class="map-phase">Reframe</span>
+          <span id="phase-2" class="map-phase">Audit</span>
+          <span id="phase-3" class="map-phase">Move to value</span>
+          <span id="phase-4" class="map-phase">Human + AI</span>
+          <span id="phase-5" class="map-phase">Openings</span>
+        </div>
+
+        <div id="journey">
+          <span id="journey-start">Role</span>
+          <span id="journey-track"><span id="journey-progress"></span></span>
+          <span id="journey-end">Opening</span>
+        </div>
+
+        <div id="beat-region">
+          <section id="scene-s01" class="clip scene" data-start="0" data-duration="6.421" data-track-index="1"><div class="beat-card"><p class="beat-kicker">A career map for the AI era</p><h1 class="beat-title" data-role="heading">Do Not Just Ask What AI Replaces</h1></div></section>
+          <section id="scene-s02" class="clip scene" data-start="6.421" data-duration="4.115" data-track-index="1"><div class="beat-card"><p class="beat-kicker">The tension is real</p><h2 class="beat-title"><span class="gold">Exciting</span> and Unsettling Can Coexist</h2></div></section>
+          <section id="scene-s03" class="clip scene" data-start="10.536" data-duration="4.192" data-track-index="1"><div class="beat-card"><p class="beat-kicker">The common fear</p><h2 class="beat-title">“Will AI Take My Job?”</h2></div></section>
+          <section id="scene-s04" class="clip scene" data-start="14.728" data-duration="2.357" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Name it</p><h2 class="beat-title">It Is an <span class="blue">Understandable</span> Question</h2></div></section>
+          <section id="scene-s05" class="clip scene" data-start="17.085" data-duration="4.124" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Then reframe it</p><h2 class="beat-title">The Biggest Question Is Not Always the <span class="gold">Most Useful</span></h2></div></section>
+          <section id="scene-s06" class="clip scene" data-start="21.209" data-duration="4.161" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Look inside the role</p><h2 class="beat-title">A Role Is More Than One Task</h2></div></section>
+          <section id="scene-s07" class="clip scene" data-start="25.37" data-duration="7.171" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Work keeps moving</p><h2 class="beat-title">Tasks Shift · Tools Change · <span class="blue">People Adapt</span></h2></div></section>
+          <section id="scene-s08" class="clip scene" data-start="32.541" data-duration="3.895" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Ask less</p><h2 class="beat-title">What Will AI Replace?</h2></div></section>
+          <section id="scene-s09" class="clip scene" data-start="36.436" data-duration="5.454" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Ask more</p><h2 class="beat-title">Where Does AI Create an <span class="gold">Opening?</span></h2></div></section>
+          <section id="scene-s10" class="clip scene" data-start="41.89" data-duration="3.944" data-track-index="1"><div class="beat-card"><p class="beat-kicker">A repeatable method</p><h2 class="beat-title">Audit Any Role in Three Moves</h2></div></section>
+          <section id="scene-s11" class="clip scene" data-start="45.834" data-duration="7.543" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Move 1 · Compress</p><h2 class="beat-title">What Gets Faster or Cheaper?</h2></div></section>
+          <section id="scene-s12" class="clip scene" data-start="53.377" data-duration="10.051" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Move 2 · Reveal</p><h2 class="beat-title">What Becomes <span class="gold">More Valuable?</span></h2></div></section>
+          <section id="scene-s13" class="clip scene" data-start="63.428" data-duration="5.172" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Move 3 · Position</p><h2 class="beat-title">Move Toward the Higher-Value Work</h2></div></section>
+          <section id="scene-s14" class="clip scene" data-start="68.6" data-duration="2.472" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Your direction</p><h2 class="beat-title">Build Your <span class="gold">AI-Era Edge</span></h2></div></section>
+          <section id="scene-s15" class="clip scene" data-start="71.072" data-duration="1.881" data-track-index="1"><div class="beat-card"><p class="beat-kicker">See the shift</p><h2 class="beat-title">A Drafting Example</h2></div></section>
+          <section id="scene-s16" class="clip scene" data-start="72.953" data-duration="3.97" data-track-index="1"><div class="beat-card"><p class="beat-kicker">The compressed task</p><h2 class="beat-title">AI Makes the First Pass Fast</h2></div></section>
+          <section id="scene-s17" class="clip scene" data-start="76.923" data-duration="10.951" data-track-index="1"><div class="beat-card"><p class="beat-kicker">The value moves</p><h2 class="beat-title">The Scarce Work Moves Beyond the Draft</h2></div></section>
+          <section id="scene-s18" class="clip scene" data-start="87.874" data-duration="2.026" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Position yourself</p><h2 class="beat-title">Aim Yourself at That Work</h2></div></section>
+          <section id="scene-s19" class="clip scene" data-start="89.9" data-duration="4.01" data-track-index="1"><div class="beat-card"><p class="beat-kicker">A steadier response</p><h2 class="beat-title">You Don’t Need to Panic · <span class="gold">You Do Need to Adapt</span></h2></div></section>
+          <section id="scene-s20" class="clip scene" data-start="93.91" data-duration="6.152" data-track-index="1"><div class="beat-card"><p class="beat-kicker">AI’s fast lane</p><h2 class="beat-title">Speed · Repetition · Summaries · First Drafts</h2></div></section>
+          <section id="scene-s21" class="clip scene" data-start="100.062" data-duration="11.801" data-track-index="1"><div class="beat-card"><p class="beat-kicker">The human network</p><h2 class="beat-title">Human Abilities Hold the Network Together</h2></div></section>
+          <section id="scene-s22" class="clip scene" data-start="111.863" data-duration="4.893" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Your foundation</p><h2 class="beat-title">Durable Human Skills Keep Their Value</h2></div></section>
+          <section id="scene-s23" class="clip scene" data-start="116.756" data-duration="4.414" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Not a contest</p><h2 class="beat-title">The Goal Is Not to Beat AI</h2></div></section>
+          <section id="scene-s24" class="clip scene" data-start="121.17" data-duration="7.166" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Build both sides</p><h2 class="beat-title">Grow Tool Fluency and Human Ability <span class="blue">Together</span></h2></div></section>
+          <section id="scene-s25" class="clip scene" data-start="128.336" data-duration="9.682" data-track-index="1"><div class="beat-card"><p class="beat-kicker">The collaboration loop</p><h2 class="beat-title">Better Than Either Alone</h2></div></section>
+          <section id="scene-s26" class="clip scene" data-start="138.018" data-duration="2.906" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Your agency</p><h2 class="beat-title">You Can Control Your Direction</h2></div></section>
+          <section id="scene-s27" class="clip scene" data-start="140.924" data-duration="6.687" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Choose what travels</p><h2 class="beat-title">Build Capabilities That Move with You</h2></div></section>
+          <section id="scene-s28" class="clip scene" data-start="147.611" data-duration="6.889" data-track-index="1"><div class="beat-card"><p class="beat-kicker">Look forward</p><h2 class="beat-title"><span class="gold">Curiosity</span> Beats Dread</h2></div></section>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const timeline = gsap.timeline({ paused: true });
+        const scenes = Array.from(document.querySelectorAll(".scene"));
+        const defaultNode = { backgroundColor: "#0a1e2f", borderColor: "#3393d6", color: "#5f6f96" };
+        const activeNode = { backgroundColor: "#eaab2d", borderColor: "#eaab2d", color: "#0d2437" };
+
+        timeline.set(".scene", { opacity: 0 }, 0);
+        for (let tick = 0; tick <= 154; tick += 1) {
+          const progress = tick / 154;
+          timeline.set("#journey-progress", { width: `${(progress * 100).toFixed(3)}%` }, tick);
+          timeline.set("#motion-beacon", { left: Math.round(progress * 1584) }, tick);
+        }
+
+        scenes.forEach((scene, index) => {
+          const start = Number(scene.dataset.start);
+          const duration = Number(scene.dataset.duration);
+          const end = start + duration;
+          const sceneSelector = `#${scene.id}`;
+          const nodeSelector = `#node-${String(index + 1).padStart(2, "0")}`;
+          const previousSelector = index === 0 ? null : `#node-${String(index).padStart(2, "0")}`;
+
+          timeline.set(sceneSelector, { opacity: 1 }, start);
+          if (previousSelector) timeline.set(previousSelector, defaultNode, start);
+          timeline.set(nodeSelector, activeNode, start);
+          if (index < scenes.length - 1) {
+            timeline.set(sceneSelector, { opacity: 0 }, end);
+          }
+        });
+
+        window.__timelines["opening-map"] = timeline;
+      </script>
+    </template>
+  </body>
+</html>

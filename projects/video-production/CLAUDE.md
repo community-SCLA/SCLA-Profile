@@ -11,6 +11,9 @@ status --json
 produce --stem STEM
 refine --stem STEM
 batch --program PROGRAM | --all
+delegate --stem STEM
+limits
+cloud-limit 2 | 4
 approve PILOT
 ship STEM [--publish]
 resume
@@ -19,7 +22,8 @@ retry STEM --reason "what was fixed"
 
 A stem is the default and only implicit scope. Program and whole-queue work
 must be explicitly selected. The run state in `_run/run.json` owns selection,
-pilot approval, retry limits, backend, concurrency, and the circuit breaker.
+pilot approval, retry limits, backend, stage-specific capacity, and the circuit
+breaker.
 
 ## Load only what the task needs
 
@@ -27,6 +31,7 @@ pilot approval, retry limits, backend, concurrency, and the circuit breaker.
 | --- | --- |
 | Lifecycle and safety | `.claude/rules/video-production.md` |
 | Build one composition | `contracts/builder.md` plus its one script and local `tokens.yml` |
+| Isolated cloud source authoring | `contracts/cloud-author.md` plus its one script and local `tokens.yml` |
 | Combined visual review | `contracts/visual-review.md` |
 | Script folder semantics | `contracts/script-state.md` |
 | Deterministic QA | `render-qa/AGENTS.md` |

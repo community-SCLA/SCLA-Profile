@@ -1,0 +1,32 @@
+{
+  "lenses": [
+    {
+      "name": "Career Route: From Starting Point to First Commitment",
+      "visual_thesis": "A single evolving route turns the program overview into visible forward movement.",
+      "recurring_carrier": "Continuous gold route line with milestone nodes",
+      "scores": {
+        "claim_fidelity": 5,
+        "visual_evolution": 5,
+        "attention": 4,
+        "feasibility": 5
+      },
+      "total": 19,
+      "primary_risk": "Could become diagram-heavy if too many route branches appear at once."
+    },
+    {
+      "name": "Build Your Career Field Guide",
+      "visual_thesis": "A field guide assembles page by page, with tools, prompts, and completed actions becoming a personal playbook.",
+      "recurring_carrier": "Oversized field-guide sheet with tabs, annotations, and stamped completions",
+      "scores": {
+        "claim_fidelity": 4,
+        "visual_evolution": 4,
+        "attention": 4,
+        "feasibility": 4
+      },
+      "total": 16,
+      "primary_risk": "The document metaphor may feel like a web page and weaken the journey/progress claim."
+    }
+  ],
+  "selected": "Career Route: From Starting Point to First Commitment",
+  "selection_reason": "The route lens maps directly to the script’s starting point, progress, milestones, practical movement, and first submission. It offers stronger continuous visual evolution than the field-guide lens and can communicate sequence without falling into a page or card-grid layout."
+}

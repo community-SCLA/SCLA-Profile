@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Four Kinds of Career Transition</title>
+  <style>
+    @font-face{font-family:"Proxima Nova";src:url("assets/fonts/proxima-nova-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:block}
+    @font-face{font-family:"Proxima Nova";src:url("assets/fonts/proxima-nova-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:block}
+    @font-face{font-family:"Proxima Nova";src:url("assets/fonts/proxima-nova-900.woff2") format("woff2");font-weight:900;font-style:normal;font-display:block}
+    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--ink:#292f35;--border:#cccedf;--muted:#98a4cc;--muted-video:var(--muted)}
+    *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0a1e2f;font-family:"Proxima Nova",system-ui,sans-serif;color:var(--paper)}
+    #root{position:relative;width:1920px;height:1080px;overflow:hidden}
+    .field{position:absolute;inset:0;background:var(--deep)}
+    .grid{position:absolute;inset:0;opacity:.13;background-image:linear-gradient(rgba(85,164,221,.24) 2px,transparent 2px),linear-gradient(90deg,rgba(85,164,221,.24) 2px,transparent 2px);background-size:120px 120px}
+    .topline{position:absolute;left:120px;right:120px;top:64px;display:flex;align-items:center;justify-content:space-between;z-index:20}
+    .brand{font-size:22px;line-height:1;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+    .program{font-size:21px;line-height:1;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .clip{position:absolute;inset:0;padding:150px 120px 120px;opacity:0;overflow:hidden}
+    .eyebrow{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+    h1,h2,p{margin:0} h1{font-size:94px;line-height:.96;letter-spacing:-.035em;font-weight:900;max-width:1320px} h2{font-size:76px;line-height:1;letter-spacing:-.025em;font-weight:900}
+    .sub{font-size:42px;line-height:1.22;color:var(--cultured);max-width:1080px;margin-top:28px}
+    .paper{background:var(--paper);color:var(--ink);border-radius:12px;border:2px solid var(--border)}
+    .pill{display:inline-flex;padding:15px 25px;border:2px solid var(--blue);border-radius:999px;color:var(--blue);font-size:23px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+    .gold{color:var(--gold)} .blue{color:var(--blue)}
+    .tactic-row{display:flex;gap:26px;margin-top:76px}.tactic{width:31%;padding:32px 34px;font-size:38px;font-weight:800;display:flex;align-items:center;gap:20px}.tactic b{display:grid;place-items:center;width:56px;height:56px;flex:0 0 56px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:27px}
+    .question-card{position:absolute;left:455px;right:455px;bottom:158px;padding:35px 44px;text-align:center;font-size:46px;font-weight:900;border-color:var(--gold);box-shadow:0 20px 60px rgba(10,30,47,.28)}
+    .matrix{position:relative;width:1080px;height:690px;margin:18px auto 0}.axis-x,.axis-y{position:absolute;background:var(--blue);transform-origin:left center}.axis-x{height:5px;left:90px;right:40px;top:330px}.axis-y{width:5px;top:18px;bottom:54px;left:555px;transform-origin:center bottom}
+    .axis-label{position:absolute;font-size:22px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.al{left:82px;top:352px}.ar{right:30px;top:352px}.at{left:576px;top:10px}.ab{left:576px;bottom:22px}
+    .quad{position:absolute;width:390px;height:190px;padding:26px 30px;border-radius:12px;border:2px solid rgba(204,206,223,.55);background:rgba(246,246,249,.96);color:var(--ink);will-change:transform,opacity,box-shadow}
+    .quad small{display:block;color:var(--blue);font-size:20px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}.quad strong{font-size:38px;line-height:1;font-weight:900}.q1{left:110px;top:90px}.q2{right:20px;top:90px}.q3{left:110px;bottom:60px}.q4{right:20px;bottom:60px}.quad.active{border:5px solid var(--gold);box-shadow:0 18px 50px rgba(234,171,45,.22)}.matrix-dot{position:absolute;left:539px;top:314px;width:36px;height:36px;border-radius:50%;background:var(--gold);border:7px solid var(--deep);box-shadow:0 0 0 4px var(--gold);z-index:8;will-change:transform,opacity}
+    .split{display:grid;grid-template-columns:470px 1fr;gap:72px;align-items:center;height:770px}.mini-map{position:relative;width:430px;height:430px;border:3px solid rgba(51,147,214,.5);border-radius:12px}.mini-map:before,.mini-map:after{content:"";position:absolute;background:var(--blue)}.mini-map:before{left:50%;top:0;bottom:0;width:3px}.mini-map:after{left:0;right:0;top:50%;height:3px}.mini-dot{position:absolute;width:80px;height:80px;border-radius:50%;background:var(--gold);border:8px solid var(--paper);box-shadow:0 0 0 4px var(--gold)}
+    .content h2{margin-bottom:20px}.descriptor{font-size:32px;font-weight:700;color:var(--cultured);margin-bottom:34px}.action-list{display:flex;flex-wrap:wrap;gap:16px}.action-list span{padding:17px 24px;border-radius:10px;background:rgba(51,147,214,.14);border:2px solid var(--blue);font-size:29px;font-weight:800}
+    .ladder{display:flex;align-items:flex-end;gap:14px;height:210px;margin-top:40px}.rung{width:180px;background:var(--blue);border-radius:10px 10px 0 0;padding:16px;color:var(--paper);font-size:22px;font-weight:900;text-align:center}.r1{height:80px}.r2{height:130px}.r3{height:185px;background:var(--gold);color:var(--navy)}
+    .timeline{position:relative;margin-top:70px;height:310px}.route{position:absolute;left:100px;right:100px;top:134px;height:6px;background:var(--blue);transform-origin:left}.milestones{display:flex;justify-content:space-between;position:absolute;left:50px;right:50px;top:76px}.milestone{width:240px;text-align:center}.node{width:80px;height:80px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:5px solid var(--blue);color:var(--navy);font-size:29px;font-weight:900}.milestone:last-child .node{background:var(--gold);border-color:var(--gold)}.milestone strong{display:block;font-size:28px}.milestone small{display:block;font-size:21px;color:var(--muted);margin-top:8px}
+    .transfer{display:grid;grid-template-columns:1fr 170px 1fr;align-items:center;gap:28px;margin-top:72px}.context-card{height:340px;padding:40px;border-radius:12px;background:var(--paper);color:var(--ink)}.context-card h3{font-size:42px;margin:0 0 25px}.context-card p{font-size:31px;line-height:1.25}.context-card.good{border:5px solid var(--gold)}.arrow{font-size:94px;text-align:center;color:var(--gold);font-weight:900}.skills{display:flex;gap:15px;margin-top:24px}.skills span{font-size:22px;padding:11px 15px;border-radius:999px;background:#e5eff6;color:var(--navy);font-weight:800}
+    .constraint-row{display:flex;gap:22px;margin-top:58px}.constraint{flex:1;padding:25px 20px;text-align:center;border:2px solid var(--muted-video);border-radius:12px;font-size:27px;font-weight:800}.new-route{margin-top:50px;display:flex;align-items:center;gap:20px}.route-line{height:7px;flex:1;background:var(--gold);transform-origin:left}.destination{padding:25px 34px;border-radius:12px;background:var(--gold);color:var(--navy);font-size:34px;font-weight:900}
+    .correction{display:flex;align-items:center;justify-content:center;gap:52px;margin-top:34px;font-size:74px;font-weight:900}.strike{position:relative;color:var(--border)}.strike:after{content:"";position:absolute;left:-12px;right:-12px;top:50%;height:8px;background:var(--gold);transform:rotate(-7deg)}.response-path{display:flex;align-items:center;justify-content:space-between;margin-top:94px}.response-step{width:280px;text-align:center}.response-step b{width:86px;height:86px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;margin:0 auto 18px;font-size:34px}.response-step span{font-size:29px;font-weight:900}.chev{font-size:45px;color:var(--blue)}
+    .leap{position:relative;height:520px;margin-top:25px}.from,.to{position:absolute;bottom:60px;width:270px;padding:28px;border-radius:12px;background:var(--paper);color:var(--ink);font-size:32px;font-weight:900;text-align:center}.from{left:40px}.to{right:40px;border:5px solid var(--gold)}.arc{position:absolute;left:300px;right:300px;bottom:165px;height:230px;border-top:8px dashed var(--gold);border-radius:50%}.stones{position:absolute;left:315px;right:315px;bottom:65px;display:flex;justify-content:space-between}.stone{width:150px;height:96px;border-radius:50%;background:#e5eff6;color:var(--navy);display:grid;place-items:center;text-align:center;font-size:19px;font-weight:900;padding:10px;border:3px solid var(--blue)}
+    .tactics-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px}.tactic-quad{padding:25px 30px;min-height:190px}.tactic-quad strong{font-size:33px;display:block;margin-bottom:12px}.tactic-quad p{font-size:25px;line-height:1.24;color:var(--muted-video)}.tactic-quad:nth-child(4){border:5px solid var(--gold)}
+    .close-route{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:82px}.close-node{padding:30px 42px;border-radius:12px;border:3px solid var(--blue);font-size:42px;font-weight:900}.close-node.final{background:var(--gold);border-color:var(--gold);color:var(--navy)}.close-arrow{font-size:55px;color:var(--blue)}
+    .beat-rail{position:absolute;left:120px;right:120px;bottom:34px;height:74px;z-index:30}.beat-rail-line{position:absolute;left:40px;right:40px;top:35px;height:4px;background:rgba(51,147,214,.58)}.beat-rail-nodes{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between}.beat-rail-nodes span{width:28px;height:28px;border-radius:50%;background:var(--blue);border:5px solid var(--deep)}.beat-rail-label{position:absolute;left:50%;top:0;z-index:3;transform:translateX(-50%);padding:1px 14px;background:var(--deep);color:var(--muted);font-size:20px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.beat-marker{position:absolute;left:0;top:0;width:74px;height:74px;border-radius:50%;background:var(--gold);border:8px solid var(--deep);box-shadow:0 0 0 3px var(--gold);will-change:transform}
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="ct-compass" data-width="1920" data-height="1080" data-start="0" data-duration="306.649" data-fps="30">
+    <div class="field"></div><div class="grid"></div>
+    <div class="topline"><div class="brand">SCLA</div><div class="program">Career Transitions</div></div>
+    <div class="beat-rail" aria-hidden="true"><div class="beat-rail-line"></div><div class="beat-rail-nodes"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="beat-rail-label">Transition Compass · Lesson Route</div><div class="beat-marker"></div></div>
+
+    <section id="ct-intro-name-the-move" class="clip" data-track-index="1" data-start="0" data-duration="23.97">
+      <div class="eyebrow">Before you plan the move</div><h1>Name the Kind of Move You're Making</h1>
+      <div class="tactic-row"><div class="tactic paper"><b>1</b>Update my resume?</div><div class="tactic paper"><b>2</b>Apply to that role?</div><div class="tactic paper"><b>3</b>Go back to school?</div></div>
+      <div class="question-card paper">Different moves need different rhythms, risks, and tactics.</div>
+    </section>
+
+    <section id="ct-reveal-matrix" class="clip" data-track-index="1" data-start="23.97" data-duration="24.84">
+      <div class="eyebrow">The transition compass</div><h2>Two Questions. Four Transition Types</h2>
+      <div class="matrix"><div class="axis-x"></div><div class="axis-y"></div><span class="axis-label al">Adjacent</span><span class="axis-label ar">Dramatic</span><span class="axis-label at">Chosen</span><span class="axis-label ab">Forced</span>
+        <div class="quad q1"><small>Chosen + adjacent</small><strong>Growth Pivot</strong></div><div class="quad q2"><small>Chosen + dramatic</small><strong>Reinvention</strong></div><div class="quad q3"><small>Forced + adjacent</small><strong>Rebuild</strong></div><div class="quad q4"><small>Forced + dramatic</small><strong>Forced Reinvention</strong></div><div class="matrix-dot" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="ct-growth-pivot" class="clip" data-track-index="1" data-start="48.81" data-duration="35.82">
+      <div class="split"><div class="mini-map"><div class="mini-dot" style="left:68px;top:68px"></div></div><div class="content"><div class="eyebrow">01 · Chosen + adjacent</div><h2>Growth Pivot</h2><div class="descriptor">The domain stays familiar. Your scope expands.</div><div class="ladder"><div class="rung r1">Responsibility</div><div class="rung r2">Complexity</div><div class="rung r3">Visibility</div></div><div class="action-list"><span>Deepen expertise</span><span>Expand your network</span><span>Signal readiness</span></div></div></div>
+    </section>
+
+    <section id="ct-reinvention" class="clip" data-track-index="1" data-start="84.63" data-duration="42.95">
+      <div class="eyebrow">02 · Chosen + dramatic</div><h2>Reinvention</h2><p class="sub">The big leap is built from years of adjacent moves.</p>
+      <div class="timeline"><div class="route"></div><div class="milestones"><div class="milestone"><div class="node">01</div><strong>Figure skater</strong><small>Discipline + taste</small></div><div class="milestone"><div class="node">02</div><strong>Fashion editor</strong><small>16 years of context</small></div><div class="milestone"><div class="node">03</div><strong>Design director</strong><small>Leadership + craft</small></div><div class="milestone"><div class="node">04</div><strong>Founder</strong><small>Vera Wang at 40</small></div></div></div>
+    </section>
+
+    <section id="ct-rebuild" class="clip" data-track-index="1" data-start="127.58" data-duration="36.919">
+      <div class="eyebrow">03 · Forced + adjacent</div><h2>Rebuild</h2><p class="sub">The trigger is external. Your strengths still transfer.</p>
+      <div class="transfer"><div class="context-card"><h3>Shrinking Context</h3><p>Layoff · restructure · slowdown</p><div class="skills"><span>Skills</span><span>Experience</span><span>Judgment</span></div></div><div class="arrow">→</div><div class="context-card good"><h3>Healthier Context</h3><p>Similar work with stronger conditions and new promise.</p><div class="skills"><span>Skills</span><span>Experience</span><span>Judgment</span></div></div></div>
+    </section>
+
+    <section id="ct-forced-reinvention" class="clip" data-track-index="1" data-start="164.499" data-duration="24.49">
+      <div class="eyebrow">04 · Forced + dramatic</div><h2>Forced Reinvention</h2><p class="sub">Changed conditions require a fundamentally new path.</p>
+      <div class="constraint-row"><div class="constraint">Health event</div><div class="constraint">Caregiving</div><div class="constraint">Geographic move</div><div class="constraint">Technology shift</div></div>
+      <div class="new-route"><span class="pill">Old route closes</span><div class="route-line"></div><div class="destination">New priorities + capacity</div></div>
+    </section>
+
+    <section id="ct-forced-not-failed" class="clip" data-track-index="1" data-start="188.989" data-duration="36.08">
+      <div class="eyebrow">A crucial distinction</div><div class="correction"><span>FORCED</span><span class="gold">≠</span><span class="strike">FAILED</span></div>
+      <p class="sub" style="margin-left:auto;margin-right:auto;text-align:center">The outcome depends on how you respond.</p>
+      <div class="response-path"><div class="response-step"><b>1</b><span>Allow grief</span></div><div class="chev">›</div><div class="response-step"><b>2</b><span>Seek support</span></div><div class="chev">›</div><div class="response-step"><b>3</b><span>Transfer strengths</span></div><div class="chev">›</div><div class="response-step"><b>4</b><span>Try new identities</span></div></div>
+    </section>
+
+    <section id="ct-adjacent-steps" class="clip" data-track-index="1" data-start="225.069" data-duration="24.94">
+      <div class="eyebrow">Zoom out on a dramatic transition</div><h2>The Leap Has a Trail</h2>
+      <div class="leap"><div class="from">Where you started</div><div class="arc"></div><div class="stones"><div class="stone">Small projects</div><div class="stone">Side interests</div><div class="stone">Courses</div><div class="stone">Relationships</div><div class="stone">Experiments</div></div><div class="to">The “big” leap</div></div>
+    </section>
+
+    <section id="ct-match-tactics" class="clip" data-track-index="1" data-start="250.009" data-duration="42.785">
+      <div class="eyebrow">Name it, then match it</div><h2>Use the Tactics Your Transition Needs</h2>
+      <div class="tactics-grid"><div class="tactic-quad paper"><strong>Growth Pivot</strong><p>Show readiness and visibility in your current lane.</p></div><div class="tactic-quad paper"><strong>Reinvention</strong><p>Learn, experiment, and build credibility in a new space.</p></div><div class="tactic-quad paper"><strong>Rebuild</strong><p>Process the impact and re-target your existing strengths.</p></div><div class="tactic-quad paper"><strong>Forced Reinvention</strong><p>Use support, patience, transferable skills, and values.</p></div></div>
+    </section>
+
+    <section id="ct-closing-next-step" class="clip" data-track-index="1" data-start="292.794" data-duration="13.855">
+      <div class="eyebrow">A clearer map</div><h1>A Clearer Next Step</h1><p class="sub">Naming the transition makes the path easier to navigate.</p>
+      <div class="close-route"><div class="close-node">NAME</div><div class="close-arrow">→</div><div class="close-node">MATCH</div><div class="close-arrow">→</div><div class="close-node final">MOVE</div></div>
+    </section>
+  </div>
+  <script src="node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const timeline = gsap.timeline({paused:true});
+      window.__timelines = window.__timelines || {};
+      window.__timelines["ct-compass"] = timeline;
+      const scenes = [
+        ["#ct-intro-name-the-move",0,23.97],["#ct-reveal-matrix",23.97,48.81],["#ct-growth-pivot",48.81,84.63],["#ct-reinvention",84.63,127.58],["#ct-rebuild",127.58,164.499],
+        ["#ct-forced-reinvention",164.499,188.989],["#ct-forced-not-failed",188.989,225.069],["#ct-adjacent-steps",225.069,250.009],["#ct-match-tactics",250.009,292.794],["#ct-closing-next-step",292.794,306.649]
+      ];
+      scenes.forEach(([selector,start,end]) => {
+        timeline.fromTo(selector,{opacity:0,y:28},{opacity:1,y:0,duration:.6,ease:"power2.out"},start);
+        if(end < 306.649) timeline.to(selector,{opacity:0,y:-20,duration:.3,ease:"power1.in"},end-.3);
+      });
+      const reveal = (selector,at,from={},to={}) => timeline
+        .to(selector,{boxShadow:"0 0 0 3px rgba(51,147,214,.82)",duration:.28,ease:"power2.out"},at)
+        .to(selector,{boxShadow:"0 0 0 0 rgba(51,147,214,0)",duration:.3,ease:"power2.inOut"},at+.72);
+      const pulse = (selector,at,hold=1.15) => timeline
+        .to(selector,{boxShadow:"0 0 0 5px rgba(234,171,45,.95)",duration:.32,ease:"power2.out"},at)
+        .to(selector,{boxShadow:"0 0 0 0 rgba(234,171,45,0)",duration:.35,ease:"power2.inOut"},at+hold);
+
+      // The opening questions now arrive with the narration that asks them.
+      reveal("#ct-intro-name-the-move .tactic:nth-child(1)",5.51,{y:42});
+      reveal("#ct-intro-name-the-move .tactic:nth-child(2)",7.82,{y:42});
+      reveal("#ct-intro-name-the-move .tactic:nth-child(3)",9.73,{y:42});
+      reveal("#ct-intro-name-the-move .question-card",14.985,{y:0,scale:.94},{scale:1,ease:"back.out(1.3)"});
+      pulse("#ct-intro-name-the-move .question-card",18.87,1.8);
+
+      // Build the compass one spoken axis at a time, then visit each named quadrant.
+      timeline.fromTo("#ct-reveal-matrix .axis-x",{scaleX:0},{scaleX:1,duration:1.1,ease:"power2.out"},27.91);
+      timeline.fromTo("#ct-reveal-matrix .axis-y",{scaleY:0},{scaleY:1,duration:1.1,ease:"power2.out"},32.95);
+      reveal("#ct-reveal-matrix .matrix-dot",32.95,{y:0,scale:.55},{scale:1});
+      const quadrantTimes = [37.195,39.35,41.55,43.75];
+      const quadrantMoves = [[-449,-244],[111,-244],[-449,106],[111,106]];
+      [1,2,3,4].forEach((n,i) => {
+        reveal(`#ct-reveal-matrix .q${n}`,quadrantTimes[i],{y:16,scale:.93},{scale:1});
+        timeline.to("#ct-reveal-matrix .matrix-dot",{x:quadrantMoves[i][0],y:quadrantMoves[i][1],duration:.7,ease:"power2.inOut"},quadrantTimes[i]);
+        pulse(`#ct-reveal-matrix .q${n}`,quadrantTimes[i]+.35,1.25);
+      });
+      timeline.to("#ct-reveal-matrix .matrix-dot",{x:0,y:0,scale:1.25,duration:.8,ease:"power2.inOut"},46.53);
+
+      // Growth Pivot: zoom into chosen/adjacent, then grow scope and tactics in order.
+      pulse("#ct-growth-pivot .mini-dot",48.81,1.4);
+      timeline.to("#ct-growth-pivot .mini-map",{scale:1.06,duration:1.1,ease:"power2.inOut"},53.84);
+      timeline.to("#ct-growth-pivot .mini-dot",{x:42,y:28,duration:1.25,ease:"power2.inOut"},60.15);
+      [1,2,3].forEach((n,i) => {
+        reveal(`#ct-growth-pivot .r${n}`,65.44+i*.9,{y:0,scaleY:0,transformOrigin:"bottom"},{scaleY:1,duration:.65});
+        pulse(`#ct-growth-pivot .r${n}`,66.0+i*.9,.8);
+      });
+      timeline.to("#ct-growth-pivot .mini-dot",{x:82,y:72,scale:1.18,duration:1.1,ease:"power2.inOut"},71.82);
+      [1,2,3].forEach((n,i) => {
+        reveal(`#ct-growth-pivot .action-list span:nth-child(${n})`,77.16+i*1.25,{y:18});
+        pulse(`#ct-growth-pivot .action-list span:nth-child(${n})`,77.65+i*1.25,.8);
+      });
+
+      // Reinvention: the trail forms before its milestones, which then accumulate in sequence.
+      timeline.fromTo("#ct-reinvention .route",{scaleX:0},{scaleX:1,duration:2.2,ease:"power2.inOut"},101.69);
+      reveal("#ct-reinvention .milestone:nth-child(1)",109.655,{y:24});
+      [1,2,3,4].forEach((n,i) => {
+        const at = 112.43+i*2.15;
+        if(n>1) reveal(`#ct-reinvention .milestone:nth-child(${n})`,at,{y:24});
+        pulse(`#ct-reinvention .milestone:nth-child(${n}) .node`,at+.25,1.25);
+      });
+      timeline.to("#ct-reinvention .route",{backgroundColor:"var(--gold)",duration:.8,ease:"power2.out"},122.455);
+      timeline.to("#ct-reinvention .milestone .node",{scale:1.08,duration:.45,stagger:.12,ease:"power2.out"},124.73)
+        .to("#ct-reinvention .milestone .node",{scale:1,duration:.45,stagger:.12,ease:"power2.inOut"},125.55);
+
+      // Rebuild: preserve the close path, but reveal trigger, transfer, and destination on their lines.
+      reveal("#ct-rebuild .context-card:first-child",131.975,{y:28});
+      timeline.fromTo("#ct-rebuild .context-card:first-child .skills span",{opacity:0,scale:.9},{opacity:1,scale:1,duration:.4,stagger:.55,ease:"power2.out"},139.95);
+      reveal("#ct-rebuild .arrow",145.815,{x:-34,y:0},{x:0});
+      reveal("#ct-rebuild .context-card.good",150.699,{x:-28,y:0},{x:0});
+      pulse("#ct-rebuild .context-card.good",154.894,1.8);
+
+      // Forced Reinvention: the narrated constraints hand focus to one another before the route changes.
+      [1,2,3,4].forEach((n,i) => {
+        const at = 169.229+i*2.45;
+        reveal(`#ct-forced-reinvention .constraint:nth-child(${n})`,at,{y:20});
+        pulse(`#ct-forced-reinvention .constraint:nth-child(${n})`,at+.35,1.25);
+      });
+      reveal("#ct-forced-reinvention .new-route .pill",181.369,{x:-20,y:0},{x:0});
+      timeline.fromTo("#ct-forced-reinvention .route-line",{scaleX:0},{scaleX:1,duration:2.1,ease:"power2.inOut"},182.0);
+      reveal("#ct-forced-reinvention .destination",184.1,{x:-24,y:0},{x:0});
+
+      // Forced is not failed: response choices become a paced route, not an instant checklist.
+      reveal("#ct-forced-not-failed .sub",193.548,{y:16});
+      [1,2,3,4].forEach((n,i) => {
+        const at = 211.158+i*2.7;
+        const child = 1+i*2;
+        reveal(`#ct-forced-not-failed .response-step:nth-child(${child})`,at,{y:22});
+        pulse(`#ct-forced-not-failed .response-step:nth-child(${child}) b`,at+.4,1.4);
+      });
+      timeline.fromTo("#ct-forced-not-failed .chev",{opacity:0},{opacity:1,duration:.35,stagger:2.7,ease:"power2.out"},213.15);
+
+      // Dramatic transitions gain a visible trail one adjacent step at a time.
+      reveal("#ct-adjacent-steps .to",228.049,{y:18});
+      timeline.fromTo("#ct-adjacent-steps .arc",{opacity:0,scaleX:.35,transformOrigin:"left"},{opacity:1,scaleX:1,duration:2.0,ease:"power2.inOut"},232.299);
+      [1,2,3,4,5].forEach((n,i) => {
+        const at = 238.989+i*1.75;
+        reveal(`#ct-adjacent-steps .stone:nth-child(${n})`,at,{y:30});
+        pulse(`#ct-adjacent-steps .stone:nth-child(${n})`,at+.3,1.0);
+      });
+
+      // Name each quadrant, then revisit it when its matching tactic is spoken.
+      const nameTimes = [255.479,257.669,259.819,261.904];
+      [1,2,3,4].forEach((n,i) => {
+        reveal(`#ct-match-tactics .tactic-quad:nth-child(${n})`,nameTimes[i],{y:22});
+        pulse(`#ct-match-tactics .tactic-quad:nth-child(${n})`,nameTimes[i]+.25,1.0);
+      });
+      const tacticTimes = [268.139,273.329,280.189,286.349];
+      tacticTimes.forEach((at,i) => {
+        timeline.to("#ct-match-tactics .tactic-quad",{boxShadow:"none",duration:.25,ease:"power2.out"},at);
+        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1})`,{boxShadow:"0 0 0 5px rgba(234,171,45,.95)",duration:.32,ease:"power2.out"},at+.08);
+      });
+
+      // The closing route resolves only as the final line explains the clearer map.
+      reveal("#ct-closing-next-step .close-node:nth-child(1)",292.794,{y:0,scale:.9},{scale:1,ease:"back.out(1.25)"});
+      reveal("#ct-closing-next-step .close-arrow:nth-child(2)",296.659,{x:-18,y:0},{x:0});
+      reveal("#ct-closing-next-step .close-node:nth-child(3)",298.1,{y:0,scale:.9},{scale:1,ease:"back.out(1.25)"});
+      reveal("#ct-closing-next-step .close-arrow:nth-child(4)",300.2,{x:-18,y:0},{x:0});
+      reveal("#ct-closing-next-step .close-node.final",302.0,{y:0,scale:.9},{scale:1,ease:"back.out(1.25)"});
+      timeline.to("#ct-closing-next-step .final",{scale:1.08,duration:.45,ease:"power2.out"},305.449)
+        .to("#ct-closing-next-step .final",{scale:1,duration:.45,ease:"power2.in"},305.899);
+
+      const beatStarts = [0,5.51,7.82,9.73,11.76,14.985,18.87,23.97,27.91,32.95,37.195,46.53,48.81,53.84,60.15,65.44,71.82,77.16,84.63,89.1,96.66,101.69,109.655,112.43,122.455,124.73,127.58,131.975,139.95,145.815,150.699,154.894,164.499,169.229,181.369,188.989,193.548,207.098,211.158,225.069,228.049,232.299,238.989,250.009,252.609,255.479,257.669,259.819,261.904,264.989,268.139,273.329,280.189,286.349,292.794,296.659];
+      beatStarts.forEach((start,index) => timeline.to(".beat-marker",{x:(index/(beatStarts.length-1))*1550,duration:.35,ease:"power2.out"},start + .12));
+    })();
+  </script>
+</body>
+</html>

@@ -1,4 +1,0 @@
-preflight.py exit 0
-when:      2026-08-05T08:08:16Z
-workspace: renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost
-command:   python3 render-qa/src/preflight.py <workspace>

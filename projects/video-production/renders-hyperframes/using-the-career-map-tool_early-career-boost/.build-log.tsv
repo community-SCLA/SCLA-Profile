@@ -9,3 +9,10 @@
 2026-08-05T16:43:55Z	preflight	exit 0 — gate-clean
 2026-08-05T16:52:48Z	preflight	exit 1
 2026-08-05T20:31:12Z	release	stale lease closed before control-plane refactor
+2026-08-05T22:53:43Z	resume	program=early-career-boost
+2026-08-05T22:55:46Z	preflight	exit 1
+2026-08-05T22:56:47Z	preflight	exit 1
+2026-08-05T22:58:10Z	preflight	exit 0 — gate-clean
+2026-08-05T22:59:47Z	gate	PASS after voice receipt pin and two measured text-occlusion fixes
+2026-08-05T22:59:51Z	visual-review	BLOCKING_DEFECT PASS; TASTE ALIVE; PROCEED
+2026-08-05T23:00:07Z	release	build session ended

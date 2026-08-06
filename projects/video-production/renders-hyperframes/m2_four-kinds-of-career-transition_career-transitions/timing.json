@@ -1,0 +1,397 @@
+{
+  "total": 306.649,
+  "rows": [
+    {
+      "id": "ct-intro-name-the-move-01",
+      "audio_start": 0.6,
+      "audio_dur": 4.51,
+      "vis_start": 0.0,
+      "vis_dur": 5.51
+    },
+    {
+      "id": "ct-intro-name-the-move-02",
+      "audio_start": 5.76,
+      "audio_dur": 1.66,
+      "vis_start": 5.51,
+      "vis_dur": 2.31
+    },
+    {
+      "id": "ct-intro-name-the-move-03",
+      "audio_start": 8.07,
+      "audio_dur": 1.26,
+      "vis_start": 7.82,
+      "vis_dur": 1.91
+    },
+    {
+      "id": "ct-intro-name-the-move-04",
+      "audio_start": 9.98,
+      "audio_dur": 1.38,
+      "vis_start": 9.73,
+      "vis_dur": 2.03
+    },
+    {
+      "id": "ct-intro-name-the-move-05",
+      "audio_start": 12.01,
+      "audio_dur": 2.575,
+      "vis_start": 11.76,
+      "vis_dur": 3.225
+    },
+    {
+      "id": "ct-intro-name-the-move-06",
+      "audio_start": 15.235,
+      "audio_dur": 3.235,
+      "vis_start": 14.985,
+      "vis_dur": 3.885
+    },
+    {
+      "id": "ct-intro-name-the-move-07",
+      "audio_start": 19.12,
+      "audio_dur": 4.45,
+      "vis_start": 18.87,
+      "vis_dur": 5.1
+    },
+    {
+      "id": "ct-reveal-matrix-01",
+      "audio_start": 24.22,
+      "audio_dur": 3.29,
+      "vis_start": 23.97,
+      "vis_dur": 3.94
+    },
+    {
+      "id": "ct-reveal-matrix-02",
+      "audio_start": 28.16,
+      "audio_dur": 4.39,
+      "vis_start": 27.91,
+      "vis_dur": 5.04
+    },
+    {
+      "id": "ct-reveal-matrix-03",
+      "audio_start": 33.2,
+      "audio_dur": 3.595,
+      "vis_start": 32.95,
+      "vis_dur": 4.245
+    },
+    {
+      "id": "ct-reveal-matrix-04",
+      "audio_start": 37.445,
+      "audio_dur": 8.685,
+      "vis_start": 37.195,
+      "vis_dur": 9.335
+    },
+    {
+      "id": "ct-reveal-matrix-05",
+      "audio_start": 46.78,
+      "audio_dur": 1.63,
+      "vis_start": 46.53,
+      "vis_dur": 2.28
+    },
+    {
+      "id": "ct-growth-pivot-01",
+      "audio_start": 49.06,
+      "audio_dur": 4.38,
+      "vis_start": 48.81,
+      "vis_dur": 5.03
+    },
+    {
+      "id": "ct-growth-pivot-02",
+      "audio_start": 54.09,
+      "audio_dur": 5.66,
+      "vis_start": 53.84,
+      "vis_dur": 6.31
+    },
+    {
+      "id": "ct-growth-pivot-03",
+      "audio_start": 60.4,
+      "audio_dur": 4.64,
+      "vis_start": 60.15,
+      "vis_dur": 5.29
+    },
+    {
+      "id": "ct-growth-pivot-04",
+      "audio_start": 65.69,
+      "audio_dur": 5.73,
+      "vis_start": 65.44,
+      "vis_dur": 6.38
+    },
+    {
+      "id": "ct-growth-pivot-05",
+      "audio_start": 72.07,
+      "audio_dur": 4.69,
+      "vis_start": 71.82,
+      "vis_dur": 5.34
+    },
+    {
+      "id": "ct-growth-pivot-06",
+      "audio_start": 77.41,
+      "audio_dur": 6.82,
+      "vis_start": 77.16,
+      "vis_dur": 7.47
+    },
+    {
+      "id": "ct-reinvention-01",
+      "audio_start": 84.88,
+      "audio_dur": 3.82,
+      "vis_start": 84.63,
+      "vis_dur": 4.47
+    },
+    {
+      "id": "ct-reinvention-02",
+      "audio_start": 89.35,
+      "audio_dur": 6.91,
+      "vis_start": 89.1,
+      "vis_dur": 7.56
+    },
+    {
+      "id": "ct-reinvention-03",
+      "audio_start": 96.91,
+      "audio_dur": 4.38,
+      "vis_start": 96.66,
+      "vis_dur": 5.03
+    },
+    {
+      "id": "ct-reinvention-04",
+      "audio_start": 101.94,
+      "audio_dur": 7.315,
+      "vis_start": 101.69,
+      "vis_dur": 7.965
+    },
+    {
+      "id": "ct-reinvention-05",
+      "audio_start": 109.905,
+      "audio_dur": 2.125,
+      "vis_start": 109.655,
+      "vis_dur": 2.775
+    },
+    {
+      "id": "ct-reinvention-06",
+      "audio_start": 112.68,
+      "audio_dur": 9.375,
+      "vis_start": 112.43,
+      "vis_dur": 10.025
+    },
+    {
+      "id": "ct-reinvention-07",
+      "audio_start": 122.705,
+      "audio_dur": 1.625,
+      "vis_start": 122.455,
+      "vis_dur": 2.275
+    },
+    {
+      "id": "ct-reinvention-08",
+      "audio_start": 124.98,
+      "audio_dur": 2.2,
+      "vis_start": 124.73,
+      "vis_dur": 2.85
+    },
+    {
+      "id": "ct-rebuild-01",
+      "audio_start": 127.83,
+      "audio_dur": 3.745,
+      "vis_start": 127.58,
+      "vis_dur": 4.395
+    },
+    {
+      "id": "ct-rebuild-02",
+      "audio_start": 132.225,
+      "audio_dur": 7.325,
+      "vis_start": 131.975,
+      "vis_dur": 7.975
+    },
+    {
+      "id": "ct-rebuild-03",
+      "audio_start": 140.2,
+      "audio_dur": 5.215,
+      "vis_start": 139.95,
+      "vis_dur": 5.865
+    },
+    {
+      "id": "ct-rebuild-04",
+      "audio_start": 146.065,
+      "audio_dur": 4.234,
+      "vis_start": 145.815,
+      "vis_dur": 4.884
+    },
+    {
+      "id": "ct-rebuild-05",
+      "audio_start": 150.949,
+      "audio_dur": 3.545,
+      "vis_start": 150.699,
+      "vis_dur": 4.195
+    },
+    {
+      "id": "ct-rebuild-06",
+      "audio_start": 155.144,
+      "audio_dur": 8.955,
+      "vis_start": 154.894,
+      "vis_dur": 9.605
+    },
+    {
+      "id": "ct-forced-reinvention-01",
+      "audio_start": 164.749,
+      "audio_dur": 4.08,
+      "vis_start": 164.499,
+      "vis_dur": 4.73
+    },
+    {
+      "id": "ct-forced-reinvention-02",
+      "audio_start": 169.479,
+      "audio_dur": 11.49,
+      "vis_start": 169.229,
+      "vis_dur": 12.14
+    },
+    {
+      "id": "ct-forced-reinvention-03",
+      "audio_start": 181.619,
+      "audio_dur": 6.97,
+      "vis_start": 181.369,
+      "vis_dur": 7.62
+    },
+    {
+      "id": "ct-forced-not-failed-01",
+      "audio_start": 189.239,
+      "audio_dur": 3.909,
+      "vis_start": 188.989,
+      "vis_dur": 4.559
+    },
+    {
+      "id": "ct-forced-not-failed-02",
+      "audio_start": 193.798,
+      "audio_dur": 12.9,
+      "vis_start": 193.548,
+      "vis_dur": 13.55
+    },
+    {
+      "id": "ct-forced-not-failed-03",
+      "audio_start": 207.348,
+      "audio_dur": 3.41,
+      "vis_start": 207.098,
+      "vis_dur": 4.06
+    },
+    {
+      "id": "ct-forced-not-failed-04",
+      "audio_start": 211.408,
+      "audio_dur": 13.261,
+      "vis_start": 211.158,
+      "vis_dur": 13.911
+    },
+    {
+      "id": "ct-adjacent-steps-01",
+      "audio_start": 225.319,
+      "audio_dur": 2.33,
+      "vis_start": 225.069,
+      "vis_dur": 2.98
+    },
+    {
+      "id": "ct-adjacent-steps-02",
+      "audio_start": 228.299,
+      "audio_dur": 3.6,
+      "vis_start": 228.049,
+      "vis_dur": 4.25
+    },
+    {
+      "id": "ct-adjacent-steps-03",
+      "audio_start": 232.549,
+      "audio_dur": 6.04,
+      "vis_start": 232.299,
+      "vis_dur": 6.69
+    },
+    {
+      "id": "ct-adjacent-steps-04",
+      "audio_start": 239.239,
+      "audio_dur": 10.37,
+      "vis_start": 238.989,
+      "vis_dur": 11.02
+    },
+    {
+      "id": "ct-match-tactics-01",
+      "audio_start": 250.259,
+      "audio_dur": 1.95,
+      "vis_start": 250.009,
+      "vis_dur": 2.6
+    },
+    {
+      "id": "ct-match-tactics-02",
+      "audio_start": 252.859,
+      "audio_dur": 2.22,
+      "vis_start": 252.609,
+      "vis_dur": 2.87
+    },
+    {
+      "id": "ct-match-tactics-03",
+      "audio_start": 255.729,
+      "audio_dur": 1.54,
+      "vis_start": 255.479,
+      "vis_dur": 2.19
+    },
+    {
+      "id": "ct-match-tactics-04",
+      "audio_start": 257.919,
+      "audio_dur": 1.5,
+      "vis_start": 257.669,
+      "vis_dur": 2.15
+    },
+    {
+      "id": "ct-match-tactics-05",
+      "audio_start": 260.069,
+      "audio_dur": 1.435,
+      "vis_start": 259.819,
+      "vis_dur": 2.085
+    },
+    {
+      "id": "ct-match-tactics-06",
+      "audio_start": 262.154,
+      "audio_dur": 2.435,
+      "vis_start": 261.904,
+      "vis_dur": 3.085
+    },
+    {
+      "id": "ct-match-tactics-07",
+      "audio_start": 265.239,
+      "audio_dur": 2.5,
+      "vis_start": 264.989,
+      "vis_dur": 3.15
+    },
+    {
+      "id": "ct-match-tactics-08",
+      "audio_start": 268.389,
+      "audio_dur": 4.54,
+      "vis_start": 268.139,
+      "vis_dur": 5.19
+    },
+    {
+      "id": "ct-match-tactics-09",
+      "audio_start": 273.579,
+      "audio_dur": 6.21,
+      "vis_start": 273.329,
+      "vis_dur": 6.86
+    },
+    {
+      "id": "ct-match-tactics-10",
+      "audio_start": 280.439,
+      "audio_dur": 5.51,
+      "vis_start": 280.189,
+      "vis_dur": 6.16
+    },
+    {
+      "id": "ct-match-tactics-11",
+      "audio_start": 286.599,
+      "audio_dur": 5.795,
+      "vis_start": 286.349,
+      "vis_dur": 6.445
+    },
+    {
+      "id": "ct-closing-next-step-01",
+      "audio_start": 293.044,
+      "audio_dur": 3.215,
+      "vis_start": 292.794,
+      "vis_dur": 3.865
+    },
+    {
+      "id": "ct-closing-next-step-02",
+      "audio_start": 296.909,
+      "audio_dur": 7.94,
+      "vis_start": 296.659,
+      "vis_dur": 9.99
+    }
+  ]
+}

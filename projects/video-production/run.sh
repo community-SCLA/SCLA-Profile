@@ -13,7 +13,7 @@ refresh_human_status() {
 }
 
 usage() {
-  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all)|approve STEM|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
+  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all)|delegate --stem STEM|limits|cloud-limit (2|4)|approve STEM|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
   exit 2
 }
 
@@ -52,6 +52,31 @@ case "$command" in
         ;;
       *) usage ;;
     esac
+    ;;
+  delegate)
+    stem="$(stem_arg "${1:-}" "${2:-}")"
+    located="$(python3 "$STATE" delegate-info "$stem")"
+    program="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("program") or "")' <<<"$located")"
+    [[ -n "$program" ]] || { echo "FATAL: cannot resolve ready script for $stem" >&2; exit 2; }
+    cat <<EOF
+Work only on ${stem} for program ${program}.
+
+Read projects/video-production/contracts/cloud-author.md, then follow it exactly.
+Run: bash scripts/cloud-author.sh ${stem} ${program}
+
+This is source-only authoring. Do not call HeyGen, render, publish, or modify
+run.json, PIPELINE-STATUS.md, shared scripts, contracts, or another workspace.
+Run static preflight, commit only this workspace's trackable source, and return
+the commit or pull-request link with the required summary.
+EOF
+    ;;
+  limits)
+    python3 "$STATE" capacity
+    ;;
+  cloud-limit)
+    [[ -n "${1:-}" && -z "${2:-}" ]] || usage
+    python3 "$STATE" set-cloud-concurrency "$1"
+    refresh_human_status
     ;;
   approve)
     [[ -n "${1:-}" ]] || usage

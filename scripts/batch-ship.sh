@@ -46,6 +46,7 @@ esac
 
 WS="$VP/renders-hyperframes/$STEM"
 [[ -d "$WS" ]] || { echo "FATAL: no workspace at $WS" >&2; exit 2; }
+python3 "$RUN_STATE" can-ship "$STEM" || exit $?
 
 # Shipping is a workspace-writing session too. Refresh one idempotent lease and
 # release exactly this stem on every exit; TTL remains only a hard-crash backup.
@@ -187,8 +188,10 @@ if [[ "$MODE" == "render" ]]; then
     # injects HEYGEN_API_KEY, the credential cloud render authenticates with.
     OUT_MP4="$WS/renders/$(stem_delivered "$STEM" "$RENDER_DATE").mp4"
     mkdir -p "$WS/renders"
-    echo "== cloud render: $STEM  (HeyGen-hosted; hard cap 60 min)"
-    guarded "cloud-render" bash -c \
+    CLOUD_LIMIT="$(python3 "$RUN_STATE" cloud-concurrency 2>/dev/null || echo 2)"
+    echo "== cloud render: $STEM  (HeyGen-hosted; capacity $CLOUD_LIMIT; hard cap 60 min)"
+    guarded "cloud-render" bash "$REPO/scripts/with-capacity.sh" \
+      cloud-render "$CLOUD_LIMIT" -- bash -c \
       'cd "$1" && timeout -k 30 3600 bash "$2" npx hyperframes cloud render . --quality high --output "$3" --idempotency-key "$4"' \
       _ "$WS" "$REPO/scripts/with-secrets.sh" "$OUT_MP4" "scla-${STEM}-${RENDER_DATE}" \
       || quarantine "cloud render failed or timed out (hyperframes cloud render)" \
@@ -196,8 +199,8 @@ if [[ "$MODE" == "render" ]]; then
     [[ -s "$OUT_MP4" ]] || quarantine "cloud render exited 0 but no MP4 landed in renders/"
   else
     echo "== render: $STEM  (~7 min; hard cap 25)"
-    guarded "local-render" bash -c 'cd "$1" && timeout -k 30 1500 npm run render' _ "$WS" \
-      || quarantine "npm run render failed or timed out" "local-render" \
+    guarded "local-render" timeout -k 30 1500 bash "$REPO/scripts/render-local-safe.sh" "$WS" \
+      || quarantine "safe local render failed or timed out" "local-render" \
         "inspect $LAST_GUARD_LOG before retrying"
   fi
 

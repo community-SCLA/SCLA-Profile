@@ -6,23 +6,18 @@ inspected or treated as pipeline inputs.
 
 ## What changed
 
-The factory is now safer to run in parallel and cheaper to start, but its active
-cloud run is still configured for **four build lanes**. Cloud rendering moved
-the heaviest CPU work off the four-core Codespace, while per-stem leases,
-persistent run state, bounded retries, and a circuit breaker make interruption
-and failure much easier to recover from.
+The factory now treats authoring, narration, rendering, and publishing as four
+different capacity stages. Isolated Codex Cloud tasks can author six lesson
+workspaces at once without using HeyGen or Codespace render capacity. Narration
+is admitted through a machine-wide two-slot queue, cloud rendering starts at
+two and can unlock four after three verified clean renders, and publishing stays
+serial.
 
-The earlier HeyGen burst problem is not fully solved. Each build's shared audio
-engine can issue up to four TTS requests concurrently. There is no batch-wide
-TTS semaphore, and the `concurrency` value in `run.json` is recorded but is not
-currently read by a worker launcher. Four overlapping audio stages could
-therefore attempt up to 16 voice requests at once.
-
-The old ten-minute stagger is also not enforced by the new control plane. It is
-absent from the active `render-lessons` flow and survives only in the earlier
-overnight handoff. Until a batch-wide HeyGen throttle is added and load-tested,
-the stagger remains a sensible operating precaution rather than a mechanical
-guarantee.
+A normal lesson no longer sends one HeyGen request per beat. Its narration is
+combined into one request below a 4,800-character safety ceiling, then split
+locally back into the beat WAVs and word timings expected by timing and QA. A
+longer script is split into the smallest number of whole-beat chunks. This
+replaces the old ten-minute stagger with an enforced capacity limit.
 
 ## Production cycle
 
@@ -80,8 +75,8 @@ SCLA-Profile/
 │   │   Small agent router for this subtree. Points each kind of work to one
 │   │   contract instead of loading the old full production manual.
 │   ├── run.sh                                     [0, 5–8]
-│   │   The only public control surface. Selects a stem/program/all, records a
-│   │   pilot approval, shows/resumes state, authorizes retry, and invokes ship.
+│   │   The only public control surface. Selects scope, prints isolated cloud
+│   │   task prompts, shows stage limits, approves, retries, and invokes ship.
 │   ├── PIPELINE-STATUS.md                         [8]
 │   │   Generated human view of disk state. Useful to people, but agents read
 │   │   live JSON from `run.sh status --json` instead.
@@ -93,6 +88,9 @@ SCLA-Profile/
 │   │   │   Defines inbox → ready → workspace → published as the only lifecycle.
 │   │   ├── builder.md
 │   │   │   Compact, one-video build contract and exact authoring sequence.
+│   │   ├── cloud-author.md
+│   │   │   Source-only contract for one isolated Codex Cloud task; forbids
+│   │   │   provider calls, rendering, publishing, and shared-state edits.
 │   │   └── visual-review.md
 │   │       One reviewer returns separate correctness and taste verdicts.
 │   │
@@ -138,7 +136,7 @@ SCLA-Profile/
 │   │   ├── _run/
 │   │   │   ├── run.json
 │   │   │   │   Persistent scope, selected items, pilot approval, backend,
-│   │   │   │   concurrency target, retry counts, results, and circuit breaker.
+│   │   │   │   stage-specific limits, retry counts, results, and circuit breaker.
 │   │   │   ├── RENDER-BACKEND
 │   │   │   │   One shared choice: `cloud` or `local`; currently `cloud`.
 │   │   │   ├── BUILD-KIT.md
@@ -202,6 +200,9 @@ SCLA-Profile/
 │   │   │   │   and stamps the effective values into the receipt.
 │   │   │   ├── plan_timing.py
 │   │   │   │   Converts actual audio durations and word timing into timing.json.
+│   │   │   ├── continuous_audio.py
+│   │   │   │   Combines beat text into minimal provider requests and splits the
+│   │   │   │   result locally back into deterministic beat clips and timestamps.
 │   │   │   ├── preflight.py
 │   │   │   │   Authoritative pre-render gate; coordinates the `check_*.py` rules.
 │   │   │   ├── check_*.py
@@ -247,8 +248,13 @@ SCLA-Profile/
     ├── build-log.sh                               [4–7]
     │   Appends completed steps to a workspace's durable journal.
     ├── video-audio.sh                             [4]
-    │   Pins voice settings, injects secrets, invokes the shared audio engine,
-    │   stamps metadata, and checks the production receipt.
+    │   Pins voice settings, enters the shared two-slot TTS queue, requests
+    │   continuous narration, splits beat clips, and checks the receipt.
+    ├── with-capacity.sh                           [4, 6]
+    │   Named machine-wide slot queue. A waiting job sleeps; a crashed process
+    │   releases its slot automatically.
+    ├── cloud-author.sh                            [4]
+    │   Creates one source-only workspace without touching live run state.
     ├── with-secrets.sh                            [4, 6, 7]
     │   Injects Infisical-managed credentials for HeyGen and Wistia calls.
     ├── build-gate.sh                              [5]
@@ -283,13 +289,13 @@ scripts instead.
 
 | Constraint | Previous operating model | Current live model | Practical meaning |
 | --- | --- | --- | --- |
-| Build lanes | Four | Four with cloud backend; run state chooses three with local | The ceiling has not increased for the active run. |
-| Ten-minute stagger | Manual operating rule | Not implemented or enforced in the active control plane | Do not assume it happens automatically. Keep it until TTS has a global throttle. |
+| Source-authoring lanes | Four mixed-purpose lanes | Six isolated Codex Cloud tasks, or three local workers | Cloud authoring does not consume HeyGen or local render capacity. |
+| Ten-minute stagger | Manual operating rule | Replaced by an enforced two-slot global TTS queue | Jobs wait for a slot; no time-based stagger is needed. |
 | Codespace render load | Local rendering competed for four CPUs | Cloud rendering skips the local CPU lock and may run in parallel | This is the biggest speed improvement. Local fallback still renders one at a time. |
 | Workspace safety | Parallel agents could interfere with a shared sentinel | One lease per stem; atomic workspace claim; release is independent | Four builders can safely own different stems in the same live checkout. |
 | Build startup | Each cold builder initialized HyperFrames and recopied assets | One prepared scaffold and compact build kit per run | Less network work and less repeated agent context per lesson. |
-| HeyGen voice calls | Provider bursts required staggering | Four TTS workers per build; no cross-build semaphore | The provider risk remains and can become 16 in-flight calls across four overlapping builds. |
-| Cloud rendering | Not the normal path | Parallel, 60-minute cap, idempotency key, failure receipt | Faster when healthy, but the current run has two cloud-render rejections and a 0/3 clean streak. |
+| HeyGen voice calls | One call per beat could produce 18–45 calls per lesson | Normally one request per lesson, admitted two lessons at a time | Provider load falls sharply while beat-level output remains unchanged downstream. |
+| Cloud rendering | Not the normal path | Starts at two; four unlocks after 3/3 clean verified renders | A cloud failure automatically resets the limit to two. |
 | Local rendering | Resource constrained | One render at a time under `.render.lock` | Adding agents cannot accelerate this stage. |
 | Publishing | Shared ledgers and git required care | One publisher under `.publish.lock` | Correctly remains serial. |
 | Failure handling | Easy to loop or lose the cause | Two attempts per stem/error class; circuit opens after the same class hits two different stems | Parallelism now stops on a likely system-wide failure instead of burning the queue. |
@@ -319,10 +325,8 @@ The safest split is:
 2. Use one Codex or Claude worker per stem for concept planning, HTML authoring,
    and composition revision. Give each worker only its script, selected concept,
    local tokens, and compact builder contract.
-3. Keep paid TTS in the live checkout and put it behind one batch-wide queue.
-   A good first control is a global semaphore of two to four HeyGen requests,
-   independent of how many authoring agents exist.
-4. Keep cloud render parallel but respect the run's circuit breaker. Keep local
+3. Keep paid TTS in the live checkout behind the enforced two-slot queue.
+4. Keep cloud render at two until three clean renders unlock four. Keep local
    render and all publish work serial.
 5. Increase agent lanes only after measuring a representative batch. Without a
    global TTS throttle and clean cloud-render evidence, adding a fifth builder
@@ -337,8 +341,7 @@ agent teams, and worktree-isolated sessions for parallel work:
 
 ## Now what
 
-The next speed improvement should be **central TTS admission control**, not more
-unbounded builders. After that, run a measured 4-lane batch with no stagger,
-record peak TTS concurrency, provider failures, authoring time, cloud-render
-time, and total wall time, then test a higher author-only lane count if the
-provider and Codespace remain healthy.
+Run the first measured batch with six source-authoring tasks, two narration
+slots, and two cloud renders. After three clean verified cloud renders, use
+`run.sh cloud-limit 4`. Record provider failures and end-to-end wall time before
+raising any other limit.

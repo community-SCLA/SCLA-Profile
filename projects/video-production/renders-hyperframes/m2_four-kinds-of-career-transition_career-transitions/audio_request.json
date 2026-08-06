@@ -1,0 +1,232 @@
+{
+  "provider": "heygen",
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
+  "speed": 1.0,
+  "output": "assets/narration.mp3",
+  "lines": [
+    {
+      "id": "ct-intro-name-the-move-01",
+      "text": "When you're thinking about a career move, it's tempting to jump straight to tactics."
+    },
+    {
+      "id": "ct-intro-name-the-move-02",
+      "text": "Should I update my resume?"
+    },
+    {
+      "id": "ct-intro-name-the-move-03",
+      "text": "Apply to that role?"
+    },
+    {
+      "id": "ct-intro-name-the-move-04",
+      "text": "Or go back to school?"
+    },
+    {
+      "id": "ct-intro-name-the-move-05",
+      "text": "Those questions matter — but they're not the first step."
+    },
+    {
+      "id": "ct-intro-name-the-move-06",
+      "text": "Before you plan the move, name the kind of move you're making."
+    },
+    {
+      "id": "ct-intro-name-the-move-07",
+      "text": "Each kind of transition has a different rhythm, different risks, and different tactics."
+    },
+    {
+      "id": "ct-reveal-matrix-01",
+      "text": "In this lesson, we'll use a simple matrix with two axes."
+    },
+    {
+      "id": "ct-reveal-matrix-02",
+      "text": "Horizontally: how big the change is, from adjacent to dramatic."
+    },
+    {
+      "id": "ct-reveal-matrix-03",
+      "text": "Vertically: what triggers it — chosen or forced."
+    },
+    {
+      "id": "ct-reveal-matrix-04",
+      "text": "Together, those axes give us four transition types: the Growth Pivot, the Reinvention, the Rebuild, and the Forced Reinvention."
+    },
+    {
+      "id": "ct-reveal-matrix-05",
+      "text": "Let's walk through each one."
+    },
+    {
+      "id": "ct-growth-pivot-01",
+      "text": "First, the Growth Pivot — a chosen adjacent change."
+    },
+    {
+      "id": "ct-growth-pivot-02",
+      "text": "You stay in a similar industry or function, but step into a meaningfully new direction or scope."
+    },
+    {
+      "id": "ct-growth-pivot-03",
+      "text": "Think of a senior marketer who becomes head of brand strategy on a bigger stage."
+    },
+    {
+      "id": "ct-growth-pivot-04",
+      "text": "The domain is familiar; the responsibility, complexity, and visibility grow."
+    },
+    {
+      "id": "ct-growth-pivot-05",
+      "text": "The rhythm here feels like expansion — more leadership, more impact."
+    },
+    {
+      "id": "ct-growth-pivot-06",
+      "text": "Your tactics: deepen your expertise, expand your network, and signal you're ready for larger roles."
+    },
+    {
+      "id": "ct-reinvention-01",
+      "text": "Second, the Reinvention — a chosen dramatic change."
+    },
+    {
+      "id": "ct-reinvention-02",
+      "text": "You deliberately build a new identity in a new field: a corporate lawyer becoming a fitness executive, say."
+    },
+    {
+      "id": "ct-reinvention-03",
+      "text": "Reinventions look bold from the outside, but they're rarely a single leap."
+    },
+    {
+      "id": "ct-reinvention-04",
+      "text": "They usually rest on years of adjacent moves — skills, taste, and relationships — that make the new path possible."
+    },
+    {
+      "id": "ct-reinvention-05",
+      "text": "Vera Wang's story shows it clearly."
+    },
+    {
+      "id": "ct-reinvention-06",
+      "text": "She was a competitive figure skater, then a fashion editor for sixteen years, then a design director at Ralph Lauren — before she founded her bridal label at forty."
+    },
+    {
+      "id": "ct-reinvention-07",
+      "text": "The pivot looks dramatic."
+    },
+    {
+      "id": "ct-reinvention-08",
+      "text": "The accumulation was adjacent."
+    },
+    {
+      "id": "ct-rebuild-01",
+      "text": "Third, the Rebuild — a forced adjacent change."
+    },
+    {
+      "id": "ct-rebuild-02",
+      "text": "Something external happens — a layoff, a restructuring, an industry slowdown — but your skills still transfer well."
+    },
+    {
+      "id": "ct-rebuild-03",
+      "text": "Picture someone laid off from a shrinking function who lands a similar role at a healthier company."
+    },
+    {
+      "id": "ct-rebuild-04",
+      "text": "The trigger was forced; the path stays close to what they've been doing."
+    },
+    {
+      "id": "ct-rebuild-05",
+      "text": "This one feels like course correction, not reinvention."
+    },
+    {
+      "id": "ct-rebuild-06",
+      "text": "Your tactics: deal honestly with the emotional impact, then focus on where your existing strengths can move into safer or more promising contexts."
+    },
+    {
+      "id": "ct-forced-reinvention-01",
+      "text": "Fourth, the Forced Reinvention — a forced dramatic change."
+    },
+    {
+      "id": "ct-forced-reinvention-02",
+      "text": "A life event or disruptive shift — a health event, caregiving responsibilities, a geographic move, or technological change — requires a fundamentally new path."
+    },
+    {
+      "id": "ct-forced-reinvention-03",
+      "text": "Imagine a role AI or automation is erasing, or a personal event that reshapes your priorities and capacity."
+    },
+    {
+      "id": "ct-forced-not-failed-01",
+      "text": "Let's be clear about something: forced does not mean failed."
+    },
+    {
+      "id": "ct-forced-not-failed-02",
+      "text": "Research on career grief and involuntary transitions shows forced changes are just as capable of producing what scholars call adaptive identity development — the disruption becomes the catalyst for meaningful growth."
+    },
+    {
+      "id": "ct-forced-not-failed-03",
+      "text": "What determines that isn't whether you chose the transition."
+    },
+    {
+      "id": "ct-forced-not-failed-04",
+      "text": "It's how you respond: whether you allow space for grief, seek support, look for ways to transfer your strengths into new directions, and experiment with new identities instead of clinging to old ones."
+    },
+    {
+      "id": "ct-adjacent-steps-01",
+      "text": "One more note on dramatic transitions."
+    },
+    {
+      "id": "ct-adjacent-steps-02",
+      "text": "From the outside, they look like single bold leaps."
+    },
+    {
+      "id": "ct-adjacent-steps-03",
+      "text": "In reality, they almost always involve adjacent steps that quietly accumulate capacity."
+    },
+    {
+      "id": "ct-adjacent-steps-04",
+      "text": "Zoom out and you can usually see the trail — small projects, side interests, courses, relationships, and experiments that make the big leap less sudden than it appears."
+    },
+    {
+      "id": "ct-match-tactics-01",
+      "text": "So what does this mean for you?"
+    },
+    {
+      "id": "ct-match-tactics-02",
+      "text": "First, name your transition type."
+    },
+    {
+      "id": "ct-match-tactics-03",
+      "text": "Are you in a Growth Pivot?"
+    },
+    {
+      "id": "ct-match-tactics-04",
+      "text": "Planning a Reinvention?"
+    },
+    {
+      "id": "ct-match-tactics-05",
+      "text": "Navigating a Rebuild?"
+    },
+    {
+      "id": "ct-match-tactics-06",
+      "text": "Or working through a Forced Reinvention?"
+    },
+    {
+      "id": "ct-match-tactics-07",
+      "text": "Second, match your tactics to it."
+    },
+    {
+      "id": "ct-match-tactics-08",
+      "text": "Growth Pivots need stronger signals of readiness and visibility in your current lane."
+    },
+    {
+      "id": "ct-match-tactics-09",
+      "text": "Reinventions require learning, experimentation, and building credibility in a new space."
+    },
+    {
+      "id": "ct-match-tactics-10",
+      "text": "Rebuilds call for emotional processing and strategic re-targeting of your existing strengths."
+    },
+    {
+      "id": "ct-match-tactics-11",
+      "text": "Forced Reinventions benefit from support, patience, and a focus on transferable skills and values."
+    },
+    {
+      "id": "ct-closing-next-step-01",
+      "text": "Naming your transition type doesn't solve everything."
+    },
+    {
+      "id": "ct-closing-next-step-02",
+      "text": "But it gives you a clearer map of what you're navigating — and a clearer map makes it easier to choose your next step."
+    }
+  ]
+}

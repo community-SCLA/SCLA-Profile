@@ -1,184 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=1920, height=1080">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      @font-face {
-        font-family: "Proxima Nova";
-        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
-        font-weight: 400;
-        font-style: normal;
-        font-display: block;
-      }
-      @font-face {
-        font-family: "Proxima Nova";
-        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
-        font-weight: 700;
-        font-style: normal;
-        font-display: block;
-      }
-      @font-face {
-        font-family: "Proxima Nova";
-        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
-        font-weight: 900;
-        font-style: normal;
-        font-display: block;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: #0d2437;
-      }
-      body {
-        font-family: "Proxima Nova", sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      #root {
-        position: relative;
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-      }
-
-      /* Full-bleed fill lives on a CHILD, never on the composition root. */
-      #bg {
-        position: absolute;
-        inset: 0;
-        background: #0d2437;
-      }
-      #bg-glow {
-        position: absolute;
-        left: 1010px;
-        top: 640px;
-        width: 1900px;
-        height: 1180px;
-        margin: -590px 0 0 -950px;
-        background: radial-gradient(
-          ellipse at center,
-          rgba(51, 147, 214, 0.13) 0%,
-          rgba(13, 36, 55, 0.4) 46%,
-          rgba(13, 36, 55, 0) 76%
-        );
-        will-change: transform;
-      }
-      #bg-vignette {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          ellipse at 50% 50%,
-          rgba(10, 30, 47, 0) 58%,
-          rgba(10, 30, 47, 0.66) 100%
-        );
-      }
-
-      /* Persistent program banner, inside the declared chrome region. */
-      #chrome {
-        position: absolute;
-        z-index: 4;
-        left: 120px;
-        top: 62px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        opacity: 0;
-      }
-      #chrome-mark {
-        display: block;
-        width: 10px;
-        height: 30px;
-        background: #eaab2d;
-      }
-      #chrome-text {
-        font-size: 26px;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.66);
-      }
-
-      #root > div[data-composition-src] {
-        position: absolute;
-        inset: 0;
-      }
+      * { box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: #0a1e2f; }
+      #main { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      #el-opening-map { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      .narration { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="159.161" data-width="1920" data-height="1080">
-      <div id="bg">
-        <div id="bg-glow"></div>
-        <div id="bg-vignette"></div>
-      </div>
-
-      <div id="chrome">
-        <span id="chrome-mark"></span>
-        <span id="chrome-text">Early Career Boost</span>
-      </div>
-
-      <!-- ONE carrying object for the whole runtime: the wall of task-bricks.
-           s01 -> s28, laid once, re-laid, never emptied. See design.md. -->
-      <div id="el-wall" data-composition-id="wall" data-composition-src="compositions/wall.html" data-start="0" data-duration="159.161" data-track-index="1" data-width="1920" data-height="1080"></div>
-
-      <!-- Narration — HeyGen starfish, Oxana (tokens.yml voice.voice_id).
-           One element per beat at GLOBAL time; every number below is
-           timing.json's, computed by make_timing.py from the real wavs. -->
-      <audio id="vo-s01" src="assets/voice/s01.wav" data-start="0.6" data-duration="5.721" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s02" src="assets/voice/s02.wav" data-start="6.871" data-duration="3.605" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s03" src="assets/voice/s03.wav" data-start="11.026" data-duration="3.762" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s04" src="assets/voice/s04.wav" data-start="15.338" data-duration="1.907" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s05" src="assets/voice/s05.wav" data-start="17.795" data-duration="4.493" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s06" src="assets/voice/s06.wav" data-start="22.838" data-duration="3.631" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s07" src="assets/voice/s07.wav" data-start="27.019" data-duration="6.661" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s08" src="assets/voice/s08.wav" data-start="34.23" data-duration="3.605" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s09" src="assets/voice/s09.wav" data-start="38.385" data-duration="5.224" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s10" src="assets/voice/s10.wav" data-start="44.159" data-duration="3.474" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s11" src="assets/voice/s11.wav" data-start="48.183" data-duration="7.053" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s12" src="assets/voice/s12.wav" data-start="55.786" data-duration="9.561" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s13" src="assets/voice/s13.wav" data-start="65.897" data-duration="4.702" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s14" src="assets/voice/s14.wav" data-start="71.149" data-duration="2.142" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s15" src="assets/voice/s15.wav" data-start="73.841" data-duration="1.411" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s16" src="assets/voice/s16.wav" data-start="75.802" data-duration="3.5" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s17" src="assets/voice/s17.wav" data-start="79.852" data-duration="10.501" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s18" src="assets/voice/s18.wav" data-start="90.903" data-duration="1.776" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s19" src="assets/voice/s19.wav" data-start="93.229" data-duration="3.5" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s20" src="assets/voice/s20.wav" data-start="97.279" data-duration="5.642" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s21" src="assets/voice/s21.wav" data-start="103.471" data-duration="11.572" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s22" src="assets/voice/s22.wav" data-start="115.593" data-duration="4.624" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s23" src="assets/voice/s23.wav" data-start="120.767" data-duration="3.944" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s24" src="assets/voice/s24.wav" data-start="125.261" data-duration="6.896" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s25" src="assets/voice/s25.wav" data-start="132.707" data-duration="9.352" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s26" src="assets/voice/s26.wav" data-start="142.609" data-duration="2.456" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s27" src="assets/voice/s27.wav" data-start="145.615" data-duration="6.217" data-track-index="10" data-volume="1"></audio>
-      <audio id="vo-s28" src="assets/voice/s28.wav" data-start="152.382" data-duration="4.979" data-track-index="10" data-volume="1"></audio>
+    <div id="main" data-composition-id="main" data-start="0" data-duration="154.5" data-width="1920" data-height="1080">
+      <div id="el-opening-map" class="clip" data-composition-id="opening-map" data-composition-src="compositions/opening-map.html" data-start="0" data-duration="154.5" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <audio id="audio-s01" class="clip narration" src="assets/voice/s01.wav" data-start="0.6" data-duration="5.421" data-track-index="10"></audio>
+      <audio id="audio-s02" class="clip narration" src="assets/voice/s02.wav" data-start="6.671" data-duration="3.465" data-track-index="10"></audio>
+      <audio id="audio-s03" class="clip narration" src="assets/voice/s03.wav" data-start="10.786" data-duration="3.542" data-track-index="10"></audio>
+      <audio id="audio-s04" class="clip narration" src="assets/voice/s04.wav" data-start="14.978" data-duration="1.707" data-track-index="10"></audio>
+      <audio id="audio-s05" class="clip narration" src="assets/voice/s05.wav" data-start="17.335" data-duration="3.474" data-track-index="10"></audio>
+      <audio id="audio-s06" class="clip narration" src="assets/voice/s06.wav" data-start="21.459" data-duration="3.511" data-track-index="10"></audio>
+      <audio id="audio-s07" class="clip narration" src="assets/voice/s07.wav" data-start="25.62" data-duration="6.521" data-track-index="10"></audio>
+      <audio id="audio-s08" class="clip narration" src="assets/voice/s08.wav" data-start="32.791" data-duration="3.245" data-track-index="10"></audio>
+      <audio id="audio-s09" class="clip narration" src="assets/voice/s09.wav" data-start="36.686" data-duration="4.804" data-track-index="10"></audio>
+      <audio id="audio-s10" class="clip narration" src="assets/voice/s10.wav" data-start="42.14" data-duration="3.294" data-track-index="10"></audio>
+      <audio id="audio-s11" class="clip narration" src="assets/voice/s11.wav" data-start="46.084" data-duration="6.893" data-track-index="10"></audio>
+      <audio id="audio-s12" class="clip narration" src="assets/voice/s12.wav" data-start="53.627" data-duration="9.401" data-track-index="10"></audio>
+      <audio id="audio-s13" class="clip narration" src="assets/voice/s13.wav" data-start="63.678" data-duration="4.522" data-track-index="10"></audio>
+      <audio id="audio-s14" class="clip narration" src="assets/voice/s14.wav" data-start="68.85" data-duration="1.822" data-track-index="10"></audio>
+      <audio id="audio-s15" class="clip narration" src="assets/voice/s15.wav" data-start="71.322" data-duration="1.231" data-track-index="10"></audio>
+      <audio id="audio-s16" class="clip narration" src="assets/voice/s16.wav" data-start="73.203" data-duration="3.32" data-track-index="10"></audio>
+      <audio id="audio-s17" class="clip narration" src="assets/voice/s17.wav" data-start="77.173" data-duration="10.301" data-track-index="10"></audio>
+      <audio id="audio-s18" class="clip narration" src="assets/voice/s18.wav" data-start="88.124" data-duration="1.376" data-track-index="10"></audio>
+      <audio id="audio-s19" class="clip narration" src="assets/voice/s19.wav" data-start="90.15" data-duration="3.36" data-track-index="10"></audio>
+      <audio id="audio-s20" class="clip narration" src="assets/voice/s20.wav" data-start="94.16" data-duration="5.502" data-track-index="10"></audio>
+      <audio id="audio-s21" class="clip narration" src="assets/voice/s21.wav" data-start="100.312" data-duration="11.151" data-track-index="10"></audio>
+      <audio id="audio-s22" class="clip narration" src="assets/voice/s22.wav" data-start="112.113" data-duration="4.243" data-track-index="10"></audio>
+      <audio id="audio-s23" class="clip narration" src="assets/voice/s23.wav" data-start="117.006" data-duration="3.764" data-track-index="10"></audio>
+      <audio id="audio-s24" class="clip narration" src="assets/voice/s24.wav" data-start="121.42" data-duration="6.516" data-track-index="10"></audio>
+      <audio id="audio-s25" class="clip narration" src="assets/voice/s25.wav" data-start="128.586" data-duration="9.032" data-track-index="10"></audio>
+      <audio id="audio-s26" class="clip narration" src="assets/voice/s26.wav" data-start="138.268" data-duration="2.256" data-track-index="10"></audio>
+      <audio id="audio-s27" class="clip narration" src="assets/voice/s27.wav" data-start="141.174" data-duration="6.037" data-track-index="10"></audio>
+      <audio id="audio-s28" class="clip narration" src="assets/voice/s28.wav" data-start="147.861" data-duration="4.839" data-track-index="10"></audio>
     </div>
-
     <script>
       window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-
-      // The banner settles once, then never moves again.
-      tl.fromTo("#chrome", { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.3);
-
-      // One shared ambient breath, on the background GLOW only — never on
-      // content. Finite legs sized to the runtime.
-      tl.fromTo(
-        "#bg-glow",
-        { scale: 1 },
-        { scale: 1.03, duration: 7, ease: "sine.inOut", yoyo: true, repeat: 22 }, /* motion-allow: background depth-drift on a non-content layer; the design contract sanctions ambient breath on the background glow only */
-        0,
-      );
-
-      window.__timelines["main"] = tl;
+      window.__timelines["main"] = gsap.timeline({ paused: true });
     </script>
   </body>
 </html>

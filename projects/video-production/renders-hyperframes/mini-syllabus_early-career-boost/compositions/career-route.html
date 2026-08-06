@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+    <style>
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+      }
+
+      :root {
+        --navy: #0d2437;
+        --navy-deep: #0a1e2f;
+        --blue: #3393d6;
+        --gold: #eaab2d;
+        --ink: #292f35;
+        --paper: #ffffff;
+        --cultured: #f6f6f9;
+        --subtle: #e5eff6;
+        --border: #cccedf;
+        --muted: #5f6f96;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--navy-deep);
+        font-family: "Proxima Nova", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #stage-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 74% 45%, #0d2437 0%, #0a1e2f 70%);
+      }
+
+      #stage-grid {
+        position: absolute;
+        inset: 0;
+        opacity: 0.16;
+        background-image:
+          linear-gradient(90deg, rgba(51, 147, 214, 0.26) 1px, transparent 1px),
+          linear-gradient(rgba(51, 147, 214, 0.26) 1px, transparent 1px);
+        background-size: 120px 120px;
+        mask-image: radial-gradient(ellipse at center, black 12%, transparent 78%);
+      }
+
+      #chrome {
+        position: absolute;
+        z-index: 50;
+        top: 58px;
+        left: 120px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--paper);
+        opacity: 0;
+      }
+
+      #chrome-mark {
+        width: 10px;
+        height: 32px;
+        background: var(--gold);
+      }
+
+      #program-eyebrow {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      #journey-footer {
+        position: absolute;
+        z-index: 45;
+        left: 120px;
+        right: 120px;
+        bottom: 126px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: var(--paper);
+      }
+
+      #footer-start,
+      #footer-goal {
+        color: inherit;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      #footer-track {
+        position: relative;
+        flex: 1;
+        height: 4px;
+        background: rgba(204, 206, 223, 0.32);
+      }
+
+      #footer-progress {
+        position: absolute;
+        inset: 0;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        opacity: 0;
+        color: var(--paper);
+      }
+
+      .content {
+        position: absolute;
+        left: 120px;
+        right: 120px;
+        top: 148px;
+        bottom: 150px;
+      }
+
+      .light {
+        color: var(--paper);
+      }
+
+      .light::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: transparent;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        line-height: 1.2;
+        margin-bottom: 34px;
+        text-transform: uppercase;
+      }
+
+      .dark .eyebrow {
+        color: var(--gold);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: 900;
+        line-height: 0.98;
+      }
+
+      h1 {
+        font-size: 108px;
+      }
+
+      h2 {
+        font-size: 60px;
+      }
+
+      h3 {
+        font-size: 52px;
+        line-height: 1.05;
+      }
+
+      .display {
+        font-size: 96px;
+        font-weight: 900;
+        line-height: 0.98;
+      }
+
+      .body-copy {
+        font-size: 44px;
+        line-height: 1.16;
+      }
+
+      .label {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .gold {
+        color: var(--gold);
+      }
+
+      .blue {
+        color: var(--blue);
+      }
+
+      .route-line,
+      .route-v {
+        position: absolute;
+        background: var(--gold);
+        transform-origin: left center;
+      }
+
+      .route-line {
+        height: 4px;
+      }
+
+      .route-v {
+        width: 4px;
+        transform-origin: center top;
+      }
+
+      .node {
+        position: absolute;
+        width: 96px;
+        height: 96px;
+        border: 3px solid var(--blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--navy);
+        color: var(--paper);
+        font-size: 42px;
+        font-weight: 900;
+      }
+
+      .light .node {
+        background: var(--navy);
+        color: var(--paper);
+      }
+
+      .light .node .check {
+        color: var(--gold);
+      }
+
+      .node.small {
+        width: 74px;
+        height: 74px;
+        font-size: 40px;
+      }
+
+      .gold-node {
+        border-color: var(--gold);
+        background: var(--gold);
+        color: var(--navy);
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 62px;
+        padding: 8px 26px;
+        border: 3px solid var(--blue);
+        border-radius: 100px;
+        color: var(--blue);
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .paper-chip {
+        border-color: var(--paper);
+        color: var(--paper);
+      }
+
+      .check {
+        font-size: 46px;
+        font-weight: 900;
+        color: var(--navy);
+      }
+
+      .big-number {
+        color: var(--gold);
+        font-size: 220px;
+        font-weight: 900;
+        line-height: 0.8;
+      }
+
+      /* s01 — orientation */
+      #s01-title {
+        position: absolute;
+        left: 0;
+        top: 90px;
+        width: 1040px;
+      }
+      #s01-subtitle {
+        margin-top: 24px;
+        color: var(--blue);
+        font-size: 48px;
+        font-weight: 700;
+      }
+      #s01-route { left: 1110px; top: 430px; width: 400px; }
+      #s01-node { left: 1050px; top: 376px; }
+      #s01-tag { position: absolute; left: 1180px; top: 330px; }
+
+      /* s02 — welcome pulse */
+      #s02-copy { position: absolute; left: 250px; top: 205px; width: 930px; }
+      #s02-orbit {
+        position: absolute;
+        right: 170px;
+        top: 130px;
+        width: 390px;
+        height: 390px;
+        border: 6px solid var(--gold);
+        border-radius: 50%;
+      }
+      #s02-orbit-inner {
+        position: absolute;
+        inset: 72px;
+        border: 4px solid var(--blue);
+        border-radius: 50%;
+      }
+      #s02-node { left: 135px; top: 135px; }
+
+      /* s03 — broader journey */
+      #s03-heading { position: absolute; left: 0; top: 40px; width: 1240px; }
+      #s03-left { left: 90px; top: 420px; }
+      #s03-mid { left: 780px; top: 420px; }
+      #s03-right { left: 1450px; top: 420px; }
+      #s03-line-a { left: 202px; top: 474px; width: 578px; }
+      #s03-line-b { left: 892px; top: 474px; width: 558px; }
+      #s03-label-a { position: absolute; left: 42px; top: 560px; font-size: 40px; }
+      #s03-label-b { position: absolute; left: 690px; top: 560px; font-size: 40px; }
+      #s03-label-c { position: absolute; right: 0; top: 560px; font-size: 40px; }
+
+      /* s04 — foundation steps */
+      #s04-heading { position: absolute; left: 0; top: 0; width: 840px; }
+      .foundation-step { position: absolute; bottom: 40px; background: transparent; border-top: 5px solid var(--blue); border-left: 5px solid var(--blue); }
+      #step-a { left: 850px; width: 220px; height: 180px; }
+      #step-b { left: 1088px; width: 220px; height: 290px; }
+      #step-c { left: 1326px; width: 220px; height: 400px; }
+      .step-label { position: absolute; left: 26px; top: 26px; color: var(--paper); font-size: 40px; font-weight: 700; }
+      #s04-rise { left: 820px; top: 550px; width: 760px; transform: rotate(-17deg); }
+
+      /* s05 — progress */
+      #s05-heading { position: absolute; left: 0; top: 0; width: 820px; }
+      #s05-progress { position: absolute; left: 0; top: 360px; width: 1680px; height: 8px; background: var(--border); }
+      #s05-fill { inset: 0; width: 58%; background: var(--gold); transform-origin: left center; }
+      .milestone { position: absolute; top: 318px; }
+      #m1, #m2, #m3, #m4 { top: 318px; }
+      #m1 { left: 80px; } #m2 { left: 490px; } #m3 { left: 900px; } #m4 { left: 1310px; }
+      .milestone-copy { position: absolute; top: 440px; font-size: 40px; font-weight: 700; }
+      #where { left: 60px; } #ahead { right: 125px; color: var(--muted); }
+
+      /* s06 — doing loop */
+      #s06-heading { position: absolute; left: 0; top: 0; }
+      #doing-ring { position: absolute; left: 690px; top: 15px; width: 720px; height: 620px; border: 4px solid var(--blue); border-radius: 50%; }
+      .doing-action { position: absolute; font-size: 46px; font-weight: 900; }
+      #do-click { left: 600px; top: 80px; }
+      #do-reflect { right: 30px; top: 260px; }
+      #do-upload { left: 650px; bottom: 60px; }
+      #doing-center { left: 960px; top: 250px; }
+      #s06-arrow { position: absolute; left: 30px; top: 315px; color: var(--gold); font-size: 180px; font-weight: 900; }
+
+      /* s07 — career map */
+      #s07-heading { position: absolute; left: 0; top: 0; width: 780px; }
+      #map-core { left: 830px; top: 235px; width: 180px; height: 180px; font-size: 42px; text-align: center; }
+      .map-destination { position: absolute; font-size: 40px; font-weight: 700; }
+      #path-a { right: 20px; top: 70px; } #path-b { right: 0; top: 300px; } #path-c { right: 70px; bottom: 55px; }
+      #map-line-a { left: 990px; top: 280px; width: 400px; transform: rotate(-25deg); }
+      #map-line-b { left: 1000px; top: 330px; width: 360px; }
+      #map-line-c { left: 990px; top: 380px; width: 400px; transform: rotate(25deg); }
+
+      /* s08 — support detour */
+      #s08-heading { position: absolute; left: 0; top: 0; width: 1050px; }
+      #s08-route-main { left: 70px; top: 510px; width: 1430px; background: var(--blue); }
+      #s08-route-up { left: 560px; top: 330px; height: 184px; background: var(--gold); }
+      #s08-route-link { left: 560px; top: 330px; width: 560px; }
+      #help-node { left: 1085px; top: 276px; }
+      #help-channel { position: absolute; left: 1220px; top: 298px; font-size: 44px; font-weight: 900; color: var(--gold); }
+      #one-click { position: absolute; left: 600px; top: 235px; }
+
+      /* s09 — chapter reveal */
+      #s09-number { position: absolute; left: 0; top: 70px; }
+      #s09-heading { position: absolute; left: 320px; top: 90px; width: 1180px; font-size: 60px; }
+      #s09-rule { left: 330px; top: 370px; width: 1180px; }
+
+      /* s10 — mindset switch */
+      #s10-heading { position: absolute; left: 0; top: 0; width: 850px; }
+      #mindset-dial { position: absolute; right: 100px; top: 25px; width: 570px; height: 570px; border: 6px solid var(--blue); border-radius: 50%; }
+      #mindset-axis { left: 140px; top: 280px; width: 290px; }
+      #mindset-needle { left: 280px; top: 275px; width: 210px; height: 10px; transform-origin: left center; }
+      #mindset-center { left: 237px; top: 237px; }
+      #mindset-word { position: absolute; left: 90px; bottom: 52px; font-size: 44px; font-weight: 900; color: var(--gold); }
+
+      /* s11 — barrier to growth */
+      #s11-heading { position: absolute; left: 0; top: 0; width: 1120px; }
+      #belief-route-a { left: 80px; top: 470px; width: 520px; background: var(--blue); }
+      #belief-barrier { position: absolute; left: 600px; top: 350px; width: 42px; height: 250px; background: var(--muted); }
+      #belief-route-b { left: 640px; top: 470px; width: 760px; transform: rotate(-15deg); }
+      #limiting-copy { position: absolute; left: 300px; top: 520px; font-size: 40px; color: var(--muted); }
+      #growth-copy { position: absolute; right: 80px; top: 255px; font-size: 48px; font-weight: 900; color: var(--gold); }
+
+      /* s12 — dream job */
+      #s12-q { position: absolute; left: 0; top: 40px; font-size: 220px; color: var(--gold); font-weight: 900; }
+      #s12-heading { position: absolute; left: 270px; top: 60px; width: 1120px; }
+      #s12-route { left: 280px; top: 440px; width: 1010px; }
+      #s12-destination { left: 1270px; top: 386px; }
+      #s12-today { position: absolute; left: 280px; top: 500px; font-size: 44px; font-weight: 700; }
+
+      /* s13 — AI era */
+      #s13-heading { position: absolute; left: 0; top: 0; width: 1120px; }
+      #s13-axis { left: 180px; top: 480px; width: 1260px; background: var(--blue); }
+      #human-node { left: 130px; top: 426px; }
+      #ai-node { right: 130px; top: 426px; }
+      #skills-node { left: 780px; top: 400px; width: 170px; height: 170px; font-size: 42px; text-align: center; }
+      #s13-human { position: absolute; left: 100px; top: 550px; font-size: 40px; }
+      #s13-ai { position: absolute; right: 70px; top: 550px; font-size: 40px; }
+
+      /* s14 — practical moves */
+      #s14-heading { position: absolute; left: 0; top: 0; width: 760px; }
+      #s14-line { left: 690px; top: 350px; width: 850px; }
+      .move-node { top: 296px; }
+      #move-1 { left: 650px; } #move-2 { left: 1040px; } #move-3 { left: 1430px; }
+      .move-copy { position: absolute; top: 450px; font-size: 40px; font-weight: 700; text-align: center; }
+      #move-copy-1 { left: 590px; width: 230px; }
+      #move-copy-2 { left: 970px; width: 250px; }
+      #move-copy-3 { left: 1350px; width: 300px; }
+
+      /* s15 — merge tools */
+      #s15-heading { position: absolute; left: 0; top: 0; width: 980px; }
+      #workbook { left: 650px; top: 296px; }
+      #ai-tool { left: 1040px; top: 296px; }
+      #workbook-label { left: 590px; width: 230px; }
+      #ai-tool-label { left: 950px; width: 300px; }
+      #merge-a { left: 690px; top: 350px; width: 850px; }
+      #merge-b { left: 1080px; top: 350px; width: 460px; }
+      #statement { position: absolute; right: 10px; top: 385px; width: 680px; padding: 42px 48px; border-left: 10px solid var(--gold); background: var(--paper); color: var(--navy); font-size: 48px; font-weight: 900; }
+
+      /* s16 — practice and choice */
+      #s16-heading { position: absolute; left: 0; top: 20px; width: 880px; }
+      #choice-a { left: 80px; top: 380px; }
+      #choice-b { right: 80px; top: 380px; }
+      #choice-line { left: 190px; top: 434px; width: 1280px; background: var(--blue); }
+      #choice-center { left: 784px; top: 348px; width: 180px; height: 180px; font-size: 40px; text-align: center; }
+      #choice-caption { position: absolute; left: 620px; top: 555px; width: 500px; text-align: center; font-size: 44px; font-weight: 700; }
+
+      /* s17 — submit */
+      #s17-heading { position: absolute; left: 0; top: 0; width: 1080px; }
+      #submit-line { left: 100px; top: 465px; width: 1160px; }
+      #submit-node { left: 1230px; top: 410px; }
+      #submit-label { position: absolute; left: 1260px; top: 545px; font-size: 40px; font-weight: 900; color: var(--gold); }
+      #doing-not-thinking { position: absolute; left: 100px; top: 530px; font-size: 48px; font-weight: 700; }
+
+      /* s18 — onward */
+      #s18-heading { position: absolute; left: 0; top: 0; width: 1080px; }
+      #final-line { left: 80px; top: 450px; width: 1460px; }
+      .final-node { top: 396px; }
+      #final-1 { left: 70px; } #final-2 { left: 570px; } #final-3 { left: 1070px; } #final-4 { left: 1510px; }
+      .final-copy { position: absolute; top: 530px; font-size: 40px; font-weight: 700; text-align: center; }
+      #final-copy-1 { left: 10px; width: 230px; }
+      #final-copy-2 { left: 500px; width: 260px; }
+      #final-copy-3 { left: 1000px; width: 260px; }
+      #final-copy-4 { right: 0; width: 180px; color: var(--gold); }
+    </style>
+    <div data-hf-id="route-root" id="root" data-composition-id="career-route" data-width="1920" data-height="1080">
+      <div id="stage-bg"></div>
+      <div id="stage-grid"></div>
+
+      <header id="chrome">
+        <span id="chrome-mark"></span>
+        <span id="program-eyebrow">Early Career Boost</span>
+      </header>
+
+      <div id="journey-footer">
+        <span id="footer-start">Start here</span>
+        <span id="footer-track"><span id="footer-progress"></span></span>
+        <span id="footer-goal">Your goals</span>
+      </div>
+
+      <section id="scene-s01" class="clip scene dark" data-start="0" data-duration="3.194" data-track-index="1">
+        <div class="content">
+          <div id="s01-title">
+            <p class="eyebrow reveal">Mini Syllabus</p>
+            <h1 class="reveal">Early Career<br /><span class="gold">Boost</span></h1>
+            <p id="s01-subtitle" class="reveal">Welcome to your starting point.</p>
+          </div>
+          <div id="s01-route" class="route-line draw-x"></div>
+          <div id="s01-node" class="node gold-node resolve">01</div>
+          <span id="s01-tag" class="chip paper-chip reveal">Start here</span>
+        </div>
+      </section>
+
+      <section id="scene-s02" class="clip scene light" data-start="3.194" data-duration="2.191" data-track-index="1">
+        <div class="content">
+          <div id="s02-copy">
+            <p class="eyebrow reveal">You belong here</p>
+            <h2 class="reveal">Glad You’re Here</h2>
+          </div>
+          <div id="s02-orbit" class="resolve">
+            <div id="s02-orbit-inner" class="reveal"></div>
+            <div id="s02-node" class="node gold-node">✓</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-s03" class="clip scene dark" data-start="5.385" data-duration="7.886" data-track-index="1">
+        <div class="content">
+          <h2 id="s03-heading" class="reveal">Your <span class="gold">Starting Point</span></h2>
+          <div id="s03-left" class="node reveal">?</div>
+          <div id="s03-mid" class="node gold-node resolve">●</div>
+          <div id="s03-right" class="node reveal">→</div>
+          <div id="s03-line-a" class="route-line draw-x"></div>
+          <div id="s03-line-b" class="route-line draw-x"></div>
+          <p id="s03-label-a" class="reveal">Explore your future</p>
+          <p id="s03-label-b" class="reveal">Your starting point</p>
+          <p id="s03-label-c" class="reveal">What comes next</p>
+        </div>
+      </section>
+
+      <section id="scene-s04" class="clip scene light" data-start="13.271" data-duration="5.274" data-track-index="1">
+        <div class="content">
+          <div id="s04-heading">
+            <p class="eyebrow reveal">Move through the track</p>
+            <h2 class="reveal"><span class="blue">Career Foundation</span></h2>
+          </div>
+          <div id="step-a" class="foundation-step reveal"><span class="step-label">Step</span></div>
+          <div id="step-b" class="foundation-step reveal"><span class="step-label">Build</span></div>
+          <div id="step-c" class="foundation-step resolve"><span class="step-label">Grow</span></div>
+          <div id="s04-rise" class="route-line draw-x"></div>
+        </div>
+      </section>
+
+      <section id="scene-s05" class="clip scene light" data-start="18.545" data-duration="6.893" data-track-index="1">
+        <div class="content">
+          <div id="s05-heading">
+            <p class="eyebrow reveal">Progress you can see</p>
+            <h2 class="reveal">Track Your Progress</h2>
+          </div>
+          <div id="s05-progress"><div id="s05-fill" class="route-line draw-x"></div></div>
+          <div id="m1" class="node small gold-node reveal"><span class="check">✓</span></div>
+          <div id="m2" class="node small gold-node reveal"><span class="check">✓</span></div>
+          <div id="m3" class="node small resolve">3</div>
+          <div id="m4" class="node small reveal">4</div>
+          <p id="where" class="milestone-copy reveal">Where you are</p>
+          <p id="ahead" class="milestone-copy reveal">What’s ahead</p>
+        </div>
+      </section>
+
+      <section id="scene-s06" class="clip scene dark" data-start="25.438" data-duration="5.535" data-track-index="1">
+        <div class="content">
+          <div id="s06-heading">
+            <p class="eyebrow reveal">Active learning</p>
+            <h2 class="reveal">Learn by <span class="gold">Doing</span></h2>
+          </div>
+          <div id="doing-ring" class="draw-ring"></div>
+          <p id="do-click" class="doing-action reveal">Click through</p>
+          <p id="do-reflect" class="doing-action reveal">Reflect</p>
+          <p id="do-upload" class="doing-action reveal">Upload</p>
+          <div id="doing-center" class="node gold-node resolve">→</div>
+          <div id="s06-arrow" class="reveal">↻</div>
+        </div>
+      </section>
+
+      <section id="scene-s07" class="clip scene light" data-start="30.973" data-duration="4.594" data-track-index="1">
+        <div class="content">
+          <div id="s07-heading">
+            <p class="eyebrow reveal">Explore pathways</p>
+            <h2 class="reveal"><span class="blue">Career Mapping Tool</span></h2>
+          </div>
+          <div id="map-core" class="node gold-node resolve">Map</div>
+          <p id="path-a" class="map-destination reveal">Pathway</p>
+          <p id="path-b" class="map-destination reveal">Pathway</p>
+          <p id="path-c" class="map-destination reveal">Pathway</p>
+          <div id="map-line-a" class="route-line draw-x"></div>
+          <div id="map-line-b" class="route-line draw-x"></div>
+          <div id="map-line-c" class="route-line draw-x"></div>
+        </div>
+      </section>
+
+      <section id="scene-s08" class="clip scene dark" data-start="35.567" data-duration="6.815" data-track-index="1">
+        <div class="content">
+          <div id="s08-heading">
+            <p class="eyebrow reveal">When you get stuck</p>
+            <h2 class="reveal"><span class="gold">One-Click Help</span></h2>
+          </div>
+          <div id="s08-route-main" class="route-line draw-x"></div>
+          <div id="s08-route-up" class="route-v draw-y"></div>
+          <div id="s08-route-link" class="route-line draw-x"></div>
+          <span id="one-click" class="chip paper-chip reveal">One click</span>
+          <div id="help-node" class="node gold-node resolve">#</div>
+          <p id="help-channel" class="reveal">#questionsupport</p>
+        </div>
+      </section>
+
+      <section id="scene-s09" class="clip scene dark" data-start="42.382" data-duration="2.688" data-track-index="1">
+        <div class="content">
+          <div id="s09-number" class="big-number reveal">02</div>
+          <h2 id="s09-heading" class="reveal">What You’ll<br /><span class="gold">Learn</span></h2>
+          <div id="s09-rule" class="route-line draw-x resolve"></div>
+        </div>
+      </section>
+
+      <section id="scene-s10" class="clip scene light" data-start="45.07" data-duration="3.915" data-track-index="1">
+        <div class="content">
+          <div id="s10-heading">
+            <p class="eyebrow reveal">A fulfilling career</p>
+            <h2 class="reveal">The Right <span class="blue">Mindset</span></h2>
+          </div>
+          <div id="mindset-dial" class="reveal">
+            <div id="mindset-axis" class="route-line"></div>
+            <div id="mindset-needle" class="route-line resolve"></div>
+            <div id="mindset-center" class="node gold-node">●</div>
+            <p id="mindset-word">Growth</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-s11" class="clip scene light" data-start="48.985" data-duration="6.005" data-track-index="1">
+        <div class="content">
+          <h2 id="s11-heading" class="reveal">Build a <span class="blue">Growth Mindset</span></h2>
+          <div id="belief-route-a" class="route-line draw-x"></div>
+          <div id="belief-barrier" class="reveal"></div>
+          <div id="belief-route-b" class="route-line draw-x resolve"></div>
+          <p id="limiting-copy" class="reveal">Holding you back</p>
+          <p id="growth-copy" class="reveal">Moving forward</p>
+        </div>
+      </section>
+
+      <section id="scene-s12" class="clip scene dark" data-start="54.99" data-duration="4.803" data-track-index="1">
+        <div class="content">
+          <div id="s12-q" class="reveal">?</div>
+          <h2 id="s12-heading" class="reveal"><span class="gold">Dream Job Today?</span></h2>
+          <div id="s12-route" class="route-line draw-x"></div>
+          <div id="s12-destination" class="node gold-node resolve">★</div>
+          <p id="s12-today" class="reveal">The real questions</p>
+        </div>
+      </section>
+
+      <section id="scene-s13" class="clip scene dark" data-start="59.793" data-duration="3.393" data-track-index="1">
+        <div class="content">
+          <h2 id="s13-heading" class="reveal"><span class="gold">Skills for the AI Era</span></h2>
+          <div id="s13-axis" class="route-line draw-x"></div>
+          <div id="human-node" class="node reveal">H</div>
+          <div id="ai-node" class="node reveal">AI</div>
+          <div id="skills-node" class="node gold-node resolve">Skills</div>
+          <p id="s13-human" class="reveal">Human</p>
+          <p id="s13-ai" class="reveal">AI-driven world</p>
+        </div>
+      </section>
+
+      <section id="scene-s14" class="clip scene light" data-start="63.186" data-duration="6.345" data-track-index="1">
+        <div class="content">
+          <div id="s14-heading">
+            <p class="eyebrow reveal">How you move</p>
+            <h2 class="reveal">Three Ways to <span class="blue">Move</span></h2>
+          </div>
+          <div id="s14-line" class="route-line draw-x"></div>
+          <div id="move-1" class="node move-node reveal">1</div>
+          <div id="move-2" class="node move-node reveal">2</div>
+          <div id="move-3" class="node move-node gold-node resolve">3</div>
+          <p id="move-copy-1" class="move-copy reveal">Networking</p>
+          <p id="move-copy-2" class="move-copy reveal">Build a résumé</p>
+          <p id="move-copy-3" class="move-copy reveal">Search opportunities</p>
+        </div>
+      </section>
+
+      <section id="scene-s15" class="clip scene dark" data-start="69.531" data-duration="8.121" data-track-index="1">
+        <div class="content">
+          <h2 id="s15-heading" class="reveal">Your <span class="gold">Career Commitment</span></h2>
+          <div id="workbook" class="node reveal">W</div>
+          <div id="ai-tool" class="node reveal">AI</div>
+          <p id="workbook-label" class="move-copy reveal">Workbook</p>
+          <p id="ai-tool-label" class="move-copy reveal">AI-Career Commitment tool</p>
+          <div id="merge-a" class="route-line draw-x"></div>
+          <div id="merge-b" class="route-line draw-x"></div>
+          <div id="statement" class="resolve">Your Career Commitment Statement</div>
+        </div>
+      </section>
+
+      <section id="scene-s16" class="clip scene light" data-start="77.652" data-duration="3.053" data-track-index="1">
+        <div class="content">
+          <h2 id="s16-heading" class="reveal">Practice <span class="blue">Both Ways</span></h2>
+          <div id="choice-line" class="route-line draw-x"></div>
+          <div id="choice-a" class="node reveal">W</div>
+          <div id="choice-b" class="node reveal">AI</div>
+          <div id="choice-center" class="node gold-node resolve">Your choice</div>
+          <p id="choice-caption" class="reveal">Two ways to practice</p>
+        </div>
+      </section>
+
+      <section id="scene-s17" class="clip scene dark" data-start="80.705" data-duration="6.24" data-track-index="1">
+        <div class="content">
+          <h2 id="s17-heading" class="reveal">Your <span class="gold">First Step</span></h2>
+          <div id="submit-line" class="route-line draw-x"></div>
+          <div id="submit-node" class="node gold-node resolve"><span class="check">✓</span></div>
+          <p id="doing-not-thinking" class="reveal">Career development is about doing.</p>
+          <p id="submit-label" class="reveal">Milestone 01</p>
+        </div>
+      </section>
+
+      <section id="scene-s18" class="clip scene light" data-start="86.945" data-duration="10.489" data-track-index="1">
+        <div class="content">
+          <h2 id="s18-heading" class="reveal">Toward <span class="blue">Your Goals</span></h2>
+          <div id="final-line" class="route-line draw-x"></div>
+          <div id="final-1" class="node final-node gold-node reveal"><span class="check">✓</span></div>
+          <div id="final-2" class="node final-node reveal">2</div>
+          <div id="final-3" class="node final-node reveal">3</div>
+          <div id="final-4" class="node final-node gold-node resolve">→</div>
+          <p id="final-copy-1" class="final-copy reveal">Short activities</p>
+          <p id="final-copy-2" class="final-copy reveal">Milestones</p>
+          <p id="final-copy-3" class="final-copy reveal">Build skills</p>
+          <p id="final-copy-4" class="final-copy reveal">Your goals</p>
+        </div>
+      </section>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const beats = [
+        ["#scene-s01", 0, 3.194],
+        ["#scene-s02", 3.194, 2.191],
+        ["#scene-s03", 5.385, 7.886],
+        ["#scene-s04", 13.271, 5.274],
+        ["#scene-s05", 18.545, 6.893],
+        ["#scene-s06", 25.438, 5.535],
+        ["#scene-s07", 30.973, 4.594],
+        ["#scene-s08", 35.567, 6.815],
+        ["#scene-s09", 42.382, 2.688],
+        ["#scene-s10", 45.07, 3.915],
+        ["#scene-s11", 48.985, 6.005],
+        ["#scene-s12", 54.99, 4.803],
+        ["#scene-s13", 59.793, 3.393],
+        ["#scene-s14", 63.186, 6.345],
+        ["#scene-s15", 69.531, 8.121],
+        ["#scene-s16", 77.652, 3.053],
+        ["#scene-s17", 80.705, 6.24],
+        ["#scene-s18", 86.945, 10.489]
+      ];
+
+      tl.fromTo("#chrome", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 0.18);
+      tl.fromTo("#journey-footer", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.2);
+      tl.to("#footer-progress", { scaleX: 1, duration: 96.8, ease: "none" }, 0.35);
+
+      beats.forEach(([selector, start, duration], index) => {
+        const end = start + duration;
+        tl.set(selector, { opacity: 1, x: 0, y: 0 }, start);
+        tl.fromTo(
+          `${selector} .reveal`,
+          { opacity: 0, y: 34 },
+          { opacity: 1, y: 0, duration: 0.52, stagger: 0.12, ease: "power3.out" },
+          start + 0.08
+        );
+        tl.fromTo(
+          `${selector} .draw-x`,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.72, stagger: 0.12, ease: "power3.out" },
+          start + 0.25
+        );
+        tl.fromTo(
+          `${selector} .draw-y`,
+          { scaleY: 0 },
+          { scaleY: 1, duration: 0.62, stagger: 0.12, ease: "power3.out" },
+          start + 0.35
+        );
+        tl.fromTo(
+          `${selector} .resolve`,
+          { opacity: 0, scale: 0.75 },
+          { opacity: 1, scale: 1, duration: 0.52, ease: "back.out(1.4)" },
+          Math.max(start + 0.6, end - 0.95)
+        );
+        if (index < beats.length - 1) {
+          tl.to(selector, { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" }, end - 0.3);
+          tl.set(selector, { opacity: 0 }, end);
+        }
+      });
+
+      tl.fromTo("#doing-ring", { opacity: 0, scale: 0.84 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 25.75);
+      tl.fromTo("#mindset-needle", { rotation: 180 }, { rotation: 318, duration: 0.8, ease: "power3.out" }, 45.75);
+      tl.to("#belief-barrier", { rotation: 72, opacity: 0.35, duration: 0.55, ease: "power3.out" }, 53.8);
+      tl.to("#skills-node", { backgroundColor: "#eaab2d", color: "#0d2437", duration: 0.45, ease: "power2.out" }, 62.35);
+      tl.to("#final-4", { x: 32, duration: 0.55, ease: "power3.out" }, 96.72);
+
+      window.__timelines["career-route"] = tl;
+    </script>
+    </template>
+  </body>
+</html>

@@ -23,6 +23,8 @@ STATE_TOOL = SRC / "run_state.py"
 sys.path.insert(0, str(SRC))
 from preflight import check_audio_contract, check_workspace_sources  # noqa: E402
 from tokens import load as load_tokens  # noqa: E402
+from continuous_audio import prepare as prepare_continuous  # noqa: E402
+from continuous_audio import split as split_continuous  # noqa: E402
 
 PASS = FAIL = 0
 
@@ -70,10 +72,20 @@ check("orchestrator fixed route <= 2500 words", words(orch) <= 2500, words(orch)
 check("builder fixed route <= 3000 words", words(builder) <= 3000, words(builder))
 kit = (VP / "contracts/builder.md").read_text()
 prepare = (REPO / "scripts/batch-prepare.sh").read_text()
+render_skill = (REPO / ".claude/skills/render-lessons/SKILL.md").read_text()
 check("generated kit source has no extraction-marker residue",
       "BUILD-KIT:BEGIN" not in kit and "BUILD-KIT:END" not in kit)
 check("build kit is copied from one tracked contract",
       'cp "$CONTRACT" "$RUN/BUILD-KIT.md"' in prepare)
+check("AUTO-BATCH owns stem selection and parallel scheduling",
+      "Never ask the user to choose, copy, or" in render_skill and
+      "parallel in-session subagents" in render_skill and
+      "Separate Codex Cloud tasks are an" in render_skill and
+      "only when every selected stem is `PUBLISHED`" in render_skill)
+audio_wrapper = (REPO / "scripts/video-audio.sh").read_text()
+check("TTS failures use bounded retries and durable receipts",
+      'VIDEO_TTS_RETRIES:-2' in audio_wrapper and
+      '--error-class tts' in audio_wrapper and 'record-failure' in audio_wrapper)
 
 
 print("== explicit scope and persistent approval ==")
@@ -102,6 +114,9 @@ check("named production selects exactly one stem", r.returncode == 0 and
 check("named production does not touch unrelated queue entries",
       b_before == (digest(b), b.stat().st_mtime_ns) and not
       (test_vp / "renders-hyperframes/lesson-b_prog-a").exists())
+r = run(["bash", str(RUN), "delegate", "--stem", "lesson-b_prog-a"], env=env)
+check("cloud delegation cannot escape the active run scope",
+      r.returncode != 0 and "outside the active run" in r.stderr, r.stderr)
 before_bad_batch = state_file.read_bytes()
 r = run(["bash", str(RUN), "batch"], env=env)
 check("batch requires explicit program or all scope",
@@ -110,12 +125,27 @@ r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
 state = json.loads(state_file.read_text())
 check("explicit program batch selects that program", r.returncode == 0 and
       {x["stem"] for x in state["items"]} == {"lesson-a_prog-a", "lesson-b_prog-a"})
+r = run(["bash", str(RUN), "delegate", "--stem", "lesson-a_prog-a"], env=env)
+check("selected stems get an exact source-only cloud prompt",
+      r.returncode == 0 and
+      "bash scripts/cloud-author.sh lesson-a_prog-a prog-a" in r.stdout and
+      "Do not call HeyGen" in r.stdout, r.stderr + r.stdout)
+check("new runs separate authoring, TTS, render, and publish capacity",
+      state["authoring_concurrency"] == 3 and state["tts_concurrency"] == 2 and
+      state["cloud_render_concurrency"] == 2 and state["publish_concurrency"] == 1,
+      state)
+(test_vp / "renders-hyperframes/lesson-a_prog-a/qa").mkdir(parents=True)
+r = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
+check("batch shipping is mechanically blocked before pilot approval",
+      r.returncode != 0 and "pilot is not approved" in r.stderr, r.stderr)
+(test_vp / "renders-hyperframes/lesson-a_prog-a/qa/PREFLIGHT-OK").write_text("")
 r = run(["bash", str(RUN), "approve", "lesson-a_prog-a"], env=env)
 approved = json.loads(state_file.read_text())["pilot"]
+r3 = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
 r2 = run(["bash", str(RUN), "resume"], env=env)
 check("pilot approval persists across sessions", r.returncode == 0 and
       approved["approved_at"] and json.loads(state_file.read_text())["pilot"] == approved and
-      approved["approved_at"] in r2.stdout)
+      approved["approved_at"] in r2.stdout and r3.returncode == 0)
 
 
 print("== durable failures, retry limits, and circuit breaker ==")
@@ -167,6 +197,9 @@ check("two consecutive videos with one error class open the circuit",
 check("driver owns one concise close-out record",
       state["last_closeout"]["stem"] == "lesson-b_prog-a" and
       state["results"]["lesson-b_prog-a"]["status"] == "failed")
+r = run(["bash", str(RUN), "cloud-limit", "4"], env=env)
+check("four cloud renders are refused before a clean streak",
+      r.returncode != 0 and "three consecutive" in r.stderr, r.stderr)
 for clean_stem in ("clean-one_prog-a", "clean-two_prog-a", "clean-three_prog-a"):
     clean_ws = test_vp / "renders-hyperframes" / clean_stem
     clean_ws.mkdir()
@@ -175,6 +208,29 @@ for clean_stem in ("clean-one_prog-a", "clean-two_prog-a", "clean-three_prog-a")
 r = run([sys.executable, str(STATE_TOOL), "post-review-required"], env=env)
 check("post-render review retires only after three clean cloud renders",
       r.returncode == 1 and "retired" in r.stdout, r.stdout)
+r = run(["bash", str(RUN), "cloud-limit", "4"], env=env)
+limits = run(["bash", str(RUN), "limits"], env=env)
+check("three clean cloud renders unlock capacity four",
+      r.returncode == 0 and json.loads(limits.stdout)["cloud_render"] == 4,
+      r.stderr + limits.stdout + limits.stderr)
+parallel_stems = [f"parallel-{i}_prog-a" for i in range(6)]
+parallel = []
+for stem in parallel_stems:
+    ws = test_vp / "renders-hyperframes" / stem
+    ws.mkdir()
+    parallel.append(subprocess.Popen(
+        [sys.executable, str(STATE_TOOL), "record-success", "--workspace",
+         str(ws), "--stem", stem, "--phase", "cloud-render"], env=env))
+parallel_ok = all(proc.wait() == 0 for proc in parallel)
+state = json.loads(state_file.read_text())
+check("parallel render completions cannot overwrite run-state updates",
+      parallel_ok and all(stem in state["results"] for stem in parallel_stems) and
+      state["cloud_clean_streak"] == 3, state)
+failure("lesson-a_prog-a")
+state = json.loads(state_file.read_text())
+check("a cloud-render failure automatically returns capacity to two",
+      state["cloud_render_concurrency"] == 2 and
+      state["cloud_clean_streak"] == 0, state)
 
 
 print("== idempotent per-stem leases ==")
@@ -219,18 +275,31 @@ def make_wav(path, seconds=0.9, rate=24000):
         handle.writeframes(frames)
 
 
-voices = []
-for beat_id, text in (("b01", "First idea."), ("beat-any", "Second idea.")):
-    rel = f"assets/voice/{beat_id}.wav"
-    make_wav(audio_ws / rel)
-    voices.append({"id": beat_id, "path": rel, "duration_s": 0.9,
-                   "words": [{"id": "w0", "text": text.split()[0],
-                              "start": 0.05, "end": 0.35},
-                             {"id": "w1", "text": text.split()[1],
-                              "start": 0.40, "end": 0.75}]})
-meta = {"tts_provider": "heygen", "voice_id": voice_id, "speed": 1.0,
-        "voices": voices, "total_duration_s": 1.8}
-(audio_ws / "audio_meta.json").write_text(json.dumps(meta))
+provider_request_path = audio_ws / "provider_request.json"
+provider_request = prepare_continuous(audio_ws, provider_request_path, 4800)
+make_wav(audio_ws / "assets/voice/narration.wav", seconds=2.0)
+provider_meta = {
+    "tts_provider": "heygen", "voice_id": voice_id, "speed": 1.0,
+    "voices": [{
+        "id": "narration", "path": "assets/voice/narration.wav",
+        "duration_s": 2.0,
+        "words": [
+            {"text": "First", "start": 0.10, "end": 0.30},
+            {"text": "idea.", "start": 0.35, "end": 0.60},
+            {"text": "Second", "start": 1.00, "end": 1.20},
+            {"text": "idea.", "start": 1.25, "end": 1.55},
+        ],
+    }],
+    "total_duration_s": 2.0,
+}
+provider_meta_path = audio_ws / "provider_meta.json"
+provider_meta_path.write_text(json.dumps(provider_meta))
+meta = split_continuous(audio_ws, provider_meta_path, 4800)
+check("one normal lesson becomes one provider request and local beat clips",
+      len(provider_request["lines"]) == 1 and
+      meta["scla_synthesis"]["provider_requests"] == 1 and
+      [x["id"] for x in meta["voices"]] == ["b01", "beat-any"] and
+      all((audio_ws / x["path"]).is_file() for x in meta["voices"]), meta)
 sec = check_audio_contract(audio_ws, static=False)
 check("actual provider, voice, speed, and arbitrary clip paths match tokens",
       sec["pass"], sec["output"])

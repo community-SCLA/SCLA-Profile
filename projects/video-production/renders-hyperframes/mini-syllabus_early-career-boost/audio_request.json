@@ -1,5 +1,6 @@
 {
   "provider": "heygen",
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
   "lang": "en",
   "speed": 1.0,
   "bgm": { "mode": "none" },

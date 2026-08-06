@@ -681,7 +681,10 @@ def main():
     sections, failed = {}, False
 
     html = (ws / "index.html").read_text()
-    scenes = parse_scenes(html)
+    # Freeform compositions author timed beats directly in index.html rather
+    # than mounting sub-compositions.  Their scene-shaped timing contract is
+    # carried by audio_request.json + timing.json via load_beats().
+    scenes = parse_scenes(html) or load_beats(ws) or []
     scenes.sort(key=lambda s: s["start"])
 
     def static_skip(needs):

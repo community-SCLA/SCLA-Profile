@@ -1,140 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=1920, height=1080">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      /* Brand face — vendored woff2, declared once in the HOST head. Sub-comps
-         are cloned INTO this document, so the face resolves for them too. */
-      @font-face {
-        font-family: "Proxima Nova";
-        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
-        font-weight: 400;
-        font-style: normal;
-        font-display: block;
-      }
-      @font-face {
-        font-family: "Proxima Nova";
-        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
-        font-weight: 700;
-        font-style: normal;
-        font-display: block;
-      }
-      @font-face {
-        font-family: "Proxima Nova";
-        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
-        font-weight: 900;
-        font-style: normal;
-        font-display: block;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: #0a1e2f;
-      }
-      body {
-        font-family: "Proxima Nova", sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      #root {
-        position: relative;
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-      }
-
-      /* Full-bleed fill lives on a CHILD, never on the composition root. */
-      #stage-bg {
-        position: absolute;
-        inset: 0;
-        background: #0a1e2f;
-      }
-      #stage-glow {
-        position: absolute;
-        left: 1320px;
-        top: 640px;
-        width: 1700px;
-        height: 1400px;
-        margin: -700px 0 0 -850px;
-        background: radial-gradient(
-          ellipse at center,
-          rgba(51, 147, 214, 0.16) 0%,
-          rgba(13, 36, 55, 0.5) 46%,
-          rgba(10, 30, 47, 0) 74%
-        );
-        will-change: transform;
-      }
-      #stage-vignette {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          ellipse at 50% 50%,
-          rgba(10, 30, 47, 0) 55%,
-          rgba(10, 30, 47, 0.72) 100%
-        );
-      }
-
-      /* Persistent program banner. Sits in the top keep-out band that
-         tokens.yml `chrome-regions` declares by name for label furniture. */
-      #chrome {
-        position: absolute;
-        left: 120px;
-        top: 62px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        opacity: 0;
-      }
-      #chrome-mark {
-        display: block;
-        width: 10px;
-        height: 30px;
-        background: #eaab2d;
-      }
-      #chrome-text {
-        font-size: 26px;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.66);
-      }
-
-      #root > div[data-composition-src] {
-        position: absolute;
-        inset: 0;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0a1e2f; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      #career-route-slot { position: absolute; inset: 0; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="97.434" data-width="1920" data-height="1080">
-      <div id="stage-bg">
-        <div id="stage-glow"></div>
-        <div id="stage-vignette"></div>
-      </div>
+      <div id="career-route-slot" data-composition-id="career-route" data-composition-src="compositions/career-route.html" data-start="0" data-duration="97.434" data-track-index="1" data-width="1920" data-height="1080"></div>
 
-      <div id="chrome">
-        <span id="chrome-mark"></span>
-        <span id="chrome-text">Early Career Boost</span>
-      </div>
-
-      <!-- ONE carrying object for the whole runtime: the foundation wall,
-           laid course by course inside its own ghost scaffold, with the base
-           notch open from s01 to s17. See design.md. -->
-      <div id="stage-wall" data-composition-id="wall" data-composition-src="compositions/wall.html" data-start="0" data-duration="97.434" data-track-index="1" data-width="1920" data-height="1080"></div>
-
-      <!-- Narration — HeyGen starfish, Oxana (tokens.yml voice.voice_id).
-           One element per beat at GLOBAL time; every number below is
-           timing.json's, computed by make_timing.py from the real wavs. -->
       <audio id="vo-s01" src="assets/voice/s01.wav" data-start="0.6" data-duration="2.194" data-track-index="10" data-volume="1"></audio>
       <audio id="vo-s02" src="assets/voice/s02.wav" data-start="3.444" data-duration="1.541" data-track-index="10" data-volume="1"></audio>
       <audio id="vo-s03" src="assets/voice/s03.wav" data-start="5.635" data-duration="7.236" data-track-index="10" data-volume="1"></audio>
@@ -154,24 +34,9 @@
       <audio id="vo-s17" src="assets/voice/s17.wav" data-start="80.955" data-duration="5.59" data-track-index="10" data-volume="1"></audio>
       <audio id="vo-s18" src="assets/voice/s18.wav" data-start="87.195" data-duration="8.439" data-track-index="10" data-volume="1"></audio>
     </div>
-
     <script>
       window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-
-      // The banner settles once, then never moves again.
-      tl.fromTo("#chrome", { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.25);
-
-      // One shared ambient breath, on the background GLOW only — never on
-      // content. Finite legs sized to the runtime.
-      tl.fromTo(
-        "#stage-glow",
-        { scale: 1, opacity: 0.96 },
-        { scale: 1.028, opacity: 1, duration: 9, ease: "sine.inOut", yoyo: true, repeat: 10 }, /* motion-allow: background depth-drift on a non-content layer; the design contract sanctions ambient breath on the background glow only */
-        0,
-      );
-
-      window.__timelines["main"] = tl;
+      window.__timelines["main"] = gsap.timeline({ paused: true });
     </script>
   </body>
 </html>
