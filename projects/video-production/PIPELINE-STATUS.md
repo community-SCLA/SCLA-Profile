@@ -87,8 +87,8 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - last completed **resume** at 2026-08-06 23:13 UTC
   - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
 - m1_mini-syllabus
-  - state: freeform design written; narration not yet synthesized
-  - last completed **resume** at 2026-08-06 23:13 UTC
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-06 23:16 UTC
   - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - m2_four-kinds-of-career-transition_mid-career-momentum
   - state: freeform design written; narration not yet synthesized

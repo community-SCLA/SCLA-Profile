@@ -1,13 +1,13 @@
 {
-  "duration": 95,
-  "maxStaticSec": 20,
+  "duration": 100.171,
+  "maxStaticSec": 21,
   "assertions": [
     { "kind": "appearsBy", "selector": "#welcome-title", "bySec": 1.2 },
-    { "kind": "appearsBy", "selector": "#checkpoint-title", "bySec": 12.2 },
-    { "kind": "appearsBy", "selector": "#toolkit-title", "bySec": 31.2 },
-    { "kind": "appearsBy", "selector": "#choices-title", "bySec": 47.2 },
-    { "kind": "appearsBy", "selector": "#move-title", "bySec": 63.2 },
-    { "kind": "appearsBy", "selector": "#commit-card", "bySec": 78.4 },
+    { "kind": "appearsBy", "selector": "#checkpoint-title", "bySec": 12.6 },
+    { "kind": "appearsBy", "selector": "#toolkit-title", "bySec": 31.6 },
+    { "kind": "appearsBy", "selector": "#choices-title", "bySec": 49.4 },
+    { "kind": "appearsBy", "selector": "#move-title", "bySec": 65.6 },
+    { "kind": "appearsBy", "selector": "#commit-card", "bySec": 80.9 },
     { "kind": "staysInFrame", "selector": ".route" },
     { "kind": "keepsMoving", "withinSelector": "#root" }
   ]

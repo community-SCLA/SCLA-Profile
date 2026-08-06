@@ -1,0 +1,47 @@
+{
+  "total": 100.171,
+  "rows": [
+    {
+      "id": "welcome",
+      "audio_start": 0.6,
+      "audio_dur": 10.329,
+      "vis_start": 0.0,
+      "vis_dur": 11.329
+    },
+    {
+      "id": "checkpoint",
+      "audio_start": 11.579,
+      "audio_dur": 18.432,
+      "vis_start": 11.329,
+      "vis_dur": 19.082
+    },
+    {
+      "id": "toolkit",
+      "audio_start": 30.661,
+      "audio_dur": 17.07,
+      "vis_start": 30.411,
+      "vis_dur": 17.72
+    },
+    {
+      "id": "choices",
+      "audio_start": 48.381,
+      "audio_dur": 15.621,
+      "vis_start": 48.131,
+      "vis_dur": 16.271
+    },
+    {
+      "id": "next-move",
+      "audio_start": 64.652,
+      "audio_dur": 14.44,
+      "vis_start": 64.402,
+      "vis_dur": 15.09
+    },
+    {
+      "id": "commitment",
+      "audio_start": 79.742,
+      "audio_dur": 18.629,
+      "vis_start": 79.492,
+      "vis_dur": 20.679
+    }
+  ]
+}
