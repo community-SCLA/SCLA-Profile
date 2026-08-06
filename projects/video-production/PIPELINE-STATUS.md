@@ -4,7 +4,7 @@
 
 ## Where everything stands
 
-- **10** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **11** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **27** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
@@ -13,7 +13,7 @@
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
 - **1** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
-- **1** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
+- **0** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
 
@@ -42,6 +42,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | Lesson | Program | Rendered | Watch | Local MP4 |
 |---|---|---|---|---|
 | mini-syllabus_early-career-boost | early-career-boost | 2026-08-06 | [ays7di6sti](https://sclc.wistia.com/medias/ays7di6sti) | `renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-08-06.mp4` |
+| do-not-just-ask-what-ai-replaces_early-career-boost | early-career-boost | 2026-08-06 | [uhnqbjt0x7](https://sclc.wistia.com/medias/uhnqbjt0x7) | `renders-mp4/early-career-boost/do-not-just-ask-what-ai-replaces_early-career-boost_2026-08-06.mp4` |
 | career-building-is-a-repeatable-process_early-career-boost | early-career-boost | 2026-08-05 | [cnj1463xuw](https://sclc.wistia.com/medias/cnj1463xuw) | `renders-mp4/early-career-boost/career-building-is-a-repeatable-process_early-career-boost_2026-08-05.mp4` |
 | finding-creating-a-career-purpose-statement_early-career-boost | early-career-boost | 2026-08-05 | [0szz79g9m7](https://sclc.wistia.com/medias/0szz79g9m7) | `renders-mp4/early-career-boost/finding-creating-a-career-purpose-statement_early-career-boost_2026-08-05.mp4` |
 | how-to-make-strong-career-decisions_early-career-boost | early-career-boost | 2026-08-05 | [u54hifguqf](https://sclc.wistia.com/medias/u54hifguqf) | `renders-mp4/early-career-boost/how-to-make-strong-career-decisions_early-career-boost_2026-08-05.mp4` |
@@ -54,25 +55,9 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
-- **do-not-just-ask-what-ai-replaces_early-career-boost** (early-career-boost) — REJECTED: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
-  - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost/qa/logs/20260805T231555Z-cloud-render.log
-  - last completed **release** at 2026-08-05 23:45 UTC
-  - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost/qa/logs/20260805T231555Z-cloud-render.log and the cloud credential/backend before retrying
 - **m0_welcome-to-mid-career-momentum** (mid-career-momentum) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
   - last completed **release** at 2026-08-05 20:31 UTC
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
-
-## early-career-boost
-
-**REJECTED — a gate refused this cut:**
-
-*Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
-
-- do-not-just-ask-what-ai-replaces_early-career-boost
-  - state: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
-  - last completed **release** at 2026-08-05 23:45 UTC
-  - gate said: full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost/qa/logs/20260805T231555Z-cloud-render.log
-  - next: inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/do-not-just-ask-what-ai-replaces_early-career-boost/qa/logs/20260805T231555Z-cloud-render.log and the cloud credential/backend before retrying
 
 ## mid-career-momentum
 
