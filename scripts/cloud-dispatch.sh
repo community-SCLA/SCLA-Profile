@@ -31,4 +31,12 @@ fi
 
 PROMPT="$(bash "$RUN" delegate --stem "$STEM")"
 echo "Submitting $STEM to Codex Cloud..." >&2
-"${CODEX_CLOUD_BIN:-codex}" cloud exec --env "$ENV_ID" --branch "$BRANCH" "$PROMPT"
+# The Codex Cloud CLI writes error.log in its current directory. Keep that
+# diagnostic side effect outside the tracked worktree so parallel dispatches
+# cannot make one another fail the clean-worktree preflight.
+CLI_WORKDIR="$(mktemp -d "${TMPDIR:-/tmp}/scla-codex-cloud.XXXXXX")"
+trap 'rm -rf -- "$CLI_WORKDIR"' EXIT
+(
+  cd "$CLI_WORKDIR"
+  "${CODEX_CLOUD_BIN:-codex}" cloud exec --env "$ENV_ID" --branch "$BRANCH" "$PROMPT"
+)

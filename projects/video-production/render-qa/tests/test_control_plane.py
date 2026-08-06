@@ -158,15 +158,18 @@ check("selected stems get an exact source-only cloud prompt",
       "REVIEW_READY: PASS" in r.stdout and
       "Do not call HeyGen" in r.stdout, r.stderr + r.stdout)
 fake_codex = tmp / "fake-codex"
-fake_codex.write_text("#!/usr/bin/env bash\nprintf '%s\\n' \"$@\"\n")
+fake_codex.write_text("#!/usr/bin/env bash\nprintf '%s\\n' \"$@\"\nprintf 'CWD=%s\\n' \"$PWD\"\nprintf diagnostic > error.log\n")
 fake_codex.chmod(0o755)
+repo_error_log_before = digest(REPO / "error.log")
 dispatch_env = dict(env, CODEX_CLOUD_BIN=str(fake_codex),
                     CODEX_CLOUD_ALLOW_DIRTY="1")
 r = run(["bash", str(RUN), "dispatch", "--stem", "lesson-a_prog-a"],
         env=dispatch_env)
 check("dispatch submits the generated assignment through codex cloud exec",
-      r.returncode == 0 and "cloud\nexec\n--env\n6a74d3f8935c819189b90cf480d" in r.stdout and
-      "Work only on lesson-a_prog-a" in r.stdout, r.stderr + r.stdout)
+      r.returncode == 0 and "cloud\nexec\n--env\n6a74d3f8935c819189b90cf480d14dfe" in r.stdout and
+      "Work only on lesson-a_prog-a" in r.stdout and
+      f"CWD={REPO}" not in r.stdout and digest(REPO / "error.log") == repo_error_log_before,
+      r.stderr + r.stdout)
 (test_vp / "renders-hyperframes/lesson-b_prog-a").mkdir()
 r = run(["bash", str(RUN), "delegate", "--stem", "lesson-b_prog-a"], env=env)
 check("existing workspaces resume locally instead of duplicate Cloud delegation",
