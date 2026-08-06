@@ -24,16 +24,15 @@ that deserve emphasis. The narration carries the detail.
 2. `ct-something-shifted` — Several possible disruptions bend one shared path.
 3. `ct-name-it` — The noise clears and the learner pauses at a naming point.
 4. `ct-research-horizon` — The route expands across the research markers “3–5” and “5 years.”
-5. `ct-five-weeks-months` — Short false expectations compress against the route.
-6. `ct-five-years` — The true five-year horizon expands across the frame.
-7. `ct-permission-slip` — The long horizon folds into a literal permission slip.
-8. `ct-three-tracks` — The SCLA track system moves from foundation to momentum to redirection.
-9. `ct-three-things` — Three empty runway checkpoints appear.
-10. `ct-internal-shift` — The first checkpoint reveals the move beneath the move.
-11. `ct-experiments` — The second checkpoint becomes a cluster of small test paths.
-12. `ct-runway` — The third checkpoint locks story, plan, and runway together.
-13. `ct-honest-promise` — The route passes through grief, uncertainty, and doubt without stopping.
-14. `ct-question` — The marker reaches a three-way junction and leaves the learner with the opening question.
+5. `ct-five-years` — Short false expectations compress as the true five-year horizon expands across the frame.
+6. `ct-permission-slip` — The long horizon folds into a literal permission slip.
+7. `ct-three-tracks` — The SCLA track system moves from foundation to momentum to redirection.
+8. `ct-three-things` — Three empty runway checkpoints appear.
+9. `ct-internal-shift` — The first checkpoint reveals the move beneath the move.
+10. `ct-experiments` — The second checkpoint becomes a cluster of small test paths.
+11. `ct-runway` — The third checkpoint locks story, plan, and runway together.
+12. `ct-honest-promise` — The route passes through grief, uncertainty, and doubt without stopping.
+13. `ct-question` — The marker reaches a three-way junction and leaves the learner with the opening question.
 
 ## Motion character
 

@@ -18,7 +18,24 @@
 
 ## Persistent grammar
 
-The two-axis matrix is the visual anchor. A compact compass sits in the upper-right corner after its reveal; quadrant-specific scenes keep the active location highlighted. Directional lines, nodes, and stepping stones all reuse the same blue/gold map vocabulary.
+**The carrying object is the two-axis compass.** It is built once in scene 2 and
+then re-sorted, never redrawn: every quadrant scene carries the same 2×2 map with
+one quadrant outlined in gold and the marker parked inside it. Growth Pivot uses
+the large left-column compass that introduces the device; Reinvention, Rebuild and
+Forced Reinvention use the compact upper-right badge this file reserves for it. The
+marker never leaves the quadrant the frame's kicker claims.
+
+The bottom rail is furniture, not content: its caption sits above the rail line on
+transparent ground, so no rail geometry is ever painted over. Directional lines,
+nodes, and stepping stones reuse the same blue/gold map vocabulary.
+
+## Frame-to-frame budget
+
+This lesson draws ten materially different pictures, so beat-to-beat churn is the
+scarce resource (`check_pace` carrier-drift, 6% ceiling; this cut measures 5.89%).
+Content therefore stays inside the established ink footprint: new elements are type
+and outlines rather than new paper masses, and the compass is the shared mark that
+persists across the four quadrant scenes.
 
 ## Motion
 

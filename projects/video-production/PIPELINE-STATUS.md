@@ -6,13 +6,13 @@
 
 - **11** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **24** — **ready to build.** Script approved; nothing made yet.
-- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **1** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the pilot gate.
 - **0** — **approved to render.** Gate-clean and covered by the active batch pilot approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **3** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **2** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **0** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -58,8 +58,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **m0_welcome-to-mid-career-momentum** (mid-career-momentum) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
   - last completed **release** at 2026-08-05 20:31 UTC
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
-- **m2_welcome-and-using-career-transitions-as-leaps-ahead** (career-transitions) — STALLED: freeform design written; narration not yet synthesized
-  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_welcome-and-using-career-transitions-as-leaps-ahead. Do not delete the workspace
 - **m3_the-identity-audit** (career-transitions) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m3_the-identity-audit`; then continue `/render-lessons BUILD m3_the-identity-audit`
 
@@ -116,17 +114,22 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 - m2_four-kinds-of-career-transition_career-transitions
   - state: gate-clean and waiting on your eyes — no MP4 yet
-  - last completed **release** at 2026-08-06 05:21 UTC
+  - last completed **release** at 2026-08-06 09:42 UTC
   - next: watch it, then continue: `bash scripts/preview.sh m2_four-kinds-of-career-transition_career-transitions` → `bash projects/video-production/run.sh ship m2_four-kinds-of-career-transition_career-transitions`
+
+**BUILDING — in flight, no MP4 yet:**
+
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+
+- m2_welcome-and-using-career-transitions-as-leaps-ahead
+  - state: freeform design written; narration not yet synthesized
+  - last completed **release** at 2026-08-06 15:33 UTC
+  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m2_welcome-and-using-career-transitions-as-leaps-ahead`; then continue `/render-lessons BUILD m2_welcome-and-using-career-transitions-as-leaps-ahead`
 
 **STALLED — the build folder stopped moving:**
 
 *Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
-- m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-06 02:05 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_welcome-and-using-career-transitions-as-leaps-ahead. Do not delete the workspace
 - m3_the-identity-audit
   - state: workspace claimed from the scaffold; no plan and no design authored yet
   - last written to: 2026-08-06 02:00 UTC (no `.build-log.tsv` — this workspace predates the build journal)
