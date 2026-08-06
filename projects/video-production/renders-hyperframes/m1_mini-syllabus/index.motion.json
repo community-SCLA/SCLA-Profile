@@ -1,0 +1,14 @@
+{
+  "duration": 95,
+  "maxStaticSec": 20,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#welcome-title", "bySec": 1.2 },
+    { "kind": "appearsBy", "selector": "#checkpoint-title", "bySec": 12.2 },
+    { "kind": "appearsBy", "selector": "#toolkit-title", "bySec": 31.2 },
+    { "kind": "appearsBy", "selector": "#choices-title", "bySec": 47.2 },
+    { "kind": "appearsBy", "selector": "#move-title", "bySec": 63.2 },
+    { "kind": "appearsBy", "selector": "#commit-card", "bySec": 78.4 },
+    { "kind": "staysInFrame", "selector": ".route" },
+    { "kind": "keepsMoving", "withinSelector": "#root" }
+  ]
+}

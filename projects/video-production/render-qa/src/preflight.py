@@ -12,6 +12,9 @@ gates — was retired to render-qa/_archive/ on 2026-08-05 (decisions/log.md).
 
 Sections:
 
+  hyperframes_source — review-ready source contract: a positive-duration root,
+                    timed clips for every narration beat, one paused registered
+                    timeline with real motion, and an explicit motion sidecar
   compile_check   — the timing contract: every beat has a computed timing row,
                     the timeline covers the root duration, and the ending
                     keeps the MIN_FINAL_HOLD floor
@@ -415,6 +418,161 @@ def run_tool(cmd):
     return p.returncode, p.stdout + p.stderr
 
 
+def _html_attrs(tag):
+    """Return quoted HTML attributes from one start tag.
+
+    The freeform lane intentionally has no HTML compiler.  This narrow parser
+    owns only the source contract fields and accepts either quote style.
+    """
+    return {
+        name.lower(): value
+        for name, _, value in re.findall(
+            r"([:\w-]+)\s*=\s*([\"'])(.*?)\2", tag, flags=re.DOTALL
+        )
+    }
+
+
+def check_hyperframes_source(ws: Path, html: str):
+    """Reject a Cloud-authored shell that Studio can open but cannot play.
+
+    This is deliberately dependency-free and runs during ``--static``.  The
+    pinned HyperFrames ``check`` remains the final browser/runtime authority;
+    these checks make the historic zero-duration/static-frame failure loud
+    before npm, Chrome, TTS, or rendering are involved.
+    """
+    problems = []
+    tags = re.findall(r"<[A-Za-z][^>]*>", html, flags=re.DOTALL)
+    parsed = [(tag, _html_attrs(tag)) for tag in tags]
+    roots = [
+        (tag, attrs) for tag, attrs in parsed
+        if attrs.get("data-composition-id") and
+        attrs.get("data-width") and attrs.get("data-height")
+    ]
+    root = roots[0][1] if roots else None
+    if root is None:
+        problems.append("composition root missing data-composition-id, data-width, or data-height")
+        root_id = None
+        root_duration = None
+    else:
+        root_id = root.get("data-composition-id")
+        try:
+            if root.get("data-start") is None or abs(float(root["data-start"])) > TOL:
+                problems.append("composition root data-start must be 0")
+        except (KeyError, ValueError):
+            problems.append("composition root data-start must be numeric 0")
+        try:
+            root_duration = float(root.get("data-duration", "nan"))
+            if not root_duration > 0:
+                raise ValueError
+        except ValueError:
+            root_duration = None
+            problems.append("composition root needs a positive numeric data-duration")
+
+    if not re.search(
+        r"gsap\.timeline\s*\(\s*\{[^}]*\bpaused\s*:\s*true\b",
+        html,
+        flags=re.DOTALL,
+    ):
+        problems.append("missing synchronous gsap.timeline({ paused: true })")
+    if not re.search(r"\.\s*(?:fromTo|from|to)\s*\(", html):
+        problems.append("registered timeline carries no motion tween")
+    if root_id:
+        quoted = re.escape(root_id)
+        bracket = rf"window\.__timelines\s*\[\s*['\"]{quoted}['\"]\s*\]\s*="
+        dotted = rf"window\.__timelines\s*\.\s*{quoted}\s*="
+        if not re.search(bracket, html) and not re.search(dotted, html):
+            problems.append(
+                f"timeline is not registered as window.__timelines[{root_id!r}]"
+            )
+
+    clips = []
+    for _, attrs in parsed:
+        classes = set((attrs.get("class") or "").split())
+        if "clip" not in classes or not attrs.get("data-beat-id"):
+            continue
+        beat_id = attrs.get("data-beat-id")
+        clip_id = attrs.get("id")
+        if not clip_id:
+            problems.append(f"beat {beat_id!r} is missing a stable id")
+        for required in ("data-start", "data-duration", "data-track-index"):
+            if not attrs.get(required):
+                problems.append(f"beat {beat_id!r} is missing {required}")
+        try:
+            start = float(attrs.get("data-start", "nan"))
+            duration = float(attrs.get("data-duration", "nan"))
+            if start < 0 or not duration > 0:
+                raise ValueError
+        except ValueError:
+            problems.append(f"beat {beat_id!r} needs numeric start >= 0 and duration > 0")
+            continue
+        clips.append({"id": clip_id, "beat": beat_id,
+                      "start": start, "duration": duration})
+
+    raw_request = ws / "audio_request.json"
+    expected_beats = []
+    if raw_request.is_file():
+        try:
+            expected_beats = [
+                row.get("id") for row in
+                (json.loads(raw_request.read_text()).get("lines") or [])
+                if row.get("id")
+            ]
+        except (json.JSONDecodeError, AttributeError):
+            problems.append("audio_request.json is not valid beat-manifest JSON")
+    actual_beats = [clip["beat"] for clip in clips]
+    if len(actual_beats) != len(set(actual_beats)):
+        problems.append("data-beat-id values must be unique")
+    if expected_beats and actual_beats != expected_beats:
+        problems.append(
+            "timed clip order does not match audio_request.json: "
+            f"expected {expected_beats}, found {actual_beats}"
+        )
+    if not clips:
+        problems.append("no timed .clip elements with data-beat-id were found")
+    elif root_duration is not None:
+        ordered = sorted(clips, key=lambda clip: clip["start"])
+        if abs(ordered[0]["start"]) > TOL:
+            problems.append("first authored beat must start at 0")
+        for left, right in zip(ordered, ordered[1:]):
+            edge = left["start"] + left["duration"]
+            if abs(edge - right["start"]) > TOL:
+                problems.append(
+                    f"authored beat windows do not tile: {left['beat']} ends "
+                    f"{edge:.3f}s, {right['beat']} starts {right['start']:.3f}s"
+                )
+        last_end = ordered[-1]["start"] + ordered[-1]["duration"]
+        if abs(last_end - root_duration) > TOL:
+            problems.append(
+                f"last authored beat ends {last_end:.3f}s but root duration is "
+                f"{root_duration:.3f}s"
+            )
+
+    motion_path = ws / "index.motion.json"
+    if not motion_path.is_file():
+        problems.append("index.motion.json missing — Cloud handoff needs explicit motion assertions")
+    else:
+        try:
+            motion = json.loads(motion_path.read_text())
+            assertions = motion.get("assertions") or []
+        except (json.JSONDecodeError, AttributeError):
+            problems.append("index.motion.json is not valid JSON")
+        else:
+            appears = sum(a.get("kind") == "appearsBy" for a in assertions)
+            if expected_beats and appears < len(expected_beats):
+                problems.append(
+                    f"index.motion.json needs at least one appearsBy assertion "
+                    f"per beat ({appears}/{len(expected_beats)})"
+                )
+            if not any(a.get("kind") == "keepsMoving" for a in assertions):
+                problems.append("index.motion.json needs a keepsMoving assertion")
+
+    summary = (
+        f"review-ready source: root {root_id!r}, {len(clips)} timed beat(s), "
+        "paused registered timeline, motion assertions present"
+    )
+    return {"pass": not problems, "output": "\n".join(problems) or summary}
+
+
 # ---------------------------------------------------------------------------
 # The freeform (agent-native) authoring contract — the pipeline's only lane
 # since 2026-08-05 (decisions/log.md; introduced 2026-07-30). A workspace has
@@ -694,6 +852,11 @@ def main():
                 "output": f"SKIPPED (static mode) — needs {needs}; "
                           f"runs in the full gate after narration synthesis"}
 
+    # 0. review-ready source contract. This runs even in --static so an
+    #    isolated Cloud author cannot return a zero-duration/static shell.
+    sections["hyperframes_source"] = check_hyperframes_source(ws, html)
+    failed |= not sections["hyperframes_source"]["pass"]
+
     # 1. the timing contract — every beat timed, the timeline covers the root
     #    duration, MIN_FINAL_HOLD kept. (This section used to invoke the
     #    scenes.json compiler's --check; the compiler retired with the
@@ -771,8 +934,12 @@ def main():
     #     2026-08-04, check_pace.py). Calibrated on n=2 (one lesson, two
     #     cuts) — see check_pace.py's docstring for the stated limit before
     #     tightening these numbers.
-    sections["pace"] = check_pace(ws, static_mode)
-    failed |= not sections["pace"]["pass"]
+    if static_mode and not (ws / "timing.json").is_file():
+        sections["pace"] = static_skip(
+            "computed timing.json rows; Cloud source authoring stops before TTS")
+    else:
+        sections["pace"] = check_pace(ws, static_mode)
+        failed |= not sections["pace"]["pass"]
 
     # 7. text — minimum on-frame text size + no restatement of label/heading
     #    (owner calls 2026-07-27; floors LOADED from tokens.yml typography.min-size).

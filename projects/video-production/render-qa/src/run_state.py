@@ -76,6 +76,7 @@ def capacity_view(state: dict) -> dict:
     legacy = int(state.get("concurrency", 4 if backend == "cloud" else 3))
     return {
         "backend": backend,
+        "authoring_backend": state.get("authoring_backend", "local"),
         "authoring": int(state.get(
             "authoring_concurrency", 6 if backend == "cloud" else legacy)),
         "tts": int(state.get("tts_concurrency", DEFAULT_TTS_CONCURRENCY)),
@@ -120,7 +121,7 @@ def queue(scope_kind: str, scope_value: str | None) -> list[dict]:
 
 
 def new_run(mode: str, scope_kind: str, scope_value: str | None,
-            selected: list[dict]) -> dict:
+            selected: list[dict], authoring_backend: str = "local") -> dict:
     backend_file = VP / "renders-hyperframes" / "_run" / "RENDER-BACKEND"
     try:
         backend = backend_file.read_text(encoding="utf-8").strip() or "local"
@@ -134,10 +135,11 @@ def new_run(mode: str, scope_kind: str, scope_value: str | None,
         "items": selected,
         "review": {"approved_at": None, "approved_by": None, "stems": []},
         "backend": backend,
+        "authoring_backend": authoring_backend,
         # These stages consume different resources and must not share one
         # ambiguous lane count. Cloud authoring is isolated; provider calls,
         # renders and publishing use their own machine-wide queues.
-        "authoring_concurrency": 6 if backend == "cloud" else 3,
+        "authoring_concurrency": 6 if authoring_backend == "cloud" else 3,
         "tts_concurrency": DEFAULT_TTS_CONCURRENCY,
         "cloud_render_concurrency": DEFAULT_CLOUD_RENDER_CONCURRENCY,
         "cloud_render_max": MAX_CLOUD_RENDER_CONCURRENCY,
@@ -163,7 +165,8 @@ def cmd_select(args) -> int:
             selected = [locate(args.scope_value)]
         else:
             selected = queue(args.scope_kind, args.scope_value)
-        state = new_run(args.mode, args.scope_kind, args.scope_value, selected)
+        state = new_run(args.mode, args.scope_kind, args.scope_value, selected,
+                        args.authoring_backend)
     print(json.dumps(state, indent=2))
     return 0
 
@@ -542,6 +545,8 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--mode", choices=("produce", "refine", "batch"), required=True)
     s.add_argument("--scope-kind", choices=("stem", "program", "all"), required=True)
     s.add_argument("--scope-value")
+    s.add_argument("--authoring-backend", choices=("local", "cloud"),
+                   default="local")
     s.set_defaults(func=cmd_select)
     s = sub.add_parser("approve")
     s.add_argument("target")

@@ -21,7 +21,7 @@ cleanup_safe_render() {
 trap cleanup_safe_render EXIT
 
 cd "$workspace"
-npx --yes hyperframes@0.7.79 render . \
+npm run render -- . \
   --fps "$render_fps" \
   --format png-sequence \
   --workers "$render_workers" \
@@ -34,6 +34,7 @@ if [[ "$frame_count" -lt 1 || ! -f "$sequence_dir/frame_000001.png" ]]; then
   exit 1
 fi
 render_duration="$(awk -v frames="$frame_count" -v fps="$render_fps" 'BEGIN { printf "%.6f", frames / fps }')"
+encoded_mp4="$safe_work_dir/${project_name}.mp4"
 output_mp4="$workspace/renders/${project_name}_$(date +%F_%H-%M-%S).mp4"
 
 if [[ -s "$sequence_dir/audio.aac" ]]; then
@@ -51,7 +52,7 @@ if [[ -s "$sequence_dir/audio.aac" ]]; then
     -b:a 192k \
     -movflags +faststart \
     -t "$render_duration" \
-    "$output_mp4"
+    "$encoded_mp4"
 else
   ffmpeg -hide_banner -loglevel error -y \
     -framerate "$render_fps" \
@@ -63,8 +64,13 @@ else
     -pix_fmt yuv420p \
     -movflags +faststart \
     -t "$render_duration" \
-    "$output_mp4"
+    "$encoded_mp4"
 fi
+
+# Keep the delivery directory free of half-written MP4s. The run driver may
+# normalize timestamped outputs as soon as they appear there, which races with
+# FFmpeg's faststart second pass if encoding happens in-place.
+mv "$encoded_mp4" "$output_mp4"
 
 printf 'Safe local render complete: %s (%s frames, %ss)\n' \
   "$output_mp4" "$frame_count" "$render_duration"

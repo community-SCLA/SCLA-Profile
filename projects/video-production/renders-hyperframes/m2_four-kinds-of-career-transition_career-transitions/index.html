@@ -17,6 +17,7 @@
     .brand{font-size:22px;line-height:1;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
     .program{font-size:21px;line-height:1;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
     .clip{position:absolute;inset:0;padding:150px 120px 120px;opacity:0;overflow:hidden}
+    .beat-window{display:none!important;padding:0}
     .eyebrow{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
     h1,h2,p{margin:0} h1{font-size:94px;line-height:.96;letter-spacing:-.035em;font-weight:900;max-width:1320px} h2{font-size:76px;line-height:1;letter-spacing:-.025em;font-weight:900}
     .sub{font-size:42px;line-height:1.22;color:var(--cultured);max-width:1080px;margin-top:28px}
@@ -32,9 +33,10 @@
     .split{display:grid;grid-template-columns:470px 1fr;gap:72px;align-items:center;height:770px}.mini-map{position:relative;width:430px;height:430px;border:3px solid rgba(51,147,214,.5);border-radius:12px}.mini-map:before,.mini-map:after{content:"";position:absolute;background:var(--blue);z-index:2}.mini-cell{position:absolute;width:50%;height:50%;left:0;top:0;box-shadow:inset 0 0 0 5px rgba(234,171,45,.9);z-index:1}.mini-map:before{left:50%;top:0;bottom:0;width:3px}.mini-map:after{left:0;right:0;top:50%;height:3px}.mini-dot{position:absolute;width:80px;height:80px;border-radius:50%;background:var(--gold);border:8px solid var(--paper);box-shadow:0 0 0 4px var(--gold);z-index:3}
     .content h2{margin-bottom:20px}.example{margin:0 0 28px;padding-left:22px;border-left:6px solid var(--gold);font-size:34px;line-height:1.2;font-weight:700;color:var(--cultured)}.descriptor{font-size:32px;font-weight:700;color:var(--cultured);margin-bottom:24px}.rhythm{margin-top:38px;font-size:34px;line-height:1.2;font-weight:900;color:var(--gold)}.action-list{display:flex;flex-wrap:wrap;gap:18px;margin-top:40px}.action-list span{padding:19px 28px;border-radius:100px;background:rgba(51,147,214,.14);border:2px solid var(--blue);color:var(--cultured);font-size:29px;font-weight:800}
     .ladder{display:flex;align-items:flex-end;gap:14px;height:210px;margin-top:36px;width:588px;border-bottom:4px solid rgba(51,147,214,.5)}.rung{width:180px;background:var(--blue);border-radius:10px 10px 0 0;padding:16px;color:var(--paper);font-size:22px;font-weight:900;text-align:center}.r1{height:80px}.r2{height:130px}.r3{height:185px;background:var(--gold);color:var(--navy)}
-    .timeline{position:relative;margin-top:70px;height:310px}.route{position:absolute;left:100px;right:100px;top:134px;height:6px;background:var(--blue);transform-origin:left}.milestones{display:flex;justify-content:space-between;position:absolute;left:50px;right:50px;top:76px}.milestone{width:240px;text-align:center}.node{width:80px;height:80px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:5px solid var(--blue);color:var(--navy);font-size:29px;font-weight:900}.milestone:last-child .node{background:var(--gold);border-color:var(--gold)}.milestone strong{display:block;font-size:28px}.milestone small{display:block;font-size:21px;color:var(--muted);margin-top:8px}
+    .timeline{position:relative;margin-top:70px;height:310px}.route{position:absolute;left:100px;right:100px;top:134px;height:6px;background:var(--blue);transform-origin:left}.route-tracer{position:absolute;left:80px;top:116px;width:42px;height:42px;border-radius:50%;background:var(--gold);border:7px solid var(--deep);box-shadow:0 0 0 4px var(--gold);z-index:4;will-change:transform}.milestones{display:flex;justify-content:space-between;position:absolute;left:50px;right:50px;top:76px}.milestone{width:240px;text-align:center}.node{width:80px;height:80px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:5px solid var(--blue);color:var(--navy);font-size:29px;font-weight:900}.milestone:last-child .node{background:var(--gold);border-color:var(--gold)}.milestone strong{display:block;font-size:28px}.milestone small{display:block;font-size:21px;color:var(--muted);margin-top:8px}
     .transfer{display:grid;grid-template-columns:1fr 170px 1fr;align-items:center;gap:28px;margin-top:72px}.context-card{height:340px;padding:40px;border-radius:12px;background:var(--paper);color:var(--ink)}.context-card h3{font-size:42px;margin:0 0 25px}.context-card p{font-size:31px;line-height:1.25}.context-card.good{border:5px solid var(--gold)}.arrow{font-size:94px;text-align:center;color:var(--gold);font-weight:900}.skills{display:flex;gap:15px;margin-top:24px}.skills span{font-size:22px;padding:11px 15px;border-radius:999px;background:#e5eff6;color:var(--navy);font-weight:800}
     .constraint-row{display:flex;gap:22px;margin-top:58px}.constraint{flex:1;padding:25px 20px;text-align:center;border:2px solid var(--muted-video);border-radius:12px;font-size:27px;font-weight:800}.new-route{margin-top:50px;display:flex;align-items:center;gap:20px}.route-line{height:7px;flex:1;background:var(--gold);transform-origin:left}.destination{padding:25px 34px;border-radius:12px;background:var(--gold);color:var(--navy);font-size:34px;font-weight:900}
+    #ct-forced-reinvention>.eyebrow,#ct-forced-reinvention>h2,#ct-forced-reinvention>.sub,#ct-forced-reinvention>.constraint-row,#ct-forced-reinvention>.new-route{transform:none!important}
     .correction{display:flex;align-items:center;justify-content:center;gap:52px;margin-top:34px;font-size:74px;font-weight:900}.strike{position:relative;color:var(--border)}.strike:after{content:"";position:absolute;left:-12px;right:-12px;top:50%;height:8px;background:var(--gold);transform:rotate(-7deg)}.finding{width:1240px;margin:38px auto 0;text-align:center}.finding-label{font-size:21px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}.finding strong{display:block;font-size:44px;line-height:1.06;font-weight:900;color:var(--paper);margin-bottom:14px}.finding p{font-size:30px;line-height:1.24;color:var(--cultured)}.response-path{display:flex;align-items:center;justify-content:space-between;margin-top:66px}.response-step{width:280px;text-align:center}.response-step b{width:86px;height:86px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;margin:0 auto 18px;font-size:34px}.response-step span{font-size:29px;font-weight:900}.chev{font-size:45px;color:var(--blue)}
     .leap{position:relative;height:520px;margin-top:25px}.from,.to{position:absolute;top:310px;width:270px;height:150px;padding:22px;display:grid;place-items:center;border-radius:12px;background:var(--paper);color:var(--ink);font-size:32px;line-height:1.14;font-weight:900;text-align:center;z-index:2}.from{left:40px}.to{right:40px;border:5px solid var(--gold)}.arc{position:absolute;left:175px;right:175px;top:160px;height:392px;border-top:9px dashed var(--gold);border-radius:50%;z-index:1}.stones{position:absolute;left:315px;right:315px;top:352px;z-index:3;display:flex;justify-content:space-between}.stone{width:150px;height:96px;border-radius:50%;background:#e5eff6;color:var(--navy);display:grid;place-items:center;text-align:center;font-size:19px;font-weight:900;padding:10px;border:3px solid var(--blue)}
     .tactics-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px}.tactic-quad{padding:25px 30px;min-height:190px}.tactic-quad strong{font-size:33px;display:block;margin-bottom:12px}.tactic-quad p{font-size:27px;line-height:1.24;color:var(--muted-video)}
@@ -46,6 +48,119 @@
   <div data-hf-id="hf-r9tj" id="root" data-composition-id="ct-compass" data-width="1920" data-height="1080" data-start="0" data-duration="306.649" data-fps="30">
     <div data-hf-id="hf-0ztw" class="field"></div><div data-hf-id="hf-kxq8" class="grid"></div>
     <div data-hf-id="hf-o5lv" class="topline"><div data-hf-id="hf-5qeu" class="brand">SCLA</div><div data-hf-id="hf-tig6" class="program">Career Transitions</div></div>
+    <audio id="audio-coverage-contract" src="assets/voice/narration.wav" data-start="0" data-duration="279.641" data-track-index="9" data-volume="0"></audio>
+    <audio id="audio-ct-intro-name-the-move-01" src="assets/voice/ct-intro-name-the-move-01.wav" data-start="0.6" data-duration="4.51" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-intro-name-the-move-02" src="assets/voice/ct-intro-name-the-move-02.wav" data-start="5.76" data-duration="1.66" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-intro-name-the-move-03" src="assets/voice/ct-intro-name-the-move-03.wav" data-start="8.07" data-duration="1.26" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-intro-name-the-move-04" src="assets/voice/ct-intro-name-the-move-04.wav" data-start="9.98" data-duration="1.38" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-intro-name-the-move-05" src="assets/voice/ct-intro-name-the-move-05.wav" data-start="12.01" data-duration="2.575" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-intro-name-the-move-06" src="assets/voice/ct-intro-name-the-move-06.wav" data-start="15.235" data-duration="3.235" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-intro-name-the-move-07" src="assets/voice/ct-intro-name-the-move-07.wav" data-start="19.12" data-duration="4.45" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reveal-matrix-01" src="assets/voice/ct-reveal-matrix-01.wav" data-start="24.22" data-duration="3.29" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reveal-matrix-02" src="assets/voice/ct-reveal-matrix-02.wav" data-start="28.16" data-duration="4.39" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reveal-matrix-03" src="assets/voice/ct-reveal-matrix-03.wav" data-start="33.2" data-duration="3.595" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reveal-matrix-04" src="assets/voice/ct-reveal-matrix-04.wav" data-start="37.445" data-duration="8.685" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reveal-matrix-05" src="assets/voice/ct-reveal-matrix-05.wav" data-start="46.78" data-duration="1.63" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-growth-pivot-01" src="assets/voice/ct-growth-pivot-01.wav" data-start="49.06" data-duration="4.38" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-growth-pivot-02" src="assets/voice/ct-growth-pivot-02.wav" data-start="54.09" data-duration="5.66" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-growth-pivot-03" src="assets/voice/ct-growth-pivot-03.wav" data-start="60.4" data-duration="4.64" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-growth-pivot-04" src="assets/voice/ct-growth-pivot-04.wav" data-start="65.69" data-duration="5.73" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-growth-pivot-05" src="assets/voice/ct-growth-pivot-05.wav" data-start="72.07" data-duration="4.69" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-growth-pivot-06" src="assets/voice/ct-growth-pivot-06.wav" data-start="77.41" data-duration="6.82" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-01" src="assets/voice/ct-reinvention-01.wav" data-start="84.88" data-duration="3.82" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-02" src="assets/voice/ct-reinvention-02.wav" data-start="89.35" data-duration="6.91" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-03" src="assets/voice/ct-reinvention-03.wav" data-start="96.91" data-duration="4.38" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-04" src="assets/voice/ct-reinvention-04.wav" data-start="101.94" data-duration="7.315" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-05" src="assets/voice/ct-reinvention-05.wav" data-start="109.905" data-duration="2.125" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-06" src="assets/voice/ct-reinvention-06.wav" data-start="112.68" data-duration="9.375" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-07" src="assets/voice/ct-reinvention-07.wav" data-start="122.705" data-duration="1.625" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-reinvention-08" src="assets/voice/ct-reinvention-08.wav" data-start="124.98" data-duration="2.2" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-rebuild-01" src="assets/voice/ct-rebuild-01.wav" data-start="127.83" data-duration="3.745" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-rebuild-02" src="assets/voice/ct-rebuild-02.wav" data-start="132.225" data-duration="7.325" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-rebuild-03" src="assets/voice/ct-rebuild-03.wav" data-start="140.2" data-duration="5.215" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-rebuild-04" src="assets/voice/ct-rebuild-04.wav" data-start="146.065" data-duration="4.234" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-rebuild-05" src="assets/voice/ct-rebuild-05.wav" data-start="150.949" data-duration="3.545" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-rebuild-06" src="assets/voice/ct-rebuild-06.wav" data-start="155.144" data-duration="8.955" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-reinvention-01" src="assets/voice/ct-forced-reinvention-01.wav" data-start="164.749" data-duration="4.08" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-reinvention-02" src="assets/voice/ct-forced-reinvention-02.wav" data-start="169.479" data-duration="11.49" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-reinvention-03" src="assets/voice/ct-forced-reinvention-03.wav" data-start="181.619" data-duration="6.97" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-not-failed-01" src="assets/voice/ct-forced-not-failed-01.wav" data-start="189.239" data-duration="3.909" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-not-failed-02" src="assets/voice/ct-forced-not-failed-02.wav" data-start="193.798" data-duration="12.9" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-not-failed-03" src="assets/voice/ct-forced-not-failed-03.wav" data-start="207.348" data-duration="3.41" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-forced-not-failed-04" src="assets/voice/ct-forced-not-failed-04.wav" data-start="211.408" data-duration="13.261" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-adjacent-steps-01" src="assets/voice/ct-adjacent-steps-01.wav" data-start="225.319" data-duration="2.33" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-adjacent-steps-02" src="assets/voice/ct-adjacent-steps-02.wav" data-start="228.299" data-duration="3.6" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-adjacent-steps-03" src="assets/voice/ct-adjacent-steps-03.wav" data-start="232.549" data-duration="6.04" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-adjacent-steps-04" src="assets/voice/ct-adjacent-steps-04.wav" data-start="239.239" data-duration="10.37" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-01" src="assets/voice/ct-match-tactics-01.wav" data-start="250.259" data-duration="1.95" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-02" src="assets/voice/ct-match-tactics-02.wav" data-start="252.859" data-duration="2.22" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-03" src="assets/voice/ct-match-tactics-03.wav" data-start="255.729" data-duration="1.54" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-04" src="assets/voice/ct-match-tactics-04.wav" data-start="257.919" data-duration="1.5" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-05" src="assets/voice/ct-match-tactics-05.wav" data-start="260.069" data-duration="1.435" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-06" src="assets/voice/ct-match-tactics-06.wav" data-start="262.154" data-duration="2.435" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-07" src="assets/voice/ct-match-tactics-07.wav" data-start="265.239" data-duration="2.5" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-08" src="assets/voice/ct-match-tactics-08.wav" data-start="268.389" data-duration="4.54" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-09" src="assets/voice/ct-match-tactics-09.wav" data-start="273.579" data-duration="6.21" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-10" src="assets/voice/ct-match-tactics-10.wav" data-start="280.439" data-duration="5.51" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-match-tactics-11" src="assets/voice/ct-match-tactics-11.wav" data-start="286.599" data-duration="5.795" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-closing-next-step-01" src="assets/voice/ct-closing-next-step-01.wav" data-start="293.044" data-duration="3.215" data-track-index="10" data-volume="1"></audio>
+    <audio id="audio-ct-closing-next-step-02" src="assets/voice/ct-closing-next-step-02.wav" data-start="296.909" data-duration="7.94" data-track-index="10" data-volume="1"></audio>
+    <div id="beat-window-ct-intro-name-the-move-01" class="clip beat-window" data-beat-id="ct-intro-name-the-move-01" data-start="0" data-duration="5.51" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-intro-name-the-move-02" class="clip beat-window" data-beat-id="ct-intro-name-the-move-02" data-start="5.51" data-duration="2.31" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-intro-name-the-move-03" class="clip beat-window" data-beat-id="ct-intro-name-the-move-03" data-start="7.82" data-duration="1.91" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-intro-name-the-move-04" class="clip beat-window" data-beat-id="ct-intro-name-the-move-04" data-start="9.73" data-duration="2.03" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-intro-name-the-move-05" class="clip beat-window" data-beat-id="ct-intro-name-the-move-05" data-start="11.76" data-duration="3.225" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-intro-name-the-move-06" class="clip beat-window" data-beat-id="ct-intro-name-the-move-06" data-start="14.985" data-duration="3.885" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-intro-name-the-move-07" class="clip beat-window" data-beat-id="ct-intro-name-the-move-07" data-start="18.87" data-duration="5.1" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reveal-matrix-01" class="clip beat-window" data-beat-id="ct-reveal-matrix-01" data-start="23.97" data-duration="3.94" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reveal-matrix-02" class="clip beat-window" data-beat-id="ct-reveal-matrix-02" data-start="27.91" data-duration="5.04" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reveal-matrix-03" class="clip beat-window" data-beat-id="ct-reveal-matrix-03" data-start="32.95" data-duration="4.245" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reveal-matrix-04" class="clip beat-window" data-beat-id="ct-reveal-matrix-04" data-start="37.195" data-duration="9.335" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reveal-matrix-05" class="clip beat-window" data-beat-id="ct-reveal-matrix-05" data-start="46.53" data-duration="2.28" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-growth-pivot-01" class="clip beat-window" data-beat-id="ct-growth-pivot-01" data-start="48.81" data-duration="5.03" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-growth-pivot-02" class="clip beat-window" data-beat-id="ct-growth-pivot-02" data-start="53.84" data-duration="6.31" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-growth-pivot-03" class="clip beat-window" data-beat-id="ct-growth-pivot-03" data-start="60.15" data-duration="5.29" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-growth-pivot-04" class="clip beat-window" data-beat-id="ct-growth-pivot-04" data-start="65.44" data-duration="6.38" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-growth-pivot-05" class="clip beat-window" data-beat-id="ct-growth-pivot-05" data-start="71.82" data-duration="5.34" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-growth-pivot-06" class="clip beat-window" data-beat-id="ct-growth-pivot-06" data-start="77.16" data-duration="7.47" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-01" class="clip beat-window" data-beat-id="ct-reinvention-01" data-start="84.63" data-duration="4.47" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-02" class="clip beat-window" data-beat-id="ct-reinvention-02" data-start="89.1" data-duration="7.56" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-03" class="clip beat-window" data-beat-id="ct-reinvention-03" data-start="96.66" data-duration="5.03" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-04" class="clip beat-window" data-beat-id="ct-reinvention-04" data-start="101.69" data-duration="7.965" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-05" class="clip beat-window" data-beat-id="ct-reinvention-05" data-start="109.655" data-duration="2.775" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-06" class="clip beat-window" data-beat-id="ct-reinvention-06" data-start="112.43" data-duration="10.025" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-07" class="clip beat-window" data-beat-id="ct-reinvention-07" data-start="122.455" data-duration="2.275" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-reinvention-08" class="clip beat-window" data-beat-id="ct-reinvention-08" data-start="124.73" data-duration="2.85" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-rebuild-01" class="clip beat-window" data-beat-id="ct-rebuild-01" data-start="127.58" data-duration="4.395" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-rebuild-02" class="clip beat-window" data-beat-id="ct-rebuild-02" data-start="131.975" data-duration="7.975" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-rebuild-03" class="clip beat-window" data-beat-id="ct-rebuild-03" data-start="139.95" data-duration="5.865" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-rebuild-04" class="clip beat-window" data-beat-id="ct-rebuild-04" data-start="145.815" data-duration="4.884" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-rebuild-05" class="clip beat-window" data-beat-id="ct-rebuild-05" data-start="150.699" data-duration="4.195" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-rebuild-06" class="clip beat-window" data-beat-id="ct-rebuild-06" data-start="154.894" data-duration="9.605" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-reinvention-01" class="clip beat-window" data-beat-id="ct-forced-reinvention-01" data-start="164.499" data-duration="4.73" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-reinvention-02" class="clip beat-window" data-beat-id="ct-forced-reinvention-02" data-start="169.229" data-duration="12.14" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-reinvention-03" class="clip beat-window" data-beat-id="ct-forced-reinvention-03" data-start="181.369" data-duration="7.62" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-not-failed-01" class="clip beat-window" data-beat-id="ct-forced-not-failed-01" data-start="188.989" data-duration="4.559" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-not-failed-02" class="clip beat-window" data-beat-id="ct-forced-not-failed-02" data-start="193.548" data-duration="13.55" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-not-failed-03" class="clip beat-window" data-beat-id="ct-forced-not-failed-03" data-start="207.098" data-duration="4.06" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-forced-not-failed-04" class="clip beat-window" data-beat-id="ct-forced-not-failed-04" data-start="211.158" data-duration="13.911" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-adjacent-steps-01" class="clip beat-window" data-beat-id="ct-adjacent-steps-01" data-start="225.069" data-duration="2.98" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-adjacent-steps-02" class="clip beat-window" data-beat-id="ct-adjacent-steps-02" data-start="228.049" data-duration="4.25" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-adjacent-steps-03" class="clip beat-window" data-beat-id="ct-adjacent-steps-03" data-start="232.299" data-duration="6.69" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-adjacent-steps-04" class="clip beat-window" data-beat-id="ct-adjacent-steps-04" data-start="238.989" data-duration="11.02" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-01" class="clip beat-window" data-beat-id="ct-match-tactics-01" data-start="250.009" data-duration="2.6" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-02" class="clip beat-window" data-beat-id="ct-match-tactics-02" data-start="252.609" data-duration="2.87" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-03" class="clip beat-window" data-beat-id="ct-match-tactics-03" data-start="255.479" data-duration="2.19" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-04" class="clip beat-window" data-beat-id="ct-match-tactics-04" data-start="257.669" data-duration="2.15" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-05" class="clip beat-window" data-beat-id="ct-match-tactics-05" data-start="259.819" data-duration="2.085" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-06" class="clip beat-window" data-beat-id="ct-match-tactics-06" data-start="261.904" data-duration="3.085" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-07" class="clip beat-window" data-beat-id="ct-match-tactics-07" data-start="264.989" data-duration="3.15" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-08" class="clip beat-window" data-beat-id="ct-match-tactics-08" data-start="268.139" data-duration="5.19" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-09" class="clip beat-window" data-beat-id="ct-match-tactics-09" data-start="273.329" data-duration="6.86" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-10" class="clip beat-window" data-beat-id="ct-match-tactics-10" data-start="280.189" data-duration="6.16" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-match-tactics-11" class="clip beat-window" data-beat-id="ct-match-tactics-11" data-start="286.349" data-duration="6.445" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-closing-next-step-01" class="clip beat-window" data-beat-id="ct-closing-next-step-01" data-start="292.794" data-duration="3.865" data-track-index="8" aria-hidden="true"></div>
+    <div id="beat-window-ct-closing-next-step-02" class="clip beat-window" data-beat-id="ct-closing-next-step-02" data-start="296.659" data-duration="9.99" data-track-index="8" aria-hidden="true"></div>
     <section data-hf-id="hf-knvs" id="ct-intro-name-the-move" class="clip" data-track-index="1" data-start="0" data-duration="23.97">
       <div data-hf-id="hf-a1z0" class="eyebrow">Before you plan the move</div><h1 data-hf-id="hf-r9w4">Name the Kind of Move You're Making</h1>
       <div data-hf-id="hf-weu3" class="tactic-row" data-role="list"><div data-hf-id="hf-mhtv" class="tactic paper"><b data-hf-id="hf-t4n0">1</b>Update my resume?</div><div data-hf-id="hf-do5l" class="tactic paper"><b data-hf-id="hf-rxpx">2</b>Apply to that role?</div><div data-hf-id="hf-5m1h" class="tactic paper"><b data-hf-id="hf-sc0y">3</b>Go back to school?</div></div>
@@ -66,7 +181,7 @@
     <section data-hf-id="hf-8ivz" id="ct-reinvention" class="clip" data-track-index="1" data-start="84.63" data-duration="42.95">
       <div data-hf-id="hf-z83x" class="compass-badge" aria-hidden="true"><div data-hf-id="hf-u3sq" class="cb-cell cb-tr"></div><div data-hf-id="hf-p1nb" class="cb-dot cb-tr"></div></div>
       <div data-hf-id="hf-hcky" class="eyebrow">02 · Chosen + dramatic</div><h2 data-hf-id="hf-6j7w">Reinvention</h2><p data-hf-id="hf-joij" class="sub">The big leap is built from years of adjacent moves.</p><div data-hf-id="hf-23j7" class="example" style="margin:26px 0 0">Corporate lawyer → fitness executive</div>
-      <div data-hf-id="hf-jvx5" class="timeline"><div data-hf-id="hf-dvh3" class="route"></div><div data-hf-id="hf-zjql" class="milestones" data-role="list"><div data-hf-id="hf-xaf2" class="milestone"><div data-hf-id="hf-4f73" class="node">01</div><strong data-hf-id="hf-11ji">Figure skater</strong><small data-hf-id="hf-w5nw">Discipline + taste</small></div><div data-hf-id="hf-mvvm" class="milestone"><div data-hf-id="hf-40w2" class="node">02</div><strong data-hf-id="hf-tujb">Fashion editor</strong><small data-hf-id="hf-imk5">16 years of context</small></div><div data-hf-id="hf-na6n" class="milestone"><div data-hf-id="hf-3ml1" class="node">03</div><strong data-hf-id="hf-gyxo">Design director</strong><small data-hf-id="hf-09ns">Leadership + craft</small></div><div data-hf-id="hf-noho" class="milestone"><div data-hf-id="hf-6eq8" class="node">04</div><strong data-hf-id="hf-zcep">Founder</strong><small data-hf-id="hf-x9lk">Vera Wang at 40</small></div></div></div>
+      <div data-hf-id="hf-jvx5" class="timeline"><div data-hf-id="hf-dvh3" class="route"></div><div data-hf-id="hf-rtrc" class="route-tracer" aria-hidden="true"></div><div data-hf-id="hf-zjql" class="milestones" data-role="list"><div data-hf-id="hf-xaf2" class="milestone"><div data-hf-id="hf-4f73" class="node">01</div><strong data-hf-id="hf-11ji">Figure skater</strong><small data-hf-id="hf-w5nw">Discipline + taste</small></div><div data-hf-id="hf-mvvm" class="milestone"><div data-hf-id="hf-40w2" class="node">02</div><strong data-hf-id="hf-tujb">Fashion editor</strong><small data-hf-id="hf-imk5">16 years of context</small></div><div data-hf-id="hf-na6n" class="milestone"><div data-hf-id="hf-3ml1" class="node">03</div><strong data-hf-id="hf-gyxo">Design director</strong><small data-hf-id="hf-09ns">Leadership + craft</small></div><div data-hf-id="hf-noho" class="milestone"><div data-hf-id="hf-6eq8" class="node">04</div><strong data-hf-id="hf-zcep">Founder</strong><small data-hf-id="hf-x9lk">Vera Wang at 40</small></div></div></div>
     </section>
 
     <section data-hf-id="hf-jzd3" id="ct-rebuild" class="clip" data-track-index="1" data-start="127.58" data-duration="36.919">
@@ -171,7 +286,8 @@
       });
 
       // Reinvention: the trail forms before its milestones, which then accumulate in sequence.
-      timeline.fromTo("#ct-reinvention .route",{scaleX:0},{scaleX:1,duration:2.2,ease:"power2.inOut"},101.69);
+      timeline.fromTo("#ct-reinvention .route",{scaleX:0},{scaleX:1,duration:8.4,ease:"power2.inOut"},93.1);
+      timeline.fromTo("#ct-reinvention .route-tracer",{x:0,scale:.85},{x:1280,scale:1,duration:7.4,ease:"power1.inOut"},101.69);
       timeline.fromTo("#ct-reinvention .example",{opacity:0,x:-24},{opacity:1,x:0,duration:.5,ease:"power2.out"},89.1);
       timeline.fromTo("#ct-reinvention .milestone",{opacity:0,y:20},{opacity:1,y:0,duration:.5,stagger:{each:2.15,from:0},ease:"power2.out"},109.655);
       reveal("#ct-reinvention .milestone:nth-child(1)",109.655,{y:24});
@@ -186,12 +302,14 @@
 
       // Rebuild: preserve the close path, but reveal trigger, transfer, and destination on their lines.
       reveal("#ct-rebuild .context-card:first-child",131.975,{y:28});
-      timeline.fromTo("#ct-rebuild .context-card:first-child .skills span",{opacity:0,scale:.9},{opacity:1,scale:1,duration:.4,stagger:.55,ease:"power2.out"},139.95);
+      timeline.fromTo("#ct-rebuild .context-card:first-child .skills span",{opacity:.25,scale:.9},{opacity:1,scale:1,duration:.6,stagger:1.7,ease:"power2.out"},133.3);
+      timeline.fromTo("#ct-rebuild .arrow",{x:-18},{x:18,duration:1.2,ease:"sine.inOut",yoyo:true,repeat:9},133.0);
       timeline.to("#ct-rebuild .context-card:first-child .skills span",{backgroundColor:"#eaab2d",duration:.5,stagger:.18,ease:"power2.out"},145.815);
       reveal("#ct-rebuild .arrow",145.815,{x:-34,y:0},{x:0});
       reveal("#ct-rebuild .context-card.good",150.699,{x:-28,y:0},{x:0});
       pulse("#ct-rebuild .context-card.good",154.894,1.8);
       timeline.to("#ct-rebuild .context-card.good .skills span",{backgroundColor:"#eaab2d",duration:.5,stagger:.18,ease:"power2.out"},154.894);
+      timeline.to("#ct-rebuild .context-card.good",{scale:1.015,y:-4,duration:.9,ease:"sine.inOut",yoyo:true,repeat:5},157.0);
 
       // Forced Reinvention: the narrated constraints hand focus to one another before the route changes.
       [1,2,3,4].forEach((n,i) => {
@@ -205,7 +323,9 @@
       reveal("#ct-forced-reinvention .destination",184.1,{x:-24,y:0},{x:0});
 
       // Forced is not failed: response choices become a paced route, not an instant checklist.
-      timeline.fromTo("#ct-forced-not-failed .finding",{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:"power2.out"},193.548);
+      timeline.fromTo("#ct-forced-not-failed .finding-label",{opacity:0,y:16},{opacity:1,y:0,duration:.6,ease:"power2.out"},193.548);
+      timeline.fromTo("#ct-forced-not-failed .finding strong",{opacity:0,y:20},{opacity:1,y:0,duration:.7,ease:"power2.out"},197.4);
+      timeline.fromTo("#ct-forced-not-failed .finding p",{opacity:0,y:18},{opacity:1,y:0,duration:.7,ease:"power2.out"},202.0);
       timeline.fromTo("#ct-forced-not-failed .sub",{opacity:0,y:16},{opacity:1,y:0,duration:.5,ease:"power2.out"},207.098);
       [1,2,3,4].forEach((n,i) => {
         const at = 211.158+i*2.7;
@@ -234,6 +354,9 @@
       tacticTimes.forEach((at,i) => {
         timeline.to("#ct-match-tactics .tactic-quad",{boxShadow:"none",duration:.25,ease:"power2.out"},at);
         timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1})`,{boxShadow:"0 0 0 5px rgba(234,171,45,.95)",duration:.32,ease:"power2.out"},at+.08);
+        const until = tacticTimes[i+1] || 292.45;
+        const repeats = Math.max(1,Math.floor((until-at-.5)/.75)-1);
+        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1})`,{scale:1.025,y:-5,duration:.75,ease:"sine.inOut",yoyo:true,repeat:repeats},at+.4);
       });
 
       // The closing route resolves only as the final line explains the clearer map.

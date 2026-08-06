@@ -10,7 +10,7 @@ Use only `bash projects/video-production/run.sh …` from the repository root:
 status --json
 produce --stem STEM
 refine --stem STEM
-batch --program PROGRAM | --all
+batch --program PROGRAM [--cloud] | --all [--cloud]
 delegate --stem STEM
 limits
 cloud-limit 2 | 4

@@ -80,7 +80,7 @@ check("build kit is copied from one tracked contract",
 check("AUTO-BATCH owns stem selection and parallel scheduling",
       "Never ask the user to choose, copy, or" in render_skill and
       "parallel in-session subagents" in render_skill and
-      "Separate Codex Cloud tasks are an" in render_skill and
+      "`--cloud` uses Cloud tasks" in render_skill and
       "build and gate every selected stem" in render_skill and
       "only when every selected stem is `PUBLISHED`" in render_skill)
 audio_wrapper = (REPO / "scripts/video-audio.sh").read_text()
@@ -126,6 +126,15 @@ r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
 state = json.loads(state_file.read_text())
 check("explicit program batch selects that program", r.returncode == 0 and
       {x["stem"] for x in state["items"]} == {"lesson-a_prog-a", "lesson-b_prog-a"})
+check("normal batch keeps local source authoring",
+      state["authoring_backend"] == "local" and
+      state["authoring_concurrency"] == 3, state)
+r = run(["bash", str(RUN), "batch", "--program", "prog-a", "--cloud"], env=env)
+cloud_state = json.loads(state_file.read_text())
+check("cloud batch records isolated Codex Cloud authoring",
+      r.returncode == 0 and cloud_state["authoring_backend"] == "cloud" and
+      cloud_state["authoring_concurrency"] == 6, cloud_state)
+state_file.write_text(json.dumps(state))
 selected_state = state
 empty_state = dict(state)
 empty_state["items"] = []
@@ -138,6 +147,8 @@ r = run(["bash", str(RUN), "delegate", "--stem", "lesson-a_prog-a"], env=env)
 check("selected stems get an exact source-only cloud prompt",
       r.returncode == 0 and
       "bash scripts/cloud-author.sh lesson-a_prog-a prog-a" in r.stdout and
+      "bash scripts/cloud-review-ready.sh lesson-a_prog-a" in r.stdout and
+      "REVIEW_READY: PASS" in r.stdout and
       "Do not call HeyGen" in r.stdout, r.stderr + r.stdout)
 check("new runs separate authoring, TTS, render, and publish capacity",
       state["authoring_concurrency"] == 3 and state["tts_concurrency"] == 2 and

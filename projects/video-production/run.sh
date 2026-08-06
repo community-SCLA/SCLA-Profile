@@ -13,7 +13,7 @@ refresh_human_status() {
 }
 
 usage() {
-  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all)|delegate --stem STEM|limits|cloud-limit (2|4)|approve (STEM|BATCH)|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
+  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|delegate --stem STEM|limits|cloud-limit (2|4)|approve (STEM|BATCH)|ship STEM [--publish]|resume|retry STEM --reason TEXT}" >&2
   exit 2
 }
 
@@ -43,11 +43,28 @@ case "$command" in
     case "${1:-}" in
       --program)
         [[ -n "${2:-}" ]] || usage
-        python3 "$STATE" select --mode batch --scope-kind program --scope-value "$2"
+        program="$2"
+        shift 2
+        authoring_backend="local"
+        if [[ "${1:-}" == "--cloud" && -z "${2:-}" ]]; then
+          authoring_backend="cloud"
+        elif [[ -n "${1:-}" ]]; then
+          usage
+        fi
+        python3 "$STATE" select --mode batch --scope-kind program \
+          --scope-value "$program" --authoring-backend "$authoring_backend"
         refresh_human_status
         ;;
       --all)
-        python3 "$STATE" select --mode batch --scope-kind all
+        shift
+        authoring_backend="local"
+        if [[ "${1:-}" == "--cloud" && -z "${2:-}" ]]; then
+          authoring_backend="cloud"
+        elif [[ -n "${1:-}" ]]; then
+          usage
+        fi
+        python3 "$STATE" select --mode batch --scope-kind all \
+          --authoring-backend "$authoring_backend"
         refresh_human_status
         ;;
       *) usage ;;
@@ -66,8 +83,9 @@ Run: bash scripts/cloud-author.sh ${stem} ${program}
 
 This is source-only authoring. Do not call HeyGen, render, publish, or modify
 run.json, PIPELINE-STATUS.md, shared scripts, contracts, or another workspace.
-Run static preflight, commit only this workspace's trackable source, and return
-the commit or pull-request link with the required summary.
+Run bash scripts/cloud-review-ready.sh ${stem}. Do not call the task complete
+unless it prints REVIEW_READY: PASS. Commit only this workspace's trackable
+source, and return the commit or pull-request link with the required summary.
 EOF
     ;;
   limits)

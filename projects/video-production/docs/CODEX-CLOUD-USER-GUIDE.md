@@ -14,6 +14,22 @@ HeyGen and cloud renders inside their queues, publishes serially, and continues
 through the remaining programs in priority order. You do not copy prompts,
 select stems, or open separate cloud tasks.
 
+To prepare source authoring as separate Codex Cloud tasks instead, invoke:
+
+```text
+/render-lessons AUTO-BATCH --cloud
+```
+
+Or limit the new cloud-authored batch to one program:
+
+```text
+/render-lessons AUTO-BATCH mid-career-momentum --cloud
+```
+
+This records cloud authoring in the run and produces one exact delegation
+assignment per `READY` lesson. Submit those assignments in Codex Cloud; the
+current public launcher is the Cloud interface, not a repository shell API.
+
 To limit a new run to one program:
 
 ```text
@@ -46,6 +62,8 @@ Start with the active run and let each lesson's stage determine the action:
 ```bash
 bash projects/video-production/run.sh resume
 bash projects/video-production/run.sh status
+bash projects/video-production/run.sh batch --all --cloud
+bash projects/video-production/run.sh batch --program --cloud
 ```
 Use Sol High for a full program batch.
 Sol High: Best default for this pipeline. It balances creative judgment, coding, QA, and persistence.
@@ -85,7 +103,7 @@ an external fix is actually required.
 From the live repository:
 
 ```bash
-bash projects/video-production/run.sh batch --program PROGRAM
+bash projects/video-production/run.sh batch --program PROGRAM --cloud
 bash scripts/batch-prepare.sh
 bash projects/video-production/run.sh limits
 bash projects/video-production/run.sh status --json

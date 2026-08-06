@@ -1,7 +1,7 @@
 ---
 name: render-lessons
 description: Orchestrate SCLA lesson builds, review, render, resume, and publish through the video run driver. Use AUTO-BATCH whenever the user wants a hands-off run, asks to continue the factory, does not want to choose stems, or wants safe parallel delegation from one slash command.
-argument-hint: "AUTO-BATCH [PROGRAM|--all] | STATUS | BUILD <stem> | SHIP <stem> | RESUME"
+argument-hint: "AUTO-BATCH [PROGRAM|--all] [--cloud] | STATUS | BUILD <stem> | SHIP <stem> | RESUME"
 disable-model-invocation: true
 ---
 
@@ -12,9 +12,8 @@ agent input.
 
 ## AUTO-BATCH is the default hands-off path
 
-`/render-lessons AUTO-BATCH` means the user has delegated scheduling and safe
-parallel execution to the coordinator. Never ask the user to choose, copy, or
-paste stems. Never require them to open separate Codex Cloud tasks.
+`/render-lessons AUTO-BATCH` delegates scheduling and parallel execution.
+Never ask the user to choose, copy, or paste stems.
 
 It authorizes the coordinator to:
 
@@ -29,13 +28,16 @@ It authorizes the coordinator to:
 `AUTO-BATCH PROGRAM` limits new selection to that program. If another run is
 unfinished, finish it before replacing its scope.
 
+`AUTO-BATCH [PROGRAM] --cloud` records cloud source authoring through the
+matching `run.sh batch ... --cloud` command. Print one `run.sh delegate` prompt
+per selected `READY` lesson instead of building locally. Submission remains in
+the Codex Cloud UI. After its branch/PR is merged, resume narration and gates
+locally. Never delegate `STALLED` work.
+
 Pause only for review of the complete selected workspace set or a genuine external blocker. Do not hand
 routine commands back to the user.
 
-AUTO-BATCH authorizes an evidence-based `run.sh retry` after the agent verifies
-that the recorded cause changed; it does not authorize blind retry loops. A run
-is complete only when every selected stem is `PUBLISHED`, never when
-`run.json results.status` merely says a render completed.
+Retry only after the recorded cause changes. A run is complete only when every selected stem is `PUBLISHED`.
 
 ### Automatic dispatch loop
 
@@ -54,7 +56,8 @@ is complete only when every selected stem is `PUBLISHED`, never when
      preserve narration and completed work.
    - `REJECTED`: diagnose the recorded failure. Retry only after evidence that
      its cause changed; respect retry exhaustion and the circuit breaker.
-   - selected `READY`: assign the highest-priority stems to parallel workers.
+   - selected `READY`: assign parallel workers, or generate Cloud assignments
+     when `authoring_backend` is `cloud`.
    - `RAW` or `NEEDS SCRIPT`: do not build; surface only if it blocks scope.
 5. Give every worker one unique stem. A worker owns concept, direct HTML
    authoring, queued narration, computed timing, gate fixes, and lease release.
@@ -69,8 +72,8 @@ is complete only when every selected stem is `PUBLISHED`, never when
    `run.sh batch --program PROGRAM`; otherwise AUTO-BATCH uses `run.sh batch
    --all` for the remaining backlog.
 
-Use available worker slots; provider/render queues remain enforced.
-Separate Codex Cloud tasks are an optional handoff, not part of AUTO-BATCH.
+Use available slots and enforce provider/render queues. Normal AUTO-BATCH uses
+in-session workers; `--cloud` uses Cloud tasks.
 
 ## Command map
 
@@ -80,6 +83,7 @@ BUILD STEM   → run.sh produce --stem STEM, then the four-call flow below
 SHIP STEM    → run.sh ship STEM [--publish]
 RESUME       → run.sh resume, then continue only selected unfinished items
 AUTO-BATCH   → resume, select, parallelize, render, and publish automatically
+AUTO-BATCH --cloud → select cloud authoring and prepare one Cloud task per READY stem
 ```
 
 Program and whole-queue work require `run.sh batch --program PROGRAM` or
@@ -107,8 +111,6 @@ Score each 1–5 for claim fidelity, visual evolution, attention, and feasibilit
 Select the stronger lens and explain the choice in no more than 80 words.
 Write only the selected plan to CONCEPT.md; retain the scores in concept.json.
 ```
-
-The lenses must differ in visual logic, not merely palette.
 
 ### 2. Builder
 

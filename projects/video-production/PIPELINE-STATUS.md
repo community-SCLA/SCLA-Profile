@@ -5,14 +5,14 @@
 ## Where everything stands
 
 - **11** — **live on Wistia.** Done; links in the *Delivered* table below.
-- **24** — **ready to build.** Script approved; nothing made yet.
+- **22** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — this is the full-program review gate.
 - **0** — **approved to render.** Gate-clean and covered by the approved full-program review set.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **3** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **5** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **1** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -58,10 +58,15 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **m0_welcome-to-mid-career-momentum** (mid-career-momentum) — STALLED: workspace claimed from the scaffold; no plan and no design authored yet
   - last completed **release** at 2026-08-05 20:31 UTC
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
-- **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — the rendered MP4 failed post-render verification (verify_render.py)
-  - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T161448Z-verify-render.log
+- **m1_mini-syllabus** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
+  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m1_mini-syllabus`; then continue `/render-lessons BUILD m1_mini-syllabus`
+- **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
+  - last completed **release** at 2026-08-06 19:09 UTC
+  - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m2_four-kinds-of-career-transition_mid-career-momentum`; then continue `/render-lessons BUILD m2_four-kinds-of-career-transition_mid-career-momentum`
+- **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — safe local render failed or timed out
+  - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log
   - last completed **release** at 2026-08-06 09:42 UTC
-  - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T161448Z-verify-render.log, fix the named defect, then re-render
+  - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log before retrying
 - **m2_welcome-and-using-career-transitions-as-leaps-ahead** (career-transitions) — STALLED: freeform design written; narration not yet synthesized
   - last completed **release** at 2026-08-06 15:39 UTC
   - **To clear it:** select only this lesson: `bash projects/video-production/run.sh produce --stem m2_welcome-and-using-career-transitions-as-leaps-ahead`; then continue `/render-lessons BUILD m2_welcome-and-using-career-transitions-as-leaps-ahead`
@@ -72,21 +77,19 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-1. m1_mini-syllabus
-2. m2_four-kinds-of-career-transition_mid-career-momentum
-3. m2_mid-career-mindsets-and-limiting-beliefs
-4. m2_the-value-of-building-mid-career-momentum
-5. m3_building-your-future-you-resume-pt1
-6. m3_discover-experiences-that-support-your-next-move
-7. m3_from-history-to-signal
-8. m3_how-to-reposition-your-career
-9. m3_rewrite-your-linkedin-for-future-you
-10. m3_using-the-resume-builder-tool-pt2
-11. m4_finding-new-peers-sponsors-and-opportunity-holders
-12. m4_visibility-actions
-13. m4_who-will-walk-this-next-chapter-with-you
-14. m5_skills-for-the-ai-era
-15. m6_youve-built-momentum
+1. m2_mid-career-mindsets-and-limiting-beliefs
+2. m2_the-value-of-building-mid-career-momentum
+3. m3_building-your-future-you-resume-pt1
+4. m3_discover-experiences-that-support-your-next-move
+5. m3_from-history-to-signal
+6. m3_how-to-reposition-your-career
+7. m3_rewrite-your-linkedin-for-future-you
+8. m3_using-the-resume-builder-tool-pt2
+9. m4_finding-new-peers-sponsors-and-opportunity-holders
+10. m4_visibility-actions
+11. m4_who-will-walk-this-next-chapter-with-you
+12. m5_skills-for-the-ai-era
+13. m6_youve-built-momentum
 
 **STALLED — the build folder stopped moving:**
 
@@ -96,6 +99,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: workspace claimed from the scaffold; no plan and no design authored yet
   - last completed **release** at 2026-08-05 20:31 UTC
   - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
+- m1_mini-syllabus
+  - state: freeform design written; narration not yet synthesized
+  - last written to: 2026-08-06 20:27 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m1_mini-syllabus`; then continue `/render-lessons BUILD m1_mini-syllabus`
+- m2_four-kinds-of-career-transition_mid-career-momentum
+  - state: freeform design written; narration not yet synthesized
+  - last completed **release** at 2026-08-06 19:09 UTC
+  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m2_four-kinds-of-career-transition_mid-career-momentum`; then continue `/render-lessons BUILD m2_four-kinds-of-career-transition_mid-career-momentum`
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -109,11 +120,11 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-16. m3_the-two-sided-work
-17. m4_building-your-carry-forward-inventory
-18. m5_testing-your-next-chapter
-19. m5_the-story-that-makes-the-change-legible
-20. m7_your-reinvention-roadmap
+14. m3_the-two-sided-work
+15. m4_building-your-carry-forward-inventory
+16. m5_testing-your-next-chapter
+17. m5_the-story-that-makes-the-change-legible
+18. m7_your-reinvention-roadmap
 
 **STALLED — the build folder stopped moving:**
 
@@ -133,19 +144,19 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 *Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
 
 - m2_four-kinds-of-career-transition_career-transitions
-  - state: a release gate rejected this cut — the rendered MP4 failed post-render verification (verify_render.py)
+  - state: a release gate rejected this cut — safe local render failed or timed out
   - last completed **release** at 2026-08-06 09:42 UTC
-  - gate said: full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T161448Z-verify-render.log
-  - next: inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T161448Z-verify-render.log, fix the named defect, then re-render
+  - gate said: full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log
+  - next: inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log before retrying
 
 ## entrepreneur-accelerator
 
 **READY — queued to build:**
 
-21. m1_reframing-entrepreneurship-and-going-solo
-22. m3_choosing-your-solo-model
-23. m4_building-visibility-on-your-own
-24. m5_making-solo-work-sustainable
+19. m1_reframing-entrepreneurship-and-going-solo
+20. m3_choosing-your-solo-model
+21. m4_building-visibility-on-your-own
+22. m5_making-solo-work-sustainable
 
 **RAW — waiting on refinement:**
 

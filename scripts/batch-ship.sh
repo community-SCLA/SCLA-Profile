@@ -198,8 +198,9 @@ if [[ "$MODE" == "render" ]]; then
         "cloud-render" "inspect $LAST_GUARD_LOG and the cloud credential/backend before retrying"
     [[ -s "$OUT_MP4" ]] || quarantine "cloud render exited 0 but no MP4 landed in renders/"
   else
-    echo "== render: $STEM  (~7 min; hard cap 25)"
-    guarded "local-render" timeout -k 30 1500 bash "$REPO/scripts/render-local-safe.sh" "$WS" \
+    local_render_timeout="${SCLA_LOCAL_RENDER_TIMEOUT:-1500}"
+    echo "== render: $STEM  (~7 min; hard cap $((local_render_timeout / 60)) min)"
+    guarded "local-render" timeout -k 30 "$local_render_timeout" bash "$REPO/scripts/render-local-safe.sh" "$WS" \
       || quarantine "safe local render failed or timed out" "local-render" \
         "inspect $LAST_GUARD_LOG before retrying"
   fi
