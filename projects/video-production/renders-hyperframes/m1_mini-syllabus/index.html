@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mid-Career Momentum: Your Next Move</title>
+  <style>
+    :root { --navy:#0d2437; --deep:#0a1e2f; --blue:#3393d6; --gold:#eaab2d; --paper:#fff; --muted:#98a4cc; }
+    * { box-sizing: border-box; }
+    html, body { width:100%; height:100%; margin:0; overflow:hidden; background:var(--navy); font-family:'Proxima Nova',system-ui,sans-serif; }
+    main { position:relative; width:1920px; height:1080px; color:var(--paper); background:var(--navy); }
+    .clip { position:absolute; inset:0; padding:120px 120px 150px; display:flex; flex-direction:column; justify-content:center; opacity:0; }
+    .eyebrow { color:var(--gold); font-size:24px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { max-width:1500px; margin:22px 0 30px; font-size:92px; line-height:.98; letter-spacing:-.03em; }
+    .sub { max-width:1300px; color:var(--paper); font-size:42px; line-height:1.22; }
+    .cards { display:flex; gap:24px; margin-top:44px; }
+    .card { flex:1; min-height:190px; padding:34px; border:2px solid var(--blue); border-radius:12px; background:var(--deep); font-size:36px; font-weight:700; }
+    .number { display:block; color:var(--gold); font-size:24px; letter-spacing:.12em; margin-bottom:18px; }
+    .commit { max-width:1420px; padding:48px 56px; border-radius:12px; background:var(--paper); color:var(--navy); font-size:54px; font-weight:800; }
+    .next { margin-top:38px; color:var(--gold); font-size:34px; font-weight:900; }
+    .route { position:absolute; left:120px; right:120px; bottom:64px; display:flex; align-items:center; justify-content:space-between; }
+    .route::before { content:''; position:absolute; left:20px; right:20px; height:4px; background:var(--blue); opacity:.55; }
+    .node { z-index:1; display:grid; place-items:center; width:56px; height:56px; border:4px solid var(--paper); border-radius:50%; background:var(--navy); color:var(--paper); font-size:22px; font-weight:900; }
+  </style>
+</head>
+<body>
+<main data-composition="m1_mini-syllabus" data-width="1920" data-height="1080" data-fps="30">
+  <section class="clip" data-beat-id="welcome" data-duration="11">
+    <div class="eyebrow">Mini-Syllabus · Mid-Career Momentum</div><h1>You've Built Experience<br>Now, Build What's Next</h1><div class="sub">More impact. More recognition. A role that fits.</div>
+  </section>
+  <section class="clip" data-beat-id="checkpoint" data-duration="19">
+    <div class="eyebrow">Your career map</div><h1>Pause, Reassess,<br>Choose Deliberately</h1><div class="sub">This checkpoint keeps your progress — and what comes next — in view.</div>
+  </section>
+  <section class="clip" data-beat-id="toolkit" data-duration="16">
+    <div class="eyebrow">Simple tools, useful insight</div><h1>Learn by Doing</h1><div class="cards" data-role="list"><div class="card"><span class="number">01</span>Click-through activities</div><div class="card"><span class="number">02</span>Short reflections & uploads</div><div class="card"><span class="number">03</span>AI-powered prompts</div></div>
+  </section>
+  <section class="clip" data-beat-id="choices" data-duration="16">
+    <div class="eyebrow">Mid-career choices</div><h1>Which Direction Fits Now?</h1><div class="cards" data-role="compare"><div class="card">Push for a promotion</div><div class="card">Redesign your role</div><div class="card">Change lanes</div></div>
+  </section>
+  <section class="clip" data-beat-id="next-move" data-duration="15">
+    <div class="eyebrow">The next 6–12 months</div><h1>One Realistic Move<br>Small, Consistent Steps</h1><div class="sub">Define it. Reposition your experience. Build momentum.</div>
+  </section>
+  <section class="clip" data-beat-id="commitment" data-duration="18">
+    <div class="eyebrow">Your 90-day anchor</div><div class="commit">“Over the next 90 days, my main career goal is...”</div><div class="next">→ Click Next to begin</div>
+  </section>
+  <nav class="route" aria-label="Lesson progress"><span class="node">1</span><span class="node">2</span><span class="node">3</span><span class="node">4</span><span class="node">5</span><span class="node">6</span></nav>
+</main>
+<script type="application/json" id="narration">
+[
+  {"id":"welcome","text":"Welcome to Mid-Career Momentum. You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better."},
+  {"id":"checkpoint","text":"This track is part of your broader career journey. Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting. As you move through the course, you'll see your progress bar update, so you always know exactly where you are and what's ahead."},
+  {"id":"toolkit","text":"You'll use a few simple tools in this platform: click-through activities, short reflections, uploads, and a handful of AI-powered prompts that help you analyze your own career story. If you ever get stuck, you can reach us through the hashtag questionsupport channel or our member support team."},
+  {"id":"choices","text":"Mid-career can feel complicated. You may have family responsibilities, leadership expectations, and a full calendar. And you might be wondering: Should I push for a promotion? Redesign my role to fit better? Or change lanes entirely?"},
+  {"id":"next-move","text":"Rather than trying to solve everything at once, this track helps you focus on your next realistic move over the next 6 to 12 months. We'll help you define that move, reposition your experience, and build momentum through small consistent steps."},
+  {"id":"commitment","text":"Before we dive in, I want you to set a simple, powerful commitment: \"Over the next 90 days, my main career goal is...\" You'll write and submit that statement in a short activity, and it becomes your anchor for the rest of the track. When you're ready, click Next to begin."}
+]
+</script>
+</body>
+</html>

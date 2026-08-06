@@ -1,0 +1,14 @@
+{
+  "title": "Mid-Career Momentum: Your Next Move",
+  "program": "mid-career-momentum",
+  "stem": "m1_mini-syllabus",
+  "concept": "A career-map route turns mid-career complexity into one practical next move and a 90-day commitment.",
+  "beats": [
+    { "id": "welcome", "purpose": "Welcome an experienced learner who is ready for more." },
+    { "id": "checkpoint", "purpose": "Show this track as a deliberate checkpoint on a wider career map." },
+    { "id": "toolkit", "purpose": "Preview the simple learning tools and support available." },
+    { "id": "choices", "purpose": "Acknowledge pressures and frame three plausible career directions." },
+    { "id": "next-move", "purpose": "Focus the learner on one realistic move over 6 to 12 months." },
+    { "id": "commitment", "purpose": "Turn the lesson into a specific 90-day commitment and next action." }
+  ]
+}
