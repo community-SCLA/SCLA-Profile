@@ -1,8 +1,9 @@
 {
   "compositionId": "m4_finding-new-peers-sponsors-and-opportunity-holders",
-  "timeline": "gsap",
-  "paused": true,
-  "seekable": true,
+  "timeline": {
+    "paused": true,
+    "seekable": true
+  },
   "duration": 196,
   "beats": [
     {
@@ -74,73 +75,72 @@
   "assertions": [
     {
       "kind": "appearsBy",
-      "beatId": "people-open-doors",
-      "time": 1.2
+      "selector": "#people-open-doors .title",
+      "bySec": 1.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "three-relationships",
-      "time": 15.2
+      "selector": "#three-relationships .title",
+      "bySec": 15.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "peers",
-      "time": 27.2
+      "selector": "#peers .title",
+      "bySec": 27.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "sponsors",
-      "time": 46.2
+      "selector": "#sponsors .title",
+      "bySec": 46.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "opportunity-holders",
-      "time": 65.2
+      "selector": "#opportunity-holders .title",
+      "bySec": 65.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "strategic-map",
-      "time": 83.2
+      "selector": "#strategic-map .title",
+      "bySec": 83.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "find-them",
-      "time": 96.2
+      "selector": "#find-them .question",
+      "bySec": 96.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "existing-connections",
-      "time": 101.2
+      "selector": "#existing-connections .title",
+      "bySec": 101.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "direct-search",
-      "time": 122.2
+      "selector": "#direct-search .title",
+      "bySec": 122.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "potential-sponsors",
-      "time": 138.2
+      "selector": "#potential-sponsors .title",
+      "bySec": 138.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "contact-map",
-      "time": 154.2
+      "selector": "#contact-map .title",
+      "bySec": 154.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "real-relationships",
-      "time": 170.2
+      "selector": "#real-relationships .title",
+      "bySec": 170.2
     },
     {
       "kind": "appearsBy",
-      "beatId": "closing-question",
-      "time": 186.2
+      "selector": "#closing-question .question",
+      "bySec": 186.2
     },
     {
       "kind": "keepsMoving",
-      "start": 0,
-      "end": 196
+      "maxStaticSec": 21
     }
   ]
 }

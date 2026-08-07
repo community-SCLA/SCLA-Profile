@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Finding New Peers, Sponsors, and Opportunity Holders</title>
   <style>
+    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-400.woff2") format("woff2");font-style:normal;font-weight:400;font-display:block}
+    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-700.woff2") format("woff2");font-style:normal;font-weight:700;font-display:block}
+    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-900.woff2") format("woff2");font-style:normal;font-weight:900;font-display:block}
     :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--soft:#e5eff6;--muted:#98a4cc}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}.chrome{position:absolute;inset:0;pointer-events:none}.brand{position:absolute;left:120px;top:58px;color:var(--gold);font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.progress{position:absolute;left:120px;right:120px;bottom:72px;height:3px;background:rgba(255,255,255,.14)}.progress i{display:block;width:18%;height:100%;background:var(--gold)}.clip{position:absolute;inset:0;padding:150px 120px 150px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden}.eyebrow{color:var(--gold);font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:24px}.title{max-width:1500px;font-size:78px;line-height:1.02;font-weight:900;margin:0}.sub{max-width:1420px;margin-top:30px;font-size:42px;line-height:1.22;color:var(--soft)}.nodes,.cards{display:flex;gap:24px;margin-top:54px}.node,.card{border:2px solid var(--blue);border-radius:12px;padding:28px 32px;font-size:34px;font-weight:700;background:rgba(10,30,47,.68)}.node{border-radius:100px}.card{flex:1;min-height:150px}.card strong{display:block;color:var(--gold);font-size:22px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}.question{border-left:6px solid var(--gold);padding-left:42px;max-width:1500px;font-size:62px;line-height:1.12;font-weight:700}.center{text-align:center;align-items:center}.map{position:relative;width:1060px;height:390px;margin-top:36px}.person{position:absolute;width:190px;height:190px;border:4px solid var(--blue);border-radius:50%;display:grid;place-items:center;text-align:center;font-size:26px;font-weight:900;background:var(--navy)}.person.main{left:435px;top:110px;background:var(--gold);border-color:var(--gold);color:var(--navy)}.person.a{left:40px;top:20px}.person.b{right:40px;top:20px}.person.c{left:150px;bottom:0}.person.d{right:150px;bottom:0}.line{position:absolute;height:4px;background:var(--blue);transform-origin:left center}.l1{width:340px;left:205px;top:130px;transform:rotate(12deg)}.l2{width:340px;left:520px;top:130px;transform:rotate(-12deg)}.l3{width:300px;left:280px;top:285px;transform:rotate(-12deg)}.l4{width:300px;left:530px;top:285px;transform:rotate(12deg)}
   </style>
 </head>
@@ -25,39 +28,7 @@
   <section class="clip" id="real-relationships" data-beat-id="real-relationships" data-track-index="0" data-start="169" data-duration="16" data-narration="Remember: networking is not about collecting business cards or asking for favors at random. It's about building real relationships, sharing value, and staying visible to the people who are most connected to the future you're creating."><div class="eyebrow">Remember</div><h2 class="title">Build Real Relationships</h2><div class="cards"><div class="card"><strong>Build</strong>Genuine connection</div><div class="card"><strong>Share</strong>Mutual value</div><div class="card"><strong>Stay</strong>Visible over time</div></div></section>
   <section class="clip center" id="closing-question" data-beat-id="closing-question" data-track-index="0" data-start="185" data-duration="11" data-narration="As you move forward, ask yourself: &quot;Who already sits near the opportunities I care about—and how can I begin a genuine, respectful relationship with them?&quot;"><div class="map"><span class="line l1"></span><span class="line l2"></span><span class="line l3"></span><span class="line l4"></span><div class="person main">YOUR<br>NEXT MOVE</div><div class="person a">PEER</div><div class="person b">SPONSOR</div><div class="person c">OPPORTUNITY<br>HOLDER</div><div class="person d">ONE GENUINE<br>CONNECTION</div></div><div class="question">Who already sits near the opportunities you care about?</div></section>
 </main>
-<script>
-window.gsap = {
-  timeline: () => {
-    let current = 0;
-    let total = 0;
-    const api = {
-      set(){ return api; }, fromTo(){ return api; }, to(){ return api; },
-      duration(value){ if (value !== undefined) { total = value; return api; } return total; },
-      paused(){ return true; },
-      time(value){
-        if (value === undefined) return current;
-        current = Math.max(0, Math.min(total, Number(value) || 0));
-        document.querySelectorAll('.clip').forEach((clip) => {
-          const start = Number(clip.dataset.start), end = start + Number(clip.dataset.duration);
-          const active = current >= start && current < end;
-          clip.style.visibility = active ? 'visible' : 'hidden';
-          clip.style.opacity = active ? '1' : '0';
-          Array.from(clip.children).forEach((child, index) => {
-            const entered = current >= start + .1 + index * .14;
-            child.style.opacity = active && entered ? '1' : '0';
-            child.style.transform = active && entered ? 'translateY(0)' : 'translateY(24px)';
-          });
-        });
-        document.querySelectorAll('#closing-question .line').forEach((line) => {
-          line.style.transform += current >= 194.8 ? ' scaleX(1)' : ' scaleX(0)';
-        });
-        return api;
-      }
-    };
-    return api;
-  }
-};
-</script>
+<script src="./assets/gsap.min.js"></script>
 <script>
 (() => {
   const id = 'm4_finding-new-peers-sponsors-and-opportunity-holders';
