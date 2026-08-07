@@ -42,7 +42,7 @@ spacing:
   radius-card: "12px"
   radius-pill: "100px"
 
-chrome-regions: ["100,50,700,110"]
+chrome-regions: ["100,40,1820,130", "100,990,1820,1045"]
 
 components:
   cta-label: "gold text 900 with leading arrow; no fill"

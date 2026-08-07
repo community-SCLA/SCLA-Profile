@@ -1,328 +1,62 @@
 {
-  "compositionId": "m3_from-history-to-signal",
-  "duration": 147,
-  "timeline": {
-    "paused": true,
-    "seekable": true
-  },
-  "beats": [
-    {
-      "id": "archive",
-      "start": 0,
-      "end": 12.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "fix",
-      "start": 12.35,
-      "end": 15.65,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "scan",
-      "start": 15.65,
-      "end": 28.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "task-list",
-      "start": 28.35,
-      "end": 43.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "proof",
-      "start": 43.35,
-      "end": 59.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "three-moves",
-      "start": 59.35,
-      "end": 65.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "trajectory",
-      "start": 65.35,
-      "end": 76.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "impact",
-      "start": 76.35,
-      "end": 86.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "future-you",
-      "start": 86.35,
-      "end": 96.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "curate",
-      "start": 96.35,
-      "end": 110.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "connect-dots",
-      "start": 110.35,
-      "end": 124.35,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    },
-    {
-      "id": "question",
-      "start": 124.35,
-      "end": 147,
-      "enter": {
-        "duration": 0.55,
-        "y": 28,
-        "opacity": [
-          0,
-          1
-        ]
-      },
-      "exit": {
-        "duration": 0.3,
-        "opacity": [
-          1,
-          0
-        ]
-      }
-    }
+  "compositionId":"m3_from-history-to-signal",
+  "duration":136.82,
+  "timeline":{"paused":true,"seekable":true,"engine":"gsap"},
+  "beats":[
+    {"id":"b01","start":0,"end":7.895,"entrance":0.5,"exit":0.25},
+    {"id":"b02","start":7.895,"end":15.42,"entrance":0.5,"exit":0.25},
+    {"id":"b03","start":15.42,"end":17.12,"entrance":0.5,"exit":0.25},
+    {"id":"b04","start":17.12,"end":24.81,"entrance":0.5,"exit":0.25},
+    {"id":"b05","start":24.81,"end":27.415,"entrance":0.5,"exit":0.25},
+    {"id":"b06","start":27.415,"end":29.82,"entrance":0.5,"exit":0.25},
+    {"id":"b07","start":29.82,"end":34.78,"entrance":0.5,"exit":0.25},
+    {"id":"b08","start":34.78,"end":36.32,"entrance":0.5,"exit":0.25},
+    {"id":"b09","start":36.32,"end":43.845,"entrance":0.5,"exit":0.25},
+    {"id":"b10","start":43.845,"end":50.765,"entrance":0.5,"exit":0.25},
+    {"id":"b11","start":50.765,"end":52.625,"entrance":0.5,"exit":0.25},
+    {"id":"b12","start":52.625,"end":58.03,"entrance":0.5,"exit":0.25},
+    {"id":"b13","start":58.03,"end":66.775,"entrance":0.5,"exit":0.25},
+    {"id":"b14","start":66.775,"end":71.915,"entrance":0.5,"exit":0.25},
+    {"id":"b15","start":71.915,"end":74.4,"entrance":0.5,"exit":0.25},
+    {"id":"b16","start":74.4,"end":76.695,"entrance":0.5,"exit":0.25},
+    {"id":"b17","start":76.695,"end":86.15,"entrance":0.5,"exit":0.25},
+    {"id":"b18","start":86.15,"end":93.655,"entrance":0.5,"exit":0.25},
+    {"id":"b19","start":93.655,"end":99.95,"entrance":0.5,"exit":0.25},
+    {"id":"b20","start":99.95,"end":104.15,"entrance":0.5,"exit":0.25},
+    {"id":"b21","start":104.15,"end":105.84,"entrance":0.5,"exit":0.25},
+    {"id":"b22","start":105.84,"end":111.495,"entrance":0.5,"exit":0.25},
+    {"id":"b23","start":111.495,"end":119.945,"entrance":0.5,"exit":0.25},
+    {"id":"b24","start":119.945,"end":123.8,"entrance":0.5,"exit":0.25},
+    {"id":"b25","start":123.8,"end":129.75,"entrance":0.5,"exit":0.25},
+    {"id":"b26","start":129.75,"end":136.82,"entrance":0.5,"exit":0.25}
   ],
-  "assertions": [
-    {
-      "kind": "appearsBy",
-      "beatId": "archive",
-      "selector": "#beat-archive .content",
-      "bySec": 1.0
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "fix",
-      "selector": "#beat-fix .content",
-      "bySec": 13.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "scan",
-      "selector": "#beat-scan .content",
-      "bySec": 16.65
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "task-list",
-      "selector": "#beat-task-list .content",
-      "bySec": 29.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "proof",
-      "selector": "#beat-proof .content",
-      "bySec": 44.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "three-moves",
-      "selector": "#beat-three-moves .content",
-      "bySec": 60.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "trajectory",
-      "selector": "#beat-trajectory .content",
-      "bySec": 66.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "impact",
-      "selector": "#beat-impact .content",
-      "bySec": 77.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "future-you",
-      "selector": "#beat-future-you .content",
-      "bySec": 87.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "curate",
-      "selector": "#beat-curate .content",
-      "bySec": 97.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "connect-dots",
-      "selector": "#beat-connect-dots .content",
-      "bySec": 111.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "question",
-      "selector": "#beat-question .content",
-      "bySec": 125.35
-    },
-    {
-      "kind": "keepsMoving"
-    }
-  ],
-  "keepsMoving": true
+  "assertions":[
+    {"kind":"keepsMoving","selector":"#m3_from-history-to-signal"},
+    {"kind":"appearsBy","beatId":"b01","selector":"#b01","bySec":1.2},
+    {"kind":"appearsBy","beatId":"b02","selector":"#b02","bySec":9.095},
+    {"kind":"appearsBy","beatId":"b03","selector":"#b03","bySec":16.62},
+    {"kind":"appearsBy","beatId":"b04","selector":"#b04","bySec":18.32},
+    {"kind":"appearsBy","beatId":"b05","selector":"#b05","bySec":26.01},
+    {"kind":"appearsBy","beatId":"b06","selector":"#b06","bySec":28.615},
+    {"kind":"appearsBy","beatId":"b07","selector":"#b07","bySec":31.02},
+    {"kind":"appearsBy","beatId":"b08","selector":"#b08","bySec":35.98},
+    {"kind":"appearsBy","beatId":"b09","selector":"#b09","bySec":37.52},
+    {"kind":"appearsBy","beatId":"b10","selector":"#b10","bySec":45.045},
+    {"kind":"appearsBy","beatId":"b11","selector":"#b11","bySec":51.965},
+    {"kind":"appearsBy","beatId":"b12","selector":"#b12","bySec":53.825},
+    {"kind":"appearsBy","beatId":"b13","selector":"#b13","bySec":59.23},
+    {"kind":"appearsBy","beatId":"b14","selector":"#b14","bySec":67.975},
+    {"kind":"appearsBy","beatId":"b15","selector":"#b15","bySec":73.115},
+    {"kind":"appearsBy","beatId":"b16","selector":"#b16","bySec":75.6},
+    {"kind":"appearsBy","beatId":"b17","selector":"#b17","bySec":77.895},
+    {"kind":"appearsBy","beatId":"b18","selector":"#b18","bySec":87.35},
+    {"kind":"appearsBy","beatId":"b19","selector":"#b19","bySec":94.855},
+    {"kind":"appearsBy","beatId":"b20","selector":"#b20","bySec":101.15},
+    {"kind":"appearsBy","beatId":"b21","selector":"#b21","bySec":105.35},
+    {"kind":"appearsBy","beatId":"b22","selector":"#b22","bySec":107.04},
+    {"kind":"appearsBy","beatId":"b23","selector":"#b23","bySec":112.695},
+    {"kind":"appearsBy","beatId":"b24","selector":"#b24","bySec":121.145},
+    {"kind":"appearsBy","beatId":"b25","selector":"#b25","bySec":125},
+    {"kind":"appearsBy","beatId":"b26","selector":"#b26","bySec":130.95}
+  ]
 }
