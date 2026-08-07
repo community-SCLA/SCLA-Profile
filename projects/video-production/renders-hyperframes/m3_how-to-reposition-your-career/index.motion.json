@@ -1,0 +1,184 @@
+{
+  "compositionId": "m3_how-to-reposition-your-career",
+  "duration": 174,
+  "fps": 30,
+  "timeline": "paused",
+  "seekable": true,
+  "beats": [
+    {
+      "id": "reframe-start-over",
+      "start": 0,
+      "duration": 9
+    },
+    {
+      "id": "reframe-existing-value",
+      "start": 9,
+      "duration": 12
+    },
+    {
+      "id": "introduce-three",
+      "start": 21,
+      "duration": 7
+    },
+    {
+      "id": "alex-proof",
+      "start": 28,
+      "duration": 14
+    },
+    {
+      "id": "alex-reposition",
+      "start": 42,
+      "duration": 22
+    },
+    {
+      "id": "jordan-context",
+      "start": 64,
+      "duration": 13
+    },
+    {
+      "id": "jordan-translate",
+      "start": 77,
+      "duration": 17
+    },
+    {
+      "id": "priya-context",
+      "start": 94,
+      "duration": 10
+    },
+    {
+      "id": "priya-leadership",
+      "start": 104,
+      "duration": 14
+    },
+    {
+      "id": "pattern",
+      "start": 118,
+      "duration": 5
+    },
+    {
+      "id": "step-clarify",
+      "start": 123,
+      "duration": 9
+    },
+    {
+      "id": "step-curate",
+      "start": 132,
+      "duration": 9
+    },
+    {
+      "id": "step-translate",
+      "start": 141,
+      "duration": 9
+    },
+    {
+      "id": "step-signals",
+      "start": 150,
+      "duration": 9
+    },
+    {
+      "id": "truth",
+      "start": 159,
+      "duration": 7
+    },
+    {
+      "id": "question",
+      "start": 166,
+      "duration": 5
+    },
+    {
+      "id": "open-doors",
+      "start": 171,
+      "duration": 3
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#reframe-start-over",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#reframe-existing-value",
+      "bySec": 10.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#introduce-three",
+      "bySec": 22.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#alex-proof",
+      "bySec": 29.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#alex-reposition",
+      "bySec": 43.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#jordan-context",
+      "bySec": 65.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#jordan-translate",
+      "bySec": 78.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#priya-context",
+      "bySec": 95.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#priya-leadership",
+      "bySec": 105.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#pattern",
+      "bySec": 119.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#step-clarify",
+      "bySec": 124.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#step-curate",
+      "bySec": 133.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#step-translate",
+      "bySec": 142.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#step-signals",
+      "bySec": 151.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#truth",
+      "bySec": 160.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#question",
+      "bySec": 167.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#open-doors",
+      "bySec": 172.2
+    },
+    {
+      "kind": "keepsMoving"
+    }
+  ]
+}

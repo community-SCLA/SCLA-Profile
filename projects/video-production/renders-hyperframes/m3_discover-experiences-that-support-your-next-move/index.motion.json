@@ -1,0 +1,89 @@
+{
+  "compositionId": "m3_discover-experiences-that-support-your-next-move",
+  "duration": 132.6,
+  "fps": 30,
+  "timeline": "master",
+  "paused": true,
+  "seekable": true,
+  "beats": [
+    {
+      "id": "future-proof",
+      "start": 0,
+      "duration": 16.15
+    },
+    {
+      "id": "curated-gallery",
+      "start": 16.15,
+      "duration": 13.65
+    },
+    {
+      "id": "selection-lens",
+      "start": 29.8,
+      "duration": 18.65
+    },
+    {
+      "id": "leadership-proof",
+      "start": 48.45,
+      "duration": 15.65
+    },
+    {
+      "id": "lateral-proof",
+      "start": 64.1,
+      "duration": 15.85
+    },
+    {
+      "id": "rams-framework",
+      "start": 79.95,
+      "duration": 34.65
+    },
+    {
+      "id": "true-story",
+      "start": 114.6,
+      "duration": 18.0
+    }
+  ],
+  "keepsMoving": true,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#future-proof",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#curated-gallery",
+      "bySec": 17.349999999999998
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#selection-lens",
+      "bySec": 31.0
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#leadership-proof",
+      "bySec": 49.650000000000006
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lateral-proof",
+      "bySec": 65.3
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#rams-framework",
+      "bySec": 81.15
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#true-story",
+      "bySec": 115.8
+    },
+    {
+      "kind": "keepsMoving",
+      "selector": ".progress-fill",
+      "fromSec": 1,
+      "toSec": 132
+    }
+  ]
+}
