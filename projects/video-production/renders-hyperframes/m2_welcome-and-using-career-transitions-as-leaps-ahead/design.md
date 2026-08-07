@@ -1,45 +1,49 @@
 # Design direction
 
+## Carrying object
+
+One route rail runs across the bottom of every frame, from **Shift** to **Next
+Chapter**, with seven named stations. A gold traveller advances station to
+station as the argument moves. The rail and the program eyebrow are persistent
+furniture drawn once outside the beat clips, so they never redraw — the lesson
+reads as one continuous journey rather than a stack of slides.
+
+Inside an act the frame ACCUMULATES: cards, chips and numbered moves are added
+next to the ones already on screen and stay in the same positions. Only the act
+transitions replace the field.
+
 ## Frame
 
-- Canvas: 1920×1080.
-- Safe area: 120px left/right and 72px top/bottom.
-- Persistent program eyebrow at top left: **CAREER TRANSITIONS**.
-- Persistent progress label at top right: **SHIFT → NEXT CHAPTER**.
-- The main route occupies the center and lower two-thirds of the frame.
-- Keep the bottom 120px free of essential content.
+- Canvas 1920×1080. All content sits inside x 130–1790 and y 150–950.
+- Program eyebrow top left (inside the declared chrome region).
+- Heading band at y 176. Stage (the accumulating field) at y 376.
+- Route rail at y 803 with station labels at y 838.
 
-## Palette
+## Palette and type
 
-- Deep navy (`#0a1e2f`) for the cinematic field.
-- Paper (`#ffffff`) and cultured (`#f6f6f9`) for readable cards.
-- Gold (`#eaab2d`) for the traveler, active states, and resolves.
-- Blue (`#3393d6`) for route geometry, evidence, and secondary signals.
-- Muted video blue (`#5f6f96`) for inactive route segments.
+- Navy-deep field; paper and cultured for text; gold for the traveller, the
+  active state and the numbers that carry the claim; blue for evidence chips;
+  muted video blue for the inactive rail.
+- Heading 64px / 900. Title card 100px / 900. Body 40–44px. Labels 22–24px.
+- Cards and chips are outlined, never filled, so a beat adds ink rather than
+  repainting the frame.
 
-## Type
+## Acts
 
-- Proxima Nova first, with the token fallback stack.
-- Display: 96–112px, 900 weight.
-- Heading: 60–68px, 900 weight.
-- Body anchors: 40–46px, 400 or 700 weight.
-- Labels: 22–24px, 700 weight, uppercase, tracked.
-
-## Layout rules
-
-- Use one dominant statement per beat.
-- Do not place narration paragraphs on screen.
-- Use the line as the continuity device between scenes.
-- Declare the three framework items as a list and the external/internal move as
-  a comparison so automated form checks can grade them.
-- All transitions are additive or replacing; no unexplained empty frame.
+| Station | Beats | What arrives |
+| --- | --- | --- |
+| Shift | ct-welcome … ct-quiet | four signals accumulate one per beat |
+| Name It | ct-name-it | the field clears to a single naming line |
+| Horizon | ct-researchers, ct-horizon | the two researchers, then the 3–5 and 5-year numbers, then the struck-out short horizons |
+| Permission | ct-permission … ct-gets-done | the permission slip is built line by line |
+| Tracks | ct-foundation … ct-redirection | Track 1, then 2, then 3 |
+| Three Moves | ct-three-things … ct-third | three numbered moves fill in |
+| Next Chapter | ct-one-promise … ct-question | the honest terrain, the evidence, the closing question |
 
 ## Motion
 
-- Route strokes reveal in 0.5–0.8 seconds.
-- Traveler shifts between nodes in 0.45–0.65 seconds.
-- Cards enter with 16–28px vertical movement and opacity; settle by 1.2 seconds.
-- Supporting labels stagger by 0.14 seconds.
-- No infinite animation or decorative motion without narrative meaning.
-- The final second adds a gold halo around the selected junction.
-
+- Entrance: 0.5s per element, 0.13s stagger, settled well inside the beat.
+- Each beat carries a slow parallax rise across its whole duration, so a long
+  beat keeps breathing instead of freezing once its entrance has settled.
+- The traveller advances with a 0.6s transform tween at each act boundary.
+- No infinite repeats. Nothing on the rail ever redraws.

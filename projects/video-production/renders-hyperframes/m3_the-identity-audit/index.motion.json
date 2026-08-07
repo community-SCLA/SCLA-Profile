@@ -4,157 +4,137 @@
     {
       "kind": "appearsBy",
       "selector": "#beat-b01",
-      "bySec": 1.0
+      "bySec": 1.2
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b02",
-      "bySec": 3.68
+      "bySec": 3.88
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b03",
-      "bySec": 6.59
+      "bySec": 6.79
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b04",
-      "bySec": 17.88
+      "bySec": 18.08
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b05",
-      "bySec": 22.28
+      "bySec": 22.48
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b06",
-      "bySec": 25.31
+      "bySec": 25.51
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b07",
-      "bySec": 27.25
+      "bySec": 27.45
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b08",
-      "bySec": 31.34
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-b09",
-      "bySec": 39.4
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-b10",
-      "bySec": 41.77
+      "bySec": 31.54
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b11",
-      "bySec": 45.39
+      "bySec": 45.07
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b12",
-      "bySec": 51.55
+      "bySec": 51.23
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b13",
-      "bySec": 60.64
+      "bySec": 60.32
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b14",
-      "bySec": 66.75
+      "bySec": 66.43
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b15",
-      "bySec": 72.12
+      "bySec": 71.8
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b16",
-      "bySec": 77.29
+      "bySec": 76.97
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b17",
-      "bySec": 83.86
+      "bySec": 83.54
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b18",
-      "bySec": 91.0
+      "bySec": 90.68
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b19",
-      "bySec": 93.62
+      "bySec": 93.3
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b20",
-      "bySec": 98.64
+      "bySec": 98.31
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b21",
-      "bySec": 101.65
+      "bySec": 101.33
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b22",
-      "bySec": 105.61
+      "bySec": 105.3
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b23",
-      "bySec": 109.4
+      "bySec": 109.08
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b24",
-      "bySec": 114.89
+      "bySec": 114.57
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b25",
-      "bySec": 123.4
+      "bySec": 123.08
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b26",
-      "bySec": 125.78
+      "bySec": 125.47
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b27",
-      "bySec": 128.19
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-b28",
-      "bySec": 131.32
+      "bySec": 127.87
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b29",
-      "bySec": 134.66
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-b30",
-      "bySec": 139.24
+      "bySec": 134.05
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-b31",
-      "bySec": 147.53
+      "bySec": 146.53
     },
     {
       "kind": "appearsBy",
@@ -164,31 +144,35 @@
     {
       "kind": "appearsBy",
       "selector": "#L1 .num",
-      "bySec": 39.8
+      "bySec": 35.94
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#L1 .name",
+      "bySec": 40.34
     },
     {
       "kind": "appearsBy",
       "selector": "#L5 .name",
-      "bySec": 84.06
+      "bySec": 83.54
     },
     {
       "kind": "appearsBy",
       "selector": "#questions li:nth-child(3)",
-      "bySec": 105.81
+      "bySec": 105.3
     },
     {
       "kind": "appearsBy",
       "selector": "#rituals li:nth-child(3)",
-      "bySec": 128.39
+      "bySec": 127.87
     },
     {
       "kind": "appearsBy",
       "selector": "#baserule",
-      "bySec": 151.73
+      "bySec": 150.53
     },
     {
       "kind": "keepsMoving",
-      "selector": "#root",
       "maxStaticSec": 5.0
     }
   ]

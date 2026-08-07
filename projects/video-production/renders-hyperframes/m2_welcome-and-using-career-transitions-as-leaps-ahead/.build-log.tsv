@@ -14,3 +14,9 @@
 2026-08-06T23:52:23Z	preflight	exit 1
 2026-08-06T23:58:57Z	resplit	beat manifest re-split 13 to 29 sentence beats to clear pace gate; narration resynthesized 135.68s
 2026-08-07T00:06:42Z	timing	24-beat split: boundaries PASS 0 violations, pace PASS 9.88 bpm median 4.93s long-share 48 pct, total 145.681s
+2026-08-07T00:12:33Z	beats	final split 21 beats 145.50s — boundaries PASS, pace PASS 8.66bpm median 5.97s, copy PASS
+2026-08-07T00:20:48Z	preflight	exit 1
+2026-08-07T00:31:37Z	preflight	exit 0 — gate-clean
+2026-08-07T00:33:27Z	preflight	exit 0 — gate-clean
+2026-08-07T00:33:36Z	compose	21 clips authored, GSAP CDN script fixed (module import never loaded), traveller on transforms, parallax drift; hyperframes check passed; 21 snapshots captured
+2026-08-07T00:33:44Z	release	build session ended

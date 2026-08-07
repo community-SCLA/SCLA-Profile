@@ -5,3 +5,8 @@
 2026-08-07T00:01:20Z	concept	Lens A selected (career-map checkpoint carrier); CONCEPT.md + concept.json + design.md written
 2026-08-07T00:01:20Z	author	19-beat manifest + index.html + index.motion.json authored; static preflight PASS
 2026-08-07T00:08:23Z	preflight	exit 1
+2026-08-07T00:13:48Z	preflight	exit 0 — gate-clean
+2026-08-07T00:15:50Z	preflight	exit 0 — gate-clean
+2026-08-07T00:16:08Z	narration	19 beats synthesized via video-audio.sh (heygen/Oxana/1.0); plan_timing.py -> 115.658s
+2026-08-07T00:16:08Z	gate	preflight exit 0; qa/PREFLIGHT-OK written; 19 beats, 115.658s, 9.86 bpm, carrier churn 4.24%
+2026-08-07T00:16:08Z	release	build session ended

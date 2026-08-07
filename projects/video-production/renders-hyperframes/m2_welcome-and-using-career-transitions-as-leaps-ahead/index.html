@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome and Using Career Transitions as Leaps Ahead</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <style>
     :root {
       --navy: #0d2437;
@@ -28,7 +29,7 @@
       font-family: var(--font);
     }
 
-    #composition {
+    #root {
       position: relative;
       width: 1920px;
       height: 1080px;
@@ -36,243 +37,398 @@
       background: var(--navy-deep);
     }
 
-    .clip {
-      position: absolute;
-      inset: 0;
-      padding: 156px 120px 120px;
-      display: grid;
-      align-content: center;
-      opacity: 0;
-    }
+    h1, h2, p { margin: 0; }
 
-    .clip:first-of-type { opacity: 1; }
+    /* ---- persistent furniture: eyebrow + route rail -------------------- */
 
-    .eyebrow,
-    .route-label {
+    .eyebrow {
       position: absolute;
+      left: 120px;
       top: 68px;
-      z-index: 20;
+      z-index: 30;
       font-size: 24px;
       line-height: 1;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--gold);
     }
 
-    .eyebrow { left: 120px; color: var(--gold); }
-    .route-label { right: 120px; color: var(--blue); }
-
-    h1, h2, p { margin: 0; }
-    h1 { max-width: 1320px; font-size: 108px; line-height: 0.98; font-weight: 900; letter-spacing: -0.035em; }
-    h2 { max-width: 1300px; font-size: 68px; line-height: 1.05; font-weight: 900; letter-spacing: -0.025em; }
-    .anchor { max-width: 1100px; margin-top: 28px; font-size: 44px; line-height: 1.15; color: var(--cultured); }
-    .gold { color: var(--gold); }
-    .blue { color: var(--blue); }
-
-    .rule {
-      width: 100%;
-      height: 8px;
-      margin-top: 62px;
-      border-radius: 100px;
-      background: var(--muted-video);
-      position: relative;
-    }
-
-    .rule::before {
-      content: "";
+    .rail { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; z-index: 5; }
+    .rail-line { position: absolute; left: 260px; top: 803px; width: 1400px; height: 6px; border-radius: 100px; background: var(--muted-video); }
+    .stop { position: absolute; top: 795px; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: var(--muted-video); }
+    .stop-label {
       position: absolute;
-      left: 0;
-      top: -10px;
-      width: 28px;
-      height: 28px;
+      top: 838px;
+      width: 260px;
+      margin-left: -130px;
+      text-align: center;
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted-video);
+    }
+    .traveler {
+      position: absolute;
+      top: 787px;
+      width: 38px;
+      height: 38px;
+      margin-left: -19px;
       border-radius: 50%;
       background: var(--gold);
-      box-shadow: 0 0 0 12px rgba(234, 171, 45, 0.18);
+      box-shadow: 0 0 0 10px rgba(234, 171, 45, 0.22);
     }
 
-    .signals,
-    .track-grid,
-    .three-grid,
-    .terrain,
-    .junction {
-      display: grid;
-      gap: 24px;
-      margin-top: 54px;
+    /* ---- beat frame ---------------------------------------------------- */
+
+    .clip { position: absolute; inset: 0; z-index: 10; opacity: 0; }
+
+    .heading {
+      position: absolute;
+      left: 130px;
+      top: 176px;
+      width: 1450px;
+      font-size: 64px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.02em;
     }
 
-    .signals { grid-template-columns: repeat(5, 1fr); }
-    .track-grid, .three-grid { grid-template-columns: repeat(3, 1fr); }
-    .terrain { grid-template-columns: repeat(3, 1fr); }
-    .junction { grid-template-columns: repeat(3, 1fr); }
+    .stage { position: absolute; left: 130px; top: 376px; width: 1660px; }
+
+    .title { position: absolute; left: 130px; top: 236px; width: 1440px; font-size: 100px; line-height: 1.0; font-weight: 900; letter-spacing: -0.035em; }
+    .subtitle { position: absolute; left: 130px; top: 500px; width: 1440px; font-size: 44px; line-height: 1.15; color: var(--cultured); }
+    .gold { color: var(--gold); }
+
+    .rule { width: 620px; height: 8px; border-radius: 100px; background: var(--gold); }
+
+    .lead { font-size: 44px; line-height: 1.2; color: var(--cultured); }
+
+    /* ---- accumulating card field --------------------------------------- */
+
+    .signals, .tracks { display: grid; gap: 26px; }
+    .signals { grid-template-columns: repeat(4, 1fr); }
+    .tracks { grid-template-columns: repeat(3, 1fr); }
 
     .card {
-      min-height: 150px;
-      padding: 32px;
+      min-height: 168px;
+      padding: 26px 30px;
       border: 2px solid var(--muted-video);
       border-radius: 12px;
-      background: rgba(13, 36, 55, 0.88);
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 12px;
     }
-
-    .card.active { border-color: var(--gold); background: var(--paper); color: var(--navy); }
+    .card.on { border-color: var(--blue); }
+    .card.now { border-color: var(--gold); }
     .card .kicker { font-size: 22px; line-height: 1; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-    .card strong { font-size: 42px; line-height: 1.05; font-weight: 900; }
-    .card span { font-size: 40px; line-height: 1.08; }
+    .card.now .kicker { color: var(--gold); }
+    .card strong { font-size: 42px; line-height: 1.06; font-weight: 900; }
 
-    .stat-row { display: flex; align-items: flex-end; gap: 84px; margin-top: 44px; }
-    .stat { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; }
-    .stat strong { font-size: 180px; line-height: 0.8; color: var(--gold); }
-    .stat span { max-width: 300px; font-size: 40px; line-height: 1.05; font-weight: 700; }
+    /* ---- research horizon ---------------------------------------------- */
 
-    .permission {
-      width: 1260px;
-      padding: 58px 70px;
-      background: var(--paper);
-      color: var(--navy);
-      border-left: 18px solid var(--gold);
+    .chips { display: flex; gap: 22px; }
+    .chip { padding: 14px 30px; border: 2px solid var(--blue); border-radius: 100px; font-size: 40px; line-height: 1.1; color: var(--cultured); }
+    .chip.struck { border-color: var(--muted-video); color: var(--muted-video); text-decoration: line-through; }
+
+    .stats { display: flex; gap: 96px; margin-top: 40px; }
+    .stat { display: flex; align-items: center; gap: 22px; }
+    .stat strong { font-size: 122px; line-height: 0.86; font-weight: 900; color: var(--gold); }
+    .stat span { width: 280px; font-size: 40px; line-height: 1.06; font-weight: 700; }
+
+    /* ---- permission slip ------------------------------------------------ */
+
+    .slip {
+      width: 1320px;
+      padding: 34px 44px;
+      border: 2px solid var(--muted-video);
+      border-left: 16px solid var(--gold);
       border-radius: 12px;
-      box-shadow: 28px 30px 0 var(--blue);
     }
+    .slip .label { font-size: 22px; line-height: 1; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    .slip strong { display: block; margin-top: 22px; font-size: 56px; line-height: 1.05; font-weight: 900; }
+    .slip .note { display: block; margin-top: 22px; font-size: 42px; line-height: 1.1; color: var(--cultured); }
 
-    .permission .label { font-size: 22px; line-height: 1; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-    .permission strong { display: block; margin-top: 24px; font-size: 64px; line-height: 1.02; }
+    /* ---- three moves ---------------------------------------------------- */
 
-    .compare {
-      display: grid;
-      grid-template-columns: 1fr 110px 1fr;
-      align-items: center;
-      gap: 30px;
-      margin-top: 52px;
-    }
+    .moves { display: grid; gap: 22px; }
+    .move { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 28px; min-height: 96px; padding-bottom: 18px; border-bottom: 2px solid var(--muted-video); }
+    .move .num { font-size: 42px; line-height: 1; font-weight: 900; color: var(--muted-video); }
+    .move.on .num { color: var(--gold); }
+    .move .what { font-size: 44px; line-height: 1.08; font-weight: 700; }
+    .compare { display: flex; align-items: center; gap: 26px; }
+    .compare .arrow { font-size: 44px; color: var(--gold); }
 
-    .compare .arrow { text-align: center; font-size: 76px; color: var(--gold); }
-    .compare .card { min-height: 230px; }
+    /* ---- promise -------------------------------------------------------- */
 
-    .mini-paths { position: relative; height: 290px; margin-top: 38px; }
-    .mini-paths::before, .mini-paths::after { content: ""; position: absolute; left: 80px; width: 1220px; height: 6px; border-radius: 20px; background: var(--blue); transform-origin: left center; }
-    .mini-paths::before { top: 105px; transform: rotate(-7deg); }
-    .mini-paths::after { top: 180px; transform: rotate(6deg); }
-    .test-node { position: absolute; top: 108px; width: 96px; height: 96px; border: 8px solid var(--navy-deep); border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px var(--gold); }
-    .test-node:nth-child(1) { left: 120px; }
-    .test-node:nth-child(2) { left: 600px; top: 52px; }
-    .test-node:nth-child(3) { left: 1090px; top: 168px; }
-
-    .promise-line { margin-top: 56px; height: 12px; border-radius: 20px; background: linear-gradient(90deg, var(--muted-video) 0 26%, var(--blue) 26% 63%, var(--gold) 63% 100%); /* brand-allow: brand-token-only segmented route */ }
-
-    .question { max-width: 1540px; }
-    .junction .card { min-height: 170px; text-align: center; align-items: center; }
-    .junction .card::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--gold); }
+    .terrain { display: flex; gap: 24px; margin-top: 34px; }
+    .evidence { margin-top: 34px; font-size: 42px; line-height: 1.15; color: var(--cultured); }
   </style>
 </head>
 <body>
-  <main id="composition" data-composition-id="career-transition-leap" data-width="1920" data-height="1080" data-fps="30" data-duration="142.12">
-    <section class="clip" id="ct-welcome" data-scene="ct-welcome" data-beat-id="ct-welcome" data-track-index="0" data-start="0" data-duration="2.82">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h1>Welcome to<br><span class="gold">Career Transitions</span></h1>
-      <p class="anchor">Welcome and Using Career Transitions as Leaps Ahead</p>
-      <div class="rule"></div>
+  <main id="root" data-composition-id="career-transition-leap" data-width="1920" data-height="1080" data-fps="30" data-start="0" data-duration="145.5">
+
+    <div class="eyebrow">Career Transitions</div>
+
+    <nav class="rail" data-role="progress">
+      <i class="rail-line"></i>
+      <i class="stop" style="left:260px"></i>
+      <i class="stop" style="left:493px"></i>
+      <i class="stop" style="left:727px"></i>
+      <i class="stop" style="left:960px"></i>
+      <i class="stop" style="left:1193px"></i>
+      <i class="stop" style="left:1427px"></i>
+      <i class="stop" style="left:1660px"></i>
+      <span class="stop-label" style="left:260px">Shift</span>
+      <span class="stop-label" style="left:493px">Name It</span>
+      <span class="stop-label" style="left:727px">Horizon</span>
+      <span class="stop-label" style="left:960px">Permission</span>
+      <span class="stop-label" style="left:1193px">Tracks</span>
+      <span class="stop-label" style="left:1427px">Three Moves</span>
+      <span class="stop-label" style="left:1660px">Next Chapter</span>
+      <i class="traveler" id="traveler" style="left:260px"></i>
+    </nav>
+
+    <section class="clip" id="ct-welcome" data-beat-id="ct-welcome" data-track-index="0" data-start="0" data-duration="2.82">
+      <h1 class="title">Welcome to <span class="gold">Career Transitions</span></h1>
+      <p class="subtitle">Welcome and Using Career Transitions as Leaps Ahead</p>
     </section>
 
-    <section class="clip" id="ct-something-shifted" data-scene="ct-something-shifted" data-beat-id="ct-something-shifted" data-track-index="0" data-start="2.82" data-duration="27.65">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Something Has <span class="gold">Shifted</span></h2>
-      <div class="signals" data-role="list">
-        <div class="card"><span>Industry</span></div><div class="card"><span>Role</span></div><div class="card"><span>Layoff</span></div><div class="card"><span>Life</span></div><div class="card active"><span>Next chapter</span></div>
+    <section class="clip" id="ct-shifted" data-beat-id="ct-shifted" data-track-index="0" data-start="2.82" data-duration="6.47">
+      <h2 class="heading">Something Has Shifted</h2>
+      <div class="stage">
+        <div class="signals" data-role="list">
+          <div class="card now"><span class="kicker">Signal</span><strong>Industry</strong></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+        </div>
       </div>
     </section>
 
-    <section class="clip" id="ct-name-it" data-scene="ct-name-it" data-beat-id="ct-name-it" data-track-index="0" data-start="30.47" data-duration="3.73">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Start by <span class="gold">Naming</span> Where You Are</h2>
-      <div class="rule"></div>
-    </section>
-
-    <section class="clip" id="ct-research-horizon" data-scene="ct-research-horizon" data-beat-id="ct-research-horizon" data-track-index="0" data-start="34.2" data-duration="15.83">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Transitions Have a Longer Horizon Than We Expect</h2>
-      <div class="stat-row">
-        <div class="stat"><strong>3–5</strong><span>major life transitions</span></div>
-        <div class="stat"><strong>5</strong><span>years, on average</span></div>
+    <section class="clip" id="ct-role" data-beat-id="ct-role" data-track-index="0" data-start="9.29" data-duration="4.895">
+      <h2 class="heading">Something Has Shifted</h2>
+      <div class="stage">
+        <div class="signals" data-role="list">
+          <div class="card on"><span class="kicker">Signal</span><strong>Industry</strong></div>
+          <div class="card now"><span class="kicker">Signal</span><strong>Role</strong></div>
+          <div class="card"></div>
+          <div class="card"></div>
+        </div>
       </div>
     </section>
 
-    <section class="clip" id="ct-five-years" data-scene="ct-five-years" data-beat-id="ct-five-years" data-track-index="0" data-start="50.03" data-duration="4.075">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Not Weeks, Not Months</h2>
-      <div class="stat-row"><div class="stat"><strong>5</strong><span>years to fully complete</span></div></div>
-      <div class="rule"></div>
-    </section>
-
-    <section class="clip" id="ct-permission-slip" data-scene="ct-permission-slip" data-beat-id="ct-permission-slip" data-track-index="0" data-start="54.105" data-duration="9.925">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <div class="permission"><span class="label">Permission slip</span><strong>Taking longer does not mean doing it wrong.</strong></div>
-    </section>
-
-    <section class="clip" id="ct-three-tracks" data-scene="ct-three-tracks" data-beat-id="ct-three-tracks" data-track-index="0" data-start="64.03" data-duration="16.53">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Track 3 Changes the <span class="gold">Direction Itself</span></h2>
-      <div class="track-grid" data-role="list">
-        <div class="card"><span class="kicker">Track 1</span><strong>Foundation</strong></div>
-        <div class="card"><span class="kicker">Track 2</span><strong>Momentum</strong></div>
-        <div class="card active"><span class="kicker">Track 3</span><strong>Redirection</strong></div>
+    <section class="clip" id="ct-event" data-beat-id="ct-event" data-track-index="0" data-start="14.185" data-duration="10.865">
+      <h2 class="heading">Something Has Shifted</h2>
+      <div class="stage">
+        <div class="signals" data-role="list">
+          <div class="card on"><span class="kicker">Signal</span><strong>Industry</strong></div>
+          <div class="card on"><span class="kicker">Signal</span><strong>Role</strong></div>
+          <div class="card now"><span class="kicker">Signal</span><strong>An event outside your control</strong></div>
+          <div class="card"></div>
+        </div>
       </div>
     </section>
 
-    <section class="clip" id="ct-three-things" data-scene="ct-three-things" data-beat-id="ct-three-things" data-track-index="0" data-start="80.56" data-duration="4.29">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Three Things Build the Runway</h2>
-      <div class="three-grid" data-role="list">
-        <div class="card"><span class="kicker">01</span><strong>Look honestly</strong></div>
-        <div class="card"><span class="kicker">02</span><strong>Test safely</strong></div>
-        <div class="card"><span class="kicker">03</span><strong>Build credibly</strong></div>
+    <section class="clip" id="ct-quiet" data-beat-id="ct-quiet" data-track-index="0" data-start="25.05" data-duration="6.91">
+      <h2 class="heading">Something Has Shifted</h2>
+      <div class="stage">
+        <div class="signals" data-role="list">
+          <div class="card on"><span class="kicker">Signal</span><strong>Industry</strong></div>
+          <div class="card on"><span class="kicker">Signal</span><strong>Role</strong></div>
+          <div class="card on"><span class="kicker">Signal</span><strong>An event outside your control</strong></div>
+          <div class="card now"><span class="kicker">Signal</span><strong>Something you have quietly known</strong></div>
+        </div>
       </div>
     </section>
 
-    <section class="clip" id="ct-internal-shift" data-scene="ct-internal-shift" data-beat-id="ct-internal-shift" data-track-index="0" data-start="84.85" data-duration="11">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>The Move Beneath the Move</h2>
-      <div class="compare" data-role="compare">
-        <div class="card"><span class="kicker">Visible</span><strong>External move</strong></div><div class="arrow">→</div><div class="card active"><span class="kicker">Decisive</span><strong>Internal shift</strong></div>
+    <section class="clip" id="ct-name-it" data-beat-id="ct-name-it" data-track-index="0" data-start="31.96" data-duration="3.73">
+      <h2 class="heading">Start by Naming Where You Are</h2>
+      <div class="stage">
+        <div class="rule"></div>
       </div>
     </section>
 
-    <section class="clip" id="ct-experiments" data-scene="ct-experiments" data-beat-id="ct-experiments" data-track-index="0" data-start="95.85" data-duration="6.96">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Test the Next Chapter with <span class="gold">Small Bets</span></h2>
-      <div class="mini-paths"><i class="test-node"></i><i class="test-node"></i><i class="test-node"></i></div>
-    </section>
-
-    <section class="clip" id="ct-runway" data-scene="ct-runway" data-beat-id="ct-runway" data-track-index="0" data-start="102.81" data-duration="9.65">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>Build What Makes the Move Real</h2>
-      <div class="three-grid" data-role="list">
-        <div class="card active"><span class="kicker">Grounded</span><strong>Story</strong></div><div class="card active"><span class="kicker">Credible</span><strong>Plan</strong></div><div class="card active"><span class="kicker">Yours</span><strong>Runway</strong></div>
+    <section class="clip" id="ct-researchers" data-beat-id="ct-researchers" data-track-index="0" data-start="35.69" data-duration="7.11">
+      <h2 class="heading">Researchers Have Measured the Horizon</h2>
+      <div class="stage">
+        <div class="chips" data-role="list">
+          <span class="chip">Bruce Feiler</span>
+          <span class="chip">Herminia Ibarra</span>
+        </div>
       </div>
     </section>
 
-    <section class="clip" id="ct-honest-promise" data-scene="ct-honest-promise" data-beat-id="ct-honest-promise" data-track-index="0" data-start="112.46" data-duration="19.81">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2>An Honest Framework for a Human Process</h2>
-      <div class="terrain" data-role="list">
-        <div class="card"><strong>Grief</strong></div><div class="card"><strong>Uncertainty</strong></div><div class="card"><strong>Doubt</strong></div>
+    <section class="clip" id="ct-horizon" data-beat-id="ct-horizon" data-track-index="0" data-start="42.8" data-duration="12.775">
+      <h2 class="heading">Researchers Have Measured the Horizon</h2>
+      <div class="stage">
+        <div class="chips" data-role="list">
+          <span class="chip">Bruce Feiler</span>
+          <span class="chip">Herminia Ibarra</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>3&ndash;5</strong><span>major life transitions</span></div>
+          <div class="stat"><strong>5</strong><span>years to fully complete</span></div>
+        </div>
+        <div class="chips" style="margin-top:40px" data-role="list">
+          <span class="chip struck">Five weeks</span>
+          <span class="chip struck">Five months</span>
+        </div>
       </div>
-      <div class="promise-line"></div>
     </section>
 
-    <section class="clip" id="ct-question" data-scene="ct-question" data-beat-id="ct-question" data-track-index="0" data-start="132.27" data-duration="9.85">
-      <div class="eyebrow">Career Transitions</div><div class="route-label">Shift → Next Chapter</div>
-      <h2 class="question">What Kind of Transition Are You Actually In?</h2>
-      <div class="junction" data-role="list"><div class="card"><strong>Ending</strong></div><div class="card"><strong>Crossing</strong></div><div class="card active"><strong>Beginning</strong></div></div>
+    <section class="clip" id="ct-permission" data-beat-id="ct-permission" data-track-index="0" data-start="55.575" data-duration="3.155">
+      <h2 class="heading">This Is Not a Discouragement</h2>
+      <div class="stage">
+        <div class="slip">
+          <span class="label">Permission slip</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-longer" data-beat-id="ct-longer" data-track-index="0" data-start="58.73" data-duration="4.9">
+      <h2 class="heading">This Is Not a Discouragement</h2>
+      <div class="stage">
+        <div class="slip">
+          <span class="label">Permission slip</span>
+          <strong>Taking longer than you expected is not doing it wrong.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-gets-done" data-beat-id="ct-gets-done" data-track-index="0" data-start="63.63" data-duration="2.75">
+      <h2 class="heading">This Is Not a Discouragement</h2>
+      <div class="stage">
+        <div class="slip">
+          <span class="label">Permission slip</span>
+          <strong>Taking longer than you expected is not doing it wrong.</strong>
+          <span class="note">This is the way it actually gets done.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-foundation" data-beat-id="ct-foundation" data-track-index="0" data-start="66.38" data-duration="5.97">
+      <h2 class="heading">A Different Kind of Work</h2>
+      <div class="stage">
+        <div class="tracks" data-role="list">
+          <div class="card now"><span class="kicker">Track 1</span><strong>Design a foundation</strong></div>
+          <div class="card"></div>
+          <div class="card"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-momentum" data-beat-id="ct-momentum" data-track-index="0" data-start="72.35" data-duration="5.455">
+      <h2 class="heading">A Different Kind of Work</h2>
+      <div class="stage">
+        <div class="tracks" data-role="list">
+          <div class="card on"><span class="kicker">Track 1</span><strong>Design a foundation</strong></div>
+          <div class="card now"><span class="kicker">Track 2</span><strong>Build momentum</strong></div>
+          <div class="card"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-redirection" data-beat-id="ct-redirection" data-track-index="0" data-start="77.805" data-duration="5.805">
+      <h2 class="heading">A Different Kind of Work</h2>
+      <div class="stage">
+        <div class="tracks" data-role="list">
+          <div class="card on"><span class="kicker">Track 1</span><strong>Design a foundation</strong></div>
+          <div class="card on"><span class="kicker">Track 2</span><strong>Build momentum</strong></div>
+          <div class="card now"><span class="kicker">Track 3</span><strong>Change the direction itself</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-three-things" data-beat-id="ct-three-things" data-track-index="0" data-start="83.61" data-duration="4.29">
+      <h2 class="heading">Three Things over the Next Five Modules</h2>
+      <div class="stage">
+        <div class="moves" data-role="list">
+          <div class="move"><span class="num">01</span><span class="what"></span></div>
+          <div class="move"><span class="num">02</span><span class="what"></span></div>
+          <div class="move"><span class="num">03</span><span class="what"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-first" data-beat-id="ct-first" data-track-index="0" data-start="87.9" data-duration="11.0">
+      <h2 class="heading">Three Things over the Next Five Modules</h2>
+      <div class="stage">
+        <div class="moves" data-role="list">
+          <div class="move on"><span class="num">01</span>
+            <span class="compare" data-role="compare">
+              <span class="what">The external move</span><span class="arrow">&rarr;</span><span class="what gold">The internal shift</span>
+            </span>
+          </div>
+          <div class="move"><span class="num">02</span><span class="what"></span></div>
+          <div class="move"><span class="num">03</span><span class="what"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-second" data-beat-id="ct-second" data-track-index="0" data-start="98.9" data-duration="6.96">
+      <h2 class="heading">Three Things over the Next Five Modules</h2>
+      <div class="stage">
+        <div class="moves" data-role="list">
+          <div class="move on"><span class="num">01</span>
+            <span class="compare" data-role="compare">
+              <span class="what">The external move</span><span class="arrow">&rarr;</span><span class="what gold">The internal shift</span>
+            </span>
+          </div>
+          <div class="move on"><span class="num">02</span><span class="what">Test it with low-risk experiments</span></div>
+          <div class="move"><span class="num">03</span><span class="what"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-third" data-beat-id="ct-third" data-track-index="0" data-start="105.86" data-duration="9.65">
+      <h2 class="heading">Three Things over the Next Five Modules</h2>
+      <div class="stage">
+        <div class="moves" data-role="list">
+          <div class="move on"><span class="num">01</span>
+            <span class="compare" data-role="compare">
+              <span class="what">The external move</span><span class="arrow">&rarr;</span><span class="what gold">The internal shift</span>
+            </span>
+          </div>
+          <div class="move on"><span class="num">02</span><span class="what">Test it with low-risk experiments</span></div>
+          <div class="move on"><span class="num">03</span><span class="what">Build a real story, a real plan, and a real runway</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-one-promise" data-beat-id="ct-one-promise" data-track-index="0" data-start="115.51" data-duration="4.58">
+      <h2 class="heading">One Promise Before We Begin</h2>
+      <div class="stage">
+        <p class="lead">This is not easy.</p>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-framework" data-beat-id="ct-framework" data-track-index="0" data-start="120.09" data-duration="15.56">
+      <h2 class="heading">One Promise Before We Begin</h2>
+      <div class="stage">
+        <p class="lead">This is not easy.</p>
+        <div class="terrain" data-role="list">
+          <span class="chip">Grief</span>
+          <span class="chip">Uncertainty</span>
+          <span class="chip">Genuine doubt</span>
+        </div>
+        <p class="evidence">The framework works because it is built on decades of research about how people actually change careers.</p>
+      </div>
+    </section>
+
+    <section class="clip" id="ct-question" data-beat-id="ct-question" data-track-index="0" data-start="135.65" data-duration="9.85">
+      <h2 class="heading">What Kind of Transition Are You Actually In?</h2>
+      <div class="stage">
+        <p class="lead">The most important question in the whole track.</p>
+      </div>
     </section>
   </main>
 
-  <script type="module">
-    import { gsap } from "gsap";
-
-    const root = document.getElementById("composition");
+  <script>
+    const root = document.getElementById("root");
     const clips = [...root.querySelectorAll(".clip")];
     const timeline = gsap.timeline({ paused: true });
 
@@ -284,10 +440,28 @@
       timeline.set(clip, { opacity: 0 }, start + duration);
 
       timeline.from(
-        clip.querySelectorAll("h1, h2, .anchor, .card, .stat, .permission, .rule, .mini-paths, .promise-line"),
-        { y: 24, opacity: 0, duration: 0.55, stagger: 0.14, ease: "power2.out" },
-        start + 0.1
+        clip.querySelectorAll(".title, .subtitle, .heading, .rule, .chip, .stat, .slip, .move, .evidence, .lead, .card"),
+        { y: 22, opacity: 0, duration: 0.5, stagger: 0.13, ease: "power2.out" },
+        start + 0.08
       );
+
+      // A slow parallax rise across the whole beat, so a long beat still
+      // breathes instead of freezing once its entrance has settled.
+      const drift = 26 + duration * 1.6;
+      timeline.fromTo(
+        clip,
+        { y: drift / 2 },
+        { y: -drift / 2, duration: duration, ease: "none" },
+        start
+      );
+    });
+
+    // The carrying object: one traveller that advances station to station.
+    // Offsets are transforms from the rail's first stop, so the tween stays
+    // sub-pixel smooth under the seek-by-frame capture engine.
+    [[0, 0], [31.96, 233], [35.69, 467], [55.575, 700],
+     [66.38, 933], [83.61, 1167], [115.51, 1400]].forEach(([at, x]) => {
+      timeline.to("#traveler", { x: x, duration: 0.6, ease: "power2.inOut" }, at);
     });
 
     timeline.set({}, {}, Number(root.dataset.duration));

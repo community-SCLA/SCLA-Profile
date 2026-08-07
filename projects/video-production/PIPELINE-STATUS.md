@@ -6,8 +6,8 @@
 
 - **11** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **21** — **ready to build.** Script approved; nothing made yet.
-- **6** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
+- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **4** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
 - **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
@@ -77,21 +77,26 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 11. m5_skills-for-the-ai-era
 12. m6_youve-built-momentum
 
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
+
+*Review and approve this lesson now; unfinished siblings do not block it.*
+
+- m0_welcome-to-mid-career-momentum
+  - state: gate-clean and ready for your review — no MP4 yet
+  - last completed **release** at 2026-08-07 00:16 UTC
+  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m0_welcome-to-mid-career-momentum`
+- m1_mini-syllabus
+  - state: gate-clean and ready for your review — no MP4 yet
+  - last completed **release** at 2026-08-07 00:19 UTC
+  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m1_mini-syllabus`
+
 **BUILDING — in flight, no MP4 yet:**
 
 *A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
-- m0_welcome-to-mid-career-momentum
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-07 00:08 UTC
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m0_welcome-to-mid-career-momentum. Do not delete the workspace
-- m1_mini-syllabus
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-07 00:08 UTC
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - m2_four-kinds-of-career-transition_mid-career-momentum
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **resume** at 2026-08-06 23:41 UTC
+  - last completed **release** at 2026-08-07 00:29 UTC
   - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
 - m2_the-value-of-building-mid-career-momentum
   - state: freeform design written; narration not yet synthesized
@@ -116,18 +121,18 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 16. m5_the-story-that-makes-the-change-legible
 17. m7_your-reinvention-roadmap
 
-**BUILDING — in flight, no MP4 yet:**
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **timing** at 2026-08-07 00:06 UTC
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_welcome-and-using-career-transitions-as-leaps-ahead. Do not delete the workspace
+  - state: gate-clean and ready for your review — no MP4 yet
+  - last completed **release** at 2026-08-07 00:33 UTC
+  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_welcome-and-using-career-transitions-as-leaps-ahead`
 - m3_the-identity-audit
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **design** at 2026-08-07 00:04 UTC
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_the-identity-audit. Do not delete the workspace
+  - state: gate-clean and ready for your review — no MP4 yet
+  - last completed **release** at 2026-08-07 00:28 UTC
+  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m3_the-identity-audit`
 
 **REJECTED — a gate refused this cut:**
 

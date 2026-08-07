@@ -1,0 +1,28 @@
+{
+  "composition": "career-transition-leap",
+  "source": "index.html",
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#ct-welcome", "bySec": 1.2 },
+    { "kind": "appearsBy", "selector": "#ct-shifted", "bySec": 4.02 },
+    { "kind": "appearsBy", "selector": "#ct-role", "bySec": 10.49 },
+    { "kind": "appearsBy", "selector": "#ct-event", "bySec": 15.385 },
+    { "kind": "appearsBy", "selector": "#ct-quiet", "bySec": 26.25 },
+    { "kind": "appearsBy", "selector": "#ct-name-it", "bySec": 33.16 },
+    { "kind": "appearsBy", "selector": "#ct-researchers", "bySec": 36.89 },
+    { "kind": "appearsBy", "selector": "#ct-horizon", "bySec": 44.0 },
+    { "kind": "appearsBy", "selector": "#ct-permission", "bySec": 56.775 },
+    { "kind": "appearsBy", "selector": "#ct-longer", "bySec": 59.93 },
+    { "kind": "appearsBy", "selector": "#ct-gets-done", "bySec": 64.83 },
+    { "kind": "appearsBy", "selector": "#ct-foundation", "bySec": 67.58 },
+    { "kind": "appearsBy", "selector": "#ct-momentum", "bySec": 73.55 },
+    { "kind": "appearsBy", "selector": "#ct-redirection", "bySec": 79.005 },
+    { "kind": "appearsBy", "selector": "#ct-three-things", "bySec": 84.81 },
+    { "kind": "appearsBy", "selector": "#ct-first", "bySec": 89.1 },
+    { "kind": "appearsBy", "selector": "#ct-second", "bySec": 100.1 },
+    { "kind": "appearsBy", "selector": "#ct-third", "bySec": 107.06 },
+    { "kind": "appearsBy", "selector": "#ct-one-promise", "bySec": 116.71 },
+    { "kind": "appearsBy", "selector": "#ct-framework", "bySec": 121.29 },
+    { "kind": "appearsBy", "selector": "#ct-question", "bySec": 136.85 },
+    { "kind": "keepsMoving", "withinSelector": "#root" }
+  ]
+}

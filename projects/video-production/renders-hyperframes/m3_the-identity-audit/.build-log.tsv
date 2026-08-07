@@ -2,3 +2,11 @@
 2026-08-06T23:42:13Z	resume	program=career-transitions
 2026-08-06T23:54:03Z	concept	Lens A 'The Stack' selected 19/20 over Lens B ledger 12/20; CONCEPT.md + concept.json written
 2026-08-07T00:04:10Z	design	31-beat manifest + design.md + index.html authored; static preflight PASS
+2026-08-07T00:14:56Z	preflight	exit 1
+2026-08-07T00:24:58Z	preflight	exit 0 — gate-clean
+2026-08-07T00:26:19Z	preflight	exit 0 — gate-clean
+2026-08-07T00:27:44Z	narration	heygen 27 beats, 140.5s voice; 4 beats merged so every non-final beat clears the 0.2s air floor
+2026-08-07T00:27:44Z	timing	plan_timing 27 beats / 152.25s; 10.64 bpm, median 5.17s, 36% long-beat share
+2026-08-07T00:27:44Z	gate	preflight exit 0 — carrier churn 3.93%, ink/layout/boundaries clean; qa/PREFLIGHT-OK written
+2026-08-07T00:28:59Z	preflight	exit 0 — gate-clean
+2026-08-07T00:28:59Z	release	build session ended
