@@ -29,11 +29,10 @@
       --navy: #0d2437;
       --navy-deep: #0a1e2f;
       --blue: #3393d6;
-      --blue-soft: #e5eff6;
+      --fill-subtle: #e5eff6;
       --gold: #eaab2d;
       --paper: #ffffff;
       --muted: #98a4cc;
-      --ink: #292f35;
     }
 
     * { box-sizing: border-box; }
@@ -56,12 +55,14 @@
       color: var(--paper);
     }
 
+    /* ---- persistent board ------------------------------------------------ */
+
     .frame-bg {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 82% 16%, rgba(51, 147, 214, 0.16), transparent 28%),
-        linear-gradient(145deg, var(--navy-deep), var(--navy));
+        radial-gradient(circle at 84% 14%, rgba(51, 147, 214, 0.16), transparent 30%),
+        linear-gradient(150deg, var(--navy-deep), var(--navy));
     }
 
     .grid {
@@ -69,631 +70,578 @@
       inset: 0;
       opacity: 0.14;
       background-image:
-        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
       background-size: 96px 96px;
-      mask-image: linear-gradient(to bottom, black, transparent 76%);
+      mask-image: linear-gradient(to bottom, black, transparent 74%);
     }
+
+    .brandbar {
+      position: absolute;
+      left: 120px;
+      top: 126px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brand-rule {
+      display: block;
+      width: 56px;
+      height: 5px;
+      border-radius: 5px;
+      background: var(--gold);
+    }
+
+    .brand-program { color: var(--gold); }
+    .brand-sep { color: var(--muted); }
+    .brand-lesson { color: var(--paper); }
+
+    /* the carrier: one route, drawn once, only ever advanced */
+    .stops {
+      position: absolute;
+      left: 120px;
+      top: 826px;
+      width: 1680px;
+      height: 114px;
+    }
+
+    .stops-line,
+    .stops-fill {
+      position: absolute;
+      left: 140px;
+      top: 27px;
+      width: 1400px;
+      height: 6px;
+      border-radius: 6px;
+    }
+
+    .stops-line { background: rgba(152, 164, 204, 0.32); }
+
+    .stops-fill {
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+    }
+
+    .stops-row {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .stop {
+      display: flex;
+      width: 280px;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stop-dot {
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(152, 164, 204, 0.55);
+      border-radius: 50%;
+      background: var(--navy-deep);
+      /* text-floor-exempt: marker numeral sized by its 60px circle */
+      color: var(--muted);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .stop-name {
+      color: var(--muted);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* ---- per-beat stage -------------------------------------------------- */
 
     .clip {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      padding: 118px 120px 190px;
     }
 
-    .scene-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .stage {
+      position: absolute;
+      left: 120px;
+      top: 226px;
+      width: 1680px;
+      height: 566px;
     }
 
-    .split {
-      display: grid;
-      grid-template-columns: 1.06fr 0.94fr;
-      gap: 92px;
-      align-items: center;
-    }
+    [data-at],
+    .veil { opacity: 0; }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 24px;
+    .s-label {
+      position: absolute;
+      top: 0;
+      left: 0;
       color: var(--gold);
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 900;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .eyebrow::before {
-      content: "";
-      display: block;
-      width: 52px;
-      height: 4px;
-      background: var(--gold);
-      border-radius: 4px;
-    }
-
-    h1,
-    h2,
-    p { margin: 0; }
-
-    h1 {
-      max-width: 1420px;
-      font-size: 104px;
+    .s-head {
+      position: absolute;
+      top: 52px;
+      left: 0;
+      width: 1560px;
+      margin: 0;
+      font-size: 72px;
       font-weight: 900;
-      line-height: 0.96;
-      letter-spacing: -0.035em;
-    }
-
-    h2 {
-      max-width: 1180px;
-      font-size: 78px;
-      font-weight: 900;
-      line-height: 1;
+      line-height: 1.02;
       letter-spacing: -0.025em;
     }
 
-    .accent { color: var(--blue); }
+    .s-head .accent { color: var(--blue); }
 
-    .sub {
-      max-width: 1260px;
-      margin-top: 30px;
-      color: var(--paper);
-      font-size: 42px;
-      line-height: 1.22;
+    .s-sub,
+    .s-sub2 {
+      position: absolute;
+      left: 0;
+      width: 1420px;
+      margin: 0;
+      color: var(--fill-subtle);
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1.26;
     }
 
-    .pill-row,
-    .card-row,
-    .choice-row {
+    .s-sub { top: 214px; }
+    .s-sub2 { top: 272px; }
+
+    .s-row {
+      position: absolute;
+      top: 352px;
+      left: 0;
       display: flex;
       gap: 24px;
-      margin-top: 48px;
     }
 
-    .pill {
+    .chip {
       display: inline-flex;
       align-items: center;
-      min-height: 74px;
-      padding: 16px 28px;
-      border: 2px solid var(--blue);
+      min-height: 78px;
+      padding: 16px 32px;
+      border: 2px solid rgba(51, 147, 214, 0.85);
       border-radius: 100px;
-      color: var(--paper);
-      font-size: 30px;
+      color: var(--fill-subtle);
+      font-size: 32px;
       font-weight: 700;
     }
 
-    .card,
-    .choice {
-      flex: 1;
-      min-height: 226px;
-      padding: 34px;
-      border: 2px solid rgba(51, 147, 214, 0.7);
-      border-radius: 12px;
-      background: rgba(10, 30, 47, 0.88);
-      box-shadow: 0 24px 70px rgba(10, 30, 47, 0.2);
-    }
-
-    .card-number {
-      display: block;
-      margin-bottom: 26px;
-      color: var(--gold);
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-    }
-
-    .card-copy {
-      font-size: 38px;
-      font-weight: 700;
-      line-height: 1.12;
-    }
-
-    .checkpoint-map {
-      position: relative;
-      width: 620px;
-      height: 520px;
-      justify-self: end;
-    }
-
-    .map-ring {
+    .s-note,
+    .s-note2 {
       position: absolute;
-      inset: 36px 84px 32px;
-      border: 3px solid rgba(51, 147, 214, 0.5);
-      border-radius: 50%;
-    }
-
-    .map-ring:nth-child(2) { inset: 112px 160px 108px; }
-
-    .map-axis {
-      position: absolute;
-      left: 50%;
-      top: 8%;
-      width: 4px;
-      height: 84%;
-      border-radius: 4px;
-      background: linear-gradient(var(--blue), var(--gold));
-      transform-origin: 50% 50%;
-    }
-
-    .map-marker {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      display: grid;
-      place-items: center;
-      width: 146px;
-      height: 146px;
-      border: 8px solid var(--paper);
-      border-radius: 50%;
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 58px;
-      font-weight: 900;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 0 18px rgba(234, 171, 45, 0.12);
-    }
-
-    .map-label {
-      position: absolute;
-      min-width: 178px;
-      padding: 14px 18px;
-      border-radius: 10px;
-      background: var(--paper);
-      color: var(--navy);
-      font-size: 24px;
-      font-weight: 900;
-      text-align: center;
-    }
-
-    .map-label.top { top: 0; left: 50%; transform: translateX(-50%); }
-    .map-label.right { right: 0; top: 48%; }
-    .map-label.bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
-
-    .support-note {
-      margin-top: 34px;
+      left: 0;
+      width: 1520px;
+      margin: 0;
       color: var(--muted);
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 700;
+      line-height: 1.32;
     }
 
-    .choice {
-      position: relative;
-      min-height: 260px;
-      overflow: hidden;
-    }
+    .s-note { top: 462px; }
+    .s-note2 { top: 510px; }
 
-    .choice::after {
-      content: "";
+    /* act 4 — the three mid-career questions stack under one chip row */
+    .stage.choices .s-row { top: 176px; }
+
+    .q-list {
       position: absolute;
-      right: -50px;
-      bottom: -50px;
-      width: 150px;
-      height: 150px;
-      border: 28px solid rgba(51, 147, 214, 0.12);
-      border-radius: 50%;
-    }
-
-    .choice-title {
-      margin-top: 22px;
-      font-size: 42px;
-      font-weight: 900;
-      line-height: 1.08;
-    }
-
-    .choice-copy {
-      margin-top: 18px;
-      color: var(--blue-soft);
-      font-size: 28px;
-      line-height: 1.2;
-    }
-
-    .focus-panel {
-      width: 100%;
-      margin-top: 48px;
-      padding: 44px 52px;
-      border: 2px solid rgba(51, 147, 214, 0.75);
-      border-radius: 12px;
-      background: rgba(10, 30, 47, 0.84);
-    }
-
-    .focus-scale {
-      position: relative;
-      height: 90px;
-      margin: 22px 10px 0;
-    }
-
-    .focus-line {
-      position: absolute;
+      top: 314px;
       left: 0;
-      right: 0;
-      top: 24px;
-      height: 6px;
-      border-radius: 6px;
-      background: rgba(152, 164, 204, 0.4);
+      width: 1560px;
     }
 
-    .focus-fill {
-      position: absolute;
-      left: 0;
-      top: 24px;
-      width: 100%;
-      height: 6px;
-      border-radius: 6px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: 0 50%;
-    }
-
-    .focus-marker {
-      position: absolute;
-      left: 74%;
-      top: 0;
-      display: grid;
-      place-items: center;
-      width: 56px;
-      height: 56px;
-      border: 4px solid var(--paper);
-      border-radius: 50%;
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 22px;
-      font-weight: 900;
-    }
-
-    .scale-labels {
+    .q-item {
       display: flex;
-      justify-content: space-between;
-      color: var(--blue-soft);
-      font-size: 24px;
-      font-weight: 700;
-    }
-
-    .commit-card {
-      max-width: 1520px;
-      padding: 52px 60px;
-      border-radius: 12px;
-      background: var(--paper);
-      color: var(--navy);
-      box-shadow: 0 28px 90px rgba(10, 30, 47, 0.24);
-    }
-
-    .commit-label {
-      color: var(--navy);
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .commit-copy {
-      margin-top: 18px;
-      font-size: 58px;
-      font-weight: 900;
-      line-height: 1.08;
-    }
-
-    .next-action {
-      display: inline-flex;
       align-items: center;
-      gap: 18px;
-      margin-top: 34px;
-      color: var(--gold);
-      font-size: 34px;
-      font-weight: 900;
+      gap: 30px;
+      height: 62px;
+      margin-bottom: 16px;
     }
 
-    .next-arrow {
+    .q-num {
       display: grid;
       place-items: center;
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      /* text-floor-exempt: marker numeral sized by its 58px circle */
+      color: var(--gold);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .q-text {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    /* act 6 — the commitment card is a rule and a line, never a filled panel */
+    .quote {
+      position: absolute;
+      top: 190px;
+      left: 0;
+      width: 1520px;
+      padding: 6px 0 6px 36px;
+      border-left: 6px solid var(--gold);
+    }
+
+    .quote-line {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.18;
+    }
+
+    .stage.commit .s-note { top: 366px; }
+    .stage.commit .s-note2 { top: 414px; }
+
+    .cta {
+      position: absolute;
+      top: 484px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--gold);
+      font-size: 36px;
+      font-weight: 900;
+    }
+
+    .cta-arrow {
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
       border: 3px solid var(--gold);
       border-radius: 50%;
     }
 
-    .route {
+    .cta-rule {
       position: absolute;
-      z-index: 10;
-      left: 120px;
-      right: 120px;
-      bottom: 58px;
-      height: 104px;
-    }
-
-    .route-svg {
-      position: absolute;
-      left: 34px;
-      right: 34px;
-      top: 19px;
-      width: calc(100% - 68px);
-      height: 20px;
-      overflow: visible;
-    }
-
-    #route-base,
-    #route-progress {
-      fill: none;
-      stroke-width: 5;
-      stroke-linecap: round;
-    }
-
-    #route-base { stroke: rgba(152, 164, 204, 0.38); }
-    #route-progress { stroke: var(--gold); }
-
-    .route-traveler {
-      position: absolute;
-      z-index: 1;
-      left: 66px;
-      top: 12px;
-      width: 18px;
-      height: 18px;
-      border: 4px solid var(--paper);
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 8px rgba(234, 171, 45, 0.16);
-      will-change: transform;
-    }
-
-    .route-nodes {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .route-step {
-      display: flex;
-      width: 150px;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .route-dot {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      border: 4px solid var(--muted);
-      border-radius: 50%;
-      background: var(--navy);
-      color: var(--paper);
-      font-size: 20px;
-      font-weight: 900;
+      top: 556px;
+      left: 0;
+      width: 420px;
+      height: 5px;
+      border-radius: 5px;
+      background: rgba(234, 171, 45, 0.75);
     }
   </style>
 </head>
 <body>
-  <main data-hf-id="hf-4bkl" id="root" data-composition-id="m1_mini-syllabus" data-start="0" data-width="1920" data-height="1080" data-duration="100.171" data-fps="30">
-    <div data-hf-id="hf-0in4" class="frame-bg" aria-hidden="true"></div>
-    <div data-hf-id="hf-p6md" class="grid" aria-hidden="true"></div>
+  <main id="root" data-composition-id="m1_mini-syllabus" data-start="0" data-width="1920" data-height="1080" data-duration="104.539" data-fps="30">
+    <div class="frame-bg" aria-hidden="true"></div>
+    <div class="grid" aria-hidden="true"></div>
 
-    <section data-hf-id="hf-5cge" id="scene-welcome" class="clip" data-beat-id="welcome" data-start="0" data-duration="11.329" data-track-index="1">
-      <div data-hf-id="hf-cn5c" class="scene-content">
-        <div data-hf-id="hf-3yx4" id="welcome-eyebrow" class="eyebrow" data-animate="rise">Mid-Career Momentum · Mini-Syllabus</div>
-        <h1 data-hf-id="hf-ytgv" id="welcome-title" data-animate="rise">You’ve Built Experience — <span data-hf-id="hf-tjka" class="accent">Now Build What’s Next</span></h1>
-        <p data-hf-id="hf-hz2u" id="welcome-sub" class="sub" data-animate="rise">More impact. More recognition. A role that fits you better.</p>
-        <div data-hf-id="hf-zqm5" id="welcome-pills" class="pill-row" data-animate="pop">
-          <div data-hf-id="hf-3ou5" class="pill">Experience</div>
-          <div data-hf-id="hf-j4tf" class="pill">Clarity</div>
-          <div data-hf-id="hf-c623" class="pill">Momentum</div>
+    <div class="brandbar">
+      <span class="brand-rule" aria-hidden="true"></span>
+      <span class="brand-program">Mid-Career Momentum</span>
+      <span class="brand-sep">·</span>
+      <span class="brand-lesson">Mini-Syllabus</span>
+    </div>
+
+    <!-- ACT 1 — Welcome -->
+    <section id="b01" class="clip" data-beat-id="welcome" data-start="0" data-duration="2.839" data-track-index="1">
+      <div class="stage">
+        <div class="s-label" data-at="0.30">Welcome</div>
+        <h2 id="b01-head" class="s-head" data-at="0.50">Welcome to <span class="accent">Mid-Career Momentum</span></h2>
+      </div>
+    </section>
+
+    <section id="b02" class="clip" data-beat-id="ready-for-more" data-start="2.839" data-duration="9.000" data-track-index="1">
+      <div class="stage">
+        <div class="s-label">Welcome</div>
+        <h2 class="s-head">Welcome to <span class="accent">Mid-Career Momentum</span></h2>
+        <p id="b02-sub" class="s-sub" data-at="3.20">You've built meaningful experience — and you're ready for more.</p>
+        <div class="s-row" data-role="list">
+          <div class="chip" data-at="4.60">More Impact</div>
+          <div class="chip" data-at="7.00">More Recognition</div>
+          <div class="chip" data-at="9.40">A Role That Fits You Better</div>
         </div>
       </div>
     </section>
 
-    <section data-hf-id="hf-ap64" id="scene-checkpoint" class="clip" data-beat-id="checkpoint" data-start="11.329" data-duration="19.082" data-track-index="1">
-      <div data-hf-id="hf-y268" class="scene-content split">
-        <div data-hf-id="hf-yeow">
-          <div data-hf-id="hf-qx7q" id="checkpoint-eyebrow" class="eyebrow" data-animate="rise">Your Career Map</div>
-          <h2 data-hf-id="hf-5z1u" id="checkpoint-title" data-animate="rise">Pause · Reassess · <span data-hf-id="hf-dpxi" class="accent">Choose Deliberately</span></h2>
-          <p data-hf-id="hf-b9j5" id="checkpoint-sub" class="sub" data-animate="rise">A clear checkpoint keeps where you are and what comes next in view.</p>
-        </div>
-        <div data-hf-id="hf-cerx" id="checkpoint-map" class="checkpoint-map" data-animate="pop" aria-label="Career checkpoint map">
-          <div data-hf-id="hf-mpj1" class="map-ring"></div>
-          <div data-hf-id="hf-uspd" class="map-ring"></div>
-          <div data-hf-id="hf-g2fm" id="map-axis" class="map-axis"></div>
-          <div data-hf-id="hf-5y0i" class="map-label top">Where You’ve Been</div>
-          <div data-hf-id="hf-kf7d" class="map-label right">What Fits Now</div>
-          <div data-hf-id="hf-cagc" class="map-label bottom">What Comes Next</div>
-          <div data-hf-id="hf-1vtk" class="map-marker">You</div>
+    <!-- ACT 2 — Your Career Map -->
+    <section id="b03" class="clip" data-beat-id="journey" data-start="11.839" data-duration="3.160" data-track-index="1">
+      <div class="stage">
+        <div class="s-label" data-at="12.15">Your Career Map</div>
+        <h2 id="b03-head" class="s-head" data-at="12.35">Part of Your <span class="accent">Broader Career Journey</span></h2>
+      </div>
+    </section>
+
+    <section id="b04" class="clip" data-beat-id="checkpoint" data-start="14.999" data-duration="9.480" data-track-index="1">
+      <div class="stage">
+        <div class="s-label">Your Career Map</div>
+        <h2 class="s-head">Part of Your <span class="accent">Broader Career Journey</span></h2>
+        <p id="b04-sub" class="s-sub" data-at="15.35">The mid-career checkpoint is the place where you choose what comes next instead of drifting.</p>
+        <div class="s-row" data-role="list">
+          <div class="chip" data-at="17.30">Pause</div>
+          <div class="chip" data-at="19.30">Reassess</div>
+          <div class="chip" data-at="21.30">Choose Deliberately</div>
         </div>
       </div>
     </section>
 
-    <section data-hf-id="hf-1e68" id="scene-toolkit" class="clip" data-beat-id="toolkit" data-start="30.411" data-duration="17.72" data-track-index="1">
-      <div data-hf-id="hf-o0eg" class="scene-content">
-        <div data-hf-id="hf-6g67" id="toolkit-eyebrow" class="eyebrow" data-animate="rise">Simple Tools · Useful Insight</div>
-        <h2 data-hf-id="hf-cgiy" id="toolkit-title" data-animate="rise">Learn by <span data-hf-id="hf-dc8e" class="accent">Doing</span></h2>
-        <div data-hf-id="hf-4vi1" id="toolkit-cards" class="card-row">
-          <article data-hf-id="hf-etz4" id="tool-card-1" class="card" data-animate="pop"><span data-hf-id="hf-l3d2" class="card-number">01 · Explore</span><div data-hf-id="hf-2bv1" class="card-copy">Click-through activities</div></article>
-          <article data-hf-id="hf-nhuz" id="tool-card-2" class="card" data-animate="pop"><span data-hf-id="hf-tm1p" class="card-number">02 · Reflect</span><div data-hf-id="hf-xc97" class="card-copy">Short reflections and uploads</div></article>
-          <article data-hf-id="hf-jjqy" id="tool-card-3" class="card" data-animate="pop"><span data-hf-id="hf-txpz" class="card-number">03 · Analyze</span><div data-hf-id="hf-5wn8" class="card-copy">AI-powered prompts</div></article>
+    <section id="b05" class="clip" data-beat-id="progress" data-start="24.479" data-duration="7.200" data-track-index="1">
+      <div class="stage">
+        <div class="s-label">Your Career Map</div>
+        <h2 class="s-head">Part of Your <span class="accent">Broader Career Journey</span></h2>
+        <p class="s-sub">The mid-career checkpoint is the place where you choose what comes next instead of drifting.</p>
+        <div class="s-row" data-role="list">
+          <div class="chip">Pause</div>
+          <div class="chip">Reassess</div>
+          <div class="chip">Choose Deliberately</div>
         </div>
-        <p data-hf-id="hf-3ugq" id="toolkit-support" class="support-note" data-animate="rise">Support is available whenever you get stuck.</p>
+        <p id="b05-note" class="s-note" data-at="24.80">Your progress bar updates as you move through the course.</p>
+        <p class="s-note2" data-at="28.20">You always know exactly where you are and what's ahead.</p>
       </div>
     </section>
 
-    <section data-hf-id="hf-wy7v" id="scene-choices" class="clip" data-beat-id="choices" data-start="48.131" data-duration="16.271" data-track-index="1">
-      <div data-hf-id="hf-mthd" class="scene-content">
-        <div data-hf-id="hf-v50m" id="choices-eyebrow" class="eyebrow" data-animate="rise">Mid-Career Choices</div>
-        <h2 data-hf-id="hf-6tg9" id="choices-title" data-animate="rise">Which Direction <span data-hf-id="hf-uxe0" class="accent">Fits Now?</span></h2>
-        <div data-hf-id="hf-5cpn" id="choice-cards" class="choice-row">
-          <article data-hf-id="hf-3cy7" id="choice-1" class="choice" data-animate="pop"><span data-hf-id="hf-n7m4" class="card-number">01</span><div data-hf-id="hf-221h" class="choice-title">Push for a Promotion</div><p data-hf-id="hf-bpyt" class="choice-copy">Grow your scope and visibility.</p></article>
-          <article data-hf-id="hf-shgk" id="choice-2" class="choice" data-animate="pop"><span data-hf-id="hf-m0p1" class="card-number">02</span><div data-hf-id="hf-sm0m" class="choice-title">Redesign Your Role</div><p data-hf-id="hf-qdgp" class="choice-copy">Shape the work around your strengths.</p></article>
-          <article data-hf-id="hf-vgq5" id="choice-3" class="choice" data-animate="pop"><span data-hf-id="hf-mf02" class="card-number">03</span><div data-hf-id="hf-4wav" class="choice-title">Change Lanes</div><p data-hf-id="hf-u4bj" class="choice-copy">Carry your experience somewhere new.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section data-hf-id="hf-zbw0" id="scene-next-move" class="clip" data-beat-id="next-move" data-start="64.402" data-duration="15.09" data-track-index="1">
-      <div data-hf-id="hf-n7se" class="scene-content">
-        <div data-hf-id="hf-o46v" id="move-eyebrow" class="eyebrow" data-animate="rise">The Next 6–12 Months</div>
-        <h2 data-hf-id="hf-f0wd" id="move-title" data-animate="rise">One Realistic Move — <span data-hf-id="hf-5c3x" class="accent">Small, Consistent Steps</span></h2>
-        <div data-hf-id="hf-9ico" id="focus-panel" class="focus-panel" data-animate="pop">
-          <div data-hf-id="hf-ncfa" class="scale-labels"><span data-hf-id="hf-1fpy">Everything at Once</span><span data-hf-id="hf-6or0">Your Next Move</span></div>
-          <div data-hf-id="hf-oly5" class="focus-scale">
-            <div data-hf-id="hf-tvw7" class="focus-line"></div>
-            <div data-hf-id="hf-hg02" id="focus-fill" class="focus-fill"></div>
-            <div data-hf-id="hf-6pv9" id="focus-marker" class="focus-marker">1</div>
-          </div>
+    <!-- ACT 3 — Simple Tools -->
+    <section id="b06" class="clip" data-beat-id="tools" data-start="31.679" data-duration="11.380" data-track-index="1">
+      <div class="stage">
+        <div class="s-label" data-at="31.98">Simple Tools</div>
+        <h2 id="b06-head" class="s-head" data-at="32.18">Learn by <span class="accent">Doing</span></h2>
+        <p class="s-sub" data-at="33.60">A few simple tools inside this platform.</p>
+        <div class="s-row" data-role="list">
+          <div class="chip" data-at="36.20">Click-Through Activities</div>
+          <div class="chip" data-at="38.20">Short Reflections and Uploads</div>
+          <div class="chip" data-at="40.60">AI-Powered Prompts</div>
         </div>
       </div>
     </section>
 
-    <section data-hf-id="hf-m2sv" id="scene-commitment" class="clip" data-beat-id="commitment" data-start="79.492" data-duration="20.679" data-track-index="1">
-      <div data-hf-id="hf-m0vb" class="scene-content">
-        <div data-hf-id="hf-f9l4" id="commit-eyebrow" class="eyebrow" data-animate="rise">Your 90-Day Anchor</div>
-        <div data-hf-id="hf-vaoc" id="commit-card" class="commit-card" data-animate="pop">
-          <div data-hf-id="hf-n4g0" class="commit-label">My Main Career Goal</div>
-          <div data-hf-id="hf-5qn6" class="commit-copy">“Over the next 90 days, my main career goal is…”</div>
+    <section id="b07" class="clip" data-beat-id="support" data-start="43.059" data-duration="6.750" data-track-index="1">
+      <div class="stage">
+        <div class="s-label">Simple Tools</div>
+        <h2 class="s-head">Learn by <span class="accent">Doing</span></h2>
+        <p class="s-sub">A few simple tools inside this platform.</p>
+        <div class="s-row" data-role="list">
+          <div class="chip">Click-Through Activities</div>
+          <div class="chip">Short Reflections and Uploads</div>
+          <div class="chip">AI-Powered Prompts</div>
         </div>
-        <div data-hf-id="hf-0ol0" id="next-action" class="next-action" data-animate="rise"><span data-hf-id="hf-rm37" id="next-arrow" class="next-arrow">→</span><span data-hf-id="hf-7d88">Click Next to Begin</span></div>
+        <p id="b07-note" class="s-note" data-at="43.45">Stuck at any point?</p>
+        <p class="s-note2" data-at="46.80">Reach us in the #questionsupport channel or through member support.</p>
       </div>
     </section>
 
-    <nav data-hf-id="hf-h9tl" class="route" aria-label="Lesson progress">
-      <svg data-hf-id="hf-xl8i" class="route-svg" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true">
-        <path data-hf-id="hf-dyu5" id="route-base" d="M 0 10 L 1000 10" />
-        <path data-hf-id="hf-tufb" id="route-progress" d="M 0 10 L 1000 10" />
-      </svg>
-      <div data-hf-id="hf-09wr" id="route-traveler" class="route-traveler" aria-hidden="true"></div>
-      <div data-hf-id="hf-akov" class="route-nodes">
-        <div data-hf-id="hf-ohm0" id="route-step-1" class="route-step"><span data-hf-id="hf-6swq" id="route-dot-1" class="route-dot">1</span><span data-hf-id="hf-zv1z">Welcome</span></div>
-        <div data-hf-id="hf-x5hv" id="route-step-2" class="route-step"><span data-hf-id="hf-c82q" id="route-dot-2" class="route-dot">2</span><span data-hf-id="hf-s4kd">Map</span></div>
-        <div data-hf-id="hf-t7du" id="route-step-3" class="route-step"><span data-hf-id="hf-h7cq" id="route-dot-3" class="route-dot">3</span><span data-hf-id="hf-1cls">Tools</span></div>
-        <div data-hf-id="hf-cn9x" id="route-step-4" class="route-step"><span data-hf-id="hf-6rgq" id="route-dot-4" class="route-dot">4</span><span data-hf-id="hf-lg3n">Choices</span></div>
-        <div data-hf-id="hf-9o0c" id="route-step-5" class="route-step"><span data-hf-id="hf-zj96" id="route-dot-5" class="route-dot">5</span><span data-hf-id="hf-l3c0">Move</span></div>
-        <div data-hf-id="hf-kjhz" id="route-step-6" class="route-step"><span data-hf-id="hf-d60y" id="route-dot-6" class="route-dot">6</span><span data-hf-id="hf-yg14">Commit</span></div>
+    <!-- ACT 4 — Mid-Career Choices -->
+    <section id="b08" class="clip" data-beat-id="complicated" data-start="49.809" data-duration="2.840" data-track-index="1">
+      <div class="stage choices">
+        <div class="s-label" data-at="50.10">Mid-Career Choices</div>
+        <h2 id="b08-head" class="s-head" data-at="50.30">Mid-Career Can Feel <span class="accent">Complicated</span></h2>
+      </div>
+    </section>
+
+    <section id="b09" class="clip" data-beat-id="pressures" data-start="52.649" data-duration="5.930" data-track-index="1">
+      <div class="stage choices">
+        <div class="s-label">Mid-Career Choices</div>
+        <h2 class="s-head">Mid-Career Can Feel <span class="accent">Complicated</span></h2>
+        <div class="s-row" data-role="list">
+          <div id="b09-chip" class="chip" data-at="53.00">Family Responsibilities</div>
+          <div class="chip" data-at="54.60">Leadership Expectations</div>
+          <div class="chip" data-at="56.50">A Full Calendar</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="b10" class="clip" data-beat-id="promotion" data-start="58.579" data-duration="4.260" data-track-index="1">
+      <div class="stage choices">
+        <div class="s-label">Mid-Career Choices</div>
+        <h2 class="s-head">Mid-Career Can Feel <span class="accent">Complicated</span></h2>
+        <div class="s-row" data-role="list">
+          <div class="chip">Family Responsibilities</div>
+          <div class="chip">Leadership Expectations</div>
+          <div class="chip">A Full Calendar</div>
+        </div>
+        <div class="q-list" data-role="list">
+          <div id="b10-q" class="q-item" data-at="59.60"><span class="q-num">01</span><span class="q-text">Push for a promotion?</span></div>
+          <div class="q-item veil"><span class="q-num">02</span><span class="q-text">Redesign my role to fit better?</span></div>
+          <div class="q-item veil"><span class="q-num">03</span><span class="q-text">Change lanes entirely?</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="b11" class="clip" data-beat-id="redesign" data-start="62.839" data-duration="2.560" data-track-index="1">
+      <div class="stage choices">
+        <div class="s-label">Mid-Career Choices</div>
+        <h2 class="s-head">Mid-Career Can Feel <span class="accent">Complicated</span></h2>
+        <div class="s-row" data-role="list">
+          <div class="chip">Family Responsibilities</div>
+          <div class="chip">Leadership Expectations</div>
+          <div class="chip">A Full Calendar</div>
+        </div>
+        <div class="q-list" data-role="list">
+          <div class="q-item"><span class="q-num">01</span><span class="q-text">Push for a promotion?</span></div>
+          <div id="b11-q" class="q-item" data-at="63.15"><span class="q-num">02</span><span class="q-text">Redesign my role to fit better?</span></div>
+          <div class="q-item veil"><span class="q-num">03</span><span class="q-text">Change lanes entirely?</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="b12" class="clip" data-beat-id="change-lanes" data-start="65.399" data-duration="2.260" data-track-index="1">
+      <div class="stage choices">
+        <div class="s-label">Mid-Career Choices</div>
+        <h2 class="s-head">Mid-Career Can Feel <span class="accent">Complicated</span></h2>
+        <div class="s-row" data-role="list">
+          <div class="chip">Family Responsibilities</div>
+          <div class="chip">Leadership Expectations</div>
+          <div class="chip">A Full Calendar</div>
+        </div>
+        <div class="q-list" data-role="list">
+          <div class="q-item"><span class="q-num">01</span><span class="q-text">Push for a promotion?</span></div>
+          <div class="q-item"><span class="q-num">02</span><span class="q-text">Redesign my role to fit better?</span></div>
+          <div id="b12-q" class="q-item" data-at="65.70"><span class="q-num">03</span><span class="q-text">Change lanes entirely?</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 5 — Your Next Move -->
+    <section id="b13" class="clip" data-beat-id="next-move" data-start="67.659" data-duration="8.160" data-track-index="1">
+      <div class="stage">
+        <div class="s-label" data-at="67.95">Your Next Move</div>
+        <h2 id="b13-head" class="s-head" data-at="68.15">One <span class="accent">Realistic Move</span></h2>
+        <p class="s-sub" data-at="69.80">Not everything at once.</p>
+        <p class="s-sub2" data-at="73.20">Your next realistic move, over the next 6 to 12 months.</p>
+      </div>
+    </section>
+
+    <section id="b14" class="clip" data-beat-id="build-momentum" data-start="75.819" data-duration="7.460" data-track-index="1">
+      <div class="stage">
+        <div class="s-label">Your Next Move</div>
+        <h2 class="s-head">One <span class="accent">Realistic Move</span></h2>
+        <p class="s-sub">Not everything at once.</p>
+        <p class="s-sub2">Your next realistic move, over the next 6 to 12 months.</p>
+        <div class="s-row" data-role="list">
+          <div id="b14-chip" class="chip" data-at="76.15">Define That Move</div>
+          <div class="chip" data-at="77.35">Reposition Your Experience</div>
+          <div class="chip" data-at="78.55">Build Momentum</div>
+        </div>
+        <p class="s-note" data-at="80.30">Through small, consistent steps.</p>
+      </div>
+    </section>
+
+    <!-- ACT 6 — Your 90-Day Commitment -->
+    <section id="b15" class="clip" data-beat-id="commitment" data-start="83.279" data-duration="8.210" data-track-index="1">
+      <div class="stage commit">
+        <div class="s-label" data-at="83.58">Your 90-Day Commitment</div>
+        <h2 id="b15-head" class="s-head" data-at="83.78">Set One Simple, <span class="accent">Powerful Commitment</span></h2>
+        <div class="quote" data-at="86.00">
+          <div class="quote-line">“Over the next 90 days,</div>
+          <div class="quote-line" data-at="88.90">my main career goal is…”</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="b16" class="clip" data-beat-id="anchor" data-start="91.489" data-duration="6.830" data-track-index="1">
+      <div class="stage commit">
+        <div class="s-label">Your 90-Day Commitment</div>
+        <h2 class="s-head">Set One Simple, <span class="accent">Powerful Commitment</span></h2>
+        <div class="quote">
+          <div class="quote-line">“Over the next 90 days,</div>
+          <div class="quote-line">my main career goal is…”</div>
+        </div>
+        <p id="b16-note" class="s-note" data-at="91.80">Write and submit that statement in a short activity.</p>
+        <p class="s-note2" data-at="95.40">It becomes your anchor for the rest of the track.</p>
+      </div>
+    </section>
+
+    <section id="b17" class="clip" data-beat-id="begin" data-start="98.319" data-duration="6.220" data-track-index="1">
+      <div class="stage commit">
+        <div class="s-label">Your 90-Day Commitment</div>
+        <h2 class="s-head">Set One Simple, <span class="accent">Powerful Commitment</span></h2>
+        <div class="quote">
+          <div class="quote-line">“Over the next 90 days,</div>
+          <div class="quote-line">my main career goal is…”</div>
+        </div>
+        <p class="s-note">Write and submit that statement in a short activity.</p>
+        <p class="s-note2">It becomes your anchor for the rest of the track.</p>
+        <div class="cta">
+          <span id="b17-arrow" class="cta-arrow" data-at="98.65">→</span>
+          <span class="cta-text" data-at="99.05">Click Next to Begin</span>
+        </div>
+        <div class="cta-rule" data-at="101.80"></div>
+      </div>
+    </section>
+
+    <nav class="stops" aria-label="Lesson route">
+      <div class="stops-line" aria-hidden="true"></div>
+      <div id="stops-fill" class="stops-fill" aria-hidden="true"></div>
+      <div class="stops-row">
+        <div class="stop"><span id="dot-1" class="stop-dot">1</span><span id="name-1" class="stop-name">Welcome</span></div>
+        <div class="stop"><span id="dot-2" class="stop-dot">2</span><span id="name-2" class="stop-name">Career Map</span></div>
+        <div class="stop"><span id="dot-3" class="stop-dot">3</span><span id="name-3" class="stop-name">Simple Tools</span></div>
+        <div class="stop"><span id="dot-4" class="stop-dot">4</span><span id="name-4" class="stop-name">Choices</span></div>
+        <div class="stop"><span id="dot-5" class="stop-dot">5</span><span id="name-5" class="stop-name">Next Move</span></div>
+        <div class="stop"><span id="dot-6" class="stop-dot">6</span><span id="name-6" class="stop-name">Commitment</span></div>
       </div>
     </nav>
   </main>
-
-  <script type="application/json" id="narration">
-  [
-    {"id":"welcome","text":"Welcome to Mid-Career Momentum. You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better."},
-    {"id":"checkpoint","text":"This track is part of your broader career journey. Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting. As you move through the course, you'll see your progress bar update, so you always know exactly where you are and what's ahead."},
-    {"id":"toolkit","text":"You'll use a few simple tools in this platform: click-through activities, short reflections, uploads, and a handful of AI-powered prompts that help you analyze your own career story. If you ever get stuck, you can reach us through the hashtag questionsupport channel or our member support team."},
-    {"id":"choices","text":"Mid-career can feel complicated. You may have family responsibilities, leadership expectations, and a full calendar. And you might be wondering: Should I push for a promotion? Redesign my role to fit better? Or change lanes entirely?"},
-    {"id":"next-move","text":"Rather than trying to solve everything at once, this track helps you focus on your next realistic move over the next 6 to 12 months. We'll help you define that move, reposition your experience, and build momentum through small consistent steps."},
-    {"id":"commitment","text":"Before we dive in, I want you to set a simple, powerful commitment: \"Over the next 90 days, my main career goal is...\" You'll write and submit that statement in a short activity, and it becomes your anchor for the rest of the track. When you're ready, click Next to begin."}
-  ]
-  </script>
 
   <script>
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
 
-    const scenes = [
-      { id: "scene-welcome", start: 0, duration: 11.329 },
-      { id: "scene-checkpoint", start: 11.329, duration: 19.082 },
-      { id: "scene-toolkit", start: 30.411, duration: 17.72 },
-      { id: "scene-choices", start: 48.131, duration: 16.271 },
-      { id: "scene-next-move", start: 64.402, duration: 15.09 },
-      { id: "scene-commitment", start: 79.492, duration: 20.679 }
+    // Every on-frame element declares its own entrance time in markup, so the
+    // timeline is a direct reading of the composition rather than a second,
+    // separate script of the lesson.
+    Array.prototype.forEach.call(document.querySelectorAll("[data-at]"), function (el) {
+      tl.fromTo(
+        el,
+        { y: 26, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", immediateRender: false },
+        parseFloat(el.getAttribute("data-at"))
+      );
+    });
+
+    // The route is the carrying object: drawn once, only ever advanced.
+    const acts = [
+      { at: 0.20, stop: 1, fill: 0.0 },
+      { at: 11.95, stop: 2, fill: 0.2 },
+      { at: 31.72, stop: 3, fill: 0.4 },
+      { at: 49.92, stop: 4, fill: 0.6 },
+      { at: 67.77, stop: 5, fill: 0.8 },
+      { at: 83.39, stop: 6, fill: 1.0 }
     ];
 
-    scenes.forEach((scene, sceneIndex) => {
-      const root = document.getElementById(scene.id);
-      const rises = Array.from(root.querySelectorAll('[data-animate="rise"]'));
-      const pops = Array.from(root.querySelectorAll('[data-animate="pop"]'));
-      const entry = scene.start + 0.22;
-
-      rises.forEach((element, index) => {
-        tl.fromTo(
-          element,
-          { y: 34, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.62, ease: "power3.out", immediateRender: false },
-          entry + index * 0.14
-        );
-      });
-
-      pops.forEach((element, index) => {
-        tl.fromTo(
-          element,
-          { scale: 0, y: 20, opacity: 0 },
-          { scale: 1, y: 0, opacity: 1, duration: 0.64, ease: "power3.out", immediateRender: false },
-          entry + 0.30 + index * Math.min(0.06, 0.5 / Math.max(1, pops.length))
-        );
-      });
-
-      const animated = Array.from(root.querySelectorAll('[data-animate]'));
-      tl.to(
-        animated,
-        { y: -18, opacity: 0, duration: 0.34, ease: "power2.in" },
-        scene.start + scene.duration - 0.36
-      );
-
-      tl.to(
-        `#route-dot-${sceneIndex + 1}`,
-        { scale: 1.16, backgroundColor: "#eaab2d", borderColor: "#ffffff", color: "#0d2437", duration: 0.46, ease: "power3.out" },
-        scene.start + 0.12
-      );
-      tl.to(
-        `#route-step-${sceneIndex + 1}`,
-        { color: "#ffffff", duration: 0.36, ease: "power1.out" },
-        scene.start + 0.12
-      );
+    acts.forEach(function (act) {
+      tl.to("#stops-fill",
+        { scaleX: act.fill, duration: 0.8, ease: "power2.out" }, act.at);
+      tl.to("#dot-" + act.stop,
+        { borderColor: "#ffffff", backgroundColor: "#eaab2d", color: "#0d2437",
+          duration: 0.45, ease: "power3.out" }, act.at);
+      tl.to("#name-" + act.stop,
+        { color: "#ffffff", duration: 0.45, ease: "power3.out" }, act.at);
+      if (act.stop > 1) {
+        tl.to("#dot-" + (act.stop - 1),
+          { borderColor: "rgba(234,171,45,0.55)", backgroundColor: "#0a1e2f",
+            color: "#eaab2d", duration: 0.45, ease: "power2.out" }, act.at);
+        tl.to("#name-" + (act.stop - 1),
+          { color: "#98a4cc", duration: 0.45, ease: "power2.out" }, act.at);
+      }
     });
-
-    const routePath = document.getElementById("route-progress");
-    const routeLength = routePath.getTotalLength();
-    routePath.style.strokeDasharray = `${routeLength}`;
-    routePath.style.strokeDashoffset = `${routeLength}`;
-    [0, 11.329, 30.411, 48.131, 64.402, 79.492].forEach((start, index) => {
-      tl.to(
-        routePath,
-        { strokeDashoffset: routeLength * (1 - index / 5), duration: 0.72, ease: "power2.out" },
-        start + 0.16
-      );
-    });
-
-    tl.fromTo(
-      "#route-traveler",
-      { x: 0 },
-      { x: 1530, duration: 99.2, ease: "none", immediateRender: false },
-      0.2
-    );
-
-    tl.fromTo(
-      "#map-axis",
-      { scaleY: 0 },
-      { scaleY: 1, duration: 1.15, ease: "power2.out", immediateRender: false },
-      12.479
-    );
-
-    tl.to(
-      "#focus-fill",
-      { scaleX: 0.74, duration: 1.25, ease: "power3.out" },
-      65.802
-    );
-
-    tl.fromTo(
-      "#focus-marker",
-      { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.55, ease: "power3.out", immediateRender: false },
-      66.552
-    );
-
-    tl.fromTo(
-      "#next-arrow",
-      { x: -12, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.46, ease: "power3.out", immediateRender: false },
-      81.592
-    );
 
     window.__timelines["m1_mini-syllabus"] = tl;
   </script>

@@ -1,47 +1,124 @@
 {
-  "total": 100.171,
+  "total": 104.539,
   "rows": [
     {
       "id": "welcome",
       "audio_start": 0.6,
-      "audio_dur": 10.329,
+      "audio_dur": 1.839,
       "vis_start": 0.0,
-      "vis_dur": 11.329
+      "vis_dur": 2.839
+    },
+    {
+      "id": "ready-for-more",
+      "audio_start": 3.089,
+      "audio_dur": 8.35,
+      "vis_start": 2.839,
+      "vis_dur": 9.0
+    },
+    {
+      "id": "journey",
+      "audio_start": 12.089,
+      "audio_dur": 2.51,
+      "vis_start": 11.839,
+      "vis_dur": 3.16
     },
     {
       "id": "checkpoint",
-      "audio_start": 11.579,
-      "audio_dur": 18.432,
-      "vis_start": 11.329,
-      "vis_dur": 19.082
+      "audio_start": 15.249,
+      "audio_dur": 8.83,
+      "vis_start": 14.999,
+      "vis_dur": 9.48
     },
     {
-      "id": "toolkit",
-      "audio_start": 30.661,
-      "audio_dur": 17.07,
-      "vis_start": 30.411,
-      "vis_dur": 17.72
+      "id": "progress",
+      "audio_start": 24.729,
+      "audio_dur": 6.55,
+      "vis_start": 24.479,
+      "vis_dur": 7.2
     },
     {
-      "id": "choices",
-      "audio_start": 48.381,
-      "audio_dur": 15.621,
-      "vis_start": 48.131,
-      "vis_dur": 16.271
+      "id": "tools",
+      "audio_start": 31.929,
+      "audio_dur": 10.73,
+      "vis_start": 31.679,
+      "vis_dur": 11.38
+    },
+    {
+      "id": "support",
+      "audio_start": 43.309,
+      "audio_dur": 6.1,
+      "vis_start": 43.059,
+      "vis_dur": 6.75
+    },
+    {
+      "id": "complicated",
+      "audio_start": 50.059,
+      "audio_dur": 2.19,
+      "vis_start": 49.809,
+      "vis_dur": 2.84
+    },
+    {
+      "id": "pressures",
+      "audio_start": 52.899,
+      "audio_dur": 5.28,
+      "vis_start": 52.649,
+      "vis_dur": 5.93
+    },
+    {
+      "id": "promotion",
+      "audio_start": 58.829,
+      "audio_dur": 3.61,
+      "vis_start": 58.579,
+      "vis_dur": 4.26
+    },
+    {
+      "id": "redesign",
+      "audio_start": 63.089,
+      "audio_dur": 1.91,
+      "vis_start": 62.839,
+      "vis_dur": 2.56
+    },
+    {
+      "id": "change-lanes",
+      "audio_start": 65.649,
+      "audio_dur": 1.61,
+      "vis_start": 65.399,
+      "vis_dur": 2.26
     },
     {
       "id": "next-move",
-      "audio_start": 64.652,
-      "audio_dur": 14.44,
-      "vis_start": 64.402,
-      "vis_dur": 15.09
+      "audio_start": 67.909,
+      "audio_dur": 7.51,
+      "vis_start": 67.659,
+      "vis_dur": 8.16
+    },
+    {
+      "id": "build-momentum",
+      "audio_start": 76.069,
+      "audio_dur": 6.81,
+      "vis_start": 75.819,
+      "vis_dur": 7.46
     },
     {
       "id": "commitment",
-      "audio_start": 79.742,
-      "audio_dur": 18.629,
-      "vis_start": 79.492,
-      "vis_dur": 20.679
+      "audio_start": 83.529,
+      "audio_dur": 7.56,
+      "vis_start": 83.279,
+      "vis_dur": 8.21
+    },
+    {
+      "id": "anchor",
+      "audio_start": 91.739,
+      "audio_dur": 6.18,
+      "vis_start": 91.489,
+      "vis_dur": 6.83
+    },
+    {
+      "id": "begin",
+      "audio_start": 98.569,
+      "audio_dur": 4.17,
+      "vis_start": 98.319,
+      "vis_dur": 6.22
     }
   ]
 }

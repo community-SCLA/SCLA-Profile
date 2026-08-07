@@ -8,48 +8,80 @@
       "text": "Welcome to Career Transitions."
     },
     {
-      "id": "ct-something-shifted",
-      "text": "If you're here, something has shifted. Maybe your industry is changing faster than you can adapt. Maybe the role you've been in for a decade no longer fits who you've become. Maybe an event outside your control—a layoff, a health scare, a family change, a decision made three levels above you—has pushed you into a decision you weren't ready to make. Or maybe nothing dramatic happened at all—you've just quietly known for a while that the next chapter needs to look different."
+      "id": "ct-shifted",
+      "text": "If you're here, something has shifted. Maybe your industry is changing faster than you can adapt."
+    },
+    {
+      "id": "ct-role",
+      "text": "Maybe the role you've been in for a decade no longer fits who you've become."
+    },
+    {
+      "id": "ct-event",
+      "text": "Maybe an event outside your control—a layoff, a health scare, a family change, a decision made three levels above you—has pushed you into a decision you weren't ready to make."
+    },
+    {
+      "id": "ct-quiet",
+      "text": "Or maybe nothing dramatic happened at all—you've just quietly known for a while that the next chapter needs to look different."
     },
     {
       "id": "ct-name-it",
       "text": "Whatever brought you here, let's start by naming something."
     },
     {
-      "id": "ct-research-horizon",
-      "text": "Researchers who study transitions—people like Bruce Feiler and Herminia Ibarra—have found something worth saying out loud. The average adult goes through three to five major life transitions, and the average one takes about five years to fully complete."
+      "id": "ct-researchers",
+      "text": "Researchers who study transitions—people like Bruce Feiler and Herminia Ibarra—have found something worth saying out loud."
     },
     {
-      "id": "ct-five-years",
-      "text": "Not five weeks, not five months. Five years."
+      "id": "ct-horizon",
+      "text": "The average adult goes through three to five major life transitions, and the average one takes about five years to fully complete. Not five weeks, not five months. Five years."
     },
     {
-      "id": "ct-permission-slip",
-      "text": "That's not a discouragement—it's a permission slip. If your transition is taking longer than you expected, you're not doing it wrong. You're doing it the way it actually gets done."
+      "id": "ct-permission",
+      "text": "That's not a discouragement—it's a permission slip."
     },
     {
-      "id": "ct-three-tracks",
-      "text": "This track is different from the first two. Track 1 helped early-career learners design a foundation. Track 2 helped mid-career professionals build momentum inside a general direction. Track 3 is for people whose direction itself needs to change. That's a different kind of work."
+      "id": "ct-longer",
+      "text": "If your transition is taking longer than you expected, you're not doing it wrong."
+    },
+    {
+      "id": "ct-gets-done",
+      "text": "You're doing it the way it actually gets done."
+    },
+    {
+      "id": "ct-foundation",
+      "text": "This track is different from the first two. Track 1 helped early-career learners design a foundation."
+    },
+    {
+      "id": "ct-momentum",
+      "text": "Track 2 helped mid-career professionals build momentum inside a general direction."
+    },
+    {
+      "id": "ct-redirection",
+      "text": "Track 3 is for people whose direction itself needs to change. That's a different kind of work."
     },
     {
       "id": "ct-three-things",
       "text": "Over the next five modules, we're going to do three things."
     },
     {
-      "id": "ct-internal-shift",
+      "id": "ct-first",
       "text": "First, we're going to look honestly at what a transition actually is—not just the external move, but the internal shift underneath it. That's where most transitions succeed or fail."
     },
     {
-      "id": "ct-experiments",
+      "id": "ct-second",
       "text": "Second, we're going to test your next chapter through low-risk experiments, so you're not betting your career on a hunch."
     },
     {
-      "id": "ct-runway",
+      "id": "ct-third",
       "text": "Third, we're going to build a real story, a real plan, and a real runway—so when you're ready to make the move, it's grounded, credible, and yours."
     },
     {
-      "id": "ct-honest-promise",
-      "text": "One promise before we begin. I'm not going to pretend this is easy. Career reinvention involves grief, uncertainty, and moments of genuine doubt. What I can promise is that the framework works—because it's built on decades of research about how people actually change careers, not how we wish they did."
+      "id": "ct-one-promise",
+      "text": "One promise before we begin. I'm not going to pretend this is easy."
+    },
+    {
+      "id": "ct-framework",
+      "text": "Career reinvention involves grief, uncertainty, and moments of genuine doubt. What I can promise is that the framework works—because it's built on decades of research about how people actually change careers, not how we wish they did."
     },
     {
       "id": "ct-question",

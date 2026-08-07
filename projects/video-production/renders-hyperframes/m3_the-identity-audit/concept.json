@@ -1,0 +1,31 @@
+{
+  "stem": "m3_the-identity-audit",
+  "program": "career-transitions",
+  "selected": "A",
+  "criteria": ["claim_fidelity", "visual_evolution", "attention", "feasibility"],
+  "scale": "1-5, higher is better",
+  "options": [
+    {
+      "id": "A",
+      "name": "The Stack",
+      "thesis": "Career identity looks like one solid thing and is actually five; the picture is a five-band stack that grows, gets numbered, gets named, gets interrogated and ends whole.",
+      "carrier": "five-band vertical stack, fixed coordinates, present in all 31 beats",
+      "milestones": ["b03 one band becomes five", "b13 three of five named, two still blank", "b31 all five named and gold under a resolving rule"],
+      "motion_logic": "establish -> transform -> settle, once per beat; 0.45-0.55s opacity+rise entrances, 0.3s right-column exits, no repeating or ambient motion",
+      "primary_risk": "quiet beats could read as twin frames while the four act transitions spike frame churn",
+      "scores": {"claim_fidelity": 5, "visual_evolution": 5, "attention": 4, "feasibility": 5},
+      "total": 19
+    },
+    {
+      "id": "B",
+      "name": "The Audit Ledger",
+      "thesis": "The audit is a 5x3 table: five layers down the side, three questions across the top, filled cell by cell.",
+      "carrier": "5x3 matrix drawn empty and completed by the close",
+      "milestones": ["the empty ruled grid", "one row fully marked", "completed grid with the honour column gold"],
+      "motion_logic": "rules draw in with scaleX from the left; cells fill with a mark scaling from 0",
+      "primary_risk": "15 cells plus labels force body type under the 40px floor, and a completed matrix asserts a per-layer x per-question structure the approved script never states",
+      "scores": {"claim_fidelity": 3, "visual_evolution": 4, "attention": 3, "feasibility": 2},
+      "total": 12
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "stem": "m0_welcome-to-mid-career-momentum",
+  "program": "mid-career-momentum",
+  "selected": "A",
+  "criteria": ["claim_fidelity", "visual_evolution", "attention", "feasibility"],
+  "scale": "1-5, higher is better",
+  "options": [
+    {
+      "id": "A",
+      "name": "The Career Map, Checkpoint by Checkpoint",
+      "carrier": "one horizontal route with five milestone nodes, drawn once in beat 2 and annotated for the rest of the lesson",
+      "scores": {
+        "claim_fidelity": 5,
+        "visual_evolution": 5,
+        "attention": 4,
+        "feasibility": 4
+      },
+      "total": 18,
+      "primary_risk": "density — by beat 13 the checkpoint carries eleven attached objects and overlapping text is a fatal inspector finding; mitigated by reserved lanes per attachment type and a four-word cap on attached copy"
+    },
+    {
+      "id": "B",
+      "name": "The 90-Day Anchor Card",
+      "carrier": "a single index card centre-frame that accumulates written lines and margin annotations",
+      "scores": {
+        "claim_fidelity": 4,
+        "visual_evolution": 2,
+        "attention": 2,
+        "feasibility": 5
+      },
+      "total": 13,
+      "primary_risk": "the card can only express ideas as text inside a fixed rectangle, so journey, checkpoint, progress and branching all degrade into small type"
+    }
+  ],
+  "decision": "A — the map is the script's own metaphor ('the mid-career checkpoint in your career map'), it has a place for all seven movements, and it keeps one object on screen for the whole runtime instead of redrawing the frame each beat."
+}

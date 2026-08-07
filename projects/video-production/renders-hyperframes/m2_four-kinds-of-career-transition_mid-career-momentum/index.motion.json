@@ -1,0 +1,260 @@
+{
+  "composition": "m2_four-kinds-of-career-transition_mid-career-momentum",
+  "runtime": "gsap",
+  "timeline": "window.__timelines['m2_four-kinds-of-career-transition_mid-career-momentum']",
+  "notes": "Every entrance is additive and single-shot; nothing repeats, yoyos or re-animates after settling.",
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beat": "b01",
+      "selector": "#beat-01",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b02",
+      "selector": "#beat-02",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b03",
+      "selector": "#beat-03",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b04",
+      "selector": "#beat-04",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b05",
+      "selector": "#beat-05",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b06",
+      "selector": "#beat-06",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b07",
+      "selector": "#beat-07",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b08",
+      "selector": "#beat-08",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b09",
+      "selector": "#beat-09",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b10",
+      "selector": "#beat-10",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b11",
+      "selector": "#beat-11",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b12",
+      "selector": "#beat-12",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b13",
+      "selector": "#beat-13",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b14",
+      "selector": "#beat-14",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b15",
+      "selector": "#beat-15",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b16",
+      "selector": "#beat-16",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b17",
+      "selector": "#beat-17",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b18",
+      "selector": "#beat-18",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b19",
+      "selector": "#beat-19",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b20",
+      "selector": "#beat-20",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b21",
+      "selector": "#beat-21",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b22",
+      "selector": "#beat-22",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b23",
+      "selector": "#beat-23",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b24",
+      "selector": "#beat-24",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b25",
+      "selector": "#beat-25",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b26",
+      "selector": "#beat-26",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b27",
+      "selector": "#beat-27",
+      "what": "the beat's copy column is fully faded in and settled",
+      "withinSeconds": 0.6
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b03",
+      "selector": "#div-v",
+      "what": "the chosen | forced divider is drawn",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b05",
+      "selector": "#div-h",
+      "what": "the adjacent | genuinely new divider is drawn",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b06",
+      "selector": "#edge-pivot",
+      "what": "the four empty cells of the field are present",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b07",
+      "selector": "#name-pivot",
+      "what": "the Pivot cell is filled and named",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b11",
+      "selector": "#name-rein",
+      "what": "the Reinvention cell is filled and named",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b14",
+      "selector": "#name-rebuild",
+      "what": "the Rebuild cell is filled and named",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "appearsBy",
+      "beat": "b18",
+      "selector": "#name-forced-a",
+      "what": "the Forced Reinvention cell is filled and named",
+      "withinSeconds": 1.0
+    },
+    {
+      "kind": "keepsMoving",
+      "beat": "b21",
+      "selector": "#edge-forced",
+      "what": "the four cell edges resolve to one gold standing, staggered, and then hold",
+      "forSeconds": 1.0
+    },
+    {
+      "kind": "settlesBy",
+      "beat": "b27",
+      "selector": "#beat-27",
+      "what": "the closing copy is pixel-static for the final hold",
+      "withinSeconds": 1.0
+    }
+  ]
+}

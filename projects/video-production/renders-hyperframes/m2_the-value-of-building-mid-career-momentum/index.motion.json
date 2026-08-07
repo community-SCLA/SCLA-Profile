@@ -1,0 +1,91 @@
+{
+  "compositionId": "m2_the-value-of-building-mid-career-momentum",
+  "duration": 174,
+  "timeline": "master",
+  "paused": true,
+  "seekable": true,
+  "beats": [
+    {
+      "id": "beat-01-experience",
+      "start": 0,
+      "duration": 18
+    },
+    {
+      "id": "beat-02-noise",
+      "start": 18,
+      "duration": 24
+    },
+    {
+      "id": "beat-03-momentum",
+      "start": 42,
+      "duration": 46
+    },
+    {
+      "id": "beat-04-three-paths",
+      "start": 88,
+      "duration": 24
+    },
+    {
+      "id": "beat-05-definitions",
+      "start": 112,
+      "duration": 31
+    },
+    {
+      "id": "beat-06-fit",
+      "start": 143,
+      "duration": 16
+    },
+    {
+      "id": "beat-07-direction",
+      "start": 159,
+      "duration": 15
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-01-experience",
+      "selector": "#beat-01-experience",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-02-noise",
+      "selector": "#beat-02-noise",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-03-momentum",
+      "selector": "#beat-03-momentum",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-04-three-paths",
+      "selector": "#beat-04-three-paths",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-05-definitions",
+      "selector": "#beat-05-definitions",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-06-fit",
+      "selector": "#beat-06-fit",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-07-direction",
+      "selector": "#beat-07-direction",
+      "seconds": 1.2
+    },
+    {
+      "kind": "keepsMoving"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "title": "The Momentum Map",
+  "compositionId": "m2_the-value-of-building-mid-career-momentum",
+  "program": "mid-career-momentum",
+  "format": "illustrated editorial motion graphics",
+  "thesis": "Turn mid-career noise and drift into one named, realistic next move.",
+  "visualMetaphor": "A gold route becomes clearer as experience is translated into a choice and a 90-day goal.",
+  "beats": [
+    {"id":"beat-01-experience","purpose":"Acknowledge accumulated experience and reduced clarity.","visual":"Completed-work markers behind a figure; branching route ahead."},
+    {"id":"beat-02-noise","purpose":"Normalize frustration or unfocused ambition.","visual":"Thought fragments converge toward an empty page."},
+    {"id":"beat-03-momentum","purpose":"Define deliberate, compounding momentum.","visual":"A drifting path straightens through pause, reassess, choose, and a 90-day marker."},
+    {"id":"beat-04-three-paths","purpose":"Introduce the three common paths.","visual":"One route divides into promotion, lateral move, and role redesign."},
+    {"id":"beat-05-definitions","purpose":"Make each path concrete.","visual":"Three route cards show scope, fit, and reshaping."},
+    {"id":"beat-06-fit","purpose":"Frame the choice around personal fit.","visual":"Values, energy, and life constraints overlap."},
+    {"id":"beat-07-direction","purpose":"Resolve drift into a named next move.","visual":"A 90-day goal anchors a sequence of small compounding steps."}
+  ]
+}

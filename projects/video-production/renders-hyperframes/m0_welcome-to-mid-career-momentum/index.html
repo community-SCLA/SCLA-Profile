@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-display: block;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -12,19 +31,319 @@
       }
       html,
       body {
-        margin: 0;
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        background: #000;
+        background: #0a1e2f;
       }
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Proxima Nova", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
-      code,
-      pre,
-      .monospace {
-        font-family: "JetBrains Mono", monospace;
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: radial-gradient(
+          1500px 1000px at 30% 16%,
+          #0d2437 0%,
+          #0a1e2f 74%
+        );
+      }
+
+      #stage {
+        position: absolute;
+        inset: 0;
+      }
+
+      .hid {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      /* ---- top band: program eyebrow, brandmark, course-progress rail ---- */
+      #eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 124px;
+        width: 900px;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #3393d6;
+      }
+      #brandmark {
+        position: absolute;
+        left: 1440px;
+        top: 118px;
+        width: 360px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 18px;
+      }
+      #brandtext {
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        color: #ffffff;
+      }
+      #brandicon {
+        width: 48px;
+        height: 60px;
+      }
+      #rail-label {
+        position: absolute;
+        left: 120px;
+        top: 176px;
+        width: 700px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      #rail-track {
+        position: absolute;
+        left: 120px;
+        top: 216px;
+        width: 1680px;
+        height: 10px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+      #rail-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1680px;
+        height: 10px;
+        border-radius: 100px;
+        background: #eaab2d;
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+      .playhead {
+        position: absolute;
+        top: 230px;
+        width: 18px;
+        height: 18px;
+        margin-left: -9px;
+        background: #eaab2d;
+        transform: rotate(45deg);
+        border-radius: 4px;
+      }
+
+      /* ---- message zone ---- */
+      .msg-h {
+        position: absolute;
+        left: 120px;
+        top: 286px;
+        width: 1500px;
+        font-weight: 900;
+        line-height: 1.06;
+        color: #ffffff;
+      }
+      #h-title {
+        font-size: 86px;
+      }
+      .msg-h.sub {
+        font-size: 60px;
+        line-height: 1.08;
+      }
+      .msg-s {
+        position: absolute;
+        left: 120px;
+        top: 432px;
+        width: 1440px;
+        font-size: 42px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: rgba(255, 255, 255, 0.82);
+      }
+      #s-quote {
+        font-size: 46px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: #eaab2d;
+        border-left: 4px solid #eaab2d;
+        padding-left: 28px;
+        left: 120px;
+        width: 1500px;
+      }
+      #s-cta {
+        font-size: 46px;
+        font-weight: 900;
+        color: #eaab2d;
+      }
+
+      /* ---- the route (the carrier) ---- */
+      #pin {
+        position: absolute;
+        left: 780px;
+        top: 528px;
+        width: 400px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #eaab2d;
+      }
+      #pin-stem {
+        position: absolute;
+        left: 979px;
+        top: 568px;
+        width: 2px;
+        height: 32px;
+        background: rgba(234, 171, 45, 0.8);
+      }
+      #route {
+        position: absolute;
+        left: 240px;
+        top: 638px;
+        width: 1480px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.28);
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+      #route-lit,
+      #route-lit2 {
+        position: absolute;
+        top: 637px;
+        width: 298px;
+        height: 6px;
+        background: #eaab2d;
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+      #route-lit {
+        left: 1016px;
+      }
+      #route-lit2 {
+        left: 1386px;
+      }
+      .node {
+        position: absolute;
+        top: 604px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.38);
+        background: rgba(13, 36, 55, 0.9);
+      }
+      #n1 {
+        left: 204px;
+      }
+      #n2 {
+        left: 574px;
+      }
+      #n3 {
+        left: 944px;
+      }
+      #n4 {
+        left: 1314px;
+      }
+      #n5 {
+        left: 1684px;
+      }
+      #n3-fill {
+        position: absolute;
+        left: 954px;
+        top: 614px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: #eaab2d;
+      }
+      #n3-ring {
+        position: absolute;
+        left: 926px;
+        top: 586px;
+        width: 108px;
+        height: 108px;
+        border-radius: 50%;
+        border: 3px solid rgba(234, 171, 45, 0.55);
+      }
+      .cap {
+        position: absolute;
+        top: 692px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.62);
+      }
+      #cap3 {
+        left: 790px;
+        width: 380px;
+      }
+      #cap4 {
+        left: 1200px;
+        width: 300px;
+      }
+
+      /* ---- attachment rows ---- */
+      .row-label {
+        position: absolute;
+        left: 120px;
+        top: 740px;
+        width: 900px;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #3393d6;
+      }
+      .row-a {
+        position: absolute;
+        left: 120px;
+        top: 776px;
+        width: 1680px;
+        display: flex;
+        gap: 24px;
+        list-style: none;
+      }
+      .row-b {
+        position: absolute;
+        left: 120px;
+        top: 860px;
+        width: 1680px;
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+      .row-a li,
+      .row-b li,
+      .row-b div {
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 1.15;
+        color: #ffffff;
+        border: 2px solid rgba(51, 147, 214, 0.85);
+        border-radius: 100px;
+        padding: 10px 28px;
+        white-space: nowrap;
+      }
+      #listB2 li {
+        border-color: rgba(234, 171, 45, 0.85);
+      }
+      #noteB1 {
+        border-color: transparent;
+        color: rgba(255, 255, 255, 0.82);
+        font-weight: 400;
+        padding-left: 0;
+      }
+      #noteB2 {
+        border-color: rgba(234, 171, 45, 0.9);
+        color: #eaab2d;
+        font-weight: 900;
       }
     </style>
   </head>
@@ -33,26 +352,336 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
+      data-duration="115.658"
       data-width="1920"
       data-height="1080"
     >
-      
-      
-
-      <!--
-        Add your clips here. Example:
-        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
-             style="font-size: 64px; color: #fff; padding: 40px">
-          Hello World
+      <!-- The persistent stage: the carrier and every accumulating mark. These
+           elements carry no timing attributes, so the runtime never hides them;
+           the single paused timeline owns their state. -->
+      <div id="stage">
+        <div id="eyebrow" class="hid">Mid-Career Momentum</div>
+        <div id="brandmark" class="hid">
+          <span id="brandtext">SCLA</span>
+          <img id="brandicon" src="assets/brand/SCLA-logo-icon.svg" alt="" />
         </div>
-      -->
+
+        <div id="rail-label" class="hid">Course progress</div>
+        <div id="rail-track" class="hid"><div id="rail-fill"></div></div>
+
+        <h1 id="h-title" class="msg-h hid">Welcome to Mid-Career Momentum</h1>
+        <h2 id="h-journey" class="msg-h sub hid">Your Broader Career Journey</h2>
+        <h2 id="h-tools" class="msg-h sub hid">Simple Tools, Real Support</h2>
+        <h2 id="h-complex" class="msg-h sub hid">Mid-Career Can Feel Complicated</h2>
+        <h2 id="h-move" class="msg-h sub hid">Your Next Realistic Move</h2>
+        <h2 id="h-commit" class="msg-h sub hid">Set a Simple, Powerful Commitment</h2>
+        <h2 id="h-ready" class="msg-h sub hid">When You're Ready</h2>
+
+        <div id="s-ann" class="msg-s hid">Ann, career coach and educator</div>
+        <div id="s-choose" class="msg-s hid">
+          Pause, reassess, and choose what comes next
+        </div>
+        <div id="s-progress" class="msg-s hid">
+          See exactly where you are and what's ahead
+        </div>
+        <div id="s-alone" class="msg-s hid">You're not doing this alone</div>
+        <div id="s-wonder" class="msg-s hid">You might be wondering</div>
+        <div id="s-focus" class="msg-s hid">
+          Focus on the next six to twelve months
+        </div>
+        <div id="s-quote" class="msg-s hid">
+          Over the next 90 days, my main career goal is ___.
+        </div>
+        <div id="s-cta" class="msg-s hid">&#8594; Click Next to begin</div>
+
+        <div id="pin" class="hid">You are here</div>
+        <div id="pin-stem" class="hid"></div>
+
+        <div id="route" class="hid"></div>
+        <div id="route-lit" class="hid"></div>
+        <div id="route-lit2" class="hid"></div>
+        <div id="n1" class="node hid"></div>
+        <div id="n2" class="node hid"></div>
+        <div id="n3" class="node hid"></div>
+        <div id="n4" class="node hid"></div>
+        <div id="n5" class="node hid"></div>
+        <div id="n3-fill" class="hid"></div>
+        <div id="n3-ring" class="hid"></div>
+        <div id="cap3" class="cap hid">Mid-career checkpoint</div>
+        <div id="cap4" class="cap hid">6 to 12 months</div>
+
+        <div id="lblA1" class="row-label hid">You're ready for</div>
+        <div id="lblA2" class="row-label hid">What you'll use</div>
+        <div id="lblA3" class="row-label hid">What you're juggling</div>
+        <div id="lblA4" class="row-label hid">How we help</div>
+
+        <ul id="listA1" class="row-a hid">
+          <li class="hid">More impact</li>
+          <li class="hid">More recognition</li>
+          <li class="hid">A role that fits</li>
+        </ul>
+        <ul id="listA2" class="row-a hid">
+          <li class="hid">Click-through activities</li>
+          <li class="hid">Short reflections</li>
+          <li class="hid">Uploads</li>
+          <li class="hid">AI-powered prompts</li>
+        </ul>
+        <ul id="listA3" class="row-a hid">
+          <li class="hid">Family responsibilities</li>
+          <li class="hid">Leadership expectations</li>
+          <li class="hid">A full calendar</li>
+        </ul>
+        <ul id="listA4" class="row-a hid">
+          <li class="hid">Define the move</li>
+          <li class="hid">Reposition your experience</li>
+          <li class="hid">Build momentum</li>
+        </ul>
+
+        <ul id="listB1" class="row-b hid">
+          <li class="hid">#questionsupport channel</li>
+          <li class="hid">Member support team</li>
+        </ul>
+        <ul id="listB2" class="row-b hid">
+          <li class="hid">Push for promotion?</li>
+          <li class="hid">Redesign my role?</li>
+          <li class="hid">Change lanes entirely?</li>
+        </ul>
+        <div id="rowB3" class="row-b hid">
+          <div id="noteB1" class="hid">Write and submit it in a short activity</div>
+          <div id="noteB2" class="hid">Your anchor for the rest of the track</div>
+        </div>
+      </div>
+
+      <!-- One timed clip per narration beat. Each carries that beat's playhead
+           on the course-progress rail, so the beat spine is a visible mark
+           rather than an empty marker. -->
+      <div id="c01" class="clip" data-beat-id="b01" data-start="0.0" data-duration="3.869" data-track-index="1"><span class="playhead" style="left: 148px"></span></div>
+      <div id="c02" class="clip" data-beat-id="b02" data-start="3.869" data-duration="4.62" data-track-index="1"><span class="playhead" style="left: 210px"></span></div>
+      <div id="c03" class="clip" data-beat-id="b03" data-start="8.489" data-duration="10.5" data-track-index="1"><span class="playhead" style="left: 320px"></span></div>
+      <div id="c04" class="clip" data-beat-id="b04" data-start="18.989" data-duration="3.1" data-track-index="1"><span class="playhead" style="left: 418px"></span></div>
+      <div id="c05" class="clip" data-beat-id="b05" data-start="22.089" data-duration="9.85" data-track-index="1"><span class="playhead" style="left: 512px"></span></div>
+      <div id="c06" class="clip" data-beat-id="b06" data-start="31.939" data-duration="7.29" data-track-index="1"><span class="playhead" style="left: 637px"></span></div>
+      <div id="c07" class="clip" data-beat-id="b07" data-start="39.229" data-duration="11.01" data-track-index="1"><span class="playhead" style="left: 770px"></span></div>
+      <div id="c08" class="clip" data-beat-id="b08" data-start="50.239" data-duration="7.749" data-track-index="1"><span class="playhead" style="left: 906px"></span></div>
+      <div id="c09" class="clip" data-beat-id="b09" data-start="57.988" data-duration="3.09" data-track-index="1"><span class="playhead" style="left: 985px"></span></div>
+      <div id="c10" class="clip" data-beat-id="b10" data-start="61.078" data-duration="6.17" data-track-index="1"><span class="playhead" style="left: 1052px"></span></div>
+      <div id="c11" class="clip" data-beat-id="b11" data-start="67.248" data-duration="3.89" data-track-index="1"><span class="playhead" style="left: 1125px"></span></div>
+      <div id="c12" class="clip" data-beat-id="b12" data-start="71.138" data-duration="2.46" data-track-index="1"><span class="playhead" style="left: 1171px"></span></div>
+      <div id="c13" class="clip" data-beat-id="b13" data-start="73.598" data-duration="2.39" data-track-index="1"><span class="playhead" style="left: 1206px"></span></div>
+      <div id="c14" class="clip" data-beat-id="b14" data-start="75.988" data-duration="8.64" data-track-index="1"><span class="playhead" style="left: 1287px"></span></div>
+      <div id="c15" class="clip" data-beat-id="b15" data-start="84.628" data-duration="7.52" data-track-index="1"><span class="playhead" style="left: 1404px"></span></div>
+      <div id="c16" class="clip" data-beat-id="b16" data-start="92.148" data-duration="10.07" data-track-index="1"><span class="playhead" style="left: 1532px"></span></div>
+      <div id="c17" class="clip" data-beat-id="b17" data-start="102.218" data-duration="3.88" data-track-index="1"><span class="playhead" style="left: 1633px"></span></div>
+      <div id="c18" class="clip" data-beat-id="b18" data-start="106.098" data-duration="3.18" data-track-index="1"><span class="playhead" style="left: 1684px"></span></div>
+      <div id="c19" class="clip" data-beat-id="b19" data-start="109.278" data-duration="6.38" data-track-index="1"><span class="playhead" style="left: 1754px"></span></div>
+
+      <!-- One narration clip per beat, placed from timing.json. -->
+      <audio id="a01" class="clip" src="assets/voice/b01.wav" data-start="0.6" data-duration="2.869" data-track-index="0"></audio>
+      <audio id="a02" class="clip" src="assets/voice/b02.wav" data-start="4.119" data-duration="3.97" data-track-index="0"></audio>
+      <audio id="a03" class="clip" src="assets/voice/b03.wav" data-start="8.739" data-duration="9.85" data-track-index="0"></audio>
+      <audio id="a04" class="clip" src="assets/voice/b04.wav" data-start="19.239" data-duration="2.45" data-track-index="0"></audio>
+      <audio id="a05" class="clip" src="assets/voice/b05.wav" data-start="22.339" data-duration="9.2" data-track-index="0"></audio>
+      <audio id="a06" class="clip" src="assets/voice/b06.wav" data-start="32.189" data-duration="6.64" data-track-index="0"></audio>
+      <audio id="a07" class="clip" src="assets/voice/b07.wav" data-start="39.479" data-duration="10.36" data-track-index="0"></audio>
+      <audio id="a08" class="clip" src="assets/voice/b08.wav" data-start="50.489" data-duration="7.099" data-track-index="0"></audio>
+      <audio id="a09" class="clip" src="assets/voice/b09.wav" data-start="58.238" data-duration="2.44" data-track-index="0"></audio>
+      <audio id="a10" class="clip" src="assets/voice/b10.wav" data-start="61.328" data-duration="5.52" data-track-index="0"></audio>
+      <audio id="a11" class="clip" src="assets/voice/b11.wav" data-start="67.498" data-duration="3.24" data-track-index="0"></audio>
+      <audio id="a12" class="clip" src="assets/voice/b12.wav" data-start="71.388" data-duration="1.81" data-track-index="0"></audio>
+      <audio id="a13" class="clip" src="assets/voice/b13.wav" data-start="73.848" data-duration="1.74" data-track-index="0"></audio>
+      <audio id="a14" class="clip" src="assets/voice/b14.wav" data-start="76.238" data-duration="7.99" data-track-index="0"></audio>
+      <audio id="a15" class="clip" src="assets/voice/b15.wav" data-start="84.878" data-duration="6.87" data-track-index="0"></audio>
+      <audio id="a16" class="clip" src="assets/voice/b16.wav" data-start="92.398" data-duration="9.42" data-track-index="0"></audio>
+      <audio id="a17" class="clip" src="assets/voice/b17.wav" data-start="102.468" data-duration="3.23" data-track-index="0"></audio>
+      <audio id="a18" class="clip" src="assets/voice/b18.wav" data-start="106.348" data-duration="2.53" data-track-index="0"></audio>
+      <audio id="a19" class="clip" src="assets/voice/b19.wav" data-start="109.528" data-duration="4.33" data-track-index="0"></audio>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
+      var tl = gsap.timeline({ paused: true });
+
+      // Beat starts, applied from timing.json. Never hand-tuned.
+      var B = {
+        b01: 0.0, b02: 3.869, b03: 8.489, b04: 18.989, b05: 22.089,
+        b06: 31.939, b07: 39.229, b08: 50.239, b09: 57.988, b10: 61.078,
+        b11: 67.248, b12: 71.138, b13: 73.598, b14: 75.988, b15: 84.628,
+        b16: 92.148, b17: 102.218, b18: 106.098, b19: 109.278
+      };
+
+      function rise(sel, at, dy, ease) {
+        tl.fromTo(
+          sel,
+          { autoAlpha: 0, y: dy },
+          { autoAlpha: 1, y: 0, duration: 0.55, ease: ease || "power3.out" },
+          at
+        );
+      }
+      function riseAll(sel, at, dy) {
+        tl.fromTo(
+          sel,
+          { autoAlpha: 0, y: dy },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power3.out",
+            stagger: 0.14
+          },
+          at
+        );
+      }
+      function show(sel, at, dur, ease) {
+        tl.fromTo(
+          sel,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: dur || 0.45, ease: ease || "power2.out" },
+          at
+        );
+      }
+      function grow(sel, at, dur) {
+        tl.fromTo(
+          sel,
+          { autoAlpha: 1, scaleX: 0 },
+          { scaleX: 1, duration: dur, ease: "power3.out" },
+          at
+        );
+      }
+      function fade(sel, at) {
+        tl.to(sel, { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, at);
+      }
+      function dim(sel, at) {
+        tl.to(sel, { opacity: 0.26, duration: 0.4, ease: "power2.out" }, at);
+      }
+      function rail(at, to) {
+        tl.to(
+          "#rail-fill",
+          { scaleX: to, duration: 0.7, ease: "power2.inOut" },
+          at
+        );
+      }
+
+      /* ---- movement 1: arrival ---- */
+      rise("#eyebrow", B.b01 + 0.1, 16);
+      show("#brandmark", B.b01 + 0.3, 0.5);
+      rise("#h-title", B.b01 + 0.45, 28, "power4.out");
+      show("#rail-track", B.b01 + 1.1, 0.5);
+      tl.set("#rail-fill", { autoAlpha: 1 }, B.b01 + 1.1);
+
+      rise("#s-ann", B.b02 + 0.4, 22);
+
+      rise("#lblA1", B.b03 + 0.25, 16);
+      show("#listA1", B.b03 + 0.25, 0.2);
+      rise("#listA1 li:nth-child(1)", B.b03 + 1.2, 22);
+      rise("#listA1 li:nth-child(2)", B.b03 + 3.6, 22);
+      rise("#listA1 li:nth-child(3)", B.b03 + 6.2, 22);
+
+      /* ---- movement 2: the checkpoint ---- */
+      fade("#h-title", B.b04 - 0.15);
+      fade("#s-ann", B.b04 - 0.15);
+      rise("#h-journey", B.b04 + 0.35, 26, "power4.out");
+      show("#route", B.b04 + 0.4, 0.2);
+      grow("#route", B.b04 + 0.4, 0.9);
+      riseAll("#n1, #n2, #n3, #n4, #n5", B.b04 + 0.9, 0, "back.out(1.4)");
+
+      show("#n3-fill", B.b05 + 0.3, 0.45);
+      rise("#pin", B.b05 + 1.3, 18);
+      show("#pin-stem", B.b05 + 1.3, 0.45);
+      rise("#cap3", B.b05 + 3.3, 12);
+      rise("#s-choose", B.b05 + 5.6, 22);
+
+      fade("#s-choose", B.b06 + 0.1);
+      rise("#rail-label", B.b06 + 0.6, 12);
+      rise("#s-progress", B.b06 + 1.9, 22);
+      rail(B.b06 + 4.2, 0.3);
+
+      /* ---- movement 3: what you carry ---- */
+      fade("#h-journey", B.b07 - 0.15);
+      fade("#s-progress", B.b07 - 0.15);
+      fade("#lblA1", B.b07 - 0.15);
+      fade("#listA1", B.b07 - 0.15);
+      rise("#h-tools", B.b07 + 0.35, 26, "power4.out");
+      rise("#lblA2", B.b07 + 1.4, 16);
+      show("#listA2", B.b07 + 1.4, 0.2);
+      rise("#listA2 li:nth-child(1)", B.b07 + 2.2, 22);
+      rise("#listA2 li:nth-child(2)", B.b07 + 3.8, 22);
+      rise("#listA2 li:nth-child(3)", B.b07 + 5.4, 22);
+      rise("#listA2 li:nth-child(4)", B.b07 + 7.0, 22);
+
+      rise("#s-alone", B.b08 + 0.35, 22);
+      show("#listB1", B.b08 + 1.9, 0.2);
+      rise("#listB1 li:nth-child(1)", B.b08 + 2.0, 22);
+      rise("#listB1 li:nth-child(2)", B.b08 + 4.2, 22);
+
+      /* ---- movement 4: the tangle ---- */
+      fade("#h-tools", B.b09 - 0.15);
+      fade("#s-alone", B.b09 - 0.15);
+      fade("#lblA2", B.b09 - 0.15);
+      fade("#listA2", B.b09 - 0.15);
+      fade("#listB1", B.b09 - 0.15);
+      rise("#h-complex", B.b09 + 0.4, 26, "power4.out");
+
+      rise("#lblA3", B.b10 + 0.25, 16);
+      show("#listA3", B.b10 + 0.25, 0.2);
+      rise("#listA3 li:nth-child(1)", B.b10 + 0.9, 22);
+      rise("#listA3 li:nth-child(2)", B.b10 + 2.4, 22);
+      rise("#listA3 li:nth-child(3)", B.b10 + 3.9, 22);
+
+      rise("#s-wonder", B.b11 + 0.3, 22);
+      show("#listB2", B.b11 + 1.6, 0.2);
+      rise("#listB2 li:nth-child(1)", B.b11 + 1.7, 22);
+      rise("#listB2 li:nth-child(2)", B.b12 + 0.35, 22);
+      rise("#listB2 li:nth-child(3)", B.b13 + 0.3, 22);
+
+      /* ---- movement 5: the next move ---- */
+      fade("#h-complex", B.b14 - 0.15);
+      fade("#s-wonder", B.b14 - 0.15);
+      fade("#lblA3", B.b14 - 0.15);
+      fade("#listA3", B.b14 - 0.15);
+      dim("#listB2", B.b14 + 0.15);
+      rise("#h-move", B.b14 + 0.4, 26, "power4.out");
+      show("#route-lit", B.b14 + 1.6, 0.2);
+      grow("#route-lit", B.b14 + 1.6, 0.7);
+      rise("#cap4", B.b14 + 2.5, 12);
+      rise("#s-focus", B.b14 + 4.0, 22);
+      rail(B.b14 + 6.0, 0.58);
+
+      rise("#lblA4", B.b15 + 0.25, 16);
+      show("#listA4", B.b15 + 0.25, 0.2);
+      rise("#listA4 li:nth-child(1)", B.b15 + 1.0, 22);
+      rise("#listA4 li:nth-child(2)", B.b15 + 3.0, 22);
+      rise("#listA4 li:nth-child(3)", B.b15 + 5.0, 22);
+
+      /* ---- movement 6: the commitment ---- */
+      fade("#h-move", B.b16 - 0.15);
+      fade("#s-focus", B.b16 - 0.15);
+      fade("#listB2", B.b16 - 0.15);
+      rise("#h-commit", B.b16 + 0.4, 26, "power4.out");
+      rise("#s-quote", B.b16 + 2.0, 24);
+      rail(B.b16 + 4.4, 0.78);
+      tl.to(
+        "#route, #n1, #n2, #n4, #n5",
+        { opacity: 0.5, duration: 0.6, ease: "power2.out" },
+        B.b16 + 7.0
+      );
+
+      show("#rowB3", B.b17 + 0.3, 0.2);
+      rise("#noteB1", B.b17 + 0.4, 20);
+
+      rise("#noteB2", B.b18 + 0.3, 20);
+      show("#n3-ring", B.b18 + 1.3, 0.5);
+
+      /* ---- movement 7: go ---- */
+      fade("#h-commit", B.b19 - 0.15);
+      fade("#s-quote", B.b19 - 0.15);
+      fade("#lblA4", B.b19 - 0.15);
+      fade("#listA4", B.b19 - 0.15);
+      rise("#h-ready", B.b19 + 0.4, 26, "power4.out");
+      show("#route-lit2", B.b19 + 1.5, 0.2);
+      grow("#route-lit2", B.b19 + 1.5, 0.7);
+      rail(B.b19 + 2.4, 1);
+      rise("#s-cta", B.b19 + 3.6, 22, "power4.out");
+
       window.__timelines["main"] = tl;
     </script>
   </body>

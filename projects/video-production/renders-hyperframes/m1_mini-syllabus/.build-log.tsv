@@ -1,2 +1,8 @@
 2026-08-06T23:13:12Z	resume	program=mid-career-momentum
 2026-08-06T23:16:48Z	preflight	exit 1
+2026-08-06T23:41:39Z	resume	program=mid-career-momentum
+2026-08-06T23:43:06Z	preflight	exit 1
+2026-08-06T23:44:28Z	preflight	exit 1
+2026-08-06T23:52:30Z	gate-read	preflight exit 1: pace FAIL (6 beats, 3.59 bpm, median 17.0s, 100% long-beat share, churn 15.43%) + ink footer-breach on all 7 stills
+2026-08-07T00:04:30Z	preflight	exit 1
+2026-08-07T00:08:29Z	preflight	exit 1

@@ -1,0 +1,9 @@
+# Deterministic-gate verification output, written by render-qa (preflight.py,
+# the presence lane, and the guarded command logs). Generated AFTER authoring
+# and never referenced by index.html, compositions/, or any manifest — verified
+# by reference audit across src/href/url()/data-composition-src on 2026-08-06.
+# Excluded so the cloud upload carries composition inputs only (120 MB -> ~48 MB).
+# renders/ and snapshots/ are already excluded by the CLI's built-in rules.
+/qa/frames/
+/qa/presence/
+/qa/logs/

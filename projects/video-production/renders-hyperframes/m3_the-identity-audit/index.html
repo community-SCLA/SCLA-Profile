@@ -3,8 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
+    <title>The Identity Audit — Career Transitions</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      @font-face {
+        font-family: "proxima-nova";
+        src: url("assets/fonts/proxima-nova-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "proxima-nova";
+        src: url("assets/fonts/proxima-nova-700.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "proxima-nova";
+        src: url("assets/fonts/proxima-nova-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: block;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -12,48 +35,605 @@
       }
       html,
       body {
-        margin: 0;
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        background: #000;
       }
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "proxima-nova", sans-serif;
+        background: #0a1e2f;
       }
-      code,
-      pre,
-      .monospace {
-        font-family: "JetBrains Mono", monospace;
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+
+      /* ---- ground ---------------------------------------------------- */
+      #bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        background: #0d2437;
+      }
+      #glow {
+        position: absolute;
+        left: -260px;
+        top: -320px;
+        width: 1700px;
+        height: 1700px;
+        background: radial-gradient(closest-side, rgba(51, 147, 214, 0.17), rgba(51, 147, 214, 0));
+      }
+      #glow-warm {
+        position: absolute;
+        left: 1080px;
+        top: 420px;
+        width: 1500px;
+        height: 1500px;
+        background: radial-gradient(closest-side, rgba(234, 171, 45, 0.09), rgba(234, 171, 45, 0));
+      }
+
+      /* ---- program eyebrow (declared chrome region 100,50,700,110) ---- */
+      #eyebrow {
+        position: absolute;
+        left: 120px;
+        top: 56px;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        line-height: 30px;
+        color: #98a4cc;
+      }
+
+      /* ---- the carrying object: the stack ---------------------------- */
+      #stack {
+        position: absolute;
+        left: 120px;
+        top: 236px;
+        width: 740px;
+        height: 608px;
+        list-style: none;
+      }
+      .layer {
+        position: absolute;
+        left: 0;
+        width: 740px;
+        height: 104px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      #L1 { top: 0; }
+      #L2 { top: 126px; }
+      #L3 { top: 252px; }
+      #L4 { top: 378px; }
+      #L5 { top: 504px; }
+
+      .accent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 9px;
+        height: 104px;
+        border-radius: 12px 0 0 12px;
+        background: #eaab2d;
+      }
+      .mark {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 9px;
+        height: 104px;
+        border-radius: 0 12px 12px 0;
+        background: #eaab2d;
+      }
+      /* text-floor-exempt: marker numeral sized by its 64px circle */
+      .num {
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        width: 64px;
+        height: 64px;
+        border-radius: 100px;
+        background: #eaab2d;
+        color: #0d2437;
+        font-size: 32px;
+        font-weight: 900;
+        line-height: 64px;
+        text-align: center;
+      }
+      .name {
+        position: absolute;
+        left: 124px;
+        top: 27px;
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 50px;
+        color: #ffffff;
+      }
+      .dot {
+        position: absolute;
+        right: 36px;
+        top: 38px;
+        width: 28px;
+        height: 28px;
+        border-radius: 100px;
+      }
+      .dot-gold { background: #eaab2d; }
+      .dot-blue { background: #3393d6; }
+      .dot-ring { box-shadow: inset 0 0 0 5px #eaab2d; }
+
+      #topline {
+        position: absolute;
+        left: 120px;
+        top: 220px;
+        width: 740px;
+        height: 5px;
+        border-radius: 100px;
+        background: #eaab2d;
+      }
+      #baserule {
+        position: absolute;
+        left: 120px;
+        top: 876px;
+        width: 740px;
+        height: 5px;
+        border-radius: 100px;
+        background: #eaab2d;
+        transform-origin: left center;
+      }
+
+      /* ---- right column ---------------------------------------------- */
+      .rc {
+        position: absolute;
+        left: 940px;
+        width: 860px;
+      }
+      .hd {
+        font-size: 56px;
+        font-weight: 900;
+        line-height: 64px;
+        letter-spacing: -0.005em;
+        color: #ffffff;
+      }
+      .hd-xl {
+        font-size: 88px;
+        font-weight: 900;
+        line-height: 98px;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+      }
+      .bd {
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 54px;
+        color: rgba(255, 255, 255, 0.78);
+      }
+      .cite {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        line-height: 30px;
+        color: #eaab2d;
+      }
+      .slot-a { top: 236px; }
+      .slot-b { top: 386px; }
+      .slot-c { top: 320px; }
+
+      .lst {
+        list-style: none;
+      }
+      .lst li {
+        position: relative;
+        padding-left: 44px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 52px;
+        color: rgba(255, 255, 255, 0.86);
+        margin-bottom: 22px;
+      }
+      .lst li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 24px;
+        width: 22px;
+        height: 4px;
+        border-radius: 100px;
+        background: #3393d6;
+      }
+
+      .cmp { top: 380px; }
+      .card {
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 26px 32px;
+        margin-bottom: 24px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 52px;
+        color: #ffffff;
+      }
+      .card-b {
+        background: rgba(51, 147, 214, 0.14);
+      }
+
+      /* ---- act 3: the three questions -------------------------------- */
+      #questions {
+        top: 460px;
+        list-style: none;
+      }
+      #questions li {
+        position: relative;
+        padding-left: 96px;
+        min-height: 62px;
+        margin-bottom: 22px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 52px;
+        color: rgba(255, 255, 255, 0.86);
+      }
+      .qn {
+        position: absolute;
+        left: 26px;
+        top: 4px;
+        width: 46px;
+        font-size: 40px;
+        font-weight: 900;
+        line-height: 48px;
+        color: #eaab2d;
+      }
+      .qbar {
+        position: absolute;
+        left: 0;
+        top: 2px;
+        width: 6px;
+        height: 96px;
+        border-radius: 100px;
+        background: #eaab2d;
+      }
+
+      /* ---- act 4: the rituals ---------------------------------------- */
+      #rituals {
+        top: 540px;
+        list-style: none;
+      }
+      #rituals li {
+        position: relative;
+        padding-left: 44px;
+        margin-bottom: 22px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 52px;
+        color: rgba(255, 255, 255, 0.86);
+      }
+      #rituals li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 24px;
+        width: 22px;
+        height: 4px;
+        border-radius: 100px;
+        background: #eaab2d;
+      }
+
+      /* ---- beat clips ------------------------------------------------ */
+      .beat {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+      [data-anim],
+      [data-in] {
+        opacity: 0;
       }
     </style>
   </head>
   <body>
     <div
       id="root"
-      data-composition-id="main"
+      data-composition-id="root"
       data-start="0"
-      data-duration="10"
+      data-duration="153.45"
       data-width="1920"
       data-height="1080"
     >
-      
-      
+      <div id="bg"></div>
+      <div id="glow"></div>
+      <div id="glow-warm"></div>
 
-      <!--
-        Add your clips here. Example:
-        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
-             style="font-size: 64px; color: #fff; padding: 40px">
-          Hello World
+      <div id="eyebrow" data-in="b01" data-lag="0">Career Transitions</div>
+
+      <!-- the carrying object: one stack, five bands, present in every beat -->
+      <div id="topline" data-in="b02"></div>
+      <ol id="stack">
+        <li class="layer" id="L1" data-in="b01" data-lag="0.25">
+          <span class="accent" data-in="b10"></span>
+          <span class="num" data-in="b09" data-lag="0.15" data-dim="b18" data-lit="b30">1</span>
+          <span class="name" data-in="b10" data-lag="0.22">Role or Title</span>
+          <span class="mark" data-in="b30" data-lag="0.15"></span>
+        </li>
+        <li class="layer" id="L2" data-in="b03" data-lag="0.60">
+          <span class="accent" data-in="b12"></span>
+          <span class="num" data-in="b09" data-lag="0.27" data-dim="b18" data-lit="b30">2</span>
+          <span class="name" data-in="b12" data-lag="0.22">Routines and Environment</span>
+          <span class="dot dot-gold" data-in="b05" data-out="b08"></span>
+          <span class="mark" data-in="b30" data-lag="0.27"></span>
+        </li>
+        <li class="layer" id="L3" data-in="b03" data-lag="2.40">
+          <span class="accent" data-in="b13"></span>
+          <span class="num" data-in="b09" data-lag="0.39" data-dim="b18" data-lit="b30">3</span>
+          <span class="name" data-in="b13" data-lag="0.22">Relationships</span>
+          <span class="mark" data-in="b30" data-lag="0.39"></span>
+        </li>
+        <li class="layer" id="L4" data-in="b03" data-lag="4.20">
+          <span class="accent" data-in="b15"></span>
+          <span class="num" data-in="b09" data-lag="0.51" data-dim="b18" data-lit="b30">4</span>
+          <span class="name" data-in="b15" data-lag="0.22">Sense of Expertise</span>
+          <span class="dot dot-blue" data-in="b06" data-out="b08"></span>
+          <span class="mark" data-in="b30" data-lag="0.51"></span>
+        </li>
+        <li class="layer" id="L5" data-in="b03" data-lag="6.60">
+          <span class="accent" data-in="b17"></span>
+          <span class="num" data-in="b09" data-lag="0.63" data-dim="b18" data-lit="b30">5</span>
+          <span class="name" data-in="b17" data-lag="0.22">Internal Story</span>
+          <span class="dot dot-ring" data-in="b07" data-out="b08"></span>
+          <span class="mark" data-in="b30" data-lag="0.63"></span>
+        </li>
+      </ol>
+      <div id="baserule" data-grow="b31" data-lag="4.2"></div>
+
+      <!-- act 3 scaffold: the three questions accumulate across b20-b22 -->
+      <ol class="rc" id="questions" data-in="b20" data-lag="0" data-out="b24">
+        <li data-in="b20"><span class="qn">1</span>What is genuinely ending here?</li>
+        <li data-in="b21"><span class="qn">2</span>What am I grieving, even if I chose this?</li>
+        <li data-in="b22"><span class="qn">3</span><span class="qbar" data-in="b23" data-lag="2.6"></span>What deserves to be honored before I move on?</li>
+      </ol>
+
+      <!-- act 4 scaffold: the three rituals accumulate across b25-b27 -->
+      <ul class="rc" id="rituals" data-in="b25" data-lag="0" data-out="b30">
+        <li data-in="b25">A written letter to the old career</li>
+        <li data-in="b26">A curated list of what it gave you</li>
+        <li data-in="b27">A quiet dinner with a colleague from that chapter</li>
+      </ul>
+
+      <!-- ------------------------- beat clips ------------------------- -->
+      <div class="clip beat" id="beat-b01" data-beat-id="b01" data-start="0" data-duration="2.68" data-track-index="2">
+        <h1 class="rc hd-xl slot-a" data-anim>The Identity Audit</h1>
+      </div>
+      <div class="clip beat" id="beat-b02" data-beat-id="b02" data-start="2.68" data-duration="2.915" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Only the Top Layer</h2>
+      </div>
+      <div class="clip beat" id="beat-b03" data-beat-id="b03" data-start="5.595" data-duration="11.285" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>What Sits Underneath</h2>
+      </div>
+      <div class="clip beat" id="beat-b04" data-beat-id="b04" data-start="16.88" data-duration="4.4" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>The Good News</h2>
+        <p class="rc bd slot-b" data-anim>You don't have to let go of all of it at once.</p>
+      </div>
+      <div class="clip beat" id="beat-b05" data-beat-id="b05" data-start="21.28" data-duration="3.03" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Ready to Be Released</h2>
+      </div>
+      <div class="clip beat" id="beat-b06" data-beat-id="b06" data-start="24.31" data-duration="1.94" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Some Aren't Yet</h2>
+      </div>
+      <div class="clip beat" id="beat-b07" data-beat-id="b07" data-start="26.25" data-duration="4.09" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Some Only Need Reframing</h2>
+      </div>
+      <div class="clip beat" id="beat-b08" data-beat-id="b08" data-start="30.34" data-duration="8.06" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Sorting It Layer by Layer</h2>
+        <p class="rc bd slot-b" data-anim>What you're carrying, and what you're setting down.</p>
+      </div>
+      <div class="clip beat" id="beat-b09" data-beat-id="b09" data-start="38.4" data-duration="2.365" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Five Layers to Audit</h2>
+      </div>
+      <div class="clip beat" id="beat-b10" data-beat-id="b10" data-start="40.765" data-duration="3.625" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Role or Title</h2>
+        <p class="rc bd slot-b" data-anim>What you were called.</p>
+      </div>
+      <div class="clip beat" id="beat-b11" data-beat-id="b11" data-start="44.39" data-duration="6.16" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Easiest Outside, Hardest Inside</h2>
+        <p class="rc bd slot-b" data-anim>Harder than most people expect.</p>
+      </div>
+      <div class="clip beat" id="beat-b12" data-beat-id="b12" data-start="50.55" data-duration="9.09" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Routines and Environment</h2>
+        <ul class="rc lst slot-b">
+          <li data-anim>The day-to-day rhythms</li>
+          <li data-anim>The physical or digital workspace</li>
+          <li data-anim>The meetings</li>
+          <li data-anim>The calendar</li>
+        </ul>
+      </div>
+      <div class="clip beat" id="beat-b13" data-beat-id="b13" data-start="59.64" data-duration="6.11" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Relationships</h2>
+        <ul class="rc lst slot-b">
+          <li data-anim>Colleagues</li>
+          <li data-anim>Clients</li>
+          <li data-anim>Mentors</li>
+          <li data-anim>The professional community you built</li>
+        </ul>
+      </div>
+      <div class="clip beat" id="beat-b14" data-beat-id="b14" data-start="65.75" data-duration="5.37" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Who Travels Forward</h2>
+        <div class="rc cmp" data-role="compare">
+          <div class="card" data-role="card" data-anim>Some travel forward with you</div>
+          <div class="card card-b" data-role="card" data-anim>Some belong to that specific chapter</div>
         </div>
-      -->
+      </div>
+      <div class="clip beat" id="beat-b15" data-beat-id="b15" data-start="71.12" data-duration="5.17" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Sense of Expertise</h2>
+        <p class="rc bd slot-b" data-anim>The confidence of being genuinely good at something.</p>
+      </div>
+      <div class="clip beat" id="beat-b16" data-beat-id="b16" data-start="76.29" data-duration="6.57" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>The Hardest Layer to Release</h2>
+        <p class="rc bd slot-b" data-anim>Releasing it means stepping back into a beginner's mindset.</p>
+      </div>
+      <div class="clip beat" id="beat-b17" data-beat-id="b17" data-start="82.86" data-duration="7.14" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Internal Story</h2>
+        <p class="rc bd slot-b" data-anim>The narrative you told yourself about why your work mattered.</p>
+      </div>
+      <div class="clip beat" id="beat-b18" data-beat-id="b18" data-start="90" data-duration="2.62" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>How to Run the Audit</h2>
+      </div>
+      <div class="clip beat" id="beat-b19" data-beat-id="b19" data-start="92.62" data-duration="5.015" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Three Questions per Layer</h2>
+        <p class="rc bd slot-c" data-anim>One layer at a time.</p>
+      </div>
+      <div class="clip beat" id="beat-b20" data-beat-id="b20" data-start="97.635" data-duration="3.015" data-track-index="2">
+        <h2 class="rc hd slot-a">Three Questions per Layer</h2>
+      </div>
+      <div class="clip beat" id="beat-b21" data-beat-id="b21" data-start="100.65" data-duration="3.965" data-track-index="2">
+        <h2 class="rc hd slot-a">Three Questions per Layer</h2>
+      </div>
+      <div class="clip beat" id="beat-b22" data-beat-id="b22" data-start="104.615" data-duration="3.785" data-track-index="2">
+        <h2 class="rc hd slot-a">Three Questions per Layer</h2>
+      </div>
+      <div class="clip beat" id="beat-b23" data-beat-id="b23" data-start="108.4" data-duration="5.49" data-track-index="2">
+        <h2 class="rc hd slot-a">Three Questions per Layer</h2>
+        <p class="rc bd slot-c" data-anim>Honoring an ending is where ritual comes in.</p>
+      </div>
+      <div class="clip beat" id="beat-b24" data-beat-id="b24" data-start="113.89" data-duration="8.51" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Career Grief Is Real</h2>
+        <div class="rc cite slot-c" data-anim>Forbes, 2026</div>
+        <p class="rc bd slot-b" data-anim>Small, structured rituals support the ending phase.</p>
+      </div>
+      <div class="clip beat" id="beat-b25" data-beat-id="b25" data-start="122.4" data-duration="2.385" data-track-index="2">
+        <h2 class="rc hd slot-a">Career Grief Is Real</h2>
+        <div class="rc cite slot-c">Forbes, 2026</div>
+      </div>
+      <div class="clip beat" id="beat-b26" data-beat-id="b26" data-start="124.785" data-duration="2.405" data-track-index="2">
+        <h2 class="rc hd slot-a">Career Grief Is Real</h2>
+        <div class="rc cite slot-c">Forbes, 2026</div>
+      </div>
+      <div class="clip beat" id="beat-b27" data-beat-id="b27" data-start="127.19" data-duration="3.135" data-track-index="2">
+        <h2 class="rc hd slot-a">Career Grief Is Real</h2>
+        <div class="rc cite slot-c">Forbes, 2026</div>
+      </div>
+      <div class="clip beat" id="beat-b28" data-beat-id="b28" data-start="130.325" data-duration="3.335" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Not Soft, Optional Extras</h2>
+      </div>
+      <div class="clip beat" id="beat-b29" data-beat-id="b29" data-start="133.66" data-duration="4.58" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Evidence-Based Practices</h2>
+        <p class="rc bd slot-b" data-anim>For closing the ending phase cleanly.</p>
+      </div>
+      <div class="clip beat" id="beat-b30" data-beat-id="b30" data-start="138.24" data-duration="8.29" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Layer by Layer</h2>
+        <ul class="rc lst slot-b">
+          <li data-anim>Name what's ending</li>
+          <li data-anim>Name what you're grieving</li>
+          <li data-anim>Decide what deserves to be honored</li>
+        </ul>
+      </div>
+      <div class="clip beat" id="beat-b31" data-beat-id="b31" data-start="146.53" data-duration="6.92" data-track-index="2">
+        <h2 class="rc hd slot-a" data-anim>Close This Chapter Well</h2>
+        <p class="rc bd slot-b" data-anim>Step into the next one ready.</p>
+      </div>
+
+      <!-- ------------------------- narration -------------------------- -->
+      <audio class="clip" id="a-b01" src="assets/voice/b01.wav" data-start="0.6" data-duration="1.68" data-track-index="0"></audio>
+      <audio class="clip" id="a-b02" src="assets/voice/b02.wav" data-start="2.93" data-duration="2.265" data-track-index="0"></audio>
+      <audio class="clip" id="a-b03" src="assets/voice/b03.wav" data-start="5.845" data-duration="10.635" data-track-index="0"></audio>
+      <audio class="clip" id="a-b04" src="assets/voice/b04.wav" data-start="17.13" data-duration="3.75" data-track-index="0"></audio>
+      <audio class="clip" id="a-b05" src="assets/voice/b05.wav" data-start="21.53" data-duration="2.38" data-track-index="0"></audio>
+      <audio class="clip" id="a-b06" src="assets/voice/b06.wav" data-start="24.56" data-duration="1.29" data-track-index="0"></audio>
+      <audio class="clip" id="a-b07" src="assets/voice/b07.wav" data-start="26.5" data-duration="3.44" data-track-index="0"></audio>
+      <audio class="clip" id="a-b08" src="assets/voice/b08.wav" data-start="30.59" data-duration="7.41" data-track-index="0"></audio>
+      <audio class="clip" id="a-b09" src="assets/voice/b09.wav" data-start="38.65" data-duration="1.715" data-track-index="0"></audio>
+      <audio class="clip" id="a-b10" src="assets/voice/b10.wav" data-start="41.015" data-duration="2.975" data-track-index="0"></audio>
+      <audio class="clip" id="a-b11" src="assets/voice/b11.wav" data-start="44.64" data-duration="5.51" data-track-index="0"></audio>
+      <audio class="clip" id="a-b12" src="assets/voice/b12.wav" data-start="50.8" data-duration="8.44" data-track-index="0"></audio>
+      <audio class="clip" id="a-b13" src="assets/voice/b13.wav" data-start="59.89" data-duration="5.46" data-track-index="0"></audio>
+      <audio class="clip" id="a-b14" src="assets/voice/b14.wav" data-start="66" data-duration="4.72" data-track-index="0"></audio>
+      <audio class="clip" id="a-b15" src="assets/voice/b15.wav" data-start="71.37" data-duration="4.52" data-track-index="0"></audio>
+      <audio class="clip" id="a-b16" src="assets/voice/b16.wav" data-start="76.54" data-duration="5.92" data-track-index="0"></audio>
+      <audio class="clip" id="a-b17" src="assets/voice/b17.wav" data-start="83.11" data-duration="6.49" data-track-index="0"></audio>
+      <audio class="clip" id="a-b18" src="assets/voice/b18.wav" data-start="90.25" data-duration="1.97" data-track-index="0"></audio>
+      <audio class="clip" id="a-b19" src="assets/voice/b19.wav" data-start="92.87" data-duration="4.365" data-track-index="0"></audio>
+      <audio class="clip" id="a-b20" src="assets/voice/b20.wav" data-start="97.885" data-duration="2.365" data-track-index="0"></audio>
+      <audio class="clip" id="a-b21" src="assets/voice/b21.wav" data-start="100.9" data-duration="3.315" data-track-index="0"></audio>
+      <audio class="clip" id="a-b22" src="assets/voice/b22.wav" data-start="104.865" data-duration="3.135" data-track-index="0"></audio>
+      <audio class="clip" id="a-b23" src="assets/voice/b23.wav" data-start="108.65" data-duration="4.84" data-track-index="0"></audio>
+      <audio class="clip" id="a-b24" src="assets/voice/b24.wav" data-start="114.14" data-duration="7.86" data-track-index="0"></audio>
+      <audio class="clip" id="a-b25" src="assets/voice/b25.wav" data-start="122.65" data-duration="1.735" data-track-index="0"></audio>
+      <audio class="clip" id="a-b26" src="assets/voice/b26.wav" data-start="125.035" data-duration="1.755" data-track-index="0"></audio>
+      <audio class="clip" id="a-b27" src="assets/voice/b27.wav" data-start="127.44" data-duration="2.485" data-track-index="0"></audio>
+      <audio class="clip" id="a-b28" src="assets/voice/b28.wav" data-start="130.575" data-duration="2.685" data-track-index="0"></audio>
+      <audio class="clip" id="a-b29" src="assets/voice/b29.wav" data-start="133.91" data-duration="3.93" data-track-index="0"></audio>
+      <audio class="clip" id="a-b30" src="assets/voice/b30.wav" data-start="138.49" data-duration="7.64" data-track-index="0"></audio>
+      <audio class="clip" id="a-b31" src="assets/voice/b31.wav" data-start="146.78" data-duration="4.87" data-track-index="0"></audio>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
-      window.__timelines["main"] = tl;
+      var tl = gsap.timeline({ paused: true });
+
+      var beats = {};
+      Array.prototype.forEach.call(document.querySelectorAll(".beat"), function (el) {
+        beats[el.getAttribute("data-beat-id")] = parseFloat(el.getAttribute("data-start")) || 0;
+      });
+      function at(id, lag) {
+        var s = beats[id];
+        return (typeof s === "number" ? s : 0) + (lag || 0);
+      }
+
+      // Per-beat copy: establish, then settle. One entrance, never repeated.
+      Array.prototype.forEach.call(document.querySelectorAll(".beat"), function (el) {
+        var kids = el.querySelectorAll("[data-anim]");
+        if (!kids.length) return;
+        var dur = parseFloat(el.getAttribute("data-duration")) || 3;
+        var span = Math.max(0, dur * 0.5 - 0.6);
+        var step = kids.length > 1
+          ? Math.min(3.2, Math.max(0.14, span / (kids.length - 1)))
+          : 0;
+        tl.fromTo(
+          kids,
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: step, ease: "power2.out" },
+          at(el.getAttribute("data-beat-id"), 0.12)
+        );
+      });
+
+      // Persistent carrier elements: they arrive on their cue beat and stay put.
+      Array.prototype.forEach.call(document.querySelectorAll("[data-in]"), function (el) {
+        var lag = parseFloat(el.getAttribute("data-lag"));
+        tl.fromTo(
+          el,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+          at(el.getAttribute("data-in"), isNaN(lag) ? 0.15 : lag)
+        );
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll("[data-dim]"), function (el) {
+        tl.to(el, { opacity: 0.55, duration: 0.4, ease: "power1.inOut" },
+          at(el.getAttribute("data-dim"), 0.1));
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll("[data-lit]"), function (el) {
+        tl.to(el, { opacity: 1, duration: 0.5, ease: "power2.out" },
+          at(el.getAttribute("data-lit"), 0.2));
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll("[data-out]"), function (el) {
+        tl.to(el, { opacity: 0, duration: 0.3, ease: "power1.in" },
+          at(el.getAttribute("data-out"), 0));
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll("[data-grow]"), function (el) {
+        var glag = parseFloat(el.getAttribute("data-lag"));
+        tl.fromTo(el, { opacity: 1, scaleX: 0 },
+          { scaleX: 1, duration: 0.7, ease: "power2.out" },
+          at(el.getAttribute("data-grow"), isNaN(glag) ? 0.15 : glag));
+      });
+
+      window.__timelines["root"] = tl;
     </script>
   </body>
 </html>

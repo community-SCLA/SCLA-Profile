@@ -1,0 +1,222 @@
+{
+  "total": 153.45,
+  "rows": [
+    {
+      "id": "b01",
+      "audio_start": 0.6,
+      "audio_dur": 1.68,
+      "vis_start": 0.0,
+      "vis_dur": 2.68
+    },
+    {
+      "id": "b02",
+      "audio_start": 2.93,
+      "audio_dur": 2.265,
+      "vis_start": 2.68,
+      "vis_dur": 2.915
+    },
+    {
+      "id": "b03",
+      "audio_start": 5.845,
+      "audio_dur": 10.635,
+      "vis_start": 5.595,
+      "vis_dur": 11.285
+    },
+    {
+      "id": "b04",
+      "audio_start": 17.13,
+      "audio_dur": 3.75,
+      "vis_start": 16.88,
+      "vis_dur": 4.4
+    },
+    {
+      "id": "b05",
+      "audio_start": 21.53,
+      "audio_dur": 2.38,
+      "vis_start": 21.28,
+      "vis_dur": 3.03
+    },
+    {
+      "id": "b06",
+      "audio_start": 24.56,
+      "audio_dur": 1.29,
+      "vis_start": 24.31,
+      "vis_dur": 1.94
+    },
+    {
+      "id": "b07",
+      "audio_start": 26.5,
+      "audio_dur": 3.44,
+      "vis_start": 26.25,
+      "vis_dur": 4.09
+    },
+    {
+      "id": "b08",
+      "audio_start": 30.59,
+      "audio_dur": 7.41,
+      "vis_start": 30.34,
+      "vis_dur": 8.06
+    },
+    {
+      "id": "b09",
+      "audio_start": 38.65,
+      "audio_dur": 1.715,
+      "vis_start": 38.4,
+      "vis_dur": 2.365
+    },
+    {
+      "id": "b10",
+      "audio_start": 41.015,
+      "audio_dur": 2.975,
+      "vis_start": 40.765,
+      "vis_dur": 3.625
+    },
+    {
+      "id": "b11",
+      "audio_start": 44.64,
+      "audio_dur": 5.51,
+      "vis_start": 44.39,
+      "vis_dur": 6.16
+    },
+    {
+      "id": "b12",
+      "audio_start": 50.8,
+      "audio_dur": 8.44,
+      "vis_start": 50.55,
+      "vis_dur": 9.09
+    },
+    {
+      "id": "b13",
+      "audio_start": 59.89,
+      "audio_dur": 5.46,
+      "vis_start": 59.64,
+      "vis_dur": 6.11
+    },
+    {
+      "id": "b14",
+      "audio_start": 66.0,
+      "audio_dur": 4.72,
+      "vis_start": 65.75,
+      "vis_dur": 5.37
+    },
+    {
+      "id": "b15",
+      "audio_start": 71.37,
+      "audio_dur": 4.52,
+      "vis_start": 71.12,
+      "vis_dur": 5.17
+    },
+    {
+      "id": "b16",
+      "audio_start": 76.54,
+      "audio_dur": 5.92,
+      "vis_start": 76.29,
+      "vis_dur": 6.57
+    },
+    {
+      "id": "b17",
+      "audio_start": 83.11,
+      "audio_dur": 6.49,
+      "vis_start": 82.86,
+      "vis_dur": 7.14
+    },
+    {
+      "id": "b18",
+      "audio_start": 90.25,
+      "audio_dur": 1.97,
+      "vis_start": 90.0,
+      "vis_dur": 2.62
+    },
+    {
+      "id": "b19",
+      "audio_start": 92.87,
+      "audio_dur": 4.365,
+      "vis_start": 92.62,
+      "vis_dur": 5.015
+    },
+    {
+      "id": "b20",
+      "audio_start": 97.885,
+      "audio_dur": 2.365,
+      "vis_start": 97.635,
+      "vis_dur": 3.015
+    },
+    {
+      "id": "b21",
+      "audio_start": 100.9,
+      "audio_dur": 3.315,
+      "vis_start": 100.65,
+      "vis_dur": 3.965
+    },
+    {
+      "id": "b22",
+      "audio_start": 104.865,
+      "audio_dur": 3.135,
+      "vis_start": 104.615,
+      "vis_dur": 3.785
+    },
+    {
+      "id": "b23",
+      "audio_start": 108.65,
+      "audio_dur": 4.84,
+      "vis_start": 108.4,
+      "vis_dur": 5.49
+    },
+    {
+      "id": "b24",
+      "audio_start": 114.14,
+      "audio_dur": 7.86,
+      "vis_start": 113.89,
+      "vis_dur": 8.51
+    },
+    {
+      "id": "b25",
+      "audio_start": 122.65,
+      "audio_dur": 1.735,
+      "vis_start": 122.4,
+      "vis_dur": 2.385
+    },
+    {
+      "id": "b26",
+      "audio_start": 125.035,
+      "audio_dur": 1.755,
+      "vis_start": 124.785,
+      "vis_dur": 2.405
+    },
+    {
+      "id": "b27",
+      "audio_start": 127.44,
+      "audio_dur": 2.485,
+      "vis_start": 127.19,
+      "vis_dur": 3.135
+    },
+    {
+      "id": "b28",
+      "audio_start": 130.575,
+      "audio_dur": 2.685,
+      "vis_start": 130.325,
+      "vis_dur": 3.335
+    },
+    {
+      "id": "b29",
+      "audio_start": 133.91,
+      "audio_dur": 3.93,
+      "vis_start": 133.66,
+      "vis_dur": 4.58
+    },
+    {
+      "id": "b30",
+      "audio_start": 138.49,
+      "audio_dur": 7.64,
+      "vis_start": 138.24,
+      "vis_dur": 8.29
+    },
+    {
+      "id": "b31",
+      "audio_start": 146.78,
+      "audio_dur": 4.87,
+      "vis_start": 146.53,
+      "vis_dur": 6.92
+    }
+  ]
+}

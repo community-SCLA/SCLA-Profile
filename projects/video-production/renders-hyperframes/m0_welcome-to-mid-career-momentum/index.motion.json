@@ -1,0 +1,105 @@
+{
+  "duration": 115.658,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#h-title",
+      "bySec": 1.25
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#s-ann",
+      "bySec": 5.069
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lblA1",
+      "bySec": 9.539
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#h-journey",
+      "bySec": 20.139
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#pin",
+      "bySec": 24.189
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#s-progress",
+      "bySec": 34.639
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#h-tools",
+      "bySec": 40.379
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#s-alone",
+      "bySec": 51.389
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#h-complex",
+      "bySec": 59.188
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lblA3",
+      "bySec": 62.128
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#s-wonder",
+      "bySec": 68.348
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#listB2 li:nth-child(2)",
+      "bySec": 72.288
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#listB2 li:nth-child(3)",
+      "bySec": 74.698
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#h-move",
+      "bySec": 77.188
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lblA4",
+      "bySec": 85.678
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#h-commit",
+      "bySec": 93.348
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#noteB1",
+      "bySec": 103.418
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#noteB2",
+      "bySec": 107.198
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#h-ready",
+      "bySec": 110.478
+    },
+    {
+      "kind": "keepsMoving",
+      "selector": "#root",
+      "maxStaticSec": 5.0
+    }
+  ]
+}

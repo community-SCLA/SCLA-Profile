@@ -1,3 +1,7 @@
 2026-08-05T16:50:48Z	claim	program=mid-career-momentum
 2026-08-05T20:31:13Z	release	stale lease closed before control-plane refactor
 2026-08-06T23:13:02Z	resume	program=mid-career-momentum
+2026-08-06T23:41:27Z	resume	program=mid-career-momentum
+2026-08-07T00:01:20Z	concept	Lens A selected (career-map checkpoint carrier); CONCEPT.md + concept.json + design.md written
+2026-08-07T00:01:20Z	author	19-beat manifest + index.html + index.motion.json authored; static preflight PASS
+2026-08-07T00:08:23Z	preflight	exit 1

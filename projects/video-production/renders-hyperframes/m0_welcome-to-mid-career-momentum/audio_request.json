@@ -1,0 +1,83 @@
+{
+  "provider": "heygen",
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
+  "speed": 1.0,
+  "lines": [
+    {
+      "id": "b01",
+      "text": "Hi, and welcome to Mid-Career Momentum."
+    },
+    {
+      "id": "b02",
+      "text": "My name is Ann, and I'm a career coach and educator."
+    },
+    {
+      "id": "b03",
+      "text": "You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better."
+    },
+    {
+      "id": "b04",
+      "text": "This track is part of your broader career journey."
+    },
+    {
+      "id": "b05",
+      "text": "Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting."
+    },
+    {
+      "id": "b06",
+      "text": "As you move through the course, you'll see your progress bar update, so you always know exactly where you are and what's ahead."
+    },
+    {
+      "id": "b07",
+      "text": "You'll use simple tools in this platform: click-through activities, short reflections, uploads, and a few AI-powered prompts that help you analyze your own career story."
+    },
+    {
+      "id": "b08",
+      "text": "And you're not doing this alone — if you ever get stuck, you can reach out through the hashtag questionsupport channel or our member support team."
+    },
+    {
+      "id": "b09",
+      "text": "Mid-career can feel complicated."
+    },
+    {
+      "id": "b10",
+      "text": "You may be juggling family responsibilities, leadership expectations, and a full calendar."
+    },
+    {
+      "id": "b11",
+      "text": "You might be wondering: Should I push for promotion?"
+    },
+    {
+      "id": "b12",
+      "text": "Redesign my role to fit better?"
+    },
+    {
+      "id": "b13",
+      "text": "Or change lanes entirely?"
+    },
+    {
+      "id": "b14",
+      "text": "Rather than trying to solve everything at once, this track helps you focus on your next, realistic move over the next six to twelve months."
+    },
+    {
+      "id": "b15",
+      "text": "We'll help you define that move, reposition your experience, and build momentum through small consistent steps."
+    },
+    {
+      "id": "b16",
+      "text": "Before we dive in, I want you to set a simple, powerful commitment: \"Over the next 90 days, my main career goal is ___.\""
+    },
+    {
+      "id": "b17",
+      "text": "You'll write and submit that statement in a short activity."
+    },
+    {
+      "id": "b18",
+      "text": "It becomes your anchor for the rest of the track."
+    },
+    {
+      "id": "b19",
+      "text": "When you're ready, click Next to begin."
+    }
+  ]
+}

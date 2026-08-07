@@ -3,3 +3,14 @@
 2026-08-06T15:39:03Z	resume	program=career-transitions
 2026-08-06T15:39:36Z	release	build session ended
 2026-08-06T23:13:35Z	resume	program=career-transitions
+2026-08-06T23:42:02Z	resume	program=career-transitions
+2026-08-06T23:46:46Z	preflight	exit 1
+2026-08-06T23:46:55Z	compose	authored composition root (data-width/height/fps), stable beat ids + data-track-index on all 13 clips, timeline registered as window.__timelines['career-transition-leap'], motion now reads data-start/data-duration; static preflight clean except timing
+2026-08-06T23:47:04Z	blocked	TTS retry-exhausted (run_state can-attempt rc=3, tts failed 2x). Root cause in qa/logs: with-secrets.sh Infisical universal-auth login returned empty body -> json.load(sys.stdin)['accessToken'] JSONDecodeError; provider never reached. No third attempt taken.
+2026-08-06T23:47:04Z	release	build session ended
+2026-08-06T23:49:07Z	resume	program=career-transitions
+2026-08-06T23:51:05Z	narration	TTS OK on authorized retry — heygen voice 442360a3, 134.191s, 13 beat clips
+2026-08-06T23:52:02Z	preflight	exit 1
+2026-08-06T23:52:23Z	preflight	exit 1
+2026-08-06T23:58:57Z	resplit	beat manifest re-split 13 to 29 sentence beats to clear pace gate; narration resynthesized 135.68s
+2026-08-07T00:06:42Z	timing	24-beat split: boundaries PASS 0 violations, pace PASS 9.88 bpm median 4.93s long-share 48 pct, total 145.681s

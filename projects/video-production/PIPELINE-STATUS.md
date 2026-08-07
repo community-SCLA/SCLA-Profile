@@ -5,8 +5,8 @@
 ## Where everything stands
 
 - **11** — **live on Wistia.** Done; links in the *Delivered* table below.
-- **22** — **ready to build.** Script approved; nothing made yet.
-- **5** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **21** — **ready to build.** Script approved; nothing made yet.
+- **6** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
 - **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
@@ -55,45 +55,48 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
-- **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — safe local render failed or timed out
-  - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log
+- **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
+  - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log
   - last completed **release** at 2026-08-06 09:42 UTC
-  - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log before retrying
+  - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log and the cloud credential/backend before retrying
 
 ## mid-career-momentum
 
 **READY — queued to build:**
 
 1. m2_mid-career-mindsets-and-limiting-beliefs
-2. m2_the-value-of-building-mid-career-momentum
-3. m3_building-your-future-you-resume-pt1
-4. m3_discover-experiences-that-support-your-next-move
-5. m3_from-history-to-signal
-6. m3_how-to-reposition-your-career
-7. m3_rewrite-your-linkedin-for-future-you
-8. m3_using-the-resume-builder-tool-pt2
-9. m4_finding-new-peers-sponsors-and-opportunity-holders
-10. m4_visibility-actions
-11. m4_who-will-walk-this-next-chapter-with-you
-12. m5_skills-for-the-ai-era
-13. m6_youve-built-momentum
+2. m3_building-your-future-you-resume-pt1
+3. m3_discover-experiences-that-support-your-next-move
+4. m3_from-history-to-signal
+5. m3_how-to-reposition-your-career
+6. m3_rewrite-your-linkedin-for-future-you
+7. m3_using-the-resume-builder-tool-pt2
+8. m4_finding-new-peers-sponsors-and-opportunity-holders
+9. m4_visibility-actions
+10. m4_who-will-walk-this-next-chapter-with-you
+11. m5_skills-for-the-ai-era
+12. m6_youve-built-momentum
 
 **BUILDING — in flight, no MP4 yet:**
 
 *A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
 - m0_welcome-to-mid-career-momentum
-  - state: workspace claimed from the scaffold; no plan and no design authored yet
-  - last completed **resume** at 2026-08-06 23:13 UTC
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m0_welcome-to-mid-career-momentum`; then continue `/render-lessons BUILD m0_welcome-to-mid-career-momentum`
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-07 00:08 UTC
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m0_welcome-to-mid-career-momentum. Do not delete the workspace
 - m1_mini-syllabus
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-06 23:16 UTC
+  - last completed **preflight** at 2026-08-07 00:08 UTC
   - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_mini-syllabus. Do not delete the workspace
 - m2_four-kinds-of-career-transition_mid-career-momentum
-  - state: freeform design written; narration not yet synthesized
-  - last completed **resume** at 2026-08-06 23:13 UTC
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **resume** at 2026-08-06 23:41 UTC
   - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
+- m2_the-value-of-building-mid-career-momentum
+  - state: freeform design written; narration not yet synthesized
+  - last written to: 2026-08-07 00:06 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_the-value-of-building-mid-career-momentum. Do not delete the workspace
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -107,43 +110,43 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-14. m3_the-two-sided-work
-15. m4_building-your-carry-forward-inventory
-16. m5_testing-your-next-chapter
-17. m5_the-story-that-makes-the-change-legible
-18. m7_your-reinvention-roadmap
+13. m3_the-two-sided-work
+14. m4_building-your-carry-forward-inventory
+15. m5_testing-your-next-chapter
+16. m5_the-story-that-makes-the-change-legible
+17. m7_your-reinvention-roadmap
 
 **BUILDING — in flight, no MP4 yet:**
 
 *A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: freeform design written; narration not yet synthesized
-  - last completed **resume** at 2026-08-06 23:13 UTC
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **timing** at 2026-08-07 00:06 UTC
   - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_welcome-and-using-career-transitions-as-leaps-ahead. Do not delete the workspace
 - m3_the-identity-audit
-  - state: workspace claimed from the scaffold; no plan and no design authored yet
-  - last completed **resume** at 2026-08-06 23:13 UTC
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m3_the-identity-audit`; then continue `/render-lessons BUILD m3_the-identity-audit`
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **design** at 2026-08-07 00:04 UTC
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_the-identity-audit. Do not delete the workspace
 
 **REJECTED — a gate refused this cut:**
 
 *Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
 
 - m2_four-kinds-of-career-transition_career-transitions
-  - state: a release gate rejected this cut — safe local render failed or timed out
+  - state: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
   - last completed **release** at 2026-08-06 09:42 UTC
-  - gate said: full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log
-  - next: inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T203808Z-local-render.log before retrying
+  - gate said: full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log
+  - next: inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log and the cloud credential/backend before retrying
 
 ## entrepreneur-accelerator
 
 **READY — queued to build:**
 
-19. m1_reframing-entrepreneurship-and-going-solo
-20. m3_choosing-your-solo-model
-21. m4_building-visibility-on-your-own
-22. m5_making-solo-work-sustainable
+18. m1_reframing-entrepreneurship-and-going-solo
+19. m3_choosing-your-solo-model
+20. m4_building-visibility-on-your-own
+21. m5_making-solo-work-sustainable
 
 **RAW — waiting on refinement:**
 
