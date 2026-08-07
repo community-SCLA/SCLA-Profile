@@ -4,15 +4,15 @@
 
 ## Where everything stands
 
-- **11** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **12** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **21** — **ready to build.** Script approved; nothing made yet.
-- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **4** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
+- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **3** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
 - **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **0** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **2** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **1** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -41,6 +41,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 | Lesson | Program | Rendered | Watch | Local MP4 |
 |---|---|---|---|---|
+| m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | mini-syllabus_early-career-boost | early-career-boost | 2026-08-06 | [ays7di6sti](https://sclc.wistia.com/medias/ays7di6sti) | `renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-08-06.mp4` |
 | do-not-just-ask-what-ai-replaces_early-career-boost | early-career-boost | 2026-08-06 | [uhnqbjt0x7](https://sclc.wistia.com/medias/uhnqbjt0x7) | `renders-mp4/early-career-boost/do-not-just-ask-what-ai-replaces_early-career-boost_2026-08-06.mp4` |
 | career-building-is-a-repeatable-process_early-career-boost | early-career-boost | 2026-08-05 | [cnj1463xuw](https://sclc.wistia.com/medias/cnj1463xuw) | `renders-mp4/early-career-boost/career-building-is-a-repeatable-process_early-career-boost_2026-08-05.mp4` |
@@ -55,6 +56,11 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
+- **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — STALLED: freeform composition timed and ready — the gate has not run yet
+  - last completed **release** at 2026-08-07 00:29 UTC
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
+- **m2_the-value-of-building-mid-career-momentum** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_the-value-of-building-mid-career-momentum. Do not delete the workspace
 - **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
   - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log
   - last completed **release** at 2026-08-06 09:42 UTC
@@ -83,16 +89,12 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 - m0_welcome-to-mid-career-momentum
   - state: gate-clean and ready for your review — no MP4 yet
-  - last completed **release** at 2026-08-07 00:16 UTC
+  - last completed **release** at 2026-08-07 00:55 UTC
   - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m0_welcome-to-mid-career-momentum`
-- m1_mini-syllabus
-  - state: gate-clean and ready for your review — no MP4 yet
-  - last completed **release** at 2026-08-07 00:19 UTC
-  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m1_mini-syllabus`
 
-**BUILDING — in flight, no MP4 yet:**
+**STALLED — the build folder stopped moving:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
 - m2_four-kinds-of-career-transition_mid-career-momentum
   - state: freeform composition timed and ready — the gate has not run yet
