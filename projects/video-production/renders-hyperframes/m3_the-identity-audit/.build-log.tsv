@@ -10,3 +10,6 @@
 2026-08-07T00:27:44Z	gate	preflight exit 0 — carrier churn 3.93%, ink/layout/boundaries clean; qa/PREFLIGHT-OK written
 2026-08-07T00:28:59Z	preflight	exit 0 — gate-clean
 2026-08-07T00:28:59Z	release	build session ended
+2026-08-07T01:05:39Z	resume	program=career-transitions
+2026-08-07T01:06:13Z	source-revision	updated b08 and b12 to owner-edited script; static preflight PASS
+2026-08-07T01:06:13Z	release	build session ended

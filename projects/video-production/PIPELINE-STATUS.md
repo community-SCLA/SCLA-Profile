@@ -133,7 +133,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_welcome-and-using-career-transitions-as-leaps-ahead`
 - m3_the-identity-audit
   - state: gate-clean and ready for your review — no MP4 yet
-  - last completed **release** at 2026-08-07 00:28 UTC
+  - last completed **release** at 2026-08-07 01:06 UTC
   - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m3_the-identity-audit`
 
 **REJECTED — a gate refused this cut:**

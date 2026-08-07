@@ -63,7 +63,7 @@
         visibility: hidden;
       }
 
-      /* ---- top band: program eyebrow, brandmark, course-progress rail ---- */
+      /* ---- top band: program eyebrow and brandmark ---- */
       #eyebrow {
         position: absolute;
         left: 120px;
@@ -95,37 +95,6 @@
       #brandicon {
         width: 48px;
         height: 60px;
-      }
-      #rail-label {
-        position: absolute;
-        left: 120px;
-        top: 176px;
-        width: 700px;
-        font-size: 22px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.55);
-      }
-      #rail-track {
-        position: absolute;
-        left: 120px;
-        top: 216px;
-        width: 1680px;
-        height: 10px;
-        border-radius: 100px;
-        background: rgba(255, 255, 255, 0.16);
-      }
-      #rail-fill {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 1680px;
-        height: 10px;
-        border-radius: 100px;
-        background: #eaab2d;
-        transform: scaleX(0);
-        transform-origin: left center;
       }
       .playhead {
         position: absolute;
@@ -359,9 +328,6 @@
           <img data-hf-id="hf-wa7j" id="brandicon" src="assets/brand/SCLA-logo-icon.svg" alt="">
         </div>
 
-        <div data-hf-id="hf-pxg0" id="rail-label" class="hid">Course progress</div>
-        <div data-hf-id="hf-x5qj" id="rail-track" class="hid"><div data-hf-id="hf-njbl" id="rail-fill"></div></div>
-
         <h1 data-hf-id="hf-fohm" id="h-title" class="msg-h hid">Welcome to Mid-Career Momentum</h1>
         <h2 data-hf-id="hf-pwx1" id="h-journey" class="msg-h sub hid">Your Broader Career Journey</h2>
         <h2 data-hf-id="hf-81je" id="h-tools" class="msg-h sub hid">Simple Tools, Real Support</h2>
@@ -370,7 +336,6 @@
         <h2 data-hf-id="hf-milg" id="h-commit" class="msg-h sub hid">Set a Simple, Powerful Commitment</h2>
         <h2 data-hf-id="hf-yy9i" id="h-ready" class="msg-h sub hid">When You're Ready</h2>
 
-        <div data-hf-id="hf-z868" id="s-ann" class="msg-s hid">Ann, career coach and educator</div>
         <div data-hf-id="hf-8x7c" id="s-choose" class="msg-s hid">
           Pause, reassess, and choose what comes next
         </div>
@@ -546,23 +511,10 @@
       function dim(sel, at) {
         tl.to(sel, { opacity: 0.26, duration: 0.4, ease: "power2.out" }, at);
       }
-      function rail(at, to) {
-        tl.to(
-          "#rail-fill",
-          { scaleX: to, duration: 0.7, ease: "power2.inOut" },
-          at
-        );
-      }
-
       /* ---- movement 1: arrival ---- */
       rise("#eyebrow", B.b01 + 0.1, 16);
       show("#brandmark", B.b01 + 0.3, 0.5);
       rise("#h-title", B.b01 + 0.45, 28, "power4.out");
-      show("#rail-track", B.b01 + 1.1, 0.5);
-      tl.set("#rail-fill", { autoAlpha: 1 }, B.b01 + 1.1);
-
-      rise("#s-ann", B.b02 + 0.4, 22);
-
       rise("#lblA1", B.b03 + 0.25, 16);
       show("#listA1", B.b03 + 0.25, 0.2);
       rise("#listA1 li:nth-child(1)", B.b03 + 1.2, 22);
@@ -571,7 +523,6 @@
 
       /* ---- movement 2: the checkpoint ---- */
       fade("#h-title", B.b04 - 0.15);
-      fade("#s-ann", B.b04 - 0.15);
       rise("#h-journey", B.b04 + 0.35, 26, "power4.out");
       show("#route", B.b04 + 0.4, 0.2);
       grow("#route", B.b04 + 0.4, 0.9);
@@ -584,9 +535,7 @@
       rise("#s-choose", B.b05 + 5.6, 22);
 
       fade("#s-choose", B.b06 + 0.1);
-      rise("#rail-label", B.b06 + 0.6, 12);
       rise("#s-progress", B.b06 + 1.9, 22);
-      rail(B.b06 + 4.2, 0.3);
 
       /* ---- movement 3: what you carry ---- */
       fade("#h-journey", B.b07 - 0.15);

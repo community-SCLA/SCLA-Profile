@@ -11,3 +11,8 @@
 2026-08-07T00:19:26Z	recompose	split 6 beats -> 17 sentence beats; re-synthesized narration (1 provider request); re-authored composition as 6 accumulating acts on one persistent route; footer clear of the 960px reserve
 2026-08-07T00:19:26Z	snapshots	17 stills at settled beat points; ink 0/0/0, carrier drift 4.71%
 2026-08-07T00:19:26Z	release	build session ended
+2026-08-07T00:55:23Z	resume	program=mid-career-momentum
+2026-08-07T00:57:19Z	preflight	exit 1
+2026-08-07T00:59:46Z	preflight	exit 0 — gate-clean
+2026-08-07T00:59:53Z	gate	PASS after wiring 17 existing narration clips
+2026-08-07T00:59:54Z	release	build session ended

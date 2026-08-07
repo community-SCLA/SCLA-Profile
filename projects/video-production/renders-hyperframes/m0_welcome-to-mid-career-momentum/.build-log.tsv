@@ -10,3 +10,7 @@
 2026-08-07T00:16:08Z	narration	19 beats synthesized via video-audio.sh (heygen/Oxana/1.0); plan_timing.py -> 115.658s
 2026-08-07T00:16:08Z	gate	preflight exit 0; qa/PREFLIGHT-OK written; 19 beats, 115.658s, 9.86 bpm, carrier churn 4.24%
 2026-08-07T00:16:08Z	release	build session ended
+2026-08-07T00:52:32Z	resume	program=mid-career-momentum
+2026-08-07T00:53:36Z	release	build session ended
+2026-08-07T00:55:17Z	source-revision	removed top course-progress rail; updated opening narration manifest to owner-edited script
+2026-08-07T00:55:17Z	release	build session ended
