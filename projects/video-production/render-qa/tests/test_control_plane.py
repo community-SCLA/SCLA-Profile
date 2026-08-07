@@ -11,6 +11,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+import time
 import wave
 from pathlib import Path
 
@@ -25,6 +26,7 @@ from preflight import check_audio_contract, check_workspace_sources  # noqa: E40
 from tokens import load as load_tokens  # noqa: E402
 from continuous_audio import prepare as prepare_continuous  # noqa: E402
 from continuous_audio import split as split_continuous  # noqa: E402
+from workspace_revision import workspace_revision  # noqa: E402
 
 PASS = FAIL = 0
 
@@ -79,17 +81,20 @@ check("generated kit source has no extraction-marker residue",
 check("build kit is copied from one tracked contract",
       'cp "$CONTRACT" "$RUN/BUILD-KIT.md"' in prepare)
 check("AUTO-BATCH owns stem selection and parallel scheduling",
-      "Never ask the user to choose, copy, or" in render_skill and
+      "Never ask" in render_skill and "user to choose, copy, or paste stems" in render_skill and
       "parallel in-session subagents" in render_skill and
       "`--cloud` uses Cloud tasks" in render_skill and
       "Return each passing lesson immediately" in render_skill and
       "must not be redelegated" in render_skill and
       "approve STEM" in render_skill and
-      "run.sh dispatch --stem STEM" in render_skill)
+      "run.sh drain" in render_skill and
+      "run.sh dispatch-merged --stem STEM" in render_skill)
 check("Cloud dispatch submits instead of merely printing",
       "CODEX_CLOUD_BIN:-codex" in cloud_dispatch and
       "cloud exec --env" in cloud_dispatch and
-      "commit and push local changes" in cloud_dispatch)
+      "Cloud inputs before dispatch" in cloud_dispatch and
+      "Unrelated dirty lesson workspaces do not block" in cloud_dispatch and
+      '[[ "$LOCAL_HEAD" == "$UPSTREAM_HEAD" ]]' in cloud_dispatch)
 audio_wrapper = (REPO / "scripts/video-audio.sh").read_text()
 check("TTS failures use bounded retries and durable receipts",
       'VIDEO_TTS_RETRIES:-2' in audio_wrapper and
@@ -108,8 +113,10 @@ for stage in ("inbox", "ready", "published"):
 (test_vp / "render-qa" / "quarantine.log").write_text("")
 a = test_vp / "lesson-scripts/prog-a/ready/lesson-a_prog-a.txt"
 b = test_vp / "lesson-scripts/prog-a/ready/lesson-b_prog-a.txt"
+c = test_vp / "lesson-scripts/prog-a/ready/lesson-c_prog-a.txt"
 a.write_text("Lesson A.")
 b.write_text("Lesson B.")
+c.write_text("Lesson C.")
 b_before = (digest(b), b.stat().st_mtime_ns)
 state_file = test_vp / "renders-hyperframes/_run/run.json"
 env = dict(os.environ, VIDEO_VP_ROOT=str(test_vp), VIDEO_REPO_ROOT=str(REPO),
@@ -118,7 +125,19 @@ env = dict(os.environ, VIDEO_VP_ROOT=str(test_vp), VIDEO_REPO_ROOT=str(REPO),
 r = run(["bash", str(RUN), "produce", "--stem", "lesson-a_prog-a"], env=env)
 state = json.loads(state_file.read_text())
 check("named production selects exactly one stem", r.returncode == 0 and
-      [x["stem"] for x in state["items"]] == ["lesson-a_prog-a"], r.stderr)
+      state["items"] == [{"stem": "lesson-a_prog-a", "program": "prog-a"}],
+      state["items"])
+legacy_shape = json.loads(state_file.read_text())
+legacy_shape["version"] = 3
+legacy_shape["items"][0]["stage"] = "ready"
+state_file.write_text(json.dumps(legacy_shape))
+r = run(["bash", str(RUN), "migrate-state"], env=env)
+migrated_shape = json.loads(state_file.read_text())
+check("v3 selection labels migrate in place to identity-only v4 state",
+      r.returncode == 0 and migrated_shape["version"] == 4 and
+      migrated_shape["items"] ==
+      [{"stem": "lesson-a_prog-a", "program": "prog-a"}],
+      migrated_shape)
 check("named production does not touch unrelated queue entries",
       b_before == (digest(b), b.stat().st_mtime_ns) and not
       (test_vp / "renders-hyperframes/lesson-b_prog-a").exists())
@@ -132,15 +151,40 @@ check("batch requires explicit program or all scope",
 r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
 state = json.loads(state_file.read_text())
 check("explicit rolling batch replaces an unfinished named scope", r.returncode == 0 and
-      {x["stem"] for x in state["items"]} == {"lesson-a_prog-a", "lesson-b_prog-a"})
+      {x["stem"] for x in state["items"]} ==
+      {"lesson-a_prog-a", "lesson-b_prog-a", "lesson-c_prog-a"})
 check("normal batch keeps local source authoring",
       state["authoring_backend"] == "local" and
       state["authoring_concurrency"] == 3, state)
+outside = run([sys.executable, str(STATE_TOOL), "can-claim",
+               "not-selected_prog-a"], env=env)
+check("local claims cannot escape explicit selection",
+      outside.returncode != 0 and "outside the active run" in outside.stderr,
+      outside.stderr)
+claim_stem = "claim-race_prog-a"
+(test_vp / f"lesson-scripts/prog-a/ready/{claim_stem}.txt").write_text("Claim race.")
+r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
+claimers = [subprocess.Popen(
+    [sys.executable, str(STATE_TOOL), "claim-local", claim_stem,
+     "--program", "prog-a"], env=env, stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL) for _ in range(2)]
+claim_results = [proc.wait() for proc in claimers]
+check("parallel local workspace claims have exactly one winner",
+      sorted(claim_results) == [0, 1] and
+      (test_vp / f"renders-hyperframes/{claim_stem}").is_dir(), claim_results)
+shutil.rmtree(test_vp / f"renders-hyperframes/{claim_stem}")
+(test_vp / f"lesson-scripts/prog-a/ready/{claim_stem}.txt").unlink()
 r = run(["bash", str(RUN), "batch", "--program", "prog-a", "--cloud"], env=env)
 cloud_state = json.loads(state_file.read_text())
 check("cloud batch records isolated Codex Cloud authoring",
       r.returncode == 0 and cloud_state["authoring_backend"] == "cloud" and
       cloud_state["authoring_concurrency"] == 6, cloud_state)
+cloud_local_claim = run([sys.executable, str(STATE_TOOL), "can-claim",
+                         "lesson-a_prog-a"], env=env)
+check("Cloud-selected authoring cannot race a local NEW claim",
+      cloud_local_claim.returncode != 0 and
+      "selection uses Cloud authoring" in cloud_local_claim.stderr,
+      cloud_local_claim.stderr)
 state_file.write_text(json.dumps(state))
 selected_state = state
 empty_state = dict(state)
@@ -150,6 +194,9 @@ r = run(["bash", str(RUN), "approve", "BATCH"], env=env)
 check("an empty batch cannot receive review approval",
       r.returncode != 0 and "no selected workspaces" in r.stderr, r.stderr)
 state_file.write_text(json.dumps(selected_state))
+r = run(["bash", str(RUN), "batch", "--program", "prog-a", "--cloud"], env=env)
+check("Cloud dispatch uses an explicitly selected Cloud batch", r.returncode == 0,
+      r.stderr)
 r = run(["bash", str(RUN), "delegate", "--stem", "lesson-a_prog-a"], env=env)
 check("selected stems get an exact source-only cloud prompt",
       r.returncode == 0 and
@@ -158,11 +205,18 @@ check("selected stems get an exact source-only cloud prompt",
       "REVIEW_READY: PASS" in r.stdout and
       "Do not call HeyGen" in r.stdout, r.stderr + r.stdout)
 fake_codex = tmp / "fake-codex"
-fake_codex.write_text("#!/usr/bin/env bash\nprintf '%s\\n' \"$@\"\nprintf 'CWD=%s\\n' \"$PWD\"\nprintf diagnostic > error.log\n")
+fake_log = tmp / "fake-codex.log"
+fake_codex.write_text(
+    "#!/usr/bin/env bash\n"
+    "printf '%s\\n' \"$@\"\n"
+    "printf 'CWD=%s\\n' \"$PWD\"\n"
+    "printf diagnostic > error.log\n"
+    "sleep 0.2\n"
+    "printf 'CALL\\n' >> \"$FAKE_CODEX_LOG\"\n")
 fake_codex.chmod(0o755)
 repo_error_log_before = digest(REPO / "error.log")
 dispatch_env = dict(env, CODEX_CLOUD_BIN=str(fake_codex),
-                    CODEX_CLOUD_ALLOW_DIRTY="1")
+                    CODEX_CLOUD_ALLOW_DIRTY="1", FAKE_CODEX_LOG=str(fake_log))
 r = run(["bash", str(RUN), "dispatch", "--stem", "lesson-a_prog-a"],
         env=dispatch_env)
 check("dispatch submits the generated assignment through codex cloud exec",
@@ -170,18 +224,114 @@ check("dispatch submits the generated assignment through codex cloud exec",
       "Work only on lesson-a_prog-a" in r.stdout and
       f"CWD={REPO}" not in r.stdout and digest(REPO / "error.log") == repo_error_log_before,
       r.stderr + r.stdout)
+first_dispatch = json.loads(state_file.read_text())["dispatches"]["lesson-a_prog-a"]
+r_duplicate = run(["bash", str(RUN), "dispatch", "--stem", "lesson-a_prog-a"],
+                  env=dispatch_env)
+check("a submitted Cloud lesson cannot be dispatched twice",
+      r_duplicate.returncode != 0 and "duplicate task" in r_duplicate.stderr and
+      fake_log.read_text().count("CALL") == 1 and first_dispatch["state"] == "submitted",
+      r_duplicate.stderr)
+check("a pending Cloud task blocks a competing local claim",
+      run([sys.executable, str(STATE_TOOL), "can-claim", "lesson-a_prog-a"],
+          env=env).returncode != 0)
 (test_vp / "renders-hyperframes/lesson-b_prog-a").mkdir()
+r = run(["bash", str(RUN), "batch", "--program", "prog-a", "--cloud"], env=env)
+workspace_item = next(x for x in json.loads(state_file.read_text())["items"]
+                      if x["stem"] == "lesson-b_prog-a")
+check("selection stores identity, not a stale lifecycle label",
+      r.returncode == 0 and workspace_item ==
+      {"stem": "lesson-b_prog-a", "program": "prog-a"},
+      workspace_item)
+r = run([sys.executable, str(STATE_TOOL), "locate", "lesson-b_prog-a"], env=env)
+located_workspace = json.loads(r.stdout)
+check("locate keeps the source program while surfacing an existing workspace",
+      located_workspace["stage"] == "workspace" and
+      located_workspace["program"] == "prog-a", located_workspace)
 r = run(["bash", str(RUN), "delegate", "--stem", "lesson-b_prog-a"], env=env)
 check("existing workspaces resume locally instead of duplicate Cloud delegation",
       r.returncode != 0 and "resume it locally" in r.stderr, r.stderr)
+drains = [subprocess.Popen(
+    ["bash", str(RUN), "drain"], env=dispatch_env,
+    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) for _ in range(2)]
+drain_results = [proc.communicate() + (proc.returncode,) for proc in drains]
+r_again = run(["bash", str(RUN), "drain"], env=dispatch_env)
+dispatches = json.loads(state_file.read_text())["dispatches"]
+check("concurrent Cloud drains converge on one task per READY lesson",
+      all(result[2] == 0 for result in drain_results) and
+      r_again.returncode == 0 and
+      dispatches["lesson-c_prog-a"]["state"] == "submitted" and
+      fake_log.read_text().count("CALL") == 2 and
+      "no untouched" in r_again.stdout,
+      drain_results + [(r_again.stdout, r_again.stderr, r_again.returncode)])
+for stage in ("inbox", "ready", "published"):
+    (test_vp / "lesson-scripts" / "prog-b" / stage).mkdir(parents=True)
+(test_vp / "lesson-scripts/prog-b/ready/lesson-d_prog-b.txt").write_text("D")
+run(["bash", str(RUN), "batch", "--program", "prog-b", "--cloud"], env=env)
+cross_scope = json.loads(state_file.read_text())
+cross_scope["authoring_concurrency"] = 3
+cross_scope["dispatches"]["orphan_prog-old"] = {
+    "state": "reserved", "program": "prog-old",
+    "reserved_at": "2020-01-01T00:00:00Z", "reservation_id": "old",
+}
+state_file.write_text(json.dumps(cross_scope))
+global_view = run([sys.executable, str(STATE_TOOL), "dispatchable"], env=env)
+global_dispatch = json.loads(global_view.stdout)
+check("dispatch capacity counts durable active work outside the new scope",
+      global_view.returncode == 0 and global_dispatch["active"] == 3 and
+      global_dispatch["available"] == 0 and global_dispatch["items"] == [],
+      global_dispatch)
+check("stale reservations surface as a safety hold without blind resubmit",
+      any(x["stem"] == "orphan_prog-old" and
+          x["condition"] == "stale-reservation"
+          for x in global_dispatch["blocked"]), global_dispatch)
+cross_scope["dispatches"].pop("orphan_prog-old")
+state_file.write_text(json.dumps(cross_scope))
+run(["bash", str(RUN), "batch", "--program", "prog-a", "--cloud"], env=env)
 check("new runs separate authoring, TTS, render, and publish capacity",
       state["authoring_concurrency"] == 3 and state["tts_concurrency"] == 2 and
       state["cloud_render_concurrency"] == 2 and state["publish_concurrency"] == 1,
       state)
-(test_vp / "renders-hyperframes/lesson-a_prog-a/qa").mkdir(parents=True)
+
+
+def make_reviewable(stem):
+    workspace = test_vp / "renders-hyperframes" / stem
+    (workspace / "qa").mkdir(parents=True, exist_ok=True)
+    (workspace / "index.html").write_text(
+        '<main data-duration="1"><div class="clip" data-start="0"></div></main>')
+    revision = workspace_revision(workspace)
+    (workspace / "qa/PREFLIGHT-OK").write_text(
+        json.dumps({"source_revision": revision}))
+    verdict = run([sys.executable, str(STATE_TOOL), "record-visual-review", stem,
+                   "--blocking-defect", "PASS", "--taste", "ALIVE",
+                   "--recommendation", "PROCEED"], env=env)
+    return workspace, revision, verdict
+
+
+lesson_a_ws, lesson_a_revision, visual_a = make_reviewable("lesson-a_prog-a")
+check("the visual-review receipt is validated and revision-bound",
+      visual_a.returncode == 0 and
+      json.loads((lesson_a_ws / "qa/VISUAL-REVIEW.json").read_text())["revision"] ==
+      lesson_a_revision, visual_a.stderr)
+pending_resume = run([sys.executable, str(STATE_TOOL), "can-resume",
+                      "lesson-a_prog-a", "--program", "prog-a"], env=env)
+merged_handoff = run(["bash", str(RUN), "dispatch-merged", "--stem",
+                      "lesson-a_prog-a", "--task-ref", "task://lesson-a"], env=env)
+safe_resume = run([sys.executable, str(STATE_TOOL), "can-resume",
+                   "lesson-a_prog-a", "--program", "prog-a"], env=env)
+check("submitted Cloud ownership blocks resume until an explicit merged handoff",
+      pending_resume.returncode != 0 and "externally owned" in pending_resume.stderr and
+      merged_handoff.returncode == 0 and safe_resume.returncode == 0 and
+      json.loads(state_file.read_text())["dispatches"]["lesson-a_prog-a"]["state"] ==
+      "merged", pending_resume.stderr + merged_handoff.stderr + safe_resume.stderr)
+bad_visual = run([sys.executable, str(STATE_TOOL), "record-visual-review",
+                  "lesson-a_prog-a", "--blocking-defect", "PASS",
+                  "--taste", "FLAT", "--recommendation", "PROCEED"], env=env)
+check("a FLAT visual review cannot recommend PROCEED",
+      bad_visual.returncode != 0 and "must recommend REVISE" in bad_visual.stderr,
+      bad_visual.stderr)
 r = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
 check("batch shipping is blocked before that lesson's rolling approval",
-      r.returncode != 0 and "rolling review approval" in r.stderr, r.stderr)
+      r.returncode != 0 and "review approval" in r.stderr, r.stderr)
 state = json.loads(state_file.read_text())
 state["cloud_clean_streak"] = 3
 state_file.write_text(json.dumps(state))
@@ -191,7 +341,6 @@ check("clean cloud streak scales independently of unfinished siblings",
 state = json.loads(state_file.read_text())
 state["cloud_clean_streak"] = 0
 state_file.write_text(json.dumps(state))
-(test_vp / "renders-hyperframes/lesson-a_prog-a/qa/PREFLIGHT-OK").write_text("")
 r = run(["bash", str(RUN), "approve", "lesson-a_prog-a"], env=env)
 approved_one = json.loads(state_file.read_text())["review"]
 r_a = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
@@ -199,20 +348,56 @@ r_b = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-b_prog-a"], env=
 check("one clean batch lesson can be approved and shipped independently",
       r.returncode == 0 and approved_one["stems"] == ["lesson-a_prog-a"] and
       r_a.returncode == 0 and r_b.returncode != 0, r.stderr + r_b.stderr)
+r = run(["bash", str(RUN), "produce", "--stem", "lesson-b_prog-a"], env=env)
+r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
+cross_scope_approval = json.loads(state_file.read_text())["approvals"]
+check("per-lesson approval survives selecting another scope and returning",
+      r.returncode == 0 and
+      cross_scope_approval["lesson-a_prog-a"]["revision"] == lesson_a_revision,
+      cross_scope_approval)
+r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
+reselected_review = json.loads(state_file.read_text())["review"]
+check("reselecting a batch preserves rolling lesson approvals",
+      r.returncode == 0 and reselected_review == approved_one,
+      reselected_review)
 r = run(["bash", str(RUN), "approve", "BATCH"], env=env)
 check("batch approval refuses a partial review set",
       r.returncode != 0 and "lesson-b_prog-a" in r.stderr, r.stderr)
-(test_vp / "renders-hyperframes/lesson-b_prog-a/qa").mkdir(parents=True)
-(test_vp / "renders-hyperframes/lesson-b_prog-a/qa/PREFLIGHT-OK").write_text("")
+make_reviewable("lesson-b_prog-a")
+make_reviewable("lesson-c_prog-a")
 r = run(["bash", str(RUN), "approve", "BATCH"], env=env)
 approved = json.loads(state_file.read_text())["review"]
 r3 = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
 r2 = run(["bash", str(RUN), "resume"], env=env)
 check("optional full-batch approval persists across sessions", r.returncode == 0 and
       approved["approved_at"] and set(approved["stems"]) ==
-      {"lesson-a_prog-a", "lesson-b_prog-a"} and
+      {"lesson-a_prog-a", "lesson-b_prog-a", "lesson-c_prog-a"} and
       json.loads(state_file.read_text())["review"] == approved and
       approved["approved_at"] in r2.stdout and r3.returncode == 0)
+legacy = json.loads(state_file.read_text())
+legacy.pop("approvals")
+state_file.write_text(json.dumps(legacy))
+r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
+migrated = json.loads(state_file.read_text())["approvals"]
+legacy_ship = run([sys.executable, str(STATE_TOOL), "can-ship",
+                   "lesson-a_prog-a"], env=env)
+check("stem-only legacy review stays unbound and requires fresh approval",
+      r.returncode == 0 and
+      migrated["lesson-a_prog-a"]["revision"] is None and
+      migrated["lesson-a_prog-a"]["source"] == "legacy-review-unbound" and
+      legacy_ship.returncode != 0 and "current revision" in legacy_ship.stderr,
+      migrated)
+lesson_a_ws.joinpath("index.html").write_text("<main>changed after approval</main>")
+r = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
+check("editing an approved workspace invalidates its shipping approval",
+      r.returncode != 0 and "current revision" in r.stderr, r.stderr)
+r = run(["bash", str(RUN), "resume", "--json"], env=env)
+merged_resume = json.loads(r.stdout)
+merged_a = next(x for x in merged_resume["selection"]
+                if x["stem"] == "lesson-a_prog-a")
+check("resume --json returns one selected view with live, approval, and dispatch state",
+      r.returncode == 0 and merged_a["observed"] and merged_a["approval"] and
+      merged_a["dispatch"], merged_resume)
 
 
 print("== durable failures, retry limits, and circuit breaker ==")
@@ -267,11 +452,58 @@ check("driver owns one concise close-out record",
 r = run(["bash", str(RUN), "cloud-limit", "4"], env=env)
 check("four cloud renders are refused before a clean streak",
       r.returncode != 0 and "three consecutive" in r.stderr, r.stderr)
+
+
+def make_verified_cut(stem):
+    clean_ws = test_vp / "renders-hyperframes" / stem
+    (clean_ws / "qa").mkdir(parents=True, exist_ok=True)
+    (clean_ws / "renders").mkdir(exist_ok=True)
+    (clean_ws / "index.html").write_text(f"<main>{stem}</main>")
+    revision = workspace_revision(clean_ws)
+    mp4 = clean_ws / "renders" / f"{stem}.mp4"
+    mp4.write_bytes(f"encoded {stem}".encode())
+    mp4_digest = digest(mp4)
+    (clean_ws / "qa/RENDER-START.json").write_text(json.dumps({
+        "source_revision": revision,
+        "backend": "cloud",
+        "attempt": 1,
+        "mp4": str(mp4),
+        "encode_review_required": True,
+        "completed_at": "2026-08-07T00:00:00Z",
+        "completed_sha256": mp4_digest,
+        "completed_bytes": mp4.stat().st_size,
+    }))
+    (clean_ws / "qa/VERIFIED").write_text(json.dumps({
+        "source_revision": revision,
+        "mp4": str(mp4),
+        "sha256": mp4_digest,
+        "encode_review_required": True,
+        "render_attempt": 1,
+    }))
+    return clean_ws
+
+
+backend_mismatch_ws = make_verified_cut("backend-mismatch_prog-a")
+backend_mismatch = run([
+    sys.executable, str(STATE_TOOL), "record-encode-review",
+    "backend-mismatch_prog-a", "--backend", "local", "--verdict", "PASS",
+], env=env)
+check("encode review cannot relabel a cloud render as local",
+      backend_mismatch.returncode != 0
+      and "rendered by cloud" in backend_mismatch.stderr
+      and not (backend_mismatch_ws / "qa/ENCODE-REVIEW.json").exists(),
+      backend_mismatch.stdout + backend_mismatch.stderr)
+
 for clean_stem in ("clean-one_prog-a", "clean-two_prog-a", "clean-three_prog-a"):
-    clean_ws = test_vp / "renders-hyperframes" / clean_stem
-    clean_ws.mkdir()
+    clean_ws = make_verified_cut(clean_stem)
     run([sys.executable, str(STATE_TOOL), "record-success", "--workspace",
          str(clean_ws), "--stem", clean_stem, "--phase", "cloud-render"], env=env)
+state = json.loads(state_file.read_text())
+check("deterministic render success alone does not count as encode-reviewed",
+      state["cloud_clean_streak"] == 0, state)
+for clean_stem in ("clean-one_prog-a", "clean-two_prog-a", "clean-three_prog-a"):
+    run([sys.executable, str(STATE_TOOL), "record-encode-review", clean_stem,
+         "--backend", "cloud", "--verdict", "PASS"], env=env)
 r = run([sys.executable, str(STATE_TOOL), "post-review-required"], env=env)
 check("post-render review retires only after three clean cloud renders",
       r.returncode == 1 and "retired" in r.stdout, r.stdout)
@@ -283,14 +515,19 @@ check("three clean cloud renders unlock capacity four",
 parallel_stems = [f"parallel-{i}_prog-a" for i in range(6)]
 parallel = []
 for stem in parallel_stems:
-    ws = test_vp / "renders-hyperframes" / stem
-    ws.mkdir()
+    ws = make_verified_cut(stem)
     parallel.append(subprocess.Popen(
         [sys.executable, str(STATE_TOOL), "record-success", "--workspace",
          str(ws), "--stem", stem, "--phase", "cloud-render"], env=env))
 parallel_ok = all(proc.wait() == 0 for proc in parallel)
+parallel = [subprocess.Popen(
+    [sys.executable, str(STATE_TOOL), "record-encode-review", stem,
+     "--backend", "cloud", "--verdict", "PASS"], env=env,
+    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            for stem in parallel_stems]
+parallel_ok = parallel_ok and all(proc.wait() == 0 for proc in parallel)
 state = json.loads(state_file.read_text())
-check("parallel render completions cannot overwrite run-state updates",
+check("parallel reviewed render completions cannot overwrite run-state updates",
       parallel_ok and all(stem in state["results"] for stem in parallel_stems) and
       state["cloud_clean_streak"] == 3, state)
 failure("lesson-a_prog-a")
@@ -300,17 +537,36 @@ check("a cloud-render failure automatically returns capacity to two",
       state["cloud_clean_streak"] == 0, state)
 
 
-print("== idempotent per-stem leases ==")
+print("== exclusive per-stem leases ==")
 lease_repo = Path(tempfile.mkdtemp(prefix="video-lease-test-"))
 (lease_repo / "scripts").mkdir()
 shutil.copy2(REPO / "scripts/build-session.sh", lease_repo / "scripts/build-session.sh")
 lease_cmd = ["bash", str(lease_repo / "scripts/build-session.sh")]
-check("lease arm succeeds", run(lease_cmd + ["arm", "a"]).returncode == 0)
-run(lease_cmd + ["arm", "a"])
+owners = [subprocess.Popen(lease_cmd + ["arm", "a"],
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL) for _ in range(2)]
+owner_results = [proc.wait() for proc in owners]
+check("parallel same-stem lease arms have exactly one owner",
+      sorted(owner_results) == [0, 1], owner_results)
+live_retry = run(lease_cmd + ["arm", "a"])
+check("a live lease refuses a second resume worker",
+      live_retry.returncode == 1 and "live build owner" in live_retry.stderr,
+      live_retry.stderr)
 run(lease_cmd + ["arm", "b"])
 lease_dir = lease_repo / "projects/video-production/renders-hyperframes/.build-in-progress"
-check("reclaim refreshes one lease instead of duplicating it",
+check("different stems retain independent parallel leases",
       sorted(p.name for p in lease_dir.iterdir()) == ["a", "b"])
+old = time.time() - 2
+os.utime(lease_dir / "a", (old, old))
+resume_env = dict(os.environ, VIDEO_BUILD_SESSION_TTL="21600",
+                  VIDEO_BUILD_RESUME_TAKEOVER_AGE="1")
+resumers = [subprocess.Popen(lease_cmd + ["arm", "a", "--resume"],
+                             env=resume_env, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, text=True) for _ in range(2)]
+resume_results = [proc.communicate() + (proc.returncode,) for proc in resumers]
+check("a stalled resume lease has one takeover winner, not a six-hour deadlock",
+      sorted(x[2] for x in resume_results) == [0, 1] and
+      any("resuming stalled" in x[1] for x in resume_results), resume_results)
 run(lease_cmd + ["release", "a"])
 check("releasing one stem preserves the parallel holder",
       [p.name for p in lease_dir.iterdir()] == ["b"] and

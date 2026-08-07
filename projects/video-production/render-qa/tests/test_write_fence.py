@@ -26,6 +26,7 @@ dir — so a test run can never leave the live repo fenced.
 
 Run:  python3 tests/test_write_fence.py   (exit 0 = all pass)
 """
+import hashlib
 import json
 import os
 import shutil
@@ -37,6 +38,9 @@ from pathlib import Path
 RQ = Path(__file__).resolve().parents[1]
 REPO = RQ.parents[2]
 FENCE = REPO / "scripts" / "write-fence.sh"
+BUILD_CLAIM = REPO / "scripts" / "build-claim.sh"
+SOURCE_CHECKPOINT = RQ / "src" / "source_checkpoint.py"
+WORKSPACE_REVISION = RQ / "src" / "workspace_revision.py"
 
 # A disposable stand-in for the repo. The fence only ever string-matches paths
 # against CLAUDE_PROJECT_DIR and asks build-session.sh for live leases, so a
@@ -356,6 +360,282 @@ check("`arm` with no stem is refused — a sentinel must say WHOSE build it is",
       subprocess.run(["bash", str(BS), "arm"], capture_output=True).returncode != 0)
 
 # ---------------------------------------------------------------------------
+print("== build claim distinguishes a new scaffold from an overwrite-safe resume ==")
+checkpoint_ignore_probe = (
+    "projects/video-production/renders-hyperframes/m2_ignore_probe/"
+    "source-revisions/.blobs/"
+    + "a" * 64
+)
+check("source checkpoint revisions and blobs stay out of version control",
+      subprocess.run(
+          ["git", "check-ignore", "-q", "--", checkpoint_ignore_probe],
+          cwd=REPO, capture_output=True,
+      ).returncode == 0,
+      checkpoint_ignore_probe)
+CLAIM_PROJ = Path(tempfile.mkdtemp(prefix="build-claim-checkpoint-test-"))
+
+
+def copy_claim_dependency(source, relative):
+    destination = CLAIM_PROJ / relative
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+
+
+for source, relative in [
+    (BUILD_CLAIM, "scripts/build-claim.sh"),
+    (REPO / "scripts" / "build-session.sh", "scripts/build-session.sh"),
+    (REPO / "scripts" / "build-log.sh", "scripts/build-log.sh"),
+    (SOURCE_CHECKPOINT,
+     "projects/video-production/render-qa/src/source_checkpoint.py"),
+    (WORKSPACE_REVISION,
+     "projects/video-production/render-qa/src/workspace_revision.py"),
+    (RQ / "src" / "run_state.py",
+     "projects/video-production/render-qa/src/run_state.py"),
+    (RQ / "src" / "stem.py",
+     "projects/video-production/render-qa/src/stem.py"),
+]:
+    copy_claim_dependency(source, relative)
+
+claim_vp = CLAIM_PROJ / "projects/video-production"
+claim_scaffold = claim_vp / "renders-hyperframes/_run/scaffold"
+claim_scaffold.mkdir(parents=True)
+(claim_scaffold / "assets/brand").mkdir(parents=True)
+(claim_scaffold / "index.html").write_text("SCAFFOLD SENTINEL\n", encoding="utf-8")
+(claim_scaffold / ".pin").write_text("pinned-runtime\n", encoding="utf-8")
+(claim_scaffold / "assets/brand/logo.svg").write_text(
+    "<svg><!-- scaffold logo --></svg>\n", encoding="utf-8")
+(claim_vp / "lesson-scripts/mid-career-momentum").mkdir(parents=True)
+
+claim_stem = "m2_checkpoint_demo"
+claim_workspace = claim_vp / "renders-hyperframes" / claim_stem
+run_file = claim_vp / "renders-hyperframes/_run/run.json"
+run_file.write_text(json.dumps({
+    "version": 4,
+    "mode": "produce",
+    "scope": {"kind": "stem", "value": claim_stem},
+    "items": [{"stem": claim_stem, "program": "mid-career-momentum"}],
+    "authoring_backend": "local",
+    "dispatches": {},
+    "approvals": {},
+}), encoding="utf-8")
+
+
+def run_claim(*extra, stem=claim_stem):
+    return subprocess.run(
+        ["bash", str(CLAIM_PROJ / "scripts/build-claim.sh"),
+         stem, "mid-career-momentum", *extra],
+        cwd=CLAIM_PROJ, capture_output=True, text=True,
+        env=dict(os.environ, VIDEO_BUILD_SESSION_TTL="999999"))
+
+
+def release_claim(stem=claim_stem):
+    subprocess.run(
+        ["bash", str(CLAIM_PROJ / "scripts/build-session.sh"),
+         "release", stem],
+        cwd=CLAIM_PROJ, capture_output=True, check=True,
+    )
+
+
+new_claim = run_claim()
+check("NEW claim succeeds", new_claim.returncode == 0, new_claim.stderr)
+check("NEW claim hydrates index.html from the scaffold itself",
+      (claim_workspace / "index.html").read_text(encoding="utf-8")
+      == "SCAFFOLD SENTINEL\n")
+check("NEW claim hydrates hidden scaffold files and visual assets",
+      (claim_workspace / ".pin").read_text(encoding="utf-8") == "pinned-runtime\n"
+      and (claim_workspace / "assets/brand/logo.svg").is_file())
+release_claim()
+
+# Make the scaffold and workspace intentionally disagree. A resume that still
+# runs the retired unconditional cp -a will destroy this authored sentinel.
+(claim_scaffold / "index.html").write_text(
+    "CHANGED SCAFFOLD — MUST NOT REPLACE AUTHORED SOURCE\n", encoding="utf-8")
+authored_index = "AUTHORED INDEX — RECOVER THIS EXACT CUT\n"
+(claim_workspace / "index.html").write_text(authored_index, encoding="utf-8")
+(claim_workspace / "design.md").write_text("# Authored design\n", encoding="utf-8")
+(claim_workspace / "assets/illustrations").mkdir(parents=True)
+(claim_workspace / "assets/illustrations/route.svg").write_text(
+    "<svg><!-- authored route --></svg>\n", encoding="utf-8")
+(claim_workspace / "linked-illustrations").symlink_to(
+    "assets/illustrations", target_is_directory=True)
+(claim_workspace / "assets/voice").mkdir(parents=True)
+voice_content = b"generated voice"
+(claim_workspace / "assets/voice/narration.wav").write_bytes(voice_content)
+(claim_workspace / "assets/voice/narration-copy.mp3").write_bytes(voice_content)
+(claim_workspace / "qa").mkdir()
+(claim_workspace / "qa/PREFLIGHT-OK").write_text("generated QA\n", encoding="utf-8")
+(claim_workspace / "snapshots").mkdir()
+(claim_workspace / "snapshots/frame.png").write_bytes(b"generated snapshot")
+(claim_workspace / "node_modules/cache").mkdir(parents=True)
+(claim_workspace / "node_modules/cache/module.js").write_text(
+    "generated cache\n", encoding="utf-8")
+
+unsafe_link_revision = subprocess.run(
+    [sys.executable, str(WORKSPACE_REVISION), str(claim_workspace)],
+    capture_output=True, text=True,
+)
+check("render-affecting symlinks are rejected instead of blessing mutable targets",
+      unsafe_link_revision.returncode != 0
+      and "symlink is not revision-safe" in unsafe_link_revision.stderr,
+      unsafe_link_revision.stderr)
+(claim_workspace / "linked-illustrations").unlink()
+
+first_resume = run_claim("--resume")
+check("RESUME succeeds", first_resume.returncode == 0, first_resume.stderr)
+release_claim()
+check("RESUME leaves the authored index sentinel byte-for-byte unchanged",
+      (claim_workspace / "index.html").read_text(encoding="utf-8") == authored_index)
+
+checkpoint_root = claim_workspace / "source-revisions"
+checkpoints = sorted(path for path in checkpoint_root.iterdir()
+                     if path.is_dir() and not path.name.startswith("."))
+check("RESUME creates exactly one content-addressed source checkpoint",
+      len(checkpoints) == 1, str(checkpoints))
+checkpoint = checkpoints[0]
+manifest_path = checkpoint / "manifest.json"
+manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+manifest_files = {entry["path"] for entry in manifest["files"]}
+check("checkpoint manifest binds workspace, revision, timestamp, and file list",
+      manifest["workspace"] == claim_stem
+      and manifest["revision"] == checkpoint.name
+      and manifest.get("created_at", "").endswith("Z")
+      and "index.html" in manifest_files)
+check("checkpoint recovers authored HTML, design, and visual assets",
+      (checkpoint / "index.html").read_text(encoding="utf-8") == authored_index
+      and (checkpoint / "design.md").is_file()
+      and (checkpoint / "assets/illustrations/route.svg").is_file())
+check("unsafe symlink is absent from the recoverable checkpoint",
+      "linked-illustrations" not in manifest_files
+      and not (checkpoint / "linked-illustrations").exists())
+voice_entries = [
+    entry for entry in manifest["files"]
+    if entry["path"].startswith("assets/voice/")
+]
+voice_sha = hashlib.sha256(voice_content).hexdigest()
+voice_blob = checkpoint_root / ".blobs" / voice_sha
+check("voice paths are recoverable through content-addressed manifest entries",
+      len(voice_entries) == 2
+      and all(entry["kind"] == "blob" for entry in voice_entries)
+      and all(entry["sha256"] == voice_sha for entry in voice_entries)
+      and all(entry["blob"] == f".blobs/{voice_sha}" for entry in voice_entries)
+      and voice_blob.read_bytes() == voice_content)
+check("identical voice content is stored once instead of copied per path",
+      sorted(path.name for path in (checkpoint_root / ".blobs").iterdir())
+      == [voice_sha]
+      and not (checkpoint / "assets/voice/narration.wav").exists()
+      and not (checkpoint / "assets/voice/narration-copy.mp3").exists())
+check("checkpoint omits QA, snapshots, caches, and build logs",
+      not (checkpoint / "qa").exists()
+      and not (checkpoint / "snapshots").exists()
+      and not (checkpoint / "node_modules").exists()
+      and not (checkpoint / ".build-log.tsv").exists())
+
+manifest_before = manifest_path.read_bytes()
+manifest_mtime_before = manifest_path.stat().st_mtime_ns
+voice_blob_mtime_before = voice_blob.stat().st_mtime_ns
+
+# A reserved cloud record blocks a competing NEW workspace. A result becomes
+# locally resumable only after the control plane records that it was merged.
+cloud_owned_stem = "m2_cloud_owned"
+run_file.write_text(json.dumps({
+    "version": 4,
+    "mode": "batch",
+    "scope": {"kind": "program", "value": "mid-career-momentum"},
+    "items": [
+        {"stem": claim_stem, "program": "mid-career-momentum"},
+        {"stem": cloud_owned_stem, "program": "mid-career-momentum"},
+    ],
+    "authoring_backend": "local",
+    "dispatches": {
+        cloud_owned_stem: {"state": "reserved"},
+        claim_stem: {"state": "merged"},
+    },
+    "approvals": {},
+}), encoding="utf-8")
+cloud_claim = run_claim(stem=cloud_owned_stem)
+check("NEW claim refuses a stem reserved for an external cloud task",
+      cloud_claim.returncode != 0
+      and not (claim_vp / "renders-hyperframes" / cloud_owned_stem).exists(),
+      cloud_claim.stderr)
+second_resume = run_claim("--resume")
+check("RESUME stays available after a cloud result is recorded as merged",
+      second_resume.returncode == 0, second_resume.stderr)
+release_claim()
+checkpoints_after = sorted(path for path in checkpoint_root.iterdir()
+                           if path.is_dir() and not path.name.startswith("."))
+check("repeated RESUME reuses the digest instead of duplicating a checkpoint",
+      checkpoints_after == checkpoints, str(checkpoints_after))
+check("repeated RESUME never overwrites the existing checkpoint manifest",
+      manifest_path.read_bytes() == manifest_before
+      and manifest_path.stat().st_mtime_ns == manifest_mtime_before)
+check("repeated RESUME does not duplicate or rewrite the voice blob",
+      sorted(path.name for path in (checkpoint_root / ".blobs").iterdir())
+      == [voice_sha]
+      and voice_blob.stat().st_mtime_ns == voice_blob_mtime_before)
+
+replacement_voice = b"a meaningfully different rendition"
+(claim_workspace / "assets/voice/narration.wav").write_bytes(replacement_voice)
+revision_after_voice_change = subprocess.run(
+    [sys.executable, str(WORKSPACE_REVISION), str(claim_workspace)],
+    check=True, capture_output=True, text=True,
+).stdout.strip()
+check("changing only a voice binary changes the workspace revision",
+      revision_after_voice_change != checkpoint.name)
+
+changed_voice_resume = run_claim("--resume")
+check("RESUME checkpoints the changed rendition instead of reusing the old cut",
+      changed_voice_resume.returncode == 0, changed_voice_resume.stderr)
+release_claim()
+changed_checkpoint = checkpoint_root / revision_after_voice_change
+changed_manifest = json.loads(
+    (changed_checkpoint / "manifest.json").read_text(encoding="utf-8")
+)
+changed_voice_entry = next(
+    entry for entry in changed_manifest["files"]
+    if entry["path"] == "assets/voice/narration.wav"
+)
+replacement_sha = hashlib.sha256(replacement_voice).hexdigest()
+replacement_blob = checkpoint_root / changed_voice_entry["blob"]
+check("both old and changed voice renditions remain recoverable by content hash",
+      changed_checkpoint.is_dir()
+      and changed_voice_entry["sha256"] == replacement_sha
+      and changed_voice_entry["blob"] == f".blobs/{replacement_sha}"
+      and replacement_blob.read_bytes() == replacement_voice
+      and voice_blob.read_bytes() == voice_content)
+check("the changed checkpoint still retains authored source and visual assets",
+      (changed_checkpoint / "index.html").read_text(encoding="utf-8")
+      == authored_index
+      and (changed_checkpoint / "design.md").is_file()
+      and (changed_checkpoint / "assets/illustrations/route.svg").is_file())
+
+changed_manifest_path = changed_checkpoint / "manifest.json"
+changed_manifest_bytes = changed_manifest_path.read_bytes()
+changed_manifest_path.write_text("{}\n", encoding="utf-8")
+corrupt_manifest_resume = run_claim("--resume")
+check("RESUME rejects an existing checkpoint with a corrupted manifest",
+      corrupt_manifest_resume.returncode != 0,
+      corrupt_manifest_resume.stderr)
+changed_manifest_path.write_bytes(changed_manifest_bytes)
+
+recovery_visual = changed_checkpoint / "assets/illustrations/route.svg"
+recovery_visual_bytes = recovery_visual.read_bytes()
+recovery_visual.write_bytes(b"corrupted recovery visual")
+corrupt_file_resume = run_claim("--resume")
+check("RESUME rejects a copied checkpoint file whose hash no longer matches",
+      corrupt_file_resume.returncode != 0,
+      corrupt_file_resume.stderr)
+recovery_visual.write_bytes(recovery_visual_bytes)
+
+replacement_blob.write_bytes(b"corrupted voice blob")
+corrupt_blob_resume = run_claim("--resume")
+check("RESUME rejects a voice blob whose content-address no longer matches",
+      corrupt_blob_resume.returncode != 0,
+      corrupt_blob_resume.stderr)
+replacement_blob.write_bytes(replacement_voice)
+check("RESUME succeeds again after all immutable recovery bytes are restored",
+      run_claim("--resume").returncode == 0)
+
+# ---------------------------------------------------------------------------
 print("== the hook is actually registered, or none of the above runs ==")
 settings = json.loads((REPO / ".claude" / "settings.json").read_text())
 pre = settings.get("hooks", {}).get("PreToolUse", [])
@@ -370,5 +650,6 @@ check("...on Write, Edit AND Bash — Bash is the routing-around vector",
       str(matchers))
 
 shutil.rmtree(PROJ, ignore_errors=True)
+shutil.rmtree(CLAIM_PROJ, ignore_errors=True)
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

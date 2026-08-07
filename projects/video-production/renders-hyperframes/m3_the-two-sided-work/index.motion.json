@@ -1,135 +1,67 @@
 {
   "compositionId": "m3_the-two-sided-work",
-  "duration": 199.2,
+  "duration": 170.91,
   "fps": 30,
   "timeline": "gsap",
   "paused": true,
   "seekable": true,
   "beats": [
-    {
-      "id": "beat-01",
-      "start": 0,
-      "duration": 16.25
-    },
-    {
-      "id": "beat-02",
-      "start": 16.25,
-      "duration": 16.65
-    },
-    {
-      "id": "beat-03",
-      "start": 32.9,
-      "duration": 13.65
-    },
-    {
-      "id": "beat-04",
-      "start": 46.55,
-      "duration": 23.65
-    },
-    {
-      "id": "beat-05",
-      "start": 70.2,
-      "duration": 20.65
-    },
-    {
-      "id": "beat-06",
-      "start": 90.85,
-      "duration": 5.65
-    },
-    {
-      "id": "beat-07",
-      "start": 96.5,
-      "duration": 16.65
-    },
-    {
-      "id": "beat-08",
-      "start": 113.15,
-      "duration": 19.65
-    },
-    {
-      "id": "beat-09",
-      "start": 132.8,
-      "duration": 27.65
-    },
-    {
-      "id": "beat-10",
-      "start": 160.45,
-      "duration": 18.65
-    },
-    {
-      "id": "beat-11",
-      "start": 179.1,
-      "duration": 13.65
-    },
-    {
-      "id": "beat-12",
-      "start": 192.75,
-      "duration": 6.45
-    }
+    {"id":"beat-01","start":0,"duration":3.905},
+    {"id":"beat-02","start":3.905,"duration":8.515},
+    {"id":"beat-03","start":12.42,"duration":3.32},
+    {"id":"beat-04","start":15.74,"duration":3.18},
+    {"id":"beat-05","start":18.92,"duration":5.69},
+    {"id":"beat-06","start":24.61,"duration":7.13},
+    {"id":"beat-07","start":31.74,"duration":4.95},
+    {"id":"beat-08","start":36.69,"duration":6.41},
+    {"id":"beat-09","start":43.1,"duration":3.95},
+    {"id":"beat-10","start":47.05,"duration":9.11},
+    {"id":"beat-11","start":56.16,"duration":6.58},
+    {"id":"beat-12","start":62.74,"duration":6.215},
+    {"id":"beat-13","start":68.955,"duration":6.815},
+    {"id":"beat-14","start":75.77,"duration":3.12},
+    {"id":"beat-15","start":78.89,"duration":6.145},
+    {"id":"beat-16","start":85.035,"duration":6.28},
+    {"id":"beat-17","start":91.315,"duration":6.705},
+    {"id":"beat-18","start":98.02,"duration":7.92},
+    {"id":"beat-19","start":105.94,"duration":4.36},
+    {"id":"beat-20","start":110.3,"duration":5.09},
+    {"id":"beat-21","start":115.39,"duration":5.115},
+    {"id":"beat-22","start":120.505,"duration":11.225},
+    {"id":"beat-23","start":131.73,"duration":4.48},
+    {"id":"beat-24","start":136.21,"duration":13.94},
+    {"id":"beat-25","start":150.15,"duration":4.09},
+    {"id":"beat-26","start":154.24,"duration":8.62},
+    {"id":"beat-27","start":162.86,"duration":8.05}
   ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-01",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-02",
-      "seconds": 17.45
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-03",
-      "seconds": 34.1
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-04",
-      "seconds": 47.75
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-05",
-      "seconds": 71.4
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-06",
-      "seconds": 92.05
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-07",
-      "seconds": 97.7
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-08",
-      "seconds": 114.35
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-09",
-      "seconds": 134.0
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-10",
-      "seconds": 161.65
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-11",
-      "seconds": 180.3
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-12",
-      "seconds": 193.95
-    },
-    {
-      "kind": "keepsMoving"
-    }
+    {"kind":"appearsBy","beatId":"beat-01","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-02","seconds":5.105},
+    {"kind":"appearsBy","beatId":"beat-03","seconds":13.62},
+    {"kind":"appearsBy","beatId":"beat-04","seconds":16.94},
+    {"kind":"appearsBy","beatId":"beat-05","seconds":20.12},
+    {"kind":"appearsBy","beatId":"beat-06","seconds":25.81},
+    {"kind":"appearsBy","beatId":"beat-07","seconds":32.94},
+    {"kind":"appearsBy","beatId":"beat-08","seconds":37.89},
+    {"kind":"appearsBy","beatId":"beat-09","seconds":44.3},
+    {"kind":"appearsBy","beatId":"beat-10","seconds":48.25},
+    {"kind":"appearsBy","beatId":"beat-11","seconds":57.36},
+    {"kind":"appearsBy","beatId":"beat-12","seconds":63.94},
+    {"kind":"appearsBy","beatId":"beat-13","seconds":70.155},
+    {"kind":"appearsBy","beatId":"beat-14","seconds":76.97},
+    {"kind":"appearsBy","beatId":"beat-15","seconds":80.09},
+    {"kind":"appearsBy","beatId":"beat-16","seconds":86.235},
+    {"kind":"appearsBy","beatId":"beat-17","seconds":92.515},
+    {"kind":"appearsBy","beatId":"beat-18","seconds":99.22},
+    {"kind":"appearsBy","beatId":"beat-19","seconds":107.14},
+    {"kind":"appearsBy","beatId":"beat-20","seconds":111.5},
+    {"kind":"appearsBy","beatId":"beat-21","seconds":116.59},
+    {"kind":"appearsBy","beatId":"beat-22","seconds":121.705},
+    {"kind":"appearsBy","beatId":"beat-23","seconds":132.93},
+    {"kind":"appearsBy","beatId":"beat-24","seconds":137.41},
+    {"kind":"appearsBy","beatId":"beat-25","seconds":151.35},
+    {"kind":"appearsBy","beatId":"beat-26","seconds":155.44},
+    {"kind":"appearsBy","beatId":"beat-27","seconds":164.06},
+    {"kind":"keepsMoving"}
   ]
 }

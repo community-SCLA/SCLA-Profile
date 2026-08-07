@@ -1,91 +1,54 @@
 {
   "compositionId": "m2_the-value-of-building-mid-career-momentum",
-  "duration": 174,
+  "duration": 136.759,
   "timeline": "master",
   "paused": true,
   "seekable": true,
   "beats": [
-    {
-      "id": "beat-01-experience",
-      "start": 0,
-      "duration": 18
-    },
-    {
-      "id": "beat-02-noise",
-      "start": 18,
-      "duration": 24
-    },
-    {
-      "id": "beat-03-momentum",
-      "start": 42,
-      "duration": 46
-    },
-    {
-      "id": "beat-04-three-paths",
-      "start": 88,
-      "duration": 24
-    },
-    {
-      "id": "beat-05-definitions",
-      "start": 112,
-      "duration": 31
-    },
-    {
-      "id": "beat-06-fit",
-      "start": 143,
-      "duration": 16
-    },
-    {
-      "id": "beat-07-direction",
-      "start": 159,
-      "duration": 15
-    }
+    {"id":"beat-01-experience-s01","start":0,"duration":3.295},
+    {"id":"beat-01-experience-s02","start":3.295,"duration":4.805},
+    {"id":"beat-01-experience-s03","start":8.1,"duration":4.14},
+    {"id":"beat-02-noise-s01","start":12.24,"duration":1.42},
+    {"id":"beat-02-noise-s02","start":13.66,"duration":9.69},
+    {"id":"beat-02-noise-s03","start":23.35,"duration":5.1},
+    {"id":"beat-03-momentum-s01","start":28.45,"duration":3.335},
+    {"id":"beat-03-momentum-s02","start":31.785,"duration":7.435},
+    {"id":"beat-03-momentum-s03","start":39.22,"duration":2.38},
+    {"id":"beat-03-momentum-s04","start":41.6,"duration":5.6},
+    {"id":"beat-03-momentum-s05","start":47.2,"duration":6.55},
+    {"id":"beat-03-momentum-s06","start":53.75,"duration":5.48},
+    {"id":"beat-03-momentum-s07","start":59.23,"duration":6.71},
+    {"id":"beat-04-three-paths-s01","start":65.94,"duration":15.455},
+    {"id":"beat-05-definitions-s01","start":81.395,"duration":4.5},
+    {"id":"beat-05-definitions-s02","start":85.895,"duration":7.97},
+    {"id":"beat-05-definitions-s03","start":93.865,"duration":12.8},
+    {"id":"beat-06-fit-s01","start":106.665,"duration":4.545},
+    {"id":"beat-06-fit-s02","start":111.21,"duration":7.83},
+    {"id":"beat-07-direction-s01","start":119.04,"duration":4.34},
+    {"id":"beat-07-direction-s02","start":123.38,"duration":13.379}
   ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-01-experience",
-      "selector": "#beat-01-experience",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-02-noise",
-      "selector": "#beat-02-noise",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-03-momentum",
-      "selector": "#beat-03-momentum",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-04-three-paths",
-      "selector": "#beat-04-three-paths",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-05-definitions",
-      "selector": "#beat-05-definitions",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-06-fit",
-      "selector": "#beat-06-fit",
-      "seconds": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-07-direction",
-      "selector": "#beat-07-direction",
-      "seconds": 1.2
-    },
-    {
-      "kind": "keepsMoving"
-    }
+    {"kind":"appearsBy","beatId":"beat-01-experience-s01","selector":"#beat-01-experience-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-01-experience-s02","selector":"#beat-01-experience-s02 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-01-experience-s03","selector":"#beat-01-experience-s03 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-02-noise-s01","selector":"#beat-02-noise-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-02-noise-s02","selector":"#beat-02-noise-s02 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-02-noise-s03","selector":"#beat-02-noise-s03 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s01","selector":"#beat-03-momentum-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s02","selector":"#beat-03-momentum-s02 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s03","selector":"#beat-03-momentum-s03 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s04","selector":"#beat-03-momentum-s04 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s05","selector":"#beat-03-momentum-s05 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s06","selector":"#beat-03-momentum-s06 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-03-momentum-s07","selector":"#beat-03-momentum-s07 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-04-three-paths-s01","selector":"#beat-04-three-paths-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-05-definitions-s01","selector":"#beat-05-definitions-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-05-definitions-s02","selector":"#beat-05-definitions-s02 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-05-definitions-s03","selector":"#beat-05-definitions-s03 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-06-fit-s01","selector":"#beat-06-fit-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-06-fit-s02","selector":"#beat-06-fit-s02 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-07-direction-s01","selector":"#beat-07-direction-s01 .anim","seconds":1.2},
+    {"kind":"appearsBy","beatId":"beat-07-direction-s02","selector":"#beat-07-direction-s02 .anim","seconds":1.2},
+    {"kind":"keepsMoving"}
   ]
 }

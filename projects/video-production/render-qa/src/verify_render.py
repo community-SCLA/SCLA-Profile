@@ -21,6 +21,7 @@ Usage:  verify_render.py <workspace> [<video.mp4>] [--json]
         (default MP4: newest file in <workspace>/renders/)
 """
 
+import hashlib
 import json
 import re
 import subprocess
@@ -29,6 +30,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import ffprobe_duration, parse_scenes, sample_units
+from workspace_revision import workspace_revision
 
 CHECK_PRESENCE = Path(__file__).resolve().parent / "check_presence.py"
 DUR_TOL = 0.15
@@ -52,7 +54,94 @@ def main():
             sys.exit(2)
         mp4 = renders[-1]
 
-    sections, failed = {"mp4": str(mp4)}, False
+    # Bind every verified MP4 to the exact authored/runtime inputs that
+    # produced it. A stem name alone is not a rendition identity: source can
+    # be edited in place after a render, and publish must never upload the old
+    # MP4 on the strength of a marker for a different cut.
+    source_revision = workspace_revision(ws)
+    render_marker = ws / "qa" / "RENDER-START.json"
+    try:
+        render_receipt = json.loads(render_marker.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError) as exc:
+        render_receipt = None
+        render_problem = f"missing or unreadable {render_marker.name} ({exc})"
+    else:
+        if not isinstance(render_receipt, dict):
+            render_problem = f"{render_marker.name} is not a JSON object"
+        elif render_receipt.get("source_revision") != source_revision:
+            render_problem = (
+                "render started from a different source revision "
+                f"({render_receipt.get('source_revision') or 'missing'} != "
+                f"{source_revision})"
+            )
+        elif not isinstance(render_receipt.get("encode_review_required"), bool):
+            render_problem = (
+                f"{render_marker.name} has no immutable encode-review policy"
+            )
+        elif (not isinstance(render_receipt.get("attempt"), int)
+              or render_receipt.get("attempt") < 1):
+            render_problem = f"{render_marker.name} has no valid render attempt"
+        else:
+            raw_render_mp4 = render_receipt.get("mp4")
+            if not isinstance(raw_render_mp4, str) or not raw_render_mp4:
+                render_problem = f"{render_marker.name} has no rendered MP4 path"
+            else:
+                receipt_mp4 = Path(raw_render_mp4)
+                if not receipt_mp4.is_absolute():
+                    receipt_mp4 = ws / receipt_mp4
+                if receipt_mp4.resolve() != mp4:
+                    render_problem = (
+                        "verification target differs from render-start receipt "
+                        f"({mp4} != {receipt_mp4.resolve()})"
+                    )
+                else:
+                    completed_sha = render_receipt.get("completed_sha256")
+                    completed_bytes = render_receipt.get("completed_bytes")
+                    completed_at = render_receipt.get("completed_at")
+                    try:
+                        digest = hashlib.sha256()
+                        with mp4.open("rb") as source:
+                            for chunk in iter(lambda: source.read(1024 * 1024), b""):
+                                digest.update(chunk)
+                        rendered_sha = digest.hexdigest()
+                        rendered_bytes = mp4.stat().st_size
+                    except OSError as exc:
+                        render_problem = f"rendered MP4 cannot be read ({exc})"
+                    else:
+                        if (not isinstance(completed_at, str) or not completed_at
+                                or not isinstance(completed_bytes, int)
+                                or completed_bytes != rendered_bytes
+                                or completed_sha != rendered_sha):
+                            render_problem = (
+                                "render is incomplete or its bytes changed after the "
+                                "renderer completed"
+                            )
+                        else:
+                            render_problem = None
+    if render_problem:
+        # Do not spend minutes grading bytes whose provenance is already
+        # invalid, and never leave an older publishable marker behind.
+        (ws / "qa" / "VERIFIED").unlink(missing_ok=True)
+        result = {
+            "verdict": "FAIL",
+            "sections": {
+                "render_source": {"pass": False, "output": render_problem},
+            },
+        }
+        if as_json:
+            print(json.dumps(result, indent=2))
+        else:
+            print(f"VERIFY-RENDER VERDICT: FAIL   ({mp4.name})")
+            print(f"\n[!! ] render_source\n  {render_problem}")
+        sys.exit(1)
+
+    sections, failed = {
+        "mp4": str(mp4),
+        "render_source": {
+            "pass": True,
+            "output": f"render task bound to {source_revision}",
+        },
+    }, False
     html = (ws / "index.html").read_text()
     scenes = parse_scenes(html)
     root = re.search(r'id="root"[^>]*data-duration="([\d.]+)"', html)
@@ -157,16 +246,17 @@ def main():
     if failed:
         marker.unlink(missing_ok=True)
     else:
-        import hashlib
-        h = hashlib.sha256()
-        with open(mp4, "rb") as fh:
-            for chunk in iter(lambda: fh.read(1 << 20), b""):
-                h.update(chunk)
         marker.parent.mkdir(parents=True, exist_ok=True)
         marker.write_text(json.dumps({
-            "mp4": str(mp4), "sha256": h.hexdigest(),
+            "mp4": str(mp4), "sha256": rendered_sha,
             "bytes": mp4.stat().st_size,
             "video_s": v_dur,
+            "source_revision": source_revision,
+            "encode_review_required": render_receipt["encode_review_required"],
+            "render_attempt": render_receipt["attempt"],
+            "render_task_key": render_receipt.get("task_key"),
+            "render_backend": render_receipt.get("backend"),
+            "render_started_at": render_receipt.get("started_at"),
         }, indent=2) + "\n")
 
     if as_json:

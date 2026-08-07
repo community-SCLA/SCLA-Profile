@@ -7,63 +7,49 @@
   "output": "assets/narration.mp3",
   "voice": "442360a3e0894fbd85024ff64cc2b928",
   "narration": [
-    {
-      "id": "beat-01-experience",
-      "text": "You've accumulated years of experience by now. Projects delivered, teams supported, and stakeholders managed. But your next step probably feels less clear than your first job did."
-    },
-    {
-      "id": "beat-02-noise",
-      "text": "That's normal. Most people arrive here with one of two feelings: a quiet frustration that things haven't moved the way they'd hoped, or a growing ambition that hasn't found its focus yet. Either way, there's usually a lot of noise in your head and very little on paper."
-    },
-    {
-      "id": "beat-03-momentum",
-      "text": "This is why building momentum matters right now. Without a deliberate next move, drifting is the default — more busy years that don't add up to a direction you chose. Momentum is the opposite. You pause, reassess, and deliberately choose what comes next. Then you build toward it through small, consistent steps that compound. And because momentum decays when you don't touch it, the goal isn't to solve everything at once. It's your next realistic move over the next six to twelve months, anchored to one clear ninety-day goal."
-    },
-    {
-      "id": "beat-04-three-paths",
-      "text": "So in this module, we zoom out and simplify your options into three common paths: a promotion in your current lane, a lateral move to a better-fit role, or a redesign of the role you're already in to better match how you work and what you care about."
-    },
-    {
-      "id": "beat-05-definitions",
-      "text": "A promotion path is about deepening your influence and scope right where you are. A lateral move is about crossing into a new department, organization, or function that fits your strengths better. And a role redesign is about reshaping your responsibilities, your focus, or your schedule without leaving entirely — often by negotiating new projects, new boundaries, or hybrid responsibilities."
-    },
-    {
-      "id": "beat-06-fit",
-      "text": "Here's the honest part: none of these paths is \"better\" in general. The right one is the path that lines up with your values, energizes you, and fits the life constraints you're actually living with right now."
-    },
-    {
-      "id": "beat-07-direction",
-      "text": "Whichever path fits, the value of this work is the same. You trade drift for direction, and you replace the noise with a named move you can actually build toward — one small, consistent, and compounding step at a time."
-    }
+    {"id":"beat-01-experience-s01","text":"You've accumulated years of experience by now."},
+    {"id":"beat-01-experience-s02","text":"Projects delivered, teams supported, and stakeholders managed."},
+    {"id":"beat-01-experience-s03","text":"But your next step probably feels less clear than your first job did."},
+    {"id":"beat-02-noise-s01","text":"That's normal."},
+    {"id":"beat-02-noise-s02","text":"Most people arrive here with one of two feelings: a quiet frustration that things haven't moved the way they'd hoped, or a growing ambition that hasn't found its focus yet."},
+    {"id":"beat-02-noise-s03","text":"Either way, there's usually a lot of noise in your head and very little on paper."},
+    {"id":"beat-03-momentum-s01","text":"This is why building momentum matters right now."},
+    {"id":"beat-03-momentum-s02","text":"Without a deliberate next move, drifting is the default — more busy years that don't add up to a direction you chose."},
+    {"id":"beat-03-momentum-s03","text":"Momentum is the opposite."},
+    {"id":"beat-03-momentum-s04","text":"You pause, reassess, and deliberately choose what comes next."},
+    {"id":"beat-03-momentum-s05","text":"Then you build toward it through small, consistent steps that compound."},
+    {"id":"beat-03-momentum-s06","text":"And because momentum decays when you don't touch it, the goal isn't to solve everything at once."},
+    {"id":"beat-03-momentum-s07","text":"It's your next realistic move over the next six to twelve months, anchored to one clear ninety-day goal."},
+    {"id":"beat-04-three-paths-s01","text":"So in this module, we zoom out and simplify your options into three common paths: a promotion in your current lane, a lateral move to a better-fit role, or a redesign of the role you're already in to better match how you work and what you care about."},
+    {"id":"beat-05-definitions-s01","text":"A promotion path is about deepening your influence and scope right where you are."},
+    {"id":"beat-05-definitions-s02","text":"A lateral move is about crossing into a new department, organization, or function that fits your strengths better."},
+    {"id":"beat-05-definitions-s03","text":"And a role redesign is about reshaping your responsibilities, your focus, or your schedule without leaving entirely — often by negotiating new projects, new boundaries, or hybrid responsibilities."},
+    {"id":"beat-06-fit-s01","text":"Here's the honest part: none of these paths is \"better\" in general."},
+    {"id":"beat-06-fit-s02","text":"The right one is the path that lines up with your values, energizes you, and fits the life constraints you're actually living with right now."},
+    {"id":"beat-07-direction-s01","text":"Whichever path fits, the value of this work is the same."},
+    {"id":"beat-07-direction-s02","text":"You trade drift for direction, and you replace the noise with a named move you can actually build toward — one small, consistent, and compounding step at a time."}
   ],
   "lines": [
-    {
-      "id": "beat-01-experience",
-      "text": "You've accumulated years of experience by now. Projects delivered, teams supported, and stakeholders managed. But your next step probably feels less clear than your first job did."
-    },
-    {
-      "id": "beat-02-noise",
-      "text": "That's normal. Most people arrive here with one of two feelings: a quiet frustration that things haven't moved the way they'd hoped, or a growing ambition that hasn't found its focus yet. Either way, there's usually a lot of noise in your head and very little on paper."
-    },
-    {
-      "id": "beat-03-momentum",
-      "text": "This is why building momentum matters right now. Without a deliberate next move, drifting is the default — more busy years that don't add up to a direction you chose. Momentum is the opposite. You pause, reassess, and deliberately choose what comes next. Then you build toward it through small, consistent steps that compound. And because momentum decays when you don't touch it, the goal isn't to solve everything at once. It's your next realistic move over the next six to twelve months, anchored to one clear ninety-day goal."
-    },
-    {
-      "id": "beat-04-three-paths",
-      "text": "So in this module, we zoom out and simplify your options into three common paths: a promotion in your current lane, a lateral move to a better-fit role, or a redesign of the role you're already in to better match how you work and what you care about."
-    },
-    {
-      "id": "beat-05-definitions",
-      "text": "A promotion path is about deepening your influence and scope right where you are. A lateral move is about crossing into a new department, organization, or function that fits your strengths better. And a role redesign is about reshaping your responsibilities, your focus, or your schedule without leaving entirely — often by negotiating new projects, new boundaries, or hybrid responsibilities."
-    },
-    {
-      "id": "beat-06-fit",
-      "text": "Here's the honest part: none of these paths is \"better\" in general. The right one is the path that lines up with your values, energizes you, and fits the life constraints you're actually living with right now."
-    },
-    {
-      "id": "beat-07-direction",
-      "text": "Whichever path fits, the value of this work is the same. You trade drift for direction, and you replace the noise with a named move you can actually build toward — one small, consistent, and compounding step at a time."
-    }
+    {"id":"beat-01-experience-s01","text":"You've accumulated years of experience by now."},
+    {"id":"beat-01-experience-s02","text":"Projects delivered, teams supported, and stakeholders managed."},
+    {"id":"beat-01-experience-s03","text":"But your next step probably feels less clear than your first job did."},
+    {"id":"beat-02-noise-s01","text":"That's normal."},
+    {"id":"beat-02-noise-s02","text":"Most people arrive here with one of two feelings: a quiet frustration that things haven't moved the way they'd hoped, or a growing ambition that hasn't found its focus yet."},
+    {"id":"beat-02-noise-s03","text":"Either way, there's usually a lot of noise in your head and very little on paper."},
+    {"id":"beat-03-momentum-s01","text":"This is why building momentum matters right now."},
+    {"id":"beat-03-momentum-s02","text":"Without a deliberate next move, drifting is the default — more busy years that don't add up to a direction you chose."},
+    {"id":"beat-03-momentum-s03","text":"Momentum is the opposite."},
+    {"id":"beat-03-momentum-s04","text":"You pause, reassess, and deliberately choose what comes next."},
+    {"id":"beat-03-momentum-s05","text":"Then you build toward it through small, consistent steps that compound."},
+    {"id":"beat-03-momentum-s06","text":"And because momentum decays when you don't touch it, the goal isn't to solve everything at once."},
+    {"id":"beat-03-momentum-s07","text":"It's your next realistic move over the next six to twelve months, anchored to one clear ninety-day goal."},
+    {"id":"beat-04-three-paths-s01","text":"So in this module, we zoom out and simplify your options into three common paths: a promotion in your current lane, a lateral move to a better-fit role, or a redesign of the role you're already in to better match how you work and what you care about."},
+    {"id":"beat-05-definitions-s01","text":"A promotion path is about deepening your influence and scope right where you are."},
+    {"id":"beat-05-definitions-s02","text":"A lateral move is about crossing into a new department, organization, or function that fits your strengths better."},
+    {"id":"beat-05-definitions-s03","text":"And a role redesign is about reshaping your responsibilities, your focus, or your schedule without leaving entirely — often by negotiating new projects, new boundaries, or hybrid responsibilities."},
+    {"id":"beat-06-fit-s01","text":"Here's the honest part: none of these paths is \"better\" in general."},
+    {"id":"beat-06-fit-s02","text":"The right one is the path that lines up with your values, energizes you, and fits the life constraints you're actually living with right now."},
+    {"id":"beat-07-direction-s01","text":"Whichever path fits, the value of this work is the same."},
+    {"id":"beat-07-direction-s02","text":"You trade drift for direction, and you replace the noise with a named move you can actually build toward — one small, consistent, and compounding step at a time."}
   ]
 }

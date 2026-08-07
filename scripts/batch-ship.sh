@@ -32,6 +32,7 @@ VP="$REPO/projects/video-production"
 QLOG="$VP/render-qa/quarantine.log"
 PUBTSV="$VP/lesson-scripts/published.tsv"
 RUN_STATE="$VP/render-qa/src/run_state.py"
+REVISION_TOOL="$VP/render-qa/src/workspace_revision.py"
 
 STEM="${1:-}"; PROGRAM="${2:-}"; MODE_ARG="${3:-}"
 if [[ -z "$STEM" || -z "$PROGRAM" ]]; then
@@ -52,7 +53,11 @@ python3 "$RUN_STATE" can-ship "$STEM" || exit $?
 # release exactly this stem on every exit; TTL remains only a hard-crash backup.
 RLOCK=""
 LOCK=""
-bash "$REPO/scripts/build-session.sh" arm "$STEM" >/dev/null
+# Shipping always continues an approved existing workspace. --resume permits
+# stale-lease takeover at the short recovery threshold while still refusing a
+# fresh live owner; failure remains closed before render/publish side effects.
+bash "$REPO/scripts/build-session.sh" arm "$STEM" --resume >/dev/null \
+  || { echo "FATAL: could not acquire exclusive lesson lease for $STEM" >&2; exit 2; }
 cleanup_ship() {
   [[ -z "$RLOCK" ]] || rm -rf "$RLOCK" 2>/dev/null || true
   [[ -z "$LOCK" ]] || rmdir "$LOCK" 2>/dev/null || true
@@ -166,43 +171,180 @@ if [[ "$MODE" == "render" ]]; then
     || quarantine "preflight rejected the plan (preflight.py)" "preflight" \
       "inspect $LAST_GUARD_LOG, fix the authoring, then run the build gate"
 
-  # A pruned workspace (post-publish revisit, or the 3x stability loop) has no
-  # node_modules; reinstall instead of false-quarantining "render failed".
-  if [[ ! -d "$WS/node_modules" ]]; then
-    echo "== npm install (workspace was pruned)"
-    guarded "npm-install" bash -c 'cd "$1" && npm install --no-audit --no-fund' _ "$WS" \
-      || quarantine "npm install failed" "dependency-install" \
-        "inspect $LAST_GUARD_LOG and restore package access before retrying"
-  fi
+  RENDER_REVISION="$(python3 "$REVISION_TOOL" "$WS")" \
+    || quarantine "could not compute source revision at render start"
+  REUSE_RENDER=0
+  mapfile -t REUSE_META < <(python3 - "$WS" "$RENDER_REVISION" <<'PY' 2>/dev/null
+import hashlib
+import json
+import sys
+from pathlib import Path
 
-  # Stale MP4s from earlier renders must not survive into this run: publish
-  # uploads via qa/VERIFIED, but a clean renders/ makes every state legible.
-  rm -f "$WS/renders/"*.mp4 2>/dev/null
-  rm -f "$WS/qa/VERIFIED" 2>/dev/null
+workspace = Path(sys.argv[1])
+current = sys.argv[2]
+try:
+    receipt = json.loads((workspace / "qa/RENDER-START.json").read_text())
+except (OSError, json.JSONDecodeError, TypeError):
+    raise SystemExit(0)
+encode = {}
+failure = {}
+try:
+    encode = json.loads((workspace / "qa/ENCODE-REVIEW.json").read_text())
+except (OSError, json.JSONDecodeError, TypeError):
+    pass
+try:
+    failure = json.loads((workspace / "qa/failure.json").read_text())
+except (OSError, json.JSONDecodeError, TypeError):
+    pass
+raw_mp4 = receipt.get("mp4") if isinstance(receipt, dict) else None
+mp4 = Path(raw_mp4) if isinstance(raw_mp4, str) and raw_mp4 else None
+if mp4 is not None and not mp4.is_absolute():
+    mp4 = workspace / mp4
+required = receipt.get("encode_review_required") if isinstance(receipt, dict) else None
+backend = receipt.get("backend") if isinstance(receipt, dict) else None
+completed_sha = receipt.get("completed_sha256") if isinstance(receipt, dict) else None
+completed_bytes = receipt.get("completed_bytes") if isinstance(receipt, dict) else None
+attempt = receipt.get("attempt") if isinstance(receipt, dict) else None
+actual_sha = None
+if mp4 is not None and mp4.is_file():
+    digest = hashlib.sha256()
+    with mp4.open("rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(chunk)
+    actual_sha = digest.hexdigest()
+if (receipt.get("source_revision") == current
+        and isinstance(required, bool)
+        and isinstance(attempt, int) and attempt >= 1
+        and backend in {"local", "cloud"}
+        and isinstance(receipt.get("completed_at"), str)
+        and receipt.get("completed_at")
+        and isinstance(completed_bytes, int)
+        and mp4 is not None and mp4.is_file()
+        and mp4.stat().st_size == completed_bytes
+        and actual_sha == completed_sha):
+    encode_failed = (
+        isinstance(encode, dict)
+        and encode.get("source_revision") == current
+        and encode.get("sha256") == completed_sha
+        and encode.get("render_attempt") == attempt
+        and str(encode.get("verdict", "")).strip().upper() == "FAIL"
+    )
+    verify_retry = (
+        isinstance(failure, dict)
+        and failure.get("error_class") == "verify-render"
+        and isinstance(failure.get("resolved_at"), str)
+        and failure.get("resolved_at")
+        and str(failure.get("failed_at") or "") >= str(receipt.get("completed_at") or "")
+    )
+    if encode_failed or verify_retry:
+        raise SystemExit(0)
+    for value in (receipt.get("render_date") or "", backend,
+                  receipt.get("task_key") or "", str(mp4),
+                  "true" if required else "false", str(attempt)):
+        print(value)
+PY
+)
+  if [[ ${#REUSE_META[@]} -eq 6 ]]; then
+    REUSE_RENDER=1
+    RENDER_DATE="${REUSE_META[0]}"
+    RENDER_BACKEND="${REUSE_META[1]}"
+    RENDER_TASK_KEY="${REUSE_META[2]}"
+    OUT_MP4="${REUSE_META[3]}"
+    ENCODE_REVIEW_REQUIRED="${REUSE_META[4]}"
+    RENDER_ATTEMPT="${REUSE_META[5]}"
+    echo "== resume verification: reusing current-source MP4 $(basename "$OUT_MP4")"
+  else
+    # A pruned workspace has no node_modules; reinstall only when a new render
+    # is actually needed. An interrupted verify reuses its existing MP4.
+    if [[ ! -d "$WS/node_modules" ]]; then
+      echo "== npm install (workspace was pruned)"
+      guarded "npm-install" bash -c 'cd "$1" && npm install --no-audit --no-fund' _ "$WS" \
+        || quarantine "npm install failed" "dependency-install" \
+          "inspect $LAST_GUARD_LOG and restore package access before retrying"
+    fi
 
-  RENDER_DATE="$(date +%F)"
-  if [[ "$RENDER_BACKEND" == "cloud" ]]; then
+    # Only a new render clears older output. A matching RENDER-START receipt
+    # plus MP4 is durable resume state and must survive an interrupted verify.
+    rm -f "$WS/renders/"*.mp4 2>/dev/null
+    rm -f "$WS/qa/VERIFIED" 2>/dev/null
+    RENDER_DATE="$(date +%F)"
+    OUT_MP4="$WS/renders/$(stem_delivered "$STEM" "$RENDER_DATE").mp4"
+    PREVIOUS_RENDER_ATTEMPT="$(python3 - "$WS/qa/RENDER-START.json" <<'PY'
+import json
+import sys
+try:
+    value = json.load(open(sys.argv[1], encoding="utf-8")).get("attempt", 0)
+    print(value if isinstance(value, int) and value >= 0 else 0)
+except (OSError, json.JSONDecodeError, AttributeError, TypeError):
+    print(0)
+PY
+)"
+    RENDER_ATTEMPT=$((PREVIOUS_RENDER_ATTEMPT + 1))
+    RENDER_TASK_KEY="scla-${STEM}-${RENDER_DATE}-${RENDER_REVISION}-a${RENDER_ATTEMPT}"
+    ENCODE_REVIEW_REQUIRED="true"
+    if [[ "$RENDER_BACKEND" == "cloud" ]]; then
+      if python3 "$RUN_STATE" post-review-required >/dev/null 2>&1; then
+        POST_REVIEW_RC=0
+      else
+        POST_REVIEW_RC=$?
+      fi
+      case "$POST_REVIEW_RC" in
+        0) ENCODE_REVIEW_REQUIRED="true" ;;
+        1) ENCODE_REVIEW_REQUIRED="false" ;;
+        *) quarantine "could not determine encode-review policy at render start" ;;
+      esac
+    fi
+    mkdir -p "$WS/qa" "$WS/renders"
+    RENDER_RECEIPT_TMP="$WS/qa/.RENDER-START.json.tmp.$$"
+    STEM="$STEM" RENDER_BACKEND="$RENDER_BACKEND" RENDER_DATE="$RENDER_DATE" \
+    RENDER_REVISION="$RENDER_REVISION" RENDER_TASK_KEY="$RENDER_TASK_KEY" \
+    RENDER_MP4="$OUT_MP4" RENDER_ATTEMPT="$RENDER_ATTEMPT" \
+    ENCODE_REVIEW_REQUIRED="$ENCODE_REVIEW_REQUIRED" \
+    python3 - "$RENDER_RECEIPT_TMP" "$WS/qa/RENDER-START.json" <<'PY' \
+      || quarantine "could not persist render-start receipt"
+import json
+import os
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+temporary, destination = map(Path, sys.argv[1:3])
+receipt = {
+    "source_revision": os.environ["RENDER_REVISION"],
+    "backend": os.environ["RENDER_BACKEND"],
+    "render_date": os.environ["RENDER_DATE"],
+    "task_key": os.environ["RENDER_TASK_KEY"],
+    "attempt": int(os.environ["RENDER_ATTEMPT"]),
+    "mp4": os.environ["RENDER_MP4"],
+    "encode_review_required": os.environ["ENCODE_REVIEW_REQUIRED"] == "true",
+    "stem": os.environ["STEM"],
+    "started_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+}
+temporary.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+temporary.replace(destination)
+PY
+
+    if [[ "$RENDER_BACKEND" == "cloud" ]]; then
     # Output straight to the delivered name — the normalise loop below then
     # no-ops. npx resolves the workspace's own pinned hyperframes install
     # (node_modules guaranteed by the install block above). with-secrets.sh
     # injects HEYGEN_API_KEY, the credential cloud render authenticates with.
-    OUT_MP4="$WS/renders/$(stem_delivered "$STEM" "$RENDER_DATE").mp4"
-    mkdir -p "$WS/renders"
     CLOUD_LIMIT="$(python3 "$RUN_STATE" cloud-concurrency 2>/dev/null || echo 2)"
     echo "== cloud render: $STEM  (HeyGen-hosted; capacity $CLOUD_LIMIT; hard cap 60 min)"
     guarded "cloud-render" bash "$REPO/scripts/with-capacity.sh" \
       cloud-render "$CLOUD_LIMIT" -- bash -c \
       'cd "$1" && timeout -k 30 3600 bash "$2" npx hyperframes cloud render . --quality high --output "$3" --idempotency-key "$4"' \
-      _ "$WS" "$REPO/scripts/with-secrets.sh" "$OUT_MP4" "scla-${STEM}-${RENDER_DATE}" \
+      _ "$WS" "$REPO/scripts/with-secrets.sh" "$OUT_MP4" "$RENDER_TASK_KEY" \
       || quarantine "cloud render failed or timed out (hyperframes cloud render)" \
         "cloud-render" "inspect $LAST_GUARD_LOG and the cloud credential/backend before retrying"
     [[ -s "$OUT_MP4" ]] || quarantine "cloud render exited 0 but no MP4 landed in renders/"
-  else
-    local_render_timeout="${SCLA_LOCAL_RENDER_TIMEOUT:-1500}"
-    echo "== render: $STEM  (~7 min; hard cap $((local_render_timeout / 60)) min)"
-    guarded "local-render" timeout -k 30 "$local_render_timeout" bash "$REPO/scripts/render-local-safe.sh" "$WS" \
-      || quarantine "safe local render failed or timed out" "local-render" \
-        "inspect $LAST_GUARD_LOG before retrying"
+    else
+      local_render_timeout="${SCLA_LOCAL_RENDER_TIMEOUT:-1500}"
+      echo "== render: $STEM  (~7 min; hard cap $((local_render_timeout / 60)) min)"
+      guarded "local-render" timeout -k 30 "$local_render_timeout" bash "$REPO/scripts/render-local-safe.sh" "$WS" \
+        || quarantine "safe local render failed or timed out" "local-render" \
+          "inspect $LAST_GUARD_LOG before retrying"
+    fi
   fi
 
   # The HyperFrames CLI names its LOCAL output `<workspace-dir>_<date>_<clock>.mp4`,
@@ -212,17 +354,45 @@ if [[ "$MODE" == "render" ]]; then
   # would upload it. The date used is the render date, which is what the name
   # is supposed to mean. (A cloud MP4 is already delivered-named; the loop
   # no-ops on it.)
-  shopt -s nullglob
-  for raw in "$WS/renders/"*.mp4; do
-    want="$(stem_delivered "$(basename "$raw")" "$RENDER_DATE").mp4"
-    [[ "$(basename "$raw")" == "$want" ]] && continue
-    mv -f "$raw" "$WS/renders/$want" || quarantine "could not normalise render filename"
-    echo "   render name normalised -> $want"
-  done
-  shopt -u nullglob
+  if [[ "$REUSE_RENDER" -eq 0 ]]; then
+    shopt -s nullglob
+    for raw in "$WS/renders/"*.mp4; do
+      want="$(stem_delivered "$(basename "$raw")" "$RENDER_DATE").mp4"
+      [[ "$(basename "$raw")" == "$want" ]] && continue
+      mv -f "$raw" "$WS/renders/$want" || quarantine "could not normalise render filename"
+      echo "   render name normalised -> $want"
+    done
+    shopt -u nullglob
+  fi
+  [[ -s "$OUT_MP4" ]] \
+    || quarantine "render receipt MP4 is missing after render: $OUT_MP4"
+  if [[ "$REUSE_RENDER" -eq 0 ]]; then
+    RENDER_COMPLETE_TMP="$WS/qa/.RENDER-START.complete.tmp.$$"
+    python3 - "$WS/qa/RENDER-START.json" "$OUT_MP4" "$RENDER_COMPLETE_TMP" <<'PY' \
+      || quarantine "could not persist atomic render-complete receipt"
+import hashlib
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+receipt_path, mp4, temporary = map(Path, sys.argv[1:4])
+receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+digest = hashlib.sha256()
+with mp4.open("rb") as source:
+    for chunk in iter(lambda: source.read(1024 * 1024), b""):
+        digest.update(chunk)
+receipt["completed_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+receipt["completed_sha256"] = digest.hexdigest()
+receipt["completed_bytes"] = mp4.stat().st_size
+temporary.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+temporary.replace(receipt_path)
+PY
+  fi
 
   echo "== verify_render"
-  guarded "verify-render" python3 "$VP/render-qa/src/verify_render.py" "$WS" \
+  rm -f "$WS/qa/VERIFIED" 2>/dev/null
+  guarded "verify-render" python3 "$VP/render-qa/src/verify_render.py" "$WS" "$OUT_MP4" \
     || quarantine "the rendered MP4 failed post-render verification (verify_render.py)" \
       "verify-render" "inspect $LAST_GUARD_LOG, fix the named defect, then re-render"
   [[ -f "$WS/qa/VERIFIED" ]] || quarantine "verify passed but wrote no qa/VERIFIED marker"
@@ -230,12 +400,16 @@ if [[ "$MODE" == "render" ]]; then
     --phase "$([[ "$RENDER_BACKEND" == "cloud" ]] && echo cloud-render || echo local-render)" \
     >/dev/null 2>&1 || true
 
-  if ! python3 "$RUN_STATE" post-review-required >/dev/null 2>&1; then
-    echo
-    echo "READY_TO_PUBLISH $STEM — deterministic verification passed; " \
-         "post-render encode review retired after three clean cloud renders"
-    exit 0
-  fi
+  case "$ENCODE_REVIEW_REQUIRED" in
+    true) ;;
+    false)
+      echo
+      echo "READY_TO_PUBLISH $STEM — deterministic verification passed; " \
+           "this render was stamped after encode review retired"
+      exit 0
+      ;;
+    *) quarantine "render receipt has no valid encode-review policy" ;;
+  esac
 
   # Sample frames for the vision guard. verify_render dumps 3 per scene; a
   # 15-scene video is 45 images (~65k tokens) and a 30-video batch would be ~2M
@@ -287,11 +461,125 @@ fi
 # Publish exactly what verify verified — path and hash from the marker.
 MARKER="$WS/qa/VERIFIED"
 [[ -f "$MARKER" ]] || quarantine "no qa/VERIFIED marker — render+verify have not passed on the current MP4"
-MP4_SRC="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["mp4"])' "$MARKER")"
-WANT_SHA="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["sha256"])' "$MARKER")"
+CURRENT_REVISION="$(python3 "$REVISION_TOOL" "$WS")" \
+  || quarantine "could not compute current source revision"
+RENDER_MARKER="$WS/qa/RENDER-START.json"
+[[ -f "$RENDER_MARKER" ]] \
+  || quarantine "no qa/RENDER-START.json — the MP4 is not bound to a source revision"
+if PUBLISH_META_RAW="$(python3 - "$WS" "$CURRENT_REVISION" "$MARKER" "$RENDER_MARKER" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+workspace = Path(sys.argv[1])
+current = sys.argv[2]
+try:
+    verified = json.load(open(sys.argv[3], encoding="utf-8"))
+    render = json.load(open(sys.argv[4], encoding="utf-8"))
+except (OSError, json.JSONDecodeError, TypeError) as exc:
+    print(f"receipt is unreadable ({exc})")
+    raise SystemExit(1)
+if not isinstance(verified, dict) or not isinstance(render, dict):
+    print("render receipts are not JSON objects")
+    raise SystemExit(1)
+if verified.get("source_revision") != current or render.get("source_revision") != current:
+    print("render task or verification belongs to different source")
+    raise SystemExit(1)
+required = render.get("encode_review_required")
+if not isinstance(required, bool) or verified.get("encode_review_required") is not required:
+    print("render receipts disagree on the immutable encode-review policy")
+    raise SystemExit(1)
+attempt = render.get("attempt")
+if (not isinstance(attempt, int) or attempt < 1
+        or verified.get("render_attempt") != attempt):
+    print("render receipts disagree on render attempt")
+    raise SystemExit(1)
+
+def resolve_mp4(value):
+    if not isinstance(value, str) or not value:
+        return None
+    path = Path(value)
+    return path if path.is_absolute() else workspace / path
+
+render_mp4 = resolve_mp4(render.get("mp4"))
+verified_mp4 = resolve_mp4(verified.get("mp4"))
+if (render_mp4 is None or verified_mp4 is None
+        or render_mp4.resolve() != verified_mp4.resolve()):
+    print("render receipts do not identify the same MP4")
+    raise SystemExit(1)
+digest = verified.get("sha256")
+if not isinstance(digest, str) or not digest:
+    print("VERIFIED has no MP4 hash")
+    raise SystemExit(1)
+if (not isinstance(render.get("completed_at"), str)
+        or not render.get("completed_at")
+        or not isinstance(render.get("completed_bytes"), int)
+        or render.get("completed_sha256") != digest):
+    print("render-complete receipt does not match VERIFIED")
+    raise SystemExit(1)
+print(verified_mp4)
+print(digest)
+print("true" if required else "false")
+PY
+)"; then
+  mapfile -t PUBLISH_META <<< "$PUBLISH_META_RAW"
+else
+  quarantine "publish receipts are invalid — ${PUBLISH_META_RAW:-unknown receipt error}"
+fi
+[[ ${#PUBLISH_META[@]} -eq 3 ]] || quarantine "publish receipt metadata is incomplete"
+MP4_SRC="${PUBLISH_META[0]}"
+WANT_SHA="${PUBLISH_META[1]}"
+ENCODE_REVIEW_REQUIRED="${PUBLISH_META[2]}"
 [[ -f "$MP4_SRC" ]] || quarantine "verified MP4 missing: $MP4_SRC"
 GOT_SHA="$(sha256sum "$MP4_SRC" | cut -d' ' -f1)"
 [[ "$GOT_SHA" == "$WANT_SHA" ]] || quarantine "MP4 changed since verify (sha mismatch) — re-run render phase"
+
+# The encode-review decision was frozen when this render started. A later
+# global streak cannot retroactively bless older/local bytes. When required,
+# the actual file hash above closes the chain: source -> render task ->
+# VERIFIED -> ENCODE-REVIEW -> bytes uploaded below.
+case "$ENCODE_REVIEW_REQUIRED" in
+  true)
+    ENCODE_MARKER="$WS/qa/ENCODE-REVIEW.json"
+    [[ -f "$ENCODE_MARKER" ]] \
+      || quarantine "post-render encode review is still required — no qa/ENCODE-REVIEW.json"
+    ENCODE_PROBLEM="$(python3 - "$MARKER" "$ENCODE_MARKER" <<'PY'
+import json
+import sys
+
+try:
+    verified = json.load(open(sys.argv[1], encoding="utf-8"))
+    review = json.load(open(sys.argv[2], encoding="utf-8"))
+except (OSError, json.JSONDecodeError, TypeError) as exc:
+    print(f"encode-review receipt is unreadable ({exc})")
+    raise SystemExit(1)
+if not isinstance(verified, dict) or not isinstance(review, dict):
+    print("encode-review receipt is not a JSON object")
+    raise SystemExit(1)
+if review.get("source_revision") != verified.get("source_revision"):
+    print("encode review belongs to different source")
+    raise SystemExit(1)
+if review.get("sha256") != verified.get("sha256"):
+    print("encode review belongs to different MP4 bytes")
+    raise SystemExit(1)
+if review.get("render_attempt") != verified.get("render_attempt"):
+    print("encode review belongs to different render attempt")
+    raise SystemExit(1)
+if str(review.get("verdict", "")).strip().upper() != "PASS":
+    findings = review.get("findings") or []
+    detail = "; ".join(str(item) for item in findings if str(item).strip())
+    print("encode review did not pass" + (f": {detail}" if detail else ""))
+    raise SystemExit(1)
+PY
+)"
+    ENCODE_RC=$?
+    [[ "$ENCODE_RC" -eq 0 ]] \
+      || quarantine "post-render encode review is not publishable — ${ENCODE_PROBLEM:-invalid receipt}" \
+        "encode-review" "correct the named encode defect, re-render, and review the new MP4"
+    ;;
+  false) ;;
+  *) quarantine "render receipt has no valid encode-review policy" ;;
+esac
 
 # Filed name = the ONE place a date is still added. A delivered MP4 records
 # the date it was rendered — a fact about an event that happened once, frozen

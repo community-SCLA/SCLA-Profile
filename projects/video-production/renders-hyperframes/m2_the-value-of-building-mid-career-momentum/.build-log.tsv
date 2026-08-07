@@ -1,1 +1,12 @@
 2026-08-07T03:25:04Z	preflight	exit 1
+2026-08-07T15:59:45Z	resume	program=mid-career-momentum
+2026-08-07T16:01:47Z	timing	preserved existing HeyGen narration; applied timing.json (127.659s)
+2026-08-07T16:02:59Z	preflight	exit 1
+2026-08-07T16:03:37Z	preflight	exit 1
+2026-08-07T16:13:14Z	preflight	exit 1
+2026-08-07T16:14:48Z	preflight	exit 1
+2026-08-07T16:19:26Z	preflight	exit 1
+2026-08-07T16:20:21Z	preflight	exit 1
+2026-08-07T16:21:04Z	preflight	exit 0 — gate-clean
+2026-08-07T16:21:24Z	gate	PASS: 21 beats, 136.759s, preserved HeyGen narration, carrier churn 5.89%
+2026-08-07T16:21:24Z	release	build session ended

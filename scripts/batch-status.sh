@@ -17,12 +17,15 @@
 # the way the hand-maintained status.md/PIPELINE-MAP.md deleted 2026-07-27 did
 # (decisions/log.md). It is a build artifact, not a place to hand-edit.
 #
-# THE VOCABULARY (2026-08-04). The folder name IS the stage name:
+# THE VOCABULARY (2026-08-07). Script folders identify queue lifecycle; build
+# content and revision-bound receipts identify production phase. Exceptional
+# conditions (stalled, rejected, stale receipt) are reported separately so an
+# interruption never erases the last completed production phase:
 #
 #   lesson-scripts/<program>/inbox/<base>.txt      RAW        captured, not refined
 #   lesson-scripts/<program>/ready/<base>.txt      READY      waiting to build
 #   lesson-scripts/<program>/published/<base>.txt  PUBLISHED  live on Wistia
-#   renders-hyperframes/<base>/                    BUILDING -> NEEDS REVIEW -> RENDERED
+#   renders-hyperframes/<base>/                    authored phase + condition
 #   renders-mp4/<program>/<base>_<date>.mp4        the delivered file
 #
 # Exception states are reported separately and never silently: NEEDS SCRIPT,
@@ -59,7 +62,7 @@ PUBTSV="$VP/lesson-scripts/published.tsv" QLOG="$VP/render-qa/quarantine.log" \
 RUNSTATE="$VP/renders-hyperframes/_run/run.json" \
 STALL_MINUTES="${VIDEO_STALL_MINUTES:-30}" \
 MODE="$MODE" OUTPATH="$OUTPATH" python3 - <<'PY'
-import json, os, re, sys, time
+import hashlib, json, os, re, sys, time
 from pathlib import Path
 
 lessons = Path(os.environ["LESSONS"])
@@ -82,8 +85,6 @@ try:
 except (OSError, json.JSONDecodeError):
     active_run = {}
 run_items = {x.get("stem") for x in active_run.get("items", []) if x.get("stem")}
-review = active_run.get("review") or {}
-reviewed_stems = set(review.get("stems") or [])
 
 backend = active_run.get("backend", "local")
 legacy_concurrency = int(active_run.get(
@@ -108,6 +109,33 @@ ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exi
 # survive. stem.py owns the rule; base() strips any trailing date/clock.
 sys.path.insert(0, os.environ["SRC"])
 from stem import base as stem_base, StemError
+from workspace_revision import read_revision_marker, workspace_revision
+
+
+approval_records = active_run.get("approvals") or {}
+legacy_review = active_run.get("review") or {}
+
+
+def approval_revision(stem: str):
+    """The owner approval for this stem, bound to one source revision."""
+    record = approval_records.get(stem)
+    if isinstance(record, dict):
+        revision = record.get("revision")
+        if isinstance(revision, str):
+            return revision
+    elif isinstance(record, str):
+        return record
+
+    # Transitional read support for revision-aware legacy review records. Old
+    # stem-only approvals intentionally do not count: they cannot prove which
+    # cut the owner watched.
+    if stem not in set(legacy_review.get("stems") or []):
+        return None
+    revisions = legacy_review.get("revisions") or {}
+    revision = revisions.get(stem) if isinstance(revisions, dict) else None
+    if not revision and len(legacy_review.get("stems") or []) == 1:
+        revision = legacy_review.get("revision")
+    return revision if isinstance(revision, str) else None
 
 def base_of(name: str) -> str:
     try:
@@ -182,7 +210,8 @@ for b in list(quarantined):
 # ── the workspaces ───────────────────────────────────────────────────────────
 # Workspaces are keyed by BASE, never joined on a path: a workspace can carry a
 # legacy build date while its script carries a refine date.
-SKIP_DIRS = {"node_modules", ".git", ".thumbnails", ".waveform-cache"}
+SKIP_DIRS = {"node_modules", ".git", ".thumbnails", ".waveform-cache",
+             "source-revisions"}
 
 def newest_mtime(d: Path) -> float:
     newest = 0.0
@@ -214,7 +243,15 @@ def journal(ws_dir: Path):
             if ln.strip() and not ln.startswith("#")]
     if not rows:
         return None
-    last = rows[-1]
+    # claim/resume/release are control events, not completed production work.
+    # Reporting "release" hid the useful answer (for example, "gate") after
+    # every clean handoff.
+    meaningful = [row for row in rows
+                  if len(row) > 1 and row[1].strip().lower()
+                  not in {"claim", "resume", "release"}]
+    if not meaningful:
+        return None
+    last = meaningful[-1]
     when = 0.0
     try:
         when = time.mktime(time.strptime(last[0], "%Y-%m-%dT%H:%M:%SZ")) - time.timezone
@@ -261,73 +298,503 @@ def audio_ready(ws_dir: Path) -> bool:
                (ws_dir / v["path"]).is_file() for v in voices)
 
 
-def ws_state(ws_dir, stem=None):
-    """(stage, label, next-action). Cheap file probes only — no browser, no gate
-    run — claiming exactly what the files show and nothing more. preflight
-    remains the sole authority on gate-clean; qa/PREFLIGHT-OK is that verdict
-    written down so it survives the session that produced it.
+def read_json_object(path: Path):
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return value if isinstance(value, dict) else None
 
-    "built" was ONE word covering six situations, so the owner could not tell a
-    folder holding a half-written plan from a finished MP4 waiting on an upload
-    (2026-07-31). Every branch names what to DO, not which tool exited non-zero.
-    """
+
+def verdict(value, *keys):
+    for key in keys:
+        answer = value.get(key)
+        if isinstance(answer, str):
+            return answer.strip().upper()
+    return None
+
+
+def receipt_mp4(ws_dir: Path, value):
+    if not isinstance(value, str) or not value:
+        return None
+    path = Path(value)
+    return path if path.is_absolute() else ws_dir / path
+
+
+def sha256_file(path: Path):
+    digest = hashlib.sha256()
+    with path.open("rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def state_record(phase, state, nxt, revision, *, condition=None,
+                 gate_revision=None, visual_revision=None, render_revision=None,
+                 render_mp4=None, render_completed_at=None,
+                 render_completed_sha=None, render_attempt=None,
+                 verified_sha=None,
+                 encode_required=None,
+                 encode_revision=None, encode_sha=None, findings=None,
+                 stage=None):
+    return {
+        "phase": phase,
+        "condition": condition,
+        "stage": stage or phase,
+        "state": state,
+        "next": nxt,
+        "revision": revision,
+        "gate_revision": gate_revision,
+        "visual_review_revision": visual_revision,
+        "render_revision": render_revision,
+        "render_mp4": render_mp4,
+        "render_completed_at": render_completed_at,
+        "render_completed_sha256": render_completed_sha,
+        "render_attempt": render_attempt,
+        "verified_sha256": verified_sha,
+        "encode_review_required": encode_required,
+        "encode_review_revision": encode_revision,
+        "encode_review_sha256": encode_sha,
+        "findings": list(findings or []),
+    }
+
+
+def ws_state(ws_dir, stem=None):
+    """Content-bound phase plus an independent exceptional condition."""
     # Scope and recovery both enter through run.sh. Never delete a workspace to
     # get around its lock; cached plans and narration are resume state.
     START = ("select only this lesson: `bash projects/video-production/run.sh "
              "produce --stem {stem}`; then continue `/render-lessons BUILD {stem}`")
-    RESUME = ("resume through the control plane: `bash projects/video-production/"
-              "run.sh resume`; continue only {stem}. Do not delete the workspace")
-    CONTINUE = RESUME if stem in run_items else START
+    RESUME = ("resume this existing workspace in place through the control plane: "
+              "`bash projects/video-production/run.sh resume`; continue only {stem}. "
+              "Do not delete or rebuild completed work")
+    SELECT_RESUME = ("put this existing lesson in scope with `bash projects/video-production/"
+                     "run.sh produce --stem {stem}`, then resume its current workspace in "
+                     "place; do not delete or rebuild completed work")
+    CONTINUE = RESUME if stem in run_items else SELECT_RESUME
     if ws_dir is None:
-        return ("scaffolded", "no build folder", START)
-    if (ws_dir / "qa" / "VERIFIED").is_file():
-        return ("rendered", "MP4 rendered and gate-verified — waiting only on the Wistia upload",
-                "publish it: `bash projects/video-production/run.sh ship {stem} --publish`")
-    if (ws_dir / "qa" / "PREFLIGHT-OK").is_file():
-        if stem in reviewed_stems and stem in run_items:
-            return ("approved", "gate-clean; this lesson's rolling review is approved",
-                    "render it: `bash projects/video-production/run.sh ship {stem}`")
-        if active_run.get("mode") == "batch" and stem in run_items:
-            return ("needs-review", "gate-clean and ready for your review — no MP4 yet",
-                    "watch this workspace now; approve it independently with "
-                    "`bash projects/video-production/run.sh approve {stem}`")
-        return ("needs-review", "gate-clean and waiting on your eyes — no MP4 yet",
-                "watch it, then continue: `bash scripts/preview.sh {stem}` → "
-                "`bash projects/video-production/run.sh ship {stem}`")
+        return state_record("scaffolded", "no build folder", START, None)
+
+    try:
+        revision = workspace_revision(ws_dir)
+    except (OSError, ValueError) as exc:
+        finding = str(exc)
+        return state_record(
+            "needs-revision",
+            f"the current source cannot be given a stable revision — {finding}",
+            "fix the render-affecting input named in the finding, then rerun the gate",
+            None,
+            condition="invalid-source",
+            findings=[finding],
+        )
+
+    render_start_path = ws_dir / "qa" / "RENDER-START.json"
+    render_start = read_json_object(render_start_path) if render_start_path.is_file() else None
+    render_revision = (render_start or {}).get("source_revision")
+    render_mp4 = receipt_mp4(ws_dir, (render_start or {}).get("mp4"))
+    render_completed_at = (render_start or {}).get("completed_at")
+    render_completed_sha = (render_start or {}).get("completed_sha256")
+    render_completed_bytes = (render_start or {}).get("completed_bytes")
+    render_attempt = (render_start or {}).get("attempt")
+    encode_required = (render_start or {}).get("encode_review_required")
+    verified_path = ws_dir / "qa" / "VERIFIED"
+    if verified_path.is_file():
+        verified = read_json_object(verified_path) or {}
+        verified_revision = verified.get("source_revision")
+        verified_mp4 = receipt_mp4(ws_dir, verified.get("mp4"))
+        verified_sha = verified.get("sha256")
+        verified_required = verified.get("encode_review_required")
+        verified_attempt = verified.get("render_attempt")
+        if (not revision or verified_revision != revision
+                or render_revision != revision):
+            return state_record(
+                "composed",
+                "the render belongs to different source — the current cut is not rendered",
+                "rerun the current-source gate, visual review, approval, and render",
+                revision,
+                condition="stale-render",
+                gate_revision=read_revision_marker(ws_dir),
+                render_revision=render_revision,
+                render_mp4=str(render_mp4) if render_mp4 else None,
+                render_completed_at=render_completed_at,
+                render_completed_sha=render_completed_sha,
+                render_attempt=render_attempt,
+                verified_sha=verified_sha,
+                encode_required=(encode_required
+                                 if isinstance(encode_required, bool) else None),
+            )
+        receipt_chain_ok = (
+            isinstance(encode_required, bool)
+            and verified_required is encode_required
+            and isinstance(render_attempt, int)
+            and render_attempt >= 1
+            and verified_attempt == render_attempt
+            and isinstance(render_completed_at, str)
+            and bool(render_completed_at)
+            and isinstance(render_completed_bytes, int)
+            and render_completed_sha == verified_sha
+            and render_mp4 is not None
+            and verified_mp4 is not None
+            and render_mp4.resolve() == verified_mp4.resolve()
+        )
+        if not receipt_chain_ok:
+            return state_record(
+                "awaiting-verification",
+                "the render-start and verification receipts do not bind one exact cut",
+                "resume the current workspace; re-render only if the recorded MP4 is gone",
+                revision,
+                condition="stale-render",
+                gate_revision=read_revision_marker(ws_dir),
+                render_revision=render_revision,
+                render_mp4=str(render_mp4) if render_mp4 else None,
+                render_completed_at=render_completed_at,
+                render_completed_sha=render_completed_sha,
+                render_attempt=render_attempt,
+                verified_sha=verified_sha,
+                encode_required=(encode_required
+                                 if isinstance(encode_required, bool) else None),
+            )
+        if not verified_mp4.is_file():
+            return state_record(
+                "awaiting-verification",
+                "the verified MP4 is missing from disk",
+                "resume this workspace in place and re-render the missing artifact",
+                revision,
+                condition="invalid-render",
+                gate_revision=read_revision_marker(ws_dir),
+                render_revision=render_revision,
+                render_mp4=str(verified_mp4),
+                render_completed_at=render_completed_at,
+                render_completed_sha=render_completed_sha,
+                render_attempt=render_attempt,
+                verified_sha=verified_sha,
+                encode_required=encode_required,
+            )
+        try:
+            actual_sha = sha256_file(verified_mp4)
+            actual_bytes = verified_mp4.stat().st_size
+        except OSError:
+            actual_sha = None
+            actual_bytes = None
+        if (not isinstance(verified_sha, str) or actual_sha != verified_sha
+                or actual_sha != render_completed_sha
+                or actual_bytes != render_completed_bytes):
+            return state_record(
+                "awaiting-verification",
+                "the MP4 bytes changed after verification",
+                "re-render and verify the current source before review or publish",
+                revision,
+                condition="invalid-render",
+                gate_revision=read_revision_marker(ws_dir),
+                render_revision=render_revision,
+                render_mp4=str(verified_mp4),
+                render_completed_at=render_completed_at,
+                render_completed_sha=render_completed_sha,
+                render_attempt=render_attempt,
+                verified_sha=verified_sha,
+                encode_required=encode_required,
+            )
+        if encode_required:
+            encode_path = ws_dir / "qa" / "ENCODE-REVIEW.json"
+            if not encode_path.is_file():
+                return state_record(
+                    "awaiting-encode-review",
+                    "this exact verified MP4 still requires post-render review",
+                    "review the encoded video, then record `bash projects/video-production/"
+                    "run.sh encode-review {stem} PASS` (or FAIL with findings)",
+                    revision,
+                    gate_revision=read_revision_marker(ws_dir),
+                    render_revision=render_revision,
+                    render_mp4=str(verified_mp4),
+                    render_attempt=render_attempt,
+                    verified_sha=verified_sha,
+                    encode_required=True,
+                )
+            encode = read_json_object(encode_path)
+            if encode is None:
+                return state_record(
+                    "awaiting-encode-review",
+                    "the post-render review receipt is unreadable",
+                    "repeat the encode review for this verified MP4",
+                    revision,
+                    condition="invalid-encode-review",
+                    gate_revision=read_revision_marker(ws_dir),
+                    render_revision=render_revision,
+                    render_mp4=str(verified_mp4),
+                    render_attempt=render_attempt,
+                    verified_sha=verified_sha,
+                    encode_required=True,
+                )
+            encode_revision = encode.get("source_revision")
+            encode_sha = encode.get("sha256")
+            encode_attempt = encode.get("render_attempt")
+            encode_findings = [x for x in (encode.get("findings") or [])
+                               if isinstance(x, str) and x.strip()]
+            if (encode_revision != revision or encode_sha != verified_sha
+                    or encode_attempt != render_attempt):
+                return state_record(
+                    "awaiting-encode-review",
+                    "the post-render review belongs to different source or MP4 bytes",
+                    "repeat the encode review for the current verified MP4",
+                    revision,
+                    condition="stale-encode-review",
+                    gate_revision=read_revision_marker(ws_dir),
+                    render_revision=render_revision,
+                    render_mp4=str(verified_mp4),
+                    render_attempt=render_attempt,
+                    verified_sha=verified_sha,
+                    encode_required=True,
+                    encode_revision=encode_revision,
+                    encode_sha=encode_sha,
+                )
+            encode_verdict = verdict(encode, "verdict", "VERDICT")
+            if encode_verdict == "FAIL":
+                return state_record(
+                    "awaiting-encode-review",
+                    "post-render encode review rejected this verified MP4",
+                    "correct the listed encode defect, re-render, and review the new MP4",
+                    revision,
+                    condition="rejected",
+                    gate_revision=read_revision_marker(ws_dir),
+                    render_revision=render_revision,
+                    render_mp4=str(verified_mp4),
+                    render_attempt=render_attempt,
+                    verified_sha=verified_sha,
+                    encode_required=True,
+                    encode_revision=encode_revision,
+                    encode_sha=encode_sha,
+                    findings=encode_findings or ["encode review returned FAIL"],
+                    stage="rejected",
+                )
+            if encode_verdict != "PASS":
+                return state_record(
+                    "awaiting-encode-review",
+                    "the post-render review receipt has no PASS/FAIL verdict",
+                    "repeat the encode review for the current verified MP4",
+                    revision,
+                    condition="invalid-encode-review",
+                    gate_revision=read_revision_marker(ws_dir),
+                    render_revision=render_revision,
+                    render_mp4=str(verified_mp4),
+                    render_attempt=render_attempt,
+                    verified_sha=verified_sha,
+                    encode_required=True,
+                    encode_revision=encode_revision,
+                    encode_sha=encode_sha,
+                )
+        return state_record(
+            "rendered",
+            ("the current source and MP4 bytes are verified; required encode review passed"
+             if encode_required else
+             "the current source and MP4 bytes are verified; this render was stamped "
+             "after encode review retired"),
+            "publish it: `bash projects/video-production/run.sh ship {stem} --publish`",
+            revision,
+            gate_revision=read_revision_marker(ws_dir),
+            render_revision=render_revision,
+            render_mp4=str(verified_mp4),
+            render_completed_at=render_completed_at,
+            render_completed_sha=render_completed_sha,
+            render_attempt=render_attempt,
+            verified_sha=verified_sha,
+            encode_required=encode_required,
+            encode_revision=(encode.get("source_revision") if encode_required else None),
+            encode_sha=(encode.get("sha256") if encode_required else None),
+        )
+
+    if render_start_path.is_file():
+        if (not render_start or render_revision != revision
+                or not isinstance(encode_required, bool)
+                or not isinstance(render_attempt, int) or render_attempt < 1):
+            return state_record(
+                "composed",
+                "the render-start receipt is unreadable or belongs to different source",
+                "rerun the content-bound gates before starting a new render",
+                revision,
+                condition="stale-render",
+                gate_revision=read_revision_marker(ws_dir),
+                render_revision=render_revision,
+                render_mp4=str(render_mp4) if render_mp4 else None,
+            )
+        render_actual_sha = None
+        render_actual_bytes = None
+        if render_mp4 and render_mp4.is_file():
+            try:
+                render_actual_sha = sha256_file(render_mp4)
+                render_actual_bytes = render_mp4.stat().st_size
+            except OSError:
+                pass
+        render_complete = (
+            isinstance(render_completed_at, str)
+            and bool(render_completed_at)
+            and isinstance(render_completed_bytes, int)
+            and render_actual_sha == render_completed_sha
+            and render_actual_bytes == render_completed_bytes
+        )
+        if render_complete:
+            return state_record(
+                "awaiting-verification",
+                "the renderer completed a current-source MP4; verification was interrupted",
+                "resume `bash projects/video-production/run.sh ship {stem}`; it will verify "
+                "this MP4 in place without rendering it again",
+                revision,
+                gate_revision=read_revision_marker(ws_dir),
+                render_revision=render_revision,
+                render_mp4=str(render_mp4),
+                render_completed_at=render_completed_at,
+                render_completed_sha=render_completed_sha,
+                render_attempt=render_attempt,
+                encode_required=encode_required,
+            )
+        return state_record(
+            "interrupted-render",
+            "render started, but no atomic completion receipt matches the current MP4 bytes",
+            "resume `bash projects/video-production/run.sh ship {stem}`; it will discard "
+            "partial output and render this exact source again",
+            revision,
+            condition="incomplete-render",
+            gate_revision=read_revision_marker(ws_dir),
+            render_revision=render_revision,
+            render_mp4=str(render_mp4) if render_mp4 else None,
+            render_completed_at=render_completed_at,
+            render_completed_sha=render_completed_sha,
+            render_attempt=render_attempt,
+            encode_required=encode_required,
+        )
+
+    marker_path = ws_dir / "qa" / "PREFLIGHT-OK"
+    if marker_path.is_file():
+        gate_revision = read_revision_marker(ws_dir)
+        if not revision or gate_revision != revision:
+            return state_record(
+                "composed",
+                "the gate receipt is legacy or belongs to different source",
+                "rerun `bash scripts/build-gate.sh {stem}` on the current composition",
+                revision,
+                condition="stale-gate",
+                gate_revision=gate_revision,
+            )
+
+        visual_path = ws_dir / "qa" / "VISUAL-REVIEW.json"
+        if not visual_path.is_file():
+            return state_record(
+                "awaiting-visual-review",
+                "gate-clean for this source; combined visual review has not been recorded",
+                "run the combined visual review and save `qa/VISUAL-REVIEW.json`",
+                revision,
+                gate_revision=gate_revision,
+            )
+
+        visual = read_json_object(visual_path)
+        if visual is None:
+            return state_record(
+                "awaiting-visual-review",
+                "the visual-review receipt is unreadable",
+                "repeat the combined visual review for the current source",
+                revision,
+                condition="invalid-visual-review",
+                gate_revision=gate_revision,
+            )
+        visual_revision = visual.get("source_revision") or visual.get("revision")
+        if visual_revision != revision:
+            return state_record(
+                "awaiting-visual-review",
+                "the visual review belongs to different source",
+                "repeat the combined visual review for the current source",
+                revision,
+                condition="stale-visual-review",
+                gate_revision=gate_revision,
+                visual_revision=visual_revision,
+            )
+
+        blocking = verdict(visual, "blocking_defect", "BLOCKING_DEFECT")
+        taste = verdict(visual, "taste", "TASTE")
+        recommendation = verdict(visual, "recommendation", "RECOMMENDATION")
+        if blocking == "PASS" and taste == "ALIVE" and recommendation == "PROCEED":
+            if approval_revision(stem) == revision:
+                return state_record(
+                    "approved",
+                    "this exact cut passed visual review and has owner approval",
+                    "render it: `bash projects/video-production/run.sh ship {stem}`",
+                    revision,
+                    gate_revision=gate_revision,
+                    visual_revision=visual_revision,
+                )
+            return state_record(
+                "needs-review",
+                "mechanical and visual reviews passed; ready for your review — no MP4 yet",
+                "watch this cut, then approve it independently with "
+                "`bash projects/video-production/run.sh approve {stem}`",
+                revision,
+                gate_revision=gate_revision,
+                visual_revision=visual_revision,
+            )
+        if blocking == "FAIL" or taste == "FLAT" or recommendation == "REVISE":
+            return state_record(
+                "needs-revision",
+                f"visual review requires revision ({blocking or '?'}/"
+                f"{taste or '?'}/{recommendation or '?'})",
+                "revise this workspace, then rerun the gate and combined visual review",
+                revision,
+                gate_revision=gate_revision,
+                visual_revision=visual_revision,
+            )
+        return state_record(
+            "awaiting-visual-review",
+            "the visual-review receipt does not contain a complete verdict",
+            "repeat the combined visual review for the current source",
+            revision,
+            condition="invalid-visual-review",
+            gate_revision=gate_revision,
+            visual_revision=visual_revision,
+        )
 
     lane = ws_lane(ws_dir)
     if lane == "scaffold":
-        return ("scaffolded",
-                "workspace claimed from the scaffold; no plan and no design authored yet",
-                START)
+        return state_record(
+            "scaffolded",
+            "workspace claimed from the scaffold; no plan and no design authored yet",
+            START,
+            revision,
+        )
     if lane == "freeform":
         # design.md -> per-beat wavs -> timing.json -> timed index.html
         if not audio_ready(ws_dir):
-            return ("planned", "freeform design written; narration not yet synthesized",
-                    CONTINUE)
+            return state_record(
+                "planned", "freeform design written; narration not yet synthesized",
+                CONTINUE, revision)
         if not (ws_dir / "timing.json").is_file():
-            return ("untimed", "freeform narration synthesized; clip timings not yet computed",
-                    CONTINUE)
+            return state_record(
+                "untimed", "freeform narration synthesized; clip timings not yet computed",
+                CONTINUE, revision)
         if not timed_html(ws_dir):
-            return ("untimed", "freeform timings computed but never applied to the composition",
-                    CONTINUE)
-        return ("composed", "freeform composition timed and ready — the gate has not run yet",
-                CONTINUE)
+            return state_record(
+                "untimed", "freeform timings computed but never applied to the composition",
+                CONTINUE, revision)
+        return state_record(
+            "composed", "freeform composition timed and ready — the gate has not run yet",
+            CONTINUE, revision)
     # template lane
     if not (ws_dir / "assets" / "voice" / "narration.wav").is_file():
-        return ("planned", "scene plan written; narration voice-over not yet synthesized",
-                CONTINUE)
+        return state_record(
+            "planned", "scene plan written; narration voice-over not yet synthesized",
+            CONTINUE, revision)
     if not (ws_dir / "index.html").is_file():
-        return ("uncompiled", "narration synthesized; the composition was never compiled",
-                CONTINUE)
+        return state_record(
+            "uncompiled", "narration synthesized; the composition was never compiled",
+            CONTINUE, revision)
     if not timed_html(ws_dir):
-        return ("untimed", "composition compiled, but scene timings were never applied",
-                CONTINUE)
-    return ("composed", "HyperFrames composition ready — the gate has not run yet",
-            CONTINUE)
+        return state_record(
+            "untimed", "composition compiled, but scene timings were never applied",
+            CONTINUE, revision)
+    return state_record(
+        "composed", "HyperFrames composition ready — the gate has not run yet",
+        CONTINUE, revision)
 
 
-DONE_STAGES = {"rendered", "needs-review", "approved"}
+HUMAN_PHASES = {"rendered", "awaiting-encode-review",
+                "awaiting-visual-review", "needs-revision", "needs-review",
+                "approved"}
 
 ws_by_base = {}
 if ws_root.is_dir():
@@ -377,9 +844,29 @@ ordered  = [p for p in priority if p in programs] + [p for p in programs if p no
 
 report = []
 totals = {"raw": 0, "needs_script": 0, "queued": 0, "building": 0, "stalled": 0,
-          "needs_review": 0, "approved": 0, "rendered": 0, "rejected": 0, "stranded": 0,
-          "published": 0, "orphan": 0}
+          "awaiting_visual_review": 0, "awaiting_encode_review": 0,
+          "needs_revision": 0,
+          "needs_review": 0, "approved": 0, "rendered": 0, "rejected": 0,
+          "stale_gate": 0, "stale_render": 0, "invalid_render": 0,
+          "incomplete_render": 0,
+          "stale_visual_review": 0,
+          "stale_encode_review": 0,
+          "stranded": 0, "published": 0, "orphan": 0}
 known_bases = set()
+
+
+def failure_status(ws_dir: Path):
+    """Return (unresolved failure, resolved timestamp) from durable evidence."""
+    path = ws_dir / "qa" / "failure.json"
+    if not path.is_file():
+        return None, None
+    failure = read_json_object(path)
+    if not failure:
+        return None, None
+    resolved_at = failure.get("resolved_at")
+    if isinstance(resolved_at, str) and resolved_at:
+        return None, resolved_at
+    return failure, None
 
 for prog in ordered:
     pdir = lessons / prog
@@ -410,69 +897,106 @@ for prog in ordered:
                 queued.append(stem)
                 totals["queued"] += 1
                 continue
-            stage, state, nxt = ws_state(ws_dir, stem)
-            findings, jrn = [], journal(ws_dir)
+            status = ws_state(ws_dir, stem)
+            phase = status["phase"]
+            condition = status["condition"]
+            stage = status["stage"]
+            state = status["state"]
+            nxt = status["next"]
+            findings, jrn = list(status["findings"]), journal(ws_dir)
             q = quarantined.get(base_of(stem))
-            if q:
+            failure, failure_resolved_at = failure_status(ws_dir)
+            # run.sh retry resolves failure.json but deliberately leaves the
+            # append-only qlog incident. A resolution suppresses only an older
+            # incident; a later quarantine remains actionable.
+            if (q and failure_resolved_at
+                    and isinstance(q.get("when"), str)
+                    and q["when"] <= failure_resolved_at):
+                q = None
+            if q or failure or condition == "rejected":
                 # The log records which guard said no, never what it said. Ask
                 # the guard again — batch-ship.sh keeps the workspace precisely
                 # so the failure is reproducible. "verify_render.py non-zero" is
                 # a citation, not a reason.
+                condition = "rejected"
                 stage = "rejected"
-                state = f"a release gate rejected this cut — {q['reason']}"
-                failure_file = ws_dir / "qa" / "failure.json"
-                reason_file = ws_dir / "qa" / "quarantine-reason.txt"
-                if failure_file.is_file():
-                    try:
-                        failure = json.loads(failure_file.read_text(encoding="utf-8"))
-                    except json.JSONDecodeError:
-                        failure = {}
-                    state = f"a release gate rejected this cut — {failure.get('reason', q['reason'])}"
-                    log = failure.get("log")
-                    findings = ([f"full command output: {log}"] if log else [])
-                    nxt = failure.get("next_action") or (
-                        f"authorize a deliberate retry: `bash projects/video-production/run.sh "
-                        f"retry {stem} --reason \"failure corrected\"`")
-                elif reason_file.is_file():
-                    txt = reason_file.read_text(encoding="utf-8", errors="replace")
-                    findings = [re.sub(r'^-\s*', '', ln.strip()) for ln in txt.splitlines()
-                                if re.match(r'\s+-\s+\[', ln)][:4]
-                    nxt = ("read the full failure in "
-                           f"`renders-hyperframes/{ws_dir.name}/qa/quarantine-reason.txt`, "
-                           "fix the authoring, then re-render: "
-                           f"`bash scripts/batch-ship.sh {stem} {prog}`")
-                else:
-                    if "cloud render" in q["reason"].lower():
+                if q or failure:
+                    incident_reason = ((failure or {}).get("reason")
+                                       or (failure or {}).get("error_class")
+                                       or (q or {}).get("reason")
+                                       or "an unresolved build failure")
+                    state = f"a build or release gate rejected this cut — {incident_reason}"
+                    reason_file = ws_dir / "qa" / "quarantine-reason.txt"
+                    if failure:
+                        log = failure.get("log")
+                        findings = ([f"full command output: {log}"] if log else [])
+                        nxt = failure.get("next_action") or (
+                            f"authorize a deliberate retry: `bash projects/video-production/run.sh "
+                            f"retry {stem} --reason \"failure corrected\"`")
+                    elif reason_file.is_file():
+                        txt = reason_file.read_text(encoding="utf-8", errors="replace")
+                        findings = [re.sub(r'^-\s*', '', ln.strip()) for ln in txt.splitlines()
+                                    if re.match(r'\s+-\s+\[', ln)][:4]
+                        nxt = ("read the full failure in "
+                               f"`renders-hyperframes/{ws_dir.name}/qa/quarantine-reason.txt`, "
+                               "fix the named cause in this workspace, then resume in place")
+                    elif "cloud render" in q["reason"].lower():
                         nxt = ("inspect the cloud credential/backend, then authorize one "
                                f"deliberate retry: `bash projects/video-production/run.sh retry "
                                f"{stem} --reason \"cloud path corrected\"`")
                     else:
-                        nxt = ("re-run the release command that failed after inspecting its "
-                               f"output: `bash projects/video-production/run.sh ship {stem}`")
+                        nxt = ("inspect and correct the recorded cause, then authorize one "
+                               f"deliberate retry: `bash projects/video-production/run.sh retry "
+                               f"{stem} --reason \"cause corrected\"`")
                 totals["rejected"] += 1
-            elif stage in DONE_STAGES:
-                key = {"needs-review": "needs_review", "approved": "approved",
-                       "rendered": "rendered"}[stage]
+            elif phase in HUMAN_PHASES:
+                key = {"awaiting-encode-review": "awaiting_encode_review",
+                       "awaiting-visual-review": "awaiting_visual_review",
+                       "needs-revision": "needs_revision",
+                       "needs-review": "needs_review", "approved": "approved",
+                       "rendered": "rendered"}[phase]
                 totals[key] += 1
+                if condition == "stale-visual-review":
+                    totals["stale_visual_review"] += 1
+                if condition == "stale-encode-review":
+                    totals["stale_encode_review"] += 1
             else:
-                # Incomplete. STALLED is report-only and never kills anything —
-                # but its next-action must RELEASE THE LOCK. "restart the build"
-                # collides with the mkdir lock: the folder is already there, so
-                # a fresh BUILD exits immediately and the lesson never moves.
+                # Incomplete. STALLED is report-only and never kills anything.
+                # Its next action resumes the recorded phase in the existing
+                # workspace; replacing it would discard the recovery evidence.
                 idle = NOW - newest_mtime(ws_dir)
-                if idle > STALL_SEC:
+                if condition in {"stale-gate", "stale-render", "invalid-render",
+                                 "incomplete-render"}:
+                    totals[condition.replace("-", "_")] += 1
+                    totals["building"] += 1
+                elif idle > STALL_SEC:
                     # STALLED is a statement about TIME, not a different job: the
                     # action stays whatever the stage needs, because deleting a
                     # workspace that holds narration is not a resume.
+                    condition = "stalled"
                     stage = "stalled"
                     totals["stalled"] += 1
                 else:
                     totals["building"] += 1
             touched = newest_mtime(ws_dir)
             in_flight.append({
-                "stem": stem, "stage": stage, "lane": ws_lane(ws_dir),
+                "stem": stem, "stage": stage, "phase": phase,
+                "condition": condition, "revision": status["revision"],
+                "gate_revision": status["gate_revision"],
+                "visual_review_revision": status["visual_review_revision"],
+                "render_revision": status["render_revision"],
+                "render_mp4": status["render_mp4"],
+                "render_completed_at": status["render_completed_at"],
+                "render_completed_sha256": status["render_completed_sha256"],
+                "render_attempt": status["render_attempt"],
+                "verified_sha256": status["verified_sha256"],
+                "encode_review_required": status["encode_review_required"],
+                "encode_review_revision": status["encode_review_revision"],
+                "encode_review_sha256": status["encode_review_sha256"],
+                "lane": ws_lane(ws_dir),
                 "workspace": ws_dir.name, "state": state, "findings": findings,
                 "idle": ago(NOW - touched), "last_touched": at_utc(touched),
+                "last_completed_phase": jrn["step"] if jrn else None,
                 "journal": (f"last completed **{jrn['step']}** at {at_utc(jrn['when'])}"
                             if jrn else None),
                 "next": nxt.replace("{stem}", stem).replace("{program}", prog)
@@ -489,7 +1013,9 @@ for prog in ordered:
             if base_of(stem) in published:
                 continue
             ws_dir = ws_by_base.get(base_of(stem))
-            verified = bool(ws_dir and (ws_dir / "qa" / "VERIFIED").is_file())
+            workspace_status = ws_state(ws_dir, stem) if ws_dir else None
+            verified = bool(workspace_status and workspace_status["phase"] == "rendered"
+                            and not workspace_status["condition"])
             state = ("build folder present" if ws_dir else
                      "NO build folder — the MP4 cannot be re-made from here")
             if verified:
@@ -513,9 +1039,11 @@ orphans = []
 for base, d in sorted(ws_by_base.items()):
     if base in known_bases or base in published:
         continue
-    stage, state, _ = ws_state(d, d.name)
+    status = ws_state(d, d.name)
     touched = newest_mtime(d)
-    orphans.append({"workspace": d.name, "stage": stage, "state": state,
+    orphans.append({"workspace": d.name, "stage": status["stage"],
+                    "phase": status["phase"], "condition": status["condition"],
+                    "revision": status["revision"], "state": status["state"],
                     "idle": ago(NOW - touched), "last_touched": at_utc(touched)})
     totals["orphan"] += 1
 
@@ -547,51 +1075,81 @@ if mode == "write":
     a(f"- **{totals['queued']}** — **ready to build.** Script approved; nothing made yet.")
     a(f"- **{totals['building']}** — **building now.** A workspace exists and is "
       "moving; each names the step it last completed.")
-    a(f"- **{totals['needs_review']}** — **waiting on your eyes.** Gate-clean, no MP4 "
-      "yet — each lesson can be reviewed independently.")
-    a(f"- **{totals['approved']}** — **approved to render.** Gate-clean and covered by "
-      "its own persisted review approval.")
+    a(f"- **{totals['awaiting_visual_review']}** — **awaiting visual review.** The "
+      "mechanical gate matches this source; the combined visual verdict is still missing.")
+    a(f"- **{totals['awaiting_encode_review']}** — **awaiting encode review.** A "
+      "content-bound MP4 exists, but required playback review has not passed for those "
+      "exact bytes.")
+    a(f"- **{totals['needs_revision']}** — **needs revision.** The combined visual "
+      "review found a blocking defect or a flat cut.")
+    a(f"- **{totals['needs_review']}** — **waiting on your eyes.** The mechanical and "
+      "visual receipts match this source; no MP4 yet, and each lesson can be reviewed "
+      "independently.")
+    a(f"- **{totals['approved']}** — **approved to render.** The exact current source "
+      "has matching gate, visual-review, and owner-approval receipts.")
     a(f"- **{totals['rendered']}** — **rendered, not yet published.** The MP4 exists "
-      "and passed every gate; only the Wistia upload is left.")
+      "and its bytes match the current-source completion receipt; its per-render encode "
+      "policy is satisfied. Only the Wistia upload is left.")
+    a(f"- **{totals['incomplete_render']}** — **interrupted render.** A render started "
+      "but never wrote an atomic completion receipt for its current bytes; partial output "
+      "will not be reused.")
     a(f"- **{totals['raw']}** — **raw, not yet refined.** Sitting in `inbox/`, waiting "
       "on `/refine-scripts`.")
     a(f"- **{totals['needs_script']}** — **NEEDS SCRIPT.** The script itself is "
       "incomplete and only you can finish it; the exact question is under each program.")
-    a(f"- **{totals['stalled']}** — **STALLED.** A build folder that stopped moving; "
-      "the lock has to be released before it can be rebuilt.")
-    a(f"- **{totals['rejected']}** — **REJECTED.** A finished attempt a release check "
-      "refused; needs a fix and a re-render.")
+    a(f"- **{totals['stalled']}** — **STALLED.** An incomplete phase stopped moving; "
+      "resume it in the same workspace without deleting completed work.")
+    a(f"- **{totals['rejected']}** — **REJECTED.** A blocking review or gate failed; "
+      "the completed production phase remains visible beside the condition.")
     a(f"- **{totals['stranded']}** — **STRANDED.** Filed as published but never "
       "recorded as published; an interrupted run left it here.")
     a(f"- **{totals['orphan']}** — **ORPHAN.** A build folder matching no script in "
       "any program.")
     a("")
-    a("### What the stages mean")
+    a("### What the phases and conditions mean")
     a("")
-    a("The pipeline has no database — the folders on disk *are* the state, and since "
-      "2026-08-04 **the folder name is the stage name**. Every lesson sits in exactly "
-      "one row.")
+    a("Status is reconstructed from source files, workspace contents, revision-bound "
+      "receipts, the run record, and the publish ledger. Each active lesson has a "
+      "production **phase** (what completed) plus an optional **condition** (what blocks "
+      "it now), so an interruption does not collapse progress into all-or-nothing.")
     a("")
-    a("| Stage | Where it lives on disk | What it needs next |")
+    a("| Phase or condition | Durable evidence | What it needs next |")
     a("|---|---|---|")
     a("| **RAW** | `lesson-scripts/<program>/inbox/<base>.txt` | refinement — "
       "`/refine-scripts` |")
     a("| **READY** | `lesson-scripts/<program>/ready/<base>.txt`, no build folder | "
       "an agent to author it — `/render-lessons` |")
-    a("| **BUILDING** | `renders-hyperframes/<base>/`, incomplete | the build to "
-      "continue; `.build-log.tsv` says which step it last finished |")
-    a("| **NEEDS REVIEW** | the same folder plus `qa/PREFLIGHT-OK` | you — watch it, "
-      "then `ship <stem>` |")
-    a("| **RENDERED** | the same folder plus `qa/VERIFIED` and an `.mp4` | the Wistia "
-      "upload and its ledger row |")
+    a("| **BUILDING** | authored files plus `.build-log.tsv` in "
+      "`renders-hyperframes/<base>/` | resume the recorded phase in that workspace; "
+      "do not discard completed work |")
+    a("| **AWAITING VISUAL REVIEW** | matching `qa/PREFLIGHT-OK`, no matching "
+      "`qa/VISUAL-REVIEW.json` | combined visual review |")
+    a("| **NEEDS REVISION** | matching visual receipt says `FLAT`, `FAIL`, or "
+      "`REVISE` | revise the same cut, then rerun its gates |")
+    a("| **NEEDS REVIEW** | current-source `qa/PREFLIGHT-OK` plus a matching PASS / "
+      "ALIVE / PROCEED `qa/VISUAL-REVIEW.json` | you — watch and approve this exact cut |")
+    a("| **AWAITING VERIFICATION** | matching `qa/RENDER-START.json`, atomic render "
+      "completion fields, and matching MP4 bytes; no `qa/VERIFIED` yet | resume `ship` — "
+      "it verifies this MP4 without rendering again |")
+    a("| *INTERRUPTED RENDER* | `qa/RENDER-START.json` exists, but no completion hash "
+      "matches the current MP4 | resume `ship`; partial output is discarded and only "
+      "this exact source is re-rendered |")
+    a("| **AWAITING ENCODE REVIEW** | current-source `qa/VERIFIED`, but no PASS "
+      "`qa/ENCODE-REVIEW.json` for the same source and MP4 hash while review is required "
+      "| review the encoded beginning, middle, transitions, and ending |")
+    a("| **RENDERED** | render-complete and `qa/VERIFIED` receipts match current source "
+      "and actual MP4 bytes; the encode policy stamped at render start is satisfied | the "
+      "Wistia upload and ledger row |")
     a("| **PUBLISHED** | `lesson-scripts/<program>/published/<base>.txt` + a row in "
       "`lesson-scripts/published.tsv` | nothing |")
     a("| *NEEDS SCRIPT* | a `TODO: needs input` / `SCRIPT PENDING` marker inside the "
       "script, in `inbox/` or `ready/` | you — the source material is missing something |")
-    a("| *STALLED* | a build folder with nothing written for "
-      f"{int(STALL_SEC // 60)}+ min | the lock released, then a rebuild |")
-    a("| *REJECTED* | a build folder and an unresolved row in "
-      "`render-qa/quarantine.log` | a human fix to the authoring, then a re-render |")
+    a("| *STALLED* | an incomplete phase with nothing written for "
+      f"{int(STALL_SEC // 60)}+ min | resume that phase in place through `run.sh`; the "
+      "workspace remains the recovery record |")
+    a("| *REJECTED* | a current failed review, unresolved `qa/failure.json`, or "
+      "unresolved quarantine incident | fix the listed cause, then perform the named "
+      "resume or retry action |")
     a("| *STRANDED* | a script in `published/` with no `published.tsv` row | the "
       "publish step re-run; nothing is lost |")
     a("| *ORPHAN* | a build folder whose base matches no script anywhere | naming — "
@@ -613,7 +1171,7 @@ if mode == "write":
               f"[{row['wistia_url'].rsplit('/', 1)[-1]}]({row['wistia_url']}) | {mp4} |")
         a("")
     attention = [(r["program"], x) for r in report for x in r["in_flight"]
-                 if x["stage"] in ("rejected", "stalled")]
+                 if x["stage"] in ("rejected", "stalled", "needs-revision")]
     if attention or orphans:
         a("## Needs a human right now")
         a("")
@@ -647,9 +1205,25 @@ if mode == "write":
             a("")
         for stages, heading, blurb in (
             (("rendered",), "RENDERED — MP4 verified, waiting on publish",
-             "The video file exists and passed every gate. Nothing left but the upload."),
+             "The verified MP4 is bound to the current source and passed any required "
+             "same-hash encode review. Nothing remains but the upload."),
+            (("awaiting-verification",), "AWAITING VERIFICATION — MP4 preserved",
+             "The renderer atomically completed this current-source MP4. Resume the tail "
+             "to verify it in place; no re-render is needed."),
+            (("interrupted-render",), "INTERRUPTED RENDER — partial output not reusable",
+             "The render never recorded atomic completion for these bytes. Resume the "
+             "tail; it will discard partial output and re-render this exact source."),
+            (("awaiting-encode-review",), "AWAITING ENCODE REVIEW",
+             "A verified MP4 exists for this source; its required post-render playback "
+             "review has not passed for these exact bytes."),
+            (("awaiting-visual-review",), "AWAITING VISUAL REVIEW",
+             "The mechanical gate matches this exact source; it still needs the combined "
+             "correctness and taste review."),
+            (("needs-revision",), "NEEDS REVISION — visual review stopped this cut",
+             "Revise the same workspace, then rerun the content-bound gate and review."),
             (("needs-review",), "NEEDS REVIEW — gate-clean, waiting on your eyes",
-             "Review and approve this lesson now; unfinished siblings do not block it."),
+             "The gate and visual receipt match this exact source. Review and approve "
+             "this lesson now; unfinished siblings do not block it."),
             (("approved",), "APPROVED — gate-clean, ready to render",
              "This lesson has its own persisted approval."),
             (("scaffolded", "planned", "uncompiled", "untimed", "composed"),
@@ -657,11 +1231,11 @@ if mode == "write":
              "A workspace exists and is part-way through. Each names the last step it "
              "actually completed, so a resuming session picks up rather than restarts."),
             (("stalled",), "STALLED — the build folder stopped moving",
-             "Report-only: nothing here is killed automatically. The folder is still "
-             "the `mkdir` lock, so it has to be released before a rebuild can claim it."),
+             "Report-only: nothing here is killed automatically. Resume the named phase "
+             "in the same workspace; its files and journal preserve completed work."),
             (("rejected",), "REJECTED — a gate refused this cut",
-             "Built and rendered, then refused by a release check. It will not publish "
-             "until a human fixes the cause and re-renders."),
+             "A review or gate blocked this lesson. Its production phase is retained; "
+             "follow the listed correction and retry action."),
         ):
             group = [x for x in r["in_flight"] if x["stage"] in stages]
             if not group:
@@ -738,6 +1312,11 @@ for r in report:
         print(f"  {n:3d}. READY  {s}")
     for x in r["in_flight"]:
         tag = {"rendered":     f"{GRN}RENDERED — ready to publish{O}",
+               "awaiting-verification": f"{CYN}AWAITING VERIFICATION{O}",
+               "interrupted-render": f"{YEL}INTERRUPTED RENDER{O}",
+               "awaiting-encode-review": f"{CYN}AWAITING ENCODE REVIEW{O}",
+               "awaiting-visual-review": f"{CYN}AWAITING VISUAL REVIEW{O}",
+               "needs-revision": f"{YEL}NEEDS REVISION{O}",
                "needs-review": f"{CYN}NEEDS REVIEW — your eyes{O}",
                "approved":     f"{GRN}APPROVED — ready to render{O}",
                "rejected":     f"{RED}REJECTED{O}",
@@ -770,6 +1349,9 @@ if orphans:
 
 t = totals
 print(f"{B}{t['published']} live{O} · {t['queued']} ready · {t['building']} building · "
+      f"{t['awaiting_visual_review']} awaiting visual · {t['needs_revision']} needs revision · "
+      f"{t['awaiting_encode_review']} awaiting encode · "
+      f"{t['incomplete_render']} interrupted render · "
       f"{t['needs_review']} needs review · {t['approved']} approved · {t['rendered']} rendered · "
       f"{t['raw']} raw · {t['needs_script']} NEEDS SCRIPT · {t['stalled']} STALLED · "
       f"{t['rejected']} REJECTED · {t['stranded']} STRANDED · {t['orphan']} ORPHAN\n")

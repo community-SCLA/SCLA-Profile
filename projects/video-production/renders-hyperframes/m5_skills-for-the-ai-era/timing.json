@@ -1,0 +1,257 @@
+{
+  "total": 207.338,
+  "rows": [
+    {
+      "id": "beat-01",
+      "audio_start": 0.6,
+      "audio_dur": 5.15,
+      "vis_start": 0.0,
+      "vis_dur": 6.15
+    },
+    {
+      "id": "beat-02",
+      "audio_start": 6.4,
+      "audio_dur": 7.28,
+      "vis_start": 6.15,
+      "vis_dur": 7.93
+    },
+    {
+      "id": "beat-03",
+      "audio_start": 14.33,
+      "audio_dur": 4.69,
+      "vis_start": 14.08,
+      "vis_dur": 5.34
+    },
+    {
+      "id": "beat-04",
+      "audio_start": 19.67,
+      "audio_dur": 5.67,
+      "vis_start": 19.42,
+      "vis_dur": 6.32
+    },
+    {
+      "id": "beat-05",
+      "audio_start": 25.99,
+      "audio_dur": 9.05,
+      "vis_start": 25.74,
+      "vis_dur": 9.7
+    },
+    {
+      "id": "beat-06",
+      "audio_start": 35.69,
+      "audio_dur": 3.35,
+      "vis_start": 35.44,
+      "vis_dur": 4.0
+    },
+    {
+      "id": "beat-07",
+      "audio_start": 39.69,
+      "audio_dur": 3.35,
+      "vis_start": 39.44,
+      "vis_dur": 4.0
+    },
+    {
+      "id": "beat-08",
+      "audio_start": 43.69,
+      "audio_dur": 3.61,
+      "vis_start": 43.44,
+      "vis_dur": 4.26
+    },
+    {
+      "id": "beat-09",
+      "audio_start": 47.95,
+      "audio_dur": 2.94,
+      "vis_start": 47.7,
+      "vis_dur": 3.59
+    },
+    {
+      "id": "beat-10",
+      "audio_start": 51.54,
+      "audio_dur": 8.28,
+      "vis_start": 51.29,
+      "vis_dur": 8.93
+    },
+    {
+      "id": "beat-12",
+      "audio_start": 60.47,
+      "audio_dur": 3.324,
+      "vis_start": 60.22,
+      "vis_dur": 3.974
+    },
+    {
+      "id": "beat-13",
+      "audio_start": 64.444,
+      "audio_dur": 4.045,
+      "vis_start": 64.194,
+      "vis_dur": 4.695
+    },
+    {
+      "id": "beat-14",
+      "audio_start": 69.139,
+      "audio_dur": 10.22,
+      "vis_start": 68.889,
+      "vis_dur": 10.87
+    },
+    {
+      "id": "beat-15",
+      "audio_start": 80.009,
+      "audio_dur": 6.13,
+      "vis_start": 79.759,
+      "vis_dur": 6.78
+    },
+    {
+      "id": "beat-16",
+      "audio_start": 86.789,
+      "audio_dur": 2.05,
+      "vis_start": 86.539,
+      "vis_dur": 2.7
+    },
+    {
+      "id": "beat-17",
+      "audio_start": 89.489,
+      "audio_dur": 8.87,
+      "vis_start": 89.239,
+      "vis_dur": 9.52
+    },
+    {
+      "id": "beat-19",
+      "audio_start": 99.009,
+      "audio_dur": 4.82,
+      "vis_start": 98.759,
+      "vis_dur": 5.47
+    },
+    {
+      "id": "beat-20",
+      "audio_start": 104.479,
+      "audio_dur": 6.72,
+      "vis_start": 104.229,
+      "vis_dur": 7.37
+    },
+    {
+      "id": "beat-21",
+      "audio_start": 111.849,
+      "audio_dur": 7.52,
+      "vis_start": 111.599,
+      "vis_dur": 8.17
+    },
+    {
+      "id": "beat-23",
+      "audio_start": 120.019,
+      "audio_dur": 3.48,
+      "vis_start": 119.769,
+      "vis_dur": 4.13
+    },
+    {
+      "id": "beat-24",
+      "audio_start": 124.149,
+      "audio_dur": 1.45,
+      "vis_start": 123.899,
+      "vis_dur": 2.1
+    },
+    {
+      "id": "beat-25",
+      "audio_start": 126.249,
+      "audio_dur": 5.51,
+      "vis_start": 125.999,
+      "vis_dur": 6.16
+    },
+    {
+      "id": "beat-26",
+      "audio_start": 132.409,
+      "audio_dur": 2.69,
+      "vis_start": 132.159,
+      "vis_dur": 3.34
+    },
+    {
+      "id": "beat-27",
+      "audio_start": 135.749,
+      "audio_dur": 1.81,
+      "vis_start": 135.499,
+      "vis_dur": 2.46
+    },
+    {
+      "id": "beat-28",
+      "audio_start": 138.209,
+      "audio_dur": 4.1,
+      "vis_start": 137.959,
+      "vis_dur": 4.75
+    },
+    {
+      "id": "beat-29",
+      "audio_start": 142.959,
+      "audio_dur": 3.14,
+      "vis_start": 142.709,
+      "vis_dur": 3.79
+    },
+    {
+      "id": "beat-30",
+      "audio_start": 146.749,
+      "audio_dur": 1.74,
+      "vis_start": 146.499,
+      "vis_dur": 2.39
+    },
+    {
+      "id": "beat-31",
+      "audio_start": 149.139,
+      "audio_dur": 8.45,
+      "vis_start": 148.889,
+      "vis_dur": 9.1
+    },
+    {
+      "id": "beat-33",
+      "audio_start": 158.239,
+      "audio_dur": 1.75,
+      "vis_start": 157.989,
+      "vis_dur": 2.4
+    },
+    {
+      "id": "beat-34",
+      "audio_start": 160.639,
+      "audio_dur": 6.04,
+      "vis_start": 160.389,
+      "vis_dur": 6.69
+    },
+    {
+      "id": "beat-35",
+      "audio_start": 167.329,
+      "audio_dur": 3.494,
+      "vis_start": 167.079,
+      "vis_dur": 4.144
+    },
+    {
+      "id": "beat-36",
+      "audio_start": 171.473,
+      "audio_dur": 11.17,
+      "vis_start": 171.223,
+      "vis_dur": 11.82
+    },
+    {
+      "id": "beat-38",
+      "audio_start": 183.293,
+      "audio_dur": 2.545,
+      "vis_start": 183.043,
+      "vis_dur": 3.195
+    },
+    {
+      "id": "beat-39",
+      "audio_start": 186.488,
+      "audio_dur": 5.19,
+      "vis_start": 186.238,
+      "vis_dur": 5.84
+    },
+    {
+      "id": "beat-40",
+      "audio_start": 192.328,
+      "audio_dur": 4.39,
+      "vis_start": 192.078,
+      "vis_dur": 5.04
+    },
+    {
+      "id": "beat-41",
+      "audio_start": 197.368,
+      "audio_dur": 8.17,
+      "vis_start": 197.118,
+      "vis_dur": 10.22
+    }
+  ]
+}

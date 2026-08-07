@@ -1,54 +1,152 @@
 {
-  "total": 127.659,
+  "total": 136.759,
   "rows": [
     {
-      "id": "beat-01-experience",
+      "id": "beat-01-experience-s01",
       "audio_start": 0.6,
-      "audio_dur": 9.94,
+      "audio_dur": 2.295,
       "vis_start": 0.0,
-      "vis_dur": 10.94
+      "vis_dur": 3.295
     },
     {
-      "id": "beat-02-noise",
-      "audio_start": 11.19,
-      "audio_dur": 14.26,
-      "vis_start": 10.94,
-      "vis_dur": 14.91
+      "id": "beat-01-experience-s02",
+      "audio_start": 3.545,
+      "audio_dur": 4.155,
+      "vis_start": 3.295,
+      "vis_dur": 4.805
     },
     {
-      "id": "beat-03-momentum",
-      "audio_start": 26.1,
-      "audio_dur": 32.94,
-      "vis_start": 25.85,
-      "vis_dur": 33.59
+      "id": "beat-01-experience-s03",
+      "audio_start": 8.35,
+      "audio_dur": 3.49,
+      "vis_start": 8.1,
+      "vis_dur": 4.14
     },
     {
-      "id": "beat-04-three-paths",
-      "audio_start": 59.69,
+      "id": "beat-02-noise-s01",
+      "audio_start": 12.49,
+      "audio_dur": 0.77,
+      "vis_start": 12.24,
+      "vis_dur": 1.42
+    },
+    {
+      "id": "beat-02-noise-s02",
+      "audio_start": 13.91,
+      "audio_dur": 9.04,
+      "vis_start": 13.66,
+      "vis_dur": 9.69
+    },
+    {
+      "id": "beat-02-noise-s03",
+      "audio_start": 23.6,
+      "audio_dur": 4.45,
+      "vis_start": 23.35,
+      "vis_dur": 5.1
+    },
+    {
+      "id": "beat-03-momentum-s01",
+      "audio_start": 28.7,
+      "audio_dur": 2.685,
+      "vis_start": 28.45,
+      "vis_dur": 3.335
+    },
+    {
+      "id": "beat-03-momentum-s02",
+      "audio_start": 32.035,
+      "audio_dur": 6.785,
+      "vis_start": 31.785,
+      "vis_dur": 7.435
+    },
+    {
+      "id": "beat-03-momentum-s03",
+      "audio_start": 39.47,
+      "audio_dur": 1.73,
+      "vis_start": 39.22,
+      "vis_dur": 2.38
+    },
+    {
+      "id": "beat-03-momentum-s04",
+      "audio_start": 41.85,
+      "audio_dur": 4.95,
+      "vis_start": 41.6,
+      "vis_dur": 5.6
+    },
+    {
+      "id": "beat-03-momentum-s05",
+      "audio_start": 47.45,
+      "audio_dur": 5.9,
+      "vis_start": 47.2,
+      "vis_dur": 6.55
+    },
+    {
+      "id": "beat-03-momentum-s06",
+      "audio_start": 54.0,
+      "audio_dur": 4.83,
+      "vis_start": 53.75,
+      "vis_dur": 5.48
+    },
+    {
+      "id": "beat-03-momentum-s07",
+      "audio_start": 59.48,
+      "audio_dur": 6.06,
+      "vis_start": 59.23,
+      "vis_dur": 6.71
+    },
+    {
+      "id": "beat-04-three-paths-s01",
+      "audio_start": 66.19,
       "audio_dur": 14.805,
-      "vis_start": 59.44,
+      "vis_start": 65.94,
       "vis_dur": 15.455
     },
     {
-      "id": "beat-05-definitions",
-      "audio_start": 75.145,
-      "audio_dur": 23.32,
-      "vis_start": 74.895,
-      "vis_dur": 23.97
+      "id": "beat-05-definitions-s01",
+      "audio_start": 81.645,
+      "audio_dur": 3.85,
+      "vis_start": 81.395,
+      "vis_dur": 4.5
     },
     {
-      "id": "beat-06-fit",
-      "audio_start": 99.115,
-      "audio_dur": 11.075,
-      "vis_start": 98.865,
-      "vis_dur": 11.725
+      "id": "beat-05-definitions-s02",
+      "audio_start": 86.145,
+      "audio_dur": 7.32,
+      "vis_start": 85.895,
+      "vis_dur": 7.97
     },
     {
-      "id": "beat-07-direction",
-      "audio_start": 110.84,
-      "audio_dur": 15.019,
-      "vis_start": 110.59,
-      "vis_dur": 17.069
+      "id": "beat-05-definitions-s03",
+      "audio_start": 94.115,
+      "audio_dur": 12.15,
+      "vis_start": 93.865,
+      "vis_dur": 12.8
+    },
+    {
+      "id": "beat-06-fit-s01",
+      "audio_start": 106.915,
+      "audio_dur": 3.895,
+      "vis_start": 106.665,
+      "vis_dur": 4.545
+    },
+    {
+      "id": "beat-06-fit-s02",
+      "audio_start": 111.46,
+      "audio_dur": 7.18,
+      "vis_start": 111.21,
+      "vis_dur": 7.83
+    },
+    {
+      "id": "beat-07-direction-s01",
+      "audio_start": 119.29,
+      "audio_dur": 3.69,
+      "vis_start": 119.04,
+      "vis_dur": 4.34
+    },
+    {
+      "id": "beat-07-direction-s02",
+      "audio_start": 123.63,
+      "audio_dur": 11.329,
+      "vis_start": 123.38,
+      "vis_dur": 13.379
     }
   ]
 }

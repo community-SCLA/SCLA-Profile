@@ -1,113 +1,260 @@
 {
   "compositionId": "m5_skills-for-the-ai-era",
   "timeline": "master",
-  "duration": 222.69,
+  "duration": 207.338,
   "fps": 30,
   "seekable": true,
   "autoplay": false,
   "beats": [
     {
       "id": "beat-01",
-      "start": 0.0,
-      "end": 36.49,
+      "start": 0,
+      "end": 6.15,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-02",
-      "start": 36.49,
-      "end": 43.18,
+      "start": 6.15,
+      "end": 14.08,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-03",
-      "start": 43.18,
-      "end": 51.84,
+      "start": 14.08,
+      "end": 19.42,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-04",
-      "start": 51.84,
-      "end": 65.58,
+      "start": 19.42,
+      "end": 25.74,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-05",
-      "start": 65.58,
-      "end": 85.22,
+      "start": 25.74,
+      "end": 35.44,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-06",
-      "start": 85.22,
-      "end": 111.91,
+      "start": 35.44,
+      "end": 39.44,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-07",
-      "start": 111.91,
-      "end": 133.5,
+      "start": 39.44,
+      "end": 43.44,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-08",
-      "start": 133.5,
-      "end": 139.0,
+      "start": 43.44,
+      "end": 47.7,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-09",
-      "start": 139.0,
-      "end": 152.35,
+      "start": 47.7,
+      "end": 51.29,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-10",
-      "start": 152.35,
-      "end": 161.4,
-      "entrance": 0.55,
-      "exit": 0.3
-    },
-    {
-      "id": "beat-11",
-      "start": 161.4,
-      "end": 170.83,
+      "start": 51.29,
+      "end": 60.22,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-12",
-      "start": 170.83,
-      "end": 184.19,
+      "start": 60.22,
+      "end": 64.194,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-13",
-      "start": 184.19,
-      "end": 198.72,
+      "start": 64.194,
+      "end": 68.889,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-14",
-      "start": 198.72,
-      "end": 213.26,
+      "start": 68.889,
+      "end": 79.759,
       "entrance": 0.55,
       "exit": 0.3
     },
     {
       "id": "beat-15",
-      "start": 213.26,
-      "end": 222.69,
+      "start": 79.759,
+      "end": 86.539,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-16",
+      "start": 86.539,
+      "end": 89.239,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-17",
+      "start": 89.239,
+      "end": 98.759,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-19",
+      "start": 98.759,
+      "end": 104.229,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-20",
+      "start": 104.229,
+      "end": 111.599,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-21",
+      "start": 111.599,
+      "end": 119.769,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-23",
+      "start": 119.769,
+      "end": 123.899,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-24",
+      "start": 123.899,
+      "end": 125.999,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-25",
+      "start": 125.999,
+      "end": 132.159,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-26",
+      "start": 132.159,
+      "end": 135.499,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-27",
+      "start": 135.499,
+      "end": 137.959,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-28",
+      "start": 137.959,
+      "end": 142.709,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-29",
+      "start": 142.709,
+      "end": 146.499,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-30",
+      "start": 146.499,
+      "end": 148.889,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-31",
+      "start": 148.889,
+      "end": 157.989,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-33",
+      "start": 157.989,
+      "end": 160.389,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-34",
+      "start": 160.389,
+      "end": 167.079,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-35",
+      "start": 167.079,
+      "end": 171.223,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-36",
+      "start": 171.223,
+      "end": 183.043,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-38",
+      "start": 183.043,
+      "end": 186.238,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-39",
+      "start": 186.238,
+      "end": 192.078,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-40",
+      "start": 192.078,
+      "end": 197.118,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-41",
+      "start": 197.118,
+      "end": 207.338,
       "entrance": 0.55,
       "exit": 0.3
     }
@@ -124,91 +271,218 @@
       "kind": "appearsBy",
       "beatId": "beat-02",
       "selector": "#beat-02",
-      "bySec": 37.69
+      "bySec": 7.35
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-03",
       "selector": "#beat-03",
-      "bySec": 44.38
+      "bySec": 15.28
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-04",
       "selector": "#beat-04",
-      "bySec": 53.04
+      "bySec": 20.62
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-05",
       "selector": "#beat-05",
-      "bySec": 66.78
+      "bySec": 26.94
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-06",
       "selector": "#beat-06",
-      "bySec": 86.42
+      "bySec": 36.64
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-07",
       "selector": "#beat-07",
-      "bySec": 113.11
+      "bySec": 40.64
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-08",
       "selector": "#beat-08",
-      "bySec": 134.7
+      "bySec": 44.64
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-09",
       "selector": "#beat-09",
-      "bySec": 140.2
+      "bySec": 48.9
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-10",
       "selector": "#beat-10",
-      "bySec": 153.55
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "beat-11",
-      "selector": "#beat-11",
-      "bySec": 162.6
+      "bySec": 52.49
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-12",
       "selector": "#beat-12",
-      "bySec": 172.03
+      "bySec": 61.42
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-13",
       "selector": "#beat-13",
-      "bySec": 185.39
+      "bySec": 65.394
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-14",
       "selector": "#beat-14",
-      "bySec": 199.92
+      "bySec": 70.089
     },
     {
       "kind": "appearsBy",
       "beatId": "beat-15",
       "selector": "#beat-15",
-      "bySec": 214.46
+      "bySec": 80.959
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-16",
+      "selector": "#beat-16",
+      "bySec": 87.739
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-17",
+      "selector": "#beat-17",
+      "bySec": 90.439
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-19",
+      "selector": "#beat-19",
+      "bySec": 99.959
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-20",
+      "selector": "#beat-20",
+      "bySec": 105.429
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-21",
+      "selector": "#beat-21",
+      "bySec": 112.799
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-23",
+      "selector": "#beat-23",
+      "bySec": 120.969
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-24",
+      "selector": "#beat-24",
+      "bySec": 125.099
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-25",
+      "selector": "#beat-25",
+      "bySec": 127.199
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-26",
+      "selector": "#beat-26",
+      "bySec": 133.359
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-27",
+      "selector": "#beat-27",
+      "bySec": 136.699
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-28",
+      "selector": "#beat-28",
+      "bySec": 139.159
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-29",
+      "selector": "#beat-29",
+      "bySec": 143.909
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-30",
+      "selector": "#beat-30",
+      "bySec": 147.699
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-31",
+      "selector": "#beat-31",
+      "bySec": 150.089
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-33",
+      "selector": "#beat-33",
+      "bySec": 159.189
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-34",
+      "selector": "#beat-34",
+      "bySec": 161.589
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-35",
+      "selector": "#beat-35",
+      "bySec": 168.279
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-36",
+      "selector": "#beat-36",
+      "bySec": 172.423
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-38",
+      "selector": "#beat-38",
+      "bySec": 184.243
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-39",
+      "selector": "#beat-39",
+      "bySec": 187.438
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-40",
+      "selector": "#beat-40",
+      "bySec": 193.278
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-41",
+      "selector": "#beat-41",
+      "bySec": 198.318
     },
     {
       "kind": "keepsMoving",
       "from": 0,
-      "to": 222.69,
-      "selector": "#m5_skills-for-the-ai-era .progress span"
+      "to": 207.338,
+      "selector": "#map .progress span"
     }
   ]
 }
+

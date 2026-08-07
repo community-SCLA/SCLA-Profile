@@ -1,0 +1,12 @@
+2026-08-07T15:59:54Z	resume	program=career-transitions
+2026-08-07T16:02:28Z	narration	HeyGen production voice synthesized; 12 beat clips
+2026-08-07T16:04:02Z	timing	timing.json applied exactly; total 160.610s
+2026-08-07T16:05:13Z	preflight	exit 1
+2026-08-07T16:13:48Z	composition	27 paced scenes, production audio mounts, midpoint snapshots, deterministic font faces
+2026-08-07T16:14:00Z	preflight	exit 1
+2026-08-07T16:17:53Z	preflight	exit 1
+2026-08-07T16:19:17Z	preflight	exit 1
+2026-08-07T16:20:33Z	preflight	exit 1
+2026-08-07T16:21:36Z	preflight	exit 0 — gate-clean
+2026-08-07T16:21:47Z	gate	PASS: 27 beats, 170.910s, 9.48 beats/min, 5.96% carrier churn
+2026-08-07T16:21:47Z	release	build session ended

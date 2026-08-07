@@ -28,6 +28,9 @@ top-left module label and bottom progress rail orient the viewer. Cards use a
 
 ## Motion
 
+- The persistent carrying object is the two-lane field: the gold let-go lane,
+  blue carry-forward lane, and bottom rail remain the same coordinate system
+  while each beat re-sorts the meaning inside it.
 - Entrances settle within 1.2 seconds.
 - Let-go material exits left; carry-forward material lands and remains.
 - Scene exits take 0.3 seconds and preserve the persistent furniture.
@@ -38,4 +41,3 @@ top-left module label and bottom progress rail orient the viewer. Cards use a
 
 High contrast, large text, short on-screen phrases, and redundant color plus
 labels keep the visual argument legible without relying on color alone.
-

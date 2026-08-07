@@ -14,15 +14,31 @@ file, the selected concept, the one refined script, and the workspace's
 
 ## Build sequence
 
-1. Claim the stem and copy the prepared scaffold:
+1. Enter through exactly one claim path.
+
+   **New build — no workspace exists:**
 
    ```bash
    bash scripts/build-claim.sh STEM PROGRAM
-   cp -a projects/video-production/renders-hyperframes/_run/scaffold/. \
-     projects/video-production/renders-hyperframes/STEM/
    ```
 
-   If the claim fails, stop. Never delete, rename, or build into another claim.
+   The claim command wins the atomic directory lock first and then hydrates the
+   prepared scaffold itself. If it fails, stop. Never copy the scaffold by
+   hand, delete or rename a workspace, or build into another claim.
+
+   **Resume — the canonical workspace already exists:**
+
+   ```bash
+   bash scripts/build-claim.sh STEM PROGRAM --resume
+   ```
+
+   Resume never copies the scaffold. Before returning, the claim command saves
+   the existing authored source under
+   `source-revisions/<content-revision>/`, including visual assets. Exact voice
+   bytes are retained once in the checkpoint blob store; QA evidence, snapshots,
+   and caches are excluded. Continue from the files that exist; do not recreate
+   completed work. Repeating resume without a source change reuses the same
+   checkpoint.
 
 2. Write `design.md` with the chosen concept, visual carrier, beat-to-frame map,
    and motion logic. Make the lesson feel like one developing idea, not a stack

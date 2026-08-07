@@ -64,6 +64,7 @@ projects/video-production/renders-hyperframes/*/assets/brand/
 projects/video-production/renders-hyperframes/*/renders/
 projects/video-production/renders-hyperframes/*/snapshots/
 projects/video-production/renders-hyperframes/*/qa/
+projects/video-production/renders-hyperframes/*/source-revisions/
 projects/video-production/renders-hyperframes/.build-in-progress/
 projects/video-production/renders-hyperframes/.render.lock/
 projects/video-production/renders-hyperframes/.publish.lock/

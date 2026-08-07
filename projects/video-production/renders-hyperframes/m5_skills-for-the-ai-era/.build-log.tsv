@@ -1,0 +1,13 @@
+2026-08-07T15:59:50Z	resume	program=mid-career-momentum
+2026-08-07T16:00:07Z	preflight	static PASS; 15 beats; script match 525/525
+2026-08-07T16:02:43Z	tts	production HeyGen narration synthesized; 15 clips; 193.672s continuous voice
+2026-08-07T16:05:08Z	timing	plan_timing PASS; 15 beats; 198.709s applied verbatim
+2026-08-07T16:06:19Z	preflight	exit 1
+2026-08-07T16:10:07Z	preflight	static PASS after 36-beat pace correction; script match 525/525
+2026-08-07T16:10:20Z	tts	production narration mapped to corrected 36-beat manifest; 193.672s
+2026-08-07T16:11:26Z	timing	plan_timing PASS; 36 beats; 207.338s applied verbatim with per-beat audio
+2026-08-07T16:12:39Z	preflight	exit 1
+2026-08-07T16:15:20Z	preflight	exit 1
+2026-08-07T16:17:49Z	preflight	exit 0 — gate-clean
+2026-08-07T16:17:56Z	gate	PASS; 36 beats; 207.338s; pace 10.42 beats/min; carrier churn 5.79%; geometry/layout PASS
+2026-08-07T16:17:56Z	release	build session ended

@@ -56,4 +56,4 @@ Standing rules live in `.claude/rules/` (auto-discovered): `.claude/rules/repo-h
 ## Response Output
 - Each session output is to be clear, concise and to the point
 - It is to follow the What(the situation), So What (What was done), and Now What (the path forward,actions items, etc)
-- You are to use lay language, avoid jargon and technical language
+- You are to use lay language, avoid jargon and technical verbiage

@@ -12,8 +12,11 @@ agent input.
 
 ## AUTO-BATCH is the default hands-off path
 
-`/render-lessons AUTO-BATCH` delegates scheduling and parallel execution.
-Never ask the user to choose, copy, or paste stems.
+`/render-lessons AUTO-BATCH` delegates scheduling and parallel execution while
+the coordinator is active. Selection and external-task reservations survive an
+interruption, but there is no background daemon: a stopped agent session does
+not continue TTS, reviews, merges, renders, or publishing by itself. Never ask
+the user to choose, copy, or paste stems.
 
 It authorizes the coordinator to:
 
@@ -27,75 +30,43 @@ It authorizes the coordinator to:
 - run normal build, queued TTS, gate, cloud-render, verification, and serial
   publish commands inside the selected scope.
 
-`AUTO-BATCH PROGRAM` limits new selection to that program. Existing unfinished
-work remains durable and recoverable when the batch selection replaces scope.
-
 `AUTO-BATCH [PROGRAM] --cloud` records cloud source authoring through the
-matching `run.sh batch ... --cloud` command. Submit untouched `READY` lessons
-with `run.sh dispatch --stem STEM`; return task URLs. `run.sh delegate` only
-previews assignments. After each branch/PR is merged, resume narration
-and gates locally. Never delegate a stem that already has a workspace; resume
-it locally instead.
+matching `run.sh batch ... --cloud` command, then runs `run.sh drain` once.
+Drain atomically reserves each untouched `READY` lesson before submission,
+records its task reference, respects authoring capacity, and is safe to rerun.
+`run.sh delegate` only previews assignments. After each branch/PR is merged,
+record the handoff with `run.sh dispatch-merged --stem STEM [--task-ref REF]`,
+then resume narration and gates locally. `reserved`, `submitted`, and `unknown`
+Cloud ownership blocks local resume. Never delegate a stem that already has a
+workspace; resume it locally instead.
 
 Return each passing lesson immediately and launch its Studio preview with
-`bash scripts/review.sh STEM`; continue other work. Pause that stem
-for review without pausing its siblings. Do not hand routine commands
-back to the user.
+`bash scripts/review.sh STEM`; continue its siblings. Do not hand routine
+commands back to the user.
 
-Retry only after the recorded cause changes. A stem is complete only when it is
-`PUBLISHED`; unresolved siblings stay visible without withholding completed work.
+Retry only after its cause changes. Only `PUBLISHED` is complete.
 
 ### Automatic dispatch loop
 
-1. Run `run.sh resume` and read persisted selection plus live JSON status.
-2. For AUTO-BATCH, select the explicitly requested program or `--all` even when
-   earlier work is unfinished. Folder state and `qa/failure.json` preserve it;
-   never delete or silently retry it.
-3. Advance each selected stem independently. As soon as one becomes gate-clean,
-   run `bash scripts/review.sh STEM`, return its Studio URL, and await approval
-   for that stem while continuing every other unblocked stem.
-4. Drain stages without asking for stems:
-   - `RENDERED`: publish serially.
-   - `APPROVED`: render, verify, then publish without waiting for siblings.
-   - `STALLED`: resume locally at its recorded next action; preserve completed work.
-   - `REJECTED`: diagnose independently. Retry only after its cause changed;
-     do not block unrelated authoring, review, rendering, or publishing.
-   - selected untouched `READY`: assign workers, or submit Cloud tasks
-     when `authoring_backend` is `cloud`. A READY stem with an existing
-     workspace resumes locally and must not be redelegated.
-   - `RAW` or `NEEDS SCRIPT`: do not build; surface only if it blocks scope.
-5. Give every worker one unique stem. A worker owns concept, direct HTML
-   authoring, queued narration, computed timing, gate fixes, and lease release.
-   The coordinator owns stage selection, review state, renders, and publishing.
-6. Re-read live status after every completion and refill open worker slots.
-   Use `status.priority` for program order and each program's displayed queue
-   order for stems. At a 3/3 clean cloud streak, run `run.sh cloud-limit 4`
-   automatically. Continue authoring while individual lessons await review.
-7. AUTO-BATCH selects a requested program with `run.sh batch --program PROGRAM`;
-   otherwise it uses `run.sh batch --all`. Durable failures remain recoverable
-   after the new selection is recorded.
+1. Read `run.sh resume --json`, then explicitly select the requested program or
+   `--all`. Disk evidence preserves older unfinished work.
+2. Give each worker one stem. Resume `STALLED`; diagnose `REJECTED`; dispatch
+   untouched `READY`; render `APPROVED`; review a required encode; and publish
+   `RENDERED` serially. Do not build `RAW` or `NEEDS SCRIPT`.
+3. Return each clean stem through `review.sh` immediately while siblings keep
+   moving. Re-read status after completions and refill slots in priority order.
+4. At three clean reviewed Cloud renders, set `cloud-limit 4`. Never delete or
+   silently retry; a workspace must not be redelegated.
 
 Use available slots and enforce provider/render queues. Normal AUTO-BATCH uses
 in-session workers; `--cloud` uses Cloud tasks.
-
-## Command map
-
-```text
-STATUS       → run.sh status --json
-BUILD STEM   → run.sh produce --stem STEM, then the four-call flow below
-SHIP STEM    → run.sh ship STEM [--publish]
-RESUME       → run.sh resume, then continue only selected unfinished items
-AUTO-BATCH   → resume, select, parallelize, render, and publish automatically
-AUTO-BATCH --cloud → select cloud authoring and dispatch one Cloud task per untouched READY stem
-```
 
 Program and whole-queue work require `run.sh batch --program PROGRAM` or
 `run.sh batch --all`. Never broaden a named stem.
 
 ## Prepare once
 
-Run `bash scripts/batch-prepare.sh` once. It caches the scaffold and builder
-contract while preserving `_run/run.json`.
+Run `bash scripts/batch-prepare.sh` once; it preserves `_run/run.json`.
 
 Capacity is stage-specific: available authors, two narration jobs, two cloud
 renders, and one publisher. Three clean renders unlock four; failure resets two.
@@ -107,12 +78,9 @@ renders, and one publisher. Three clean renders unlock four; failure resets two.
 Give the planner only the selected refined script, local tokens, and this task:
 
 ```text
-Propose two meaningfully different visual lenses for this lesson.
-For each: name the visual thesis, recurring carrier, beat progression,
-three milestone frames, motion logic, and primary risk.
-Score each 1–5 for claim fidelity, visual evolution, attention, and feasibility.
-Select the stronger lens and explain the choice in no more than 80 words.
-Write only the selected plan to CONCEPT.md; retain the scores in concept.json.
+Propose and score two distinct visual lenses for fidelity, evolution, attention,
+and feasibility. Select one. Write its carrier, beat progression, milestone
+frames, motion logic, and risk to CONCEPT.md; retain scores in concept.json.
 ```
 
 ### 2. Builder
@@ -124,9 +92,8 @@ Give one builder exactly:
 - `CONCEPT.md`
 - the workspace-local `tokens.yml`
 
-The builder claims one stem, authors HTML directly, uses `video-audio.sh` and
-`plan_timing.py`, and stops at a green deterministic gate. It never renders or
-publishes. A build session releases its own lease even when it exits early.
+The builder claims one stem, authors HTML directly, runs audio and timing, and
+stops at a green gate. It never renders or publishes and always releases.
 
 ### 3. Combined pre-render visual review
 
@@ -134,11 +101,24 @@ Use one reviewer with `contracts/visual-review.md`. It must return separate
 blocking and taste verdicts. Send one consolidated revision list to the same
 builder if needed; do not create parallel review debates.
 
+Persist the verdict against the current source revision:
+
+```bash
+bash projects/video-production/run.sh visual-review STEM \
+  --blocking-defect PASS|FAIL --taste ALIVE|FLAT \
+  --recommendation PROCEED|REVISE [--finding "specific finding"]
+```
+
+Only `PASS` + `ALIVE` + `PROCEED` advances to owner review. Any source edit
+invalidates the gate, visual verdict, and owner approval for the previous cut.
+
 ### 4. Post-render encode review
 
 After rendering, sample the beginning, middle, transitions, and ending for
 missing frames, audio damage, drift, blanks, truncation, or preview differences.
-Retain this review through three clean cloud renders; MP4 verification remains.
+Record the verdict with `run.sh encode-review STEM --backend cloud|local
+--verdict PASS|FAIL`. Retain this review through three clean reviewed Cloud
+renders; deterministic MP4 verification always remains.
 
 ## Rolling review and continuation
 
@@ -176,6 +156,7 @@ cached narration.
 
 ## Close-out
 
-Publish per workspace through `run.sh ship STEM --publish`. The driver owns
-verification, Wistia ledger updates, cleanup, release, and one concise run
-record. Do not inject per-command cleanup reminders.
+Render and verify with `run.sh ship STEM`. After any required encode review,
+publish that verified rendition with `run.sh ship STEM --publish`. Never use the
+publish form as a render command. The driver owns Wistia ledger updates,
+cleanup, release, and one concise run record.

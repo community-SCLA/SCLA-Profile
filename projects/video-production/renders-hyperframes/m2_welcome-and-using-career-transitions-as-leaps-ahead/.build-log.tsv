@@ -20,3 +20,7 @@
 2026-08-07T00:33:27Z	preflight	exit 0 — gate-clean
 2026-08-07T00:33:36Z	compose	21 clips authored, GSAP CDN script fixed (module import never loaded), traveller on transforms, parallax drift; hyperframes check passed; 21 snapshots captured
 2026-08-07T00:33:44Z	release	build session ended
+2026-08-07T15:54:30Z	resume	program=career-transitions
+2026-08-07T15:56:30Z	preflight	exit 0 — gate-clean
+2026-08-07T15:57:53Z	preflight	exit 0 — gate-clean
+2026-08-07T15:58:09Z	release	build session ended
