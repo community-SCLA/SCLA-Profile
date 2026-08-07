@@ -1,115 +1,306 @@
 {
   "compositionId": "m4_building-your-carry-forward-inventory",
-  "duration": 147,
-  "timeline": "paused-seekable",
-  "assertions": [
-    {
-      "kind": "keepsMoving",
-      "selector": "#progress",
-      "from": 0,
-      "to": 147
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-01-question",
-      "bySec": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-02-definition",
-      "bySec": 6.8500000000000005
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-03-genuinely",
-      "bySec": 19.849999999999998
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-04-four-categories",
-      "bySec": 45.85
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-05-capabilities",
-      "bySec": 50.85
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-06-values",
-      "bySec": 64.85
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-07-relationships",
-      "bySec": 75.85000000000001
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-08-perspective",
-      "bySec": 92.85000000000001
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-09-work-list",
-      "bySec": 112.85000000000001
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-10-carry-forward",
-      "bySec": 125.85000000000001
-    }
-  ],
+  "duration": 127.37,
+  "fps": 30,
+  "timeline": "paused",
+  "seekable": true,
   "beats": [
     {
       "id": "beat-01-question",
       "start": 0,
-      "end": 5.65
+      "duration": 2.605
     },
     {
       "id": "beat-02-definition",
-      "start": 5.65,
-      "end": 18.65
+      "start": 2.605,
+      "duration": 11.295
     },
     {
-      "id": "beat-03-genuinely",
-      "start": 18.65,
-      "end": 44.65
+      "id": "beat-03-genuinely-s1",
+      "start": 13.9,
+      "duration": 2.06
+    },
+    {
+      "id": "beat-03-genuinely-s2",
+      "start": 15.96,
+      "duration": 2.04
+    },
+    {
+      "id": "beat-03-genuinely-s3",
+      "start": 18,
+      "duration": 4.33
+    },
+    {
+      "id": "beat-03-genuinely-s4",
+      "start": 22.33,
+      "duration": 6.645
+    },
+    {
+      "id": "beat-03-genuinely-s5",
+      "start": 28.975,
+      "duration": 8.205
     },
     {
       "id": "beat-04-four-categories",
-      "start": 44.65,
-      "end": 49.65
+      "start": 37.18,
+      "duration": 2.695
     },
     {
-      "id": "beat-05-capabilities",
-      "start": 49.65,
-      "end": 63.65
+      "id": "beat-05-capabilities-s1",
+      "start": 39.875,
+      "duration": 4.565
     },
     {
-      "id": "beat-06-values",
-      "start": 63.65,
-      "end": 74.65
+      "id": "beat-05-capabilities-s2",
+      "start": 44.44,
+      "duration": 6.79
     },
     {
-      "id": "beat-07-relationships",
-      "start": 74.65,
-      "end": 91.65
+      "id": "beat-06-values-s1",
+      "start": 51.23,
+      "duration": 5.1
     },
     {
-      "id": "beat-08-perspective",
-      "start": 91.65,
-      "end": 111.65
+      "id": "beat-06-values-s2",
+      "start": 56.33,
+      "duration": 4.91
     },
     {
-      "id": "beat-09-work-list",
-      "start": 111.65,
-      "end": 124.65
+      "id": "beat-07-relationships-s1",
+      "start": 61.24,
+      "duration": 4.295
     },
     {
-      "id": "beat-10-carry-forward",
-      "start": 124.65,
-      "end": 147
+      "id": "beat-07-relationships-s2",
+      "start": 65.535,
+      "duration": 2.335
+    },
+    {
+      "id": "beat-07-relationships-s3",
+      "start": 67.87,
+      "duration": 7.305
+    },
+    {
+      "id": "beat-07-relationships-s4",
+      "start": 75.175,
+      "duration": 2.865
+    },
+    {
+      "id": "beat-08-perspective-s1",
+      "start": 78.04,
+      "duration": 4.445
+    },
+    {
+      "id": "beat-08-perspective-s2",
+      "start": 82.485,
+      "duration": 5.67
+    },
+    {
+      "id": "beat-08-perspective-s3",
+      "start": 88.155,
+      "duration": 5.795
+    },
+    {
+      "id": "beat-09-work-list-s1",
+      "start": 93.95,
+      "duration": 3.43
+    },
+    {
+      "id": "beat-09-work-list-s2",
+      "start": 97.38,
+      "duration": 2.29
+    },
+    {
+      "id": "beat-09-work-list-s3",
+      "start": 99.67,
+      "duration": 2.45
+    },
+    {
+      "id": "beat-09-work-list-s4",
+      "start": 102.12,
+      "duration": 1.79
+    },
+    {
+      "id": "beat-09-work-list-s5",
+      "start": 103.91,
+      "duration": 2.29
+    },
+    {
+      "id": "beat-10-carry-forward-s1",
+      "start": 106.2,
+      "duration": 3
+    },
+    {
+      "id": "beat-10-carry-forward-s2",
+      "start": 109.2,
+      "duration": 3.39
+    },
+    {
+      "id": "beat-10-carry-forward-s3",
+      "start": 112.59,
+      "duration": 7.55
+    },
+    {
+      "id": "beat-10-carry-forward-s4",
+      "start": 120.14,
+      "duration": 2.309
+    },
+    {
+      "id": "beat-10-carry-forward-s5",
+      "start": 122.449,
+      "duration": 4.921
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-01-question",
+      "bySec": 1
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-02-definition",
+      "bySec": 3.605
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-genuinely-s1",
+      "bySec": 14.9
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-genuinely-s2",
+      "bySec": 16.96
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-genuinely-s3",
+      "bySec": 19
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-genuinely-s4",
+      "bySec": 23.33
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-genuinely-s5",
+      "bySec": 29.975
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-04-four-categories",
+      "bySec": 38.18
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-capabilities-s1",
+      "bySec": 40.875
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-capabilities-s2",
+      "bySec": 45.44
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-values-s1",
+      "bySec": 52.23
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-values-s2",
+      "bySec": 57.33
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-relationships-s1",
+      "bySec": 62.24
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-relationships-s2",
+      "bySec": 66.535
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-relationships-s3",
+      "bySec": 68.87
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-relationships-s4",
+      "bySec": 76.175
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-perspective-s1",
+      "bySec": 79.04
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-perspective-s2",
+      "bySec": 83.485
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-perspective-s3",
+      "bySec": 89.155
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-work-list-s1",
+      "bySec": 94.95
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-work-list-s2",
+      "bySec": 98.38
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-work-list-s3",
+      "bySec": 100.67
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-work-list-s4",
+      "bySec": 103.12
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-work-list-s5",
+      "bySec": 104.91
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-carry-forward-s1",
+      "bySec": 107.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-carry-forward-s2",
+      "bySec": 110.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-carry-forward-s3",
+      "bySec": 113.59
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-carry-forward-s4",
+      "bySec": 121.14
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-carry-forward-s5",
+      "bySec": 123.449
+    },
+    {
+      "kind": "keepsMoving",
+      "withinSelector": ".composition",
+      "maxStaticSec": 3
     }
   ]
 }
