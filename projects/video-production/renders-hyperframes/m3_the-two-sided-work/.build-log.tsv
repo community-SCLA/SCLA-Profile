@@ -10,3 +10,12 @@
 2026-08-07T16:21:36Z	preflight	exit 0 — gate-clean
 2026-08-07T16:21:47Z	gate	PASS: 27 beats, 170.910s, 9.48 beats/min, 5.96% carrier churn
 2026-08-07T16:21:47Z	release	build session ended
+2026-08-07T19:30:04Z	resume	program=career-transitions
+2026-08-07T19:31:29Z	preflight	exit 1
+2026-08-07T19:31:58Z	preflight	exit 0 — gate-clean
+2026-08-07T19:32:13Z	release	build session ended
+2026-08-07T19:42:33Z	resume	program=career-transitions
+2026-08-07T19:48:20Z	revise	migrated index.motion.json appearsBy assertions to selector/bySec contract; removed unsupported global keepsMoving claim
+2026-08-07T19:49:35Z	preflight	exit 1
+2026-08-07T19:52:56Z	preflight	exit 0 — gate-clean
+2026-08-07T19:53:05Z	release	build session ended

@@ -26,3 +26,6 @@
 2026-08-06T06:15:54Z	resume	program=career-transitions
 2026-08-06T09:41:52Z	revise	B1-B4 blocking defects + T1/T3; preflight PASS, carrier churn 5.89%
 2026-08-06T09:42:27Z	release	build session ended
+2026-08-07T19:39:12Z	resume	program=career-transitions
+2026-08-07T19:40:58Z	preflight	exit 0 — gate-clean
+2026-08-07T19:41:19Z	release	build session ended

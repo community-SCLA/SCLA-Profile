@@ -5,13 +5,16 @@
 - Canvas: 1920 × 1080, with 120 px frame padding and content held above 960 px.
 - Persistent top-left program label and top-right progress marker occupy the chrome.
 - Primary backgrounds alternate between deep navy and cultured paper.
-- A thin gold route line links scenes and provides continuity.
+- A single momentum-map carrier occupies the open half of every frame. It
+  evolves from an experience ledger, to a noise orbit, to rising steps, three
+  branches, a fit target, and a final directional arrow.
 
 ## Typography
 
-- Proxima Nova (system fallback), using 900 for display, 700 for emphasis, and
-  400 for supporting language.
-- Display copy stays between 84–112 px; supporting copy stays at or above 40 px.
+- Proxima Nova is loaded from the workspace's three local WOFF2 files, using
+  900 for display, 700 for emphasis, and 400 for supporting language.
+- Display copy stays within the 60–72 px heading range; supporting copy stays
+  at or above 40 px.
 - Labels use uppercase blue or gold text at 22 px with generous tracking.
 
 ## Palette
@@ -26,15 +29,15 @@
 
 - Work-history markers: small outlined tiles labeled PROJECTS, TEAMS, STAKEHOLDERS.
 - Noise cloud: offset words and fine orbit lines, contained rather than chaotic.
-- Direction route: an SVG path with circular decision nodes.
+- Direction route: one continuous geometric map with circular decision nodes.
 - Choice cards: three equal cards with simple geometric icons and clear labels.
 - Fit test: three rings for VALUES, ENERGY, and REAL LIFE.
 - Final goal: a large `90 DAYS` waypoint followed by four rising step markers.
 
 ## Motion
 
-- Each beat enters within 1.2 seconds and exits in 0.3 seconds.
+- Each beat enters within 1.2 seconds; content and the map use distinct motion
+  directions so the carrier reads as an evolving subject.
 - Use transforms, opacity, SVG stroke drawing, and clip-path reveals only.
 - No infinite animation. All animation belongs to one paused, seekable GSAP timeline.
 - The final second adds one gold pulse around the named goal.
-

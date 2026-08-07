@@ -1,0 +1,619 @@
+{
+  "compositionId": "m4_who-will-walk-this-next-chapter-with-you",
+  "duration": 180,
+  "timeline": "main",
+  "paused": true,
+  "seekable": true,
+  "beats": [
+    {
+      "id": "tactics",
+      "start": 0,
+      "duration": 12,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#tactics",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "first-questions",
+      "start": 12,
+      "duration": 7,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#first-questions",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "deeper-question",
+      "start": 19,
+      "duration": 12,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#deeper-question",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "constellation",
+      "start": 31,
+      "duration": 11,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#constellation",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "next-move",
+      "start": 42,
+      "duration": 11,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#next-move",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "known-people",
+      "start": 53,
+      "duration": 8,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#known-people",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "new-possibilities",
+      "start": 61,
+      "duration": 10,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#new-possibilities",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "opportunity-holders",
+      "start": 71,
+      "duration": 9,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#opportunity-holders",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "three-to-five",
+      "start": 80,
+      "duration": 10,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#three-to-five",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "where-they-sit",
+      "start": 90,
+      "duration": 6,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#where-they-sit",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "relationship-types",
+      "start": 96,
+      "duration": 11,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#relationship-types",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "why-they-matter",
+      "start": 107,
+      "duration": 6,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#why-they-matter",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "ninety-days",
+      "start": 113,
+      "duration": 6,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#ninety-days",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "values-game",
+      "start": 119,
+      "duration": 13,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#values-game",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "relevance",
+      "start": 132,
+      "duration": 9,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#relevance",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "specific-outcome",
+      "start": 141,
+      "duration": 13,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#specific-outcome",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "patterns",
+      "start": 154,
+      "duration": 12,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#patterns",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "start": 166,
+      "duration": 5,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#energy",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "your-corner",
+      "start": 171,
+      "duration": 4,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#your-corner",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    },
+    {
+      "id": "take-your-time",
+      "start": 175,
+      "duration": 5,
+      "assertions": [
+        {
+          "type": "appearsBy",
+          "target": "#take-your-time",
+          "time": 1.2
+        },
+        {
+          "type": "keepsMoving",
+          "target": ".orbit.small"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "tactics",
+      "beatId": "tactics",
+      "id": "tactics",
+      "target": "#tactics",
+      "selector": "#tactics",
+      "appearsBy": 1.2,
+      "at": 1.2,
+      "time": 1.2,
+      "bySec": 1.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "first-questions",
+      "beatId": "first-questions",
+      "id": "first-questions",
+      "target": "#first-questions",
+      "selector": "#first-questions",
+      "appearsBy": 1.2,
+      "at": 13.2,
+      "time": 1.2,
+      "bySec": 13.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "deeper-question",
+      "beatId": "deeper-question",
+      "id": "deeper-question",
+      "target": "#deeper-question",
+      "selector": "#deeper-question",
+      "appearsBy": 1.2,
+      "at": 20.2,
+      "time": 1.2,
+      "bySec": 20.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "constellation",
+      "beatId": "constellation",
+      "id": "constellation",
+      "target": "#constellation",
+      "selector": "#constellation",
+      "appearsBy": 1.2,
+      "at": 32.2,
+      "time": 1.2,
+      "bySec": 32.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "next-move",
+      "beatId": "next-move",
+      "id": "next-move",
+      "target": "#next-move",
+      "selector": "#next-move",
+      "appearsBy": 1.2,
+      "at": 43.2,
+      "time": 1.2,
+      "bySec": 43.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "known-people",
+      "beatId": "known-people",
+      "id": "known-people",
+      "target": "#known-people",
+      "selector": "#known-people",
+      "appearsBy": 1.2,
+      "at": 54.2,
+      "time": 1.2,
+      "bySec": 54.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "new-possibilities",
+      "beatId": "new-possibilities",
+      "id": "new-possibilities",
+      "target": "#new-possibilities",
+      "selector": "#new-possibilities",
+      "appearsBy": 1.2,
+      "at": 62.2,
+      "time": 1.2,
+      "bySec": 62.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "opportunity-holders",
+      "beatId": "opportunity-holders",
+      "id": "opportunity-holders",
+      "target": "#opportunity-holders",
+      "selector": "#opportunity-holders",
+      "appearsBy": 1.2,
+      "at": 72.2,
+      "time": 1.2,
+      "bySec": 72.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "three-to-five",
+      "beatId": "three-to-five",
+      "id": "three-to-five",
+      "target": "#three-to-five",
+      "selector": "#three-to-five",
+      "appearsBy": 1.2,
+      "at": 81.2,
+      "time": 1.2,
+      "bySec": 81.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "where-they-sit",
+      "beatId": "where-they-sit",
+      "id": "where-they-sit",
+      "target": "#where-they-sit",
+      "selector": "#where-they-sit",
+      "appearsBy": 1.2,
+      "at": 91.2,
+      "time": 1.2,
+      "bySec": 91.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "relationship-types",
+      "beatId": "relationship-types",
+      "id": "relationship-types",
+      "target": "#relationship-types",
+      "selector": "#relationship-types",
+      "appearsBy": 1.2,
+      "at": 97.2,
+      "time": 1.2,
+      "bySec": 97.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "why-they-matter",
+      "beatId": "why-they-matter",
+      "id": "why-they-matter",
+      "target": "#why-they-matter",
+      "selector": "#why-they-matter",
+      "appearsBy": 1.2,
+      "at": 108.2,
+      "time": 1.2,
+      "bySec": 108.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "ninety-days",
+      "beatId": "ninety-days",
+      "id": "ninety-days",
+      "target": "#ninety-days",
+      "selector": "#ninety-days",
+      "appearsBy": 1.2,
+      "at": 114.2,
+      "time": 1.2,
+      "bySec": 114.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "values-game",
+      "beatId": "values-game",
+      "id": "values-game",
+      "target": "#values-game",
+      "selector": "#values-game",
+      "appearsBy": 1.2,
+      "at": 120.2,
+      "time": 1.2,
+      "bySec": 120.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "relevance",
+      "beatId": "relevance",
+      "id": "relevance",
+      "target": "#relevance",
+      "selector": "#relevance",
+      "appearsBy": 1.2,
+      "at": 133.2,
+      "time": 1.2,
+      "bySec": 133.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "specific-outcome",
+      "beatId": "specific-outcome",
+      "id": "specific-outcome",
+      "target": "#specific-outcome",
+      "selector": "#specific-outcome",
+      "appearsBy": 1.2,
+      "at": 142.2,
+      "time": 1.2,
+      "bySec": 142.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "patterns",
+      "beatId": "patterns",
+      "id": "patterns",
+      "target": "#patterns",
+      "selector": "#patterns",
+      "appearsBy": 1.2,
+      "at": 155.2,
+      "time": 1.2,
+      "bySec": 155.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "energy",
+      "beatId": "energy",
+      "id": "energy",
+      "target": "#energy",
+      "selector": "#energy",
+      "appearsBy": 1.2,
+      "at": 167.2,
+      "time": 1.2,
+      "bySec": 167.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "your-corner",
+      "beatId": "your-corner",
+      "id": "your-corner",
+      "target": "#your-corner",
+      "selector": "#your-corner",
+      "appearsBy": 1.2,
+      "at": 172.2,
+      "time": 1.2,
+      "bySec": 172.2
+    },
+    {
+      "type": "appearsBy",
+      "kind": "appearsBy",
+      "assertion": "appearsBy",
+      "beat": "take-your-time",
+      "beatId": "take-your-time",
+      "id": "take-your-time",
+      "target": "#take-your-time",
+      "selector": "#take-your-time",
+      "appearsBy": 1.2,
+      "at": 176.2,
+      "time": 1.2,
+      "bySec": 176.2
+    },
+    {
+      "type": "keepsMoving",
+      "kind": "keepsMoving",
+      "assertion": "keepsMoving",
+      "keepsMoving": true,
+      "target": ".orbit.small",
+      "selector": ".orbit.small"
+    }
+  ]
+}

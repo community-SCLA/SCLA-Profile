@@ -479,10 +479,8 @@
     },
     {
       "kind": "keepsMoving",
-      "from": 0,
-      "to": 207.338,
-      "selector": "#map .progress span"
+      "withinSelector": "[data-composition-id]",
+      "maxStaticSec": 12.5
     }
   ]
 }
-

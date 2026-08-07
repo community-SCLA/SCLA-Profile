@@ -10,3 +10,18 @@
 2026-08-07T16:21:04Z	preflight	exit 0 — gate-clean
 2026-08-07T16:21:24Z	gate	PASS: 21 beats, 136.759s, preserved HeyGen narration, carrier churn 5.89%
 2026-08-07T16:21:24Z	release	build session ended
+2026-08-07T19:29:29Z	resume	program=mid-career-momentum
+2026-08-07T19:30:55Z	preflight	exit 1
+2026-08-07T19:31:34Z	preflight	exit 0 — gate-clean
+2026-08-07T19:31:42Z	release	build session ended
+2026-08-07T19:36:30Z	resume	program=mid-career-momentum
+2026-08-07T19:40:37Z	preflight	exit 1
+2026-08-07T19:42:01Z	preflight	exit 1
+2026-08-07T19:44:01Z	preflight	exit 1
+2026-08-07T19:49:25Z	preflight	exit 0 — gate-clean
+2026-08-07T19:49:38Z	release	build session ended
+2026-08-07T20:02:40Z	resume	program=mid-career-momentum
+2026-08-07T20:09:40Z	preflight	exit 1
+2026-08-07T20:14:04Z	preflight	exit 0 — gate-clean
+2026-08-07T20:14:09Z	release	build session ended
+2026-08-07T20:24:39Z	resume	program=mid-career-momentum

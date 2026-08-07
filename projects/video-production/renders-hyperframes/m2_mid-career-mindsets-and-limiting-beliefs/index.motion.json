@@ -1,6 +1,6 @@
 {
   "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
-  "duration": 94,
+  "duration": 94.908,
   "fps": 30,
   "timeline": "master",
   "paused": true,
@@ -9,40 +9,69 @@
     {
       "id": "beat-honest-look",
       "start": 0,
-      "duration": 10
+      "duration": 6.02
     },
     {
       "id": "beat-protective-beliefs",
-      "start": 10,
-      "duration": 18
+      "start": 6.02,
+      "duration": 16.838
     },
     {
       "id": "beat-leverage-point",
-      "start": 28,
-      "duration": 16
+      "start": 22.858,
+      "duration": 16.12
     },
     {
       "id": "beat-career-experiments",
-      "start": 44,
-      "duration": 19
+      "start": 38.978,
+      "duration": 17.37
     },
     {
       "id": "beat-redesign",
-      "start": 63,
-      "duration": 14
+      "start": 56.348,
+      "duration": 12.16
     },
     {
       "id": "beat-next-path",
-      "start": 77,
-      "duration": 17
+      "start": 68.508,
+      "duration": 26.4
     }
   ],
   "assertions": [
     {
+      "kind": "appearsBy",
+      "selector": "#beat-honest-look",
+      "bySec": 1
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-protective-beliefs",
+      "bySec": 7.02
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-leverage-point",
+      "bySec": 23.858
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-career-experiments",
+      "bySec": 39.978
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-redesign",
+      "bySec": 57.348
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-next-path",
+      "bySec": 69.508
+    },
+    {
       "kind": "keepsMoving",
-      "selector": ".route",
-      "from": 92.2,
-      "to": 93.0
+      "withinSelector": ".composition",
+      "maxStaticSec": 26.4
     }
   ]
 }

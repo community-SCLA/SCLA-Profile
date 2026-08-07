@@ -24,3 +24,11 @@
 2026-08-07T15:56:30Z	preflight	exit 0 — gate-clean
 2026-08-07T15:57:53Z	preflight	exit 0 — gate-clean
 2026-08-07T15:58:09Z	release	build session ended
+2026-08-07T19:29:42Z	resume	program=career-transitions
+2026-08-07T19:31:06Z	preflight	exit 1
+2026-08-07T19:33:12Z	preflight	exit 0 — gate-clean
+2026-08-07T19:33:20Z	release	build session ended
+2026-08-07T19:44:19Z	resume	program=career-transitions
+2026-08-07T19:45:40Z	preflight	exit 1
+2026-08-07T19:47:53Z	preflight	exit 0 — gate-clean
+2026-08-07T19:47:57Z	release	restored full beat-level evidence; gate clean

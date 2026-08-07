@@ -1,0 +1,47 @@
+{
+  "total": 94.908,
+  "rows": [
+    {
+      "id": "beat-honest-look",
+      "audio_start": 0.6,
+      "audio_dur": 5.02,
+      "vis_start": 0.0,
+      "vis_dur": 6.02
+    },
+    {
+      "id": "beat-protective-beliefs",
+      "audio_start": 6.27,
+      "audio_dur": 16.188,
+      "vis_start": 6.02,
+      "vis_dur": 16.838
+    },
+    {
+      "id": "beat-leverage-point",
+      "audio_start": 23.108,
+      "audio_dur": 15.47,
+      "vis_start": 22.858,
+      "vis_dur": 16.12
+    },
+    {
+      "id": "beat-career-experiments",
+      "audio_start": 39.228,
+      "audio_dur": 16.72,
+      "vis_start": 38.978,
+      "vis_dur": 17.37
+    },
+    {
+      "id": "beat-redesign",
+      "audio_start": 56.598,
+      "audio_dur": 11.51,
+      "vis_start": 56.348,
+      "vis_dur": 12.16
+    },
+    {
+      "id": "beat-next-path",
+      "audio_start": 68.758,
+      "audio_dur": 24.35,
+      "vis_start": 68.508,
+      "vis_dur": 26.4
+    }
+  ]
+}
