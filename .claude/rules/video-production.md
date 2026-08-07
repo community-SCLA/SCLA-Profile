@@ -42,6 +42,8 @@ contract, not an operating manual. Commands and machine gates own procedure.
   program names, and voice settings. Do not load the full visual-identity file.
 - On-frame copy is markup, not hidden JavaScript strings. Required semantic
   roles and any narrow exceptions are declared where they occur.
+- Never show scene or slide progress counters such as `12 / 20` in rendered
+  video chrome. Numbers that are part of the lesson content remain allowed.
 
 ## Audio and timing
 

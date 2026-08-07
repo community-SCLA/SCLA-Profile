@@ -25,3 +25,10 @@
 2026-08-07T20:14:04Z	preflight	exit 0 — gate-clean
 2026-08-07T20:14:09Z	release	build session ended
 2026-08-07T20:24:39Z	resume	program=mid-career-momentum
+2026-08-07T20:31:18Z	preflight	exit 1
+2026-08-07T20:33:47Z	preflight	exit 0 — gate-clean
+2026-08-07T20:37:32Z	preflight	exit 0 — gate-clean
+2026-08-07T20:42:49Z	preflight	exit 1
+2026-08-07T20:45:21Z	preflight	exit 0 — gate-clean
+2026-08-07T20:45:41Z	illustration-rework	cumulative gold dot now travels the rising route; scene counters removed from rendered chrome; gate PASS
+2026-08-07T20:45:49Z	release	build session ended

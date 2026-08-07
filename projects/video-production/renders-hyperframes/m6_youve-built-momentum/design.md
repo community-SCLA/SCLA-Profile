@@ -24,6 +24,8 @@
 
 ## Composition system
 
+- The carrying object is the persistent gold momentum rail: it stays in place for the full lesson while its marker advances through the same field, so each beat updates one compact stage instead of replacing the frame.
+- Beat content stays inside a consistent 1280px-wide center stage, preserving the surrounding field and rail from one idea to the next.
 - Milestone cards use a 12px radius, 2px blue border, and short gold rule.
 - The system view uses four equal cards: Outcome, Visibility, Relationships, Results.
 - Reminder beats use a 74px gold point marker and one concise instruction.

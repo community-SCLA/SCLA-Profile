@@ -3,3 +3,8 @@
 2026-08-07T20:09:01Z	resume	program=mid-career-momentum
 2026-08-07T20:11:20Z	release	production TTS complete; handoff to timing/gate worker
 2026-08-07T20:11:32Z	resume	program=mid-career-momentum
+2026-08-07T20:30:23Z	preflight	exit 1
+2026-08-07T20:39:45Z	preflight	exit 0 — gate-clean
+2026-08-07T20:39:58Z	release	build session ended
+2026-08-07T20:53:48Z	preflight	exit 1
+2026-08-07T20:55:18Z	preflight	exit 0 — gate-clean

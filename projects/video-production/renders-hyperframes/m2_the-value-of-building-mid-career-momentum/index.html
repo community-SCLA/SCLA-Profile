@@ -28,7 +28,7 @@
     .rings{display:flex;align-items:center;justify-content:center;gap:0;margin-top:45px}.ring{width:300px;height:300px;border:8px solid var(--blue);border-radius:50%;display:grid;place-items:center;font-size:27px;font-weight:900;letter-spacing:.1em;margin-left:-45px}.ring:first-child{margin-left:0}.ring:last-child{border-color:var(--gold)}
     .routebar{position:absolute;right:120px;top:205px;width:620px;height:650px;border:3px solid var(--blue);border-radius:12px;background:var(--map-field);overflow:hidden;transform-origin:center}
     .routebar::before{content:"";position:absolute;inset:42px 30px 48px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 560 560'%3E%3Cpath d='M48 500H138V410H236V320H334V230H432V140H512V62' fill='none' stroke='%233393d6' stroke-width='13' stroke-linecap='round' stroke-linejoin='round' opacity='.48'/%3E%3Cg fill='%233393d6'%3E%3Ccircle cx='48' cy='500' r='8'/%3E%3Ccircle cx='138' cy='410' r='8'/%3E%3Ccircle cx='236' cy='320' r='8'/%3E%3Ccircle cx='334' cy='230' r='8'/%3E%3Ccircle cx='432' cy='140' r='8'/%3E%3Ccircle cx='512' cy='62' r='8'/%3E%3C/g%3E%3C/svg%3E") center/560px 560px no-repeat}
-    .routebar::after{content:"";position:absolute;left:61px;top:525px;width:34px;height:34px;border-radius:50%;background:var(--gold);border:5px solid var(--paper);box-shadow:0 0 0 12px rgba(234,171,45,.24);transform:translate(calc(var(--dot-tx,0)*1px),calc(var(--dot-ty,0)*1px)) scale(var(--dot-scale,1));will-change:transform}
+    .route-dot{position:absolute;left:61px;top:525px;width:34px;height:34px;border-radius:50%;background:var(--gold);border:5px solid var(--paper);box-shadow:0 0 0 12px rgba(234,171,45,.24);will-change:transform}
     .arrow{display:flex;align-items:center;gap:34px;margin-top:54px}.arrow span{font-size:52px;font-weight:900}.arrow i{display:block;flex:1;height:10px;background:var(--gold);position:relative}.arrow i::after{content:"";position:absolute;right:-2px;top:-16px;border-left:34px solid var(--gold);border-top:21px solid transparent;border-bottom:21px solid transparent}
   </style>
 </head>
@@ -114,20 +114,24 @@
     const targetProgress = Number.parseFloat(routebar.style.getPropertyValue("--p"));
     const startProgress = previousProgress;
     previousProgress = targetProgress;
-    const applyMomentum = (progress,scale=1) => {
-      const [x,y] = pointOnRoute(progress);
-      routebar.style.setProperty("--dot-tx",(x-48).toFixed(3));
-      routebar.style.setProperty("--dot-ty",(y-500).toFixed(3));
-      routebar.style.setProperty("--dot-scale",scale.toFixed(3));
-    };
-    applyMomentum(startProgress);
-    const driver = {progress:startProgress};
+    const [startX,startY] = pointOnRoute(startProgress);
+    const dot = document.createElement("span");
+    dot.className = "route-dot";
+    dot.setAttribute("aria-hidden","true");
+    dot.style.left = `${61+startX-48}px`;
+    dot.style.top = `${525+startY-500}px`;
+    routebar.appendChild(dot);
     const movementDuration = Math.min(1.35,Math.max(.42,Number.parseFloat(scene.dataset.duration)-1.05));
-    timeline.to(driver,{progress:targetProgress,duration:movementDuration,ease:"power2.inOut",onUpdate:() => {
-      const localProgress = (driver.progress-startProgress)/(targetProgress-startProgress || 1);
-      applyMomentum(driver.progress,1+Math.sin(Math.PI*localProgress)*.12);
-    }},start+.48);
+    if (selector === "#beat-03-momentum-s05") return;
+    const sampleCount = 5;
+    for (let sample = 1; sample <= sampleCount; sample += 1) {
+      const progress = startProgress+(targetProgress-startProgress)*sample/sampleCount;
+      const [x,y] = pointOnRoute(progress);
+      timeline.to(dot,{x:x-startX,y:y-startY,duration:movementDuration/sampleCount,ease:"none"},start+.48+movementDuration*(sample-1)/sampleCount);
+    }
   });
+  timeline.to("#beat-03-momentum-s05 .route-dot",{x:24.02,y:0,duration:.719,ease:"none"},47.68)
+    .to("#beat-03-momentum-s05 .route-dot",{x:24.02,y:-21.08,duration:.631,ease:"none"},48.399);
   timeline.to("#beat-07-direction-s02 .routebar",{scale:1.04,duration:.42,ease:"power2.out",yoyo:true,repeat:1},134.1);
   window.__timelines = window.__timelines || {};
   window.__timelines['m2_the-value-of-building-mid-career-momentum'] = timeline;

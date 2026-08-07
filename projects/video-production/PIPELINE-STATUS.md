@@ -7,10 +7,10 @@
 - **16** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **11** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **3** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
+- **1** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
-- **2** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
-- **2** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
+- **3** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
+- **3** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
 - **0** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
 - **0** — **rendered, not yet published.** The MP4 exists and its bytes match the current-source completion receipt; its per-render encode policy is satisfied. Only the Wistia upload is left.
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
@@ -69,6 +69,9 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
+- **m3_building-your-future-you-resume-pt1** (mid-career-momentum) — NEEDS-REVISION: visual review requires revision (FAIL/FLAT/REVISE)
+  - last completed **preflight** at 2026-08-07 21:03 UTC
+  - **To clear it:** revise this workspace, then rerun the gate and combined visual review
 - **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — NEEDS-REVISION: visual review requires revision (FAIL/ALIVE/REVISE)
   - last completed **preflight** at 2026-08-07 19:40 UTC
   - **To clear it:** revise this workspace, then rerun the gate and combined visual review
@@ -92,18 +95,19 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 *The mechanical gate matches this exact source; it still needs the combined correctness and taste review.*
 
-- m2_mid-career-mindsets-and-limiting-beliefs
-  - state: gate-clean for this source; combined visual review has not been recorded
-  - last completed **preflight** at 2026-08-07 20:59 UTC
-  - next: run the combined visual review and save `qa/VISUAL-REVIEW.json`
 - m2_the-value-of-building-mid-career-momentum
   - state: the visual review belongs to different source
   - last completed **illustration-rework** at 2026-08-07 20:45 UTC
   - next: repeat the combined visual review for the current source
+
+**NEEDS REVISION — visual review stopped this cut:**
+
+*Revise the same workspace, then rerun the content-bound gate and review.*
+
 - m3_building-your-future-you-resume-pt1
-  - state: gate-clean for this source; combined visual review has not been recorded
+  - state: visual review requires revision (FAIL/FLAT/REVISE)
   - last completed **preflight** at 2026-08-07 21:03 UTC
-  - next: run the combined visual review and save `qa/VISUAL-REVIEW.json`
+  - next: revise this workspace, then rerun the gate and combined visual review
 
 **NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
@@ -113,6 +117,10 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
   - last completed **preflight** at 2026-08-07 20:08 UTC
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m2_four-kinds-of-career-transition_mid-career-momentum`
+- m2_mid-career-mindsets-and-limiting-beliefs
+  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
+  - last completed **preflight** at 2026-08-07 20:59 UTC
+  - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m2_mid-career-mindsets-and-limiting-beliefs`
 - m5_skills-for-the-ai-era
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
   - last completed **preflight** at 2026-08-07 20:45 UTC
@@ -127,12 +135,12 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - last completed **preflight** at 2026-08-07 20:54 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_discover-experiences-that-support-your-next-move. Do not delete or rebuild completed work
 - m3_from-history-to-signal
-  - state: freeform narration synthesized; clip timings not yet computed
-  - last written to: 2026-08-07 20:40 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last written to: 2026-08-07 21:05 UTC (no `.build-log.tsv` — this workspace predates the build journal)
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_from-history-to-signal. Do not delete or rebuild completed work
 - m3_how-to-reposition-your-career
-  - state: freeform narration synthesized; clip timings not yet computed
-  - last written to: 2026-08-07 21:04 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last written to: 2026-08-07 21:05 UTC (no `.build-log.tsv` — this workspace predates the build journal)
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_how-to-reposition-your-career. Do not delete or rebuild completed work
 - m3_rewrite-your-linkedin-for-future-you
   - state: freeform narration synthesized; clip timings not yet computed
