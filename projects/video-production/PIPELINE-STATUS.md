@@ -6,13 +6,13 @@
 
 - **14** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **20** — **ready to build.** Script approved; nothing made yet.
-- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **1** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
 - **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **0** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
+- **2** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
 - **2** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -61,10 +61,15 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — REJECTED: a release gate rejected this cut — no qa/VERIFIED marker — render+verify have not passed on the current MP4
   - last completed **release** at 2026-08-07 03:24 UTC
   - **To clear it:** inspect the command output, correct the cause, then use run.sh retry m2_four-kinds-of-career-transition_mid-career-momentum --reason "cause corrected"
+- **m2_the-value-of-building-mid-career-momentum** (mid-career-momentum) — STALLED: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-07 03:25 UTC
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_the-value-of-building-mid-career-momentum. Do not delete the workspace
 - **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
   - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log
   - last completed **release** at 2026-08-06 09:42 UTC
   - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log and the cloud credential/backend before retrying
+- **m3_the-two-sided-work** (career-transitions) — STALLED: freeform design written; narration not yet synthesized
+  - **To clear it:** resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_the-two-sided-work. Do not delete the workspace
 
 ## mid-career-momentum
 
@@ -83,14 +88,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 11. m5_skills-for-the-ai-era
 12. m6_youve-built-momentum
 
-**BUILDING — in flight, no MP4 yet:**
+**STALLED — the build folder stopped moving:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
 - m2_the-value-of-building-mid-career-momentum
   - state: freeform composition timed and ready — the gate has not run yet
   - last completed **preflight** at 2026-08-07 03:25 UTC
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m2_the-value-of-building-mid-career-momentum`; then continue `/render-lessons BUILD m2_the-value-of-building-mid-career-momentum`
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_the-value-of-building-mid-career-momentum. Do not delete the workspace
 
 **REJECTED — a gate refused this cut:**
 
@@ -123,18 +128,18 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 *Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: gate-clean and waiting on your eyes — no MP4 yet
+  - state: gate-clean and ready for your review — no MP4 yet
   - last completed **release** at 2026-08-07 00:33 UTC
-  - next: watch it, then continue: `bash scripts/preview.sh m2_welcome-and-using-career-transitions-as-leaps-ahead` → `bash projects/video-production/run.sh ship m2_welcome-and-using-career-transitions-as-leaps-ahead`
+  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_welcome-and-using-career-transitions-as-leaps-ahead`
 
-**BUILDING — in flight, no MP4 yet:**
+**STALLED — the build folder stopped moving:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*Report-only: nothing here is killed automatically. The folder is still the `mkdir` lock, so it has to be released before a rebuild can claim it.*
 
 - m3_the-two-sided-work
   - state: freeform design written; narration not yet synthesized
   - last written to: 2026-08-07 03:23 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m3_the-two-sided-work`; then continue `/render-lessons BUILD m3_the-two-sided-work`
+  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_the-two-sided-work. Do not delete the workspace
 
 **REJECTED — a gate refused this cut:**
 
