@@ -11,29 +11,99 @@
       "text": "Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck."
     },
     {
-      "id": "beat-protective-beliefs",
-      "narration": "Some common beliefs sound like this: \"It's too late to change.\" \"If I speak up, I'll seem ungrateful.\" \"If I don't grab the first opportunity, I'll miss my chance.\" These thoughts feel protective, but they often keep you playing smaller than your experience allows.",
-      "text": "Some common beliefs sound like this: \"It's too late to change.\" \"If I speak up, I'll seem ungrateful.\" \"If I don't grab the first opportunity, I'll miss my chance.\" These thoughts feel protective, but they often keep you playing smaller than your experience allows."
+      "id": "beat-beliefs-intro",
+      "narration": "Some common beliefs sound like this:",
+      "text": "Some common beliefs sound like this:"
     },
     {
-      "id": "beat-leverage-point",
-      "narration": "Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships. That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally.",
-      "text": "Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships. That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally."
+      "id": "beat-too-late",
+      "narration": "\"It's too late to change.\"",
+      "text": "\"It's too late to change.\""
     },
     {
-      "id": "beat-career-experiments",
-      "narration": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments. That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully.",
-      "text": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments. That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully."
+      "id": "beat-speaking-up",
+      "narration": "\"If I speak up, I'll seem ungrateful.\"",
+      "text": "\"If I speak up, I'll seem ungrateful.\""
     },
     {
-      "id": "beat-redesign",
-      "narration": "Finally, we'll use re-design thinking. Instead of viewing your role as fixed. You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now.",
-      "text": "Finally, we'll use re-design thinking. Instead of viewing your role as fixed. You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now."
+      "id": "beat-first-opportunity",
+      "narration": "\"If I don't grab the first opportunity, I'll miss my chance.\"",
+      "text": "\"If I don't grab the first opportunity, I'll miss my chance.\""
     },
     {
-      "id": "beat-next-path",
-      "narration": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear. For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral. So—where do you feel stuck? And what small experiment could you try next?",
-      "text": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear. For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral. So—where do you feel stuck? And what small experiment could you try next?"
+      "id": "beat-beliefs-shrink",
+      "narration": "These thoughts feel protective, but they often keep you playing smaller than your experience allows.",
+      "text": "These thoughts feel protective, but they often keep you playing smaller than your experience allows."
+    },
+    {
+      "id": "beat-reframe-leverage",
+      "narration": "Let's reframe. First, mid-career is a leverage point.",
+      "text": "Let's reframe. First, mid-career is a leverage point."
+    },
+    {
+      "id": "beat-built-capital",
+      "narration": "You've built skills, credibility, and relationships.",
+      "text": "You've built skills, credibility, and relationships."
+    },
+    {
+      "id": "beat-more-options",
+      "narration": "That gives you more—not fewer—options.",
+      "text": "That gives you more—not fewer—options."
+    },
+    {
+      "id": "beat-choose-intentionally",
+      "narration": "The challenge isn't a lack of opportunity; it's learning to choose intentionally.",
+      "text": "The challenge isn't a lack of opportunity; it's learning to choose intentionally."
+    },
+    {
+      "id": "beat-experiments",
+      "narration": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments.",
+      "text": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments."
+    },
+    {
+      "id": "beat-test-leadership",
+      "narration": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement,",
+      "text": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement,"
+    },
+    {
+      "id": "beat-adjacent-function",
+      "narration": "or exploring an adjacent function with a small assignment before you commit fully.",
+      "text": "or exploring an adjacent function with a small assignment before you commit fully."
+    },
+    {
+      "id": "beat-redesign-intro",
+      "narration": "Finally, we'll use re-design thinking.",
+      "text": "Finally, we'll use re-design thinking."
+    },
+    {
+      "id": "beat-role-not-fixed",
+      "narration": "Instead of viewing your role as fixed.",
+      "text": "Instead of viewing your role as fixed."
+    },
+    {
+      "id": "beat-adjust-work",
+      "narration": "You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now.",
+      "text": "You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now."
+    },
+    {
+      "id": "beat-notice-belief",
+      "narration": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear.",
+      "text": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear."
+    },
+    {
+      "id": "beat-task",
+      "narration": "For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral.",
+      "text": "For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral."
+    },
+    {
+      "id": "beat-stuck-question",
+      "narration": "So—where do you feel stuck?",
+      "text": "So—where do you feel stuck?"
+    },
+    {
+      "id": "beat-experiment-question",
+      "narration": "And what small experiment could you try next?",
+      "text": "And what small experiment could you try next?"
     }
   ]
 }

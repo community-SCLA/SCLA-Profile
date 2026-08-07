@@ -44,3 +44,4 @@
 2026-08-07T16:51:36Z	m2_welcome-and-using-career-transitions-as-leaps-ahead	career-transitions	no qa/VERIFIED marker — render+verify have not passed on the current MP4
 2026-08-07T16:53:16Z	m2_welcome-and-using-career-transitions-as-leaps-ahead	career-transitions	preflight rejected the plan (preflight.py)
 2026-08-07T20:24:39Z	m2_welcome-and-using-career-transitions-as-leaps-ahead	career-transitions	preflight rejected the plan (preflight.py)
+2026-08-07T20:27:30Z	m2_welcome-and-using-career-transitions-as-leaps-ahead	career-transitions	cloud render failed or timed out (hyperframes cloud render)
