@@ -3,7 +3,9 @@
 ## Frame system
 
 - Canvas: 1920 × 1080, with 120 px frame padding and content held above 960 px.
-- Persistent top-left program label and top-right progress marker occupy the chrome.
+- The top-left program label remains the only persistent chrome. Numeric scene
+  counters such as `12 / 20` are not shown; they read as presentation progress,
+  not authored video.
 - Primary backgrounds alternate between deep navy and cultured paper.
 - A single momentum-map carrier occupies the open half of every frame. It
   evolves from an experience ledger, to a noise orbit, to rising steps, three
@@ -38,6 +40,9 @@
 
 - Each beat enters within 1.2 seconds; content and the map use distinct motion
   directions so the carrier reads as an evolving subject.
+- The gold dot advances along one continuous rising route in every scene. Its
+  starting position matches the previous scene, so the repeated carrier shows
+  accumulated momentum instead of behaving like a static chart.
 - Use transforms, opacity, SVG stroke drawing, and clip-path reveals only.
 - No infinite animation. All animation belongs to one paused, seekable GSAP timeline.
 - The final second adds one gold pulse around the named goal.
