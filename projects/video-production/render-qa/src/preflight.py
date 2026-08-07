@@ -914,11 +914,33 @@ def main():
             if root and abs(float(root.group(1)) - last_end) > TOL:
                 problems.append(f"root duration {root.group(1)}s != last scene end "
                                 f"{last_end:.3f}s")
-            audio_attr = _re.search(r'<audio\b[^>]*data-duration="([\d.]+)"', html)
-            wav = ffprobe_duration(ws / "assets/voice/narration.wav")
-            if audio_attr and wav and abs(float(audio_attr.group(1)) - wav) > 0.05:
-                problems.append(f"<audio> data-duration {audio_attr.group(1)}s != "
-                                f"true wav duration {wav:.3f}s (ffprobe)")
+            # Every <audio> element is graded against ITS OWN src (2026-08-07).
+            # This used to read the FIRST <audio> tag's data-duration and compare
+            # it to assets/voice/narration.wav — a template-lane assumption, one
+            # narration file mounted once. A freeform build mounts one clip per
+            # beat, and continuous_audio.py leaves the batched provider chunk
+            # behind as assets/voice/narration.wav whenever the whole lesson fits
+            # in a single request, so the check compared beat one's 2.03s clip
+            # against the 201.5s whole-lesson chunk and failed a correct build.
+            # Comparing like for like also grades all 38 clips instead of one.
+            graded_clips = 0
+            for tag in _re.findall(r"<audio\b[^>]*>", html):
+                attrs = _html_attrs(tag)
+                src, declared = attrs.get("src"), attrs.get("data-duration")
+                if not src or not declared:
+                    problems.append(f"<audio> element missing src or data-duration: {tag}")
+                    continue
+                real = ffprobe_duration(ws / src)
+                if real is None:
+                    problems.append(f"<audio src={src!r}> has no readable wav on disk")
+                    continue
+                graded_clips += 1
+                if abs(float(declared) - real) > 0.05:
+                    problems.append(f"<audio src={src!r}> data-duration {declared}s != "
+                                    f"true wav duration {real:.3f}s (ffprobe)")
+            if not graded_clips:
+                problems.append("no <audio> element carries a verifiable clip — "
+                                "narration cannot be confirmed to exist")
         else:
             problems.append("no scene slots found")
         sections["coverage"] = {"pass": not problems, "output": "\n".join(problems) or "ok"}

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -16,253 +16,333 @@
 
     #root{position:relative;width:1920px;height:1080px}
 
+    /* masthead */
     .eyebrow{position:absolute;left:120px;top:60px;font-size:24px;line-height:1;font-weight:900;text-transform:uppercase;letter-spacing:.14em;color:#3393d6}
-    .title{position:absolute;left:120px;top:126px;width:700px;font-size:60px;line-height:1.02;font-weight:900;letter-spacing:-.02em;color:#0d2437}
-    .title em{font-style:normal;color:#eaab2d}
+    .title{position:absolute;left:120px;top:128px;font-size:30px;line-height:1;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#0d2437}
+    .rule{position:absolute;left:120px;top:196px;width:1680px;height:3px;background:#eaab2d}
 
-    .beat{position:absolute;left:120px;top:320px;width:700px;visibility:hidden;opacity:0}
-    .beat h2{font-size:52px;line-height:1.04;font-weight:900;letter-spacing:-.015em;color:#0d2437}
-    .beat p{margin-top:26px;font-size:42px;line-height:1.24;font-weight:400;color:#5f6f96}
-    .beat ul{margin-top:26px;list-style:none}
-    .beat li{position:relative;padding-left:44px;margin-bottom:14px;font-size:42px;line-height:1.2;font-weight:700;color:#0d2437}
-    .beat li::before{content:"";position:absolute;left:0;top:20px;width:26px;height:6px;background:#eaab2d}
+    /* copy column */
+    .beat{position:absolute;left:120px;top:264px;width:700px;height:620px;display:flex;flex-direction:column;justify-content:center;visibility:hidden;opacity:0}
+    .beat h2{font-size:52px;line-height:1.06;font-weight:900;letter-spacing:-.015em;color:#0d2437}
+    .beat p{margin-top:28px;font-size:42px;line-height:1.26;font-weight:400;color:#5f6f96}
+    .beat ul{margin-top:30px;list-style:none}
+    .beat li{position:relative;padding-left:46px;margin-bottom:18px;font-size:42px;line-height:1.2;font-weight:700;color:#0d2437}
+    .beat li::before{content:"";position:absolute;left:0;top:22px;width:28px;height:6px;background:#eaab2d}
 
-    #field{position:absolute;left:900px;top:168px;width:900px;height:740px}
-    #field text{font-family:proxima-nova,"Proxima Nova",system-ui,sans-serif}
-    .cap{font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;fill:#5f6f96}
-    .colhead{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;fill:#0d2437}
-    .rowlab{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;fill:#0d2437}
-    .legend{font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;fill:#5f6f96}
-    .cardname{font-size:42px;font-weight:900;fill:#0d2437}
-    .axis{fill:none;stroke:#0d2437;stroke-width:4;stroke-linecap:square}
-    .card{fill:none;stroke:#cccedf;stroke-width:3}
-    .card-fill{fill:#e5eff6}
-    .bar-track{fill:none;stroke:#3393d6;stroke-width:3}
-    .bar-carried{fill:#0d2437}
-    .sw-solid{fill:#0d2437}
-    .sw-open{fill:#ffffff;stroke:#3393d6;stroke-width:3}
+    /* opening beats: the right stage has nothing to say yet, so the copy owns the frame */
+    .beat.wide{width:1560px;top:300px;height:560px}
+    .beat.wide h2{font-size:68px;letter-spacing:-.02em}
+    .beat.wide p{margin-top:34px;font-size:44px}
+    .beat.wide li{font-size:44px}
+
+    /* right stage: four departure lines */
+    #stage{position:absolute;left:940px;top:240px;width:860px;height:660px}
+    #stage text{font-family:proxima-nova,"Proxima Nova",system-ui,sans-serif}
+    .qlabel{font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;fill:#0d2437}
+    .chip{fill:none;stroke:#3393d6;stroke-width:2}
+    .chiptext{font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;fill:#3393d6}
+    .rowname{font-size:42px;font-weight:900;fill:#0d2437}
+    .rowcap{font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;fill:#5f6f96}
+    .track{fill:none;stroke:#cccedf;stroke-width:4}
+    .past{fill:none;stroke:#0d2437;stroke-width:8;stroke-linecap:round}
+    .new{fill:none;stroke:#3393d6;stroke-width:8;stroke-linecap:round}
+    .cut{fill:none;stroke:#eaab2d;stroke-width:7;stroke-linecap:round}
+    .dot{fill:#3393d6}
+    /* nothing on the right stage exists before the beat that earns it: the
+       timeline is what turns each mark on, so the default state is off */
+    [data-reveal]{opacity:0;visibility:hidden}
   </style>
 </head>
 <body>
-  <div id="root"
-       data-composition-id="m2_four-kinds-of-career-transition_mid-career-momentum"
-       data-start="0" data-duration="196.797" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-fr2e" id="root" data-composition-id="m2_four-kinds-of-career-transition_mid-career-momentum" data-start="0" data-duration="211.1" data-width="1920" data-height="1080">
 
-    <div class="eyebrow">Mid-Career Momentum</div>
-    <h1 class="title">Four Kinds of <em>Career Transition</em></h1>
+    <div data-hf-id="hf-jxus" class="eyebrow">Mid-Career Momentum</div>
+    <h1 data-hf-id="hf-ef2x" class="title">Four Kinds of Career Transition</h1>
+    <div data-hf-id="hf-a46i" class="rule"></div>
 
-    <svg id="field" viewBox="0 0 900 740" xmlns="http://www.w3.org/2000/svg" aria-label="Two questions crossed into four kinds of career transition">
-      <g id="q1" data-reveal="b03">
-        <text class="cap" x="540" y="26" text-anchor="middle">DID YOU CHOOSE IT?</text>
-        <text class="colhead" x="365" y="66" text-anchor="middle">CHOSEN</text>
-        <text class="colhead" x="715" y="66" text-anchor="middle">FORCED</text>
-      </g>
-      <path id="div-v" class="axis" data-reveal="b03" data-motion="draw-v" d="M540 84 V664"/>
+    <svg data-hf-id="hf-65d0" id="stage" viewBox="0 0 860 660" xmlns="http://www.w3.org/2000/svg" aria-label="Four kinds of career transition, drawn as four departure lines">
 
-      <text id="q2" class="cap" data-reveal="b04" transform="translate(26,374) rotate(-90)" text-anchor="middle">HOW BIG IS THE LEAP?</text>
-
-      <g id="q2-labels" data-reveal="b05">
-        <text class="rowlab" x="180" y="212" text-anchor="end">GENUINELY</text>
-        <text class="rowlab" x="180" y="242" text-anchor="end">NEW</text>
-        <text class="rowlab" x="180" y="534" text-anchor="end">ADJACENT</text>
-      </g>
-      <path id="div-h" class="axis" data-reveal="b05" data-motion="draw-h" d="M200 374 H880"/>
-
-      <g data-role="compare">
-        <g data-role="card" id="card-rein">
-          <rect id="fill-rein" class="card-fill" data-reveal="b11" x="200" y="84" width="330" height="278" rx="12"/>
-          <rect id="edge-rein" class="card" data-reveal="b06" x="200" y="84" width="330" height="278" rx="12"/>
-          <text id="name-rein" class="cardname" data-reveal="b11" x="365" y="182" text-anchor="middle">Reinvention</text>
-          <g id="bar-rein" data-reveal="b13">
-            <rect class="bar-track" x="240" y="254" width="250" height="26" rx="6"/>
-            <rect class="bar-carried" x="240" y="254" width="62" height="26" rx="6"/>
-          </g>
+      <g data-hf-id="hf-u8y9" id="qkey">
+        <g data-hf-id="hf-50ks" id="q1" data-reveal="b06">
+          <text data-hf-id="hf-dwti" class="qlabel" x="10" y="190">DID YOU CHOOSE IT?</text>
+          <rect data-hf-id="hf-x3ns" class="chip" x="10" y="218" width="210" height="64" rx="32" />
+          <text data-hf-id="hf-cmla" class="chiptext" x="115" y="259" text-anchor="middle">CHOSEN</text>
+          <rect data-hf-id="hf-o4m8" class="chip" x="246" y="218" width="200" height="64" rx="32" />
+          <text data-hf-id="hf-wkv3" class="chiptext" x="346" y="259" text-anchor="middle">FORCED</text>
         </g>
-        <g data-role="card" id="card-forced">
-          <rect id="fill-forced" class="card-fill" data-reveal="b18" x="550" y="84" width="330" height="278" rx="12"/>
-          <rect id="edge-forced" class="card" data-reveal="b06" x="550" y="84" width="330" height="278" rx="12"/>
-          <text id="name-forced-a" class="cardname" data-reveal="b18" x="715" y="158" text-anchor="middle">Forced</text>
-          <text id="name-forced-b" class="cardname" data-reveal="b18" x="715" y="204" text-anchor="middle">Reinvention</text>
-          <g id="bar-forced" data-reveal="b20">
-            <rect class="bar-track" x="590" y="254" width="250" height="26" rx="6"/>
-            <rect class="bar-carried" x="590" y="254" width="46" height="26" rx="6"/>
-          </g>
-        </g>
-        <g data-role="card" id="card-pivot">
-          <rect id="fill-pivot" class="card-fill" data-reveal="b07" x="200" y="386" width="330" height="278" rx="12"/>
-          <rect id="edge-pivot" class="card" data-reveal="b06" x="200" y="386" width="330" height="278" rx="12"/>
-          <text id="name-pivot" class="cardname" data-reveal="b07" x="365" y="484" text-anchor="middle">Pivot</text>
-          <g id="bar-pivot" data-reveal="b09">
-            <rect class="bar-track" x="240" y="556" width="250" height="26" rx="6"/>
-            <rect class="bar-carried" x="240" y="556" width="202" height="26" rx="6"/>
-          </g>
-        </g>
-        <g data-role="card" id="card-rebuild">
-          <rect id="fill-rebuild" class="card-fill" data-reveal="b14" x="550" y="386" width="330" height="278" rx="12"/>
-          <rect id="edge-rebuild" class="card" data-reveal="b06" x="550" y="386" width="330" height="278" rx="12"/>
-          <text id="name-rebuild" class="cardname" data-reveal="b14" x="715" y="484" text-anchor="middle">Rebuild</text>
-          <g id="bar-rebuild" data-reveal="b16">
-            <rect class="bar-track" x="590" y="556" width="250" height="26" rx="6"/>
-            <rect class="bar-carried" x="590" y="556" width="190" height="26" rx="6"/>
-          </g>
+        <text data-hf-id="hf-5yl9" id="q2lab" class="qlabel" data-reveal="b07" x="10" y="420">HOW BIG IS THE LEAP?</text>
+        <g data-hf-id="hf-db9u" id="q2chips" data-reveal="b08">
+          <rect data-hf-id="hf-vnz1" class="chip" x="10" y="448" width="250" height="64" rx="32" />
+          <text data-hf-id="hf-4c7h" class="chiptext" x="135" y="489" text-anchor="middle">ADJACENT</text>
+          <rect data-hf-id="hf-806v" class="chip" x="286" y="448" width="350" height="64" rx="32" />
+          <text data-hf-id="hf-nt2v" class="chiptext" x="461" y="489" text-anchor="middle">GENUINELY NEW</text>
         </g>
       </g>
 
-      <g id="legend" data-reveal="b09">
-        <rect class="sw-solid" x="200" y="694" width="28" height="18" rx="4"/>
-        <text class="legend" x="240" y="710">CARRIED FORWARD</text>
-        <rect class="sw-open" x="520" y="694" width="28" height="18" rx="4"/>
-        <text class="legend" x="560" y="710">NEW GROUND</text>
+      <g data-hf-id="hf-qob1" id="tracks" data-reveal="b09">
+        <line data-hf-id="hf-5qi7" class="track" x1="10" y1="130" x2="840" y2="130" />
+        <line data-hf-id="hf-9t8p" class="track" x1="10" y1="292" x2="840" y2="292" />
+        <line data-hf-id="hf-ll8x" class="track" x1="10" y1="454" x2="840" y2="454" />
+        <line data-hf-id="hf-0q7t" class="track" x1="10" y1="616" x2="840" y2="616" />
+      </g>
+
+      <g data-hf-id="hf-f2zq" data-role="compare">
+        <g data-hf-id="hf-7urs" data-role="card" id="row-pivot">
+          <g data-hf-id="hf-l9wt" data-reveal="b10">
+            <text data-hf-id="hf-8p5a" class="rowname" x="10" y="52">Pivot</text>
+            <text data-hf-id="hf-wvff" class="rowcap" x="10" y="86">CHOSEN / ADJACENT</text>
+          </g>
+          <line data-hf-id="hf-m8dp" class="past" data-reveal="b10" data-motion="draw" x1="10" y1="130" x2="300" y2="130" />
+          <path data-hf-id="hf-kjjk" class="new" data-reveal="b10" data-motion="draw" data-delay="0.34" d="M300 130 C 470 130 560 106 840 106" />
+          <circle data-hf-id="hf-mq92" class="dot" data-reveal="b10" data-delay="0.86" cx="840" cy="106" r="11" />
+        </g>
+        <g data-hf-id="hf-hprj" data-role="card" id="row-reinvention">
+          <g data-hf-id="hf-x48w" data-reveal="b15">
+            <text data-hf-id="hf-rabp" class="rowname" x="10" y="214">Reinvention</text>
+            <text data-hf-id="hf-tcgn" class="rowcap" x="10" y="248">CHOSEN / GENUINELY NEW</text>
+          </g>
+          <line data-hf-id="hf-wiv8" class="past" data-reveal="b15" data-motion="draw" x1="10" y1="292" x2="300" y2="292" />
+          <path data-hf-id="hf-j801" class="new" data-reveal="b15" data-motion="draw" data-delay="0.34" d="M300 292 C 470 292 560 228 840 228" />
+          <circle data-hf-id="hf-qqkg" class="dot" data-reveal="b15" data-delay="0.86" cx="840" cy="228" r="11" />
+        </g>
+        <g data-hf-id="hf-0erl" data-role="card" id="row-rebuild">
+          <g data-hf-id="hf-dwpo" data-reveal="b20">
+            <text data-hf-id="hf-r1bs" class="rowname" x="10" y="376">Rebuild</text>
+            <text data-hf-id="hf-xdhd" class="rowcap" x="10" y="410">FORCED / ADJACENT</text>
+          </g>
+          <line data-hf-id="hf-cy0a" class="past" data-reveal="b20" data-motion="draw" x1="10" y1="454" x2="265" y2="454" />
+          <line data-hf-id="hf-kf8a" class="cut" data-reveal="b20" data-motion="draw" data-delay="0.3" x1="300" y1="426" x2="300" y2="482" />
+          <path data-hf-id="hf-k9py" class="new" data-reveal="b20" data-motion="draw" data-delay="0.46" d="M335 454 C 500 454 580 430 840 430" />
+          <circle data-hf-id="hf-16s0" class="dot" data-reveal="b20" data-delay="0.98" cx="840" cy="430" r="11" />
+        </g>
+        <g data-hf-id="hf-zhjv" data-role="card" id="row-forced">
+          <g data-hf-id="hf-sqbc" data-reveal="b24">
+            <text data-hf-id="hf-a5zt" class="rowname" x="10" y="538">Forced Reinvention</text>
+            <text data-hf-id="hf-aibo" class="rowcap" x="10" y="572">FORCED / GENUINELY NEW</text>
+          </g>
+          <line data-hf-id="hf-6cny" class="past" data-reveal="b24" data-motion="draw" x1="10" y1="616" x2="265" y2="616" />
+          <line data-hf-id="hf-86ot" class="cut" data-reveal="b24" data-motion="draw" data-delay="0.3" x1="300" y1="588" x2="300" y2="644" />
+          <path data-hf-id="hf-kohu" class="new" data-reveal="b24" data-motion="draw" data-delay="0.46" d="M335 616 C 500 616 580 552 840 552" />
+          <circle data-hf-id="hf-q8vf" class="dot" data-reveal="b24" data-delay="0.98" cx="840" cy="552" r="11" />
+        </g>
       </g>
     </svg>
 
-    <audio id="au-b01" src="assets/voice/b01.wav" data-start="0.6" data-duration="10.43" data-track-index="8"></audio>
-    <audio id="au-b02" src="assets/voice/b02.wav" data-start="11.68" data-duration="5.32" data-track-index="8"></audio>
-    <audio id="au-b03" src="assets/voice/b03.wav" data-start="17.65" data-duration="6.24" data-track-index="8"></audio>
-    <audio id="au-b04" src="assets/voice/b04.wav" data-start="24.54" data-duration="5.6" data-track-index="8"></audio>
-    <audio id="au-b05" src="assets/voice/b05.wav" data-start="30.79" data-duration="5.81" data-track-index="8"></audio>
-    <audio id="au-b06" src="assets/voice/b06.wav" data-start="37.25" data-duration="4.24" data-track-index="8"></audio>
-    <audio id="au-b07" src="assets/voice/b07.wav" data-start="42.14" data-duration="4.33" data-track-index="8"></audio>
-    <audio id="au-b08" src="assets/voice/b08.wav" data-start="47.12" data-duration="8.594" data-track-index="8"></audio>
-    <audio id="au-b09" src="assets/voice/b09.wav" data-start="56.364" data-duration="4.975" data-track-index="8"></audio>
-    <audio id="au-b10" src="assets/voice/b10.wav" data-start="61.989" data-duration="4.36" data-track-index="8"></audio>
-    <audio id="au-b11" src="assets/voice/b11.wav" data-start="66.999" data-duration="5.825" data-track-index="8"></audio>
-    <audio id="au-b12" src="assets/voice/b12.wav" data-start="73.474" data-duration="4.905" data-track-index="8"></audio>
-    <audio id="au-b13" src="assets/voice/b13.wav" data-start="79.029" data-duration="9.675" data-track-index="8"></audio>
-    <audio id="au-b14" src="assets/voice/b14.wav" data-start="89.354" data-duration="4.765" data-track-index="8"></audio>
-    <audio id="au-b15" src="assets/voice/b15.wav" data-start="94.769" data-duration="5.83" data-track-index="8"></audio>
-    <audio id="au-b16" src="assets/voice/b16.wav" data-start="101.249" data-duration="6.82" data-track-index="8"></audio>
-    <audio id="au-b17" src="assets/voice/b17.wav" data-start="108.719" data-duration="4.335" data-track-index="8"></audio>
-    <audio id="au-b18" src="assets/voice/b18.wav" data-start="113.704" data-duration="10.165" data-track-index="8"></audio>
-    <audio id="au-b19" src="assets/voice/b19.wav" data-start="124.519" data-duration="6.25" data-track-index="8"></audio>
-    <audio id="au-b20" src="assets/voice/b20.wav" data-start="131.419" data-duration="9.42" data-track-index="8"></audio>
-    <audio id="au-b21" src="assets/voice/b21.wav" data-start="141.489" data-duration="6.35" data-track-index="8"></audio>
-    <audio id="au-b22" src="assets/voice/b22.wav" data-start="148.489" data-duration="5.12" data-track-index="8"></audio>
-    <audio id="au-b23" src="assets/voice/b23.wav" data-start="154.259" data-duration="8.22" data-track-index="8"></audio>
-    <audio id="au-b24" src="assets/voice/b24.wav" data-start="163.129" data-duration="6.84" data-track-index="8"></audio>
-    <audio id="au-b25" src="assets/voice/b25.wav" data-start="170.619" data-duration="4.15" data-track-index="8"></audio>
-    <audio id="au-b26" src="assets/voice/b26.wav" data-start="175.419" data-duration="10.264" data-track-index="8"></audio>
-    <audio id="au-b27" src="assets/voice/b27.wav" data-start="186.333" data-duration="8.664" data-track-index="8"></audio>
+    <audio data-hf-id="hf-vc7u" id="au-b01" src="assets/voice/b01.wav" data-start="0.6" data-duration="2.034" data-track-index="8"></audio>
+    <audio data-hf-id="hf-7iye" id="au-b02" src="assets/voice/b02.wav" data-start="3.284" data-duration="3.586" data-track-index="8"></audio>
+    <audio data-hf-id="hf-rdg2" id="au-b03" src="assets/voice/b03.wav" data-start="7.52" data-duration="3.42" data-track-index="8"></audio>
+    <audio data-hf-id="hf-oi77" id="au-b04" src="assets/voice/b04.wav" data-start="11.59" data-duration="5.14" data-track-index="8"></audio>
+    <audio data-hf-id="hf-bo0l" id="au-b05" src="assets/voice/b05.wav" data-start="17.38" data-duration="3.19" data-track-index="8"></audio>
+    <audio data-hf-id="hf-pilz" id="au-b06" src="assets/voice/b06.wav" data-start="21.22" data-duration="6.63" data-track-index="8"></audio>
+    <audio data-hf-id="hf-yhvt" id="au-b07" src="assets/voice/b07.wav" data-start="28.5" data-duration="2.5" data-track-index="8"></audio>
+    <audio data-hf-id="hf-l0vh" id="au-b08" src="assets/voice/b08.wav" data-start="31.65" data-duration="5.62" data-track-index="8"></audio>
+    <audio data-hf-id="hf-a906" id="au-b09" src="assets/voice/b09.wav" data-start="37.92" data-duration="3.825" data-track-index="8"></audio>
+    <audio data-hf-id="hf-7v7y" id="au-b10" src="assets/voice/b10.wav" data-start="42.395" data-duration="4.255" data-track-index="8"></audio>
+    <audio data-hf-id="hf-8luz" id="au-b11" src="assets/voice/b11.wav" data-start="47.3" data-duration="4.325" data-track-index="8"></audio>
+    <audio data-hf-id="hf-zmsl" id="au-b12" src="assets/voice/b12.wav" data-start="52.275" data-duration="3.725" data-track-index="8"></audio>
+    <audio data-hf-id="hf-ijwn" id="au-b13" src="assets/voice/b13.wav" data-start="56.65" data-duration="4.875" data-track-index="8"></audio>
+    <audio data-hf-id="hf-l4r0" id="au-b14" src="assets/voice/b14.wav" data-start="62.175" data-duration="5.445" data-track-index="8"></audio>
+    <audio data-hf-id="hf-fgh5" id="au-b15" src="assets/voice/b15.wav" data-start="68.27" data-duration="7.59" data-track-index="8"></audio>
+    <audio data-hf-id="hf-2069" id="au-b16" src="assets/voice/b16.wav" data-start="76.51" data-duration="5.46" data-track-index="8"></audio>
+    <audio data-hf-id="hf-54bk" id="au-b17" src="assets/voice/b17.wav" data-start="82.62" data-duration="2.405" data-track-index="8"></audio>
+    <audio data-hf-id="hf-akov" id="au-b18" src="assets/voice/b18.wav" data-start="85.675" data-duration="2.735" data-track-index="8"></audio>
+    <audio data-hf-id="hf-l47j" id="au-b19" src="assets/voice/b19.wav" data-start="89.06" data-duration="5.39" data-track-index="8"></audio>
+    <audio data-hf-id="hf-5e0l" id="au-b20" src="assets/voice/b20.wav" data-start="95.1" data-duration="5.4" data-track-index="8"></audio>
+    <audio data-hf-id="hf-mdp9" id="au-b21" src="assets/voice/b21.wav" data-start="101.15" data-duration="5.865" data-track-index="8"></audio>
+    <audio data-hf-id="hf-llcx" id="au-b22" src="assets/voice/b22.wav" data-start="107.665" data-duration="6.975" data-track-index="8"></audio>
+    <audio data-hf-id="hf-5ruh" id="au-b23" src="assets/voice/b23.wav" data-start="115.29" data-duration="4.37" data-track-index="8"></audio>
+    <audio data-hf-id="hf-1ylr" id="au-b24" src="assets/voice/b24.wav" data-start="120.31" data-duration="3.44" data-track-index="8"></audio>
+    <audio data-hf-id="hf-hsmj" id="au-b25" src="assets/voice/b25.wav" data-start="124.4" data-duration="6.85" data-track-index="8"></audio>
+    <audio data-hf-id="hf-6tgx" id="au-b26" src="assets/voice/b26.wav" data-start="131.9" data-duration="7.58" data-track-index="8"></audio>
+    <audio data-hf-id="hf-25g9" id="au-b27" src="assets/voice/b27.wav" data-start="140.13" data-duration="3.99" data-track-index="8"></audio>
+    <audio data-hf-id="hf-4zmn" id="au-b28" src="assets/voice/b28.wav" data-start="144.77" data-duration="5.46" data-track-index="8"></audio>
+    <audio data-hf-id="hf-18c7" id="au-b29" src="assets/voice/b29.wav" data-start="150.88" data-duration="5.445" data-track-index="8"></audio>
+    <audio data-hf-id="hf-6uhj" id="au-b30" src="assets/voice/b30.wav" data-start="156.975" data-duration="5.585" data-track-index="8"></audio>
+    <audio data-hf-id="hf-t7pb" id="au-b31" src="assets/voice/b31.wav" data-start="163.21" data-duration="3.59" data-track-index="8"></audio>
+    <audio data-hf-id="hf-apby" id="au-b32" src="assets/voice/b32.wav" data-start="167.45" data-duration="4.59" data-track-index="8"></audio>
+    <audio data-hf-id="hf-3ry6" id="au-b33" src="assets/voice/b33.wav" data-start="172.69" data-duration="6.965" data-track-index="8"></audio>
+    <audio data-hf-id="hf-nq58" id="au-b34" src="assets/voice/b34.wav" data-start="180.305" data-duration="4.275" data-track-index="8"></audio>
+    <audio data-hf-id="hf-wzt5" id="au-b35" src="assets/voice/b35.wav" data-start="185.23" data-duration="4.72" data-track-index="8"></audio>
+    <audio data-hf-id="hf-23d8" id="au-b36" src="assets/voice/b36.wav" data-start="190.6" data-duration="6.805" data-track-index="8"></audio>
+    <audio data-hf-id="hf-xdod" id="au-b37" src="assets/voice/b37.wav" data-start="198.055" data-duration="6.75" data-track-index="8"></audio>
+    <audio data-hf-id="hf-t8j6" id="au-b38" src="assets/voice/b38.wav" data-start="205.455" data-duration="3.845" data-track-index="8"></audio>
 
-    <section id="beat-01" class="clip beat" data-beat-id="b01" data-start="0" data-duration="11.43" data-track-index="1">
-      <h2>Years of Experience, One Unclear Step</h2>
-      <p>Projects delivered. Teams supported. Stakeholders managed.</p>
+    <section data-hf-id="hf-r7pr" class="clip beat wide" id="beat-01" data-beat-id="b01" data-start="0" data-duration="3.034" data-track-index="1">
+      <h2 data-hf-id="hf-v3is">You Have Already Built Something</h2>
+      <p data-hf-id="hf-6gbz">Years of experience, behind you.</p>
     </section>
-    <section id="beat-02" class="clip beat" data-beat-id="b02" data-start="11.43" data-duration="5.97" data-track-index="1">
-      <h2>Not All Transitions Are the Same</h2>
-      <p>The advice that fits one move can sink another.</p>
-    </section>
-    <section id="beat-03" class="clip beat" data-beat-id="b03" data-start="17.4" data-duration="6.89" data-track-index="1">
-      <h2>First Question: Did You Choose It?</h2>
-      <p>Almost any career change sorts along two questions.</p>
-    </section>
-    <section id="beat-04" class="clip beat" data-beat-id="b04" data-start="24.29" data-duration="6.25" data-track-index="1">
-      <h2>Second Question: How Big Is the Leap?</h2>
-      <p>A chosen move and a forced one are not the same move.</p>
-    </section>
-    <section id="beat-05" class="clip beat" data-beat-id="b05" data-start="30.54" data-duration="6.46" data-track-index="1">
-      <h2>Adjacent Ground or Genuinely New</h2>
-      <p>Are you building on your past, or reinventing?</p>
-    </section>
-    <section id="beat-06" class="clip beat" data-beat-id="b06" data-start="37" data-duration="4.89" data-track-index="1">
-      <h2>Cross the Two Questions</h2>
-      <p>Four kinds of career transition.</p>
-    </section>
-    <section id="beat-07" class="clip beat" data-beat-id="b07" data-start="41.89" data-duration="4.98" data-track-index="1">
-      <h2>The Pivot</h2>
-      <p>A change you chose that still builds on your past.</p>
-    </section>
-    <section id="beat-08" class="clip beat" data-beat-id="b08" data-start="46.87" data-duration="9.244" data-track-index="1">
-      <h2>Same Strengths, New Context</h2>
-      <p>Finance to product. Teaching to instructional design.</p>
-    </section>
-    <section id="beat-09" class="clip beat" data-beat-id="b09" data-start="56.114" data-duration="5.625" data-track-index="1">
-      <h2>Lower Risk Than It Looks</h2>
-      <p>Your experience carries forward into the new context.</p>
-    </section>
-    <section id="beat-10" class="clip beat" data-beat-id="b10" data-start="61.739" data-duration="5.01" data-track-index="1">
-      <h2>Reframe What You Already Have</h2>
-      <p>Less about proving brand-new skills.</p>
-    </section>
-    <section id="beat-11" class="clip beat" data-beat-id="b11" data-start="66.749" data-duration="6.475" data-track-index="1">
-      <h2>The Reinvention</h2>
-      <p>A change you chose, into something genuinely new.</p>
-    </section>
-    <section id="beat-12" class="clip beat" data-beat-id="b12" data-start="73.224" data-duration="5.555" data-track-index="1">
-      <h2>Changing Fields, Changing Identity</h2>
-      <p>A deliberate move, and part of who you are.</p>
-    </section>
-    <section id="beat-13" class="clip beat" data-beat-id="b13" data-start="78.779" data-duration="10.325" data-track-index="1">
-      <h2>Real Upside, Real Cost</h2>
-      <p>An editor who becomes a fashion designer.</p>
-    </section>
-    <section id="beat-14" class="clip beat" data-beat-id="b14" data-start="89.104" data-duration="5.415" data-track-index="1">
-      <h2>The Rebuild</h2>
-      <p>A change you did not choose, near your field.</p>
-    </section>
-    <section id="beat-15" class="clip beat" data-beat-id="b15" data-start="94.519" data-duration="6.48" data-track-index="1">
-      <h2>Pushed, but Still Close to Home</h2>
-      <p>The work ahead still builds on what you know.</p>
-    </section>
-    <section id="beat-16" class="clip beat" data-beat-id="b16" data-start="100.999" data-duration="7.47" data-track-index="1">
-      <h2>Shorter in Practice, Harder in Feeling</h2>
-      <p>You did not ask for this one.</p>
-    </section>
-    <section id="beat-17" class="clip beat" data-beat-id="b17" data-start="108.469" data-duration="4.985" data-track-index="1">
-      <h2>Process the Loss First</h2>
-      <p>So it does not leak into your interviews.</p>
-    </section>
-    <section id="beat-18" class="clip beat" data-beat-id="b18" data-start="113.454" data-duration="10.815" data-track-index="1">
-      <h2>The Forced Reinvention</h2>
-      <p>Pushed out, the old path closed, reinventing anyway.</p>
-    </section>
-    <section id="beat-19" class="clip beat" data-beat-id="b19" data-start="124.269" data-duration="6.9" data-track-index="1">
-      <h2>It Asks the Most of You</h2>
-      <ul>
-        <li>Extra care</li>
-        <li>Extra support</li>
-        <li>Extra experimentation</li>
+    <section data-hf-id="hf-kr4o" class="clip beat wide" id="beat-02" data-beat-id="b02" data-start="3.034" data-duration="4.236" data-track-index="1">
+      <h2 data-hf-id="hf-w7yk">What You Have Delivered</h2>
+      <ul data-hf-id="hf-ovcc">
+        <li data-hf-id="hf-jvsc">Projects delivered</li>
+        <li data-hf-id="hf-ibea">Teams supported</li>
+        <li data-hf-id="hf-k48i">Stakeholders managed</li>
       </ul>
     </section>
-    <section id="beat-20" class="clip beat" data-beat-id="b20" data-start="131.169" data-duration="10.07" data-track-index="1">
-      <h2>Necessity Clears Away the Shoulds</h2>
-      <p>Some of the most remarkable reinventions start here.</p>
+    <section data-hf-id="hf-ejr0" class="clip beat wide" id="beat-03" data-beat-id="b03" data-start="7.27" data-duration="4.07" data-track-index="1">
+      <h2 data-hf-id="hf-o3cz">The Next Step Is Less Clear</h2>
+      <p data-hf-id="hf-58f0">Clearer at your first job than it is now.</p>
     </section>
-    <section id="beat-21" class="clip beat" data-beat-id="b21" data-start="141.239" data-duration="7" data-track-index="1">
-      <h2>No Kind Ranks Above the Others</h2>
-      <p>Knowing which one you are in tells you what to plan for.</p>
+    <section data-hf-id="hf-hzhx" class="clip beat wide" id="beat-04" data-beat-id="b04" data-start="11.34" data-duration="5.79" data-track-index="1">
+      <h2 data-hf-id="hf-mdhc">Not All Transitions Are the Same</h2>
+      <p data-hf-id="hf-o595">The advice that fits one can sink another.</p>
     </section>
-    <section id="beat-22" class="clip beat" data-beat-id="b22" data-start="148.239" data-duration="5.77" data-track-index="1">
-      <h2>Plan for What It Asks</h2>
-      <ul>
-        <li>Identity work</li>
-        <li>Grief</li>
-        <li>Experimenting</li>
+    <section data-hf-id="hf-bfyg" class="clip beat wide" id="beat-05" data-beat-id="b05" data-start="17.13" data-duration="3.84" data-track-index="1">
+      <h2 data-hf-id="hf-8e8a">Almost Any Change Sorts Along Two Questions</h2>
+      <p data-hf-id="hf-keip">Two questions do most of the work.</p>
+    </section>
+    <section data-hf-id="hf-35qz" class="clip beat" id="beat-06" data-beat-id="b06" data-start="20.97" data-duration="7.28" data-track-index="1">
+      <h2 data-hf-id="hf-gqvs">The First Question</h2>
+      <p data-hf-id="hf-e3l1">Did you choose it, or did it choose you?</p>
+    </section>
+    <section data-hf-id="hf-6yok" class="clip beat" id="beat-07" data-beat-id="b07" data-start="28.25" data-duration="3.15" data-track-index="1">
+      <h2 data-hf-id="hf-v1am">The Second Question</h2>
+      <p data-hf-id="hf-vvu7">How big is the leap?</p>
+    </section>
+    <section data-hf-id="hf-x0b3" class="clip beat" id="beat-08" data-beat-id="b08" data-start="31.4" data-duration="6.27" data-track-index="1">
+      <h2 data-hf-id="hf-moux">Adjacent Ground or Genuinely New</h2>
+      <p data-hf-id="hf-7egg">Building on your past, or reinventing?</p>
+    </section>
+    <section data-hf-id="hf-a4t1" class="clip beat" id="beat-09" data-beat-id="b09" data-start="37.67" data-duration="4.475" data-track-index="1">
+      <h2 data-hf-id="hf-wxbl">Cross Them and You Get Four</h2>
+      <p data-hf-id="hf-gmfi">Four kinds of career transition.</p>
+    </section>
+    <section data-hf-id="hf-4b42" class="clip beat" id="beat-10" data-beat-id="b10" data-start="42.145" data-duration="4.905" data-track-index="1">
+      <h2 data-hf-id="hf-ycra">The Pivot</h2>
+      <p data-hf-id="hf-2jyb">A change you chose that still builds on your past.</p>
+    </section>
+    <section data-hf-id="hf-6iwj" class="clip beat" id="beat-11" data-beat-id="b11" data-start="47.05" data-duration="4.975" data-track-index="1">
+      <h2 data-hf-id="hf-ubao">Same Strengths, New Context</h2>
+      <p data-hf-id="hf-bjc9">You are moving to adjacent territory.</p>
+    </section>
+    <section data-hf-id="hf-8vbt" class="clip beat" id="beat-12" data-beat-id="b12" data-start="52.025" data-duration="4.375" data-track-index="1">
+      <h2 data-hf-id="hf-onvd">What a Pivot Looks Like</h2>
+      <ul data-hf-id="hf-kqbo">
+        <li data-hf-id="hf-zrve">Finance to product</li>
+        <li data-hf-id="hf-s3vz">Teaching to instructional design</li>
       </ul>
     </section>
-    <section id="beat-23" class="clip beat" data-beat-id="b23" data-start="154.009" data-duration="8.87" data-track-index="1">
-      <h2>When the Move Feels Foggy, Ask Again</h2>
-      <p>Did I choose this? And how big is the leap?</p>
+    <section data-hf-id="hf-9fla" class="clip beat" id="beat-13" data-beat-id="b13" data-start="56.4" data-duration="5.525" data-track-index="1">
+      <h2 data-hf-id="hf-uke3">Lower Risk Than It Looks</h2>
+      <p data-hf-id="hf-yejx">Your experience carries forward with you.</p>
     </section>
-    <section id="beat-24" class="clip beat" data-beat-id="b24" data-start="162.879" data-duration="7.49" data-track-index="1">
-      <h2>Reflect on Where You Are Going</h2>
-      <ul>
-        <li>Current role</li>
-        <li>Desired role</li>
-        <li>Success over the next year</li>
+    <section data-hf-id="hf-khyh" class="clip beat" id="beat-14" data-beat-id="b14" data-start="61.925" data-duration="6.095" data-track-index="1">
+      <h2 data-hf-id="hf-5e72">Reframe What You Already Have</h2>
+      <p data-hf-id="hf-cf7n">Less proving, more reframing.</p>
+    </section>
+    <section data-hf-id="hf-idyu" class="clip beat" id="beat-15" data-beat-id="b15" data-start="68.02" data-duration="8.24" data-track-index="1">
+      <h2 data-hf-id="hf-wvnv">The Reinvention</h2>
+      <p data-hf-id="hf-8ynj">A change you chose, into something genuinely new.</p>
+    </section>
+    <section data-hf-id="hf-4jr9" class="clip beat" id="beat-16" data-beat-id="b16" data-start="76.26" data-duration="6.11" data-track-index="1">
+      <h2 data-hf-id="hf-psy0">Changing Fields, Changing Identity</h2>
+      <p data-hf-id="hf-lgqe">A deliberate move, and a personal one.</p>
+    </section>
+    <section data-hf-id="hf-5div" class="clip beat" id="beat-17" data-beat-id="b17" data-start="82.37" data-duration="3.055" data-track-index="1">
+      <h2 data-hf-id="hf-uqsy">What a Reinvention Looks Like</h2>
+      <p data-hf-id="hf-p7px">An editor who becomes a fashion designer.</p>
+    </section>
+    <section data-hf-id="hf-sx2f" class="clip beat" id="beat-18" data-beat-id="b18" data-start="85.425" data-duration="3.385" data-track-index="1">
+      <h2 data-hf-id="hf-kg0o">Real Upside, Real Cost</h2>
+      <p data-hf-id="hf-41ur">Both are true at the same time.</p>
+    </section>
+    <section data-hf-id="hf-y2ib" class="clip beat" id="beat-19" data-beat-id="b19" data-start="88.81" data-duration="6.04" data-track-index="1">
+      <h2 data-hf-id="hf-ax2a">It Asks More Before It Clicks</h2>
+      <ul data-hf-id="hf-jjel">
+        <li data-hf-id="hf-jjkc">More identity work</li>
+        <li data-hf-id="hf-4ij7">More experimentation</li>
       </ul>
     </section>
-    <section id="beat-25" class="clip beat" data-beat-id="b25" data-start="170.369" data-duration="4.8" data-track-index="1">
-      <h2>Use AI to Analyze Your Projects</h2>
-      <p>Which of them actually energize you?</p>
+    <section data-hf-id="hf-oco9" class="clip beat" id="beat-20" data-beat-id="b20" data-start="94.85" data-duration="6.05" data-track-index="1">
+      <h2 data-hf-id="hf-sykp">The Rebuild</h2>
+      <p data-hf-id="hf-36ek">A change you did not choose, close to your field.</p>
     </section>
-    <section id="beat-26" class="clip beat" data-beat-id="b26" data-start="175.169" data-duration="10.914" data-track-index="1">
-      <h2>Evidence, Then a Next Move Statement</h2>
-      <p>One direction for the next 6–12 months.</p>
+    <section data-hf-id="hf-8ncx" class="clip beat" id="beat-21" data-beat-id="b21" data-start="100.9" data-duration="6.515" data-track-index="1">
+      <h2 data-hf-id="hf-6u0b">Pushed, but Still Close to Home</h2>
+      <p data-hf-id="hf-k30q">The work ahead builds on what you know.</p>
     </section>
-    <section id="beat-27" class="clip beat" data-beat-id="b27" data-start="186.083" data-duration="10.714" data-track-index="1">
-      <h2>Clarity Creates Momentum</h2>
-      <p>Recognize which of the four you are in right now.</p>
+    <section data-hf-id="hf-r4j6" class="clip beat" id="beat-22" data-beat-id="b22" data-start="107.415" data-duration="7.625" data-track-index="1">
+      <h2 data-hf-id="hf-shol">Shorter in Practice, Harder in Feeling</h2>
+      <p data-hf-id="hf-ha3q">You did not ask for this one.</p>
+    </section>
+    <section data-hf-id="hf-set2" class="clip beat" id="beat-23" data-beat-id="b23" data-start="115.04" data-duration="5.02" data-track-index="1">
+      <h2 data-hf-id="hf-xfh8">Process the Loss First</h2>
+      <p data-hf-id="hf-n33u">So it does not leak into your interviews.</p>
+    </section>
+    <section data-hf-id="hf-93s6" class="clip beat" id="beat-24" data-beat-id="b24" data-start="120.06" data-duration="4.09" data-track-index="1">
+      <h2 data-hf-id="hf-ktoq">The Forced Reinvention</h2>
+      <p data-hf-id="hf-lxmb">The hardest of the four.</p>
+    </section>
+    <section data-hf-id="hf-ijnh" class="clip beat" id="beat-25" data-beat-id="b25" data-start="124.15" data-duration="7.5" data-track-index="1">
+      <h2 data-hf-id="hf-o6s4">Pushed Out, and the Old Path Closed</h2>
+      <p data-hf-id="hf-zzqe">Reinventing without having chosen to.</p>
+    </section>
+    <section data-hf-id="hf-brx1" class="clip beat" id="beat-26" data-beat-id="b26" data-start="131.65" data-duration="8.23" data-track-index="1">
+      <h2 data-hf-id="hf-fli8">It Asks the Most of You</h2>
+      <ul data-hf-id="hf-jxpm">
+        <li data-hf-id="hf-beod">Extra care</li>
+        <li data-hf-id="hf-tbmz">Extra support</li>
+        <li data-hf-id="hf-9ntw">Extra experimentation</li>
+      </ul>
+    </section>
+    <section data-hf-id="hf-brzb" class="clip beat" id="beat-27" data-beat-id="b27" data-start="139.88" data-duration="4.64" data-track-index="1">
+      <h2 data-hf-id="hf-nf75">Where Remarkable Reinventions Begin</h2>
+      <p data-hf-id="hf-cc2m">Some of the most remarkable start here.</p>
+    </section>
+    <section data-hf-id="hf-ztyi" class="clip beat" id="beat-28" data-beat-id="b28" data-start="144.52" data-duration="6.11" data-track-index="1">
+      <h2 data-hf-id="hf-il7j">Necessity Clears Away the Shoulds</h2>
+      <p data-hf-id="hf-7awn">People build what they never reached for.</p>
+    </section>
+    <section data-hf-id="hf-ij2b" class="clip beat" id="beat-29" data-beat-id="b29" data-start="150.63" data-duration="6.095" data-track-index="1">
+      <h2 data-hf-id="hf-e8wy">No Kind Ranks Above the Others</h2>
+      <p data-hf-id="hf-cbdj">Knowing which one tells you what to plan for.</p>
+    </section>
+    <section data-hf-id="hf-2ije" class="clip beat" id="beat-30" data-beat-id="b30" data-start="156.725" data-duration="6.235" data-track-index="1">
+      <h2 data-hf-id="hf-ktke">Plan for What It Asks</h2>
+      <ul data-hf-id="hf-lx8r">
+        <li data-hf-id="hf-upd5">Identity work</li>
+        <li data-hf-id="hf-2rwl">Grief</li>
+        <li data-hf-id="hf-cadj">Experimenting</li>
+      </ul>
+    </section>
+    <section data-hf-id="hf-74fo" class="clip beat" id="beat-31" data-beat-id="b31" data-start="162.96" data-duration="4.24" data-track-index="1">
+      <h2 data-hf-id="hf-avap">When the Move Feels Foggy, Ask Again</h2>
+      <p data-hf-id="hf-d3ew">Two questions, every time.</p>
+    </section>
+    <section data-hf-id="hf-epn5" class="clip beat" id="beat-32" data-beat-id="b32" data-start="167.2" data-duration="5.24" data-track-index="1">
+      <h2 data-hf-id="hf-8r9d">The Two Questions</h2>
+      <ul data-hf-id="hf-mbjs">
+        <li data-hf-id="hf-afnq">Did I choose this, or did it choose me?</li>
+        <li data-hf-id="hf-p1t6">How big is the leap?</li>
+      </ul>
+    </section>
+    <section data-hf-id="hf-lgdp" class="clip beat" id="beat-33" data-beat-id="b33" data-start="172.44" data-duration="7.615" data-track-index="1">
+      <h2 data-hf-id="hf-tl4d">Reflect on Where You Are Going</h2>
+      <ul data-hf-id="hf-l4mp">
+        <li data-hf-id="hf-b7yp">Current role</li>
+        <li data-hf-id="hf-ik64">Desired role</li>
+        <li data-hf-id="hf-hdvo">Success over the next year</li>
+      </ul>
+    </section>
+    <section data-hf-id="hf-qhlv" class="clip beat" id="beat-34" data-beat-id="b34" data-start="180.055" data-duration="4.925" data-track-index="1">
+      <h2 data-hf-id="hf-dhz2">Use AI to Analyze Your Projects</h2>
+      <p data-hf-id="hf-vzvp">Which of them actually energize you?</p>
+    </section>
+    <section data-hf-id="hf-b8v5" class="clip beat" id="beat-35" data-beat-id="b35" data-start="184.98" data-duration="5.37" data-track-index="1">
+      <h2 data-hf-id="hf-ddl1">Grounded in Evidence, Not Impulse</h2>
+      <p data-hf-id="hf-ss9s">Your choice rests on what you found.</p>
+    </section>
+    <section data-hf-id="hf-n8tn" class="clip beat" id="beat-36" data-beat-id="b36" data-start="190.35" data-duration="7.455" data-track-index="1">
+      <h2 data-hf-id="hf-dd9u">Write Your Next Move Statement</h2>
+      <p data-hf-id="hf-vpk8">One direction for the next 6 to 12 months.</p>
+    </section>
+    <section data-hf-id="hf-kc6h" class="clip beat" id="beat-37" data-beat-id="b37" data-start="197.805" data-duration="7.4" data-track-index="1">
+      <h2 data-hf-id="hf-zdiy">Recognize the One You Are In</h2>
+      <p data-hf-id="hf-cxuz">Not the whole career. Just this move.</p>
+    </section>
+    <section data-hf-id="hf-39nj" class="clip beat" id="beat-38" data-beat-id="b38" data-start="205.205" data-duration="5.895" data-track-index="1">
+      <h2 data-hf-id="hf-agsu">Clarity Creates Momentum</h2>
+      <p data-hf-id="hf-dt1e">That is what moves you forward.</p>
     </section>
   </div>
 
@@ -285,35 +365,36 @@
         var d = parseFloat(c.getAttribute("data-duration"));
         tl.fromTo(c,
           { autoAlpha: 0, y: 26 },
-          { autoAlpha: 1, y: 0, duration: 0.42, ease: "power2.out" }, s);
+          { autoAlpha: 1, y: 0, duration: 0.44, ease: "power2.out" }, s);
         if (i < clips.length - 1) {
-          tl.to(c, { autoAlpha: 0, duration: 0.22, ease: "power1.in" }, s + d - 0.22);
+          tl.to(c, { autoAlpha: 0, duration: 0.24, ease: "power1.in" }, s + d - 0.24);
         }
       });
 
-      // Field: every mark enters once, on the beat that earns it, then holds.
+      // Right stage: every mark enters once, on the beat that earns it, then holds.
       Array.prototype.slice.call(root.querySelectorAll("[data-reveal]")).forEach(function (el) {
         var t = startOf[el.getAttribute("data-reveal")];
         if (isNaN(t)) { t = 0; }
-        var at = t + 0.28;
-        var motion = el.getAttribute("data-motion");
-        if (motion === "draw-v" || motion === "draw-h") {
+        var at = t + 0.3 + parseFloat(el.getAttribute("data-delay") || 0);
+        if (el.getAttribute("data-motion") === "draw") {
           var len = el.getTotalLength ? el.getTotalLength() : 600;
           tl.fromTo(el,
-            { strokeDasharray: len, strokeDashoffset: len, autoAlpha: 1 },
-            { strokeDashoffset: 0, duration: 0.62, ease: "power2.inOut" }, at);
+            { strokeDasharray: len, strokeDashoffset: len, autoAlpha: 0 },
+            { strokeDashoffset: 0, autoAlpha: 1, duration: 0.6, ease: "power2.inOut" }, at);
         } else {
-          tl.from(el, { autoAlpha: 0, y: 18, duration: 0.5, ease: "power2.out" }, at);
+          tl.fromTo(el,
+            { autoAlpha: 0, y: 16 },
+            { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, at);
         }
       });
 
-      // Closing resolve: the four kinds settle to one standing.
-      var edges = ["#edge-pivot", "#edge-rein", "#edge-rebuild", "#edge-forced"];
-      var settle = startOf["b21"] + 0.3;
-      edges.forEach(function (sel, i) {
-        tl.to(sel, { stroke: "#eaab2d", strokeWidth: 5, duration: 0.5, ease: "power2.out" },
-          settle + i * 0.14);
-      });
+      // The question chips hand the stage to the four tracks.
+      tl.to("#qkey", { autoAlpha: 0, duration: 0.34, ease: "power1.in" },
+        startOf["b09"] + 0.02);
+
+      // Closing resolve: the four endpoints settle to one standing.
+      tl.to(".dot", { fill: "#eaab2d", duration: 0.5, ease: "power2.out" },
+        startOf["b29"] + 0.3);
 
       // Hold the timeline open to the declared root duration without rescaling it.
       tl.to({}, { duration: 0.001 },

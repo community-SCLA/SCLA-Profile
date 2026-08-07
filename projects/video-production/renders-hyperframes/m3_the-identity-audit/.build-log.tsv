@@ -13,3 +13,7 @@
 2026-08-07T01:05:39Z	resume	program=career-transitions
 2026-08-07T01:06:13Z	source-revision	updated b08 and b12 to owner-edited script; static preflight PASS
 2026-08-07T01:06:13Z	release	build session ended
+2026-08-07T01:33:14Z	resume	program=career-transitions
+2026-08-07T01:36:30Z	preflight	exit 0 — gate-clean
+2026-08-07T01:36:41Z	gate	PASS after owner-edited b08 and b12 narration
+2026-08-07T01:36:41Z	release	build session ended

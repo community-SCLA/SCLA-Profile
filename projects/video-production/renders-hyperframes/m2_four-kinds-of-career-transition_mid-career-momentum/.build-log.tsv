@@ -16,3 +16,12 @@
 2026-08-07T00:29:35Z	synthesis	27-beat narration synthesized (heygen, 1 continuous request, 189.9s); plan_timing -> 196.797s
 2026-08-07T00:29:35Z	gate-blocked	boundaries FAIL b07/b12/b16: provider word-end timestamps overrun audible audio by 0.48-0.60s; every clip holds the full 0.08s GUARD_TAIL so no word is acoustically cut. Avoiding those sentence ends caps the build at 26 beats = 7.94 bpm, under check_pace's 8.0 floor. Owner/pipeline call.
 2026-08-07T00:29:46Z	release	build session ended
+2026-08-07T01:25:45Z	resume	program=mid-career-momentum
+2026-08-07T01:47:34Z	preflight	exit 120
+2026-08-07T01:49:31Z	release	build session ended
+2026-08-07T01:50:42Z	resume	program=mid-career-momentum
+2026-08-07T01:51:01Z	preflight	exit 1
+2026-08-07T01:52:13Z	release	build session ended
+2026-08-07T01:53:10Z	resume	program=mid-career-momentum
+2026-08-07T01:53:26Z	preflight	exit 0 — gate-clean
+2026-08-07T01:54:40Z	release	build session ended

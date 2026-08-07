@@ -61,6 +61,36 @@ def hygiene(ws: Path, voice: dict, *, final_hold: float, is_last: bool) -> float
     return duration
 
 
+def clamp_words(voice: dict) -> int:
+    """Pull a clip's word timestamps back inside the clip's own audio.
+
+    HeyGen returns word-end timestamps that can land PAST the end of the wav it
+    returned with them — measured at +0.23s to +0.86s across 10 of 38 clips on
+    2026-08-07, per-clip, not reproducible by re-synthesis (the provider is
+    deterministic; the same text returns the same overrun). Every downstream
+    reader treats those words as speech: check_boundaries reads a word ending
+    after the beat's cut and reports a mid-word cut on audio that is in fact
+    clean, and cue anchors point at time the clip has no sound in.
+
+    The wav is the ground truth — a word cannot end after the file does — so the
+    correction is a clamp, not a tune. A genuine mid-word cut still fails the
+    gate: its clamped end sits exactly at the clip end, leaving less air than
+    MIN_AIR. Runs on every plan_timing call, including workspaces whose audio
+    hygiene is already stamped, because the defect is in the provider's
+    metadata rather than in the samples.
+    """
+    duration = float(voice["duration_s"])
+    fixed = 0
+    for word in voice.get("words", []):
+        start, end = float(word["start"]), float(word["end"])
+        new_start = round(min(max(0.0, start), duration), 3)
+        new_end = round(min(max(new_start, end), duration), 3)
+        if new_start != start or new_end != end:
+            fixed += 1
+        word["start"], word["end"] = new_start, new_end
+    return fixed
+
+
 def build(ws: Path) -> dict:
     settings = policy(ws)
     meta_path, request_path = ws / "audio_meta.json", ws / "audio_request.json"
@@ -81,6 +111,9 @@ def build(ws: Path) -> dict:
                     is_last=index == len(order) - 1)
         meta["scla_timing"] = {"hygiene_version": 1,
                                "final_hold": settings["final-hold"]}
+    clamped = sum(clamp_words(voices[beat_id]) for beat_id in order)
+    if clamped:
+        print(f"clamped {clamped} word timestamp(s) to their clip's audio end")
     meta["total_duration_s"] = round(sum(voices[x]["duration_s"] for x in order), 3)
     meta_path.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 

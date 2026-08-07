@@ -14,3 +14,10 @@
 2026-08-07T00:53:36Z	release	build session ended
 2026-08-07T00:55:17Z	source-revision	removed top course-progress rail; updated opening narration manifest to owner-edited script
 2026-08-07T00:55:17Z	release	build session ended
+2026-08-07T01:19:09Z	resume	program=mid-career-momentum
+2026-08-07T01:23:01Z	preflight	exit 1
+2026-08-07T01:24:48Z	preflight	exit 1
+2026-08-07T01:26:55Z	preflight	exit 1
+2026-08-07T01:28:39Z	preflight	exit 0 — gate-clean
+2026-08-07T01:29:05Z	gate	PASS after revised opening audio and top rail removal
+2026-08-07T01:29:06Z	release	build session ended

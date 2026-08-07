@@ -37,3 +37,6 @@
 2026-08-06T23:42:43Z	m2_four-kinds-of-career-transition_career-transitions	career-transitions	cloud render failed or timed out (hyperframes cloud render)
 2026-08-06T23:50:20Z	m2_four-kinds-of-career-transition_career-transitions	career-transitions	cloud render failed or timed out (hyperframes cloud render)
 2026-08-07T01:00:05Z	m1_mini-syllabus	mid-career-momentum	no qa/VERIFIED marker — render+verify have not passed on the current MP4
+2026-08-07T01:54:56Z	m0_welcome-to-mid-career-momentum	mid-career-momentum	wistia-upload.sh failed
+2026-08-07T01:57:34Z	m0_welcome-to-mid-career-momentum	mid-career-momentum	filed MP4 already exists: m0_welcome-to-mid-career-momentum_2026-08-07.mp4 (same-day re-publish?)
+2026-08-07T01:58:21Z	m0_welcome-to-mid-career-momentum	mid-career-momentum	wistia-upload.sh failed

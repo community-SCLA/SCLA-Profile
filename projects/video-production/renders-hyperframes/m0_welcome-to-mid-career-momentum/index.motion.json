@@ -1,5 +1,5 @@
 {
-  "duration": 115.658,
+  "duration": 112.16,
   "assertions": [
     {
       "kind": "appearsBy",
@@ -8,93 +8,93 @@
     },
     {
       "kind": "appearsBy",
-      "selector": "#s-ann",
-      "bySec": 5.069
+      "selector": "#lblA1",
+      "bySec": 6.079
     },
     {
       "kind": "appearsBy",
       "selector": "#lblA1",
-      "bySec": 9.539
+      "bySec": 10.529
     },
     {
       "kind": "appearsBy",
       "selector": "#h-journey",
-      "bySec": 20.139
+      "bySec": 16.641
     },
     {
       "kind": "appearsBy",
       "selector": "#pin",
-      "bySec": 24.189
+      "bySec": 20.691
     },
     {
       "kind": "appearsBy",
       "selector": "#s-progress",
-      "bySec": 34.639
+      "bySec": 31.141
     },
     {
       "kind": "appearsBy",
       "selector": "#h-tools",
-      "bySec": 40.379
+      "bySec": 36.881
     },
     {
       "kind": "appearsBy",
       "selector": "#s-alone",
-      "bySec": 51.389
+      "bySec": 47.891
     },
     {
       "kind": "appearsBy",
       "selector": "#h-complex",
-      "bySec": 59.188
+      "bySec": 55.69
     },
     {
       "kind": "appearsBy",
       "selector": "#lblA3",
-      "bySec": 62.128
+      "bySec": 58.63
     },
     {
       "kind": "appearsBy",
       "selector": "#s-wonder",
-      "bySec": 68.348
+      "bySec": 64.85
     },
     {
       "kind": "appearsBy",
       "selector": "#listB2 li:nth-child(2)",
-      "bySec": 72.288
+      "bySec": 68.79
     },
     {
       "kind": "appearsBy",
       "selector": "#listB2 li:nth-child(3)",
-      "bySec": 74.698
+      "bySec": 71.2
     },
     {
       "kind": "appearsBy",
       "selector": "#h-move",
-      "bySec": 77.188
+      "bySec": 73.69
     },
     {
       "kind": "appearsBy",
       "selector": "#lblA4",
-      "bySec": 85.678
+      "bySec": 82.18
     },
     {
       "kind": "appearsBy",
       "selector": "#h-commit",
-      "bySec": 93.348
+      "bySec": 89.85
     },
     {
       "kind": "appearsBy",
       "selector": "#noteB1",
-      "bySec": 103.418
+      "bySec": 99.92
     },
     {
       "kind": "appearsBy",
       "selector": "#noteB2",
-      "bySec": 107.198
+      "bySec": 103.7
     },
     {
       "kind": "appearsBy",
       "selector": "#h-ready",
-      "bySec": 110.478
+      "bySec": 106.98
     },
     {
       "kind": "keepsMoving",

@@ -13,12 +13,24 @@ import os
 import re
 import tempfile
 import wave
+from array import array
 from pathlib import Path
 
 
 DEFAULT_MAX_CHARS = 4800
 SAFE_ID = re.compile(r"^[A-Za-z0-9._-]+$")
 NON_ALNUM = re.compile(r"[^0-9a-z]+")
+
+# A beat clip cut from the middle of a continuous take is a raw sample-index
+# slice — no silence guaranteed at either edge, unlike synth_narration.py's
+# trim_clip (which cuts at scanned silence and is guarded/faded on purpose).
+# Ramp each interior edge to ~0 over EDGE_FADE so the clip doesn't start or
+# end mid-waveform — same idiom as compile_timeline._fade_edges /
+# synth_narration._fade_edges. Never fade the outer edges of the whole take
+# (first beat's head, last beat's tail): synth_narration.trim_clip's docstring
+# records the owner catching exactly that loss — "the audio didn't fully
+# complete the last word... it got cut off" — when a real edge was faded.
+EDGE_FADE = 0.005
 
 
 def normalized(value: str) -> str:
@@ -117,18 +129,51 @@ def wav_data(path: Path):
     return params, raw
 
 
-def write_slice(path: Path, params, raw: bytes, start_s: float, end_s: float) -> float:
+def _fade_edges(seg, chan, fade, fade_in, fade_out):
+    """Ramp the head (fade_in) and/or tail (fade_out) of an int16 frame array to
+    ~0 over `fade` frames, so a raw mid-take cut doesn't start or end on an
+    arbitrary sample value. Same idiom as compile_timeline._fade_edges /
+    synth_narration._fade_edges, including the half-segment cap so a short
+    beat between two splices never double-scales its middle."""
+    n = len(seg) // chan
+    if n == 0 or fade <= 0:
+        return
+    f = min(fade, n // 2 if (fade_in and fade_out) else n)
+    if f <= 0:
+        return
+    if fade_in:
+        for p in range(f):
+            g = (p + 1) / (f + 1)
+            base = p * chan
+            for c in range(chan):
+                seg[base + c] = int(seg[base + c] * g)
+    if fade_out:
+        for p in range(f):
+            g = (f - p) / (f + 1)
+            base = (n - f + p) * chan
+            for c in range(chan):
+                seg[base + c] = int(seg[base + c] * g)
+
+
+def write_slice(path: Path, params, raw: bytes, start_s: float, end_s: float,
+                 fade_in: bool = False, fade_out: bool = False) -> float:
     rate, channels, width = params.framerate, params.nchannels, params.sampwidth
     total_frames = len(raw) // (channels * width)
     first = max(0, min(total_frames, int(round(start_s * rate))))
     last = max(first + 1, min(total_frames, int(round(end_s * rate))))
     frame_width = channels * width
+    if width != 2:
+        raise ValueError(f"{path.name}: expected 16-bit PCM")
+    seg = array("h")
+    seg.frombytes(raw[first * frame_width:last * frame_width])
+    if fade_in or fade_out:
+        _fade_edges(seg, channels, int(round(EDGE_FADE * rate)), fade_in, fade_out)
     path.parent.mkdir(parents=True, exist_ok=True)
     with wave.open(str(path), "wb") as handle:
         handle.setnchannels(channels)
         handle.setsampwidth(width)
         handle.setframerate(rate)
-        handle.writeframes(raw[first * frame_width:last * frame_width])
+        handle.writeframes(seg.tobytes())
     return (last - first) / rate
 
 
@@ -196,7 +241,9 @@ def split(workspace: Path, provider_meta_path: Path, max_chars: int) -> dict:
             cut_start = max(0.0, min(cut_start, duration))
             cut_end = max(cut_start + 0.001, min(cut_end, duration))
             rel = f"assets/voice/{beat['id']}.wav"
-            actual_duration = write_slice(workspace / rel, params, raw, cut_start, cut_end)
+            actual_duration = write_slice(
+                workspace / rel, params, raw, cut_start, cut_end,
+                fade_in=index > 0, fade_out=index + 1 != len(spans))
             beat_words = []
             for word_index, word in enumerate(words[first:last + 1]):
                 beat_words.append({
