@@ -4,12 +4,12 @@
 
 ## Where everything stands
 
-- **13** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **14** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **21** — **ready to build.** Script approved; nothing made yet.
-- **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **1** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
-- **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
-- **1** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
+- **1** — **approved to render.** Gate-clean and covered by its own persisted review approval.
+- **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
 - **1** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
@@ -43,6 +43,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 |---|---|---|---|---|
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
+| m0_welcome-to-mid-career-momentum | mid-career-momentum | 2026-08-07 | [vpvjkr68dy](https://sclc.wistia.com/medias/vpvjkr68dy) | `renders-mp4/mid-career-momentum/m0_welcome-to-mid-career-momentum_2026-08-07.mp4` |
 | mini-syllabus_early-career-boost | early-career-boost | 2026-08-06 | [ays7di6sti](https://sclc.wistia.com/medias/ays7di6sti) | `renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-08-06.mp4` |
 | do-not-just-ask-what-ai-replaces_early-career-boost | early-career-boost | 2026-08-06 | [uhnqbjt0x7](https://sclc.wistia.com/medias/uhnqbjt0x7) | `renders-mp4/early-career-boost/do-not-just-ask-what-ai-replaces_early-career-boost_2026-08-06.mp4` |
 | career-building-is-a-repeatable-process_early-career-boost | early-career-boost | 2026-08-05 | [cnj1463xuw](https://sclc.wistia.com/medias/cnj1463xuw) | `renders-mp4/early-career-boost/career-building-is-a-repeatable-process_early-career-boost_2026-08-05.mp4` |
@@ -81,23 +82,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 11. m5_skills-for-the-ai-era
 12. m6_youve-built-momentum
 
-**RENDERED — MP4 verified, waiting on publish:**
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
-*The video file exists and passed every gate. Nothing left but the upload.*
-
-- m0_welcome-to-mid-career-momentum
-  - state: MP4 rendered and gate-verified — waiting only on the Wistia upload
-  - last completed **release** at 2026-08-07 01:29 UTC
-  - next: publish it: `bash projects/video-production/run.sh ship m0_welcome-to-mid-career-momentum --publish`
-
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_four-kinds-of-career-transition_mid-career-momentum
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **resume** at 2026-08-07 01:25 UTC
-  - next: resume through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_mid-career-momentum. Do not delete the workspace
+  - state: gate-clean and ready for your review — no MP4 yet
+  - last completed **release** at 2026-08-07 01:54 UTC
+  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_four-kinds-of-career-transition_mid-career-momentum`
 
 **STALLED — the build folder stopped moving:**
 
@@ -126,14 +118,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 16. m5_the-story-that-makes-the-change-legible
 17. m7_your-reinvention-roadmap
 
-**NEEDS REVIEW — gate-clean, waiting on your eyes:**
+**APPROVED — gate-clean, ready to render:**
 
-*Review and approve this lesson now; unfinished siblings do not block it.*
+*This lesson has its own persisted approval.*
 
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: gate-clean and ready for your review — no MP4 yet
+  - state: gate-clean; this lesson's rolling review is approved
   - last completed **release** at 2026-08-07 00:33 UTC
-  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_welcome-and-using-career-transitions-as-leaps-ahead`
+  - next: render it: `bash projects/video-production/run.sh ship m2_welcome-and-using-career-transitions-as-leaps-ahead`
 
 **REJECTED — a gate refused this cut:**
 
