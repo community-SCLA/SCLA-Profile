@@ -1,0 +1,48 @@
+{
+  "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
+  "duration": 94,
+  "fps": 30,
+  "timeline": "master",
+  "paused": true,
+  "seekable": true,
+  "beats": [
+    {
+      "id": "beat-honest-look",
+      "start": 0,
+      "duration": 10
+    },
+    {
+      "id": "beat-protective-beliefs",
+      "start": 10,
+      "duration": 18
+    },
+    {
+      "id": "beat-leverage-point",
+      "start": 28,
+      "duration": 16
+    },
+    {
+      "id": "beat-career-experiments",
+      "start": 44,
+      "duration": 19
+    },
+    {
+      "id": "beat-redesign",
+      "start": 63,
+      "duration": 14
+    },
+    {
+      "id": "beat-next-path",
+      "start": 77,
+      "duration": 17
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "keepsMoving",
+      "selector": ".route",
+      "from": 92.2,
+      "to": 93.0
+    }
+  ]
+}

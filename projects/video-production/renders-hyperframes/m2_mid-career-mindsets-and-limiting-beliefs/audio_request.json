@@ -1,0 +1,39 @@
+{
+  "provider": "heygen",
+  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
+  "speed": 1.0,
+  "composition_id": "m2_mid-career-mindsets-and-limiting-beliefs",
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
+  "lines": [
+    {
+      "beat_id": "beat-honest-look",
+      "narration": "Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck.",
+      "text": "Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck."
+    },
+    {
+      "beat_id": "beat-protective-beliefs",
+      "narration": "Some common beliefs sound like this: \"It's too late to change.\" \"If I speak up, I'll seem ungrateful.\" \"If I don't grab the first opportunity, I'll miss my chance.\" These thoughts feel protective, but they often keep you playing smaller than your experience allows.",
+      "text": "Some common beliefs sound like this: \"It's too late to change.\" \"If I speak up, I'll seem ungrateful.\" \"If I don't grab the first opportunity, I'll miss my chance.\" These thoughts feel protective, but they often keep you playing smaller than your experience allows."
+    },
+    {
+      "beat_id": "beat-leverage-point",
+      "narration": "Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships. That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally.",
+      "text": "Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships. That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally."
+    },
+    {
+      "beat_id": "beat-career-experiments",
+      "narration": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments. That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully.",
+      "text": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments. That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully."
+    },
+    {
+      "beat_id": "beat-redesign",
+      "narration": "Finally, we'll use re-design thinking. Instead of viewing your role as fixed. You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now.",
+      "text": "Finally, we'll use re-design thinking. Instead of viewing your role as fixed. You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now."
+    },
+    {
+      "beat_id": "beat-next-path",
+      "narration": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear. For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral. So—where do you feel stuck? And what small experiment could you try next?",
+      "text": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear. For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral. So—where do you feel stuck? And what small experiment could you try next?"
+    }
+  ]
+}

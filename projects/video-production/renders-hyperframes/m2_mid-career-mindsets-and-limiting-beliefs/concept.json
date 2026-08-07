@@ -1,0 +1,15 @@
+{
+  "title": "Mindset Is a Lens, Not a Wall",
+  "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
+  "program": "Mid-Career Momentum",
+  "audience": "mid-career professionals",
+  "beats": [
+    {"id": "beat-honest-look", "purpose": "Introduce hidden beliefs", "visual": "A narrow lens closes around the word STUCK"},
+    {"id": "beat-protective-beliefs", "purpose": "Name three protective thoughts", "visual": "Three quote cards constrict a career path"},
+    {"id": "beat-leverage-point", "purpose": "Reframe experience as leverage", "visual": "Skills, credibility, and relationships widen into options"},
+    {"id": "beat-career-experiments", "purpose": "Replace one huge pivot with small tests", "visual": "Three experiment cards advance along a dotted route"},
+    {"id": "beat-redesign", "purpose": "Show adjustable parts of work", "visual": "A role blueprint rearranges four modular tiles"},
+    {"id": "beat-next-path", "purpose": "Prompt one practical commitment", "visual": "A single gold path moves out of neutral"}
+  ]
+}
+
