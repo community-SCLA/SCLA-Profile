@@ -1,0 +1,201 @@
+{
+  "total": 138.721,
+  "rows": [
+    {
+      "id": "static-biography-01",
+      "audio_start": 0.6,
+      "audio_dur": 4.22,
+      "vis_start": 0.0,
+      "vis_dur": 5.22
+    },
+    {
+      "id": "static-biography-02",
+      "audio_start": 5.47,
+      "audio_dur": 3.24,
+      "vis_start": 5.22,
+      "vis_dur": 3.89
+    },
+    {
+      "id": "static-biography-03",
+      "audio_start": 9.36,
+      "audio_dur": 3.905,
+      "vis_start": 9.11,
+      "vis_dur": 4.555
+    },
+    {
+      "id": "positioning-tool-01",
+      "audio_start": 13.915,
+      "audio_dur": 4.005,
+      "vis_start": 13.665,
+      "vis_dur": 4.655
+    },
+    {
+      "id": "positioning-tool-02",
+      "audio_start": 18.57,
+      "audio_dur": 4.26,
+      "vis_start": 18.32,
+      "vis_dur": 4.91
+    },
+    {
+      "id": "positioning-tool-03",
+      "audio_start": 23.48,
+      "audio_dur": 3.97,
+      "vis_start": 23.23,
+      "vis_dur": 4.62
+    },
+    {
+      "id": "positioning-tool-04",
+      "audio_start": 28.1,
+      "audio_dur": 4.02,
+      "vis_start": 27.85,
+      "vis_dur": 4.67
+    },
+    {
+      "id": "three-things",
+      "audio_start": 32.77,
+      "audio_dur": 5.521,
+      "vis_start": 32.52,
+      "vis_dur": 6.171
+    },
+    {
+      "id": "future-roles",
+      "audio_start": 38.941,
+      "audio_dur": 3.0,
+      "vis_start": 38.691,
+      "vis_dur": 3.65
+    },
+    {
+      "id": "known-for",
+      "audio_start": 42.591,
+      "audio_dur": 4.014,
+      "vis_start": 42.341,
+      "vis_dur": 4.664
+    },
+    {
+      "id": "human-value",
+      "audio_start": 47.255,
+      "audio_dur": 5.986,
+      "vis_start": 47.005,
+      "vis_dur": 6.636
+    },
+    {
+      "id": "headline-formula-01",
+      "audio_start": 53.891,
+      "audio_dur": 4.655,
+      "vis_start": 53.641,
+      "vis_dur": 5.305
+    },
+    {
+      "id": "headline-formula-02",
+      "audio_start": 59.196,
+      "audio_dur": 4.435,
+      "vis_start": 58.946,
+      "vis_dur": 5.085
+    },
+    {
+      "id": "headline-formula-03",
+      "audio_start": 64.281,
+      "audio_dur": 4.38,
+      "vis_start": 64.031,
+      "vis_dur": 5.03
+    },
+    {
+      "id": "before-after-01",
+      "audio_start": 69.311,
+      "audio_dur": 3.96,
+      "vis_start": 69.061,
+      "vis_dur": 4.61
+    },
+    {
+      "id": "before-after-02",
+      "audio_start": 73.921,
+      "audio_dur": 4.33,
+      "vis_start": 73.671,
+      "vis_dur": 4.98
+    },
+    {
+      "id": "before-after-03",
+      "audio_start": 78.901,
+      "audio_dur": 4.23,
+      "vis_start": 78.651,
+      "vis_dur": 4.88
+    },
+    {
+      "id": "before-after-04",
+      "audio_start": 83.781,
+      "audio_dur": 4.17,
+      "vis_start": 83.531,
+      "vis_dur": 4.82
+    },
+    {
+      "id": "before-after-05",
+      "audio_start": 88.601,
+      "audio_dur": 4.13,
+      "vis_start": 88.351,
+      "vis_dur": 4.78
+    },
+    {
+      "id": "about-bridge-01",
+      "audio_start": 93.381,
+      "audio_dur": 4.49,
+      "vis_start": 93.131,
+      "vis_dur": 5.14
+    },
+    {
+      "id": "about-bridge-02",
+      "audio_start": 98.521,
+      "audio_dur": 4.845,
+      "vis_start": 98.271,
+      "vis_dur": 5.495
+    },
+    {
+      "id": "about-bridge-03",
+      "audio_start": 104.016,
+      "audio_dur": 4.545,
+      "vis_start": 103.766,
+      "vis_dur": 5.195
+    },
+    {
+      "id": "draft-and-sharpen-01",
+      "audio_start": 109.211,
+      "audio_dur": 4.17,
+      "vis_start": 108.961,
+      "vis_dur": 4.82
+    },
+    {
+      "id": "draft-and-sharpen-02",
+      "audio_start": 114.031,
+      "audio_dur": 3.725,
+      "vis_start": 113.781,
+      "vis_dur": 4.375
+    },
+    {
+      "id": "draft-and-sharpen-03",
+      "audio_start": 118.406,
+      "audio_dur": 3.94,
+      "vis_start": 118.156,
+      "vis_dur": 4.59
+    },
+    {
+      "id": "open-doors-01",
+      "audio_start": 122.996,
+      "audio_dur": 4.655,
+      "vis_start": 122.746,
+      "vis_dur": 5.305
+    },
+    {
+      "id": "open-doors-02",
+      "audio_start": 128.301,
+      "audio_dur": 3.85,
+      "vis_start": 128.051,
+      "vis_dur": 4.5
+    },
+    {
+      "id": "open-doors-03",
+      "audio_start": 132.801,
+      "audio_dur": 4.12,
+      "vis_start": 132.551,
+      "vis_dur": 6.17
+    }
+  ]
+}

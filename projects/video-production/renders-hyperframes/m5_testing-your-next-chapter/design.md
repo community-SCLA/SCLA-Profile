@@ -1,26 +1,29 @@
-# Design — Testing Your Next Chapter
+# Design — The Next-Chapter Experiment Board
 
-## Direction
+## Concept
 
-An editorial field guide: crisp white and cultured-paper cards on deep navy, with SCLA blue as the evidence trail and gold reserved for decisive moments. The composition uses generous spacing, strong typographic hierarchy, and simple diagrams rather than decorative imagery.
+The lesson lives inside one persistent experiment board. A fixed learning loop replaces the old “reflect until certain” model: Act, Observe, Gather Evidence, Reflect, and Adjust. Three fixed test cards—Informational Interview, Trial Project, and Shadow Day—stay visible while the lesson moves from introspection to evidence.
 
-## Layout
+## Persistent Carrier
 
-- 1920×1080 canvas with 120px frame padding and a clear footer reserve.
-- Persistent top-left module label and restrained lower-right progress marker.
-- Headlines stay under two lines; supporting text is presented as short phrases rather than narration-sized paragraphs.
-- The three experiments use consistent numbered cards and distinct diagram motifs.
+- One fixed experiment board with a single learning question.
+- A fixed action-and-evidence loop that advances across all 40 sentence beats.
+- Three fixed experiment cards representing the module’s practical tests.
+- Forty progressive evidence signals show learning accumulating before commitment.
+- A right-side insight rail delivers one concise idea per narrated sentence.
 
-## Type and color
+## Visual System
 
-- Proxima Nova with system fallback; navy, blue, gold, paper, cultured, and subtle-fill tokens only.
-- Display text 88–108px; headings 60–72px; body 40–46px; labels 22px.
-- No gradients. Contrast remains high on every scene.
+- 1920 × 1080 deep-navy testing field with a white insight rail.
+- Gold marks the active experiment and newly gathered evidence.
+- Blue structures the learning loop and experiment cards.
+- Local Proxima Nova faces and a pinned local GSAP runtime only.
+- Header and progress elements remain inside declared safe regions.
 
 ## Motion
 
-- A single paused GSAP timeline is registered as `m5_testing-your-next-chapter`.
-- Entrances settle within 1.2 seconds; exits clear content in roughly 0.3 seconds.
-- Evidence marks draw left-to-right; cards enter with short vertical lifts and opacity fades.
-- Final second adds a gold endpoint and the words “Let’s design them.”
-
+- One paused, seek-safe GSAP timeline.
+- Every sentence insight appears within one second.
+- The active learning-loop stage and experiment card illuminate without replacing the board.
+- A slow field pulse and progress line maintain continuity.
+- Motion is deterministic at arbitrary seek times, with no timers or infinite loops.

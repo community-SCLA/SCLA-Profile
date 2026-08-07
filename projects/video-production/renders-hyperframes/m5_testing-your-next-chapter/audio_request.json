@@ -2,7 +2,7 @@
   "composition_id": "m5_testing-your-next-chapter",
   "provider": "heygen",
   "voice_id": "442360a3e0894fbd85024ff64cc2b928",
-  "speed": 1.0,
+  "speed": 1,
   "segments": [
     {
       "id": "advice-loop",
@@ -106,48 +106,160 @@
   ],
   "lines": [
     {
-      "id": "advice-loop",
-      "text": "There's a piece of advice you may have heard about career change: know yourself first, then choose your direction. Reflect. Journal. Take an assessment, and figure out who you are. Then, only when you've done all that internal work, go out and act."
+      "id": "advice-loop-s1",
+      "text": "There's a piece of advice you may have heard about career change: know yourself first, then choose your direction."
+    },
+    {
+      "id": "advice-loop-s2",
+      "text": "Reflect."
+    },
+    {
+      "id": "advice-loop-s3",
+      "text": "Journal."
+    },
+    {
+      "id": "advice-loop-s4",
+      "text": "Take an assessment, and figure out who you are."
+    },
+    {
+      "id": "advice-loop-s5",
+      "text": "Then, only when you've done all that internal work, go out and act."
     },
     {
       "id": "ibarra-finding",
       "text": "Herminia Ibarra, who has studied career reinvention for over twenty years at Harvard and INSEAD, has a different finding — and it's the opposite."
     },
     {
-      "id": "act-first",
-      "text": "Her research shows that people who successfully change careers act first and reflect later. They try things. They take on side projects. They have conversations. They show up at events. They volunteer for adjacent work. And the doing generates information that no amount of introspection ever could."
+      "id": "act-first-s1",
+      "text": "Her research shows that people who successfully change careers act first and reflect later."
     },
     {
-      "id": "past-software",
-      "text": "Why? Because when you sit and try to think your way to your next career, you're running your future through the software of your past. You can only imagine roles you already understand. The imagination gets stuck."
+      "id": "act-first-s2",
+      "text": "They try things."
     },
     {
-      "id": "real-feedback",
-      "text": "But when you go and do — even a tiny sliver of the new work — something different happens. You get feedback. You get texture. You notice what energizes you and what drains you. You meet people whose lives show you what the destination actually looks like day to day. You discover that the thing you thought you wanted turns out to be something else. Or you discover with quiet certainty that this is exactly right."
+      "id": "act-first-s3",
+      "text": "They take on side projects."
     },
     {
-      "id": "three-experiments",
-      "text": "That's what experiments do. And in this module, we're going to design three of them."
+      "id": "act-first-s4",
+      "text": "They have conversations."
+    },
+    {
+      "id": "act-first-s5",
+      "text": "They show up at events."
+    },
+    {
+      "id": "act-first-s6",
+      "text": "They volunteer for adjacent work."
+    },
+    {
+      "id": "act-first-s7",
+      "text": "And the doing generates information that no amount of introspection ever could."
+    },
+    {
+      "id": "past-software-s1",
+      "text": "Why?"
+    },
+    {
+      "id": "past-software-s2",
+      "text": "Because when you sit and try to think your way to your next career, you're running your future through the software of your past."
+    },
+    {
+      "id": "past-software-s3",
+      "text": "You can only imagine roles you already understand."
+    },
+    {
+      "id": "past-software-s4",
+      "text": "The imagination gets stuck."
+    },
+    {
+      "id": "real-feedback-s1",
+      "text": "But when you go and do — even a tiny sliver of the new work — something different happens."
+    },
+    {
+      "id": "real-feedback-s2",
+      "text": "You get feedback."
+    },
+    {
+      "id": "real-feedback-s3",
+      "text": "You get texture."
+    },
+    {
+      "id": "real-feedback-s4",
+      "text": "You notice what energizes you and what drains you."
+    },
+    {
+      "id": "real-feedback-s5",
+      "text": "You meet people whose lives show you what the destination actually looks like day to day."
+    },
+    {
+      "id": "real-feedback-s6",
+      "text": "You discover that the thing you thought you wanted turns out to be something else."
+    },
+    {
+      "id": "real-feedback-s7",
+      "text": "Or you discover with quiet certainty that this is exactly right."
+    },
+    {
+      "id": "three-experiments-s1",
+      "text": "That's what experiments do."
+    },
+    {
+      "id": "three-experiments-s2",
+      "text": "And in this module, we're going to design three of them."
     },
     {
       "id": "informational-interview",
       "text": "First, an informational interview — twenty-five minutes with someone doing the work you're curious about, structured to answer specific questions, not to ask for a job."
     },
     {
-      "id": "trial-project",
-      "text": "Second, a trial project — a small, low-commitment piece of real work in the new direction. Ten hours, twenty hours, or thirty hours. Enough to generate evidence and something you can point to."
+      "id": "trial-project-s1",
+      "text": "Second, a trial project — a small, low-commitment piece of real work in the new direction."
+    },
+    {
+      "id": "trial-project-s2",
+      "text": "Ten hours, twenty hours, or thirty hours."
+    },
+    {
+      "id": "trial-project-s3",
+      "text": "Enough to generate evidence and something you can point to."
     },
     {
       "id": "shadow-day",
       "text": "Third, a shadow day or immersion — direct observation of what the target role actually looks like, in real time."
     },
     {
-      "id": "one-question",
-      "text": "Here's the discipline. Design each experiment to answer one specific question. Not \"should I do this?\" — that's too big. Something like: \"Do I actually enjoy the analytical part of product management?\" Or: \"Is the day-to-day of nonprofit leadership as mission-driven as I imagine, or is it mostly grant applications?\""
+      "id": "one-question-s1",
+      "text": "Here's the discipline."
     },
     {
-      "id": "gather-evidence",
-      "text": "You're gathering evidence, not validating a decision you've already made. If the evidence contradicts the direction, that's an incredibly valuable experiment — because it saved you a year."
+      "id": "one-question-s2",
+      "text": "Design each experiment to answer one specific question."
+    },
+    {
+      "id": "one-question-s3",
+      "text": "Not \"should I do this?\""
+    },
+    {
+      "id": "one-question-s4",
+      "text": "— that's too big."
+    },
+    {
+      "id": "one-question-s5",
+      "text": "Something like: \"Do I actually enjoy the analytical part of product management?\""
+    },
+    {
+      "id": "one-question-s6",
+      "text": "Or: \"Is the day-to-day of nonprofit leadership as mission-driven as I imagine, or is it mostly grant applications?\""
+    },
+    {
+      "id": "gather-evidence-s1",
+      "text": "You're gathering evidence, not validating a decision you've already made."
+    },
+    {
+      "id": "gather-evidence-s2",
+      "text": "If the evidence contradicts the direction, that's an incredibly valuable experiment — because it saved you a year."
     },
     {
       "id": "lets-design",

@@ -18,3004 +18,3168 @@
   "bgm_loop_count": null,
   "voices": [
     {
-      "id": "people-open-doors",
-      "path": "assets/voice/people-open-doors.wav",
-      "duration_s": 11.21,
+      "id": "b01",
+      "path": "assets/voice/b01.wav",
+      "duration_s": 5.05,
       "words": [
         {
           "id": "w0",
           "text": "At",
-          "start": 0.2,
-          "end": 0.3
+          "start": 0.02,
+          "end": 0.12
         },
         {
           "id": "w1",
           "text": "this",
-          "start": 0.34,
-          "end": 0.54
+          "start": 0.16,
+          "end": 0.36
         },
         {
           "id": "w2",
           "text": "point",
-          "start": 0.56,
-          "end": 0.78
+          "start": 0.38,
+          "end": 0.6
         },
         {
           "id": "w3",
           "text": "in",
-          "start": 0.8,
-          "end": 0.9
+          "start": 0.62,
+          "end": 0.72
         },
         {
           "id": "w4",
           "text": "your",
-          "start": 0.94,
-          "end": 1.06
+          "start": 0.76,
+          "end": 0.88
         },
         {
           "id": "w5",
           "text": "career,",
-          "start": 1.1,
-          "end": 1.48
+          "start": 0.92,
+          "end": 1.3
         },
         {
           "id": "w6",
           "text": "most",
-          "start": 1.81,
-          "end": 2.14
+          "start": 1.63,
+          "end": 1.96
         },
         {
           "id": "w7",
           "text": "meaningful",
-          "start": 2.18,
-          "end": 2.62
+          "start": 2.0,
+          "end": 2.44
         },
         {
           "id": "w8",
           "text": "opportunities",
-          "start": 2.66,
-          "end": 3.38
+          "start": 2.48,
+          "end": 3.2
         },
         {
           "id": "w9",
           "text": "don't",
-          "start": 3.42,
-          "end": 3.64
+          "start": 3.24,
+          "end": 3.46
         },
         {
           "id": "w10",
           "text": "come",
-          "start": 3.7,
-          "end": 3.88
+          "start": 3.52,
+          "end": 3.7
         },
         {
           "id": "w11",
           "text": "from",
-          "start": 3.92,
-          "end": 4.08
+          "start": 3.74,
+          "end": 3.9
         },
         {
           "id": "w12",
           "text": "job",
-          "start": 4.12,
-          "end": 4.34
+          "start": 3.94,
+          "end": 4.16
         },
         {
           "id": "w13",
           "text": "boards.",
-          "start": 4.38,
-          "end": 5.2
-        },
-        {
-          "id": "w14",
-          "text": "They",
-          "start": 5.26,
-          "end": 5.37
-        },
-        {
-          "id": "w15",
-          "text": "come",
-          "start": 5.4,
-          "end": 5.56
-        },
-        {
-          "id": "w16",
-          "text": "from",
-          "start": 5.58,
-          "end": 5.77
-        },
-        {
-          "id": "w17",
-          "text": "people—colleagues,",
-          "start": 5.78,
-          "end": 6.87
-        },
-        {
-          "id": "w18",
-          "text": "leaders,",
-          "start": 7.22,
-          "end": 7.65
-        },
-        {
-          "id": "w19",
-          "text": "and",
-          "start": 8.0,
-          "end": 8.15
-        },
-        {
-          "id": "w20",
-          "text": "connectors",
-          "start": 8.18,
-          "end": 8.96
-        },
-        {
-          "id": "w21",
-          "text": "who",
-          "start": 9.0,
-          "end": 9.14
-        },
-        {
-          "id": "w22",
-          "text": "know",
-          "start": 9.18,
-          "end": 9.39
-        },
-        {
-          "id": "w23",
-          "text": "your",
-          "start": 9.42,
-          "end": 9.56
-        },
-        {
-          "id": "w24",
-          "text": "work",
-          "start": 9.6,
-          "end": 9.94
-        },
-        {
-          "id": "w25",
-          "text": "and",
-          "start": 9.98,
-          "end": 10.08
-        },
-        {
-          "id": "w26",
-          "text": "can",
-          "start": 10.1,
-          "end": 10.219
-        },
-        {
-          "id": "w27",
-          "text": "open",
-          "start": 10.27,
-          "end": 10.54
-        },
-        {
-          "id": "w28",
-          "text": "doors.",
-          "start": 10.55,
-          "end": 10.96
+          "start": 4.2,
+          "end": 5.02
         }
       ]
     },
     {
-      "id": "three-relationships",
-      "path": "assets/voice/three-relationships.wav",
-      "duration_s": 11.0,
+      "id": "b02",
+      "path": "assets/voice/b02.wav",
+      "duration_s": 5.84,
+      "words": [
+        {
+          "id": "w0",
+          "text": "They",
+          "start": 0.03,
+          "end": 0.14
+        },
+        {
+          "id": "w1",
+          "text": "come",
+          "start": 0.17,
+          "end": 0.33
+        },
+        {
+          "id": "w2",
+          "text": "from",
+          "start": 0.35,
+          "end": 0.54
+        },
+        {
+          "id": "w3",
+          "text": "people\u2014colleagues,",
+          "start": 0.55,
+          "end": 1.64
+        },
+        {
+          "id": "w4",
+          "text": "leaders,",
+          "start": 1.99,
+          "end": 2.42
+        },
+        {
+          "id": "w5",
+          "text": "and",
+          "start": 2.77,
+          "end": 2.92
+        },
+        {
+          "id": "w6",
+          "text": "connectors",
+          "start": 2.95,
+          "end": 3.73
+        },
+        {
+          "id": "w7",
+          "text": "who",
+          "start": 3.77,
+          "end": 3.91
+        },
+        {
+          "id": "w8",
+          "text": "know",
+          "start": 3.95,
+          "end": 4.16
+        },
+        {
+          "id": "w9",
+          "text": "your",
+          "start": 4.19,
+          "end": 4.33
+        },
+        {
+          "id": "w10",
+          "text": "work",
+          "start": 4.37,
+          "end": 4.71
+        },
+        {
+          "id": "w11",
+          "text": "and",
+          "start": 4.75,
+          "end": 4.85
+        },
+        {
+          "id": "w12",
+          "text": "can",
+          "start": 4.87,
+          "end": 4.989
+        },
+        {
+          "id": "w13",
+          "text": "open",
+          "start": 5.04,
+          "end": 5.31
+        },
+        {
+          "id": "w14",
+          "text": "doors.",
+          "start": 5.32,
+          "end": 5.73
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "path": "assets/voice/b03.wav",
+      "duration_s": 7.67,
       "words": [
         {
           "id": "w0",
           "text": "In",
-          "start": 0.25,
-          "end": 0.34
+          "start": 0.11,
+          "end": 0.2
         },
         {
           "id": "w1",
           "text": "this",
-          "start": 0.39,
-          "end": 0.55
+          "start": 0.25,
+          "end": 0.41
         },
         {
           "id": "w2",
           "text": "module,",
-          "start": 0.59,
-          "end": 1.31
+          "start": 0.45,
+          "end": 1.17
         },
         {
           "id": "w3",
           "text": "we'll",
-          "start": 1.35,
-          "end": 1.5
+          "start": 1.21,
+          "end": 1.36
         },
         {
           "id": "w4",
           "text": "focus",
-          "start": 1.55,
-          "end": 1.85
+          "start": 1.41,
+          "end": 1.71
         },
         {
           "id": "w5",
           "text": "on",
-          "start": 1.91,
-          "end": 2.1
+          "start": 1.77,
+          "end": 1.96
         },
         {
           "id": "w6",
           "text": "three",
-          "start": 2.15,
-          "end": 2.43
+          "start": 2.01,
+          "end": 2.29
         },
         {
           "id": "w7",
           "text": "kinds",
-          "start": 2.49,
-          "end": 2.79
+          "start": 2.35,
+          "end": 2.65
         },
         {
           "id": "w8",
           "text": "of",
-          "start": 2.83,
-          "end": 2.91
+          "start": 2.69,
+          "end": 2.77
         },
         {
           "id": "w9",
           "text": "relationships",
-          "start": 2.93,
-          "end": 3.67
+          "start": 2.79,
+          "end": 3.53
         },
         {
           "id": "w10",
           "text": "that",
-          "start": 3.73,
-          "end": 3.87
+          "start": 3.59,
+          "end": 3.73
         },
         {
           "id": "w11",
           "text": "matter",
-          "start": 3.93,
-          "end": 4.24
+          "start": 3.79,
+          "end": 4.1
         },
         {
           "id": "w12",
           "text": "especially",
-          "start": 4.63,
-          "end": 5.3
+          "start": 4.49,
+          "end": 5.16
         },
         {
           "id": "w13",
           "text": "during",
-          "start": 5.33,
-          "end": 5.55
+          "start": 5.19,
+          "end": 5.41
         },
         {
           "id": "w14",
           "text": "a",
-          "start": 5.59,
-          "end": 5.67
+          "start": 5.45,
+          "end": 5.53
         },
         {
           "id": "w15",
           "text": "mid-career",
-          "start": 5.73,
-          "end": 6.33
+          "start": 5.59,
+          "end": 6.19
         },
         {
           "id": "w16",
           "text": "pivot",
-          "start": 6.37,
-          "end": 6.73
+          "start": 6.23,
+          "end": 6.59
         },
         {
           "id": "w17",
           "text": "or",
-          "start": 6.77,
-          "end": 6.86
+          "start": 6.63,
+          "end": 6.72
         },
         {
           "id": "w18",
           "text": "advancement:",
-          "start": 6.91,
-          "end": 7.56
-        },
-        {
-          "id": "w19",
-          "text": "peers,",
-          "start": 8.09,
-          "end": 8.55
-        },
-        {
-          "id": "w20",
-          "text": "sponsors,",
-          "start": 8.95,
-          "end": 9.49
-        },
-        {
-          "id": "w21",
-          "text": "and",
-          "start": 9.66,
-          "end": 9.71
-        },
-        {
-          "id": "w22",
-          "text": "opportunity",
-          "start": 9.81,
-          "end": 10.37
-        },
-        {
-          "id": "w23",
-          "text": "holders.",
-          "start": 10.43,
-          "end": 10.87
+          "start": 6.77,
+          "end": 7.42
         }
       ]
     },
     {
-      "id": "peers",
-      "path": "assets/voice/peers.wav",
-      "duration_s": 19.76,
+      "id": "b04",
+      "path": "assets/voice/b04.wav",
+      "duration_s": 3.095,
+      "words": [
+        {
+          "id": "w0",
+          "text": "peers,",
+          "start": 0.25,
+          "end": 0.71
+        },
+        {
+          "id": "w1",
+          "text": "sponsors,",
+          "start": 1.11,
+          "end": 1.65
+        },
+        {
+          "id": "w2",
+          "text": "and",
+          "start": 1.82,
+          "end": 1.87
+        },
+        {
+          "id": "w3",
+          "text": "opportunity",
+          "start": 1.97,
+          "end": 2.53
+        },
+        {
+          "id": "w4",
+          "text": "holders.",
+          "start": 2.59,
+          "end": 3.03
+        }
+      ]
+    },
+    {
+      "id": "b05",
+      "path": "assets/voice/b05.wav",
+      "duration_s": 6.395,
       "words": [
         {
           "id": "w0",
           "text": "Peers",
-          "start": 0.13,
-          "end": 0.36
+          "start": 0.065,
+          "end": 0.265
         },
         {
           "id": "w1",
           "text": "are",
-          "start": 0.39,
-          "end": 0.47
+          "start": 0.295,
+          "end": 0.375
         },
         {
           "id": "w2",
           "text": "professionals",
-          "start": 0.55,
-          "end": 1.21
+          "start": 0.455,
+          "end": 1.115
         },
         {
           "id": "w3",
           "text": "at",
-          "start": 1.25,
-          "end": 1.33
+          "start": 1.155,
+          "end": 1.235
         },
         {
           "id": "w4",
           "text": "a",
-          "start": 1.39,
-          "end": 1.45
+          "start": 1.295,
+          "end": 1.355
         },
         {
           "id": "w5",
           "text": "similar",
-          "start": 1.53,
-          "end": 1.83
+          "start": 1.435,
+          "end": 1.735
         },
         {
           "id": "w6",
           "text": "level",
-          "start": 1.87,
-          "end": 2.21
+          "start": 1.775,
+          "end": 2.115
         },
         {
           "id": "w7",
           "text": "who",
-          "start": 2.59,
-          "end": 2.67
+          "start": 2.495,
+          "end": 2.575
         },
         {
           "id": "w8",
           "text": "share",
-          "start": 2.79,
-          "end": 2.95
+          "start": 2.695,
+          "end": 2.855
         },
         {
           "id": "w9",
           "text": "knowledge,",
-          "start": 3.01,
-          "end": 3.51
+          "start": 2.915,
+          "end": 3.415
         },
         {
           "id": "w10",
           "text": "introductions,",
-          "start": 3.91,
-          "end": 4.65
+          "start": 3.815,
+          "end": 4.555
         },
         {
           "id": "w11",
           "text": "and",
-          "start": 4.99,
-          "end": 5.08
+          "start": 4.895,
+          "end": 4.985
         },
         {
           "id": "w12",
           "text": "real-world",
-          "start": 5.19,
-          "end": 5.65
+          "start": 5.095,
+          "end": 5.555
         },
         {
           "id": "w13",
           "text": "context.",
-          "start": 5.77,
-          "end": 6.37
-        },
-        {
-          "id": "w14",
-          "text": "They",
-          "start": 6.61,
-          "end": 6.73
-        },
-        {
-          "id": "w15",
-          "text": "help",
-          "start": 6.77,
-          "end": 6.93
-        },
-        {
-          "id": "w16",
-          "text": "you",
-          "start": 6.97,
-          "end": 7.049
-        },
-        {
-          "id": "w17",
-          "text": "understand",
-          "start": 7.09,
-          "end": 7.55
-        },
-        {
-          "id": "w18",
-          "text": "what's",
-          "start": 7.57,
-          "end": 7.75
-        },
-        {
-          "id": "w19",
-          "text": "happening",
-          "start": 7.79,
-          "end": 8.19
-        },
-        {
-          "id": "w20",
-          "text": "on",
-          "start": 8.23,
-          "end": 8.29
-        },
-        {
-          "id": "w21",
-          "text": "the",
-          "start": 8.33,
-          "end": 8.38
-        },
-        {
-          "id": "w22",
-          "text": "ground,",
-          "start": 8.45,
-          "end": 8.83
-        },
-        {
-          "id": "w23",
-          "text": "compare",
-          "start": 9.27,
-          "end": 9.63
-        },
-        {
-          "id": "w24",
-          "text": "experiences,",
-          "start": 9.69,
-          "end": 10.49
-        },
-        {
-          "id": "w25",
-          "text": "and",
-          "start": 10.93,
-          "end": 11.04
-        },
-        {
-          "id": "w26",
-          "text": "build",
-          "start": 11.15,
-          "end": 11.35
-        },
-        {
-          "id": "w27",
-          "text": "community",
-          "start": 11.45,
-          "end": 11.91
-        },
-        {
-          "id": "w28",
-          "text": "as",
-          "start": 12.17,
-          "end": 12.28
-        },
-        {
-          "id": "w29",
-          "text": "you",
-          "start": 12.35,
-          "end": 12.45
-        },
-        {
-          "id": "w30",
-          "text": "shift",
-          "start": 12.51,
-          "end": 12.83
-        },
-        {
-          "id": "w31",
-          "text": "direction.",
-          "start": 12.85,
-          "end": 13.39
-        },
-        {
-          "id": "w32",
-          "text": "Think",
-          "start": 13.67,
-          "end": 13.83
-        },
-        {
-          "id": "w33",
-          "text": "of",
-          "start": 13.89,
-          "end": 13.97
-        },
-        {
-          "id": "w34",
-          "text": "colleagues",
-          "start": 14.03,
-          "end": 14.35
-        },
-        {
-          "id": "w35",
-          "text": "in",
-          "start": 14.39,
-          "end": 14.47
-        },
-        {
-          "id": "w36",
-          "text": "your",
-          "start": 14.49,
-          "end": 14.57
-        },
-        {
-          "id": "w37",
-          "text": "department,",
-          "start": 14.59,
-          "end": 15.08
-        },
-        {
-          "id": "w38",
-          "text": "practitioners",
-          "start": 15.43,
-          "end": 15.99
-        },
-        {
-          "id": "w39",
-          "text": "in",
-          "start": 16.01,
-          "end": 16.07
-        },
-        {
-          "id": "w40",
-          "text": "your",
-          "start": 16.11,
-          "end": 16.18
-        },
-        {
-          "id": "w41",
-          "text": "future",
-          "start": 16.25,
-          "end": 16.49
-        },
-        {
-          "id": "w42",
-          "text": "field,",
-          "start": 16.59,
-          "end": 16.87
-        },
-        {
-          "id": "w43",
-          "text": "and",
-          "start": 17.27,
-          "end": 17.36
-        },
-        {
-          "id": "w44",
-          "text": "members",
-          "start": 17.41,
-          "end": 17.71
-        },
-        {
-          "id": "w45",
-          "text": "of",
-          "start": 17.75,
-          "end": 17.8
-        },
-        {
-          "id": "w46",
-          "text": "the",
-          "start": 17.85,
-          "end": 17.879
-        },
-        {
-          "id": "w47",
-          "text": "professional",
-          "start": 17.95,
-          "end": 18.39
-        },
-        {
-          "id": "w48",
-          "text": "communities",
-          "start": 18.45,
-          "end": 18.919
-        },
-        {
-          "id": "w49",
-          "text": "you",
-          "start": 18.93,
-          "end": 19.05
-        },
-        {
-          "id": "w50",
-          "text": "belong",
-          "start": 19.07,
-          "end": 19.39
-        },
-        {
-          "id": "w51",
-          "text": "to.",
-          "start": 19.4,
-          "end": 19.61
+          "start": 5.675,
+          "end": 6.275
         }
       ]
     },
     {
-      "id": "sponsors",
-      "path": "assets/voice/sponsors.wav",
-      "duration_s": 18.805,
+      "id": "b06",
+      "path": "assets/voice/b06.wav",
+      "duration_s": 7.04,
+      "words": [
+        {
+          "id": "w0",
+          "text": "They",
+          "start": 0.12,
+          "end": 0.24
+        },
+        {
+          "id": "w1",
+          "text": "help",
+          "start": 0.28,
+          "end": 0.44
+        },
+        {
+          "id": "w2",
+          "text": "you",
+          "start": 0.48,
+          "end": 0.559
+        },
+        {
+          "id": "w3",
+          "text": "understand",
+          "start": 0.6,
+          "end": 1.06
+        },
+        {
+          "id": "w4",
+          "text": "what's",
+          "start": 1.08,
+          "end": 1.26
+        },
+        {
+          "id": "w5",
+          "text": "happening",
+          "start": 1.3,
+          "end": 1.7
+        },
+        {
+          "id": "w6",
+          "text": "on",
+          "start": 1.74,
+          "end": 1.8
+        },
+        {
+          "id": "w7",
+          "text": "the",
+          "start": 1.84,
+          "end": 1.89
+        },
+        {
+          "id": "w8",
+          "text": "ground,",
+          "start": 1.96,
+          "end": 2.34
+        },
+        {
+          "id": "w9",
+          "text": "compare",
+          "start": 2.78,
+          "end": 3.14
+        },
+        {
+          "id": "w10",
+          "text": "experiences,",
+          "start": 3.2,
+          "end": 4.0
+        },
+        {
+          "id": "w11",
+          "text": "and",
+          "start": 4.44,
+          "end": 4.55
+        },
+        {
+          "id": "w12",
+          "text": "build",
+          "start": 4.66,
+          "end": 4.86
+        },
+        {
+          "id": "w13",
+          "text": "community",
+          "start": 4.96,
+          "end": 5.42
+        },
+        {
+          "id": "w14",
+          "text": "as",
+          "start": 5.68,
+          "end": 5.79
+        },
+        {
+          "id": "w15",
+          "text": "you",
+          "start": 5.86,
+          "end": 5.96
+        },
+        {
+          "id": "w16",
+          "text": "shift",
+          "start": 6.02,
+          "end": 6.34
+        },
+        {
+          "id": "w17",
+          "text": "direction.",
+          "start": 6.36,
+          "end": 6.9
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "path": "assets/voice/b07.wav",
+      "duration_s": 6.18,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Think",
+          "start": 0.14,
+          "end": 0.3
+        },
+        {
+          "id": "w1",
+          "text": "of",
+          "start": 0.36,
+          "end": 0.44
+        },
+        {
+          "id": "w2",
+          "text": "colleagues",
+          "start": 0.5,
+          "end": 0.82
+        },
+        {
+          "id": "w3",
+          "text": "in",
+          "start": 0.86,
+          "end": 0.94
+        },
+        {
+          "id": "w4",
+          "text": "your",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "id": "w5",
+          "text": "department,",
+          "start": 1.06,
+          "end": 1.55
+        },
+        {
+          "id": "w6",
+          "text": "practitioners",
+          "start": 1.9,
+          "end": 2.46
+        },
+        {
+          "id": "w7",
+          "text": "in",
+          "start": 2.48,
+          "end": 2.54
+        },
+        {
+          "id": "w8",
+          "text": "your",
+          "start": 2.58,
+          "end": 2.65
+        },
+        {
+          "id": "w9",
+          "text": "future",
+          "start": 2.72,
+          "end": 2.96
+        },
+        {
+          "id": "w10",
+          "text": "field,",
+          "start": 3.06,
+          "end": 3.34
+        },
+        {
+          "id": "w11",
+          "text": "and",
+          "start": 3.74,
+          "end": 3.83
+        },
+        {
+          "id": "w12",
+          "text": "members",
+          "start": 3.88,
+          "end": 4.18
+        },
+        {
+          "id": "w13",
+          "text": "of",
+          "start": 4.22,
+          "end": 4.27
+        },
+        {
+          "id": "w14",
+          "text": "the",
+          "start": 4.32,
+          "end": 4.349
+        },
+        {
+          "id": "w15",
+          "text": "professional",
+          "start": 4.42,
+          "end": 4.86
+        },
+        {
+          "id": "w16",
+          "text": "communities",
+          "start": 4.92,
+          "end": 5.389
+        },
+        {
+          "id": "w17",
+          "text": "you",
+          "start": 5.4,
+          "end": 5.52
+        },
+        {
+          "id": "w18",
+          "text": "belong",
+          "start": 5.54,
+          "end": 5.86
+        },
+        {
+          "id": "w19",
+          "text": "to.",
+          "start": 5.87,
+          "end": 6.08
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "path": "assets/voice/b08.wav",
+      "duration_s": 5.35,
       "words": [
         {
           "id": "w0",
           "text": "Sponsors",
-          "start": 0.15,
-          "end": 0.57
+          "start": 0.1,
+          "end": 0.52
         },
         {
           "id": "w1",
           "text": "are",
+          "start": 0.56,
+          "end": 0.66
+        },
+        {
+          "id": "w2",
+          "text": "more",
+          "start": 0.72,
+          "end": 0.94
+        },
+        {
+          "id": "w3",
+          "text": "senior",
+          "start": 1.0,
+          "end": 1.34
+        },
+        {
+          "id": "w4",
+          "text": "leaders",
+          "start": 1.4,
+          "end": 1.74
+        },
+        {
+          "id": "w5",
+          "text": "who",
+          "start": 1.8,
+          "end": 1.9
+        },
+        {
+          "id": "w6",
+          "text": "don't",
+          "start": 1.94,
+          "end": 2.13
+        },
+        {
+          "id": "w7",
+          "text": "just",
+          "start": 2.18,
+          "end": 2.3
+        },
+        {
+          "id": "w8",
+          "text": "advise",
+          "start": 2.36,
+          "end": 2.8
+        },
+        {
+          "id": "w9",
+          "text": "you\u2014they",
+          "start": 2.88,
+          "end": 3.32
+        },
+        {
+          "id": "w10",
+          "text": "actively",
+          "start": 3.42,
+          "end": 3.929
+        },
+        {
+          "id": "w11",
+          "text": "advocate",
+          "start": 4.0,
+          "end": 4.5
+        },
+        {
+          "id": "w12",
+          "text": "for",
+          "start": 4.54,
+          "end": 4.72
+        },
+        {
+          "id": "w13",
+          "text": "you.",
+          "start": 4.76,
+          "end": 5.32
+        }
+      ]
+    },
+    {
+      "id": "b09",
+      "path": "assets/voice/b09.wav",
+      "duration_s": 3.59,
+      "words": [
+        {
+          "id": "w0",
+          "text": "They",
+          "start": 0.03,
+          "end": 0.15
+        },
+        {
+          "id": "w1",
+          "text": "put",
+          "start": 0.19,
+          "end": 0.35
+        },
+        {
+          "id": "w2",
+          "text": "your",
+          "start": 0.39,
+          "end": 0.49
+        },
+        {
+          "id": "w3",
+          "text": "name",
+          "start": 0.51,
+          "end": 0.73
+        },
+        {
+          "id": "w4",
+          "text": "forward",
+          "start": 0.79,
+          "end": 1.15
+        },
+        {
+          "id": "w5",
+          "text": "for",
+          "start": 1.19,
+          "end": 1.37
+        },
+        {
+          "id": "w6",
+          "text": "roles,",
+          "start": 1.41,
+          "end": 1.76
+        },
+        {
+          "id": "w7",
+          "text": "projects,",
+          "start": 1.97,
+          "end": 2.42
+        },
+        {
+          "id": "w8",
+          "text": "and",
+          "start": 2.61,
+          "end": 2.74
+        },
+        {
+          "id": "w9",
+          "text": "committees.",
+          "start": 2.77,
+          "end": 3.53
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "path": "assets/voice/b10.wav",
+      "duration_s": 9.748,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Sponsorship",
+          "start": 0.06,
+          "end": 0.64
+        },
+        {
+          "id": "w1",
+          "text": "is",
+          "start": 0.65,
+          "end": 0.74
+        },
+        {
+          "id": "w2",
+          "text": "especially",
+          "start": 0.78,
+          "end": 1.34
+        },
+        {
+          "id": "w3",
+          "text": "critical",
+          "start": 1.38,
+          "end": 1.8
+        },
+        {
+          "id": "w4",
+          "text": "for",
+          "start": 1.809,
+          "end": 1.97
+        },
+        {
+          "id": "w5",
+          "text": "mid-career",
+          "start": 2.02,
+          "end": 2.52
+        },
+        {
+          "id": "w6",
+          "text": "advancement",
+          "start": 2.54,
+          "end": 3.08
+        },
+        {
+          "id": "w7",
+          "text": "and",
+          "start": 3.1,
+          "end": 3.24
+        },
+        {
+          "id": "w8",
+          "text": "career",
+          "start": 3.28,
+          "end": 3.58
+        },
+        {
+          "id": "w9",
+          "text": "pivots,",
+          "start": 3.6,
+          "end": 3.93
+        },
+        {
+          "id": "w10",
+          "text": "because",
+          "start": 4.28,
+          "end": 4.47
+        },
+        {
+          "id": "w11",
+          "text": "sponsors",
+          "start": 4.5,
+          "end": 4.91
+        },
+        {
+          "id": "w12",
+          "text": "often",
+          "start": 4.96,
+          "end": 5.23
+        },
+        {
+          "id": "w13",
+          "text": "sit",
+          "start": 5.26,
+          "end": 5.46
+        },
+        {
+          "id": "w14",
+          "text": "right",
+          "start": 5.5,
+          "end": 5.73
+        },
+        {
+          "id": "w15",
+          "text": "where",
+          "start": 5.74,
+          "end": 5.86
+        },
+        {
+          "id": "w16",
+          "text": "decisions",
+          "start": 5.88,
+          "end": 6.36
+        },
+        {
+          "id": "w17",
+          "text": "get",
+          "start": 6.4,
+          "end": 6.55
+        },
+        {
+          "id": "w18",
+          "text": "made\u2014the",
+          "start": 6.58,
+          "end": 6.96
+        },
+        {
+          "id": "w19",
+          "text": "promotions,",
+          "start": 6.98,
+          "end": 7.8
+        },
+        {
+          "id": "w20",
+          "text": "the",
+          "start": 7.84,
+          "end": 7.92
+        },
+        {
+          "id": "w21",
+          "text": "project",
+          "start": 7.94,
+          "end": 8.32
+        },
+        {
+          "id": "w22",
+          "text": "leads,",
+          "start": 8.36,
+          "end": 8.89
+        },
+        {
+          "id": "w23",
+          "text": "the",
+          "start": 8.9,
+          "end": 8.989
+        },
+        {
+          "id": "w24",
+          "text": "committee",
+          "start": 9.0,
+          "end": 9.34
+        },
+        {
+          "id": "w25",
+          "text": "seats.",
+          "start": 9.38,
+          "end": 9.68
+        }
+      ]
+    },
+    {
+      "id": "b11",
+      "path": "assets/voice/b11.wav",
+      "duration_s": 6.332,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Opportunity",
+          "start": 0.068,
+          "end": 0.693
+        },
+        {
+          "id": "w1",
+          "text": "holders",
+          "start": 0.733,
+          "end": 1.113
+        },
+        {
+          "id": "w2",
+          "text": "are",
+          "start": 1.153,
+          "end": 1.273
+        },
+        {
+          "id": "w3",
+          "text": "people",
+          "start": 1.313,
+          "end": 1.603
+        },
+        {
+          "id": "w4",
+          "text": "who",
+          "start": 1.633,
+          "end": 1.733
+        },
+        {
+          "id": "w5",
+          "text": "control",
+          "start": 1.773,
+          "end": 2.353
+        },
+        {
+          "id": "w6",
+          "text": "or",
+          "start": 2.373,
+          "end": 2.523
+        },
+        {
+          "id": "w7",
+          "text": "influence",
+          "start": 2.573,
+          "end": 3.053
+        },
+        {
+          "id": "w8",
+          "text": "roles,",
+          "start": 3.173,
+          "end": 3.553
+        },
+        {
+          "id": "w9",
+          "text": "projects,",
+          "start": 3.993,
+          "end": 4.543
+        },
+        {
+          "id": "w10",
+          "text": "and",
+          "start": 4.892,
+          "end": 5.023
+        },
+        {
+          "id": "w11",
+          "text": "hiring",
+          "start": 5.073,
+          "end": 5.502
+        },
+        {
+          "id": "w12",
+          "text": "decisions.",
+          "start": 5.513,
+          "end": 6.312
+        }
+      ]
+    },
+    {
+      "id": "b12",
+      "path": "assets/voice/b12.wav",
+      "duration_s": 8.48,
+      "words": [
+        {
+          "id": "w0",
+          "text": "This",
+          "start": 0.02,
+          "end": 0.17
+        },
+        {
+          "id": "w1",
+          "text": "might",
+          "start": 0.2,
+          "end": 0.37
+        },
+        {
+          "id": "w2",
+          "text": "be",
+          "start": 0.4,
+          "end": 0.52
+        },
+        {
+          "id": "w3",
+          "text": "hiring",
+          "start": 0.54,
+          "end": 0.9
+        },
+        {
+          "id": "w4",
+          "text": "managers,",
+          "start": 0.94,
+          "end": 1.51
+        },
+        {
+          "id": "w5",
+          "text": "program",
+          "start": 1.86,
+          "end": 2.26
+        },
+        {
+          "id": "w6",
+          "text": "directors,",
+          "start": 2.28,
+          "end": 2.84
+        },
+        {
+          "id": "w7",
+          "text": "deans,",
+          "start": 3.24,
+          "end": 3.65
+        },
+        {
+          "id": "w8",
+          "text": "HR",
+          "start": 4.02,
+          "end": 4.48
+        },
+        {
+          "id": "w9",
+          "text": "or",
+          "start": 4.54,
+          "end": 4.64
+        },
+        {
+          "id": "w10",
+          "text": "talent",
+          "start": 4.7,
+          "end": 4.96
+        },
+        {
+          "id": "w11",
+          "text": "partners,",
+          "start": 5.04,
+          "end": 5.5
+        },
+        {
+          "id": "w12",
+          "text": "or",
+          "start": 5.92,
+          "end": 6.0
+        },
+        {
+          "id": "w13",
+          "text": "leaders",
+          "start": 6.1,
+          "end": 6.48
+        },
+        {
+          "id": "w14",
+          "text": "in",
+          "start": 6.54,
+          "end": 6.62
+        },
+        {
+          "id": "w15",
+          "text": "organizations",
+          "start": 6.72,
+          "end": 7.43
+        },
+        {
+          "id": "w16",
+          "text": "you'd",
+          "start": 7.48,
+          "end": 7.59
+        },
+        {
+          "id": "w17",
+          "text": "like",
+          "start": 7.64,
+          "end": 7.78
+        },
+        {
+          "id": "w18",
+          "text": "to",
+          "start": 7.82,
+          "end": 7.86
+        },
+        {
+          "id": "w19",
+          "text": "join.",
+          "start": 7.96,
+          "end": 8.28
+        }
+      ]
+    },
+    {
+      "id": "b13",
+      "path": "assets/voice/b13.wav",
+      "duration_s": 4.71,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Even",
+          "start": 0.2,
+          "end": 0.36
+        },
+        {
+          "id": "w1",
+          "text": "if",
+          "start": 0.4,
+          "end": 0.54
+        },
+        {
+          "id": "w2",
+          "text": "they",
+          "start": 0.58,
+          "end": 0.67
+        },
+        {
+          "id": "w3",
+          "text": "don't",
+          "start": 0.76,
+          "end": 0.96
+        },
+        {
+          "id": "w4",
+          "text": "know",
+          "start": 0.98,
+          "end": 1.1
+        },
+        {
+          "id": "w5",
+          "text": "you",
+          "start": 1.22,
+          "end": 1.3
+        },
+        {
+          "id": "w6",
+          "text": "yet,",
+          "start": 1.4,
+          "end": 1.72
+        },
+        {
+          "id": "w7",
+          "text": "they",
+          "start": 2.22,
+          "end": 2.36
+        },
+        {
+          "id": "w8",
+          "text": "are",
+          "start": 2.46,
+          "end": 2.62
+        },
+        {
+          "id": "w9",
+          "text": "key",
+          "start": 2.76,
+          "end": 2.94
+        },
+        {
+          "id": "w10",
+          "text": "nodes",
+          "start": 3.08,
+          "end": 3.5
+        },
+        {
+          "id": "w11",
+          "text": "for",
+          "start": 3.64,
+          "end": 3.73
+        },
+        {
+          "id": "w12",
+          "text": "your",
+          "start": 3.78,
+          "end": 3.87
+        },
+        {
+          "id": "w13",
+          "text": "future",
+          "start": 3.96,
+          "end": 4.24
+        },
+        {
+          "id": "w14",
+          "text": "path.",
+          "start": 4.34,
+          "end": 4.71
+        }
+      ]
+    },
+    {
+      "id": "b14",
+      "path": "assets/voice/b14.wav",
+      "duration_s": 6.27,
+      "words": [
+        {
+          "id": "w0",
+          "text": "When",
+          "start": 0.0,
+          "end": 0.08
+        },
+        {
+          "id": "w1",
+          "text": "you're",
+          "start": 0.11,
+          "end": 0.2
+        },
+        {
+          "id": "w2",
+          "text": "pivoting",
+          "start": 0.31,
+          "end": 0.67
+        },
+        {
+          "id": "w3",
+          "text": "into",
+          "start": 0.69,
+          "end": 0.95
+        },
+        {
+          "id": "w4",
+          "text": "a",
+          "start": 0.96,
+          "end": 1.01
+        },
+        {
+          "id": "w5",
+          "text": "new",
+          "start": 1.11,
+          "end": 1.23
+        },
+        {
+          "id": "w6",
+          "text": "field",
+          "start": 1.37,
+          "end": 1.79
+        },
+        {
+          "id": "w7",
+          "text": "or",
+          "start": 1.91,
+          "end": 1.99
+        },
+        {
+          "id": "w8",
+          "text": "aiming",
+          "start": 2.17,
+          "end": 2.45
+        },
+        {
+          "id": "w9",
+          "text": "for",
+          "start": 2.57,
+          "end": 2.67
+        },
+        {
+          "id": "w10",
+          "text": "a",
+          "start": 2.75,
+          "end": 2.76
+        },
+        {
+          "id": "w11",
+          "text": "higher-level",
+          "start": 2.87,
+          "end": 3.41
+        },
+        {
+          "id": "w12",
+          "text": "role,",
+          "start": 3.51,
+          "end": 3.79
+        },
+        {
+          "id": "w13",
+          "text": "your",
+          "start": 4.25,
+          "end": 4.39
+        },
+        {
+          "id": "w14",
+          "text": "goal",
+          "start": 4.45,
+          "end": 4.73
+        },
+        {
+          "id": "w15",
+          "text": "is",
+          "start": 4.81,
+          "end": 4.93
+        },
+        {
+          "id": "w16",
+          "text": "not",
+          "start": 4.99,
+          "end": 5.19
+        },
+        {
+          "id": "w17",
+          "text": "to",
+          "start": 5.23,
+          "end": 5.33
+        },
+        {
+          "id": "w18",
+          "text": "meet",
+          "start": 5.37,
+          "end": 5.52
+        },
+        {
+          "id": "w19",
+          "text": "everyone.",
+          "start": 5.65,
+          "end": 6.05
+        }
+      ]
+    },
+    {
+      "id": "b15",
+      "path": "assets/voice/b15.wav",
+      "duration_s": 6.44,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Your",
+          "start": 0.22,
+          "end": 0.38
+        },
+        {
+          "id": "w1",
+          "text": "goal",
+          "start": 0.42,
+          "end": 0.68
+        },
+        {
+          "id": "w2",
+          "text": "is",
+          "start": 0.74,
+          "end": 0.82
+        },
+        {
+          "id": "w3",
+          "text": "to",
+          "start": 0.86,
+          "end": 0.94
+        },
+        {
+          "id": "w4",
+          "text": "identify",
+          "start": 1.0,
+          "end": 1.56
+        },
+        {
+          "id": "w5",
+          "text": "a",
+          "start": 1.62,
+          "end": 1.74
+        },
+        {
+          "id": "w6",
+          "text": "small,",
+          "start": 1.82,
+          "end": 2.26
+        },
+        {
+          "id": "w7",
+          "text": "strategic",
+          "start": 2.6,
+          "end": 3.2
+        },
+        {
+          "id": "w8",
+          "text": "map",
+          "start": 3.3,
+          "end": 3.54
+        },
+        {
+          "id": "w9",
+          "text": "of",
+          "start": 3.6,
+          "end": 3.66
+        },
+        {
+          "id": "w10",
+          "text": "the",
+          "start": 3.7,
+          "end": 3.8
+        },
+        {
+          "id": "w11",
+          "text": "people",
+          "start": 3.84,
+          "end": 4.1
+        },
+        {
+          "id": "w12",
+          "text": "who",
+          "start": 4.14,
+          "end": 4.22
+        },
+        {
+          "id": "w13",
+          "text": "are",
+          "start": 4.26,
+          "end": 4.4
+        },
+        {
+          "id": "w14",
+          "text": "most",
+          "start": 4.48,
+          "end": 4.76
+        },
+        {
+          "id": "w15",
+          "text": "relevant",
+          "start": 4.82,
+          "end": 5.18
+        },
+        {
+          "id": "w16",
+          "text": "to",
+          "start": 5.19,
+          "end": 5.28
+        },
+        {
+          "id": "w17",
+          "text": "the",
+          "start": 5.32,
+          "end": 5.37
+        },
+        {
+          "id": "w18",
+          "text": "future",
+          "start": 5.48,
+          "end": 5.82
+        },
+        {
+          "id": "w19",
+          "text": "you're",
+          "start": 5.84,
+          "end": 6.01
+        },
+        {
+          "id": "w20",
+          "text": "building.",
+          "start": 6.02,
+          "end": 6.34
+        }
+      ]
+    },
+    {
+      "id": "b16",
+      "path": "assets/voice/b16.wav",
+      "duration_s": 1.585,
+      "words": [
+        {
+          "id": "w0",
+          "text": "So",
+          "start": 0.1,
+          "end": 0.18
+        },
+        {
+          "id": "w1",
+          "text": "how",
+          "start": 0.3,
+          "end": 0.42
+        },
+        {
+          "id": "w2",
+          "text": "do",
+          "start": 0.46,
+          "end": 0.5
+        },
+        {
+          "id": "w3",
+          "text": "you",
+          "start": 0.56,
+          "end": 0.68
+        },
+        {
+          "id": "w4",
+          "text": "find",
+          "start": 0.74,
+          "end": 0.96
+        },
+        {
+          "id": "w5",
+          "text": "these",
+          "start": 1.0,
+          "end": 1.13
+        },
+        {
+          "id": "w6",
+          "text": "people?",
+          "start": 1.22,
+          "end": 1.52
+        }
+      ]
+    },
+    {
+      "id": "b17",
+      "path": "assets/voice/b17.wav",
+      "duration_s": 4.195,
+      "words": [
+        {
+          "id": "w0",
+          "text": "First,",
+          "start": 0.065,
+          "end": 0.375
+        },
+        {
+          "id": "w1",
+          "text": "start",
+          "start": 0.695,
+          "end": 0.935
+        },
+        {
+          "id": "w2",
+          "text": "with",
+          "start": 0.955,
+          "end": 1.055
+        },
+        {
+          "id": "w3",
+          "text": "your",
+          "start": 1.095,
+          "end": 1.175
+        },
+        {
+          "id": "w4",
+          "text": "existing",
+          "start": 1.195,
+          "end": 1.625
+        },
+        {
+          "id": "w5",
+          "text": "connections:",
+          "start": 1.695,
+          "end": 2.225
+        },
+        {
+          "id": "w6",
+          "text": "Current",
+          "start": 2.575,
+          "end": 2.875
+        },
+        {
+          "id": "w7",
+          "text": "and",
+          "start": 3.015,
+          "end": 3.105
+        },
+        {
+          "id": "w8",
+          "text": "former",
+          "start": 3.215,
+          "end": 3.445
+        },
+        {
+          "id": "w9",
+          "text": "colleagues",
+          "start": 3.555,
+          "end": 4.015
+        }
+      ]
+    },
+    {
+      "id": "b18",
+      "path": "assets/voice/b18.wav",
+      "duration_s": 2.705,
+      "words": [
+        {
+          "id": "w0",
+          "text": "People",
+          "start": 0.18,
+          "end": 0.42
+        },
+        {
+          "id": "w1",
+          "text": "you've",
+          "start": 0.52,
+          "end": 0.66
+        },
+        {
+          "id": "w2",
+          "text": "worked",
+          "start": 0.7,
+          "end": 0.89
+        },
+        {
+          "id": "w3",
+          "text": "with",
+          "start": 0.96,
+          "end": 1.08
+        },
+        {
+          "id": "w4",
+          "text": "on",
+          "start": 1.12,
+          "end": 1.26
+        },
+        {
+          "id": "w5",
+          "text": "cross-functional",
+          "start": 1.32,
+          "end": 2.02
+        },
+        {
+          "id": "w6",
+          "text": "projects",
+          "start": 2.04,
+          "end": 2.51
+        }
+      ]
+    },
+    {
+      "id": "b19",
+      "path": "assets/voice/b19.wav",
+      "duration_s": 4.785,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Alumni",
+          "start": 0.195,
+          "end": 0.555
+        },
+        {
+          "id": "w1",
+          "text": "networks,",
+          "start": 0.635,
+          "end": 1.055
+        },
+        {
+          "id": "w2",
+          "text": "professional",
+          "start": 1.435,
+          "end": 1.925
+        },
+        {
+          "id": "w3",
+          "text": "associations,",
+          "start": 1.955,
+          "end": 2.815
+        },
+        {
+          "id": "w4",
+          "text": "or",
+          "start": 3.155,
+          "end": 3.275
+        },
+        {
+          "id": "w5",
+          "text": "communities",
+          "start": 3.315,
+          "end": 3.895
+        },
+        {
+          "id": "w6",
+          "text": "you're",
+          "start": 3.935,
+          "end": 4.065
+        },
+        {
+          "id": "w7",
+          "text": "part",
+          "start": 4.115,
+          "end": 4.315
+        },
+        {
+          "id": "w8",
+          "text": "of",
+          "start": 4.375,
+          "end": 4.535
+        }
+      ]
+    },
+    {
+      "id": "b20",
+      "path": "assets/voice/b20.wav",
+      "duration_s": 2.82,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Let",
+          "start": 0.25,
+          "end": 0.4
+        },
+        {
+          "id": "w1",
+          "text": "them",
+          "start": 0.43,
+          "end": 0.57
+        },
+        {
+          "id": "w2",
+          "text": "know",
+          "start": 0.67,
+          "end": 0.76
+        },
+        {
+          "id": "w3",
+          "text": "about",
+          "start": 0.83,
+          "end": 1.04
+        },
+        {
+          "id": "w4",
+          "text": "your",
+          "start": 1.05,
+          "end": 1.18
+        },
+        {
+          "id": "w5",
+          "text": "Next",
+          "start": 1.21,
+          "end": 1.47
+        },
+        {
+          "id": "w6",
+          "text": "Move",
+          "start": 1.51,
+          "end": 1.63
+        },
+        {
+          "id": "w7",
+          "text": "Statement",
+          "start": 1.75,
+          "end": 2.25
+        },
+        {
+          "id": "w8",
+          "text": "and",
+          "start": 2.27,
+          "end": 2.42
+        },
+        {
+          "id": "w9",
+          "text": "ask:",
+          "start": 2.53,
+          "end": 2.82
+        }
+      ]
+    },
+    {
+      "id": "b21",
+      "path": "assets/voice/b21.wav",
+      "duration_s": 6.17,
+      "words": [
+        {
+          "id": "w0",
+          "text": "\"Who",
+          "start": 0.0,
+          "end": 0.61
+        },
+        {
+          "id": "w1",
+          "text": "do",
+          "start": 0.63,
+          "end": 0.67
+        },
+        {
+          "id": "w2",
+          "text": "you",
+          "start": 0.75,
+          "end": 0.87
+        },
+        {
+          "id": "w3",
+          "text": "know",
+          "start": 0.91,
+          "end": 1.15
+        },
+        {
+          "id": "w4",
+          "text": "in",
+          "start": 1.19,
+          "end": 1.3
+        },
+        {
+          "id": "w5",
+          "text": "my",
+          "start": 1.31,
+          "end": 1.47
+        },
+        {
+          "id": "w6",
+          "text": "target",
+          "start": 1.49,
+          "end": 1.85
+        },
+        {
+          "id": "w7",
+          "text": "field",
+          "start": 1.93,
+          "end": 2.25
+        },
+        {
+          "id": "w8",
+          "text": "or",
+          "start": 2.31,
+          "end": 2.43
+        },
+        {
+          "id": "w9",
+          "text": "role",
+          "start": 2.51,
+          "end": 2.83
+        },
+        {
+          "id": "w10",
+          "text": "that",
+          "start": 3.15,
+          "end": 3.27
+        },
+        {
+          "id": "w11",
+          "text": "I",
+          "start": 3.33,
+          "end": 3.37
+        },
+        {
+          "id": "w12",
+          "text": "might",
+          "start": 3.41,
+          "end": 3.53
+        },
+        {
+          "id": "w13",
+          "text": "talk",
+          "start": 3.67,
+          "end": 3.87
+        },
+        {
+          "id": "w14",
+          "text": "to",
+          "start": 3.97,
+          "end": 4.07
+        },
+        {
+          "id": "w15",
+          "text": "for",
+          "start": 4.19,
+          "end": 4.29
+        },
+        {
+          "id": "w16",
+          "text": "a",
+          "start": 4.3,
+          "end": 4.39
+        },
+        {
+          "id": "w17",
+          "text": "twenty-minute",
+          "start": 4.43,
+          "end": 4.95
+        },
+        {
+          "id": "w18",
+          "text": "learning",
+          "start": 5.03,
+          "end": 5.27
+        },
+        {
+          "id": "w19",
+          "text": "conversation?\"",
+          "start": 5.37,
+          "end": 6.03
+        }
+      ]
+    },
+    {
+      "id": "b22",
+      "path": "assets/voice/b22.wav",
+      "duration_s": 6.13,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Second,",
+          "start": 0.14,
+          "end": 0.48
+        },
+        {
+          "id": "w1",
+          "text": "use",
+          "start": 0.98,
+          "end": 1.14
+        },
+        {
+          "id": "w2",
+          "text": "platforms",
+          "start": 1.22,
+          "end": 1.69
+        },
+        {
+          "id": "w3",
+          "text": "like",
+          "start": 1.74,
+          "end": 1.9
+        },
+        {
+          "id": "w4",
+          "text": "LinkedIn",
+          "start": 1.98,
+          "end": 2.5
+        },
+        {
+          "id": "w5",
+          "text": "and",
+          "start": 2.52,
+          "end": 2.61
+        },
+        {
+          "id": "w6",
+          "text": "professional",
+          "start": 2.66,
+          "end": 3.13
+        },
+        {
+          "id": "w7",
+          "text": "groups",
+          "start": 3.22,
+          "end": 3.8
+        },
+        {
+          "id": "w8",
+          "text": "to",
+          "start": 3.86,
+          "end": 3.96
+        },
+        {
+          "id": "w9",
+          "text": "search",
+          "start": 4.02,
+          "end": 4.3
+        },
+        {
+          "id": "w10",
+          "text": "directly",
+          "start": 4.34,
+          "end": 4.84
+        },
+        {
+          "id": "w11",
+          "text": "in",
+          "start": 4.88,
+          "end": 4.96
+        },
+        {
+          "id": "w12",
+          "text": "your",
+          "start": 5.0,
+          "end": 5.14
+        },
+        {
+          "id": "w13",
+          "text": "future",
+          "start": 5.16,
+          "end": 5.46
+        },
+        {
+          "id": "w14",
+          "text": "field:",
+          "start": 5.56,
+          "end": 5.88
+        }
+      ]
+    },
+    {
+      "id": "b23",
+      "path": "assets/voice/b23.wav",
+      "duration_s": 5.34,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Search",
+          "start": 0.25,
+          "end": 0.59
+        },
+        {
+          "id": "w1",
+          "text": "by",
+          "start": 0.63,
+          "end": 0.81
+        },
+        {
+          "id": "w2",
+          "text": "title,",
+          "start": 0.87,
+          "end": 1.19
+        },
+        {
+          "id": "w3",
+          "text": "skills,",
+          "start": 1.69,
+          "end": 2.22
+        },
+        {
+          "id": "w4",
+          "text": "or",
+          "start": 2.72,
+          "end": 3.1
+        },
+        {
+          "id": "w5",
+          "text": "keywords",
+          "start": 3.16,
+          "end": 3.699
+        },
+        {
+          "id": "w6",
+          "text": "connected",
+          "start": 3.74,
+          "end": 4.12
+        },
+        {
+          "id": "w7",
+          "text": "to",
+          "start": 4.13,
+          "end": 4.22
+        },
+        {
+          "id": "w8",
+          "text": "your",
+          "start": 4.259,
+          "end": 4.38
+        },
+        {
+          "id": "w9",
+          "text": "target",
+          "start": 4.42,
+          "end": 4.759
+        },
+        {
+          "id": "w10",
+          "text": "roles",
+          "start": 4.78,
+          "end": 5.12
+        }
+      ]
+    },
+    {
+      "id": "b24",
+      "path": "assets/voice/b24.wav",
+      "duration_s": 3.455,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Look",
+          "start": 0.22,
+          "end": 0.4
+        },
+        {
+          "id": "w1",
+          "text": "for",
+          "start": 0.419,
+          "end": 0.56
+        },
+        {
+          "id": "w2",
+          "text": "people",
+          "start": 0.6,
+          "end": 0.949
+        },
+        {
+          "id": "w3",
+          "text": "in",
+          "start": 0.96,
+          "end": 1.109
+        },
+        {
+          "id": "w4",
+          "text": "organizations",
+          "start": 1.139,
+          "end": 1.96
+        },
+        {
+          "id": "w5",
+          "text": "or",
+          "start": 1.98,
+          "end": 2.13
+        },
+        {
+          "id": "w6",
+          "text": "teams",
+          "start": 2.18,
+          "end": 2.54
+        },
+        {
+          "id": "w7",
+          "text": "you'd",
+          "start": 2.58,
+          "end": 2.68
+        },
+        {
+          "id": "w8",
+          "text": "like",
+          "start": 2.72,
+          "end": 2.88
+        },
+        {
+          "id": "w9",
+          "text": "to",
+          "start": 2.92,
+          "end": 3.04
+        },
+        {
+          "id": "w10",
+          "text": "join",
+          "start": 3.08,
+          "end": 3.34
+        }
+      ]
+    },
+    {
+      "id": "b25",
+      "path": "assets/voice/b25.wav",
+      "duration_s": 4.795,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Third,",
+          "start": 0.115,
+          "end": 0.405
+        },
+        {
+          "id": "w1",
+          "text": "identify",
+          "start": 0.745,
+          "end": 1.254
+        },
+        {
+          "id": "w2",
+          "text": "potential",
+          "start": 1.345,
+          "end": 1.775
+        },
+        {
+          "id": "w3",
+          "text": "sponsors",
+          "start": 1.865,
+          "end": 2.485
+        },
+        {
+          "id": "w4",
+          "text": "in",
+          "start": 2.505,
+          "end": 2.605
+        },
+        {
+          "id": "w5",
+          "text": "your",
+          "start": 2.645,
+          "end": 2.745
+        },
+        {
+          "id": "w6",
+          "text": "current",
+          "start": 2.805,
+          "end": 3.085
+        },
+        {
+          "id": "w7",
+          "text": "organization",
+          "start": 3.125,
+          "end": 3.955
+        },
+        {
+          "id": "w8",
+          "text": "or",
+          "start": 3.965,
+          "end": 4.085
+        },
+        {
+          "id": "w9",
+          "text": "a",
+          "start": 4.145,
+          "end": 4.155
+        },
+        {
+          "id": "w10",
+          "text": "new",
+          "start": 4.245,
+          "end": 4.405
+        },
+        {
+          "id": "w11",
+          "text": "one:",
+          "start": 4.485,
+          "end": 4.625
+        }
+      ]
+    },
+    {
+      "id": "b26",
+      "path": "assets/voice/b26.wav",
+      "duration_s": 5.36,
+      "words": [
+        {
+          "id": "w0",
+          "text": "People",
+          "start": 0.17,
+          "end": 0.53
+        },
+        {
+          "id": "w1",
+          "text": "one",
+          "start": 0.63,
+          "end": 0.75
+        },
+        {
+          "id": "w2",
+          "text": "to",
+          "start": 0.76,
+          "end": 0.89
+        },
+        {
+          "id": "w3",
+          "text": "three",
+          "start": 0.95,
+          "end": 1.09
+        },
+        {
+          "id": "w4",
+          "text": "levels",
+          "start": 1.19,
+          "end": 1.51
+        },
+        {
+          "id": "w5",
+          "text": "above",
+          "start": 1.57,
+          "end": 1.87
+        },
+        {
+          "id": "w6",
+          "text": "you",
+          "start": 1.89,
+          "end": 1.99
+        },
+        {
+          "id": "w7",
+          "text": "who",
+          "start": 2.05,
+          "end": 2.13
+        },
+        {
+          "id": "w8",
+          "text": "appreciate",
+          "start": 2.17,
+          "end": 2.73
+        },
+        {
+          "id": "w9",
+          "text": "your",
+          "start": 2.77,
+          "end": 2.93
+        },
+        {
+          "id": "w10",
+          "text": "work",
+          "start": 2.95,
+          "end": 3.179
+        },
+        {
+          "id": "w11",
+          "text": "or",
+          "start": 3.55,
+          "end": 3.679
+        },
+        {
+          "id": "w12",
+          "text": "seem",
+          "start": 3.69,
+          "end": 3.85
+        },
+        {
+          "id": "w13",
+          "text": "aligned",
+          "start": 3.91,
+          "end": 4.28
+        },
+        {
+          "id": "w14",
+          "text": "with",
+          "start": 4.31,
+          "end": 4.44
+        },
+        {
+          "id": "w15",
+          "text": "your",
+          "start": 4.47,
+          "end": 4.58
+        },
+        {
+          "id": "w16",
+          "text": "direction",
+          "start": 4.59,
+          "end": 5.11
+        }
+      ]
+    },
+    {
+      "id": "b27",
+      "path": "assets/voice/b27.wav",
+      "duration_s": 2.98,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Leaders",
+          "start": 0.25,
+          "end": 0.57
+        },
+        {
+          "id": "w1",
+          "text": "who",
           "start": 0.61,
           "end": 0.71
         },
         {
           "id": "w2",
-          "text": "more",
-          "start": 0.77,
-          "end": 0.99
-        },
-        {
-          "id": "w3",
-          "text": "senior",
-          "start": 1.05,
-          "end": 1.39
-        },
-        {
-          "id": "w4",
-          "text": "leaders",
-          "start": 1.45,
-          "end": 1.79
-        },
-        {
-          "id": "w5",
-          "text": "who",
-          "start": 1.85,
-          "end": 1.95
-        },
-        {
-          "id": "w6",
-          "text": "don't",
-          "start": 1.99,
-          "end": 2.18
-        },
-        {
-          "id": "w7",
-          "text": "just",
-          "start": 2.23,
-          "end": 2.35
-        },
-        {
-          "id": "w8",
-          "text": "advise",
-          "start": 2.41,
-          "end": 2.85
-        },
-        {
-          "id": "w9",
-          "text": "you—they",
-          "start": 2.93,
-          "end": 3.37
-        },
-        {
-          "id": "w10",
-          "text": "actively",
-          "start": 3.47,
-          "end": 3.979
-        },
-        {
-          "id": "w11",
-          "text": "advocate",
-          "start": 4.05,
-          "end": 4.55
-        },
-        {
-          "id": "w12",
-          "text": "for",
-          "start": 4.59,
-          "end": 4.77
-        },
-        {
-          "id": "w13",
-          "text": "you.",
-          "start": 4.81,
-          "end": 5.37
-        },
-        {
-          "id": "w14",
-          "text": "They",
-          "start": 5.43,
-          "end": 5.55
-        },
-        {
-          "id": "w15",
-          "text": "put",
-          "start": 5.59,
-          "end": 5.75
-        },
-        {
-          "id": "w16",
-          "text": "your",
-          "start": 5.79,
-          "end": 5.89
-        },
-        {
-          "id": "w17",
-          "text": "name",
-          "start": 5.91,
-          "end": 6.13
-        },
-        {
-          "id": "w18",
-          "text": "forward",
-          "start": 6.19,
-          "end": 6.55
-        },
-        {
-          "id": "w19",
-          "text": "for",
-          "start": 6.59,
-          "end": 6.77
-        },
-        {
-          "id": "w20",
-          "text": "roles,",
-          "start": 6.81,
-          "end": 7.16
-        },
-        {
-          "id": "w21",
-          "text": "projects,",
-          "start": 7.37,
-          "end": 7.82
-        },
-        {
-          "id": "w22",
-          "text": "and",
-          "start": 8.01,
-          "end": 8.14
-        },
-        {
-          "id": "w23",
-          "text": "committees.",
-          "start": 8.17,
-          "end": 8.93
-        },
-        {
-          "id": "w24",
-          "text": "Sponsorship",
-          "start": 9.05,
-          "end": 9.63
-        },
-        {
-          "id": "w25",
-          "text": "is",
-          "start": 9.64,
-          "end": 9.73
-        },
-        {
-          "id": "w26",
-          "text": "especially",
-          "start": 9.77,
-          "end": 10.33
-        },
-        {
-          "id": "w27",
-          "text": "critical",
-          "start": 10.37,
-          "end": 10.79
-        },
-        {
-          "id": "w28",
-          "text": "for",
-          "start": 10.799,
-          "end": 10.96
-        },
-        {
-          "id": "w29",
-          "text": "mid-career",
-          "start": 11.01,
-          "end": 11.51
-        },
-        {
-          "id": "w30",
-          "text": "advancement",
-          "start": 11.53,
-          "end": 12.07
-        },
-        {
-          "id": "w31",
-          "text": "and",
-          "start": 12.09,
-          "end": 12.23
-        },
-        {
-          "id": "w32",
-          "text": "career",
-          "start": 12.27,
-          "end": 12.57
-        },
-        {
-          "id": "w33",
-          "text": "pivots,",
-          "start": 12.59,
-          "end": 12.92
-        },
-        {
-          "id": "w34",
-          "text": "because",
-          "start": 13.27,
-          "end": 13.46
-        },
-        {
-          "id": "w35",
-          "text": "sponsors",
-          "start": 13.49,
-          "end": 13.9
-        },
-        {
-          "id": "w36",
-          "text": "often",
-          "start": 13.95,
-          "end": 14.22
-        },
-        {
-          "id": "w37",
-          "text": "sit",
-          "start": 14.25,
-          "end": 14.45
-        },
-        {
-          "id": "w38",
-          "text": "right",
-          "start": 14.49,
-          "end": 14.72
-        },
-        {
-          "id": "w39",
-          "text": "where",
-          "start": 14.73,
-          "end": 14.85
-        },
-        {
-          "id": "w40",
-          "text": "decisions",
-          "start": 14.87,
-          "end": 15.35
-        },
-        {
-          "id": "w41",
-          "text": "get",
-          "start": 15.39,
-          "end": 15.54
-        },
-        {
-          "id": "w42",
-          "text": "made—the",
-          "start": 15.57,
-          "end": 15.95
-        },
-        {
-          "id": "w43",
-          "text": "promotions,",
-          "start": 15.97,
-          "end": 16.79
-        },
-        {
-          "id": "w44",
-          "text": "the",
-          "start": 16.83,
-          "end": 16.91
-        },
-        {
-          "id": "w45",
-          "text": "project",
-          "start": 16.93,
-          "end": 17.31
-        },
-        {
-          "id": "w46",
-          "text": "leads,",
-          "start": 17.35,
-          "end": 17.88
-        },
-        {
-          "id": "w47",
-          "text": "the",
-          "start": 17.89,
-          "end": 17.979
-        },
-        {
-          "id": "w48",
-          "text": "committee",
-          "start": 17.99,
-          "end": 18.33
-        },
-        {
-          "id": "w49",
-          "text": "seats.",
-          "start": 18.37,
-          "end": 18.67
-        }
-      ]
-    },
-    {
-      "id": "opportunity-holders",
-      "path": "assets/voice/opportunity-holders.wav",
-      "duration_s": 20.075,
-      "words": [
-        {
-          "id": "w0",
-          "text": "Opportunity",
-          "start": 0.135,
-          "end": 0.785
-        },
-        {
-          "id": "w1",
-          "text": "holders",
-          "start": 0.825,
-          "end": 1.205
-        },
-        {
-          "id": "w2",
           "text": "are",
-          "start": 1.245,
-          "end": 1.365
-        },
-        {
-          "id": "w3",
-          "text": "people",
-          "start": 1.405,
-          "end": 1.695
-        },
-        {
-          "id": "w4",
-          "text": "who",
-          "start": 1.725,
-          "end": 1.825
-        },
-        {
-          "id": "w5",
-          "text": "control",
-          "start": 1.865,
-          "end": 2.445
-        },
-        {
-          "id": "w6",
-          "text": "or",
-          "start": 2.465,
-          "end": 2.615
-        },
-        {
-          "id": "w7",
-          "text": "influence",
-          "start": 2.665,
-          "end": 3.145
-        },
-        {
-          "id": "w8",
-          "text": "roles,",
-          "start": 3.265,
-          "end": 3.645
-        },
-        {
-          "id": "w9",
-          "text": "projects,",
-          "start": 4.085,
-          "end": 4.635
-        },
-        {
-          "id": "w10",
-          "text": "and",
-          "start": 4.985,
-          "end": 5.115
-        },
-        {
-          "id": "w11",
-          "text": "hiring",
-          "start": 5.165,
-          "end": 5.595
-        },
-        {
-          "id": "w12",
-          "text": "decisions.",
-          "start": 5.605,
-          "end": 6.405
-        },
-        {
-          "id": "w13",
-          "text": "This",
-          "start": 6.445,
-          "end": 6.595
-        },
-        {
-          "id": "w14",
-          "text": "might",
-          "start": 6.625,
-          "end": 6.795
-        },
-        {
-          "id": "w15",
-          "text": "be",
-          "start": 6.825,
-          "end": 6.945
-        },
-        {
-          "id": "w16",
-          "text": "hiring",
-          "start": 6.965,
-          "end": 7.325
-        },
-        {
-          "id": "w17",
-          "text": "managers,",
-          "start": 7.365,
-          "end": 7.935
-        },
-        {
-          "id": "w18",
-          "text": "program",
-          "start": 8.285,
-          "end": 8.685
-        },
-        {
-          "id": "w19",
-          "text": "directors,",
-          "start": 8.705,
-          "end": 9.265
-        },
-        {
-          "id": "w20",
-          "text": "deans,",
-          "start": 9.665,
-          "end": 10.075
-        },
-        {
-          "id": "w21",
-          "text": "HR",
-          "start": 10.445,
-          "end": 10.905
-        },
-        {
-          "id": "w22",
-          "text": "or",
-          "start": 10.965,
-          "end": 11.065
-        },
-        {
-          "id": "w23",
-          "text": "talent",
-          "start": 11.125,
-          "end": 11.385
-        },
-        {
-          "id": "w24",
-          "text": "partners,",
-          "start": 11.465,
-          "end": 11.925
-        },
-        {
-          "id": "w25",
-          "text": "or",
-          "start": 12.345,
-          "end": 12.425
-        },
-        {
-          "id": "w26",
-          "text": "leaders",
-          "start": 12.525,
-          "end": 12.905
-        },
-        {
-          "id": "w27",
-          "text": "in",
-          "start": 12.965,
-          "end": 13.045
-        },
-        {
-          "id": "w28",
-          "text": "organizations",
-          "start": 13.145,
-          "end": 13.855
-        },
-        {
-          "id": "w29",
-          "text": "you'd",
-          "start": 13.905,
-          "end": 14.015
-        },
-        {
-          "id": "w30",
-          "text": "like",
-          "start": 14.065,
-          "end": 14.205
-        },
-        {
-          "id": "w31",
-          "text": "to",
-          "start": 14.245,
-          "end": 14.285
-        },
-        {
-          "id": "w32",
-          "text": "join.",
-          "start": 14.385,
-          "end": 14.705
-        },
-        {
-          "id": "w33",
-          "text": "Even",
-          "start": 15.105,
-          "end": 15.265
-        },
-        {
-          "id": "w34",
-          "text": "if",
-          "start": 15.305,
-          "end": 15.445
-        },
-        {
-          "id": "w35",
-          "text": "they",
-          "start": 15.485,
-          "end": 15.575
-        },
-        {
-          "id": "w36",
-          "text": "don't",
-          "start": 15.665,
-          "end": 15.865
-        },
-        {
-          "id": "w37",
-          "text": "know",
-          "start": 15.885,
-          "end": 16.005
-        },
-        {
-          "id": "w38",
-          "text": "you",
-          "start": 16.125,
-          "end": 16.205
-        },
-        {
-          "id": "w39",
-          "text": "yet,",
-          "start": 16.305,
-          "end": 16.625
-        },
-        {
-          "id": "w40",
-          "text": "they",
-          "start": 17.165,
-          "end": 17.305
-        },
-        {
-          "id": "w41",
-          "text": "are",
-          "start": 17.405,
-          "end": 17.565
-        },
-        {
-          "id": "w42",
-          "text": "key",
-          "start": 17.705,
-          "end": 17.885
-        },
-        {
-          "id": "w43",
-          "text": "nodes",
-          "start": 18.025,
-          "end": 18.445
-        },
-        {
-          "id": "w44",
-          "text": "for",
-          "start": 18.585,
-          "end": 18.675
-        },
-        {
-          "id": "w45",
-          "text": "your",
-          "start": 18.725,
-          "end": 18.815
-        },
-        {
-          "id": "w46",
-          "text": "future",
-          "start": 18.905,
-          "end": 19.185
-        },
-        {
-          "id": "w47",
-          "text": "path.",
-          "start": 19.285,
-          "end": 19.665
-        }
-      ]
-    },
-    {
-      "id": "strategic-map",
-      "path": "assets/voice/strategic-map.wav",
-      "duration_s": 13.27,
-      "words": [
-        {
-          "id": "w0",
-          "text": "When",
-          "start": 0.41,
-          "end": 0.52
-        },
-        {
-          "id": "w1",
-          "text": "you're",
-          "start": 0.55,
-          "end": 0.64
-        },
-        {
-          "id": "w2",
-          "text": "pivoting",
           "start": 0.75,
-          "end": 1.11
+          "end": 0.89
         },
         {
           "id": "w3",
-          "text": "into",
-          "start": 1.13,
-          "end": 1.39
+          "text": "visible",
+          "start": 0.95,
+          "end": 1.31
         },
         {
           "id": "w4",
-          "text": "a",
-          "start": 1.4,
-          "end": 1.45
+          "text": "in",
+          "start": 1.41,
+          "end": 1.5
         },
         {
           "id": "w5",
-          "text": "new",
-          "start": 1.55,
-          "end": 1.67
+          "text": "the",
+          "start": 1.51,
+          "end": 1.55
         },
         {
           "id": "w6",
-          "text": "field",
-          "start": 1.81,
-          "end": 2.23
+          "text": "spaces",
+          "start": 1.65,
+          "end": 2.07
         },
         {
           "id": "w7",
-          "text": "or",
-          "start": 2.35,
-          "end": 2.43
+          "text": "you",
+          "start": 2.11,
+          "end": 2.19
         },
         {
           "id": "w8",
-          "text": "aiming",
-          "start": 2.61,
-          "end": 2.89
+          "text": "want",
+          "start": 2.25,
+          "end": 2.39
         },
         {
           "id": "w9",
-          "text": "for",
-          "start": 3.01,
-          "end": 3.11
+          "text": "to",
+          "start": 2.41,
+          "end": 2.53
         },
         {
           "id": "w10",
-          "text": "a",
-          "start": 3.19,
-          "end": 3.2
-        },
-        {
-          "id": "w11",
-          "text": "higher-level",
-          "start": 3.31,
-          "end": 3.85
-        },
-        {
-          "id": "w12",
-          "text": "role,",
-          "start": 3.95,
-          "end": 4.23
-        },
-        {
-          "id": "w13",
-          "text": "your",
-          "start": 4.69,
-          "end": 4.83
-        },
-        {
-          "id": "w14",
-          "text": "goal",
-          "start": 4.89,
-          "end": 5.17
-        },
-        {
-          "id": "w15",
-          "text": "is",
-          "start": 5.25,
-          "end": 5.37
-        },
-        {
-          "id": "w16",
-          "text": "not",
-          "start": 5.43,
-          "end": 5.63
-        },
-        {
-          "id": "w17",
-          "text": "to",
-          "start": 5.67,
-          "end": 5.77
-        },
-        {
-          "id": "w18",
-          "text": "meet",
-          "start": 5.81,
-          "end": 5.96
-        },
-        {
-          "id": "w19",
-          "text": "everyone.",
-          "start": 6.09,
-          "end": 6.49
-        },
-        {
-          "id": "w20",
-          "text": "Your",
-          "start": 6.93,
-          "end": 7.09
-        },
-        {
-          "id": "w21",
-          "text": "goal",
-          "start": 7.13,
-          "end": 7.39
-        },
-        {
-          "id": "w22",
-          "text": "is",
-          "start": 7.45,
-          "end": 7.53
-        },
-        {
-          "id": "w23",
-          "text": "to",
-          "start": 7.57,
-          "end": 7.65
-        },
-        {
-          "id": "w24",
-          "text": "identify",
-          "start": 7.71,
-          "end": 8.27
-        },
-        {
-          "id": "w25",
-          "text": "a",
-          "start": 8.33,
-          "end": 8.45
-        },
-        {
-          "id": "w26",
-          "text": "small,",
-          "start": 8.53,
-          "end": 8.97
-        },
-        {
-          "id": "w27",
-          "text": "strategic",
-          "start": 9.31,
-          "end": 9.91
-        },
-        {
-          "id": "w28",
-          "text": "map",
-          "start": 10.01,
-          "end": 10.25
-        },
-        {
-          "id": "w29",
-          "text": "of",
-          "start": 10.31,
-          "end": 10.37
-        },
-        {
-          "id": "w30",
-          "text": "the",
-          "start": 10.41,
-          "end": 10.51
-        },
-        {
-          "id": "w31",
-          "text": "people",
-          "start": 10.55,
-          "end": 10.81
-        },
-        {
-          "id": "w32",
-          "text": "who",
-          "start": 10.85,
-          "end": 10.93
-        },
-        {
-          "id": "w33",
-          "text": "are",
-          "start": 10.97,
-          "end": 11.11
-        },
-        {
-          "id": "w34",
-          "text": "most",
-          "start": 11.19,
-          "end": 11.47
-        },
-        {
-          "id": "w35",
-          "text": "relevant",
-          "start": 11.53,
-          "end": 11.89
-        },
-        {
-          "id": "w36",
-          "text": "to",
-          "start": 11.9,
-          "end": 11.99
-        },
-        {
-          "id": "w37",
-          "text": "the",
-          "start": 12.03,
-          "end": 12.08
-        },
-        {
-          "id": "w38",
-          "text": "future",
-          "start": 12.19,
-          "end": 12.53
-        },
-        {
-          "id": "w39",
-          "text": "you're",
-          "start": 12.55,
-          "end": 12.72
-        },
-        {
-          "id": "w40",
-          "text": "building.",
-          "start": 12.73,
-          "end": 13.05
+          "text": "enter",
+          "start": 2.59,
+          "end": 2.91
         }
       ]
     },
     {
-      "id": "find-them",
-      "path": "assets/voice/find-them.wav",
-      "duration_s": 1.87,
+      "id": "b28",
+      "path": "assets/voice/b28.wav",
+      "duration_s": 9.764,
       "words": [
         {
           "id": "w0",
-          "text": "So",
-          "start": 0.22,
-          "end": 0.3
+          "text": "In",
+          "start": 0.07,
+          "end": 0.16
         },
         {
           "id": "w1",
-          "text": "how",
-          "start": 0.42,
-          "end": 0.54
+          "text": "this",
+          "start": 0.19,
+          "end": 0.37
         },
         {
           "id": "w2",
-          "text": "do",
-          "start": 0.58,
-          "end": 0.62
+          "text": "module's",
+          "start": 0.41,
+          "end": 0.76
         },
         {
           "id": "w3",
-          "text": "you",
-          "start": 0.68,
-          "end": 0.8
-        },
-        {
-          "id": "w4",
-          "text": "find",
-          "start": 0.86,
-          "end": 1.08
-        },
-        {
-          "id": "w5",
-          "text": "these",
-          "start": 1.12,
-          "end": 1.25
-        },
-        {
-          "id": "w6",
-          "text": "people?",
-          "start": 1.34,
-          "end": 1.64
-        }
-      ]
-    },
-    {
-      "id": "existing-connections",
-      "path": "assets/voice/existing-connections.wav",
-      "duration_s": 20.98,
-      "words": [
-        {
-          "id": "w0",
-          "text": "First,",
-          "start": 0.23,
-          "end": 0.55
-        },
-        {
-          "id": "w1",
-          "text": "start",
-          "start": 0.87,
-          "end": 1.11
-        },
-        {
-          "id": "w2",
-          "text": "with",
-          "start": 1.13,
-          "end": 1.23
-        },
-        {
-          "id": "w3",
-          "text": "your",
-          "start": 1.27,
+          "text": "activity,",
+          "start": 0.85,
           "end": 1.35
         },
         {
           "id": "w4",
-          "text": "existing",
-          "start": 1.37,
-          "end": 1.8
+          "text": "you'll",
+          "start": 1.69,
+          "end": 1.79
         },
         {
           "id": "w5",
-          "text": "connections:",
+          "text": "build",
           "start": 1.87,
-          "end": 2.4
+          "end": 2.05
         },
         {
           "id": "w6",
-          "text": "Current",
+          "text": "a",
+          "start": 2.11,
+          "end": 2.17
+        },
+        {
+          "id": "w7",
+          "text": "contact",
+          "start": 2.23,
+          "end": 2.69
+        },
+        {
+          "id": "w8",
+          "text": "map",
           "start": 2.75,
+          "end": 2.93
+        },
+        {
+          "id": "w9",
+          "text": "of",
+          "start": 2.97,
+          "end": 3.09
+        },
+        {
+          "id": "w10",
+          "text": "three",
+          "start": 3.13,
+          "end": 3.29
+        },
+        {
+          "id": "w11",
+          "text": "to",
+          "start": 3.33,
+          "end": 3.43
+        },
+        {
+          "id": "w12",
+          "text": "five",
+          "start": 3.47,
+          "end": 3.66
+        },
+        {
+          "id": "w13",
+          "text": "strategic",
+          "start": 3.73,
+          "end": 4.2
+        },
+        {
+          "id": "w14",
+          "text": "relationships\u2014peers,",
+          "start": 4.25,
+          "end": 5.48
+        },
+        {
+          "id": "w15",
+          "text": "sponsors,",
+          "start": 5.77,
+          "end": 6.67
+        },
+        {
+          "id": "w16",
+          "text": "and",
+          "start": 6.69,
+          "end": 6.79
+        },
+        {
+          "id": "w17",
+          "text": "opportunity",
+          "start": 6.85,
+          "end": 7.43
+        },
+        {
+          "id": "w18",
+          "text": "holders\u2014who",
+          "start": 7.47,
+          "end": 8.17
+        },
+        {
+          "id": "w19",
+          "text": "are",
+          "start": 8.18,
+          "end": 8.31
+        },
+        {
+          "id": "w20",
+          "text": "relevant",
+          "start": 8.35,
+          "end": 8.71
+        },
+        {
+          "id": "w21",
+          "text": "to",
+          "start": 8.719,
+          "end": 8.83
+        },
+        {
+          "id": "w22",
+          "text": "your",
+          "start": 8.85,
+          "end": 8.97
+        },
+        {
+          "id": "w23",
+          "text": "next",
+          "start": 9.03,
+          "end": 9.23
+        },
+        {
+          "id": "w24",
+          "text": "move,",
+          "start": 9.29,
+          "end": 9.559
+        }
+      ]
+    },
+    {
+      "id": "b29",
+      "path": "assets/voice/b29.wav",
+      "duration_s": 3.943,
+      "words": [
+        {
+          "id": "w0",
+          "text": "then",
+          "start": 0.206,
+          "end": 0.346
+        },
+        {
+          "id": "w1",
+          "text": "use",
+          "start": 0.446,
+          "end": 0.645
+        },
+        {
+          "id": "w2",
+          "text": "outreach",
+          "start": 0.706,
+          "end": 1.066
+        },
+        {
+          "id": "w3",
+          "text": "templates",
+          "start": 1.106,
+          "end": 1.506
+        },
+        {
+          "id": "w4",
+          "text": "and",
+          "start": 1.526,
+          "end": 1.696
+        },
+        {
+          "id": "w5",
+          "text": "AI",
+          "start": 1.746,
+          "end": 2.326
+        },
+        {
+          "id": "w6",
+          "text": "to",
+          "start": 2.365,
+          "end": 2.466
+        },
+        {
+          "id": "w7",
+          "text": "craft",
+          "start": 2.506,
+          "end": 2.826
+        },
+        {
+          "id": "w8",
+          "text": "authentic",
+          "start": 2.886,
+          "end": 3.326
+        },
+        {
+          "id": "w9",
+          "text": "messages.",
+          "start": 3.365,
+          "end": 3.876
+        }
+      ]
+    },
+    {
+      "id": "b30",
+      "path": "assets/voice/b30.wav",
+      "duration_s": 6.012,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Remember:",
+          "start": 0.067,
+          "end": 1.102
+        },
+        {
+          "id": "w1",
+          "text": "networking",
+          "start": 1.113,
+          "end": 1.743
+        },
+        {
+          "id": "w2",
+          "text": "is",
+          "start": 1.782,
+          "end": 1.952
+        },
+        {
+          "id": "w3",
+          "text": "not",
+          "start": 1.982,
+          "end": 2.151
+        },
+        {
+          "id": "w4",
+          "text": "about",
+          "start": 2.243,
+          "end": 2.352
+        },
+        {
+          "id": "w5",
+          "text": "collecting",
+          "start": 2.442,
+          "end": 2.882
+        },
+        {
+          "id": "w6",
+          "text": "business",
+          "start": 2.942,
+          "end": 3.243
+        },
+        {
+          "id": "w7",
+          "text": "cards",
+          "start": 3.282,
+          "end": 3.632
+        },
+        {
+          "id": "w8",
+          "text": "or",
+          "start": 4.132,
+          "end": 4.292
+        },
+        {
+          "id": "w9",
+          "text": "asking",
+          "start": 4.373,
+          "end": 4.653
+        },
+        {
+          "id": "w10",
+          "text": "for",
+          "start": 4.692,
+          "end": 4.812
+        },
+        {
+          "id": "w11",
+          "text": "favors",
+          "start": 4.833,
+          "end": 5.113
+        },
+        {
+          "id": "w12",
+          "text": "at",
+          "start": 5.153,
+          "end": 5.232
+        },
+        {
+          "id": "w13",
+          "text": "random.",
+          "start": 5.273,
+          "end": 5.993
+        }
+      ]
+    },
+    {
+      "id": "b31",
+      "path": "assets/voice/b31.wav",
+      "duration_s": 7.9,
+      "words": [
+        {
+          "id": "w0",
+          "text": "It's",
+          "start": 0.02,
+          "end": 0.129
+        },
+        {
+          "id": "w1",
+          "text": "about",
+          "start": 0.16,
+          "end": 0.43
+        },
+        {
+          "id": "w2",
+          "text": "building",
+          "start": 0.46,
+          "end": 0.9
+        },
+        {
+          "id": "w3",
+          "text": "real",
+          "start": 0.94,
+          "end": 1.16
+        },
+        {
+          "id": "w4",
+          "text": "relationships,",
+          "start": 1.2,
+          "end": 1.99
+        },
+        {
+          "id": "w5",
+          "text": "sharing",
+          "start": 2.32,
+          "end": 2.65
+        },
+        {
+          "id": "w6",
+          "text": "value,",
+          "start": 2.66,
           "end": 3.05
         },
         {
           "id": "w7",
           "text": "and",
-          "start": 3.19,
-          "end": 3.28
+          "start": 3.52,
+          "end": 3.65
         },
         {
           "id": "w8",
-          "text": "former",
-          "start": 3.39,
-          "end": 3.62
-        },
-        {
-          "id": "w9",
-          "text": "colleagues",
-          "start": 3.73,
-          "end": 4.19
-        },
-        {
-          "id": "w10",
-          "text": "People",
-          "start": 4.55,
-          "end": 4.79
-        },
-        {
-          "id": "w11",
-          "text": "you've",
-          "start": 4.89,
-          "end": 5.03
-        },
-        {
-          "id": "w12",
-          "text": "worked",
-          "start": 5.07,
-          "end": 5.26
-        },
-        {
-          "id": "w13",
-          "text": "with",
-          "start": 5.33,
-          "end": 5.45
-        },
-        {
-          "id": "w14",
-          "text": "on",
-          "start": 5.49,
-          "end": 5.63
-        },
-        {
-          "id": "w15",
-          "text": "cross-functional",
-          "start": 5.69,
-          "end": 6.39
-        },
-        {
-          "id": "w16",
-          "text": "projects",
-          "start": 6.41,
-          "end": 6.88
-        },
-        {
-          "id": "w17",
-          "text": "Alumni",
-          "start": 7.27,
-          "end": 7.63
-        },
-        {
-          "id": "w18",
-          "text": "networks,",
-          "start": 7.71,
-          "end": 8.13
-        },
-        {
-          "id": "w19",
-          "text": "professional",
-          "start": 8.51,
-          "end": 9.0
-        },
-        {
-          "id": "w20",
-          "text": "associations,",
-          "start": 9.03,
-          "end": 9.89
-        },
-        {
-          "id": "w21",
-          "text": "or",
-          "start": 10.23,
-          "end": 10.35
-        },
-        {
-          "id": "w22",
-          "text": "communities",
-          "start": 10.39,
-          "end": 10.97
-        },
-        {
-          "id": "w23",
-          "text": "you're",
-          "start": 11.01,
-          "end": 11.14
-        },
-        {
-          "id": "w24",
-          "text": "part",
-          "start": 11.19,
-          "end": 11.39
-        },
-        {
-          "id": "w25",
-          "text": "of",
-          "start": 11.45,
-          "end": 11.61
-        },
-        {
-          "id": "w26",
-          "text": "Let",
-          "start": 12.11,
-          "end": 12.26
-        },
-        {
-          "id": "w27",
-          "text": "them",
-          "start": 12.29,
-          "end": 12.43
-        },
-        {
-          "id": "w28",
-          "text": "know",
-          "start": 12.53,
-          "end": 12.62
-        },
-        {
-          "id": "w29",
-          "text": "about",
-          "start": 12.69,
-          "end": 12.9
-        },
-        {
-          "id": "w30",
-          "text": "your",
-          "start": 12.91,
-          "end": 13.04
-        },
-        {
-          "id": "w31",
-          "text": "Next",
-          "start": 13.07,
-          "end": 13.33
-        },
-        {
-          "id": "w32",
-          "text": "Move",
-          "start": 13.37,
-          "end": 13.49
-        },
-        {
-          "id": "w33",
-          "text": "Statement",
-          "start": 13.61,
-          "end": 14.11
-        },
-        {
-          "id": "w34",
-          "text": "and",
-          "start": 14.13,
-          "end": 14.28
-        },
-        {
-          "id": "w35",
-          "text": "ask:",
-          "start": 14.39,
-          "end": 14.68
-        },
-        {
-          "id": "w36",
-          "text": "\"Who",
-          "start": 14.68,
-          "end": 15.29
-        },
-        {
-          "id": "w37",
-          "text": "do",
-          "start": 15.31,
-          "end": 15.35
-        },
-        {
-          "id": "w38",
-          "text": "you",
-          "start": 15.43,
-          "end": 15.55
-        },
-        {
-          "id": "w39",
-          "text": "know",
-          "start": 15.59,
-          "end": 15.83
-        },
-        {
-          "id": "w40",
-          "text": "in",
-          "start": 15.87,
-          "end": 15.98
-        },
-        {
-          "id": "w41",
-          "text": "my",
-          "start": 15.99,
-          "end": 16.15
-        },
-        {
-          "id": "w42",
-          "text": "target",
-          "start": 16.17,
-          "end": 16.53
-        },
-        {
-          "id": "w43",
-          "text": "field",
-          "start": 16.61,
-          "end": 16.93
-        },
-        {
-          "id": "w44",
-          "text": "or",
-          "start": 16.99,
-          "end": 17.11
-        },
-        {
-          "id": "w45",
-          "text": "role",
-          "start": 17.19,
-          "end": 17.51
-        },
-        {
-          "id": "w46",
-          "text": "that",
-          "start": 17.83,
-          "end": 17.95
-        },
-        {
-          "id": "w47",
-          "text": "I",
-          "start": 18.01,
-          "end": 18.05
-        },
-        {
-          "id": "w48",
-          "text": "might",
-          "start": 18.09,
-          "end": 18.21
-        },
-        {
-          "id": "w49",
-          "text": "talk",
-          "start": 18.35,
-          "end": 18.55
-        },
-        {
-          "id": "w50",
-          "text": "to",
-          "start": 18.65,
-          "end": 18.75
-        },
-        {
-          "id": "w51",
-          "text": "for",
-          "start": 18.87,
-          "end": 18.97
-        },
-        {
-          "id": "w52",
-          "text": "a",
-          "start": 18.98,
-          "end": 19.07
-        },
-        {
-          "id": "w53",
-          "text": "twenty-minute",
-          "start": 19.11,
-          "end": 19.63
-        },
-        {
-          "id": "w54",
-          "text": "learning",
-          "start": 19.71,
-          "end": 19.95
-        },
-        {
-          "id": "w55",
-          "text": "conversation?\"",
-          "start": 20.05,
-          "end": 20.71
-        }
-      ]
-    },
-    {
-      "id": "direct-search",
-      "path": "assets/voice/direct-search.wav",
-      "duration_s": 16.46,
-      "words": [
-        {
-          "id": "w0",
-          "text": "Second,",
-          "start": 0.27,
-          "end": 0.61
-        },
-        {
-          "id": "w1",
-          "text": "use",
-          "start": 1.13,
-          "end": 1.29
-        },
-        {
-          "id": "w2",
-          "text": "platforms",
-          "start": 1.37,
-          "end": 1.84
-        },
-        {
-          "id": "w3",
-          "text": "like",
-          "start": 1.89,
-          "end": 2.05
-        },
-        {
-          "id": "w4",
-          "text": "LinkedIn",
-          "start": 2.13,
-          "end": 2.65
-        },
-        {
-          "id": "w5",
-          "text": "and",
-          "start": 2.67,
-          "end": 2.76
-        },
-        {
-          "id": "w6",
-          "text": "professional",
-          "start": 2.81,
-          "end": 3.28
-        },
-        {
-          "id": "w7",
-          "text": "groups",
-          "start": 3.37,
-          "end": 3.95
-        },
-        {
-          "id": "w8",
-          "text": "to",
-          "start": 4.01,
-          "end": 4.11
-        },
-        {
-          "id": "w9",
-          "text": "search",
-          "start": 4.17,
-          "end": 4.45
-        },
-        {
-          "id": "w10",
-          "text": "directly",
-          "start": 4.49,
-          "end": 4.99
-        },
-        {
-          "id": "w11",
-          "text": "in",
-          "start": 5.03,
-          "end": 5.11
-        },
-        {
-          "id": "w12",
-          "text": "your",
-          "start": 5.15,
-          "end": 5.29
-        },
-        {
-          "id": "w13",
-          "text": "future",
-          "start": 5.31,
-          "end": 5.61
-        },
-        {
-          "id": "w14",
-          "text": "field:",
-          "start": 5.71,
-          "end": 6.03
-        },
-        {
-          "id": "w15",
-          "text": "Search",
-          "start": 7.17,
-          "end": 7.51
-        },
-        {
-          "id": "w16",
-          "text": "by",
-          "start": 7.55,
-          "end": 7.73
-        },
-        {
-          "id": "w17",
-          "text": "title,",
-          "start": 7.79,
-          "end": 8.11
-        },
-        {
-          "id": "w18",
-          "text": "skills,",
-          "start": 9.19,
-          "end": 9.72
-        },
-        {
-          "id": "w19",
-          "text": "or",
-          "start": 10.25,
-          "end": 10.63
-        },
-        {
-          "id": "w20",
-          "text": "keywords",
-          "start": 10.69,
-          "end": 11.229
-        },
-        {
-          "id": "w21",
-          "text": "connected",
-          "start": 11.27,
-          "end": 11.65
-        },
-        {
-          "id": "w22",
-          "text": "to",
-          "start": 11.66,
-          "end": 11.75
-        },
-        {
-          "id": "w23",
-          "text": "your",
-          "start": 11.789,
-          "end": 11.91
-        },
-        {
-          "id": "w24",
-          "text": "target",
-          "start": 11.95,
-          "end": 12.289
-        },
-        {
-          "id": "w25",
-          "text": "roles",
-          "start": 12.31,
-          "end": 12.65
-        },
-        {
-          "id": "w26",
-          "text": "Look",
-          "start": 13.09,
-          "end": 13.27
-        },
-        {
-          "id": "w27",
-          "text": "for",
-          "start": 13.289,
-          "end": 13.43
-        },
-        {
-          "id": "w28",
-          "text": "people",
-          "start": 13.47,
-          "end": 13.819
-        },
-        {
-          "id": "w29",
-          "text": "in",
-          "start": 13.83,
-          "end": 13.979
-        },
-        {
-          "id": "w30",
-          "text": "organizations",
-          "start": 14.009,
-          "end": 14.83
-        },
-        {
-          "id": "w31",
-          "text": "or",
-          "start": 14.85,
-          "end": 15.0
-        },
-        {
-          "id": "w32",
-          "text": "teams",
-          "start": 15.05,
-          "end": 15.41
-        },
-        {
-          "id": "w33",
-          "text": "you'd",
-          "start": 15.45,
-          "end": 15.55
-        },
-        {
-          "id": "w34",
-          "text": "like",
-          "start": 15.59,
-          "end": 15.75
-        },
-        {
-          "id": "w35",
-          "text": "to",
-          "start": 15.79,
-          "end": 15.91
-        },
-        {
-          "id": "w36",
-          "text": "join",
-          "start": 15.95,
-          "end": 16.21
-        }
-      ]
-    },
-    {
-      "id": "potential-sponsors",
-      "path": "assets/voice/potential-sponsors.wav",
-      "duration_s": 14.04,
-      "words": [
-        {
-          "id": "w0",
-          "text": "Third,",
-          "start": 0.25,
-          "end": 0.55
-        },
-        {
-          "id": "w1",
-          "text": "identify",
-          "start": 0.89,
-          "end": 1.399
-        },
-        {
-          "id": "w2",
-          "text": "potential",
-          "start": 1.49,
-          "end": 1.92
-        },
-        {
-          "id": "w3",
-          "text": "sponsors",
-          "start": 2.01,
-          "end": 2.63
-        },
-        {
-          "id": "w4",
-          "text": "in",
-          "start": 2.65,
-          "end": 2.75
-        },
-        {
-          "id": "w5",
-          "text": "your",
-          "start": 2.79,
-          "end": 2.89
-        },
-        {
-          "id": "w6",
-          "text": "current",
-          "start": 2.95,
-          "end": 3.23
-        },
-        {
-          "id": "w7",
-          "text": "organization",
-          "start": 3.27,
-          "end": 4.1
-        },
-        {
-          "id": "w8",
-          "text": "or",
-          "start": 4.11,
-          "end": 4.23
-        },
-        {
-          "id": "w9",
-          "text": "a",
-          "start": 4.29,
-          "end": 4.3
-        },
-        {
-          "id": "w10",
-          "text": "new",
-          "start": 4.39,
-          "end": 4.55
-        },
-        {
-          "id": "w11",
-          "text": "one:",
-          "start": 4.63,
-          "end": 4.77
-        },
-        {
-          "id": "w12",
-          "text": "People",
-          "start": 5.11,
-          "end": 5.47
-        },
-        {
-          "id": "w13",
-          "text": "one",
-          "start": 5.57,
-          "end": 5.69
-        },
-        {
-          "id": "w14",
-          "text": "to",
-          "start": 5.7,
-          "end": 5.83
-        },
-        {
-          "id": "w15",
-          "text": "three",
-          "start": 5.89,
-          "end": 6.03
-        },
-        {
-          "id": "w16",
-          "text": "levels",
-          "start": 6.13,
-          "end": 6.45
-        },
-        {
-          "id": "w17",
-          "text": "above",
-          "start": 6.51,
-          "end": 6.81
-        },
-        {
-          "id": "w18",
-          "text": "you",
-          "start": 6.83,
-          "end": 6.93
-        },
-        {
-          "id": "w19",
-          "text": "who",
-          "start": 6.99,
-          "end": 7.07
-        },
-        {
-          "id": "w20",
-          "text": "appreciate",
-          "start": 7.11,
-          "end": 7.67
-        },
-        {
-          "id": "w21",
-          "text": "your",
-          "start": 7.71,
-          "end": 7.87
-        },
-        {
-          "id": "w22",
-          "text": "work",
-          "start": 7.89,
-          "end": 8.119
-        },
-        {
-          "id": "w23",
-          "text": "or",
-          "start": 8.49,
-          "end": 8.619
-        },
-        {
-          "id": "w24",
-          "text": "seem",
-          "start": 8.63,
-          "end": 8.79
-        },
-        {
-          "id": "w25",
-          "text": "aligned",
-          "start": 8.85,
-          "end": 9.22
-        },
-        {
-          "id": "w26",
-          "text": "with",
-          "start": 9.25,
-          "end": 9.38
-        },
-        {
-          "id": "w27",
-          "text": "your",
-          "start": 9.41,
-          "end": 9.52
-        },
-        {
-          "id": "w28",
-          "text": "direction",
-          "start": 9.53,
-          "end": 10.05
-        },
-        {
-          "id": "w29",
-          "text": "Leaders",
-          "start": 11.01,
-          "end": 11.33
-        },
-        {
-          "id": "w30",
-          "text": "who",
-          "start": 11.37,
-          "end": 11.47
-        },
-        {
-          "id": "w31",
-          "text": "are",
-          "start": 11.51,
-          "end": 11.65
-        },
-        {
-          "id": "w32",
-          "text": "visible",
-          "start": 11.71,
-          "end": 12.07
-        },
-        {
-          "id": "w33",
-          "text": "in",
-          "start": 12.17,
-          "end": 12.26
-        },
-        {
-          "id": "w34",
-          "text": "the",
-          "start": 12.27,
-          "end": 12.31
-        },
-        {
-          "id": "w35",
-          "text": "spaces",
-          "start": 12.41,
-          "end": 12.83
-        },
-        {
-          "id": "w36",
-          "text": "you",
-          "start": 12.87,
-          "end": 12.95
-        },
-        {
-          "id": "w37",
-          "text": "want",
-          "start": 13.01,
-          "end": 13.15
-        },
-        {
-          "id": "w38",
-          "text": "to",
-          "start": 13.17,
-          "end": 13.29
-        },
-        {
-          "id": "w39",
-          "text": "enter",
-          "start": 13.35,
-          "end": 13.67
-        }
-      ]
-    },
-    {
-      "id": "contact-map",
-      "path": "assets/voice/contact-map.wav",
-      "duration_s": 14.075,
-      "words": [
-        {
-          "id": "w0",
-          "text": "In",
-          "start": 0.37,
-          "end": 0.46
-        },
-        {
-          "id": "w1",
-          "text": "this",
-          "start": 0.49,
-          "end": 0.67
-        },
-        {
-          "id": "w2",
-          "text": "module's",
-          "start": 0.71,
-          "end": 1.06
-        },
-        {
-          "id": "w3",
-          "text": "activity,",
-          "start": 1.15,
-          "end": 1.65
-        },
-        {
-          "id": "w4",
-          "text": "you'll",
-          "start": 1.99,
-          "end": 2.09
-        },
-        {
-          "id": "w5",
-          "text": "build",
-          "start": 2.17,
-          "end": 2.35
-        },
-        {
-          "id": "w6",
-          "text": "a",
-          "start": 2.41,
-          "end": 2.47
-        },
-        {
-          "id": "w7",
-          "text": "contact",
-          "start": 2.53,
-          "end": 2.99
-        },
-        {
-          "id": "w8",
-          "text": "map",
-          "start": 3.05,
-          "end": 3.23
-        },
-        {
-          "id": "w9",
-          "text": "of",
-          "start": 3.27,
-          "end": 3.39
-        },
-        {
-          "id": "w10",
-          "text": "three",
-          "start": 3.43,
-          "end": 3.59
-        },
-        {
-          "id": "w11",
-          "text": "to",
-          "start": 3.63,
-          "end": 3.73
-        },
-        {
-          "id": "w12",
-          "text": "five",
-          "start": 3.77,
-          "end": 3.96
-        },
-        {
-          "id": "w13",
-          "text": "strategic",
-          "start": 4.03,
-          "end": 4.5
-        },
-        {
-          "id": "w14",
-          "text": "relationships—peers,",
-          "start": 4.55,
-          "end": 5.78
-        },
-        {
-          "id": "w15",
-          "text": "sponsors,",
-          "start": 6.07,
-          "end": 6.97
-        },
-        {
-          "id": "w16",
-          "text": "and",
-          "start": 6.99,
-          "end": 7.09
-        },
-        {
-          "id": "w17",
-          "text": "opportunity",
-          "start": 7.15,
-          "end": 7.73
-        },
-        {
-          "id": "w18",
-          "text": "holders—who",
-          "start": 7.77,
-          "end": 8.47
-        },
-        {
-          "id": "w19",
-          "text": "are",
-          "start": 8.48,
-          "end": 8.61
-        },
-        {
-          "id": "w20",
-          "text": "relevant",
-          "start": 8.65,
-          "end": 9.01
-        },
-        {
-          "id": "w21",
-          "text": "to",
-          "start": 9.019,
-          "end": 9.13
-        },
-        {
-          "id": "w22",
-          "text": "your",
-          "start": 9.15,
-          "end": 9.27
-        },
-        {
-          "id": "w23",
-          "text": "next",
-          "start": 9.33,
-          "end": 9.53
-        },
-        {
-          "id": "w24",
-          "text": "move,",
-          "start": 9.59,
-          "end": 9.859
-        },
-        {
-          "id": "w25",
-          "text": "then",
-          "start": 10.27,
-          "end": 10.41
-        },
-        {
-          "id": "w26",
-          "text": "use",
-          "start": 10.51,
-          "end": 10.71
-        },
-        {
-          "id": "w27",
-          "text": "outreach",
-          "start": 10.77,
-          "end": 11.13
-        },
-        {
-          "id": "w28",
-          "text": "templates",
-          "start": 11.17,
-          "end": 11.57
-        },
-        {
-          "id": "w29",
-          "text": "and",
-          "start": 11.59,
-          "end": 11.76
-        },
-        {
-          "id": "w30",
-          "text": "AI",
-          "start": 11.81,
-          "end": 12.39
-        },
-        {
-          "id": "w31",
-          "text": "to",
-          "start": 12.43,
-          "end": 12.53
-        },
-        {
-          "id": "w32",
-          "text": "craft",
-          "start": 12.57,
-          "end": 12.89
-        },
-        {
-          "id": "w33",
-          "text": "authentic",
-          "start": 12.95,
-          "end": 13.39
-        },
-        {
-          "id": "w34",
-          "text": "messages.",
-          "start": 13.43,
-          "end": 13.94
-        }
-      ]
-    },
-    {
-      "id": "real-relationships",
-      "path": "assets/voice/real-relationships.wav",
-      "duration_s": 14.115,
-      "words": [
-        {
-          "id": "w0",
-          "text": "Remember:",
-          "start": 0.135,
-          "end": 1.175
-        },
-        {
-          "id": "w1",
-          "text": "networking",
-          "start": 1.185,
-          "end": 1.815
-        },
-        {
-          "id": "w2",
-          "text": "is",
-          "start": 1.855,
-          "end": 2.025
-        },
-        {
-          "id": "w3",
-          "text": "not",
-          "start": 2.055,
-          "end": 2.224
-        },
-        {
-          "id": "w4",
-          "text": "about",
-          "start": 2.315,
-          "end": 2.425
-        },
-        {
-          "id": "w5",
-          "text": "collecting",
-          "start": 2.515,
-          "end": 2.955
-        },
-        {
-          "id": "w6",
-          "text": "business",
-          "start": 3.015,
-          "end": 3.315
-        },
-        {
-          "id": "w7",
-          "text": "cards",
-          "start": 3.355,
-          "end": 3.705
-        },
-        {
-          "id": "w8",
-          "text": "or",
-          "start": 4.215,
-          "end": 4.375
-        },
-        {
-          "id": "w9",
-          "text": "asking",
-          "start": 4.455,
-          "end": 4.735
-        },
-        {
-          "id": "w10",
-          "text": "for",
-          "start": 4.775,
-          "end": 4.895
-        },
-        {
-          "id": "w11",
-          "text": "favors",
-          "start": 4.915,
-          "end": 5.195
-        },
-        {
-          "id": "w12",
-          "text": "at",
-          "start": 5.235,
-          "end": 5.315
-        },
-        {
-          "id": "w13",
-          "text": "random.",
-          "start": 5.355,
-          "end": 6.075
-        },
-        {
-          "id": "w14",
-          "text": "It's",
-          "start": 6.115,
-          "end": 6.224
-        },
-        {
-          "id": "w15",
-          "text": "about",
-          "start": 6.255,
-          "end": 6.525
-        },
-        {
-          "id": "w16",
-          "text": "building",
-          "start": 6.555,
-          "end": 6.995
-        },
-        {
-          "id": "w17",
-          "text": "real",
-          "start": 7.035,
-          "end": 7.255
-        },
-        {
-          "id": "w18",
-          "text": "relationships,",
-          "start": 7.295,
-          "end": 8.085
-        },
-        {
-          "id": "w19",
-          "text": "sharing",
-          "start": 8.415,
-          "end": 8.745
-        },
-        {
-          "id": "w20",
-          "text": "value,",
-          "start": 8.755,
-          "end": 9.145
-        },
-        {
-          "id": "w21",
-          "text": "and",
-          "start": 9.615,
-          "end": 9.745
-        },
-        {
-          "id": "w22",
           "text": "staying",
-          "start": 9.815,
-          "end": 10.155
+          "start": 3.72,
+          "end": 4.06
         },
         {
-          "id": "w23",
+          "id": "w9",
           "text": "visible",
-          "start": 10.175,
-          "end": 10.605
+          "start": 4.08,
+          "end": 4.51
         },
         {
-          "id": "w24",
+          "id": "w10",
           "text": "to",
-          "start": 10.635,
-          "end": 10.724
+          "start": 4.54,
+          "end": 4.629
         },
         {
-          "id": "w25",
+          "id": "w11",
           "text": "the",
-          "start": 10.735,
-          "end": 10.835
+          "start": 4.64,
+          "end": 4.74
         },
         {
-          "id": "w26",
+          "id": "w12",
           "text": "people",
-          "start": 10.875,
-          "end": 11.255
+          "start": 4.78,
+          "end": 5.16
         },
         {
-          "id": "w27",
+          "id": "w13",
           "text": "who",
-          "start": 11.295,
-          "end": 11.415
+          "start": 5.2,
+          "end": 5.32
         },
         {
-          "id": "w28",
+          "id": "w14",
           "text": "are",
-          "start": 11.455,
-          "end": 11.585
+          "start": 5.36,
+          "end": 5.49
         },
         {
-          "id": "w29",
+          "id": "w15",
           "text": "most",
-          "start": 11.615,
-          "end": 11.885
+          "start": 5.52,
+          "end": 5.79
         },
         {
-          "id": "w30",
+          "id": "w16",
           "text": "connected",
-          "start": 11.895,
-          "end": 12.325
+          "start": 5.8,
+          "end": 6.23
         },
         {
-          "id": "w31",
+          "id": "w17",
           "text": "to",
-          "start": 12.355,
-          "end": 12.444
+          "start": 6.26,
+          "end": 6.349
         },
         {
-          "id": "w32",
+          "id": "w18",
           "text": "the",
-          "start": 12.455,
-          "end": 12.495
+          "start": 6.36,
+          "end": 6.4
         },
         {
-          "id": "w33",
+          "id": "w19",
           "text": "future",
-          "start": 12.635,
-          "end": 13.075
+          "start": 6.54,
+          "end": 6.98
         },
         {
-          "id": "w34",
+          "id": "w20",
           "text": "you're",
-          "start": 13.115,
-          "end": 13.255
+          "start": 7.02,
+          "end": 7.16
         },
         {
-          "id": "w35",
+          "id": "w21",
           "text": "creating.",
-          "start": 13.295,
-          "end": 14.075
+          "start": 7.2,
+          "end": 7.88
         }
       ]
     },
     {
-      "id": "closing-question",
-      "path": "assets/voice/closing-question.wav",
-      "duration_s": 8.791,
+      "id": "b32",
+      "path": "assets/voice/b32.wav",
+      "duration_s": 1.85,
       "words": [
         {
           "id": "w0",
           "text": "As",
-          "start": 0.04,
-          "end": 0.14
+          "start": 0.02,
+          "end": 0.12
         },
         {
           "id": "w1",
           "text": "you",
-          "start": 0.18,
-          "end": 0.26
+          "start": 0.16,
+          "end": 0.24
         },
         {
           "id": "w2",
           "text": "move",
-          "start": 0.32,
-          "end": 0.56
+          "start": 0.3,
+          "end": 0.54
         },
         {
           "id": "w3",
           "text": "forward,",
-          "start": 0.6,
-          "end": 0.949
+          "start": 0.58,
+          "end": 0.929
         },
         {
           "id": "w4",
           "text": "ask",
-          "start": 1.18,
-          "end": 1.4
+          "start": 1.16,
+          "end": 1.38
         },
         {
           "id": "w5",
           "text": "yourself:",
-          "start": 1.44,
-          "end": 1.87
+          "start": 1.42,
+          "end": 1.85
+        }
+      ]
+    },
+    {
+      "id": "b33",
+      "path": "assets/voice/b33.wav",
+      "duration_s": 8.39,
+      "words": [
+        {
+          "id": "w0",
+          "text": "\"Who",
+          "start": 0.0,
+          "end": 0.59
+        },
+        {
+          "id": "w1",
+          "text": "already",
+          "start": 0.67,
+          "end": 1.05
+        },
+        {
+          "id": "w2",
+          "text": "sits",
+          "start": 1.11,
+          "end": 1.37
+        },
+        {
+          "id": "w3",
+          "text": "near",
+          "start": 1.43,
+          "end": 1.63
+        },
+        {
+          "id": "w4",
+          "text": "the",
+          "start": 1.65,
+          "end": 1.75
+        },
+        {
+          "id": "w5",
+          "text": "opportunities",
+          "start": 1.81,
+          "end": 2.53
         },
         {
           "id": "w6",
-          "text": "\"Who",
-          "start": 1.87,
-          "end": 2.46
+          "text": "I",
+          "start": 2.69,
+          "end": 2.7
         },
         {
           "id": "w7",
-          "text": "already",
-          "start": 2.54,
-          "end": 2.92
+          "text": "care",
+          "start": 2.77,
+          "end": 2.93
         },
         {
           "id": "w8",
-          "text": "sits",
-          "start": 2.98,
-          "end": 3.24
+          "text": "about\u2014and",
+          "start": 2.99,
+          "end": 3.459
         },
         {
           "id": "w9",
-          "text": "near",
-          "start": 3.3,
-          "end": 3.5
+          "text": "how",
+          "start": 3.51,
+          "end": 3.7
         },
         {
           "id": "w10",
-          "text": "the",
-          "start": 3.52,
-          "end": 3.62
+          "text": "can",
+          "start": 3.71,
+          "end": 3.79
         },
         {
           "id": "w11",
-          "text": "opportunities",
-          "start": 3.68,
-          "end": 4.4
+          "text": "I",
+          "start": 3.87,
+          "end": 3.91
         },
         {
           "id": "w12",
-          "text": "I",
-          "start": 4.56,
-          "end": 4.57
+          "text": "begin",
+          "start": 3.93,
+          "end": 4.27
         },
         {
           "id": "w13",
-          "text": "care",
-          "start": 4.64,
-          "end": 4.8
+          "text": "a",
+          "start": 4.33,
+          "end": 4.34
         },
         {
           "id": "w14",
-          "text": "about—and",
-          "start": 4.86,
-          "end": 5.329
+          "text": "genuine,",
+          "start": 4.49,
+          "end": 4.9
         },
         {
           "id": "w15",
-          "text": "how",
-          "start": 5.38,
-          "end": 5.57
+          "text": "respectful",
+          "start": 4.97,
+          "end": 5.56
         },
         {
           "id": "w16",
-          "text": "can",
-          "start": 5.58,
-          "end": 5.66
+          "text": "relationship",
+          "start": 5.59,
+          "end": 6.239
         },
         {
           "id": "w17",
-          "text": "I",
-          "start": 5.74,
-          "end": 5.78
+          "text": "with",
+          "start": 6.25,
+          "end": 6.38
         },
         {
           "id": "w18",
-          "text": "begin",
-          "start": 5.8,
-          "end": 6.14
-        },
-        {
-          "id": "w19",
-          "text": "a",
-          "start": 6.2,
-          "end": 6.21
-        },
-        {
-          "id": "w20",
-          "text": "genuine,",
-          "start": 6.36,
-          "end": 6.77
-        },
-        {
-          "id": "w21",
-          "text": "respectful",
-          "start": 6.84,
-          "end": 7.43
-        },
-        {
-          "id": "w22",
-          "text": "relationship",
-          "start": 7.46,
-          "end": 8.109
-        },
-        {
-          "id": "w23",
-          "text": "with",
-          "start": 8.12,
-          "end": 8.25
-        },
-        {
-          "id": "w24",
           "text": "them?\"",
-          "start": 8.32,
-          "end": 8.46
+          "start": 6.45,
+          "end": 6.59
         }
       ]
     }
   ],
   "sfx": [],
-  "total_duration_s": 184.451,
+  "total_duration_s": 180.369,
   "scla_synthesis": {
     "version": 1,
     "mode": "continuous-chunks",
     "provider_requests": 1,
-    "max_chars": 4800,
+    "max_chars": 10000,
     "chunks": [
       {
         "id": "narration",
         "beat_ids": [
-          "people-open-doors",
-          "three-relationships",
-          "peers",
-          "sponsors",
-          "opportunity-holders",
-          "strategic-map",
-          "find-them",
-          "existing-connections",
-          "direct-search",
-          "potential-sponsors",
-          "contact-map",
-          "real-relationships",
-          "closing-question"
+          "b01",
+          "b02",
+          "b03",
+          "b04",
+          "b05",
+          "b06",
+          "b07",
+          "b08",
+          "b09",
+          "b10",
+          "b11",
+          "b12",
+          "b13",
+          "b14",
+          "b15",
+          "b16",
+          "b17",
+          "b18",
+          "b19",
+          "b20",
+          "b21",
+          "b22",
+          "b23",
+          "b24",
+          "b25",
+          "b26",
+          "b27",
+          "b28",
+          "b29",
+          "b30",
+          "b31",
+          "b32",
+          "b33"
         ]
       }
     ]
   },
-  "speed": 1.0
+  "speed": 1.0,
+  "scla_timing": {
+    "hygiene_version": 1,
+    "final_hold": 1.8
+  }
 }

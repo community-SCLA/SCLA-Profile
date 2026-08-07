@@ -1,0 +1,61 @@
+{
+  "total": 112.151,
+  "rows": [
+    {
+      "id": "beat-01-two-parts",
+      "audio_start": 0.6,
+      "audio_dur": 9.39,
+      "vis_start": 0.0,
+      "vis_dur": 10.39
+    },
+    {
+      "id": "beat-02-reframe",
+      "audio_start": 10.64,
+      "audio_dur": 12.37,
+      "vis_start": 10.39,
+      "vis_dur": 13.02
+    },
+    {
+      "id": "beat-03-definition",
+      "audio_start": 23.66,
+      "audio_dur": 12.671,
+      "vis_start": 23.41,
+      "vis_dur": 13.321
+    },
+    {
+      "id": "beat-04-examples",
+      "audio_start": 36.981,
+      "audio_dur": 21.429,
+      "vis_start": 36.731,
+      "vis_dur": 22.079
+    },
+    {
+      "id": "beat-05-not-volume",
+      "audio_start": 59.06,
+      "audio_dur": 12.58,
+      "vis_start": 58.81,
+      "vis_dur": 13.23
+    },
+    {
+      "id": "beat-06-three-actions",
+      "audio_start": 72.29,
+      "audio_dur": 21.09,
+      "vis_start": 72.04,
+      "vis_dur": 21.74
+    },
+    {
+      "id": "beat-07-test",
+      "audio_start": 94.03,
+      "audio_dur": 4.78,
+      "vis_start": 93.78,
+      "vis_dur": 5.43
+    },
+    {
+      "id": "beat-08-close",
+      "audio_start": 99.46,
+      "audio_dur": 10.891,
+      "vis_start": 99.21,
+      "vis_dur": 12.941
+    }
+  ]
+}

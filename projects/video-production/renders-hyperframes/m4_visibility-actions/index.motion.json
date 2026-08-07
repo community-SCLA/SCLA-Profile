@@ -4,62 +4,62 @@
     "engine": "gsap",
     "paused": true,
     "seekable": true,
-    "duration": 91
+    "duration": 112.151
   },
   "beats": [
     {
       "id": "beat-01-two-parts",
       "start": 0,
-      "end": 10,
+      "end": 10.39,
       "entrance": "cards-rise",
       "exit": "fade"
     },
     {
       "id": "beat-02-reframe",
-      "start": 10,
-      "end": 21,
+      "start": 10.39,
+      "end": 23.41,
       "entrance": "cards-rise",
       "exit": "fade"
     },
     {
       "id": "beat-03-definition",
-      "start": 21,
-      "end": 33,
+      "start": 23.41,
+      "end": 36.731,
       "entrance": "path-draw",
       "exit": "fade"
     },
     {
       "id": "beat-04-examples",
-      "start": 33,
-      "end": 52,
+      "start": 36.731,
+      "end": 58.81,
       "entrance": "card-stagger",
       "exit": "fade"
     },
     {
       "id": "beat-05-not-volume",
-      "start": 52,
-      "end": 62,
+      "start": 58.81,
+      "end": 72.04,
       "entrance": "dial-settle",
       "exit": "fade"
     },
     {
       "id": "beat-06-three-actions",
-      "start": 62,
-      "end": 77,
+      "start": 72.04,
+      "end": 93.78,
       "entrance": "card-stagger",
       "exit": "fade"
     },
     {
       "id": "beat-07-test",
-      "start": 77,
-      "end": 83,
+      "start": 93.78,
+      "end": 99.21,
       "entrance": "window-focus",
       "exit": "fade"
     },
     {
       "id": "beat-08-close",
-      "start": 83,
-      "end": 91,
+      "start": 99.21,
+      "end": 112.151,
       "entrance": "path-draw",
       "exit": "hold"
     }
@@ -73,43 +73,43 @@
     {
       "kind": "appearsBy",
       "selector": "#beat-02-reframe",
-      "bySec": 11
+      "bySec": 11.39
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-03-definition",
-      "bySec": 22
+      "bySec": 24.41
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-04-examples",
-      "bySec": 34
+      "bySec": 37.731
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-05-not-volume",
-      "bySec": 53
+      "bySec": 59.81
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-06-three-actions",
-      "bySec": 63
+      "bySec": 73.04
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-07-test",
-      "bySec": 78
+      "bySec": 94.78
     },
     {
       "kind": "appearsBy",
       "selector": "#beat-08-close",
-      "bySec": 84
+      "bySec": 100.21
     },
     {
       "kind": "keepsMoving",
       "selector": ".signal-dot",
       "from": 0,
-      "to": 91
+      "to": 112.151
     }
   ]
 }

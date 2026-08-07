@@ -6,59 +6,59 @@
   "generate": false,
   "lines": [
     {
-      "beat_id": "beat-01",
+      "id": "beat-01",
       "text": "You made it to the last module."
     },
     {
-      "beat_id": "beat-02",
+      "id": "beat-02",
       "text": "Before we build your roadmap, I want to say something that's true for almost every person who completes this track. The reinvention you started is not going to look, in eighteen months, exactly like what you're planning today. It's going to be different."
     },
     {
-      "beat_id": "beat-03",
+      "id": "beat-03",
       "text": "Herminia Ibarra's research is unambiguous about this. Career reinventions unfold through the doing. The experiments you run in the next thirty days are going to teach you something. You're going to adjust. You're going to have a conversation that shifts a piece of your direction. Something will surprise you."
     },
     {
-      "beat_id": "beat-04",
+      "id": "beat-04",
       "text": "That is not a failure of planning. That is the plan working."
     },
     {
-      "beat_id": "beat-05",
+      "id": "beat-05",
       "text": "Your Reinvention Roadmap is not a contract. It's a compass. It tells you where you're pointed, what you've committed to try, what you're building toward, and what runway you're operating on. When the ground shifts — and it will — the roadmap gives you something to shift from, not something to abandon."
     },
     {
-      "beat_id": "beat-06",
+      "id": "beat-06",
       "text": "The roadmap has four elements."
     },
     {
-      "beat_id": "beat-07",
+      "id": "beat-07",
       "text": "First, your reinvention direction — the version you can commit to today, knowing it will refine."
     },
     {
-      "beat_id": "beat-08",
+      "id": "beat-08",
       "text": "Second, your 90-day plan — broken into three 30-day phases, each with specific deliverables."
     },
     {
-      "beat_id": "beat-09",
+      "id": "beat-09",
       "text": "Third, your financial and emotional runway — the resources supporting you through the transition."
     },
     {
-      "beat_id": "beat-10",
+      "id": "beat-10",
       "text": "Fourth, your next step — the one commitment you make coming out of this track."
     },
     {
-      "beat_id": "beat-11",
+      "id": "beat-11",
       "text": "Why ninety days? Because it's the right unit for a reinvention plan. Long enough to make meaningful progress; short enough to stay accountable. Beyond ninety days, the plan should be re-drafted based on what you've learned — not extended blindly."
     },
     {
-      "beat_id": "beat-12",
+      "id": "beat-12",
       "text": "One last thing before we build it. You are doing genuinely hard work. Career reinvention involves loss, doubt, and long stretches of ambiguity. If you've made it to this module, you've already demonstrated something rare — the willingness to look honestly at a chapter that isn't working and build the next one with intention."
     },
     {
-      "beat_id": "beat-13",
+      "id": "beat-13",
       "text": "That's not a small thing. That's the whole game."
     },
     {
-      "beat_id": "beat-14",
+      "id": "beat-14",
       "text": "Let's build your roadmap."
     }
   ]

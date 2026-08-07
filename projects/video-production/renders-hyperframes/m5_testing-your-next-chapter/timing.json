@@ -1,0 +1,285 @@
+{
+  "total": 162.391,
+  "rows": [
+    {
+      "id": "advice-loop-s1",
+      "audio_start": 0.6,
+      "audio_dur": 5.93,
+      "vis_start": 0.0,
+      "vis_dur": 6.93
+    },
+    {
+      "id": "advice-loop-s2",
+      "audio_start": 7.18,
+      "audio_dur": 0.68,
+      "vis_start": 6.93,
+      "vis_dur": 1.33
+    },
+    {
+      "id": "advice-loop-s3",
+      "audio_start": 8.51,
+      "audio_dur": 0.54,
+      "vis_start": 8.26,
+      "vis_dur": 1.19
+    },
+    {
+      "id": "advice-loop-s4",
+      "audio_start": 9.7,
+      "audio_dur": 2.97,
+      "vis_start": 9.45,
+      "vis_dur": 3.62
+    },
+    {
+      "id": "advice-loop-s5",
+      "audio_start": 13.32,
+      "audio_dur": 3.89,
+      "vis_start": 13.07,
+      "vis_dur": 4.54
+    },
+    {
+      "id": "ibarra-finding",
+      "audio_start": 17.86,
+      "audio_dur": 7.34,
+      "vis_start": 17.61,
+      "vis_dur": 7.99
+    },
+    {
+      "id": "act-first-s1",
+      "audio_start": 25.85,
+      "audio_dur": 5.615,
+      "vis_start": 25.6,
+      "vis_dur": 6.265
+    },
+    {
+      "id": "act-first-s2",
+      "audio_start": 32.115,
+      "audio_dur": 0.91,
+      "vis_start": 31.865,
+      "vis_dur": 1.56
+    },
+    {
+      "id": "act-first-s3",
+      "audio_start": 33.675,
+      "audio_dur": 1.465,
+      "vis_start": 33.425,
+      "vis_dur": 2.115
+    },
+    {
+      "id": "act-first-s4",
+      "audio_start": 35.79,
+      "audio_dur": 1.23,
+      "vis_start": 35.54,
+      "vis_dur": 1.88
+    },
+    {
+      "id": "act-first-s5",
+      "audio_start": 37.67,
+      "audio_dur": 1.2,
+      "vis_start": 37.42,
+      "vis_dur": 1.85
+    },
+    {
+      "id": "act-first-s6",
+      "audio_start": 39.52,
+      "audio_dur": 2.21,
+      "vis_start": 39.27,
+      "vis_dur": 2.86
+    },
+    {
+      "id": "act-first-s7",
+      "audio_start": 42.38,
+      "audio_dur": 4.7,
+      "vis_start": 42.13,
+      "vis_dur": 5.35
+    },
+    {
+      "id": "past-software-s1",
+      "audio_start": 47.73,
+      "audio_dur": 0.57,
+      "vis_start": 47.48,
+      "vis_dur": 1.22
+    },
+    {
+      "id": "past-software-s2",
+      "audio_start": 48.95,
+      "audio_dur": 6.23,
+      "vis_start": 48.7,
+      "vis_dur": 6.88
+    },
+    {
+      "id": "past-software-s3",
+      "audio_start": 55.83,
+      "audio_dur": 2.44,
+      "vis_start": 55.58,
+      "vis_dur": 3.09
+    },
+    {
+      "id": "past-software-s4",
+      "audio_start": 58.92,
+      "audio_dur": 1.52,
+      "vis_start": 58.67,
+      "vis_dur": 2.17
+    },
+    {
+      "id": "real-feedback-s1",
+      "audio_start": 61.09,
+      "audio_dur": 4.48,
+      "vis_start": 60.84,
+      "vis_dur": 5.13
+    },
+    {
+      "id": "real-feedback-s2",
+      "audio_start": 66.22,
+      "audio_dur": 1.105,
+      "vis_start": 65.97,
+      "vis_dur": 1.755
+    },
+    {
+      "id": "real-feedback-s3",
+      "audio_start": 67.975,
+      "audio_dur": 0.96,
+      "vis_start": 67.725,
+      "vis_dur": 1.61
+    },
+    {
+      "id": "real-feedback-s4",
+      "audio_start": 69.585,
+      "audio_dur": 2.665,
+      "vis_start": 69.335,
+      "vis_dur": 3.315
+    },
+    {
+      "id": "real-feedback-s5",
+      "audio_start": 72.9,
+      "audio_dur": 4.33,
+      "vis_start": 72.65,
+      "vis_dur": 4.98
+    },
+    {
+      "id": "real-feedback-s6",
+      "audio_start": 77.88,
+      "audio_dur": 4.03,
+      "vis_start": 77.63,
+      "vis_dur": 4.68
+    },
+    {
+      "id": "real-feedback-s7",
+      "audio_start": 82.56,
+      "audio_dur": 4.435,
+      "vis_start": 82.31,
+      "vis_dur": 5.085
+    },
+    {
+      "id": "three-experiments-s1",
+      "audio_start": 87.645,
+      "audio_dur": 1.505,
+      "vis_start": 87.395,
+      "vis_dur": 2.155
+    },
+    {
+      "id": "three-experiments-s2",
+      "audio_start": 89.8,
+      "audio_dur": 2.67,
+      "vis_start": 89.55,
+      "vis_dur": 3.32
+    },
+    {
+      "id": "informational-interview",
+      "audio_start": 93.12,
+      "audio_dur": 9.25,
+      "vis_start": 92.87,
+      "vis_dur": 9.9
+    },
+    {
+      "id": "trial-project-s1",
+      "audio_start": 103.02,
+      "audio_dur": 5.34,
+      "vis_start": 102.77,
+      "vis_dur": 5.99
+    },
+    {
+      "id": "trial-project-s2",
+      "audio_start": 109.01,
+      "audio_dur": 2.55,
+      "vis_start": 108.76,
+      "vis_dur": 3.2
+    },
+    {
+      "id": "trial-project-s3",
+      "audio_start": 112.21,
+      "audio_dur": 2.58,
+      "vis_start": 111.96,
+      "vis_dur": 3.23
+    },
+    {
+      "id": "shadow-day",
+      "audio_start": 115.44,
+      "audio_dur": 6.64,
+      "vis_start": 115.19,
+      "vis_dur": 7.29
+    },
+    {
+      "id": "one-question-s1",
+      "audio_start": 122.73,
+      "audio_dur": 0.93,
+      "vis_start": 122.48,
+      "vis_dur": 1.58
+    },
+    {
+      "id": "one-question-s2",
+      "audio_start": 124.31,
+      "audio_dur": 3.3,
+      "vis_start": 124.06,
+      "vis_dur": 3.95
+    },
+    {
+      "id": "one-question-s3",
+      "audio_start": 128.26,
+      "audio_dur": 1.43,
+      "vis_start": 128.01,
+      "vis_dur": 2.08
+    },
+    {
+      "id": "one-question-s4",
+      "audio_start": 130.34,
+      "audio_dur": 0.97,
+      "vis_start": 130.09,
+      "vis_dur": 1.62
+    },
+    {
+      "id": "one-question-s5",
+      "audio_start": 131.96,
+      "audio_dur": 4.38,
+      "vis_start": 131.71,
+      "vis_dur": 5.03
+    },
+    {
+      "id": "one-question-s6",
+      "audio_start": 136.99,
+      "audio_dur": 8.51,
+      "vis_start": 136.74,
+      "vis_dur": 9.16
+    },
+    {
+      "id": "gather-evidence-s1",
+      "audio_start": 146.15,
+      "audio_dur": 4.19,
+      "vis_start": 145.9,
+      "vis_dur": 4.84
+    },
+    {
+      "id": "gather-evidence-s2",
+      "audio_start": 150.99,
+      "audio_dur": 6.32,
+      "vis_start": 150.74,
+      "vis_dur": 6.97
+    },
+    {
+      "id": "lets-design",
+      "audio_start": 157.96,
+      "audio_dur": 2.631,
+      "vis_start": 157.71,
+      "vis_dur": 4.681
+    }
+  ]
+}

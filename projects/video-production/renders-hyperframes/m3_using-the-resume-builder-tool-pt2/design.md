@@ -1,29 +1,18 @@
-# Design — The Evidence Workbench
+# Design — The Transforming Evidence Workbench
 
 ## Concept
 
-The lesson lives inside one persistent resume evidence workbench. A current bullet enters at the top, moves through the four-part lens, passes six fixed workflow stations, and emerges as future-you proof. The workbench stays in place for all 49 sentence beats; only the active station, evidence signal, and compact insight rail change.
+The lesson lives inside one persistent evidence workbench, but the work surface physically changes as the learner advances. The right-side insight rail keeps the narrated sentence concise; the left-side workbench demonstrates the work. Current Task and Future-You Proof are not fixed decoration. They separate into evidence, travel through a draft, survive an audit, compete across three possible paths, and become a public signal.
 
-## Persistent Carrier
+## Visible progression
 
-- Six fixed stations: Setup, Lens, Draft, Verify, Select, Signal.
-- Four fixed lens chips: Responsibility, Action, Outcome, Scope.
-- One fixed before/after bullet pair: “Managed orientation sessions” becomes evidence-rich leadership proof.
-- Forty-nine progressive evidence signals show advancement without replacing the carrier.
-- A right-side insight rail delivers one concise idea per narrated sentence.
+- Setup places the vague current task opposite the future-you qualities it must prove, then connects them to the Next Move direction.
+- Lens extracts four distinct evidence cards—Responsibility, Action, Outcome, and Scope—from the raw bullet one by one.
+- Draft moves the task through an AI core and produces an evidence-rich working bullet with visible scope, feedback, and impact tokens.
+- Verify places the draft on a claim sheet. Frequency, numbers, field-fit tone, and structure are checked in sequence; unsupported precision is highlighted before the result earns a “credible + true” stamp.
+- Select turns the evidence into a three-column path matrix for Promotion, Lateral Move, and Role Redesign. The relevant proof card moves forward while the alternatives recede; three to five headline stories remain.
+- Signal carries selected proof into a LinkedIn profile. A struck current title gives way to a future-facing headline, searchable capability keywords, and an outward visibility wave.
 
-## Visual System
+## Visual and motion system
 
-- 1920 × 1080, navy workbench with a white insight rail.
-- SCLA gold marks the current evidence signal and active station.
-- SCLA blue marks the four-part lens and instructional hierarchy.
-- Local Proxima Nova faces and the pinned local GSAP runtime only.
-- Header and progress elements stay inside declared safe regions.
-
-## Motion
-
-- One paused, seek-safe GSAP timeline.
-- Each sentence beat reveals its insight rail within one second.
-- The active workflow station and evidence signal advance with each beat.
-- The workbench persists while a slow field pulse and progress line maintain continuity.
-- Motion is deterministic at arbitrary seek times; no autoplay, timers, or infinite loops.
+Use only the approved SCLA navy, deep navy, blue, gold, white, and muted blue tokens. Proxima Nova loads from frozen local font files and GSAP loads from the approved local runtime. The workbench frame and six-step footer persist across all 49 beats, while each phase uses a materially different spatial interaction. Gold identifies the active claim or decision; blue identifies structure and evidence. All changes live on one paused, seek-safe timeline with deterministic arbitrary seeking. The progress rail and slow field pulse provide continuity without substituting for the workbench transformations.

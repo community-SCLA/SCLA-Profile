@@ -1,149 +1,416 @@
 {
   "compositionId": "m5_testing-your-next-chapter",
-  "duration": 146,
-  "timeline": {
-    "engine": "gsap",
-    "paused": true,
-    "seekable": true
-  },
+  "duration": 162.391,
+  "fps": 30,
+  "timeline": "paused",
+  "seekable": true,
   "beats": [
     {
-      "id": "advice-loop",
+      "id": "advice-loop-s1",
       "start": 0,
-      "duration": 17
+      "duration": 6.93
+    },
+    {
+      "id": "advice-loop-s2",
+      "start": 6.93,
+      "duration": 1.33
+    },
+    {
+      "id": "advice-loop-s3",
+      "start": 8.26,
+      "duration": 1.19
+    },
+    {
+      "id": "advice-loop-s4",
+      "start": 9.45,
+      "duration": 3.62
+    },
+    {
+      "id": "advice-loop-s5",
+      "start": 13.07,
+      "duration": 4.54
     },
     {
       "id": "ibarra-finding",
-      "start": 17,
-      "duration": 10
+      "start": 17.61,
+      "duration": 7.99
     },
     {
-      "id": "act-first",
-      "start": 27,
-      "duration": 17
+      "id": "act-first-s1",
+      "start": 25.6,
+      "duration": 6.265
     },
     {
-      "id": "past-software",
-      "start": 44,
-      "duration": 12
+      "id": "act-first-s2",
+      "start": 31.865,
+      "duration": 1.56
     },
     {
-      "id": "real-feedback",
-      "start": 56,
-      "duration": 25
+      "id": "act-first-s3",
+      "start": 33.425,
+      "duration": 2.115
     },
     {
-      "id": "three-experiments",
-      "start": 81,
-      "duration": 8
+      "id": "act-first-s4",
+      "start": 35.54,
+      "duration": 1.88
+    },
+    {
+      "id": "act-first-s5",
+      "start": 37.42,
+      "duration": 1.85
+    },
+    {
+      "id": "act-first-s6",
+      "start": 39.27,
+      "duration": 2.86
+    },
+    {
+      "id": "act-first-s7",
+      "start": 42.13,
+      "duration": 5.35
+    },
+    {
+      "id": "past-software-s1",
+      "start": 47.48,
+      "duration": 1.22
+    },
+    {
+      "id": "past-software-s2",
+      "start": 48.7,
+      "duration": 6.88
+    },
+    {
+      "id": "past-software-s3",
+      "start": 55.58,
+      "duration": 3.09
+    },
+    {
+      "id": "past-software-s4",
+      "start": 58.67,
+      "duration": 2.17
+    },
+    {
+      "id": "real-feedback-s1",
+      "start": 60.84,
+      "duration": 5.13
+    },
+    {
+      "id": "real-feedback-s2",
+      "start": 65.97,
+      "duration": 1.755
+    },
+    {
+      "id": "real-feedback-s3",
+      "start": 67.725,
+      "duration": 1.61
+    },
+    {
+      "id": "real-feedback-s4",
+      "start": 69.335,
+      "duration": 3.315
+    },
+    {
+      "id": "real-feedback-s5",
+      "start": 72.65,
+      "duration": 4.98
+    },
+    {
+      "id": "real-feedback-s6",
+      "start": 77.63,
+      "duration": 4.68
+    },
+    {
+      "id": "real-feedback-s7",
+      "start": 82.31,
+      "duration": 5.085
+    },
+    {
+      "id": "three-experiments-s1",
+      "start": 87.395,
+      "duration": 2.155
+    },
+    {
+      "id": "three-experiments-s2",
+      "start": 89.55,
+      "duration": 3.32
     },
     {
       "id": "informational-interview",
-      "start": 89,
-      "duration": 10
+      "start": 92.87,
+      "duration": 9.9
     },
     {
-      "id": "trial-project",
-      "start": 99,
-      "duration": 12
+      "id": "trial-project-s1",
+      "start": 102.77,
+      "duration": 5.99
+    },
+    {
+      "id": "trial-project-s2",
+      "start": 108.76,
+      "duration": 3.2
+    },
+    {
+      "id": "trial-project-s3",
+      "start": 111.96,
+      "duration": 3.23
     },
     {
       "id": "shadow-day",
-      "start": 111,
-      "duration": 8
+      "start": 115.19,
+      "duration": 7.29
     },
     {
-      "id": "one-question",
-      "start": 119,
-      "duration": 15
+      "id": "one-question-s1",
+      "start": 122.48,
+      "duration": 1.58
     },
     {
-      "id": "gather-evidence",
-      "start": 134,
-      "duration": 10
+      "id": "one-question-s2",
+      "start": 124.06,
+      "duration": 3.95
+    },
+    {
+      "id": "one-question-s3",
+      "start": 128.01,
+      "duration": 2.08
+    },
+    {
+      "id": "one-question-s4",
+      "start": 130.09,
+      "duration": 1.62
+    },
+    {
+      "id": "one-question-s5",
+      "start": 131.71,
+      "duration": 5.03
+    },
+    {
+      "id": "one-question-s6",
+      "start": 136.74,
+      "duration": 9.16
+    },
+    {
+      "id": "gather-evidence-s1",
+      "start": 145.9,
+      "duration": 4.84
+    },
+    {
+      "id": "gather-evidence-s2",
+      "start": 150.74,
+      "duration": 6.97
     },
     {
       "id": "lets-design",
-      "start": 144,
-      "duration": 2
+      "start": 157.71,
+      "duration": 4.681
     }
   ],
   "assertions": [
     {
       "kind": "appearsBy",
-      "beatId": "advice-loop",
-      "selector": "#advice-loop",
-      "at": 1
+      "selector": "#advice-loop-s1",
+      "bySec": 1
     },
     {
       "kind": "appearsBy",
-      "beatId": "ibarra-finding",
+      "selector": "#advice-loop-s2",
+      "bySec": 7.93
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#advice-loop-s3",
+      "bySec": 9.26
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#advice-loop-s4",
+      "bySec": 10.45
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#advice-loop-s5",
+      "bySec": 14.07
+    },
+    {
+      "kind": "appearsBy",
       "selector": "#ibarra-finding",
-      "at": 18
+      "bySec": 18.61
     },
     {
       "kind": "appearsBy",
-      "beatId": "act-first",
-      "selector": "#act-first",
-      "at": 28
+      "selector": "#act-first-s1",
+      "bySec": 26.6
     },
     {
       "kind": "appearsBy",
-      "beatId": "past-software",
-      "selector": "#past-software",
-      "at": 45
+      "selector": "#act-first-s2",
+      "bySec": 32.865
     },
     {
       "kind": "appearsBy",
-      "beatId": "real-feedback",
-      "selector": "#real-feedback",
-      "at": 57
+      "selector": "#act-first-s3",
+      "bySec": 34.425
     },
     {
       "kind": "appearsBy",
-      "beatId": "three-experiments",
-      "selector": "#three-experiments",
-      "at": 82
+      "selector": "#act-first-s4",
+      "bySec": 36.54
     },
     {
       "kind": "appearsBy",
-      "beatId": "informational-interview",
+      "selector": "#act-first-s5",
+      "bySec": 38.42
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#act-first-s6",
+      "bySec": 40.27
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#act-first-s7",
+      "bySec": 43.13
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#past-software-s1",
+      "bySec": 48.48
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#past-software-s2",
+      "bySec": 49.7
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#past-software-s3",
+      "bySec": 56.58
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#past-software-s4",
+      "bySec": 59.67
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s1",
+      "bySec": 61.84
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s2",
+      "bySec": 66.97
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s3",
+      "bySec": 68.725
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s4",
+      "bySec": 70.335
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s5",
+      "bySec": 73.65
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s6",
+      "bySec": 78.63
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#real-feedback-s7",
+      "bySec": 83.31
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#three-experiments-s1",
+      "bySec": 88.395
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#three-experiments-s2",
+      "bySec": 90.55
+    },
+    {
+      "kind": "appearsBy",
       "selector": "#informational-interview",
-      "at": 90
+      "bySec": 93.87
     },
     {
       "kind": "appearsBy",
-      "beatId": "trial-project",
-      "selector": "#trial-project",
-      "at": 100
+      "selector": "#trial-project-s1",
+      "bySec": 103.77
     },
     {
       "kind": "appearsBy",
-      "beatId": "shadow-day",
+      "selector": "#trial-project-s2",
+      "bySec": 109.76
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#trial-project-s3",
+      "bySec": 112.96
+    },
+    {
+      "kind": "appearsBy",
       "selector": "#shadow-day",
-      "at": 112
+      "bySec": 116.19
     },
     {
       "kind": "appearsBy",
-      "beatId": "one-question",
-      "selector": "#one-question",
-      "at": 120
+      "selector": "#one-question-s1",
+      "bySec": 123.48
     },
     {
       "kind": "appearsBy",
-      "beatId": "gather-evidence",
-      "selector": "#gather-evidence",
-      "at": 135
+      "selector": "#one-question-s2",
+      "bySec": 125.06
     },
     {
       "kind": "appearsBy",
-      "beatId": "lets-design",
+      "selector": "#one-question-s3",
+      "bySec": 129.01
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#one-question-s4",
+      "bySec": 131.09
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#one-question-s5",
+      "bySec": 132.71
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#one-question-s6",
+      "bySec": 137.74
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#gather-evidence-s1",
+      "bySec": 146.9
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#gather-evidence-s2",
+      "bySec": 151.74
+    },
+    {
+      "kind": "appearsBy",
       "selector": "#lets-design",
-      "at": 145
+      "bySec": 158.71
     },
     {
       "kind": "keepsMoving",
-      "selector": ".clip"
+      "withinSelector": ".composition",
+      "maxStaticSec": 3
     }
   ]
 }

@@ -29,3 +29,6 @@
 2026-08-07T19:39:12Z	resume	program=career-transitions
 2026-08-07T19:40:58Z	preflight	exit 0 — gate-clean
 2026-08-07T19:41:19Z	release	build session ended
+2026-08-07T21:09:14Z	resume	program=career-transitions
+2026-08-07T21:10:42Z	preflight	exit 1
+2026-08-07T21:12:31Z	release	build session ended

@@ -5,57 +5,38 @@
   "speed": 1.0,
   "source_only": true,
   "lines": [
-    {
-      "id": "people-open-doors",
-      "text": "At this point in your career, most meaningful opportunities don't come from job boards. They come from people—colleagues, leaders, and connectors who know your work and can open doors."
-    },
-    {
-      "id": "three-relationships",
-      "text": "In this module, we'll focus on three kinds of relationships that matter especially during a mid-career pivot or advancement: peers, sponsors, and opportunity holders."
-    },
-    {
-      "id": "peers",
-      "text": "Peers are professionals at a similar level who share knowledge, introductions, and real-world context. They help you understand what's happening on the ground, compare experiences, and build community as you shift direction. Think of colleagues in your department, practitioners in your future field, and members of the professional communities you belong to."
-    },
-    {
-      "id": "sponsors",
-      "text": "Sponsors are more senior leaders who don't just advise you—they actively advocate for you. They put your name forward for roles, projects, and committees. Sponsorship is especially critical for mid-career advancement and career pivots, because sponsors often sit right where decisions get made—the promotions, the project leads, the committee seats."
-    },
-    {
-      "id": "opportunity-holders",
-      "text": "Opportunity holders are people who control or influence roles, projects, and hiring decisions. This might be hiring managers, program directors, deans, HR or talent partners, or leaders in organizations you'd like to join. Even if they don't know you yet, they are key nodes for your future path."
-    },
-    {
-      "id": "strategic-map",
-      "text": "When you're pivoting into a new field or aiming for a higher-level role, your goal is not to meet everyone. Your goal is to identify a small, strategic map of the people who are most relevant to the future you're building."
-    },
-    {
-      "id": "find-them",
-      "text": "So how do you find these people?"
-    },
-    {
-      "id": "existing-connections",
-      "text": "First, start with your existing connections:\n- Current and former colleagues\n- People you've worked with on cross-functional projects\n- Alumni networks, professional associations, or communities you're part of\n\nLet them know about your Next Move Statement and ask: \"Who do you know in my target field or role that I might talk to for a twenty-minute learning conversation?\""
-    },
-    {
-      "id": "direct-search",
-      "text": "Second, use platforms like LinkedIn and professional groups to search directly in your future field:\n- Search by title, skills, or keywords connected to your target roles\n- Look for people in organizations or teams you'd like to join"
-    },
-    {
-      "id": "potential-sponsors",
-      "text": "Third, identify potential sponsors in your current organization or a new one:\n- People one to three levels above you who appreciate your work or seem aligned with your direction\n- Leaders who are visible in the spaces you want to enter"
-    },
-    {
-      "id": "contact-map",
-      "text": "In this module's activity, you'll build a contact map of three to five strategic relationships—peers, sponsors, and opportunity holders—who are relevant to your next move, then use outreach templates and AI to craft authentic messages."
-    },
-    {
-      "id": "real-relationships",
-      "text": "Remember: networking is not about collecting business cards or asking for favors at random. It's about building real relationships, sharing value, and staying visible to the people who are most connected to the future you're creating."
-    },
-    {
-      "id": "closing-question",
-      "text": "As you move forward, ask yourself: \"Who already sits near the opportunities I care about—and how can I begin a genuine, respectful relationship with them?\""
-    }
+    {"id":"b01","text":"At this point in your career, most meaningful opportunities don't come from job boards."},
+    {"id":"b02","text":"They come from people—colleagues, leaders, and connectors who know your work and can open doors."},
+    {"id":"b03","text":"In this module, we'll focus on three kinds of relationships that matter especially during a mid-career pivot or advancement."},
+    {"id":"b04","text":"Peers, sponsors, and opportunity holders."},
+    {"id":"b05","text":"Peers are professionals at a similar level who share knowledge, introductions, and real-world context."},
+    {"id":"b06","text":"They help you understand what's happening on the ground, compare experiences, and build community as you shift direction."},
+    {"id":"b07","text":"Think of colleagues in your department, practitioners in your future field, and members of the professional communities you belong to."},
+    {"id":"b08","text":"Sponsors are more senior leaders who don't just advise you—they actively advocate for you."},
+    {"id":"b09","text":"They put your name forward for roles, projects, and committees."},
+    {"id":"b10","text":"Sponsorship is especially critical for mid-career advancement and career pivots, because sponsors often sit right where decisions get made—the promotions, the project leads, the committee seats."},
+    {"id":"b11","text":"Opportunity holders are people who control or influence roles, projects, and hiring decisions."},
+    {"id":"b12","text":"This might be hiring managers, program directors, deans, HR or talent partners, or leaders in organizations you'd like to join."},
+    {"id":"b13","text":"Even if they don't know you yet, they are key nodes for your future path."},
+    {"id":"b14","text":"When you're pivoting into a new field or aiming for a higher-level role, your goal is not to meet everyone."},
+    {"id":"b15","text":"Your goal is to identify a small, strategic map of the people who are most relevant to the future you're building."},
+    {"id":"b16","text":"So how do you find these people?"},
+    {"id":"b17","text":"First, start with your existing connections: Current and former colleagues."},
+    {"id":"b18","text":"People you've worked with on cross-functional projects."},
+    {"id":"b19","text":"Alumni networks, professional associations, or communities you're part of."},
+    {"id":"b20","text":"Let them know about your Next Move Statement and ask."},
+    {"id":"b21","text":"Who do you know in my target field or role that I might talk to for a twenty-minute learning conversation?"},
+    {"id":"b22","text":"Second, use platforms like LinkedIn and professional groups to search directly in your future field."},
+    {"id":"b23","text":"Search by title, skills, or keywords connected to your target roles."},
+    {"id":"b24","text":"Look for people in organizations or teams you'd like to join."},
+    {"id":"b25","text":"Third, identify potential sponsors in your current organization or a new one."},
+    {"id":"b26","text":"People one to three levels above you who appreciate your work or seem aligned with your direction."},
+    {"id":"b27","text":"Leaders who are visible in the spaces you want to enter."},
+    {"id":"b28","text":"In this module's activity, you'll build a contact map of three to five strategic relationships—peers, sponsors, and opportunity holders—who are relevant to your next move."},
+    {"id":"b29","text":"Then use outreach templates and AI to craft authentic messages."},
+    {"id":"b30","text":"Remember: networking is not about collecting business cards or asking for favors at random."},
+    {"id":"b31","text":"It's about building real relationships, sharing value, and staying visible to the people who are most connected to the future you're creating."},
+    {"id":"b32","text":"As you move forward, ask yourself."},
+    {"id":"b33","text":"Who already sits near the opportunities I care about—and how can I begin a genuine, respectful relationship with them?"}
   ]
 }

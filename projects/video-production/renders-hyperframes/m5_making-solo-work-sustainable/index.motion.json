@@ -3,58 +3,58 @@
   "timeline": "gsap",
   "paused": true,
   "seekable": true,
-  "duration": 88,
+  "duration": 83.829,
   "fps": 30,
   "beats": [
     {
       "id": "no-system",
       "start": 0,
-      "duration": 9.5
+      "duration": 8.079
     },
     {
       "id": "simple-pieces",
-      "start": 9.5,
-      "duration": 8
+      "start": 8.079,
+      "duration": 5.5
     },
     {
       "id": "track-opportunities",
-      "start": 17.5,
-      "duration": 11.5
+      "start": 13.579,
+      "duration": 10.04
     },
     {
       "id": "intake-process-a",
-      "start": 29,
-      "duration": 5.5
+      "start": 23.619,
+      "duration": 7.64
     },
     {
       "id": "intake-process-b",
-      "start": 34.5,
-      "duration": 5.5
+      "start": 31.259,
+      "duration": 2.931
     },
     {
       "id": "templates-a",
-      "start": 40,
-      "duration": 5.5
+      "start": 34.19,
+      "duration": 4.909
     },
     {
       "id": "templates-b",
-      "start": 45.5,
-      "duration": 5.5
+      "start": 39.099,
+      "duration": 6.35
     },
     {
       "id": "weekly-review",
-      "start": 51,
-      "duration": 11.5
+      "start": 45.449,
+      "duration": 10.23
     },
     {
       "id": "boundaries",
-      "start": 62.5,
-      "duration": 14
+      "start": 55.679,
+      "duration": 16.56
     },
     {
       "id": "sustainable-plan",
-      "start": 76.5,
-      "duration": 11.5
+      "start": 72.239,
+      "duration": 11.59
     }
   ],
   "assertions": [
@@ -68,60 +68,60 @@
       "kind": "appearsBy",
       "beatId": "simple-pieces",
       "selector": "#simple-pieces",
-      "bySec": 10.7
+      "bySec": 9.279
     },
     {
       "kind": "appearsBy",
       "beatId": "track-opportunities",
       "selector": "#track-opportunities",
-      "bySec": 18.7
+      "bySec": 14.779
     },
     {
       "kind": "appearsBy",
       "beatId": "intake-process-a",
       "selector": "#intake-process-a",
-      "bySec": 30.2
+      "bySec": 24.819
     },
     {
       "kind": "appearsBy",
       "beatId": "intake-process-b",
       "selector": "#intake-process-b",
-      "bySec": 35.7
+      "bySec": 32.459
     },
     {
       "kind": "appearsBy",
       "beatId": "templates-a",
       "selector": "#templates-a",
-      "bySec": 41.2
+      "bySec": 35.39
     },
     {
       "kind": "appearsBy",
       "beatId": "templates-b",
       "selector": "#templates-b",
-      "bySec": 46.7
+      "bySec": 40.299
     },
     {
       "kind": "appearsBy",
       "beatId": "weekly-review",
       "selector": "#weekly-review",
-      "bySec": 52.2
+      "bySec": 46.649
     },
     {
       "kind": "appearsBy",
       "beatId": "boundaries",
       "selector": "#boundaries",
-      "bySec": 63.7
+      "bySec": 56.879
     },
     {
       "kind": "appearsBy",
       "beatId": "sustainable-plan",
       "selector": "#sustainable-plan",
-      "bySec": 77.7
+      "bySec": 73.439
     },
     {
       "kind": "keepsMoving",
       "from": 0,
-      "to": 88,
+      "to": 83.829,
       "selector": ".rail-fill"
     }
   ]
