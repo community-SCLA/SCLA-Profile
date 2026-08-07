@@ -302,9 +302,18 @@ SHIP_STEM="$(stem_delivered "$STEM" "$RENDER_DATE")" \
 FILED="${SHIP_STEM}.mp4"
 DEST_DIR="$VP/renders-mp4/$PROGRAM"
 mkdir -p "$DEST_DIR"
-[[ ! -f "$DEST_DIR/$FILED" ]] || quarantine "filed MP4 already exists: $FILED (same-day re-publish?)"
-cp "$MP4_SRC" "$DEST_DIR/$FILED" || quarantine "could not file MP4"
-echo "== filed: renders-mp4/$PROGRAM/$FILED"
+if [[ -f "$DEST_DIR/$FILED" ]]; then
+  # A failed upload deliberately leaves its filed MP4 behind. On an authorized
+  # retry, resume from it only when it is byte-for-byte the artifact that the
+  # current VERIFIED marker approved; never overwrite a conflicting delivery.
+  FILED_SHA="$(sha256sum "$DEST_DIR/$FILED" | awk '{print $1}')"
+  [[ "$FILED_SHA" == "$WANT_SHA" ]] \
+    || quarantine "filed MP4 conflicts with the current verified artifact: $FILED"
+  echo "== reusing verified filed MP4: renders-mp4/$PROGRAM/$FILED"
+else
+  cp "$MP4_SRC" "$DEST_DIR/$FILED" || quarantine "could not file MP4"
+  echo "== filed: renders-mp4/$PROGRAM/$FILED"
+fi
 
 echo "== wistia upload"
 guarded "wistia-upload" bash "$REPO/scripts/wistia-upload.sh" "$DEST_DIR/$FILED" "$PROGRAM" \
