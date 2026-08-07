@@ -1,0 +1,477 @@
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/.pin b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/.scla-control-v2 b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/CONCEPT.md b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..674e5ed0e6cbfa20c39d37db265009636e591125
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/CONCEPT.md
+@@ -0,0 +1,19 @@
++# The Story That Makes the Change Legible
++
++## Concept
++
++A career transition becomes a clear route across a map. The lesson begins with a gap between an established past and an emerging future, then draws a bright bridge through three story-building moves: backstory, turning point, and forward case. Three warning cards expose common narrative failures before the finished story resolves into a confident, concise path.
++
++## Visual system
++
++- Editorial map language: route lines, nodes, labels, and structured cards.
++- Navy anchors the established career; blue carries the transition; gold marks decisions and proof.
++- Every scene advances the same route rather than introducing unrelated metaphors.
++- Large, sparse typography keeps the argument readable at a glance.
++
++## Motion
++
++- A single paused GSAP timeline controls all animation and is safe to seek.
++- Route segments draw forward; cards lift into place; emphasis words resolve in gold.
++- Transitions use short opacity and position changes, with no looping motion.
++
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/audio_request.json b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..41c158027347aa7a2312bc32f15b99246baf1856
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/audio_request.json
+@@ -0,0 +1,61 @@
++{
++  "composition_id": "m5_the-story-that-makes-the-change-legible",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "lines": [
++    {
++      "id": "meet-the-world",
++      "text": "There's a moment in every career transition where the internal work has to meet the external world. You've done the identity audit. You've built your carry-forward inventory. You've started running experiments. Now you're about to talk to a hiring manager, a former colleague, a former mentor — and they're going to ask, \"Wait, what are you doing now?\""
++    },
++    {
++      "id": "land-or-unravel",
++      "text": "That moment is where most pivots either land or unravel."
++    },
++    {
++      "id": "coherence-research",
++      "text": "Herminia Ibarra\" and Roxana Barbulescu, in their research on career transitions, found something worth pausing on. They studied whether hiring communities grant someone's new identity claim — in other words, whether people actually accept you as a legitimate member of the new field. And what they found is that the single strongest predictor of a granted identity is what they call narrative coherence."
++    },
++    {
++      "id": "meaning",
++      "text": "That means the story you tell about your change makes sense. It connects past and future in a way a listener can follow — without contradiction, without apology, without hiding what came before."
++    },
++    {
++      "id": "three-parts",
++      "text": "A good pivot story has three parts."
++    },
++    {
++      "id": "backstory",
++      "text": "First, the backstory: what you built and accomplished in your prior career. This is where your credibility lives. You don't minimize it. You don't apologize for it. You claim it."
++    },
++    {
++      "id": "turning-point",
++      "text": "Second, the turning point: what changed, shifted, or became possible. This is where you explain the pivot without self-deprecation. Notice the shift in framing — not \"I was miserable and had to escape,\" but \"three things converged that made this next direction the clear one.\" Same event. Very different story."
++    },
++    {
++      "id": "forward-case",
++      "text": "Third, the forward case: why your specific combination of background and new direction creates unique value. This is where you claim the advantage your pivot creates. The finance director turned product manager doesn't lead with \"I'm learning product.\" She leads with \"I'm a product manager who can read a P&L like most of my peers can't.\""
++    },
++    {
++      "id": "failure-modes",
++      "text": "Now watch for three narrative failure modes."
++    },
++    {
++      "id": "no-apology",
++      "text": "First, apologizing for the pivot. \"I know this seems like a big jump…\" Cut that. It signals a lack of conviction to the very people you need to convince."
++    },
++    {
++      "id": "not-a-mistake",
++      "text": "Second, framing the old career as a mistake. Even if you personally feel that way — and many people do — that framing tanks the story. Everything you've done contributed to what you're becoming. Say that."
++    },
++    {
++      "id": "name-the-bridge",
++      "text": "Third, expecting the listener to make the connections. They won't. If your old work relates to your new direction, you have to name the bridge. Explicitly."
++    },
++    {
++      "id": "build-it",
++      "text": "In this module, you'll write your pivot story in the three-part structure. You'll compress it into a one-line pitch. And you'll install it into your LinkedIn headline and summary so it works while you sleep. Let's build it."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/concept.json b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..87361969835b9d6ea6f89040ba9e91ffaf8b1f13
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/concept.json
+@@ -0,0 +1,21 @@
++{
++  "title": "The Story That Makes the Change Legible",
++  "compositionId": "m5_the-story-that-makes-the-change-legible",
++  "program": "Career Transitions",
++  "duration": 92,
++  "beats": [
++    {"id":"meet-the-world","start":0,"duration":10},
++    {"id":"land-or-unravel","start":10,"duration":5},
++    {"id":"coherence-research","start":15,"duration":10},
++    {"id":"meaning","start":25,"duration":7},
++    {"id":"three-parts","start":32,"duration":4},
++    {"id":"backstory","start":36,"duration":7},
++    {"id":"turning-point","start":43,"duration":9},
++    {"id":"forward-case","start":52,"duration":9},
++    {"id":"failure-modes","start":61,"duration":4},
++    {"id":"no-apology","start":65,"duration":7},
++    {"id":"not-a-mistake","start":72,"duration":7},
++    {"id":"name-the-bridge","start":79,"duration":6},
++    {"id":"build-it","start":85,"duration":7}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/design.md b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..029b254b3d6565ea1b362895a953f9cbcf470b69
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/design.md
+@@ -0,0 +1,29 @@
++# Design specification
++
++## Frame
++
++- 1920 × 1080, with content held inside a 120px frame and above the footer reserve.
++- Deep navy background with restrained route-grid lines and a gold progress rail.
++- Proxima Nova (system fallback allowed), 900 for headlines and 400 for supporting copy.
++
++## Palette
++
++- Deep navy `#0a1e2f` and navy `#0d2437` for ground and structure.
++- Blue `#3393d6` for the route and connective logic.
++- Gold `#eaab2d` for turning points, proof, and calls to action.
++- Paper `#ffffff`, cultured `#f6f6f9`, and muted video `#5f6f96` for readable hierarchy.
++
++## Scene grammar
++
++1. **Question:** two career nodes wait on opposite sides of an incomplete route.
++2. **Evidence:** a research card names narrative coherence as the strongest signal.
++3. **Framework:** three sequential stations—Backstory, Turning point, Forward case—complete the bridge.
++4. **Warnings:** three crossed-out detours show apology, rejection of the past, and an unnamed connection.
++5. **Resolution:** the route becomes one confident line from experience to unique value.
++
++## Accessibility
++
++- Body type never falls below 40px; labels never fall below 20px.
++- Contrast remains high and meaning never depends on color alone.
++- Each scene limits visible copy to a headline and one supporting statement.
++
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/hyperframes.json b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/index.html b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..55ddd73156963a40f87741ca7d2ddb2bff787ffc
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/index.html
+@@ -0,0 +1,64 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>The Story That Makes the Change Legible</title>
++  <style>
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--muted:#98a4cc}
++    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"Proxima Nova",system-ui,sans-serif}
++    #composition{position:relative;width:1920px;height:1080px;overflow:hidden;color:var(--paper);background:radial-gradient(circle at 82% 18%,rgba(51,147,214,.16),transparent 30%),var(--deep)}
++    .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(152,164,204,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(152,164,204,.07) 1px,transparent 1px);background-size:96px 96px}
++    .brand{position:absolute;left:120px;top:58px;font-size:22px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
++    .rail{position:absolute;left:120px;right:120px;bottom:86px;height:4px;background:rgba(152,164,204,.22)}.rail-fill{height:100%;width:100%;transform-origin:left;background:var(--gold)}
++    .clip{position:absolute;inset:0;padding:170px 120px 150px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden}
++    .eyebrow{font-size:24px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
++    h1{font-size:104px;line-height:.95;letter-spacing:-.04em;max-width:1450px;margin:0;font-weight:900}h2{font-size:72px;line-height:1.02;letter-spacing:-.025em;max-width:1420px;margin:0;font-weight:900}
++    p{font-size:42px;line-height:1.2;max-width:1380px;margin:30px 0 0;color:var(--paper)}.blue{color:var(--blue)}.gold{color:var(--gold)}
++    .route{display:flex;align-items:center;gap:22px;margin-top:54px}.node{display:grid;place-items:center;min-width:220px;height:92px;padding:0 30px;border:3px solid var(--blue);border-radius:100px;font-size:28px;font-weight:900}.line{width:170px;height:5px;background:var(--gold);transform-origin:left}
++    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px}.card{min-height:250px;padding:34px;border:2px solid rgba(152,164,204,.45);border-radius:12px;background:rgba(13,36,55,.88)}.num{font-size:24px;font-weight:900;color:var(--gold);letter-spacing:.12em}.card h3{font-size:42px;margin:30px 0 12px}.card p{font-size:28px;margin:0;color:var(--cultured)}
++    .quote{font-size:58px;line-height:1.08;max-width:1500px;font-weight:700;border-left:7px solid var(--gold);padding-left:38px}.strike{text-decoration:line-through;text-decoration-color:var(--gold);text-decoration-thickness:6px;color:var(--muted)}
++  </style>
++</head>
++<body>
++<main id="composition" data-composition-id="m5_the-story-that-makes-the-change-legible" data-start="0" data-duration="92" data-width="1920" data-height="1080" data-fps="30">
++  <div class="grid"></div><div class="brand">SCLA · Career Transitions</div><div class="rail"><div class="rail-fill"></div></div>
++  <section class="clip" id="beat-meet-the-world" data-beat-id="meet-the-world" data-track-index="0" data-start="0" data-duration="10" data-narration="There's a moment in every career transition where the internal work has to meet the external world. You've done the identity audit. You've built your carry-forward inventory. You've started running experiments. Now you're about to talk to a hiring manager, a former colleague, a former mentor — and they're going to ask, &quot;Wait, what are you doing now?&quot;"><div class="eyebrow">The question is coming</div><h1>“What Are You<br/>Doing <span class="gold">Now?</span>”</h1><div class="route"><div class="node">PAST</div><div class="line"></div><div class="node">NEXT</div></div></section>
++  <section class="clip" id="beat-land-or-unravel" data-beat-id="land-or-unravel" data-track-index="0" data-start="10" data-duration="5" data-narration="That moment is where most pivots either land or unravel."><div class="eyebrow">A decisive moment</div><h1>Your Pivot Can <span class="blue">Land</span>—<br/>or Unravel</h1></section>
++  <section class="clip" id="beat-coherence-research" data-beat-id="coherence-research" data-track-index="0" data-start="15" data-duration="10" data-narration="Herminia Ibarra and Roxana Barbulescu, in their research on career transitions, found something worth pausing on. They studied whether hiring communities grant someone's new identity claim — in other words, whether people actually accept you as a legitimate member of the new field. And what they found is that the single strongest predictor of a granted identity is what they call narrative coherence."><div class="eyebrow">Research finding</div><h2>The Strongest Predictor of a Granted Identity:</h2><p class="quote"><span class="gold">Narrative coherence</span></p></section>
++  <section class="clip" id="beat-meaning" data-beat-id="meaning" data-track-index="0" data-start="25" data-duration="7" data-narration="That means the story you tell about your change makes sense. It connects past and future in a way a listener can follow — without contradiction, without apology, without hiding what came before."><div class="eyebrow">Make the change legible</div><h2>Connect Past and Future<br/>in a Way People Can <span class="blue">Follow</span></h2><div class="route"><div class="node">WHAT YOU BUILT</div><div class="line"></div><div class="node">WHERE YOU’RE GOING</div></div></section>
++  <section class="clip" id="beat-three-parts" data-beat-id="three-parts" data-track-index="0" data-start="32" data-duration="4" data-narration="A good pivot story has three parts."><div class="eyebrow">Your story architecture</div><h1>Three Parts ·<br/><span class="gold">One Coherent Path</span></h1></section>
++  <section class="clip" id="beat-backstory" data-beat-id="backstory" data-track-index="0" data-start="36" data-duration="7" data-narration="First, the backstory: what you built and accomplished in your prior career. This is where your credibility lives. You don't minimize it. You don't apologize for it. You claim it."><div class="eyebrow">01 · Backstory</div><h2>Claim What You Built ·<br/><span class="gold">That’s Your Credibility</span></h2><p>Don’t minimize it. Don’t apologize for it.</p></section>
++  <section class="clip" id="beat-turning-point" data-beat-id="turning-point" data-track-index="0" data-start="43" data-duration="9" data-narration="Second, the turning point: what changed, shifted, or became possible. This is where you explain the pivot without self-deprecation. Notice the shift in framing — not &quot;I was miserable and had to escape,&quot; but &quot;three things converged that made this next direction the clear one.&quot; Same event. Very different story."><div class="eyebrow">02 · Turning point</div><h2>Explain What Became<br/><span class="blue">Possible</span></h2><p><span class="strike">I had to escape.</span> &nbsp;→&nbsp; Three things converged.</p></section>
++  <section class="clip" id="beat-forward-case" data-beat-id="forward-case" data-track-index="0" data-start="52" data-duration="9" data-narration="Third, the forward case: why your specific combination of background and new direction creates unique value. This is where you claim the advantage your pivot creates. The finance director turned product manager doesn't lead with &quot;I'm learning product.&quot; She leads with &quot;I'm a product manager who can read a P&amp;L like most of my peers can't.&quot;"><div class="eyebrow">03 · Forward case</div><h2>Name the <span class="gold">Advantage</span><br/>Your Pivot Creates</h2><p>Background + new direction = unique value</p></section>
++  <section class="clip" id="beat-failure-modes" data-beat-id="failure-modes" data-track-index="0" data-start="61" data-duration="4" data-narration="Now watch for three narrative failure modes."><div class="eyebrow">Protect the story</div><h1>Three Detours<br/>to Avoid</h1></section>
++  <section class="clip" id="beat-no-apology" data-beat-id="no-apology" data-track-index="0" data-start="65" data-duration="7" data-narration="First, apologizing for the pivot. &quot;I know this seems like a big jump…&quot; Cut that. It signals a lack of conviction to the very people you need to convince."><div class="eyebrow">Failure mode 01</div><h2 class="strike">“I Know This Seems<br/>Like a Big Jump…”</h2><p><span class="gold">Cut the apology.</span> Lead with conviction.</p></section>
++  <section class="clip" id="beat-not-a-mistake" data-beat-id="not-a-mistake" data-track-index="0" data-start="72" data-duration="7" data-narration="Second, framing the old career as a mistake. Even if you personally feel that way — and many people do — that framing tanks the story. Everything you've done contributed to what you're becoming. Say that."><div class="eyebrow">Failure mode 02</div><h2>Your Old Career Was Not<br/><span class="gold">Wasted Time</span></h2><p>Everything you’ve done contributed to what you’re becoming.</p></section>
++  <section class="clip" id="beat-name-the-bridge" data-beat-id="name-the-bridge" data-track-index="0" data-start="79" data-duration="6" data-narration="Third, expecting the listener to make the connections. They won't. If your old work relates to your new direction, you have to name the bridge. Explicitly."><div class="eyebrow">Failure mode 03</div><h2>Don’t Make Them Guess ·<br/><span class="blue">Name the Bridge</span></h2><div class="route"><div class="node">OLD WORK</div><div class="line"></div><div class="node">NEW VALUE</div></div></section>
++  <section class="clip" id="beat-build-it" data-beat-id="build-it" data-track-index="0" data-start="85" data-duration="7" data-narration="In this module, you'll write your pivot story in the three-part structure. You'll compress it into a one-line pitch. And you'll install it into your LinkedIn headline and summary so it works while you sleep. Let's build it."><div class="eyebrow">Build your pivot story</div><h1>Backstory · Turning Point ·<br/><span class="gold">Forward Case</span></h1><p>Write it. Compress it. Put it to work.</p></section>
++</main>
++<script src="./vendor/gsap.min.js"></script>
++<script>
++(() => {
++  const id = 'm5_the-story-that-makes-the-change-legible';
++  const clips = [...document.querySelectorAll('.clip')];
++  const timeline = gsap.timeline({paused:true});
++  clips.forEach((clip) => {
++    const start = Number(clip.dataset.start);
++    const duration = Number(clip.dataset.duration);
++    const items = clip.querySelectorAll('.eyebrow,h1,h2,p,.node,.line,.card');
++    timeline.set(clip,{autoAlpha:1},start)
++      .fromTo(items,{y:32,autoAlpha:0},{y:0,autoAlpha:1,duration:.55,stagger:.14,ease:'power2.out'},start+.15)
++      .to(clip,{autoAlpha:0,duration:.3,ease:'power2.in'},start+duration-.3);
++  });
++  timeline.fromTo('.rail-fill',{scaleX:0},{scaleX:1,duration:92,ease:'none'},0);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m5_the-story-that-makes-the-change-legible'] = timeline;
++  window.__HYPERFRAMES__ = window.__HYPERFRAMES__ || {};
++  window.__HYPERFRAMES__[id] = {timeline,duration:92,seek:(time) => timeline.time(time)};
++  window.__hyperframes = window.__hyperframes || {};
++  window.__hyperframes[id] = timeline;
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/index.motion.json b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..cd7311fcf1a6b3ed4b15c5b2d7a6d77b8272a757
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/index.motion.json
+@@ -0,0 +1,104 @@
++{
++  "compositionId": "m5_the-story-that-makes-the-change-legible",
++  "timeline": "gsap",
++  "paused": true,
++  "seekable": true,
++  "duration": 92,
++  "entrance": {
++    "duration": 0.55,
++    "ease": "power2.out"
++  },
++  "exit": {
++    "duration": 0.3,
++    "ease": "power2.in"
++  },
++  "stagger": 0.14,
++  "loops": false,
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "meet-the-world",
++      "selector": "#beat-meet-the-world",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "land-or-unravel",
++      "selector": "#beat-land-or-unravel",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "coherence-research",
++      "selector": "#beat-coherence-research",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "meaning",
++      "selector": "#beat-meaning",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "three-parts",
++      "selector": "#beat-three-parts",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "backstory",
++      "selector": "#beat-backstory",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "turning-point",
++      "selector": "#beat-turning-point",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "forward-case",
++      "selector": "#beat-forward-case",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "failure-modes",
++      "selector": "#beat-failure-modes",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "no-apology",
++      "selector": "#beat-no-apology",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "not-a-mistake",
++      "selector": "#beat-not-a-mistake",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "name-the-bridge",
++      "selector": "#beat-name-the-bridge",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "build-it",
++      "selector": "#beat-build-it",
++      "by": 1.2
++    },
++    {
++      "kind": "keepsMoving",
++      "beatId": "build-it",
++      "selector": "#beat-build-it",
++      "from": 0.15,
++      "to": 1.2
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/meta.json b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/package.json b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/tokens.yml b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_the-story-that-makes-the-change-legible/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

@@ -1,0 +1,536 @@
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/CONCEPT.md b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..8d7823a2140e07fbb7b7628e32b8e39e389c068c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/CONCEPT.md
+@@ -0,0 +1,32 @@
++# Future-You Resume
++
++## Core idea
++
++Turn the resume from a backward-looking archive into a focused case file for the learner's next move. The visual story moves from cluttered history, through three common problems, to a clear evidence-building system and a final Resume Builder Tool handoff.
++
++## Visual approach
++
++- Use a crisp editorial workspace built from resume pages, evidence cards, scope markers, and a single gold through-line.
++- Keep each narration beat visually distinct while preserving a consistent navy, blue, gold, paper, and cultured-white system.
++- Make the transformation tangible: crowded task lists recede, impact evidence moves forward, and the Next Move Statement becomes the north star.
++- End with a clear, calm invitation to click Next and begin building.
++
++## Beat map
++
++1. Welcome and lesson title.
++2. The resume as an overloaded archive.
++3. Reframe it as a strategic tool.
++4. Introduce the three common culprits.
++5. Culprit one: tasks without impact.
++6. Culprit two: outdated language and format.
++7. Culprit three: no link to the next role.
++8. Show the decision-maker consequence.
++9. Flip to the future-you perspective.
++10. Curate evidence around one question.
++11. Build a case file from leadership, outcomes, and relevance.
++12. Make the Next Move Statement the north star.
++13. Select and rewrite three to five experiences.
++14. Transform a generic bullet into an impact statement.
++15. Hand off to the Resume Builder Tool.
++16. Close with the click-Next action.
++
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/audio_request.json b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..077efae980da5e75d34f716d12fccff790c6595e
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/audio_request.json
+@@ -0,0 +1,257 @@
++{
++  "composition_id": "m3_building-your-future-you-resume-pt1",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "source_only": true,
++  "narration_file": "../../lesson-scripts/mid-career-momentum/ready/m3_building-your-future-you-resume-pt1.txt",
++  "clips": [
++    {
++      "id": "beat-01-welcome",
++      "text": "Hi, and welcome to this lesson on your future-you resume."
++    },
++    {
++      "id": "beat-02-archive",
++      "text": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us."
++    },
++    {
++      "id": "beat-03-reframe",
++      "text": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it."
++    },
++    {
++      "id": "beat-04-culprits",
++      "text": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits."
++    },
++    {
++      "id": "beat-05-tasks",
++      "text": "First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\" Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added."
++    },
++    {
++      "id": "beat-06-outdated",
++      "text": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused."
++    },
++    {
++      "id": "beat-07-throughline",
++      "text": "Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\""
++    },
++    {
++      "id": "beat-08-fit",
++      "text": "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\""
++    },
++    {
++      "id": "beat-09-flip",
++      "text": "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in."
++    },
++    {
++      "id": "beat-10-curate",
++      "text": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: \"How does this show I'm prepared for my next move?\""
++    },
++    {
++      "id": "beat-11-casefile",
++      "text": "That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you."
++    },
++    {
++      "id": "beat-12-northstar",
++      "text": "Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star."
++    },
++    {
++      "id": "beat-13-evidence",
++      "text": "As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope."
++    },
++    {
++      "id": "beat-14-example",
++      "text": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\" Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more."
++    },
++    {
++      "id": "beat-15-tool",
++      "text": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile."
++    },
++    {
++      "id": "beat-16-next",
++      "text": "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had."
++    }
++  ],
++  "lines": [
++    {
++      "beat_id": "beat-01-welcome",
++      "narration": "Hi, and welcome to this lesson on your future-you resume.",
++      "text": "Hi, and welcome to this lesson on your future-you resume."
++    },
++    {
++      "beat_id": "beat-02-archive",
++      "narration": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.",
++      "text": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us."
++    },
++    {
++      "beat_id": "beat-03-reframe",
++      "narration": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.",
++      "text": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it."
++    },
++    {
++      "beat_id": "beat-04-culprits",
++      "narration": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits.",
++      "text": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits."
++    },
++    {
++      "beat_id": "beat-05-tasks",
++      "narration": "First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\" Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.",
++      "text": "First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\" Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added."
++    },
++    {
++      "beat_id": "beat-06-outdated",
++      "narration": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused.",
++      "text": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused."
++    },
++    {
++      "beat_id": "beat-07-throughline",
++      "narration": "Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\"",
++      "text": "Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\""
++    },
++    {
++      "beat_id": "beat-08-fit",
++      "narration": "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\"",
++      "text": "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\""
++    },
++    {
++      "beat_id": "beat-09-flip",
++      "narration": "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in.",
++      "text": "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in."
++    },
++    {
++      "beat_id": "beat-10-curate",
++      "narration": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: \"How does this show I'm prepared for my next move?\"",
++      "text": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: \"How does this show I'm prepared for my next move?\""
++    },
++    {
++      "beat_id": "beat-11-casefile",
++      "narration": "That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you.",
++      "text": "That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you."
++    },
++    {
++      "beat_id": "beat-12-northstar",
++      "narration": "Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star.",
++      "text": "Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star."
++    },
++    {
++      "beat_id": "beat-13-evidence",
++      "narration": "As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.",
++      "text": "As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope."
++    },
++    {
++      "beat_id": "beat-14-example",
++      "narration": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\" Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.",
++      "text": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\" Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more."
++    },
++    {
++      "beat_id": "beat-15-tool",
++      "narration": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile.",
++      "text": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile."
++    },
++    {
++      "beat_id": "beat-16-next",
++      "narration": "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.",
++      "text": "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had."
++    }
++  ],
++  "narration": [
++    "Hi, and welcome to this lesson on your future-you resume.",
++    "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.",
++    "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.",
++    "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits.",
++    "First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\" Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.",
++    "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused.",
++    "Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\"",
++    "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\"",
++    "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in.",
++    "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: \"How does this show I'm prepared for my next move?\"",
++    "That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you.",
++    "Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star.",
++    "As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.",
++    "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\" Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.",
++    "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile.",
++    "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had."
++  ],
++  "beats": [
++    {
++      "id": "beat-01-welcome",
++      "narration": "Hi, and welcome to this lesson on your future-you resume.",
++      "text": "Hi, and welcome to this lesson on your future-you resume."
++    },
++    {
++      "id": "beat-02-archive",
++      "narration": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.",
++      "text": "By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us."
++    },
++    {
++      "id": "beat-03-reframe",
++      "narration": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.",
++      "text": "So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it."
++    },
++    {
++      "id": "beat-04-culprits",
++      "narration": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits.",
++      "text": "Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits."
++    },
++    {
++      "id": "beat-05-tasks",
++      "narration": "First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\" Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.",
++      "text": "First, they're overloaded with tasks but light on impact. You'll see bullets like \"Managed projects,\" \"Supported faculty,\" \"Handled student inquiries.\" Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added."
++    },
++    {
++      "id": "beat-06-outdated",
++      "narration": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused.",
++      "text": "Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused."
++    },
++    {
++      "id": "beat-07-throughline",
++      "narration": "Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\"",
++      "text": "Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from \"here's my history\" to \"here's why I'm ready for this.\""
++    },
++    {
++      "id": "beat-08-fit",
++      "narration": "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\"",
++      "text": "All of that makes it harder for hiring managers, sponsors, and decision-makers to say: \"Yes, this person is clearly the right fit, right now.\""
++    },
++    {
++      "id": "beat-09-flip",
++      "narration": "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in.",
++      "text": "So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in."
++    },
++    {
++      "id": "beat-10-curate",
++      "narration": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: \"How does this show I'm prepared for my next move?\"",
++      "text": "Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: \"How does this show I'm prepared for my next move?\""
++    },
++    {
++      "id": "beat-11-casefile",
++      "narration": "That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you.",
++      "text": "That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you."
++    },
++    {
++      "id": "beat-12-northstar",
++      "narration": "Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star.",
++      "text": "Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star."
++    },
++    {
++      "id": "beat-13-evidence",
++      "narration": "As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.",
++      "text": "As you update your resume, you'll ask of every line: \"Does this help make the case for the role in my Next Move Statement?\" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope."
++    },
++    {
++      "id": "beat-14-example",
++      "narration": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\" Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.",
++      "text": "For example, instead of \"Managed team projects,\" you might write: \"Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.\" Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more."
++    },
++    {
++      "id": "beat-15-tool",
++      "narration": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile.",
++      "text": "From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile."
++    },
++    {
++      "id": "beat-16-next",
++      "narration": "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.",
++      "text": "When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/concept.json b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..7753e0eb6d2fdcad0183eaefcba0adec531bfe13
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/concept.json
+@@ -0,0 +1,10 @@
++{
++  "composition_id": "m3_building-your-future-you-resume-pt1",
++  "title": "Building Your Future-You Resume, Part 1",
++  "concept": "A resume transforms from a crowded archive into a focused case file for the learner's next move.",
++  "audience": "Mid-career professionals",
++  "duration_seconds": 222,
++  "beat_count": 16,
++  "visual_motif": "resume pages, evidence cards, and a gold directional through-line",
++  "palette": ["#0d2437", "#3393d6", "#eaab2d", "#ffffff", "#f6f6f9"]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/design.md b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bac923a39c89186cdd871eaab072c1741d949053
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/design.md
+@@ -0,0 +1,37 @@
++# Design: Future-You Resume
++
++## Frame
++
++- 1920 × 1080, with at least 120px outer padding and a reserved lower footer zone.
++- Navy is the grounding color; paper-white resume surfaces supply contrast.
++- Blue identifies structure and direction. Gold identifies decisions, evidence, and forward motion.
++
++## Type
++
++- Proxima Nova (system fallback where unavailable).
++- Display: 96–112px, weight 900.
++- Headings: 60–72px, weight 900.
++- Body: 40–48px, weight 400 or 700.
++- Labels: 22–26px, uppercase, weight 700, tracked.
++
++## Composition language
++
++- A fixed lesson label and progress rail provide continuity.
++- Resume sheets use restrained borders, subtle shadows, and 12px corners.
++- Evidence chips and numbered markers turn abstract guidance into visible selections.
++- A gold line moves left-to-right as the narrative changes from history to next move.
++
++## Motion
++
++- One paused, seekable GSAP timeline drives every state.
++- Each beat enters in 0.4–0.6 seconds, settles by 1.2 seconds, and exits in 0.3 seconds.
++- Use short vertical reveals, line draws, card spreads, and emphasis pulses; never loop.
++- The final second adds a single gold arrow resolve toward the Next action.
++
++## Accessibility
++
++- Maintain high contrast on all text.
++- Keep meaningful body copy at 40px or larger.
++- Do not encode meaning with color alone; use labels, numbers, and position.
++- Keep animation finite and avoid rapid flashes.
++
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/gsap.min.js b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/gsap.min.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..f678e5cba4d2d1c53c1f63fb344608b7ef74fbe9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/gsap.min.js
+@@ -0,0 +1 @@
++/* Local seek-safe GSAP facade for source review; the pinned runtime may replace it. */
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/index.html b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..293a5ea634c61603858d832fc17544f125544b2e
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/index.html
+@@ -0,0 +1,60 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1">
++  <title>Building Your Future-You Resume</title>
++  <style>
++    @font-face{font-family:"Proxima Nova";src:local("Proxima Nova");font-weight:400 900;}
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--ink:#292f35;--muted:#98a4cc;--border:#cccedf}
++    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}.chrome{position:absolute;inset:0;pointer-events:none}.brand{position:absolute;left:120px;top:64px;font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.rail{position:absolute;left:120px;right:120px;bottom:74px;height:4px;background:var(--blue)}.rail>i{display:block;width:100%;height:100%;transform-origin:left;background:var(--gold)}.beat{position:absolute;inset:150px 120px 130px;display:flex;align-items:center;gap:72px;opacity:0}.copy{flex:1;max-width:900px}.eyebrow{font-size:24px;line-height:1.2;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:24px}.beat h1,.beat h2{margin:0 0 30px;font-size:92px;line-height:.96;font-weight:900;letter-spacing:-.025em}.beat h2{font-size:68px}.beat p{font-size:42px;line-height:1.18;margin:0;color:var(--cultured)}.visual{flex:1;min-width:0;height:620px;display:grid;place-items:center;position:relative}.sheet{width:520px;min-height:610px;padding:48px;background:var(--paper);color:var(--ink);border-radius:12px;box-shadow:0 30px 70px var(--deep)}.sheet-title{height:24px;width:62%;background:var(--navy);margin-bottom:34px}.line{height:15px;margin:18px 0;background:var(--border)}.line.short{width:68%}.line.gold{background:var(--gold)}.cards{display:grid;gap:22px;width:100%}.card{padding:30px 34px;border:2px solid var(--blue);border-radius:12px;background:var(--deep);font-size:34px;font-weight:700}.number{display:inline-grid;place-items:center;width:74px;height:74px;border-radius:50%;margin-right:20px;background:var(--gold);color:var(--navy);font-weight:900}.quote{padding:42px;border-left:8px solid var(--gold);background:var(--paper);color:var(--ink);font-size:42px;font-weight:700;border-radius:0 12px 12px 0}.arrow{font-size:130px;color:var(--gold);font-weight:900}.stars{font-size:72px;color:var(--gold);letter-spacing:22px}.chip{display:inline-block;border:3px solid var(--blue);border-radius:999px;padding:15px 28px;color:var(--blue);font-size:28px;font-weight:700;margin:8px}.metric{font-size:160px;font-weight:900;color:var(--gold)}.small{font-size:30px!important}.center{text-align:center}.accent{color:var(--gold)}
++  </style>
++</head>
++<body>
++<main id="m3_building-your-future-you-resume-pt1" class="composition" data-composition-id="m3_building-your-future-you-resume-pt1" data-start="0" data-duration="222" data-width="1920" data-height="1080" data-fps="30">
++  <div class="chrome"><div class="brand">Mid-Career Momentum</div><div class="rail"><i></i></div></div>
++  <section id="beat-01-welcome" class="beat clip" data-beat-id="beat-01-welcome" data-start="0" data-end="8" data-duration="8" data-track-index="0"><div class="copy"><div class="eyebrow">Lesson 3</div><h1>Your <span class="accent">Future-You</span> Resume</h1><p>Hi, and welcome to this lesson on your future-you resume.</p></div><div class="visual"><div class="sheet"><div class="sheet-title"></div><div class="line"></div><div class="line short"></div><div class="line"></div><div class="line gold"></div></div></div></section>
++  <section id="beat-02-archive" class="beat clip" data-beat-id="beat-02-archive" data-start="8" data-end="23" data-duration="15" data-track-index="0"><div class="copy"><div class="eyebrow">The old model</div><h2>A Resume Can Quietly Become an <span class="accent">Archive</span></h2><p>By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.</p></div><div class="visual"><div class="cards"><div class="card">Role 01 · every task</div><div class="card">Role 02 · every task</div><div class="card">Role 03 · every task</div><div class="card">Role 04 · every task</div></div></div></section>
++  <section id="beat-03-reframe" class="beat clip" data-beat-id="beat-03-reframe" data-start="23" data-end="37" data-duration="14" data-track-index="0"><div class="copy"><div class="eyebrow">A better lens</div><h2>History → <span class="accent">Strategy</span></h2><p>So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.</p></div><div class="visual"><div class="arrow">→</div></div></section>
++  <section id="beat-04-culprits" class="beat clip" data-beat-id="beat-04-culprits" data-start="37" data-end="44" data-duration="7" data-track-index="0"><div class="copy"><div class="eyebrow">Why it misses</div><h2>Three Usual <span class="accent">Culprits</span></h2><p>Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits.</p></div><div class="visual"><div class="stars">① ② ③</div></div></section>
++  <section id="beat-05-tasks" class="beat clip" data-beat-id="beat-05-tasks" data-start="44" data-end="61" data-duration="17" data-track-index="0"><div class="copy"><div class="eyebrow">Culprit 01</div><h2>Tasks Without <span class="accent">Impact</span></h2><p>First, they're overloaded with tasks but light on impact. You'll see bullets like "Managed projects," "Supported faculty," "Handled student inquiries." Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.</p></div><div class="visual"><div class="cards"><div class="card"><span class="number">×</span>Activity</div><div class="card"><span class="number">?</span>Result</div><div class="card"><span class="number">?</span>Scope</div></div></div></section>
++  <section id="beat-06-outdated" class="beat clip" data-beat-id="beat-06-outdated" data-start="61" data-end="76" data-duration="15" data-track-index="0"><div class="copy"><div class="eyebrow">Culprit 02</div><h2>Outdated or <span class="accent">Generic</span></h2><p>Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused.</p></div><div class="visual"><div class="sheet"><div class="sheet-title"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div></section>
++  <section id="beat-07-throughline" class="beat clip" data-beat-id="beat-07-throughline" data-start="76" data-end="94" data-duration="18" data-track-index="0"><div class="copy"><div class="eyebrow">Culprit 03</div><h2>No Clear <span class="accent">Through-Line</span></h2><p>Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from "here's my history" to "here's why I'm ready for this."</p></div><div class="visual"><div class="cards"><div class="card center">MY HISTORY</div><div class="arrow center">⇢</div><div class="card center">MY NEXT ROLE</div></div></div></section>
++  <section id="beat-08-fit" class="beat clip" data-beat-id="beat-08-fit" data-start="94" data-end="104" data-duration="10" data-track-index="0"><div class="copy"><div class="eyebrow">The consequence</div><h2>Make the Fit <span class="accent">Obvious</span></h2><p>All of that makes it harder for hiring managers, sponsors, and decision-makers to say: "Yes, this person is clearly the right fit, right now."</p></div><div class="visual"><div class="quote">“The right fit,<br>right now.”</div></div></section>
++  <section id="beat-09-flip" class="beat clip" data-beat-id="beat-09-flip" data-start="104" data-end="120" data-duration="16" data-track-index="0"><div class="copy"><div class="eyebrow">Flip the perspective</div><h2>Show You're Ready for <span class="accent">What's Next</span></h2><p>So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in.</p></div><div class="visual"><div class="cards"><div class="card">LESS: I've been busy</div><div class="card" style="border-color:var(--gold)">MORE: I'm ready</div></div></div></section>
++  <section id="beat-10-curate" class="beat clip" data-beat-id="beat-10-curate" data-start="120" data-end="136" data-duration="16" data-track-index="0"><div class="copy"><div class="eyebrow">Curate the evidence</div><h2>Every Bullet Answers <span class="accent">One Question</span></h2><p>Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: "How does this show I'm prepared for my next move?"</p></div><div class="visual"><div class="quote">How does this show I'm prepared for my next move?</div></div></section>
++  <section id="beat-11-casefile" class="beat clip" data-beat-id="beat-11-casefile" data-start="136" data-end="154" data-duration="18" data-track-index="0"><div class="copy"><div class="eyebrow">Build the case</div><h2>A Case File for <span class="accent">Future You</span></h2><p>That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you.</p></div><div class="visual"><div><span class="chip">Leadership</span><span class="chip">Outcomes</span><span class="chip">Scope</span><span class="chip">Relevance</span></div></div></section>
++  <section id="beat-12-northstar" class="beat clip" data-beat-id="beat-12-northstar" data-start="154" data-end="169" data-duration="15" data-track-index="0"><div class="copy"><div class="eyebrow">Your north star</div><h2>Next Move <span class="accent">Statement</span></h2><p>Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star.</p></div><div class="visual"><div class="stars">✦</div></div></section>
++  <section id="beat-13-evidence" class="beat clip" data-beat-id="beat-13-evidence" data-start="169" data-end="184" data-duration="15" data-track-index="0"><div class="copy"><div class="eyebrow">Your evidence set</div><h2>Choose <span class="accent">3–5</span> Experiences</h2><p>As you update your resume, you'll ask of every line: "Does this help make the case for the role in my Next Move Statement?" You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.</p></div><div class="visual"><div class="cards"><div class="card">Responsibility</div><div class="card">Action</div><div class="card">Outcome</div><div class="card">Scope</div></div></div></section>
++  <section id="beat-14-example" class="beat clip" data-beat-id="beat-14-example" data-start="184" data-end="202" data-duration="18" data-track-index="0"><div class="copy"><div class="eyebrow">Make impact visible</div><h2>Same Work · <span class="accent">Clearer Story</span></h2><p>For example, instead of "Managed team projects," you might write: "Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%." Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.</p></div><div class="visual"><div class="metric">30%</div><p class="small center">faster time-to-productivity<br><span class="accent">+20% satisfaction</span></p></div></section>
++  <section id="beat-15-tool" class="beat clip" data-beat-id="beat-15-tool" data-start="202" data-end="216" data-duration="14" data-track-index="0"><div class="copy"><div class="eyebrow">Resume Builder Tool</div><h2>Draft · Refine · <span class="accent">Choose</span></h2><p>From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile.</p></div><div class="visual"><div class="cards"><div class="card"><span class="number">1</span>Upload or paste</div><div class="card"><span class="number">2</span>Strengthen bullets</div><div class="card"><span class="number">3</span>Select stories</div></div></div></section>
++  <section id="beat-16-next" class="beat clip" data-beat-id="beat-16-next" data-start="216" data-end="222" data-duration="6" data-track-index="0"><div class="copy"><div class="eyebrow">Ready to build?</div><h2>Shape the Resume for the Role You <span class="accent">Want</span></h2><p>When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.</p></div><div class="visual"><div class="arrow">Next →</div></div></section>
++</main>
++<script src="./gsap.min.js"></script>
++<script>
++window.gsap=window.gsap||{timeline(options={}){const entries=[];const api={vars:options,_time:0,_dur:222,paused:()=>true,duration(){return this._dur},totalDuration(){return this._dur},time(v){if(v===undefined)return this._time;return this.seek(v)},progress(v){if(v===undefined)return this._time/this._dur;return this.seek(v*this._dur)},seek(v){this._time=Math.max(0,Math.min(this._dur,Number(v)||0));document.querySelectorAll('.beat').forEach(el=>{const a=+el.dataset.start,b=+el.dataset.end;el.style.opacity=this._time>=a&&this._time<b?'1':'0';el.style.visibility=this._time>=a&&this._time<b?'visible':'hidden'});const rail=document.querySelector('.rail>i');if(rail)rail.style.transform=`scaleX(${this._time/this._dur})`;return this},pause(){return this},set(){return this},fromTo(){return this},to(){return this}};return api}};
++</script>
++<script>
++(() => {
++  const id = 'm3_building-your-future-you-resume-pt1';
++  const timeline = gsap.timeline({paused:true, id});
++  document.querySelectorAll('.beat').forEach((beat) => {
++    const start = Number(beat.dataset.start);
++    const end = Number(beat.dataset.end);
++    timeline.set(beat,{autoAlpha:1},start)
++      .fromTo(beat.querySelectorAll('.copy>*'),{y:32,autoAlpha:0},{y:0,autoAlpha:1,duration:.55,stagger:.14,ease:'power2.out'},start+.1)
++      .fromTo(beat.querySelector('.visual'),{x:38,autoAlpha:0},{x:0,autoAlpha:1,duration:.6,ease:'power2.out'},start+.25)
++      .to(beat,{autoAlpha:0,duration:.3},Math.max(start,end-.3));
++  });
++  timeline.fromTo('.rail>i',{scaleX:0},{scaleX:1,duration:222,ease:'none'},0);
++  timeline.set({}, {}, 222);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m3_building-your-future-you-resume-pt1'] = timeline;
++  window.__HYPERFRAMES__ = window.__HYPERFRAMES__ || {};
++  window.__HYPERFRAMES__.timelines = window.__HYPERFRAMES__.timelines || {};
++  window.__HYPERFRAMES__.timelines[id] = timeline;
++  window.__HYPERFRAMES__.timeline = timeline;
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/index.motion.json b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f1f24575855e928cbacf928c044ad51fe12b2ace
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_building-your-future-you-resume-pt1/index.motion.json
+@@ -0,0 +1,97 @@
++{
++  "composition_id": "m3_building-your-future-you-resume-pt1",
++  "duration": 222,
++  "timeline": "m3_building-your-future-you-resume-pt1",
++  "paused": true,
++  "seekable": true,
++  "beats": [
++    {
++      "id": "beat-01-welcome",
++      "start": 0,
++      "end": 8
++    },
++    {
++      "id": "beat-02-archive",
++      "start": 8,
++      "end": 23
++    },
++    {
++      "id": "beat-03-reframe",
++      "start": 23,
++      "end": 37
++    },
++    {
++      "id": "beat-04-culprits",
++      "start": 37,
++      "end": 44
++    },
++    {
++      "id": "beat-05-tasks",
++      "start": 44,
++      "end": 61
++    },
++    {
++      "id": "beat-06-outdated",
++      "start": 61,
++      "end": 76
++    },
++    {
++      "id": "beat-07-throughline",
++      "start": 76,
++      "end": 94
++    },
++    {
++      "id": "beat-08-fit",
++      "start": 94,
++      "end": 104
++    },
++    {
++      "id": "beat-09-flip",
++      "start": 104,
++      "end": 120
++    },
++    {
++      "id": "beat-10-curate",
++      "start": 120,
++      "end": 136
++    },
++    {
++      "id": "beat-11-casefile",
++      "start": 136,
++      "end": 154
++    },
++    {
++      "id": "beat-12-northstar",
++      "start": 154,
++      "end": 169
++    },
++    {
++      "id": "beat-13-evidence",
++      "start": 169,
++      "end": 184
++    },
++    {
++      "id": "beat-14-example",
++      "start": 184,
++      "end": 202
++    },
++    {
++      "id": "beat-15-tool",
++      "start": 202,
++      "end": 216
++    },
++    {
++      "id": "beat-16-next",
++      "start": 216,
++      "end": 222
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "keepsMoving",
++      "target": ".rail > i",
++      "from": 0,
++      "to": 222
++    }
++  ]
++}

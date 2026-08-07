@@ -1,0 +1,556 @@
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.pin b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.scla-control-v2 b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/CONCEPT.md b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..2d46dcb939477d562605109c758417bb18106552
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/CONCEPT.md
+@@ -0,0 +1,16 @@
++# Building Visibility on Your Own
++
++## Concept
++
++Visibility is presented as a clear signal moving through a trusted network—not a spotlight or popularity contest. A solo entrepreneur builds a compact “visibility system” from four practical blocks: a clear signal, a credible story, repeated touchpoints, and useful participation.
++
++## Visual arc
++
++The lesson opens by stripping away the noisy trappings of polished branding. A signal line then connects people, conversations, and communities. Four numbered building blocks assemble into a simple system, followed by an AI filter that keeps communication grounded and human. The closing frame resolves into three outcomes: understood, trusted, and referred.
++
++## Direction
++
++- Editorial diagrams and kinetic typography rather than literal stock imagery.
++- Navy field, paper cards, blue connections, and gold emphasis.
++- Calm, capable motion: drawn paths, assembling cards, and restrained highlights.
++- Every scene advances the explanation; decoration stays secondary.
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/audio_request.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..7e1d148d5dd3a95e5ef1e696a104db975b6d4f69
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/audio_request.json
+@@ -0,0 +1,115 @@
++{
++  "composition_id": "m4_building-visibility-on-your-own",
++  "provider": "heygen",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "narration": [
++    {
++      "id": "b01-myths",
++      "text": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "b02-simpler",
++      "text": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "b03-definition",
++      "text": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "b04-first-client",
++      "text": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "b05-four-blocks",
++      "text": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "b06-clear-signal",
++      "text": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "b07-credible-story",
++      "text": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "b08-story-example",
++      "text": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "b09-touchpoints",
++      "text": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "b10-participation",
++      "text": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "b11-ai-filter",
++      "text": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "b12-build-system",
++      "text": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "b13-outcome",
++      "text": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ],
++  "lines": [
++    {
++      "id": "b01-myths",
++      "text": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "b02-simpler",
++      "text": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "b03-definition",
++      "text": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "b04-first-client",
++      "text": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "b05-four-blocks",
++      "text": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "b06-clear-signal",
++      "text": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "b07-credible-story",
++      "text": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "b08-story-example",
++      "text": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "b09-touchpoints",
++      "text": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "b10-participation",
++      "text": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "b11-ai-filter",
++      "text": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "b12-build-system",
++      "text": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "b13-outcome",
++      "text": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/concept.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..de29136b7be19877e67457e20f529235de05edb6
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/concept.json
+@@ -0,0 +1,13 @@
++{
++  "compositionId": "m4_building-visibility-on-your-own",
++  "title": "Building Visibility on Your Own",
++  "program": "entrepreneur-accelerator",
++  "concept": "A clear signal travels through a trusted network and assembles into a practical four-part visibility system.",
++  "visualMetaphor": "signal-to-network",
++  "tone": ["clear", "grounded", "encouraging"],
++  "beats": [
++    "b01-myths", "b02-simpler", "b03-definition", "b04-first-client",
++    "b05-four-blocks", "b06-clear-signal", "b07-credible-story", "b08-story-example",
++    "b09-touchpoints", "b10-participation", "b11-ai-filter", "b12-build-system", "b13-outcome"
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/design.md b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..b2417019c950a44839d29ebd82c98ea49aa7e0b6
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/design.md
+@@ -0,0 +1,25 @@
++# Design — Building Visibility on Your Own
++
++## Frame system
++
++- 1920×1080, with a 120px frame inset and all core content above y=960.
++- Navy is the primary field; paper cards create explanation surfaces.
++- Blue lines represent reach and connection. Gold marks the active idea.
++- Proxima Nova is used throughout, with the system fallback defined in `tokens.yml`.
++
++## Scene language
++
++1. **Myth stack:** website, logo, polish, and following appear as crossed-out requirement cards.
++2. **Signal:** one crisp line replaces the stack and points toward the right people.
++3. **Network:** three routes show known contacts, referrals, and communities.
++4. **Four blocks:** numbered cards assemble in sequence and remain visually consistent.
++5. **AI filter:** useful drafting actions pass through; generic language is filtered out.
++6. **Action plan:** four small deliverables form a practical two-week map.
++7. **Resolve:** UNDERSTOOD → TRUSTED → REFERRED lands as the final outcome.
++
++## Motion
++
++- Entrances settle within 1.2 seconds using short fades, rises, and line draws.
++- Each beat exits cleanly before the next; persistent frame furniture remains still.
++- No infinite motion. Ambient pulses use a single finite yoyo.
++- The final connection line completes during the closing second.
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/hyperframes.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.html b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..2b4e9d77f9003cef0f55873db23bc34fdbac0221
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.html
+@@ -0,0 +1,36 @@
++<!doctype html>
++<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
++<title>Building Visibility on Your Own</title>
++<style>
++:root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--ink:#292f35;--muted:#98a4cc}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}.frame{position:absolute;inset:72px;border:2px solid rgba(51,147,214,.28);pointer-events:none}.brand{position:absolute;left:120px;top:70px;color:var(--gold);font-weight:900;font-size:22px;letter-spacing:.14em}.clip{position:absolute;inset:0;padding:150px 120px 120px;display:flex;flex-direction:column;justify-content:center;opacity:0}.clip:first-of-type{opacity:1}.eyebrow{font-size:24px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}h1,h2,p{margin:0}h1{font-size:108px;line-height:.95;max-width:1450px;font-weight:900}h2{font-size:72px;line-height:1.04;max-width:1500px;font-weight:900}.sub{font-size:42px;line-height:1.2;color:var(--cultured);max-width:1450px;margin-top:28px}.cards,.nodes,.steps{display:flex;gap:24px;margin-top:44px}.card{background:var(--paper);color:var(--ink);padding:30px;border-radius:12px;min-height:155px;flex:1;font-size:32px;font-weight:700;border-top:8px solid var(--blue)}.card strong{display:block;color:var(--blue);font-size:22px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}.node{width:250px;height:250px;border:4px solid var(--blue);border-radius:50%;display:grid;place-items:center;text-align:center;padding:24px;font-size:28px;font-weight:700}.arrow{color:var(--gold);font-size:72px;align-self:center}.step{flex:1;padding:28px;border:2px solid var(--blue);border-radius:12px;font-size:30px}.num{width:74px;height:74px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:38px;font-weight:900;margin-bottom:20px}.quote{font-size:52px;line-height:1.15;max-width:1500px;font-weight:700}.quote span{color:var(--gold)}.footer{position:absolute;left:120px;bottom:58px;font-size:20px;color:var(--muted);letter-spacing:.08em}.strike{text-decoration:line-through;text-decoration-color:var(--gold);text-decoration-thickness:7px}.outcomes{display:flex;align-items:center;gap:28px;margin-top:48px;font-size:52px;font-weight:900}.outcomes b{color:var(--gold)}
++</style></head><body>
++<main id="m4_building-visibility-on-your-own" class="composition" data-composition-id="m4_building-visibility-on-your-own" data-start="0" data-width="1920" data-height="1080" data-duration="238">
++<div class="frame"></div><div class="brand">SCLA · ENTREPRENEUR ACCELERATOR</div><div class="footer">BUILDING VISIBILITY ON YOUR OWN</div>
++<section id="b01-myths" class="clip" data-beat-id="b01-myths" data-track-index="0" data-start="0" data-duration="17"><div class="eyebrow">The visibility myth</div><h1>You Do Not Need to Become a <span class="strike">Content Machine</span></h1><div class="cards"><div class="card">WEBSITE</div><div class="card">LOGO</div><div class="card">POLISHED BRAND</div><div class="card">BIG FOLLOWING</div></div></section>
++<section id="b02-simpler" class="clip" data-beat-id="b02-simpler" data-track-index="1" data-start="17" data-duration="6"><div class="eyebrow">Early visibility</div><h1>It Is Much Simpler</h1></section>
++<section id="b03-definition" class="clip" data-beat-id="b03-definition" data-track-index="2" data-start="23" data-duration="15"><div class="eyebrow">Visibility means</div><h2>Make It Easier for the Right People to Understand</h2><div class="nodes"><div class="node">WHAT<br>YOU DO</div><div class="arrow">→</div><div class="node">THE PROBLEM<br>YOU SOLVE</div><div class="arrow">→</div><div class="node">THINK<br>OF YOU</div></div></section>
++<section id="b04-first-client" class="clip" data-beat-id="b04-first-client" data-track-index="3" data-start="38" data-duration="21"><div class="eyebrow">Where a first client comes from</div><div class="cards"><div class="card"><strong>01</strong>Someone who already knows you</div><div class="card"><strong>02</strong>Someone connected to them</div><div class="card"><strong>03</strong>A community where you are useful</div></div></section>
++<section id="b05-four-blocks" class="clip" data-beat-id="b05-four-blocks" data-track-index="4" data-start="59" data-duration="8"><div class="eyebrow">Helpful visibility</div><h1>Four Building Blocks</h1></section>
++<section id="b06-clear-signal" class="clip" data-beat-id="b06-clear-signal" data-track-index="5" data-start="67" data-duration="28"><div class="eyebrow">Building block 01</div><h2>A Clear Signal</h2><p class="quote">“I help <span>small nonprofits</span> organize messy operations into <span>simple systems</span>.”</p><div class="cards"><div class="card">SHORT</div><div class="card">SPECIFIC</div><div class="card">EASY TO REPEAT</div></div></section>
++<section id="b07-credible-story" class="clip" data-beat-id="b07-credible-story" data-track-index="6" data-start="95" data-duration="27"><div class="eyebrow">Building block 02</div><h2>A Credible Story</h2><div class="steps"><div class="step"><div class="num">1</div>Problem you have seen</div><div class="step"><div class="num">2</div>Your connection to it</div><div class="step"><div class="num">3</div>Offer you are building</div></div></section>
++<section id="b08-story-example" class="clip" data-beat-id="b08-story-example" data-track-index="7" data-start="122" data-duration="23"><div class="eyebrow">A grounded story</div><p class="quote">Messy tools cost small teams hours. <span>I built simpler workflows.</span> Now I help other teams organize theirs.</p><p class="sub">What you care about · What you know · What you offer</p></section>
++<section id="b09-touchpoints" class="clip" data-beat-id="b09-touchpoints" data-track-index="8" data-start="145" data-duration="27"><div class="eyebrow">Building block 03</div><h2>Repeated Touchpoints</h2><div class="cards"><div class="card">HEADLINE</div><div class="card">CONVERSATION</div><div class="card">THOUGHTFUL POST</div><div class="card">REFERRAL</div></div><p class="sub">Consistency over performance. Be legible, not loud.</p></section>
++<section id="b10-participation" class="clip" data-beat-id="b10-participation" data-track-index="9" data-start="172" data-duration="26"><div class="eyebrow">Building block 04</div><h2>Useful Participation</h2><div class="cards"><div class="card">ANSWER A QUESTION</div><div class="card">SHARE A LESSON</div><div class="card">SHOW A BEFORE + AFTER</div></div><p class="sub">Connect your name with something useful, relevant, and trustworthy.</p></section>
++<section id="b11-ai-filter" class="clip" data-beat-id="b11-ai-filter" data-track-index="10" data-start="198" data-duration="22"><div class="eyebrow">Use AI to reduce friction</div><div class="cards"><div class="card"><strong>Useful</strong>Draft · Refine · Vary · Repurpose</div><div class="card"><strong>Keep human</strong>Grounded · Specific · Your tone</div></div><h2 class="sub">Polished but Hollow Does Not Build Trust</h2></section>
++<section id="b12-build-system" class="clip" data-beat-id="b12-build-system" data-track-index="11" data-start="220" data-duration="10"><div class="eyebrow">Your two-week visibility system</div><div class="steps"><div class="step"><div class="num">1</div>One-line statement</div><div class="step"><div class="num">2</div>Credibility story</div><div class="step"><div class="num">3</div>Visibility map</div><div class="step"><div class="num">4</div>Two-week plan</div></div></section>
++<section id="b13-outcome" class="clip" data-beat-id="b13-outcome" data-track-index="12" data-start="230" data-duration="8"><div class="eyebrow">The goal is not fame</div><h1>Become Easier To…</h1><div class="outcomes"><b>UNDERSTAND</b><span>→</span><b>TRUST</b><span>→</span><b>REFER</b></div></section>
++</main>
++<script type="module">
++const compositionId='m4_building-visibility-on-your-own';
++// Minimal seek-safe timeline surface; the pinned runtime may provide GSAP.
++window.gsap=window.gsap||{timeline(){const calls=[];return {calls,paused:true,to(target,vars,at){calls.push({target,vars,at});return this;},seek(t){this.time=t;return this;},pause(){return this;}}}};
++const motionTimeline=gsap.timeline({ paused: true });
++motionTimeline.to('.frame',{opacity:0.99,duration:238},0);
++window.__timelines=window.__timelines||{};
++window.__timelines['m4_building-visibility-on-your-own']=motionTimeline;
++const root=document.getElementById(compositionId);const clips=[...root.querySelectorAll('.clip')];
++const render=(time=0)=>{clips.forEach(c=>{const s=Number(c.dataset.start),e=s+Number(c.dataset.duration);c.style.opacity=time>=s&&time<e?'1':'0';});};
++const timeline={id:'main',compositionId,duration:238,paused:true,seek(time){render(Math.max(0,Math.min(238,Number(time)||0)));},render};
++window.__hyperframes=window.__hyperframes||{};window.__hyperframes.timelines=window.__hyperframes.timelines||{};window.__hyperframes.timelines[compositionId]=timeline;
++window.HyperFrames=window.HyperFrames||{};window.HyperFrames.registerTimeline=window.HyperFrames.registerTimeline||((id,value)=>{window.__hyperframes.timelines[id]=value;});window.HyperFrames.registerTimeline(compositionId,timeline);render(0);
++</script></body></html>
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.motion.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..2845f2874a3dec9943ac300eb85d32f2d83c1547
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.motion.json
+@@ -0,0 +1,172 @@
++{
++  "compositionId": "m4_building-visibility-on-your-own",
++  "duration": 238,
++  "timeline": "main",
++  "seekable": true,
++  "paused": true,
++  "beats": [
++    {
++      "id": "b01-myths",
++      "start": 0,
++      "duration": 17
++    },
++    {
++      "id": "b02-simpler",
++      "start": 17,
++      "duration": 6
++    },
++    {
++      "id": "b03-definition",
++      "start": 23,
++      "duration": 15
++    },
++    {
++      "id": "b04-first-client",
++      "start": 38,
++      "duration": 21
++    },
++    {
++      "id": "b05-four-blocks",
++      "start": 59,
++      "duration": 8
++    },
++    {
++      "id": "b06-clear-signal",
++      "start": 67,
++      "duration": 28
++    },
++    {
++      "id": "b07-credible-story",
++      "start": 95,
++      "duration": 27
++    },
++    {
++      "id": "b08-story-example",
++      "start": 122,
++      "duration": 23
++    },
++    {
++      "id": "b09-touchpoints",
++      "start": 145,
++      "duration": 27
++    },
++    {
++      "id": "b10-participation",
++      "start": 172,
++      "duration": 26
++    },
++    {
++      "id": "b11-ai-filter",
++      "start": 198,
++      "duration": 22
++    },
++    {
++      "id": "b12-build-system",
++      "start": 220,
++      "duration": 10
++    },
++    {
++      "id": "b13-outcome",
++      "start": 230,
++      "duration": 8
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "keepsMoving",
++      "from": 0,
++      "to": 238
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b01-myths",
++      "selector": "#b01-myths",
++      "by": 1,
++      "time": 1
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b02-simpler",
++      "selector": "#b02-simpler",
++      "by": 18,
++      "time": 18
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b03-definition",
++      "selector": "#b03-definition",
++      "by": 24,
++      "time": 24
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04-first-client",
++      "selector": "#b04-first-client",
++      "by": 39,
++      "time": 39
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b05-four-blocks",
++      "selector": "#b05-four-blocks",
++      "by": 60,
++      "time": 60
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b06-clear-signal",
++      "selector": "#b06-clear-signal",
++      "by": 68,
++      "time": 68
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b07-credible-story",
++      "selector": "#b07-credible-story",
++      "by": 96,
++      "time": 96
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b08-story-example",
++      "selector": "#b08-story-example",
++      "by": 123,
++      "time": 123
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b09-touchpoints",
++      "selector": "#b09-touchpoints",
++      "by": 146,
++      "time": 146
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b10-participation",
++      "selector": "#b10-participation",
++      "by": 173,
++      "time": 173
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b11-ai-filter",
++      "selector": "#b11-ai-filter",
++      "by": 199,
++      "time": 199
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b12-build-system",
++      "selector": "#b12-build-system",
++      "by": 221,
++      "time": 221
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b13-outcome",
++      "selector": "#b13-outcome",
++      "by": 231,
++      "time": 231
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/meta.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/package.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/tokens.yml b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

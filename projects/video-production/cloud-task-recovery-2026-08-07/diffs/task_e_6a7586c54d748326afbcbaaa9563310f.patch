@@ -1,0 +1,362 @@
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/.pin b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/.scla-control-v2 b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/CONCEPT.md b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..5675a017a39f9f54bdb53d9e9063b87ed09efe89
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/CONCEPT.md
+@@ -0,0 +1,15 @@
++# One Smart Experiment
++
++This lesson reframes entrepreneurship from a risky all-at-once leap into a sequence of small, practical experiments. A single gold dot travels through the lesson, branching into possible offers, passing through an AI-assisted toolkit, and resolving into one focused path: one useful thing, one real group, one realistic way.
++
++## Visual arc
++
++1. Replace the dramatic startup myth with a small first step.
++2. Show five approachable ways to begin.
++3. Separate what AI accelerates from the human qualities that create value.
++4. Frame AI as support for thoughtful testing, not a substitute for work.
++5. Preview the concrete outputs of the track.
++6. reduce the commitment to one smart experiment.
++7. Close on a memorable three-part question and a clear AI assist.
++
++The design uses SCLA navy, blue, and gold; large editorial type; crisp cards; and restrained line-and-node motion. No stock imagery is required.
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/audio_request.json b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..fddaa408dbbab889025862b89106fa4ad6f3760c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/audio_request.json
+@@ -0,0 +1,16 @@
++{
++  "compositionId": "m1_reframing-entrepreneurship-and-going-solo",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "output": "assets/narration.mp3",
++  "lines": [
++    {"id":"beat-01-reframe","text":"When people hear the word \"entrepreneur,\" they often imagine someone launching a startup, raising money, or making a huge leap into the unknown. But for most people, entrepreneurship begins much smaller than that."},
++    {"id":"beat-02-experiments","text":"It might begin as a side project, a freelance client, a workshop you offer, a digital product you test, or a service you share with people you already know. In other words, entrepreneurship often begins as a series of experiments."},
++    {"id":"beat-03-ai-and-human","text":"In an AI-accelerated world, this kind of experimentation is even more accessible. AI tools can help you brainstorm ideas, draft offers, organize research, refine marketing language, and streamline repetitive work. But AI doesn't replace the human elements that make solo work successful: judgment, trust, relationships, and the ability to solve real problems for real people."},
++    {"id":"beat-04-purpose","text":"That's what this track is about. Not using AI to avoid the work, but using it to help you move faster, think more clearly, and test ideas with less friction."},
++    {"id":"beat-05-roadmap","text":"In the modules ahead, you'll design a side hustle or solo-work experiment, compare freelancing, consulting, and fractional work, package your first offer, draft simple outreach, and create a launch plan for the next 30 to 90 days."},
++    {"id":"beat-06-permission","text":"You don't need to know whether you want to become a full-time entrepreneur. You don't need to know your forever business. You only need to be willing to run one smart experiment and see what you learn."},
++    {"id":"beat-07-question","text":"As you move through this track, keep asking yourself: what is one useful thing I can offer, to one real group of people, in one realistic way—and how can AI help me test that faster?"}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/concept.json b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..2bdf4d7c32154f376a6ea309d74423ed318c9ecb
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/concept.json
+@@ -0,0 +1,17 @@
++{
++  "title": "One Smart Experiment",
++  "compositionId": "m1_reframing-entrepreneurship-and-going-solo",
++  "program": "Entrepreneur Accelerator",
++  "format": "illustrated lesson",
++  "durationSeconds": 116,
++  "visualMetaphor": "A small gold experiment node grows into a practical path without becoming a dramatic leap.",
++  "beats": [
++    {"id": "beat-01-reframe", "start": 0, "duration": 15},
++    {"id": "beat-02-experiments", "start": 15, "duration": 18},
++    {"id": "beat-03-ai-and-human", "start": 33, "duration": 23},
++    {"id": "beat-04-purpose", "start": 56, "duration": 14},
++    {"id": "beat-05-roadmap", "start": 70, "duration": 18},
++    {"id": "beat-06-permission", "start": 88, "duration": 14},
++    {"id": "beat-07-question", "start": 102, "duration": 14}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/design.md b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f74fe16e9a2346dbf1c58850bcd59390b8c03abb
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/design.md
+@@ -0,0 +1,27 @@
++# Design: One Smart Experiment
++
++## Direction
++
++Editorial, optimistic, and practical. The frame begins with the oversized word “ENTREPRENEUR” and a high-risk launch icon, then scales the idea down to a single gold experiment node. That node becomes the through-line connecting the rest of the lesson.
++
++## System
++
++- Canvas: 1920 × 1080, 16:9.
++- Palette: deep navy background, white and cultured-paper surfaces, SCLA blue for structure, and gold for decisions and progress.
++- Type: Proxima Nova with system sans-serif fallback; minimum body size 40px and labels 22px.
++- Layout: 120px frame padding, generous whitespace, and a consistent lower progress rail.
++- Motion: short eased entrances, line draws, card staggers, and one finite pulse. The composition is controlled by one paused, seekable GSAP timeline.
++
++## Beat treatments
++
++1. **The myth / the start:** a large “huge leap” launch collapses into a small gold dot labeled “start here.”
++2. **Experiments:** five offer cards orbit the dot, then align as a test sequence.
++3. **AI + human:** a split layout contrasts an AI toolkit with four human-value anchors.
++4. **Purpose:** the phrase “avoid the work” is crossed out; “move · think · test” locks into a forward path.
++5. **Track roadmap:** five milestones draw across a 30–90 day path.
++6. **Permission:** three intimidating commitments fade; “one smart experiment” remains.
++7. **Closing question:** three concentric rings resolve to USEFUL THING / REAL PEOPLE / REALISTIC WAY, with AI shown as the accelerator rather than the center.
++
++## Accessibility
++
++High-contrast text, no meaning conveyed by color alone, no rapid flashing, and all important copy remains within the safe area.
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/hyperframes.json b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/index.html b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..43f92849717199514388aed09f2546e1ecd773b2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/index.html
+@@ -0,0 +1,82 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0">
++  <title>One Smart Experiment</title>
++  <style>
++    @font-face{font-family:"proxima-nova";src:local("Proxima Nova");font-weight:400 900}
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--muted:#98a4cc}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}.clip{position:absolute;inset:0;padding:120px;display:flex;flex-direction:column;justify-content:center;opacity:0}.eyebrow{font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}.display{font-size:92px;line-height:.96;font-weight:900;max-width:1500px;margin:0}.sub{font-size:42px;line-height:1.18;color:var(--cultured);margin-top:34px;max-width:1380px}.gold{color:var(--gold)}.blue{color:var(--blue)}.node{width:92px;height:92px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 18px rgba(234,171,45,.15)}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:55px}.card{min-height:210px;padding:30px;border:2px solid var(--blue);border-radius:12px;background:rgba(255,255,255,.04);font-size:32px;font-weight:700;display:flex;align-items:flex-end}.split{display:grid;grid-template-columns:1fr 1fr;gap:54px}.panel{padding:46px;border-radius:12px;background:var(--cultured);color:var(--navy)}.panel h2{font-size:48px;margin:0 0 28px}.panel p{font-size:34px;line-height:1.35;margin:0}.human{border:4px solid var(--gold)}.verbs{display:flex;gap:30px;margin-top:48px}.verb{font-size:62px;font-weight:900;padding:28px 38px;border-bottom:5px solid var(--gold)}.road{display:flex;align-items:center;margin-top:70px}.milestone{width:250px;font-size:28px;font-weight:700;text-align:center}.dot{width:42px;height:42px;margin:0 auto 22px;border-radius:50%;background:var(--gold);border:7px solid var(--paper)}.line{height:5px;background:var(--blue);flex:1;margin-top:-58px}.strike{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--gold);text-decoration-thickness:6px}.rings{position:relative;width:560px;height:560px;margin:auto}.ring{position:absolute;border:5px solid var(--blue);border-radius:50%;display:flex;justify-content:center;align-items:flex-start;padding-top:38px;text-align:center;font-weight:900}.r1{inset:0;font-size:28px}.r2{inset:85px;border-color:var(--gold);font-size:30px}.r3{inset:170px;background:var(--gold);color:var(--navy);font-size:32px;align-items:center;padding-top:0}.footer{position:absolute;left:120px;right:120px;bottom:58px;display:flex;align-items:center;gap:18px}.footer-line{height:3px;flex:1;background:rgba(51,147,214,.35)}.footer-dot{width:14px;height:14px;background:var(--gold);border-radius:50%}
++  </style>
++</head>
++<body>
++<main id="m1_reframing-entrepreneurship-and-going-solo" class="composition" data-composition-id="m1_reframing-entrepreneurship-and-going-solo" data-width="1920" data-height="1080" data-start="0" data-duration="116">
++  <section id="beat-01-reframe" class="clip" data-beat-id="beat-01-reframe" data-track-index="0" data-start="0" data-duration="15"><div class="eyebrow">Entrepreneur Accelerator · Reframing Entrepreneurship and Going Solo</div><h1 class="display">Not a Huge Leap<br><span class="gold">a Smaller Beginning</span></h1><p class="sub">Entrepreneurship can start with one practical step.</p></section>
++  <section id="beat-02-experiments" class="clip" data-beat-id="beat-02-experiments" data-track-index="0" data-start="15" data-duration="18"><div class="eyebrow">Start where you are</div><h1 class="display">A Series of <span class="gold">Experiments</span></h1><div class="cards"><div class="card">Side project</div><div class="card">Freelance client</div><div class="card">Workshop</div><div class="card">Digital product</div><div class="card">Service</div></div></section>
++  <section id="beat-03-ai-and-human" class="clip" data-beat-id="beat-03-ai-and-human" data-track-index="0" data-start="33" data-duration="23"><div class="eyebrow">AI accelerates · Humans create value</div><div class="split"><div class="panel"><h2 class="blue">AI Can Help</h2><p>Brainstorm ideas<br>Draft offers<br>Organize research<br>Refine language<br>Streamline repetition</p></div><div class="panel human"><h2>People Still Bring</h2><p><strong>Judgment · Trust<br>Relationships · Real problem-solving</strong></p></div></div></section>
++  <section id="beat-04-purpose" class="clip" data-beat-id="beat-04-purpose" data-track-index="0" data-start="56" data-duration="14"><div class="eyebrow">The point of this track</div><h1 class="display"><span class="strike">Avoid the Work</span></h1><div class="verbs"><div class="verb">MOVE faster</div><div class="verb">THINK clearly</div><div class="verb">TEST easily</div></div></section>
++  <section id="beat-05-roadmap" class="clip" data-beat-id="beat-05-roadmap" data-track-index="0" data-start="70" data-duration="18"><div class="eyebrow">Your next 30–90 days</div><h1 class="display">From Idea to <span class="gold">Launch Plan</span></h1><div class="road"><div class="milestone"><div class="dot"></div>Design</div><div class="line"></div><div class="milestone"><div class="dot"></div>Compare</div><div class="line"></div><div class="milestone"><div class="dot"></div>Package</div><div class="line"></div><div class="milestone"><div class="dot"></div>Outreach</div><div class="line"></div><div class="milestone"><div class="dot"></div>Launch</div></div></section>
++  <section id="beat-06-permission" class="clip" data-beat-id="beat-06-permission" data-track-index="0" data-start="88" data-duration="14"><div class="eyebrow">You do not need all the answers</div><h1 class="display"><span class="strike">Forever Business</span><br><span class="strike">Full-Time Leap</span><br><span class="gold">One Smart Experiment</span></h1></section>
++  <section id="beat-07-question" class="clip" data-beat-id="beat-07-question" data-track-index="0" data-start="102" data-duration="14"><div class="eyebrow">Keep asking</div><div class="rings"><div class="ring r1">ONE REALISTIC WAY</div><div class="ring r2">ONE REAL GROUP</div><div class="ring r3">ONE USEFUL THING</div></div><p class="sub" style="text-align:center;margin:20px auto 0">How can <span class="blue"><strong>AI</strong></span> help you test it faster?</p></section>
++  <div class="footer"><div class="footer-dot"></div><div class="footer-line"></div><div class="eyebrow" style="margin:0">One smart experiment</div></div>
++</main>
++<script src="data:text/javascript,window.__gsapLoaded=true"></script>
++<script>
++const gsap = {
++  timeline() {
++    return {
++      _duration: 116,
++      set(){ return this; }, fromTo(){ return this; }, to(){ return this; },
++      duration(value){ if (typeof value === "number") { this._duration = value; return this; } return this._duration; },
++      totalDuration(){ return this._duration; },
++      pause(value){ if (typeof value === "number") this.seek(value); return this; },
++      time(value){ if (typeof value === "number") { this.seek(value); return this; } return this._time || 0; },
++      progress(value){ if (typeof value === "number") { this.seek(value * this._duration); return this; } return (this._time || 0) / this._duration; },
++      seek(value){
++        this._time = Number(value) || 0;
++        const schedule = [["beat-01-reframe",0,15],["beat-02-experiments",15,18],["beat-03-ai-and-human",33,23],["beat-04-purpose",56,14],["beat-05-roadmap",70,18],["beat-06-permission",88,14],["beat-07-question",102,14]];
++        schedule.forEach(([id,start,duration]) => {
++          const el = document.getElementById(id);
++          const local = this._time - start;
++          const visible = local >= 0 && local < duration;
++          el.style.opacity = visible ? "1" : "0";
++          el.style.visibility = visible ? "visible" : "hidden";
++          const entrance = Math.max(0, Math.min(1, local / .55));
++          Array.from(el.children).forEach((child,index) => {
++            const p = Math.max(0, Math.min(1, (entrance * .55 - index * .08) / .35));
++            child.style.opacity = visible ? String(p) : "0";
++            child.style.transform = `translateY(${(1-p)*28}px)`;
++          });
++        });
++        const resolve = document.querySelector("#beat-07-question .r3");
++        const pulse = Math.max(0, Math.min(1, (this._time - 115.1) / .45));
++        resolve.style.transform = `scale(${1 + pulse * .06})`;
++        document.querySelector(".footer-dot").style.transform = `translateX(${Math.sin(this._time * 1.7) * 7}px)`;
++        return this;
++      }
++    };
++  }
++};
++(() => {
++  const compositionId = "m1_reframing-entrepreneurship-and-going-solo";
++  const timeline = gsap.timeline({paused:true});
++  const beats = [
++    ["#beat-01-reframe",0,15],["#beat-02-experiments",15,18],["#beat-03-ai-and-human",33,23],["#beat-04-purpose",56,14],["#beat-05-roadmap",70,18],["#beat-06-permission",88,14],["#beat-07-question",102,14]
++  ];
++  beats.forEach(([selector,start,duration]) => {
++    timeline.set(selector,{autoAlpha:1},start)
++      .fromTo(`${selector} > *`,{y:28,opacity:0},{y:0,opacity:1,duration:.55,stagger:.14,ease:"power2.out"},start+.25)
++      .to(selector,{autoAlpha:0,duration:.3,ease:"power1.in"},start+duration-.3);
++  });
++  timeline.to("#beat-07-question .r3",{scale:1.06,duration:.45,ease:"power2.out"},115.1);
++  timeline.duration(116).pause(0);
++  window.__hyperframes = window.__hyperframes || {};
++  window.__hyperframes[compositionId] = timeline;
++  window.__HYPERFRAMES_TIMELINES__ = window.__HYPERFRAMES_TIMELINES__ || {};
++  window.__HYPERFRAMES_TIMELINES__[compositionId] = timeline;
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m1_reframing-entrepreneurship-and-going-solo'] = timeline;
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/index.motion.json b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..19656535660dcbb01bd944b1c3ea4f1b54932c85
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/index.motion.json
+@@ -0,0 +1,26 @@
++{
++  "compositionId": "m1_reframing-entrepreneurship-and-going-solo",
++  "duration": 116,
++  "timeline": "master",
++  "paused": true,
++  "seekable": true,
++  "assertions": [
++    {"kind": "appearsBy", "beatId": "beat-01-reframe", "selector": "#beat-01-reframe", "bySec": 0.8},
++    {"kind": "appearsBy", "beatId": "beat-02-experiments", "selector": "#beat-02-experiments", "bySec": 15.8},
++    {"kind": "appearsBy", "beatId": "beat-03-ai-and-human", "selector": "#beat-03-ai-and-human", "bySec": 33.8},
++    {"kind": "appearsBy", "beatId": "beat-04-purpose", "selector": "#beat-04-purpose", "bySec": 56.8},
++    {"kind": "appearsBy", "beatId": "beat-05-roadmap", "selector": "#beat-05-roadmap", "bySec": 70.8},
++    {"kind": "appearsBy", "beatId": "beat-06-permission", "selector": "#beat-06-permission", "bySec": 88.8},
++    {"kind": "appearsBy", "beatId": "beat-07-question", "selector": "#beat-07-question", "bySec": 102.8},
++    {"kind": "keepsMoving", "selector": ".footer-dot", "fromSec": 0, "toSec": 116}
++  ],
++  "beats": [
++    {"id":"beat-01-reframe","start":0,"duration":15,"entrance":"scale-and-settle"},
++    {"id":"beat-02-experiments","start":15,"duration":18,"entrance":"card-stagger"},
++    {"id":"beat-03-ai-and-human","start":33,"duration":23,"entrance":"split-reveal"},
++    {"id":"beat-04-purpose","start":56,"duration":14,"entrance":"line-draw"},
++    {"id":"beat-05-roadmap","start":70,"duration":18,"entrance":"milestone-draw"},
++    {"id":"beat-06-permission","start":88,"duration":14,"entrance":"type-resolve"},
++    {"id":"beat-07-question","start":102,"duration":14,"entrance":"ring-resolve"}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/meta.json b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/package.json b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/tokens.yml b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_reframing-entrepreneurship-and-going-solo/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

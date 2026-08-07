@@ -1,0 +1,325 @@
+{
+  "tasks": [
+    {
+      "id": "task_e_6a7586a36e0c8326834302f4173068e4",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a7586a36e0c8326834302f4173068e4",
+      "title": "Execute cloud authoring for LinkedIn rewrite",
+      "status": "ready",
+      "updated_at": "2026-08-07T07:38:04.001509904Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 13,
+        "lines_added": 653,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a7586a0a8d883268e8c239bbc95dea6",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a7586a0a8d883268e8c239bbc95dea6",
+      "title": "Process m3_how-to-reposition-your-career",
+      "status": "ready",
+      "updated_at": "2026-08-07T07:24:24.809845924Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 831,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75869d7db88326920856160b59d232",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75869d7db88326920856160b59d232",
+      "title": "Run cloud authoring for m3_from-history-to-signal",
+      "status": "ready",
+      "updated_at": "2026-08-07T07:41:11.651096105Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 13,
+        "lines_added": 572,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75869583848326898fb96675060497",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75869583848326898fb96675060497",
+      "title": "Execute cloud authoring for mid-career momentum",
+      "status": "ready",
+      "updated_at": "2026-08-07T07:38:23.416085004Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 13,
+        "lines_added": 568,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a7586925170832683970089e069b35c",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a7586925170832683970089e069b35c",
+      "title": "Run cloud authoring scripts for resume project",
+      "status": "ready",
+      "updated_at": "2026-08-07T07:35:14.839015960Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 7,
+        "lines_added": 494,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75868e893883268dd029f7ccd43ed9",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75868e893883268dd029f7ccd43ed9",
+      "title": "Run cloud authoring for mid-career program",
+      "status": "error",
+      "updated_at": "2026-08-07T07:38:00.000380039Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 0,
+        "lines_added": 0,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75451428e88326ab3ffd06d9a3ccb7",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75451428e88326ab3ffd06d9a3ccb7",
+      "title": "Run cloud author script for inventory",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:44:33.661962985Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 476,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a7545137e108326853b142711c29600",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a7545137e108326853b142711c29600",
+      "title": "Run cloud authoring for m7 project",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:43:48.508907079Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 594,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75451017e08326b08d037e40a88039",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75451017e08326b08d037e40a88039",
+      "title": "Execute cloud authoring tasks for m5_testing",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:44:26.716018915Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 6,
+        "lines_added": 311,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75451010248326a44f1d05729a6e70",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75451010248326a44f1d05729a6e70",
+      "title": "Follow cloud authoring process for m5",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:43:55.154287099Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 408,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a75450fe02883268c5b5912efd2075a",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a75450fe02883268c5b5912efd2075a",
+      "title": "Execute cloud authoring for m3_the-two-sided-work",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:45:52.888797044Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 441,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a754373106c83268fece1f77a7d9b30",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a754373106c83268fece1f77a7d9b30",
+      "title": "Send career-transitions lesson scripts to Codex Cloud",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:35:45.857362031Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 0,
+        "lines_added": 0,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a754358b5a0832698e1cdcd420a89f5",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a754358b5a0832698e1cdcd420a89f5",
+      "title": "Send career-transitions lesson scripts",
+      "status": "ready",
+      "updated_at": "2026-08-07T02:32:45.151145935Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 1,
+        "lines_added": 13,
+        "lines_removed": 20
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a751a4b9c44832688486879a0bb4592",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a751a4b9c44832688486879a0bb4592",
+      "title": "Author cloud project for mid-career momentum",
+      "status": "ready",
+      "updated_at": "2026-08-06T23:42:51.197154998Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 323,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a751a4b856c83268f2724818cc86d64",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a751a4b856c83268f2724818cc86d64",
+      "title": "Execute source-only authoring for m3_how-to-reposition-your-career",
+      "status": "ready",
+      "updated_at": "2026-08-06T23:41:28.995371103Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 6,
+        "lines_added": 491,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a751a4b45208326a9e1eadd2f24cc30",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a751a4b45208326a9e1eadd2f24cc30",
+      "title": "Follow authoring process for m2_mid-career",
+      "status": "ready",
+      "updated_at": "2026-08-06T23:41:29.926534891Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 6,
+        "lines_added": 243,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a751a48a72083268de3d9c3030b8c77",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a751a48a72083268de3d9c3030b8c77",
+      "title": "Run source-only authoring for m3_from-history-to-signal",
+      "status": "ready",
+      "updated_at": "2026-08-06T23:42:23.458045959Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 366,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a751a47c3b08326a20be7af373528f2",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a751a47c3b08326a20be7af373528f2",
+      "title": "Execute source-only authoring for mid-career momentum",
+      "status": "ready",
+      "updated_at": "2026-08-06T23:43:34.418926954Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 419,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a751a45b6048326be4c9b340defcfc8",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a751a45b6048326be4c9b340defcfc8",
+      "title": "Run cloud authoring for mid-career momentum",
+      "status": "ready",
+      "updated_at": "2026-08-06T23:40:12.163781881Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 12,
+        "lines_added": 572,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    },
+    {
+      "id": "task_e_6a74d5d3ff4c83268f6714d37a34df87",
+      "url": "https://chatgpt.com/codex/tasks/task_e_6a74d5d3ff4c83268f6714d37a34df87",
+      "title": "Build source for specific lesson trackable files",
+      "status": "ready",
+      "updated_at": "2026-08-06T18:53:56.408961057Z",
+      "environment_id": null,
+      "environment_label": "community-SCLA/SCLA-Profile",
+      "summary": {
+        "files_changed": 11,
+        "lines_added": 245,
+        "lines_removed": 0
+      },
+      "is_review": false,
+      "attempt_total": 1
+    }
+  ],
+  "cursor": null
+}

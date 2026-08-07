@@ -1,0 +1,545 @@
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/.pin b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/.scla-control-v2 b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/CONCEPT.md b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..2641e0efb15c32f05735725c31d91a4609e232c7
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/CONCEPT.md
+@@ -0,0 +1,18 @@
++# Carry-Forward Inventory
++
++## Core idea
++
++A clean editorial inventory board turns an uncertain career transition into a visible set of portable assets. Four color-coded drawers—capabilities, values, relationships, and perspective—open one at a time, then lock together into a single carry-forward case.
++
++## Visual arc
++
++1. Begin with an empty luggage-tag question: “What deserves to come with you?”
++2. Establish the inventory as a deliberate filter, not a nostalgic scrapbook.
++3. Build four distinct inventory drawers with a focused question in each.
++4. Review all four categories as one organized system.
++5. Close by transforming the filled inventory into a forward-pointing case: the learner is not starting from zero.
++
++## Direction
++
++Use crisp paper-white cards on deep navy, restrained gold and blue accents, large type, and simple object motion. The inventory should feel practical, mature, and confidence-building. Motion is finite and purposeful: tags attach, drawers slide, check marks resolve, and the final case moves forward.
++
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/audio_request.json b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..ba42f95650193160db2bbace846d38631da1aea2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/audio_request.json
+@@ -0,0 +1,96 @@
++{
++  "compositionId": "m4_building-your-carry-forward-inventory",
++  "provider": "heygen",
++  "speed": 1.0,
++  "status": "request-only",
++  "narrationFile": "../../lesson-scripts/career-transitions/ready/m4_building-your-carry-forward-inventory.txt",
++  "music": {
++    "requested": false
++  },
++  "notes": "Source-only authoring. No audio service has been called.",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "narration": [
++    {
++      "id": "question",
++      "text": "What deserves to come with you?"
++    },
++    {
++      "id": "definition",
++      "text": "That's the question at the center of this lesson, and the tool that answers it is the Carry-Forward Inventory — a structured list of what you built in your prior career that is genuinely portable into your next chapter."
++    },
++    {
++      "id": "genuinely-portable",
++      "text": "Notice the word genuinely. Not everything is portable. Some things belong to the old context, and it's okay to leave them there. But here's what most career changers get wrong: the honest inventory is longer than they realize. You've built more that travels than you think — and building that list explicitly is one of the single highest-leverage exercises in this whole track."
++    },
++    {
++      "id": "four-categories",
++      "text": "Your inventory has four categories."
++    },
++    {
++      "id": "skills-capabilities",
++      "text": "First: Skills and Capabilities — what you can do that translates. The question to sit with is this: what can I do at a professional level that has nothing to do with my old title?"
++    },
++    {
++      "id": "values-drivers",
++      "text": "Second: Values and Drivers — what you care about that carries. Ask yourself: what did I care about deeply that I don't want to lose?"
++    },
++    {
++      "id": "relationships-network",
++      "text": "Third: Relationships and Network — who travels with you. This one takes some honesty. Ask: which of my relationships were about the role, and which were genuinely about the person? The ones about the person come with you."
++    },
++    {
++      "id": "insights-perspective",
++      "text": "And fourth: Insights and Perspective — what you see that others don't. Ask: what patterns did I learn in my last field that would be non-obvious in a new one? That outsider's eye is something people who've spent their whole career in one place simply don't have."
++    },
++    {
++      "id": "work-the-list",
++      "text": "So work the list, one category at a time. What you can do that translates. What you care about that carries. Who travels with you. What you see that others don't."
++    },
++    {
++      "id": "carry-forward",
++      "text": "This isn't nostalgia — it's an asset count. And we'd put money on yours being longer than you expect. When you can see in one place what genuinely comes with you, your next chapter stops feeling like starting from zero. Because you're not starting from zero. You're carrying forward."
++    }
++  ],
++  "lines": [
++    {
++      "id": "question",
++      "text": "What deserves to come with you?"
++    },
++    {
++      "id": "definition",
++      "text": "That's the question at the center of this lesson, and the tool that answers it is the Carry-Forward Inventory — a structured list of what you built in your prior career that is genuinely portable into your next chapter."
++    },
++    {
++      "id": "genuinely-portable",
++      "text": "Notice the word genuinely. Not everything is portable. Some things belong to the old context, and it's okay to leave them there. But here's what most career changers get wrong: the honest inventory is longer than they realize. You've built more that travels than you think — and building that list explicitly is one of the single highest-leverage exercises in this whole track."
++    },
++    {
++      "id": "four-categories",
++      "text": "Your inventory has four categories."
++    },
++    {
++      "id": "skills-capabilities",
++      "text": "First: Skills and Capabilities — what you can do that translates. The question to sit with is this: what can I do at a professional level that has nothing to do with my old title?"
++    },
++    {
++      "id": "values-drivers",
++      "text": "Second: Values and Drivers — what you care about that carries. Ask yourself: what did I care about deeply that I don't want to lose?"
++    },
++    {
++      "id": "relationships-network",
++      "text": "Third: Relationships and Network — who travels with you. This one takes some honesty. Ask: which of my relationships were about the role, and which were genuinely about the person? The ones about the person come with you."
++    },
++    {
++      "id": "insights-perspective",
++      "text": "And fourth: Insights and Perspective — what you see that others don't. Ask: what patterns did I learn in my last field that would be non-obvious in a new one? That outsider's eye is something people who've spent their whole career in one place simply don't have."
++    },
++    {
++      "id": "work-the-list",
++      "text": "So work the list, one category at a time. What you can do that translates. What you care about that carries. Who travels with you. What you see that others don't."
++    },
++    {
++      "id": "carry-forward",
++      "text": "This isn't nostalgia — it's an asset count. And we'd put money on yours being longer than you expect. When you can see in one place what genuinely comes with you, your next chapter stops feeling like starting from zero. Because you're not starting from zero. You're carrying forward."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/concept.json b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..a92e2bd2d46dd63c859280cfbcef33610db58f9a
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/concept.json
+@@ -0,0 +1,21 @@
++{
++  "compositionId": "m4_building-your-carry-forward-inventory",
++  "title": "Building Your Carry-Forward Inventory",
++  "program": "Career Transitions",
++  "metaphor": "A four-drawer inventory becomes a carry-forward case",
++  "tone": ["practical", "clear", "confidence-building"],
++  "visualArc": [
++    "question tag",
++    "portable asset filter",
++    "four inventory categories",
++    "complete asset count",
++    "forward-moving case"
++  ],
++  "categoryColors": {
++    "skills": "#3393d6",
++    "values": "#eaab2d",
++    "relationships": "#55A4DD",
++    "perspective": "#F1B32E"
++  }
++}
++
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/design.md b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bf9fb933c6025d4ba65788913fd98d28b0f405d7
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/design.md
+@@ -0,0 +1,29 @@
++# Design: Building Your Carry-Forward Inventory
++
++## Frame
++
++- 1920 × 1080, deep navy field with a quiet dot-grid texture.
++- Content stays inside 120 px frame padding and above the reserved footer.
++- Persistent top-left program label and top-right lesson marker provide continuity.
++
++## Type
++
++- Proxima Nova with the system fallback from `tokens.yml`.
++- Headlines: 72–104 px, 900 weight.
++- Supporting copy: 40–48 px, 400–700 weight.
++- Labels: 22–24 px, uppercase, tracked.
++
++## Components
++
++- **Question tag:** white paper tag, gold eyelet, blue rule.
++- **Inventory drawers:** four white cards with a numbered marker, category label, compact prompt, and one symbolic line icon.
++- **Portable filter:** two-column “comes with you / leave in context” sorter.
++- **Carry-forward case:** rounded white outline with four colored inventory bars and a forward arrow.
++
++## Motion
++
++- One paused GSAP timeline, registered as `m4_building-your-carry-forward-inventory`.
++- Each beat is a timed `.clip`; its elements enter within 1.2 seconds and exit before the next beat.
++- Use short slides, rule draws, check resolves, and finite emphasis pulses only.
++- The final case closes, fills, and shifts right during the last second.
++
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/hyperframes.json b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/index.html b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..765770d9d686619610122043615c6e9902b3bc27
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/index.html
+@@ -0,0 +1,76 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>Building Your Carry-Forward Inventory</title>
++  <script src="./assets/gsap.min.js"></script>
++  <style>
++    :root { --navy:#0d2437; --deep:#0a1e2f; --blue:#3393d6; --gold:#eaab2d; --paper:#fff; --ink:#292f35; --muted:#98a4cc; }
++    * { box-sizing:border-box; }
++    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--deep); font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif; }
++    #composition { position:relative; width:1920px; height:1080px; overflow:hidden; color:var(--paper); background:var(--navy); }
++    #composition::before { content:""; position:absolute; inset:0; opacity:.12; background-image:radial-gradient(circle, var(--muted) 1.5px, transparent 1.5px); background-size:42px 42px; }
++    .chrome { position:absolute; z-index:20; top:54px; font-size:22px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
++    .program { left:120px; color:var(--gold); } .lesson { right:120px; color:var(--muted); }
++    .clip { position:absolute; inset:0; padding:150px 120px 120px; opacity:0; visibility:hidden; }
++    .eyebrow { color:var(--gold); font-size:24px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; margin-bottom:24px; }
++    h1,h2,p { margin:0; } h1 { max-width:1500px; font-size:104px; line-height:.98; font-weight:900; letter-spacing:-.035em; } h2 { font-size:72px; line-height:1.02; font-weight:900; }
++    .support { max-width:1450px; margin-top:34px; color:#e5eff6; font-size:46px; line-height:1.2; }
++    .tag { width:1340px; padding:72px 90px; color:var(--ink); background:var(--paper); border-radius:12px 48px 48px 12px; box-shadow:0 28px 70px rgba(10,30,47,.24); }
++    .tag::after { content:""; position:absolute; width:34px; height:34px; border:10px solid var(--gold); border-radius:50%; right:165px; top:315px; }
++    .rule { width:260px; height:6px; margin-top:32px; background:var(--blue); transform-origin:left; }
++    .split { display:grid; grid-template-columns:1fr 1fr; gap:34px; margin-top:46px; }
++    .panel { min-height:410px; padding:44px; border-radius:12px; background:var(--paper); color:var(--ink); }
++    .panel.alt { background:#e5eff6; } .panel-title { font-size:25px; color:var(--blue); text-transform:uppercase; font-weight:900; letter-spacing:.12em; }
++    .panel strong { display:block; margin-top:28px; font-size:54px; line-height:1.06; }
++    .drawers { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:42px; }
++    .drawer { position:relative; min-height:245px; padding:34px 40px 34px 128px; background:var(--paper); color:var(--ink); border-radius:12px; }
++    .num { position:absolute; left:34px; top:34px; display:grid; place-items:center; width:70px; height:70px; border-radius:50%; background:var(--gold); color:var(--navy); font-size:34px; font-weight:900; }
++    .drawer:nth-child(even) .num { background:var(--blue); color:white; } .drawer h3 { margin:0; color:var(--navy); font-size:35px; } .drawer p { margin-top:12px; font-size:28px; line-height:1.18; }
++    .focus { margin-top:44px; padding:42px 52px; background:var(--paper); color:var(--ink); border-left:10px solid var(--gold); border-radius:12px; font-size:52px; line-height:1.12; font-weight:700; }
++    .case { position:relative; width:1120px; height:480px; margin:52px auto 0; padding:58px 70px; border:8px solid var(--paper); border-radius:38px; }
++    .handle { position:absolute; width:300px; height:80px; left:402px; top:-78px; border:8px solid var(--paper); border-bottom:0; border-radius:28px 28px 0 0; }
++    .bar { height:58px; margin:18px 0; border-radius:100px; background:var(--blue); transform-origin:left; } .bar:nth-of-type(even) { background:var(--gold); }
++    .arrow { position:absolute; right:-150px; top:185px; color:var(--gold); font-size:130px; font-weight:900; }
++    .narration { display:none; }
++  </style>
++</head>
++<body>
++<main id="composition" data-composition-id="m4_building-your-carry-forward-inventory" data-start="0" data-duration="112" data-track-index="0" data-fps="30" data-width="1920" data-height="1080">
++  <div class="chrome program">Career Transitions</div><div class="chrome lesson">04 · Carry-Forward Inventory</div>
++  <section class="clip" id="beat-question" data-beat-id="question" data-start="0" data-end="6" data-duration="6" data-track-index="1"><div class="tag"><div class="eyebrow">Your next chapter</div><h1>What Deserves to Come with You?</h1><div class="rule"></div></div><p class="narration">What deserves to come with you?</p></section>
++  <section class="clip" id="beat-definition" data-beat-id="definition" data-start="6" data-end="18" data-duration="12" data-track-index="2"><div class="eyebrow">The tool</div><h2>Carry-Forward Inventory</h2><p class="support">A structured list of what you built before—and what is genuinely portable into what comes next.</p><div class="focus">Built there. Valuable here.</div><p class="narration">That's the question at the center of this lesson, and the tool that answers it is the Carry-Forward Inventory — a structured list of what you built in your prior career that is genuinely portable into your next chapter.</p></section>
++  <section class="clip" id="beat-genuinely" data-beat-id="genuinely-portable" data-start="18" data-end="36" data-duration="18" data-track-index="3"><div class="eyebrow">Be honest, not modest</div><h2>Genuinely Portable</h2><div class="split" data-role="compare"><div class="panel"><div class="panel-title">Comes with you</div><strong>Skills, values, people, perspective</strong></div><div class="panel alt"><div class="panel-title">Can stay behind</div><strong>What only worked in the old context</strong></div></div><p class="narration">Notice the word genuinely. Not everything is portable. Some things belong to the old context, and it's okay to leave them there. But here's what most career changers get wrong: the honest inventory is longer than they realize. You've built more that travels than you think — and building that list explicitly is one of the single highest-leverage exercises in this whole track.</p></section>
++  <section class="clip" id="beat-four" data-beat-id="four-categories" data-start="36" data-end="40" data-duration="4" data-track-index="4"><div class="eyebrow">Your inventory</div><h1>Four Categories</h1><div class="drawers" data-role="list"><div class="drawer"><span class="num">1</span><h3>Skills</h3></div><div class="drawer"><span class="num">2</span><h3>Values</h3></div><div class="drawer"><span class="num">3</span><h3>Relationships</h3></div><div class="drawer"><span class="num">4</span><h3>Perspective</h3></div></div><p class="narration">Your inventory has four categories.</p></section>
++  <section class="clip" id="beat-skills" data-beat-id="skills-capabilities" data-start="40" data-end="52" data-duration="12" data-track-index="5"><div class="eyebrow">01 · Skills and Capabilities</div><h2>What You Can Do That Translates</h2><div class="focus">What can I do at a professional level that has nothing to do with my old title?</div><p class="narration">First: Skills and Capabilities — what you can do that translates. The question to sit with is this: what can I do at a professional level that has nothing to do with my old title?</p></section>
++  <section class="clip" id="beat-values" data-beat-id="values-drivers" data-start="52" data-end="62" data-duration="10" data-track-index="6"><div class="eyebrow">02 · Values and Drivers</div><h2>What You Care About That Carries</h2><div class="focus">What did I care about deeply that I don't want to lose?</div><p class="narration">Second: Values and Drivers — what you care about that carries. Ask yourself: what did I care about deeply that I don't want to lose?</p></section>
++  <section class="clip" id="beat-relationships" data-beat-id="relationships-network" data-start="62" data-end="77" data-duration="15" data-track-index="7"><div class="eyebrow">03 · Relationships and Network</div><h2>Who Travels with You</h2><div class="split" data-role="compare"><div class="panel alt"><div class="panel-title">About the role</div><strong>May stay with the context</strong></div><div class="panel"><div class="panel-title">About the person</div><strong>Comes with you</strong></div></div><p class="narration">Third: Relationships and Network — who travels with you. This one takes some honesty. Ask: which of my relationships were about the role, and which were genuinely about the person? The ones about the person come with you.</p></section>
++  <section class="clip" id="beat-perspective" data-beat-id="insights-perspective" data-start="77" data-end="93" data-duration="16" data-track-index="8"><div class="eyebrow">04 · Insights and Perspective</div><h2>What You See That Others Don’t</h2><div class="focus">What patterns from my last field would be non-obvious in a new one?</div><p class="support">Your outsider's eye is an asset.</p><p class="narration">And fourth: Insights and Perspective — what you see that others don't. Ask: what patterns did I learn in my last field that would be non-obvious in a new one? That outsider's eye is something people who've spent their whole career in one place simply don't have.</p></section>
++  <section class="clip" id="beat-work" data-beat-id="work-the-list" data-start="93" data-end="102" data-duration="9" data-track-index="9"><div class="eyebrow">Work the list</div><h2>One Category at a Time</h2><div class="drawers" data-role="list"><div class="drawer"><span class="num">1</span><h3>Can Do</h3><p>that translates</p></div><div class="drawer"><span class="num">2</span><h3>Care About</h3><p>that carries</p></div><div class="drawer"><span class="num">3</span><h3>People</h3><p>who travel with you</p></div><div class="drawer"><span class="num">4</span><h3>Patterns</h3><p>others don't see</p></div></div><p class="narration">So work the list, one category at a time. What you can do that translates. What you care about that carries. Who travels with you. What you see that others don't.</p></section>
++  <section class="clip" id="beat-forward" data-beat-id="carry-forward" data-start="102" data-end="112" data-duration="10" data-track-index="10"><div class="eyebrow">This is an asset count</div><h2>You’re Not Starting from Zero</h2><div class="case"><div class="handle"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="arrow">→</div></div><p class="narration">This isn't nostalgia — it's an asset count. And we'd put money on yours being longer than you expect. When you can see in one place what genuinely comes with you, your next chapter stops feeling like starting from zero. Because you're not starting from zero. You're carrying forward.</p></section>
++</main>
++<script>
++(() => {
++  const compositionId = 'm4_building-your-carry-forward-inventory';
++  const tl = gsap.timeline({ paused: true });
++  const clips = [...document.querySelectorAll('.clip')];
++  gsap.set(clips, { autoAlpha: 0 });
++  clips.forEach((clip) => {
++    const start = Number(clip.dataset.start);
++    const end = Number(clip.dataset.end);
++    const content = [...clip.children].filter((el) => !el.classList.contains('narration'));
++    tl.set(clip, { autoAlpha: 1 }, start)
++      .fromTo(content, { y: 28, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .12, ease: 'power2.out' }, start + .05);
++    clip.querySelectorAll('.rule, .bar').forEach((el, i) => tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: .55, ease: 'power2.out' }, start + .4 + i * .1));
++    if (clip.id === 'beat-forward') tl.to(clip.querySelector('.case'), { x: 28, duration: .55, ease: 'power2.inOut' }, end - 1);
++    tl.to(content, { y: -18, autoAlpha: 0, duration: .3, stagger: .03, ease: 'power1.in' }, end - .32).set(clip, { autoAlpha: 0 }, end);
++  });
++  tl.duration(112);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m4_building-your-carry-forward-inventory'] = tl;
++  window.__hyperframesTimeline = tl;
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/index.motion.json b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..020faf60034a5af5fbe127e42655714c1f99d783
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/index.motion.json
+@@ -0,0 +1,126 @@
++{
++  "compositionId": "m4_building-your-carry-forward-inventory",
++  "duration": 112,
++  "fps": 30,
++  "timeline": "paused-seekable",
++  "beats": [
++    {
++      "id": "question",
++      "start": 0,
++      "end": 6
++    },
++    {
++      "id": "definition",
++      "start": 6,
++      "end": 18
++    },
++    {
++      "id": "genuinely-portable",
++      "start": 18,
++      "end": 36
++    },
++    {
++      "id": "four-categories",
++      "start": 36,
++      "end": 40
++    },
++    {
++      "id": "skills-capabilities",
++      "start": 40,
++      "end": 52
++    },
++    {
++      "id": "values-drivers",
++      "start": 52,
++      "end": 62
++    },
++    {
++      "id": "relationships-network",
++      "start": 62,
++      "end": 77
++    },
++    {
++      "id": "insights-perspective",
++      "start": 77,
++      "end": 93
++    },
++    {
++      "id": "work-the-list",
++      "start": 93,
++      "end": 102
++    },
++    {
++      "id": "carry-forward",
++      "start": 102,
++      "end": 112
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "question",
++      "target": "#beat-question",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "definition",
++      "target": "#beat-definition",
++      "by": 7.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "genuinely-portable",
++      "target": "#beat-genuinely",
++      "by": 19.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "four-categories",
++      "target": "#beat-four",
++      "by": 37.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "skills-capabilities",
++      "target": "#beat-skills",
++      "by": 41.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "values-drivers",
++      "target": "#beat-values",
++      "by": 53.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "relationships-network",
++      "target": "#beat-relationships",
++      "by": 63.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "insights-perspective",
++      "target": "#beat-perspective",
++      "by": 78.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "work-the-list",
++      "target": "#beat-work",
++      "by": 94.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "carry-forward",
++      "target": "#beat-forward",
++      "by": 103.2
++    },
++    {
++      "kind": "keepsMoving",
++      "target": "#composition",
++      "from": 0,
++      "to": 112
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/meta.json b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/package.json b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/tokens.yml b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-your-carry-forward-inventory/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

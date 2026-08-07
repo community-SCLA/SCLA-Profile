@@ -1,0 +1,279 @@
+diff --git a/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/CONCEPT.md b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c38acec51dc2437d02669577a76e540b496c6b94
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/CONCEPT.md
+@@ -0,0 +1,14 @@
++# The Belief Lab
++
++Mid-career beliefs are presented as thoughts that can be examined rather than facts that must be obeyed. The lesson moves from three constraining statements through a clear reframe—leverage, experiments, and re-design—before ending with one practical question.
++
++## Visual approach
++
++- A consistent navy workspace keeps the lesson calm, credible, and focused.
++- Beliefs appear as labeled cards that are opened, challenged, and replaced.
++- Gold marks the active choice; blue carries supporting structure and progress.
++- Each beat uses one dominant visual metaphor: belief cards, a leverage fulcrum, experiment paths, adjustable role blocks, a belief-to-action bridge, and a final experiment card.
++
++## Motion approach
++
++One paused, seekable timeline drives all motion. Cards enter with short vertical reveals, rules draw left-to-right, and diagrams build in the order the narration introduces them. Transitions are direct and restrained, with no looping motion.
+diff --git a/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/audio_request.json b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..22a3336aeeccbeafb87c555984432ed4805f3206
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/audio_request.json
+@@ -0,0 +1,33 @@
++{
++  "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
++  "provider": "heygen",
++  "speed": 1.0,
++  "source_only": true,
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "lines": [
++    {
++      "id": "beat-01-honest-look",
++      "text": "Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck."
++    },
++    {
++      "id": "beat-02-belief-cards",
++      "text": "Some common beliefs sound like this: \"It's too late to change.\" \"If I speak up, I'll seem ungrateful.\" \"If I don't grab the first opportunity, I'll miss my chance.\" These thoughts feel protective, but they often keep you playing smaller than your experience allows."
++    },
++    {
++      "id": "beat-03-leverage",
++      "text": "Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships. That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally."
++    },
++    {
++      "id": "beat-04-experiments",
++      "text": "Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments. That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully."
++    },
++    {
++      "id": "beat-05-redesign",
++      "text": "Finally, we'll use re-design thinking. Instead of viewing your role as fixed. You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now."
++    },
++    {
++      "id": "beat-06-one-path",
++      "text": "This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear. For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral. So—where do you feel stuck? And what small experiment could you try next?"
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/concept.json b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..73a1d4f2acffeed222be12fa4f0cba2525fee5dc
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/concept.json
+@@ -0,0 +1,14 @@
++{
++  "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
++  "title": "Mid-Career Mindsets and Limiting Beliefs",
++  "concept": "The Belief Lab",
++  "duration": 86.4,
++  "beats": [
++    {"id": "beat-01-honest-look", "start": 0.0, "end": 7.2, "purpose": "Name the topic and invite honest reflection."},
++    {"id": "beat-02-belief-cards", "start": 7.2, "end": 23.2, "purpose": "Surface three protective beliefs and their hidden cost."},
++    {"id": "beat-03-leverage", "start": 23.2, "end": 36.8, "purpose": "Reframe mid-career as a leverage point."},
++    {"id": "beat-04-experiments", "start": 36.8, "end": 53.8, "purpose": "Replace an all-or-nothing pivot with small experiments."},
++    {"id": "beat-05-redesign", "start": 53.8, "end": 65.0, "purpose": "Show the adjustable parts of a role."},
++    {"id": "beat-06-one-path", "start": 65.0, "end": 86.4, "purpose": "Turn a limiting belief into one practical next experiment."}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/design.md b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..17c4ab5d37cf975c301111d406e3c46a29838025
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/design.md
+@@ -0,0 +1,25 @@
++# Design: The Belief Lab
++
++## Canvas and system
++
++- 1920 × 1080 canvas with a 120 px frame inset and a reserved lower footer.
++- Navy (`#0d2437`) and deep navy (`#0a1e2f`) establish the field.
++- Blue (`#3393d6`) structures information; gold (`#eaab2d`) signals a useful reframe or choice.
++- Proxima Nova, falling back to system sans-serif. Headings use 900 weight; supporting copy uses 400 or 700.
++
++## Composition
++
++A small track label and progress line remain stable across the lesson. Each beat has a short eyebrow, a large headline, and a single visual model. Text stays above 40 px except the declared chrome labels. Cards use white or subtle blue surfaces, 12 px corners, and generous spacing.
++
++## Beat visuals
++
++1. **Honest look:** the phrase “quiet beliefs” is framed like an item under examination.
++2. **Belief cards:** three quotes enter as separate cards; the word “protective” gives way to “keeps you smaller.”
++3. **Leverage:** skills, credibility, and relationships balance into more options.
++4. **Experiments:** three small paths replace one oversized leap.
++5. **Re-design:** four role blocks visibly shift into a better-fit arrangement.
++6. **One path:** a belief passes through a small experiment and becomes confidence; the final question remains on screen for reflection.
++
++## Motion
++
++All animation is deterministic and timeline-driven. Entrances last 0.4–0.6 seconds, with 0.14-second staggers. Scene content exits in 0.3 seconds while stable chrome remains. There are no infinite animations or autonomous timers.
+diff --git a/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/index.html b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..a9fcefc33ccc7174cbe5ab66686e571ee9007e74
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/index.html
+@@ -0,0 +1,70 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8">
++  <meta name="viewport" content="width=device-width,initial-scale=1">
++  <title>Mid-Career Mindsets and Limiting Beliefs</title>
++  <style>
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--subtle:#e5eff6;--ink:#292f35}
++    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"Proxima Nova",system-ui,sans-serif}
++    #m2_mid-career-mindsets-and-limiting-beliefs{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}
++    .chrome{position:absolute;inset:50px 120px auto;display:flex;align-items:center;justify-content:space-between;z-index:20;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
++    .chrome .line{width:480px;height:4px;background:rgba(255,255,255,.18)}.chrome .progress{display:block;height:100%;background:var(--blue);transform-origin:left}
++    .clip{position:absolute;inset:0;padding:170px 120px 120px;opacity:0;visibility:hidden}.eyebrow{font-size:24px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
++    h1,h2,p{margin:0}h1{font-size:112px;line-height:.98;max-width:1450px;font-weight:900}h2{font-size:72px;line-height:1.02;font-weight:900;max-width:1440px}.accent{color:var(--gold)}
++    .support{font-size:42px;line-height:1.2;color:var(--subtle);max-width:1250px;margin-top:34px}.cards,.paths,.blocks{display:flex;gap:28px;margin-top:54px}.card,.path,.block{background:var(--paper);color:var(--ink);border-radius:12px;padding:34px;min-height:220px;flex:1;font-size:40px;line-height:1.15;font-weight:700;border-top:8px solid var(--blue)}
++    .card small,.path small{display:block;color:var(--blue);font-size:21px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px}.turn{display:flex;align-items:center;gap:28px;margin-top:60px}.node{padding:30px 38px;border:3px solid var(--blue);border-radius:100px;font-size:40px;font-weight:700}.arrow{font-size:58px;color:var(--gold)}
++    .lever{position:relative;margin-top:72px;width:1460px;height:250px}.beam{position:absolute;left:90px;top:90px;width:1220px;height:12px;background:var(--gold);transform:rotate(-3deg)}.fulcrum{position:absolute;left:675px;top:105px;width:0;height:0;border-left:65px solid transparent;border-right:65px solid transparent;border-bottom:120px solid var(--blue)}
++    .lever-label{position:absolute;font-size:38px;font-weight:700}.l1{left:30px;top:20px}.l2{left:410px;top:0}.l3{left:830px;top:-20px}.l4{right:0;top:115px;color:var(--gold);font-size:54px}
++    .blocks{align-items:center}.block{min-height:155px;text-align:center}.question{font-size:64px;line-height:1.08;max-width:1500px;margin-top:56px}.footer{position:absolute;bottom:52px;left:120px;font-size:22px;color:#98a4cc;letter-spacing:.08em}
++  </style>
++</head>
++<body>
++<main id="m2_mid-career-mindsets-and-limiting-beliefs" data-composition-id="m2_mid-career-mindsets-and-limiting-beliefs" data-start="0" data-duration="86.4" data-width="1920" data-height="1080">
++  <div class="chrome"><span>Mid-Career Momentum</span><div class="line"><i class="progress"></i></div></div>
++  <section class="clip" id="beat-01-honest-look" data-track-index="0" data-beat-id="beat-01-honest-look" data-start="0" data-duration="7.2" data-narration="Let's talk honestly about mid-career mindset—especially the beliefs that quietly keep people stuck."><div class="eyebrow">An honest look</div><h1>What if a <span class="accent">Quiet Belief</span> Is Keeping You Stuck?</h1></section>
++  <section class="clip" id="beat-02-belief-cards" data-track-index="0" data-beat-id="beat-02-belief-cards" data-start="7.2" data-duration="16" data-narration="Some common beliefs sound like this: &quot;It's too late to change.&quot; &quot;If I speak up, I'll seem ungrateful.&quot; &quot;If I don't grab the first opportunity, I'll miss my chance.&quot; These thoughts feel protective, but they often keep you playing smaller than your experience allows."><div class="eyebrow">Beliefs can sound protective</div><h2>Notice the Story—not Just the Feeling</h2><div class="cards"><div class="card"><small>Belief 01</small>“It’s too late to change.”</div><div class="card"><small>Belief 02</small>“If I speak up, I’ll seem ungrateful.”</div><div class="card"><small>Belief 03</small>“If I don’t grab it, I’ll miss my chance.”</div></div></section>
++  <section class="clip" id="beat-03-leverage" data-track-index="0" data-beat-id="beat-03-leverage" data-start="23.2" data-duration="13.6" data-narration="Let's reframe. First, mid-career is a leverage point. You've built skills, credibility, and relationships. That gives you more—not fewer—options. The challenge isn't a lack of opportunity; it's learning to choose intentionally."><div class="eyebrow">Reframe 01 · Leverage</div><h2>Experience Gives You <span class="accent">More Options</span>—Not Fewer</h2><div class="lever"><div class="beam"></div><div class="fulcrum"></div><span class="lever-label l1">Skills</span><span class="lever-label l2">Credibility</span><span class="lever-label l3">Relationships</span><span class="lever-label l4">Choose intentionally</span></div></section>
++  <section class="clip" id="beat-04-experiments" data-track-index="0" data-beat-id="beat-04-experiments" data-start="36.8" data-duration="17" data-narration="Second, instead of thinking in terms of one big, all-or-nothing pivot, we'll think in terms of career experiments. That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully."><div class="eyebrow">Reframe 02 · Experiment</div><h2>Trade One Giant Pivot for <span class="accent">Small Tests</span></h2><div class="paths"><div class="path"><small>Test 01</small>Lead one project</div><div class="path"><small>Test 02</small>Try hybrid responsibilities</div><div class="path"><small>Test 03</small>Explore an adjacent function</div></div></section>
++  <section class="clip" id="beat-05-redesign" data-track-index="0" data-beat-id="beat-05-redesign" data-start="53.8" data-duration="11.2" data-narration="Finally, we'll use re-design thinking. Instead of viewing your role as fixed. You'll look for ways to adjust projects, boundaries, responsibilities, and skills so your work better matches who you are now."><div class="eyebrow">Reframe 03 · Re-design</div><h2>Your Role Is Not Fixed. Adjust the Parts</h2><div class="blocks"><div class="block">Projects</div><div class="block">Boundaries</div><div class="block">Responsibilities</div><div class="block">Skills</div></div></section>
++  <section class="clip" id="beat-06-one-path" data-track-index="0" data-beat-id="beat-06-one-path" data-start="65" data-duration="21.4" data-narration="This track will help you notice when a belief is limiting you, then replace it with small, practical experiments that build confidence instead of fear. For now, your task is simple: acknowledge where you feel stuck, and commit to exploring one new path rather than staying in neutral. So—where do you feel stuck? And what small experiment could you try next?"><div class="eyebrow">Your next move</div><div class="turn"><div class="node">Limiting belief</div><div class="arrow">→</div><div class="node">Small experiment</div><div class="arrow">→</div><div class="node">Confidence</div></div><p class="question">Where do you feel stuck—and what <span class="accent">small experiment</span> could you try next?</p></section>
++  <div class="footer">SCLA · MID-CAREER MINDSETS AND LIMITING BELIEFS</div>
++</main>
++<script type="module">
++  const compositionId = 'm2_mid-career-mindsets-and-limiting-beliefs';
++  const root = document.getElementById(compositionId);
++  const clips = [...root.querySelectorAll('.clip')];
++  const progress = root.querySelector('.progress');
++  const duration = 86.4;
++  function seek(time) {
++    const t = Math.max(0, Math.min(duration, Number(time) || 0));
++    progress.style.transform = `scaleX(${t / duration})`;
++    clips.forEach((clip) => {
++      const start = Number(clip.dataset.start);
++      const end = start + Number(clip.dataset.duration);
++      const active = t >= start && (t < end || (t === duration && end === duration));
++      clip.style.visibility = active ? 'visible' : 'hidden';
++      if (!active) { clip.style.opacity = '0'; clip.style.transform = 'translateY(0)'; return; }
++      const local = t - start;
++      const fadeIn = Math.min(1, local / .55);
++      const remaining = end - t;
++      const fadeOut = end === duration ? 1 : Math.min(1, remaining / .3);
++      clip.style.opacity = String(Math.min(fadeIn, fadeOut));
++      clip.style.transform = `translateY(${(1 - fadeIn) * 22}px)`;
++    });
++  }
++  const timeline = gsap.timeline({ paused: true });
++  timeline.to('.progress', { scaleX: 1, duration, ease: 'none' }, 0);
++  timeline.eventCallback('onUpdate', () => seek(timeline.time()));
++  timeline.id = compositionId;
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m2_mid-career-mindsets-and-limiting-beliefs'] = timeline;
++  window.__hyperframes = window.__hyperframes || {};
++  window.__hyperframes[compositionId] = timeline;
++  window.__HYPERFRAMES_TIMELINES__ = window.__HYPERFRAMES_TIMELINES__ || {};
++  window.__HYPERFRAMES_TIMELINES__[compositionId] = timeline;
++  window.dispatchEvent(new CustomEvent('hyperframes:timeline', { detail: timeline }));
++  seek(0);
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/index.motion.json b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..8495e6cad9ead9c9ed0fa86d4c7ef72f3315471b
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m2_mid-career-mindsets-and-limiting-beliefs/index.motion.json
+@@ -0,0 +1,87 @@
++{
++  "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
++  "duration": 86.4,
++  "timeline": "paused-seekable",
++  "beats": [
++    {
++      "id": "beat-01-honest-look",
++      "start": 0.0,
++      "duration": 7.2,
++      "entrance": "rise",
++      "exit": "fade"
++    },
++    {
++      "id": "beat-02-belief-cards",
++      "start": 7.2,
++      "duration": 16.0,
++      "entrance": "stagger-cards",
++      "exit": "fade"
++    },
++    {
++      "id": "beat-03-leverage",
++      "start": 23.2,
++      "duration": 13.6,
++      "entrance": "build-diagram",
++      "exit": "fade"
++    },
++    {
++      "id": "beat-04-experiments",
++      "start": 36.8,
++      "duration": 17.0,
++      "entrance": "stagger-paths",
++      "exit": "fade"
++    },
++    {
++      "id": "beat-05-redesign",
++      "start": 53.8,
++      "duration": 11.2,
++      "entrance": "shift-blocks",
++      "exit": "fade"
++    },
++    {
++      "id": "beat-06-one-path",
++      "start": 65.0,
++      "duration": 21.4,
++      "entrance": "build-path",
++      "exit": "hold"
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "keepsMoving",
++      "selector": ".progress",
++      "from": 0,
++      "to": 86.4
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-01-honest-look",
++      "time": 1.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-02-belief-cards",
++      "time": 8.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-03-leverage",
++      "time": 24.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-04-experiments",
++      "time": 37.8
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-05-redesign",
++      "time": 54.8
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-06-one-path",
++      "time": 66.0
++    }
++  ]
++}

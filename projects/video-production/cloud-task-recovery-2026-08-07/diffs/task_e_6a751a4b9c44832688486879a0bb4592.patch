@@ -1,0 +1,392 @@
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/.pin b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/.scla-control-v2 b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/CONCEPT.md b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..551d0b77b3ee95ddb0745adfe996c60a10eb5ca2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/CONCEPT.md
+@@ -0,0 +1,23 @@
++# The Future-Fit Gallery
++
++## What
++
++A curated gallery turns a long career history into a focused story about the work the learner wants next. Seven narrated beats move from the framing question, through selection criteria and two examples, to a practical four-part bullet formula and a confident close.
++
++## So what
++
++The visual metaphor makes the lesson's key distinction immediate: a resume is not a storage room. Gallery frames, selection markers, and a future-facing path show that choosing evidence is an act of direction rather than omission.
++
++## Now what
++
++The learner leaves ready to select three to five experiences and rewrite each one using Responsibility, Action, Measurable outcome, and Scope.
++
++## Visual arc
++
++1. Ask the future-facing question.
++2. Contrast a storage room with a curated gallery.
++3. Apply three selection lenses: strengths, scope, and impact.
++4. See a leadership and strategy example.
++5. See a lateral-domain example.
++6. Build a bullet with the RAMS formula.
++7. Resolve the gallery into a clear path toward the next move.
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/audio_request.json b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..be1376b73522150321f4bda03eedf719b7a0b79a
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/audio_request.json
+@@ -0,0 +1,15 @@
++{
++  "composition_id": "m3_discover-experiences-that-support-your-next-move",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "lines": [
++    {"id":"future-question","start":0.6,"duration":11.4,"text":"When you're repositioning your experience, one of the most powerful questions you can ask is this: which experiences show that I'm ready for the future I want, not just the roles I've already had?"},
++    {"id":"gallery-not-storage","start":12.65,"duration":10.2,"text":"Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You don't need to display every piece. You need to choose the pieces that tell the right story."},
++    {"id":"selection-lenses","start":23.5,"duration":13.0,"text":"To do that, look for experiences that use the strengths you want to be known for, that match the kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target roles: improved outcomes, better processes, stronger relationships, or growth."},
++    {"id":"leadership-example","start":37.15,"duration":11.8,"text":"Here's how that plays out. If your Next Move Statement points toward a leadership or strategic role, you might highlight projects where you led teams or cross-functional initiatives, influenced decisions, and owned results that had visible impact."},
++    {"id":"lateral-example","start":49.6,"duration":11.4,"text":"If you're aiming for a lateral move into a new domain, you might spotlight experiences that show how you learned quickly in new environments, translated skills across contexts, and collaborated with that domain, even if your title was different."},
++    {"id":"rams-formula","start":61.65,"duration":20.2,"text":"In this module's activities, you'll pick three to five experiences that best support your Next Move Statement, and rewrite their bullets using a simple formula: Responsibility, then Action, then Measurable outcome, then Scope. Responsibility is what you were expected to do. Action is what you actually did. Measurable outcome is what changed as a result. And scope is how big the impact was, and who was involved."},
++    {"id":"true-story","start":82.5,"duration":12.0,"text":"This isn't about inventing a new story. It's about telling the true story of your work in a way that makes your future direction clear. When you choose experiences that match the future you're aiming for, you make every bullet work harder for you."}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/concept.json b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..4a9eefaee336be7566740d602b4526b5731fc572
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/concept.json
+@@ -0,0 +1,15 @@
++{
++  "compositionId": "m3_discover-experiences-that-support-your-next-move",
++  "title": "The Future-Fit Gallery",
++  "program": "mid-career-momentum",
++  "metaphor": "A curator selects the few career experiences that point clearly toward a desired future.",
++  "beats": [
++    {"id": "future-question", "purpose": "Open with the future-facing selection question"},
++    {"id": "gallery-not-storage", "purpose": "Establish the curated gallery metaphor"},
++    {"id": "selection-lenses", "purpose": "Show strengths, scope, and impact as selection criteria"},
++    {"id": "leadership-example", "purpose": "Apply the criteria to leadership and strategy"},
++    {"id": "lateral-example", "purpose": "Apply the criteria to a lateral domain move"},
++    {"id": "rams-formula", "purpose": "Teach Responsibility, Action, Measurable outcome, and Scope"},
++    {"id": "true-story", "purpose": "Close by aligning true experience with future direction"}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/design.md b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3201ad0dbc05a7959a75f0ad5e1fad794e2e7d93
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/design.md
+@@ -0,0 +1,27 @@
++# Design: The Future-Fit Gallery
++
++## Frame
++
++- 1920 × 1080, with a 120 px outer content margin and a reserved lower footer zone.
++- Deep navy gallery walls establish focus; white cards provide legible editorial surfaces.
++- Gold identifies the active choice, while blue connects evidence to the next move.
++
++## Type
++
++- Proxima Nova with system sans-serif fallback.
++- Compact uppercase labels orient the viewer.
++- Headlines stay between 64 and 92 px; supporting text stays at or above 40 px.
++
++## Components
++
++- Gallery frames: white evidence cards with restrained borders and shadows.
++- Selection lenses: three outlined chips for strengths, scope, and impact.
++- RAMS builder: four connected cards, each expanding into its plain-language meaning.
++- Direction line: a blue route with a gold endpoint that becomes the final visual resolve.
++
++## Motion
++
++- A single paused GSAP timeline owns all movement and is seekable by HyperFrames.
++- Each beat enters with short fades, vertical movement, and line draws; exits clear the content layer before the next beat.
++- No infinite animation or unsynchronized media is used.
++- The final second adds a gold endpoint and resolves the direction line.
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/hyperframes.json b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/index.html b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..92aa9e51790acb1eaac0ecf481d420cacc1193f4
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/index.html
+@@ -0,0 +1,108 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>Discover Experiences That Support Your Next Move</title>
++  <style>
++    :root { --navy:#0d2437; --deep:#0a1e2f; --blue:#3393d6; --gold:#eaab2d; --paper:#fff; --muted:#98a4cc; }
++    * { box-sizing:border-box; }
++    html,body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--deep); font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif; }
++    #m3_discover-experiences-that-support-your-next-move { position:relative; width:1920px; height:1080px; overflow:hidden; color:var(--paper); background:var(--navy); }
++    .furniture { position:absolute; inset:0; pointer-events:none; }
++    .topline { position:absolute; left:120px; right:120px; top:92px; height:3px; background:var(--blue); opacity:.55; }
++    .brand { position:absolute; top:50px; left:120px; font-size:22px; font-weight:900; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); }
++    .module { position:absolute; top:50px; right:120px; font-size:22px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
++    .footer { position:absolute; left:120px; right:120px; bottom:54px; display:flex; justify-content:space-between; font-size:21px; color:var(--muted); }
++    .scene { position:absolute; left:120px; right:120px; top:150px; bottom:120px; opacity:0; visibility:hidden; }
++    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.14em; font-size:24px; font-weight:900; margin-bottom:24px; }
++    h1,h2 { margin:0; max-width:1580px; font-weight:900; line-height:.98; letter-spacing:-.025em; }
++    h1 { font-size:92px; } h2 { font-size:72px; }
++    .blue { color:var(--blue); } .gold { color:var(--gold); }
++    .question { margin-top:54px; width:1410px; padding:34px 42px; border-left:8px solid var(--gold); background:rgba(255,255,255,.07); font-size:43px; line-height:1.22; font-weight:700; }
++    .split { display:grid; grid-template-columns:1fr 1fr; gap:42px; margin-top:48px; }
++    .panel { min-height:430px; padding:42px; border:2px solid rgba(152,164,204,.35); border-radius:12px; background:rgba(10,30,47,.55); }
++    .panel.active { border-color:var(--gold); background:var(--paper); color:var(--navy); }
++    .panel-title { font-size:48px; font-weight:900; margin-bottom:26px; }
++    .stack { display:flex; flex-wrap:wrap; gap:18px; }
++    .chip { padding:15px 24px; border:2px solid var(--blue); border-radius:100px; color:var(--blue); font-size:30px; font-weight:700; }
++    .frames { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:52px; }
++    .frame { min-height:320px; padding:34px; border-radius:12px; background:var(--paper); color:var(--navy); box-shadow:0 16px 38px rgba(10,30,47,.22); }
++    .frame-num { width:66px; height:66px; display:grid; place-items:center; border-radius:50%; background:var(--gold); font-size:32px; font-weight:900; }
++    .frame h3 { margin:26px 0 16px; font-size:42px; line-height:1; }
++    .frame p { margin:0; font-size:31px; line-height:1.25; color:#5f6f96; }
++    .example { margin-top:46px; display:grid; grid-template-columns:480px 1fr; gap:44px; align-items:stretch; }
++    .direction { padding:40px; border:3px solid var(--blue); border-radius:12px; }
++    .direction strong { display:block; color:var(--gold); font-size:36px; text-transform:uppercase; letter-spacing:.1em; }
++    .direction span { display:block; margin-top:22px; font-size:48px; font-weight:900; line-height:1.05; }
++    .evidence { padding:38px 44px; background:var(--paper); color:var(--navy); border-radius:12px; }
++    .evidence-row { display:flex; align-items:center; gap:22px; margin:18px 0; font-size:36px; font-weight:700; }
++    .check { width:46px; height:46px; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:var(--gold); color:var(--navy); font-weight:900; }
++    .rams { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:38px; }
++    .ram { min-height:390px; padding:28px; background:var(--paper); color:var(--navy); border-top:8px solid var(--blue); border-radius:12px; }
++    .ram b { display:block; color:var(--gold); font-size:64px; line-height:1; }
++    .ram h3 { margin:18px 0; font-size:32px; line-height:1; }
++    .ram p { margin:0; font-size:27px; line-height:1.25; color:#5f6f96; }
++    .final-path { position:relative; height:220px; margin-top:58px; }
++    .path-line { position:absolute; left:0; right:130px; top:90px; height:8px; transform-origin:left; background:var(--blue); }
++    .path-dot { position:absolute; right:70px; top:42px; width:104px; height:104px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 20px rgba(234,171,45,.16); }
++    .path-labels { display:flex; justify-content:space-between; padding-right:20px; font-size:31px; font-weight:900; }
++  </style>
++</head>
++<body>
++<main id="m3_discover-experiences-that-support-your-next-move" data-composition-id="m3_discover-experiences-that-support-your-next-move" data-start="0" data-width="1920" data-height="1080" data-duration="96.3" data-fps="30">
++  <div class="furniture"><div class="brand">SCLA</div><div class="module">Mid-Career Momentum</div><div class="topline"></div><div class="footer"><span>Discover experiences that support your next move</span><span>03</span></div></div>
++
++  <section class="scene clip" id="future-question" data-beat-id="future-question" data-clip-id="future-question" data-start="0" data-duration="12.65" data-track-index="0">
++    <div class="eyebrow">Reposition your experience</div><h1>Which Experiences Show You're Ready for the <span class="gold">Future You Want?</span></h1>
++    <div class="question">Look beyond the roles you've already had. Select the evidence that points toward what comes next.</div>
++  </section>
++  <section class="scene clip" id="gallery-not-storage" data-beat-id="gallery-not-storage" data-clip-id="gallery-not-storage" data-start="12.65" data-duration="10.85" data-track-index="0">
++    <div class="eyebrow">Curate the story</div><h2>Your Resume Is a <span class="gold">Gallery</span>, Not a Storage Room</h2>
++    <div class="split"><div class="panel"><div class="panel-title">Storage room</div><div class="stack"><span class="chip">Every task</span><span class="chip">Every role</span><span class="chip">Every detail</span></div></div><div class="panel active"><div class="panel-title">Curated gallery</div><p style="font-size:40px;line-height:1.25;margin:0">Choose the pieces that tell the right story.</p></div></div>
++  </section>
++  <section class="scene clip" id="selection-lenses" data-beat-id="selection-lenses" data-clip-id="selection-lenses" data-start="23.5" data-duration="13.65" data-track-index="0">
++    <div class="eyebrow">Three selection lenses</div><h2>Choose Experiences That Align with Where You're Going</h2>
++    <div class="frames" data-role="list"><div class="frame"><div class="frame-num">1</div><h3>Strengths</h3><p>What do you want to be known for?</p></div><div class="frame"><div class="frame-num">2</div><h3>Scope</h3><p>What level do you want to handle?</p></div><div class="frame"><div class="frame-num">3</div><h3>Impact</h3><p>Outcomes, processes, relationships, or growth.</p></div></div>
++  </section>
++  <section class="scene clip" id="leadership-example" data-beat-id="leadership-example" data-clip-id="leadership-example" data-start="37.15" data-duration="12.45" data-track-index="0">
++    <div class="eyebrow">Example: leadership or strategy</div><h2>Highlight Evidence of <span class="blue">Visible Impact</span></h2>
++    <div class="example"><div class="direction"><strong>Next move</strong><span>Leadership or strategic role</span></div><div class="evidence"><div class="evidence-row"><i class="check">✓</i>Led teams or cross-functional initiatives</div><div class="evidence-row"><i class="check">✓</i>Influenced decisions</div><div class="evidence-row"><i class="check">✓</i>Owned results</div></div></div>
++  </section>
++  <section class="scene clip" id="lateral-example" data-beat-id="lateral-example" data-clip-id="lateral-example" data-start="49.6" data-duration="12.05" data-track-index="0">
++    <div class="eyebrow">Example: lateral domain move</div><h2>Show How Your Skills <span class="blue">Travel Across Contexts</span></h2>
++    <div class="example"><div class="direction"><strong>Next move</strong><span>A new domain</span></div><div class="evidence"><div class="evidence-row"><i class="check">✓</i>Learned quickly in new environments</div><div class="evidence-row"><i class="check">✓</i>Translated skills across contexts</div><div class="evidence-row"><i class="check">✓</i>Collaborated with the domain</div></div></div>
++  </section>
++  <section class="scene clip" id="rams-formula" data-beat-id="rams-formula" data-clip-id="rams-formula" data-start="61.65" data-duration="20.85" data-track-index="0">
++    <div class="eyebrow">Rewrite three to five experiences</div><h2>Build Each Bullet with <span class="gold">RAMS</span></h2>
++    <div class="rams" data-role="list"><div class="ram"><b>R</b><h3>Responsibility</h3><p>What you were expected to do.</p></div><div class="ram"><b>A</b><h3>Action</h3><p>What you actually did.</p></div><div class="ram"><b>M</b><h3>Measurable Outcome</h3><p>What changed as a result.</p></div><div class="ram"><b>S</b><h3>Scope</h3><p>How big the impact was and who was involved.</p></div></div>
++  </section>
++  <section class="scene clip" id="true-story" data-beat-id="true-story" data-clip-id="true-story" data-start="82.5" data-duration="13.8" data-track-index="0">
++    <div class="eyebrow">Tell the true story</div><h1>Make Your <span class="gold">Future Direction</span> Clear</h1>
++    <div class="final-path"><div class="path-labels"><span>Your experience</span><span>Your next move</span></div><div class="path-line"></div><div class="path-dot"></div></div>
++  </section>
++</main>
++<script type="module">
++  import { gsap } from "gsap";
++  const compositionId = "m3_discover-experiences-that-support-your-next-move";
++  const timeline = gsap.timeline({ paused: true });
++  document.querySelectorAll(".scene").forEach((scene) => {
++    const start = Number(scene.dataset.start);
++    const duration = Number(scene.dataset.duration);
++    const children = scene.querySelectorAll(".eyebrow,h1,h2,.question,.panel,.frame,.direction,.evidence,.ram,.path-labels,.path-line,.path-dot");
++    timeline.set(scene, { autoAlpha: 1 }, start)
++      .from(children, { autoAlpha: 0, y: 28, duration: 0.55, stagger: 0.12, ease: "power2.out" }, start + 0.05)
++      .to(scene, { autoAlpha: 0, duration: 0.3, ease: "power1.in" }, start + duration - 0.3);
++  });
++  timeline.from(".path-line", { scaleX: 0, duration: 0.8, ease: "power2.out" }, 93.35)
++    .from(".path-dot", { scale: 0, duration: 0.45, ease: "back.out(1.7)" }, 93.9);
++  timeline.duration(96.3);
++  window.__hyperframes = window.__hyperframes || {};
++  window.__hyperframes[compositionId] = timeline;
++  window.__HYPERFRAMES_TIMELINES__ = window.__HYPERFRAMES_TIMELINES__ || {};
++  window.__HYPERFRAMES_TIMELINES__[compositionId] = timeline;
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m3_discover-experiences-that-support-your-next-move'] = timeline;
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/index.motion.json b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..b2af8414e349d83de1c31af454d3285f2479a39f
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/index.motion.json
+@@ -0,0 +1,25 @@
++{
++  "compositionId": "m3_discover-experiences-that-support-your-next-move",
++  "duration": 96.3,
++  "timeline": "main",
++  "paused": true,
++  "assertions": [
++    {"kind": "appearsBy", "target": "#future-question", "by": 1.2},
++    {"kind": "appearsBy", "target": "#gallery-not-storage", "by": 13.85},
++    {"kind": "appearsBy", "target": "#selection-lenses", "by": 24.7},
++    {"kind": "appearsBy", "target": "#leadership-example", "by": 38.35},
++    {"kind": "appearsBy", "target": "#lateral-example", "by": 50.8},
++    {"kind": "appearsBy", "target": "#rams-formula", "by": 62.85},
++    {"kind": "appearsBy", "target": "#true-story", "by": 83.7},
++    {"kind": "keepsMoving", "target": ".path-line", "from": 93.35, "to": 94.15}
++  ],
++  "beats": [
++    {"id":"future-question","start":0.6,"duration":11.4},
++    {"id":"gallery-not-storage","start":12.65,"duration":10.2},
++    {"id":"selection-lenses","start":23.5,"duration":13.0},
++    {"id":"leadership-example","start":37.15,"duration":11.8},
++    {"id":"lateral-example","start":49.6,"duration":11.4},
++    {"id":"rams-formula","start":61.65,"duration":20.2},
++    {"id":"true-story","start":82.5,"duration":12.0}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/meta.json b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/package.json b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/tokens.yml b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_discover-experiences-that-support-your-next-move/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

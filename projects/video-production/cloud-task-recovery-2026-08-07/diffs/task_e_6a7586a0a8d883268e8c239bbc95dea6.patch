@@ -1,0 +1,901 @@
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/.pin b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/.scla-control-v2 b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/CONCEPT.md b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..8dd0401914a8ad2901dff196d3882b0164c6f374
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/CONCEPT.md
+@@ -0,0 +1,11 @@
++# The Through-Line
++
++A clear, editorial lesson about career repositioning as revealing—not replacing—the value already present in a career. Three professional stories move across a visual career line, then resolve into a practical four-step path.
++
++## Visual idea
++
++A continuous gold-and-blue line connects evidence from the past to a focused future role. Alex, Jordan, and Priya each receive a distinct evidence card and forward-facing role label. The final section turns their shared pattern into four practical actions.
++
++## Teaching promise
++
++Viewers leave able to clarify a target, curate relevant proof, translate their language, and update the public signals that make the next move legible.
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/audio_request.json b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..7de74090786c59276a70f5539fb5ceebf2dd7880
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/audio_request.json
+@@ -0,0 +1,218 @@
++{
++  "composition_id": "m3_how-to-reposition-your-career",
++  "provider": "heygen",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "source_only": true,
++  "beats": [
++    {
++      "id": "beat-01",
++      "text": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over. New degree, new industry, and new identity."
++    },
++    {
++      "id": "beat-02",
++      "text": "In reality, most successful pivots are strategic repositionings of the experience you already have. You're not erasing your past; you're re-telling it so it clearly points to the future you want."
++    },
++    {
++      "id": "beat-03",
++      "text": "Let's look at how three mid-career professionals did exactly that."
++    },
++    {
++      "id": "beat-04",
++      "text": "Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
++    },
++    {
++      "id": "beat-05",
++      "text": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\" And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus."
++    },
++    {
++      "id": "beat-06",
++      "text": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
++    },
++    {
++      "id": "beat-07",
++      "text": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\" Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\" The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field."
++    },
++    {
++      "id": "beat-08",
++      "text": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role."
++    },
++    {
++      "id": "beat-09",
++      "text": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\" Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
++    },
++    {
++      "id": "beat-10",
++      "text": "Across all three, the pattern is the same."
++    },
++    {
++      "id": "beat-11",
++      "text": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar."
++    },
++    {
++      "id": "beat-12",
++      "text": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need."
++    },
++    {
++      "id": "beat-13",
++      "text": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path."
++    },
++    {
++      "id": "beat-14",
++      "text": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
++    },
++    {
++      "id": "beat-15",
++      "text": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others."
++    },
++    {
++      "id": "beat-16",
++      "text": "As you move forward in this track, keep asking: how can I tell the true story of my experience so it clearly points to the roles I want next?"
++    },
++    {
++      "id": "beat-17",
++      "text": "That's the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch."
++    }
++  ],
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "clips": [
++    {
++      "id": "beat-01",
++      "narration": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over. New degree, new industry, and new identity."
++    },
++    {
++      "id": "beat-02",
++      "narration": "In reality, most successful pivots are strategic repositionings of the experience you already have. You're not erasing your past; you're re-telling it so it clearly points to the future you want."
++    },
++    {
++      "id": "beat-03",
++      "narration": "Let's look at how three mid-career professionals did exactly that."
++    },
++    {
++      "id": "beat-04",
++      "narration": "Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
++    },
++    {
++      "id": "beat-05",
++      "narration": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\" And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus."
++    },
++    {
++      "id": "beat-06",
++      "narration": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
++    },
++    {
++      "id": "beat-07",
++      "narration": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\" Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\" The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field."
++    },
++    {
++      "id": "beat-08",
++      "narration": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role."
++    },
++    {
++      "id": "beat-09",
++      "narration": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\" Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
++    },
++    {
++      "id": "beat-10",
++      "narration": "Across all three, the pattern is the same."
++    },
++    {
++      "id": "beat-11",
++      "narration": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar."
++    },
++    {
++      "id": "beat-12",
++      "narration": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need."
++    },
++    {
++      "id": "beat-13",
++      "narration": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path."
++    },
++    {
++      "id": "beat-14",
++      "narration": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
++    },
++    {
++      "id": "beat-15",
++      "narration": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others."
++    },
++    {
++      "id": "beat-16",
++      "narration": "As you move forward in this track, keep asking: how can I tell the true story of my experience so it clearly points to the roles I want next?"
++    },
++    {
++      "id": "beat-17",
++      "narration": "That's the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch."
++    }
++  ],
++  "lines": [
++    {
++      "id": "beat-01",
++      "text": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over. New degree, new industry, and new identity."
++    },
++    {
++      "id": "beat-02",
++      "text": "In reality, most successful pivots are strategic repositionings of the experience you already have. You're not erasing your past; you're re-telling it so it clearly points to the future you want."
++    },
++    {
++      "id": "beat-03",
++      "text": "Let's look at how three mid-career professionals did exactly that."
++    },
++    {
++      "id": "beat-04",
++      "text": "Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
++    },
++    {
++      "id": "beat-05",
++      "text": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\" And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus."
++    },
++    {
++      "id": "beat-06",
++      "text": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
++    },
++    {
++      "id": "beat-07",
++      "text": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\" Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\" The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field."
++    },
++    {
++      "id": "beat-08",
++      "text": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role."
++    },
++    {
++      "id": "beat-09",
++      "text": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\" Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
++    },
++    {
++      "id": "beat-10",
++      "text": "Across all three, the pattern is the same."
++    },
++    {
++      "id": "beat-11",
++      "text": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar."
++    },
++    {
++      "id": "beat-12",
++      "text": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need."
++    },
++    {
++      "id": "beat-13",
++      "text": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path."
++    },
++    {
++      "id": "beat-14",
++      "text": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
++    },
++    {
++      "id": "beat-15",
++      "text": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others."
++    },
++    {
++      "id": "beat-16",
++      "text": "As you move forward in this track, keep asking: how can I tell the true story of my experience so it clearly points to the roles I want next?"
++    },
++    {
++      "id": "beat-17",
++      "text": "That's the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/concept.json b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..e75f85eef0a6e7f050c8101ae0aff6977142aed9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/concept.json
+@@ -0,0 +1,98 @@
++{
++  "compositionId": "m3_how-to-reposition-your-career",
++  "title": "How to Reposition Your Career",
++  "program": "Mid-Career Momentum",
++  "concept": "The Through-Line",
++  "format": "illustrated editorial lesson",
++  "canvas": {
++    "width": 1920,
++    "height": 1080
++  },
++  "beats": [
++    {
++      "id": "beat-01",
++      "purpose": "opening",
++      "narration": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over. New degree, new industry, and new identity."
++    },
++    {
++      "id": "beat-02",
++      "purpose": "opening",
++      "narration": "In reality, most successful pivots are strategic repositionings of the experience you already have. You're not erasing your past; you're re-telling it so it clearly points to the future you want."
++    },
++    {
++      "id": "beat-03",
++      "purpose": "opening",
++      "narration": "Let's look at how three mid-career professionals did exactly that."
++    },
++    {
++      "id": "beat-04",
++      "purpose": "case-study",
++      "narration": "Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
++    },
++    {
++      "id": "beat-05",
++      "purpose": "case-study",
++      "narration": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\" And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus."
++    },
++    {
++      "id": "beat-06",
++      "purpose": "case-study",
++      "narration": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
++    },
++    {
++      "id": "beat-07",
++      "purpose": "case-study",
++      "narration": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\" Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\" The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field."
++    },
++    {
++      "id": "beat-08",
++      "purpose": "case-study",
++      "narration": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role."
++    },
++    {
++      "id": "beat-09",
++      "purpose": "case-study",
++      "narration": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\" Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
++    },
++    {
++      "id": "beat-10",
++      "purpose": "framework",
++      "narration": "Across all three, the pattern is the same."
++    },
++    {
++      "id": "beat-11",
++      "purpose": "framework",
++      "narration": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar."
++    },
++    {
++      "id": "beat-12",
++      "purpose": "framework",
++      "narration": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need."
++    },
++    {
++      "id": "beat-13",
++      "purpose": "framework",
++      "narration": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path."
++    },
++    {
++      "id": "beat-14",
++      "purpose": "framework",
++      "narration": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
++    },
++    {
++      "id": "beat-15",
++      "purpose": "closing",
++      "narration": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others."
++    },
++    {
++      "id": "beat-16",
++      "purpose": "closing",
++      "narration": "As you move forward in this track, keep asking: how can I tell the true story of my experience so it clearly points to the roles I want next?"
++    },
++    {
++      "id": "beat-17",
++      "purpose": "closing",
++      "narration": "That's the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/design.md b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..a3dd36c160a286e6d9912de981e04ecaa188a177
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/design.md
+@@ -0,0 +1,17 @@
++# Design — The Through-Line
++
++## Direction
++
++Use a restrained editorial system: deep navy ground, white content cards, blue structure, and a gold through-line that advances from established experience toward a clearly named next role. The line is the visual metaphor and remains purposeful rather than decorative.
++
++## Type and color
++
++Use Proxima Nova with the provided fallback. Headlines are 72–96px, body copy is at least 40px, and compact labels are at least 22px. Use only the supplied navy, paper, blue, gold, muted, and subtle-fill tokens.
++
++## Layout
++
++Keep content inside 120px frame padding and above the reserved footer. Each beat has one dominant idea. Case studies pair a person label with proof and a future-facing role. Framework beats use numbered nodes connected by the through-line.
++
++## Motion
++
++One paused, seekable timeline controls all motion. Each clip enters in 0.5 seconds, holds for reading, and exits in 0.3 seconds. The through-line draws forward as each idea arrives. No infinite motion or autonomous playback.
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/hyperframes.json b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/index.html b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..c8f474adf38090f39b1b0dada35ef57258d78d28
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/index.html
+@@ -0,0 +1,155 @@
++<!doctype html>
++<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
++<title>How to Reposition Your Career</title>
++<style>
++:root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--subtle:#e5eff6;--muted:#98a4cc}
++*{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif}
++#composition{position:relative;width:1920px;height:1080px;background:var(--navy);color:var(--paper);overflow:hidden}
++#composition:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 82% 16%,rgba(51,147,214,.18),transparent 34%);pointer-events:none}
++.brand{position:absolute;left:120px;top:55px;font-weight:900;font-size:24px;letter-spacing:.12em;color:var(--gold)}
++.brand em{font-style:normal;color:var(--paper)}
++.clip{position:absolute;inset:130px 120px 120px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden;transform:translateY(22px)}
++.eyebrow{font-size:22px;font-weight:700;letter-spacing:.15em;color:var(--blue);margin-bottom:24px} .eyebrow span{color:var(--gold);margin-left:18px}
++.rule{width:150px;height:4px;background:var(--gold);margin-bottom:32px;transform-origin:left}
++h1{font-size:84px;line-height:.98;letter-spacing:-.025em;max-width:1450px;margin:0 0 35px;font-weight:900}
++.narration{font-size:40px;line-height:1.25;max-width:1580px;margin:0;color:#f6f6f9}
++.case h1{color:var(--gold)} .step h1{font-size:76px;color:var(--paper)}
++.through-line{position:absolute;left:0;right:0;bottom:5px;height:10px;background:rgba(51,147,214,.22);border-radius:10px;overflow:visible}
++.through-line i{display:block;width:100%;height:4px;margin-top:3px;background:var(--blue);transform-origin:left}
++.through-line b{position:absolute;right:-2px;top:-7px;width:24px;height:24px;border-radius:50%;background:var(--gold)}
++.footer{position:absolute;right:120px;bottom:55px;font-size:22px;font-weight:700;color:var(--muted)}
++</style></head>
++<body><main id="composition" data-composition-id="m3_how-to-reposition-your-career" data-start="0" data-duration="228.86" data-fps="30" data-width="1920" data-height="1080">
++<div class="brand">SCLA <em>CAREER DEVELOPMENT</em></div>
++<section class="clip core" id="beat-01" data-clip-id="beat-01" data-beat-id="beat-01" data-start="0.0" data-end="8.7" data-duration="8.7" data-track-index="1"" aria-label="A Pivot Isn&#x27;t a Reset">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>01</span></div>
++      <div class="rule"></div>
++      <h1>A Pivot Isn&#x27;t a Reset</h1>
++      <p class="narration">When people hear &quot;career pivot&quot; or &quot;repositioning,&quot; they picture starting completely over. New degree, new industry, and new identity.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip core" id="beat-02" data-clip-id="beat-02" data-beat-id="beat-02" data-start="8.7" data-end="21.51" data-duration="12.81" data-track-index="1"" aria-label="Re-Tell What You Already Have">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>02</span></div>
++      <div class="rule"></div>
++      <h1>Re-Tell What You Already Have</h1>
++      <p class="narration">In reality, most successful pivots are strategic repositionings of the experience you already have. You&#x27;re not erasing your past; you&#x27;re re-telling it so it clearly points to the future you want.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip core" id="beat-03" data-clip-id="beat-03" data-beat-id="beat-03" data-start="21.51" data-end="26.66" data-duration="5.15" data-track-index="1"" aria-label="Three Professionals · One Pattern">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>03</span></div>
++      <div class="rule"></div>
++      <h1>Three Professionals · One Pattern</h1>
++      <p class="narration">Let&#x27;s look at how three mid-career professionals did exactly that.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip case" id="beat-04" data-clip-id="beat-04" data-beat-id="beat-04" data-start="26.66" data-end="42.21" data-duration="15.55" data-track-index="1"" aria-label="Alex: Operations → Strategy">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>04</span></div>
++      <div class="rule"></div>
++      <h1>Alex: Operations → Strategy</h1>
++      <p class="narration">Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip case" id="beat-05" data-clip-id="beat-05" data-beat-id="beat-05" data-start="42.21" data-end="76.19" data-duration="33.98" data-track-index="1"" aria-label="Surface the Strategic Work">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>05</span></div>
++      <div class="rule"></div>
++      <h1>Surface the Strategic Work</h1>
++      <p class="narration">To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning &quot;managed operations&quot; into &quot;Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.&quot; And updated LinkedIn to point forward: &quot;Operations &amp; Strategy Leader.&quot; Alex didn&#x27;t claim a title that wasn&#x27;t earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip case" id="beat-06" data-clip-id="beat-06" data-beat-id="beat-06" data-start="76.19" data-end="89.39" data-duration="13.2" data-track-index="1"" aria-label="Jordan: Teaching → Learning Design">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>06</span></div>
++      <div class="rule"></div>
++      <h1>Jordan: Teaching → Learning Design</h1>
++      <p class="narration">Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip case" id="beat-07" data-clip-id="beat-07" data-beat-id="beat-07" data-start="89.39" data-end="113.57" data-duration="24.18" data-track-index="1"" aria-label="Translate into Design Language">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>07</span></div>
++      <div class="rule"></div>
++      <h1>Translate into Design Language</h1>
++      <p class="narration">So Jordan translated teaching tasks into design language: &quot;Designed and implemented multi-modal learning experiences for diverse learners.&quot; Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to &quot;Learning Experience Designer.&quot; The classroom didn&#x27;t disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip case" id="beat-08" data-clip-id="beat-08" data-beat-id="beat-08" data-start="113.57" data-end="124.03" data-duration="10.46" data-track-index="1"" aria-label="Priya: Contributor → People Leader">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>08</span></div>
++      <div class="rule"></div>
++      <h1>Priya: Contributor → People Leader</h1>
++      <p class="narration">Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip case" id="beat-09" data-clip-id="beat-09" data-beat-id="beat-09" data-start="124.03" data-end="145.85" data-duration="21.82" data-track-index="1"" aria-label="Name the Leadership Already Happening">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>09</span></div>
++      <div class="rule"></div>
++      <h1>Name the Leadership Already Happening</h1>
++      <p class="narration">She found the moments she&#x27;d already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: &quot;Mentored 3 new analysts, accelerating their ramp-up time by 30%.&quot; Her summary became &quot;Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.&quot;</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip core" id="beat-10" data-clip-id="beat-10" data-beat-id="beat-10" data-start="145.85" data-end="151.0" data-duration="5.15" data-track-index="1"" aria-label="The Shared Pattern">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>10</span></div>
++      <div class="rule"></div>
++      <h1>The Shared Pattern</h1>
++      <p class="narration">Across all three, the pattern is the same.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip step" id="beat-11" data-clip-id="beat-11" data-beat-id="beat-11" data-start="151.0" data-end="163.81" data-duration="12.81" data-track-index="1"" aria-label="1 · Clarify Your Direction">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>11</span></div>
++      <div class="rule"></div>
++      <h1>1 · Clarify Your Direction</h1>
++      <p class="narration">Clarify your future direction. Know whether you&#x27;re aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip step" id="beat-12" data-clip-id="beat-12" data-beat-id="beat-12" data-start="163.81" data-end="174.26" data-duration="10.45" data-track-index="1"" aria-label="2 · Curate Your Story">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>12</span></div>
++      <div class="rule"></div>
++      <h1>2 · Curate Your Story</h1>
++      <p class="narration">Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you&#x27;ll need.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip step" id="beat-13" data-clip-id="beat-13" data-beat-id="beat-13" data-start="174.26" data-end="184.32" data-duration="10.06" data-track-index="1"" aria-label="3 · Translate Your Language">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>13</span></div>
++      <div class="rule"></div>
++      <h1>3 · Translate Your Language</h1>
++      <p class="narration">Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip step" id="beat-14" data-clip-id="beat-14" data-beat-id="beat-14" data-start="184.32" data-end="192.82" data-duration="8.5" data-track-index="1"" aria-label="4 · Update Public Signals">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>14</span></div>
++      <div class="rule"></div>
++      <h1>4 · Update Public Signals</h1>
++      <p class="narration">Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip core" id="beat-15" data-clip-id="beat-15" data-beat-id="beat-15" data-start="192.82" data-end="207.19" data-duration="14.37" data-track-index="1"" aria-label="Reveal the Through-Line">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>15</span></div>
++      <div class="rule"></div>
++      <h1>Reveal the Through-Line</h1>
++      <p class="narration">Repositioning your career isn&#x27;t about being someone you&#x27;re not. It&#x27;s about revealing the through-line in what you&#x27;ve already done—and telling that story in a way that makes your next move feel obvious to others.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip core" id="beat-16" data-clip-id="beat-16" data-beat-id="beat-16" data-start="207.19" data-end="219.22" data-duration="12.03" data-track-index="1"" aria-label="Point Experience Toward What’s Next">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>16</span></div>
++      <div class="rule"></div>
++      <h1>Point Experience Toward What’s Next</h1>
++      <p class="narration">As you move forward in this track, keep asking: how can I tell the true story of my experience so it clearly points to the roles I want next?</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section><section class="clip core" id="beat-17" data-clip-id="beat-17" data-beat-id="beat-17" data-start="219.22" data-end="228.86" data-duration="9.64" data-track-index="1"" aria-label="Open New Doors—without Starting Over">
++      <div class="eyebrow">MID-CAREER MOMENTUM <span>17</span></div>
++      <div class="rule"></div>
++      <h1>Open New Doors—without Starting Over</h1>
++      <p class="narration">That&#x27;s the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch.</p>
++      <div class="through-line"><i></i><b></b></div>
++    </section>
++<div class="footer">How to Reposition Your Career</div>
++</main>
++<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
++<script>
++(() => {
++ const compositionId='m3_how-to-reposition-your-career';
++ const beats=[{"id": "beat-01", "start": 0.6, "end": 8.05}, {"id": "beat-02", "start": 8.7, "end": 20.86}, {"id": "beat-03", "start": 21.51, "end": 26.01}, {"id": "beat-04", "start": 26.66, "end": 41.56}, {"id": "beat-05", "start": 42.21, "end": 75.54}, {"id": "beat-06", "start": 76.19, "end": 88.74}, {"id": "beat-07", "start": 89.39, "end": 112.92}, {"id": "beat-08", "start": 113.57, "end": 123.38}, {"id": "beat-09", "start": 124.03, "end": 145.2}, {"id": "beat-10", "start": 145.85, "end": 150.35}, {"id": "beat-11", "start": 151.0, "end": 163.16}, {"id": "beat-12", "start": 163.81, "end": 173.61}, {"id": "beat-13", "start": 174.26, "end": 183.67}, {"id": "beat-14", "start": 184.32, "end": 192.17}, {"id": "beat-15", "start": 192.82, "end": 206.54}, {"id": "beat-16", "start": 207.19, "end": 218.57}, {"id": "beat-17", "start": 219.22, "end": 227.06}];
++ const timeline=gsap.timeline({paused:true});
++ beats.forEach((beat) => {
++   const el='#'+beat.id;
++   timeline.set(el,{autoAlpha:1},beat.start)
++     .fromTo(el,{autoAlpha:0,y:22},{autoAlpha:1,y:0,duration:.5,ease:'power2.out'},beat.start)
++     .fromTo(el+' .rule',{scaleX:0},{scaleX:1,duration:.55,ease:'power2.out'},beat.start+.08)
++     .fromTo(el+' .through-line i',{scaleX:0},{scaleX:1,duration:.7,ease:'power2.out'},beat.start+.18)
++     .to(el,{autoAlpha:0,y:-12,duration:.3,ease:'power1.in'},Math.max(beat.start+.6,beat.end-.3))
++     .set(el,{visibility:'hidden'},beat.end);
++ });
++ timeline.duration(228.86); timeline.pause(0);
++ window.__HYPERFRAMES__=window.__HYPERFRAMES__||{};
++ window.__HYPERFRAMES__.timelines=window.__HYPERFRAMES__.timelines||{};
++ window.__HYPERFRAMES__.timelines[compositionId]=timeline;
++ window.__timelines=window.__timelines||{};
++ window.__timelines['m3_how-to-reposition-your-career']=timeline;
++ window.__HF_TIMELINES=window.__HF_TIMELINES||{};
++ window.__HF_TIMELINES[compositionId]=timeline;
++ window.hyperframesTimeline=timeline;
++ window.dispatchEvent(new CustomEvent('hyperframes:timeline-ready',{detail:{compositionId,timeline}}));
++})();
++</script></body></html>
+\ No newline at end of file
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/index.motion.json b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..6337630256bfb842bffab3a14599e2e5abd2aa98
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/index.motion.json
+@@ -0,0 +1,222 @@
++{
++  "compositionId": "m3_how-to-reposition-your-career",
++  "duration": 228.86,
++  "fps": 30,
++  "timeline": {
++    "paused": true,
++    "seekable": true
++  },
++  "beats": [
++    {
++      "id": "beat-01",
++      "start": 0.0,
++      "end": 8.7,
++      "duration": 8.7,
++      "narration": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over. New degree, new industry, and new identity."
++    },
++    {
++      "id": "beat-02",
++      "start": 8.7,
++      "end": 21.51,
++      "duration": 12.81,
++      "narration": "In reality, most successful pivots are strategic repositionings of the experience you already have. You're not erasing your past; you're re-telling it so it clearly points to the future you want."
++    },
++    {
++      "id": "beat-03",
++      "start": 21.51,
++      "end": 26.66,
++      "duration": 5.15,
++      "narration": "Let's look at how three mid-career professionals did exactly that."
++    },
++    {
++      "id": "beat-04",
++      "start": 26.66,
++      "end": 42.21,
++      "duration": 15.55,
++      "narration": "Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
++    },
++    {
++      "id": "beat-05",
++      "start": 42.21,
++      "end": 76.19,
++      "duration": 33.98,
++      "narration": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\" And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus."
++    },
++    {
++      "id": "beat-06",
++      "start": 76.19,
++      "end": 89.39,
++      "duration": 13.2,
++      "narration": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
++    },
++    {
++      "id": "beat-07",
++      "start": 89.39,
++      "end": 113.57,
++      "duration": 24.18,
++      "narration": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\" Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\" The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field."
++    },
++    {
++      "id": "beat-08",
++      "start": 113.57,
++      "end": 124.03,
++      "duration": 10.46,
++      "narration": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role."
++    },
++    {
++      "id": "beat-09",
++      "start": 124.03,
++      "end": 145.85,
++      "duration": 21.82,
++      "narration": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\" Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
++    },
++    {
++      "id": "beat-10",
++      "start": 145.85,
++      "end": 151.0,
++      "duration": 5.15,
++      "narration": "Across all three, the pattern is the same."
++    },
++    {
++      "id": "beat-11",
++      "start": 151.0,
++      "end": 163.81,
++      "duration": 12.81,
++      "narration": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar."
++    },
++    {
++      "id": "beat-12",
++      "start": 163.81,
++      "end": 174.26,
++      "duration": 10.45,
++      "narration": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need."
++    },
++    {
++      "id": "beat-13",
++      "start": 174.26,
++      "end": 184.32,
++      "duration": 10.06,
++      "narration": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path."
++    },
++    {
++      "id": "beat-14",
++      "start": 184.32,
++      "end": 192.82,
++      "duration": 8.5,
++      "narration": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
++    },
++    {
++      "id": "beat-15",
++      "start": 192.82,
++      "end": 207.19,
++      "duration": 14.37,
++      "narration": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others."
++    },
++    {
++      "id": "beat-16",
++      "start": 207.19,
++      "end": 219.22,
++      "duration": 12.03,
++      "narration": "As you move forward in this track, keep asking: how can I tell the true story of my experience so it clearly points to the roles I want next?"
++    },
++    {
++      "id": "beat-17",
++      "start": 219.22,
++      "end": 228.86,
++      "duration": 9.64,
++      "narration": "That's the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch."
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "keepsMoving",
++      "from": 0,
++      "to": 228.86
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-01",
++      "bySec": 0.5
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-02",
++      "bySec": 9.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-03",
++      "bySec": 22.01
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-04",
++      "bySec": 27.16
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-05",
++      "bySec": 42.71
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-06",
++      "bySec": 76.69
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-07",
++      "bySec": 89.89
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-08",
++      "bySec": 114.07
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-09",
++      "bySec": 124.53
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-10",
++      "bySec": 146.35
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-11",
++      "bySec": 151.5
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-12",
++      "bySec": 164.31
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-13",
++      "bySec": 174.76
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-14",
++      "bySec": 184.82
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-15",
++      "bySec": 193.32
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-16",
++      "bySec": 207.69
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-17",
++      "bySec": 219.72
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/meta.json b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/package.json b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/tokens.yml b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_how-to-reposition-your-career/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

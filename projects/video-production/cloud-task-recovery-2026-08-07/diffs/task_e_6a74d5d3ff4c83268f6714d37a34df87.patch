@@ -1,0 +1,308 @@
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/.pin b/projects/video-production/renders-hyperframes/m1_mini-syllabus/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/.scla-control-v2 b/projects/video-production/renders-hyperframes/m1_mini-syllabus/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/CONCEPT.md b/projects/video-production/renders-hyperframes/m1_mini-syllabus/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..74bd6a1986eb411ad18ff0db8f6ea07941ed3a5a
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/CONCEPT.md
+@@ -0,0 +1,21 @@
++# Mid-Career Momentum: Your Next Move
++
++## Creative idea
++
++A clear career map turns a complicated mid-career moment into one practical next move. Six beats move from welcome, through orientation and choices, to a focused 90-day commitment.
++
++## Visual approach
++
++- Use a restrained navy, paper, blue, and gold interface inspired by a career-planning dashboard.
++- Keep one central route line across the lesson, adding a new checkpoint at each beat.
++- Use large, plain-language headlines and short supporting phrases rather than repeating the full narration on screen.
++- End with a paper commitment card and a clear **Next** action.
++
++## Beat plan
++
++1. **welcome** — Establish experience and readiness for more.
++2. **checkpoint** — Place the learner at a deliberate mid-career checkpoint.
++3. **toolkit** — Introduce the platform activities and support path.
++4. **choices** — Name the real pressures and three possible directions.
++5. **next-move** — Narrow the horizon to one realistic 6–12 month move.
++6. **commitment** — Capture the learner's 90-day anchor and invite them forward.
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/audio_request.json b/projects/video-production/renders-hyperframes/m1_mini-syllabus/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..1a9caeb44eb350478472c3b57d7f15d7114ae2a0
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/audio_request.json
+@@ -0,0 +1,16 @@
++{
++  "stem": "m1_mini-syllabus",
++  "program": "mid-career-momentum",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "lines": [
++    { "id": "welcome", "text": "Welcome to Mid-Career Momentum. You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better." },
++    { "id": "checkpoint", "text": "This track is part of your broader career journey. Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting. As you move through the course, you'll see your progress bar update, so you always know exactly where you are and what's ahead." },
++    { "id": "toolkit", "text": "You'll use a few simple tools in this platform: click-through activities, short reflections, uploads, and a handful of AI-powered prompts that help you analyze your own career story. If you ever get stuck, you can reach us through the hashtag questionsupport channel or our member support team." },
++    { "id": "choices", "text": "Mid-career can feel complicated. You may have family responsibilities, leadership expectations, and a full calendar. And you might be wondering: Should I push for a promotion? Redesign my role to fit better? Or change lanes entirely?" },
++    { "id": "next-move", "text": "Rather than trying to solve everything at once, this track helps you focus on your next realistic move over the next 6 to 12 months. We'll help you define that move, reposition your experience, and build momentum through small consistent steps." },
++    { "id": "commitment", "text": "Before we dive in, I want you to set a simple, powerful commitment: \"Over the next 90 days, my main career goal is...\" You'll write and submit that statement in a short activity, and it becomes your anchor for the rest of the track. When you're ready, click Next to begin." }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/concept.json b/projects/video-production/renders-hyperframes/m1_mini-syllabus/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..b789cbf63dedc8b2a17ce02402ba49c45760522e
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/concept.json
+@@ -0,0 +1,14 @@
++{
++  "title": "Mid-Career Momentum: Your Next Move",
++  "program": "mid-career-momentum",
++  "stem": "m1_mini-syllabus",
++  "concept": "A career-map route turns mid-career complexity into one practical next move and a 90-day commitment.",
++  "beats": [
++    { "id": "welcome", "purpose": "Welcome an experienced learner who is ready for more." },
++    { "id": "checkpoint", "purpose": "Show this track as a deliberate checkpoint on a wider career map." },
++    { "id": "toolkit", "purpose": "Preview the simple learning tools and support available." },
++    { "id": "choices", "purpose": "Acknowledge pressures and frame three plausible career directions." },
++    { "id": "next-move", "purpose": "Focus the learner on one realistic move over 6 to 12 months." },
++    { "id": "commitment", "purpose": "Turn the lesson into a specific 90-day commitment and next action." }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/design.md b/projects/video-production/renders-hyperframes/m1_mini-syllabus/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3af3f8bcf8584d821bcf96092c7de694b1d56b18
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/design.md
+@@ -0,0 +1,25 @@
++# Design direction
++
++## Frame
++
++- 1920 × 1080, with generous 120px frame padding and a persistent 120px footer reserve.
++- Navy background with paper cards, blue route lines, and gold active markers.
++- A six-stop route along the footer shows progress without competing with the main message.
++
++## Type
++
++- Proxima Nova with the system fallback from `tokens.yml`.
++- Display copy is 72–104px, bold or black; supporting copy is 36–44px.
++- Small uppercase labels are at least 22px.
++
++## Motion
++
++- Each beat uses a short rise-and-fade entrance, staggered across headline and cards.
++- The route line draws forward and the active checkpoint changes once per beat.
++- Transitions are simple crossfades; no infinite or non-deterministic animation.
++
++## Accessibility
++
++- High-contrast paper-on-navy and navy-on-paper combinations.
++- Meaning never depends on color alone; every checkpoint is numbered and labeled.
++- On-screen copy stays concise and within the safe area.
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/hyperframes.json b/projects/video-production/renders-hyperframes/m1_mini-syllabus/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/index.html b/projects/video-production/renders-hyperframes/m1_mini-syllabus/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..8cfef0d38d94f1f1203b1c8d72bba91b03865f99
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/index.html
+@@ -0,0 +1,59 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1">
++  <title>Mid-Career Momentum: Your Next Move</title>
++  <style>
++    :root { --navy:#0d2437; --deep:#0a1e2f; --blue:#3393d6; --gold:#eaab2d; --paper:#fff; --muted:#98a4cc; }
++    * { box-sizing: border-box; }
++    html, body { width:100%; height:100%; margin:0; overflow:hidden; background:var(--navy); font-family:'Proxima Nova',system-ui,sans-serif; }
++    main { position:relative; width:1920px; height:1080px; color:var(--paper); background:var(--navy); }
++    .clip { position:absolute; inset:0; padding:120px 120px 150px; display:flex; flex-direction:column; justify-content:center; opacity:0; }
++    .eyebrow { color:var(--gold); font-size:24px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
++    h1 { max-width:1500px; margin:22px 0 30px; font-size:92px; line-height:.98; letter-spacing:-.03em; }
++    .sub { max-width:1300px; color:var(--paper); font-size:42px; line-height:1.22; }
++    .cards { display:flex; gap:24px; margin-top:44px; }
++    .card { flex:1; min-height:190px; padding:34px; border:2px solid var(--blue); border-radius:12px; background:var(--deep); font-size:36px; font-weight:700; }
++    .number { display:block; color:var(--gold); font-size:24px; letter-spacing:.12em; margin-bottom:18px; }
++    .commit { max-width:1420px; padding:48px 56px; border-radius:12px; background:var(--paper); color:var(--navy); font-size:54px; font-weight:800; }
++    .next { margin-top:38px; color:var(--gold); font-size:34px; font-weight:900; }
++    .route { position:absolute; left:120px; right:120px; bottom:64px; display:flex; align-items:center; justify-content:space-between; }
++    .route::before { content:''; position:absolute; left:20px; right:20px; height:4px; background:var(--blue); opacity:.55; }
++    .node { z-index:1; display:grid; place-items:center; width:56px; height:56px; border:4px solid var(--paper); border-radius:50%; background:var(--navy); color:var(--paper); font-size:22px; font-weight:900; }
++  </style>
++</head>
++<body>
++<main data-composition="m1_mini-syllabus" data-width="1920" data-height="1080" data-fps="30">
++  <section class="clip" data-beat-id="welcome" data-duration="11">
++    <div class="eyebrow">Mini-Syllabus · Mid-Career Momentum</div><h1>You've Built Experience<br>Now, Build What's Next</h1><div class="sub">More impact. More recognition. A role that fits.</div>
++  </section>
++  <section class="clip" data-beat-id="checkpoint" data-duration="19">
++    <div class="eyebrow">Your career map</div><h1>Pause, Reassess,<br>Choose Deliberately</h1><div class="sub">This checkpoint keeps your progress — and what comes next — in view.</div>
++  </section>
++  <section class="clip" data-beat-id="toolkit" data-duration="16">
++    <div class="eyebrow">Simple tools, useful insight</div><h1>Learn by Doing</h1><div class="cards" data-role="list"><div class="card"><span class="number">01</span>Click-through activities</div><div class="card"><span class="number">02</span>Short reflections & uploads</div><div class="card"><span class="number">03</span>AI-powered prompts</div></div>
++  </section>
++  <section class="clip" data-beat-id="choices" data-duration="16">
++    <div class="eyebrow">Mid-career choices</div><h1>Which Direction Fits Now?</h1><div class="cards" data-role="compare"><div class="card">Push for a promotion</div><div class="card">Redesign your role</div><div class="card">Change lanes</div></div>
++  </section>
++  <section class="clip" data-beat-id="next-move" data-duration="15">
++    <div class="eyebrow">The next 6–12 months</div><h1>One Realistic Move<br>Small, Consistent Steps</h1><div class="sub">Define it. Reposition your experience. Build momentum.</div>
++  </section>
++  <section class="clip" data-beat-id="commitment" data-duration="18">
++    <div class="eyebrow">Your 90-day anchor</div><div class="commit">“Over the next 90 days, my main career goal is...”</div><div class="next">→ Click Next to begin</div>
++  </section>
++  <nav class="route" aria-label="Lesson progress"><span class="node">1</span><span class="node">2</span><span class="node">3</span><span class="node">4</span><span class="node">5</span><span class="node">6</span></nav>
++</main>
++<script type="application/json" id="narration">
++[
++  {"id":"welcome","text":"Welcome to Mid-Career Momentum. You're here because you've built meaningful experience, but you're ready for more — more impact, more recognition, or simply a role that fits you better."},
++  {"id":"checkpoint","text":"This track is part of your broader career journey. Think of it as the mid-career checkpoint in your career map: a place where you pause, reassess, and deliberately choose what comes next instead of drifting. As you move through the course, you'll see your progress bar update, so you always know exactly where you are and what's ahead."},
++  {"id":"toolkit","text":"You'll use a few simple tools in this platform: click-through activities, short reflections, uploads, and a handful of AI-powered prompts that help you analyze your own career story. If you ever get stuck, you can reach us through the hashtag questionsupport channel or our member support team."},
++  {"id":"choices","text":"Mid-career can feel complicated. You may have family responsibilities, leadership expectations, and a full calendar. And you might be wondering: Should I push for a promotion? Redesign my role to fit better? Or change lanes entirely?"},
++  {"id":"next-move","text":"Rather than trying to solve everything at once, this track helps you focus on your next realistic move over the next 6 to 12 months. We'll help you define that move, reposition your experience, and build momentum through small consistent steps."},
++  {"id":"commitment","text":"Before we dive in, I want you to set a simple, powerful commitment: \"Over the next 90 days, my main career goal is...\" You'll write and submit that statement in a short activity, and it becomes your anchor for the rest of the track. When you're ready, click Next to begin."}
++]
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/meta.json b/projects/video-production/renders-hyperframes/m1_mini-syllabus/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/package.json b/projects/video-production/renders-hyperframes/m1_mini-syllabus/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m1_mini-syllabus/tokens.yml b/projects/video-production/renders-hyperframes/m1_mini-syllabus/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m1_mini-syllabus/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

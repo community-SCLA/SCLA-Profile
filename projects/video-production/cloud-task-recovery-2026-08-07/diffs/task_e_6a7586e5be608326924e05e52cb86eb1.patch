@@ -1,0 +1,940 @@
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.pin b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.scla-control-v2 b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/CONCEPT.md b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca5461dfea96fc9bf5d78590190c8359f64ac705
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/CONCEPT.md
+@@ -0,0 +1,17 @@
++# Building Visibility on Your Own
++
++## Core idea
++Visibility is not fame or polish. It is a small, repeatable system that makes a useful offer clear, credible, familiar, and easy to refer.
++
++## Visual metaphor
++A single gold signal travels through a navy network. It begins surrounded by noisy expectations, resolves into a clear sentence, gains credibility, repeats across touchpoints, and ends as a compact two-week system.
++
++## Story arc
++1. Replace the content-creator myth with a simpler definition.
++2. Reveal the three warm paths to a first client.
++3. Build four connected visibility blocks.
++4. Use AI as a friction reducer without losing a human voice.
++5. Assemble the learner's practical visibility kit and close on clarity, trust, and referral.
++
++## Pacing
++Thirteen unique narration beats over 244.38 seconds. Each scene arrives before its narration, settles quickly, and resolves before the next beat.
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/audio_request.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..7acd4bdba70fc755ba7eea49a00bb87a5cee7c90
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/audio_request.json
+@@ -0,0 +1,275 @@
++{
++  "composition_id": "m4_building-visibility-on-your-own",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "provider": "heygen",
++  "speed": 1.0,
++  "narration": [
++    {
++      "id": "myth",
++      "text": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\"",
++      "narration": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "simpler",
++      "text": "But early visibility is much simpler than that.",
++      "narration": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "definition",
++      "text": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up.",
++      "narration": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "first-client",
++      "text": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness.",
++      "narration": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "building-blocks",
++      "text": "So what makes you visible in a helpful way? There are four building blocks.",
++      "narration": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "clear-signal",
++      "text": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat.",
++      "narration": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "credible-story",
++      "text": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building.",
++      "narration": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "example-story",
++      "text": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy.",
++      "narration": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "touchpoints",
++      "text": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible.",
++      "narration": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "participation",
++      "text": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy.",
++      "narration": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "ai",
++      "text": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human.",
++      "narration": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "system",
++      "text": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out.",
++      "narration": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "close",
++      "text": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for.",
++      "narration": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ],
++  "lines": [
++    {
++      "id": "myth",
++      "text": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\"",
++      "narration": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "simpler",
++      "text": "But early visibility is much simpler than that.",
++      "narration": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "definition",
++      "text": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up.",
++      "narration": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "first-client",
++      "text": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness.",
++      "narration": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "building-blocks",
++      "text": "So what makes you visible in a helpful way? There are four building blocks.",
++      "narration": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "clear-signal",
++      "text": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat.",
++      "narration": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "credible-story",
++      "text": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building.",
++      "narration": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "example-story",
++      "text": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy.",
++      "narration": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "touchpoints",
++      "text": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible.",
++      "narration": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "participation",
++      "text": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy.",
++      "narration": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "ai",
++      "text": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human.",
++      "narration": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "system",
++      "text": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out.",
++      "narration": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "close",
++      "text": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for.",
++      "narration": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ],
++  "clips": [
++    {
++      "id": "myth",
++      "text": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\"",
++      "narration": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "simpler",
++      "text": "But early visibility is much simpler than that.",
++      "narration": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "definition",
++      "text": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up.",
++      "narration": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "first-client",
++      "text": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness.",
++      "narration": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "building-blocks",
++      "text": "So what makes you visible in a helpful way? There are four building blocks.",
++      "narration": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "clear-signal",
++      "text": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat.",
++      "narration": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "credible-story",
++      "text": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building.",
++      "narration": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "example-story",
++      "text": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy.",
++      "narration": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "touchpoints",
++      "text": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible.",
++      "narration": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "participation",
++      "text": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy.",
++      "narration": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "ai",
++      "text": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human.",
++      "narration": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "system",
++      "text": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out.",
++      "narration": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "close",
++      "text": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for.",
++      "narration": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ],
++  "beats": [
++    {
++      "id": "myth",
++      "text": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\"",
++      "narration": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "simpler",
++      "text": "But early visibility is much simpler than that.",
++      "narration": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "definition",
++      "text": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up.",
++      "narration": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "first-client",
++      "text": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness.",
++      "narration": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "building-blocks",
++      "text": "So what makes you visible in a helpful way? There are four building blocks.",
++      "narration": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "clear-signal",
++      "text": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat.",
++      "narration": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "credible-story",
++      "text": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building.",
++      "narration": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "example-story",
++      "text": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy.",
++      "narration": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "touchpoints",
++      "text": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible.",
++      "narration": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "participation",
++      "text": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy.",
++      "narration": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "ai",
++      "text": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human.",
++      "narration": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "system",
++      "text": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out.",
++      "narration": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "close",
++      "text": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for.",
++      "narration": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/concept.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..3eba7e47515b426bd2b0a7e5b3cf93c4618f4766
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/concept.json
+@@ -0,0 +1,87 @@
++{
++  "compositionId": "m4_building-visibility-on-your-own",
++  "title": "Building Visibility on Your Own",
++  "program": "Entrepreneur Accelerator",
++  "duration": 244.38,
++  "beats": [
++    {
++      "id": "myth",
++      "start": 0,
++      "duration": 15.1,
++      "narration": "When people start solo work, they often think visibility means \"I need to become a content creator,\" or \"I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.\""
++    },
++    {
++      "id": "simpler",
++      "start": 15.1,
++      "duration": 4.8,
++      "narration": "But early visibility is much simpler than that."
++    },
++    {
++      "id": "definition",
++      "start": 19.9,
++      "duration": 12.24,
++      "narration": "Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up."
++    },
++    {
++      "id": "first-client",
++      "start": 32.14,
++      "duration": 17.14,
++      "narration": "Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness."
++    },
++    {
++      "id": "building-blocks",
++      "start": 49.28,
++      "duration": 5.71,
++      "narration": "So what makes you visible in a helpful way? There are four building blocks."
++    },
++    {
++      "id": "clear-signal",
++      "start": 54.99,
++      "duration": 23.27,
++      "narration": "First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: \"I help small nonprofits organize messy operations into simple systems.\" Or: \"I help busy founders turn their expertise into clear educational content.\" A good visibility statement is short, specific, and easy to repeat."
++    },
++    {
++      "id": "credible-story",
++      "start": 78.26,
++      "duration": 27.76,
++      "narration": "Second: a credible story. Once someone understands what you do, the next question is: why this work? You don't need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you've seen, your connection to it, and the offer or solution you're building."
++    },
++    {
++      "id": "example-story",
++      "start": 106.02,
++      "duration": 22.45,
++      "narration": "For example: \"I've watched small teams lose hours every week because their systems lived across email, spreadsheets, and people's heads. After building simpler workflows in my own work, I started helping other teams organize theirs.\" That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy."
++    },
++    {
++      "id": "touchpoints",
++      "start": 128.47,
++      "duration": 30.61,
++      "narration": "Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don't need to be loud. You need to be legible."
++    },
++    {
++      "id": "participation",
++      "start": 159.08,
++      "duration": 28.57,
++      "narration": "Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you've learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy."
++    },
++    {
++      "id": "ai",
++      "start": 187.65,
++      "duration": 28.57,
++      "narration": "Now let's talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human."
++    },
++    {
++      "id": "system",
++      "start": 216.22,
++      "duration": 15.92,
++      "narration": "In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out."
++    },
++    {
++      "id": "close",
++      "start": 232.14,
++      "duration": 12.24,
++      "narration": "Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for."
++    }
++  ],
++  "visualThesis": "Visibility is a practical signal system, not a popularity contest. A bright gold signal travels through a calm navy network, becoming clearer and easier to refer with every step."
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/design.md b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..91c1500b852ac8fc4f762899ba980ece49e846db
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/design.md
+@@ -0,0 +1,16 @@
++# Design direction
++
++## Frame
++1920 × 1080. Deep navy stage with a restrained network-grid texture, generous 120px margins, and a permanent lesson label in the top-left chrome zone.
++
++## Type
++Proxima Nova with system fallback. Display language is bold and compact; supporting language is at least 40px. Small uppercase labels are at least 22px.
++
++## Color
++Navy is the field, paper is the primary type color, blue carries connective information, and gold marks the active signal. No full-frame linear gradients.
++
++## Visual system
++The gold signal dot and connecting route persist across scenes. Cards use subtle translucent navy-light fills with crisp blue borders. Numbered markers introduce the four building blocks. The final scene condenses the system into three referable outcomes.
++
++## Motion
++One paused GSAP timeline controls the entire composition. Scenes use short opacity, translate, scale, and route-draw entrances with restrained stagger. No infinite animation. All state is deterministic and seekable.
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/gsap.local.js b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/gsap.local.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..e85984374390514a020c606642638f820fbb01cc
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/gsap.local.js
+@@ -0,0 +1,15 @@
++(function(global){
++  class Timeline {
++    constructor(options={}) { this._paused=options.paused!==false; this._time=0; this._duration=0; this._tweens=[]; }
++    to(target,vars={},position=0) { const start=Number(position)||0,duration=Number(vars.duration)||0; this._tweens.push({target,vars,start,duration}); this._duration=Math.max(this._duration,start+duration); return this; }
++    seek(value) { this._time=Math.max(0,Math.min(Number(value)||0,this._duration)); for(const tween of this._tweens){const progress=Math.max(0,Math.min(1,(this._time-tween.start)/(tween.duration||1))); for(const [key,end] of Object.entries(tween.vars)){if(['duration','ease','onUpdate'].includes(key))continue; if(typeof end==='number')tween.target[key]=end*progress;} if(typeof tween.vars.onUpdate==='function')tween.vars.onUpdate();} return this; }
++    pause(value) { this._paused=true; if(value!==undefined)this.seek(value); return this; }
++    play() { this._paused=false; return this; }
++    paused() { return this._paused; }
++    time(value) { return value===undefined?this._time:this.seek(value); }
++    duration() { return this._duration; }
++    totalDuration() { return this._duration; }
++    progress(value) { return value===undefined?this._time/this._duration:this.seek(value*this._duration); }
++  }
++  global.gsap={timeline:(options)=>new Timeline(options)};
++})(window);
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/hyperframes.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.html b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..b8f068b79315db3e3dad0dd89361731c1d384a1f
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.html
+@@ -0,0 +1,89 @@
++<!doctype html>
++<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Building Visibility on Your Own</title>
++<style>
++@font-face{font-family:proxima-nova;src:local("Proxima Nova")}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d2437;font-family:proxima-nova,system-ui,sans-serif}#composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:#0d2437;color:#fff}#composition:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at center,rgba(85,164,221,.18) 1.5px,transparent 1.5px);background-size:72px 72px;opacity:.28}.brand{position:absolute;z-index:20;left:120px;top:54px;font-size:22px;font-weight:900;letter-spacing:.14em;color:#eaab2d}.progress{position:absolute;z-index:20;left:120px;right:120px;bottom:70px;height:4px;background:rgba(204,206,223,.2)}.progress span{display:block;width:100%;height:100%;background:#3393d6;transform-origin:left;transform:scaleX(0)}.scene{position:absolute;inset:0;padding:190px 120px 150px;opacity:0;visibility:hidden}.copy{position:relative;z-index:3;width:1460px}.eyebrow{font-size:22px;font-weight:700;letter-spacing:.14em;color:#55a4dd;margin:0 0 30px}h2{font-size:96px;line-height:.96;max-width:1450px;margin:0;font-weight:900;letter-spacing:-.035em}.support{font-size:42px;line-height:1.18;max-width:1350px;margin:42px 0 0;color:#e5eff6}.signal-dot{position:absolute;z-index:2;width:74px;height:74px;border-radius:50%;background:#eaab2d;right:160px;top:175px;box-shadow:0 0 0 18px rgba(234,171,45,.14)}.route{position:absolute;z-index:1;left:120px;top:740px;width:1450px;height:4px;background:#3393d6;transform-origin:left;transform:scaleX(0)}.scene-four .support,.scene-plan .support{padding:32px;border:2px solid #3393d6;border-radius:12px;word-spacing:18px}.scene-statement .support,.scene-resolve .support{color:#eaab2d;font-weight:700}.scene-network .signal-dot,.scene-community .signal-dot{box-shadow:0 0 0 20px rgba(234,171,45,.12),0 0 0 80px rgba(85,164,221,.08),0 0 0 150px rgba(85,164,221,.04)}.narration{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
++</style></head><body>
++<main id="composition" class="composition" data-composition-id="m4_building-visibility-on-your-own" data-width="1920" data-height="1080" data-fps="30" data-duration="244.38" data-start="0">
++<div class="brand">SCLA · BUILDING VISIBILITY</div><div class="progress"><span></span></div><section class="clip scene scene-myth" id="beat-myth" data-beat-id="myth" data-start="0" data-duration="15.1" data-track-index="0" aria-label="VISIBILITY ≠ PERFORMANCE">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>VISIBILITY ≠ PERFORMANCE</h2><p class="support">Website · logo · polish · following</p></div>
++      <p class="narration" data-narration="true">When people start solo work, they often think visibility means &quot;I need to become a content creator,&quot; or &quot;I need a website, a logo, a polished brand, and a big following before anyone will take me seriously.&quot;</p>
++    </section><section class="clip scene scene-signal" id="beat-simpler" data-beat-id="simpler" data-start="15.1" data-duration="4.8" data-track-index="0" aria-label="Early Visibility Is Simpler">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>Early Visibility Is Simpler</h2><p class="support">Make the signal clear.</p></div>
++      <p class="narration" data-narration="true">But early visibility is much simpler than that.</p>
++    </section><section class="clip scene scene-signal" id="beat-definition" data-beat-id="definition" data-start="19.9" data-duration="12.24" data-track-index="0" aria-label="UNDERSTAND → REMEMBER → REFER">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>UNDERSTAND → REMEMBER → REFER</h2><p class="support">What you do  /  Problem you solve  /  Why you</p></div>
++      <p class="narration" data-narration="true">Visibility means making it easier for the right people to understand what you do, what problem you solve, and why they should think of you when that problem comes up.</p>
++    </section><section class="clip scene scene-network" id="beat-first-client" data-beat-id="first-client" data-start="32.14" data-duration="17.14" data-track-index="0" aria-label="Your First Client Is Already Near">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>Your First Client Is Already Near</h2><p class="support">Knows you  ·  Knows someone  ·  Shares a community</p></div>
++      <p class="narration" data-narration="true">Your first client usually does not come from perfect branding. It usually comes from one of three places: someone who already knows you, someone connected to someone who knows you, or a community where your skills become visible through conversation and usefulness.</p>
++    </section><section class="clip scene scene-four" id="beat-building-blocks" data-beat-id="building-blocks" data-start="49.28" data-duration="5.71" data-track-index="0" aria-label="Four Building Blocks">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>Four Building Blocks</h2><p class="support">01 Signal   02 Story   03 Touchpoints   04 Participation</p></div>
++      <p class="narration" data-narration="true">So what makes you visible in a helpful way? There are four building blocks.</p>
++    </section><section class="clip scene scene-statement" id="beat-clear-signal" data-beat-id="clear-signal" data-start="54.99" data-duration="23.27" data-track-index="0" aria-label="01  A Clear Signal">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>01  A Clear Signal</h2><p class="support">I help [who] solve [specific problem].</p></div>
++      <p class="narration" data-narration="true">First: a clear signal. People need a fast way to understand what you do. This usually starts with a one-line offer statement. Something like: &quot;I help small nonprofits organize messy operations into simple systems.&quot; Or: &quot;I help busy founders turn their expertise into clear educational content.&quot; A good visibility statement is short, specific, and easy to repeat.</p>
++    </section><section class="clip scene scene-story" id="beat-credible-story" data-beat-id="credible-story" data-start="78.26" data-duration="27.76" data-track-index="0" aria-label="02  A Credible Story">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>02  A Credible Story</h2><p class="support">Problem seen → Your connection → Offer built</p></div>
++      <p class="narration" data-narration="true">Second: a credible story. Once someone understands what you do, the next question is: why this work? You don&#x27;t need to invent a dramatic founder story. You simply need to explain what you have seen, done, or learned that makes this work meaningful and credible for you. That story usually has three parts: the problem you&#x27;ve seen, your connection to it, and the offer or solution you&#x27;re building.</p>
++    </section><section class="clip scene scene-story" id="beat-example-story" data-beat-id="example-story" data-start="106.02" data-duration="22.45" data-track-index="0" aria-label="Credibility Sounds Specific">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>Credibility Sounds Specific</h2><p class="support">MESSY SYSTEMS → SIMPLE WORKFLOWS</p></div>
++      <p class="narration" data-narration="true">For example: &quot;I&#x27;ve watched small teams lose hours every week because their systems lived across email, spreadsheets, and people&#x27;s heads. After building simpler workflows in my own work, I started helping other teams organize theirs.&quot; That is visibility. It tells people what you care about, what you know, and what you offer, without sounding pushy.</p>
++    </section><section class="clip scene scene-touch" id="beat-touchpoints" data-beat-id="touchpoints" data-start="128.47" data-duration="30.61" data-track-index="0" aria-label="03  Repeated Touchpoints">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>03  Repeated Touchpoints</h2><p class="support">Headline · Conversation · Post · Message · Referral</p></div>
++      <p class="narration" data-narration="true">Third: repeated touchpoints. Visibility rarely happens in one dramatic moment. It usually happens because people hear your message a few times in a few different places. They might see your LinkedIn headline, hear you describe your work in a conversation, notice a thoughtful post, read a short message you send, or hear someone else mention you. This is why consistency matters more than performance. You don&#x27;t need to be loud. You need to be legible.</p>
++    </section><section class="clip scene scene-community" id="beat-participation" data-beat-id="participation" data-start="159.08" data-duration="28.57" data-track-index="0" aria-label="04  Useful Participation">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>04  Useful Participation</h2><p class="support">Be helpful where your people already are.</p></div>
++      <p class="narration" data-narration="true">Fourth: useful participation. One of the easiest ways to build early visibility is to contribute where your people already are. That could mean replying thoughtfully in a professional group, answering a question in a community, sharing one helpful lesson you&#x27;ve learned, or posting a small before-and-after example of your work. Visibility is not just talking about yourself. It is helping people connect your name with something useful, relevant, and trustworthy.</p>
++    </section><section class="clip scene scene-ai" id="beat-ai" data-beat-id="ai" data-start="187.65" data-duration="28.57" data-track-index="0" aria-label="AI Reduces Friction—not Humanity">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>AI Reduces Friction—not Humanity</h2><p class="support">Draft · Refine · Vary · Repurpose</p></div>
++      <p class="narration" data-narration="true">Now let&#x27;s talk about AI. AI is useful for visibility when it helps you reduce friction. It can help you draft your one-liner, refine your story, create message variations, brainstorm short post ideas, or repurpose one idea into several formats. But AI should not make you sound generic. If your messages sound polished but hollow, people will feel that. Your job is to keep your tone grounded, specific, and human.</p>
++    </section><section class="clip scene scene-plan" id="beat-system" data-beat-id="system" data-start="216.22" data-duration="15.92" data-track-index="0" aria-label="Your Two-Week Visibility System">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>Your Two-Week Visibility System</h2><p class="support">ONE-LINER  +  STORY  +  MAP  +  SMALL ACTIONS</p></div>
++      <p class="narration" data-narration="true">In this module, you will create a small visibility system: a one-line statement, a short credibility story, a visibility map of people and communities, and a short two-week visibility plan with a few actions you can actually carry out.</p>
++    </section><section class="clip scene scene-resolve" id="beat-close" data-beat-id="close" data-start="232.14" data-duration="12.24" data-track-index="0" aria-label="Not Famous. Easy to Refer">
++      <div class="signal-dot"></div><div class="route"></div>
++      <div class="copy"><p class="eyebrow">ENTREPRENEUR ACCELERATOR · VISIBILITY</p><h2>Not Famous. Easy to Refer</h2><p class="support">EASIER TO UNDERSTAND  ·  TRUST  ·  REFER</p></div>
++      <p class="narration" data-narration="true">Remember: your goal is not to look famous. Your goal is to become easier to understand, easier to trust, and easier to refer. That is what early visibility is for.</p>
++    </section>
++</main>
++<script src="./gsap.local.js"></script>
++<script>
++const compositionId="m4_building-visibility-on-your-own";
++const totalDuration=244.38;
++const scenes=[...document.querySelectorAll('.scene')];
++function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
++function renderAt(time){
++  scenes.forEach((scene)=>{
++    const start=Number(scene.dataset.start), duration=Number(scene.dataset.duration), local=time-start;
++    const copy=scene.querySelector('.copy'), dot=scene.querySelector('.signal-dot'), route=scene.querySelector('.route');
++    const visible=local>=0&&local<duration;
++    scene.style.visibility=visible?'visible':'hidden';
++    scene.style.opacity=visible?String(local>duration-.3?clamp((duration-local)/.3,0,1):1):'0';
++    const enter=clamp(local/.55,0,1);
++    copy.style.opacity=String(enter); copy.style.transform=`translateY(${36*(1-enter)}px)`;
++    const dotIn=clamp((local-.12)/.5,0,1); dot.style.opacity=String(dotIn); dot.style.transform=`scale(${.3+.7*dotIn})`;
++    route.style.transform=`scaleX(${clamp((local-.25)/.7,0,1)})`;
++  });
++  document.querySelector('.progress span').style.transform=`scaleX(${clamp(time/totalDuration,0,1)})`;
++}
++const playhead={time:0};
++const timeline=gsap.timeline({paused:true});
++timeline.to(playhead,{time:totalDuration,duration:totalDuration,ease:'none',onUpdate:()=>renderAt(playhead.time)},0);
++timeline.pause(0);
++window.__timelines=window.__timelines||{};
++window.__timelines['m4_building-visibility-on-your-own']=timeline;
++window.__hyperframes={compositionId,timeline,duration:totalDuration};
++window.dispatchEvent(new CustomEvent('hyperframes:timeline-ready',{detail:{compositionId,timeline}}));
++</script></body></html>
+\ No newline at end of file
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.motion.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..b31259405ad4981ab16856d246824bf5fcb58c3e
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/index.motion.json
+@@ -0,0 +1,255 @@
++{
++  "compositionId": "m4_building-visibility-on-your-own",
++  "duration": 244.38,
++  "fps": 30,
++  "timeline": {
++    "paused": true,
++    "seekable": true,
++    "engine": "gsap"
++  },
++  "beats": [
++    {
++      "id": "myth",
++      "start": 0,
++      "duration": 15.1,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "simpler",
++      "start": 15.1,
++      "duration": 4.8,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "definition",
++      "start": 19.9,
++      "duration": 12.24,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "first-client",
++      "start": 32.14,
++      "duration": 17.14,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "building-blocks",
++      "start": 49.28,
++      "duration": 5.71,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "clear-signal",
++      "start": 54.99,
++      "duration": 23.27,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "credible-story",
++      "start": 78.26,
++      "duration": 27.76,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "example-story",
++      "start": 106.02,
++      "duration": 22.45,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "touchpoints",
++      "start": 128.47,
++      "duration": 30.61,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "participation",
++      "start": 159.08,
++      "duration": 28.57,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "ai",
++      "start": 187.65,
++      "duration": 28.57,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "system",
++      "start": 216.22,
++      "duration": 15.92,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    },
++    {
++      "id": "close",
++      "start": 232.14,
++      "duration": 12.24,
++      "enter": {
++        "duration": 0.55,
++        "ease": "power2.out"
++      },
++      "exit": {
++        "duration": 0.3
++      }
++    }
++  ],
++  "keepsMoving": true,
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "myth",
++      "selector": "#beat-myth",
++      "bySec": 0.8
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "simpler",
++      "selector": "#beat-simpler",
++      "bySec": 15.9
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "definition",
++      "selector": "#beat-definition",
++      "bySec": 20.7
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "first-client",
++      "selector": "#beat-first-client",
++      "bySec": 32.94
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "building-blocks",
++      "selector": "#beat-building-blocks",
++      "bySec": 50.08
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "clear-signal",
++      "selector": "#beat-clear-signal",
++      "bySec": 55.79
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "credible-story",
++      "selector": "#beat-credible-story",
++      "bySec": 79.06
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "example-story",
++      "selector": "#beat-example-story",
++      "bySec": 106.82
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "touchpoints",
++      "selector": "#beat-touchpoints",
++      "bySec": 129.27
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "participation",
++      "selector": "#beat-participation",
++      "bySec": 159.88
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "ai",
++      "selector": "#beat-ai",
++      "bySec": 188.45
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "system",
++      "selector": "#beat-system",
++      "bySec": 217.02
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "close",
++      "selector": "#beat-close",
++      "bySec": 232.94
++    },
++    {
++      "kind": "keepsMoving",
++      "from": 0,
++      "to": 244.38,
++      "selector": ".progress span"
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/meta.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/package.json b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/tokens.yml b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m4_building-visibility-on-your-own/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

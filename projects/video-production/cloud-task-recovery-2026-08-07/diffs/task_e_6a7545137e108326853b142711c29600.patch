@@ -1,0 +1,663 @@
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/.pin b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/.scla-control-v2 b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/CONCEPT.md b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..e14ef2f36357273ca56f28be39057c9e56ba53de
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/CONCEPT.md
+@@ -0,0 +1,31 @@
++# Your Reinvention Roadmap
++
++## Core idea
++
++A roadmap is a compass, not a contract. The lesson moves from uncertainty to a clear four-part roadmap, then closes with one immediate commitment.
++
++## Visual story
++
++The composition uses a clean editorial map motif: a gold route line travels across a navy field, pauses at four clearly labeled waypoints, and resolves into a 90-day plan. Large type, simple cards, and restrained motion keep the lesson calm and practical. The final frame turns the route into a single forward arrow beside the invitation to build the roadmap.
++
++## Beat plan
++
++1. Welcome to the final module.
++2. Plans change as reinvention unfolds.
++3. Learning comes through doing and experiments.
++4. Change is proof that the plan is working.
++5. The roadmap is a compass, not a contract.
++6. Introduce the four elements.
++7. Element one: reinvention direction.
++8. Element two: the 90-day plan.
++9. Element three: financial and emotional runway.
++10. Element four: the next step.
++11. Explain why ninety days is the useful planning horizon.
++12. Acknowledge the difficulty of reinvention.
++13. Reframe the learner's effort as the essential work.
++14. Invite the learner to build the roadmap.
++
++## Motion approach
++
++One paused, seekable GSAP timeline controls all entrances, exits, route drawing, and waypoint emphasis. Each beat is a timed clip. Furniture remains stable while the content layer changes, so the viewer always knows where they are in the journey.
++
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/audio_request.json b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..e1c1d718fc5628b0ba347d2355f20ee1126bbb01
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/audio_request.json
+@@ -0,0 +1,67 @@
++{
++  "compositionId": "m7_your-reinvention-roadmap",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "source": "projects/video-production/lesson-scripts/career-transitions/ready/m7_your-reinvention-roadmap.txt",
++  "lines": [
++    {
++      "id": "beat-01",
++      "text": "You made it to the last module."
++    },
++    {
++      "id": "beat-02",
++      "text": "Before we build your roadmap, I want to say something that's true for almost every person who completes this track. The reinvention you started is not going to look, in eighteen months, exactly like what you're planning today. It's going to be different."
++    },
++    {
++      "id": "beat-03",
++      "text": "Herminia Ibarra's research is unambiguous about this. Career reinventions unfold through the doing. The experiments you run in the next thirty days are going to teach you something. You're going to adjust. You're going to have a conversation that shifts a piece of your direction. Something will surprise you."
++    },
++    {
++      "id": "beat-04",
++      "text": "That is not a failure of planning. That is the plan working."
++    },
++    {
++      "id": "beat-05",
++      "text": "Your Reinvention Roadmap is not a contract. It's a compass. It tells you where you're pointed, what you've committed to try, what you're building toward, and what runway you're operating on. When the ground shifts — and it will — the roadmap gives you something to shift from, not something to abandon."
++    },
++    {
++      "id": "beat-06",
++      "text": "The roadmap has four elements."
++    },
++    {
++      "id": "beat-07",
++      "text": "First, your reinvention direction — the version you can commit to today, knowing it will refine."
++    },
++    {
++      "id": "beat-08",
++      "text": "Second, your 90-day plan — broken into three 30-day phases, each with specific deliverables."
++    },
++    {
++      "id": "beat-09",
++      "text": "Third, your financial and emotional runway — the resources supporting you through the transition."
++    },
++    {
++      "id": "beat-10",
++      "text": "Fourth, your next step — the one commitment you make coming out of this track."
++    },
++    {
++      "id": "beat-11",
++      "text": "Why ninety days? Because it's the right unit for a reinvention plan. Long enough to make meaningful progress; short enough to stay accountable. Beyond ninety days, the plan should be re-drafted based on what you've learned — not extended blindly."
++    },
++    {
++      "id": "beat-12",
++      "text": "One last thing before we build it. You are doing genuinely hard work. Career reinvention involves loss, doubt, and long stretches of ambiguity. If you've made it to this module, you've already demonstrated something rare — the willingness to look honestly at a chapter that isn't working and build the next one with intention."
++    },
++    {
++      "id": "beat-13",
++      "text": "That's not a small thing. That's the whole game."
++    },
++    {
++      "id": "beat-14",
++      "text": "Let's build your roadmap."
++    }
++  ],
++  "output": "narration.mp3"
++}
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/concept.json b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..5586f1a82129604514705e470aa6eeaa5f5d507d
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/concept.json
+@@ -0,0 +1,23 @@
++{
++  "compositionId": "m7_your-reinvention-roadmap",
++  "title": "Your Reinvention Roadmap",
++  "program": "career-transitions",
++  "concept": "A reinvention roadmap is a compass, not a contract.",
++  "visualMetaphor": "A route line moving through four practical waypoints toward one next step.",
++  "beats": [
++    {"id":"beat-01","purpose":"welcome","visual":"Final module title and route origin"},
++    {"id":"beat-02","purpose":"normalize change","visual":"Planned route bends toward a new destination"},
++    {"id":"beat-03","purpose":"explain experimentation","visual":"Three experiment markers reveal learning"},
++    {"id":"beat-04","purpose":"reframe adjustment","visual":"Plan working stamp"},
++    {"id":"beat-05","purpose":"define roadmap","visual":"Compass surrounded by commitments, direction, runway, and destination"},
++    {"id":"beat-06","purpose":"introduce framework","visual":"Four waypoint overview"},
++    {"id":"beat-07","purpose":"element one","visual":"Direction waypoint"},
++    {"id":"beat-08","purpose":"element two","visual":"Three 30-day phases"},
++    {"id":"beat-09","purpose":"element three","visual":"Financial and emotional runway supports"},
++    {"id":"beat-10","purpose":"element four","visual":"One commitment card"},
++    {"id":"beat-11","purpose":"justify horizon","visual":"90-day bracket and redraft loop"},
++    {"id":"beat-12","purpose":"acknowledge difficulty","visual":"Loss, doubt, and ambiguity along the route"},
++    {"id":"beat-13","purpose":"affirm learner","visual":"Intentional next chapter resolves in gold"},
++    {"id":"beat-14","purpose":"call to action","visual":"Forward arrow and build invitation"}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/design.md b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..1b4832d5e2ae1643258f5729900309fc41d364a7
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/design.md
+@@ -0,0 +1,29 @@
++# Design — Your Reinvention Roadmap
++
++## Art direction
++
++Calm, assured editorial graphics with a navigation-system motif. The visual world is deliberate rather than futuristic: precise rules, simple waypoints, clear labels, and generous space.
++
++## Palette
++
++- Deep navy `#0a1e2f` and navy `#0d2437` establish the field.
++- Gold `#eaab2d` identifies decisions, active waypoints, and the final commitment.
++- Blue `#3393d6` carries the route and supporting information.
++- Paper `#ffffff`, cultured `#f6f6f9`, and muted video `#5f6f96` support readable hierarchy.
++
++## Typography
++
++Use Proxima Nova with the system sans-serif fallback. Headlines are 72–104px at weight 900; supporting copy is 40–48px; labels are 22px uppercase with wide tracking. No essential text falls below the token minimum.
++
++## Layout
++
++Maintain 120px frame padding and reserve the lower 120px. A persistent top-left module label and top-right progress counter frame each scene. Content occupies the center-left; diagrams and map elements balance the right side. Cards use 12px radii and 2px borders.
++
++## Motion
++
++All animation is controlled by one paused GSAP timeline. Text enters with 24px of vertical travel and opacity; rules draw left to right; the route draws through four waypoints. Entrances settle within 1.2 seconds and content exits in 0.3 seconds. The final arrow extends during the closing second. There are no infinite animations.
++
++## Accessibility
++
++High-contrast paper text sits on navy. Visual labels reinforce, but never replace, spoken meaning. Motion is short, directional, and free of flashing.
++
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/hyperframes.json b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/index.html b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..09890ae19ddcef42fcb44eff3d7a67ddf3b3e4c5
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/index.html
+@@ -0,0 +1,54 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0">
++  <title>Your Reinvention Roadmap</title>
++  <style>
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#ffffff;--fill-subtle:#e5eff6;--muted:#98a4cc;--font:"Proxima Nova",system-ui,sans-serif}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:var(--font)}#m7_your-reinvention-roadmap{position:relative;width:1920px;height:1080px;overflow:hidden;color:var(--paper);background:var(--deep)}.chrome{position:absolute;inset:50px 120px auto;display:flex;justify-content:space-between;align-items:center;z-index:30}.eyebrow,.progress{font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.eyebrow{color:var(--gold)}.progress{color:var(--muted)}.route{position:absolute;left:120px;right:120px;bottom:102px;height:4px;background:var(--navy)}.route-fill{height:100%;width:100%;background:var(--blue);transform-origin:left}.route-dot{position:absolute;top:-14px;width:32px;height:32px;border-radius:50%;border:5px solid var(--deep);background:var(--gold)}.route-dot:nth-child(2){left:0}.route-dot:nth-child(3){left:33%}.route-dot:nth-child(4){left:66%}.route-dot:nth-child(5){right:0}.clip{position:absolute;inset:0;padding:170px 120px 150px;display:flex;align-items:center;gap:80px;opacity:0;visibility:hidden}.copy{max-width:1040px}.kicker{color:var(--blue);font-size:24px;line-height:1;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px}.headline{font-size:86px;line-height:.98;letter-spacing:-.035em;font-weight:900;margin:0 0 30px}.headline strong,.accent{color:var(--gold)}.body{font-size:42px;line-height:1.22;max-width:1040px;margin:0;color:#f6f6f9}.rule{width:180px;height:4px;background:var(--gold);margin:0 0 32px;transform-origin:left}.panel{margin-left:auto;width:520px;padding:42px;border:2px solid var(--blue);border-radius:12px;background:rgba(13,36,55,.72)}.panel-title{font-size:54px;font-weight:900;line-height:1}.small{font-size:34px;line-height:1.3;color:#e5eff6}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;width:100%}.step{padding:34px 24px;min-height:250px;border:2px solid var(--blue);border-radius:12px}.num{display:grid;place-items:center;width:74px;height:74px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:38px;font-weight:900;margin-bottom:28px}.step h3{font-size:34px;line-height:1.05;margin:0}.phases{display:flex;gap:20px;margin-top:38px}.phase{flex:1;padding:24px;border-top:4px solid var(--blue);font-size:28px;font-weight:700}.giant{font-size:230px;line-height:.8;font-weight:900;color:var(--gold);letter-spacing:-.06em}.chips{display:flex;gap:18px;flex-wrap:wrap;margin-top:32px}.chip{padding:13px 24px;border:2px solid var(--blue);border-radius:100px;color:var(--fill-subtle);font-size:25px;font-weight:700}.arrow{font-size:180px;color:var(--gold);line-height:1}.quote{font-size:64px;line-height:1.08;font-weight:700;max-width:1200px}.footer{position:absolute;left:120px;bottom:48px;color:var(--muted);font-size:20px;letter-spacing:.1em;text-transform:uppercase}
++  </style>
++</head>
++<body>
++<main id="m7_your-reinvention-roadmap" data-composition-id="m7_your-reinvention-roadmap" data-start="0" data-width="1920" data-height="1080" data-fps="30" data-duration="113">
++  <header class="chrome"><div class="eyebrow">Career Transitions · Module 7</div><div class="progress">Your Reinvention Roadmap</div></header>
++  <div class="route"><div class="route-fill"></div><i class="route-dot"></i><i class="route-dot"></i><i class="route-dot"></i><i class="route-dot"></i></div>
++  <section id="beat-01" class="clip" data-track-index="0" data-beat-id="beat-01" data-start="0" data-duration="5" data-narration="You made it to the last module."><div class="copy"><div class="kicker">The final module</div><h1 class="headline">Your Reinvention<br><strong>Roadmap</strong></h1><div class="rule"></div><p class="body">A practical way forward.</p></div></section>
++  <section id="beat-02" class="clip" data-track-index="0" data-beat-id="beat-02" data-start="5" data-duration="13" data-narration="Before we build your roadmap, I want to say something that's true for almost every person who completes this track. The reinvention you started is not going to look, in eighteen months, exactly like what you're planning today. It's going to be different."><div class="copy"><div class="kicker">Expect evolution</div><h2 class="headline">Today’s Plan Is<br>Not the Final Shape</h2><p class="body">Your reinvention will look different in eighteen months.</p></div><div class="panel"><div class="panel-title">Plan → Learn → Adjust</div></div></section>
++  <section id="beat-03" class="clip" data-track-index="0" data-beat-id="beat-03" data-start="18" data-duration="14" data-narration="Herminia Ibarra's research is unambiguous about this. Career reinventions unfold through the doing. The experiments you run in the next thirty days are going to teach you something. You're going to adjust. You're going to have a conversation that shifts a piece of your direction. Something will surprise you."><div class="copy"><div class="kicker">Reinvention unfolds through doing</div><h2 class="headline">Experiment ·<br>Learn · Adjust</h2><div class="chips"><span class="chip">30-day experiments</span><span class="chip">Conversations</span><span class="chip">Surprises</span></div></div></section>
++  <section id="beat-04" class="clip" data-track-index="0" data-beat-id="beat-04" data-start="32" data-duration="6" data-narration="That is not a failure of planning. That is the plan working."><div class="copy"><div class="kicker">Reframe the change</div><p class="quote">That is not a failure of planning.<br><span class="accent">That is the plan working.</span></p></div></section>
++  <section id="beat-05" class="clip" data-track-index="0" data-beat-id="beat-05" data-start="38" data-duration="14" data-narration="Your Reinvention Roadmap is not a contract. It's a compass. It tells you where you're pointed, what you've committed to try, what you're building toward, and what runway you're operating on. When the ground shifts — and it will — the roadmap gives you something to shift from, not something to abandon."><div class="copy"><div class="kicker">A useful orientation</div><h2 class="headline">Not a Contract<br><strong>a Compass</strong></h2><p class="body">Direction · Commitments · Destination · Runway</p></div><div class="arrow">⌁</div></section>
++  <section id="beat-06" class="clip" data-track-index="0" data-beat-id="beat-06" data-start="52" data-duration="4" data-narration="The roadmap has four elements."><div class="copy" style="max-width:none;width:100%"><div class="kicker">The roadmap</div><h2 class="headline">Four Elements</h2><div class="steps"><div class="step"><div class="num">1</div><h3>Direction</h3></div><div class="step"><div class="num">2</div><h3>90-Day Plan</h3></div><div class="step"><div class="num">3</div><h3>Runway</h3></div><div class="step"><div class="num">4</div><h3>Next Step</h3></div></div></div></section>
++  <section id="beat-07" class="clip" data-track-index="0" data-beat-id="beat-07" data-start="56" data-duration="6" data-narration="First, your reinvention direction — the version you can commit to today, knowing it will refine."><div class="num">1</div><div class="copy"><div class="kicker">Reinvention direction</div><h2 class="headline">Commit to the Version<br>You Know <strong>Today</strong></h2><p class="body">Leave room for it to refine.</p></div></section>
++  <section id="beat-08" class="clip" data-track-index="0" data-beat-id="beat-08" data-start="62" data-duration="7" data-narration="Second, your 90-day plan — broken into three 30-day phases, each with specific deliverables."><div class="num">2</div><div class="copy"><div class="kicker">Your 90-Day Plan</div><h2 class="headline">Three Focused Phases</h2><div class="phases"><div class="phase">Days 1–30</div><div class="phase">Days 31–60</div><div class="phase">Days 61–90</div></div></div></section>
++  <section id="beat-09" class="clip" data-track-index="0" data-beat-id="beat-09" data-start="69" data-duration="7" data-narration="Third, your financial and emotional runway — the resources supporting you through the transition."><div class="num">3</div><div class="copy"><div class="kicker">Your runway</div><h2 class="headline">Resources That<br><strong>Support the Transition</strong></h2><div class="chips"><span class="chip">Financial</span><span class="chip">Emotional</span></div></div></section>
++  <section id="beat-10" class="clip" data-track-index="0" data-beat-id="beat-10" data-start="76" data-duration="6" data-narration="Fourth, your next step — the one commitment you make coming out of this track."><div class="num">4</div><div class="copy"><div class="kicker">Your next step</div><h2 class="headline">One Clear<br><strong>Commitment</strong></h2><p class="body">The action you take coming out of this track.</p></div></section>
++  <section id="beat-11" class="clip" data-track-index="0" data-beat-id="beat-11" data-start="82" data-duration="13" data-narration="Why ninety days? Because it's the right unit for a reinvention plan. Long enough to make meaningful progress; short enough to stay accountable. Beyond ninety days, the plan should be re-drafted based on what you've learned — not extended blindly."><div class="giant">90</div><div class="copy"><div class="kicker">Why ninety days?</div><h2 class="headline">Progress with<br>Accountability</h2><p class="body">Then re-draft from what you learned.</p></div></section>
++  <section id="beat-12" class="clip" data-track-index="0" data-beat-id="beat-12" data-start="95" data-duration="12" data-narration="One last thing before we build it. You are doing genuinely hard work. Career reinvention involves loss, doubt, and long stretches of ambiguity. If you've made it to this module, you've already demonstrated something rare — the willingness to look honestly at a chapter that isn't working and build the next one with intention."><div class="copy"><div class="kicker">One last thing</div><h2 class="headline">You Are Doing<br><strong>Genuinely Hard Work</strong></h2><div class="chips"><span class="chip">Loss</span><span class="chip">Doubt</span><span class="chip">Ambiguity</span><span class="chip">Intention</span></div></div></section>
++  <section id="beat-13" class="clip" data-track-index="0" data-beat-id="beat-13" data-start="107" data-duration="4" data-narration="That's not a small thing. That's the whole game."><div class="copy"><p class="quote">That’s not a small thing.<br><span class="accent">That’s the whole game.</span></p></div></section>
++  <section id="beat-14" class="clip" data-track-index="0" data-beat-id="beat-14" data-start="111" data-duration="2" data-narration="Let's build your roadmap."><div class="copy"><div class="kicker">Your next chapter</div><h2 class="headline">Let’s Build<br><strong>Your Roadmap</strong></h2></div><div class="arrow">→</div></section>
++  <div class="footer">SCLA · Success in College, Leadership &amp; Athletics</div>
++</main>
++<script src="./vendor/gsap.min.js"></script>
++<script>
++(() => {
++  const id = 'm7_your-reinvention-roadmap';
++  const timeline = gsap.timeline({ paused: true });
++  document.querySelectorAll('.clip').forEach((clip) => {
++    const start = Number(clip.dataset.start);
++    const duration = Number(clip.dataset.duration);
++    timeline.set(clip, { autoAlpha: 1 }, start)
++      .fromTo(clip.querySelectorAll('.kicker,.headline,.body,.quote,.giant,.num,.step,.chip,.phase,.panel,.arrow'), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .55, stagger: .12, ease: 'power2.out' }, start + .25)
++      .fromTo(clip.querySelectorAll('.rule'), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: 'power2.out' }, start + .35)
++      .to(clip, { autoAlpha: 0, duration: .3 }, start + duration - .3);
++  });
++  timeline.fromTo('.route-fill', { scaleX: 0 }, { scaleX: 1, duration: 110, ease: 'none' }, 0);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m7_your-reinvention-roadmap'] = timeline;
++  window.__hyperframes = window.__hyperframes || {};
++  window.__hyperframes[id] = timeline;
++  window.__HYPERFRAMES_TIMELINES__ = window.__HYPERFRAMES_TIMELINES__ || {};
++  window.__HYPERFRAMES_TIMELINES__[id] = timeline;
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/index.motion.json b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..355e2f75c7bca7600844e6777a97d02cb483fa98
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/index.motion.json
+@@ -0,0 +1,280 @@
++{
++  "compositionId": "m7_your-reinvention-roadmap",
++  "timeline": "master",
++  "paused": true,
++  "seekable": true,
++  "duration": 113,
++  "beats": [
++    {
++      "id": "beat-01",
++      "start": 0,
++      "duration": 5,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-02",
++      "start": 5,
++      "duration": 13,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-03",
++      "start": 18,
++      "duration": 14,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-04",
++      "start": 32,
++      "duration": 6,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-05",
++      "start": 38,
++      "duration": 14,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-06",
++      "start": 52,
++      "duration": 4,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-07",
++      "start": 56,
++      "duration": 6,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-08",
++      "start": 62,
++      "duration": 7,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-09",
++      "start": 69,
++      "duration": 7,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-10",
++      "start": 76,
++      "duration": 6,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-11",
++      "start": 82,
++      "duration": 13,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-12",
++      "start": 95,
++      "duration": 12,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-13",
++      "start": 107,
++      "duration": 4,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    },
++    {
++      "id": "beat-14",
++      "start": 111,
++      "duration": 2,
++      "appearsBy": 1.2,
++      "keepsMoving": true
++    }
++  ],
++  "keepsMoving": [
++    {
++      "beatId": "beat-01",
++      "selector": ".route-fill",
++      "from": 0,
++      "to": 110
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-01",
++      "selector": "#beat-01 .headline, #beat-01 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-02",
++      "selector": "#beat-02 .headline, #beat-02 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-03",
++      "selector": "#beat-03 .headline, #beat-03 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-04",
++      "selector": "#beat-04 .headline, #beat-04 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-05",
++      "selector": "#beat-05 .headline, #beat-05 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-06",
++      "selector": "#beat-06 .headline, #beat-06 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-07",
++      "selector": "#beat-07 .headline, #beat-07 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-08",
++      "selector": "#beat-08 .headline, #beat-08 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-09",
++      "selector": "#beat-09 .headline, #beat-09 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-10",
++      "selector": "#beat-10 .headline, #beat-10 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-11",
++      "selector": "#beat-11 .headline, #beat-11 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-12",
++      "selector": "#beat-12 .headline, #beat-12 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-13",
++      "selector": "#beat-13 .headline, #beat-13 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-14",
++      "selector": "#beat-14 .headline, #beat-14 .quote",
++      "seconds": 1.2
++    },
++    {
++      "kind": "keepsMoving",
++      "beatId": "beat-01",
++      "selector": ".route-fill",
++      "from": 0,
++      "to": 110
++    }
++  ],
++  "appearsBy": [
++    {
++      "beatId": "beat-01",
++      "selector": "#beat-01 .headline, #beat-01 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-02",
++      "selector": "#beat-02 .headline, #beat-02 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-03",
++      "selector": "#beat-03 .headline, #beat-03 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-04",
++      "selector": "#beat-04 .headline, #beat-04 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-05",
++      "selector": "#beat-05 .headline, #beat-05 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-06",
++      "selector": "#beat-06 .headline, #beat-06 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-07",
++      "selector": "#beat-07 .headline, #beat-07 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-08",
++      "selector": "#beat-08 .headline, #beat-08 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-09",
++      "selector": "#beat-09 .headline, #beat-09 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-10",
++      "selector": "#beat-10 .headline, #beat-10 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-11",
++      "selector": "#beat-11 .headline, #beat-11 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-12",
++      "selector": "#beat-12 .headline, #beat-12 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-13",
++      "selector": "#beat-13 .headline, #beat-13 .quote",
++      "seconds": 1.2
++    },
++    {
++      "beatId": "beat-14",
++      "selector": "#beat-14 .headline, #beat-14 .quote",
++      "seconds": 1.2
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/meta.json b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/package.json b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/tokens.yml b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m7_your-reinvention-roadmap/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

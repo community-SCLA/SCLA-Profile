@@ -1,0 +1,451 @@
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/.pin b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/.scla-control-v2 b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/CONCEPT.md b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3d166fb4a139452d37c520c6be82078c03763155
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/CONCEPT.md
+@@ -0,0 +1,21 @@
++# Choosing Your Solo Model
++
++## Core idea
++
++Turn the choice among freelance, consulting, and fractional work into a clear visual comparison. Each model receives its own working metaphor—projects, a diagnostic lens, and an embedded leadership seat—before all three resolve into a simple path from easiest first test to a possible next step.
++
++## Visual arc
++
++1. Open on the shift from **what you offer** to **how you work**.
++2. Introduce three distinct model cards.
++3. Show freelancing as a finite project moving from brief to deliverable.
++4. Show consulting as diagnosis becoming insight and a plan.
++5. Show fractional work as a leader embedded in a team over time.
++6. Compress the lesson into three memorable shorthand statements.
++7. Map a practical progression from freelance to consulting or fractional work.
++8. End with an active choice: starting point and possible next direction.
++
++## Tone
++
++Clear, encouraging, and practical. The composition should feel like a useful decision tool, not a ranking. Gold marks the active choice, blue carries structure, and generous white space keeps the comparison calm.
++
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/audio_request.json b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..90f6168d9b2ce395f4c9a8e78017fed6952662fa
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/audio_request.json
+@@ -0,0 +1,41 @@
++{
++  "composition_id": "m3_choosing-your-solo-model",
++  "provider": "heygen",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "lines": [
++    {
++      "id": "beat-01-work",
++      "text": "Once you've got a side-hustle idea, the next question isn't only what you want to offer. It's how you want to work."
++    },
++    {
++      "id": "beat-02-models",
++      "text": "There are three models to weigh, and each one asks something different of you."
++    },
++    {
++      "id": "beat-03-freelance",
++      "text": "The first is freelancing. Freelancing is usually task or project based. You're hired to complete the work or produce the deliverable. A client needs a workshop run; a set of designs; a messaging refresh; a system set up; a short-term project shipped. In this model, you are often paid for doing the work directly."
++    },
++    {
++      "id": "beat-04-consulting",
++      "text": "The second is consulting. Consulting is a different job. Here, clients hire you for diagnosis, insight, problem-solving, and strategy. You analyze a process, name the real problem, recommend a new approach, and hand over a plan. The focus is more on clarity and outcomes than on being the person who executes every task."
++    },
++    {
++      "id": "beat-05-fractional",
++      "text": "The third is fractional work, and it goes a step further. In a fractional role, you become a part-time leader or part-time owner of a function. You might be a fractional operations lead, a fractional marketing lead, or a fractional program director. You're more embedded in the team, and more accountable over time."
++    },
++    {
++      "id": "beat-06-shorthand",
++      "text": "So keep the shorthand close: Freelance is projects; Consulting is insight; Fractional is embedded outcomes."
++    },
++    {
++      "id": "beat-07-start",
++      "text": "When you're starting out, freelancing is often the easiest model to test, because the ask is smaller and the path to a yes is simpler. As you build experience and sharpen how you position yourself, you can add consulting projects, or grow into fractional roles."
++    },
++    {
++      "id": "beat-08-choose",
++      "text": "In this module, you'll hold these three models up against your own preferences and choose one as your starting point, and maybe a second as where you're headed next.\n\nSo which one fits how you want to work?"
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/concept.json b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..4a5a2de9291e256ec5911bf242c792283712d693
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/concept.json
+@@ -0,0 +1,20 @@
++{
++  "compositionId": "m3_choosing-your-solo-model",
++  "title": "Choosing Your Solo Model",
++  "program": "Entrepreneur Accelerator",
++  "format": "illustrated lesson",
++  "concept": "A clear visual comparison of freelance, consulting, and fractional work that resolves into a practical starting-point decision.",
++  "visualArc": [
++    "Shift from what you offer to how you work",
++    "Introduce three models",
++    "Freelance as project delivery",
++    "Consulting as diagnosis and insight",
++    "Fractional as embedded ownership",
++    "Lock in the three-part shorthand",
++    "Show an accessible progression",
++    "Invite the learner to choose"
++  ],
++  "beats": 8,
++  "palette": ["#0d2437", "#3393d6", "#eaab2d", "#ffffff", "#f6f6f9"]
++}
++
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/design.md b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..a6bdf62434468a40d4c62c9aba479dc7a4a11457
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/design.md
+@@ -0,0 +1,29 @@
++# Design direction
++
++## Frame
++
++- 1920 × 1080, 30 fps, 111 seconds.
++- Navy stage with a slim gold progress rail, persistent program label, and quiet dot-grid texture.
++- All primary content stays inside 120 px frame padding and above the reserved footer.
++
++## Type
++
++- Proxima Nova with the system fallback from `tokens.yml`.
++- Large, short headings; supporting text never below 40 px.
++- Uppercase labels use wide tracking and blue or gold for navigation.
++
++## Components
++
++- **Model cards:** white panels with a blue top rule and a gold numbered marker.
++- **Project track:** brief, work, and deliverable nodes connected left to right.
++- **Diagnostic lens:** concentric rings that resolve into a concise plan card.
++- **Embedded team:** a central gold role connected to three blue team nodes.
++- **Choice path:** a strong freelance starting node branching toward consulting and fractional roles.
++
++## Motion
++
++- One paused GSAP timeline controls every transition and can be sought deterministically.
++- Each scene enters within 1.2 seconds using opacity, position, and small scale changes.
++- Scene content exits in 0.3 seconds; persistent frame furniture remains.
++- No infinite animation. Ambient accents use one finite yoyo only.
++
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/hyperframes.json b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/index.html b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..35474927e7bba7f1747b308aa1ae7b8bc768d481
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/index.html
+@@ -0,0 +1,63 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>Choosing Your Solo Model</title>
++  <style>
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--ink:#292f35;--muted:#98a4cc}
++    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:'Proxima Nova',system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}
++    .composition:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(152,164,204,.16) 1.5px,transparent 1.5px);background-size:48px 48px;mask-image:linear-gradient(to bottom,rgba(13,36,55,.55),transparent 78%)}
++    .chrome{position:absolute;z-index:30;left:120px;right:120px;top:64px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:22px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.brand b{color:var(--gold)}.module{font-size:21px;color:var(--muted);font-weight:700;letter-spacing:.1em;text-transform:uppercase}.rail{position:absolute;z-index:30;left:120px;right:120px;bottom:73px;height:4px;background:rgba(255,255,255,.14)}.rail-fill{height:100%;width:100%;background:var(--gold);transform-origin:left;transform:scaleX(0)}
++    .clip{position:absolute;inset:0;padding:158px 120px 120px;display:flex;flex-direction:column;justify-content:center;opacity:0;visibility:hidden}.eyebrow{color:var(--gold);font-size:22px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px}.title{font-size:92px;line-height:.98;font-weight:900;letter-spacing:-.035em;margin:0;max-width:1540px}.title .blue{color:var(--blue)}.title .gold{color:var(--gold)}.sub{font-size:43px;line-height:1.22;color:#f6f6f9;max-width:1300px;margin:28px 0 0}.question-shift{display:flex;align-items:center;gap:38px;margin-top:52px}.question-pill{padding:20px 34px;border:2px solid var(--blue);border-radius:100px;color:#f6f6f9;font-size:31px}.arrow{color:var(--gold);font-size:56px;font-weight:900}.question-pill.active{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:900}
++    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:50px}.card{position:relative;min-height:420px;padding:44px 40px;background:var(--paper);color:var(--ink);border-radius:12px;border-top:7px solid var(--blue);box-shadow:0 22px 70px rgba(10,30,47,.24)}.num{width:74px;height:74px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:var(--navy);font-size:35px;font-weight:900}.card h2{font-size:52px;margin:27px 0 10px}.card p{font-size:34px;line-height:1.2;margin:0;color:#5f6f96}.card .tag{position:absolute;left:40px;bottom:36px;color:var(--blue);font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.1em}
++    .flow{display:flex;align-items:center;gap:24px;margin-top:64px}.node{width:320px;min-height:190px;background:var(--paper);color:var(--navy);border-radius:12px;padding:33px;display:flex;flex-direction:column;justify-content:center}.node small{font-size:20px;color:var(--blue);font-weight:900;text-transform:uppercase;letter-spacing:.12em}.node strong{font-size:43px;margin-top:12px}.connector{height:4px;flex:1;background:var(--gold);position:relative}.connector:after{content:"";position:absolute;right:-2px;top:-8px;border-left:18px solid var(--gold);border-top:10px solid transparent;border-bottom:10px solid transparent}.examples{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}.chip{border:2px solid var(--blue);border-radius:100px;padding:13px 22px;color:#f6f6f9;font-size:24px}
++    .consult-grid{display:grid;grid-template-columns:650px 1fr;align-items:center;gap:90px;margin-top:40px}.lens{width:530px;height:530px;border:5px solid var(--blue);border-radius:50%;display:grid;place-items:center;position:relative}.lens:before,.lens:after{content:"";position:absolute;border:3px solid rgba(51,147,214,.45);border-radius:50%}.lens:before{inset:70px}.lens:after{inset:145px}.lens-core{width:190px;height:190px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;text-align:center;font-size:30px;font-weight:900;z-index:2}.insight-list{display:grid;gap:18px}.insight{background:var(--paper);color:var(--navy);padding:21px 28px;border-radius:12px;font-size:34px;font-weight:700;border-left:7px solid var(--blue)}
++    .team{position:relative;width:820px;height:480px;margin:20px auto 0}.person{position:absolute;width:230px;height:120px;border:3px solid var(--blue);border-radius:12px;background:var(--navy);display:grid;place-items:center;text-align:center;font-size:27px;font-weight:700}.person.center{left:295px;top:170px;background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:900;font-size:31px}.person.p1{left:0;top:0}.person.p2{right:0;top:0}.person.p3{left:295px;bottom:0}.team svg{position:absolute;inset:0;z-index:-1}.accountable{text-align:center;font-size:35px;color:#f6f6f9;margin-top:15px}
++    .shorthand{display:grid;gap:22px;margin-top:42px}.short-row{display:grid;grid-template-columns:390px 90px 1fr;align-items:center;background:rgba(255,255,255,.07);border-radius:12px;padding:20px 30px}.short-row strong{font-size:52px}.short-row span{color:var(--gold);font-size:52px;text-align:center}.short-row em{font-style:normal;color:#f6f6f9;font-size:43px}.path{display:grid;grid-template-columns:440px 170px 1fr;align-items:center;margin-top:65px}.start-node{background:var(--gold);color:var(--navy);border-radius:12px;padding:38px}.start-node small,.branch-card small{font-size:21px;text-transform:uppercase;font-weight:900;letter-spacing:.12em}.start-node strong{display:block;font-size:54px;margin-top:10px}.branch-lines{font-size:84px;color:var(--blue);text-align:center}.branches{display:grid;gap:20px}.branch-card{border:3px solid var(--blue);border-radius:12px;padding:28px 34px}.branch-card strong{display:block;font-size:40px;margin-top:6px}
++    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}.choice{min-height:245px;border-radius:12px;padding:38px;border:3px solid var(--blue);background:rgba(255,255,255,.05)}.choice:first-child{border-color:var(--gold)}.choice small{font-size:21px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:var(--gold)}.choice h2{font-size:48px;margin:18px 0}.choice p{font-size:29px;color:#f6f6f9;margin:0}.final-question{margin-top:38px;font-size:55px;font-weight:900;color:var(--paper)}
++  </style>
++</head>
++<body>
++<main id="m3_choosing-your-solo-model" class="composition" data-composition-id="m3_choosing-your-solo-model" data-start="0" data-duration="111" data-fps="30" data-width="1920" data-height="1080">
++  <header class="chrome"><div class="brand"><b>SCLA</b> · Entrepreneur Accelerator</div><div class="module">Module 3 · Solo Model</div></header><div class="rail"><div class="rail-fill"></div></div>
++  <section id="beat-01-work" class="clip" data-track-index="0" data-beat-id="beat-01-work" data-start="0" data-duration="9" data-narration="Once you've got a side-hustle idea, the next question isn't only what you want to offer. It's how you want to work."><div class="eyebrow">Your solo model</div><h1 class="title">Your Idea Answers <span class="blue">What</span><br>Your Model Answers <span class="gold">How</span></h1><div class="question-shift"><div class="question-pill">What will you offer?</div><div class="arrow">→</div><div class="question-pill active">How do you want to work?</div></div></section>
++  <section id="beat-02-models" class="clip" data-track-index="0" data-beat-id="beat-02-models" data-start="9" data-duration="7" data-narration="There are three models to weigh, and each one asks something different of you."><div class="eyebrow">Three ways to work</div><h1 class="title">Weigh the Model, Not Just the Idea</h1><div class="cards" data-role="compare"><article class="card"><div class="num">1</div><h2>Freelance</h2><p>Complete the work</p><div class="tag">Projects</div></article><article class="card"><div class="num">2</div><h2>Consulting</h2><p>Clarify the answer</p><div class="tag">Insight</div></article><article class="card"><div class="num">3</div><h2>Fractional</h2><p>Own outcomes over time</p><div class="tag">Embedded</div></article></div></section>
++  <section id="beat-03-freelance" class="clip" data-track-index="0" data-beat-id="beat-03-freelance" data-start="16" data-duration="21" data-narration="The first is freelancing. Freelancing is usually task or project based. You're hired to complete the work or produce the deliverable. A client needs a workshop run, a set of designs, a messaging refresh, a system set up, a short-term project shipped. In this model, you are often paid for doing the work directly."><div class="eyebrow">01 · Freelancing</div><h1 class="title">A Defined Project · <span class="gold">a Delivered Result</span></h1><div class="flow"><div class="node"><small>Client brings</small><strong>A clear brief</strong></div><div class="connector"></div><div class="node"><small>You do</small><strong>The work</strong></div><div class="connector"></div><div class="node"><small>You ship</small><strong>The deliverable</strong></div></div><div class="examples"><span class="chip">Workshop</span><span class="chip">Designs</span><span class="chip">Messaging refresh</span><span class="chip">System setup</span><span class="chip">Short-term project</span></div></section>
++  <section id="beat-04-consulting" class="clip" data-track-index="0" data-beat-id="beat-04-consulting" data-start="37" data-duration="19" data-narration="The second is consulting. Consulting is a different job. Here, clients hire you for diagnosis, insight, problem-solving, and strategy. You analyze a process, name the real problem, recommend a new approach, and hand over a plan. The focus is more on clarity and outcomes than on being the person who executes every task."><div class="eyebrow">02 · Consulting</div><h1 class="title">Turn a Messy Problem into <span class="blue">Clarity</span></h1><div class="consult-grid"><div class="lens"><div class="lens-core">REAL<br>PROBLEM</div></div><div class="insight-list" data-role="list"><div class="insight">Analyze the process</div><div class="insight">Name what matters</div><div class="insight">Recommend an approach</div><div class="insight">Hand over the plan</div></div></div></section>
++  <section id="beat-05-fractional" class="clip" data-track-index="0" data-beat-id="beat-05-fractional" data-start="56" data-duration="17" data-narration="The third is fractional work, and it goes a step further. In a fractional role, you become a part-time leader or part-time owner of a function. You might be a fractional operations lead, a fractional marketing lead, or a fractional program director. You're more embedded in the team, and more accountable over time."><div class="eyebrow">03 · Fractional work</div><h1 class="title">Lead from <span class="gold">Inside</span> the Team</h1><div class="team"><svg viewBox="0 0 820 480"><path d="M115 120 L410 230 L705 120 M410 230 L410 420" fill="none" stroke="#3393d6" stroke-width="5"/></svg><div class="person p1">Operations</div><div class="person p2">Marketing</div><div class="person p3">Programs</div><div class="person center">YOU<br>Part-time leader</div></div><div class="accountable">More embedded · More accountable over time</div></section>
++  <section id="beat-06-shorthand" class="clip" data-track-index="0" data-beat-id="beat-06-shorthand" data-start="73" data-duration="8" data-narration="So keep the shorthand close. Freelance is projects. Consulting is insight. Fractional is embedded outcomes."><div class="eyebrow">Keep the shorthand close</div><h1 class="title">Three Models · Three Promises</h1><div class="shorthand" data-role="compare"><div class="short-row"><strong>Freelance</strong><span>→</span><em>Projects</em></div><div class="short-row"><strong>Consulting</strong><span>→</span><em>Insight</em></div><div class="short-row"><strong>Fractional</strong><span>→</span><em>Embedded outcomes</em></div></div></section>
++  <section id="beat-07-start" class="clip" data-track-index="0" data-beat-id="beat-07-start" data-start="81" data-duration="16" data-narration="When you're starting out, freelancing is often the easiest model to test, because the ask is smaller and the path to a yes is simpler. As you build experience and sharpen how you position yourself, you can add consulting projects, or grow into fractional roles."><div class="eyebrow">A practical starting path</div><h1 class="title">Start with the Easiest <span class="gold">Test</span></h1><div class="path"><div class="start-node"><small>Smaller ask · simpler yes</small><strong>Freelance</strong></div><div class="branch-lines">↗<br>↘</div><div class="branches"><div class="branch-card"><small>Add as your insight sharpens</small><strong>Consulting projects</strong></div><div class="branch-card"><small>Grow into deeper ownership</small><strong>Fractional roles</strong></div></div></div></section>
++  <section id="beat-08-choose" class="clip" data-track-index="0" data-beat-id="beat-08-choose" data-start="97" data-duration="14" data-narration="In this module, you'll hold these three models up against your own preferences and choose one as your starting point, and maybe a second as where you're headed next.&#10;&#10;So which one fits how you want to work?"><div class="eyebrow">Make the choice yours</div><h1 class="title">Choose a <span class="gold">Starting Point</span><br>Notice Your Next Direction</h1><div class="choice-grid"><div class="choice"><small>Start here</small><h2>Your Best Fit Now</h2><p>The model that matches how you want to begin.</p></div><div class="choice"><small>Head here next</small><h2>Your Possible Second Model</h2><p>The role you may grow toward with experience.</p></div></div><div class="final-question">So which one fits how you want to work?</div></section>
++</main>
++<script src="./assets/gsap.min.js"></script>
++<script>
++(() => {
++  const compositionId = 'm3_choosing-your-solo-model';
++  const clips = [...document.querySelectorAll('.clip')];
++  const tl = gsap.timeline({paused:true});
++  gsap.set(clips,{autoAlpha:0});
++  clips.forEach((clip) => {
++    const start = Number(clip.dataset.start);
++    const duration = Number(clip.dataset.duration);
++    const children = clip.children;
++    tl.set(clip,{autoAlpha:1},start)
++      .fromTo(children,{y:34,autoAlpha:0},{y:0,autoAlpha:1,duration:.55,stagger:.14,ease:'power2.out'},start+.12)
++      .to(children,{y:-18,autoAlpha:0,duration:.3,ease:'power2.in'},start+duration-.3)
++      .set(clip,{autoAlpha:0},start+duration);
++  });
++  tl.to('.rail-fill',{scaleX:1,duration:111,ease:'none'},0);
++  tl.call(() => {}, null, 111);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m3_choosing-your-solo-model'] = tl;
++  window.__HYPERFRAMES_TIMELINES__ = window.__HYPERFRAMES_TIMELINES__ || {};
++  window.__HYPERFRAMES_TIMELINES__[compositionId] = tl;
++  window.__hyperframes = window.__hyperframes || {};
++  window.__hyperframes.timeline = tl;
++  window.__hyperframes.compositionId = compositionId;
++  window.__hyperframes.registerTimeline = window.__hyperframes.registerTimeline || function(id, timeline){ window.__HYPERFRAMES_TIMELINES__[id] = timeline; };
++  window.__hyperframes.registerTimeline(compositionId, tl);
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/index.motion.json b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9e68a0d99411a75518c5268af87eab9f45f10d75
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/index.motion.json
+@@ -0,0 +1,98 @@
++{
++  "compositionId": "m3_choosing-your-solo-model",
++  "duration": 111,
++  "fps": 30,
++  "timeline": "main",
++  "paused": true,
++  "seekable": true,
++  "beats": [
++    {
++      "id": "beat-01-work",
++      "start": 0,
++      "duration": 9
++    },
++    {
++      "id": "beat-02-models",
++      "start": 9,
++      "duration": 7
++    },
++    {
++      "id": "beat-03-freelance",
++      "start": 16,
++      "duration": 21
++    },
++    {
++      "id": "beat-04-consulting",
++      "start": 37,
++      "duration": 19
++    },
++    {
++      "id": "beat-05-fractional",
++      "start": 56,
++      "duration": 17
++    },
++    {
++      "id": "beat-06-shorthand",
++      "start": 73,
++      "duration": 8
++    },
++    {
++      "id": "beat-07-start",
++      "start": 81,
++      "duration": 16
++    },
++    {
++      "id": "beat-08-choose",
++      "start": 97,
++      "duration": 14
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-01-work",
++      "at": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-02-models",
++      "at": 10.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-03-freelance",
++      "at": 17.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-04-consulting",
++      "at": 38.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-05-fractional",
++      "at": 57.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-06-shorthand",
++      "at": 74.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-07-start",
++      "at": 82.2
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-08-choose",
++      "at": 98.2
++    },
++    {
++      "kind": "keepsMoving",
++      "selector": ".rail-fill",
++      "from": 0,
++      "to": 111
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/meta.json b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/package.json b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/tokens.yml b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_choosing-your-solo-model/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

@@ -1,0 +1,13 @@
+{
+  "exported_at_utc": "2026-08-07T23:42:36Z",
+  "source": "Codex Cloud",
+  "task_records": 60,
+  "ready_tasks": 59,
+  "downloaded_patches": 58,
+  "ready_task_without_diff": {
+    "id": "task_e_6a754373106c83268fece1f77a7d9b30",
+    "title": "Send career-transitions lesson scripts to Codex Cloud"
+  },
+  "error_tasks": 1,
+  "applied_to_workspace": false
+}

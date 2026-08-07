@@ -1,0 +1,383 @@
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/CONCEPT.md b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..24a0df0f63203e42505bb637b89ce155ad111c0f
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/CONCEPT.md
+@@ -0,0 +1,10 @@
++# Sustainable Solo Work
++
++## Core idea
++A calm, practical operating system grows one layer at a time: track opportunities, standardize intake, reuse templates, review weekly, and protect the work with boundaries.
++
++## Visual story
++A central solo-work dashboard begins overloaded and disconnected. Each beat adds one clear operating layer to a five-part system. The final frame turns those pieces into a balanced, bounded weekly plan.
++
++## Audience takeaway
++Sustainability is not extra administration. It is a strategic choice made through a few lightweight systems and explicit guardrails.
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/audio_request.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..5cc61480836e9a3ae4ad647dbc1b18d1b3e630a4
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/audio_request.json
+@@ -0,0 +1,72 @@
++{
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "lines": [
++    {
++      "id": "b01-system-gap",
++      "narration": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it.",
++      "text": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it."
++    },
++    {
++      "id": "b02-simple-pieces",
++      "narration": "You don't need a complicated business operating system to begin. You need a few simple pieces.",
++      "text": "You don't need a complicated business operating system to begin. You need a few simple pieces."
++    },
++    {
++      "id": "b03-opportunity-tracker",
++      "narration": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document.",
++      "text": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document."
++    },
++    {
++      "id": "b04a-intake-start",
++      "narration": "Second, a basic intake process. If someone says yes, what happens next?",
++      "text": "Second, a basic intake process. If someone says yes, what happens next?"
++    },
++    {
++      "id": "b04b-intake-questions",
++      "narration": "What questions do you ask?",
++      "text": "What questions do you ask?"
++    },
++    {
++      "id": "b04c-intake-information",
++      "narration": "What information do you need?",
++      "text": "What information do you need?"
++    },
++    {
++      "id": "b04d-intake-send",
++      "narration": "And what do you send?",
++      "text": "And what do you send?"
++    },
++    {
++      "id": "b05a-template-start",
++      "narration": "Third, a few templates.",
++      "text": "Third, a few templates."
++    },
++    {
++      "id": "b05b-template-list",
++      "narration": "Proposal language, follow-up emails, meeting agendas, and project checklists. Templates save you time and keep your work consistent.",
++      "text": "Proposal language, follow-up emails, meeting agendas, and project checklists. Templates save you time and keep your work consistent."
++    },
++    {
++      "id": "b06-weekly-review",
++      "narration": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive.",
++      "text": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."
++    },
++    {
++      "id": "b07-boundaries",
++      "narration": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?",
++      "text": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?"
++    },
++    {
++      "id": "b08-sustainability",
++      "narration": "AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy.",
++      "text": "AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy."
++    },
++    {
++      "id": "b09-module-action",
++      "narration": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows.",
++      "text": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/concept.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..138f653a3e681df208f56b33350798ad6e2331cf
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/concept.json
+@@ -0,0 +1,85 @@
++{
++  "title": "Sustainable Solo Work",
++  "compositionId": "m5_making-solo-work-sustainable",
++  "duration": 84.1,
++  "beats": [
++    {
++      "id": "b01-system-gap",
++      "start": 0,
++      "duration": 8.65,
++      "narration": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it."
++    },
++    {
++      "id": "b02-simple-pieces",
++      "start": 8.65,
++      "duration": 6.25,
++      "narration": "You don't need a complicated business operating system to begin. You need a few simple pieces."
++    },
++    {
++      "id": "b03-opportunity-tracker",
++      "start": 14.9,
++      "duration": 10.35,
++      "narration": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document."
++    },
++    {
++      "id": "b04a-intake-start",
++      "start": 25.25,
++      "duration": 4.592,
++      "narration": "Second, a basic intake process. If someone says yes, what happens next?"
++    },
++    {
++      "id": "b04b-intake-questions",
++      "start": 29.842,
++      "duration": 1.914,
++      "narration": "What questions do you ask?"
++    },
++    {
++      "id": "b04c-intake-information",
++      "start": 31.756,
++      "duration": 1.913,
++      "narration": "What information do you need?"
++    },
++    {
++      "id": "b04d-intake-send",
++      "start": 33.669,
++      "duration": 1.531,
++      "narration": "And what do you send?"
++    },
++    {
++      "id": "b05a-template-start",
++      "start": 35.2,
++      "duration": 1.895,
++      "narration": "Third, a few templates."
++    },
++    {
++      "id": "b05b-template-list",
++      "start": 37.095,
++      "duration": 8.055,
++      "narration": "Proposal language, follow-up emails, meeting agendas, and project checklists. Templates save you time and keep your work consistent."
++    },
++    {
++      "id": "b06-weekly-review",
++      "start": 45.15,
++      "duration": 9.85,
++      "narration": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."
++    },
++    {
++      "id": "b07-boundaries",
++      "start": 55.0,
++      "duration": 10.05,
++      "narration": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?"
++    },
++    {
++      "id": "b08-sustainability",
++      "start": 65.05,
++      "duration": 8.65,
++      "narration": "AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy."
++    },
++    {
++      "id": "b09-module-action",
++      "start": 73.7,
++      "duration": 10.4,
++      "narration": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/design.md b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..e8d2fc35b62a61e0c931a17dfb7a0c8ec84324e0
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/design.md
+@@ -0,0 +1,13 @@
++# Design — Sustainable Solo Work
++
++## Direction
++Editorial operating dashboard with paper cards on deep navy. A gold path connects five system nodes, while blue is reserved for active information and progress.
++
++## Layout
++Use the 120 px frame inset and reserve the bottom 120 px for progress. Headlines sit upper-left. The main diagram occupies the center and right, never entering the chrome region.
++
++## Type
++Proxima Nova with the system fallback. Headlines are 72–88 px and 900 weight. Supporting copy is at least 40 px. Labels are at least 22 px, uppercase, and widely tracked.
++
++## Motion
++One paused, seekable timeline. Each beat exits before the next appears. Cards rise 24 px and fade in with short staggered motion; connector rules draw left to right. No infinite animation. The final beat adds a gold boundary ring as the closing resolve.
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.html b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..c653cddd9231fe4ea8637fde05afb3e7c0e4bd4f
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.html
+@@ -0,0 +1,5 @@
++<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sustainable Solo Work</title><style>
++*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0a1e2f;font-family:"Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;background:#0d2437;color:#fff;overflow:hidden}.clip{position:absolute;inset:0;padding:72px 120px 120px;opacity:0;visibility:hidden}.brand{display:flex;align-items:center;gap:22px;color:#98a4cc;font-size:22px;font-weight:700;letter-spacing:.14em}.brand-mark{color:#eaab2d;font-size:28px;font-weight:900}.progress{position:absolute;left:120px;right:120px;bottom:72px;height:4px;background:#5f6f96}.progress span{display:block;width:0;height:100%;background:#eaab2d}main{position:absolute;left:120px;right:120px;top:205px;bottom:145px}.eyebrow{margin:0 0 25px;color:#eaab2d;font-size:24px;font-weight:700;letter-spacing:.14em}h1{margin:0;max-width:1120px;font-size:84px;line-height:1.02;font-weight:900;letter-spacing:-.025em}h1 em{color:#55a4dd;font-style:normal}.narration{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.tangle,.pieces,.board,.flow,.stack,.review,.boundary,.choice,.final{position:absolute;right:10px;top:20px;width:510px;height:510px}.tangle{border:5px solid #3393d6;border-radius:50%;display:grid;place-items:center}.tangle:before,.tangle:after,.tangle i{content:"";position:absolute;width:340px;height:120px;border:4px solid #eaab2d;border-radius:50%;transform:rotate(25deg)}.tangle:after{transform:rotate(-45deg)}.tangle i:nth-child(1){transform:rotate(75deg)}.tangle b{font-size:54px;z-index:2}.pieces{display:grid;grid-template-columns:1fr 1fr;gap:24px;transform:rotate(-5deg)}.pieces b{display:grid;place-items:center;background:#fff;color:#0d2437;border-radius:12px;font-size:72px;box-shadow:12px 12px #3393d6}.pieces b:last-child{grid-column:1/3;background:#eaab2d}.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:610px}.board span{font-size:20px;color:#98a4cc;letter-spacing:.08em}.board b{height:230px;background:#fff;border-top:14px solid #3393d6;border-radius:12px}.flow{width:620px;display:flex;align-items:center;gap:12px}.flow b{width:120px;height:120px;border:4px solid #3393d6;border-radius:50%;display:grid;place-items:center;font-size:22px}.flow b:first-child,.flow b:last-child{background:#eaab2d;color:#0d2437;border-color:#eaab2d}.flow i{width:35px;height:4px;background:#eaab2d}.stack b{position:relative;display:block;margin:0 0 16px;padding:28px 35px;background:#fff;color:#0d2437;border-left:12px solid #3393d6;border-radius:12px;font-size:25px;letter-spacing:.1em}.review{border:5px solid #3393d6;border-radius:50%;display:grid;place-items:center}.review>b{font-size:170px;color:#eaab2d;line-height:.8}.review>span{margin-top:-80px;font-size:24px;letter-spacing:.15em}.review ul{position:absolute;right:-165px;bottom:10px;list-style:none;font-size:20px;line-height:2;color:#98a4cc}.boundary{border:8px solid #eaab2d;border-radius:50%;display:grid;grid-template-columns:1fr 1fr;place-items:center;padding:70px}.boundary span{font-size:21px;font-weight:700}.choice{display:flex;align-items:center;gap:30px}.choice b{display:grid;place-items:center;width:190px;height:190px;border:5px solid #3393d6;border-radius:50%;font-size:40px}.choice b:last-child{width:250px;height:250px;border-color:#eaab2d}.choice i{width:55px;height:5px;background:#eaab2d}.final{width:590px;display:grid;gap:20px}.final span{display:flex;align-items:center;padding:0 35px;border:4px solid #3393d6;border-radius:100px;font-size:28px;font-weight:900;letter-spacing:.08em}.final span:last-child{border-color:#eaab2d;background:#eaab2d;color:#0d2437}
++</style></head><body><div id="m5_making-solo-work-sustainable" class="composition" data-composition-id="m5_making-solo-work-sustainable" data-start="0" data-duration="84.1" data-width="1920" data-height="1080"><section id="b01-system-gap" class="clip" data-beat-id="b01-system-gap" data-track-index="0" data-start="0" data-duration="8.65" data-narration="One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">MAKING SOLO WORK SUSTAINABLE</p><h1>Good Work Needs<br><em>a System Around It</em></h1><div class="tangle"><i></i><i></i><i></i><b>SOLO</b></div></main><p class="narration">One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it.</p></section><section id="b02-simple-pieces" class="clip" data-beat-id="b02-simple-pieces" data-track-index="0" data-start="8.65" data-duration="6.25" data-narration="You don't need a complicated business operating system to begin. You need a few simple pieces."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">START LIGHT</p><h1>Not Complicated<br><em>Just a Few Pieces</em></h1><div class="pieces"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b></div></main><p class="narration">You don't need a complicated business operating system to begin. You need a few simple pieces.</p></section><section id="b03-opportunity-tracker" class="clip" data-beat-id="b03-opportunity-tracker" data-track-index="0" data-start="14.9" data-duration="10.35" data-narration="First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">01 · TRACK</p><h1>Know Where Every<br><em>Opportunity Stands</em></h1><div class="board"><span>NEW</span><span>TALKING</span><span>NEXT STEP</span><b></b><b></b><b></b></div></main><p class="narration">First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document.</p></section><section id="b04a-intake-start" class="clip" data-beat-id="b04a-intake-start" data-track-index="0" data-start="25.25" data-duration="4.592" data-narration="Second, a basic intake process. If someone says yes, what happens next?"><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">02 · INTAKE</p><h1>Make “Yes” Lead to<br><em>a Clear Next Step</em></h1><div class="flow"><b>YES</b><i></i><b>ASK</b><i></i><b>GATHER</b><i></i><b>SEND</b></div></main><p class="narration">Second, a basic intake process. If someone says yes, what happens next?</p></section><section id="b04b-intake-questions" class="clip" data-beat-id="b04b-intake-questions" data-track-index="0" data-start="29.842" data-duration="1.914" data-narration="What questions do you ask?"><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">02 · INTAKE</p><h1>Make “Yes” Lead to<br><em>a Clear Next Step</em></h1><div class="flow"><b>YES</b><i></i><b>ASK</b><i></i><b>GATHER</b><i></i><b>SEND</b></div></main><p class="narration">What questions do you ask?</p></section><section id="b04c-intake-information" class="clip" data-beat-id="b04c-intake-information" data-track-index="0" data-start="31.756" data-duration="1.913" data-narration="What information do you need?"><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">02 · INTAKE</p><h1>Make “Yes” Lead to<br><em>a Clear Next Step</em></h1><div class="flow"><b>YES</b><i></i><b>ASK</b><i></i><b>GATHER</b><i></i><b>SEND</b></div></main><p class="narration">What information do you need?</p></section><section id="b04d-intake-send" class="clip" data-beat-id="b04d-intake-send" data-track-index="0" data-start="33.669" data-duration="1.531" data-narration="And what do you send?"><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">02 · INTAKE</p><h1>Make “Yes” Lead to<br><em>a Clear Next Step</em></h1><div class="flow"><b>YES</b><i></i><b>ASK</b><i></i><b>GATHER</b><i></i><b>SEND</b></div></main><p class="narration">And what do you send?</p></section><section id="b05a-template-start" class="clip" data-beat-id="b05a-template-start" data-track-index="0" data-start="35.2" data-duration="1.895" data-narration="Third, a few templates."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">03 · TEMPLATES</p><h1>Reuse the Structure<br><em>Keep the Work Consistent</em></h1><div class="stack"><b>PROPOSAL</b><b>FOLLOW-UP</b><b>AGENDA</b><b>CHECKLIST</b></div></main><p class="narration">Third, a few templates.</p></section><section id="b05b-template-list" class="clip" data-beat-id="b05b-template-list" data-track-index="0" data-start="37.095" data-duration="8.055" data-narration="Proposal language, follow-up emails, meeting agendas, and project checklists. Templates save you time and keep your work consistent."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">03 · TEMPLATES</p><h1>Reuse the Structure<br><em>Keep the Work Consistent</em></h1><div class="stack"><b>PROPOSAL</b><b>FOLLOW-UP</b><b>AGENDA</b><b>CHECKLIST</b></div></main><p class="narration">Proposal language, follow-up emails, meeting agendas, and project checklists. Templates save you time and keep your work consistent.</p></section><section id="b06-weekly-review" class="clip" data-beat-id="b06-weekly-review" data-track-index="0" data-start="45.15" data-duration="9.85" data-narration="Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">04 · REVIEW</p><h1>One Hour Keeps the<br><em>Week from Reacting</em></h1><div class="review"><b>60</b><span>MINUTES</span><ul><li>OUTREACH</li><li>ACTIVE WORK</li><li>ADMIN</li><li>NEXT STEPS</li></ul></div></main><p class="narration">Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive.</p></section><section id="b07-boundaries" class="clip" data-beat-id="b07-boundaries" data-track-index="0" data-start="55.0" data-duration="10.05" data-narration="And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?"><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">05 · BOUNDARIES</p><h1>Decide What Fits<br><em>Before It Arrives</em></h1><div class="boundary"><span>HOURS</span><span>SCOPE</span><span>CLIENTS</span><span>TIMELINES</span></div></main><p class="narration">And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?</p></section><section id="b08-sustainability" class="clip" data-beat-id="b08-sustainability" data-track-index="0" data-start="65.05" data-duration="8.65" data-narration="AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">SUSTAINABILITY = STRATEGY</p><h1>AI Can Organize<br><em>You Choose the Limits</em></h1><div class="choice"><b>AI</b><i></i><b>YOUR CALL</b></div></main><p class="narration">AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy.</p></section><section id="b09-module-action" class="clip" data-beat-id="b09-module-action" data-track-index="0" data-start="73.7" data-duration="10.4" data-narration="In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows."><div class="brand"><span class="brand-mark">SCLA</span><span>ENTREPRENEUR ACCELERATOR</span></div><div class="progress"><span></span></div><main><p class="eyebrow">YOUR MODULE PLAN</p><h1>Build the System<br><em>Protect the Path</em></h1><div class="final"><span>TIME BUDGET</span><span>SYSTEMS NOW</span><span>GUARDRAILS</span></div></main><p class="narration">In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows.</p></section></div><script>
++(()=>{const id="m5_making-solo-work-sustainable",root=document.getElementById(id),clips=[...root.querySelectorAll(".clip")],duration=84.1;if(!window.gsap){window.gsap={timeline(){const api={fromTo(){return api},to(){return api},seek(t){paint(t);return api},pause(){return api},duration(){return duration},progress(p){paint(p*duration);return api}};return api}}}function paint(t){t=Math.max(0,Math.min(duration,t));clips.forEach((clip)=>{const s=+clip.dataset.start,d=+clip.dataset.duration,active=t>=s&&t<s+d,local=t-s;clip.style.visibility=active?"visible":"hidden";clip.style.opacity=active?String(Math.min(1,Math.max(0,local/.55,(d-local)/.35))):"0";if(active){clip.querySelector(".progress span").style.width=`${t/duration*100}%`;clip.querySelectorAll("main>*").forEach((el,j)=>{const p=Math.min(1,Math.max(0,(local-.1-j*.12)/.5));el.style.transform=`translateY(${(1-p)*24}px)`;el.style.opacity=p})}})}const timeline=gsap.timeline({ paused: true });clips.forEach((clip)=>timeline.fromTo(clip,{opacity:0},{opacity:1,duration:.55},+clip.dataset.start).to(clip,{opacity:0,duration:.35},+clip.dataset.start + +clip.dataset.duration-.35));const nativeSeek=timeline.seek.bind(timeline);timeline.seek=(t)=>{paint(t);nativeSeek(t);return timeline};window.__timelines=window.__timelines||{};window.__timelines['m5_making-solo-work-sustainable'] = timeline;window.__HYPERFRAMES__=window.__HYPERFRAMES__||{};window.__HYPERFRAMES__[id]=timeline;paint(0)})();
++</script></body></html>
+\ No newline at end of file
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.motion.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..d2af80fa8be41b1f27d01df20d3890ecdb8c8554
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.motion.json
+@@ -0,0 +1,161 @@
++{
++  "compositionId": "m5_making-solo-work-sustainable",
++  "duration": 84.1,
++  "timeline": {
++    "paused": true,
++    "seekable": true
++  },
++  "keepsMoving": true,
++  "beats": [
++    {
++      "id": "b01-system-gap",
++      "start": 0,
++      "duration": 8.65,
++      "clip": "#b01-system-gap"
++    },
++    {
++      "id": "b02-simple-pieces",
++      "start": 8.65,
++      "duration": 6.25,
++      "clip": "#b02-simple-pieces"
++    },
++    {
++      "id": "b03-opportunity-tracker",
++      "start": 14.9,
++      "duration": 10.35,
++      "clip": "#b03-opportunity-tracker"
++    },
++    {
++      "id": "b04a-intake-start",
++      "start": 25.25,
++      "duration": 4.592,
++      "clip": "#b04a-intake-start"
++    },
++    {
++      "id": "b04b-intake-questions",
++      "start": 29.842,
++      "duration": 1.914,
++      "clip": "#b04b-intake-questions"
++    },
++    {
++      "id": "b04c-intake-information",
++      "start": 31.756,
++      "duration": 1.913,
++      "clip": "#b04c-intake-information"
++    },
++    {
++      "id": "b04d-intake-send",
++      "start": 33.669,
++      "duration": 1.531,
++      "clip": "#b04d-intake-send"
++    },
++    {
++      "id": "b05a-template-start",
++      "start": 35.2,
++      "duration": 1.895,
++      "clip": "#b05a-template-start"
++    },
++    {
++      "id": "b05b-template-list",
++      "start": 37.095,
++      "duration": 8.055,
++      "clip": "#b05b-template-list"
++    },
++    {
++      "id": "b06-weekly-review",
++      "start": 45.15,
++      "duration": 9.85,
++      "clip": "#b06-weekly-review"
++    },
++    {
++      "id": "b07-boundaries",
++      "start": 55.0,
++      "duration": 10.05,
++      "clip": "#b07-boundaries"
++    },
++    {
++      "id": "b08-sustainability",
++      "start": 65.05,
++      "duration": 8.65,
++      "clip": "#b08-sustainability"
++    },
++    {
++      "id": "b09-module-action",
++      "start": 73.7,
++      "duration": 10.4,
++      "clip": "#b09-module-action"
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "b01-system-gap",
++      "time": 1.1
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b02-simple-pieces",
++      "time": 9.75
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b03-opportunity-tracker",
++      "time": 16.0
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04a-intake-start",
++      "time": 26.35
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04b-intake-questions",
++      "time": 30.799
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04c-intake-information",
++      "time": 32.712
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04d-intake-send",
++      "time": 34.434
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b05a-template-start",
++      "time": 36.148
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b05b-template-list",
++      "time": 38.195
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b06-weekly-review",
++      "time": 46.25
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b07-boundaries",
++      "time": 56.1
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b08-sustainability",
++      "time": 66.15
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b09-module-action",
++      "time": 74.8
++    },
++    {
++      "kind": "keepsMoving",
++      "from": 0,
++      "to": 84.1
++    }
++  ]
++}

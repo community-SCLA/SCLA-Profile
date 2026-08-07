@@ -1,0 +1,945 @@
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/.pin b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/.scla-control-v2 b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/CONCEPT.md b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..58e9272d082c61d4ec563385bf4f26db32dbc74b
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/CONCEPT.md
+@@ -0,0 +1,19 @@
++# Making Solo Work Sustainable
++
++## Core idea
++
++Turn an empty, stressful workbench into a calm solo-business control system. Each narration beat adds one practical piece—pipeline, intake, templates, review, and boundaries—until the full system is visible and the founder has room to work.
++
++## Visual arc
++
++1. **Reactive:** loose tasks and messages orbit an unprotected founder.
++2. **Simple system:** a five-part operating rail assembles one useful layer at a time.
++3. **Sustainable:** time and scope guardrails close around the system, leaving a clear weekly plan.
++
++## Direction
++
++Use crisp editorial diagrams, large type, and restrained card choreography on paper and navy fields. Motion should feel like organizing a desk: items sort, align, and lock into place. No stock footage, decorative dashboards, or generic AI imagery.
++
++## Narration beats
++
++Fifteen timed beats carry the refined lesson narration. Each beat has one primary visual action and remains readable without narration.
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/audio_request.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..1d951d3a5799089352bb941d36dc42e02ef630ce
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/audio_request.json
+@@ -0,0 +1,69 @@
++{
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "compositionId": "m5_making-solo-work-sustainable",
++  "generate": false,
++  "lines": [
++    {
++      "id": "b01-no-system",
++      "text": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it."
++    },
++    {
++      "id": "b02-simple-pieces",
++      "text": "You don't need a complicated business operating system to begin. You need a few simple pieces."
++    },
++    {
++      "id": "b03-track-opportunities",
++      "text": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document."
++    },
++    {
++      "id": "b04-intake-1",
++      "text": "Second, a basic intake process."
++    },
++    {
++      "id": "b04-intake-2",
++      "text": "If someone says yes, what happens next?"
++    },
++    {
++      "id": "b04-intake-3",
++      "text": "What questions do you ask?"
++    },
++    {
++      "id": "b04-intake-4",
++      "text": "What information do you need?"
++    },
++    {
++      "id": "b04-intake-5",
++      "text": "And what do you send?"
++    },
++    {
++      "id": "b05-templates-1",
++      "text": "Third, a few templates."
++    },
++    {
++      "id": "b05-templates-list",
++      "text": "Proposal language, follow-up emails, meeting agendas, and project checklists."
++    },
++    {
++      "id": "b05-templates-6",
++      "text": "Templates save you time and keep your work consistent."
++    },
++    {
++      "id": "b06-weekly-review",
++      "text": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."
++    },
++    {
++      "id": "b07-boundaries",
++      "text": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?"
++    },
++    {
++      "id": "b08-ai-and-agency",
++      "text": "AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy."
++    },
++    {
++      "id": "b09-module-plan",
++      "text": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/concept.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..11c9de13fec6704148c3b9e05f533d474fcd0f31
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/concept.json
+@@ -0,0 +1,89 @@
++{
++  "compositionId": "m5_making-solo-work-sustainable",
++  "title": "Making Solo Work Sustainable",
++  "program": "entrepreneur-accelerator",
++  "format": "illustrated lesson",
++  "duration": 100,
++  "canvas": {
++    "width": 1920,
++    "height": 1080
++  },
++  "concept": "A reactive solo-work desk becomes a calm five-part operating system protected by time and scope guardrails.",
++  "beats": [
++    {
++      "id": "b01-no-system",
++      "start": 0.0,
++      "end": 6.667
++    },
++    {
++      "id": "b02-simple-pieces",
++      "start": 6.667,
++      "end": 13.333
++    },
++    {
++      "id": "b03-track-opportunities",
++      "start": 13.333,
++      "end": 20.0
++    },
++    {
++      "id": "b04-intake-1",
++      "start": 20.0,
++      "end": 26.667
++    },
++    {
++      "id": "b04-intake-2",
++      "start": 26.667,
++      "end": 33.333
++    },
++    {
++      "id": "b04-intake-3",
++      "start": 33.333,
++      "end": 40.0
++    },
++    {
++      "id": "b04-intake-4",
++      "start": 40.0,
++      "end": 46.667
++    },
++    {
++      "id": "b04-intake-5",
++      "start": 46.667,
++      "end": 53.333
++    },
++    {
++      "id": "b05-templates-1",
++      "start": 53.333,
++      "end": 60.0
++    },
++    {
++      "id": "b05-templates-list",
++      "start": 60.0,
++      "end": 66.667
++    },
++    {
++      "id": "b05-templates-6",
++      "start": 66.667,
++      "end": 73.333
++    },
++    {
++      "id": "b06-weekly-review",
++      "start": 73.333,
++      "end": 80.0
++    },
++    {
++      "id": "b07-boundaries",
++      "start": 80.0,
++      "end": 86.667
++    },
++    {
++      "id": "b08-ai-and-agency",
++      "start": 86.667,
++      "end": 93.333
++    },
++    {
++      "id": "b09-module-plan",
++      "start": 93.333,
++      "end": 100
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/design.md b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c50af90c955e208d373a64bb22849d7e12057ab2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/design.md
+@@ -0,0 +1,32 @@
++# Design: Making Solo Work Sustainable
++
++## Frame system
++
++- 1920×1080 canvas with a 120px frame inset and a reserved 120px footer.
++- Alternate paper and deep-navy fields to separate problem, build, and resolve phases.
++- A persistent five-node rail provides continuity through the middle of the lesson.
++
++## Typography
++
++- Proxima Nova with the supplied system fallback.
++- Display: 104px / 900; headings: 68px / 900; body: 42px / 400; labels: 22px / 700 uppercase.
++- Keep line lengths short and use gold only for decisions, active nodes, and guardrails.
++
++## Palette
++
++- Navy `#0d2437` and deep navy `#0a1e2f` for foundations.
++- Blue `#3393d6` for systems and links.
++- Gold `#eaab2d` for active choices and boundaries.
++- Paper `#ffffff`, cultured `#f6f6f9`, and ink `#292f35` for readable working surfaces.
++
++## Motion
++
++- Each beat enters in 0.45–0.60 seconds and settles within 1.2 seconds.
++- Cards translate and fade; rules draw from left; nodes pop once. No infinite motion.
++- The final second adds a gold boundary lock and a small “SUSTAINABLE” seal.
++
++## Accessibility
++
++- Body copy never drops below 40px; labels remain at least 20px.
++- High-contrast text and redundant number, word, and shape cues communicate state.
++- Narration is stored verbatim in timed clip nodes.
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/hyperframes.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.html b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..c4231f3146d027849adc28e55d1bc06bd664a8b0
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.html
+@@ -0,0 +1,51 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1">
++  <title>Making Solo Work Sustainable</title>
++  <style>
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--ink:#292f35;--paper:#fff;--soft:#f6f6f9;--border:#cccedf}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--soft);color:var(--ink)}.clip{position:absolute;inset:0;padding:120px 120px 140px;opacity:0;visibility:hidden}.dark{background:var(--navy);color:var(--paper)}.eyebrow{font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}h1,h2{margin:18px 0 32px;font-size:104px;line-height:.95;font-weight:900;max-width:1500px}h2{font-size:68px;line-height:1.02}.gold{color:var(--gold)}.rule{width:240px;height:4px;background:var(--gold);transform-origin:left}.cards{display:flex;gap:24px;margin-top:58px}.card{flex:1;min-height:270px;padding:34px;border:2px solid var(--border);border-radius:12px;background:var(--paper);color:var(--ink);font-size:34px}.card b{display:block;font-size:44px;margin-bottom:18px;color:var(--navy)}.rail{display:flex;align-items:center;gap:18px;margin-top:72px}.node{display:grid;place-items:center;width:120px;height:120px;border:4px solid var(--navy);border-radius:50%;background:var(--gold);font-size:44px;font-weight:900}.link{height:4px;flex:1;background:var(--blue)}.big{font-size:72px;font-weight:900;line-height:1.05;max-width:1300px}.boundary{margin-top:48px;border:5px solid var(--gold);padding:46px;border-radius:12px}.footer{position:absolute;left:120px;right:120px;bottom:62px;display:flex;justify-content:space-between;font-size:22px;font-weight:700;letter-spacing:.08em}.seal{position:absolute;right:140px;bottom:135px;border:4px solid var(--gold);border-radius:100px;padding:18px 30px;color:var(--gold);font-size:24px;font-weight:900;letter-spacing:.12em}.narration{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
++  </style>
++</head>
++<body>
++<main id="m5_making-solo-work-sustainable" class="composition" data-composition-id="m5_making-solo-work-sustainable" data-start="0" data-duration="100" data-width="1920" data-height="1080" data-fps="30">
++  <section id="b01-no-system" class="clip dark" data-beat-id="b01-no-system" data-start="0.0" data-duration="6.667" data-track-index="0" data-end="6.667"><div class="eyebrow">Entrepreneur Accelerator</div><div class="eyebrow">Solo work shouldn't feel like emergency work</div><h1>A Good Offer Needs a <span class="gold">System</span></h1><div class="cards"><div class="card"><b>12</b>loose messages</div><div class="card"><b>7</b>open tasks</div><div class="card"><b>0</b>shared rhythm</div></div><p class="narration">One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it.</p></section>
++  <section id="b02-simple-pieces" class="clip" data-beat-id="b02-simple-pieces" data-start="6.667" data-duration="6.666" data-track-index="0" data-end="13.333"><div class="eyebrow">Start simple</div><h1>A Few Pieces<br><span class="gold">Working Together</span></h1><div class="rule"></div><p class="narration">You don't need a complicated business operating system to begin. You need a few simple pieces.</p></section>
++  <section id="b03-track-opportunities" class="clip" data-beat-id="b03-track-opportunities" data-start="13.333" data-duration="6.667" data-track-index="0" data-end="20.0"><div class="eyebrow">01 / Opportunity tracker</div><h2>Know Who. Know What. Know the Next Step</h2><div class="rail"><div class="node">1</div><div class="link"></div><div class="node">2</div><div class="link"></div><div class="node">3</div></div><div class="cards"><div class="card"><b>Talking</b>New conversations</div><div class="card"><b>Deciding</b>Open opportunities</div><div class="card"><b>Next</b>One clear action</div></div><p class="narration">First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document.</p></section>
++  <section id="b04-intake-1" class="clip dark" data-beat-id="b04-intake-1" data-start="20.0" data-duration="6.667" data-track-index="0" data-end="26.667"><div class="eyebrow">02 / Basic intake</div><h2>Someone Says Yes<br><span class="gold">What Happens Next?</span></h2><div class="cards"><div class="card"><b>Ask</b>What questions?</div><div class="card"><b>Gather</b>What information?</div><div class="card"><b>Send</b>What comes next?</div></div><p class="narration">Second, a basic intake process.</p></section>
++  <section id="b04-intake-2" class="clip dark" data-beat-id="b04-intake-2" data-start="26.667" data-duration="6.666" data-track-index="0" data-end="33.333"><div class="eyebrow">02 / Basic intake</div><h2>Someone Says Yes<br><span class="gold">What Happens Next?</span></h2><div class="cards"><div class="card"><b>Ask</b>What questions?</div><div class="card"><b>Gather</b>What information?</div><div class="card"><b>Send</b>What comes next?</div></div><p class="narration">If someone says yes, what happens next?</p></section>
++  <section id="b04-intake-3" class="clip dark" data-beat-id="b04-intake-3" data-start="33.333" data-duration="6.667" data-track-index="0" data-end="40.0"><div class="eyebrow">02 / Basic intake</div><h2>Someone Says Yes<br><span class="gold">What Happens Next?</span></h2><div class="cards"><div class="card"><b>Ask</b>What questions?</div><div class="card"><b>Gather</b>What information?</div><div class="card"><b>Send</b>What comes next?</div></div><p class="narration">What questions do you ask?</p></section>
++  <section id="b04-intake-4" class="clip dark" data-beat-id="b04-intake-4" data-start="40.0" data-duration="6.667" data-track-index="0" data-end="46.667"><div class="eyebrow">02 / Basic intake</div><h2>Someone Says Yes<br><span class="gold">What Happens Next?</span></h2><div class="cards"><div class="card"><b>Ask</b>What questions?</div><div class="card"><b>Gather</b>What information?</div><div class="card"><b>Send</b>What comes next?</div></div><p class="narration">What information do you need?</p></section>
++  <section id="b04-intake-5" class="clip dark" data-beat-id="b04-intake-5" data-start="46.667" data-duration="6.666" data-track-index="0" data-end="53.333"><div class="eyebrow">02 / Basic intake</div><h2>Someone Says Yes<br><span class="gold">What Happens Next?</span></h2><div class="cards"><div class="card"><b>Ask</b>What questions?</div><div class="card"><b>Gather</b>What information?</div><div class="card"><b>Send</b>What comes next?</div></div><p class="narration">And what do you send?</p></section>
++  <section id="b05-templates-1" class="clip" data-beat-id="b05-templates-1" data-start="53.333" data-duration="6.667" data-track-index="0" data-end="60.0"><div class="eyebrow">03 / Templates</div><h2>Do the Thinking Once<br>Use It <span class="gold">Consistently</span></h2><div class="cards"><div class="card"><b>Proposal</b>Clear language</div><div class="card"><b>Follow-up</b>Ready to adapt</div><div class="card"><b>Checklist</b>Nothing missed</div></div><p class="narration">Third, a few templates.</p></section>
++  <section id="b05-templates-list" class="clip" data-beat-id="b05-templates-list" data-start="60.0" data-duration="6.667" data-track-index="0" data-end="66.667"><div class="eyebrow">03 / Templates</div><h2>Do the Thinking Once<br>Use It <span class="gold">Consistently</span></h2><div class="cards"><div class="card"><b>Proposal</b>Clear language</div><div class="card"><b>Follow-up</b>Ready to adapt</div><div class="card"><b>Checklist</b>Nothing missed</div></div><p class="narration">Proposal language, follow-up emails, meeting agendas, and project checklists.</p></section>
++  <section id="b05-templates-6" class="clip" data-beat-id="b05-templates-6" data-start="66.667" data-duration="6.666" data-track-index="0" data-end="73.333"><div class="eyebrow">03 / Templates</div><h2>Do the Thinking Once<br>Use It <span class="gold">Consistently</span></h2><div class="cards"><div class="card"><b>Proposal</b>Clear language</div><div class="card"><b>Follow-up</b>Ready to adapt</div><div class="card"><b>Checklist</b>Nothing missed</div></div><p class="narration">Templates save you time and keep your work consistent.</p></section>
++  <section id="b06-weekly-review" class="clip dark" data-beat-id="b06-weekly-review" data-start="73.333" data-duration="6.667" data-track-index="0" data-end="80.0"><div class="eyebrow">04 / Weekly review</div><h1><span class="gold">One Hour</span><br>Four Clear Views</h1><div class="cards"><div class="card"><b>Outreach</b>Who needs a reply?</div><div class="card"><b>Active work</b>What moves now?</div><div class="card"><b>Admin</b>What needs closing?</div><div class="card"><b>Next</b>What matters most?</div></div><p class="narration">Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive.</p></section>
++  <section id="b07-boundaries" class="clip" data-beat-id="b07-boundaries" data-start="80.0" data-duration="6.667" data-track-index="0" data-end="86.667"><div class="eyebrow">05 / Boundaries</div><div class="boundary"><div class="big">Time. Scope. Clients. Timelines.</div><h2>Decide What Fits—and What Doesn't</h2></div><p class="narration">And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?</p></section>
++  <section id="b08-ai-and-agency" class="clip dark" data-beat-id="b08-ai-and-agency" data-start="86.667" data-duration="6.666" data-track-index="0" data-end="93.333"><div class="eyebrow">AI can assist</div><h1>Templates Can Be Generated<br><span class="gold">Boundaries Must Be Chosen</span></h1><div class="rule"></div><p class="narration">AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy.</p></section>
++  <section id="b09-module-plan" class="clip" data-beat-id="b09-module-plan" data-start="93.333" data-duration="6.667" data-track-index="0" data-end="100"><div class="eyebrow">Your module plan</div><h2>Build the System Before the Path Grows</h2><div class="cards"><div class="card"><b>Define</b>Your time budget</div><div class="card"><b>Choose</b>Systems to build now</div><div class="card"><b>Guard</b>Where limits belong</div></div><p class="narration">In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows.</p></section>
++  <div class="footer"><span>SCLA</span><span>MAKING SOLO WORK SUSTAINABLE</span></div>
++</main>
++<script src="./vendor/gsap.min.js"></script>
++<script>
++(() => {
++  const id = 'm5_making-solo-work-sustainable';
++  const clips = [...document.querySelectorAll('.clip')];
++  const timeline = gsap.timeline({ paused: true });
++  clips.forEach((clip) => {
++    const start = Number(clip.dataset.start);
++    const end = Number(clip.dataset.end);
++    timeline.set(clip, { autoAlpha: 1 }, start)
++      .fromTo(clip, { y: 28 }, { y: 0, duration: .55, ease: 'power2.out' }, start)
++      .fromTo(clip.querySelectorAll('.card,.node'), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .14, ease: 'power2.out' }, start + .12)
++      .set(clip, { autoAlpha: 0 }, end);
++  });
++  timeline.to({}, { duration: Math.max(0, 100 - timeline.duration()) });
++  timeline.pause(0);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m5_making-solo-work-sustainable'] = timeline;
++})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.motion.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..46dd04a5efa96c710057639ca1c7c09025c188ac
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/index.motion.json
+@@ -0,0 +1,149 @@
++{
++  "compositionId": "m5_making-solo-work-sustainable",
++  "duration": 100,
++  "timeline": "paused-seekable",
++  "beats": [
++    {
++      "id": "b01-no-system",
++      "at": 0.0
++    },
++    {
++      "id": "b02-simple-pieces",
++      "at": 6.667
++    },
++    {
++      "id": "b03-track-opportunities",
++      "at": 13.333
++    },
++    {
++      "id": "b04-intake-1",
++      "at": 20.0
++    },
++    {
++      "id": "b04-intake-2",
++      "at": 26.667
++    },
++    {
++      "id": "b04-intake-3",
++      "at": 33.333
++    },
++    {
++      "id": "b04-intake-4",
++      "at": 40.0
++    },
++    {
++      "id": "b04-intake-5",
++      "at": 46.667
++    },
++    {
++      "id": "b05-templates-1",
++      "at": 53.333
++    },
++    {
++      "id": "b05-templates-list",
++      "at": 60.0
++    },
++    {
++      "id": "b05-templates-6",
++      "at": 66.667
++    },
++    {
++      "id": "b06-weekly-review",
++      "at": 73.333
++    },
++    {
++      "id": "b07-boundaries",
++      "at": 80.0
++    },
++    {
++      "id": "b08-ai-and-agency",
++      "at": 86.667
++    },
++    {
++      "id": "b09-module-plan",
++      "at": 93.333
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "b01-no-system",
++      "at": 1.0
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b02-simple-pieces",
++      "at": 7.667
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b03-track-opportunities",
++      "at": 14.333
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04-intake-1",
++      "at": 21.0
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04-intake-2",
++      "at": 27.667
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04-intake-3",
++      "at": 34.333
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04-intake-4",
++      "at": 41.0
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b04-intake-5",
++      "at": 47.667
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b05-templates-1",
++      "at": 54.333
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b05-templates-list",
++      "at": 61.0
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b05-templates-6",
++      "at": 67.667
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b06-weekly-review",
++      "at": 74.333
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b07-boundaries",
++      "at": 81.0
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b08-ai-and-agency",
++      "at": 87.667
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "b09-module-plan",
++      "at": 94.333
++    },
++    {
++      "kind": "keepsMoving",
++      "from": 0,
++      "to": 99
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/meta.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/package.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/timing.json b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/timing.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..0f09fbfdf81d8624d4082950014f493000e92f48
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/timing.json
+@@ -0,0 +1,351 @@
++{
++  "duration": 100,
++  "rows": [
++    {
++      "id": "b01-no-system",
++      "beat_id": "b01-no-system",
++      "start": 0.0,
++      "end": 6.667,
++      "duration": 6.667,
++      "text": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it.",
++      "start_s": 0,
++      "end_s": 10.407,
++      "duration_s": 10.407,
++      "start_sec": 0,
++      "end_sec": 10.407,
++      "duration_sec": 10.407,
++      "start_seconds": 0,
++      "end_seconds": 10.407,
++      "duration_seconds": 10.407,
++      "clip_id": "b01-no-system",
++      "beatId": "b01-no-system",
++      "vis_start": 0.0,
++      "vis_dur": 6.667,
++      "audio_start": 0.0,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b02-simple-pieces",
++      "beat_id": "b02-simple-pieces",
++      "start": 6.667,
++      "end": 13.333,
++      "duration": 6.666,
++      "text": "You don't need a complicated business operating system to begin. You need a few simple pieces.",
++      "start_s": 10.407,
++      "end_s": 17.647,
++      "duration_s": 7.24,
++      "start_sec": 10.407,
++      "end_sec": 17.647,
++      "duration_sec": 7.24,
++      "start_seconds": 10.407,
++      "end_seconds": 17.647,
++      "duration_seconds": 7.24,
++      "clip_id": "b02-simple-pieces",
++      "beatId": "b02-simple-pieces",
++      "vis_start": 6.667,
++      "vis_dur": 6.666,
++      "audio_start": 6.667,
++      "audio_dur": 6.016
++    },
++    {
++      "id": "b03-track-opportunities",
++      "beat_id": "b03-track-opportunities",
++      "start": 13.333,
++      "end": 20.0,
++      "duration": 6.667,
++      "text": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document.",
++      "start_s": 17.647,
++      "end_s": 31.222,
++      "duration_s": 13.575,
++      "start_sec": 17.647,
++      "end_sec": 31.222,
++      "duration_sec": 13.575,
++      "start_seconds": 17.647,
++      "end_seconds": 31.222,
++      "duration_seconds": 13.575,
++      "clip_id": "b03-track-opportunities",
++      "beatId": "b03-track-opportunities",
++      "vis_start": 13.333,
++      "vis_dur": 6.667,
++      "audio_start": 13.333,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b04-intake-1",
++      "beat_id": "b04-intake-1",
++      "start": 20.0,
++      "end": 26.667,
++      "duration": 6.667,
++      "text": "Second, a basic intake process.",
++      "start_s": 31.222,
++      "end_s": 33.484,
++      "duration_s": 2.262,
++      "start_sec": 31.222,
++      "end_sec": 33.484,
++      "duration_sec": 2.262,
++      "start_seconds": 31.222,
++      "end_seconds": 33.484,
++      "duration_seconds": 2.262,
++      "clip_id": "b04-intake-1",
++      "beatId": "b04-intake-1",
++      "vis_start": 20.0,
++      "vis_dur": 6.667,
++      "audio_start": 20.0,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b04-intake-2",
++      "beat_id": "b04-intake-2",
++      "start": 26.667,
++      "end": 33.333,
++      "duration": 6.666,
++      "text": "If someone says yes, what happens next?",
++      "start_s": 33.484,
++      "end_s": 36.651,
++      "duration_s": 3.167,
++      "start_sec": 33.484,
++      "end_sec": 36.651,
++      "duration_sec": 3.167,
++      "start_seconds": 33.484,
++      "end_seconds": 36.651,
++      "duration_seconds": 3.167,
++      "clip_id": "b04-intake-2",
++      "beatId": "b04-intake-2",
++      "vis_start": 26.667,
++      "vis_dur": 6.666,
++      "audio_start": 26.667,
++      "audio_dur": 6.016
++    },
++    {
++      "id": "b04-intake-3",
++      "beat_id": "b04-intake-3",
++      "start": 33.333,
++      "end": 40.0,
++      "duration": 6.667,
++      "text": "What questions do you ask?",
++      "start_s": 36.651,
++      "end_s": 38.913,
++      "duration_s": 2.262,
++      "start_sec": 36.651,
++      "end_sec": 38.913,
++      "duration_sec": 2.262,
++      "start_seconds": 36.651,
++      "end_seconds": 38.913,
++      "duration_seconds": 2.262,
++      "clip_id": "b04-intake-3",
++      "beatId": "b04-intake-3",
++      "vis_start": 33.333,
++      "vis_dur": 6.667,
++      "audio_start": 33.333,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b04-intake-4",
++      "beat_id": "b04-intake-4",
++      "start": 40.0,
++      "end": 46.667,
++      "duration": 6.667,
++      "text": "What information do you need?",
++      "start_s": 38.913,
++      "end_s": 41.175,
++      "duration_s": 2.262,
++      "start_sec": 38.913,
++      "end_sec": 41.175,
++      "duration_sec": 2.262,
++      "start_seconds": 38.913,
++      "end_seconds": 41.175,
++      "duration_seconds": 2.262,
++      "clip_id": "b04-intake-4",
++      "beatId": "b04-intake-4",
++      "vis_start": 40.0,
++      "vis_dur": 6.667,
++      "audio_start": 40.0,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b04-intake-5",
++      "beat_id": "b04-intake-5",
++      "start": 46.667,
++      "end": 53.333,
++      "duration": 6.666,
++      "text": "And what do you send?",
++      "start_s": 41.175,
++      "end_s": 43.437,
++      "duration_s": 2.262,
++      "start_sec": 41.175,
++      "end_sec": 43.437,
++      "duration_sec": 2.262,
++      "start_seconds": 41.175,
++      "end_seconds": 43.437,
++      "duration_seconds": 2.262,
++      "clip_id": "b04-intake-5",
++      "beatId": "b04-intake-5",
++      "vis_start": 46.667,
++      "vis_dur": 6.666,
++      "audio_start": 46.667,
++      "audio_dur": 6.016
++    },
++    {
++      "id": "b05-templates-1",
++      "beat_id": "b05-templates-1",
++      "start": 53.333,
++      "end": 60.0,
++      "duration": 6.667,
++      "text": "Third, a few templates.",
++      "start_s": 43.437,
++      "end_s": 45.699,
++      "duration_s": 2.262,
++      "start_sec": 43.437,
++      "end_sec": 45.699,
++      "duration_sec": 2.262,
++      "start_seconds": 43.437,
++      "end_seconds": 45.699,
++      "duration_seconds": 2.262,
++      "clip_id": "b05-templates-1",
++      "beatId": "b05-templates-1",
++      "vis_start": 53.333,
++      "vis_dur": 6.667,
++      "audio_start": 53.333,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b05-templates-list",
++      "beat_id": "b05-templates-list",
++      "start": 60.0,
++      "end": 66.667,
++      "duration": 6.667,
++      "text": "Proposal language, follow-up emails, meeting agendas, and project checklists.",
++      "start_s": 45.699,
++      "end_s": 49.771,
++      "duration_s": 4.072,
++      "start_sec": 45.699,
++      "end_sec": 49.771,
++      "duration_sec": 4.072,
++      "start_seconds": 45.699,
++      "end_seconds": 49.771,
++      "duration_seconds": 4.072,
++      "clip_id": "b05-templates-list",
++      "beatId": "b05-templates-list",
++      "vis_start": 60.0,
++      "vis_dur": 6.667,
++      "audio_start": 60.0,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b05-templates-6",
++      "beat_id": "b05-templates-6",
++      "start": 66.667,
++      "end": 73.333,
++      "duration": 6.666,
++      "text": "Templates save you time and keep your work consistent.",
++      "start_s": 49.771,
++      "end_s": 53.843,
++      "duration_s": 4.072,
++      "start_sec": 49.771,
++      "end_sec": 53.843,
++      "duration_sec": 4.072,
++      "start_seconds": 49.771,
++      "end_seconds": 53.843,
++      "duration_seconds": 4.072,
++      "clip_id": "b05-templates-6",
++      "beatId": "b05-templates-6",
++      "vis_start": 66.667,
++      "vis_dur": 6.666,
++      "audio_start": 66.667,
++      "audio_dur": 6.016
++    },
++    {
++      "id": "b06-weekly-review",
++      "beat_id": "b06-weekly-review",
++      "start": 73.333,
++      "end": 80.0,
++      "duration": 6.667,
++      "text": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive.",
++      "start_s": 53.843,
++      "end_s": 66.965,
++      "duration_s": 13.122,
++      "start_sec": 53.843,
++      "end_sec": 66.965,
++      "duration_sec": 13.122,
++      "start_seconds": 53.843,
++      "end_seconds": 66.965,
++      "duration_seconds": 13.122,
++      "clip_id": "b06-weekly-review",
++      "beatId": "b06-weekly-review",
++      "vis_start": 73.333,
++      "vis_dur": 6.667,
++      "audio_start": 73.333,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b07-boundaries",
++      "beat_id": "b07-boundaries",
++      "start": 80.0,
++      "end": 86.667,
++      "duration": 6.667,
++      "text": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?",
++      "start_s": 66.965,
++      "end_s": 79.182,
++      "duration_s": 12.217,
++      "start_sec": 66.965,
++      "end_sec": 79.182,
++      "duration_sec": 12.217,
++      "start_seconds": 66.965,
++      "end_seconds": 79.182,
++      "duration_seconds": 12.217,
++      "clip_id": "b07-boundaries",
++      "beatId": "b07-boundaries",
++      "vis_start": 80.0,
++      "vis_dur": 6.667,
++      "audio_start": 80.0,
++      "audio_dur": 6.017
++    },
++    {
++      "id": "b08-ai-and-agency",
++      "beat_id": "b08-ai-and-agency",
++      "start": 86.667,
++      "end": 93.333,
++      "duration": 6.666,
++      "text": "AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy.",
++      "start_s": 79.182,
++      "end_s": 88.684,
++      "duration_s": 9.502,
++      "start_sec": 79.182,
++      "end_sec": 88.684,
++      "duration_sec": 9.502,
++      "start_seconds": 79.182,
++      "end_seconds": 88.684,
++      "duration_seconds": 9.502,
++      "clip_id": "b08-ai-and-agency",
++      "beatId": "b08-ai-and-agency",
++      "vis_start": 86.667,
++      "vis_dur": 6.666,
++      "audio_start": 86.667,
++      "audio_dur": 6.016
++    },
++    {
++      "id": "b09-module-plan",
++      "beat_id": "b09-module-plan",
++      "start": 93.333,
++      "end": 100,
++      "duration": 6.667,
++      "text": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows.",
++      "start_s": 88.684,
++      "end_s": 100,
++      "duration_s": 11.316,
++      "start_sec": 88.684,
++      "end_sec": 100,
++      "duration_sec": 11.316,
++      "start_seconds": 88.684,
++      "end_seconds": 100,
++      "duration_seconds": 11.316,
++      "clip_id": "b09-module-plan",
++      "beatId": "b09-module-plan",
++      "vis_start": 93.333,
++      "vis_dur": 6.667,
++      "audio_start": 93.333,
++      "audio_dur": 4.867
++    }
++  ],
++  "total": 100
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/tokens.yml b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_making-solo-work-sustainable/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

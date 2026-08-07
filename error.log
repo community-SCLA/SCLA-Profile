@@ -400,3 +400,372 @@
 [2026-08-07T23:34:26.146071514+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
 [2026-08-07T23:34:26.146227094+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
 [2026-08-07T23:34:26.470374282+00:00] http.list_tasks: env=<all> limit=20 cursor_in=+RID:~G4U-AJOIzhkbYDsEANAHDw==#RT:2#TRC:40#RTD:FFMNeBmc06hP2994zep3KwV2dGZzLlFjWmRzVkZjYzlTUllkVXRXWmpGOmttWgAFdnRmcy5RY1pkc1ZGY2M5U1JZZFV0V1pqRjprbVoABUJkZHB2b3VWdGZzVXBEdnNzZm91RHBlZlVidGxGeXVmc29ibQAD+szOzMjRzsbRzseqzsfEzcfEycbQys7OxcnO087OxM7O//qKnYuTn5mfyJ3HycbIncjIyMfKxsvMyJ3GysiZzMrHy5iYzMeczsX/#ISV:2#IEO:65567#QCF:8#CID:2 cursor_out=<none> items=20
+[2026-08-07T23:42:35.362833894+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:35.363539397+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:35.364047345+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:35.721842291+00:00] http.list_tasks: env=<all> limit=20 cursor_in=<none> cursor_out=+RID:~G4U-AJOIzhlpYDsEANAHDw==#RT:1#TRC:20#RTD:FFMNeBmc06hP2994zep3KwV2dGZzLlFjWmRzVkZjYzlTUllkVXRXWmpGOmttWgAFdnRmcy5RY1pkc1ZGY2M5U1JZZFV0V1pqRjprbVoABUJkZHB2b3VWdGZzVXBEdnNzZm91RHBlZlVidGxGeXVmc29ibQAD+szOzMjRzsbRzseqzsfEzcbEys3Qx8nMxsrI087OxM7O//qKnYuTn5mfyJ3HycbIms2bzsbGxsvMyMXKzcjKzJjIzcrIxcvHy8j/#ISV:2#IEO:65567#QCF:8#CID:2 items=20
+[2026-08-07T23:42:35.986097440+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:35.986328190+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:35.986451220+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:36.268289703+00:00] http.list_tasks: env=<all> limit=20 cursor_in=+RID:~G4U-AJOIzhlpYDsEANAHDw==#RT:1#TRC:20#RTD:FFMNeBmc06hP2994zep3KwV2dGZzLlFjWmRzVkZjYzlTUllkVXRXWmpGOmttWgAFdnRmcy5RY1pkc1ZGY2M5U1JZZFV0V1pqRjprbVoABUJkZHB2b3VWdGZzVXBEdnNzZm91RHBlZlVidGxGeXVmc29ibQAD+szOzMjRzsbRzseqzsfEzcbEys3Qx8nMxsrI087OxM7O//qKnYuTn5mfyJ3HycbIms2bzsbGxsvMyMXKzcjKzJjIzcrIxcvHy8j/#ISV:2#IEO:65567#QCF:8#CID:2 cursor_out=+RID:~G4U-AJOIzhkbYDsEANAHDw==#RT:2#TRC:40#RTD:FFMNeBmc06hP2994zep3KwV2dGZzLlFjWmRzVkZjYzlTUllkVXRXWmpGOmttWgAFdnRmcy5RY1pkc1ZGY2M5U1JZZFV0V1pqRjprbVoABUJkZHB2b3VWdGZzVXBEdnNzZm91RHBlZlVidGxGeXVmc29ibQAD+szOzMjRzsbRzseqzsfEzcfEycbQys7OxcnO087OxM7O//qKnYuTn5mfyJ3HycbIncjIyMfKxsvMyJ3GysiZzMrHy5iYzMeczsX/#ISV:2#IEO:65567#QCF:8#CID:2 items=20
+[2026-08-07T23:42:36.483283177+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:36.484158540+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:36.484754832+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:36.793163876+00:00] http.list_tasks: env=<all> limit=20 cursor_in=+RID:~G4U-AJOIzhkbYDsEANAHDw==#RT:2#TRC:40#RTD:FFMNeBmc06hP2994zep3KwV2dGZzLlFjWmRzVkZjYzlTUllkVXRXWmpGOmttWgAFdnRmcy5RY1pkc1ZGY2M5U1JZZFV0V1pqRjprbVoABUJkZHB2b3VWdGZzVXBEdnNzZm91RHBlZlVidGxGeXVmc29ibQAD+szOzMjRzsbRzseqzsfEzcfEycbQys7OxcnO087OxM7O//qKnYuTn5mfyJ3HycbIncjIyMfKxsvMyJ3GysiZzMrHy5iYzMeczsX/#ISV:2#IEO:65567#QCF:8#CID:2 cursor_out=<none> items=20
+[2026-08-07T23:42:37.071012530+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:37.071168040+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:37.071259181+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:39.481322114+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:39.481749023+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:39.481981234+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:41.209096092+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:41.209266550+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:41.209423963+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:43.529303483+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:43.530010312+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:43.530414035+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:45.177997639+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:45.178430276+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:45.178924538+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:47.748676090+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:47.748841829+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:47.749038957+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:50.009391475+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:50.010149068+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:50.010273610+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:51.807357529+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:51.807929846+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:51.808889556+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:54.017312175+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:54.017899962+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:54.018379556+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:56.277221655+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:56.277763606+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:56.278473640+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:58.018620603+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:42:58.018787254+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:42:58.018882181+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:00.639727682+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:00.639912517+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:00.640077354+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:02.895293522+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:02.895588652+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:02.895720789+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:04.456284964+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:04.456435265+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:04.456525593+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:06.140629806+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:06.141410792+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:06.142430795+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:08.126799364+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:08.127186867+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:08.127560945+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:09.777733038+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:09.777900961+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:09.778064997+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:12.159473636+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:12.161140078+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:12.161316577+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:14.558144895+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:14.558298662+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:14.558448822+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:17.771485754+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:17.772184367+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:17.772860288+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:19.294371260+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:19.295110379+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:19.295817588+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:19.670067240+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:19.670357561+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:19.670464962+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:20.083380776+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:20.084518258+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:20.085404571+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:20.519768734+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:20.520102406+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:20.520417274+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:20.910550268+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:20.911404250+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:20.911916215+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:21.319244600+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:21.319995931+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:21.320311751+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:21.775407100+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:21.776610585+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:21.777533356+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:22.203569508+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:22.204081683+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:22.204197679+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:22.585990782+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:22.586735461+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:22.587449754+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:22.981297186+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:22.981535971+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:22.982105884+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:23.384849230+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:23.385884020+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:23.386429698+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:23.779996238+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:23.781468013+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:23.782095003+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:24.152924614+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:24.153749663+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:24.154487019+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:24.577295567+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:24.578314187+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:24.579182026+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:24.955227728+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:24.955414687+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:24.955563515+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:25.320412218+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:25.321127883+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:25.321534331+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:25.719596913+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:25.720053221+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:25.720359916+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:26.101721083+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:26.101869900+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:26.102006625+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:26.560859954+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:26.561041202+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:26.561650058+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:27.073774645+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:27.076198076+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:27.078850633+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:27.594835235+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:27.595991552+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:27.596937246+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:28.166302451+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:28.166754093+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:28.166872124+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:28.745588415+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:28.745744917+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:28.745920274+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:29.376884496+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:29.377640907+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:29.378184581+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:29.980392994+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:29.980603146+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:29.980728650+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:30.532734222+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:30.533583596+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:30.533914764+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:31.101033606+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:31.101557103+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:31.101836284+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:31.772667041+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:31.773146438+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:31.773400532+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:32.494697132+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:32.494904008+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:32.495039010+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:33.422384091+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:33.423142876+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:33.424050802+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:34.044514843+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:34.044850990+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:34.045012+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:34.593752222+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:34.593933640+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:34.594710269+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:35.218380563+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:35.219059059+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:35.219677202+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:35.780423251+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:35.780696791+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:35.780847903+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:36.706628279+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:36.707142989+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:36.707238858+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:37.680110546+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:37.680272498+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:37.680384828+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:37.815310449+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:37.815850967+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:37.816018099+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:39.415892788+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:39.416117006+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:39.416233563+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:41.094633744+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:41.094838777+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:41.094989268+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:42.765234995+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:42.766210715+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:42.766811897+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.836807823+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:58.837122049+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.837327723+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.898530377+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:58.902126535+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.902314866+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.906417426+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:58.911062460+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.912703641+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.955123985+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:58.956579019+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.957740817+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.983048283+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:58.983252544+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:58.983400951+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:59.006566484+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:43:59.007087309+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:43:59.007890660+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:00.779613430+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:00.780894770+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:00.781825536+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:00.825522632+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:00.826441025+00:00[] 2026-08-07T23:44:00.826872927+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=whamauth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:00.827179990+00:00] 
+auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[[2026-08-07T23:44:00.827460984+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+2026-08-07T23:44:00.827461198+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:01.082046116+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:01.083290017+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:01.084109585+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:01.215041167+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:01.215882636+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:01.216250693+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:02.747745903+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:02.748610175+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:02.748963534+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:03.222827927+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:03.223102947+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:03.223204156+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:03.756599391+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:03.758588882+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:03.758717852+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:04.326458725+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:04.327741117+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:04.327876119+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:04.410473587+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:04.411552770+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:04.412276600+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:04.544377442+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:04.544806282+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:04.544919424+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:05.358323254+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:05.358977394+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:05.359122554+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:05.925693711+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:05.926124451+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:05.926473515+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.441332605+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:06.441509104+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.441664494+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.564185287+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:06.565040122+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.565505029+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.662199845+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:06.663254773+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.664089200+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.786123322+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:06.787067473+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:06.787629622+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.120275679+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:07.121138689+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.123920888+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.270847040+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:07.271368583+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.271467077+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.921609859+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:07.923277239+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.924892011+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.957121900+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:07.957347842+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:07.957498042+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.128381828+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:08.129917382+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.130985194+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.342755837+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:08.344028380+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.345262172+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.756573796+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:08.757619146+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.758475223+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.782880134+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:08.783400004+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:08.783545004+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.251436985+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:09.252452128+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.253034605+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.412986142+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:09.413753293+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.414177825+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.481667900+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:09.481821136+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.481906976+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.662110101+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:44:09.662834643+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:44:09.663419423+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:13.003396909+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:45:13.003659820+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:13.003822754+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:15.434614392+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:45:15.434978571+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:15.435081262+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:17.377929960+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:45:17.378499542+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:17.379131521+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:19.820783199+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:45:19.820963495+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:19.821072569+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:21.589037881+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:45:21.589405569+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:45:21.589506838+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:05.197913982+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:05.198354403+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:05.198681574+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:07.425881532+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:07.426396301+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:07.427039862+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:09.263922838+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:09.265002312+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:09.266469669+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:11.473695526+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:11.474275357+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:11.475400867+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:13.165323273+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:13.165869041+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:13.166028629+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:17.546812897+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:17.547606227+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:17.548081984+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:27.294053665+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:27.294670556+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:27.295382985+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:29.951474674+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:29.952098427+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:29.952760212+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:31.803336098+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:31.803519400+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:31.804110322+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:33.332979499+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:33.333414431+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:33.333685326+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:35.173014732+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:35.173699199+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:35.174603796+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:36.776654497+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:36.776843189+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:36.777004550+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:47.390476374+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:47.391067116+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:47.391178844+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:49.381365563+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:49.381530801+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:49.381648350+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:50.496983172+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:50.497617836+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:50.497771031+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:52.115930095+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:52.116679333+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:52.117115917+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:53.844775402+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:53.844959525+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:53.845104516+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:55.605062018+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:46:55.605234359+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:46:55.605466883+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:47:06.661039370+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-08-07T23:47:06.661385626+00:00] auth: mode=ChatGPT account_id=bff71635-1288-49f6-b10f-4bb76d536e3d
+[2026-08-07T23:47:06.661933799+00:00] auth: set ChatGPT-Account-Id header: bff71635-1288-49f6-b10f-4bb76d536e3d

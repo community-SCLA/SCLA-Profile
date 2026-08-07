@@ -1,0 +1,347 @@
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/CONCEPT.md b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..808dfdfc21773aaa14c238dd27c86bd30fea08bb
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/CONCEPT.md
+@@ -0,0 +1,18 @@
++# Testing Your Next Chapter
++
++## Core idea
++
++Career change becomes clearer through small, deliberate experiments—not prolonged introspection. The visual system turns a dark, looping “thinking” path into a bright field notebook where three real-world tests produce evidence.
++
++## Story arc
++
++1. Challenge the familiar “know yourself first” advice.
++2. Show why action creates information that imagination cannot.
++3. Introduce three experiments: conversation, trial project, and immersion.
++4. Turn each experiment into one focused question.
++5. Close on evidence as progress, even when it changes the direction.
++
++## Visual language
++
++Editorial field notes, route lines, evidence cards, and stamped observations. Navy provides authority, blue signals exploration, and gold marks evidence gained. Motion is purposeful: paths draw, cards settle, and evidence accumulates. No decorative stock imagery is needed.
++
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/audio_request.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..41a735114e5d2e70346de38749885351f226dcef
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/audio_request.json
+@@ -0,0 +1,55 @@
++{
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "lines": [
++    {
++      "id": "old-advice",
++      "text": "There's a piece of advice you may have heard about career change: know yourself first, then choose your direction. Reflect. Journal. And take an assessment. And figure out who you are. Then, only when you've done all that internal work, go out and act."
++    },
++    {
++      "id": "opposite-finding",
++      "text": "Herminia Ibarra, who has studied career reinvention for over twenty years at Harvard and INSEAD, has a different finding — and it's the opposite."
++    },
++    {
++      "id": "action-first",
++      "text": "Her research shows that people who successfully change careers act first and reflect later. They try things. They take on side projects. They have conversations. They show up at events. They volunteer for adjacent work. And the doing generates information that no amount of introspection ever could."
++    },
++    {
++      "id": "past-software",
++      "text": "Why? Because when you sit and try to think your way to your next career, you're running your future through the software of your past. You can only imagine roles you already understand. The imagination gets stuck."
++    },
++    {
++      "id": "tiny-sliver",
++      "text": "But when you go and do — even a tiny sliver of the new work — something different happens. You get feedback. You get texture. You notice what energizes you and what drains you. You meet people whose lives show you what the destination actually looks like day to day. You discover that the thing you thought you wanted turns out to be something else. Or you discover, with quiet certainty: that this is exactly right."
++    },
++    {
++      "id": "three-experiments",
++      "text": "That's what experiments do. And in this module, we're going to design three of them."
++    },
++    {
++      "id": "informational-interview",
++      "text": "First, an informational interview — twenty-five minutes with someone doing the work you're curious about, structured to answer specific questions, not to ask for a job."
++    },
++    {
++      "id": "trial-project",
++      "text": "Second, a trial project — a small, low-commitment piece of real work in the new direction. Ten hours, twenty hours, or thirty hours. Enough to generate evidence and something you can point to."
++    },
++    {
++      "id": "shadow-day",
++      "text": "Third, a shadow day or immersion — direct observation of what the target role actually looks like, in real time."
++    },
++    {
++      "id": "one-question",
++      "text": "Here's the discipline. Design each experiment to answer one specific question. Not \"should I do this?\" — that's too big. Something like: \"Do I actually enjoy the analytical part of product management?\" Or: \"Is the day-to-day of nonprofit leadership as mission-driven as I imagine, or is it mostly grant applications?\""
++    },
++    {
++      "id": "gather-evidence",
++      "text": "You're gathering evidence, not validating a decision you've already made. If the evidence contradicts the direction, that's an incredibly valuable experiment — because it saved you a year."
++    },
++    {
++      "id": "design-them",
++      "text": "Let's design them."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/concept.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..3e8a43d5803a85f1810a91e051ab45d75aac9285
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/concept.json
+@@ -0,0 +1,15 @@
++{
++  "compositionId": "m5_testing-your-next-chapter",
++  "title": "Testing Your Next Chapter",
++  "program": "Career Transitions",
++  "duration": 134,
++  "frameRate": 30,
++  "width": 1920,
++  "height": 1080,
++  "concept": "A field notebook transforms career uncertainty into three small experiments and visible evidence.",
++  "beats": [
++    "old-advice", "opposite-finding", "action-first", "past-software",
++    "tiny-sliver", "three-experiments", "informational-interview", "trial-project",
++    "shadow-day", "one-question", "gather-evidence", "design-them"
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/design.md b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..9cca28045c564e405c214bbd1e99706f1a52f8e2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/design.md
+@@ -0,0 +1,22 @@
++# Design: Testing Your Next Chapter
++
++## Direction
++
++An editorial “experiment notebook” built from clean cards, route diagrams, underlines, and evidence stamps. The progression moves from a closed circular thought loop to an open route with three concrete stops.
++
++## Palette and type
++
++- Navy `#0d2437` and deep navy `#0a1e2f`: foundation and authority
++- Blue `#3393d6`: exploration and connection
++- Gold `#eaab2d`: decisions and evidence
++- Paper `#ffffff`, cultured `#f6f6f9`: note cards
++- Proxima Nova with the system fallback from `tokens.yml`
++
++## Layout
++
++Keep content inside 120px frame padding and above the 960px content boundary. A persistent module label sits in the upper left. Large ideas use 72–104px type; supporting copy is never below 40px. Each scene has one dominant graphic and no more than three supporting elements.
++
++## Motion
++
++One paused GSAP timeline controls all motion and is registered as `m5_testing-your-next-chapter`. Each beat enters within 1.2 seconds, holds for reading, and exits in 0.3 seconds. Lines draw left-to-right, cards rise 28px into place, and evidence stamps land with a restrained scale settle. There are no infinite animations.
++
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.html b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..ffd6949fd42071755dd0da20a78164c40e6b7c65
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.html
+@@ -0,0 +1,63 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>Testing Your Next Chapter</title>
++  <script src="./scaffold/gsap.min.js"></script>
++  <style>
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--muted:#98a4cc}
++    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:'Proxima Nova',system-ui,sans-serif;color:var(--paper)}
++    .composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--deep)}
++    .furniture{position:absolute;inset:0;pointer-events:none}.brand{position:absolute;left:120px;top:58px;font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
++    .module{position:absolute;right:120px;top:58px;font-size:22px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
++    .baseline{position:absolute;left:120px;right:120px;bottom:105px;height:3px;background:var(--blue)}.progress{height:100%;background:var(--gold);transform-origin:left;transform:scaleX(0)}
++    .clip{position:absolute;inset:0;padding:150px 120px 120px;display:flex;align-items:center;visibility:hidden}.inner{width:100%}.eyebrow{font-size:24px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:26px}
++    h1,h2,p{margin:0}h1{font-size:104px;line-height:.95;letter-spacing:-.035em;max-width:1450px}h2{font-size:72px;line-height:1.02;letter-spacing:-.025em;max-width:1450px}.gold{color:var(--gold)}.blue{color:var(--blue)}
++    .sub{font-size:42px;line-height:1.22;max-width:1350px;margin-top:34px;color:var(--cultured)}.route{display:flex;gap:32px;margin-top:55px}.card{flex:1;min-height:330px;padding:40px;border-radius:12px;background:var(--paper);color:var(--navy);border-top:8px solid var(--blue)}
++    .num{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:var(--gold);font-size:32px;font-weight:900;margin-bottom:34px}.card h3{font-size:46px;line-height:1;margin:0 0 20px}.card p{font-size:30px;line-height:1.25;color:var(--navy)}
++    .loop{width:410px;height:410px;border:10px solid var(--blue);border-radius:50%;position:absolute;right:180px;top:300px}.loop:after{content:'↻';font-size:170px;position:absolute;inset:90px;text-align:center;color:var(--gold)}
++    .question{background:var(--paper);color:var(--navy);padding:48px 58px;border-radius:12px;border-left:12px solid var(--gold);font-size:52px;font-weight:700;line-height:1.15;max-width:1500px;margin-top:42px}
++    .stamp{display:inline-block;padding:18px 28px;border:5px solid var(--gold);color:var(--gold);font-size:30px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-3deg);margin-top:48px}
++    .narration{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
++  </style>
++</head>
++<body>
++<main id="m5_testing-your-next-chapter" class="composition" data-composition-id="m5_testing-your-next-chapter" data-start="0" data-duration="134" data-fps="30" data-width="1920" data-height="1080">
++  <div class="furniture"><div class="brand">SCLA · Career Transitions</div><div class="module">Testing Your Next Chapter</div><div class="baseline"><div class="progress"></div></div></div>
++  <section class="clip" data-track-index="0" id="beat-old-advice" data-beat-id="old-advice" data-start="0" data-duration="12"><div class="inner"><div class="eyebrow">The familiar advice</div><h1>Know Yourself<br/>Then Choose</h1><p class="sub">Reflect. Journal. Assess. Act only after the internal work.</p><div class="loop"></div></div><p class="narration">There's a piece of advice you may have heard about career change: know yourself first, then choose your direction. Reflect. Journal. Take an assessment. Figure out who you are. Then, only when you've done all that internal work, go out and act.</p></section>
++  <section class="clip" data-track-index="0" id="beat-opposite-finding" data-beat-id="opposite-finding" data-start="12" data-duration="9"><div class="inner"><div class="eyebrow">Herminia Ibarra's research</div><h1>The Finding Is<br/><span class="gold">the Opposite</span></h1></div><p class="narration">Herminia Ibarra, who has studied career reinvention for over twenty years at Harvard and INSEAD, has a different finding — and it's the opposite.</p></section>
++  <section class="clip" data-track-index="0" id="beat-action-first" data-beat-id="action-first" data-start="21" data-duration="15"><div class="inner"><div class="eyebrow">A better sequence</div><h2><span class="gold">Act First</span> Reflect Later</h2><div class="route"><div class="card"><div class="num">1</div><h3>Try</h3><p>Projects and adjacent work</p></div><div class="card"><div class="num">2</div><h3>Talk</h3><p>Conversations and events</p></div><div class="card"><div class="num">3</div><h3>Learn</h3><p>Information generated by doing</p></div></div></div><p class="narration">Her research shows that people who successfully change careers act first and reflect later. They try things. They take on side projects. They have conversations. They show up at events. They volunteer for adjacent work. And the doing generates information that no amount of introspection ever could.</p></section>
++  <section class="clip" data-track-index="0" id="beat-past-software" data-beat-id="past-software" data-start="36" data-duration="11"><div class="inner"><div class="eyebrow">The imagination trap</div><h2>Your Future Is Running Through<br/><span class="gold">the Software of Your Past</span></h2><p class="sub">You can only picture roles you already understand.</p></div><p class="narration">Why? Because when you sit and try to think your way to your next career, you're running your future through the software of your past. You can only imagine roles you already understand. The imagination gets stuck.</p></section>
++  <section class="clip" data-track-index="0" id="beat-tiny-sliver" data-beat-id="tiny-sliver" data-start="47" data-duration="17"><div class="inner"><div class="eyebrow">Do a tiny sliver</div><h2>Real Work Creates <span class="gold">Texture</span></h2><div class="route"><div class="card"><h3>Feedback</h3><p>What the work asks of you</p></div><div class="card"><h3>Energy</h3><p>What lifts or drains you</p></div><div class="card"><h3>Reality</h3><p>What the destination looks like</p></div></div></div><p class="narration">But when you go and do — even a tiny sliver of the new work — something different happens. You get feedback. You get texture. You notice what energizes you and what drains you. You meet people whose lives show you what the destination actually looks like day to day. You discover that the thing you thought you wanted turns out to be something else. Or you discover, with quiet certainty, that this is exactly right.</p></section>
++  <section class="clip" data-track-index="0" id="beat-three-experiments" data-beat-id="three-experiments" data-start="64" data-duration="7"><div class="inner"><div class="eyebrow">From uncertainty to evidence</div><h1>Design <span class="gold">Three</span><br/>Experiments</h1></div><p class="narration">That's what experiments do. And in this module, we're going to design three of them.</p></section>
++  <section class="clip" data-track-index="0" id="beat-informational-interview" data-beat-id="informational-interview" data-start="71" data-duration="10"><div class="inner"><div class="eyebrow">Experiment 01</div><h1>Informational<br/><span class="blue">Interview</span></h1><p class="sub">25 focused minutes · specific questions · no job ask</p></div><p class="narration">First, an informational interview — twenty-five minutes with someone doing the work you're curious about, structured to answer specific questions, not to ask for a job.</p></section>
++  <section class="clip" data-track-index="0" id="beat-trial-project" data-beat-id="trial-project" data-start="81" data-duration="11"><div class="inner"><div class="eyebrow">Experiment 02</div><h1>Trial <span class="blue">Project</span></h1><p class="sub">10 · 20 · 30 hours of real work—enough to create evidence.</p></div><p class="narration">Second, a trial project — a small, low-commitment piece of real work in the new direction. Ten hours, twenty hours, thirty hours. Enough to generate evidence and something you can point to.</p></section>
++  <section class="clip" data-track-index="0" id="beat-shadow-day" data-beat-id="shadow-day" data-start="92" data-duration="8"><div class="inner"><div class="eyebrow">Experiment 03</div><h1>Shadow Day<br/><span class="blue">or Immersion</span></h1><p class="sub">Observe the target role in real time.</p></div><p class="narration">Third, a shadow day or immersion — direct observation of what the target role actually looks like, in real time.</p></section>
++  <section class="clip" data-track-index="0" id="beat-one-question" data-beat-id="one-question" data-start="100" data-duration="18"><div class="inner"><div class="eyebrow">The discipline</div><h2>One Experiment<br/><span class="gold">One Specific Question</span></h2><div class="question">“Do I actually enjoy the analytical part of product management?”</div></div><p class="narration">Here's the discipline. Design each experiment to answer one specific question. Not "should I do this?" — that's too big. Something like: "Do I actually enjoy the analytical part of product management?" Or: "Is the day-to-day of nonprofit leadership as mission-driven as I imagine, or is it mostly grant applications?"</p></section>
++  <section class="clip" data-track-index="0" id="beat-gather-evidence" data-beat-id="gather-evidence" data-start="118" data-duration="12"><div class="inner"><div class="eyebrow">Stay curious</div><h2>Gather Evidence<br/>Don't Validate a Decision</h2><div class="stamp">Contradiction = valuable</div><p class="sub">It may save you a year.</p></div><p class="narration">You're gathering evidence, not validating a decision you've already made. If the evidence contradicts the direction, that's an incredibly valuable experiment — because it saved you a year.</p></section>
++  <section class="clip" data-track-index="0" id="beat-design-them" data-beat-id="design-them" data-start="130" data-duration="4"><div class="inner"><div class="eyebrow">Your next move</div><h1>Let's <span class="gold">Design Them</span></h1></div><p class="narration">Let's design them.</p></section>
++</main>
++<script>
++  const compositionId = 'm5_testing-your-next-chapter';
++  const duration = 134;
++  const timeline = gsap.timeline({ paused: true });
++  document.querySelectorAll('.clip').forEach((clip) => {
++    const start = Number(clip.dataset.start);
++    const length = Number(clip.dataset.duration);
++    const inner = clip.querySelector('.inner');
++    timeline.set(clip, { autoAlpha: 1 }, start)
++      .fromTo(inner, { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: .55, ease: 'power2.out' }, start)
++      .to(inner, { autoAlpha: 0, y: -12, duration: .3, ease: 'power1.in' }, start + length - .3)
++      .set(clip, { autoAlpha: 0 }, start + length);
++  });
++  timeline.to('.progress', { scaleX: 1, duration, ease: 'none' }, 0);
++  window.__timelines = window.__timelines || {};
++  window.__timelines['m5_testing-your-next-chapter'] = timeline;
++  window.__HYPERFRAMES__ = window.__HYPERFRAMES__ || {};
++  window.__HYPERFRAMES__[compositionId] = { timeline, duration, fps: 30 };
++  window.hyperframes = window.hyperframes || {};
++  window.hyperframes.registerTimeline?.(compositionId, timeline);
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.motion.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..73a33f348c9ca0a5547eb36e1f9d4a8470fc5f06
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.motion.json
+@@ -0,0 +1,138 @@
++{
++  "compositionId": "m5_testing-your-next-chapter",
++  "duration": 134,
++  "fps": 30,
++  "timeline": "gsap",
++  "paused": true,
++  "seekable": true,
++  "beats": [
++    {
++      "id": "old-advice",
++      "start": 0,
++      "duration": 12
++    },
++    {
++      "id": "opposite-finding",
++      "start": 12,
++      "duration": 9
++    },
++    {
++      "id": "action-first",
++      "start": 21,
++      "duration": 15
++    },
++    {
++      "id": "past-software",
++      "start": 36,
++      "duration": 11
++    },
++    {
++      "id": "tiny-sliver",
++      "start": 47,
++      "duration": 17
++    },
++    {
++      "id": "three-experiments",
++      "start": 64,
++      "duration": 7
++    },
++    {
++      "id": "informational-interview",
++      "start": 71,
++      "duration": 10
++    },
++    {
++      "id": "trial-project",
++      "start": 81,
++      "duration": 11
++    },
++    {
++      "id": "shadow-day",
++      "start": 92,
++      "duration": 8
++    },
++    {
++      "id": "one-question",
++      "start": 100,
++      "duration": 18
++    },
++    {
++      "id": "gather-evidence",
++      "start": 118,
++      "duration": 12
++    },
++    {
++      "id": "design-them",
++      "start": 130,
++      "duration": 4
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "keepsMoving",
++      "selector": ".progress",
++      "from": 0,
++      "to": 134
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-old-advice",
++      "at": 1.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-opposite-finding",
++      "at": 13.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-action-first",
++      "at": 22.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-past-software",
++      "at": 37.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-tiny-sliver",
++      "at": 48.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-three-experiments",
++      "at": 65.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-informational-interview",
++      "at": 72.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-trial-project",
++      "at": 82.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-shadow-day",
++      "at": 93.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-one-question",
++      "at": 101.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-gather-evidence",
++      "at": 119.0
++    },
++    {
++      "kind": "appearsBy",
++      "selector": "#beat-design-them",
++      "at": 131.0
++    }
++  ]
++}

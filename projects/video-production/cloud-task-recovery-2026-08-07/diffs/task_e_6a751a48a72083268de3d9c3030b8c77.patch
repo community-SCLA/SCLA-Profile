@@ -1,0 +1,435 @@
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/.pin b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/.scla-control-v2 b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/CONCEPT.md b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d525b9666bcfce6057fd053b6bf7803a90813147
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/CONCEPT.md
+@@ -0,0 +1,20 @@
++# From History to Signal
++
++## Creative idea
++
++A long career history begins as a dense archive, then resolves into a clear forward signal. A continuous gold signal line guides the viewer through the lesson: first separating results from duties, then selecting three forward-looking moves, and finally connecting the present to the future.
++
++## Visual system
++
++- **Archive:** layered paper records and muted timeline marks suggest accumulated experience without showing a literal software interface.
++- **Signal:** a gold line, blue highlights, and decisive typography reveal what decision-makers need to notice.
++- **Transformation:** task language recedes while evidence of results, scope, and impact moves forward.
++- **Close:** the signal line connects “NOW” to “NEXT,” resolving around the module’s guiding question.
++
++## Motion approach
++
++Each beat uses one clear visual change tied to the narration. Entrances settle quickly, the signal line advances between beats, and all motion is driven by one paused, seekable GSAP timeline. There are no infinite animations.
++
++## Accessibility
++
++High-contrast navy, white, blue, and gold are used throughout. On-screen copy is concise, large, and supportive rather than a duplicate transcript. Meaning never depends on color alone.
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/audio_request.json b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..a7d681ae580cf09f5e331e2d45d46647f73d0b0e
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/audio_request.json
+@@ -0,0 +1,23 @@
++{
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "output": "assets/narration.mp3",
++  "composition_id": "m3_from-history-to-signal",
++  "script_path": "../../lesson-scripts/mid-career-momentum/ready/m3_from-history-to-signal.txt",
++  "lines": [
++    {"id":"archive","text":"By mid-career, your resume and professional profiles often turn into archives — a long record of everything you've done. And that makes it harder for other people to quickly see where you're heading next, and why you're ready for the role you actually want."},
++    {"id":"fix","text":"So let's fix that."},
++    {"id":"scan","text":"When a manager, a sponsor, or a hiring committee looks at your materials, they're really scanning for just a few things. What kinds of results you've delivered. The level of scope you've handled. And how well your experience lines up with the role you want next."},
++    {"id":"friction","text":"Here's the problem. If your resume reads like a task list — \"responsible for X,\" \"duties included Y\" — they have to work much harder to see your impact. And if your LinkedIn headline describes only your current role, they may never realize you're aiming for a different kind of future."},
++    {"id":"proof","text":"Think about the difference. A bullet like \"responsible for managing projects\" tells them what you were assigned. But rewrite that same experience as \"led a cross-functional project that reduced onboarding time by 30%,\" and now they see what you actually delivered. Same work — but one version signals results, and the other just lists duties."},
++    {"id":"shift","text":"That's the shift this module is about. And we'll focus on three moves."},
++    {"id":"move-one","text":"First, discovering the experiences that best support your future trajectory — the parts of your story that point forward, not just the ones that fill the page."},
++    {"id":"move-two","text":"Second, rewriting your key resume bullets so they show results, scope, and impact — not tasks."},
++    {"id":"move-three","text":"Third, updating your LinkedIn headline and summary so they speak to your future-you, not just your past-you."},
++    {"id":"curate","text":"Now, the goal here is not to rewrite your entire history. It's to curate. To highlight the parts of your story that make your Next Move Statement believable and compelling. When you reposition your experience like this, you make it easier for decision-makers to connect the dots — from who you are now, to who you're becoming."},
++    {"id":"question","text":"So as you work through this module, keep one question in mind. If someone only saw my resume and my LinkedIn profile, would they understand the future I'm aiming for?"},
++    {"id":"yes","text":"By the end of this module, you'll be much closer to a yes."}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/concept.json b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..258df5a71628d88fbee4ec1572716a24276beff7
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/concept.json
+@@ -0,0 +1,10 @@
++{
++  "compositionId": "m3_from-history-to-signal",
++  "title": "From History to Signal",
++  "program": "mid-career-momentum",
++  "concept": "Turn a dense career archive into a clear signal of future direction.",
++  "visualMetaphor": "A gold signal line extracts evidence from an archive and connects NOW to NEXT.",
++  "palette": ["#0d2437", "#3393d6", "#eaab2d", "#ffffff", "#f6f6f9"],
++  "beats": 12,
++  "durationSeconds": 156
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/design.md b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..52a2350411bfb291a165b26811f5193e82059a34
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/design.md
+@@ -0,0 +1,34 @@
++# Design — From History to Signal
++
++## Frame
++
++- Canvas: 1920 × 1080
++- Safe padding: 120px, with all lesson content above the 960px content boundary
++- Background: deep navy with restrained paper panels; no gradients
++- Persistent furniture: program label at top left, module marker at top right, progress signal along the lower content edge
++
++## Type
++
++- Proxima Nova with the provided system fallback
++- Headings: 72–104px, weight 900
++- Supporting copy: 40–48px, weight 400 or 700
++- Labels: 22px, weight 700, uppercase, tracked
++
++## Storyboard
++
++1. A crowded archive obscures a small “NEXT” marker.
++2. The archive clears; a gold signal line switches on.
++3. Three scan targets appear: results, scope, alignment.
++4. Duty language creates friction while the future target remains out of focus.
++5. A task statement transforms into a measurable result.
++6. The lesson title resolves: history becomes signal.
++7. Move one selects forward-pointing evidence.
++8. Move two rebuilds bullets around results, scope, and impact.
++9. Move three turns a current-role profile toward future direction.
++10. A curator’s frame selects only evidence that supports the Next Move Statement.
++11. A line visibly connects NOW to BECOMING.
++12. The guiding question resolves to a confident “closer to yes.”
++
++## Motion
++
++One paused GSAP timeline controls the complete composition. Each timed clip receives a short entrance and exit. The progress signal advances beat by beat; the final beat adds a single resolve in its last second.
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/hyperframes.json b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/index.html b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..34ab41dbbd663e1b8827635299a790662bfcf936
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/index.html
+@@ -0,0 +1,34 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0">
++  <title>From History to Signal</title>
++  <style>
++    /* brand-allow: neutral shadow supplies paper depth */
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--muted:#98a4cc;--ink:#292f35}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;background:var(--navy);color:var(--paper);overflow:hidden}.chrome{position:absolute;top:54px;left:120px;right:120px;display:flex;justify-content:space-between;align-items:center;z-index:50}.label{font-size:22px;line-height:1;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.module{font-size:22px;font-weight:700;color:var(--muted)}.signal-track{position:absolute;left:120px;right:120px;bottom:120px;height:4px;background:rgba(152,164,204,.3);z-index:50}.signal-fill{width:0;height:100%;background:var(--gold);transform-origin:left}.signal-dot{position:absolute;top:-10px;left:0;width:24px;height:24px;border-radius:50%;background:var(--gold);border:5px solid var(--navy)}.clip{position:absolute;inset:0;padding:170px 120px 140px;opacity:0;visibility:hidden}.clip.active{visibility:visible}.eyebrow{font-size:24px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:24px}.headline{font-size:92px;line-height:.98;letter-spacing:-.03em;font-weight:900;max-width:1500px;margin:0}.headline .gold{color:var(--gold)}.sub{font-size:44px;line-height:1.18;max-width:1300px;margin-top:34px;color:var(--cultured)}.cards{display:flex;gap:24px;margin-top:64px}.card{flex:1;min-height:250px;padding:38px;border:2px solid var(--blue);border-radius:12px;background:rgba(10,30,47,.55)}.card strong{display:block;font-size:50px;margin-bottom:15px}.card span{font-size:34px;color:var(--cultured)}.archive-stack{position:absolute;right:135px;top:215px;width:600px;height:500px}.sheet{position:absolute;width:520px;height:330px;padding:45px;background:var(--paper);color:var(--ink);border-radius:12px;box-shadow:0 20px 50px rgba(13,36,55,.25)}.sheet:nth-child(1){transform:rotate(-6deg);top:70px}.sheet:nth-child(2){transform:rotate(4deg);left:45px;top:35px}.sheet:nth-child(3){left:20px}.lines{display:grid;gap:18px}.lines i{display:block;height:14px;background:#cccedf;border-radius:10px}.lines i:nth-child(2n){width:72%}.target{display:inline-flex;align-items:center;justify-content:center;padding:18px 32px;border:3px solid var(--gold);border-radius:100px;color:var(--gold);font-size:32px;font-weight:900}.compare{display:grid;grid-template-columns:1fr 110px 1fr;align-items:center;gap:32px;margin-top:58px}.statement{min-height:260px;padding:40px;border-radius:12px;font-size:40px;line-height:1.18;font-weight:700}.task{background:rgba(152,164,204,.13);border:2px solid var(--muted);color:var(--muted)}.result{background:var(--paper);color:var(--ink);border:4px solid var(--gold)}.arrow{font-size:70px;text-align:center;color:var(--gold)}.steps{display:flex;gap:28px;margin-top:58px}.step{flex:1;padding:30px;border-top:4px solid var(--blue)}.num{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--navy);font-size:38px;font-weight:900;margin-bottom:24px}.step h3{font-size:42px;margin:0 0 12px}.step p{font-size:30px;line-height:1.2;color:var(--cultured);margin:0}.now-next{display:flex;align-items:center;gap:50px;margin-top:80px}.node{padding:34px 48px;border:3px solid var(--blue);border-radius:100px;font-size:40px;font-weight:900}.connector{height:5px;flex:1;background:var(--gold);position:relative}.connector:after{content:"";position:absolute;right:-2px;top:-12px;border-left:24px solid var(--gold);border-top:14px solid transparent;border-bottom:14px solid transparent}.question{font-size:68px;line-height:1.08;max-width:1460px;font-weight:700}.answer{margin-top:55px;font-size:92px;font-weight:900;color:var(--gold)}
++  </style>
++</head>
++<body>
++<main id="m3_from-history-to-signal" class="composition" data-composition-id="m3_from-history-to-signal" data-start="0" data-duration="156" data-fps="30" data-width="1920" data-height="1080">
++  <header class="chrome"><div class="label">Mid-Career Momentum</div><div class="module">03 / FROM HISTORY TO SIGNAL</div></header>
++  <div class="signal-track"><div class="signal-fill"></div><div class="signal-dot"></div></div>
++  <section class="clip" id="beat-archive" data-beat-id="archive" data-duration="15" data-track-index="0" data-start="0" data-end="15" data-narration="By mid-career, your resume and professional profiles often turn into archives — a long record of everything you've done. And that makes it harder for other people to quickly see where you're heading next, and why you're ready for the role you actually want."><div class="eyebrow">The mid-career challenge</div><h1 class="headline">Your Experience Became an <span class="gold">Archive</span></h1><p class="sub">A complete record can still hide the direction you are heading.</p><div class="archive-stack"><div class="sheet"><div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div><div class="sheet"><div class="lines"><i></i><i></i><i></i><i></i></div></div><div class="sheet"><div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div></div></section>
++  <section class="clip" id="beat-fix" data-beat-id="fix" data-duration="5" data-track-index="0" data-start="15" data-end="20" data-narration="So let's fix that."><div class="eyebrow">Make the shift</div><h2 class="headline">Turn History into a Clear <span class="gold">Signal</span></h2></section>
++  <section class="clip" id="beat-scan" data-beat-id="scan" data-duration="14" data-track-index="0" data-start="20" data-end="34" data-narration="When a manager, a sponsor, or a hiring committee looks at your materials, they're really scanning for just a few things. What kinds of results you've delivered. The level of scope you've handled. And how well your experience lines up with the role you want next."><div class="eyebrow">What decision-makers scan for</div><h2 class="headline">Three Signals Stand Out</h2><div class="cards"><div class="card"><strong>Results</strong><span>What changed because of you?</span></div><div class="card"><strong>Scope</strong><span>How much did you own?</span></div><div class="card"><strong>Alignment</strong><span>Why does it fit what is next?</span></div></div></section>
++  <section class="clip" id="beat-friction" data-beat-id="friction" data-duration="17" data-track-index="0" data-start="34" data-end="51" data-narration="Here's the problem. If your resume reads like a task list — &quot;responsible for X,&quot; &quot;duties included Y&quot; — they have to work much harder to see your impact. And if your LinkedIn headline describes only your current role, they may never realize you're aiming for a different kind of future."><div class="eyebrow">The signal gets buried</div><h2 class="headline">Tasks Describe the Past<br><span class="gold">Impact Points Forward</span></h2><div class="cards"><div class="card"><strong>“Responsible for…”</strong><span>What you were assigned</span></div><div class="card"><strong>Current title only</strong><span>Where you are—not where you are going</span></div></div></section>
++  <section class="clip" id="beat-proof" data-beat-id="proof" data-duration="18" data-track-index="0" data-start="51" data-end="69" data-narration="Think about the difference. A bullet like &quot;responsible for managing projects&quot; tells them what you were assigned. But rewrite that same experience as &quot;led a cross-functional project that reduced onboarding time by 30%,&quot; and now they see what you actually delivered. Same work — but one version signals results, and the other just lists duties."><div class="eyebrow">Same work. Stronger signal.</div><div class="compare" data-role="compare"><div class="statement task">Responsible for managing projects</div><div class="arrow">→</div><div class="statement result">Led a cross-functional project that reduced onboarding time by <span class="gold">30%</span></div></div></section>
++  <section class="clip" id="beat-shift" data-beat-id="shift" data-duration="7" data-track-index="0" data-start="69" data-end="76" data-narration="That's the shift this module is about. And we'll focus on three moves."><div class="eyebrow">This module</div><h2 class="headline">Three Moves from <span class="gold">History</span> to Signal</h2></section>
++  <section class="clip" id="beat-move-one" data-beat-id="move-one" data-duration="12" data-track-index="0" data-start="76" data-end="88" data-narration="First, discovering the experiences that best support your future trajectory — the parts of your story that point forward, not just the ones that fill the page."><div class="eyebrow">Move one</div><h2 class="headline">Choose the Experiences That <span class="gold">Point Forward</span></h2><p class="sub">Prioritize evidence for your future trajectory—not filler.</p></section>
++  <section class="clip" id="beat-move-two" data-beat-id="move-two" data-duration="11" data-track-index="0" data-start="88" data-end="99" data-narration="Second, rewriting your key resume bullets so they show results, scope, and impact — not tasks."><div class="eyebrow">Move two</div><h2 class="headline">Rewrite Bullets Around Evidence</h2><div class="steps" data-role="list"><div class="step"><div class="num">1</div><h3>Results</h3></div><div class="step"><div class="num">2</div><h3>Scope</h3></div><div class="step"><div class="num">3</div><h3>Impact</h3></div></div></section>
++  <section class="clip" id="beat-move-three" data-beat-id="move-three" data-duration="12" data-track-index="0" data-start="99" data-end="111" data-narration="Third, updating your LinkedIn headline and summary so they speak to your future-you, not just your past-you."><div class="eyebrow">Move three</div><h2 class="headline">Make Your Profile Speak to <span class="gold">Future-You</span></h2><p class="sub">Your headline and summary can signal direction—not only your current title.</p></section>
++  <section class="clip" id="beat-curate" data-beat-id="curate" data-duration="20" data-track-index="0" data-start="111" data-end="131" data-narration="Now, the goal here is not to rewrite your entire history. It's to curate. To highlight the parts of your story that make your Next Move Statement believable and compelling. When you reposition your experience like this, you make it easier for decision-makers to connect the dots — from who you are now, to who you're becoming."><div class="eyebrow">Do not rewrite everything</div><h2 class="headline">Curate the Proof That Makes Your <span class="gold">Next Move</span> Believable</h2><div class="now-next"><div class="node">WHO YOU ARE NOW</div><div class="connector"></div><div class="node">WHO YOU’RE BECOMING</div></div></section>
++  <section class="clip" id="beat-question" data-beat-id="question" data-duration="18" data-track-index="0" data-start="131" data-end="149" data-narration="So as you work through this module, keep one question in mind. If someone only saw my resume and my LinkedIn profile, would they understand the future I'm aiming for?"><div class="eyebrow">Keep one question in mind</div><div class="question">If someone only saw my resume and LinkedIn profile, would they understand the future I’m aiming for?</div></section>
++  <section class="clip" id="beat-yes" data-beat-id="yes" data-duration="7" data-track-index="0" data-start="149" data-end="156" data-narration="By the end of this module, you'll be much closer to a yes."><div class="eyebrow">Your forward signal</div><h2 class="headline">Make the Future Easy to See</h2><div class="answer">Closer to YES.</div></section>
++</main>
++<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
++<script>
++(()=>{const id="m3_from-history-to-signal";const duration=156;const clips=[...document.querySelectorAll(".clip")];const tl=gsap.timeline({paused:true});clips.forEach((clip)=>{const start=Number(clip.dataset.start),end=Number(clip.dataset.end);tl.set(clip,{autoAlpha:1},start).fromTo(clip.children,{y:24,opacity:0},{y:0,opacity:1,duration:.55,stagger:.12,ease:"power2.out"},start+.12).to(clip,{autoAlpha:0,duration:.3,ease:"power1.in"},Math.max(start+.8,end-.3));});tl.to(".signal-fill",{width:"100%",duration,ease:"none"},0).to(".signal-dot",{left:"calc(100% - 24px)",duration,ease:"none"},0);tl.duration(duration).pause(0);window.__timelines=window.__timelines||{};window.__timelines[id]=tl;window.__timelines['m3_from-history-to-signal'] = tl;window.__HYPERFRAMES__=window.__HYPERFRAMES__||{};window.__HYPERFRAMES__.timelines=window.__HYPERFRAMES__.timelines||{};window.__HYPERFRAMES__.timelines[id]=tl;window.__hyperframesTimeline=tl;document.documentElement.dataset.hyperframesReady="true";})();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/index.motion.json b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..699c57a56ef80bce1b6ad2f088fe96d192bceccd
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/index.motion.json
+@@ -0,0 +1,135 @@
++{
++  "compositionId": "m3_from-history-to-signal",
++  "duration": 156,
++  "fps": 30,
++  "timeline": "gsap",
++  "seekable": true,
++  "paused": true,
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "archive",
++      "at": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "fix",
++      "at": 16.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "scan",
++      "at": 21.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "friction",
++      "at": 35.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "proof",
++      "at": 52.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "shift",
++      "at": 70.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "move-one",
++      "at": 77.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "move-two",
++      "at": 89.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "move-three",
++      "at": 100.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "curate",
++      "at": 112.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "question",
++      "at": 132.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "yes",
++      "at": 150.2
++    },
++    {
++      "kind": "keepsMoving"
++    }
++  ],
++  "beats": [
++    {
++      "id": "archive",
++      "start": 0,
++      "end": 15
++    },
++    {
++      "id": "fix",
++      "start": 15,
++      "end": 20
++    },
++    {
++      "id": "scan",
++      "start": 20,
++      "end": 34
++    },
++    {
++      "id": "friction",
++      "start": 34,
++      "end": 51
++    },
++    {
++      "id": "proof",
++      "start": 51,
++      "end": 69
++    },
++    {
++      "id": "shift",
++      "start": 69,
++      "end": 76
++    },
++    {
++      "id": "move-one",
++      "start": 76,
++      "end": 88
++    },
++    {
++      "id": "move-two",
++      "start": 88,
++      "end": 99
++    },
++    {
++      "id": "move-three",
++      "start": 99,
++      "end": 111
++    },
++    {
++      "id": "curate",
++      "start": 111,
++      "end": 131
++    },
++    {
++      "id": "question",
++      "start": 131,
++      "end": 149
++    },
++    {
++      "id": "yes",
++      "start": 149,
++      "end": 156
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/meta.json b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/package.json b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_from-history-to-signal/tokens.yml b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_from-history-to-signal/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

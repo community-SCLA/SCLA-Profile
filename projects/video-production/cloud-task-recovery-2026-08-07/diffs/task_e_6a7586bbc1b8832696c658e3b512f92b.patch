@@ -1,0 +1,485 @@
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/.pin b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/.scla-control-v2 b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/CONCEPT.md b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..9ffc20d9466df1c8b827db022b7e61d614797d0c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/CONCEPT.md
+@@ -0,0 +1,19 @@
++# Testing Your Next Chapter
++
++## Core idea
++
++Career change becomes clearer through small, deliberate experiments—not more private reflection. The lesson moves from a closed “thought loop” into an evidence-rich field test, then resolves into three practical experiments.
++
++## Visual direction
++
++An editorial field notebook meets a clean research dashboard. A gold route line travels across navy and paper surfaces, collecting evidence cards as it goes. The three experiments become distinct, numbered stations: conversation, trial project, and shadow day.
++
++## Story arc
++
++1. Contrast the familiar reflect-first advice with Ibarra’s act-first finding.
++2. Show why imagination remains constrained by past experience.
++3. Turn action into visible evidence: feedback, texture, energy, people, and correction.
++4. Introduce three low-risk experiments.
++5. Narrow each experiment to one answerable question.
++6. End on the value of evidence—even when it changes the direction.
++
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/audio_request.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..356cdb20ce07d7ccfaf525b6d1279135b1a902a8
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/audio_request.json
+@@ -0,0 +1,59 @@
++{
++  "stem": "m5_testing-your-next-chapter",
++  "program": "career-transitions",
++  "provider": "heygen",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "speed": 1.0,
++  "generate": false,
++  "lines": [
++    {
++      "id": "beat-01",
++      "text": "There's a piece of advice you may have heard about career change: know yourself first, then choose your direction. Reflect. Journal. And take an assessment, then figure out who you are. Then, only when you've done all that internal work, go out and act."
++    },
++    {
++      "id": "beat-02",
++      "text": "Herminia Ibarra, who has studied career reinvention for over twenty years at Harvard and INSEAD, has a different finding — and it's the opposite."
++    },
++    {
++      "id": "beat-03",
++      "text": "Her research shows that people who successfully change careers act first and reflect later. They try things. They take on side projects. They have conversations. They show up at events. They volunteer for adjacent work. And the doing generates information that no amount of introspection ever could."
++    },
++    {
++      "id": "beat-04",
++      "text": "Why? Because when you sit and try to think your way to your next career, you're running your future through the software of your past. You can only imagine roles you already understand. The imagination gets stuck."
++    },
++    {
++      "id": "beat-05",
++      "text": "But when you go and do — even a tiny sliver of the new work — something different happens. You get feedback. You get texture. You notice what energizes you and what drains you. You meet people whose lives show you what the destination actually looks like day to day. You discover that the thing you thought you wanted turns out to be something else. Or you discover — with quiet certainty — that this is exactly right."
++    },
++    {
++      "id": "beat-06",
++      "text": "That's what experiments do. And in this module, we're going to design three of them."
++    },
++    {
++      "id": "beat-07",
++      "text": "First, an informational interview — twenty-five minutes with someone doing the work you're curious about, structured to answer specific questions, not to ask for a job."
++    },
++    {
++      "id": "beat-08",
++      "text": "Second, a trial project — a small, low-commitment piece of real work in the new direction. Ten hours, twenty hours, or thirty hours. Enough to generate evidence and something you can point to."
++    },
++    {
++      "id": "beat-09",
++      "text": "Third, a shadow day or immersion — direct observation of what the target role actually looks like, in real time."
++    },
++    {
++      "id": "beat-10",
++      "text": "Here's the discipline. Design each experiment to answer one specific question. Not \"should I do this?\" — that's too big. Something like: \"Do I actually enjoy the analytical part of product management?\" Or: \"Is the day-to-day of nonprofit leadership as mission-driven as I imagine, or is it mostly grant applications?\""
++    },
++    {
++      "id": "beat-11",
++      "text": "You're gathering evidence, not validating a decision you've already made. If the evidence contradicts the direction, that's an incredibly valuable experiment — because it saved you a year."
++    },
++    {
++      "id": "beat-12",
++      "text": "Let's design them."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/concept.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..6db2cc2c0cb2e695ba3620ec3e8a309a15db39a2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/concept.json
+@@ -0,0 +1,16 @@
++{
++  "compositionId": "m5_testing-your-next-chapter",
++  "title": "Testing Your Next Chapter",
++  "program": "Career Transitions",
++  "duration": 185,
++  "beats": 12,
++  "concept": "A moving field-note route turns career curiosity into evidence through three small experiments.",
++  "visualSystem": "Editorial field notebook and research dashboard",
++  "palette": [
++    "#0d2437",
++    "#3393d6",
++    "#eaab2d",
++    "#ffffff",
++    "#f6f6f9"
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/design.md b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..9cf35bcd085673bef3f631c763e841d8b63a1104
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/design.md
+@@ -0,0 +1,28 @@
++# Design — Testing Your Next Chapter
++
++## Frame
++
++- 1920×1080, with a 120px content inset and a reserved footer zone.
++- Navy is the anchor surface; paper and cultured-white panels create the field-note pages.
++- A persistent route line and small evidence counter unify the lesson without competing with narration.
++
++## Type
++
++- Proxima Nova, using the system fallback when unavailable.
++- Display: 96px, 900 weight. Headings: 64px, 900 weight. Body: 42px, 400 weight.
++- Short phrases only on screen. Narration lives in timed clip metadata, not dense paragraphs.
++
++## Graphic language
++
++- Gold marks action, active experiment nodes, and decisive evidence.
++- Blue marks questions, connections, and discovered information.
++- Cards have 12px corners, thin borders, and restrained shadows.
++- Simple inline SVG icons use strokes and geometric forms; no external media is required.
++
++## Motion
++
++- One paused, seekable GSAP timeline drives all changes.
++- Each beat enters within 1.2 seconds; the prior content exits before the next beat settles.
++- The route line grows from left to right while evidence cards rise into place.
++- No infinite animation. The final second adds a gold confirmation mark.
++
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/hyperframes.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.html b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..d7f618070bf991b30fe4f8091ae62c0b8c41a3a2
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.html
+@@ -0,0 +1,35 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8">
++  <meta name="viewport" content="width=device-width, initial-scale=1.0">
++  <title>Testing Your Next Chapter</title>
++  <style>
++    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-400.woff2") format("woff2");font-weight:400;font-style:normal}
++    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-700.woff2") format("woff2");font-weight:700;font-style:normal}
++    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-900.woff2") format("woff2");font-weight:900;font-style:normal}
++    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--ink:#292f35;--border:#cccedf}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;background:var(--navy);color:var(--paper);overflow:hidden}.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:80px 80px}.chrome{position:absolute;left:120px;right:120px;top:70px;display:flex;justify-content:space-between;align-items:center;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.chrome b{color:var(--gold)}.route{position:absolute;left:120px;right:120px;bottom:105px;height:4px;background:rgba(255,255,255,.18)}.route-fill{height:100%;width:100%;background:var(--gold);transform-origin:left}.beat{position:absolute;inset:160px 120px 145px;display:flex;flex-direction:column;justify-content:center;opacity:0}.eyebrow{font-size:24px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}.title{font-size:104px;line-height:.95;font-weight:900;max-width:1450px;margin:0}.title em{font-style:normal;color:var(--gold)}.sub{font-size:45px;line-height:1.18;max-width:1300px;margin-top:35px}.cards{display:flex;gap:28px;margin-top:48px}.card{flex:1;min-height:270px;padding:34px;background:var(--paper);color:var(--ink);border-radius:12px;border-top:8px solid var(--blue)}.card.gold{border-color:var(--gold)}.num{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--navy);font-size:38px;font-weight:900;margin-bottom:24px}.card h3{font-size:42px;margin:0 0 14px}.card p{font-size:28px;line-height:1.25;margin:0}.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}.loop{height:520px;border:5px solid var(--blue);border-radius:50%;display:grid;place-items:center;text-align:center;font-size:44px;font-weight:900;padding:60px}.evidence{display:grid;grid-template-columns:1fr 1fr;gap:18px}.tag{padding:28px;border:2px solid var(--blue);border-radius:100px;text-align:center;font-size:30px;font-weight:700}.question{padding:48px;background:var(--paper);color:var(--ink);border-left:10px solid var(--gold);border-radius:12px;font-size:52px;font-weight:700;max-width:1450px}.strike{text-decoration:line-through;color:#98a4cc}.check{color:var(--gold)}
++  </style>
++</head>
++<body>
++<main id="m5_testing-your-next-chapter" class="composition" data-composition-id="m5_testing-your-next-chapter" data-start="0" data-duration="185" data-width="1920" data-height="1080" data-fps="30">
++  <div class="grid"></div><header class="chrome"><span><b>SCLA</b> · Career Transitions</span><span>05 / Test the next chapter</span></header><div class="route"><div class="route-fill"></div></div>
++  <section id="beat-01" class="beat clip" data-track-index="0" data-beat-id="beat-01" data-start="0" data-duration="20" data-narration="There's a piece of advice you may have heard about career change: know yourself first, then choose your direction. Reflect. Journal. And take an assessment, then figure out who you are. Then, only when you've done all that internal work, go out and act."><div class="eyebrow">The familiar advice</div><h1 class="title">Know Yourself<br>Then <em>Choose</em></h1><div class="cards"><div class="tag">Reflect</div><div class="tag">Journal</div><div class="tag">Assess</div></div></section>
++  <section id="beat-02" class="beat clip" data-track-index="0" data-beat-id="beat-02" data-start="20" data-duration="11" data-narration="Herminia Ibarra, who has studied career reinvention for over twenty years at Harvard and INSEAD, has a different finding — and it's the opposite."><div class="eyebrow">Herminia Ibarra’s research</div><h2 class="title">A Different Finding—<br><em>the Opposite</em></h2></section>
++  <section id="beat-03" class="beat clip" data-track-index="0" data-beat-id="beat-03" data-start="31" data-duration="21" data-narration="Her research shows that people who successfully change careers act first and reflect later. They try things. They take on side projects. They have conversations. They show up at events. They volunteer for adjacent work. And the doing generates information that no amount of introspection ever could."><div class="eyebrow">The reinvention pattern</div><h2 class="title"><em>Act First</em><br>Reflect Later</h2><div class="evidence"><div class="tag">Side projects</div><div class="tag">Conversations</div><div class="tag">Events</div><div class="tag">Adjacent work</div></div></section>
++  <section id="beat-04" class="beat clip" data-track-index="0" data-beat-id="beat-04" data-start="52" data-duration="15" data-narration="Why? Because when you sit and try to think your way to your next career, you're running your future through the software of your past. You can only imagine roles you already understand. The imagination gets stuck."><div class="split"><div><div class="eyebrow">Why thinking gets stuck</div><h2 class="title">Your Future,<br>Filtered Through<br><em>Your Past</em></h2></div><div class="loop">ROLES YOU<br>ALREADY<br>UNDERSTAND</div></div></section>
++  <section id="beat-05" class="beat clip" data-track-index="0" data-beat-id="beat-05" data-start="67" data-duration="27" data-narration="But when you go and do — even a tiny sliver of the new work — something different happens. You get feedback. You get texture. You notice what energizes you and what drains you. You meet people whose lives show you what the destination actually looks like day to day. You discover that the thing you thought you wanted turns out to be something else. Or you discover — with quiet certainty — that this is exactly right."><div class="eyebrow">A tiny sliver of real work creates</div><h2 class="title">Evidence You Can <em>Feel</em></h2><div class="evidence"><div class="tag">Feedback</div><div class="tag">Texture</div><div class="tag">Energy</div><div class="tag">Real people</div></div></section>
++  <section id="beat-06" class="beat clip" data-track-index="0" data-beat-id="beat-06" data-start="94" data-duration="10" data-narration="That's what experiments do. And in this module, we're going to design three of them."><div class="eyebrow">Your field plan</div><h2 class="title">Three Small<br><em>Experiments</em></h2></section>
++  <section id="beat-07" class="beat clip" data-track-index="0" data-beat-id="beat-07" data-start="104" data-duration="14" data-narration="First, an informational interview — twenty-five minutes with someone doing the work you're curious about, structured to answer specific questions, not to ask for a job."><div class="cards"><div class="card gold"><div class="num">1</div><h3>Informational Interview</h3><p>25 focused minutes. Ask specific questions—not for a job.</p></div><div><div class="eyebrow">Experiment one</div><h2 class="title">Learn from<br>Someone <em>Doing It</em></h2></div></div></section>
++  <section id="beat-08" class="beat clip" data-track-index="0" data-beat-id="beat-08" data-start="118" data-duration="14" data-narration="Second, a trial project — a small, low-commitment piece of real work in the new direction. Ten hours, twenty hours, or thirty hours. Enough to generate evidence and something you can point to."><div class="cards"><div class="card"><div class="num">2</div><h3>Trial Project</h3><p>10, 20, or 30 hours of real work—and something tangible.</p></div><div><div class="eyebrow">Experiment two</div><h2 class="title">Make the Work<br><em>Real</em></h2></div></div></section>
++  <section id="beat-09" class="beat clip" data-track-index="0" data-beat-id="beat-09" data-start="132" data-duration="13" data-narration="Third, a shadow day or immersion — direct observation of what the target role actually looks like, in real time."><div class="cards"><div class="card gold"><div class="num">3</div><h3>Shadow Day</h3><p>Observe the target role directly, as it happens.</p></div><div><div class="eyebrow">Experiment three</div><h2 class="title">See the Day,<br><em>Not the Idea</em></h2></div></div></section>
++  <section id="beat-10" class="beat clip" data-track-index="0" data-beat-id="beat-10" data-start="145" data-duration="20" data-narration="Here's the discipline. Design each experiment to answer one specific question. Not &quot;should I do this?&quot; — that's too big. Something like: &quot;Do I actually enjoy the analytical part of product management?&quot; Or: &quot;Is the day-to-day of nonprofit leadership as mission-driven as I imagine, or is it mostly grant applications?&quot;"><div class="eyebrow">The discipline</div><h2 class="title">One Experiment<br>One <em>Specific Question</em></h2><div class="question"><span class="strike">Should I do this?</span><br><span class="check">What evidence do I need?</span></div></section>
++  <section id="beat-11" class="beat clip" data-track-index="0" data-beat-id="beat-11" data-start="165" data-duration="15" data-narration="You're gathering evidence, not validating a decision you've already made. If the evidence contradicts the direction, that's an incredibly valuable experiment — because it saved you a year."><div class="eyebrow">The goal</div><h2 class="title">Gather Evidence<br>Don’t Validate<br><em>a Foregone Answer</em></h2></section>
++  <section id="beat-12" class="beat clip" data-track-index="0" data-beat-id="beat-12" data-start="180" data-duration="5" data-narration="Let's design them."><div class="eyebrow">Your next move</div><h2 class="title">Let’s Design<br><em>the Experiments</em></h2></section>
++</main>
++<script src="./vendor/gsap.min.js"></script>
++<script>
++(() => { const id='m5_testing-your-next-chapter'; const root=document.getElementById(id); const tl=gsap.timeline({paused:true}); const beats=[...root.querySelectorAll('.beat')]; gsap.set(beats,{autoAlpha:0,y:24}); beats.forEach((beat,i)=>{const start=Number(beat.dataset.start),duration=Number(beat.dataset.duration);tl.to(beat,{autoAlpha:1,y:0,duration:.55,ease:'power2.out'},start).to(beat,{autoAlpha:0,y:-18,duration:.3,ease:'power1.in'},Math.max(start+.6,start+duration-.3));}); tl.fromTo('.route-fill',{scaleX:0},{scaleX:1,duration:185,ease:'none'},0); window.__timelines=window.__timelines||{}; window.__timelines['m5_testing-your-next-chapter']=tl; window.__hyperframes=window.__hyperframes||{}; window.__hyperframes[id]={id,root,duration:185,timeline:tl,seek:(time)=>tl.seek(time).pause()}; window.dispatchEvent(new CustomEvent('hyperframes:ready',{detail:{id,timeline:tl,duration:185}})); })();
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.motion.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..a538b92ab116a35d5ac84e6c8513d09d1a2d3946
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/index.motion.json
+@@ -0,0 +1,149 @@
++{
++  "compositionId": "m5_testing-your-next-chapter",
++  "duration": 185,
++  "timeline": "master",
++  "paused": true,
++  "seekable": true,
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-01",
++      "selector": "#beat-01",
++      "bySec": 0.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-02",
++      "selector": "#beat-02",
++      "bySec": 20.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-03",
++      "selector": "#beat-03",
++      "bySec": 31.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-04",
++      "selector": "#beat-04",
++      "bySec": 52.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-05",
++      "selector": "#beat-05",
++      "bySec": 67.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-06",
++      "selector": "#beat-06",
++      "bySec": 94.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-07",
++      "selector": "#beat-07",
++      "bySec": 104.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-08",
++      "selector": "#beat-08",
++      "bySec": 118.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-09",
++      "selector": "#beat-09",
++      "bySec": 132.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-10",
++      "selector": "#beat-10",
++      "bySec": 145.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-11",
++      "selector": "#beat-11",
++      "bySec": 165.6
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-12",
++      "selector": "#beat-12",
++      "bySec": 180.6
++    },
++    {
++      "kind": "keepsMoving",
++      "selector": ".route-fill",
++      "from": 0,
++      "to": 185
++    }
++  ],
++  "beats": [
++    {
++      "id": "beat-01",
++      "start": 0,
++      "duration": 20
++    },
++    {
++      "id": "beat-02",
++      "start": 20,
++      "duration": 11
++    },
++    {
++      "id": "beat-03",
++      "start": 31,
++      "duration": 21
++    },
++    {
++      "id": "beat-04",
++      "start": 52,
++      "duration": 15
++    },
++    {
++      "id": "beat-05",
++      "start": 67,
++      "duration": 27
++    },
++    {
++      "id": "beat-06",
++      "start": 94,
++      "duration": 10
++    },
++    {
++      "id": "beat-07",
++      "start": 104,
++      "duration": 14
++    },
++    {
++      "id": "beat-08",
++      "start": 118,
++      "duration": 14
++    },
++    {
++      "id": "beat-09",
++      "start": 132,
++      "duration": 13
++    },
++    {
++      "id": "beat-10",
++      "start": 145,
++      "duration": 20
++    },
++    {
++      "id": "beat-11",
++      "start": 165,
++      "duration": 15
++    },
++    {
++      "id": "beat-12",
++      "start": 180,
++      "duration": 5
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/meta.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/package.json b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/tokens.yml b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m5_testing-your-next-chapter/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"

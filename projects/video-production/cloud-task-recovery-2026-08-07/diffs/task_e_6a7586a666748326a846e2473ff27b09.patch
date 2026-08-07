@@ -1,0 +1,490 @@
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/.pin b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/.pin
+new file mode 100644
+index 0000000000000000000000000000000000000000..589ef7458b55e34edd8443acdf111922b13df5da
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/.pin
+@@ -0,0 +1 @@
++hyperframes@0.7.79
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/.scla-control-v2 b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/.scla-control-v2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/CONCEPT.md b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/CONCEPT.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd156f08319136f7077d6cd3c05834e28c3e358a
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/CONCEPT.md
+@@ -0,0 +1,21 @@
++# Future-You Resume Lab
++
++## Concept
++
++A guided resume workshop transforms one vague bullet into credible evidence of next-level impact. The viewer moves through a four-part lens, an AI-assisted before-and-after, an accuracy check, three career-path filters, and a final LinkedIn visibility step.
++
++## Visual system
++
++- A paper-white resume canvas sits inside a navy workshop environment.
++- Gold marks decisions and outcomes; blue marks actions and editable fields.
++- The four-part lens is a recurring R-A-O-S rail: Responsibility, Action, Outcome, Scope.
++- Before/after copy is presented as designed resume fragments, not software screenshots.
++- Career-path scenes use three distinct routes: promotion, lateral move, and role redesign.
++
++## Motion approach
++
++One paused GSAP timeline drives all motion. Each narration beat is a timed clip with a unique ID. Cards, rules, and text enter with short, settled moves; no motion repeats infinitely. The final beat resolves by turning an ordinary headline into a future-facing signal.
++
++## Accessibility
++
++All important ideas appear as large, high-contrast type. Narration is preserved verbatim in the source. Decorative elements are marked as such, and meaning never depends on color alone.
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/audio_request.json b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/audio_request.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..ab0f9c676262ec2d1af2fa18b5fd00e050725be6
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/audio_request.json
+@@ -0,0 +1,58 @@
++{
++  "composition_id": "main",
++  "voice": "442360a3e0894fbd85024ff64cc2b928",
++  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
++  "provider": "heygen",
++  "speed": 1.0,
++  "source_only": true,
++  "lines": [
++    {
++      "id": "beat-01-future-you",
++      "text": "Welcome back. Last video, we talked about the future-you resume—one built around the role you want next, not just everything you've done so far."
++    },
++    {
++      "id": "beat-02-tool-promise",
++      "text": "Now I'll show you how to actually do that, using two things together: our Resume Builder Tool and a simple four-part lens for rewriting your bullets. By the end, you'll see how to turn a vague task like \"managed orientation sessions\" into a clear impact statement that supports your Next Move Statement."
++    },
++    {
++      "id": "beat-03-four-part-lens",
++      "text": "Start with the lens. Any strong mid-career bullet can usually answer four questions. Responsibility—what were you expected to do? Action—what did you actually do? Measurable outcome—what changed as a result? And scope—how big was the impact, and who was involved?"
++    },
++    {
++      "id": "beat-04-results-not-tasks",
++      "text": "Applying this lens moves you from \"I did tasks\" to \"I created results,\" and from \"I had a job\" to \"I handled responsibility and scope.\" That's what helps managers, sponsors, and hiring committees see you as ready for your next role. You don't need perfect numbers for every bullet—even approximate outcomes, like \"reduced time\" or \"improved satisfaction,\" make your impact clearer."
++    },
++    {
++      "id": "beat-05-vague-input",
++      "text": "Now let's use that lens inside our Resume Builder Tool, supported by AI. Start by uploading your current resume or pasting the bullets you want to focus on. For this example, take a common one: \"Managed orientation sessions for new hires.\" It tells us what you did, but not what difference it made, how often, or how many people it involved."
++    },
++    {
++      "id": "beat-06-ai-rewrite",
++      "text": "Next, run it through the AI rewrite feature. Behind the scenes, we're asking the AI to look for responsibility, action, measurable outcome, and scope. Here's what it might return. \"Led quarterly orientation sessions for cohorts of 30 to 40 new hires, implementing a new feedback loop that increased post-orientation satisfaction scores by 18 percent and reduced onboarding confusion reports by 25 percent.\" Same basic responsibility—but now it reads as leadership, process improvement, and clear impact."
++    },
++    {
++      "id": "beat-07-accuracy-check",
++      "text": "That rewrite is a starting point, not the final version. First, check accuracy. Do the frequency, numbers, and outcomes reflect reality? If you didn't run sessions quarterly, change it. If you don't have exact percentages, soften the language to \"improved satisfaction scores based on post-orientation feedback.\" The goal is honest, credible impact—not exaggeration."
++    },
++    {
++      "id": "beat-08-voice-structure",
++      "text": "Second, align the tone with your field. In higher education or non-profits, you might prefer \"enhanced new-hire onboarding experience\" over \"crushed onboarding KPIs.\" Make it sound like you. Third, keep the four-part structure intact: responsibility, action, outcome, scope. If someone read only that one bullet, would they understand what you did, how well, and at what level? If yes, you're in good shape."
++    },
++    {
++      "id": "beat-09-three-paths",
++      "text": "The last piece is choosing which bullets to bring forward, based on your Next Move Statement. Think about your three possible paths. For a promotion in your current lane, prioritize bullets that show leadership, scope, and strategic decisions—the ones that say \"I'm already operating at the next level.\" For a lateral move, highlight transferable skills and cross-functional projects—\"I can bring my skills into new contexts.\" For a redesign of your current role, focus on process improvements and innovation—\"I've already started redesigning my role; now I'm formalizing it.\""
++    },
++    {
++      "id": "beat-10-headline-stories",
++      "text": "Don't try to perfect everything at once. Select the three to five strongest bullets that align with your chosen path, reflect your true impact, and help others see the future you from your Next Move Statement. Those become your headline stories."
++    },
++    {
++      "id": "beat-11-linkedin-visibility",
++      "text": "The same principles apply to your LinkedIn profile, with one addition: LinkedIn is searchable and public, so it's also a visibility tool. The words in your headline and About section decide whether the right people—including the opportunity holders you'll meet in Module 4—find you at all."
++    },
++    {
++      "id": "beat-12-headline",
++      "text": "Your headline is the most-read line you own. Most headlines just state a current title; yours should point at future you. Paste your current headline, plus a sentence describing your next move if you have one, and ask the AI to rewrite it so it credibly signals where you're heading—without overclaiming. Then choose the version that feels both ambitious and true. That final judgment call is yours."
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/concept.json b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/concept.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..22871e3556a7d7ada036ba69c3e58c8b17f87c0d
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/concept.json
+@@ -0,0 +1,23 @@
++{
++  "compositionId": "main",
++  "title": "Future-You Resume Lab",
++  "program": "mid-career-momentum",
++  "lesson": "m3_using-the-resume-builder-tool-pt2",
++  "duration": 264,
++  "beatCount": 12,
++  "visualMetaphor": "A resume workshop where evidence is assembled through a four-part lens",
++  "beats": [
++    {"id":"beat-01-future-you","start":0,"duration":18,"purpose":"Reconnect to the future-you resume"},
++    {"id":"beat-02-tool-promise","start":18,"duration":24,"purpose":"Introduce the tool and four-part lens"},
++    {"id":"beat-03-four-part-lens","start":42,"duration":22,"purpose":"Define responsibility, action, outcome, and scope"},
++    {"id":"beat-04-results-not-tasks","start":64,"duration":25,"purpose":"Show why evidence signals readiness"},
++    {"id":"beat-05-vague-input","start":89,"duration":22,"purpose":"Enter a vague orientation bullet"},
++    {"id":"beat-06-ai-rewrite","start":111,"duration":29,"purpose":"Build a quantified impact statement"},
++    {"id":"beat-07-accuracy-check","start":140,"duration":25,"purpose":"Verify and soften unsupported claims"},
++    {"id":"beat-08-voice-structure","start":165,"duration":23,"purpose":"Keep authentic tone and structure"},
++    {"id":"beat-09-three-paths","start":188,"duration":27,"purpose":"Filter bullets through three next-move paths"},
++    {"id":"beat-10-headline-stories","start":215,"duration":17,"purpose":"Select three to five strongest bullets"},
++    {"id":"beat-11-linkedin-visibility","start":232,"duration":16,"purpose":"Extend the method to LinkedIn discovery"},
++    {"id":"beat-12-headline","start":248,"duration":16,"purpose":"Rewrite the headline toward future you"}
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/design.md b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/design.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..83968b3448b81998c3dd2b24605d398ea56df69d
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/design.md
+@@ -0,0 +1,26 @@
++# Design: Future-You Resume Lab
++
++## Canvas and type
++
++- 1920 × 1080, with a 120 px frame and a 120 px footer reserve.
++- Proxima Nova with system sans-serif fallback.
++- Navy `#0d2437` is the stage; paper `#ffffff` carries resume content.
++- Primary text never falls below 40 px. Labels are 22–24 px, uppercase, and letter-spaced.
++
++## Palette
++
++- Navy: `#0d2437`
++- Deep navy: `#0a1e2f`
++- Blue: `#3393d6`
++- Gold: `#eaab2d`
++- Paper: `#ffffff`
++- Cultured: `#f6f6f9`
++- Ink: `#292f35`
++
++## Layout grammar
++
++The persistent top rail identifies the lesson and advances a thin gold progress line. Each beat uses one dominant composition: split comparison, four-card lens, annotated resume, verification checklist, three-route map, short list, or headline rewrite. No scene is a dense dashboard.
++
++## Motion
++
++Elements enter within 1.2 seconds through opacity, vertical travel, and horizontal rule growth. Each clip fades before its boundary. The timeline is paused and seekable; animation state is deterministic at every timestamp.
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/hyperframes.json b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/hyperframes.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc9ec2eb28c67a93113c201a65a3155a19915d7c
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/hyperframes.json
+@@ -0,0 +1,12 @@
++{
++  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
++  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
++  "paths": {
++    "blocks": "compositions",
++    "components": "compositions/components",
++    "assets": "assets"
++  },
++  "media": {
++    "autoProxy": true
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/index.html b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..9472dcb5347ac4078c53a4223c8324ac864aeb06
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/index.html
+@@ -0,0 +1,36 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=1920, height=1080" />
++  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
++  <style>
++    *{box-sizing:border-box}html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#0d2437;font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif;color:#fff}.clip{position:absolute;inset:0;padding:170px 120px 120px;opacity:0}.chrome{position:absolute;top:50px;left:120px;right:120px;display:flex;align-items:center;justify-content:space-between;z-index:50}.brand{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#eaab2d}.module{font-size:22px;color:#cccedf}.progress{position:absolute;top:108px;left:120px;width:1680px;height:4px;background:#3393d6;z-index:50}.progress span{display:block;height:100%;background:#eaab2d;transform-origin:left}.eyebrow{font-size:23px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#eaab2d;margin-bottom:22px}.title{font-size:88px;line-height:.98;font-weight:900;max-width:1450px}.subtitle{font-size:44px;line-height:1.2;color:#e5eff6;margin-top:28px;max-width:1400px}.paper{background:#fff;color:#292f35;border-radius:12px;padding:48px;box-shadow:0 20px 50px #0a1e2f80}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}.lens{min-height:330px;border:2px solid #3393d6;border-radius:12px;padding:32px;background:#0a1e2f}.lens b{display:block;font-size:68px;color:#eaab2d}.lens h2{font-size:34px;margin:18px 0}.lens p,.body{font-size:40px;line-height:1.22}.split{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:stretch}.tag{display:inline-block;padding:10px 22px;border:2px solid #3393d6;border-radius:100px;color:#3393d6;font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.resume{font-size:38px;line-height:1.28;margin-top:30px}.strike{color:#5f6f96;text-decoration:line-through}.impact{border-left:8px solid #eaab2d;padding-left:28px}.checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}.check{padding:32px;background:#fff;color:#292f35;border-radius:12px;font-size:36px;min-height:230px}.check b{display:block;color:#3393d6;font-size:52px;margin-bottom:16px}.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}.path{border-radius:12px;padding:34px;background:#fff;color:#292f35;min-height:360px;border-top:10px solid #eaab2d}.path h2{font-size:40px}.path p{font-size:31px;line-height:1.22}.number{font-size:160px;font-weight:900;color:#eaab2d}.narration{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:normal}.arrow{font-size:70px;color:#eaab2d}.headline{font-size:54px;font-weight:900;padding:38px;border-radius:12px;background:#fff;color:#292f35;margin-top:28px}.after{border:4px solid #3393d6}.muted{color:#98a4cc}
++  </style>
++</head>
++<body>
++<main id="root" data-composition-id="main" data-start="0" data-duration="264" data-width="1920" data-height="1080">
++  <header class="chrome"><div class="brand">SCLA · Resume Builder</div><div class="module">Mid-Career Momentum</div></header><div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
++  <section id="beat-01-future-you" class="clip" data-beat-id="beat-01-future-you" data-start="0" data-duration="18" data-track-index="1"><p class="narration">Welcome back. Last video, we talked about the future-you resume—one built around the role you want next, not just everything you've done so far.</p><div class="eyebrow">Using the Resume Builder Tool</div><div class="title">Build for the role<br><span class="muted">you want next.</span></div><div class="subtitle">Your resume is not an archive. It is evidence for future you.</div></section>
++  <section id="beat-02-tool-promise" class="clip" data-beat-id="beat-02-tool-promise" data-start="18" data-duration="24" data-track-index="1"><p class="narration">Now I'll show you how to actually do that, using two things together: our Resume Builder Tool and a simple four-part lens for rewriting your bullets. By the end, you'll see how to turn a vague task like "managed orientation sessions" into a clear impact statement that supports your Next Move Statement.</p><div class="eyebrow">Two tools · one stronger story</div><div class="split"><div class="paper"><span class="tag">Resume Builder Tool</span><div class="resume">“Managed orientation sessions”</div></div><div><div class="arrow">＋</div><div class="title" style="font-size:68px">A four-part lens</div><div class="subtitle">Turn a vague task into evidence of impact.</div></div></div></section>
++  <section id="beat-03-four-part-lens" class="clip" data-beat-id="beat-03-four-part-lens" data-start="42" data-duration="22" data-track-index="1"><p class="narration">Start with the lens. Any strong mid-career bullet can usually answer four questions. Responsibility—what were you expected to do? Action—what did you actually do? Measurable outcome—what changed as a result? And scope—how big was the impact, and who was involved?</p><div class="eyebrow">The four-part lens</div><div class="grid4"><div class="lens"><b>R</b><h2>Responsibility</h2><p>What were you expected to do?</p></div><div class="lens"><b>A</b><h2>Action</h2><p>What did you actually do?</p></div><div class="lens"><b>O</b><h2>Outcome</h2><p>What changed?</p></div><div class="lens"><b>S</b><h2>Scope</h2><p>How big—and who?</p></div></div></section>
++  <section id="beat-04-results-not-tasks" class="clip" data-beat-id="beat-04-results-not-tasks" data-start="64" data-duration="25" data-track-index="1"><p class="narration">Applying this lens moves you from "I did tasks" to "I created results," and from "I had a job" to "I handled responsibility and scope." That's what helps managers, sponsors, and hiring committees see you as ready for your next role. You don't need perfect numbers for every bullet—even approximate outcomes, like "reduced time" or "improved satisfaction," make your impact clearer.</p><div class="eyebrow">Change the signal</div><div class="split"><div><div class="title" style="font-size:62px;color:#98a4cc">“I did tasks.”</div><div class="subtitle">“I had a job.”</div></div><div class="paper impact"><div class="title" style="font-size:62px;color:#292f35">“I created results.”</div><div class="body" style="margin-top:24px">Responsibility + scope show readiness—even when outcomes are approximate.</div></div></div></section>
++  <section id="beat-05-vague-input" class="clip" data-beat-id="beat-05-vague-input" data-start="89" data-duration="22" data-track-index="1"><p class="narration">Now let's use that lens inside our Resume Builder Tool, supported by AI. Start by uploading your current resume or pasting the bullets you want to focus on. For this example, take a common one: "Managed orientation sessions for new hires." It tells us what you did, but not what difference it made, how often, or how many people it involved.</p><div class="eyebrow">Step 1 · Add a real bullet</div><div class="paper"><span class="tag">Current resume</span><div class="headline">Managed orientation sessions for new hires.</div><div class="checklist"><div class="check"><b>?</b>What difference?</div><div class="check"><b>?</b>How often?</div><div class="check"><b>?</b>How many people?</div></div></div></section>
++  <section id="beat-06-ai-rewrite" class="clip" data-beat-id="beat-06-ai-rewrite" data-start="111" data-duration="29" data-track-index="1"><p class="narration">Next, run it through the AI rewrite feature. Behind the scenes, we're asking the AI to look for responsibility, action, measurable outcome, and scope. Here's what it might return. "Led quarterly orientation sessions for cohorts of 30 to 40 new hires, implementing a new feedback loop that increased post-orientation satisfaction scores by 18 percent and reduced onboarding confusion reports by 25 percent." Same basic responsibility—but now it reads as leadership, process improvement, and clear impact.</p><div class="eyebrow">Step 2 · AI-assisted rewrite</div><div class="paper impact"><div class="resume">Led <b>quarterly orientation sessions</b> for cohorts of <b>30 to 40 new hires</b>, implementing a <b>new feedback loop</b> that increased post-orientation satisfaction scores by <b>18 percent</b> and reduced onboarding confusion reports by <b>25 percent</b>.</div></div><div class="grid4" style="margin-top:28px"><span class="tag">Leadership</span><span class="tag">Process improvement</span><span class="tag">Clear impact</span><span class="tag">Credible scope</span></div></section>
++  <section id="beat-07-accuracy-check" class="clip" data-beat-id="beat-07-accuracy-check" data-start="140" data-duration="25" data-track-index="1"><p class="narration">That rewrite is a starting point, not the final version. First, check accuracy. Do the frequency, numbers, and outcomes reflect reality? If you didn't run sessions quarterly, change it. If you don't have exact percentages, soften the language to "improved satisfaction scores based on post-orientation feedback." The goal is honest, credible impact—not exaggeration.</p><div class="eyebrow">Step 3 · Check every claim</div><div class="title">Starting point ≠ final version</div><div class="checklist"><div class="check"><b>01</b>Is the frequency true?</div><div class="check"><b>02</b>Can you support the numbers?</div><div class="check"><b>03</b>Soften what you cannot prove.</div></div><div class="subtitle">Honest, credible impact—not exaggeration.</div></section>
++  <section id="beat-08-voice-structure" class="clip" data-beat-id="beat-08-voice-structure" data-start="165" data-duration="23" data-track-index="1"><p class="narration">Second, align the tone with your field. In higher education or non-profits, you might prefer "enhanced new-hire onboarding experience" over "crushed onboarding KPIs." Make it sound like you. Third, keep the four-part structure intact: responsibility, action, outcome, scope. If someone read only that one bullet, would they understand what you did, how well, and at what level? If yes, you're in good shape.</p><div class="eyebrow">Your voice · the same strong structure</div><div class="split"><div class="paper"><span class="tag">Sounds like you</span><div class="resume">“Enhanced new-hire onboarding experience”</div><div class="resume strike">“Crushed onboarding KPIs”</div></div><div><div class="number">R A O S</div><div class="subtitle">What you did · how well · at what level</div></div></div></section>
++  <section id="beat-09-three-paths" class="clip" data-beat-id="beat-09-three-paths" data-start="188" data-duration="27" data-track-index="1"><p class="narration">The last piece is choosing which bullets to bring forward, based on your Next Move Statement. Think about your three possible paths. For a promotion in your current lane, prioritize bullets that show leadership, scope, and strategic decisions—the ones that say "I'm already operating at the next level." For a lateral move, highlight transferable skills and cross-functional projects—"I can bring my skills into new contexts." For a redesign of your current role, focus on process improvements and innovation—"I've already started redesigning my role; now I'm formalizing it."</p><div class="eyebrow">Choose for your next move</div><div class="paths"><div class="path"><h2>↑ Promotion</h2><p>Leadership, scope, and strategic decisions.</p><b>Already at the next level.</b></div><div class="path"><h2>→ Lateral Move</h2><p>Transferable skills and cross-functional work.</p><b>Ready for a new context.</b></div><div class="path"><h2>↗ Role Redesign</h2><p>Process improvement and innovation.</p><b>Formalize what you started.</b></div></div></section>
++  <section id="beat-10-headline-stories" class="clip" data-beat-id="beat-10-headline-stories" data-start="215" data-duration="17" data-track-index="1"><p class="narration">Don't try to perfect everything at once. Select the three to five strongest bullets that align with your chosen path, reflect your true impact, and help others see the future you from your Next Move Statement. Those become your headline stories.</p><div class="eyebrow">Do less · choose better</div><div class="number">3–5</div><div class="title">headline stories</div><div class="subtitle">Aligned with your path. True to your impact. Pointing to future you.</div></section>
++  <section id="beat-11-linkedin-visibility" class="clip" data-beat-id="beat-11-linkedin-visibility" data-start="232" data-duration="16" data-track-index="1"><p class="narration">The same principles apply to your LinkedIn profile, with one addition: LinkedIn is searchable and public, so it's also a visibility tool. The words in your headline and About section decide whether the right people—including the opportunity holders you'll meet in Module 4—find you at all.</p><div class="eyebrow">Resume evidence → public visibility</div><div class="title">Help the right people<br>find future you.</div><div class="checklist"><div class="check"><b>Headline</b>Searchable direction</div><div class="check"><b>About</b>Credible story</div><div class="check"><b>Module 4</b>Opportunity holders</div></div></section>
++  <section id="beat-12-headline" class="clip" data-beat-id="beat-12-headline" data-start="248" data-duration="16" data-track-index="1"><p class="narration">Your headline is the most-read line you own. Most headlines just state a current title; yours should point at future you. Paste your current headline, plus a sentence describing your next move if you have one, and ask the AI to rewrite it so it credibly signals where you're heading—without overclaiming. Then choose the version that feels both ambitious and true. That final judgment call is yours.</p><div class="eyebrow">The most-read line you own</div><div class="headline strike">Current title</div><div class="arrow">↓</div><div class="headline after">Credibly signal where you’re heading.</div><div class="subtitle">Ambitious and true. The final judgment is yours.</div></section>
++</main>
++<script>
++  window.__timelines=window.__timelines||{};
++  const tl=gsap.timeline({paused:true});
++  const beats=[{id:"beat-01-future-you",s:0,d:18},{id:"beat-02-tool-promise",s:18,d:24},{id:"beat-03-four-part-lens",s:42,d:22},{id:"beat-04-results-not-tasks",s:64,d:25},{id:"beat-05-vague-input",s:89,d:22},{id:"beat-06-ai-rewrite",s:111,d:29},{id:"beat-07-accuracy-check",s:140,d:25},{id:"beat-08-voice-structure",s:165,d:23},{id:"beat-09-three-paths",s:188,d:27},{id:"beat-10-headline-stories",s:215,d:17},{id:"beat-11-linkedin-visibility",s:232,d:16},{id:"beat-12-headline",s:248,d:16}];
++  beats.forEach(({id,s,d})=>{tl.set(`#${id}`,{opacity:1},s).from(`#${id}>*:not(.narration)`,{opacity:0,y:28,duration:.55,stagger:.12,ease:"power2.out"},s+.15).to(`#${id}`,{opacity:0,duration:.3},s+d-.3)});
++  tl.fromTo("#progress-fill",{scaleX:0},{scaleX:1,duration:264,ease:"none"},0);
++  window.__timelines["main"]=tl;
++</script>
++</body>
++</html>
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/index.motion.json b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/index.motion.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..4290ddfaeb8e495a2e35dc11824ecac4f84ab30b
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/index.motion.json
+@@ -0,0 +1,147 @@
++{
++  "compositionId": "main",
++  "timeline": "gsap-paused-seekable",
++  "duration": 264,
++  "beats": [
++    {
++      "id": "beat-01-future-you",
++      "start": 0,
++      "duration": 18
++    },
++    {
++      "id": "beat-02-tool-promise",
++      "start": 18,
++      "duration": 24
++    },
++    {
++      "id": "beat-03-four-part-lens",
++      "start": 42,
++      "duration": 22
++    },
++    {
++      "id": "beat-04-results-not-tasks",
++      "start": 64,
++      "duration": 25
++    },
++    {
++      "id": "beat-05-vague-input",
++      "start": 89,
++      "duration": 22
++    },
++    {
++      "id": "beat-06-ai-rewrite",
++      "start": 111,
++      "duration": 29
++    },
++    {
++      "id": "beat-07-accuracy-check",
++      "start": 140,
++      "duration": 25
++    },
++    {
++      "id": "beat-08-voice-structure",
++      "start": 165,
++      "duration": 23
++    },
++    {
++      "id": "beat-09-three-paths",
++      "start": 188,
++      "duration": 27
++    },
++    {
++      "id": "beat-10-headline-stories",
++      "start": 215,
++      "duration": 17
++    },
++    {
++      "id": "beat-11-linkedin-visibility",
++      "start": 232,
++      "duration": 16
++    },
++    {
++      "id": "beat-12-headline",
++      "start": 248,
++      "duration": 16
++    }
++  ],
++  "assertions": [
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-01-future-you",
++      "target": "#beat-01-future-you",
++      "by": 1.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-02-tool-promise",
++      "target": "#beat-02-tool-promise",
++      "by": 19.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-03-four-part-lens",
++      "target": "#beat-03-four-part-lens",
++      "by": 43.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-04-results-not-tasks",
++      "target": "#beat-04-results-not-tasks",
++      "by": 65.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-05-vague-input",
++      "target": "#beat-05-vague-input",
++      "by": 90.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-06-ai-rewrite",
++      "target": "#beat-06-ai-rewrite",
++      "by": 112.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-07-accuracy-check",
++      "target": "#beat-07-accuracy-check",
++      "by": 141.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-08-voice-structure",
++      "target": "#beat-08-voice-structure",
++      "by": 166.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-09-three-paths",
++      "target": "#beat-09-three-paths",
++      "by": 189.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-10-headline-stories",
++      "target": "#beat-10-headline-stories",
++      "by": 216.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-11-linkedin-visibility",
++      "target": "#beat-11-linkedin-visibility",
++      "by": 233.2
++    },
++    {
++      "kind": "appearsBy",
++      "beatId": "beat-12-headline",
++      "target": "#beat-12-headline",
++      "by": 249.2
++    },
++    {
++      "kind": "keepsMoving",
++      "target": "#progress-fill",
++      "from": 0,
++      "to": 264
++    }
++  ]
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/meta.json b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/meta.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081a4ebacd9e820cb128c04cdf8709f1746bd63
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/meta.json
+@@ -0,0 +1,5 @@
++{
++  "id": "scaffold",
++  "name": "scaffold",
++  "createdAt": "2026-08-05T01:21:35.172Z"
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/package.json b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/package.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9eb57f0d4091e843e4b9e0af45764e727ad654c9
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/package.json
+@@ -0,0 +1,11 @@
++{
++  "name": "scaffold",
++  "private": true,
++  "type": "module",
++  "scripts": {
++    "dev": "npx --yes hyperframes@0.7.79 preview",
++    "check": "npx --yes hyperframes@0.7.79 check",
++    "render": "npx --yes hyperframes@0.7.79 render",
++    "publish": "npx --yes hyperframes@0.7.79 publish"
++  }
++}
+diff --git a/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/tokens.yml b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/tokens.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9c8674bc0eb9e4e89ae20f8f77da3cc083f51e04
+--- /dev/null
++++ b/projects/video-production/renders-hyperframes/m3_using-the-resume-builder-tool-pt2/tokens.yml
+@@ -0,0 +1,81 @@
++name: SCLA Lesson System
++canvas: 1920x1080
++
++colors:
++  navy: "#0d2437"
++  navy-deep: "#0a1e2f"
++  blue: "#3393d6"
++  gold: "#eaab2d"
++  ink: "#292f35"
++  paper: "#ffffff"
++  cultured: "#f6f6f9"
++  fill-subtle: "#e5eff6"
++  border: "#cccedf"
++  muted: "#98a4cc"
++  muted-video: "#5f6f96"
++  logo-gold: "#F1B32E"
++  logo-blue: "#55A4DD"
++
++typography:
++  display: "proxima-nova"
++  body: "proxima-nova"
++  fallback: "'Proxima Nova', system-ui, sans-serif"
++  weights: [400, 700, 900]
++  scale:
++    display: "96-120px / 900"
++    heading: "60-72px / 900"
++    quote: "52-60px / 700"
++    body: "40-48px / 400"
++    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
++    stat: "200-260px / 900"
++  min-size:
++    body: 40
++    label: 20
++    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
++
++spacing:
++  frame-padding: 120
++  safe-area: 72
++  footer-reserve: 120
++  content-bottom: 960
++  card-gutter: 24
++  radius-card: "12px"
++  radius-pill: "100px"
++
++chrome-regions: ["100,50,700,110"]
++
++components:
++  cta-label: "gold text 900 with leading arrow; no fill"
++  chip: "2px blue border; transparent fill; blue text; radius 100px"
++  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
++  point-marker: "74px circle; gold fill; navy 900 number"
++  rule: "gold or blue; 3-4px; scaleX entrance from left"
++
++motion:
++  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
++  exit: "0.3s content-layer exit; furniture remains; outro exempt"
++  closing-beat: "one additive resolve in the final second"
++  stagger: "0.12-0.18s"
++  ambient: "finite 3-4s yoyo"
++  ban: "infinite repeats; linear full-screen gradients on navy"
++
++voice:
++  provider: heygen
++  voice_id: 442360a3e0894fbd85024ff64cc2b928
++  speed: 1.0
++
++timing:
++  lead: 0.60
++  gap: 0.65
++  visual-lead: 0.25
++  final-hold: 1.80
++  video-hold: 1.80
++
++programs:
++  early-career-boost: "Early Career Boost"
++  mid-career-momentum: "Mid-Career Momentum"
++  career-transitions: "Career Transitions"
++  entrepreneur-accelerator: "Entrepreneur Accelerator"
++
++retired-names:
++  - "Career Accelerator"
