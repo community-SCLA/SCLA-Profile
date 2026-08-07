@@ -1,90 +1,48 @@
 {
-  "composition_id": "m4_who-will-walk-this-next-chapter-with-you",
-  "provider": "heygen",
-  "voice": "442360a3e0894fbd85024ff64cc2b928",
-  "voice_id": "442360a3e0894fbd85024ff64cc2b928",
-  "speed": 1.0,
-  "generate": false,
-  "lines": [
-    {
-      "id": "tactics",
-      "text": "When most people hear the phrase \"strategic networking,\" they jump straight to tactics. Who should I email? What should I say? How do I ask for help without being awkward?"
-    },
-    {
-      "id": "first-questions",
-      "text": "Those are important questions. But they're not the first ones."
-    },
-    {
-      "id": "deeper-question",
-      "text": "Before you move into outreach and visibility, it's worth slowing down to ask a deeper one: who do I actually want walking alongside me in this next chapter, and why?"
-    },
-    {
-      "id": "constellation",
-      "text": "This activity isn't just about making a list of names. It's about deliberately designing a small constellation of relationships that could matter for your future, not just your inbox this week."
-    },
-    {
-      "id": "next-move",
-      "text": "As you think about your next move, whether that's a role transition, a new project, a shift in direction, or simply becoming more visible in your current work, certain people will matter more than others."
-    },
-    {
-      "id": "known-people",
-      "text": "Some people already understand parts of your story. They've seen you work. They know your strengths."
-    },
-    {
-      "id": "new-possibilities",
-      "text": "Others can help you see new possibilities: fields you haven't considered, roles you didn't know existed, paths that look different from what you see day to day."
-    },
-    {
-      "id": "opportunity-holders",
-      "text": "And some sit close to the actual opportunities you care about: decisions about roles, projects, budgets, hiring, or internal moves."
-    },
-    {
-      "id": "three-to-five",
-      "text": "So in this reflection, you'll identify three to five specific people who could play important roles in your next chapter. You're going to look at each person through a few lenses."
-    },
-    {
-      "id": "where-they-sit",
-      "text": "Who are they, and where do they sit in relation to your current or target field?"
-    },
-    {
-      "id": "relationship-types",
-      "text": "What type of relationship do they represent? A peer who walks alongside you, a sponsor who advocates for you, an opportunity holder who shapes roles and projects, or a mentor who helps you think clearly?"
-    },
-    {
-      "id": "why-they-matter",
-      "text": "Why do they matter for your Next Move Statement or your future direction?"
-    },
-    {
-      "id": "ninety-days",
-      "text": "And what would moving this relationship forward look like in the next 90 days?"
-    },
-    {
-      "id": "values-game",
-      "text": "Instead of treating networking as a numbers game, talk to as many people as possible, you're treating it as a values and direction game. Who genuinely fits into the story I'm building about my career? What kind of relationship would be meaningful and realistic with each person?"
-    },
-    {
-      "id": "relevance",
-      "text": "You'll write about why each person is relevant to your Next Move Statement. That might include what they see that you don't yet, what opportunities they're close to, or what kind of perspective or support they could offer."
-    },
-    {
-      "id": "specific-outcome",
-      "text": "Then you'll define one specific, respectful outcome you'd like to aim for within the next 90 days. Things like having one 20-minute conversation about your next move, sharing your updated profile or resume and asking for feedback, exploring internal opportunities on their team, or asking for an introduction to someone in your target field."
-    },
-    {
-      "id": "patterns",
-      "text": "At the end, you'll step back and look at the patterns in your list. Are most of your relationships inside your current organization? Do you have a mix of peers, sponsors, and opportunity holders, or is everything weighted toward one type? Which single relationship feels most important to nurture first, and why?"
-    },
-    {
-      "id": "energy",
-      "text": "These answers matter, because they guide where you put your energy when you start taking action."
-    },
-    {
-      "id": "your-corner",
-      "text": "You're not just building a contact list. You're choosing who you want in your corner as you create your next chapter."
-    },
-    {
-      "id": "take-your-time",
-      "text": "Take your time with this. The more honest and specific you are now, the clearer and more grounded your outreach and visibility will feel later."
-    }
+  "composition_id":"m4_who-will-walk-this-next-chapter-with-you",
+  "provider":"heygen",
+  "voice":"442360a3e0894fbd85024ff64cc2b928",
+  "voice_id":"442360a3e0894fbd85024ff64cc2b928",
+  "speed":1.0,
+  "generate":false,
+  "lines":[
+    {"id":"b01","text":"When most people hear the phrase \"strategic networking,\" they jump straight to tactics."},
+    {"id":"b02","text":"Who should I email?"},
+    {"id":"b03","text":"What should I say?"},
+    {"id":"b04","text":"How do I ask for help without being awkward?"},
+    {"id":"b05","text":"Those are important questions."},
+    {"id":"b06","text":"But they're not the first ones."},
+    {"id":"b07","text":"Before you move into outreach and visibility, it's worth slowing down to ask a deeper one: who do I actually want walking alongside me in this next chapter, and why?"},
+    {"id":"b08","text":"This activity isn't just about making a list of names."},
+    {"id":"b09","text":"It's about deliberately designing a small constellation of relationships that could matter for your future, not just your inbox this week."},
+    {"id":"b10","text":"As you think about your next move, whether that's a role transition, a new project, a shift in direction, or simply becoming more visible in your current work, certain people will matter more than others."},
+    {"id":"b11","text":"Some people already understand parts of your story."},
+    {"id":"b12","text":"They've seen you work."},
+    {"id":"b13","text":"They know your strengths."},
+    {"id":"b14","text":"Others can help you see new possibilities: fields you haven't considered, roles you didn't know existed, paths that look different from what you see day to day."},
+    {"id":"b15","text":"And some sit close to the actual opportunities you care about: decisions about roles, projects, budgets, hiring, or internal moves."},
+    {"id":"b16","text":"So in this reflection, you'll identify three to five specific people who could play important roles in your next chapter."},
+    {"id":"b17","text":"You're going to look at each person through a few lenses."},
+    {"id":"b18","text":"Who are they, and where do they sit in relation to your current or target field?"},
+    {"id":"b19","text":"What type of relationship do they represent?"},
+    {"id":"b20","text":"A peer who walks alongside you, a sponsor who advocates for you, an opportunity holder who shapes roles and projects, or a mentor who helps you think clearly?"},
+    {"id":"b21","text":"Why do they matter for your Next Move Statement or your future direction?"},
+    {"id":"b22","text":"And what would moving this relationship forward look like in the next 90 days?"},
+    {"id":"b23","text":"Instead of treating networking as a numbers game, talk to as many people as possible, you're treating it as a values and direction game."},
+    {"id":"b24","text":"Who genuinely fits into the story I'm building about my career?"},
+    {"id":"b25","text":"What kind of relationship would be meaningful and realistic with each person?"},
+    {"id":"b26","text":"You'll write about why each person is relevant to your Next Move Statement."},
+    {"id":"b27","text":"That might include what they see that you don't yet, what opportunities they're close to, or what kind of perspective or support they could offer."},
+    {"id":"b28","text":"Then you'll define one specific, respectful outcome you'd like to aim for within the next 90 days."},
+    {"id":"b29","text":"Things like having one 20-minute conversation about your next move, sharing your updated profile or resume and asking for feedback, exploring internal opportunities on their team, or asking for an introduction to someone in your target field."},
+    {"id":"b30","text":"At the end, you'll step back and look at the patterns in your list."},
+    {"id":"b31","text":"Are most of your relationships inside your current organization?"},
+    {"id":"b32","text":"Do you have a mix of peers, sponsors, and opportunity holders, or is everything weighted toward one type?"},
+    {"id":"b33","text":"Which single relationship feels most important to nurture first, and why?"},
+    {"id":"b34","text":"These answers matter, because they guide where you put your energy when you start taking action."},
+    {"id":"b35","text":"You're not just building a contact list."},
+    {"id":"b36","text":"You're choosing who you want in your corner as you create your next chapter."},
+    {"id":"b37","text":"Take your time with this."},
+    {"id":"b38","text":"The more honest and specific you are now, the clearer and more grounded your outreach and visibility will feel later."}
   ]
 }
