@@ -4,10 +4,10 @@
 
 ## Where everything stands
 
-- **14** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **15** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **10** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **1** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
+- **2** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **2** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
 - **0** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
@@ -16,7 +16,7 @@
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **12** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
+- **10** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
 - **0** — **REJECTED.** A blocking review or gate failed; the completed production phase remains visible beside the condition.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -53,6 +53,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
 | m0_welcome-to-mid-career-momentum | mid-career-momentum | 2026-08-07 | [vpvjkr68dy](https://sclc.wistia.com/medias/vpvjkr68dy) | `renders-mp4/mid-career-momentum/m0_welcome-to-mid-career-momentum_2026-08-07.mp4` |
+| m2_welcome-and-using-career-transitions-as-leaps-ahead | career-transitions | 2026-08-07 | [izkgx5kdba](https://sclc.wistia.com/medias/izkgx5kdba) | `renders-mp4/career-transitions/m2_welcome-and-using-career-transitions-as-leaps-ahead_2026-08-07.mp4` |
 | mini-syllabus_early-career-boost | early-career-boost | 2026-08-06 | [ays7di6sti](https://sclc.wistia.com/medias/ays7di6sti) | `renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-08-06.mp4` |
 | do-not-just-ask-what-ai-replaces_early-career-boost | early-career-boost | 2026-08-06 | [uhnqbjt0x7](https://sclc.wistia.com/medias/uhnqbjt0x7) | `renders-mp4/early-career-boost/do-not-just-ask-what-ai-replaces_early-career-boost_2026-08-06.mp4` |
 | career-building-is-a-repeatable-process_early-career-boost | early-career-boost | 2026-08-05 | [cnj1463xuw](https://sclc.wistia.com/medias/cnj1463xuw) | `renders-mp4/early-career-boost/career-building-is-a-repeatable-process_early-career-boost_2026-08-05.mp4` |
@@ -67,14 +68,10 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
-- **m3_building-your-future-you-resume-pt1** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
-  - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_building-your-future-you-resume-pt1. Do not delete or rebuild completed work
-- **m3_discover-experiences-that-support-your-next-move** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
-  - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_discover-experiences-that-support-your-next-move. Do not delete or rebuild completed work
-- **m3_from-history-to-signal** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
-  - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_from-history-to-signal. Do not delete or rebuild completed work
 - **m3_how-to-reposition-your-career** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
   - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_how-to-reposition-your-career. Do not delete or rebuild completed work
+- **m3_rewrite-your-linkedin-for-future-you** (mid-career-momentum) — STALLED: freeform design written; narration not yet synthesized
+  - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_rewrite-your-linkedin-for-future-you. Do not delete or rebuild completed work
 - **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — NEEDS-REVISION: visual review requires revision (FAIL/ALIVE/REVISE)
   - last completed **preflight** at 2026-08-07 19:40 UTC
   - **To clear it:** revise this workspace, then rerun the gate and combined visual review
@@ -108,6 +105,10 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: gate-clean for this source; combined visual review has not been recorded
   - last completed **preflight** at 2026-08-07 20:08 UTC
   - next: run the combined visual review and save `qa/VISUAL-REVIEW.json`
+- m2_the-value-of-building-mid-career-momentum
+  - state: the visual review belongs to different source
+  - last completed **preflight** at 2026-08-07 20:37 UTC
+  - next: repeat the combined visual review for the current source
 
 **BUILDING — in flight, no MP4 yet:**
 
@@ -117,14 +118,18 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: freeform composition timed and ready — the gate has not run yet
   - last completed **preflight** at 2026-08-07 20:21 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_mid-career-mindsets-and-limiting-beliefs. Do not delete or rebuild completed work
-- m2_the-value-of-building-mid-career-momentum
-  - state: the gate receipt is legacy or belongs to different source
-  - last completed **preflight** at 2026-08-07 20:14 UTC
-  - next: rerun `bash scripts/build-gate.sh m2_the-value-of-building-mid-career-momentum` on the current composition
-- m3_rewrite-your-linkedin-for-future-you
+- m3_building-your-future-you-resume-pt1
+  - state: freeform narration synthesized; clip timings not yet computed
+  - last written to: 2026-08-07 20:37 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_building-your-future-you-resume-pt1. Do not delete or rebuild completed work
+- m3_discover-experiences-that-support-your-next-move
+  - state: freeform narration synthesized; clip timings not yet computed
+  - last written to: 2026-08-07 20:37 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_discover-experiences-that-support-your-next-move. Do not delete or rebuild completed work
+- m3_from-history-to-signal
   - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-07 20:01 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_rewrite-your-linkedin-for-future-you. Do not delete or rebuild completed work
+  - last written to: 2026-08-07 20:37 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_from-history-to-signal. Do not delete or rebuild completed work
 - m3_using-the-resume-builder-tool-pt2
   - state: freeform design written; narration not yet synthesized
   - last written to: 2026-08-07 20:10 UTC (no `.build-log.tsv` — this workspace predates the build journal)
@@ -139,37 +144,29 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m4_visibility-actions. Do not delete or rebuild completed work
 - m4_who-will-walk-this-next-chapter-with-you
   - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-07 20:24 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - last written to: 2026-08-07 20:31 UTC (no `.build-log.tsv` — this workspace predates the build journal)
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m4_who-will-walk-this-next-chapter-with-you. Do not delete or rebuild completed work
 - m5_skills-for-the-ai-era
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-07 20:28 UTC
+  - last completed **preflight** at 2026-08-07 20:37 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m5_skills-for-the-ai-era. Do not delete or rebuild completed work
 - m6_youve-built-momentum
   - state: freeform composition timed and ready — the gate has not run yet
-  - last written to: 2026-08-07 20:28 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - last completed **preflight** at 2026-08-07 20:30 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m6_youve-built-momentum. Do not delete or rebuild completed work
 
 **STALLED — the build folder stopped moving:**
 
 *Report-only: nothing here is killed automatically. Resume the named phase in the same workspace; its files and journal preserve completed work.*
 
-- m3_building-your-future-you-resume-pt1
-  - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-07 19:55 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_building-your-future-you-resume-pt1. Do not delete or rebuild completed work
-- m3_discover-experiences-that-support-your-next-move
-  - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-07 19:59 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_discover-experiences-that-support-your-next-move. Do not delete or rebuild completed work
-- m3_from-history-to-signal
-  - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-07 19:56 UTC (no `.build-log.tsv` — this workspace predates the build journal)
-  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_from-history-to-signal. Do not delete or rebuild completed work
 - m3_how-to-reposition-your-career
   - state: freeform design written; narration not yet synthesized
   - last written to: 2026-08-07 19:58 UTC (no `.build-log.tsv` — this workspace predates the build journal)
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_how-to-reposition-your-career. Do not delete or rebuild completed work
+- m3_rewrite-your-linkedin-for-future-you
+  - state: freeform design written; narration not yet synthesized
+  - last written to: 2026-08-07 20:01 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m3_rewrite-your-linkedin-for-future-you. Do not delete or rebuild completed work
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -193,15 +190,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: visual review requires revision (FAIL/ALIVE/REVISE)
   - last completed **preflight** at 2026-08-07 19:52 UTC
   - next: revise this workspace, then rerun the gate and combined visual review
-
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
-
-- m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: the render-start receipt is unreadable or belongs to different source
-  - last completed **preflight** at 2026-08-07 19:47 UTC
-  - next: rerun the content-bound gates before starting a new render
 
 **STALLED — the build folder stopped moving:**
 
