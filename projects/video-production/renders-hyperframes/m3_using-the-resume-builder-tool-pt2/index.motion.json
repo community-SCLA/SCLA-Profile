@@ -1,172 +1,506 @@
 {
   "compositionId": "m3_using-the-resume-builder-tool-pt2",
-  "duration": 304.3,
-  "timeline": {
-    "paused": true,
-    "seekable": true
-  },
+  "duration": 286.819,
+  "fps": 30,
+  "timeline": "paused",
+  "seekable": true,
   "beats": [
     {
-      "id": "beat-01",
+      "id": "beat-01-s1",
       "start": 0,
-      "duration": 11.81,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "duration": 1.9
     },
     {
-      "id": "beat-02",
-      "start": 11.81,
-      "duration": 23.73,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-01-s2",
+      "start": 1.9,
+      "duration": 8.26
     },
     {
-      "id": "beat-03",
-      "start": 35.54,
-      "duration": 18.62,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-02-s1",
+      "start": 10.16,
+      "duration": 9.48
     },
     {
-      "id": "beat-04",
-      "start": 54.16,
-      "duration": 27.56,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-02-s2",
+      "start": 19.64,
+      "duration": 9.225
     },
     {
-      "id": "beat-05",
-      "start": 81.72,
-      "duration": 27.56,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-03-s1",
+      "start": 28.865,
+      "duration": 1.825
     },
     {
-      "id": "beat-06",
-      "start": 109.28,
-      "duration": 33.51,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-03-s2",
+      "start": 30.69,
+      "duration": 4
     },
     {
-      "id": "beat-07",
-      "start": 142.79,
-      "duration": 24.15,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-03-s3",
+      "start": 34.69,
+      "duration": 2.83
     },
     {
-      "id": "beat-08",
-      "start": 166.94,
-      "duration": 28.41,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-03-s4",
+      "start": 37.52,
+      "duration": 2.47
     },
     {
-      "id": "beat-09",
-      "start": 195.35,
-      "duration": 38.62,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-03-s5",
+      "start": 39.99,
+      "duration": 3.17
     },
     {
-      "id": "beat-10",
-      "start": 233.97,
-      "duration": 19.05,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-03-s6",
+      "start": 43.16,
+      "duration": 3.564
     },
     {
-      "id": "beat-11",
-      "start": 253.02,
-      "duration": 21.17,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-04-s1",
+      "start": 46.724,
+      "duration": 9.495
     },
     {
-      "id": "beat-12",
-      "start": 274.19,
-      "duration": 30.11,
-      "entrance": 0.55,
-      "exit": 0.3,
-      "stagger": 0.14
+      "id": "beat-04-s2",
+      "start": 56.219,
+      "duration": 6.41
+    },
+    {
+      "id": "beat-04-s3",
+      "start": 62.629,
+      "duration": 9.096
+    },
+    {
+      "id": "beat-05-s1",
+      "start": 71.725,
+      "duration": 5.205
+    },
+    {
+      "id": "beat-05-s2",
+      "start": 76.93,
+      "duration": 4.75
+    },
+    {
+      "id": "beat-05-s3",
+      "start": 81.68,
+      "duration": 6.17
+    },
+    {
+      "id": "beat-05-s4",
+      "start": 87.85,
+      "duration": 6.355
+    },
+    {
+      "id": "beat-06-s1",
+      "start": 94.205,
+      "duration": 4.165
+    },
+    {
+      "id": "beat-06-s2",
+      "start": 98.37,
+      "duration": 7.2
+    },
+    {
+      "id": "beat-06-s3",
+      "start": 105.57,
+      "duration": 1.62
+    },
+    {
+      "id": "beat-06-s4",
+      "start": 107.19,
+      "duration": 16.34
+    },
+    {
+      "id": "beat-06-s5",
+      "start": 123.53,
+      "duration": 7.22
+    },
+    {
+      "id": "beat-07-s1",
+      "start": 130.75,
+      "duration": 3.929
+    },
+    {
+      "id": "beat-07-s2",
+      "start": 134.679,
+      "duration": 2.55
+    },
+    {
+      "id": "beat-07-s3",
+      "start": 137.229,
+      "duration": 4.315
+    },
+    {
+      "id": "beat-07-s4",
+      "start": 141.544,
+      "duration": 3.205
+    },
+    {
+      "id": "beat-07-s5",
+      "start": 144.749,
+      "duration": 8.72
+    },
+    {
+      "id": "beat-07-s6",
+      "start": 153.469,
+      "duration": 4.13
+    },
+    {
+      "id": "beat-08-s1",
+      "start": 157.599,
+      "duration": 3.151
+    },
+    {
+      "id": "beat-08-s2",
+      "start": 160.75,
+      "duration": 9.81
+    },
+    {
+      "id": "beat-08-s3",
+      "start": 170.56,
+      "duration": 1.795
+    },
+    {
+      "id": "beat-08-s4",
+      "start": 172.355,
+      "duration": 7.492
+    },
+    {
+      "id": "beat-08-s5",
+      "start": 179.847,
+      "duration": 6.971
+    },
+    {
+      "id": "beat-08-s6",
+      "start": 186.818,
+      "duration": 2.42
+    },
+    {
+      "id": "beat-09-s1",
+      "start": 189.238,
+      "duration": 5.62
+    },
+    {
+      "id": "beat-09-s2",
+      "start": 194.858,
+      "duration": 2.68
+    },
+    {
+      "id": "beat-09-s3",
+      "start": 197.538,
+      "duration": 10.17
+    },
+    {
+      "id": "beat-09-s4",
+      "start": 207.708,
+      "duration": 8.45
+    },
+    {
+      "id": "beat-09-s5",
+      "start": 216.158,
+      "duration": 8.96
+    },
+    {
+      "id": "beat-10-s1",
+      "start": 225.118,
+      "duration": 2.86
+    },
+    {
+      "id": "beat-10-s2",
+      "start": 227.978,
+      "duration": 9.47
+    },
+    {
+      "id": "beat-10-s3",
+      "start": 237.448,
+      "duration": 2.55
+    },
+    {
+      "id": "beat-11-s1",
+      "start": 239.998,
+      "duration": 8.69
+    },
+    {
+      "id": "beat-11-s2",
+      "start": 248.688,
+      "duration": 9.74
+    },
+    {
+      "id": "beat-12-s1",
+      "start": 258.428,
+      "duration": 3.091
+    },
+    {
+      "id": "beat-12-s2",
+      "start": 261.519,
+      "duration": 5.29
+    },
+    {
+      "id": "beat-12-s3",
+      "start": 266.809,
+      "duration": 10.629
+    },
+    {
+      "id": "beat-12-s4",
+      "start": 277.438,
+      "duration": 3.691
+    },
+    {
+      "id": "beat-12-s5",
+      "start": 281.129,
+      "duration": 5.69
     }
   ],
   "assertions": [
     {
       "kind": "appearsBy",
-      "selector": "#beat-01 .scene-inner",
-      "bySec": 0.8
+      "selector": "#beat-01-s1",
+      "bySec": 1
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-02 .scene-inner",
-      "bySec": 12.61
+      "selector": "#beat-01-s2",
+      "bySec": 2.9
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-03 .scene-inner",
-      "bySec": 36.34
+      "selector": "#beat-02-s1",
+      "bySec": 11.16
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-04 .scene-inner",
-      "bySec": 54.96
+      "selector": "#beat-02-s2",
+      "bySec": 20.64
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-05 .scene-inner",
-      "bySec": 82.52
+      "selector": "#beat-03-s1",
+      "bySec": 29.865
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-06 .scene-inner",
-      "bySec": 110.08
+      "selector": "#beat-03-s2",
+      "bySec": 31.69
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-07 .scene-inner",
-      "bySec": 143.59
+      "selector": "#beat-03-s3",
+      "bySec": 35.69
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-08 .scene-inner",
-      "bySec": 167.93
+      "selector": "#beat-03-s4",
+      "bySec": 38.52
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-09 .scene-inner",
-      "bySec": 196.15
+      "selector": "#beat-03-s5",
+      "bySec": 40.99
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-10 .scene-inner",
-      "bySec": 234.77
+      "selector": "#beat-03-s6",
+      "bySec": 44.16
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-11 .scene-inner",
-      "bySec": 253.82
+      "selector": "#beat-04-s1",
+      "bySec": 47.724
     },
     {
       "kind": "appearsBy",
-      "selector": "#beat-12 .scene-inner",
-      "bySec": 274.99
+      "selector": "#beat-04-s2",
+      "bySec": 57.219
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-04-s3",
+      "bySec": 63.629
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-s1",
+      "bySec": 72.725
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-s2",
+      "bySec": 77.93
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-s3",
+      "bySec": 82.68
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-s4",
+      "bySec": 88.85
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-s1",
+      "bySec": 95.205
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-s2",
+      "bySec": 99.37
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-s3",
+      "bySec": 106.57
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-s4",
+      "bySec": 108.19
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-s5",
+      "bySec": 124.53
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-s1",
+      "bySec": 131.75
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-s2",
+      "bySec": 135.679
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-s3",
+      "bySec": 138.229
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-s4",
+      "bySec": 142.544
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-s5",
+      "bySec": 145.749
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-s6",
+      "bySec": 154.469
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-s1",
+      "bySec": 158.599
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-s2",
+      "bySec": 161.75
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-s3",
+      "bySec": 171.56
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-s4",
+      "bySec": 173.355
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-s5",
+      "bySec": 180.847
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-s6",
+      "bySec": 187.818
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-s1",
+      "bySec": 190.238
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-s2",
+      "bySec": 195.858
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-s3",
+      "bySec": 198.538
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-s4",
+      "bySec": 208.708
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-s5",
+      "bySec": 217.158
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-s1",
+      "bySec": 226.118
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-s2",
+      "bySec": 228.978
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-s3",
+      "bySec": 238.448
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-11-s1",
+      "bySec": 240.998
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-11-s2",
+      "bySec": 249.688
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-12-s1",
+      "bySec": 259.428
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-12-s2",
+      "bySec": 262.519
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-12-s3",
+      "bySec": 267.809
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-12-s4",
+      "bySec": 278.438
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-12-s5",
+      "bySec": 282.129
     },
     {
       "kind": "keepsMoving",
-      "maxStaticSec": 39
+      "withinSelector": ".composition",
+      "maxStaticSec": 3
     }
   ]
 }

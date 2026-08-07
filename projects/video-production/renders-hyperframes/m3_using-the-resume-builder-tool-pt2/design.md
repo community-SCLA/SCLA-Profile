@@ -1,19 +1,29 @@
-# Design
+# Design — The Evidence Workbench
 
-## Frame
-1920 × 1080 with a 120 px safe inset and a reserved lower footer. A slim top rail identifies the program; the right edge carries lesson progress.
+## Concept
 
-## Palette
-Navy anchors credibility, paper and cultured white keep the tool demonstration clear, blue identifies actions, and gold highlights outcomes and decisions.
+The lesson lives inside one persistent resume evidence workbench. A current bullet enters at the top, moves through the four-part lens, passes six fixed workflow stations, and emerges as future-you proof. The workbench stays in place for all 49 sentence beats; only the active station, evidence signal, and compact insight rail change.
 
-## Type
-Proxima Nova with system fallbacks. Headlines are 64–78 px and heavy; supporting text stays at or above 40 px. Labels are short, uppercase, and never carry the lesson's core meaning alone.
+## Persistent Carrier
 
-## Visual system
-The four-part lens uses four numbered cards. Resume rewrites use a before/after document pattern. Verification uses check marks and editable evidence chips. Career direction uses a three-path map. LinkedIn uses a public-profile card and a search signal.
+- Six fixed stations: Setup, Lens, Draft, Verify, Select, Signal.
+- Four fixed lens chips: Responsibility, Action, Outcome, Scope.
+- One fixed before/after bullet pair: “Managed orientation sessions” becomes evidence-rich leadership proof.
+- Forty-nine progressive evidence signals show advancement without replacing the carrier.
+- A right-side insight rail delivers one concise idea per narrated sentence.
+
+## Visual System
+
+- 1920 × 1080, navy workbench with a white insight rail.
+- SCLA gold marks the current evidence signal and active station.
+- SCLA blue marks the four-part lens and instructional hierarchy.
+- Local Proxima Nova faces and the pinned local GSAP runtime only.
+- Header and progress elements stay inside declared safe regions.
 
 ## Motion
-One paused, seekable timeline drives every scene. Each beat enters in 0.55 seconds with a short stagger, holds for narration, and exits in 0.30 seconds. No infinite animation. Scene furniture remains stable to reduce visual load.
 
-## Accessibility
-High contrast, large type, limited simultaneous copy, no flashing, and redundant shape-plus-color cues.
+- One paused, seek-safe GSAP timeline.
+- Each sentence beat reveals its insight rail within one second.
+- The active workflow station and evidence signal advance with each beat.
+- The workbench persists while a slow field pulse and progress line maintain continuity.
+- Motion is deterministic at arbitrary seek times; no autoplay, timers, or infinite loops.
