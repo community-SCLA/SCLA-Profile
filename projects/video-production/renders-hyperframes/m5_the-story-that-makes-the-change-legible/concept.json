@@ -1,0 +1,22 @@
+{
+  "title": "The Story That Makes the Change Legible",
+  "compositionId": "m5_the-story-that-makes-the-change-legible",
+  "program": "Career Transitions",
+  "concept": "A career pivot becomes a visible bridge connecting proven experience to future value.",
+  "visualMetaphor": "A route line linking past, turning point, and forward case",
+  "beats": [
+    {"id": "external-question", "purpose": "Open on the moment a pivot must be explained"},
+    {"id": "land-or-unravel", "purpose": "Establish the stakes"},
+    {"id": "narrative-coherence", "purpose": "Introduce the research finding"},
+    {"id": "connect-past-future", "purpose": "Define narrative coherence"},
+    {"id": "three-part-map", "purpose": "Preview the structure"},
+    {"id": "backstory", "purpose": "Claim prior credibility"},
+    {"id": "turning-point", "purpose": "Frame the change with conviction"},
+    {"id": "forward-case", "purpose": "Claim the pivot advantage"},
+    {"id": "failure-modes", "purpose": "Introduce three risks"},
+    {"id": "no-apology", "purpose": "Remove apologetic framing"},
+    {"id": "no-erasure", "purpose": "Preserve the value of prior work"},
+    {"id": "name-bridge", "purpose": "Make the connection explicit"},
+    {"id": "build-story", "purpose": "Close with the module action"}
+  ]
+}

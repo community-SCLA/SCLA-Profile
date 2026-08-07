@@ -1,0 +1,149 @@
+{
+  "compositionId": "m5_testing-your-next-chapter",
+  "duration": 146,
+  "timeline": {
+    "engine": "gsap",
+    "paused": true,
+    "seekable": true
+  },
+  "beats": [
+    {
+      "id": "advice-loop",
+      "start": 0,
+      "duration": 17
+    },
+    {
+      "id": "ibarra-finding",
+      "start": 17,
+      "duration": 10
+    },
+    {
+      "id": "act-first",
+      "start": 27,
+      "duration": 17
+    },
+    {
+      "id": "past-software",
+      "start": 44,
+      "duration": 12
+    },
+    {
+      "id": "real-feedback",
+      "start": 56,
+      "duration": 25
+    },
+    {
+      "id": "three-experiments",
+      "start": 81,
+      "duration": 8
+    },
+    {
+      "id": "informational-interview",
+      "start": 89,
+      "duration": 10
+    },
+    {
+      "id": "trial-project",
+      "start": 99,
+      "duration": 12
+    },
+    {
+      "id": "shadow-day",
+      "start": 111,
+      "duration": 8
+    },
+    {
+      "id": "one-question",
+      "start": 119,
+      "duration": 15
+    },
+    {
+      "id": "gather-evidence",
+      "start": 134,
+      "duration": 10
+    },
+    {
+      "id": "lets-design",
+      "start": 144,
+      "duration": 2
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "advice-loop",
+      "selector": "#advice-loop",
+      "at": 1
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ibarra-finding",
+      "selector": "#ibarra-finding",
+      "at": 18
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "act-first",
+      "selector": "#act-first",
+      "at": 28
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "past-software",
+      "selector": "#past-software",
+      "at": 45
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "real-feedback",
+      "selector": "#real-feedback",
+      "at": 57
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "three-experiments",
+      "selector": "#three-experiments",
+      "at": 82
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "informational-interview",
+      "selector": "#informational-interview",
+      "at": 90
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "trial-project",
+      "selector": "#trial-project",
+      "at": 100
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "shadow-day",
+      "selector": "#shadow-day",
+      "at": 112
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "one-question",
+      "selector": "#one-question",
+      "at": 120
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "gather-evidence",
+      "selector": "#gather-evidence",
+      "at": 135
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "lets-design",
+      "selector": "#lets-design",
+      "at": 145
+    },
+    {
+      "kind": "keepsMoving",
+      "selector": ".clip"
+    }
+  ]
+}

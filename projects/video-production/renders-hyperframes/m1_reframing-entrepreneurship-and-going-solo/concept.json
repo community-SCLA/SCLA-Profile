@@ -1,0 +1,52 @@
+{
+  "title": "One Smart Experiment",
+  "composition_id": "m1_reframing-entrepreneurship-and-going-solo",
+  "program": "Entrepreneur Accelerator",
+  "format": "illustrated lesson",
+  "aspect_ratio": "16:9",
+  "duration_seconds": 127.2,
+  "beats": [
+    {
+      "id": "beat-01-shrink-the-leap",
+      "start": 0.0,
+      "duration": 18,
+      "purpose": "Contrast the startup myth with a smaller beginning."
+    },
+    {
+      "id": "beat-02-run-experiments",
+      "start": 18.0,
+      "duration": 19,
+      "purpose": "Show accessible forms a first experiment can take."
+    },
+    {
+      "id": "beat-03-ai-and-human",
+      "start": 37.0,
+      "duration": 25,
+      "purpose": "Separate AI support from the human elements that make solo work succeed."
+    },
+    {
+      "id": "beat-04-reduce-friction",
+      "start": 62.0,
+      "duration": 14,
+      "purpose": "State the track's central principle."
+    },
+    {
+      "id": "beat-05-roadmap",
+      "start": 76.0,
+      "duration": 21,
+      "purpose": "Preview the practical modules ahead."
+    },
+    {
+      "id": "beat-06-one-smart-experiment",
+      "start": 97.0,
+      "duration": 15,
+      "purpose": "Lower the stakes from a permanent choice to one test."
+    },
+    {
+      "id": "beat-07-focus-question",
+      "start": 112.0,
+      "duration": 15.2,
+      "purpose": "Close on a focused question for action."
+    }
+  ]
+}

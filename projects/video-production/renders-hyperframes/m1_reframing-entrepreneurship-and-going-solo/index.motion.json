@@ -1,0 +1,94 @@
+{
+  "composition_id": "m1_reframing-entrepreneurship-and-going-solo",
+  "duration": 127.2,
+  "timeline": "gsap",
+  "paused": true,
+  "beats": [
+    {
+      "id": "beat-01-shrink-the-leap",
+      "start": 0.0,
+      "duration": 18,
+      "entrance": "myth words stagger in; the leap line contracts into a small gold marker",
+      "keepsMoving": true
+    },
+    {
+      "id": "beat-02-run-experiments",
+      "start": 18.0,
+      "duration": 19,
+      "entrance": "experiment cards rise in sequence; connecting rule grows left to right",
+      "keepsMoving": true
+    },
+    {
+      "id": "beat-03-ai-and-human",
+      "start": 37.0,
+      "duration": 25,
+      "entrance": "AI support chips orbit a stable human-core card",
+      "keepsMoving": true
+    },
+    {
+      "id": "beat-04-reduce-friction",
+      "start": 62.0,
+      "duration": 14,
+      "entrance": "friction marks clear while the three outcomes resolve",
+      "keepsMoving": true
+    },
+    {
+      "id": "beat-05-roadmap",
+      "start": 76.0,
+      "duration": 21,
+      "entrance": "five roadmap nodes reveal along a blue path",
+      "keepsMoving": true
+    },
+    {
+      "id": "beat-06-one-smart-experiment",
+      "start": 97.0,
+      "duration": 15,
+      "entrance": "forever labels recede and one experiment card takes focus",
+      "keepsMoving": true
+    },
+    {
+      "id": "beat-07-focus-question",
+      "start": 112.0,
+      "duration": 15.2,
+      "entrance": "offer, group, and way converge; gold marker resolves in final second",
+      "keepsMoving": true
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-01-shrink-the-leap",
+      "description": "Layered entrance motion continues through the beat reveal."
+    },
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-02-run-experiments",
+      "description": "Layered entrance motion continues through the beat reveal."
+    },
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-03-ai-and-human",
+      "description": "Layered entrance motion continues through the beat reveal."
+    },
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-04-reduce-friction",
+      "description": "Layered entrance motion continues through the beat reveal."
+    },
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-05-roadmap",
+      "description": "Layered entrance motion continues through the beat reveal."
+    },
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-06-one-smart-experiment",
+      "description": "Layered entrance motion continues through the beat reveal."
+    },
+    {
+      "kind": "keepsMoving",
+      "beatId": "beat-07-focus-question",
+      "description": "Layered entrance motion continues through the beat reveal."
+    }
+  ]
+}

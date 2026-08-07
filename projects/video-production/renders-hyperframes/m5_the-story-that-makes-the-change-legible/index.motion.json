@@ -1,0 +1,145 @@
+{
+  "compositionId": "m5_the-story-that-makes-the-change-legible",
+  "timeline": "main",
+  "duration": 264,
+  "seekable": true,
+  "paused": true,
+  "runtime": "gsap",
+  "assertions": [
+    {
+      "kind": "keepsMoving"
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "external-question",
+      "time": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "land-or-unravel",
+      "time": 28.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "narrative-coherence",
+      "time": 36.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "connect-past-future",
+      "time": 67.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "three-part-map",
+      "time": 84.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "backstory",
+      "time": 91.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "turning-point",
+      "time": 109.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "forward-case",
+      "time": 137.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "failure-modes",
+      "time": 165.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "no-apology",
+      "time": 172.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "no-erasure",
+      "time": 192.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "name-bridge",
+      "time": 216.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "build-story",
+      "time": 235.2
+    }
+  ],
+  "beats": [
+    {
+      "id": "external-question",
+      "start": 0,
+      "duration": 27
+    },
+    {
+      "id": "land-or-unravel",
+      "start": 27,
+      "duration": 8
+    },
+    {
+      "id": "narrative-coherence",
+      "start": 35,
+      "duration": 31
+    },
+    {
+      "id": "connect-past-future",
+      "start": 66,
+      "duration": 17
+    },
+    {
+      "id": "three-part-map",
+      "start": 83,
+      "duration": 7
+    },
+    {
+      "id": "backstory",
+      "start": 90,
+      "duration": 18
+    },
+    {
+      "id": "turning-point",
+      "start": 108,
+      "duration": 28
+    },
+    {
+      "id": "forward-case",
+      "start": 136,
+      "duration": 28
+    },
+    {
+      "id": "failure-modes",
+      "start": 164,
+      "duration": 7
+    },
+    {
+      "id": "no-apology",
+      "start": 171,
+      "duration": 20
+    },
+    {
+      "id": "no-erasure",
+      "start": 191,
+      "duration": 24
+    },
+    {
+      "id": "name-bridge",
+      "start": 215,
+      "duration": 19
+    },
+    {
+      "id": "build-story",
+      "start": 234,
+      "duration": 30
+    }
+  ]
+}

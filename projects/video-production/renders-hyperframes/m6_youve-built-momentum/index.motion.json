@@ -1,0 +1,183 @@
+{
+  "compositionId": "m6_youve-built-momentum",
+  "duration": 170,
+  "timeline": {
+    "engine": "gsap",
+    "paused": true,
+    "seekable": true
+  },
+  "beats": [
+    {
+      "id": "beat-01",
+      "start": 0,
+      "end": 8
+    },
+    {
+      "id": "beat-02",
+      "start": 8,
+      "end": 25
+    },
+    {
+      "id": "beat-03",
+      "start": 25,
+      "end": 30
+    },
+    {
+      "id": "beat-04",
+      "start": 30,
+      "end": 38
+    },
+    {
+      "id": "beat-05",
+      "start": 38,
+      "end": 48
+    },
+    {
+      "id": "beat-06",
+      "start": 48,
+      "end": 59
+    },
+    {
+      "id": "beat-07",
+      "start": 59,
+      "end": 72
+    },
+    {
+      "id": "beat-08",
+      "start": 72,
+      "end": 82
+    },
+    {
+      "id": "beat-09",
+      "start": 82,
+      "end": 103
+    },
+    {
+      "id": "beat-10",
+      "start": 103,
+      "end": 108
+    },
+    {
+      "id": "beat-11",
+      "start": 108,
+      "end": 124
+    },
+    {
+      "id": "beat-12",
+      "start": 124,
+      "end": 138
+    },
+    {
+      "id": "beat-13",
+      "start": 138,
+      "end": 150
+    },
+    {
+      "id": "beat-14",
+      "start": 150,
+      "end": 164
+    },
+    {
+      "id": "beat-15",
+      "start": 164,
+      "end": 170
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-01",
+      "selector": "#beat-01",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-02",
+      "selector": "#beat-02",
+      "bySec": 9.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-03",
+      "selector": "#beat-03",
+      "bySec": 26.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-04",
+      "selector": "#beat-04",
+      "bySec": 31.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-05",
+      "selector": "#beat-05",
+      "bySec": 39.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-06",
+      "selector": "#beat-06",
+      "bySec": 49.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-07",
+      "selector": "#beat-07",
+      "bySec": 60.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-08",
+      "selector": "#beat-08",
+      "bySec": 73.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-09",
+      "selector": "#beat-09",
+      "bySec": 83.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-10",
+      "selector": "#beat-10",
+      "bySec": 104.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-11",
+      "selector": "#beat-11",
+      "bySec": 109.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-12",
+      "selector": "#beat-12",
+      "bySec": 125.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-13",
+      "selector": "#beat-13",
+      "bySec": 139.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-14",
+      "selector": "#beat-14",
+      "bySec": 151.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-15",
+      "selector": "#beat-15",
+      "bySec": 165.2
+    },
+    {
+      "kind": "keepsMoving",
+      "from": 0,
+      "to": 170
+    }
+  ]
+}

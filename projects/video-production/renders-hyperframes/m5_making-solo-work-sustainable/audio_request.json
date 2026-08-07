@@ -1,0 +1,49 @@
+{
+  "provider": "heygen",
+  "speed": 1.0,
+  "composition_id": "m5_making-solo-work-sustainable",
+  "output": "assets/narration.wav",
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
+  "lines": [
+    {
+      "id": "no-system",
+      "text": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it."
+    },
+    {
+      "id": "simple-pieces",
+      "text": "You don't need a complicated business operating system to begin. You need a few simple pieces."
+    },
+    {
+      "id": "track-opportunities",
+      "text": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document."
+    },
+    {
+      "id": "intake-process-a",
+      "text": "Second, a basic intake process. If someone says yes, what happens next \u2014 what questions do you ask?"
+    },
+    {
+      "id": "intake-process-b",
+      "text": "What information do you need \u2014 what do you send?"
+    },
+    {
+      "id": "templates-a",
+      "text": "Third, a templates. Proposal language; follow-up emails."
+    },
+    {
+      "id": "templates-b",
+      "text": "Meeting agendas; and project checklists. Templates save you time and keep your work consistent."
+    },
+    {
+      "id": "weekly-review",
+      "text": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."
+    },
+    {
+      "id": "boundaries",
+      "text": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?\n\nAI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy."
+    },
+    {
+      "id": "sustainable-plan",
+      "text": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "compositionId": "m3_choosing-your-solo-model",
+  "duration": 111,
+  "fps": 30,
+  "timeline": "main",
+  "paused": true,
+  "seekable": true,
+  "beats": [
+    {
+      "id": "beat-01-work",
+      "start": 0,
+      "duration": 9
+    },
+    {
+      "id": "beat-02-models",
+      "start": 9,
+      "duration": 7
+    },
+    {
+      "id": "beat-03-freelance",
+      "start": 16,
+      "duration": 21
+    },
+    {
+      "id": "beat-04-consulting",
+      "start": 37,
+      "duration": 19
+    },
+    {
+      "id": "beat-05-fractional",
+      "start": 56,
+      "duration": 17
+    },
+    {
+      "id": "beat-06-shorthand",
+      "start": 73,
+      "duration": 8
+    },
+    {
+      "id": "beat-07-start",
+      "start": 81,
+      "duration": 16
+    },
+    {
+      "id": "beat-08-choose",
+      "start": 97,
+      "duration": 14
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-01-work",
+      "at": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-02-models",
+      "at": 10.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-freelance",
+      "at": 17.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-04-consulting",
+      "at": 38.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-fractional",
+      "at": 57.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-shorthand",
+      "at": 74.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-start",
+      "at": 82.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-choose",
+      "at": 98.2
+    },
+    {
+      "kind": "keepsMoving",
+      "selector": ".rail-fill",
+      "from": 0,
+      "to": 111
+    }
+  ]
+}

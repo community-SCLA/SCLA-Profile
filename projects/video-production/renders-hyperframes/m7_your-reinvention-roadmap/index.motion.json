@@ -1,0 +1,15 @@
+{
+  "compositionId": "m7_your-reinvention-roadmap",
+  "timeline": "roadmapTimeline",
+  "paused": true,
+  "seekable": true,
+  "duration": 112,
+  "beatCount": 14,
+  "runtime": "gsap",
+  "assertions": [
+    {
+      "kind": "keepsMoving",
+      "selector": ".progress span"
+    }
+  ]
+}

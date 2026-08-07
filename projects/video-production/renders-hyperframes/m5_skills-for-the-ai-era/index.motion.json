@@ -1,0 +1,214 @@
+{
+  "compositionId": "m5_skills-for-the-ai-era",
+  "timeline": "master",
+  "duration": 222.69,
+  "fps": 30,
+  "seekable": true,
+  "autoplay": false,
+  "beats": [
+    {
+      "id": "beat-01",
+      "start": 0.0,
+      "end": 36.49,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-02",
+      "start": 36.49,
+      "end": 43.18,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-03",
+      "start": 43.18,
+      "end": 51.84,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-04",
+      "start": 51.84,
+      "end": 65.58,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-05",
+      "start": 65.58,
+      "end": 85.22,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-06",
+      "start": 85.22,
+      "end": 111.91,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-07",
+      "start": 111.91,
+      "end": 133.5,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-08",
+      "start": 133.5,
+      "end": 139.0,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-09",
+      "start": 139.0,
+      "end": 152.35,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-10",
+      "start": 152.35,
+      "end": 161.4,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-11",
+      "start": 161.4,
+      "end": 170.83,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-12",
+      "start": 170.83,
+      "end": 184.19,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-13",
+      "start": 184.19,
+      "end": 198.72,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-14",
+      "start": 198.72,
+      "end": 213.26,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-15",
+      "start": 213.26,
+      "end": 222.69,
+      "entrance": 0.55,
+      "exit": 0.3
+    }
+  ],
+  "keepsMoving": true,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-01",
+      "selector": "#beat-01",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-02",
+      "selector": "#beat-02",
+      "bySec": 37.69
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-03",
+      "selector": "#beat-03",
+      "bySec": 44.38
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-04",
+      "selector": "#beat-04",
+      "bySec": 53.04
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-05",
+      "selector": "#beat-05",
+      "bySec": 66.78
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-06",
+      "selector": "#beat-06",
+      "bySec": 86.42
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-07",
+      "selector": "#beat-07",
+      "bySec": 113.11
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-08",
+      "selector": "#beat-08",
+      "bySec": 134.7
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-09",
+      "selector": "#beat-09",
+      "bySec": 140.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-10",
+      "selector": "#beat-10",
+      "bySec": 153.55
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-11",
+      "selector": "#beat-11",
+      "bySec": 162.6
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-12",
+      "selector": "#beat-12",
+      "bySec": 172.03
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-13",
+      "selector": "#beat-13",
+      "bySec": 185.39
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-14",
+      "selector": "#beat-14",
+      "bySec": 199.92
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-15",
+      "selector": "#beat-15",
+      "bySec": 214.46
+    },
+    {
+      "kind": "keepsMoving",
+      "from": 0,
+      "to": 222.69,
+      "selector": "#m5_skills-for-the-ai-era .progress span"
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "compositionId": "m4_building-visibility-on-your-own",
+  "duration": 244.38,
+  "fps": 30,
+  "timeline": {
+    "paused": true,
+    "seekable": true,
+    "engine": "gsap"
+  },
+  "beats": [
+    {
+      "id": "myth",
+      "start": 0,
+      "duration": 15.1,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "simpler",
+      "start": 15.1,
+      "duration": 4.8,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "definition",
+      "start": 19.9,
+      "duration": 12.24,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "first-client",
+      "start": 32.14,
+      "duration": 17.14,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "building-blocks",
+      "start": 49.28,
+      "duration": 5.71,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "clear-signal",
+      "start": 54.99,
+      "duration": 23.27,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "credible-story",
+      "start": 78.26,
+      "duration": 27.76,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "example-story",
+      "start": 106.02,
+      "duration": 22.45,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "touchpoints",
+      "start": 128.47,
+      "duration": 30.61,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "participation",
+      "start": 159.08,
+      "duration": 28.57,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "ai",
+      "start": 187.65,
+      "duration": 28.57,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "system",
+      "start": 216.22,
+      "duration": 15.92,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    },
+    {
+      "id": "close",
+      "start": 232.14,
+      "duration": 12.24,
+      "enter": {
+        "duration": 0.55,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.3
+      }
+    }
+  ],
+  "keepsMoving": true,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "myth",
+      "selector": "#beat-myth",
+      "bySec": 0.8
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "simpler",
+      "selector": "#beat-simpler",
+      "bySec": 15.9
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "definition",
+      "selector": "#beat-definition",
+      "bySec": 20.7
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "first-client",
+      "selector": "#beat-first-client",
+      "bySec": 32.94
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "building-blocks",
+      "selector": "#beat-building-blocks",
+      "bySec": 50.08
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "clear-signal",
+      "selector": "#beat-clear-signal",
+      "bySec": 55.79
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "credible-story",
+      "selector": "#beat-credible-story",
+      "bySec": 79.06
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "example-story",
+      "selector": "#beat-example-story",
+      "bySec": 106.82
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touchpoints",
+      "selector": "#beat-touchpoints",
+      "bySec": 129.27
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "participation",
+      "selector": "#beat-participation",
+      "bySec": 159.88
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai",
+      "selector": "#beat-ai",
+      "bySec": 188.45
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "system",
+      "selector": "#beat-system",
+      "bySec": 217.02
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "close",
+      "selector": "#beat-close",
+      "bySec": 232.94
+    },
+    {
+      "kind": "keepsMoving",
+      "from": 0,
+      "to": 244.38,
+      "selector": ".progress span"
+    }
+  ]
+}

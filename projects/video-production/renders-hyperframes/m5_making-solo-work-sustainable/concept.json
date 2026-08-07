@@ -1,0 +1,69 @@
+{
+  "compositionId": "m5_making-solo-work-sustainable",
+  "title": "Making Solo Work Sustainable",
+  "program": "Entrepreneur Accelerator",
+  "duration": 88,
+  "fps": 30,
+  "beats": [
+    {
+      "id": "no-system",
+      "start": 0,
+      "end": 9.5,
+      "purpose": "Show that missing systems, not a weak offer, create stress."
+    },
+    {
+      "id": "simple-pieces",
+      "start": 9.5,
+      "end": 17.5,
+      "purpose": "Introduce a small, approachable operating loop."
+    },
+    {
+      "id": "track-opportunities",
+      "start": 17.5,
+      "end": 29.0,
+      "purpose": "Make opportunity tracking visible and concrete."
+    },
+    {
+      "id": "intake-process-a",
+      "start": 29,
+      "end": 34.5,
+      "purpose": "Show a reliable sequence after a client says yes."
+    },
+    {
+      "id": "intake-process-b",
+      "start": 34.5,
+      "end": 40.0,
+      "purpose": "Show a reliable sequence after a client says yes."
+    },
+    {
+      "id": "templates-a",
+      "start": 40,
+      "end": 45.5,
+      "purpose": "Build a reusable toolkit for consistent work."
+    },
+    {
+      "id": "templates-b",
+      "start": 45.5,
+      "end": 51.0,
+      "purpose": "Build a reusable toolkit for consistent work."
+    },
+    {
+      "id": "weekly-review",
+      "start": 51,
+      "end": 62.5,
+      "purpose": "Turn weekly review into a protective ritual."
+    },
+    {
+      "id": "boundaries",
+      "start": 62.5,
+      "end": 76.5,
+      "purpose": "Define guardrails around time, scope, clients, and timelines."
+    },
+    {
+      "id": "sustainable-plan",
+      "start": 76.5,
+      "end": 88.0,
+      "purpose": "Resolve into a time budget, systems, and guardrails."
+    }
+  ]
+}

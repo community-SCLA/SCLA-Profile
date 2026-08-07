@@ -1,0 +1,20 @@
+{
+  "compositionId": "m4_building-your-carry-forward-inventory",
+  "title": "Building Your Carry-Forward Inventory",
+  "program": "career-transitions",
+  "concept": "An inventory case fills with four categories of portable career assets, then crosses into the learner's next chapter.",
+  "visualMetaphor": "A structured carry-forward case with four drawers",
+  "beats": [
+    {"id": "beat-01-question", "purpose": "Open on the central question", "visual": "An empty case and a single question"},
+    {"id": "beat-02-definition", "purpose": "Define the tool", "visual": "A ruled inventory sheet slides into the case"},
+    {"id": "beat-03-genuinely", "purpose": "Separate portable assets from old context", "visual": "Asset cards sort into carry and leave columns"},
+    {"id": "beat-04-four-categories", "purpose": "Preview the framework", "visual": "Four drawers lock into the case"},
+    {"id": "beat-05-capabilities", "purpose": "Inventory skills and capabilities", "visual": "Capability cards populate drawer one"},
+    {"id": "beat-06-values", "purpose": "Inventory values and drivers", "visual": "A compass marker populates drawer two"},
+    {"id": "beat-07-relationships", "purpose": "Inventory person-centered relationships", "visual": "Role ties fade while person ties remain"},
+    {"id": "beat-08-perspective", "purpose": "Inventory insights and perspective", "visual": "An outsider lens reveals a hidden pattern"},
+    {"id": "beat-09-work-list", "purpose": "Review all four categories", "visual": "The completed drawers stack into one inventory"},
+    {"id": "beat-10-carry-forward", "purpose": "Resolve with an asset count", "visual": "The full case crosses a threshold toward next"}
+  ]
+}
+

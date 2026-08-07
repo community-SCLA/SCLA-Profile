@@ -1,0 +1,115 @@
+{
+  "compositionId": "m4_building-your-carry-forward-inventory",
+  "duration": 147,
+  "timeline": "paused-seekable",
+  "assertions": [
+    {
+      "kind": "keepsMoving",
+      "selector": "#progress",
+      "from": 0,
+      "to": 147
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-01-question",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-02-definition",
+      "bySec": 6.8500000000000005
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-genuinely",
+      "bySec": 19.849999999999998
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-04-four-categories",
+      "bySec": 45.85
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-capabilities",
+      "bySec": 50.85
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-values",
+      "bySec": 64.85
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-relationships",
+      "bySec": 75.85000000000001
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-perspective",
+      "bySec": 92.85000000000001
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09-work-list",
+      "bySec": 112.85000000000001
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10-carry-forward",
+      "bySec": 125.85000000000001
+    }
+  ],
+  "beats": [
+    {
+      "id": "beat-01-question",
+      "start": 0,
+      "end": 5.65
+    },
+    {
+      "id": "beat-02-definition",
+      "start": 5.65,
+      "end": 18.65
+    },
+    {
+      "id": "beat-03-genuinely",
+      "start": 18.65,
+      "end": 44.65
+    },
+    {
+      "id": "beat-04-four-categories",
+      "start": 44.65,
+      "end": 49.65
+    },
+    {
+      "id": "beat-05-capabilities",
+      "start": 49.65,
+      "end": 63.65
+    },
+    {
+      "id": "beat-06-values",
+      "start": 63.65,
+      "end": 74.65
+    },
+    {
+      "id": "beat-07-relationships",
+      "start": 74.65,
+      "end": 91.65
+    },
+    {
+      "id": "beat-08-perspective",
+      "start": 91.65,
+      "end": 111.65
+    },
+    {
+      "id": "beat-09-work-list",
+      "start": 111.65,
+      "end": 124.65
+    },
+    {
+      "id": "beat-10-carry-forward",
+      "start": 124.65,
+      "end": 147
+    }
+  ]
+}
