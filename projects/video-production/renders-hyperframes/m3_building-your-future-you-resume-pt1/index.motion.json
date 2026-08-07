@@ -1,0 +1,225 @@
+{
+  "compositionId": "m3_building-your-future-you-resume-pt1",
+  "duration": 286.53,
+  "timeline": {
+    "paused": true,
+    "seekable": true,
+    "engine": "gsap"
+  },
+  "beats": [
+    {
+      "id": "beat-01",
+      "start": 0,
+      "end": 5.46,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-02",
+      "start": 5.46,
+      "end": 21.12,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-03",
+      "start": 21.12,
+      "end": 35.94,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-04",
+      "start": 35.94,
+      "end": 44.37,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-05",
+      "start": 44.37,
+      "end": 64.3,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-06",
+      "start": 64.3,
+      "end": 82.09,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-07",
+      "start": 82.09,
+      "end": 107.55,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-08",
+      "start": 107.55,
+      "end": 118.96,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-09",
+      "start": 118.96,
+      "end": 138.03,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-10",
+      "start": 138.03,
+      "end": 156.26,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-11",
+      "start": 156.26,
+      "end": 182.14,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-12",
+      "start": 182.14,
+      "end": 202.49,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-13",
+      "start": 202.49,
+      "end": 224.54,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-14",
+      "start": 224.54,
+      "end": 247.86,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-15",
+      "start": 247.86,
+      "end": 271.19,
+      "entrance": 0.55,
+      "exit": 0.3
+    },
+    {
+      "id": "beat-16",
+      "start": 271.19,
+      "end": 286.53,
+      "entrance": 0.55,
+      "exit": 0.3
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "keepsMoving",
+      "selector": "#composition"
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-01",
+      "selector": "#beat-01",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-02",
+      "selector": "#beat-02",
+      "bySec": 6.66
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-03",
+      "selector": "#beat-03",
+      "bySec": 22.32
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-04",
+      "selector": "#beat-04",
+      "bySec": 37.14
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-05",
+      "selector": "#beat-05",
+      "bySec": 45.57
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-06",
+      "selector": "#beat-06",
+      "bySec": 65.5
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-07",
+      "selector": "#beat-07",
+      "bySec": 83.29
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-08",
+      "selector": "#beat-08",
+      "bySec": 108.75
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-09",
+      "selector": "#beat-09",
+      "bySec": 120.16
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-10",
+      "selector": "#beat-10",
+      "bySec": 139.23
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-11",
+      "selector": "#beat-11",
+      "bySec": 157.45999999999998
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-12",
+      "selector": "#beat-12",
+      "bySec": 183.33999999999997
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-13",
+      "selector": "#beat-13",
+      "bySec": 203.69
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-14",
+      "selector": "#beat-14",
+      "bySec": 225.73999999999998
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-15",
+      "selector": "#beat-15",
+      "bySec": 249.06
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-16",
+      "selector": "#beat-16",
+      "bySec": 272.39
+    }
+  ]
+}

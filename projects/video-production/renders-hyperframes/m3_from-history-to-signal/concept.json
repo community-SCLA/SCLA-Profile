@@ -1,0 +1,86 @@
+{
+  "title": "From History to Signal",
+  "compositionId": "m3_from-history-to-signal",
+  "program": "mid-career-momentum",
+  "duration": 147,
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "concept": "Transform a career archive into a forward-facing signal.",
+  "metaphor": "A gold signal line emerges from stacked records and points from NOW to NEXT.",
+  "beats": [
+    {
+      "id": "archive",
+      "start": 0,
+      "end": 12.35,
+      "narration": "By mid-career, your resume and professional profiles often turn into archives \u2014 a long record of everything you've done. And that makes it harder for other people to quickly see where you're heading next, and why you're ready for the role you actually want."
+    },
+    {
+      "id": "fix",
+      "start": 12.35,
+      "end": 15.65,
+      "narration": "So let's fix that."
+    },
+    {
+      "id": "scan",
+      "start": 15.65,
+      "end": 28.35,
+      "narration": "When a manager, a sponsor, or a hiring committee looks at your materials, they're really scanning for just a few things. What kinds of results you've delivered. The level of scope you've handled. And how well your experience lines up with the role you want next."
+    },
+    {
+      "id": "task-list",
+      "start": 28.35,
+      "end": 43.35,
+      "narration": "Here's the problem. If your resume reads like a task list \u2014 \"responsible for X,\" \"duties included Y\" \u2014 they have to work much harder to see your impact. And if your LinkedIn headline describes only your current role, they may never realize you're aiming for a different kind of future."
+    },
+    {
+      "id": "proof",
+      "start": 43.35,
+      "end": 59.35,
+      "narration": "Think about the difference. A bullet like \"responsible for managing projects\" tells them what you were assigned. But rewrite that same experience as \"led a cross-functional project that reduced onboarding time by 30%,\" and now they see what you actually delivered. Same work \u2014 but one version signals results, and the other just lists duties."
+    },
+    {
+      "id": "three-moves",
+      "start": 59.35,
+      "end": 65.35,
+      "narration": "That's the shift this module is about. And we'll focus on three moves."
+    },
+    {
+      "id": "trajectory",
+      "start": 65.35,
+      "end": 76.35,
+      "narration": "First, discovering the experiences that best support your future trajectory \u2014 the parts of your story that point forward, not just the ones that fill the page."
+    },
+    {
+      "id": "impact",
+      "start": 76.35,
+      "end": 86.35,
+      "narration": "Second, rewriting your key resume bullets so they show results, scope, and impact \u2014 not tasks."
+    },
+    {
+      "id": "future-you",
+      "start": 86.35,
+      "end": 96.35,
+      "narration": "Third, updating your LinkedIn headline and summary so they speak to your future-you, not just your past-you."
+    },
+    {
+      "id": "curate",
+      "start": 96.35,
+      "end": 110.35,
+      "narration": "Now, the goal here is not to rewrite your entire history. It's to curate. To highlight the parts of your story that make your Next Move Statement believable and compelling. When you reposition your experience like this, you make it easier for decision-makers to connect the dots \u2014 from who you are now, to who you're becoming."
+    },
+    {
+      "id": "connect-dots",
+      "start": 110.35,
+      "end": 124.35,
+      "narration": "So as you work through this module, keep one question in mind. If someone only saw my resume and my LinkedIn profile, would they understand the future I'm aiming for?"
+    },
+    {
+      "id": "question",
+      "start": 124.35,
+      "end": 147,
+      "narration": "By the end of this module, you'll be much closer to a yes."
+    }
+  ]
+}
