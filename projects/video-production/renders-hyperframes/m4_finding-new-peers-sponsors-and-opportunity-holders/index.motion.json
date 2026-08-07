@@ -1,0 +1,146 @@
+{
+  "compositionId": "m4_finding-new-peers-sponsors-and-opportunity-holders",
+  "timeline": "gsap",
+  "paused": true,
+  "seekable": true,
+  "duration": 196,
+  "beats": [
+    {
+      "id": "people-open-doors",
+      "start": 0,
+      "duration": 14
+    },
+    {
+      "id": "three-relationships",
+      "start": 14,
+      "duration": 12
+    },
+    {
+      "id": "peers",
+      "start": 26,
+      "duration": 19
+    },
+    {
+      "id": "sponsors",
+      "start": 45,
+      "duration": 19
+    },
+    {
+      "id": "opportunity-holders",
+      "start": 64,
+      "duration": 18
+    },
+    {
+      "id": "strategic-map",
+      "start": 82,
+      "duration": 13
+    },
+    {
+      "id": "find-them",
+      "start": 95,
+      "duration": 5
+    },
+    {
+      "id": "existing-connections",
+      "start": 100,
+      "duration": 21
+    },
+    {
+      "id": "direct-search",
+      "start": 121,
+      "duration": 16
+    },
+    {
+      "id": "potential-sponsors",
+      "start": 137,
+      "duration": 16
+    },
+    {
+      "id": "contact-map",
+      "start": 153,
+      "duration": 16
+    },
+    {
+      "id": "real-relationships",
+      "start": 169,
+      "duration": 16
+    },
+    {
+      "id": "closing-question",
+      "start": 185,
+      "duration": 11
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "people-open-doors",
+      "time": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "three-relationships",
+      "time": 15.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "peers",
+      "time": 27.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "sponsors",
+      "time": 46.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "opportunity-holders",
+      "time": 65.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "strategic-map",
+      "time": 83.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "find-them",
+      "time": 96.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "existing-connections",
+      "time": 101.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "direct-search",
+      "time": 122.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "potential-sponsors",
+      "time": 138.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "contact-map",
+      "time": 154.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "real-relationships",
+      "time": 170.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "closing-question",
+      "time": 186.2
+    },
+    {
+      "kind": "keepsMoving",
+      "start": 0,
+      "end": 196
+    }
+  ]
+}
