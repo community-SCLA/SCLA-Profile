@@ -1,0 +1,81 @@
+name: SCLA Lesson System
+canvas: 1920x1080
+
+colors:
+  navy: "#0d2437"
+  navy-deep: "#0a1e2f"
+  blue: "#3393d6"
+  gold: "#eaab2d"
+  ink: "#292f35"
+  paper: "#ffffff"
+  cultured: "#f6f6f9"
+  fill-subtle: "#e5eff6"
+  border: "#cccedf"
+  muted: "#98a4cc"
+  muted-video: "#5f6f96"
+  logo-gold: "#F1B32E"
+  logo-blue: "#55A4DD"
+
+typography:
+  display: "proxima-nova"
+  body: "proxima-nova"
+  fallback: "'Proxima Nova', system-ui, sans-serif"
+  weights: [400, 700, 900]
+  scale:
+    display: "96-120px / 900"
+    heading: "60-72px / 900"
+    quote: "52-60px / 700"
+    body: "40-48px / 400"
+    label: "20-26px / 700, uppercase, letter-spacing 0.14em"
+    stat: "200-260px / 900"
+  min-size:
+    body: 40
+    label: 20
+    exempt: "marker numerals sized by their circle; declare text-floor-exempt"
+
+spacing:
+  frame-padding: 120
+  safe-area: 72
+  footer-reserve: 120
+  content-bottom: 960
+  card-gutter: 24
+  radius-card: "12px"
+  radius-pill: "100px"
+
+chrome-regions: ["100,50,700,110"]
+
+components:
+  cta-label: "gold text 900 with leading arrow; no fill"
+  chip: "2px blue border; transparent fill; blue text; radius 100px"
+  step-node: "120px circle; 4px navy ring; gold active fill; navy 900 number"
+  point-marker: "74px circle; gold fill; navy 900 number"
+  rule: "gold or blue; 3-4px; scaleX entrance from left"
+
+motion:
+  entrance: "0.4-0.6s per element; whole entrance settled by 1.2s"
+  exit: "0.3s content-layer exit; furniture remains; outro exempt"
+  closing-beat: "one additive resolve in the final second"
+  stagger: "0.12-0.18s"
+  ambient: "finite 3-4s yoyo"
+  ban: "infinite repeats; linear full-screen gradients on navy"
+
+voice:
+  provider: heygen
+  voice_id: 442360a3e0894fbd85024ff64cc2b928
+  speed: 1.0
+
+timing:
+  lead: 0.60
+  gap: 0.65
+  visual-lead: 0.25
+  final-hold: 1.80
+  video-hold: 1.80
+
+programs:
+  early-career-boost: "Early Career Boost"
+  mid-career-momentum: "Mid-Career Momentum"
+  career-transitions: "Career Transitions"
+  entrepreneur-accelerator: "Entrepreneur Accelerator"
+
+retired-names:
+  - "Career Accelerator"

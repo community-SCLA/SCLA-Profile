@@ -1,0 +1,115 @@
+{
+  "compositionId": "m4_visibility-actions",
+  "timeline": {
+    "engine": "gsap",
+    "paused": true,
+    "seekable": true,
+    "duration": 91
+  },
+  "beats": [
+    {
+      "id": "beat-01-two-parts",
+      "start": 0,
+      "end": 10,
+      "entrance": "cards-rise",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-02-reframe",
+      "start": 10,
+      "end": 21,
+      "entrance": "cards-rise",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-03-definition",
+      "start": 21,
+      "end": 33,
+      "entrance": "path-draw",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-04-examples",
+      "start": 33,
+      "end": 52,
+      "entrance": "card-stagger",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-05-not-volume",
+      "start": 52,
+      "end": 62,
+      "entrance": "dial-settle",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-06-three-actions",
+      "start": 62,
+      "end": 77,
+      "entrance": "card-stagger",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-07-test",
+      "start": 77,
+      "end": 83,
+      "entrance": "window-focus",
+      "exit": "fade"
+    },
+    {
+      "id": "beat-08-close",
+      "start": 83,
+      "end": 91,
+      "entrance": "path-draw",
+      "exit": "hold"
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-01-two-parts",
+      "bySec": 1
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-02-reframe",
+      "bySec": 11
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03-definition",
+      "bySec": 22
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-04-examples",
+      "bySec": 34
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05-not-volume",
+      "bySec": 53
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06-three-actions",
+      "bySec": 63
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07-test",
+      "bySec": 78
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08-close",
+      "bySec": 84
+    },
+    {
+      "kind": "keepsMoving",
+      "selector": ".signal-dot",
+      "from": 0,
+      "to": 91
+    }
+  ]
+}

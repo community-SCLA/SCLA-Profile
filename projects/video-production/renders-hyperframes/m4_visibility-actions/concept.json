@@ -1,0 +1,17 @@
+{
+  "compositionId": "m4_visibility-actions",
+  "title": "Visibility Actions",
+  "program": "Mid-Career Momentum",
+  "concept": "Visibility, Made Visible",
+  "duration": 91,
+  "beats": [
+    {"id": "beat-01-two-parts", "start": 0, "duration": 10},
+    {"id": "beat-02-reframe", "start": 10, "duration": 11},
+    {"id": "beat-03-definition", "start": 21, "duration": 12},
+    {"id": "beat-04-examples", "start": 33, "duration": 19},
+    {"id": "beat-05-not-volume", "start": 52, "duration": 10},
+    {"id": "beat-06-three-actions", "start": 62, "duration": 15},
+    {"id": "beat-07-test", "start": 77, "duration": 6},
+    {"id": "beat-08-close", "start": 83, "duration": 8}
+  ]
+}
