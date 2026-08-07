@@ -6,7 +6,16 @@ A mid-career professional does not compete with AI on task speed. They use accum
 
 ## Visual metaphor
 
-A precise **value compass** moves from a field of small task tiles toward a bright human-centered core. The lesson opens with experience as leverage, passes through a three-step repositioning framework, then resolves into five durable capabilities arranged as an expanding constellation.
+A clear **work-value shift** shows why mid-career experience matters. Routine
+task blocks compress under AI acceleration while labeled human-value work rises.
+One persistent three-lane carrier—TASKS, VALUE, POSITION—holds across the full
+lesson. Its evidence changes from the practical frame, to AI draft versus
+professional responsibility, to the five durable skills, without replacing the
+map. The close resolves the same lanes as AI TOOL → YOUR EXPERIENCE →
+HIGHER-VALUE WORK.
+
+Production scene numbers and progress bars are deliberately absent. Lesson
+numbers remain only where the narration itself introduces a sequence.
 
 ## Beat plan
 

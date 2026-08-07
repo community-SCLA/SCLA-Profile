@@ -1,124 +1,296 @@
 {
   "compositionId": "m3_rewrite-your-linkedin-for-future-you",
   "timeline": "master",
-  "duration": 108,
+  "duration": 138.721,
   "paused": true,
   "seekable": true,
   "assertions": [
     {
       "kind": "appearsBy",
-      "selector": "#static-biography",
-      "bySec": 1
+      "selector": "#static-biography-01",
+      "bySec": 1.0
     },
     {
       "kind": "appearsBy",
-      "selector": "#positioning-tool",
-      "bySec": 11
+      "selector": "#static-biography-02",
+      "bySec": 6.22
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#static-biography-03",
+      "bySec": 10.11
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#positioning-tool-01",
+      "bySec": 14.665
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#positioning-tool-02",
+      "bySec": 19.32
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#positioning-tool-03",
+      "bySec": 24.23
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#positioning-tool-04",
+      "bySec": 28.85
     },
     {
       "kind": "appearsBy",
       "selector": "#three-things",
-      "bySec": 23
+      "bySec": 33.52
     },
     {
       "kind": "appearsBy",
       "selector": "#future-roles",
-      "bySec": 29
+      "bySec": 39.691
     },
     {
       "kind": "appearsBy",
       "selector": "#known-for",
-      "bySec": 36
+      "bySec": 43.341
     },
     {
       "kind": "appearsBy",
       "selector": "#human-value",
-      "bySec": 43
+      "bySec": 48.005
     },
     {
       "kind": "appearsBy",
-      "selector": "#headline-formula",
-      "bySec": 50
+      "selector": "#headline-formula-01",
+      "bySec": 54.641
     },
     {
       "kind": "appearsBy",
-      "selector": "#before-after",
-      "bySec": 62
+      "selector": "#headline-formula-02",
+      "bySec": 59.946
     },
     {
       "kind": "appearsBy",
-      "selector": "#about-bridge",
-      "bySec": 76
+      "selector": "#headline-formula-03",
+      "bySec": 65.031
     },
     {
       "kind": "appearsBy",
-      "selector": "#draft-and-sharpen",
-      "bySec": 89
+      "selector": "#before-after-01",
+      "bySec": 70.061
     },
     {
       "kind": "appearsBy",
-      "selector": "#open-doors",
-      "bySec": 99
+      "selector": "#before-after-02",
+      "bySec": 74.671
     },
     {
-      "kind": "keepsMoving"
+      "kind": "appearsBy",
+      "selector": "#before-after-03",
+      "bySec": 79.651
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#before-after-04",
+      "bySec": 84.531
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#before-after-05",
+      "bySec": 89.351
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#about-bridge-01",
+      "bySec": 94.131
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#about-bridge-02",
+      "bySec": 99.271
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#about-bridge-03",
+      "bySec": 104.766
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#draft-and-sharpen-01",
+      "bySec": 109.961
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#draft-and-sharpen-02",
+      "bySec": 114.781
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#draft-and-sharpen-03",
+      "bySec": 119.156
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#open-doors-01",
+      "bySec": 123.746
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#open-doors-02",
+      "bySec": 129.051
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#open-doors-03",
+      "bySec": 133.551
+    },
+    {
+      "kind": "keepsMoving",
+      "withinSelector": "[data-composition-id]",
+      "maxStaticSec": 8
     }
   ],
   "beats": [
     {
-      "id": "static-biography",
-      "start": 0,
-      "duration": 10
+      "id": "static-biography-01",
+      "start": 0.0,
+      "duration": 5.22
     },
     {
-      "id": "positioning-tool",
-      "start": 10,
-      "duration": 12
+      "id": "static-biography-02",
+      "start": 5.22,
+      "duration": 3.89
+    },
+    {
+      "id": "static-biography-03",
+      "start": 9.11,
+      "duration": 4.555
+    },
+    {
+      "id": "positioning-tool-01",
+      "start": 13.665,
+      "duration": 4.655
+    },
+    {
+      "id": "positioning-tool-02",
+      "start": 18.32,
+      "duration": 4.91
+    },
+    {
+      "id": "positioning-tool-03",
+      "start": 23.23,
+      "duration": 4.62
+    },
+    {
+      "id": "positioning-tool-04",
+      "start": 27.85,
+      "duration": 4.67
     },
     {
       "id": "three-things",
-      "start": 22,
-      "duration": 6
+      "start": 32.52,
+      "duration": 6.171
     },
     {
       "id": "future-roles",
-      "start": 28,
-      "duration": 7
+      "start": 38.691,
+      "duration": 3.65
     },
     {
       "id": "known-for",
-      "start": 35,
-      "duration": 7
+      "start": 42.341,
+      "duration": 4.664
     },
     {
       "id": "human-value",
-      "start": 42,
-      "duration": 7
+      "start": 47.005,
+      "duration": 6.636
     },
     {
-      "id": "headline-formula",
-      "start": 49,
-      "duration": 12
+      "id": "headline-formula-01",
+      "start": 53.641,
+      "duration": 5.305
     },
     {
-      "id": "before-after",
-      "start": 61,
-      "duration": 14
+      "id": "headline-formula-02",
+      "start": 58.946,
+      "duration": 5.085
     },
     {
-      "id": "about-bridge",
-      "start": 75,
-      "duration": 13
+      "id": "headline-formula-03",
+      "start": 64.031,
+      "duration": 5.03
     },
     {
-      "id": "draft-and-sharpen",
-      "start": 88,
-      "duration": 10
+      "id": "before-after-01",
+      "start": 69.061,
+      "duration": 4.61
     },
     {
-      "id": "open-doors",
-      "start": 98,
-      "duration": 10
+      "id": "before-after-02",
+      "start": 73.671,
+      "duration": 4.98
+    },
+    {
+      "id": "before-after-03",
+      "start": 78.651,
+      "duration": 4.88
+    },
+    {
+      "id": "before-after-04",
+      "start": 83.531,
+      "duration": 4.82
+    },
+    {
+      "id": "before-after-05",
+      "start": 88.351,
+      "duration": 4.78
+    },
+    {
+      "id": "about-bridge-01",
+      "start": 93.131,
+      "duration": 5.14
+    },
+    {
+      "id": "about-bridge-02",
+      "start": 98.271,
+      "duration": 5.495
+    },
+    {
+      "id": "about-bridge-03",
+      "start": 103.766,
+      "duration": 5.195
+    },
+    {
+      "id": "draft-and-sharpen-01",
+      "start": 108.961,
+      "duration": 4.82
+    },
+    {
+      "id": "draft-and-sharpen-02",
+      "start": 113.781,
+      "duration": 4.375
+    },
+    {
+      "id": "draft-and-sharpen-03",
+      "start": 118.156,
+      "duration": 4.59
+    },
+    {
+      "id": "open-doors-01",
+      "start": 122.746,
+      "duration": 5.305
+    },
+    {
+      "id": "open-doors-02",
+      "start": 128.051,
+      "duration": 4.5
+    },
+    {
+      "id": "open-doors-03",
+      "start": 132.551,
+      "duration": 6.17
     }
   ]
 }

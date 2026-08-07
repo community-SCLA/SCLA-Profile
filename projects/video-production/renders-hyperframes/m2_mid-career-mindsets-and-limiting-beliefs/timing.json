@@ -1,5 +1,5 @@
 {
-  "total": 94.908,
+  "total": 100.91,
   "rows": [
     {
       "id": "beat-honest-look",
@@ -9,39 +9,123 @@
       "vis_dur": 6.02
     },
     {
-      "id": "beat-protective-beliefs",
+      "id": "beat-beliefs-intro",
       "audio_start": 6.27,
-      "audio_dur": 16.188,
+      "audio_dur": 4.21,
       "vis_start": 6.02,
-      "vis_dur": 16.838
+      "vis_dur": 4.86
     },
     {
-      "id": "beat-leverage-point",
-      "audio_start": 23.108,
-      "audio_dur": 15.47,
-      "vis_start": 22.858,
-      "vis_dur": 16.12
+      "id": "beat-speaking-up",
+      "audio_start": 11.13,
+      "audio_dur": 2.64,
+      "vis_start": 10.88,
+      "vis_dur": 3.29
     },
     {
-      "id": "beat-career-experiments",
-      "audio_start": 39.228,
-      "audio_dur": 16.72,
-      "vis_start": 38.978,
-      "vis_dur": 17.37
+      "id": "beat-first-opportunity",
+      "audio_start": 14.42,
+      "audio_dur": 4.05,
+      "vis_start": 14.17,
+      "vis_dur": 4.7
     },
     {
-      "id": "beat-redesign",
-      "audio_start": 56.598,
-      "audio_dur": 11.51,
-      "vis_start": 56.348,
-      "vis_dur": 12.16
+      "id": "beat-beliefs-shrink",
+      "audio_start": 19.12,
+      "audio_dur": 5.66,
+      "vis_start": 18.87,
+      "vis_dur": 6.31
     },
     {
-      "id": "beat-next-path",
-      "audio_start": 68.758,
-      "audio_dur": 24.35,
-      "vis_start": 68.508,
-      "vis_dur": 26.4
+      "id": "beat-reframe-leverage",
+      "audio_start": 25.43,
+      "audio_dur": 3.66,
+      "vis_start": 25.18,
+      "vis_dur": 4.31
+    },
+    {
+      "id": "beat-built-capital",
+      "audio_start": 29.74,
+      "audio_dur": 3.88,
+      "vis_start": 29.49,
+      "vis_dur": 4.53
+    },
+    {
+      "id": "beat-more-options",
+      "audio_start": 34.27,
+      "audio_dur": 2.75,
+      "vis_start": 34.02,
+      "vis_dur": 3.4
+    },
+    {
+      "id": "beat-choose-intentionally",
+      "audio_start": 37.67,
+      "audio_dur": 4.42,
+      "vis_start": 37.42,
+      "vis_dur": 5.07
+    },
+    {
+      "id": "beat-experiments",
+      "audio_start": 42.74,
+      "audio_dur": 6.6,
+      "vis_start": 42.49,
+      "vis_dur": 7.25
+    },
+    {
+      "id": "beat-test-leadership",
+      "audio_start": 49.99,
+      "audio_dur": 10.43,
+      "vis_start": 49.74,
+      "vis_dur": 11.08
+    },
+    {
+      "id": "beat-redesign-intro",
+      "audio_start": 61.07,
+      "audio_dur": 2.38,
+      "vis_start": 60.82,
+      "vis_dur": 3.03
+    },
+    {
+      "id": "beat-role-not-fixed",
+      "audio_start": 64.1,
+      "audio_dur": 1.88,
+      "vis_start": 63.85,
+      "vis_dur": 2.53
+    },
+    {
+      "id": "beat-adjust-work",
+      "audio_start": 66.63,
+      "audio_dur": 6.71,
+      "vis_start": 66.38,
+      "vis_dur": 7.36
+    },
+    {
+      "id": "beat-notice-belief",
+      "audio_start": 73.99,
+      "audio_dur": 8.03,
+      "vis_start": 73.74,
+      "vis_dur": 8.68
+    },
+    {
+      "id": "beat-task",
+      "audio_start": 82.67,
+      "audio_dur": 9.66,
+      "vis_start": 82.42,
+      "vis_dur": 10.31
+    },
+    {
+      "id": "beat-stuck-question",
+      "audio_start": 92.98,
+      "audio_dur": 1.35,
+      "vis_start": 92.73,
+      "vis_dur": 2.0
+    },
+    {
+      "id": "beat-experiment-question",
+      "audio_start": 94.98,
+      "audio_dur": 4.13,
+      "vis_start": 94.73,
+      "vis_dur": 6.18
     }
   ]
 }

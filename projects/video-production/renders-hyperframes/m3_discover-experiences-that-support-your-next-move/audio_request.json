@@ -6,71 +6,215 @@
   "speed": 1.0,
   "clips": [
     {
-      "id": "future-proof",
-      "text": "When you're repositioning your experience, one of the most powerful questions you can ask is this: which experiences show that I'm ready for the future I want, not just the roles I've already had?"
+      "id": "future-proof-01",
+      "text": "When you're repositioning your experience, one of the most powerful."
     },
     {
-      "id": "curated-gallery",
-      "text": "Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You don't need to display every piece. You need to choose the pieces that tell the right story."
+      "id": "future-proof-02",
+      "text": "Questions you can ask is this: which experiences show that I'm."
     },
     {
-      "id": "selection-lens",
-      "text": "To do that, look for experiences that use the strengths you want to be known for, that match the kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target roles: improved outcomes, better processes, stronger relationships, or growth."
+      "id": "future-proof-03",
+      "text": "Ready for the future I want, not just the roles I've already had?"
     },
     {
-      "id": "leadership-proof",
-      "text": "Here's how that plays out. If your Next Move Statement points toward a leadership or strategic role, you might highlight projects where you led teams or cross-functional initiatives, influenced decisions, and owned results that had visible impact."
+      "id": "curated-gallery-01",
+      "text": "Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You."
     },
     {
-      "id": "lateral-proof",
-      "text": "If you're aiming for a lateral move into a new domain, you might spotlight experiences that show how you learned quickly in new environments, translated skills across contexts, and collaborated with that domain, even if your title was different."
+      "id": "curated-gallery-02",
+      "text": "Don't need to display every piece. You need to choose the pieces that tell the right story."
     },
     {
-      "id": "rams-framework",
-      "text": "In this module's activities, you'll pick three to five experiences that best support your Next Move Statement, and rewrite their bullets using a simple formula: Responsibility, then Action, then Measurable outcome, then Scope. Responsibility is what you were expected to do. Action is what you actually did. Measurable outcome is what changed as a result. And scope is how big the impact was, and who was involved."
+      "id": "selection-lens-01",
+      "text": "To do that, look for experiences that use the strengths you want to be known for, that match the."
     },
     {
-      "id": "true-story",
-      "text": "This isn't about inventing a new story. It's about telling the true story of your work in a way that makes your future direction clear. When you choose experiences that match the future you're aiming for, you make every bullet work harder for you."
+      "id": "selection-lens-02",
+      "text": "Kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target."
+    },
+    {
+      "id": "selection-lens-03",
+      "text": "Roles: improved outcomes, better processes, stronger relationships, or growth."
+    },
+    {
+      "id": "leadership-proof-01",
+      "text": "Here's how that plays out. If your Next Move Statement points toward a leadership or strategic."
+    },
+    {
+      "id": "leadership-proof-02",
+      "text": "Role, you might highlight projects where you led teams or cross-functional initiatives."
+    },
+    {
+      "id": "leadership-proof-03",
+      "text": "Influenced decisions, and owned results that had visible impact."
+    },
+    {
+      "id": "lateral-proof-01",
+      "text": "If you're aiming for a lateral move into a new domain, you might spotlight experiences."
+    },
+    {
+      "id": "lateral-proof-02",
+      "text": "That show how you learned quickly in new environments, translated skills across."
+    },
+    {
+      "id": "lateral-proof-03",
+      "text": "Contexts, and collaborated with that domain even if your title was different."
+    },
+    {
+      "id": "rams-framework-01",
+      "text": "In this module's activities, you'll pick three to five experiences that best support your Next."
+    },
+    {
+      "id": "rams-framework-02",
+      "text": "Move Statement, and rewrite their bullets using a simple formula: Responsibility."
+    },
+    {
+      "id": "rams-framework-03",
+      "text": "Then Action; then Measurable outcome; then Scope. Responsibility is."
+    },
+    {
+      "id": "rams-framework-04",
+      "text": "What you were expected to do. Action is what you actually did. Measurable outcome."
+    },
+    {
+      "id": "rams-framework-05",
+      "text": "Is what changed as a result. And scope is how big the impact was, and who was involved."
+    },
+    {
+      "id": "true-story-01",
+      "text": "This isn't about inventing a new story. It's about telling the true."
+    },
+    {
+      "id": "true-story-02",
+      "text": "Story of your work in a way that makes your future direction clear. When."
+    },
+    {
+      "id": "true-story-03",
+      "text": "You choose experiences that match the future you're aiming for, you."
+    },
+    {
+      "id": "true-story-04",
+      "text": "Make every bullet work harder for you."
     }
   ],
   "lines": [
     {
-      "id": "future-proof",
-      "text": "When you're repositioning your experience, one of the most powerful questions you can ask is this: which experiences show that I'm ready for the future I want, not just the roles I've already had?"
+      "id": "future-proof-01",
+      "text": "When you're repositioning your experience, one of the most powerful."
     },
     {
-      "id": "curated-gallery",
-      "text": "Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You don't need to display every piece. You need to choose the pieces that tell the right story."
+      "id": "future-proof-02",
+      "text": "Questions you can ask is this: which experiences show that I'm."
     },
     {
-      "id": "selection-lens",
-      "text": "To do that, look for experiences that use the strengths you want to be known for, that match the kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target roles: improved outcomes, better processes, stronger relationships, or growth."
+      "id": "future-proof-03",
+      "text": "Ready for the future I want, not just the roles I've already had?"
     },
     {
-      "id": "leadership-proof",
-      "text": "Here's how that plays out. If your Next Move Statement points toward a leadership or strategic role, you might highlight projects where you led teams or cross-functional initiatives, influenced decisions, and owned results that had visible impact."
+      "id": "curated-gallery-01",
+      "text": "Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You."
     },
     {
-      "id": "lateral-proof",
-      "text": "If you're aiming for a lateral move into a new domain, you might spotlight experiences that show how you learned quickly in new environments, translated skills across contexts, and collaborated with that domain, even if your title was different."
+      "id": "curated-gallery-02",
+      "text": "Don't need to display every piece. You need to choose the pieces that tell the right story."
     },
     {
-      "id": "rams-framework",
-      "text": "In this module's activities, you'll pick three to five experiences that best support your Next Move Statement, and rewrite their bullets using a simple formula: Responsibility, then Action, then Measurable outcome, then Scope. Responsibility is what you were expected to do. Action is what you actually did. Measurable outcome is what changed as a result. And scope is how big the impact was, and who was involved."
+      "id": "selection-lens-01",
+      "text": "To do that, look for experiences that use the strengths you want to be known for, that match the."
     },
     {
-      "id": "true-story",
-      "text": "This isn't about inventing a new story. It's about telling the true story of your work in a way that makes your future direction clear. When you choose experiences that match the future you're aiming for, you make every bullet work harder for you."
+      "id": "selection-lens-02",
+      "text": "Kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target."
+    },
+    {
+      "id": "selection-lens-03",
+      "text": "Roles: improved outcomes, better processes, stronger relationships, or growth."
+    },
+    {
+      "id": "leadership-proof-01",
+      "text": "Here's how that plays out. If your Next Move Statement points toward a leadership or strategic."
+    },
+    {
+      "id": "leadership-proof-02",
+      "text": "Role, you might highlight projects where you led teams or cross-functional initiatives."
+    },
+    {
+      "id": "leadership-proof-03",
+      "text": "Influenced decisions, and owned results that had visible impact."
+    },
+    {
+      "id": "lateral-proof-01",
+      "text": "If you're aiming for a lateral move into a new domain, you might spotlight experiences."
+    },
+    {
+      "id": "lateral-proof-02",
+      "text": "That show how you learned quickly in new environments, translated skills across."
+    },
+    {
+      "id": "lateral-proof-03",
+      "text": "Contexts, and collaborated with that domain even if your title was different."
+    },
+    {
+      "id": "rams-framework-01",
+      "text": "In this module's activities, you'll pick three to five experiences that best support your Next."
+    },
+    {
+      "id": "rams-framework-02",
+      "text": "Move Statement, and rewrite their bullets using a simple formula: Responsibility."
+    },
+    {
+      "id": "rams-framework-03",
+      "text": "Then Action; then Measurable outcome; then Scope. Responsibility is."
+    },
+    {
+      "id": "rams-framework-04",
+      "text": "What you were expected to do. Action is what you actually did. Measurable outcome."
+    },
+    {
+      "id": "rams-framework-05",
+      "text": "Is what changed as a result. And scope is how big the impact was, and who was involved."
+    },
+    {
+      "id": "true-story-01",
+      "text": "This isn't about inventing a new story. It's about telling the true."
+    },
+    {
+      "id": "true-story-02",
+      "text": "Story of your work in a way that makes your future direction clear. When."
+    },
+    {
+      "id": "true-story-03",
+      "text": "You choose experiences that match the future you're aiming for, you."
+    },
+    {
+      "id": "true-story-04",
+      "text": "Make every bullet work harder for you."
     }
   ],
   "narration": [
-    "When you're repositioning your experience, one of the most powerful questions you can ask is this: which experiences show that I'm ready for the future I want, not just the roles I've already had?",
-    "Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You don't need to display every piece. You need to choose the pieces that tell the right story.",
-    "To do that, look for experiences that use the strengths you want to be known for, that match the kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target roles: improved outcomes, better processes, stronger relationships, or growth.",
-    "Here's how that plays out. If your Next Move Statement points toward a leadership or strategic role, you might highlight projects where you led teams or cross-functional initiatives, influenced decisions, and owned results that had visible impact.",
-    "If you're aiming for a lateral move into a new domain, you might spotlight experiences that show how you learned quickly in new environments, translated skills across contexts, and collaborated with that domain, even if your title was different.",
-    "In this module's activities, you'll pick three to five experiences that best support your Next Move Statement, and rewrite their bullets using a simple formula: Responsibility, then Action, then Measurable outcome, then Scope. Responsibility is what you were expected to do. Action is what you actually did. Measurable outcome is what changed as a result. And scope is how big the impact was, and who was involved.",
-    "This isn't about inventing a new story. It's about telling the true story of your work in a way that makes your future direction clear. When you choose experiences that match the future you're aiming for, you make every bullet work harder for you."
+    "When you're repositioning your experience, one of the most powerful.",
+    "Questions you can ask is this: which experiences show that I'm.",
+    "Ready for the future I want, not just the roles I've already had?",
+    "Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You.",
+    "Don't need to display every piece. You need to choose the pieces that tell the right story.",
+    "To do that, look for experiences that use the strengths you want to be known for, that match the.",
+    "Kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target.",
+    "Roles: improved outcomes, better processes, stronger relationships, or growth.",
+    "Here's how that plays out. If your Next Move Statement points toward a leadership or strategic.",
+    "Role, you might highlight projects where you led teams or cross-functional initiatives.",
+    "Influenced decisions, and owned results that had visible impact.",
+    "If you're aiming for a lateral move into a new domain, you might spotlight experiences.",
+    "That show how you learned quickly in new environments, translated skills across.",
+    "Contexts, and collaborated with that domain even if your title was different.",
+    "In this module's activities, you'll pick three to five experiences that best support your Next.",
+    "Move Statement, and rewrite their bullets using a simple formula: Responsibility.",
+    "Then Action; then Measurable outcome; then Scope. Responsibility is.",
+    "What you were expected to do. Action is what you actually did. Measurable outcome.",
+    "Is what changed as a result. And scope is how big the impact was, and who was involved.",
+    "This isn't about inventing a new story. It's about telling the true.",
+    "Story of your work in a way that makes your future direction clear. When.",
+    "You choose experiences that match the future you're aiming for, you.",
+    "Make every bullet work harder for you."
   ]
 }

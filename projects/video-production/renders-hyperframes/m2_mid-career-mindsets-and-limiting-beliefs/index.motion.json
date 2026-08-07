@@ -1,77 +1,44 @@
 {
-  "compositionId": "m2_mid-career-mindsets-and-limiting-beliefs",
-  "duration": 94.908,
-  "fps": 30,
-  "timeline": "master",
-  "paused": true,
-  "seekable": true,
+  "duration": 100.91,
   "beats": [
-    {
-      "id": "beat-honest-look",
-      "start": 0,
-      "duration": 6.02
-    },
-    {
-      "id": "beat-protective-beliefs",
-      "start": 6.02,
-      "duration": 16.838
-    },
-    {
-      "id": "beat-leverage-point",
-      "start": 22.858,
-      "duration": 16.12
-    },
-    {
-      "id": "beat-career-experiments",
-      "start": 38.978,
-      "duration": 17.37
-    },
-    {
-      "id": "beat-redesign",
-      "start": 56.348,
-      "duration": 12.16
-    },
-    {
-      "id": "beat-next-path",
-      "start": 68.508,
-      "duration": 26.4
-    }
+    {"id":"beat-honest-look","start":0,"duration":6.02},
+    {"id":"beat-beliefs-intro","start":6.02,"duration":4.86},
+    {"id":"beat-speaking-up","start":10.88,"duration":3.29},
+    {"id":"beat-first-opportunity","start":14.17,"duration":4.7},
+    {"id":"beat-beliefs-shrink","start":18.87,"duration":6.31},
+    {"id":"beat-reframe-leverage","start":25.18,"duration":4.31},
+    {"id":"beat-built-capital","start":29.49,"duration":4.53},
+    {"id":"beat-more-options","start":34.02,"duration":3.4},
+    {"id":"beat-choose-intentionally","start":37.42,"duration":5.07},
+    {"id":"beat-experiments","start":42.49,"duration":7.25},
+    {"id":"beat-test-leadership","start":49.74,"duration":11.08},
+    {"id":"beat-redesign-intro","start":60.82,"duration":3.03},
+    {"id":"beat-role-not-fixed","start":63.85,"duration":2.53},
+    {"id":"beat-adjust-work","start":66.38,"duration":7.36},
+    {"id":"beat-notice-belief","start":73.74,"duration":8.68},
+    {"id":"beat-task","start":82.42,"duration":10.31},
+    {"id":"beat-stuck-question","start":92.73,"duration":2},
+    {"id":"beat-experiment-question","start":94.73,"duration":6.18}
   ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-honest-look",
-      "bySec": 1
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-protective-beliefs",
-      "bySec": 7.02
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-leverage-point",
-      "bySec": 23.858
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-career-experiments",
-      "bySec": 39.978
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-redesign",
-      "bySec": 57.348
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-next-path",
-      "bySec": 69.508
-    },
-    {
-      "kind": "keepsMoving",
-      "withinSelector": ".composition",
-      "maxStaticSec": 26.4
-    }
+    {"kind":"appearsBy","selector":"#beat-honest-look","bySec":0.8},
+    {"kind":"appearsBy","selector":"#beat-beliefs-intro","bySec":6.72},
+    {"kind":"appearsBy","selector":"#beat-speaking-up","bySec":11.58},
+    {"kind":"appearsBy","selector":"#beat-first-opportunity","bySec":14.87},
+    {"kind":"appearsBy","selector":"#beat-beliefs-shrink","bySec":19.57},
+    {"kind":"appearsBy","selector":"#beat-reframe-leverage","bySec":25.88},
+    {"kind":"appearsBy","selector":"#beat-built-capital","bySec":30.19},
+    {"kind":"appearsBy","selector":"#beat-more-options","bySec":34.72},
+    {"kind":"appearsBy","selector":"#beat-choose-intentionally","bySec":38.12},
+    {"kind":"appearsBy","selector":"#beat-experiments","bySec":43.19},
+    {"kind":"appearsBy","selector":"#beat-test-leadership","bySec":50.44},
+    {"kind":"appearsBy","selector":"#beat-redesign-intro","bySec":61.52},
+    {"kind":"appearsBy","selector":"#beat-role-not-fixed","bySec":64.55},
+    {"kind":"appearsBy","selector":"#beat-adjust-work","bySec":67.08},
+    {"kind":"appearsBy","selector":"#beat-notice-belief","bySec":74.44},
+    {"kind":"appearsBy","selector":"#beat-task","bySec":83.12},
+    {"kind":"appearsBy","selector":"#beat-stuck-question","bySec":93.13},
+    {"kind":"appearsBy","selector":"#beat-experiment-question","bySec":95.43},
+    {"kind":"keepsMoving","withinSelector":".composition","maxStaticSec":3}
   ]
 }

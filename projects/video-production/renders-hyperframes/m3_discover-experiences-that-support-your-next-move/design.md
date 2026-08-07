@@ -9,7 +9,8 @@
 ## System
 
 - Persistent top label: MID-CAREER MOMENTUM / MODULE 3.
-- A slim progress rail advances across seven distinct beats.
+- A slim progress rail advances across 23 narration-aligned pacing beats grouped into seven chapters.
+- The three framed evidence cards are the persistent visual carrier: they stay anchored while each chapter re-sorts their meaning.
 - Evidence cards use 12px corners, crisp borders, and subtle shadows.
 - The recurring gold “NEXT MOVE” marker supplies visual continuity.
 

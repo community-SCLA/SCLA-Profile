@@ -1,184 +1,82 @@
 {
   "compositionId": "m3_how-to-reposition-your-career",
-  "duration": 174,
+  "duration": 242.06,
   "fps": 30,
   "timeline": "paused",
   "seekable": true,
   "beats": [
-    {
-      "id": "reframe-start-over",
-      "start": 0,
-      "duration": 9
-    },
-    {
-      "id": "reframe-existing-value",
-      "start": 9,
-      "duration": 12
-    },
-    {
-      "id": "introduce-three",
-      "start": 21,
-      "duration": 7
-    },
-    {
-      "id": "alex-proof",
-      "start": 28,
-      "duration": 14
-    },
-    {
-      "id": "alex-reposition",
-      "start": 42,
-      "duration": 22
-    },
-    {
-      "id": "jordan-context",
-      "start": 64,
-      "duration": 13
-    },
-    {
-      "id": "jordan-translate",
-      "start": 77,
-      "duration": 17
-    },
-    {
-      "id": "priya-context",
-      "start": 94,
-      "duration": 10
-    },
-    {
-      "id": "priya-leadership",
-      "start": 104,
-      "duration": 14
-    },
-    {
-      "id": "pattern",
-      "start": 118,
-      "duration": 5
-    },
-    {
-      "id": "step-clarify",
-      "start": 123,
-      "duration": 9
-    },
-    {
-      "id": "step-curate",
-      "start": 132,
-      "duration": 9
-    },
-    {
-      "id": "step-translate",
-      "start": 141,
-      "duration": 9
-    },
-    {
-      "id": "step-signals",
-      "start": 150,
-      "duration": 9
-    },
-    {
-      "id": "truth",
-      "start": 159,
-      "duration": 7
-    },
-    {
-      "id": "question",
-      "start": 166,
-      "duration": 5
-    },
-    {
-      "id": "open-doors",
-      "start": 171,
-      "duration": 3
-    }
+    { "id": "reframe-start-over-s1", "start": 0, "duration": 6.92 },
+    { "id": "reframe-start-over-s2", "start": 6.92, "duration": 3.855 },
+    { "id": "reframe-existing-value-s1", "start": 10.775, "duration": 6.905 },
+    { "id": "reframe-existing-value-s2", "start": 17.68, "duration": 5.83 },
+    { "id": "introduce-three", "start": 23.51, "duration": 3.6 },
+    { "id": "alex-proof-s1", "start": 27.11, "duration": 7.96 },
+    { "id": "alex-proof-s2", "start": 35.07, "duration": 4.54 },
+    { "id": "alex-proof-s3", "start": 39.61, "duration": 6.59 },
+    { "id": "alex-reposition-s1", "start": 46.2, "duration": 4.45 },
+    { "id": "alex-reposition-s2", "start": 50.65, "duration": 6.38 },
+    { "id": "alex-reposition-s3", "start": 57.03, "duration": 13.935 },
+    { "id": "alex-reposition-s4", "start": 70.965, "duration": 5.305 },
+    { "id": "alex-reposition-s5", "start": 76.27, "duration": 9.7 },
+    { "id": "jordan-context", "start": 85.97, "duration": 14.12 },
+    { "id": "jordan-translate-s1", "start": 100.09, "duration": 9.25 },
+    { "id": "jordan-translate-s2", "start": 109.34, "duration": 11.58 },
+    { "id": "jordan-translate-s3", "start": 120.92, "duration": 2.1 },
+    { "id": "jordan-translate-s4", "start": 123.02, "duration": 7.27 },
+    { "id": "priya-context", "start": 130.29, "duration": 11.46 },
+    { "id": "priya-leadership-s1", "start": 141.75, "duration": 7.77 },
+    { "id": "priya-leadership-s2", "start": 149.52, "duration": 7.485 },
+    { "id": "priya-leadership-s3", "start": 157.005, "duration": 9.235 },
+    { "id": "pattern", "start": 166.24, "duration": 3.14 },
+    { "id": "step-clarify-s1", "start": 169.38, "duration": 2.35 },
+    { "id": "step-clarify-s2", "start": 171.73, "duration": 6.89 },
+    { "id": "step-curate-s1", "start": 178.62, "duration": 1.675 },
+    { "id": "step-curate-s2", "start": 180.295, "duration": 8.875 },
+    { "id": "step-translate-s1", "start": 189.17, "duration": 2.08 },
+    { "id": "step-translate-s2", "start": 191.25, "duration": 8.8 },
+    { "id": "step-signals-s1", "start": 200.05, "duration": 2.08 },
+    { "id": "step-signals-s2", "start": 202.13, "duration": 8.93 },
+    { "id": "truth-s1", "start": 211.06, "duration": 4.32 },
+    { "id": "truth-s2", "start": 215.38, "duration": 7.62 },
+    { "id": "question", "start": 223, "duration": 9.155 },
+    { "id": "open-doors", "start": 232.155, "duration": 9.905 }
   ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "selector": "#reframe-start-over",
-      "bySec": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#reframe-existing-value",
-      "bySec": 10.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#introduce-three",
-      "bySec": 22.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#alex-proof",
-      "bySec": 29.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#alex-reposition",
-      "bySec": 43.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#jordan-context",
-      "bySec": 65.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#jordan-translate",
-      "bySec": 78.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#priya-context",
-      "bySec": 95.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#priya-leadership",
-      "bySec": 105.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#pattern",
-      "bySec": 119.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#step-clarify",
-      "bySec": 124.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#step-curate",
-      "bySec": 133.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#step-translate",
-      "bySec": 142.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#step-signals",
-      "bySec": 151.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#truth",
-      "bySec": 160.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#question",
-      "bySec": 167.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#open-doors",
-      "bySec": 172.2
-    },
-    {
-      "kind": "keepsMoving"
-    }
+    { "kind": "appearsBy", "selector": "#reframe-start-over-s1", "bySec": 1 },
+    { "kind": "appearsBy", "selector": "#reframe-start-over-s2", "bySec": 7.92 },
+    { "kind": "appearsBy", "selector": "#reframe-existing-value-s1", "bySec": 11.775 },
+    { "kind": "appearsBy", "selector": "#reframe-existing-value-s2", "bySec": 18.68 },
+    { "kind": "appearsBy", "selector": "#introduce-three", "bySec": 24.51 },
+    { "kind": "appearsBy", "selector": "#alex-proof-s1", "bySec": 28.11 },
+    { "kind": "appearsBy", "selector": "#alex-proof-s2", "bySec": 36.07 },
+    { "kind": "appearsBy", "selector": "#alex-proof-s3", "bySec": 40.61 },
+    { "kind": "appearsBy", "selector": "#alex-reposition-s1", "bySec": 47.2 },
+    { "kind": "appearsBy", "selector": "#alex-reposition-s2", "bySec": 51.65 },
+    { "kind": "appearsBy", "selector": "#alex-reposition-s3", "bySec": 58.03 },
+    { "kind": "appearsBy", "selector": "#alex-reposition-s4", "bySec": 71.965 },
+    { "kind": "appearsBy", "selector": "#alex-reposition-s5", "bySec": 77.27 },
+    { "kind": "appearsBy", "selector": "#jordan-context", "bySec": 86.97 },
+    { "kind": "appearsBy", "selector": "#jordan-translate-s1", "bySec": 101.09 },
+    { "kind": "appearsBy", "selector": "#jordan-translate-s2", "bySec": 110.34 },
+    { "kind": "appearsBy", "selector": "#jordan-translate-s3", "bySec": 121.92 },
+    { "kind": "appearsBy", "selector": "#jordan-translate-s4", "bySec": 124.02 },
+    { "kind": "appearsBy", "selector": "#priya-context", "bySec": 131.29 },
+    { "kind": "appearsBy", "selector": "#priya-leadership-s1", "bySec": 142.75 },
+    { "kind": "appearsBy", "selector": "#priya-leadership-s2", "bySec": 150.52 },
+    { "kind": "appearsBy", "selector": "#priya-leadership-s3", "bySec": 158.005 },
+    { "kind": "appearsBy", "selector": "#pattern", "bySec": 167.24 },
+    { "kind": "appearsBy", "selector": "#step-clarify-s1", "bySec": 170.38 },
+    { "kind": "appearsBy", "selector": "#step-clarify-s2", "bySec": 172.73 },
+    { "kind": "appearsBy", "selector": "#step-curate-s1", "bySec": 179.62 },
+    { "kind": "appearsBy", "selector": "#step-curate-s2", "bySec": 181.295 },
+    { "kind": "appearsBy", "selector": "#step-translate-s1", "bySec": 190.17 },
+    { "kind": "appearsBy", "selector": "#step-translate-s2", "bySec": 192.25 },
+    { "kind": "appearsBy", "selector": "#step-signals-s1", "bySec": 201.05 },
+    { "kind": "appearsBy", "selector": "#step-signals-s2", "bySec": 203.13 },
+    { "kind": "appearsBy", "selector": "#truth-s1", "bySec": 212.06 },
+    { "kind": "appearsBy", "selector": "#truth-s2", "bySec": 216.38 },
+    { "kind": "appearsBy", "selector": "#question", "bySec": 224 },
+    { "kind": "appearsBy", "selector": "#open-doors", "bySec": 233.155 },
+    { "kind": "keepsMoving", "withinSelector": ".composition", "maxStaticSec": 3 }
   ]
 }

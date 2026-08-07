@@ -15,7 +15,7 @@ Editorial career workbook meets a clean professional profile. White cards sit on
 
 ## Composition
 
-Persistent top-left module label and bottom progress line frame each scene. The main field alternates between profile-card closeups, three-column structures, and a simple past-to-future path. On-screen copy is distilled from, never substituted for, the exact narration stored in each timed clip.
+Persistent top-left module label and bottom progress line frame each scene. A five-mark profile-signal rail is the visual carrier: its gold focus advances through each locally split narration unit while the profile-card closeups, three-column structures, and past-to-future path change around it. On-screen copy is distilled from, never substituted for, the exact narration stored in each timed clip.
 
 ## Motion
 

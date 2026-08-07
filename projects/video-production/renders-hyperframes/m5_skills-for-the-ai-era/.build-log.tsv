@@ -16,3 +16,15 @@
 2026-08-07T19:34:40Z	release	build session ended
 2026-08-07T20:16:36Z	resume	program=mid-career-momentum
 2026-08-07T20:28:38Z	preflight	exit 1
+2026-08-07T20:37:29Z	preflight	exit 1
+2026-08-07T20:45:42Z	preflight	exit 0 — gate-clean
+2026-08-07T20:45:46Z	release	build session ended
+2026-08-07T21:12:07Z	resume	program=mid-career-momentum
+2026-08-07T21:26:57Z	preflight	exit 1
+2026-08-07T21:36:27Z	preflight	exit 1
+2026-08-07T21:46:59Z	preflight	exit 1
+2026-08-07T21:47:36Z	resume	program=mid-career-momentum
+2026-08-07T21:49:14Z	preflight	exit 0 — gate-clean
+2026-08-07T21:49:30Z	release	build session ended
+2026-08-07T21:49:49Z	preflight	exit 0 — gate-clean
+2026-08-07T21:50:13Z	release	build session ended

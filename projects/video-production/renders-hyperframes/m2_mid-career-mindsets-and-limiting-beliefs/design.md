@@ -10,7 +10,7 @@
 - A fixed map field holds belief, leverage, experiment, redesign, and next-path nodes; each beat only re-sorts emphasis by advancing one route marker and activating the relevant node.
 - A compact insight rail changes the current phrase without replacing the map, so the viewer watches one system accumulate rather than a sequence of unrelated slides.
 - Persistent top label identifies the Mid-Career Momentum program.
-- Twenty short semantic beats deliver one idea at a time while preserving the source narration verbatim.
+- Eighteen short semantic beats deliver one complete thought at a time while preserving the source narration verbatim.
 - Gold marks only the active choice or next move.
 
 ## Motion

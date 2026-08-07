@@ -7,64 +7,136 @@
   "source_only": true,
   "lines": [
     {
-      "id": "reframe-start-over",
-      "text": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over. New degree, new industry, and new identity."
+      "id": "reframe-start-over-s1",
+      "text": "When people hear \"career pivot\" or \"repositioning,\" they picture starting completely over."
     },
     {
-      "id": "reframe-existing-value",
-      "text": "In reality, most successful pivots are strategic repositionings of the experience you already have. You're not erasing your past; you're re-telling it so it clearly points to the future you want."
+      "id": "reframe-start-over-s2",
+      "text": "New degree, new industry, and new identity."
+    },
+    {
+      "id": "reframe-existing-value-s1",
+      "text": "In reality, most successful pivots are strategic repositionings of the experience you already have."
+    },
+    {
+      "id": "reframe-existing-value-s2",
+      "text": "You're not erasing your past; you're re-telling it so it clearly points to the future you want."
     },
     {
       "id": "introduce-three",
       "text": "Let's look at how three mid-career professionals did exactly that."
     },
     {
-      "id": "alex-proof",
-      "text": "Alex spent ten years as an Operations Manager—keeping processes smooth, teams on their numbers, and projects on track. On paper, the roles looked operational — not strategic. But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
+      "id": "alex-proof-s1",
+      "text": "Alex spent ten years as an Operations Manager\u2014keeping processes smooth, teams on their numbers, and projects on track."
     },
     {
-      "id": "alex-reposition",
-      "text": "To reposition for a Strategy Leader role, Alex did three things. Curated experiences that showed strategic thinking—like redesigning a workflow that saved time and money. Rewrote bullets to emphasize decisions, outcomes, and scope—turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\" And updated LinkedIn to point forward: \"Operations & Strategy Leader.\" Alex didn't claim a title that wasn't earned—just surfaced the strategic work already inside those operations roles, and started applying with that focus."
+      "id": "alex-proof-s2",
+      "text": "On paper, the roles looked operational \u2014 not strategic."
+    },
+    {
+      "id": "alex-proof-s3",
+      "text": "But Alex had led cross-functional projects, redesigned systems, and shaped decisions."
+    },
+    {
+      "id": "alex-reposition-s1",
+      "text": "To reposition for a Strategy Leader role, Alex did three things."
+    },
+    {
+      "id": "alex-reposition-s2",
+      "text": "Curated experiences that showed strategic thinking\u2014like redesigning a workflow that saved time and money."
+    },
+    {
+      "id": "alex-reposition-s3",
+      "text": "Rewrote bullets to emphasize decisions, outcomes, and scope\u2014turning \"managed operations\" into \"Led a multi-department initiative that reduced processing time by 25% and improved customer satisfaction.\""
+    },
+    {
+      "id": "alex-reposition-s4",
+      "text": "And updated LinkedIn to point forward: \"Operations & Strategy Leader.\""
+    },
+    {
+      "id": "alex-reposition-s5",
+      "text": "Alex didn't claim a title that wasn't earned\u2014just surfaced the strategic work already inside those operations roles, and started applying with that focus."
     },
     {
       "id": "jordan-context",
-      "text": "Jordan spent years teaching—designing lessons, assessments, and learning experiences—and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
+      "text": "Jordan spent years teaching\u2014designing lessons, assessments, and learning experiences\u2014and wanted to move into instructional design and learning technologies, a field that often uses different language and sits in different departments."
     },
     {
-      "id": "jordan-translate",
-      "text": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\" Jordan highlighted the tools and methods used—learning platforms, data analysis, collaborative project design—and updated that LinkedIn headline to \"Learning Experience Designer.\" The classroom didn't disappear. It became proof of strong design, facilitation, and learner-centered thinking—directly relevant to the new field."
+      "id": "jordan-translate-s1",
+      "text": "So Jordan translated teaching tasks into design language: \"Designed and implemented multi-modal learning experiences for diverse learners.\""
+    },
+    {
+      "id": "jordan-translate-s2",
+      "text": "Jordan highlighted the tools and methods used\u2014learning platforms, data analysis, collaborative project design\u2014and updated that LinkedIn headline to \"Learning Experience Designer.\""
+    },
+    {
+      "id": "jordan-translate-s3",
+      "text": "The classroom didn't disappear."
+    },
+    {
+      "id": "jordan-translate-s4",
+      "text": "It became proof of strong design, facilitation, and learner-centered thinking\u2014directly relevant to the new field."
     },
     {
       "id": "priya-context",
-      "text": "Priya built her career as a strong individual contributor—owning complex work, building relationships, delivering results—and wanted to step into a first-line leadership role."
+      "text": "Priya built her career as a strong individual contributor\u2014owning complex work, building relationships, delivering results\u2014and wanted to step into a first-line leadership role."
     },
     {
-      "id": "priya-leadership",
-      "text": "She found the moments she'd already led informally—coordinating project teams, mentoring colleagues, onboarding new hires. And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\" Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
+      "id": "priya-leadership-s1",
+      "text": "She found the moments she'd already led informally\u2014coordinating project teams, mentoring colleagues, onboarding new hires."
+    },
+    {
+      "id": "priya-leadership-s2",
+      "text": "And rewrote her bullets to show it: \"Mentored 3 new analysts, accelerating their ramp-up time by 30%.\""
+    },
+    {
+      "id": "priya-leadership-s3",
+      "text": "Her summary became \"Emerging people leader with a track record of mentoring, coordinating cross-team projects, and growing others while delivering results.\""
     },
     {
       "id": "pattern",
       "text": "Across all three, the pattern is the same."
     },
     {
-      "id": "step-clarify",
-      "text": "Clarify your future direction. Know whether you're aiming for a promotion, a lateral move, or a role redesign—and what kinds of roles you want to show up on your radar."
+      "id": "step-clarify-s1",
+      "text": "Clarify your future direction."
     },
     {
-      "id": "step-curate",
-      "text": "Curate your story. Select the experiences that clearly connect your present to that future—projects, responsibilities, and results that already demonstrate the skills you'll need."
+      "id": "step-clarify-s2",
+      "text": "Know whether you're aiming for a promotion, a lateral move, or a role redesign\u2014and what kinds of roles you want to show up on your radar."
     },
     {
-      "id": "step-translate",
-      "text": "Translate your language. Rewrite bullets and profile sections in the words of your target roles—strategy, design, leadership, analytics, systems, whatever fits your path."
+      "id": "step-curate-s1",
+      "text": "Curate your story."
     },
     {
-      "id": "step-signals",
-      "text": "Update your public signals. Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
+      "id": "step-curate-s2",
+      "text": "Select the experiences that clearly connect your present to that future\u2014projects, responsibilities, and results that already demonstrate the skills you'll need."
     },
     {
-      "id": "truth",
-      "text": "Repositioning your career isn't about being someone you're not. It's about revealing the through-line in what you've already done—and telling that story in a way that makes your next move feel obvious to others."
+      "id": "step-translate-s1",
+      "text": "Translate your language."
+    },
+    {
+      "id": "step-translate-s2",
+      "text": "Rewrite bullets and profile sections in the words of your target roles\u2014strategy, design, leadership, analytics, systems, whatever fits your path."
+    },
+    {
+      "id": "step-signals-s1",
+      "text": "Update your public signals."
+    },
+    {
+      "id": "step-signals-s2",
+      "text": "Align your resume, LinkedIn headline, summary, and even your 60-second career story with that future-focused positioning."
+    },
+    {
+      "id": "truth-s1",
+      "text": "Repositioning your career isn't about being someone you're not."
+    },
+    {
+      "id": "truth-s2",
+      "text": "It's about revealing the through-line in what you've already done\u2014and telling that story in a way that makes your next move feel obvious to others."
     },
     {
       "id": "question",
@@ -72,7 +144,7 @@
     },
     {
       "id": "open-doors",
-      "text": "That's the heart of repositioning—and one of the most powerful ways to open new doors without starting from scratch."
+      "text": "That's the heart of repositioning\u2014and one of the most powerful ways to open new doors without starting from scratch."
     }
   ]
 }

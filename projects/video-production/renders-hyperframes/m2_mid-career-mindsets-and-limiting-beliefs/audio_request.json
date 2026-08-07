@@ -12,13 +12,8 @@
     },
     {
       "id": "beat-beliefs-intro",
-      "narration": "Some common beliefs sound like this:",
-      "text": "Some common beliefs sound like this:"
-    },
-    {
-      "id": "beat-too-late",
-      "narration": "\"It's too late to change.\"",
-      "text": "\"It's too late to change.\""
+      "narration": "Some common beliefs sound like this: \"It's too late to change.\"",
+      "text": "Some common beliefs sound like this: \"It's too late to change.\""
     },
     {
       "id": "beat-speaking-up",
@@ -62,13 +57,8 @@
     },
     {
       "id": "beat-test-leadership",
-      "narration": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement,",
-      "text": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement,"
-    },
-    {
-      "id": "beat-adjacent-function",
-      "narration": "or exploring an adjacent function with a small assignment before you commit fully.",
-      "text": "or exploring an adjacent function with a small assignment before you commit fully."
+      "narration": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully.",
+      "text": "That might mean testing a leadership role on a project, trying a hybrid responsibilities arrangement, or exploring an adjacent function with a small assignment before you commit fully."
     },
     {
       "id": "beat-redesign-intro",

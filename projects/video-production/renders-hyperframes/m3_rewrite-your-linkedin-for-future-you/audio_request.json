@@ -7,17 +7,262 @@
   "source": "../../lesson-scripts/mid-career-momentum/ready/m3_rewrite-your-linkedin-for-future-you.txt",
   "output": "assets/narration.mp3",
   "generate": false,
+  "clips": [
+    {
+      "id": "static-biography-01",
+      "text": "Many mid-career professionals treat their LinkedIn profile as a static biography."
+    },
+    {
+      "id": "static-biography-02",
+      "text": "A list of titles, and a vague summary about being an."
+    },
+    {
+      "id": "static-biography-03",
+      "text": "\"Experienced professional.\" It sits there. It doesn't do much."
+    },
+    {
+      "id": "positioning-tool-01",
+      "text": "But here's the thing: your LinkedIn is one of your most important positioning."
+    },
+    {
+      "id": "positioning-tool-02",
+      "text": "Tools. Recruiters, managers, and peers often see your headline."
+    },
+    {
+      "id": "positioning-tool-03",
+      "text": "And your \"About\" section before they see anything else about you. That's."
+    },
+    {
+      "id": "positioning-tool-04",
+      "text": "Your first impression, and it's working whether you've shaped it or not."
+    },
+    {
+      "id": "three-things",
+      "text": "So let's shape it. A strong mid-career headline and summary does three things."
+    },
+    {
+      "id": "future-roles",
+      "text": "First, it speaks to the future roles you're aiming for."
+    },
+    {
+      "id": "known-for",
+      "text": "Second, it highlights the strengths and skills you want to be known for."
+    },
+    {
+      "id": "human-value",
+      "text": "And third, it shows the value you create, in a way that's clear and human."
+    },
+    {
+      "id": "headline-formula-01",
+      "text": "For your headline, you can use a simple structure. Target role or direction.."
+    },
+    {
+      "id": "headline-formula-02",
+      "text": "Then your key strengths and skills, then the value you create or the area you focus."
+    },
+    {
+      "id": "headline-formula-03",
+      "text": "On. Separate them with a line, and let each piece do a job."
+    },
+    {
+      "id": "before-after-01",
+      "text": "Here's what that shift looks like. Before, a headline might read.."
+    },
+    {
+      "id": "before-after-02",
+      "text": "\"Project Manager at X Company.\" True, but it only."
+    },
+    {
+      "id": "before-after-03",
+      "text": "Names where you've been. After, it becomes: \"Senior Program."
+    },
+    {
+      "id": "before-after-04",
+      "text": "Leader driving cross-functional initiatives, improving outcomes in."
+    },
+    {
+      "id": "before-after-05",
+      "text": "Higher ed.\" Same person. But now the profile points forward."
+    },
+    {
+      "id": "about-bridge-01",
+      "text": "Now for your \"About\" summary. Think of it as a short narrative rather than a."
+    },
+    {
+      "id": "about-bridge-02",
+      "text": "Resume dump. It connects your past to your future. It names two or three themes."
+    },
+    {
+      "id": "about-bridge-03",
+      "text": "Or strengths. And it describes the kind of problems you love to solve, and for whom."
+    },
+    {
+      "id": "draft-and-sharpen-01",
+      "text": "In this module, you'll draft a future-oriented headline and summary."
+    },
+    {
+      "id": "draft-and-sharpen-02",
+      "text": "Then use AI feedback to sharpen your positioning, whether you're."
+    },
+    {
+      "id": "draft-and-sharpen-03",
+      "text": "Aiming for a promotion, a lateral move, or a role redesign."
+    },
+    {
+      "id": "open-doors-01",
+      "text": "When you reposition your LinkedIn this way, you make it easier for new doors to open."
+    },
+    {
+      "id": "open-doors-02",
+      "text": "Because people can immediately see how your experience and strengths match."
+    },
+    {
+      "id": "open-doors-03",
+      "text": "The roles and challenges you're excited about next."
+    }
+  ],
   "lines": [
-    {"id":"static-biography","text":"Many mid-career professionals treat their LinkedIn profile as a static biography. A list of titles, and a vague summary about being an \"experienced professional.\" It sits there. It doesn't do much."},
-    {"id":"positioning-tool","text":"But here's the thing: your LinkedIn is one of your most important positioning tools. Recruiters, managers, and peers often see your headline and your \"About\" section before they see anything else about you. That's your first impression, and it's working whether you've shaped it or not."},
-    {"id":"three-things","text":"So let's shape it. A strong mid-career headline and summary does three things."},
-    {"id":"future-roles","text":"First, it speaks to the future roles you're aiming for."},
-    {"id":"known-for","text":"Second, it highlights the strengths and skills you want to be known for."},
-    {"id":"human-value","text":"And third, it shows the value you create, in a way that's clear and human."},
-    {"id":"headline-formula","text":"For your headline, you can use a simple structure. Target role or direction, then your key strengths and skills, then the value you create or the area you focus on. Separate them with a line, and let each piece do a job."},
-    {"id":"before-after","text":"Here's what that shift looks like. Before, a headline might read: \"Project Manager at X Company.\" True, but it only names where you've been. After, it becomes: \"Senior Program Leader — driving cross-functional initiatives, improving outcomes in higher ed.\" Same person. But now the profile points forward."},
-    {"id":"about-bridge","text":"Now for your \"About\" summary. Think of it as a short narrative rather than a resume dump. It connects your past to your future. It names two or three themes or strengths. And it describes the kind of problems you love to solve, and for whom."},
-    {"id":"draft-and-sharpen","text":"In this module, you'll draft a future-oriented headline and summary. Then use AI feedback to sharpen your positioning, whether you're aiming for a promotion, a lateral move, or a role redesign."},
-    {"id":"open-doors","text":"When you reposition your LinkedIn this way, you make it easier for new doors to open. Because people can immediately see how your experience and strengths match the roles and challenges you're excited about next."}
+    {
+      "id": "static-biography-01",
+      "text": "Many mid-career professionals treat their LinkedIn profile as a static biography."
+    },
+    {
+      "id": "static-biography-02",
+      "text": "A list of titles, and a vague summary about being an."
+    },
+    {
+      "id": "static-biography-03",
+      "text": "\"Experienced professional.\" It sits there. It doesn't do much."
+    },
+    {
+      "id": "positioning-tool-01",
+      "text": "But here's the thing: your LinkedIn is one of your most important positioning."
+    },
+    {
+      "id": "positioning-tool-02",
+      "text": "Tools. Recruiters, managers, and peers often see your headline."
+    },
+    {
+      "id": "positioning-tool-03",
+      "text": "And your \"About\" section before they see anything else about you. That's."
+    },
+    {
+      "id": "positioning-tool-04",
+      "text": "Your first impression, and it's working whether you've shaped it or not."
+    },
+    {
+      "id": "three-things",
+      "text": "So let's shape it. A strong mid-career headline and summary does three things."
+    },
+    {
+      "id": "future-roles",
+      "text": "First, it speaks to the future roles you're aiming for."
+    },
+    {
+      "id": "known-for",
+      "text": "Second, it highlights the strengths and skills you want to be known for."
+    },
+    {
+      "id": "human-value",
+      "text": "And third, it shows the value you create, in a way that's clear and human."
+    },
+    {
+      "id": "headline-formula-01",
+      "text": "For your headline, you can use a simple structure. Target role or direction.."
+    },
+    {
+      "id": "headline-formula-02",
+      "text": "Then your key strengths and skills, then the value you create or the area you focus."
+    },
+    {
+      "id": "headline-formula-03",
+      "text": "On. Separate them with a line, and let each piece do a job."
+    },
+    {
+      "id": "before-after-01",
+      "text": "Here's what that shift looks like. Before, a headline might read.."
+    },
+    {
+      "id": "before-after-02",
+      "text": "\"Project Manager at X Company.\" True, but it only."
+    },
+    {
+      "id": "before-after-03",
+      "text": "Names where you've been. After, it becomes: \"Senior Program."
+    },
+    {
+      "id": "before-after-04",
+      "text": "Leader driving cross-functional initiatives, improving outcomes in."
+    },
+    {
+      "id": "before-after-05",
+      "text": "Higher ed.\" Same person. But now the profile points forward."
+    },
+    {
+      "id": "about-bridge-01",
+      "text": "Now for your \"About\" summary. Think of it as a short narrative rather than a."
+    },
+    {
+      "id": "about-bridge-02",
+      "text": "Resume dump. It connects your past to your future. It names two or three themes."
+    },
+    {
+      "id": "about-bridge-03",
+      "text": "Or strengths. And it describes the kind of problems you love to solve, and for whom."
+    },
+    {
+      "id": "draft-and-sharpen-01",
+      "text": "In this module, you'll draft a future-oriented headline and summary."
+    },
+    {
+      "id": "draft-and-sharpen-02",
+      "text": "Then use AI feedback to sharpen your positioning, whether you're."
+    },
+    {
+      "id": "draft-and-sharpen-03",
+      "text": "Aiming for a promotion, a lateral move, or a role redesign."
+    },
+    {
+      "id": "open-doors-01",
+      "text": "When you reposition your LinkedIn this way, you make it easier for new doors to open."
+    },
+    {
+      "id": "open-doors-02",
+      "text": "Because people can immediately see how your experience and strengths match."
+    },
+    {
+      "id": "open-doors-03",
+      "text": "The roles and challenges you're excited about next."
+    }
+  ],
+  "narration": [
+    "Many mid-career professionals treat their LinkedIn profile as a static biography.",
+    "A list of titles, and a vague summary about being an.",
+    "\"Experienced professional.\" It sits there. It doesn't do much.",
+    "But here's the thing: your LinkedIn is one of your most important positioning.",
+    "Tools. Recruiters, managers, and peers often see your headline.",
+    "And your \"About\" section before they see anything else about you. That's.",
+    "Your first impression, and it's working whether you've shaped it or not.",
+    "So let's shape it. A strong mid-career headline and summary does three things.",
+    "First, it speaks to the future roles you're aiming for.",
+    "Second, it highlights the strengths and skills you want to be known for.",
+    "And third, it shows the value you create, in a way that's clear and human.",
+    "For your headline, you can use a simple structure. Target role or direction..",
+    "Then your key strengths and skills, then the value you create or the area you focus.",
+    "On. Separate them with a line, and let each piece do a job.",
+    "Here's what that shift looks like. Before, a headline might read..",
+    "\"Project Manager at X Company.\" True, but it only.",
+    "Names where you've been. After, it becomes: \"Senior Program.",
+    "Leader driving cross-functional initiatives, improving outcomes in.",
+    "Higher ed.\" Same person. But now the profile points forward.",
+    "Now for your \"About\" summary. Think of it as a short narrative rather than a.",
+    "Resume dump. It connects your past to your future. It names two or three themes.",
+    "Or strengths. And it describes the kind of problems you love to solve, and for whom.",
+    "In this module, you'll draft a future-oriented headline and summary.",
+    "Then use AI feedback to sharpen your positioning, whether you're.",
+    "Aiming for a promotion, a lateral move, or a role redesign.",
+    "When you reposition your LinkedIn this way, you make it easier for new doors to open.",
+    "Because people can immediately see how your experience and strengths match.",
+    "The roles and challenges you're excited about next."
   ]
 }

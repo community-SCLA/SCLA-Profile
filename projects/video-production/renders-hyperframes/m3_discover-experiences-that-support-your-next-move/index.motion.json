@@ -1,89 +1,247 @@
 {
   "compositionId": "m3_discover-experiences-that-support-your-next-move",
-  "duration": 132.6,
+  "duration": 119.936,
   "fps": 30,
   "timeline": "master",
   "paused": true,
   "seekable": true,
   "beats": [
     {
-      "id": "future-proof",
-      "start": 0,
-      "duration": 16.15
+      "id": "future-proof-01",
+      "start": 0.0,
+      "duration": 4.379
     },
     {
-      "id": "curated-gallery",
-      "start": 16.15,
-      "duration": 13.65
+      "id": "future-proof-02",
+      "start": 4.379,
+      "duration": 4.22
     },
     {
-      "id": "selection-lens",
-      "start": 29.8,
-      "duration": 18.65
+      "id": "future-proof-03",
+      "start": 8.599,
+      "duration": 4.05
     },
     {
-      "id": "leadership-proof",
-      "start": 48.45,
-      "duration": 15.65
+      "id": "curated-gallery-01",
+      "start": 12.649,
+      "duration": 5.74
     },
     {
-      "id": "lateral-proof",
-      "start": 64.1,
-      "duration": 15.85
+      "id": "curated-gallery-02",
+      "start": 18.389,
+      "duration": 5.309
     },
     {
-      "id": "rams-framework",
-      "start": 79.95,
-      "duration": 34.65
+      "id": "selection-lens-01",
+      "start": 23.698,
+      "duration": 5.99
     },
     {
-      "id": "true-story",
-      "start": 114.6,
-      "duration": 18.0
+      "id": "selection-lens-02",
+      "start": 29.688,
+      "duration": 5.99
+    },
+    {
+      "id": "selection-lens-03",
+      "start": 35.678,
+      "duration": 6.14
+    },
+    {
+      "id": "leadership-proof-01",
+      "start": 41.818,
+      "duration": 5.029
+    },
+    {
+      "id": "leadership-proof-02",
+      "start": 46.847,
+      "duration": 5.29
+    },
+    {
+      "id": "leadership-proof-03",
+      "start": 52.137,
+      "duration": 4.79
+    },
+    {
+      "id": "lateral-proof-01",
+      "start": 56.927,
+      "duration": 5.32
+    },
+    {
+      "id": "lateral-proof-02",
+      "start": 62.247,
+      "duration": 4.98
+    },
+    {
+      "id": "lateral-proof-03",
+      "start": 67.227,
+      "duration": 5.05
+    },
+    {
+      "id": "rams-framework-01",
+      "start": 72.277,
+      "duration": 5.839
+    },
+    {
+      "id": "rams-framework-02",
+      "start": 78.116,
+      "duration": 5.85
+    },
+    {
+      "id": "rams-framework-03",
+      "start": 83.966,
+      "duration": 5.61
+    },
+    {
+      "id": "rams-framework-04",
+      "start": 89.576,
+      "duration": 5.92
+    },
+    {
+      "id": "rams-framework-05",
+      "start": 95.496,
+      "duration": 5.68
+    },
+    {
+      "id": "true-story-01",
+      "start": 101.176,
+      "duration": 4.33
+    },
+    {
+      "id": "true-story-02",
+      "start": 105.506,
+      "duration": 4.43
+    },
+    {
+      "id": "true-story-03",
+      "start": 109.936,
+      "duration": 4.24
+    },
+    {
+      "id": "true-story-04",
+      "start": 114.176,
+      "duration": 5.76
     }
   ],
-  "keepsMoving": true,
   "assertions": [
     {
       "kind": "appearsBy",
-      "selector": "#future-proof",
+      "selector": "#future-proof-01",
       "bySec": 1.2
     },
     {
       "kind": "appearsBy",
-      "selector": "#curated-gallery",
-      "bySec": 17.349999999999998
+      "selector": "#future-proof-02",
+      "bySec": 5.579
     },
     {
       "kind": "appearsBy",
-      "selector": "#selection-lens",
-      "bySec": 31.0
+      "selector": "#future-proof-03",
+      "bySec": 9.799
     },
     {
       "kind": "appearsBy",
-      "selector": "#leadership-proof",
-      "bySec": 49.650000000000006
+      "selector": "#curated-gallery-01",
+      "bySec": 13.849
     },
     {
       "kind": "appearsBy",
-      "selector": "#lateral-proof",
-      "bySec": 65.3
+      "selector": "#curated-gallery-02",
+      "bySec": 19.589
     },
     {
       "kind": "appearsBy",
-      "selector": "#rams-framework",
-      "bySec": 81.15
+      "selector": "#selection-lens-01",
+      "bySec": 24.898
     },
     {
       "kind": "appearsBy",
-      "selector": "#true-story",
-      "bySec": 115.8
+      "selector": "#selection-lens-02",
+      "bySec": 30.888
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#selection-lens-03",
+      "bySec": 36.878
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#leadership-proof-01",
+      "bySec": 43.018
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#leadership-proof-02",
+      "bySec": 48.047
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#leadership-proof-03",
+      "bySec": 53.337
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lateral-proof-01",
+      "bySec": 58.127
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lateral-proof-02",
+      "bySec": 63.447
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#lateral-proof-03",
+      "bySec": 68.427
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#rams-framework-01",
+      "bySec": 73.477
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#rams-framework-02",
+      "bySec": 79.316
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#rams-framework-03",
+      "bySec": 85.166
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#rams-framework-04",
+      "bySec": 90.776
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#rams-framework-05",
+      "bySec": 96.696
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#true-story-01",
+      "bySec": 102.376
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#true-story-02",
+      "bySec": 106.706
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#true-story-03",
+      "bySec": 111.136
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#true-story-04",
+      "bySec": 115.376
     },
     {
       "kind": "keepsMoving",
-      "selector": ".progress-fill",
-      "fromSec": 1,
-      "toSec": 132
+      "withinSelector": "[data-composition-id]",
+      "maxStaticSec": 8
     }
   ]
 }
