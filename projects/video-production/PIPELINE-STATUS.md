@@ -7,8 +7,8 @@
 - **14** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **21** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **1** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
-- **1** — **approved to render.** Gate-clean and covered by its own persisted review approval.
+- **2** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
+- **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
@@ -87,9 +87,9 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 *Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_four-kinds-of-career-transition_mid-career-momentum
-  - state: gate-clean and ready for your review — no MP4 yet
-  - last completed **release** at 2026-08-07 01:54 UTC
-  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_four-kinds-of-career-transition_mid-career-momentum`
+  - state: gate-clean and waiting on your eyes — no MP4 yet
+  - last completed **release** at 2026-08-07 02:26 UTC
+  - next: watch it, then continue: `bash scripts/preview.sh m2_four-kinds-of-career-transition_mid-career-momentum` → `bash projects/video-production/run.sh ship m2_four-kinds-of-career-transition_mid-career-momentum`
 
 **STALLED — the build folder stopped moving:**
 
@@ -118,14 +118,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 16. m5_the-story-that-makes-the-change-legible
 17. m7_your-reinvention-roadmap
 
-**APPROVED — gate-clean, ready to render:**
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
-*This lesson has its own persisted approval.*
+*Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: gate-clean; this lesson's rolling review is approved
+  - state: gate-clean and waiting on your eyes — no MP4 yet
   - last completed **release** at 2026-08-07 00:33 UTC
-  - next: render it: `bash projects/video-production/run.sh ship m2_welcome-and-using-career-transitions-as-leaps-ahead`
+  - next: watch it, then continue: `bash scripts/preview.sh m2_welcome-and-using-career-transitions-as-leaps-ahead` → `bash projects/video-production/run.sh ship m2_welcome-and-using-career-transitions-as-leaps-ahead`
 
 **REJECTED — a gate refused this cut:**
 
