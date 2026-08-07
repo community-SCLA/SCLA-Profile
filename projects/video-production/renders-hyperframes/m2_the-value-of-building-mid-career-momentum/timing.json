@@ -1,0 +1,54 @@
+{
+  "total": 127.659,
+  "rows": [
+    {
+      "id": "beat-01-experience",
+      "audio_start": 0.6,
+      "audio_dur": 9.94,
+      "vis_start": 0.0,
+      "vis_dur": 10.94
+    },
+    {
+      "id": "beat-02-noise",
+      "audio_start": 11.19,
+      "audio_dur": 14.26,
+      "vis_start": 10.94,
+      "vis_dur": 14.91
+    },
+    {
+      "id": "beat-03-momentum",
+      "audio_start": 26.1,
+      "audio_dur": 32.94,
+      "vis_start": 25.85,
+      "vis_dur": 33.59
+    },
+    {
+      "id": "beat-04-three-paths",
+      "audio_start": 59.69,
+      "audio_dur": 14.805,
+      "vis_start": 59.44,
+      "vis_dur": 15.455
+    },
+    {
+      "id": "beat-05-definitions",
+      "audio_start": 75.145,
+      "audio_dur": 23.32,
+      "vis_start": 74.895,
+      "vis_dur": 23.97
+    },
+    {
+      "id": "beat-06-fit",
+      "audio_start": 99.115,
+      "audio_dur": 11.075,
+      "vis_start": 98.865,
+      "vis_dur": 11.725
+    },
+    {
+      "id": "beat-07-direction",
+      "audio_start": 110.84,
+      "audio_dur": 15.019,
+      "vis_start": 110.59,
+      "vis_dur": 17.069
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "compositionId": "m3_the-two-sided-work",
+  "provider": "heygen",
+  "speed": 1.0,
+  "source": "projects/video-production/lesson-scripts/career-transitions/ready/m3_the-two-sided-work.txt",
+  "output": "assets/narration.mp3",
+  "generate": false,
+  "notes": "Source-only request. Narration generation is intentionally deferred to the coordinator.",
+  "voice": "442360a3e0894fbd85024ff64cc2b928",
+  "lines": [
+    {
+      "id": "beat-01",
+      "text": "In the last module, we named your transition. In this one, we do the hardest and most important work of the whole track — and it's work most career advice skips entirely."
+    },
+    {
+      "id": "beat-02",
+      "text": "Every real career reinvention has two sides. There's a letting-go, and there's a carrying-forward. Most people try to do only one — and that's why so many transitions get stuck. Let's name both."
+    },
+    {
+      "id": "beat-03",
+      "text": "First: letting go. William Bridges, whose work we referenced in Module 1; said something worth repeating. Every transition begins with an ending. Not a beginning. An ending."
+    },
+    {
+      "id": "beat-04",
+      "text": "Skip the ending — jump into the new role without acknowledging what you're leaving — and the old identity comes with you. You show up at the new company still thinking like your old title. You take the new job while quietly grieving the old one. You wonder why you don't feel excited, when the answer is that you haven't said goodbye yet."
+    },
+    {
+      "id": "beat-05",
+      "text": "Herminia Ibarra's research at INSEAD calls this identity work, and it's not a metaphor. It's a real cognitive and emotional process. The people who navigate it well don't rush it. They give themselves permission to feel the loss — even in transitions they chose, even in transitions they wanted."
+    },
+    {
+      "id": "beat-06",
+      "text": "Now the other side: carrying forward."
+    },
+    {
+      "id": "beat-07",
+      "text": "Here's the mistake we see mid-career professionals make constantly. They apologize for their past career. They minimize it on the resume. They tell the story of their pivot as if the prior fifteen years were a detour."
+    },
+    {
+      "id": "beat-08",
+      "text": "That's a serious error, because those fifteen years are exactly what makes you specifically valuable in the new direction. Dorie Clark, in Reinventing You, puts it this way: you have broader experience than people who started in this field. The task is not to hide it. The task is to translate it."
+    },
+    {
+      "id": "beat-09",
+      "text": "The finance director who moves into product management doesn't stop being a finance thinker. She becomes a product manager who reads a P&L the way most product managers can't. The teacher who moves into corporate learning doesn't stop being a teacher. She becomes an instructional designer with fifteen years of live classroom feedback that no one else on the team has."
+    },
+    {
+      "id": "beat-10",
+      "text": "That's carry-forward. And it's specific, not general. In this module, we're going to build your Carry-Forward Inventory — a clear, honest list of the skills, values, relationships, and capabilities that deserve to travel with you into whatever comes next."
+    },
+    {
+      "id": "beat-11",
+      "text": "But we do the letting-go work first. Not the other way around. Because if you build your carry-forward list while you're still holding on to everything, the list stops being useful. It becomes a defense."
+    },
+    {
+      "id": "beat-12",
+      "text": "Two exercises. Both matter. Let's do them in the right order."
+    }
+  ]
+}

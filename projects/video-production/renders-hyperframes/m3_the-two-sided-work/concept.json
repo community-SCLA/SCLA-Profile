@@ -1,0 +1,11 @@
+{
+  "compositionId": "m3_the-two-sided-work",
+  "title": "The Two-Sided Work",
+  "program": "Career Transitions",
+  "concept": "A two-lane editorial system makes letting go and carrying forward visible as separate, ordered parts of career reinvention.",
+  "visualMetaphor": "Two parallel lanes converge into a Carry-Forward Inventory.",
+  "beatCount": 12,
+  "durationSeconds": 199.2,
+  "format": "1920x1080",
+  "motionSystem": "A single paused GSAP timeline, registered under the composition ID, sequences every beat deterministically."
+}

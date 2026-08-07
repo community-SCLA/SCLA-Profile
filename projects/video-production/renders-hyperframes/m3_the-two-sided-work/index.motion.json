@@ -1,0 +1,135 @@
+{
+  "compositionId": "m3_the-two-sided-work",
+  "duration": 199.2,
+  "fps": 30,
+  "timeline": "gsap",
+  "paused": true,
+  "seekable": true,
+  "beats": [
+    {
+      "id": "beat-01",
+      "start": 0,
+      "duration": 16.25
+    },
+    {
+      "id": "beat-02",
+      "start": 16.25,
+      "duration": 16.65
+    },
+    {
+      "id": "beat-03",
+      "start": 32.9,
+      "duration": 13.65
+    },
+    {
+      "id": "beat-04",
+      "start": 46.55,
+      "duration": 23.65
+    },
+    {
+      "id": "beat-05",
+      "start": 70.2,
+      "duration": 20.65
+    },
+    {
+      "id": "beat-06",
+      "start": 90.85,
+      "duration": 5.65
+    },
+    {
+      "id": "beat-07",
+      "start": 96.5,
+      "duration": 16.65
+    },
+    {
+      "id": "beat-08",
+      "start": 113.15,
+      "duration": 19.65
+    },
+    {
+      "id": "beat-09",
+      "start": 132.8,
+      "duration": 27.65
+    },
+    {
+      "id": "beat-10",
+      "start": 160.45,
+      "duration": 18.65
+    },
+    {
+      "id": "beat-11",
+      "start": 179.1,
+      "duration": 13.65
+    },
+    {
+      "id": "beat-12",
+      "start": 192.75,
+      "duration": 6.45
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-01",
+      "seconds": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-02",
+      "seconds": 17.45
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-03",
+      "seconds": 34.1
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-04",
+      "seconds": 47.75
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-05",
+      "seconds": 71.4
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-06",
+      "seconds": 92.05
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-07",
+      "seconds": 97.7
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-08",
+      "seconds": 114.35
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-09",
+      "seconds": 134.0
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-10",
+      "seconds": 161.65
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-11",
+      "seconds": 180.3
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-12",
+      "seconds": 193.95
+    },
+    {
+      "kind": "keepsMoving"
+    }
+  ]
+}

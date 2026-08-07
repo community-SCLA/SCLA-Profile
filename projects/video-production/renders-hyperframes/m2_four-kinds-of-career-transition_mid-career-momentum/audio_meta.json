@@ -3107,85 +3107,85 @@
     {
       "id": "b34",
       "path": "assets/voice/b34.wav",
-      "duration_s": 4.275,
+      "duration_s": 3.804,
       "words": [
         {
           "id": "w0",
           "text": "Then",
-          "start": 0.065,
-          "end": 0.475
+          "start": 0.0,
+          "end": 0.159
         },
         {
           "id": "w1",
           "text": "you'll",
-          "start": 0.505,
-          "end": 0.685
+          "start": 0.239,
+          "end": 0.399
         },
         {
           "id": "w2",
           "text": "use",
-          "start": 0.765,
-          "end": 0.905
+          "start": 0.459,
+          "end": 0.579
         },
         {
           "id": "w3",
           "text": "an",
-          "start": 0.945,
-          "end": 1.085
+          "start": 0.6,
+          "end": 0.699
         },
         {
           "id": "w4",
           "text": "AI",
-          "start": 1.165,
-          "end": 1.505
+          "start": 0.799,
+          "end": 0.98
         },
         {
           "id": "w5",
           "text": "activity",
-          "start": 1.565,
-          "end": 2.085
+          "start": 1.039,
+          "end": 1.619
         },
         {
           "id": "w6",
           "text": "to",
-          "start": 2.125,
-          "end": 2.245
+          "start": 1.659,
+          "end": 1.799
         },
         {
           "id": "w7",
           "text": "analyze",
-          "start": 2.305,
-          "end": 2.665
+          "start": 1.86,
+          "end": 2.219
         },
         {
           "id": "w8",
           "text": "the",
-          "start": 2.705,
-          "end": 2.785
+          "start": 2.259,
+          "end": 2.36
         },
         {
           "id": "w9",
           "text": "projects",
-          "start": 2.825,
-          "end": 3.274
+          "start": 2.379,
+          "end": 2.84
         },
         {
           "id": "w10",
           "text": "that",
-          "start": 3.305,
-          "end": 3.415
+          "start": 2.879,
+          "end": 2.979
         },
         {
           "id": "w11",
           "text": "energize",
-          "start": 3.445,
-          "end": 3.905
+          "start": 3.019,
+          "end": 3.499
         },
         {
           "id": "w12",
           "text": "you.",
-          "start": 3.965,
-          "end": 4.275
+          "start": 3.539,
+          "end": 3.659
         }
       ]
     },
@@ -3561,7 +3561,7 @@
     }
   ],
   "sfx": [],
-  "total_duration_s": 184.65,
+  "total_duration_s": 184.179,
   "scla_synthesis": {
     "version": 1,
     "mode": "continuous-chunks",
@@ -3613,7 +3613,7 @@
       }
     ]
   },
-  "speed": 1.0,
+  "speed": 1,
   "scla_timing": {
     "hygiene_version": 1,
     "final_hold": 1.8

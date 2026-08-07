@@ -1,5 +1,5 @@
 {
-  "total": 211.1,
+  "total": 210.629,
   "rows": [
     {
       "id": "b01",
@@ -235,36 +235,36 @@
     {
       "id": "b34",
       "audio_start": 180.305,
-      "audio_dur": 4.275,
+      "audio_dur": 3.804,
       "vis_start": 180.055,
-      "vis_dur": 4.925
+      "vis_dur": 4.454
     },
     {
       "id": "b35",
-      "audio_start": 185.23,
+      "audio_start": 184.759,
       "audio_dur": 4.72,
-      "vis_start": 184.98,
+      "vis_start": 184.509,
       "vis_dur": 5.37
     },
     {
       "id": "b36",
-      "audio_start": 190.6,
+      "audio_start": 190.129,
       "audio_dur": 6.805,
-      "vis_start": 190.35,
+      "vis_start": 189.879,
       "vis_dur": 7.455
     },
     {
       "id": "b37",
-      "audio_start": 198.055,
+      "audio_start": 197.584,
       "audio_dur": 6.75,
-      "vis_start": 197.805,
+      "vis_start": 197.334,
       "vis_dur": 7.4
     },
     {
       "id": "b38",
-      "audio_start": 205.455,
+      "audio_start": 204.984,
       "audio_dur": 3.845,
-      "vis_start": 205.205,
+      "vis_start": 204.734,
       "vis_dur": 5.895
     }
   ]

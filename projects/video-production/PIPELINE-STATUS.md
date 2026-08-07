@@ -5,15 +5,15 @@
 ## Where everything stands
 
 - **14** — **live on Wistia.** Done; links in the *Delivered* table below.
-- **21** — **ready to build.** Script approved; nothing made yet.
-- **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **2** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
+- **20** — **ready to build.** Script approved; nothing made yet.
+- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **1** — **waiting on your eyes.** Gate-clean, no MP4 yet — each lesson can be reviewed independently.
 - **0** — **approved to render.** Gate-clean and covered by its own persisted review approval.
 - **0** — **rendered, not yet published.** The MP4 exists and passed every gate; only the Wistia upload is left.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
 - **0** — **STALLED.** A build folder that stopped moving; the lock has to be released before it can be rebuilt.
-- **1** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
+- **2** — **REJECTED.** A finished attempt a release check refused; needs a fix and a re-render.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
 
@@ -58,6 +58,9 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Needs a human right now
 
+- **m2_four-kinds-of-career-transition_mid-career-momentum** (mid-career-momentum) — REJECTED: a release gate rejected this cut — no qa/VERIFIED marker — render+verify have not passed on the current MP4
+  - last completed **release** at 2026-08-07 03:24 UTC
+  - **To clear it:** inspect the command output, correct the cause, then use run.sh retry m2_four-kinds-of-career-transition_mid-career-momentum --reason "cause corrected"
 - **m2_four-kinds-of-career-transition_career-transitions** (career-transitions) — REJECTED: a release gate rejected this cut — cloud render failed or timed out (hyperframes cloud render)
   - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m2_four-kinds-of-career-transition_career-transitions/qa/logs/20260806T235012Z-cloud-render.log
   - last completed **release** at 2026-08-06 09:42 UTC
@@ -80,23 +83,23 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 11. m5_skills-for-the-ai-era
 12. m6_youve-built-momentum
 
-**NEEDS REVIEW — gate-clean, waiting on your eyes:**
-
-*Review and approve this lesson now; unfinished siblings do not block it.*
-
-- m2_four-kinds-of-career-transition_mid-career-momentum
-  - state: gate-clean and waiting on your eyes — no MP4 yet
-  - last completed **release** at 2026-08-07 02:26 UTC
-  - next: watch it, then continue: `bash scripts/preview.sh m2_four-kinds-of-career-transition_mid-career-momentum` → `bash projects/video-production/run.sh ship m2_four-kinds-of-career-transition_mid-career-momentum`
-
 **BUILDING — in flight, no MP4 yet:**
 
 *A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
 - m2_the-value-of-building-mid-career-momentum
-  - state: freeform design written; narration not yet synthesized
-  - last written to: 2026-08-07 02:26 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-07 03:25 UTC
   - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m2_the-value-of-building-mid-career-momentum`; then continue `/render-lessons BUILD m2_the-value-of-building-mid-career-momentum`
+
+**REJECTED — a gate refused this cut:**
+
+*Built and rendered, then refused by a release check. It will not publish until a human fixes the cause and re-renders.*
+
+- m2_four-kinds-of-career-transition_mid-career-momentum
+  - state: a release gate rejected this cut — no qa/VERIFIED marker — render+verify have not passed on the current MP4
+  - last completed **release** at 2026-08-07 03:24 UTC
+  - next: inspect the command output, correct the cause, then use run.sh retry m2_four-kinds-of-career-transition_mid-career-momentum --reason "cause corrected"
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -110,20 +113,28 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-13. m3_the-two-sided-work
-14. m4_building-your-carry-forward-inventory
-15. m5_testing-your-next-chapter
-16. m5_the-story-that-makes-the-change-legible
-17. m7_your-reinvention-roadmap
+13. m4_building-your-carry-forward-inventory
+14. m5_testing-your-next-chapter
+15. m5_the-story-that-makes-the-change-legible
+16. m7_your-reinvention-roadmap
 
 **NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
 *Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_welcome-and-using-career-transitions-as-leaps-ahead
-  - state: gate-clean and ready for your review — no MP4 yet
+  - state: gate-clean and waiting on your eyes — no MP4 yet
   - last completed **release** at 2026-08-07 00:33 UTC
-  - next: watch this workspace now; approve it independently with `bash projects/video-production/run.sh approve m2_welcome-and-using-career-transitions-as-leaps-ahead`
+  - next: watch it, then continue: `bash scripts/preview.sh m2_welcome-and-using-career-transitions-as-leaps-ahead` → `bash projects/video-production/run.sh ship m2_welcome-and-using-career-transitions-as-leaps-ahead`
+
+**BUILDING — in flight, no MP4 yet:**
+
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+
+- m3_the-two-sided-work
+  - state: freeform design written; narration not yet synthesized
+  - last written to: 2026-08-07 03:23 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - next: select only this lesson: `bash projects/video-production/run.sh produce --stem m3_the-two-sided-work`; then continue `/render-lessons BUILD m3_the-two-sided-work`
 
 **REJECTED — a gate refused this cut:**
 
@@ -139,10 +150,10 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 **READY — queued to build:**
 
-18. m1_reframing-entrepreneurship-and-going-solo
-19. m3_choosing-your-solo-model
-20. m4_building-visibility-on-your-own
-21. m5_making-solo-work-sustainable
+17. m1_reframing-entrepreneurship-and-going-solo
+18. m3_choosing-your-solo-model
+19. m4_building-visibility-on-your-own
+20. m5_making-solo-work-sustainable
 
 **RAW — waiting on refinement:**
 
