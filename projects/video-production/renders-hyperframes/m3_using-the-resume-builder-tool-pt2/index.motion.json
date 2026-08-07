@@ -1,0 +1,172 @@
+{
+  "compositionId": "m3_using-the-resume-builder-tool-pt2",
+  "duration": 304.3,
+  "timeline": {
+    "paused": true,
+    "seekable": true
+  },
+  "beats": [
+    {
+      "id": "beat-01",
+      "start": 0,
+      "duration": 11.81,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-02",
+      "start": 11.81,
+      "duration": 23.73,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-03",
+      "start": 35.54,
+      "duration": 18.62,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-04",
+      "start": 54.16,
+      "duration": 27.56,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-05",
+      "start": 81.72,
+      "duration": 27.56,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-06",
+      "start": 109.28,
+      "duration": 33.51,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-07",
+      "start": 142.79,
+      "duration": 24.15,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-08",
+      "start": 166.94,
+      "duration": 28.41,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-09",
+      "start": 195.35,
+      "duration": 38.62,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-10",
+      "start": 233.97,
+      "duration": 19.05,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-11",
+      "start": 253.02,
+      "duration": 21.17,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    },
+    {
+      "id": "beat-12",
+      "start": 274.19,
+      "duration": 30.11,
+      "entrance": 0.55,
+      "exit": 0.3,
+      "stagger": 0.14
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-01 .scene-inner",
+      "bySec": 0.8
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-02 .scene-inner",
+      "bySec": 12.61
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-03 .scene-inner",
+      "bySec": 36.34
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-04 .scene-inner",
+      "bySec": 54.96
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-05 .scene-inner",
+      "bySec": 82.52
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-06 .scene-inner",
+      "bySec": 110.08
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-07 .scene-inner",
+      "bySec": 143.59
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-08 .scene-inner",
+      "bySec": 167.93
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-09 .scene-inner",
+      "bySec": 196.15
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-10 .scene-inner",
+      "bySec": 234.77
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-11 .scene-inner",
+      "bySec": 253.82
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#beat-12 .scene-inner",
+      "bySec": 274.99
+    },
+    {
+      "kind": "keepsMoving",
+      "maxStaticSec": 39
+    }
+  ]
+}

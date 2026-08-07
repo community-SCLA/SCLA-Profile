@@ -1,0 +1,93 @@
+{
+  "compositionId": "m3_using-the-resume-builder-tool-pt2",
+  "program": "mid-career-momentum",
+  "title": "Using the Resume Builder Tool, Part 2",
+  "concept": "From Task to Future-You Proof",
+  "duration": 304.3,
+  "beats": [
+    {
+      "id": "beat-01",
+      "start": 0,
+      "duration": 11.81,
+      "title": "Build the future-you resume",
+      "visual": "future"
+    },
+    {
+      "id": "beat-02",
+      "start": 11.81,
+      "duration": 23.73,
+      "title": "A practical rewrite",
+      "visual": "overview"
+    },
+    {
+      "id": "beat-03",
+      "start": 35.54,
+      "duration": 18.62,
+      "title": "The four-part lens",
+      "visual": "lens"
+    },
+    {
+      "id": "beat-04",
+      "start": 54.16,
+      "duration": 27.56,
+      "title": "Show results, not tasks",
+      "visual": "results"
+    },
+    {
+      "id": "beat-05",
+      "start": 81.72,
+      "duration": 27.56,
+      "title": "Bring the lens into the tool",
+      "visual": "builder"
+    },
+    {
+      "id": "beat-06",
+      "start": 109.28,
+      "duration": 33.51,
+      "title": "See the stronger version",
+      "visual": "rewrite"
+    },
+    {
+      "id": "beat-07",
+      "start": 142.79,
+      "duration": 24.15,
+      "title": "Accuracy comes first",
+      "visual": "verify"
+    },
+    {
+      "id": "beat-08",
+      "start": 166.94,
+      "duration": 28.41,
+      "title": "Keep your voice and structure",
+      "visual": "voice"
+    },
+    {
+      "id": "beat-09",
+      "start": 195.35,
+      "duration": 38.62,
+      "title": "Choose for your next move",
+      "visual": "paths"
+    },
+    {
+      "id": "beat-10",
+      "start": 233.97,
+      "duration": 19.05,
+      "title": "Lead with 3\u20135 stories",
+      "visual": "select"
+    },
+    {
+      "id": "beat-11",
+      "start": 253.02,
+      "duration": 21.17,
+      "title": "LinkedIn adds visibility",
+      "visual": "visibility"
+    },
+    {
+      "id": "beat-12",
+      "start": 274.19,
+      "duration": 30.11,
+      "title": "Point your headline forward",
+      "visual": "headline"
+    }
+  ]
+}
