@@ -1,2 +1,19 @@
 2026-08-07T21:03:28Z	resume	program=career-transitions
 2026-08-07T21:07:31Z	release	build session ended
+2026-08-08T03:30:12Z	resume	program=career-transitions
+2026-08-08T03:35:28Z	preflight	exit 1
+2026-08-08T03:48:46Z	preflight	exit 1
+2026-08-08T03:49:22Z	release	build session ended
+2026-08-08T03:52:38Z	resume	program=career-transitions
+2026-08-08T03:57:35Z	preflight	exit 1
+2026-08-08T03:58:26Z	release	build session ended
+2026-08-08T03:59:58Z	resume	program=career-transitions
+2026-08-08T04:03:21Z	source-fix	restored pinned local GSAP runtime; removed unsafe right-side module chrome; preserved 28-beat timing and content
+2026-08-08T04:09:59Z	preflight	exit 1
+2026-08-08T04:10:15Z	release	build session ended
+2026-08-08T04:11:19Z	resume	program=career-transitions
+2026-08-08T04:12:06Z	preflight	exit 1
+2026-08-08T04:12:12Z	release	build session ended
+2026-08-08T04:13:02Z	resume	program=career-transitions
+2026-08-08T04:22:56Z	preflight	exit 1
+2026-08-08T04:23:21Z	release	build session ended

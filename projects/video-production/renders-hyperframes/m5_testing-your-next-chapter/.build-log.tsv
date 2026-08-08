@@ -5,3 +5,30 @@
 2026-08-07T22:29:55Z	preflight	exit 1
 2026-08-07T22:37:40Z	preflight	exit 0 — gate-clean
 2026-08-07T22:38:05Z	release	build session ended
+2026-08-08T02:34:26Z	resume	program=career-transitions
+2026-08-08T02:40:06Z	composition	revised experiment-board progression; removed blank insight handoffs; preserved narration and timing
+2026-08-08T02:41:23Z	preflight	exit 1
+2026-08-08T02:44:54Z	preflight	exit 1
+2026-08-08T02:48:06Z	preflight	exit 1
+2026-08-08T02:52:24Z	preflight	exit 0 — gate-clean
+2026-08-08T02:52:35Z	release	build session ended
+2026-08-08T03:00:30Z	resume	program=career-transitions
+2026-08-08T03:07:26Z	preflight	exit 1
+2026-08-08T03:07:55Z	release	build session ended
+2026-08-08T03:09:45Z	resume	program=career-transitions
+2026-08-08T03:12:27Z	release	build session ended
+2026-08-08T03:13:34Z	resume	program=career-transitions
+2026-08-08T03:14:19Z	preflight	exit 1
+2026-08-08T03:15:07Z	preflight	exit 1
+2026-08-08T03:15:09Z	release	build session ended
+2026-08-08T03:17:05Z	resume	program=career-transitions
+2026-08-08T03:17:56Z	preflight	exit 1
+2026-08-08T03:19:08Z	preflight	exit 1
+2026-08-08T03:20:20Z	preflight	exit 0 — gate-clean
+2026-08-08T03:21:30Z	revision	Removed prohibited footer progress UI and replaced masked motion with beat-local experiment-board choreography
+2026-08-08T03:21:30Z	gate	PASS; combined visual review PASS / ALIVE / PROCEED at revision 4273bcfa0467da0bcf2c5ab04889cb17fc5e1b4f22d0f1d42e3710036425e15e
+2026-08-08T03:21:30Z	release	build session ended
+2026-08-08T03:22:35Z	release	build session ended
+2026-08-08T03:30:00Z	resume	program=career-transitions
+2026-08-08T03:36:20Z	preflight	exit 0 — gate-clean
+2026-08-08T03:37:19Z	release	build session ended

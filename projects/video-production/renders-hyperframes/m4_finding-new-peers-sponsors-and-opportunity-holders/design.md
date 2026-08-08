@@ -28,5 +28,22 @@ Each clip has a short entrance, a readable hold, and a clean exit. The gold
 path advances cumulatively; peer, sponsor, and holder nodes activate only at
 meaningful phase changes; the start-close/search-forward/notice-influence
 touchpoints accumulate; and the opportunity gate opens on the final question.
-One finite orbit keeps long holds alive. Motion is fully controlled by one
-paused seekable GSAP timeline.
+
+Six materially different visual phases sit above the persistent map:
+
+- Peers: a two-way exchange field with context, introductions, and knowledge
+  traveling laterally between equals.
+- Sponsors: an advocacy ramp that visibly moves the learner's name toward the
+  decision table.
+- Opportunity holders: a vertical access console for roles, projects, and
+  hiring decisions.
+- Search strategy: a three-route radar that activates Start Close, Search
+  Forward, and Notice Influence in sequence.
+- Activity: a five-position contact board that turns the map into a concrete
+  three-to-five relationship exercise, then adds the outreach action.
+- Closing: a large relationship ring that replaces collection with reciprocal
+  value and resolves at the open opportunity gate.
+
+Copy placement and entrance direction change with each phase, while the lower
+relationship map remains the continuity anchor. All motion is fully controlled
+by one paused seekable GSAP timeline.

@@ -10,4 +10,4 @@ The visual story moves from a plain bullet through a four-part lens, an AI-assis
 Viewers leave with a focused action: select three to five honest headline stories, then use the same future-facing approach for LinkedIn.
 
 ## Visual direction
-Clean editorial workspace on warm white and deep navy. Gold marks decisions and evidence; blue signals tools and forward motion. Large type, restrained cards, and a persistent progress rail make the lesson easy to follow.
+Clean editorial workspace on warm white and deep navy. Gold marks decisions and evidence; blue signals tools and forward motion. Large type, restrained cards, and a changing phase label make the lesson easy to follow without playback-style progress chrome.

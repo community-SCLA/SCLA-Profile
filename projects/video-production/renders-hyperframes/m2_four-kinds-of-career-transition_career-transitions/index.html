@@ -39,7 +39,7 @@
     #ct-forced-reinvention>.eyebrow,#ct-forced-reinvention>h2,#ct-forced-reinvention>.sub,#ct-forced-reinvention>.constraint-row,#ct-forced-reinvention>.new-route{transform:none!important}
     .correction{display:flex;align-items:center;justify-content:center;gap:52px;margin-top:34px;font-size:74px;font-weight:900}.strike{position:relative;color:var(--border)}.strike:after{content:"";position:absolute;left:-12px;right:-12px;top:50%;height:8px;background:var(--gold);transform:rotate(-7deg)}.finding{width:1240px;margin:38px auto 0;text-align:center}.finding-label{font-size:21px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}.finding strong{display:block;font-size:44px;line-height:1.06;font-weight:900;color:var(--paper);margin-bottom:14px}.finding p{font-size:30px;line-height:1.24;color:var(--cultured)}.response-path{display:flex;align-items:center;justify-content:space-between;margin-top:66px}.response-step{width:280px;text-align:center}.response-step b{width:86px;height:86px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;margin:0 auto 18px;font-size:34px}.response-step span{font-size:29px;font-weight:900}.chev{font-size:45px;color:var(--blue)}
     .leap{position:relative;height:520px;margin-top:25px}.from,.to{position:absolute;top:310px;width:270px;height:150px;padding:22px;display:grid;place-items:center;border-radius:12px;background:var(--paper);color:var(--ink);font-size:32px;line-height:1.14;font-weight:900;text-align:center;z-index:2}.from{left:40px}.to{right:40px;border:5px solid var(--gold)}.arc{position:absolute;left:175px;right:175px;top:160px;height:392px;border-top:9px dashed var(--gold);border-radius:50%;z-index:1}.stones{position:absolute;left:315px;right:315px;top:352px;z-index:3;display:flex;justify-content:space-between}.stone{width:150px;height:96px;border-radius:50%;background:#e5eff6;color:var(--navy);display:grid;place-items:center;text-align:center;font-size:19px;font-weight:900;padding:10px;border:3px solid var(--blue)}
-    .tactics-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px}.tactic-quad{padding:25px 30px;min-height:190px}.tactic-quad strong{font-size:33px;display:block;margin-bottom:12px}.tactic-quad p{font-size:27px;line-height:1.24;color:var(--muted-video)}
+    .tactics-stage{position:relative;height:402px;margin-top:38px}.tactics-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:22px}.tactic-axis{position:absolute;background:rgba(51,147,214,.72);z-index:1;will-change:transform,background-color}.tactic-axis.horizontal{left:0;right:0;top:199px;height:4px;transform-origin:center}.tactic-axis.vertical{top:0;bottom:0;left:838px;width:4px;transform-origin:center}.tactic-marker{position:absolute;left:822px;top:183px;width:36px;height:36px;border-radius:50%;background:var(--gold);border:7px solid var(--deep);box-shadow:0 0 0 4px var(--gold);opacity:0;z-index:8;will-change:transform,opacity}.tactic-quad{position:relative;z-index:2;padding:25px 30px 25px 78px;min-height:190px;opacity:.2;will-change:transform,opacity,background-color,border-color}.tactic-quad.paper{background:rgba(51,147,214,.07);color:var(--paper);border-color:rgba(51,147,214,.72)}.tactic-quad strong{font-size:33px;display:block;margin-bottom:12px;opacity:0;transform:translateY(12px);will-change:transform,opacity}.tactic-quad p{font-size:27px;line-height:1.24;color:var(--muted);opacity:0;transform:translateY(12px);will-change:transform,opacity}
     .close-route{display:flex;align-items:center;justify-content:center;gap:34px;margin-top:120px}.close-node{padding:42px 62px;border-radius:12px;background:var(--paper);border:2px solid var(--border);color:var(--ink);font-size:54px;font-weight:900}.close-node.final{background:var(--gold);border-color:var(--gold);color:var(--navy)}.close-arrow{font-size:55px;color:var(--blue)}
     .compass-badge{position:absolute;right:120px;top:150px;width:200px;height:200px;border:3px solid rgba(51,147,214,.55);border-radius:12px;background:rgba(51,147,214,.08);z-index:6}.compass-badge:before,.compass-badge:after{content:"";position:absolute;background:var(--blue);z-index:2}.compass-badge:before{left:50%;margin-left:-1.5px;top:0;bottom:0;width:3px}.compass-badge:after{left:0;right:0;top:50%;margin-top:-1.5px;height:3px}.cb-cell{position:absolute;width:50%;height:50%;box-shadow:inset 0 0 0 4px rgba(234,171,45,.9);z-index:1}.cb-dot{position:absolute;width:50px;height:50px;border-radius:50%;background:var(--gold);border:6px solid var(--paper);box-shadow:0 0 0 3px var(--gold);z-index:3}.cb-cell.cb-tr{right:0;top:0}.cb-cell.cb-bl{left:0;bottom:0}.cb-cell.cb-br{right:0;bottom:0}.cb-dot.cb-tr{left:125px;top:25px}.cb-dot.cb-bl{left:25px;top:125px}.cb-dot.cb-br{left:125px;top:125px}
   </style>
@@ -205,16 +205,18 @@
     </section>
 
     <section data-hf-id="hf-zrb4" id="ct-adjacent-steps" class="clip" data-track-index="1" data-start="225.069" data-duration="24.94">
+      <div data-hf-id="hf-adjacent-compass" class="compass-badge" aria-hidden="true"><div data-hf-id="hf-adjacent-cell" class="cb-cell cb-tr"></div><div data-hf-id="hf-adjacent-dot" class="cb-dot cb-tr"></div></div>
       <div data-hf-id="hf-dhd0" class="eyebrow">Zoom out on a dramatic transition</div><h2 data-hf-id="hf-m4vz">The Leap Has a Trail</h2>
       <div data-hf-id="hf-yyyu" class="leap"><div data-hf-id="hf-ye39" class="from">Where you started</div><div data-hf-id="hf-ktq0" class="arc"></div><div data-hf-id="hf-c8l8" class="stones" data-role="list"><div data-hf-id="hf-3kso" class="stone">Small projects</div><div data-hf-id="hf-v0av" class="stone">Side interests</div><div data-hf-id="hf-nqpn" class="stone">Courses</div><div data-hf-id="hf-anrm" class="stone">Relationships</div><div data-hf-id="hf-brdp" class="stone">Experiments</div></div><div data-hf-id="hf-sttb" class="to">The “big” leap</div></div>
     </section>
 
     <section data-hf-id="hf-2zuk" id="ct-match-tactics" class="clip" data-track-index="1" data-start="250.009" data-duration="42.785">
       <div data-hf-id="hf-lrka" class="eyebrow">Name it, then match it</div><h2 data-hf-id="hf-af4f">Use the Tactics Your Transition Needs</h2>
-      <div data-hf-id="hf-ni5m" class="tactics-grid" data-role="list"><div data-hf-id="hf-16yu" class="tactic-quad paper"><strong data-hf-id="hf-fgj1">Growth Pivot</strong><p data-hf-id="hf-58di">Show readiness and visibility in your current lane.</p></div><div data-hf-id="hf-ruru" class="tactic-quad paper"><strong data-hf-id="hf-75dr">Reinvention</strong><p data-hf-id="hf-chyp">Learn, experiment, and build credibility in a new space.</p></div><div data-hf-id="hf-s92v" class="tactic-quad paper"><strong data-hf-id="hf-pd1t">Rebuild</strong><p data-hf-id="hf-97ql">Process the impact and re-target your existing strengths.</p></div><div data-hf-id="hf-sndw" class="tactic-quad paper"><strong data-hf-id="hf-uw2y">Forced Reinvention</strong><p data-hf-id="hf-ava2">Use support, patience, transferable skills, and values.</p></div></div>
+      <div data-hf-id="hf-7m1s" class="tactics-stage"><div data-hf-id="hf-0f2m" class="tactic-axis horizontal" aria-hidden="true"></div><div data-hf-id="hf-r7pd" class="tactic-axis vertical" aria-hidden="true"></div><div data-hf-id="hf-1qcw" class="tactic-marker" aria-hidden="true"></div><div data-hf-id="hf-ni5m" class="tactics-grid" data-role="list"><div data-hf-id="hf-16yu" class="tactic-quad paper"><strong data-hf-id="hf-fgj1">Growth Pivot</strong><p data-hf-id="hf-58di">Show readiness and visibility in your current lane.</p></div><div data-hf-id="hf-ruru" class="tactic-quad paper"><strong data-hf-id="hf-75dr">Reinvention</strong><p data-hf-id="hf-chyp">Learn, experiment, and build credibility in a new space.</p></div><div data-hf-id="hf-s92v" class="tactic-quad paper"><strong data-hf-id="hf-pd1t">Rebuild</strong><p data-hf-id="hf-97ql">Process the impact and re-target your existing strengths.</p></div><div data-hf-id="hf-sndw" class="tactic-quad paper"><strong data-hf-id="hf-uw2y">Forced Reinvention</strong><p data-hf-id="hf-ava2">Use support, patience, transferable skills, and values.</p></div></div></div>
     </section>
 
     <section data-hf-id="hf-8utw" id="ct-closing-next-step" class="clip" data-track-index="1" data-start="292.794" data-duration="13.855">
+      <div data-hf-id="hf-closing-compass" class="compass-badge" aria-hidden="true"><div data-hf-id="hf-closing-cell" class="cb-cell cb-tr"></div><div data-hf-id="hf-closing-dot" class="cb-dot cb-tr"></div></div>
       <div data-hf-id="hf-y7ss" class="eyebrow">A clearer map</div><h1 data-hf-id="hf-cytq">A Clearer Next Step</h1><p data-hf-id="hf-0gr3" class="sub">Naming the transition makes the path easier to navigate.</p>
       <div data-hf-id="hf-2sc0" class="close-route"><div data-hf-id="hf-v1lm" class="close-node">NAME</div><div data-hf-id="hf-s9v2" class="close-arrow">→</div><div data-hf-id="hf-iywq" class="close-node">MATCH</div><div data-hf-id="hf-qx9u" class="close-arrow">→</div><div data-hf-id="hf-pj74" class="close-node final">MOVE</div></div>
     </section>
@@ -240,9 +242,9 @@
         .to(selector,{boxShadow:"0 0 0 5px rgba(234,171,45,.95)",duration:.32,ease:"power2.out"},at)
         .to(selector,{boxShadow:"0 0 0 0 rgba(234,171,45,0)",duration:.35,ease:"power2.inOut"},at+hold);
       const popTactic = (selector,at) => timeline
-        .to(selector,{scale:1.07,y:-12,borderColor:"#eaab2d",backgroundColor:"#fff8e6",boxShadow:"0 0 0 8px rgba(234,171,45,.95), 0 24px 55px rgba(10,30,47,.36)",duration:.32,ease:"back.out(1.8)"},at)
+        .to(selector,{borderColor:"#eaab2d",backgroundColor:"#fff8e6",boxShadow:"inset 0 0 0 8px rgba(234,171,45,.95), 0 8px 20px rgba(10,30,47,.12)",duration:.32,ease:"power2.out"},at)
         .to(`${selector} b`,{scale:1.18,duration:.28,ease:"back.out(2)"},at+.04)
-        .to(selector,{scale:1,y:0,borderColor:"#3393d6",backgroundColor:"#fff",boxShadow:"0 0 0 0 rgba(234,171,45,0), 0 8px 20px rgba(10,30,47,.12)",duration:.55,ease:"power2.inOut"},at+.85)
+        .to(selector,{borderColor:"#3393d6",backgroundColor:"#fff",boxShadow:"inset 0 0 0 0 rgba(234,171,45,0), 0 8px 20px rgba(10,30,47,.12)",duration:.55,ease:"power2.inOut"},at+.85)
         .to(`${selector} b`,{scale:1,duration:.4,ease:"power2.inOut"},at+.85);
 
       // The opening questions now arrive with the narration that asks them.
@@ -250,6 +252,7 @@
       popTactic("#ct-intro-name-the-move .tactic:nth-child(2)",7.82);
       popTactic("#ct-intro-name-the-move .tactic:nth-child(3)",9.73);
       reveal("#ct-intro-name-the-move .question-card",14.985,{y:0,scale:.94},{scale:1,ease:"back.out(1.3)"});
+      timeline.to("#ct-intro-name-the-move .question-card",{backgroundColor:"#fff8e6",duration:.45,ease:"power2.out"},14.985);
       pulse("#ct-intro-name-the-move .question-card",18.87,1.8);
 
       // Build the compass one spoken axis at a time, then visit each named quadrant.
@@ -309,7 +312,7 @@
       reveal("#ct-rebuild .context-card.good",150.699,{x:-28,y:0},{x:0});
       pulse("#ct-rebuild .context-card.good",154.894,1.8);
       timeline.to("#ct-rebuild .context-card.good .skills span",{backgroundColor:"#eaab2d",duration:.5,stagger:.18,ease:"power2.out"},154.894);
-      timeline.to("#ct-rebuild .context-card.good",{scale:1.015,y:-4,duration:.9,ease:"sine.inOut",yoyo:true,repeat:5},157.0);
+      timeline.to("#ct-rebuild .context-card.good",{scale:.995,duration:.9,ease:"sine.inOut",yoyo:true,repeat:5},157.0);
 
       // Forced Reinvention: the narrated constraints hand focus to one another before the route changes.
       [1,2,3,4].forEach((n,i) => {
@@ -344,19 +347,30 @@
         pulse(`#ct-adjacent-steps .stone:nth-child(${n})`,at+.3,1.0);
       });
 
-      // Name each quadrant, then revisit it when its matching tactic is spoken.
+      // Build one compass, name its quadrants, then revisit the same field as
+      // each matching tactic is spoken. The marker carries the state; no
+      // playback or progress chrome is used.
+      timeline.fromTo("#ct-match-tactics .tactic-axis.horizontal",{scaleX:0},{scaleX:1,duration:.75,ease:"power2.out"},252.609);
+      timeline.fromTo("#ct-match-tactics .tactic-axis.vertical",{scaleY:0},{scaleY:1,duration:.75,ease:"power2.out"},252.609);
+      timeline.fromTo("#ct-match-tactics .tactic-marker",{opacity:0,scale:.65},{opacity:1,scale:1,duration:.45,ease:"back.out(1.5)"},253.109);
       const nameTimes = [255.479,257.669,259.819,261.904];
+      const markerStates = [[-790,-150],[50,-150],[-790,51],[50,51]];
       [1,2,3,4].forEach((n,i) => {
-        reveal(`#ct-match-tactics .tactic-quad:nth-child(${n})`,nameTimes[i],{y:22});
-        pulse(`#ct-match-tactics .tactic-quad:nth-child(${n})`,nameTimes[i]+.25,1.0);
+        const [x,y] = markerStates[i];
+        timeline.to("#ct-match-tactics .tactic-marker",{x,y,duration:.5,ease:"power2.inOut"},nameTimes[i]);
+        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${n})`,{opacity:.82,borderColor:"#3393d6",duration:.4,ease:"power2.out"},nameTimes[i]);
+        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${n}) strong`,{opacity:1,y:0,duration:.45,ease:"power2.out"},nameTimes[i]+.08);
       });
+      timeline.to("#ct-match-tactics .tactic-marker",{x:0,y:0,scale:1.18,duration:.55,ease:"power2.inOut"},264.989);
+      timeline.to("#ct-match-tactics .tactic-axis",{backgroundColor:"#eaab2d",duration:.35,ease:"power2.out"},265.239)
+        .to("#ct-match-tactics .tactic-axis",{backgroundColor:"#3393d6",duration:.45,ease:"power2.inOut"},266.35);
       const tacticTimes = [268.139,273.329,280.189,286.349];
       tacticTimes.forEach((at,i) => {
-        timeline.to("#ct-match-tactics .tactic-quad",{boxShadow:"none",duration:.25,ease:"power2.out"},at);
-        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1})`,{boxShadow:"0 0 0 5px rgba(234,171,45,.95)",duration:.32,ease:"power2.out"},at+.08);
-        const until = tacticTimes[i+1] || 292.45;
-        const repeats = Math.max(1,Math.floor((until-at-.5)/.75)-1);
-        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1})`,{scale:1.025,y:-5,duration:.75,ease:"sine.inOut",yoyo:true,repeat:repeats},at+.4);
+        const [x,y] = markerStates[i];
+        timeline.to("#ct-match-tactics .tactic-quad",{opacity:.52,scale:1,borderColor:"#3393d6",backgroundColor:"rgba(51,147,214,.07)",duration:.32,ease:"power2.out"},at);
+        timeline.to("#ct-match-tactics .tactic-marker",{x,y,scale:.92,duration:.62,ease:"power2.inOut"},at);
+        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1})`,{opacity:1,scale:1.018,borderColor:"#eaab2d",backgroundColor:"rgba(51,147,214,.18)",duration:.42,ease:"power2.out"},at+.08);
+        timeline.to(`#ct-match-tactics .tactic-quad:nth-child(${i+1}) p`,{opacity:1,y:0,duration:.5,ease:"power2.out"},at+.18);
       });
 
       // The closing route resolves only as the final line explains the clearer map.

@@ -9,3 +9,27 @@
 2026-08-07T22:42:34Z	preflight	exit 1
 2026-08-07T22:46:27Z	preflight	exit 0 — gate-clean
 2026-08-07T22:46:42Z	release	build session ended
+2026-08-08T02:30:23Z	resume	program=mid-career-momentum
+2026-08-08T02:32:01Z	html	removed 49 prohibited visible slide counters; narration, timing, and progression preserved
+2026-08-08T02:33:40Z	preflight	exit 1
+2026-08-08T02:34:23Z	preflight	exit 1
+2026-08-08T02:36:23Z	preflight	exit 0 — gate-clean
+2026-08-08T02:36:36Z	release	build session ended
+2026-08-08T02:45:16Z	resume	program=mid-career-momentum
+2026-08-08T02:47:16Z	revision	removed prohibited progress rail element, style, and timeline tween
+2026-08-08T02:49:20Z	preflight	exit 1
+2026-08-08T02:52:23Z	preflight	exit 1
+2026-08-08T02:53:06Z	revision	added bounded semantic future-role emphasis after rail removal exposed static setup beat
+2026-08-08T02:55:33Z	preflight	exit 1
+2026-08-08T02:56:34Z	revision	replaced rail-only motion credit with bounded per-beat workbench carrier motion
+2026-08-08T02:58:59Z	preflight	exit 0 — gate-clean
+2026-08-08T02:59:09Z	release	build session ended
+2026-08-08T03:07:46Z	resume	program=mid-career-momentum
+2026-08-08T03:09:07Z	authored	removed sequential insight eyebrow suffixes; preserved phase labels and timing
+2026-08-08T03:10:52Z	preflight	exit 1
+2026-08-08T03:12:43Z	preflight	exit 0 — gate-clean
+2026-08-08T03:12:53Z	release	build session ended
+2026-08-08T03:24:02Z	resume	program=mid-career-momentum
+2026-08-08T03:30:10Z	progress-chrome-removal	removed persistent six-phase rail and white-panel completion line; retained phase-specific workbench logic
+2026-08-08T03:36:30Z	preflight	exit 0 — gate-clean
+2026-08-08T03:43:38Z	release	build session ended

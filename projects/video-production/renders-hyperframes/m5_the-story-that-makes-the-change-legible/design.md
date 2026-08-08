@@ -1,10 +1,12 @@
 # Design direction
 
 The composition uses a clean editorial layout on deep navy. A persistent upper
-label identifies the Career Transitions program and a slim progress route along
-the bottom advances through thirteen beats. White cards represent evidence and
-experience, blue lines represent connection, and gold is reserved for decisions,
-numbers, and the final resolved bridge.
+label identifies the Career Transitions program. The one carrying object is the
+**Pivot Story Bridge**: the same Backstory, Turning Point, and Forward Case tiles
+remain on screen for the full lesson. Each beat re-sorts their emphasis along the
+same blue route instead of discarding the frame. Gold identifies the tile doing
+the current narrative work; the beat's supporting message changes inside one
+fixed editorial field above it.
 
 ## Typography
 
@@ -14,10 +16,12 @@ is kept inside the 120px frame padding and above the 120px footer reserve.
 
 ## Motion
 
-Each timed clip enters with a 0.5-second rise-and-fade. Supporting elements follow
-with a short stagger and settle within 1.2 seconds. The route line draws from left
-to right. Each outgoing clip fades in 0.3 seconds. All movement is driven by one
-paused GSAP timeline and is deterministic at any seek position.
+Each timed message enters with a 0.5-second rise-and-fade. Supporting elements
+follow with a short stagger and settle within 1.2 seconds. The persistent Pivot
+Story Bridge shifts focus by lifting and recoloring one of its three existing
+tiles; it is never replaced. Each outgoing message fades in 0.3 seconds. All
+movement is driven by one paused GSAP timeline and is deterministic at any seek
+position.
 
 ## Beat treatments
 

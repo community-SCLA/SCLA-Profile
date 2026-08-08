@@ -1,0 +1,201 @@
+{
+  "total": 172.5,
+  "rows": [
+    {
+      "id": "external-world",
+      "audio_start": 0.6,
+      "audio_dur": 5.14,
+      "vis_start": 0.0,
+      "vis_dur": 6.14
+    },
+    {
+      "id": "work-complete",
+      "audio_start": 6.39,
+      "audio_dur": 5.81,
+      "vis_start": 6.14,
+      "vis_dur": 6.46
+    },
+    {
+      "id": "external-question",
+      "audio_start": 12.85,
+      "audio_dur": 7.18,
+      "vis_start": 12.6,
+      "vis_dur": 7.83
+    },
+    {
+      "id": "land-or-unravel",
+      "audio_start": 20.68,
+      "audio_dur": 3.23,
+      "vis_start": 20.43,
+      "vis_dur": 3.88
+    },
+    {
+      "id": "research-finding",
+      "audio_start": 24.56,
+      "audio_dur": 6.575,
+      "vis_start": 24.31,
+      "vis_dur": 7.225
+    },
+    {
+      "id": "identity-claim",
+      "audio_start": 31.785,
+      "audio_dur": 8.675,
+      "vis_start": 31.535,
+      "vis_dur": 9.325
+    },
+    {
+      "id": "narrative-coherence",
+      "audio_start": 41.11,
+      "audio_dur": 6.62,
+      "vis_start": 40.86,
+      "vis_dur": 7.27
+    },
+    {
+      "id": "story-makes-sense",
+      "audio_start": 48.38,
+      "audio_dur": 2.89,
+      "vis_start": 48.13,
+      "vis_dur": 3.54
+    },
+    {
+      "id": "connect-past-future",
+      "audio_start": 51.92,
+      "audio_dur": 8.16,
+      "vis_start": 51.67,
+      "vis_dur": 8.81
+    },
+    {
+      "id": "three-part-map",
+      "audio_start": 60.73,
+      "audio_dur": 2.47,
+      "vis_start": 60.48,
+      "vis_dur": 3.12
+    },
+    {
+      "id": "backstory",
+      "audio_start": 63.85,
+      "audio_dur": 6.07,
+      "vis_start": 63.6,
+      "vis_dur": 6.72
+    },
+    {
+      "id": "claim-credibility",
+      "audio_start": 70.57,
+      "audio_dur": 3.58,
+      "vis_start": 70.32,
+      "vis_dur": 4.23
+    },
+    {
+      "id": "turning-point",
+      "audio_start": 74.8,
+      "audio_dur": 8.535,
+      "vis_start": 74.55,
+      "vis_dur": 9.185
+    },
+    {
+      "id": "shift-framing",
+      "audio_start": 83.985,
+      "audio_dur": 7.885,
+      "vis_start": 83.735,
+      "vis_dur": 8.535
+    },
+    {
+      "id": "different-story",
+      "audio_start": 92.52,
+      "audio_dur": 2.34,
+      "vis_start": 92.27,
+      "vis_dur": 2.99
+    },
+    {
+      "id": "forward-case",
+      "audio_start": 95.51,
+      "audio_dur": 9.73,
+      "vis_start": 95.26,
+      "vis_dur": 10.38
+    },
+    {
+      "id": "finance-director",
+      "audio_start": 105.89,
+      "audio_dur": 4.67,
+      "vis_start": 105.64,
+      "vis_dur": 5.32
+    },
+    {
+      "id": "product-advantage",
+      "audio_start": 111.21,
+      "audio_dur": 5.56,
+      "vis_start": 110.96,
+      "vis_dur": 6.21
+    },
+    {
+      "id": "failure-modes",
+      "audio_start": 117.42,
+      "audio_dur": 2.84,
+      "vis_start": 117.17,
+      "vis_dur": 3.49
+    },
+    {
+      "id": "no-apology",
+      "audio_start": 120.91,
+      "audio_dur": 6.28,
+      "vis_start": 120.66,
+      "vis_dur": 6.93
+    },
+    {
+      "id": "lead-conviction",
+      "audio_start": 127.84,
+      "audio_dur": 4.3,
+      "vis_start": 127.59,
+      "vis_dur": 4.95
+    },
+    {
+      "id": "no-erasure",
+      "audio_start": 132.79,
+      "audio_dur": 7.43,
+      "vis_start": 132.54,
+      "vis_dur": 8.08
+    },
+    {
+      "id": "carry-forward",
+      "audio_start": 140.87,
+      "audio_dur": 3.62,
+      "vis_start": 140.62,
+      "vis_dur": 4.27
+    },
+    {
+      "id": "name-bridge",
+      "audio_start": 145.14,
+      "audio_dur": 4.51,
+      "vis_start": 144.89,
+      "vis_dur": 5.16
+    },
+    {
+      "id": "explicit-bridge",
+      "audio_start": 150.3,
+      "audio_dur": 5.545,
+      "vis_start": 150.05,
+      "vis_dur": 6.195
+    },
+    {
+      "id": "write-story",
+      "audio_start": 156.495,
+      "audio_dur": 3.9,
+      "vis_start": 156.245,
+      "vis_dur": 4.55
+    },
+    {
+      "id": "compress-story",
+      "audio_start": 161.045,
+      "audio_dur": 2.245,
+      "vis_start": 160.795,
+      "vis_dur": 2.895
+    },
+    {
+      "id": "build-story",
+      "audio_start": 163.94,
+      "audio_dur": 6.76,
+      "vis_start": 163.69,
+      "vis_dur": 8.81
+    }
+  ]
+}

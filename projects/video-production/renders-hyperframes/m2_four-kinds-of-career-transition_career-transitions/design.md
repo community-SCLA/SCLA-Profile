@@ -23,7 +23,9 @@ then re-sorted, never redrawn: every quadrant scene carries the same 2×2 map wi
 one quadrant outlined in gold and the marker parked inside it. Growth Pivot uses
 the large left-column compass that introduces the device; Reinvention, Rebuild and
 Forced Reinvention use the compact upper-right badge this file reserves for it. The
-marker never leaves the quadrant the frame's kicker claims.
+marker never leaves the quadrant the frame's kicker claims. That compact compass
+also remains visible through the adjacent-trail example and the closing decision,
+so the lesson resolves inside the same field it introduced.
 
 The bottom rail is furniture, not content: its caption sits above the rail line on
 transparent ground, so no rail geometry is ever painted over. Directional lines,
@@ -32,7 +34,7 @@ nodes, and stepping stones reuse the same blue/gold map vocabulary.
 ## Frame-to-frame budget
 
 This lesson draws ten materially different pictures, so beat-to-beat churn is the
-scarce resource (`check_pace` carrier-drift, 6% ceiling; this cut measures 5.89%).
+scarce resource (`check_pace` carrier-drift, 6% ceiling).
 Content therefore stays inside the established ink footprint: new elements are type
 and outlines rather than new paper masses, and the compass is the shared mark that
 persists across the four quadrant scenes.
@@ -57,5 +59,6 @@ persists across the four quadrant scenes.
 7. **Forced ≠ failed** — a direct language correction resolves into grief, support, transfer, experiment.
 8. **The hidden trail** — one apparent leap zooms out into accumulated adjacent steps.
 9. **Match the tactics** — each quadrant receives one concise action prescription.
+   The same 2×2 compass is drawn first, its four names accumulate, and one gold
+   marker then revisits each quadrant while its matching tactic is explained.
 10. **Choose the next step** — the full model simplifies to NAME → MATCH → MOVE.
-
