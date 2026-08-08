@@ -4,19 +4,19 @@
 
 ## Where everything stands
 
-- **16** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **17** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **4** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
+- **1** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
-- **13** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
+- **12** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
 - **0** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
 - **0** — **rendered, not yet published.** The MP4 exists and its bytes match the current-source completion receipt; its per-render encode policy is satisfied. Only the Wistia upload is left.
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **6** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
+- **5** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
 - **0** — **REJECTED.** A blocking review or gate failed; the completed production phase remains visible beside the condition.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -50,6 +50,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 | Lesson | Program | Rendered | Watch | Local MP4 |
 |---|---|---|---|---|
+| m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
 | m0_welcome-to-mid-career-momentum | mid-career-momentum | 2026-08-07 | [vpvjkr68dy](https://sclc.wistia.com/medias/vpvjkr68dy) | `renders-mp4/mid-career-momentum/m0_welcome-to-mid-career-momentum_2026-08-07.mp4` |
@@ -72,8 +73,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **m4_visibility-actions** (mid-career-momentum) — STALLED: freeform composition timed and ready — the gate has not run yet
   - last completed **preflight** at 2026-08-07 21:28 UTC
   - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m4_visibility-actions. Do not delete or rebuild completed work
-- **m7_your-reinvention-roadmap** (career-transitions) — STALLED: freeform narration synthesized; clip timings not yet computed
-  - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m7_your-reinvention-roadmap. Do not delete or rebuild completed work
 - **m1_reframing-entrepreneurship-and-going-solo** (entrepreneur-accelerator) — STALLED: freeform narration synthesized; clip timings not yet computed
   - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m1_reframing-entrepreneurship-and-going-solo. Do not delete or rebuild completed work
 - **m3_choosing-your-solo-model** (entrepreneur-accelerator) — STALLED: freeform narration synthesized; clip timings not yet computed
@@ -85,6 +84,15 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - **To clear it:** resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m5_making-solo-work-sustainable. Do not delete or rebuild completed work
 
 ## mid-career-momentum
+
+**AWAITING VISUAL REVIEW:**
+
+*The mechanical gate matches this exact source; it still needs the combined correctness and taste review.*
+
+- m4_finding-new-peers-sponsors-and-opportunity-holders
+  - state: the visual review belongs to different source
+  - last completed **owner-feedback-revision** at 2026-08-08 15:42 UTC
+  - next: repeat the combined visual review for the current source
 
 **NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
@@ -116,16 +124,12 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m3_from-history-to-signal`
 - m3_how-to-reposition-your-career
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **preflight** at 2026-08-08 03:10 UTC
+  - last completed **preflight** at 2026-08-08 04:45 UTC
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m3_how-to-reposition-your-career`
-- m3_rewrite-your-linkedin-for-future-you
+- m3_using-the-resume-builder-tool-pt2
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **visual-review** at 2026-08-08 03:10 UTC
-  - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m3_rewrite-your-linkedin-for-future-you`
-- m4_who-will-walk-this-next-chapter-with-you
-  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **visual-review** at 2026-08-08 03:07 UTC
-  - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m4_who-will-walk-this-next-chapter-with-you`
+  - last completed **preflight** at 2026-08-08 15:56 UTC
+  - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m3_using-the-resume-builder-tool-pt2`
 - m5_skills-for-the-ai-era
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
   - last completed **preflight** at 2026-08-07 21:49 UTC
@@ -135,14 +139,10 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 *A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
-- m3_using-the-resume-builder-tool-pt2
+- m4_who-will-walk-this-next-chapter-with-you
   - state: the gate receipt is legacy or belongs to different source
-  - last completed **preflight** at 2026-08-08 03:36 UTC
-  - next: rerun `bash scripts/build-gate.sh m3_using-the-resume-builder-tool-pt2` on the current composition
-- m4_finding-new-peers-sponsors-and-opportunity-holders
-  - state: the gate receipt is legacy or belongs to different source
-  - last completed **gate** at 2026-08-08 02:41 UTC
-  - next: rerun `bash scripts/build-gate.sh m4_finding-new-peers-sponsors-and-opportunity-holders` on the current composition
+  - last completed **owner-feedback-revision** at 2026-08-08 05:05 UTC
+  - next: rerun `bash scripts/build-gate.sh m4_who-will-walk-this-next-chapter-with-you` on the current composition
 
 **STALLED — the build folder stopped moving:**
 
@@ -173,11 +173,11 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m3_the-two-sided-work`
 - m4_building-your-carry-forward-inventory
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **gate** at 2026-08-08 03:09 UTC
+  - last completed **preflight** at 2026-08-08 04:45 UTC
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m4_building-your-carry-forward-inventory`
 - m5_testing-your-next-chapter
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **preflight** at 2026-08-08 03:36 UTC
+  - last completed **preflight** at 2026-08-08 15:49 UTC
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m5_testing-your-next-chapter`
 
 **BUILDING — in flight, no MP4 yet:**
@@ -186,20 +186,15 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 - m2_four-kinds-of-career-transition_career-transitions
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-08 04:24 UTC
+  - last completed **preflight** at 2026-08-08 15:56 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m2_four-kinds-of-career-transition_career-transitions. Do not delete or rebuild completed work
 - m5_the-story-that-makes-the-change-legible
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-08 04:22 UTC
+  - last completed **preflight** at 2026-08-08 15:51 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m5_the-story-that-makes-the-change-legible. Do not delete or rebuild completed work
-
-**STALLED — the build folder stopped moving:**
-
-*Report-only: nothing here is killed automatically. Resume the named phase in the same workspace; its files and journal preserve completed work.*
-
 - m7_your-reinvention-roadmap
-  - state: freeform narration synthesized; clip timings not yet computed
-  - last written to: 2026-08-07 21:13 UTC (no `.build-log.tsv` — this workspace predates the build journal)
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-08 15:50 UTC
   - next: resume this existing workspace in place through the control plane: `bash projects/video-production/run.sh resume`; continue only m7_your-reinvention-roadmap. Do not delete or rebuild completed work
 
 ## entrepreneur-accelerator
