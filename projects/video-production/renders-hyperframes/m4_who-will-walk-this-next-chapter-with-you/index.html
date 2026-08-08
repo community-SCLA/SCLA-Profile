@@ -14,7 +14,6 @@
     #m4_who-will-walk-this-next-chapter-with-you:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 66% 49%,rgba(51,147,214,.13),transparent 39%),linear-gradient(90deg,rgba(10,30,47,.9) 0 31%,transparent 52%)}
     .furniture{position:absolute;inset:0;pointer-events:none}.brand{position:absolute;top:62px;left:120px;color:var(--paper);font-size:19px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}.brand b{color:var(--gold)}
     .chapter{position:absolute;top:64px;right:700px;color:var(--muted);font-size:17px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.chapter strong{color:var(--gold);margin-left:10px}
-    .progress{position:absolute;left:120px;right:120px;bottom:70px;height:4px;background:rgba(255,255,255,.12)}.progress span{display:block;width:100%;height:100%;background:var(--gold);transform-origin:left}.beat-count{position:absolute;right:120px;bottom:88px;color:var(--muted);font-size:15px;font-weight:900;letter-spacing:.1em}
     .constellation{position:absolute;left:610px;top:135px;width:1190px;height:785px;border:1px solid rgba(51,147,214,.25);border-radius:30px;background:rgba(10,30,47,.52);overflow:hidden;transform-origin:55% 52%}
     .constellation:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(152,164,204,.25) 1.5px,transparent 1.5px);background-size:54px 54px;opacity:.45}
     .map-title{position:absolute;left:38px;top:28px;display:flex;align-items:center;gap:14px;color:var(--muted);font-size:16px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.map-title i{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 7px rgba(234,171,45,.12)}
@@ -35,7 +34,7 @@
 <main id="m4_who-will-walk-this-next-chapter-with-you" data-composition-id="m4_who-will-walk-this-next-chapter-with-you" data-start="0" data-duration="206.766" data-width="1920" data-height="1080" data-fps="30">
   <div class="furniture">
     <div class="brand"><b>Mid-Career Momentum</b> · Relationship Map</div>
-    <div class="chapter">Build the constellation <strong>01—38</strong></div>
+    <div class="chapter">Build the constellation <strong>WITH INTENTION</strong></div>
     <div class="constellation">
       <div class="map-title"><i></i><span>Your next-chapter constellation</span></div>
       <div class="map-mode">Start with who</div>
@@ -59,8 +58,6 @@
       <div class="offers"><span>Perspective</span><span>Support</span><span>Proximity</span></div>
       <div class="days"><span class="fill"></span><b>0</b><b>30</b><b>60</b><b>90</b><em>20-minute conversation</em></div>
     </div>
-    <div class="beat-count">BEAT <span>01</span> / 38</div>
-    <div class="progress"><span></span></div>
   </div>
   <section id="b01" class="clip" data-beat-id="b01" data-track-index="0" data-start="0" data-end="5.845" data-duration="5.845"><div class="eyebrow">Strategic networking · 01</div><div class="rule"></div><h1>TACTICS COME FIRST?</h1><div class="support">Networking often starts too late</div><p class="narration">When most people hear the phrase "strategic networking," they jump straight to tactics.</p></section>
   <section id="b02" class="clip" data-beat-id="b02" data-track-index="0" data-start="5.845" data-end="7.56" data-duration="1.715"><div class="eyebrow">The tactics · 02</div><div class="rule"></div><h1>WHO SHOULD I EMAIL?</h1><div class="support">A practical question</div><p class="narration">Who should I email?</p></section>
@@ -165,7 +162,6 @@
     const inner=[...clip.children].filter((node)=>!node.classList.contains('narration'));
     const state=states[index];
     timeline.set('.map-mode',{textContent:state.mode},start);
-    timeline.set('.beat-count span',{textContent:String(index+1).padStart(2,'0')},start);
     timeline.set(people,{autoAlpha:0,scale:.84,borderColor:'rgba(152,164,204,.55)',boxShadow:'0 14px 28px rgba(10,30,47,.35)'},start);
     timeline.set(links,{autoAlpha:0,strokeDashoffset:70},start);
     timeline.set(questions,{autoAlpha:0,y:10},start);
@@ -183,13 +179,26 @@
     if(state.target) timeline.to('.target',{autoAlpha:1,duration:.45,ease:'power2.out'},start+.08);
     if(state.offers) timeline.to('.offers',{autoAlpha:1,duration:.35,ease:'power2.out'},start+.1);
     if(state.days){timeline.to('.days',{autoAlpha:1,duration:.35},start+.08);timeline.fromTo('.days .fill',{scaleX:0},{scaleX:1,duration:Math.max(.8,end-start-.45),ease:'none'},start+.12)}
+    if(end-start>2.6&&!state.days){
+      let focusTargets;
+      if(state.q) focusTargets=questions.slice(0,state.q);
+      else if(state.names) focusTargets=[...document.querySelectorAll('.names span')];
+      else if(state.offers) focusTargets=[...document.querySelectorAll('.offers span')];
+      else if(state.lenses) focusTargets=lenses;
+      else if(state.p) focusTargets=people.slice(0,state.p);
+      else focusTargets=[document.querySelector('.you')];
+      const focusStart=start+.72,focusEnd=end-.42,step=1.25;
+      for(let at=focusStart,turn=0;at<focusEnd-.5;at+=step,turn++) {
+        const focus=focusTargets[turn%focusTargets.length];
+        timeline.to(focus,{y:-7,scale:1.065,duration:.36,ease:'power2.out'},at)
+          .to(focus,{y:0,scale:1,duration:.46,ease:'power2.inOut'},at+.36);
+      }
+    }
     timeline.set(clip,{autoAlpha:1},start);
     timeline.fromTo(inner,{autoAlpha:0,y:24},{autoAlpha:1,y:0,duration:.5,stagger:.09,ease:'power2.out'},start+.03);
     timeline.to(inner,{autoAlpha:0,y:-14,duration:.25,ease:'power1.in'},Math.max(start+.75,end-.25));
     timeline.set(clip,{autoAlpha:0},end);
   });
-  timeline.fromTo('.progress span',{scaleX:0},{scaleX:1,duration,ease:'none'},0);
-  timeline.to('.rings',{rotation:5,duration,ease:'none',transformOrigin:'50% 50%'},0);
   timeline.pause(0);
   const composition={id,root,duration,timeline,seek:(time)=>timeline.time(Math.max(0,Math.min(duration,time))).pause()};
   window.__timelines=window.__timelines||{};

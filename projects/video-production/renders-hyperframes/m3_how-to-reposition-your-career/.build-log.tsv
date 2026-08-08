@@ -5,3 +5,20 @@
 2026-08-07T21:38:57Z	preflight	exit 1
 2026-08-07T21:44:36Z	preflight	exit 0 — gate-clean
 2026-08-07T21:44:46Z	release	build session ended
+2026-08-08T02:38:02Z	resume	program=mid-career-momentum
+2026-08-08T02:38:56Z	html	removed forbidden bottom playback progress rail; retained beat-driven route, phase, signal, and content transitions
+2026-08-08T02:40:21Z	preflight	exit 1
+2026-08-08T02:42:10Z	preflight	exit 1
+2026-08-08T02:42:49Z	revision	removed ambient repeat; animated the career route through the portable-proof beat after progress-bar removal exposed a 6.48s freeze
+2026-08-08T02:44:33Z	preflight	exit 1
+2026-08-08T02:45:49Z	revision	staged accent, support evidence, and phase proof across long beats so each scene develops instead of relying on continuous playback chrome
+2026-08-08T02:47:35Z	preflight	exit 1
+2026-08-08T02:48:35Z	revision	extended each scene-local accent reveal and staged later evidence/phase changes to keep all long beats visually developing under the 3s static ceiling
+2026-08-08T02:50:27Z	preflight	exit 1
+2026-08-08T02:51:16Z	revision	made the central career-route carrier advance through each narrated proof; this supplements staged content changes and replaces the removed playback rail
+2026-08-08T02:53:46Z	preflight	exit 1
+2026-08-08T02:54:54Z	revision	added a visible evidence marker that travels through the central career-route diagram as each proof advances
+2026-08-08T02:57:12Z	preflight	exit 0 — gate-clean
+2026-08-08T03:08:57Z	revision	removed the segmented bottom signal counter as a second progress-like shortcut; the route marker and staged proof reveals now carry the lesson
+2026-08-08T03:10:39Z	preflight	exit 0 — gate-clean
+2026-08-08T03:11:12Z	release	build session ended

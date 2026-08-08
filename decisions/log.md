@@ -9,6 +9,27 @@ confidence: high
 
 Running log of notable team decisions. Append new entries at the top.
 
+## 2026-08-08 — Bottom playback progress bars are a hard gate failure
+
+**Owner finding:** thin bars sliding along the bottom of many lesson scenes
+were supplying enough pixel movement to clear motion/presence checks without
+adding visual interest. A workspace could therefore look active to the gate
+while the lesson itself remained visually flat.
+
+**Decision:** bottom-edge playback progress bars, rails, scrubbers, and sliding
+completion lines are forbidden in every lesson workspace. They earn no motion
+credit and have no author override. `check_motion.py` now emits the blocking
+`playback-progress-indicator` finding from the rail's semantics and bottom-edge
+geometry; firing fixtures cover the observed `scaleX`, `width`, and renamed
+`data-role="progress"` forms while protecting meaning-bearing maps elsewhere in
+the frame. Builder, Cloud-author, and visual-review contracts name the ban, but
+the checker and its positive firing tests are the enforcement.
+
+**Existing queue:** the new rule is applied to every workspace currently in
+owner or visual review. Any affected composition loses its prior gate/review
+receipt when edited and must pass the gate and combined visual review again;
+removing the bar is not enough if the remaining scene motion is still flat.
+
 ## 2026-08-05 — Cloud rendering, and the overnight drain
 
 **The deadline that forced it:** owner needs all 35 READY lessons live on

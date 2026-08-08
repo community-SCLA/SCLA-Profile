@@ -9,7 +9,6 @@
 ## System
 
 - Persistent top label: MID-CAREER MOMENTUM / MODULE 3.
-- A slim progress rail advances across 23 narration-aligned pacing beats grouped into seven chapters.
 - The three framed evidence cards are the persistent visual carrier: they stay anchored while each chapter re-sorts their meaning.
 - Evidence cards use 12px corners, crisp borders, and subtle shadows.
 - The recurring gold “NEXT MOVE” marker supplies visual continuity.
@@ -26,4 +25,4 @@
 
 ## Motion
 
-All motion is driven by one paused, seekable GSAP timeline. Entrances settle within 1.2 seconds, exits clear content without moving the persistent furniture, and no animation repeats infinitely.
+All motion is driven by one paused, seekable GSAP timeline. Each chapter gives the evidence frames a meaning-specific transformation: an open question becomes a forward path, a storage stack becomes a curated wall, selection criteria act as lenses, leadership forms a connected influence map, lateral experience crosses contexts, RAMS assembles a bullet, and the final frames resolve toward the next move. Entrances settle within 1.2 seconds, exits clear content cleanly, and no animation repeats infinitely.

@@ -101,6 +101,9 @@ file, the selected concept, the one refined script, and the workspace's
   continuity. Avoid repeated centered title-plus-card layouts.
 - Stage motion around meaning: establish, transform, settle. Content must be
   readable at its settled state and seek-safe at arbitrary frames.
+- Never add a bottom-edge playback progress bar, rail, scrubber, or sliding
+  completion line. Full-runtime progress movement is forbidden and earns no
+  motion credit; every beat must develop the lesson's visual idea on its own.
 - Keep text concise, large, and within token-defined safe regions. Use only the
   token palette and brand typefaces.
 - Prefer designed typography, diagrams, paths, and simple data forms. Decorative

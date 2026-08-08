@@ -19,7 +19,9 @@ RECOMMENDATION: PROCEED|REVISE
 ```
 
 `BLOCKING_DEFECT` covers visible correctness failures that make the cut unsafe
-to render. `TASTE` covers whether the piece has a clear visual idea, evolving
+to render. A bottom-edge playback progress bar, rail, scrubber, or sliding
+completion line is always blocking; it cannot substitute for scene motion.
+`TASTE` covers whether the piece has a clear visual idea, evolving
 composition, intentional rhythm, and enough variation to hold attention. A
 flat result can require revision without being mislabeled as mechanically
 broken. A lively result cannot excuse a blocking defect.

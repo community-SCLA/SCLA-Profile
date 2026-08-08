@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""test_motion.py — the keep-alive ban, armed.
+"""test_motion.py — the fake-motion bans, armed.
 
 The ban is the most-violated rule in the repo's history: given 2026-07-14
 ("I fully want ripples off"), reaffirmed 07-15, and broken the next day by a
@@ -53,6 +53,53 @@ def tween(target, opts):
 
 BOB = '{ y: -10, duration: 2.7, ease: "sine.inOut", yoyo: true, repeat: 3 }'
 ONCE = '{ y: -10, duration: 2.7, ease: "sine.inOut" }'
+
+BOTTOM_PROGRESS_SCALE = """<style>
+.progress { position:absolute; left:120px; right:120px; bottom:70px;
+  height:4px; background:#ccd; }
+.progress span { display:block; width:100%; height:100%; transform-origin:left; }
+</style><div class="progress"><span></span></div><script>
+tl.fromTo('.progress span', {scaleX:0},
+  {scaleX:1,duration:138.7,ease:'none'}, 0);
+</script>"""
+
+BOTTOM_PROGRESS_WIDTH = """<style>
+.progress-rail { position:absolute; left:120px; right:200px; bottom:120px;
+  height:4px; background:#ccd; }
+.progress-fill { height:100%; width:0; }
+</style><div class="progress-rail"><div class="progress-fill"></div></div>
+<script>tl.to('.progress-fill',{width:'100%',duration:119.9,ease:'none'},0);</script>"""
+
+RENAMED_PROGRESS_ROLE = """<style>
+.rail { position:fixed; left:100px; right:100px; bottom:90px; height:6px; }
+</style><nav class="rail" data-role="progress"></nav>"""
+
+CONTENT_MAP = """<style>
+.map-progress { position:absolute; left:24px; right:24px; top:55px;
+  height:4px; background:#eaab2d; }
+</style><div class="map-progress"></div><script>
+tl.to('.map-progress',{scaleX:.8,duration:.56,ease:'power2.out'},12);
+</script>"""
+
+# ---------------------------------------------------------------------------
+print("== bottom playback progress never earns motion credit ==")
+
+fires(check, "check_motion", "playback-progress-indicator",
+      "a full-runtime scaleX progress bar at the bottom FAILS",
+      "playback-progress-indicator" in rules(BOTTOM_PROGRESS_SCALE),
+      str(check_motion.grade(BOTTOM_PROGRESS_SCALE)))
+fires(check, "check_motion", "playback-progress-indicator",
+      "the width-animation variant at the bottom FAILS",
+      "playback-progress-indicator" in rules(BOTTOM_PROGRESS_WIDTH),
+      str(check_motion.grade(BOTTOM_PROGRESS_WIDTH)))
+check("renaming the bar cannot evade an explicit progress role",
+      "playback-progress-indicator" in rules(RENAMED_PROGRESS_ROLE),
+      str(check_motion.grade(RENAMED_PROGRESS_ROLE)))
+check("a meaning-bearing map away from the bottom edge remains allowed",
+      "playback-progress-indicator" not in rules(CONTENT_MAP),
+      str(check_motion.grade(CONTENT_MAP)))
+check("the word progress in narration is not a visual progress bar",
+      not rules("<p>Your progress grows through practice.</p>"))
 
 # ---------------------------------------------------------------------------
 print("== the ban fires on content ==")

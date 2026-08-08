@@ -28,6 +28,9 @@ lesson workspace.
    duration and the required HyperFrames attributes; every narration beat must
    be a timed clip; one paused, seekable timeline must be registered under the
    exact composition ID. A Studio-loadable static shell is not a deliverable.
+   Never add a bottom-edge playback progress bar, rail, scrubber, or sliding
+   completion line. Full-runtime progress movement is forbidden and earns no
+   motion credit; develop the visual idea inside each beat instead.
 5. Run the one source-only review gate:
 
    ```bash

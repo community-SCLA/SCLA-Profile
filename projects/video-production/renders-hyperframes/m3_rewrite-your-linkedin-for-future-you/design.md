@@ -2,7 +2,7 @@
 
 ## Direction
 
-Editorial career workbook meets a clean professional profile. White cards sit on deep navy fields, with blue used for structure and gold reserved for forward motion and key decisions.
+Editorial career workbook meets a clean professional profile. One cultured-paper profile canvas persists inside the deep navy frame, with blue used for structure and gold reserved for forward motion and key decisions.
 
 ## System
 
@@ -15,8 +15,8 @@ Editorial career workbook meets a clean professional profile. White cards sit on
 
 ## Composition
 
-Persistent top-left module label and bottom progress line frame each scene. A five-mark profile-signal rail is the visual carrier: its gold focus advances through each locally split narration unit while the profile-card closeups, three-column structures, and past-to-future path change around it. On-screen copy is distilled from, never substituted for, the exact narration stored in each timed clip.
+The carrying object is one persistent cultured-paper profile canvas inside the navy frame; each beat re-sorts or updates that same canvas rather than replacing the whole picture. Static biography pages stack and compress, headline and About nodes activate in sequence, the three-part headline assembles, the before/after profile shifts its emphasis forward, About themes rise into focus, and the final doorway opens wider across the closing beats. There is no playback progress rail or scene-progress indicator. On-screen copy is distilled from, never substituted for, the exact narration stored in each timed clip.
 
 ## Motion
 
-Entrances settle within 1.2 seconds. Each beat uses a short fade/translate reveal and exits before the next beat. Accent rules grow horizontally. The final second adds a gold doorway resolve. No infinite animation.
+Entrances settle within 1.2 seconds. Meaning-bearing objects receive their own seek-safe choreography: stacked pages assemble, path nodes and arrows hand off focus, formula cards and About themes rise in sequence, the before/after comparison moves across its directional arrow, and the doorway opens in three finite stages. Each beat exits before the next begins. No infinite or full-runtime animation is used.

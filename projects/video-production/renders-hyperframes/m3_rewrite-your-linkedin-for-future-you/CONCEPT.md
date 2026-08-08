@@ -6,7 +6,7 @@ Turn a profile that looks backward into a clear signpost for what comes next. Th
 
 ## Visual story
 
-An editorial LinkedIn-inspired profile canvas evolves across eleven beats. A gold “future” line travels forward, the three-part headline assembles, a before/after profile changes direction, and the About section becomes a bridge from experience to opportunity. The visual language stays human and professional rather than imitating the LinkedIn interface.
+An editorial LinkedIn-inspired profile canvas evolves across eleven beats. Gold focus moves through the profile's meaning-bearing parts: the three-part headline assembles, a before/after profile changes direction, the About section becomes a bridge from experience to opportunity, and a doorway opens toward the future. The visual language stays human and professional rather than imitating the LinkedIn interface.
 
 ## Motion approach
 

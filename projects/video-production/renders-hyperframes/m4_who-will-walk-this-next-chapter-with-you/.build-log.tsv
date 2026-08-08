@@ -8,3 +8,11 @@
 2026-08-07T22:25:49Z	preflight	exit 1
 2026-08-07T22:29:41Z	preflight	exit 0 — gate-clean
 2026-08-07T22:29:49Z	release	build session ended
+2026-08-08T02:55:22Z	resume	program=mid-career-momentum
+2026-08-08T02:56:36Z	authored	removed bottom progress rail, scene counter, rail tween, and full-runtime constellation rotation; preserved beat-specific map evolution
+2026-08-08T02:58:29Z	preflight	exit 1
+2026-08-08T03:01:31Z	preflight	exit 1
+2026-08-08T03:02:58Z	revision	replaced full-runtime ambient motion with finite beat-local focus sequences on semantic map elements
+2026-08-08T03:05:24Z	preflight	exit 0 — gate-clean
+2026-08-08T03:07:06Z	visual-review	PASS ALIVE PROCEED; current-revision stills and liveness audit reviewed
+2026-08-08T03:07:06Z	release	build session ended

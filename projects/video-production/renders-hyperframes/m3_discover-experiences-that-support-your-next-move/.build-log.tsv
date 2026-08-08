@@ -8,3 +8,9 @@
 2026-08-07T21:44:26Z	resume	program=mid-career-momentum
 2026-08-07T21:46:04Z	preflight	exit 0 — gate-clean
 2026-08-07T21:46:21Z	release	build session ended
+2026-08-08T02:38:17Z	resume	program=mid-career-momentum
+2026-08-08T02:45:06Z	authored	removed progress rail and manual/full-runtime drivers; added chapter-specific evidence-gallery motion
+2026-08-08T02:46:30Z	preflight	exit 1
+2026-08-08T02:51:17Z	preflight	exit 0 — gate-clean
+2026-08-08T02:54:31Z	visual-review	PASS ALIVE PROCEED; current-revision stills and paired motion samples reviewed
+2026-08-08T02:54:31Z	release	build session ended

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""check_motion.py — settled content may not re-animate in place.
+"""check_motion.py — reject motion that fakes visual interest.
 
 THE DEFECT THIS OWNS. The owner banned in-place "keep-alive" motion on
 2026-07-14 ("I fully want ripples off") and reaffirmed it 2026-07-15. Within a
@@ -26,7 +26,7 @@ verdict:
     and the living-icon hero are content. The sanctioned-motion allow-list covers
     "the light templates' GHOST layers"; it has never covered a content hero.
 
-TWO RULES:
+THREE RULES:
 
   keep-alive-motion   A repeating tween targets a non-decorative element.
   undeclared-target   A repeating tween's target cannot be resolved to a
@@ -34,6 +34,12 @@ TWO RULES:
                       violation of the ban — a violation of gradeability. A
                       checker that cannot see the target must not report clean;
                       that is the standing `nothing-graded` lesson.
+  playback-progress-indicator
+                      A thin progress/seek/playhead rail is positioned along
+                      the bottom edge. These full-runtime bars manufacture
+                      pixel movement without developing the lesson's visual
+                      idea, so they are forbidden even when they are not the
+                      only tween and even when they carry no repeating motion.
 
 There is NO name-based allow-list. An exemption is DECLARED, on the tween or on
 the helper call site, as a trailing `/* motion-allow: <reason> */` comment —
@@ -79,6 +85,22 @@ REPEAT = re.compile(r"\brepeat\s*:\s*(-?\d+|[A-Za-z_$][\w$.]*\s*\([^)]*\)|"
                     r"[A-Za-z_$][\w$.]*)")
 YOYO = re.compile(r"\byoyo\s*:\s*true\b")
 ALLOW = re.compile(r"/\*\s*motion-allow\s*:\s*([^*]+?)\s*\*/", re.I)
+
+# Owner hard stop, 2026-08-08: a thin playback-progress rail along the bottom
+# of the frame may not be used to satisfy motion/presence gates.  This is
+# intentionally structural as well as name-aware: the real failures arrived as
+# `.progress`, `.progress-rail`, `.progress-fill`, and `data-role="progress"`.
+# No `motion-allow` escape exists for this rule.  A lesson concept that needs a
+# path must draw it as content, away from the bottom playback-chrome position.
+STYLE_BLOCK = re.compile(r"<style\b[^>]*>(.*?)</style>", re.I | re.S)
+CSS_RULE = re.compile(r"([^{}]+)\{([^{}]*)\}", re.S)
+HTML_TAG = re.compile(r"<[A-Za-z][^>]*>", re.S)
+HTML_ATTR = re.compile(r"([:\w-]+)\s*=\s*([\"'])(.*?)\2", re.S)
+PROGRESS_NAME = re.compile(
+    r"(?:^|[-_])(progress|playhead|scrub(?:ber)?|seek(?:bar)?|completion)(?:$|[-_])",
+    re.I,
+)
+CSS_LENGTH = re.compile(r"^(-?\d+(?:\.\d+)?)px$", re.I)
 
 # Compound selectors ("#root .big", ".panel > .line") are ordinary in freeform
 # HTML; a single-token pattern degraded them to undeclared-target — a failure,
@@ -155,9 +177,115 @@ def _strip_comments(js: str) -> str:
     return "\n".join(out)
 
 
+def _css_props(body: str) -> dict[str, str]:
+    """Small declaration parser for the literal CSS used by compositions."""
+    out = {}
+    for declaration in body.split(";"):
+        if ":" not in declaration:
+            continue
+        name, value = declaration.split(":", 1)
+        out[name.strip().lower()] = value.strip().lower()
+    return out
+
+
+def _px(value: str | None) -> float | None:
+    match = CSS_LENGTH.fullmatch((value or "").strip())
+    return float(match.group(1)) if match else None
+
+
+def _semantic_progress_selectors(raw_html: str) -> set[str]:
+    """Selectors whose element names or explicit role identify playback progress."""
+    selectors = set()
+    for tag in HTML_TAG.findall(raw_html):
+        attrs = {m.group(1).lower(): m.group(3)
+                 for m in HTML_ATTR.finditer(tag)}
+        role_is_progress = (attrs.get("data-role", "").lower() == "progress")
+        ident = attrs.get("id", "")
+        if ident and (role_is_progress or PROGRESS_NAME.search(ident)):
+            selectors.add(f"#{ident}")
+        for cls in attrs.get("class", "").split():
+            if role_is_progress or PROGRESS_NAME.search(cls):
+                selectors.add(f".{cls}")
+    return selectors
+
+
+def _is_bottom_rail(props: dict[str, str]) -> bool:
+    """True for a thin, wide, absolutely positioned bottom-edge element."""
+    if props.get("position") not in {"absolute", "fixed"}:
+        return False
+    bottom = _px(props.get("bottom"))
+    height = _px(props.get("height"))
+    if bottom is None or not 0 <= bottom <= 180:
+        return False
+    if height is None or not 0 < height <= 12:
+        return False
+    spans_frame = (
+        "left" in props and "right" in props
+        or props.get("width") in {"100%", "100vw"}
+        or (_px(props.get("width")) or 0) >= 400
+        or (props.get("width") or "").startswith("calc(")
+    )
+    return spans_frame
+
+
+def playback_progress_findings(raw_html: str):
+    """Find bottom playback rails without mistaking content maps for chrome."""
+    semantic = _semantic_progress_selectors(raw_html)
+    findings = []
+    seen = set()
+    for block in STYLE_BLOCK.findall(raw_html):
+        for selector_group, body in CSS_RULE.findall(block):
+            props = _css_props(body)
+            if not _is_bottom_rail(props):
+                continue
+            for selector in selector_group.split(","):
+                selector = selector.strip()
+                tokens = set(re.findall(r"[.#][\w-]+", selector))
+                named = any(PROGRESS_NAME.search(token[1:]) for token in tokens)
+                explicit = bool(tokens & semantic)
+                if not (named or explicit):
+                    continue
+                if selector in seen:
+                    continue
+                seen.add(selector)
+                findings.append({
+                    "rule": "playback-progress-indicator",
+                    "detail": (
+                        f"{selector} is a thin playback-progress rail along "
+                        "the bottom edge. Remove it; full-runtime progress "
+                        "movement does not count as visual development. Give "
+                        "the lesson beat-specific, meaning-driven motion instead"
+                    ),
+                })
+
+    # Inline-styled variants have no stylesheet selector to inspect.  Grade
+    # them by their own semantic id/class/data-role plus the same geometry.
+    for tag in HTML_TAG.findall(raw_html):
+        attrs = {m.group(1).lower(): m.group(3)
+                 for m in HTML_ATTR.finditer(tag)}
+        if "style" not in attrs or not _is_bottom_rail(_css_props(attrs["style"])):
+            continue
+        names = [attrs.get("id", ""), *attrs.get("class", "").split()]
+        if attrs.get("data-role", "").lower() != "progress" and not any(
+                PROGRESS_NAME.search(name) for name in names if name):
+            continue
+        label = f"#{attrs['id']}" if attrs.get("id") else tag.split(">", 1)[0] + ">"
+        if label in seen:
+            continue
+        seen.add(label)
+        findings.append({
+            "rule": "playback-progress-indicator",
+            "detail": (
+                f"{label} is an inline-styled playback-progress rail along "
+                "the bottom edge. Remove it; add meaning-driven scene motion"
+            ),
+        })
+    return findings
+
+
 def grade(raw_html: str):
     """Findings for one composition's script."""
-    findings = []
+    findings = playback_progress_findings(raw_html)
     # Only `//` comments are stripped, so a declared `/* motion-allow: … */`
     # exception survives into the graded text and is still honoured below.
     html = _strip_comments(raw_html)
