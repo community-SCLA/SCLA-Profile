@@ -2,6 +2,26 @@
 
 This folder is a local, unapplied backup of the Codex Cloud task queue before an account switch.
 
+## Recovery decision — 2026-08-08
+
+The current local lesson workspaces are canonical and are farther along than
+these archived alternatives. **Do not apply or merge these patches into the
+live lesson folders.** Existing workspaces must be resumed in place through
+`projects/video-production/run.sh`; they must not be rebuilt from this archive.
+
+Keep this folder as recovery evidence until the current lessons are published
+and the recovery commit is backed up remotely. The archive is only about 4 MB,
+so deleting it does not materially reduce Codespace usage.
+
+Permanently exclude
+`diffs/task_e_6a754358b5a0832698e1cdcd420a89f5.patch`: it contains only an
+obsolete generated `PIPELINE-STATUS.md` snapshot. The live status source is
+`bash projects/video-production/run.sh status --json`.
+
+`download-failures.txt` is a historical first-pass retry log, not a list of
+missing work. Thirty-four listed tasks have nonempty patches; the remaining
+task is the documented no-diff task.
+
 ## Contents
 
 - `manifest.json` — all 60 task records captured from Codex Cloud.
