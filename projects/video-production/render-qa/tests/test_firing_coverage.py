@@ -60,7 +60,8 @@ REQUIRED = {
                          "freeform-conjunction", "freeform-retired-name",
                          "freeform-titlecase", "freeform-heading-period",
                          "placeholder", "spoken-placeholder", "no-headings",
-                         "nothing-graded",
+                         "nothing-graded", "presentation-counter",
+                         "persistent-module-number",
                          # a symbol the voice reads as its own name — owner
                          # 2026-08-04, "#" spoken as "pound sign". Graded in
                          # script mode too, where the fix is a text edit.
@@ -76,7 +77,8 @@ REQUIRED = {
     "check_diversity":  ["static-span", "grid-too-sparse",
                          "twin-beats-not-graded", "nothing-graded"],
     # the pixel bounds gate (freeform lane) — same three bands, real pixels
-    "check_ink":        ["safe-area", "padding", "footer"],
+    "check_ink":        ["safe-area", "padding", "footer",
+                         "frame-underfilled"],
     # the brand gate (freeform lane) — colors + typeface from tokens.yml
     "check_brand":      ["off-color", "off-font", "missing-font-asset",
                          "nothing-graded"],
@@ -88,7 +90,9 @@ REQUIRED = {
     "check_fit":        ["fit-impossible", "fit-heading-long",
                          "nothing-graded"],
     "check_motion":     ["keep-alive-motion", "undeclared-target",
-                         "freeform-keep-alive"],
+                         "playback-progress-indicator",
+                         "temporal-progress-motion", "freeform-keep-alive",
+                         "repopulated-carrier", "batch-list-emphasis"],
     # the pace gate (freeform lane, BUILD-PLAN B1 2026-08-04) — idea rate and
     # the carrying-object rule made measurable. Calibrated on n=2 (one lesson,
     # two owner-verdicted cuts); see check_pace.py's module docstring.

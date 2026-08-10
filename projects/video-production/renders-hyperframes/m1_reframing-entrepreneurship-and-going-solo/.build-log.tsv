@@ -1,2 +1,20 @@
 2026-08-07T21:14:02Z	resume	program=entrepreneur-accelerator
 2026-08-07T21:18:43Z	release	build session ended
+2026-08-08T16:01:35Z	resume	program=entrepreneur-accelerator
+2026-08-08T16:22:35Z	timing-integration	16 sentence-level beats, 108.509s, persistent workbench carrier
+2026-08-08T16:23:45Z	preflight	exit 0 — gate-clean
+2026-08-08T16:24:06Z	visual-review	PASS / ALIVE / PROCEED — persistent workbench remains legible and evolves from myth to focused experiment
+2026-08-08T16:24:06Z	release	build session ended
+2026-08-10T18:43:37Z	resume	program=entrepreneur-accelerator
+2026-08-10T18:47:07Z	preflight	exit 1
+2026-08-10T18:51:17Z	preflight	exit 1
+2026-08-10T18:54:16Z	preflight	exit 1
+2026-08-10T18:56:49Z	preflight	exit 1
+2026-08-10T18:57:10Z	release	build session ended
+2026-08-10T19:26:34Z	resume	program=entrepreneur-accelerator
+2026-08-10T19:27:52Z	preflight	exit 1
+2026-08-10T19:27:58Z	preflight	All checks pass except the legacy 6% upper churn ceiling, which conflicts with the owner-requested scene filling and distinct teaching visuals; queued for shared-gate retirement once the machinery write fence is down.
+2026-08-10T19:27:58Z	release	build session ended
+2026-08-10T20:13:40Z	resume	program=entrepreneur-accelerator
+2026-08-10T20:14:35Z	preflight	exit 143
+2026-08-10T20:14:37Z	release	build session ended

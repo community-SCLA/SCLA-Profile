@@ -1,24 +1,57 @@
 # Design — From History to Signal
 
-## Direction
-A dark editorial evidence workspace that visibly converts a dense career archive into a legible future-facing signal. The persistent top rail names the module while the lower third holds one continuous evidence map from ARCHIVE through EVIDENCE and SIGNAL to NEXT MOVE.
+## Selected concept
 
-The carrying object is the evolving history-to-signal evidence map. Archive cards begin stacked at the left; a scanner identifies results, scope, and alignment; those proof chips are selected and rewritten; and the gold signal line progressively connects the evidence to a future-you target. The same objects change state across all 26 beats, so the lesson reads as one transformation rather than a sequence of headline cards.
+**The Proof Beam:** one oversized career document changes from an undifferentiated archive into a curated source of proof. A single active line is scanned, rewritten, selected, and finally aimed at a large FUTURE YOU target. This is one developing explanation, not a dashboard or collection of cards.
+
+## Visual carrier
+
+The carrier occupies most of the 16:9 frame. Its states are:
+
+1. Dense archive rows with no clear destination.
+2. One scan aperture identifying Results, Scope, and Alignment in sequence.
+3. One duty line that produces no useful signal.
+4. The same line rewritten as measurable evidence, activating a gold beam.
+5. Three large editing operations—Select, Rewrite, Point forward—applied to that document.
+6. A curated document containing only relevant proof.
+7. Resume and LinkedIn aligned toward one resolved FUTURE YOU target.
+
+The carrier is always the largest foreground object. Supporting copy stays above it or inside a reserved side zone. Shapes never float over unrelated labels, and there are no miniature illustration clusters.
+
+## Beat-to-frame map
+
+| Beats | Frame state | Active emphasis |
+| --- | --- | --- |
+| b01–b03 | Archive → obscured destination → clean reframe | history, direction, signal |
+| b04–b07 | One full-width scanner over the same document | Results, then Scope, then Alignment |
+| b08–b12 | One large duty line and a muted future target | task language, current-role trap, assigned work |
+| b13–b15 | The duty line rewrites in place and activates the beam | −30%, measurable delivery, signal |
+| b16–b19 | Three large operations on one document | Select, Rewrite, Point forward, one at a time |
+| b20–b23 | Nonessential rows recede; remaining proof connects now to next | curate, relevant proof, connection |
+| b24–b26 | Resume and LinkedIn align with the target; YES resolves | the question, future visibility, yes |
 
 ## Palette and type
-Use token colors only: deep navy canvas, blue structure, white type, muted blue secondary labels, and gold for evidence that points forward. Proxima Nova is the preferred family with the token fallback. Large display text stays between 70 and 142 px; supporting copy is at least 40 px.
 
-## Scene system
-1. **Archive:** stacked records and an incomplete route make the destination difficult to read.
-2. **Scan:** a scanner activates and exposes results, scope, and alignment as three persistent evidence chips.
-3. **Rewrite:** the duty/signal comparison turns one assignment into a measurable −30% outcome and activates the SIGNAL milestone.
-4. **Three moves:** select, rewrite, and point-forward pins illuminate in sequence while the evidence line advances.
-5. **Curate:** archive cards recede, a filter appears, and only relevant proof remains active.
-6. **Connect:** the evidence chips move toward the destination and the future-you target becomes fully illuminated.
-7. **Resolve:** the map reaches NEXT MOVE as the final YES ring closes the story.
+Use only workspace tokens: deep navy and navy surfaces, white text, muted-video secondary copy, blue structure, and gold for selected proof or future direction. Proxima Nova is the only family. Headings are 64–96px, teaching statements are 40–58px, and labels are 20–24px.
 
-## Motion
-One paused seekable GSAP timeline drives all changes. Each beat enters within 1.2 seconds while the persistent carrier advances cumulatively: the map line draws, archive cards compact, the scanner and filter switch on, proof chips move and highlight, move pins activate, and the destination target resolves. Content exits but the evidence history remains. No infinite animation.
+## Spacing and hierarchy
+
+- 120px frame padding and at least 40px between unrelated blocks.
+- One dominant heading and one dominant teaching graphic per beat.
+- Large document rows use generous internal padding and never overlap the headline zone.
+- The crowded-state check is performed at each settled frame; active labels sit inside reserved bands rather than on top of geometry.
+- No progress bars, scene counters, orbiting pieces, floating mini-cards, or persistent bottom diagrams.
+
+## Motion logic
+
+The motion vocabulary uses calm transform-and-opacity changes only:
+
+- **Establish:** heading settles downward while the carrier settles laterally.
+- **Transform:** scan aperture shifts to a named fixed row; inactive rows dim; duty text swaps to proof text; curation removes rows by fading and translating them away.
+- **Resolve:** the gold beam draws from selected proof toward FUTURE YOU and the final YES target settles once.
+
+Each beat is seek-safe on one paused GSAP timeline. Text-bearing elements stop moving after entrance. No infinite animation, pulse, blink, progress movement, or whole-scene transition inside a sentence.
 
 ## Accessibility
-High contrast, large type, short on-screen phrases, meaningful grouping, and no information carried by color alone.
+
+All teaching copy is large and high-contrast. Structure is conveyed by position, labels, weight, and borders as well as color. On-frame copy compresses only its own narration claim, while hidden narration text remains verbatim.

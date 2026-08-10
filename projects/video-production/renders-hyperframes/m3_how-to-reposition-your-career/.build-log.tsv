@@ -22,3 +22,13 @@
 2026-08-08T03:08:57Z	revision	removed the segmented bottom signal counter as a second progress-like shortcut; the route marker and staged proof reveals now carry the lesson
 2026-08-08T03:10:39Z	preflight	exit 0 — gate-clean
 2026-08-08T03:11:12Z	release	build session ended
+2026-08-08T04:41:57Z	resume	program=mid-career-momentum
+2026-08-08T04:45:53Z	preflight	exit 0 — gate-clean
+2026-08-08T04:46:24Z	release	build session ended
+2026-08-10T19:20:16Z	resume	program=mid-career-momentum
+2026-08-10T19:26:13Z	authoring	Reframing Table redesign; 16 visual scenes over 35 timed audio units; static preflight PASS
+2026-08-10T19:27:39Z	preflight	exit 1
+2026-08-10T19:29:32Z	preflight	exit 1
+2026-08-10T19:31:52Z	preflight	exit 0 — gate-clean
+2026-08-10T19:32:01Z	gate-clean	Reframing Table redesign durable gate PASS
+2026-08-10T19:32:01Z	release	build session ended

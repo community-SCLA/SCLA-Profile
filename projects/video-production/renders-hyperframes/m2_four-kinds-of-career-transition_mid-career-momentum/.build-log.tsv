@@ -39,3 +39,12 @@
 2026-08-07T22:17:37Z	resume	program=mid-career-momentum
 2026-08-07T22:19:20Z	preflight	exit 0 — gate-clean
 2026-08-07T22:19:57Z	release	build session ended
+2026-08-10T19:00:20Z	resume	program=mid-career-momentum
+2026-08-10T19:00:30Z	authoring-fix	expanded and framed the transition-map stage so the teaching carrier balances the full 16:9 frame
+2026-08-10T19:01:08Z	preflight	exit 1
+2026-08-10T19:02:17Z	preflight	exit 1
+2026-08-10T19:04:36Z	preflight	exit 0 — gate-clean
+2026-08-10T19:04:48Z	release	build session ended
+2026-08-10T19:36:26Z	resume	program=mid-career-momentum
+2026-08-10T19:37:07Z	preflight	exit 0 — gate-clean
+2026-08-10T19:37:17Z	release	build session ended

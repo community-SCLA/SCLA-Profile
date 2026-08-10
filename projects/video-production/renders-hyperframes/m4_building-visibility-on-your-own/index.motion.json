@@ -1,6 +1,6 @@
 {
   "compositionId": "m4_building-visibility-on-your-own",
-  "duration": 244.38,
+  "duration": 241.63,
   "fps": 30,
   "timeline": {
     "paused": true,
@@ -11,157 +11,529 @@
     {
       "id": "myth",
       "start": 0,
-      "duration": 15.1,
+      "duration": 14,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
       "id": "simpler",
-      "start": 15.1,
-      "duration": 4.8,
+      "start": 14,
+      "duration": 2.95,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
       "id": "definition",
-      "start": 19.9,
-      "duration": 12.24,
+      "start": 16.95,
+      "duration": 9.24,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "first-client",
-      "start": 32.14,
-      "duration": 17.14,
+      "id": "first-client-branding",
+      "start": 26.19,
+      "duration": 3.58,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "building-blocks",
-      "start": 49.28,
-      "duration": 5.71,
+      "id": "first-client-places",
+      "start": 29.77,
+      "duration": 12.09,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "clear-signal",
-      "start": 54.99,
-      "duration": 23.27,
+      "id": "building-question",
+      "start": 41.86,
+      "duration": 3.134,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "credible-story",
-      "start": 78.26,
-      "duration": 27.76,
+      "id": "building-four",
+      "start": 44.994,
+      "duration": 2.216,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "example-story",
-      "start": 106.02,
-      "duration": 22.45,
+      "id": "signal-title",
+      "start": 47.21,
+      "duration": 2.36,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "touchpoints",
-      "start": 128.47,
-      "duration": 30.61,
+      "id": "signal-understand",
+      "start": 49.57,
+      "duration": 3.05,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "participation",
-      "start": 159.08,
-      "duration": 28.57,
+      "id": "signal-statement",
+      "start": 52.62,
+      "duration": 3.255,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "ai",
-      "start": 187.65,
-      "duration": 28.57,
+      "id": "signal-nonprofit",
+      "start": 55.875,
+      "duration": 6.015,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "signal-founders",
+      "start": 61.89,
+      "duration": 6.095,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "signal-quality",
+      "start": 67.985,
+      "duration": 4.975,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "story-title",
+      "start": 72.96,
+      "duration": 2.6,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "story-question",
+      "start": 75.56,
+      "duration": 5.195,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "story-no-drama",
+      "start": 80.755,
+      "duration": 3.17,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "story-credibility",
+      "start": 83.925,
+      "duration": 7.155,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "story-three",
+      "start": 91.08,
+      "duration": 7.8,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "example-observation",
+      "start": 98.88,
+      "duration": 8.6,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "example-workflow",
+      "start": 107.48,
+      "duration": 6,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "example-visibility",
+      "start": 113.48,
+      "duration": 1.76,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "example-specific",
+      "start": 115.24,
+      "duration": 6.34,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-title",
+      "start": 121.58,
+      "duration": 2.81,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-not-moment",
+      "start": 124.39,
+      "duration": 3.52,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-repetition",
+      "start": 127.91,
+      "duration": 5.83,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-places",
+      "start": 133.74,
+      "duration": 10.07,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-consistency",
+      "start": 143.81,
+      "duration": 3.445,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-not-loud",
+      "start": 147.255,
+      "duration": 1.895,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "touch-legible",
+      "start": 149.15,
+      "duration": 1.8,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "participation-title",
+      "start": 150.95,
+      "duration": 2.875,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "participation-where",
+      "start": 153.825,
+      "duration": 5.925,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "participation-examples",
+      "start": 159.75,
+      "duration": 12.33,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "participation-not-self",
+      "start": 172.08,
+      "duration": 3.3,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "participation-trust",
+      "start": 175.38,
+      "duration": 5.74,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "ai-title",
+      "start": 181.12,
+      "duration": 1.964,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "ai-friction",
+      "start": 183.084,
+      "duration": 5.016,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "ai-tools",
+      "start": 188.1,
+      "duration": 11.21,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "ai-not-generic",
+      "start": 199.31,
+      "duration": 2.98,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "ai-hollow",
+      "start": 202.29,
+      "duration": 4.38,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "ai-human",
+      "start": 206.67,
+      "duration": 4.81,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
       }
     },
     {
       "id": "system",
-      "start": 216.22,
-      "duration": 15.92,
+      "start": 211.48,
+      "duration": 14.885,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
       }
     },
     {
-      "id": "close",
-      "start": 232.14,
-      "duration": 12.24,
+      "id": "close-not-famous",
+      "start": 226.365,
+      "duration": 3.235,
       "enter": {
-        "duration": 0.55,
+        "duration": 0.42,
         "ease": "power2.out"
       },
       "exit": {
-        "duration": 0.3
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "close-refer",
+      "start": 229.6,
+      "duration": 6.22,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
+      }
+    },
+    {
+      "id": "close-purpose",
+      "start": 235.82,
+      "duration": 5.81,
+      "enter": {
+        "duration": 0.42,
+        "ease": "power2.out"
+      },
+      "exit": {
+        "duration": 0.2
       }
     }
   ],
@@ -171,85 +543,271 @@
       "kind": "appearsBy",
       "beatId": "myth",
       "selector": "#beat-myth",
-      "bySec": 0.8
+      "bySec": 0.95
     },
     {
       "kind": "appearsBy",
       "beatId": "simpler",
       "selector": "#beat-simpler",
-      "bySec": 15.9
+      "bySec": 14.95
     },
     {
       "kind": "appearsBy",
       "beatId": "definition",
       "selector": "#beat-definition",
-      "bySec": 20.7
+      "bySec": 17.9
     },
     {
       "kind": "appearsBy",
-      "beatId": "first-client",
-      "selector": "#beat-first-client",
-      "bySec": 32.94
+      "beatId": "first-client-branding",
+      "selector": "#beat-first-client-branding",
+      "bySec": 27.14
     },
     {
       "kind": "appearsBy",
-      "beatId": "building-blocks",
-      "selector": "#beat-building-blocks",
-      "bySec": 50.08
+      "beatId": "first-client-places",
+      "selector": "#beat-first-client-places",
+      "bySec": 30.72
     },
     {
       "kind": "appearsBy",
-      "beatId": "clear-signal",
-      "selector": "#beat-clear-signal",
-      "bySec": 55.79
+      "beatId": "building-question",
+      "selector": "#beat-building-question",
+      "bySec": 42.81
     },
     {
       "kind": "appearsBy",
-      "beatId": "credible-story",
-      "selector": "#beat-credible-story",
-      "bySec": 79.06
+      "beatId": "building-four",
+      "selector": "#beat-building-four",
+      "bySec": 45.944
     },
     {
       "kind": "appearsBy",
-      "beatId": "example-story",
-      "selector": "#beat-example-story",
-      "bySec": 106.82
+      "beatId": "signal-title",
+      "selector": "#beat-signal-title",
+      "bySec": 48.16
     },
     {
       "kind": "appearsBy",
-      "beatId": "touchpoints",
-      "selector": "#beat-touchpoints",
-      "bySec": 129.27
+      "beatId": "signal-understand",
+      "selector": "#beat-signal-understand",
+      "bySec": 50.52
     },
     {
       "kind": "appearsBy",
-      "beatId": "participation",
-      "selector": "#beat-participation",
-      "bySec": 159.88
+      "beatId": "signal-statement",
+      "selector": "#beat-signal-statement",
+      "bySec": 53.57
     },
     {
       "kind": "appearsBy",
-      "beatId": "ai",
-      "selector": "#beat-ai",
-      "bySec": 188.45
+      "beatId": "signal-nonprofit",
+      "selector": "#beat-signal-nonprofit",
+      "bySec": 56.825
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "signal-founders",
+      "selector": "#beat-signal-founders",
+      "bySec": 62.84
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "signal-quality",
+      "selector": "#beat-signal-quality",
+      "bySec": 68.935
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "story-title",
+      "selector": "#beat-story-title",
+      "bySec": 73.91
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "story-question",
+      "selector": "#beat-story-question",
+      "bySec": 76.51
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "story-no-drama",
+      "selector": "#beat-story-no-drama",
+      "bySec": 81.705
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "story-credibility",
+      "selector": "#beat-story-credibility",
+      "bySec": 84.875
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "story-three",
+      "selector": "#beat-story-three",
+      "bySec": 92.03
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "example-observation",
+      "selector": "#beat-example-observation",
+      "bySec": 99.83
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "example-workflow",
+      "selector": "#beat-example-workflow",
+      "bySec": 108.43
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "example-visibility",
+      "selector": "#beat-example-visibility",
+      "bySec": 114.43
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "example-specific",
+      "selector": "#beat-example-specific",
+      "bySec": 116.19
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-title",
+      "selector": "#beat-touch-title",
+      "bySec": 122.53
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-not-moment",
+      "selector": "#beat-touch-not-moment",
+      "bySec": 125.34
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-repetition",
+      "selector": "#beat-touch-repetition",
+      "bySec": 128.86
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-places",
+      "selector": "#beat-touch-places",
+      "bySec": 134.69
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-consistency",
+      "selector": "#beat-touch-consistency",
+      "bySec": 144.76
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-not-loud",
+      "selector": "#beat-touch-not-loud",
+      "bySec": 148.205
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "touch-legible",
+      "selector": "#beat-touch-legible",
+      "bySec": 150.1
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "participation-title",
+      "selector": "#beat-participation-title",
+      "bySec": 151.9
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "participation-where",
+      "selector": "#beat-participation-where",
+      "bySec": 154.775
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "participation-examples",
+      "selector": "#beat-participation-examples",
+      "bySec": 160.7
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "participation-not-self",
+      "selector": "#beat-participation-not-self",
+      "bySec": 173.03
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "participation-trust",
+      "selector": "#beat-participation-trust",
+      "bySec": 176.33
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai-title",
+      "selector": "#beat-ai-title",
+      "bySec": 182.07
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai-friction",
+      "selector": "#beat-ai-friction",
+      "bySec": 184.034
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai-tools",
+      "selector": "#beat-ai-tools",
+      "bySec": 189.05
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai-not-generic",
+      "selector": "#beat-ai-not-generic",
+      "bySec": 200.26
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai-hollow",
+      "selector": "#beat-ai-hollow",
+      "bySec": 203.24
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "ai-human",
+      "selector": "#beat-ai-human",
+      "bySec": 207.62
     },
     {
       "kind": "appearsBy",
       "beatId": "system",
       "selector": "#beat-system",
-      "bySec": 217.02
+      "bySec": 212.43
     },
     {
       "kind": "appearsBy",
-      "beatId": "close",
-      "selector": "#beat-close",
-      "bySec": 232.94
+      "beatId": "close-not-famous",
+      "selector": "#beat-close-not-famous",
+      "bySec": 227.315
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "close-refer",
+      "selector": "#beat-close-refer",
+      "bySec": 230.55
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "close-purpose",
+      "selector": "#beat-close-purpose",
+      "bySec": 236.77
     },
     {
       "kind": "keepsMoving",
-      "from": 0,
-      "to": 244.38,
-      "selector": ".progress span"
+      "selector": ".visual",
+      "fromSec": 0.8,
+      "toSec": 240.83
     }
   ]
 }

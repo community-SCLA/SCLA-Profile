@@ -22,3 +22,20 @@
 2026-08-07T21:51:20Z	resume	program=career-transitions
 2026-08-07T21:53:18Z	preflight	exit 0 — gate-clean
 2026-08-07T21:53:43Z	release	build session ended
+2026-08-10T19:32:59Z	resume	program=career-transitions
+2026-08-10T19:38:32Z	authoring	Transition Case redesign; 13 visual scenes over 27 timed audio units; static preflight PASS
+2026-08-10T19:40:08Z	preflight	exit 1
+2026-08-10T19:40:44Z	fix	Added HyperFrames readiness event so browser gate seeks registered timeline
+2026-08-10T19:42:14Z	preflight	exit 1
+2026-08-10T19:42:43Z	fix	Vendored local GSAP asset and corrected runtime script path
+2026-08-10T19:44:19Z	preflight	exit 1
+2026-08-10T19:46:55Z	fix	Expanded semantic case texture across both wells; removed collisions; added settling obstruction motion
+2026-08-10T19:48:34Z	preflight	exit 1
+2026-08-10T19:53:52Z	qa-refresh	Refreshed 27 exact midpoint stills after Transition Case visual fixes; direct ink PASS
+2026-08-10T19:55:27Z	preflight	exit 1
+2026-08-10T20:00:50Z	fix	Persistent packing bays and concise headings reduce carrier churn to 5.62%; direct pace and ink PASS
+2026-08-10T20:02:17Z	preflight	exit 1
+2026-08-10T20:03:09Z	fix	Removed terminal heading punctuation; refreshed exact midpoint evidence
+2026-08-10T20:04:31Z	preflight	exit 0 — gate-clean
+2026-08-10T20:04:41Z	gate-clean	Transition Case redesign durable gate PASS; carrier churn 5.63%; geometry and layout PASS
+2026-08-10T20:04:42Z	release	build session ended

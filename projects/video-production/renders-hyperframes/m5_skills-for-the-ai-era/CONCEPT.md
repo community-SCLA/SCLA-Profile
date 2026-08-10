@@ -1,45 +1,42 @@
-# Skills for the AI Era — Concept
+# Concept: Human Direction Engine
 
-## Core idea
+AI does not erase mid-career value; it changes where that value sits. One full-stage engine makes the shift visible: AI accelerates task execution on the left, experience and five durable human skills direct the work in the center, and higher-value responsibility resolves on the right.
 
-A mid-career professional does not compete with AI on task speed. They use accumulated judgment, trust, and context to direct AI and move toward work whose value grows as routine execution becomes cheaper.
+## Lens scorecard
 
-## Visual metaphor
+| Lens | Fidelity | Evolution | Attention | Feasibility | Total |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Human Direction Engine | 5 | 5 | 5 | 4 | **19/20** |
+| Scarcity Shift Field | 5 | 4 | 4 | 5 | 18/20 |
 
-A clear **work-value shift** shows why mid-career experience matters. Routine
-task blocks compress under AI acceleration while labeled human-value work rises.
-One persistent three-lane carrier—TASKS, VALUE, POSITION—holds across the full
-lesson. Its evidence changes from the practical frame, to AI draft versus
-professional responsibility, to the five durable skills, without replacing the
-map. The close resolves the same lanes as AI TOOL → YOUR EXPERIENCE →
-HIGHER-VALUE WORK.
+Human Direction Engine is selected because the script repeatedly contrasts fast task execution with human direction, judgment, trust, and ownership. It also lets the five skills remain one connected system while the active skill changes.
 
-Production scene numbers and progress bars are deliberately absent. Lesson
-numbers remain only where the narration itself introduces a sequence.
+## Persistent visual system
 
-## Beat plan
+- **AI execution:** one task surface compresses routine work into faster and cheaper output.
+- **Human direction:** experience sits at the center of five connected capabilities—judgment, communication, relationships, learning, and working with AI.
+- **Higher-value work:** the directed output resolves into work worth more because someone owns quality, trust, and the call.
+- **Beat focus:** one gold outline moves to the active mechanism or skill. The engine never exits, repopulates, or repeats the list beside a headline.
 
-| Beat | Time | Purpose |
-| --- | ---: | --- |
-| `beat-01` | 0.00–36.49s | AI lands differently mid-career |
-| `beat-02` | 36.49–43.18s | A practical way to think |
-| `beat-03` | 43.18–51.84s | 1 · Let routine tasks accelerate |
-| `beat-04` | 51.84–65.58s | 2 · Move toward what gains value |
-| `beat-05` | 65.58–85.22s | 3 · Reposition around judgment |
-| `beat-06` | 85.22–111.91s | Drafting is less scarce |
-| `beat-07` | 111.91–133.50s | Your value is more than tasks |
-| `beat-08` | 133.50–139.00s | Five durable skills |
-| `beat-09` | 139.00–152.35s | Judgment + decision-making |
-| `beat-10` | 152.35–161.40s | Communication + persuasion |
-| `beat-11` | 161.40–170.83s | Relationships + collaboration |
-| `beat-12` | 170.83–184.19s | Learning how to learn |
-| `beat-13` | 184.19–198.72s | Working with AI |
-| `beat-14` | 198.72–213.26s | Experience is your advantage |
-| `beat-15` | 213.26–222.69s | Aim at what becomes worth more |
+## Learning arc
 
-## Runtime
+1. Mid-career experience changes the AI conversation from replacement to direction.
+2. Ask what gets faster, what gains value, and where to reposition.
+3. See why a cheap first draft increases the value of judgment and responsibility.
+4. Treat five human-centered skills as one connected direction layer.
+5. Use AI well, then aim the next move at work whose value grows.
 
-- Composition: `m5_skills-for-the-ai-era`
-- Canvas: 1920 × 1080
-- Frame rate: 30 fps
-- Duration: 222.69s
+## Milestone frames
+
+- AI compresses a routine task while the experience core remains steady.
+- The focus moves from execution to human direction to higher-value work.
+- A first draft passes through judgment, trust, and ownership before it becomes a professional call.
+- Five skill nodes stay fixed; only Judgment, Communication, Relationships, Learning, or Working with AI receives the gold focus.
+- The close holds the complete system: AI executes, experience directs, higher-value work results.
+
+## Guardrails
+
+- No progress bar, trace, scene/module number, false control, or navigation cue.
+- Directional marks only connect the named states AI Execution, Human Direction, and Higher-Value Work.
+- No redundant prose beside the engine; each beat adds one short, complete claim in the engine’s message band.
+- Large, readable geometry fills the 16:9 stage and preserves token-defined safe regions.

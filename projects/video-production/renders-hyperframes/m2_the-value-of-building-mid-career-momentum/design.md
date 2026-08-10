@@ -1,48 +1,65 @@
-# Design — The Momentum Map
+# Design — One Career Map
+
+## Chosen concept
+
+The revised video is one calm, full-frame career map. A single gold NEXT token
+moves through a fixed field from accumulated experience to named direction.
+The map stays present so the viewer never has to relearn the visual language.
+
+## Visual carrier
+
+- **Gold decision token:** the learner's deliberate next move.
+- **Blue structures:** experience, available options, and the system around the
+  choice.
+- **Outlined paths:** relationships only; every line connects named states.
+- **Paper panels:** moments when thinking becomes explicit and usable.
+
+## Beat-to-frame map
+
+- 0.000–12.240: oversized type establishes accumulated experience while the
+  decision token remains unresolved at the map intersection.
+- 12.240–28.450: frustration and ambition pull the decision token while a dense
+  thought field contrasts with a nearly empty paper panel.
+- 28.450–41.600: a closed activity loop demonstrates drift, then a named move
+  physically opens it into direction.
+- 41.600–53.750: pause, reassess, and choose lock in sequence; small steps then
+  accumulate into a visibly compounding structure.
+- 53.750–65.940: a gap breaks the chain, then the 90-day goal anchors the larger
+  six-to-twelve-month horizon.
+- 65.940–81.395: one role branches into promotion, lateral move, and role redesign.
+- 81.395–106.665: the camera focuses on how each path changes a different
+  dimension: scope, context, or role shape.
+- 106.665–119.040: the paths appear equal until values, energy, and real-life
+  constraints align one route to the learner's life now.
+- 119.040–136.759: all valid routes share the same value; scattered noise
+  collapses into one named move and a chain of small compounding steps.
 
 ## Frame system
 
-- Canvas: 1920 × 1080, with 120 px frame padding and content held above 960 px.
-- The top-left program label remains the only persistent chrome. Numeric scene
-  counters such as `12 / 20` are not shown; they read as presentation progress,
-  not authored video.
-- Primary backgrounds alternate between deep navy and cultured paper.
-- A single momentum-map carrier occupies the open half of every frame. It
-  evolves from an experience ledger, to a noise orbit, to rising steps, three
-  branches, a fit target, and a final directional arrow.
+- 1920 × 1080 with 120 px frame padding and content above 960 px.
+- The program label is the only persistent chrome.
+- Deep navy is the continuous environment. Full paper or cultured panels appear
+  as objects inside it rather than as alternating slide backgrounds.
+- The carrier fills nearly the whole safe frame. Copy stays above 38 px, with
+  most headlines between 84 and 116 px and no dense explanatory paragraphs.
+- The three paths use one shared comparison state, then receive distinct focus.
+  The fit beat switches to filters, and the final beat switches to one paper goal.
+- Most frames contain a strong text focal point and a separate teaching focal
+  point connected by layout or motion.
 
-## Typography
+## Typography and palette
 
-- Proxima Nova is loaded from the workspace's three local WOFF2 files, using
-  900 for display, 700 for emphasis, and 400 for supporting language.
-- Display copy stays within the 60–72 px heading range; supporting copy stays
-  at or above 40 px.
-- Labels use uppercase blue or gold text at 22 px with generous tracking.
+Use the workspace Proxima Nova files at 900 / 700 / 400. Headlines are 66–104 px;
+support copy is 34–44 px; labels are 20–24 px uppercase. Only local token colors
+are used: deep navy and navy, paper and cultured, blue for structure, and gold for
+the deliberate choice.
 
-## Palette
+## Motion rules
 
-- Deep navy `#0a1e2f`: reflection and uncertainty.
-- Navy `#0d2437`: primary ink.
-- Blue `#3393d6`: structure and available options.
-- Gold `#eaab2d`: deliberate movement and the selected route.
-- Cultured `#f6f6f9` and paper `#ffffff`: clarity and action.
-
-## Scene motifs
-
-- Work-history markers: small outlined tiles labeled PROJECTS, TEAMS, STAKEHOLDERS.
-- Noise cloud: offset words and fine orbit lines, contained rather than chaotic.
-- Direction route: one continuous geometric map with circular decision nodes.
-- Choice cards: three equal cards with simple geometric icons and clear labels.
-- Fit test: three rings for VALUES, ENERGY, and REAL LIFE.
-- Final goal: a large `90 DAYS` waypoint followed by four rising step markers.
-
-## Motion
-
-- Each beat enters within 1.2 seconds; content and the map use distinct motion
-  directions so the carrier reads as an evolving subject.
-- The gold dot advances along one continuous rising route in every scene. Its
-  starting position matches the previous scene, so the repeated carrier shows
-  accumulated momentum instead of behaving like a static chart.
-- Use transforms, opacity, SVG stroke drawing, and clip-path reveals only.
-- No infinite animation. All animation belongs to one paused, seekable GSAP timeline.
-- The final second adds one gold pulse around the named goal.
+- A single route line draws once and persists.
+- The active route node changes only when the argument changes.
+- Choice rows reveal in sequence; the selected relationship changes without
+  rebuilding the frame.
+- Text enters once, settles, and stays stable for the spoken thought.
+- All motion is finite, deterministic, and attached to the single paused GSAP
+  timeline.

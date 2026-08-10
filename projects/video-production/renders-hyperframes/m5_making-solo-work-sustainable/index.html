@@ -1,82 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Making Solo Work Sustainable</title>
   <style>
     @font-face{font-family:"proxima-nova";src:local("Proxima Nova");font-weight:400 900;font-style:normal}
-    @font-face{font-family:"Proxima Nova";src:local("Proxima Nova");font-weight:400 900;font-style:normal}
-    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#fff;--cultured:#f6f6f9;--muted:#98a4cc;--ink:#292f35}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova","Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}.chrome{position:absolute;inset:50px 120px auto;display:flex;justify-content:space-between;align-items:center;z-index:20}.eyebrow,.number{font-size:22px;line-height:1;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.eyebrow{color:var(--gold)}.number{color:var(--muted)}.scene{position:absolute;inset:145px 120px 120px;display:flex;gap:70px;align-items:center;opacity:0;visibility:hidden}.copy{width:700px}.kicker{color:var(--gold);font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px}.scene h1,.scene h2{margin:0;color:var(--paper);font-size:70px;line-height:.98;font-weight:900;letter-spacing:-.025em}.scene h1{font-size:94px}.scene p{font-size:40px;line-height:1.2;color:var(--cultured);margin:28px 0 0}.visual{position:relative;flex:1;min-height:650px;display:flex;align-items:center;justify-content:center}.card{background:var(--paper);color:var(--ink);border-radius:12px;padding:30px 34px;box-shadow:0 18px 50px #0a1e2f;font-size:30px;font-weight:700}.scatter{position:absolute;width:270px}.scatter:nth-child(1){transform:translate(-170px,-190px) rotate(-7deg)}.scatter:nth-child(2){transform:translate(170px,-30px) rotate(6deg)}.scatter:nth-child(3){transform:translate(-90px,175px) rotate(3deg)}.center{width:190px;height:190px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;text-align:center;font-size:32px;font-weight:900}.nodes{display:grid;grid-template-columns:repeat(2,260px);gap:22px}.node{border:3px solid var(--blue);color:var(--paper);border-radius:100px;padding:24px;text-align:center;font-size:28px;font-weight:700}.pipeline{display:flex;gap:18px;align-items:center}.stage{width:190px;min-height:220px;padding:25px;background:var(--paper);color:var(--ink);border-radius:12px;font-size:26px;font-weight:900}.stage small{display:block;margin-top:30px;color:#5f6f96;font-size:22px}.arrow{color:var(--gold);font-size:48px}.flow{display:flex;flex-direction:column;gap:18px;width:600px}.flow .card{border-left:8px solid var(--blue)}.flow .card:last-child{border-left-color:var(--gold)}.stack .card{width:470px;margin:-8px 0;transform-origin:left center}.stack .card:nth-child(odd){margin-left:38px}.clock{width:430px;height:430px;border:18px solid var(--paper);border-radius:50%;position:relative;display:grid;place-items:center}.clock:before{content:"";position:absolute;width:8px;height:130px;background:var(--gold);border-radius:8px;transform:translateY(-58px)}.clock:after{content:"";position:absolute;width:110px;height:8px;background:var(--blue);border-radius:8px;transform:translate(50px,20px) rotate(20deg)}.clock span{font-size:64px;font-weight:900;margin-top:120px}.guards{display:grid;grid-template-columns:repeat(2,270px);gap:22px}.guard{min-height:150px;border:3px solid var(--gold);border-radius:12px;padding:26px;color:var(--paper);font-size:28px;font-weight:900}.plan{width:650px;background:var(--paper);color:var(--ink);border-radius:12px;padding:42px}.plan-row{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #cccedf;padding:20px 0;font-size:28px;font-weight:700}.plan-row:last-child{border:0}.check{color:var(--blue);font-size:40px}.rail{position:absolute;left:120px;right:120px;bottom:72px;height:4px;background:#292f35;z-index:20}.rail-fill{height:100%;width:0;background:var(--gold);transform-origin:left}.narration{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#ffffff;--cultured:#f6f6f9;--muted:#98a4cc;--ink:#292f35;--line:#cccedf}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"proxima-nova",system-ui,sans-serif}
+    .composition{position:relative;width:1920px;height:1080px;overflow:hidden;color:var(--paper)}
+    .composition::before{content:"";position:absolute;inset:0;background:var(--navy)}
+    .grid{position:absolute;inset:72px 72px 120px;opacity:.38;background-image:linear-gradient(rgba(51,147,214,.48) 3px,transparent 3px),linear-gradient(90deg,rgba(51,147,214,.48) 3px,transparent 3px);background-size:120px 120px}
+    .chrome{position:absolute;left:120px;right:120px;top:82px;z-index:30;display:flex;align-items:center;justify-content:space-between}
+    .eyebrow,.system-label{font-size:22px;line-height:1;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.lesson-name{margin-top:10px;color:var(--blue);font-size:17px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .eyebrow{color:var(--gold)}.system-label{color:var(--blue)}
+    .scene{position:absolute;inset:142px 120px 120px;opacity:0;visibility:hidden;display:grid;grid-template-columns:620px 1fr;gap:64px;align-items:stretch;background-color:var(--navy);background-image:linear-gradient(rgba(51,147,214,.22) 3px,transparent 3px),linear-gradient(90deg,rgba(51,147,214,.22) 3px,transparent 3px);background-size:120px 120px}
+    #stress{z-index:1}#simple{z-index:2}#track{z-index:3}#intake{z-index:4}#templates{z-index:5}#review{z-index:6}#boundaries{z-index:7}#plan{z-index:8}
+    .copy{display:flex;flex-direction:column;justify-content:center;min-width:0}
+    .kicker{color:var(--gold);font-size:22px;line-height:1;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:24px}
+    h1,h2{margin:0;color:var(--paper);font-weight:900;letter-spacing:-.03em}h1{font-size:96px;line-height:.94}h2{font-size:70px;line-height:1}
+    .copy p{font-size:40px;line-height:1.18;color:var(--cultured);margin:30px 0 0;max-width:600px}
+    .workbench{position:relative;min-width:0;border:3px solid rgba(51,147,214,.62);border-radius:28px;background:rgba(10,30,47,.74);padding:88px 44px 42px;overflow:hidden}
+    .workbench::before{content:"SOLO OPERATING SYSTEM";position:absolute;left:32px;top:27px;color:var(--blue);font-size:20px;font-weight:800;letter-spacing:.13em}
+    .workbench::after{content:"BUILD ONLY WHAT HELPS";position:absolute;right:28px;top:19px;padding:11px 17px;border-radius:100px;background:var(--gold);color:var(--navy);font-size:17px;font-weight:900;letter-spacing:.07em}
+    .narration,.beat-marker{position:absolute;left:-10000px;top:0;width:1px;height:1px;overflow:hidden;opacity:0}
+    .stress-field{position:relative;width:100%;height:100%}.offer{position:absolute;left:50%;top:50%;width:230px;height:230px;margin:-115px;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--gold);color:var(--navy);font-size:38px;font-weight:900;z-index:3}
+    .task{position:absolute;width:290px;padding:28px;border:3px solid var(--blue);border-radius:12px;background:var(--deep);font-size:29px;font-weight:800}.task.a{left:42px;top:58px}.task.b{right:34px;top:178px}.task.c{left:84px;bottom:42px}.task-line{position:absolute;height:4px;background:var(--gold);transform-origin:left center;opacity:0}.task-line.a{width:205px;left:285px;top:198px;rotation:18deg}.task-line.b{width:205px;left:493px;top:351px;rotation:-5deg}.task-line.c{width:190px;left:303px;top:535px;rotation:-37deg}.missing-ring{position:absolute;left:50%;top:50%;width:410px;height:410px;margin:-205px;border:4px dashed var(--gold);border-radius:50%;opacity:0}.missing-label{position:absolute;right:42px;bottom:34px;color:var(--gold);font-size:30px;font-weight:900;opacity:0}
+    .pieces{height:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-content:center}.piece{min-height:150px;border:3px solid var(--blue);border-radius:18px;padding:28px;display:flex;align-items:center;gap:22px;color:var(--paper);font-size:31px;font-weight:900;opacity:.18}.piece:last-child{grid-column:1/-1}.piece b{display:grid;place-items:center;width:64px;height:64px;flex:0 0 64px;border-radius:50%;background:var(--blue);color:var(--navy);font-size:28px}.piece.active{border-color:var(--gold);background:rgba(234,171,45,.12);opacity:1}.piece.active b{background:var(--gold)}
+    .piece{position:relative;flex-wrap:wrap}.piece .detail-line{width:100%;padding-left:86px;color:var(--muted);font-size:21px;line-height:1.15;font-weight:700;opacity:0}.piece.active .detail-line{color:var(--paper)}.detail-line span{display:inline-block;margin-right:8px;opacity:.24}.detail-line span.on{color:var(--gold)}
+    .pipeline{height:100%;display:grid;grid-template-columns:1fr 72px 1fr 72px 1fr;align-items:center}.stage{min-height:250px;padding:34px 24px;border:4px solid var(--blue);border-radius:16px;background:var(--deep);font-size:31px;font-weight:900;opacity:.2}.stage small{display:block;margin-top:40px;color:var(--muted);font-size:23px;line-height:1.18}.stage.active{border-color:var(--gold);background:rgba(234,171,45,.12);opacity:1}.arrow{font-size:52px;text-align:center;color:var(--gold);opacity:.2}.tool-strip{position:absolute;left:44px;right:44px;bottom:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tool{padding:17px 12px;border:2px solid var(--blue);border-radius:100px;text-align:center;font-size:23px;font-weight:800;opacity:.18}.tool.active{border-color:var(--gold);color:var(--gold);opacity:1}
+    .intake{height:100%;display:grid;grid-template-rows:repeat(4,1fr);gap:17px;align-content:center}.intake-step{position:relative;border:3px solid rgba(51,147,214,.55);border-radius:16px;padding:25px 30px 25px 122px;color:var(--muted);font-size:30px;font-weight:900;opacity:.2}.intake-step b{position:absolute;left:20px;top:50%;width:78px;height:68px;margin-top:-34px;display:grid;place-items:center;border-radius:50%;background:var(--blue);color:var(--navy);font-size:20px;letter-spacing:-.02em}.intake-step span{display:block;margin-top:7px;font-size:23px;font-weight:700;color:var(--muted)}.intake-step.active{border-color:var(--gold);color:var(--paper);background:rgba(234,171,45,.1);opacity:1}.intake-step.active b{background:var(--gold)}
+    .templates{height:100%;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-content:center}.template{position:relative;min-height:210px;border:3px solid var(--blue);border-radius:16px;padding:76px 28px 28px;background:var(--deep);opacity:.18}.template::before{content:"TEMPLATE";position:absolute;left:26px;top:24px;color:var(--blue);font-size:18px;font-weight:900;letter-spacing:.14em}.template h3{margin:0;font-size:34px;line-height:1.03}.template p{margin:16px 0 0;color:var(--muted);font-size:23px;line-height:1.18}.template.active{border-color:var(--gold);background:rgba(234,171,45,.1);opacity:1}.template.active::before{color:var(--gold)}.consistency{position:absolute;left:44px;right:44px;bottom:30px;height:7px;border-radius:10px;background:rgba(51,147,214,.3);overflow:hidden}.consistency i{display:block;width:0;height:100%;background:var(--gold)}
+    .review{height:100%;display:grid;grid-template-columns:280px 1fr;gap:38px;align-items:center}.clock{position:relative;width:260px;height:260px;border:13px solid var(--paper);border-radius:50%}.clock::after{content:"1 HOUR";position:absolute;left:50%;top:62%;transform:translateX(-50%);font-size:35px;font-weight:900;white-space:nowrap}.hand{position:absolute;left:50%;bottom:50%;width:7px;margin-left:-3.5px;border-radius:9px;transform-origin:50% 100%}.hand.minute{height:82px;background:var(--gold)}.hand.hour{height:62px;background:var(--blue)}.review-list{display:grid;gap:18px}.review-item{position:relative;padding:25px 74px 25px 28px;border:3px solid rgba(51,147,214,.55);border-radius:14px;color:var(--muted);font-size:29px;font-weight:900;opacity:.22}.review-item b{position:absolute;right:25px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:36px;opacity:0}.review-item.active{border-color:var(--gold);color:var(--paper);opacity:1}
+    .boundaries{height:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-content:center}.guard{min-height:205px;border:3px solid rgba(51,147,214,.55);border-radius:16px;padding:32px;color:var(--muted);opacity:.2}.guard h3{margin:0;font-size:35px}.guard p{margin:24px 0 0;font-size:24px;line-height:1.2}.guard.active{border-color:var(--gold);background:rgba(234,171,45,.1);color:var(--paper);opacity:1}.decision-bar{position:absolute;left:44px;right:44px;bottom:30px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.decision-side{padding:18px 22px;border:3px solid var(--blue);border-radius:12px;font-size:24px;font-weight:900;opacity:0}.decision-side.owner{border-color:var(--gold)}
+    .plan{height:100%;display:flex;flex-direction:column;justify-content:center;gap:22px}.plan-row{display:grid;grid-template-columns:82px 1fr 54px;align-items:center;min-height:145px;padding:24px 30px;border:3px solid var(--blue);border-radius:16px;opacity:.15}.plan-row .num{display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--navy);font-size:25px;font-weight:900}.plan-row strong{font-size:31px}.plan-row .check{color:var(--gold);font-size:42px;opacity:0}.plan-row.active{border-color:var(--gold);background:rgba(234,171,45,.1);opacity:1}.guardrail{height:8px;width:0;border-radius:8px;background:var(--gold);margin-top:12px}
   </style>
 </head>
 <body>
-<main id="m5_making-solo-work-sustainable" class="composition" data-composition-id="m5_making-solo-work-sustainable" data-start="0" data-duration="83.829" data-fps="30" data-width="1920" data-height="1080">
-  <header class="chrome"><div class="eyebrow">Entrepreneur Accelerator</div><div class="number">05 / Sustainable solo work</div></header>
-  <section id="no-system" class="scene clip" data-beat-id="no-system" data-track-index="0" data-start="0" data-duration="8.079" data-end="8.079"><div class="copy"><div class="kicker">The real stressor</div><h1>Good Offer<br>No System</h1><p>Early solo work gets stressful when everything depends on memory and reaction.</p></div><div class="visual"><div class="center" data-layout-allow-overlap data-layout-allow-occlusion>SOLO<br>WORK</div><div class="card scatter" data-layout-allow-overlap data-layout-allow-occlusion>Client follow-up</div><div class="card scatter" data-layout-allow-overlap data-layout-allow-occlusion>Active project</div><div class="card scatter" data-layout-allow-overlap data-layout-allow-occlusion>Admin today</div></div><p class="narration">One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it.</p></section>
-  <section id="simple-pieces" class="scene clip" data-beat-id="simple-pieces" data-track-index="0" data-start="8.079" data-duration="5.5" data-end="13.579"><div class="copy"><div class="kicker">Start light</div><h2>A Few Simple Pieces</h2><p>You do not need a complicated business operating system.</p></div><div class="visual"><div class="nodes"><div class="node">Track</div><div class="node">Intake</div><div class="node">Templates</div><div class="node">Review</div><div class="node">Boundaries</div></div></div><p class="narration">You don't need a complicated business operating system to begin. You need a few simple pieces.</p></section>
-  <section id="track-opportunities" class="scene clip" data-beat-id="track-opportunities" data-track-index="0" data-start="13.579" data-duration="10.04" data-end="23.619"><div class="copy"><div class="kicker">01 — Track</div><h2>Know Where Each Opportunity Stands</h2><p>A spreadsheet, board, or document can be enough.</p></div><div class="visual"><div class="pipeline"><div class="stage">Talking<small>3 people</small></div><div class="arrow">→</div><div class="stage">Proposal<small>1 next step</small></div><div class="arrow">→</div><div class="stage">Decision<small>Clear owner</small></div></div></div><p class="narration">First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document.</p></section>
-  <section id="intake-process-a" class="scene clip" data-beat-id="intake-process-a" data-track-index="0" data-start="23.619" data-duration="7.64" data-end="31.259"><div class="copy"><div class="kicker">02 — Intake</div><h2>Make “Yes” Predictable</h2><p>Decide what happens, what you ask, what you need, and what you send.</p></div><div class="visual"><div class="flow"><div class="card">YES → Confirm the next step</div><div class="card">ASK → Gather the right details</div><div class="card">SEND → Start with clarity</div></div></div><p class="narration">Second, a basic intake process. If someone says yes, what happens next — what questions do you ask?</p></section>
-  <section id="intake-process-b" class="scene clip" data-beat-id="intake-process-b" data-track-index="0" data-start="31.259" data-duration="2.931" data-end="34.19"><div class="copy"><div class="kicker">02 — Intake</div><h2>Make “Yes” Predictable</h2><p>Decide what happens, what you ask, what you need, and what you send.</p></div><div class="visual"><div class="flow"><div class="card">YES → Confirm the next step</div><div class="card">ASK → Gather the right details</div><div class="card">SEND → Start with clarity</div></div></div><p class="narration">What information do you need — what do you send?</p></section>
-  <section id="templates-a" class="scene clip" data-beat-id="templates-a" data-track-index="0" data-start="34.19" data-duration="4.909" data-end="39.099"><div class="copy"><div class="kicker">03 — Templates</div><h2>Reuse the Work Around the Work</h2><p>Save time and stay consistent with a small, useful toolkit.</p></div><div class="visual"><div class="stack"><div class="card">Proposal language</div><div class="card">Follow-up email</div><div class="card">Meeting agenda</div><div class="card">Project checklist</div></div></div><p class="narration">Third, a templates. Proposal language; follow-up emails.</p></section>
-  <section id="templates-b" class="scene clip" data-beat-id="templates-b" data-track-index="0" data-start="39.099" data-duration="6.35" data-end="45.449"><div class="copy"><div class="kicker">03 — Templates</div><h2>Reuse the Work Around the Work</h2><p>Save time and stay consistent with a small, useful toolkit.</p></div><div class="visual"><div class="stack"><div class="card">Proposal language</div><div class="card">Follow-up email</div><div class="card">Meeting agenda</div><div class="card">Project checklist</div></div></div><p class="narration">Meeting agendas; and project checklists. Templates save you time and keep your work consistent.</p></section>
-  <section id="weekly-review" class="scene clip" data-beat-id="weekly-review" data-track-index="0" data-start="45.449" data-duration="10.23" data-end="55.679"><div class="copy"><div class="kicker">04 — Weekly review</div><h2>One Hour Prevents a Reactive Week</h2><p>Review outreach, active work, admin, and next steps.</p></div><div class="visual"><div class="clock"><span>1 HOUR</span></div></div><p class="narration">Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive.</p></section>
-  <section id="boundaries" class="scene clip" data-beat-id="boundaries" data-track-index="0" data-start="55.679" data-duration="16.56" data-end="72.239"><div class="copy"><div class="kicker">05 — Boundaries</div><h2>Guardrails Are Strategy</h2><p>AI can organize information. Your limits are still your call.</p></div><div class="visual"><div class="guards"><div class="guard">TIME<br><small>How many hours?</small></div><div class="guard">SCOPE<br><small>What is excluded?</small></div><div class="guard">CLIENTS<br><small>Who fits?</small></div><div class="guard">TIMELINES<br><small>What is realistic?</small></div></div></div><p class="narration">And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?</p><p class="narration">AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy.</p></section>
-  <section id="sustainable-plan" class="scene clip" data-beat-id="sustainable-plan" data-track-index="0" data-start="72.239" data-duration="11.59" data-end="83.829"><div class="copy"><div class="kicker">Build your module plan</div><h2>Design a Path You Can Sustain</h2><p>Choose what you will protect before your path grows.</p></div><div class="visual"><div class="plan"><div class="plan-row"><span>Define a time budget</span><b class="check">✓</b></div><div class="plan-row"><span>Choose systems to build</span><b class="check">✓</b></div><div class="plan-row"><span>Set your guardrails</span><b class="check">✓</b></div></div></div><p class="narration">In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows.</p></section>
-  <audio class="audio" id="audio-no-system" src="assets/voice/no-system.wav" data-track-index="10" data-start="0.6" data-duration="7.079"></audio>
-  <audio class="audio" id="audio-simple-pieces" src="assets/voice/simple-pieces.wav" data-track-index="10" data-start="8.329" data-duration="4.85"></audio>
-  <audio class="audio" id="audio-track-opportunities" src="assets/voice/track-opportunities.wav" data-track-index="10" data-start="13.829" data-duration="9.39"></audio>
-  <audio class="audio" id="audio-intake-process-a" src="assets/voice/intake-process-a.wav" data-track-index="10" data-start="23.869" data-duration="6.99"></audio>
-  <audio class="audio" id="audio-intake-process-b" src="assets/voice/intake-process-b.wav" data-track-index="10" data-start="31.509" data-duration="2.281"></audio>
-  <audio class="audio" id="audio-templates-a" src="assets/voice/templates-a.wav" data-track-index="10" data-start="34.44" data-duration="4.259"></audio>
-  <audio class="audio" id="audio-templates-b" src="assets/voice/templates-b.wav" data-track-index="10" data-start="39.349" data-duration="5.7"></audio>
-  <audio class="audio" id="audio-weekly-review" src="assets/voice/weekly-review.wav" data-track-index="10" data-start="45.699" data-duration="9.58"></audio>
-  <audio class="audio" id="audio-boundaries" src="assets/voice/boundaries.wav" data-track-index="10" data-start="55.929" data-duration="15.91"></audio>
-  <audio class="audio" id="audio-sustainable-plan" src="assets/voice/sustainable-plan.wav" data-track-index="10" data-start="72.489" data-duration="9.54"></audio>
-  <div class="rail"><div class="rail-fill"></div></div>
+<main id="m5_making-solo-work-sustainable" class="composition" data-composition-id="m5_making-solo-work-sustainable" data-start="0" data-duration="87.699" data-fps="30" data-width="1920" data-height="1080">
+  <div class="grid" data-layout-ignore></div>
+  <header class="chrome"><div><div class="eyebrow">Entrepreneur Accelerator</div><div class="lesson-name">Making Solo Work Sustainable</div></div></header>
+
+  <section id="stress" class="scene">
+    <div class="copy"><div class="kicker">The real stressor</div><h1>Good Offer. Stressful Work</h1><p>The problem is the missing system around the work.</p></div>
+    <div class="workbench"><div class="stress-field"><div class="offer">GOOD OFFER</div><div class="task a">Client follow-up</div><div class="task b">Active project</div><div class="task c">Admin today</div><i class="task-line a"></i><i class="task-line b"></i><i class="task-line c"></i><div class="missing-ring"></div><div class="missing-label">NO SYSTEM AROUND IT</div></div></div>
+    <p class="narration">One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it.</p>
+  </section>
+
+  <section id="simple" class="scene">
+    <div class="copy"><div class="kicker">Start light</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece"><b>01</b>Track</div><div class="piece"><b>02</b>Intake</div><div class="piece"><b>03</b>Templates</div><div class="piece"><b>04</b>Weekly review</div><div class="piece"><b>05</b>Boundaries</div></div></div>
+    <p class="narration">You don't need a complicated business operating system to begin. You need a few simple pieces.</p>
+  </section>
+
+  <section id="track" class="scene">
+    <div class="copy"><div class="kicker">01 — Track</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece active"><b>01</b>Track<div class="detail-line"><span>Talking → proposal → decision</span><span>Spreadsheet • Notion • document</span></div></div><div class="piece"><b>02</b>Intake</div><div class="piece"><b>03</b>Templates</div><div class="piece"><b>04</b>Weekly review</div><div class="piece"><b>05</b>Boundaries</div></div></div>
+    <p class="narration">First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document.</p>
+  </section>
+
+  <section id="intake" class="scene">
+    <div class="copy"><div class="kicker">02 — Intake</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece"><b>01</b>Track</div><div class="piece active"><b>02</b>Intake<div class="detail-line"><span>Confirm</span><span>Ask</span><span>Gather</span><span>Send</span></div></div><div class="piece"><b>03</b>Templates</div><div class="piece"><b>04</b>Weekly review</div><div class="piece"><b>05</b>Boundaries</div></div></div>
+    <p class="narration">Second, a basic intake process. If someone says yes, what happens next? What questions do you ask? What information do you need? What do you send?</p>
+  </section>
+
+  <section id="templates" class="scene">
+    <div class="copy"><div class="kicker">03 — Templates</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece"><b>01</b>Track</div><div class="piece"><b>02</b>Intake</div><div class="piece active"><b>03</b>Templates<div class="detail-line"><span>Proposal</span><span>Follow-up</span><span>Agenda</span><span>Checklist</span></div></div><div class="piece"><b>04</b>Weekly review</div><div class="piece"><b>05</b>Boundaries</div></div></div>
+    <p class="narration">Third, a few templates. Proposal language, follow-up emails, meeting agendas, project checklists. Templates save you time and keep your work consistent.</p>
+  </section>
+
+  <section id="review" class="scene">
+    <div class="copy"><div class="kicker">04 — Weekly review</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece"><b>01</b>Track</div><div class="piece"><b>02</b>Intake</div><div class="piece"><b>03</b>Templates</div><div class="piece active"><b>04</b>Weekly review<div class="detail-line"><span>Outreach</span><span>Active work</span><span>Admin</span><span>Next steps</span></div></div><div class="piece"><b>05</b>Boundaries</div></div></div>
+    <p class="narration">Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive.</p>
+  </section>
+
+  <section id="boundaries" class="scene">
+    <div class="copy"><div class="kicker">05 — Boundaries</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece"><b>01</b>Track</div><div class="piece"><b>02</b>Intake</div><div class="piece"><b>03</b>Templates</div><div class="piece"><b>04</b>Weekly review</div><div class="piece active"><b>05</b>Boundaries<div class="detail-line"><span>Time</span><span>Scope</span><span>Clients</span><span>Timelines</span></div></div></div><div class="decision-bar" data-role="compare"><div class="decision-side ai">AI CAN HELP — templates and organization</div><div class="decision-side owner">YOU DECIDE — your boundaries</div></div></div>
+    <p class="narration">And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit? AI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy.</p>
+  </section>
+
+  <section id="plan" class="scene">
+    <div class="copy"><div class="kicker">Build your module plan</div><h2>Build a Sustainable Solo System</h2><p>Add each support when the work calls for it.</p></div>
+    <div class="workbench"><div class="pieces" data-role="list"><div class="piece"><b>01</b>Track</div><div class="piece"><b>02</b>Intake</div><div class="piece"><b>03</b>Templates</div><div class="piece"><b>04</b>Weekly review</div><div class="piece active"><b>05</b>Boundaries<div class="detail-line">Time budget → systems now → guardrails</div></div></div></div>
+    <p class="narration">In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows.</p>
+  </section>
+
+  <div id="no-system-01" class="beat-marker clip" data-beat-id="no-system-01" data-track-index="0" data-start="0" data-duration="5.789">Offer stress</div>
+  <div id="no-system-02" class="beat-marker clip" data-beat-id="no-system-02" data-track-index="0" data-start="5.789" data-duration="2.58">No system</div>
+  <div id="simple-pieces-01" class="beat-marker clip" data-beat-id="simple-pieces-01" data-track-index="0" data-start="8.369" data-duration="3.77">Keep it simple</div>
+  <div id="simple-pieces-02" class="beat-marker clip" data-beat-id="simple-pieces-02" data-track-index="0" data-start="12.139" data-duration="2.2">Simple pieces</div>
+  <div id="track-opportunities-01" class="beat-marker clip" data-beat-id="track-opportunities-01" data-track-index="0" data-start="14.339" data-duration="5.39">Track stages</div>
+  <div id="track-opportunities-02" class="beat-marker clip" data-beat-id="track-opportunities-02" data-track-index="0" data-start="19.729" data-duration="4.94">Choose a tool</div>
+  <div id="intake-process-01" class="beat-marker clip" data-beat-id="intake-process-01" data-track-index="0" data-start="24.669" data-duration="3.3">Basic intake</div>
+  <div id="intake-process-02" class="beat-marker clip" data-beat-id="intake-process-02" data-track-index="0" data-start="27.969" data-duration="4.73">Confirm and ask</div>
+  <div id="intake-process-03" class="beat-marker clip" data-beat-id="intake-process-03" data-track-index="0" data-start="32.699" data-duration="2.931">Need and send</div>
+  <div id="templates-01" class="beat-marker clip" data-beat-id="templates-01" data-track-index="0" data-start="35.63" data-duration="2.009">Templates</div>
+  <div id="templates-02" class="beat-marker clip" data-beat-id="templates-02" data-track-index="0" data-start="37.639" data-duration="3.23">Proposal and follow-up</div>
+  <div id="templates-03" class="beat-marker clip" data-beat-id="templates-03" data-track-index="0" data-start="40.869" data-duration="3.15">Agenda and checklist</div>
+  <div id="templates-04" class="beat-marker clip" data-beat-id="templates-04" data-track-index="0" data-start="44.019" data-duration="3.43">Consistency</div>
+  <div id="weekly-review-01" class="beat-marker clip" data-beat-id="weekly-review-01" data-track-index="0" data-start="47.449" data-duration="2.74">Weekly ritual</div>
+  <div id="weekly-review-02" class="beat-marker clip" data-beat-id="weekly-review-02" data-track-index="0" data-start="50.189" data-duration="7.92">Review sequence</div>
+  <div id="boundaries-01" class="beat-marker clip" data-beat-id="boundaries-01" data-track-index="0" data-start="58.109" data-duration="4.28">Time</div>
+  <div id="boundaries-02" class="beat-marker clip" data-beat-id="boundaries-02" data-track-index="0" data-start="62.389" data-duration="2.41">Scope</div>
+  <div id="boundaries-03" class="beat-marker clip" data-beat-id="boundaries-03" data-track-index="0" data-start="64.799" data-duration="3.261">Clients and timelines</div>
+  <div id="boundaries-04" class="beat-marker clip" data-beat-id="boundaries-04" data-track-index="0" data-start="68.06" data-duration="5.5">AI and ownership</div>
+  <div id="boundaries-05" class="beat-marker clip" data-beat-id="boundaries-05" data-track-index="0" data-start="73.56" data-duration="2.549">Sustainability</div>
+  <div id="sustainable-plan-01" class="beat-marker clip" data-beat-id="sustainable-plan-01" data-track-index="0" data-start="76.109" data-duration="11.59">Module plan</div>
+
+  <audio id="audio-no-system-01" src="assets/voice/no-system-01.wav" data-track-index="10" data-start="0.6" data-duration="4.789"></audio>
+  <audio id="audio-no-system-02" src="assets/voice/no-system-02.wav" data-track-index="10" data-start="6.039" data-duration="1.93"></audio>
+  <audio id="audio-simple-pieces-01" src="assets/voice/simple-pieces-01.wav" data-track-index="10" data-start="8.619" data-duration="3.12"></audio>
+  <audio id="audio-simple-pieces-02" src="assets/voice/simple-pieces-02.wav" data-track-index="10" data-start="12.389" data-duration="1.55"></audio>
+  <audio id="audio-track-opportunities-01" src="assets/voice/track-opportunities-01.wav" data-track-index="10" data-start="14.589" data-duration="4.74"></audio>
+  <audio id="audio-track-opportunities-02" src="assets/voice/track-opportunities-02.wav" data-track-index="10" data-start="19.979" data-duration="4.29"></audio>
+  <audio id="audio-intake-process-01" src="assets/voice/intake-process-01.wav" data-track-index="10" data-start="24.919" data-duration="2.65"></audio>
+  <audio id="audio-intake-process-02" src="assets/voice/intake-process-02.wav" data-track-index="10" data-start="28.219" data-duration="4.08"></audio>
+  <audio id="audio-intake-process-03" src="assets/voice/intake-process-03.wav" data-track-index="10" data-start="32.949" data-duration="2.281"></audio>
+  <audio id="audio-templates-01" src="assets/voice/templates-01.wav" data-track-index="10" data-start="35.88" data-duration="1.359"></audio>
+  <audio id="audio-templates-02" src="assets/voice/templates-02.wav" data-track-index="10" data-start="37.889" data-duration="2.58"></audio>
+  <audio id="audio-templates-03" src="assets/voice/templates-03.wav" data-track-index="10" data-start="41.119" data-duration="2.5"></audio>
+  <audio id="audio-templates-04" src="assets/voice/templates-04.wav" data-track-index="10" data-start="44.269" data-duration="2.78"></audio>
+  <audio id="audio-weekly-review-01" src="assets/voice/weekly-review-01.wav" data-track-index="10" data-start="47.699" data-duration="2.09"></audio>
+  <audio id="audio-weekly-review-02" src="assets/voice/weekly-review-02.wav" data-track-index="10" data-start="50.439" data-duration="7.27"></audio>
+  <audio id="audio-boundaries-01" src="assets/voice/boundaries-01.wav" data-track-index="10" data-start="58.359" data-duration="3.63"></audio>
+  <audio id="audio-boundaries-02" src="assets/voice/boundaries-02.wav" data-track-index="10" data-start="62.639" data-duration="1.76"></audio>
+  <audio id="audio-boundaries-03" src="assets/voice/boundaries-03.wav" data-track-index="10" data-start="65.049" data-duration="2.611"></audio>
+  <audio id="audio-boundaries-04" src="assets/voice/boundaries-04.wav" data-track-index="10" data-start="68.31" data-duration="4.85"></audio>
+  <audio id="audio-boundaries-05" src="assets/voice/boundaries-05.wav" data-track-index="10" data-start="73.81" data-duration="1.899"></audio>
+  <audio id="audio-sustainable-plan-01" src="assets/voice/sustainable-plan-01.wav" data-track-index="10" data-start="76.359" data-duration="9.54"></audio>
 </main>
 <script src="./assets/gsap.min.js"></script>
 <script>
 (() => {
   const id='m5_making-solo-work-sustainable';
-  const beats=[[0,9.5],[9.5,17.5],[17.5,29],[29,34.5],[34.5,40],[40,45.5],[45.5,51],[51,62.5],[62.5,76.5],[76.5,88]];
-  const scenes=Array.from(document.querySelectorAll('.scene'));
-  const apply=(time)=>{
-    scenes.forEach((scene,i)=>{const [start,end]=beats[i];const active=time>=start&&time<end;scene.style.visibility=active?'visible':'hidden';scene.style.opacity=active?'1':'0';if(active){const phase=Math.min(1,Math.max(0,(time-start-.25)/.55));scene.querySelectorAll('.kicker,h1,h2,.copy p:not(.narration),.visual>*').forEach((el,j)=>{const q=Math.min(1,Math.max(0,phase-j*.08));el.style.opacity=String(q)})}});
-    document.querySelector('.rail-fill').style.width=`${Math.max(0,Math.min(100,time/88*100))}%`;
-    const plan=document.querySelector('#sustainable-plan .plan');plan.style.boxShadow=time>=87?'0 0 0 8px #eaab2d, 0 18px 50px #0a1e2f':'0 18px 50px #0a1e2f';
+  const tl=gsap.timeline({paused:true});
+  const sceneIn=(selector,start,duration)=>{
+    const scene=document.querySelector(selector);
+    const copy=scene.querySelectorAll('.kicker,h1,h2,.copy p');
+    tl.set(scene,{visibility:'visible',opacity:1},start)
+      .fromTo(copy,{opacity:0,y:22},{opacity:1,y:0,duration:.58,stagger:.1,ease:'power3.out',immediateRender:false},start+.08);
   };
-  const timeline={_time:0,paused:true,pause(time=0){this.paused=true;return this.seek(time)},seek(time){this._time=Number(time)||0;apply(this._time);return this},time(time){if(time===undefined)return this._time;return this.seek(time)},totalTime(time){if(time===undefined)return this._time;return this.seek(time)},duration(){return 88}};
-  window.__timelines=window.__timelines||{};window.__timelines['m5_making-solo-work-sustainable']=timeline;
-  window.__hyperframes=window.__hyperframes||{};window.__hyperframes[id]=timeline;window.hyperframes=window.hyperframes||{};window.hyperframes.timelines=window.hyperframes.timelines||{};window.hyperframes.timelines[id]=timeline;window.__HF_TIMELINE__=timeline;
-  apply(0);document.documentElement.dataset.hyperframesReady='true';
-})();
-</script>
-<script src="./assets/gsap.min.js"></script>
-<script>
-(() => {
-  const id = 'm5_making-solo-work-sustainable';
-  const beats = [[0,9.5],[9.5,17.5],[17.5,29],[29,34.5],[34.5,40],[40,45.5],[45.5,51],[51,62.5],[62.5,76.5],[76.5,88]];
-  const scenes = gsap.utils.toArray('.scene');
-  const timeline = gsap.timeline({paused:true});
-  gsap.set(scenes,{autoAlpha:0});
-  beats.forEach(([start,end],i) => {
-    const scene=scenes[i]; const parts=scene.querySelectorAll('.kicker,h1,h2,.copy p:not(.narration),.visual>*');
-    timeline.set(scene,{autoAlpha:1},start).fromTo(parts,{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.55,stagger:.14,ease:'power3.out'},start+.25);
-    if(i<beats.length-1) timeline.to(scene,{autoAlpha:0,duration:.3,ease:'power2.in'},end-.3);
-  });
-  timeline.to('.rail-fill',{width:'100%',duration:88,ease:'none'},0);
-  timeline.to('#sustainable-plan .plan',{boxShadow:'0 0 0 8px #eaab2d, 0 18px 50px #0a1e2f',duration:.6,ease:'power2.out'},87);
-  timeline.duration(88).pause(0);
-  window.__timelines = window.__timelines || {};
-  window.__timelines['m5_making-solo-work-sustainable'] = timeline;
-  window.__hyperframes = window.__hyperframes || {};
-  window.__hyperframes[id] = timeline;
-  window.hyperframes = window.hyperframes || {};
-  window.hyperframes.timelines = window.hyperframes.timelines || {};
-  window.hyperframes.timelines[id] = timeline;
-  window.__HF_TIMELINE__ = timeline;
-  document.documentElement.dataset.hyperframesReady='true';
+  sceneIn('#stress',0,8.369);sceneIn('#simple',8.369,5.97);sceneIn('#track',14.339,10.33);sceneIn('#intake',24.669,10.961);sceneIn('#templates',35.63,11.819);sceneIn('#review',47.449,10.66);sceneIn('#boundaries',58.109,17.999);sceneIn('#plan',76.109,11.59);
+  [['#stress',8.369],['#simple',14.339],['#track',24.669],['#intake',35.63],['#templates',47.449],['#review',58.109],['#boundaries',76.109]].forEach(([selector,at])=>tl.set(selector,{opacity:0,visibility:'hidden'},at));
+
+  tl.fromTo('#stress .offer',{opacity:0,scale:.6},{opacity:1,scale:1,duration:.6,ease:'power3.out',immediateRender:false},.35);
+  document.querySelectorAll('#stress .task').forEach((el,i)=>tl.fromTo(el,{opacity:0,scale:.82,x:i===1?48:-48,y:i===2?38:-24},{opacity:1,scale:1,x:0,y:0,duration:.6,ease:'power3.out',immediateRender:false},1.1+i*.85));
+  document.querySelectorAll('#stress .task-line').forEach((el,i)=>tl.fromTo(el,{opacity:0,scaleX:0},{opacity:1,scaleX:1,duration:.45,ease:'power2.out',immediateRender:false},1.6+i*.85));
+  tl.fromTo('#stress .missing-ring',{opacity:0,scale:1.18},{opacity:1,scale:1,duration:.65,ease:'power3.out',immediateRender:false},6.05).fromTo('#stress .missing-label',{opacity:0,x:30},{opacity:1,x:0,duration:.48,ease:'power3.out',immediateRender:false},6.35);
+
+  document.querySelectorAll('#simple .piece').forEach((el,i)=>tl.fromTo(el,{opacity:.18,y:24},{opacity:1,y:0,duration:.42,ease:'power3.out',immediateRender:false},12.18+i*.22).to(el,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.12)',duration:.25},12.45+i*.22));
+
+  const stages=document.querySelectorAll('#track .stage'),arrows=document.querySelectorAll('#track .arrow');
+  stages.forEach((el,i)=>tl.fromTo(el,{opacity:.2,scale:.94},{opacity:1,scale:1,duration:.48,ease:'power3.out',immediateRender:false},14.7+i*1.35).to(el,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.12)',duration:.28},15.05+i*1.35));
+  arrows.forEach((el,i)=>tl.fromTo(el,{opacity:.2,x:-18},{opacity:1,x:0,duration:.35,ease:'power2.out',immediateRender:false},15.65+i*1.35));
+  document.querySelectorAll('#track .tool').forEach((el,i)=>tl.fromTo(el,{opacity:.18,y:18},{opacity:1,y:0,duration:.4,ease:'power3.out',immediateRender:false},20.05+i*1.18).to(el,{borderColor:'#eaab2d',color:'#eaab2d',duration:.22},20.32+i*1.18));
+
+  const intakeTimes=[25.05,28.3,30.25,32.95];
+  document.querySelectorAll('#intake .intake-step').forEach((el,i)=>tl.fromTo(el,{opacity:.2,x:-32},{opacity:1,x:0,duration:.48,ease:'power3.out',immediateRender:false},intakeTimes[i]).to(el,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.1)',color:'#ffffff',duration:.25},intakeTimes[i]+.25));
+
+  const templateTimes=[37.85,39.15,41.05,42.35];
+  document.querySelectorAll('#templates .template').forEach((el,i)=>tl.fromTo(el,{opacity:.18,y:30,scale:.95},{opacity:1,y:0,scale:1,duration:.5,ease:'power3.out',immediateRender:false},templateTimes[i]).to(el,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.1)',duration:.25},templateTimes[i]+.28));
+  tl.to('#templates .consistency i',{width:'100%',duration:2.2,ease:'power2.out'},44.25);
+
+  [['#track .detail-line',15.0],['#intake .detail-line',28.15],['#templates .detail-line',37.85],['#review .detail-line',50.35],['#boundaries .detail-line',58.55],['#plan .detail-line',83.0]].forEach(([selector,at])=>tl.fromTo(selector,{opacity:0,x:-20},{opacity:1,x:0,duration:.5,ease:'power3.out',immediateRender:false},at));
+  const spoken=[['#track .detail-line span',[15.0,19.98]],['#intake .detail-line span',[25.0,28.2,32.9,34.0]],['#templates .detail-line span',[37.85,39.0,41.05,42.3]],['#review .detail-line span',[50.4,52.0,53.6,55.2]],['#boundaries .detail-line span',[58.55,62.4,64.85,66.0]]];
+  spoken.forEach(([selector,times])=>document.querySelectorAll(selector).forEach((el,i)=>tl.to(el,{opacity:1,color:'#eaab2d',duration:.3,ease:'power2.out'},times[i])));
+  tl.to('#intake .piece.active',{backgroundColor:'rgba(234,171,45,.22)',duration:.3,ease:'power2.out'},32.9);
+
+  tl.fromTo('#review .clock',{opacity:0,scale:.72},{opacity:1,scale:1,duration:.6,ease:'power3.out',immediateRender:false},47.7)
+    .fromTo('#review .hand.minute',{rotation:0},{rotation:360,duration:7.1,ease:'power1.inOut',immediateRender:false},50.35)
+    .fromTo('#review .hand.hour',{rotation:20},{rotation:50,duration:7.1,ease:'power1.inOut',immediateRender:false},50.35);
+  document.querySelectorAll('#review .review-item').forEach((el,i)=>{const check=el.querySelector('b');const t=50.45+i*1.55;tl.fromTo(el,{opacity:.22,x:28},{opacity:1,x:0,duration:.45,ease:'power3.out',immediateRender:false},t).to(el,{borderColor:'#eaab2d',color:'#ffffff',duration:.22},t+.25).fromTo(check,{opacity:0,scale:.4},{opacity:1,scale:1,duration:.3,ease:'power3.out',immediateRender:false},t+.45)});
+
+  const guardTimes=[58.55,62.45,64.9,66.05];
+  document.querySelectorAll('#boundaries .guard').forEach((el,i)=>tl.fromTo(el,{opacity:.2,scale:.94},{opacity:1,scale:1,duration:.48,ease:'power3.out',immediateRender:false},guardTimes[i]).to(el,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.1)',color:'#ffffff',duration:.25},guardTimes[i]+.25));
+  tl.fromTo('#boundaries .decision-side.ai',{opacity:0,x:-36},{opacity:1,x:0,duration:.55,ease:'power3.out',immediateRender:false},68.35)
+    .fromTo('#boundaries .decision-side.owner',{opacity:0,x:36},{opacity:1,x:0,duration:.55,ease:'power3.out',immediateRender:false},70.3)
+    .to('#boundaries .decision-side.owner',{backgroundColor:'rgba(234,171,45,.16)',duration:.45,ease:'power2.out'},72.1)
+    .to('#boundaries .guard',{opacity:.42,duration:.35},73.65)
+    .to('#boundaries .guard,#boundaries .decision-side.owner',{opacity:1,duration:.45},74.15);
+
+  const planTimes=[76.55,79.65,82.7];
+  document.querySelectorAll('#plan .plan-row').forEach((el,i)=>{const check=el.querySelector('.check');tl.fromTo(el,{opacity:.15,x:-34},{opacity:1,x:0,duration:.55,ease:'power3.out',immediateRender:false},planTimes[i]).to(el,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.1)',duration:.25},planTimes[i]+.3).fromTo(check,{opacity:0,scale:.35},{opacity:1,scale:1,duration:.35,ease:'power3.out',immediateRender:false},planTimes[i]+.7)});
+  tl.to('#plan .guardrail',{width:'100%',duration:.8,ease:'power2.out'},85.15);
+  const planReveal=[79,84,82,85,76.5];
+  document.querySelectorAll('#plan .piece').forEach((el,i)=>tl.to(el,{opacity:1,borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.12)',duration:.45,ease:'power2.out'},planReveal[i]));
+
+  tl.duration(87.699).pause(0);window.__timelines=window.__timelines||{};window.__timelines['m5_making-solo-work-sustainable']=tl;window.__hyperframes=window.__hyperframes||{};window.__hyperframes[id]={timeline:tl,duration:87.699,root:document.getElementById(id)};document.documentElement.dataset.hyperframesReady='true';
 })();
 </script>
 </body>

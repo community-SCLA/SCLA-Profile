@@ -1,0 +1,313 @@
+{
+  "total": 241.63,
+  "rows": [
+    {
+      "id": "myth",
+      "audio_start": 0.6,
+      "audio_dur": 13.0,
+      "vis_start": 0.0,
+      "vis_dur": 14.0
+    },
+    {
+      "id": "simpler",
+      "audio_start": 14.25,
+      "audio_dur": 2.3,
+      "vis_start": 14.0,
+      "vis_dur": 2.95
+    },
+    {
+      "id": "definition",
+      "audio_start": 17.2,
+      "audio_dur": 8.59,
+      "vis_start": 16.95,
+      "vis_dur": 9.24
+    },
+    {
+      "id": "first-client-branding",
+      "audio_start": 26.44,
+      "audio_dur": 2.93,
+      "vis_start": 26.19,
+      "vis_dur": 3.58
+    },
+    {
+      "id": "first-client-places",
+      "audio_start": 30.02,
+      "audio_dur": 11.44,
+      "vis_start": 29.77,
+      "vis_dur": 12.09
+    },
+    {
+      "id": "building-question",
+      "audio_start": 42.11,
+      "audio_dur": 2.484,
+      "vis_start": 41.86,
+      "vis_dur": 3.134
+    },
+    {
+      "id": "building-four",
+      "audio_start": 45.244,
+      "audio_dur": 1.566,
+      "vis_start": 44.994,
+      "vis_dur": 2.216
+    },
+    {
+      "id": "signal-title",
+      "audio_start": 47.46,
+      "audio_dur": 1.71,
+      "vis_start": 47.21,
+      "vis_dur": 2.36
+    },
+    {
+      "id": "signal-understand",
+      "audio_start": 49.82,
+      "audio_dur": 2.4,
+      "vis_start": 49.57,
+      "vis_dur": 3.05
+    },
+    {
+      "id": "signal-statement",
+      "audio_start": 52.87,
+      "audio_dur": 2.605,
+      "vis_start": 52.62,
+      "vis_dur": 3.255
+    },
+    {
+      "id": "signal-nonprofit",
+      "audio_start": 56.125,
+      "audio_dur": 5.365,
+      "vis_start": 55.875,
+      "vis_dur": 6.015
+    },
+    {
+      "id": "signal-founders",
+      "audio_start": 62.14,
+      "audio_dur": 5.445,
+      "vis_start": 61.89,
+      "vis_dur": 6.095
+    },
+    {
+      "id": "signal-quality",
+      "audio_start": 68.235,
+      "audio_dur": 4.325,
+      "vis_start": 67.985,
+      "vis_dur": 4.975
+    },
+    {
+      "id": "story-title",
+      "audio_start": 73.21,
+      "audio_dur": 1.95,
+      "vis_start": 72.96,
+      "vis_dur": 2.6
+    },
+    {
+      "id": "story-question",
+      "audio_start": 75.81,
+      "audio_dur": 4.545,
+      "vis_start": 75.56,
+      "vis_dur": 5.195
+    },
+    {
+      "id": "story-no-drama",
+      "audio_start": 81.005,
+      "audio_dur": 2.52,
+      "vis_start": 80.755,
+      "vis_dur": 3.17
+    },
+    {
+      "id": "story-credibility",
+      "audio_start": 84.175,
+      "audio_dur": 6.505,
+      "vis_start": 83.925,
+      "vis_dur": 7.155
+    },
+    {
+      "id": "story-three",
+      "audio_start": 91.33,
+      "audio_dur": 7.15,
+      "vis_start": 91.08,
+      "vis_dur": 7.8
+    },
+    {
+      "id": "example-observation",
+      "audio_start": 99.13,
+      "audio_dur": 7.95,
+      "vis_start": 98.88,
+      "vis_dur": 8.6
+    },
+    {
+      "id": "example-workflow",
+      "audio_start": 107.73,
+      "audio_dur": 5.35,
+      "vis_start": 107.48,
+      "vis_dur": 6.0
+    },
+    {
+      "id": "example-visibility",
+      "audio_start": 113.73,
+      "audio_dur": 1.11,
+      "vis_start": 113.48,
+      "vis_dur": 1.76
+    },
+    {
+      "id": "example-specific",
+      "audio_start": 115.49,
+      "audio_dur": 5.69,
+      "vis_start": 115.24,
+      "vis_dur": 6.34
+    },
+    {
+      "id": "touch-title",
+      "audio_start": 121.83,
+      "audio_dur": 2.16,
+      "vis_start": 121.58,
+      "vis_dur": 2.81
+    },
+    {
+      "id": "touch-not-moment",
+      "audio_start": 124.64,
+      "audio_dur": 2.87,
+      "vis_start": 124.39,
+      "vis_dur": 3.52
+    },
+    {
+      "id": "touch-repetition",
+      "audio_start": 128.16,
+      "audio_dur": 5.18,
+      "vis_start": 127.91,
+      "vis_dur": 5.83
+    },
+    {
+      "id": "touch-places",
+      "audio_start": 133.99,
+      "audio_dur": 9.42,
+      "vis_start": 133.74,
+      "vis_dur": 10.07
+    },
+    {
+      "id": "touch-consistency",
+      "audio_start": 144.06,
+      "audio_dur": 2.795,
+      "vis_start": 143.81,
+      "vis_dur": 3.445
+    },
+    {
+      "id": "touch-not-loud",
+      "audio_start": 147.505,
+      "audio_dur": 1.245,
+      "vis_start": 147.255,
+      "vis_dur": 1.895
+    },
+    {
+      "id": "touch-legible",
+      "audio_start": 149.4,
+      "audio_dur": 1.15,
+      "vis_start": 149.15,
+      "vis_dur": 1.8
+    },
+    {
+      "id": "participation-title",
+      "audio_start": 151.2,
+      "audio_dur": 2.225,
+      "vis_start": 150.95,
+      "vis_dur": 2.875
+    },
+    {
+      "id": "participation-where",
+      "audio_start": 154.075,
+      "audio_dur": 5.275,
+      "vis_start": 153.825,
+      "vis_dur": 5.925
+    },
+    {
+      "id": "participation-examples",
+      "audio_start": 160.0,
+      "audio_dur": 11.68,
+      "vis_start": 159.75,
+      "vis_dur": 12.33
+    },
+    {
+      "id": "participation-not-self",
+      "audio_start": 172.33,
+      "audio_dur": 2.65,
+      "vis_start": 172.08,
+      "vis_dur": 3.3
+    },
+    {
+      "id": "participation-trust",
+      "audio_start": 175.63,
+      "audio_dur": 5.09,
+      "vis_start": 175.38,
+      "vis_dur": 5.74
+    },
+    {
+      "id": "ai-title",
+      "audio_start": 181.37,
+      "audio_dur": 1.314,
+      "vis_start": 181.12,
+      "vis_dur": 1.964
+    },
+    {
+      "id": "ai-friction",
+      "audio_start": 183.334,
+      "audio_dur": 4.366,
+      "vis_start": 183.084,
+      "vis_dur": 5.016
+    },
+    {
+      "id": "ai-tools",
+      "audio_start": 188.35,
+      "audio_dur": 10.56,
+      "vis_start": 188.1,
+      "vis_dur": 11.21
+    },
+    {
+      "id": "ai-not-generic",
+      "audio_start": 199.56,
+      "audio_dur": 2.33,
+      "vis_start": 199.31,
+      "vis_dur": 2.98
+    },
+    {
+      "id": "ai-hollow",
+      "audio_start": 202.54,
+      "audio_dur": 3.73,
+      "vis_start": 202.29,
+      "vis_dur": 4.38
+    },
+    {
+      "id": "ai-human",
+      "audio_start": 206.92,
+      "audio_dur": 4.16,
+      "vis_start": 206.67,
+      "vis_dur": 4.81
+    },
+    {
+      "id": "system",
+      "audio_start": 211.73,
+      "audio_dur": 14.235,
+      "vis_start": 211.48,
+      "vis_dur": 14.885
+    },
+    {
+      "id": "close-not-famous",
+      "audio_start": 226.615,
+      "audio_dur": 2.585,
+      "vis_start": 226.365,
+      "vis_dur": 3.235
+    },
+    {
+      "id": "close-refer",
+      "audio_start": 229.85,
+      "audio_dur": 5.57,
+      "vis_start": 229.6,
+      "vis_dur": 6.22
+    },
+    {
+      "id": "close-purpose",
+      "audio_start": 236.07,
+      "audio_dur": 3.76,
+      "vis_start": 235.82,
+      "vis_dur": 5.81
+    }
+  ]
+}

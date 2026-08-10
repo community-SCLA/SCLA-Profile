@@ -1,2 +1,16 @@
 2026-08-07T21:07:51Z	resume	program=career-transitions
 2026-08-07T21:13:38Z	release	build session ended
+2026-08-08T15:46:41Z	resume	program=career-transitions
+2026-08-08T15:49:20Z	timing-integration	Applied timing.json to 14 beats; duration 124.55s; removed forbidden progress rail and scene counter
+2026-08-08T15:50:36Z	preflight	exit 1
+2026-08-08T16:02:09Z	preflight	exit 1
+2026-08-08T16:07:51Z	preflight	exit 1
+2026-08-08T16:12:52Z	preflight	exit 0 — gate-clean
+2026-08-08T16:13:47Z	release	build session ended
+2026-08-10T17:49:28Z	preflight	exit 0 — gate-clean
+2026-08-10T20:14:11Z	preflight	exit 1
+2026-08-10T20:14:59Z	resume	program=career-transitions
+2026-08-10T20:16:56Z	preflight	exit 1
+2026-08-10T20:18:57Z	preflight	exit 1
+2026-08-10T20:20:56Z	preflight	exit 1
+2026-08-10T20:25:35Z	preflight	exit 1

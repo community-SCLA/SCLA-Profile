@@ -7,9 +7,61 @@ SCRIPT_VP="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VP="${VIDEO_VP_ROOT:-$SCRIPT_VP}"
 REPO="${VIDEO_REPO_ROOT:-$(cd "$SCRIPT_VP/../.." && pwd)}"
 STATE="${VIDEO_RUN_STATE_TOOL:-$SCRIPT_VP/render-qa/src/run_state.py}"
+SHIP_DRIVER="${VIDEO_BATCH_SHIP_SCRIPT:-$REPO/scripts/batch-ship.sh}"
 
 refresh_human_status() {
   bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
+}
+
+publish_verified() {
+  local stem="$1" located program
+  located="$(python3 "$STATE" locate "$stem")"
+  program="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("program") or "")' <<<"$located")"
+  [[ -n "$program" ]] || {
+    echo "FATAL: cannot resolve program for verified lesson $stem" >&2
+    return 2
+  }
+  bash "$SHIP_DRIVER" "$stem" "$program" --publish
+}
+
+auto_ship_approved() {
+  local stem="$1" located program render_log render_rc
+  located="$(python3 "$STATE" locate "$stem")"
+  program="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("program") or "")' <<<"$located")"
+  [[ -n "$program" ]] || {
+    echo "FATAL: cannot resolve program for approved lesson $stem" >&2
+    return 2
+  }
+
+  echo
+  echo "Approval recorded for $stem; rendering and verifying now."
+  render_log="$(mktemp "${TMPDIR:-/tmp}/scla-auto-ship.XXXXXX")"
+  if bash "$SHIP_DRIVER" "$stem" "$program" 2>&1 | tee "$render_log"; then
+    render_rc=0
+  else
+    render_rc="${PIPESTATUS[0]}"
+  fi
+  if [[ "$render_rc" -ne 0 ]]; then
+    rm -f "$render_log"
+    echo "Automatic shipping stopped: render or verification failed for $stem." >&2
+    return "$render_rc"
+  fi
+
+  if grep -Fq "READY_TO_PUBLISH $stem" "$render_log"; then
+    rm -f "$render_log"
+    echo "Verification passed for $stem; publishing now."
+    publish_verified "$stem"
+    return $?
+  fi
+  if grep -Fq "AWAITING_VISION $stem" "$render_log"; then
+    rm -f "$render_log"
+    echo "Automatic shipping paused at the required post-render encode review for $stem."
+    return 0
+  fi
+
+  rm -f "$render_log"
+  echo "FATAL: shipping driver returned success without a publish or review handoff for $stem" >&2
+  return 2
 }
 
 usage() {
@@ -170,8 +222,19 @@ EOF
     ;;
   approve)
     [[ -n "${1:-}" ]] || usage
-    python3 "$STATE" approve "$1" --approved-by owner
+    approval_json="$(python3 "$STATE" approve "$1" --approved-by owner --json)"
+    python3 -c 'import json,sys; print(json.load(sys.stdin)["message"])' <<<"$approval_json"
     refresh_human_status
+    mapfile -t approved_stems < <(
+      python3 -c 'import json,sys; print("\n".join(json.load(sys.stdin)["targets"]))' \
+        <<<"$approval_json"
+    )
+    approve_rc=0
+    for stem in "${approved_stems[@]}"; do
+      auto_ship_approved "$stem" || approve_rc=1
+    done
+    refresh_human_status
+    exit "$approve_rc"
     ;;
   visual-review)
     [[ -n "${1:-}" ]] || usage
@@ -180,8 +243,22 @@ EOF
     ;;
   encode-review)
     [[ -n "${1:-}" ]] || usage
+    encode_stem="$1"
+    encode_verdict=""
+    encode_args=("$@")
+    for ((i=0; i<${#encode_args[@]}; i++)); do
+      if [[ "${encode_args[$i]}" == "--verdict" && $((i + 1)) -lt ${#encode_args[@]} ]]; then
+        encode_verdict="${encode_args[$((i + 1))]}"
+        break
+      fi
+    done
     python3 "$STATE" record-encode-review "$@"
     refresh_human_status
+    if [[ "$encode_verdict" == "PASS" ]]; then
+      echo "Encode review passed for $encode_stem; publishing now."
+      publish_verified "$encode_stem"
+      refresh_human_status
+    fi
     ;;
   ship)
     [[ -n "${1:-}" ]] || usage
@@ -190,9 +267,9 @@ EOF
     program="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("program") or "")' <<<"$located")"
     [[ -n "$program" ]] || { echo "FATAL: cannot resolve program for $stem" >&2; exit 2; }
     if [[ "$mode" == "--publish" ]]; then
-      bash "$REPO/scripts/batch-ship.sh" "$stem" "$program" --publish
+      bash "$SHIP_DRIVER" "$stem" "$program" --publish
     elif [[ -z "$mode" ]]; then
-      bash "$REPO/scripts/batch-ship.sh" "$stem" "$program"
+      bash "$SHIP_DRIVER" "$stem" "$program"
     else
       usage
     fi

@@ -1,11 +1,24 @@
 {
   "compositionId": "m3_the-two-sided-work",
   "title": "The Two-Sided Work",
-  "program": "Career Transitions",
-  "concept": "A two-lane editorial system makes letting go and carrying forward visible as separate, ordered parts of career reinvention.",
-  "visualMetaphor": "Two parallel lanes converge into a Carry-Forward Inventory.",
-  "beatCount": 12,
-  "durationSeconds": 199.2,
-  "format": "1920x1080",
-  "motionSystem": "A single paused GSAP timeline, registered under the composition ID, sequences every beat deterministically."
+  "program": "career-transitions",
+  "selectedLens": "Transition Case",
+  "visualCarrier": "full-frame open transition case with a release well and a selective carry-forward well",
+  "scores": {
+    "Transition Case": {"fidelity": 5, "evolution": 5, "attention": 5, "feasibility": 4, "total": 19},
+    "Identity Hinge": {"fidelity": 5, "evolution": 4, "attention": 5, "feasibility": 3, "total": 17}
+  },
+  "interaction": "letting go creates the space that makes selective carry-forward useful",
+  "examples": [
+    "finance P&L fluency becomes product judgment",
+    "live classroom feedback becomes instructional-design advantage"
+  ],
+  "inventory": ["skills", "values", "relationships", "capabilities"],
+  "constraints": [
+    "no module or scene numbering",
+    "no progress rail, bar, trace, or moving dot",
+    "no false UI or decorative arrows",
+    "motion must change the explanatory model",
+    "no cramped card island or redundant prose"
+  ]
 }

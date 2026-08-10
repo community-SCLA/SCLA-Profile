@@ -116,8 +116,8 @@ STRANDED in §1.6. The folders were renamed to match on 2026-08-04, when
 | A video produced end to end | `/produce-video` — selects one lesson and stops at its review gate |
 | Just refine raw scripts | `/refine-scripts` — drains `inbox/` into `ready/` |
 | Build and ship a ready program | `/render-lessons AUTO-BATCH PROGRAM` — advances lessons independently |
-| **See what's ready to watch** | `bash scripts/review.sh` — gates every build and opens a preview only for the clean ones |
-| Preview one specific build | `bash scripts/preview.sh <stem>` |
+| **See what's ready to watch** | `bash scripts/review.sh` — gates every build and opens a lightweight player only for the clean ones |
+| Watch one specific build | `bash scripts/play.sh <stem>` |
 | Approve one lesson | review its workspace, then run **`run.sh approve STEM`** |
 | See what's outstanding | `bash scripts/batch-status.sh` |
 | Resume an interrupted batch | `bash scripts/batch-status.sh` — then tell the agent to continue; state is on disk, no session memory needed |
@@ -242,7 +242,7 @@ buckets:
 
 **"What do I need to watch?" = `bash scripts/review.sh`.** It runs the
 deterministic gate over every build in `renders-hyperframes/` (~0.4s each),
-starts a preview server for each gate-clean one with a clickable link, and
+starts a lightweight player for each gate-clean one with a clickable link, and
 lists everything else as "not ready" so you know to skip it. Anything needing
 *your* eyes on a decision instead lives in the snag log's latest **Open** list,
 and the session is required to ask you about those directly at close-out —

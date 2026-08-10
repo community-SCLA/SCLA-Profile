@@ -1050,14 +1050,49 @@ for base, d in sorted(ws_by_base.items()):
 # Distinct Wistia media = videos actually live, independent of folder state.
 totals["published"] = len(media_ids)
 
+# Keep ownership explicit. The owner queue contains only decisions or missing
+# source material that the production system cannot supply. Every mechanical,
+# authoring, review-revision, render, verification, and publish action remains
+# in the agent queue, even when a gate has rejected the current cut.
+owner_queue = []
+agent_queue = []
+for program in report:
+    prog = program["program"]
+    owner_queue.extend({"program": prog, "kind": "needs-script", **row}
+                       for row in program["needs_script"])
+    for row in program["in_flight"]:
+        item = {"program": prog, **row}
+        if row["stage"] == "needs-review":
+            owner_queue.append(item)
+        else:
+            agent_queue.append(item)
+    agent_queue.extend({"program": prog, "stage": "raw", "stem": stem}
+                       for stem in program["raw"])
+    agent_queue.extend({"program": prog, "stage": "ready", "stem": stem}
+                       for stem in program["queued"])
+    agent_queue.extend({"program": prog, "stage": "stranded", **row}
+                       for row in program["stranded"])
+agent_queue.extend({"program": None, **row} for row in orphans)
+
 if mode == "json":
     print(json.dumps({"run": run_capacity, "priority": ordered,
                        "totals": totals, "programs": report,
+                       "owner_queue": owner_queue, "agent_queue": agent_queue,
                        "orphans": orphans, "published": published_rows}, indent=2))
     sys.exit(0)
 
 # ─────────────────────────────────────────────────────────────────────────────
 if mode == "write":
+    def doc_next(value):
+        """Keep the generated status scannable; commands belong in run.sh help."""
+        command = r'`?bash (?:projects/video-production|scripts)/[^`\n]*`?'
+        value = re.sub(r'\s+(?:with|:)\s*' + command, '', value)
+        value = re.sub(command, '', value)
+        value = re.sub(r':\s*;', ';', value)
+        value = re.sub(r'\s+([;,:.])', r'\1', value)
+        value = re.sub(r':\s*$', '', value)
+        return re.sub(r'\s{2,}', ' ', value).strip()
+
     lines = []
     a = lines.append
     a("# Video Production — Pipeline Status")
@@ -1170,10 +1205,27 @@ if mode == "write":
             a(f"| {row['base']} | {row['program']} | {row['render_date']} | "
               f"[{row['wistia_url'].rsplit('/', 1)[-1]}]({row['wistia_url']}) | {mp4} |")
         a("")
+    owner_reviews = [(r["program"], x) for r in report for x in r["in_flight"]
+                     if x["stage"] == "needs-review"]
+    owner_scripts = [(r["program"], x) for r in report for x in r["needs_script"]]
+    a("## Your review queue")
+    a("")
+    if not owner_reviews and not owner_scripts:
+        a("Nothing needs your attention right now.")
+    for prog, x in owner_reviews:
+        a(f"- **{x['stem']}** ({prog}) — ready for your preview and decision")
+    for prog, x in owner_scripts:
+        a(f"- **{x['stem']}** ({prog}) — source material is missing")
+        a(f"  - **What's needed:** {x['detail']}")
+    a("")
+
     attention = [(r["program"], x) for r in report for x in r["in_flight"]
                  if x["stage"] in ("rejected", "stalled", "needs-revision")]
     if attention or orphans:
-        a("## Needs a human right now")
+        a("## Agent-owned recovery queue")
+        a("")
+        a("No owner action is required for these items. The production agent fixes the "
+          "cause, reruns the gates, and returns only a review-ready cut.")
         a("")
         for prog, x in attention:
             a(f"- **{x['stem']}** ({prog}) — {x['stage'].upper()}: {x['state']}")
@@ -1181,7 +1233,7 @@ if mode == "write":
                 a(f"  - {fdg}")
             if x["journal"]:
                 a(f"  - {x['journal']}")
-            a(f"  - **To clear it:** {x['next']}")
+            a(f"  - **To clear it:** {doc_next(x['next'])}")
         for o in orphans:
             a(f"- **{o['workspace']}** — ORPHAN: a build folder matching no script in "
               f"any program ({o['state']}; last touched {o['last_touched']})")
@@ -1234,8 +1286,8 @@ if mode == "write":
              "Report-only: nothing here is killed automatically. Resume the named phase "
              "in the same workspace; its files and journal preserve completed work."),
             (("rejected",), "REJECTED — a gate refused this cut",
-             "A review or gate blocked this lesson. Its production phase is retained; "
-             "follow the listed correction and retry action."),
+             "This is agent-owned rework, not an owner decision. The production phase "
+             "is retained while the agent corrects and retries the cut."),
         ):
             group = [x for x in r["in_flight"] if x["stage"] in stages]
             if not group:
@@ -1254,7 +1306,7 @@ if mode == "write":
                       "workspace predates the build journal)")
                 for fdg in x["findings"]:
                     a(f"  - gate said: {fdg}")
-                a(f"  - next: {x['next']}")
+                a(f"  - next: {doc_next(x['next'])}")
             a("")
         if r["stranded"]:
             a("**STRANDED mid-pipeline:**")
@@ -1266,7 +1318,7 @@ if mode == "write":
             for x in r["stranded"]:
                 a(f"- {x['stem']}")
                 a(f"  - state: {x['state']}")
-                a(f"  - next: {x['next']}")
+                a(f"  - next: {doc_next(x['next'])}")
             a("")
         if r["needs_script"]:
             a("**NEEDS SCRIPT — only you can finish these:**")

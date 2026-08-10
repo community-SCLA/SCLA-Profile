@@ -1,20 +1,34 @@
-# Design — Future-You Resume
+# Design — Signal Lens
 
-## Frame
-1920×1080 with a navy editorial background, 120px outer padding, and all primary content above y=960. A small course label and progress rail remain as consistent furniture.
+## Chosen concept
+The resume is a full-frame signal field. Archive noise remains present only when it explains the problem; the next-move evidence becomes sharp inside a large focus window. The learner watches the same field gain direction, not a stack of cards reset 37 times.
 
-## Palette
-Navy `#0d2437` and deep navy `#0a1e2f` anchor the lesson. White and cultured paper create resume cards. Blue `#3393d6` carries the forward path; gold `#eaab2d` marks decisions and outcomes.
+## Visual carrier
+The carrier is a 1680×760 editorial field inside the 1920×1080 frame. Large resume phrases, named relationships, comparison lines, and outcome figures occupy the field directly. Blue marks the focus; gold marks decisions and measurable outcomes. No stock imagery is needed.
 
-## Type
-Proxima Nova with system sans-serif fallback. Display text is 72–104px/900, body text is at least 40px, and labels are 22px/700 uppercase.
+## Beat-to-frame map
 
-## Layout and imagery
-Typography, rules, cards, simple SVG paths, and measurable result markers do all visual work; no stock imagery is needed. Each beat has one dominant idea and no more than three supporting elements.
+| Time | Visual explanation |
+| --- | --- |
+| 0.000–4.710 | Title and target-role focus establish the lesson. |
+| 4.710–17.090 | Dense history phrases sit outside a focus window; THOROUGH ≠ CLEAR resolves inside it. |
+| 17.090–29.230 | HISTORICAL RECORD recedes while STRATEGIC TOOL and the role ahead become sharp. |
+| 29.230–36.650 | Tasks, generic language, and missing link appear as three distinct diagnoses. |
+| 36.650–56.260 | Activity bullets are tested against results, scope, and value added. |
+| 56.260–71.940 | Old sections and generic phrases accumulate; the focus verdict is BUSY, NOT SHARP. |
+| 71.940–88.720 | A named path from HISTORY to NEXT ROLE breaks at the missing link. |
+| 88.720–99.575 | The decision-maker lens resolves on RIGHT FIT, RIGHT NOW. |
+| 99.575–113.740 | BUSY recedes and READY FOR WHAT’S NEXT takes the visual center. |
+| 113.740–129.772 | Projects, results, and responsibilities pass through one next-move question. |
+| 129.772–150.594 | Higher-level leadership and measurable scope remain; unrelated tasks recede. |
+| 150.594–167.179 | Promotion, lateral move, and role redesign point to the Next Move Statement north star. |
+| 167.179–185.788 | The line test, three-to-five experience selection, and RAMS evidence structure reveal in place. |
+| 185.788–207.988 | “Managed team projects” rewrites into the full measurable onboarding example. |
+| 207.988–228.778 | Upload/paste, AI draft, refine/align, and headline-story selection form one tool workflow. |
+| 228.778–241.948 | The focused resume signal hands off to Next → Resume Builder Tool. |
 
-The carrying object is one persistent future-you resume page fixed on the right. It never resets to a generic card: its selected evidence row, current-signal callout, metrics, direction badge, and completion meter evolve on every beat while the left editorial note advances the lesson.
+## Motion logic
+One paused GSAP timeline controls every scene. Focus blooms are bounded and settle with the focal phrase. SVG paths draw only between named states. Secondary phrases enter with short, varied, finite moves; text is stable once settled. Scenes persist across complete sentences, and internal reveals follow the audio timing. There is no playback progress motion, persistent numbering, or ornamental ambient loop.
 
-The page progresses through seven visible acts: archive, signal audit, future positioning, evidence selection, north-star line test, impact rewrite, and Resume Builder handoff. Paper layers collapse into one directed document; task-heavy rows are audited; proof is selected; the Next Move Statement becomes the direction badge; measurable outcomes take over the metric band; and the final page resolves as future-you ready.
-
-## Motion
-One paused GSAP timeline is registered under the exact composition ID. Clips are timed independently; entrances settle within 1.2 seconds and exits take 0.3 seconds. No infinite animation is used.
+## Frame rules
+Use only local Proxima Nova and the token palette. Headings are 72–112px, teaching text is 36–48px, and labels are 20–24px. All meaningful content stays within x=120–1800 and y=110–940. The main visual mass fills at least five content zones at sampled settled frames.

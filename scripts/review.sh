@@ -5,11 +5,11 @@
 # normal way to run this is the Run Task menu, not typing it.
 #
 # For every build in renders-hyperframes/ (or one optional stem argument) it runs the deterministic gate
-# (render-qa/src/preflight.py, ~0.4s each). Gate-clean builds get a preview server
+# (render-qa/src/preflight.py, ~0.4s each). Gate-clean builds get a lightweight player
 # started on their own port and a clickable link printed. Everything else is
 # listed as "not ready" so you know to skip it.
 #
-# Previews keep running after this exits — the links stay live until the
+# Players keep running after this exits — the links stay live until the
 # Codespace stops or you run "Stop all previews".
 set -uo pipefail
 
@@ -23,15 +23,10 @@ bold=$'\e[1m'; dim=$'\e[2m'; grn=$'\e[32m'; ylw=$'\e[33m'; off=$'\e[0m'
 
 port_busy() { (exec 3<>"/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
 
-# Which stem is the preview server on $1 serving? Empty if none.
+# Which stem is the lightweight player on $1 serving? Empty if none.
 stem_on_port() {
-  curl -s --max-time 2 "http://127.0.0.1:$1/api/projects" 2>/dev/null \
-    | python3 -c 'import sys,json
-try:
-    p=json.load(sys.stdin).get("projects") or []
-    print(p[0]["id"] if p else "")
-except Exception:
-    print("")' 2>/dev/null
+  curl -s --max-time 2 "http://127.0.0.1:$1/" 2>/dev/null \
+    | sed -n 's|.*<title>\(.*\) — HyperFrames Player</title>.*|\1|p'
 }
 
 url_for() {
@@ -88,7 +83,7 @@ for d in "${CANDIDATES[@]}"; do
   fi
 done
 
-# ---- start a preview for each ready build, reusing anything already serving it
+# ---- start a lightweight player for each ready build, reusing anything already serving it
 LINKS=()
 CLAIMED=""   # ports handed out in this run; a just-launched server has not bound
              # yet, so port_busy alone would hand the same port to every build
@@ -105,8 +100,8 @@ for stem in "${READY[@]:-}"; do
       case " $CLAIMED " in *" $p "*) continue ;; esac
       port_busy "$p" && continue
       # Fully detached: own session, all three fds off this script's, so the
-      # preview outlives this terminal and never holds the task's output open.
-      setsid bash -c "cd '$ROOT/$stem' && exec npx --yes '$HF' preview --port $p" \
+      # player outlives this terminal and never holds the task's output open.
+      setsid bash -c "cd '$ROOT/$stem' && exec npx --yes '$HF' play --port $p" \
         </dev/null >/dev/null 2>&1 &
       disown 2>/dev/null || true
       found="$p"; break
@@ -147,7 +142,7 @@ else
     if [ "$p" = "!" ]; then
       echo "    ${ylw}$err — stop a preview and re-run.${off}"
     else
-      echo "    $(url_for "$p")/#project/$s"
+      echo "    $(url_for "$p")"
     fi
     echo ""
   done
@@ -164,6 +159,6 @@ if [ ${#BLOCKED[@]} -gt 0 ]; then
 fi
 
 echo "${dim}Happy with one? Tell Claude:  ship <its folder name>${off}"
-echo "${dim}Previews stay up after this window closes.${off}"
+echo "${dim}Players stay up after this window closes.${off}"
 echo ""
 exit 0

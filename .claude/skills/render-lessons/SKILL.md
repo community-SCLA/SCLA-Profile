@@ -50,9 +50,10 @@ Retry only after its cause changes. Only `PUBLISHED` is complete.
 
 1. Read `run.sh resume --json`, then explicitly select the requested program or
    `--all`. Disk evidence preserves older unfinished work.
-2. Give each worker one stem. Resume `STALLED`; diagnose `REJECTED`; dispatch
-   untouched `READY`; render `APPROVED`; review a required encode; and publish
-   `RENDERED` serially. Do not build `RAW` or `NEEDS SCRIPT`.
+2. Treat status `owner_queue` as the only owner handoff. Work `agent_queue`:
+   resume `STALLED`, repair `REJECTED`, revise failed reviews, dispatch `READY`,
+   render `APPROVED`, review encodes, and publish `RENDERED`. Never hand these
+   actions or commands to the owner. Do not build `RAW` or `NEEDS SCRIPT`.
 3. Return each clean stem through `review.sh` immediately while siblings keep
    moving. Re-read status after completions and refill slots in priority order.
 4. At three clean reviewed Cloud renders, set `cloud-limit 4`. Never delete or
@@ -129,15 +130,18 @@ Studio server and print the live URL:
 bash scripts/review.sh STEM
 ```
 
-After the owner reviews that lesson, record only its approval:
+After the owner reviews that lesson, approve it:
 
 ```bash
 bash projects/video-production/run.sh approve STEM
 ```
 
-Approval persists in `run.json`. Render, verify, and publish that stem without
-waiting for the rest. `approve BATCH` remains an optional convenience only when
-the owner has actually reviewed every selected gate-clean workspace.
+Approval persists in `run.json` and the same command immediately renders,
+verifies, and publishes that exact stem. When the immutable render receipt says
+post-render encode review is required, approval renders and verifies, then
+pauses visibly at that review gate; a passing encode review completes publish.
+`approve BATCH` remains an optional convenience only when the owner has actually
+reviewed every selected gate-clean workspace.
 
 ## Failure policy
 

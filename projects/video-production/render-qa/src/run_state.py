@@ -365,7 +365,10 @@ def cmd_approve(args) -> int:
         state["approvals"] = approvals
         sync_review_projection(state)
         save_run(state)
-    print(message)
+    if args.json:
+        print(json.dumps({"message": message, "targets": targets}))
+    else:
+        print(message)
     return 0
 
 
@@ -1057,6 +1060,7 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("approve")
     s.add_argument("target")
     s.add_argument("--approved-by", default="owner")
+    s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_approve)
     s = sub.add_parser("migrate-approval", help=argparse.SUPPRESS)
     s.add_argument("stem")

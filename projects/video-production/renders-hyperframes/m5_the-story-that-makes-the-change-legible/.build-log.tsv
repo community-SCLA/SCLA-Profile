@@ -17,3 +17,13 @@
 2026-08-08T04:13:02Z	resume	program=career-transitions
 2026-08-08T04:22:56Z	preflight	exit 1
 2026-08-08T04:23:21Z	release	build session ended
+2026-08-08T15:47:03Z	resume	program=career-transitions
+2026-08-08T15:48:52Z	preflight	exit 1
+2026-08-08T15:51:16Z	gate-revision	lifted persistent carrier above footer reserve; reduced transient panel fill so Pivot Story Bridge remains the dominant carrying object
+2026-08-08T15:51:38Z	preflight	exit 1
+2026-08-08T16:00:27Z	preflight	exit 0 — gate-clean
+2026-08-08T16:01:27Z	release	build session ended
+2026-08-09T23:13:14Z	resume	program=career-transitions
+2026-08-09T23:13:31Z	preflight	exit 0 — gate-clean
+2026-08-09T23:14:02Z	preview-restored	Re-gated current source after dependency install changed the workspace fingerprint; refreshed visual receipt and restored Studio review link.
+2026-08-09T23:14:02Z	release	build session ended

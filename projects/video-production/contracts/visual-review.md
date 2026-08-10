@@ -19,9 +19,38 @@ RECOMMENDATION: PROCEED|REVISE
 ```
 
 `BLOCKING_DEFECT` covers visible correctness failures that make the cut unsafe
-to render. A bottom-edge playback progress bar, rail, scrubber, or sliding
-completion line is always blocking; it cannot substitute for scene motion.
+to render. A playback progress bar, rail, scrubber, signal trace, or sliding
+completion line anywhere in the frame is always blocking. That includes a line
+that fills for one scene's duration; it cannot substitute for explanatory scene
+motion. Persistent module/scene numbers and repeated current/total counters are
+also blocking because the deliverable is an MP4, not a slide deck.
+Any whole-scene exit, entrance, or transition that interrupts a sentence is
+also blocking. Treat adjacent clips that repeat unchanged graphics as one scene:
+the visual carrier must persist while meaning-bearing elements evolve inside it,
+and a new scene must wait for both a completed sentence and a material change in
+idea or visual carrier.
+Inspect the most crowded settled frame in every scene. Overlapping elements,
+cramped near-collisions, labels laid across unrelated illustrations, inaccurate
+structural geometry, or text that bounces, blinks, flickers, ripples, or
+repeatedly pulses are blocking.
+Treat scale and balance as correctness, not polish. Meaningful foreground detail
+must use the whole content field while retaining the required padding. A large
+copy block paired with an undersized teaching graphic, a tiny card cluster beside
+an empty field, or repeated frames whose useful content stays confined to one
+strip are blocking. For any spoken list or comparison, scrub through the
+narration: the item being named must enter, highlight, transform, or resolve at
+that point. Showing every item at once, then leaving all of them stagnant, is
+blocking. Re-entering the same cloned carrier in consecutive scenes is also
+blocking; persistence only earns credit when its meaning-bearing state develops.
+Treat false interface affordances as blocking: an arrow, tab, button, or label
+must not imply navigation or clicking in a non-interactive MP4. Also fail a cut
+whose main visual content is confined to a small region for most of the lesson
+while a large usable portion of the 16:9 frame remains unintentionally empty.
 `TASTE` covers whether the piece has a clear visual idea, evolving
 composition, intentional rhythm, and enough variation to hold attention. A
 flat result can require revision without being mislabeled as mechanically
-broken. A lively result cannot excuse a blocking defect.
+broken. Illustrations must clarify a mechanism, relationship, sequence,
+comparison, or change; visual activity with no explanatory value requires
+revision. Repeatedly exiting and repopulating the same list beside headings that
+duplicate it is flat; one persistent list must visibly focus or transform as the
+narration advances. A lively result cannot excuse a blocking defect.

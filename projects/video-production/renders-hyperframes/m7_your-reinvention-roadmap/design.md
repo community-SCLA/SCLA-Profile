@@ -6,6 +6,23 @@
 - Deep navy provides the map field; warm white cards create moments of reflection.
 - A persistent compass path links scenes without implying a fixed destination.
 
+## Visual carrier
+
+The carrying object is one responsive map field: its dashed route and compass
+remain present while the working panel re-sorts direction, experiments,
+roadmap elements, the ninety-day horizon, and the final commitment. The map
+changes orientation without being discarded, mirroring a plan that learns.
+
+## Beat-to-frame map
+
+- Beats 01–02b: arrive at the final-module marker, then loosen the route from a fixed plan.
+- Beats 03a–04: move through research, experiment, conversation, and the plan-working reframe.
+- Beats 05a–05c: establish the compass, reveal what it holds, then flex the route as ground shifts.
+- Beats 06–10: assemble direction, the three-phase plan, runway, and one next step as four landmarks.
+- Beats 11a–11c: compress the route into a ninety-day horizon, balanced by progress and accountability.
+- Beats 12a–13: acknowledge hard work and ambiguity, then settle on the willingness to build intentionally.
+- Beat 14: illuminate one committed next step and resolve the complete roadmap.
+
 ## Type
 
 - Proxima Nova, falling back to system sans-serif.

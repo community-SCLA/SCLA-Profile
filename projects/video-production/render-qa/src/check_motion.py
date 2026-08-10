@@ -26,7 +26,7 @@ verdict:
     and the living-icon hero are content. The sanctioned-motion allow-list covers
     "the light templates' GHOST layers"; it has never covered a content hero.
 
-THREE RULES:
+FOUR RULES:
 
   keep-alive-motion   A repeating tween targets a non-decorative element.
   undeclared-target   A repeating tween's target cannot be resolved to a
@@ -35,11 +35,15 @@ THREE RULES:
                       checker that cannot see the target must not report clean;
                       that is the standing `nothing-graded` lesson.
   playback-progress-indicator
-                      A thin progress/seek/playhead rail is positioned along
-                      the bottom edge. These full-runtime bars manufacture
+                      A thin progress/seek/playhead rail is positioned as
+                      playback chrome. These full-runtime bars manufacture
                       pixel movement without developing the lesson's visual
-                      idea, so they are forbidden even when they are not the
-                      only tween and even when they carry no repeating motion.
+                      idea, so they are forbidden even when renamed and even
+                      when they carry no repeating motion.
+  temporal-progress-motion
+                      A line grows linearly from 0 to 100% for a whole scene or
+                      composition. Position does not matter: a top-edge trace
+                      is the same fake-motion device as a bottom progress bar.
 
 There is NO name-based allow-list. An exemption is DECLARED, on the tween or on
 the helper call site, as a trailing `/* motion-allow: <reason> */` comment —
@@ -71,12 +75,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hfp_common import Finding, typed
 
-# A tween call: tl.fromTo(<target>, ...) / tl.to(...) / tl.from(...).
+# A tween call on any named timeline: tl.fromTo(...), timeline.to(...), etc.
+# This used to recognise only the literal identifier `tl`, so freeform builds
+# using `const timeline = gsap.timeline(...)` graded zero tweens and passed.
 # Captures the target expression and the option soup that follows it.
 TWEEN = re.compile(
-    r"\btl\s*\.\s*(?:fromTo|to|from)\s*\(\s*(?P<target>"
+    r"\b[A-Za-z_$][\w$]*\s*\.\s*(?:fromTo|to|from)\s*\(\s*(?P<target>"
     r'"[^"]*"|\'[^\']*\'|\[[^\]]*\]|[A-Za-z_$][\w$.]*)'
-    r"(?P<rest>.*?)(?=\btl\s*\.|\Z)", re.S)
+    r"(?P<rest>.*?)(?=\b[A-Za-z_$][\w$]*\s*\.\s*"
+    r"(?:fromTo|to|from)\s*\(|\Z)", re.S)
 
 # Does this tween repeat? `repeat: 0` and `repeat: -1` are both meaningful:
 # 0 is a one-shot (fine), -1 is infinite (never deterministic — the framework
@@ -97,10 +104,15 @@ CSS_RULE = re.compile(r"([^{}]+)\{([^{}]*)\}", re.S)
 HTML_TAG = re.compile(r"<[A-Za-z][^>]*>", re.S)
 HTML_ATTR = re.compile(r"([:\w-]+)\s*=\s*([\"'])(.*?)\2", re.S)
 PROGRESS_NAME = re.compile(
-    r"(?:^|[-_])(progress|playhead|scrub(?:ber)?|seek(?:bar)?|completion)(?:$|[-_])",
+    r"(?:^|[-_])(progress|playhead|scrub(?:ber)?|seek(?:bar)?|completion|"
+    r"track|rail|meter)(?:$|[-_])",
     re.I,
 )
 CSS_LENGTH = re.compile(r"^(-?\d+(?:\.\d+)?)px$", re.I)
+ROOT_DURATION = re.compile(
+    r"<main\b[^>]*\bdata-duration\s*=\s*['\"](?P<duration>\d+(?:\.\d+)?)['\"]",
+    re.I | re.S,
+)
 
 # Compound selectors ("#root .big", ".panel > .line") are ordinary in freeform
 # HTML; a single-token pattern degraded them to undeclared-target — a failure,
@@ -283,9 +295,146 @@ def playback_progress_findings(raw_html: str):
     return findings
 
 
+def temporal_progress_findings(raw_html: str):
+    """Reject a renamed line that grows for a scene/composition's duration.
+
+    Meaning-bearing connectors reveal at a cue and settle. A temporal progress
+    line is mechanically different: linear easing, 0-to-100% growth, and a
+    duration tied to the scene or nearly the whole composition. This catches
+    the real `signal-trace`, `.track i`, and `.rail-fill` escapes without
+    rejecting a quick arrow or path reveal.
+    """
+    root_match = ROOT_DURATION.search(raw_html)
+    root_duration = (float(root_match.group("duration"))
+                     if root_match else None)
+    findings = []
+    seen = set()
+    # Production GSAP statements terminate with semicolons. Keeping a whole
+    # statement preserves Math.max(... duration ...) expressions.
+    for statement in _strip_comments(raw_html).split(";"):
+        if not re.search(r"\.(?:fromTo|to)\s*\(", statement):
+            continue
+        if not re.search(r"\bease\s*:\s*['\"]none['\"]", statement, re.I):
+            continue
+        grows_scale = bool(
+            re.search(r"\bscaleX\s*:\s*0(?:\.0+)?\b", statement)
+            and re.search(r"\bscaleX\s*:\s*1(?:\.0+)?\b", statement))
+        grows_width = bool(re.search(
+            r"\bwidth\s*:\s*['\"]100%['\"]", statement, re.I))
+        if not (grows_scale or grows_width):
+            continue
+        duration_expr = re.search(
+            r"\bduration\s*:\s*(Math\.max\([^;]+|[A-Za-z_$][\w$]*|"
+            r"\d+(?:\.\d+)?)", statement)
+        if not duration_expr:
+            continue
+        expr = duration_expr.group(1)
+        duration_bound = bool(re.search(r"\bduration\b", expr))
+        if not duration_bound:
+            try:
+                seconds = float(expr)
+            except ValueError:
+                seconds = 0.0
+            duration_bound = bool(root_duration and seconds >= root_duration * .8)
+        if not duration_bound:
+            continue
+        target = re.search(r"\.(?:fromTo|to)\s*\(\s*([^,]+)", statement)
+        label = target.group(1).strip() if target else "line"
+        key = (label, expr)
+        if key in seen:
+            continue
+        seen.add(key)
+        findings.append({
+            "rule": "temporal-progress-motion",
+            "detail": (
+                f"{label} grows linearly from 0 to 100% for the scene/video "
+                "duration. That is a playback/completion indicator, not "
+                "meaning-bearing motion. Remove it and make the narrated idea "
+                "develop through cue-timed elements that establish and settle"
+            ),
+        })
+    return findings
+
+
+def repopulation_findings(raw_html: str):
+    """Reject one generated carrier copied into every scene.
+
+    This is the exact 2026-08-10 failure: twenty-one scenes contained useful,
+    distinct diagrams in markup, then a loop hid them and appended the same
+    five-node map to every `.visual`. Re-entering that clone satisfied motion
+    while the lesson itself did not develop. A persistent carrier is welcome;
+    rebuilding a fresh copy of it inside every scene is not.
+    """
+    collections = re.finditer(
+        r"\b(?:const|let|var)\s+(?P<name>[A-Za-z_$][\w$]*)\s*=\s*"
+        r"(?:gsap\.utils\.toArray|document\.querySelectorAll)\("
+        r"[\"']\.scene[\"']\)", raw_html)
+    for collection in collections:
+        name = collection.group("name")
+        starts = [m.start() for m in re.finditer(
+            rf"\b{re.escape(name)}\.forEach\s*\(", raw_html)]
+        for i, start in enumerate(starts):
+            end = starts[i + 1] if i + 1 < len(starts) else min(
+                len(raw_html), start + 12000)
+            block = raw_html[start:end]
+            if not re.search(r"\.querySelector\(\s*[\"']\.visual[\"']\s*\)",
+                             block):
+                continue
+            if "document.createElement" not in block:
+                continue
+            if not re.search(r"\b(?:visual|sceneVisual)\.append\s*\(", block):
+                continue
+            return [{
+                "rule": "repopulated-carrier",
+                "detail": (
+                    f"{name}.forEach() creates and appends the same generated "
+                    "carrier inside every scene visual. Re-entering a clone "
+                    "does not count as scene development. Keep one carrier "
+                    "persistent across related narration and transform, "
+                    "highlight, or complete its meaning-bearing parts in place"
+                ),
+            }]
+    return []
+
+
+def batch_emphasis_findings(raw_html: str):
+    """Reject paint-only emphasis sprayed across an entire list at once."""
+    findings = []
+    html = _strip_comments(raw_html)
+    for match in TWEEN.finditer(html):
+        target = match.group("target").strip()
+        selectors = _targets(target)
+        if not selectors:
+            continue
+        selector = selectors[0]
+        if not re.search(r"\.(?:card|chip|item|step|node)\b", selector):
+            continue
+        opts = match.group("rest").split(";")[0]
+        if not re.search(r"\bstagger\s*:", opts):
+            continue
+        if not re.search(r"\b(?:borderColor|backgroundColor|color|boxShadow)\s*:",
+                         opts):
+            continue
+        if re.search(r":nth-(?:child|of-type)\(", selector):
+            continue
+        findings.append({
+            "rule": "batch-list-emphasis",
+            "detail": (
+                f"{selector} receives one paint-emphasis tween across the "
+                "whole group. A fast stagger still reads as every box changing "
+                "together. Cue each point from the narration and keep the "
+                "currently spoken item visibly active before advancing"
+            ),
+        })
+    return findings
+
+
 def grade(raw_html: str):
     """Findings for one composition's script."""
-    findings = playback_progress_findings(raw_html)
+    findings = (playback_progress_findings(raw_html)
+                + temporal_progress_findings(raw_html)
+                + repopulation_findings(raw_html)
+                + batch_emphasis_findings(raw_html))
     # Only `//` comments are stripped, so a declared `/* motion-allow: … */`
     # exception survives into the graded text and is still honoured below.
     html = _strip_comments(raw_html)

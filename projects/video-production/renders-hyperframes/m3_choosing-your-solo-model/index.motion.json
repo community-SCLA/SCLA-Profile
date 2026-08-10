@@ -1,98 +1,58 @@
 {
   "compositionId": "m3_choosing-your-solo-model",
-  "duration": 111,
+  "duration": 119.251,
   "fps": 30,
   "timeline": "main",
   "paused": true,
   "seekable": true,
   "beats": [
-    {
-      "id": "beat-01-work",
-      "start": 0,
-      "duration": 9
-    },
-    {
-      "id": "beat-02-models",
-      "start": 9,
-      "duration": 7
-    },
-    {
-      "id": "beat-03-freelance",
-      "start": 16,
-      "duration": 21
-    },
-    {
-      "id": "beat-04-consulting",
-      "start": 37,
-      "duration": 19
-    },
-    {
-      "id": "beat-05-fractional",
-      "start": 56,
-      "duration": 17
-    },
-    {
-      "id": "beat-06-shorthand",
-      "start": 73,
-      "duration": 8
-    },
-    {
-      "id": "beat-07-start",
-      "start": 81,
-      "duration": 16
-    },
-    {
-      "id": "beat-08-choose",
-      "start": 97,
-      "duration": 14
-    }
+    {"id":"beat-01-idea","start":0,"duration":6},
+    {"id":"beat-02-work","start":6,"duration":2.21},
+    {"id":"beat-03-models","start":8.21,"duration":4.14},
+    {"id":"beat-04-freelance","start":12.35,"duration":2.05},
+    {"id":"beat-05-project-based","start":14.4,"duration":3.22},
+    {"id":"beat-06-deliverable","start":17.62,"duration":4.01},
+    {"id":"beat-07-client-needs","start":21.63,"duration":8.82},
+    {"id":"beat-08-doing-work","start":30.45,"duration":4.385},
+    {"id":"beat-09-consulting","start":34.835,"duration":2.03},
+    {"id":"beat-10-different-job","start":36.865,"duration":2.305},
+    {"id":"beat-11-diagnosis","start":39.17,"duration":6.36},
+    {"id":"beat-12-recommend","start":45.53,"duration":6.69},
+    {"id":"beat-13-clarity","start":52.22,"duration":5.875},
+    {"id":"beat-14-fractional","start":58.095,"duration":3.886},
+    {"id":"beat-15-part-time-leader","start":61.981,"duration":5.64},
+    {"id":"beat-16-fractional-roles","start":67.621,"duration":6.46},
+    {"id":"beat-17-embedded","start":74.081,"duration":5.06},
+    {"id":"beat-18-shorthand","start":79.141,"duration":9.04},
+    {"id":"beat-22-test","start":88.181,"duration":8.09},
+    {"id":"beat-23-grow","start":96.271,"duration":7.61},
+    {"id":"beat-24-choose","start":103.881,"duration":9.41},
+    {"id":"beat-25-fit","start":113.291,"duration":5.96}
   ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-01-work",
-      "at": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-02-models",
-      "at": 10.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-03-freelance",
-      "at": 17.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-04-consulting",
-      "at": 38.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-05-fractional",
-      "at": 57.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-06-shorthand",
-      "at": 74.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-07-start",
-      "at": 82.2
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-08-choose",
-      "at": 98.2
-    },
-    {
-      "kind": "keepsMoving",
-      "selector": ".rail-fill",
-      "from": 0,
-      "to": 111
-    }
+    {"kind":"appearsBy","selector":"#beat-01-idea","at":0.8},
+    {"kind":"appearsBy","selector":"#beat-02-work","at":6.8},
+    {"kind":"appearsBy","selector":"#beat-03-models","at":9.01},
+    {"kind":"appearsBy","selector":"#beat-04-freelance","at":13.15},
+    {"kind":"appearsBy","selector":"#beat-05-project-based","at":15.2},
+    {"kind":"appearsBy","selector":"#beat-06-deliverable","at":18.42},
+    {"kind":"appearsBy","selector":"#beat-07-client-needs","at":22.43},
+    {"kind":"appearsBy","selector":"#beat-08-doing-work","at":31.25},
+    {"kind":"appearsBy","selector":"#beat-09-consulting","at":35.635},
+    {"kind":"appearsBy","selector":"#beat-10-different-job","at":37.665},
+    {"kind":"appearsBy","selector":"#beat-11-diagnosis","at":39.97},
+    {"kind":"appearsBy","selector":"#beat-12-recommend","at":46.33},
+    {"kind":"appearsBy","selector":"#beat-13-clarity","at":53.02},
+    {"kind":"appearsBy","selector":"#beat-14-fractional","at":58.895},
+    {"kind":"appearsBy","selector":"#beat-15-part-time-leader","at":62.781},
+    {"kind":"appearsBy","selector":"#beat-16-fractional-roles","at":68.421},
+    {"kind":"appearsBy","selector":"#beat-17-embedded","at":74.881},
+    {"kind":"appearsBy","selector":"#beat-18-shorthand","at":79.941},
+    {"kind":"appearsBy","selector":"#beat-22-test","at":88.981},
+    {"kind":"appearsBy","selector":"#beat-23-grow","at":97.071},
+    {"kind":"appearsBy","selector":"#beat-24-choose","at":104.681},
+    {"kind":"appearsBy","selector":"#beat-25-fit","at":114.091},
+    {"kind":"staysInFrame","selector":".model-board"},
+    {"kind":"keepsMoving","selector":".composition","from":0,"to":119.251}
   ]
 }

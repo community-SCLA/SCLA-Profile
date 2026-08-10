@@ -32,3 +32,22 @@
 2026-08-07T20:45:21Z	preflight	exit 0 — gate-clean
 2026-08-07T20:45:41Z	illustration-rework	cumulative gold dot now travels the rising route; scene counters removed from rendered chrome; gate PASS
 2026-08-07T20:45:49Z	release	build session ended
+2026-08-10T18:49:19Z	resume	program=mid-career-momentum
+2026-08-10T19:12:59Z	preflight	exit 1
+2026-08-10T19:31:44Z	preflight	exit 1
+2026-08-10T19:33:53Z	preflight	exit 1
+2026-08-10T19:36:15Z	preflight	exit 1
+2026-08-10T19:39:35Z	preflight	exit 1
+2026-08-10T19:42:39Z	preflight	exit 0 — gate-clean
+2026-08-10T19:53:46Z	preflight	exit 1
+2026-08-10T20:00:58Z	preflight	exit 1
+2026-08-10T20:03:38Z	preflight	exit 1
+2026-08-10T20:05:51Z	preflight	exit 0 — gate-clean
+2026-08-10T20:08:10Z	owner-feedback-revision	persistent momentum map plus causal beat sketches; explanatory carrier; full gate and visual review clean
+2026-08-10T20:08:16Z	release	build session ended
+2026-08-10T20:17:21Z	resume	program=mid-career-momentum
+2026-08-10T20:21:55Z	preflight	exit 1
+2026-08-10T20:23:39Z	preflight	exit 1
+2026-08-10T20:25:58Z	preflight	exit 0 — gate-clean
+2026-08-10T20:26:10Z	gate-clean	visual rebuild from scratch passed full deterministic gate
+2026-08-10T20:26:10Z	release	build session ended

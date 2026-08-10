@@ -1,0 +1,159 @@
+{
+  "total": 119.251,
+  "rows": [
+    {
+      "id": "beat-01-idea",
+      "audio_start": 0.6,
+      "audio_dur": 5.0,
+      "vis_start": 0.0,
+      "vis_dur": 6.0
+    },
+    {
+      "id": "beat-02-work",
+      "audio_start": 6.25,
+      "audio_dur": 1.56,
+      "vis_start": 6.0,
+      "vis_dur": 2.21
+    },
+    {
+      "id": "beat-03-models",
+      "audio_start": 8.46,
+      "audio_dur": 3.49,
+      "vis_start": 8.21,
+      "vis_dur": 4.14
+    },
+    {
+      "id": "beat-04-freelance",
+      "audio_start": 12.6,
+      "audio_dur": 1.4,
+      "vis_start": 12.35,
+      "vis_dur": 2.05
+    },
+    {
+      "id": "beat-05-project-based",
+      "audio_start": 14.65,
+      "audio_dur": 2.57,
+      "vis_start": 14.4,
+      "vis_dur": 3.22
+    },
+    {
+      "id": "beat-06-deliverable",
+      "audio_start": 17.87,
+      "audio_dur": 3.36,
+      "vis_start": 17.62,
+      "vis_dur": 4.01
+    },
+    {
+      "id": "beat-07-client-needs",
+      "audio_start": 21.88,
+      "audio_dur": 8.17,
+      "vis_start": 21.63,
+      "vis_dur": 8.82
+    },
+    {
+      "id": "beat-08-doing-work",
+      "audio_start": 30.7,
+      "audio_dur": 3.735,
+      "vis_start": 30.45,
+      "vis_dur": 4.385
+    },
+    {
+      "id": "beat-09-consulting",
+      "audio_start": 35.085,
+      "audio_dur": 1.38,
+      "vis_start": 34.835,
+      "vis_dur": 2.03
+    },
+    {
+      "id": "beat-10-different-job",
+      "audio_start": 37.115,
+      "audio_dur": 1.655,
+      "vis_start": 36.865,
+      "vis_dur": 2.305
+    },
+    {
+      "id": "beat-11-diagnosis",
+      "audio_start": 39.42,
+      "audio_dur": 5.71,
+      "vis_start": 39.17,
+      "vis_dur": 6.36
+    },
+    {
+      "id": "beat-12-recommend",
+      "audio_start": 45.78,
+      "audio_dur": 6.04,
+      "vis_start": 45.53,
+      "vis_dur": 6.69
+    },
+    {
+      "id": "beat-13-clarity",
+      "audio_start": 52.47,
+      "audio_dur": 5.225,
+      "vis_start": 52.22,
+      "vis_dur": 5.875
+    },
+    {
+      "id": "beat-14-fractional",
+      "audio_start": 58.345,
+      "audio_dur": 3.236,
+      "vis_start": 58.095,
+      "vis_dur": 3.886
+    },
+    {
+      "id": "beat-15-part-time-leader",
+      "audio_start": 62.231,
+      "audio_dur": 4.99,
+      "vis_start": 61.981,
+      "vis_dur": 5.64
+    },
+    {
+      "id": "beat-16-fractional-roles",
+      "audio_start": 67.871,
+      "audio_dur": 5.81,
+      "vis_start": 67.621,
+      "vis_dur": 6.46
+    },
+    {
+      "id": "beat-17-embedded",
+      "audio_start": 74.331,
+      "audio_dur": 4.41,
+      "vis_start": 74.081,
+      "vis_dur": 5.06
+    },
+    {
+      "id": "beat-18-shorthand",
+      "audio_start": 79.391,
+      "audio_dur": 8.39,
+      "vis_start": 79.141,
+      "vis_dur": 9.04
+    },
+    {
+      "id": "beat-22-test",
+      "audio_start": 88.431,
+      "audio_dur": 7.44,
+      "vis_start": 88.181,
+      "vis_dur": 8.09
+    },
+    {
+      "id": "beat-23-grow",
+      "audio_start": 96.521,
+      "audio_dur": 6.96,
+      "vis_start": 96.271,
+      "vis_dur": 7.61
+    },
+    {
+      "id": "beat-24-choose",
+      "audio_start": 104.131,
+      "audio_dur": 8.76,
+      "vis_start": 103.881,
+      "vis_dur": 9.41
+    },
+    {
+      "id": "beat-25-fit",
+      "audio_start": 113.541,
+      "audio_dur": 3.91,
+      "vis_start": 113.291,
+      "vis_dur": 5.96
+    }
+  ]
+}

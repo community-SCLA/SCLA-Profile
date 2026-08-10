@@ -15,17 +15,29 @@
 ## Layout
 
 - 120px frame padding and a 120px footer reserve.
-- Persistent top-left module label and bottom progress rail.
+- Persistent top-left module label and one carrying object: a framed solo
+  operating-system workbench. Its geometry stays fixed while the mechanism
+  inside evolves from scattered work through tracking, intake, templates,
+  review, boundaries, and the final plan; no playback progress rail.
 - One primary teaching diagram per beat; no dashboard clutter.
 - Cards use 12px corners, strong spacing, and short labels.
 
 ## Motion
 
-- Elements settle within 1.2 seconds using `power3.out`.
-- Cards enter with 12–18px translation and opacity; routes draw left to right.
-- The outgoing content layer clears in 0.3 seconds.
-- The final second adds a gold guardrail resolve.
-- No infinite repeats or non-deterministic effects.
+- Motion always explains a change in the operating system; there is no ambient
+  progress dot or decorative loop.
+- Eight idea scenes persist through complete thoughts instead of resetting at
+  every narration clip. Inside each workbench, only the item named by the
+  narration is revealed or emphasized; settled text remains stable.
+- Opportunities advance through stages; intake hands work from yes to send;
+  reusable templates accumulate without replacing the board.
+- The weekly review resolves its checklist in spoken sequence. Boundary choices
+  move from time to scope to client and timeline fit, and the AI comparison
+  appears only when the narration reaches AI before resolving on the owner's
+  decision.
+- The final plan is completed row by row before the gold guardrail closes it.
+- All motion is finite, deterministic, seek-safe, and settled with
+  `power3.out`.
 
 ## Accessibility
 

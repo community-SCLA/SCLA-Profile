@@ -9,3 +9,18 @@
 2026-08-07T22:11:55Z	preflight	exit 1
 2026-08-07T22:15:38Z	preflight	exit 0 — gate-clean
 2026-08-07T22:15:53Z	release	build session ended
+2026-08-10T18:59:34Z	resume	program=mid-career-momentum
+2026-08-10T19:04:01Z	authoring	selected Proof Beam lens; rebuilt concept, design, and composition around one oversized document
+2026-08-10T19:05:42Z	preflight	exit 1
+2026-08-10T19:07:03Z	preflight	exit 1
+2026-08-10T19:08:18Z	preflight	exit 1
+2026-08-10T19:09:06Z	gate-fix	literal timeline registration; removed heading punctuation; added one restrained full-duration background drift
+2026-08-10T19:14:06Z	preflight	exit 1
+2026-08-10T19:14:45Z	gate-fix	added a meaning-bearing archive scan aperture through b01 to avoid a frozen teaching frame
+2026-08-10T19:17:38Z	preflight	exit 1
+2026-08-10T19:19:24Z	gate-fix	extended the Proof Beam carrier as a low-contrast scan aperture behind each settled teaching frame
+2026-08-10T19:21:25Z	preflight	exit 1
+2026-08-10T19:21:59Z	gate-fix	made the proof-scan aperture visibly traverse the carrier from edge to edge inside every stage
+2026-08-10T19:23:44Z	preflight	exit 0 — gate-clean
+2026-08-10T19:24:00Z	gate-pass	durable gate PASS; 26 beats; 66 layout samples clean
+2026-08-10T19:24:00Z	release	build session ended

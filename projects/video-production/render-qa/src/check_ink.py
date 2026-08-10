@@ -37,6 +37,16 @@ from hfp_common import Finding, typed  # noqa: E402
 
 DEFAULT_THRESHOLD = 60
 DEFAULT_MIN_PX = 40
+# Owner feedback, 2026-08-10: a technically in-bounds frame can still be
+# unusably small inside a large empty canvas. Divide the primary content field
+# into nine equal zones and require meaningful local-contrast ink in at least
+# five. This is a video-wide rule: an occasional sparse title beat is fine; a
+# layout system that leaves most of the canvas unused is not.
+ZONE_GRID = 3
+ZONE_EDGE_DENSITY = 0.025
+MIN_ACTIVE_ZONES = 5
+MAX_UNDERFILLED_SHARE = 0.25
+MIN_FRAMES_FOR_UTILIZATION = 3
 # Same slack the retired geometry gate allowed: the difference between a glyph line
 # box and its ink, plus antialiasing at the exact band edge. Without it the
 # brandline at left:120px reports a padding-breach from its own left
@@ -114,7 +124,24 @@ def grade(path, ws=None, threshold=DEFAULT_THRESHOLD, min_px=DEFAULT_MIN_PX,
     findings = [{"frame": path.name, "rule": r, "px": n, "extent": extents[r]}
                 for r, n in counts.items() if n > min_px]
     edge_px = sum(1 for v in mask.getdata() if v)
+    # Measure the primary content field after declared chrome has been removed.
+    # Long frame rules and workbench borders do not buy a zone: their edge
+    # density is far below the 2.5% floor.
+    field = mask.crop((pad, pad, w - pad, bottom))
+    fw, fh = field.size
+    zone_densities = []
+    for row in range(ZONE_GRID):
+        for col in range(ZONE_GRID):
+            box = (col * fw // ZONE_GRID, row * fh // ZONE_GRID,
+                   (col + 1) * fw // ZONE_GRID,
+                   (row + 1) * fh // ZONE_GRID)
+            crop = field.crop(box)
+            ink = sum(1 for v in crop.getdata() if v)
+            zone_densities.append(ink / max(1, crop.width * crop.height))
+    active_zones = sum(d >= ZONE_EDGE_DENSITY for d in zone_densities)
     return {"frame": path.name, "edge_px": edge_px, "counts": counts,
+            "active_zones": active_zones,
+            "zone_densities": [round(d, 4) for d in zone_densities],
             "findings": findings}
 
 
@@ -134,6 +161,23 @@ def check(target: Path, ws=None, threshold=DEFAULT_THRESHOLD,
                         f"band, x {f['extent']['x0']}..{f['extent']['x1']} "
                         f"y {f['extent']['y0']}..{f['extent']['y1']}")
                 for r in reports for f in r["findings"]]
+    if len(reports) >= MIN_FRAMES_FOR_UTILIZATION:
+        underfilled = [r for r in reports
+                       if r["active_zones"] < MIN_ACTIVE_ZONES]
+        share = len(underfilled) / len(reports)
+        if share > MAX_UNDERFILLED_SHARE:
+            sample = ", ".join(
+                f"{r['frame']} ({r['active_zones']}/9)"
+                for r in underfilled[:5])
+            problems.append(Finding(
+                "frame-underfilled",
+                f"{len(underfilled)}/{len(reports)} sampled frames "
+                f"({share*100:.0f}%) use fewer than {MIN_ACTIVE_ZONES}/9 "
+                f"content zones, against a {MAX_UNDERFILLED_SHARE*100:.0f}% "
+                f"video-wide ceiling. The composition is leaving most of the "
+                f"scene empty or shrinking one side of a split layout. Enlarge "
+                f"the teaching graphic and type together, preserve padding, "
+                f"and rebalance the whole frame. Examples: {sample}"))
     return reports, problems, allow
 
 
@@ -171,10 +215,10 @@ def main(argv):
               f"band floor {min_px}px, tolerance {TOLERANCE}px")
         for r in allow:
             print(f"  declared chrome region (not graded): {tuple(r)}")
-        print(f"{'frame':<32}{'edges':>9}{'safe':>8}{'pad':>8}{'footer':>8}")
+        print(f"{'frame':<32}{'edges':>9}{'zones':>8}{'safe':>8}{'pad':>8}{'footer':>8}")
         for r in reports:
             c = r["counts"]
-            print(f"{r['frame']:<32}{r['edge_px']:>9}"
+            print(f"{r['frame']:<32}{r['edge_px']:>9}{r['active_zones']:>8}"
                   f"{c['safe-area-breach']:>8}{c['padding-breach']:>8}"
                   f"{c['footer-breach']:>8}")
         for p in problems:

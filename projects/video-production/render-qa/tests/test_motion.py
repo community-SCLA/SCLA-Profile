@@ -74,11 +74,52 @@ RENAMED_PROGRESS_ROLE = """<style>
 .rail { position:fixed; left:100px; right:100px; bottom:90px; height:6px; }
 </style><nav class="rail" data-role="progress"></nav>"""
 
+RENAMED_TRACK = """<main data-duration="120"><style>
+.track { position:absolute; left:100px; right:100px; bottom:90px; height:6px; }
+.track i { display:block; width:100%; height:100%; transform:scaleX(0); }
+</style><div class="track"><i></i></div><script>
+const timeline = gsap.timeline({paused:true});
+timeline.fromTo('.track i',{scaleX:0},{scaleX:1,duration:120,ease:'none'},0);
+</script></main>"""
+
+SCENE_TRACE = """<main data-duration="118"><script>
+const timeline = gsap.timeline({paused:true});
+clips.forEach((clip) => {
+  const duration = Number(clip.dataset.duration);
+  const trace = document.createElement('span');
+  timeline.fromTo(trace, {scaleX:0},
+    {scaleX:1,duration:Math.max(1,duration-.4),ease:'none'}, start+.2);
+});
+</script></main>"""
+
 CONTENT_MAP = """<style>
 .map-progress { position:absolute; left:24px; right:24px; top:55px;
   height:4px; background:#eaab2d; }
 </style><div class="map-progress"></div><script>
 tl.to('.map-progress',{scaleX:.8,duration:.56,ease:'power2.out'},12);
+</script>"""
+
+REPOPULATED_CARRIER = """<script>
+const scenes = gsap.utils.toArray('.scene');
+scenes.forEach((scene) => {
+  const visual = scene.querySelector('.visual');
+  const map = document.createElement('div');
+  map.className = 'system-map';
+  visual.append(map);
+});
+</script>"""
+
+BATCH_EMPHASIS = """<script>
+const timeline = gsap.timeline({paused:true});
+timeline.to('#examples .card', {
+  borderColor:'#eaab2d', duration:.45, stagger:.1
+}, 12);
+</script>"""
+
+POINT_EMPHASIS = """<script>
+const timeline = gsap.timeline({paused:true});
+timeline.to('#examples .card:nth-child(1)', {borderColor:'#eaab2d'}, 12)
+  .to('#examples .card:nth-child(2)', {borderColor:'#eaab2d'}, 14.2);
 </script>"""
 
 # ---------------------------------------------------------------------------
@@ -95,11 +136,31 @@ fires(check, "check_motion", "playback-progress-indicator",
 check("renaming the bar cannot evade an explicit progress role",
       "playback-progress-indicator" in rules(RENAMED_PROGRESS_ROLE),
       str(check_motion.grade(RENAMED_PROGRESS_ROLE)))
+fires(check, "check_motion", "temporal-progress-motion",
+      "a renamed full-runtime .track line FAILS",
+      "temporal-progress-motion" in rules(RENAMED_TRACK),
+      str(check_motion.grade(RENAMED_TRACK)))
+check("a top-edge per-scene trace is still temporal progress",
+      "temporal-progress-motion" in rules(SCENE_TRACE),
+      str(check_motion.grade(SCENE_TRACE)))
 check("a meaning-bearing map away from the bottom edge remains allowed",
       "playback-progress-indicator" not in rules(CONTENT_MAP),
       str(check_motion.grade(CONTENT_MAP)))
 check("the word progress in narration is not a visual progress bar",
       not rules("<p>Your progress grows through practice.</p>"))
+
+print("== cloned carriers and batch emphasis never earn motion credit ==")
+fires(check, "check_motion", "repopulated-carrier",
+      "creating and appending the same carrier inside every scene FAILS",
+      "repopulated-carrier" in rules(REPOPULATED_CARRIER),
+      str(check_motion.grade(REPOPULATED_CARRIER)))
+fires(check, "check_motion", "batch-list-emphasis",
+      "one paint tween sprayed across every card FAILS",
+      "batch-list-emphasis" in rules(BATCH_EMPHASIS),
+      str(check_motion.grade(BATCH_EMPHASIS)))
+check("cueing individual cards at distinct narration times remains allowed",
+      "batch-list-emphasis" not in rules(POINT_EMPHASIS),
+      str(check_motion.grade(POINT_EMPHASIS)))
 
 # ---------------------------------------------------------------------------
 print("== the ban fires on content ==")
@@ -111,6 +172,9 @@ fires(check, "check_motion", "keep-alive-motion",
 
 check("a repeating tween on a text node FAILS",
       "keep-alive-motion" in rules(tween('"#sm-statement"', BOB)))
+check("a timeline named `timeline` is graded just like one named `tl`",
+      "keep-alive-motion" in rules(
+          tween('"#sm-statement"', BOB).replace("tl.fromTo", "timeline.fromTo")))
 check("a repeating tween on a card/node FAILS",
       "keep-alive-motion" in rules(tween('"#cm-node-1"', BOB)))
 check("an array of content targets FAILS",

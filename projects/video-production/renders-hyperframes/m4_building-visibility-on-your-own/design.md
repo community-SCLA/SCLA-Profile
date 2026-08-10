@@ -14,3 +14,7 @@ The gold signal dot and connecting route persist across scenes. Cards use subtle
 
 ## Motion
 One paused GSAP timeline controls the entire composition. Scenes use short opacity, translate, scale, and route-draw entrances with restrained stagger. No infinite animation. All state is deterministic and seekable.
+
+## Carrying Object
+
+The persistent carrying object is one signal network centered on “you.” It is built once, remains on screen across the full lesson, and changes only through node emphasis and route growth as the narration moves from clarity to credibility, participation, and referral.

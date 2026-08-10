@@ -18,3 +18,16 @@
 2026-08-08T03:09:02Z	revision	Removed prohibited playback progress UI and replaced it with beat-specific inventory-case evolution
 2026-08-08T03:09:02Z	gate	PASS; combined visual review PASS / ALIVE / PROCEED at revision fab4d4e1ac6f104bd91636158c6a6e41db72452ec23f6135a879f9b14f89ef6b
 2026-08-08T03:09:02Z	release	build session ended
+2026-08-08T04:40:47Z	resume	program=career-transitions
+2026-08-08T04:41:30Z	composed	removed numeric suffixes from 29 right-panel eyebrow labels; semantic phase words preserved
+2026-08-08T04:42:53Z	preflight	exit 1
+2026-08-08T04:43:09Z	release	build session ended
+2026-08-08T04:43:37Z	resume	program=career-transitions
+2026-08-08T04:45:22Z	preflight	exit 0 — gate-clean
+2026-08-08T04:45:45Z	release	build session ended
+2026-08-10T20:04:08Z	resume	program=career-transitions
+2026-08-10T20:05:37Z	preflight	exit 0 — gate-clean
+2026-08-10T20:05:38Z	release	build session ended
+2026-08-10T20:05:52Z	resume	program=career-transitions
+2026-08-10T20:07:15Z	preflight	exit 0 — gate-clean
+2026-08-10T20:07:16Z	release	build session ended

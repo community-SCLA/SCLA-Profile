@@ -1,13 +1,32 @@
 ---
 source: manual
 generated_by: source-of-truth-curator
-last_updated: 2026-07-09
+last_updated: 2026-08-10
 confidence: high
 ---
 
 # SCLA Decisions Log
 
 Running log of notable team decisions. Append new entries at the top.
+
+## 2026-08-10 — Owner-approved static holds are warnings, not render blockers
+
+**Owner decision:** a cut the owner has watched and approved may contain a
+deliberate static hold. Motion added only to satisfy the pixel-stagnation gate
+does not add meaning and can make the work worse.
+
+**Verification policy:** `check_presence.py` continues to detect and report
+every narrated pixel-static run of 6 seconds or longer. `verify_render.py`
+downgrades only the `stagnant-frame` findings when the durable owner approval
+matches the workspace's exact current source revision (which is already bound
+to the rendered MP4 by `RENDER-START.json`). The finding remains visible as an
+`owner-approved-static-hold` warning with its approval time and revision.
+
+This is not a general approval bypass. A stale or non-owner approval still
+blocks, and every other verification defect—including blank frames, clipped
+audio, wrong duration or resolution, changed render bytes, and stale source—
+remains fatal. Regression tests prove the exception fires only in that narrow
+case.
 
 ## 2026-08-08 — Bottom playback progress bars are a hard gate failure
 

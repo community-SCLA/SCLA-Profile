@@ -18,1828 +18,1926 @@
   "bgm_loop_count": null,
   "voices": [
     {
-      "id": "beat-01-work",
-      "path": "assets/voice/beat-01-work.wav",
-      "duration_s": 7.14,
+      "id": "beat-01-idea",
+      "path": "assets/voice/beat-01-idea.wav",
+      "duration_s": 5.0,
       "words": [
         {
           "id": "w0",
           "text": "Once",
-          "start": 0.14,
-          "end": 0.33
+          "start": 0.02,
+          "end": 0.21
         },
         {
           "id": "w1",
           "text": "you've",
-          "start": 0.4,
-          "end": 0.52
+          "start": 0.28,
+          "end": 0.4
         },
         {
           "id": "w2",
           "text": "got",
-          "start": 0.56,
-          "end": 0.68
+          "start": 0.44,
+          "end": 0.56
         },
         {
           "id": "w3",
           "text": "a",
-          "start": 0.72,
-          "end": 0.82
+          "start": 0.6,
+          "end": 0.7
         },
         {
           "id": "w4",
           "text": "side-hustle",
-          "start": 0.84,
-          "end": 1.4
+          "start": 0.72,
+          "end": 1.28
         },
         {
           "id": "w5",
           "text": "idea,",
-          "start": 1.46,
-          "end": 1.84
+          "start": 1.34,
+          "end": 1.72
         },
         {
           "id": "w6",
           "text": "the",
-          "start": 2.26,
-          "end": 2.349
+          "start": 2.14,
+          "end": 2.229
         },
         {
           "id": "w7",
           "text": "next",
-          "start": 2.42,
-          "end": 2.62
+          "start": 2.3,
+          "end": 2.5
         },
         {
           "id": "w8",
           "text": "question",
-          "start": 2.72,
-          "end": 3.2
+          "start": 2.6,
+          "end": 3.08
         },
         {
           "id": "w9",
           "text": "isn't",
-          "start": 3.28,
-          "end": 3.58
+          "start": 3.16,
+          "end": 3.46
         },
         {
           "id": "w10",
           "text": "only",
-          "start": 3.66,
-          "end": 3.86
+          "start": 3.54,
+          "end": 3.74
         },
         {
           "id": "w11",
           "text": "what",
-          "start": 3.96,
-          "end": 4.05
+          "start": 3.84,
+          "end": 3.93
         },
         {
           "id": "w12",
           "text": "you",
-          "start": 4.14,
-          "end": 4.189
+          "start": 4.02,
+          "end": 4.069
         },
         {
           "id": "w13",
           "text": "want",
-          "start": 4.26,
-          "end": 4.4
+          "start": 4.14,
+          "end": 4.28
         },
         {
           "id": "w14",
           "text": "to",
-          "start": 4.44,
-          "end": 4.54
+          "start": 4.32,
+          "end": 4.42
         },
         {
           "id": "w15",
           "text": "offer.",
-          "start": 4.62,
-          "end": 4.96
-        },
-        {
-          "id": "w16",
-          "text": "It's",
-          "start": 5.6,
-          "end": 5.78
-        },
-        {
-          "id": "w17",
-          "text": "how",
-          "start": 5.88,
-          "end": 6.1
-        },
-        {
-          "id": "w18",
-          "text": "you",
-          "start": 6.22,
-          "end": 6.32
-        },
-        {
-          "id": "w19",
-          "text": "want",
-          "start": 6.36,
-          "end": 6.52
-        },
-        {
-          "id": "w20",
-          "text": "to",
-          "start": 6.58,
-          "end": 6.64
-        },
-        {
-          "id": "w21",
-          "text": "work.",
-          "start": 6.72,
-          "end": 7.0
+          "start": 4.5,
+          "end": 4.84
         }
       ]
     },
     {
-      "id": "beat-02-models",
-      "path": "assets/voice/beat-02-models.wav",
-      "duration_s": 3.97,
+      "id": "beat-02-work",
+      "path": "assets/voice/beat-02-work.wav",
+      "duration_s": 1.56,
       "words": [
         {
           "id": "w0",
-          "text": "There",
-          "start": 0.14,
-          "end": 0.22
+          "text": "It's",
+          "start": 0.02,
+          "end": 0.2
         },
         {
           "id": "w1",
-          "text": "are",
-          "start": 0.24,
-          "end": 0.34
+          "text": "how",
+          "start": 0.3,
+          "end": 0.52
         },
         {
           "id": "w2",
-          "text": "three",
-          "start": 0.36,
-          "end": 0.58
+          "text": "you",
+          "start": 0.64,
+          "end": 0.74
         },
         {
           "id": "w3",
-          "text": "models",
-          "start": 0.62,
+          "text": "want",
+          "start": 0.78,
           "end": 0.94
         },
         {
           "id": "w4",
           "text": "to",
-          "start": 0.98,
-          "end": 1.08
+          "start": 1.0,
+          "end": 1.06
+        },
+        {
+          "id": "w5",
+          "text": "work.",
+          "start": 1.14,
+          "end": 1.42
+        }
+      ]
+    },
+    {
+      "id": "beat-03-models",
+      "path": "assets/voice/beat-03-models.wav",
+      "duration_s": 3.49,
+      "words": [
+        {
+          "id": "w0",
+          "text": "There",
+          "start": 0.0,
+          "end": 0.06
+        },
+        {
+          "id": "w1",
+          "text": "are",
+          "start": 0.08,
+          "end": 0.18
+        },
+        {
+          "id": "w2",
+          "text": "three",
+          "start": 0.2,
+          "end": 0.42
+        },
+        {
+          "id": "w3",
+          "text": "models",
+          "start": 0.46,
+          "end": 0.78
+        },
+        {
+          "id": "w4",
+          "text": "to",
+          "start": 0.82,
+          "end": 0.92
         },
         {
           "id": "w5",
           "text": "weigh,",
-          "start": 1.1,
-          "end": 1.32
+          "start": 0.94,
+          "end": 1.16
         },
         {
           "id": "w6",
           "text": "and",
-          "start": 1.78,
-          "end": 1.86
+          "start": 1.62,
+          "end": 1.7
         },
         {
           "id": "w7",
           "text": "each",
-          "start": 1.9,
-          "end": 2.08
+          "start": 1.74,
+          "end": 1.92
         },
         {
           "id": "w8",
           "text": "one",
-          "start": 2.12,
-          "end": 2.259
+          "start": 1.96,
+          "end": 2.099
         },
         {
           "id": "w9",
           "text": "asks",
-          "start": 2.32,
-          "end": 2.56
+          "start": 2.16,
+          "end": 2.4
         },
         {
           "id": "w10",
           "text": "something",
-          "start": 2.6,
-          "end": 2.9
+          "start": 2.44,
+          "end": 2.74
         },
         {
           "id": "w11",
           "text": "different",
-          "start": 2.91,
-          "end": 3.2
+          "start": 2.75,
+          "end": 3.04
         },
         {
           "id": "w12",
           "text": "of",
-          "start": 3.22,
-          "end": 3.32
+          "start": 3.06,
+          "end": 3.16
         },
         {
           "id": "w13",
           "text": "you.",
-          "start": 3.36,
-          "end": 3.46
+          "start": 3.2,
+          "end": 3.3
         }
       ]
     },
     {
-      "id": "beat-03-freelance",
-      "path": "assets/voice/beat-03-freelance.wav",
-      "duration_s": 22.115,
+      "id": "beat-04-freelance",
+      "path": "assets/voice/beat-04-freelance.wav",
+      "duration_s": 1.4,
       "words": [
         {
           "id": "w0",
           "text": "The",
-          "start": 0.51,
-          "end": 0.61
+          "start": 0.01,
+          "end": 0.11
         },
         {
           "id": "w1",
           "text": "first",
-          "start": 0.65,
-          "end": 0.89
+          "start": 0.15,
+          "end": 0.39
         },
         {
           "id": "w2",
           "text": "is",
-          "start": 0.95,
-          "end": 1.09
+          "start": 0.45,
+          "end": 0.59
         },
         {
           "id": "w3",
           "text": "freelancing.",
-          "start": 1.13,
-          "end": 2.45
-        },
+          "start": 0.63,
+          "end": 1.4
+        }
+      ]
+    },
+    {
+      "id": "beat-05-project-based",
+      "path": "assets/voice/beat-05-project-based.wav",
+      "duration_s": 2.57,
+      "words": [
         {
-          "id": "w4",
+          "id": "w0",
           "text": "Freelancing",
-          "start": 2.51,
-          "end": 3.01
+          "start": 0.0,
+          "end": 0.49
         },
         {
-          "id": "w5",
+          "id": "w1",
           "text": "is",
-          "start": 3.05,
-          "end": 3.17
+          "start": 0.53,
+          "end": 0.65
         },
         {
-          "id": "w6",
+          "id": "w2",
           "text": "usually",
-          "start": 3.23,
-          "end": 3.55
+          "start": 0.71,
+          "end": 1.03
         },
         {
-          "id": "w7",
+          "id": "w3",
           "text": "task",
-          "start": 3.61,
-          "end": 4.03
+          "start": 1.09,
+          "end": 1.51
         },
         {
-          "id": "w8",
+          "id": "w4",
           "text": "or",
-          "start": 4.07,
-          "end": 4.17
+          "start": 1.55,
+          "end": 1.65
         },
         {
-          "id": "w9",
+          "id": "w5",
           "text": "project",
-          "start": 4.19,
-          "end": 4.57
+          "start": 1.67,
+          "end": 2.05
         },
         {
-          "id": "w10",
+          "id": "w6",
           "text": "based.",
-          "start": 4.61,
-          "end": 5.21
-        },
+          "start": 2.09,
+          "end": 2.57
+        }
+      ]
+    },
+    {
+      "id": "beat-06-deliverable",
+      "path": "assets/voice/beat-06-deliverable.wav",
+      "duration_s": 3.36,
+      "words": [
         {
-          "id": "w11",
+          "id": "w0",
           "text": "You're",
-          "start": 5.25,
-          "end": 5.4
+          "start": 0.0,
+          "end": 0.15
         },
         {
-          "id": "w12",
+          "id": "w1",
           "text": "hired",
-          "start": 5.49,
-          "end": 5.74
-        },
-        {
-          "id": "w13",
-          "text": "to",
-          "start": 5.75,
-          "end": 5.83
-        },
-        {
-          "id": "w14",
-          "text": "complete",
-          "start": 5.85,
-          "end": 6.18
-        },
-        {
-          "id": "w15",
-          "text": "the",
-          "start": 6.18,
-          "end": 6.29
-        },
-        {
-          "id": "w16",
-          "text": "work",
-          "start": 6.37,
-          "end": 6.81
-        },
-        {
-          "id": "w17",
-          "text": "or",
-          "start": 6.85,
-          "end": 6.98
-        },
-        {
-          "id": "w18",
-          "text": "produce",
-          "start": 7.01,
-          "end": 7.33
-        },
-        {
-          "id": "w19",
-          "text": "the",
-          "start": 7.37,
-          "end": 7.45
-        },
-        {
-          "id": "w20",
-          "text": "deliverable.",
-          "start": 7.47,
-          "end": 8.61
-        },
-        {
-          "id": "w21",
-          "text": "A",
-          "start": 8.65,
-          "end": 8.69
-        },
-        {
-          "id": "w22",
-          "text": "client",
-          "start": 8.76,
-          "end": 9.11
-        },
-        {
-          "id": "w23",
-          "text": "needs",
-          "start": 9.13,
-          "end": 9.3
-        },
-        {
-          "id": "w24",
-          "text": "a",
-          "start": 9.35,
-          "end": 9.37
-        },
-        {
-          "id": "w25",
-          "text": "workshop",
-          "start": 9.43,
-          "end": 9.83
-        },
-        {
-          "id": "w26",
-          "text": "run;",
-          "start": 9.89,
-          "end": 10.13
-        },
-        {
-          "id": "w27",
-          "text": "a",
-          "start": 11.09,
-          "end": 11.15
-        },
-        {
-          "id": "w28",
-          "text": "set",
-          "start": 11.21,
-          "end": 11.33
-        },
-        {
-          "id": "w29",
-          "text": "of",
-          "start": 11.37,
-          "end": 11.45
-        },
-        {
-          "id": "w30",
-          "text": "designs;",
-          "start": 11.49,
-          "end": 12.09
-        },
-        {
-          "id": "w31",
-          "text": "a",
-          "start": 12.79,
-          "end": 12.87
-        },
-        {
-          "id": "w32",
-          "text": "messaging",
-          "start": 12.93,
-          "end": 13.35
-        },
-        {
-          "id": "w33",
-          "text": "refresh;",
-          "start": 13.41,
-          "end": 13.93
-        },
-        {
-          "id": "w34",
-          "text": "a",
-          "start": 14.63,
-          "end": 14.71
-        },
-        {
-          "id": "w35",
-          "text": "system",
-          "start": 14.77,
-          "end": 15.09
-        },
-        {
-          "id": "w36",
-          "text": "set",
-          "start": 15.19,
-          "end": 15.31
-        },
-        {
-          "id": "w37",
-          "text": "up;",
-          "start": 15.39,
-          "end": 15.55
-        },
-        {
-          "id": "w38",
-          "text": "a",
-          "start": 16.23,
-          "end": 16.29
-        },
-        {
-          "id": "w39",
-          "text": "short-term",
-          "start": 16.33,
-          "end": 16.85
-        },
-        {
-          "id": "w40",
-          "text": "project",
-          "start": 16.93,
-          "end": 17.29
-        },
-        {
-          "id": "w41",
-          "text": "shipped.",
-          "start": 17.37,
-          "end": 17.69
-        },
-        {
-          "id": "w42",
-          "text": "In",
-          "start": 18.19,
-          "end": 18.27
-        },
-        {
-          "id": "w43",
-          "text": "this",
-          "start": 18.33,
-          "end": 18.51
-        },
-        {
-          "id": "w44",
-          "text": "model,",
-          "start": 18.61,
-          "end": 18.93
-        },
-        {
-          "id": "w45",
-          "text": "you",
-          "start": 19.36,
-          "end": 19.39
-        },
-        {
-          "id": "w46",
-          "text": "are",
-          "start": 19.45,
-          "end": 19.57
-        },
-        {
-          "id": "w47",
-          "text": "often",
-          "start": 19.65,
-          "end": 19.97
-        },
-        {
-          "id": "w48",
-          "text": "paid",
-          "start": 20.03,
-          "end": 20.35
-        },
-        {
-          "id": "w49",
-          "text": "for",
-          "start": 20.39,
-          "end": 20.54
-        },
-        {
-          "id": "w50",
-          "text": "doing",
-          "start": 20.57,
-          "end": 20.82
-        },
-        {
-          "id": "w51",
-          "text": "the",
-          "start": 20.85,
-          "end": 20.95
-        },
-        {
-          "id": "w52",
-          "text": "work",
-          "start": 20.99,
-          "end": 21.25
-        },
-        {
-          "id": "w53",
-          "text": "directly.",
-          "start": 21.27,
-          "end": 21.78
-        }
-      ]
-    },
-    {
-      "id": "beat-04-consulting",
-      "path": "assets/voice/beat-04-consulting.wav",
-      "duration_s": 21.51,
-      "words": [
-        {
-          "id": "w0",
-          "text": "The",
-          "start": 0.335,
-          "end": 0.435
-        },
-        {
-          "id": "w1",
-          "text": "second",
-          "start": 0.475,
-          "end": 0.795
-        },
-        {
-          "id": "w2",
-          "text": "is",
-          "start": 0.835,
-          "end": 0.935
-        },
-        {
-          "id": "w3",
-          "text": "consulting.",
-          "start": 0.975,
-          "end": 1.565
-        },
-        {
-          "id": "w4",
-          "text": "Consulting",
-          "start": 1.995,
-          "end": 2.555
-        },
-        {
-          "id": "w5",
-          "text": "is",
-          "start": 2.595,
-          "end": 2.665
-        },
-        {
-          "id": "w6",
-          "text": "a",
-          "start": 2.775,
-          "end": 2.785
-        },
-        {
-          "id": "w7",
-          "text": "different",
-          "start": 2.815,
-          "end": 3.135
-        },
-        {
-          "id": "w8",
-          "text": "job.",
-          "start": 3.175,
-          "end": 3.835
-        },
-        {
-          "id": "w9",
-          "text": "Here,",
-          "start": 3.955,
-          "end": 4.095
-        },
-        {
-          "id": "w10",
-          "text": "clients",
-          "start": 4.535,
-          "end": 4.875
-        },
-        {
-          "id": "w11",
-          "text": "hire",
-          "start": 4.935,
-          "end": 5.215
-        },
-        {
-          "id": "w12",
-          "text": "you",
-          "start": 5.255,
-          "end": 5.375
-        },
-        {
-          "id": "w13",
-          "text": "for",
-          "start": 5.395,
-          "end": 5.495
-        },
-        {
-          "id": "w14",
-          "text": "diagnosis,",
-          "start": 5.535,
-          "end": 6.235
-        },
-        {
-          "id": "w15",
-          "text": "insight,",
-          "start": 6.675,
-          "end": 7.165
-        },
-        {
-          "id": "w16",
-          "text": "problem-solving,",
-          "start": 7.495,
-          "end": 8.345
-        },
-        {
-          "id": "w17",
-          "text": "and",
-          "start": 8.735,
-          "end": 8.875
-        },
-        {
-          "id": "w18",
-          "text": "strategy.",
-          "start": 8.995,
-          "end": 9.475
-        },
-        {
-          "id": "w19",
-          "text": "You",
-          "start": 10.015,
-          "end": 10.115
-        },
-        {
-          "id": "w20",
-          "text": "analyze",
-          "start": 10.215,
-          "end": 10.555
-        },
-        {
-          "id": "w21",
-          "text": "a",
-          "start": 10.595,
-          "end": 10.655
-        },
-        {
-          "id": "w22",
-          "text": "process,",
-          "start": 10.695,
-          "end": 11.255
-        },
-        {
-          "id": "w23",
-          "text": "name",
-          "start": 11.675,
-          "end": 11.895
-        },
-        {
-          "id": "w24",
-          "text": "the",
-          "start": 11.935,
-          "end": 11.995
-        },
-        {
-          "id": "w25",
-          "text": "real",
-          "start": 12.035,
-          "end": 12.195
-        },
-        {
-          "id": "w26",
-          "text": "problem,",
-          "start": 12.295,
-          "end": 12.755
-        },
-        {
-          "id": "w27",
-          "text": "recommend",
-          "start": 13.175,
-          "end": 13.615
-        },
-        {
-          "id": "w28",
-          "text": "a",
-          "start": 13.655,
-          "end": 13.715
-        },
-        {
-          "id": "w29",
-          "text": "new",
-          "start": 13.755,
-          "end": 13.875
-        },
-        {
-          "id": "w30",
-          "text": "approach,",
-          "start": 13.915,
-          "end": 14.415
-        },
-        {
-          "id": "w31",
-          "text": "and",
-          "start": 14.735,
-          "end": 14.835
-        },
-        {
-          "id": "w32",
-          "text": "hand",
-          "start": 14.955,
-          "end": 15.155
-        },
-        {
-          "id": "w33",
-          "text": "over",
-          "start": 15.215,
-          "end": 15.375
-        },
-        {
-          "id": "w34",
-          "text": "a",
-          "start": 15.415,
-          "end": 15.435
-        },
-        {
-          "id": "w35",
-          "text": "plan.",
-          "start": 15.535,
-          "end": 15.955
-        },
-        {
-          "id": "w36",
-          "text": "The",
-          "start": 16.215,
-          "end": 16.315
-        },
-        {
-          "id": "w37",
-          "text": "focus",
-          "start": 16.355,
-          "end": 16.675
-        },
-        {
-          "id": "w38",
-          "text": "is",
-          "start": 16.735,
-          "end": 16.815
-        },
-        {
-          "id": "w39",
-          "text": "more",
-          "start": 16.935,
-          "end": 17.135
-        },
-        {
-          "id": "w40",
-          "text": "on",
-          "start": 17.195,
-          "end": 17.335
-        },
-        {
-          "id": "w41",
-          "text": "clarity",
-          "start": 17.375,
-          "end": 17.815
-        },
-        {
-          "id": "w42",
-          "text": "and",
-          "start": 17.825,
-          "end": 17.925
-        },
-        {
-          "id": "w43",
-          "text": "outcomes",
-          "start": 18.015,
-          "end": 18.515
-        },
-        {
-          "id": "w44",
-          "text": "than",
-          "start": 18.775,
-          "end": 18.875
-        },
-        {
-          "id": "w45",
-          "text": "on",
-          "start": 18.915,
-          "end": 19.055
-        },
-        {
-          "id": "w46",
-          "text": "being",
-          "start": 19.095,
-          "end": 19.335
-        },
-        {
-          "id": "w47",
-          "text": "the",
-          "start": 19.345,
-          "end": 19.455
-        },
-        {
-          "id": "w48",
-          "text": "person",
-          "start": 19.495,
-          "end": 19.815
-        },
-        {
-          "id": "w49",
-          "text": "who",
-          "start": 19.835,
-          "end": 19.955
-        },
-        {
-          "id": "w50",
-          "text": "executes",
-          "start": 20.015,
-          "end": 20.495
-        },
-        {
-          "id": "w51",
-          "text": "every",
-          "start": 20.575,
-          "end": 20.745
-        },
-        {
-          "id": "w52",
-          "text": "task.",
-          "start": 20.855,
-          "end": 21.295
-        }
-      ]
-    },
-    {
-      "id": "beat-05-fractional",
-      "path": "assets/voice/beat-05-fractional.wav",
-      "duration_s": 20.586,
-      "words": [
-        {
-          "id": "w0",
-          "text": "The",
-          "start": 0.215,
-          "end": 0.366
-        },
-        {
-          "id": "w1",
-          "text": "third",
-          "start": 0.425,
-          "end": 0.666
-        },
-        {
-          "id": "w2",
-          "text": "is",
-          "start": 0.766,
-          "end": 0.925
-        },
-        {
-          "id": "w3",
-          "text": "fractional",
-          "start": 0.986,
-          "end": 1.446
-        },
-        {
-          "id": "w4",
-          "text": "work,",
-          "start": 1.546,
-          "end": 1.816
-        },
-        {
-          "id": "w5",
-          "text": "and",
-          "start": 2.066,
-          "end": 2.126
-        },
-        {
-          "id": "w6",
-          "text": "it",
-          "start": 2.166,
-          "end": 2.286
-        },
-        {
-          "id": "w7",
-          "text": "goes",
-          "start": 2.326,
-          "end": 2.526
-        },
-        {
-          "id": "w8",
-          "text": "a",
-          "start": 2.586,
-          "end": 2.596
-        },
-        {
-          "id": "w9",
-          "text": "step",
-          "start": 2.706,
-          "end": 2.886
-        },
-        {
-          "id": "w10",
-          "text": "further.",
-          "start": 3.006,
-          "end": 3.346
-        },
-        {
-          "id": "w11",
-          "text": "In",
-          "start": 3.646,
-          "end": 3.706
-        },
-        {
-          "id": "w12",
-          "text": "a",
-          "start": 3.745,
-          "end": 3.806
-        },
-        {
-          "id": "w13",
-          "text": "fractional",
-          "start": 3.846,
-          "end": 4.276
-        },
-        {
-          "id": "w14",
-          "text": "role,",
-          "start": 4.386,
-          "end": 4.666
-        },
-        {
-          "id": "w15",
-          "text": "you",
-          "start": 5.066,
-          "end": 5.126
-        },
-        {
-          "id": "w16",
-          "text": "become",
-          "start": 5.166,
-          "end": 5.386
-        },
-        {
-          "id": "w17",
-          "text": "a",
-          "start": 5.425,
-          "end": 5.506
-        },
-        {
-          "id": "w18",
-          "text": "part-time",
-          "start": 5.566,
-          "end": 6.026
-        },
-        {
-          "id": "w19",
-          "text": "leader",
-          "start": 6.066,
-          "end": 6.406
-        },
-        {
-          "id": "w20",
-          "text": "or",
-          "start": 6.726,
-          "end": 6.786
-        },
-        {
-          "id": "w21",
-          "text": "part-time",
-          "start": 6.866,
-          "end": 7.326
-        },
-        {
-          "id": "w22",
-          "text": "owner",
-          "start": 7.486,
-          "end": 7.726
-        },
-        {
-          "id": "w23",
-          "text": "of",
-          "start": 7.826,
-          "end": 7.886
-        },
-        {
-          "id": "w24",
-          "text": "a",
-          "start": 7.925,
-          "end": 7.946
-        },
-        {
-          "id": "w25",
-          "text": "function.",
-          "start": 8.046,
-          "end": 8.486
-        },
-        {
-          "id": "w26",
-          "text": "You",
-          "start": 9.406,
-          "end": 9.466
-        },
-        {
-          "id": "w27",
-          "text": "might",
-          "start": 9.505,
-          "end": 9.626
-        },
-        {
-          "id": "w28",
-          "text": "be",
-          "start": 9.725,
-          "end": 9.785
-        },
-        {
-          "id": "w29",
-          "text": "a",
-          "start": 9.846,
-          "end": 9.906
-        },
-        {
-          "id": "w30",
-          "text": "fractional",
-          "start": 9.946,
-          "end": 10.365
-        },
-        {
-          "id": "w31",
-          "text": "operations",
-          "start": 10.466,
-          "end": 11.046
-        },
-        {
-          "id": "w32",
-          "text": "lead,",
-          "start": 11.126,
-          "end": 11.365
-        },
-        {
-          "id": "w33",
-          "text": "a",
-          "start": 11.725,
-          "end": 11.806
-        },
-        {
-          "id": "w34",
-          "text": "fractional",
-          "start": 11.846,
-          "end": 12.266
-        },
-        {
-          "id": "w35",
-          "text": "marketing",
-          "start": 12.386,
-          "end": 12.746
-        },
-        {
-          "id": "w36",
-          "text": "lead,",
-          "start": 12.806,
-          "end": 13.046
-        },
-        {
-          "id": "w37",
-          "text": "or",
-          "start": 13.406,
-          "end": 13.486
-        },
-        {
-          "id": "w38",
-          "text": "a",
-          "start": 13.546,
-          "end": 13.626
-        },
-        {
-          "id": "w39",
-          "text": "fractional",
-          "start": 13.666,
-          "end": 14.066
-        },
-        {
-          "id": "w40",
-          "text": "program",
-          "start": 14.186,
-          "end": 14.526
-        },
-        {
-          "id": "w41",
-          "text": "director.",
-          "start": 14.585,
-          "end": 15.026
-        },
-        {
-          "id": "w42",
-          "text": "You're",
-          "start": 15.406,
-          "end": 15.566
-        },
-        {
-          "id": "w43",
-          "text": "more",
-          "start": 15.645,
-          "end": 15.966
-        },
-        {
-          "id": "w44",
-          "text": "embedded",
-          "start": 16.046,
-          "end": 16.505
-        },
-        {
-          "id": "w45",
-          "text": "in",
-          "start": 16.566,
-          "end": 16.626
-        },
-        {
-          "id": "w46",
-          "text": "the",
-          "start": 16.666,
-          "end": 16.766
-        },
-        {
-          "id": "w47",
-          "text": "team,",
-          "start": 16.826,
-          "end": 17.206
-        },
-        {
-          "id": "w48",
-          "text": "and",
-          "start": 18.246,
-          "end": 18.386
-        },
-        {
-          "id": "w49",
-          "text": "more",
-          "start": 18.466,
-          "end": 18.686
-        },
-        {
-          "id": "w50",
-          "text": "accountable",
-          "start": 18.725,
-          "end": 19.425
-        },
-        {
-          "id": "w51",
-          "text": "over",
-          "start": 19.486,
-          "end": 19.706
-        },
-        {
-          "id": "w52",
-          "text": "time.",
-          "start": 19.766,
-          "end": 20.126
-        }
-      ]
-    },
-    {
-      "id": "beat-06-shorthand",
-      "path": "assets/voice/beat-06-shorthand.wav",
-      "duration_s": 8.65,
-      "words": [
-        {
-          "id": "w0",
-          "text": "So",
-          "start": 0.46,
-          "end": 0.64
-        },
-        {
-          "id": "w1",
-          "text": "keep",
-          "start": 0.7,
-          "end": 0.92
-        },
-        {
-          "id": "w2",
-          "text": "the",
-          "start": 0.96,
-          "end": 1.08
-        },
-        {
-          "id": "w3",
-          "text": "shorthand",
-          "start": 1.14,
-          "end": 1.76
-        },
-        {
-          "id": "w4",
-          "text": "close:",
-          "start": 1.82,
-          "end": 2.22
-        },
-        {
-          "id": "w5",
-          "text": "Freelance",
-          "start": 2.74,
-          "end": 3.2
-        },
-        {
-          "id": "w6",
-          "text": "is",
-          "start": 3.3,
-          "end": 3.46
-        },
-        {
-          "id": "w7",
-          "text": "projects;",
-          "start": 3.5,
-          "end": 4.0
-        },
-        {
-          "id": "w8",
-          "text": "Consulting",
-          "start": 4.34,
-          "end": 4.96
-        },
-        {
-          "id": "w9",
-          "text": "is",
-          "start": 5.02,
-          "end": 5.18
-        },
-        {
-          "id": "w10",
-          "text": "insight;",
-          "start": 5.26,
-          "end": 5.66
-        },
-        {
-          "id": "w11",
-          "text": "Fractional",
-          "start": 6.14,
-          "end": 6.7
-        },
-        {
-          "id": "w12",
-          "text": "is",
-          "start": 7.1,
-          "end": 7.22
-        },
-        {
-          "id": "w13",
-          "text": "embedded",
-          "start": 7.3,
-          "end": 7.76
-        },
-        {
-          "id": "w14",
-          "text": "outcomes.",
-          "start": 7.88,
-          "end": 8.44
-        }
-      ]
-    },
-    {
-      "id": "beat-07-start",
-      "path": "assets/voice/beat-07-start.wav",
-      "duration_s": 14.92,
-      "words": [
-        {
-          "id": "w0",
-          "text": "When",
-          "start": 0.21,
-          "end": 0.31
-        },
-        {
-          "id": "w1",
-          "text": "you're",
-          "start": 0.33,
-          "end": 0.43
-        },
-        {
-          "id": "w2",
-          "text": "starting",
-          "start": 0.49,
-          "end": 0.75
-        },
-        {
-          "id": "w3",
-          "text": "out,",
-          "start": 0.83,
-          "end": 1.01
-        },
-        {
-          "id": "w4",
-          "text": "freelancing",
-          "start": 1.35,
-          "end": 1.99
-        },
-        {
-          "id": "w5",
-          "text": "is",
-          "start": 2.03,
-          "end": 2.11
-        },
-        {
-          "id": "w6",
-          "text": "often",
-          "start": 2.17,
-          "end": 2.39
-        },
-        {
-          "id": "w7",
-          "text": "the",
-          "start": 2.43,
-          "end": 2.569
-        },
-        {
-          "id": "w8",
-          "text": "easiest",
-          "start": 2.63,
-          "end": 2.99
-        },
-        {
-          "id": "w9",
-          "text": "model",
-          "start": 3.07,
-          "end": 3.33
-        },
-        {
-          "id": "w10",
-          "text": "to",
-          "start": 3.37,
-          "end": 3.43
-        },
-        {
-          "id": "w11",
-          "text": "test,",
-          "start": 3.51,
-          "end": 3.85
-        },
-        {
-          "id": "w12",
-          "text": "because",
-          "start": 4.19,
-          "end": 4.39
-        },
-        {
-          "id": "w13",
-          "text": "the",
-          "start": 4.43,
-          "end": 4.51
-        },
-        {
-          "id": "w14",
-          "text": "ask",
-          "start": 4.63,
-          "end": 4.85
-        },
-        {
-          "id": "w15",
-          "text": "is",
-          "start": 4.89,
-          "end": 4.99
-        },
-        {
-          "id": "w16",
-          "text": "smaller",
-          "start": 5.03,
-          "end": 5.43
-        },
-        {
-          "id": "w17",
-          "text": "and",
-          "start": 5.65,
-          "end": 5.72
-        },
-        {
-          "id": "w18",
-          "text": "the",
-          "start": 5.75,
-          "end": 5.85
-        },
-        {
-          "id": "w19",
-          "text": "path",
-          "start": 5.91,
-          "end": 6.23
-        },
-        {
-          "id": "w20",
-          "text": "to",
-          "start": 6.27,
-          "end": 6.33
-        },
-        {
-          "id": "w21",
-          "text": "a",
-          "start": 6.39,
-          "end": 6.41
-        },
-        {
-          "id": "w22",
-          "text": "yes",
-          "start": 6.49,
-          "end": 6.79
-        },
-        {
-          "id": "w23",
-          "text": "is",
-          "start": 6.97,
-          "end": 7.07
-        },
-        {
-          "id": "w24",
-          "text": "simpler.",
-          "start": 7.13,
-          "end": 7.53
-        },
-        {
-          "id": "w25",
-          "text": "As",
-          "start": 7.87,
-          "end": 8.02
-        },
-        {
-          "id": "w26",
-          "text": "you",
-          "start": 8.09,
-          "end": 8.19
-        },
-        {
-          "id": "w27",
-          "text": "build",
-          "start": 8.21,
-          "end": 8.41
-        },
-        {
-          "id": "w28",
-          "text": "experience",
-          "start": 8.43,
-          "end": 8.97
-        },
-        {
-          "id": "w29",
-          "text": "and",
-          "start": 8.99,
-          "end": 9.07
-        },
-        {
-          "id": "w30",
-          "text": "sharpen",
-          "start": 9.15,
-          "end": 9.48
-        },
-        {
-          "id": "w31",
-          "text": "how",
-          "start": 9.55,
-          "end": 9.65
-        },
-        {
-          "id": "w32",
-          "text": "you",
-          "start": 9.69,
-          "end": 9.77
-        },
-        {
-          "id": "w33",
-          "text": "position",
-          "start": 9.81,
-          "end": 10.21
-        },
-        {
-          "id": "w34",
-          "text": "yourself,",
-          "start": 10.25,
-          "end": 10.69
-        },
-        {
-          "id": "w35",
-          "text": "you",
-          "start": 11.07,
-          "end": 11.13
-        },
-        {
-          "id": "w36",
-          "text": "can",
-          "start": 11.17,
-          "end": 11.31
-        },
-        {
-          "id": "w37",
-          "text": "add",
-          "start": 11.37,
-          "end": 11.49
-        },
-        {
-          "id": "w38",
-          "text": "consulting",
-          "start": 11.53,
-          "end": 12.0
-        },
-        {
-          "id": "w39",
-          "text": "projects,",
-          "start": 12.09,
-          "end": 12.58
-        },
-        {
-          "id": "w40",
-          "text": "or",
-          "start": 13.03,
-          "end": 13.1
-        },
-        {
-          "id": "w41",
-          "text": "grow",
-          "start": 13.19,
-          "end": 13.51
-        },
-        {
-          "id": "w42",
-          "text": "into",
-          "start": 13.55,
-          "end": 13.77
-        },
-        {
-          "id": "w43",
-          "text": "fractional",
-          "start": 13.81,
-          "end": 14.24
-        },
-        {
-          "id": "w44",
-          "text": "roles.",
-          "start": 14.33,
-          "end": 14.69
-        }
-      ]
-    },
-    {
-      "id": "beat-08-choose",
-      "path": "assets/voice/beat-08-choose.wav",
-      "duration_s": 12.157,
-      "words": [
-        {
-          "id": "w0",
-          "text": "In",
-          "start": 0.23,
-          "end": 0.29
-        },
-        {
-          "id": "w1",
-          "text": "this",
-          "start": 0.35,
+          "start": 0.24,
           "end": 0.49
         },
         {
           "id": "w2",
-          "text": "module,",
-          "start": 0.55,
-          "end": 0.93
+          "text": "to",
+          "start": 0.5,
+          "end": 0.58
         },
         {
           "id": "w3",
-          "text": "you'll",
-          "start": 1.29,
-          "end": 1.41
+          "text": "complete",
+          "start": 0.6,
+          "end": 0.93
         },
         {
           "id": "w4",
-          "text": "hold",
-          "start": 1.47,
-          "end": 1.69
+          "text": "the",
+          "start": 0.93,
+          "end": 1.04
         },
         {
           "id": "w5",
-          "text": "these",
-          "start": 1.73,
-          "end": 1.97
+          "text": "work",
+          "start": 1.12,
+          "end": 1.56
         },
         {
           "id": "w6",
-          "text": "three",
-          "start": 1.99,
-          "end": 2.21
+          "text": "or",
+          "start": 1.6,
+          "end": 1.73
         },
         {
           "id": "w7",
-          "text": "models",
-          "start": 2.27,
-          "end": 2.65
+          "text": "produce",
+          "start": 1.76,
+          "end": 2.08
         },
         {
           "id": "w8",
-          "text": "up",
-          "start": 2.71,
-          "end": 2.82
+          "text": "the",
+          "start": 2.12,
+          "end": 2.2
         },
         {
           "id": "w9",
-          "text": "against",
+          "text": "deliverable.",
+          "start": 2.22,
+          "end": 3.36
+        }
+      ]
+    },
+    {
+      "id": "beat-07-client-needs",
+      "path": "assets/voice/beat-07-client-needs.wav",
+      "duration_s": 8.17,
+      "words": [
+        {
+          "id": "w0",
+          "text": "A",
+          "start": 0.0,
+          "end": 0.04
+        },
+        {
+          "id": "w1",
+          "text": "client",
+          "start": 0.11,
+          "end": 0.46
+        },
+        {
+          "id": "w2",
+          "text": "needs",
+          "start": 0.48,
+          "end": 0.65
+        },
+        {
+          "id": "w3",
+          "text": "a",
+          "start": 0.7,
+          "end": 0.72
+        },
+        {
+          "id": "w4",
+          "text": "workshop",
+          "start": 0.78,
+          "end": 1.18
+        },
+        {
+          "id": "w5",
+          "text": "run;",
+          "start": 1.24,
+          "end": 1.48
+        },
+        {
+          "id": "w6",
+          "text": "a",
+          "start": 1.98,
+          "end": 2.04
+        },
+        {
+          "id": "w7",
+          "text": "set",
+          "start": 2.1,
+          "end": 2.22
+        },
+        {
+          "id": "w8",
+          "text": "of",
+          "start": 2.26,
+          "end": 2.34
+        },
+        {
+          "id": "w9",
+          "text": "designs;",
+          "start": 2.38,
+          "end": 2.98
+        },
+        {
+          "id": "w10",
+          "text": "a",
+          "start": 3.48,
+          "end": 3.56
+        },
+        {
+          "id": "w11",
+          "text": "messaging",
+          "start": 3.62,
+          "end": 4.04
+        },
+        {
+          "id": "w12",
+          "text": "refresh;",
+          "start": 4.1,
+          "end": 4.62
+        },
+        {
+          "id": "w13",
+          "text": "a",
+          "start": 5.12,
+          "end": 5.2
+        },
+        {
+          "id": "w14",
+          "text": "system",
+          "start": 5.26,
+          "end": 5.58
+        },
+        {
+          "id": "w15",
+          "text": "set",
+          "start": 5.68,
+          "end": 5.8
+        },
+        {
+          "id": "w16",
+          "text": "up;",
+          "start": 5.88,
+          "end": 6.04
+        },
+        {
+          "id": "w17",
+          "text": "a",
+          "start": 6.54,
+          "end": 6.6
+        },
+        {
+          "id": "w18",
+          "text": "short-term",
+          "start": 6.64,
+          "end": 7.16
+        },
+        {
+          "id": "w19",
+          "text": "project",
+          "start": 7.24,
+          "end": 7.6
+        },
+        {
+          "id": "w20",
+          "text": "shipped.",
+          "start": 7.68,
+          "end": 8.0
+        }
+      ]
+    },
+    {
+      "id": "beat-08-doing-work",
+      "path": "assets/voice/beat-08-doing-work.wav",
+      "duration_s": 3.735,
+      "words": [
+        {
+          "id": "w0",
+          "text": "In",
+          "start": 0.01,
+          "end": 0.09
+        },
+        {
+          "id": "w1",
+          "text": "this",
+          "start": 0.15,
+          "end": 0.33
+        },
+        {
+          "id": "w2",
+          "text": "model,",
+          "start": 0.43,
+          "end": 0.75
+        },
+        {
+          "id": "w3",
+          "text": "you",
+          "start": 1.18,
+          "end": 1.21
+        },
+        {
+          "id": "w4",
+          "text": "are",
+          "start": 1.27,
+          "end": 1.39
+        },
+        {
+          "id": "w5",
+          "text": "often",
+          "start": 1.47,
+          "end": 1.79
+        },
+        {
+          "id": "w6",
+          "text": "paid",
+          "start": 1.85,
+          "end": 2.17
+        },
+        {
+          "id": "w7",
+          "text": "for",
+          "start": 2.21,
+          "end": 2.36
+        },
+        {
+          "id": "w8",
+          "text": "doing",
+          "start": 2.39,
+          "end": 2.64
+        },
+        {
+          "id": "w9",
+          "text": "the",
+          "start": 2.67,
+          "end": 2.77
+        },
+        {
+          "id": "w10",
+          "text": "work",
+          "start": 2.81,
+          "end": 3.07
+        },
+        {
+          "id": "w11",
+          "text": "directly.",
+          "start": 3.09,
+          "end": 3.6
+        }
+      ]
+    },
+    {
+      "id": "beat-09-consulting",
+      "path": "assets/voice/beat-09-consulting.wav",
+      "duration_s": 1.38,
+      "words": [
+        {
+          "id": "w0",
+          "text": "The",
+          "start": 0.0,
+          "end": 0.075
+        },
+        {
+          "id": "w1",
+          "text": "second",
+          "start": 0.115,
+          "end": 0.435
+        },
+        {
+          "id": "w2",
+          "text": "is",
+          "start": 0.475,
+          "end": 0.575
+        },
+        {
+          "id": "w3",
+          "text": "consulting.",
+          "start": 0.615,
+          "end": 1.205
+        }
+      ]
+    },
+    {
+      "id": "beat-10-different-job",
+      "path": "assets/voice/beat-10-different-job.wav",
+      "duration_s": 1.655,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Consulting",
+          "start": 0.0,
+          "end": 0.555
+        },
+        {
+          "id": "w1",
+          "text": "is",
+          "start": 0.595,
+          "end": 0.665
+        },
+        {
+          "id": "w2",
+          "text": "a",
+          "start": 0.775,
+          "end": 0.785
+        },
+        {
+          "id": "w3",
+          "text": "different",
+          "start": 0.815,
+          "end": 1.135
+        },
+        {
+          "id": "w4",
+          "text": "job.",
+          "start": 1.175,
+          "end": 1.655
+        }
+      ]
+    },
+    {
+      "id": "beat-11-diagnosis",
+      "path": "assets/voice/beat-11-diagnosis.wav",
+      "duration_s": 5.71,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Here,",
+          "start": 0.04,
+          "end": 0.18
+        },
+        {
+          "id": "w1",
+          "text": "clients",
+          "start": 0.62,
+          "end": 0.96
+        },
+        {
+          "id": "w2",
+          "text": "hire",
+          "start": 1.02,
+          "end": 1.3
+        },
+        {
+          "id": "w3",
+          "text": "you",
+          "start": 1.34,
+          "end": 1.46
+        },
+        {
+          "id": "w4",
+          "text": "for",
+          "start": 1.48,
+          "end": 1.58
+        },
+        {
+          "id": "w5",
+          "text": "diagnosis,",
+          "start": 1.62,
+          "end": 2.32
+        },
+        {
+          "id": "w6",
+          "text": "insight,",
+          "start": 2.76,
+          "end": 3.25
+        },
+        {
+          "id": "w7",
+          "text": "problem-solving,",
+          "start": 3.58,
+          "end": 4.43
+        },
+        {
+          "id": "w8",
+          "text": "and",
+          "start": 4.82,
+          "end": 4.96
+        },
+        {
+          "id": "w9",
+          "text": "strategy.",
+          "start": 5.08,
+          "end": 5.56
+        }
+      ]
+    },
+    {
+      "id": "beat-12-recommend",
+      "path": "assets/voice/beat-12-recommend.wav",
+      "duration_s": 6.04,
+      "words": [
+        {
+          "id": "w0",
+          "text": "You",
+          "start": 0.0,
+          "end": 0.07
+        },
+        {
+          "id": "w1",
+          "text": "analyze",
+          "start": 0.17,
+          "end": 0.51
+        },
+        {
+          "id": "w2",
+          "text": "a",
+          "start": 0.55,
+          "end": 0.61
+        },
+        {
+          "id": "w3",
+          "text": "process,",
+          "start": 0.65,
+          "end": 1.21
+        },
+        {
+          "id": "w4",
+          "text": "name",
+          "start": 1.63,
+          "end": 1.85
+        },
+        {
+          "id": "w5",
+          "text": "the",
+          "start": 1.89,
+          "end": 1.95
+        },
+        {
+          "id": "w6",
+          "text": "real",
+          "start": 1.99,
+          "end": 2.15
+        },
+        {
+          "id": "w7",
+          "text": "problem,",
+          "start": 2.25,
+          "end": 2.71
+        },
+        {
+          "id": "w8",
+          "text": "recommend",
+          "start": 3.13,
+          "end": 3.57
+        },
+        {
+          "id": "w9",
+          "text": "a",
+          "start": 3.61,
+          "end": 3.67
+        },
+        {
+          "id": "w10",
+          "text": "new",
+          "start": 3.71,
+          "end": 3.83
+        },
+        {
+          "id": "w11",
+          "text": "approach,",
+          "start": 3.87,
+          "end": 4.37
+        },
+        {
+          "id": "w12",
+          "text": "and",
+          "start": 4.69,
+          "end": 4.79
+        },
+        {
+          "id": "w13",
+          "text": "hand",
+          "start": 4.91,
+          "end": 5.11
+        },
+        {
+          "id": "w14",
+          "text": "over",
+          "start": 5.17,
+          "end": 5.33
+        },
+        {
+          "id": "w15",
+          "text": "a",
+          "start": 5.37,
+          "end": 5.39
+        },
+        {
+          "id": "w16",
+          "text": "plan.",
+          "start": 5.49,
+          "end": 5.91
+        }
+      ]
+    },
+    {
+      "id": "beat-13-clarity",
+      "path": "assets/voice/beat-13-clarity.wav",
+      "duration_s": 5.225,
+      "words": [
+        {
+          "id": "w0",
+          "text": "The",
+          "start": 0.0,
+          "end": 0.09
+        },
+        {
+          "id": "w1",
+          "text": "focus",
+          "start": 0.13,
+          "end": 0.45
+        },
+        {
+          "id": "w2",
+          "text": "is",
+          "start": 0.51,
+          "end": 0.59
+        },
+        {
+          "id": "w3",
+          "text": "more",
+          "start": 0.71,
+          "end": 0.91
+        },
+        {
+          "id": "w4",
+          "text": "on",
+          "start": 0.97,
+          "end": 1.11
+        },
+        {
+          "id": "w5",
+          "text": "clarity",
+          "start": 1.15,
+          "end": 1.59
+        },
+        {
+          "id": "w6",
+          "text": "and",
+          "start": 1.6,
+          "end": 1.7
+        },
+        {
+          "id": "w7",
+          "text": "outcomes",
+          "start": 1.79,
+          "end": 2.29
+        },
+        {
+          "id": "w8",
+          "text": "than",
+          "start": 2.55,
+          "end": 2.65
+        },
+        {
+          "id": "w9",
+          "text": "on",
+          "start": 2.69,
+          "end": 2.83
+        },
+        {
+          "id": "w10",
+          "text": "being",
           "start": 2.87,
+          "end": 3.11
+        },
+        {
+          "id": "w11",
+          "text": "the",
+          "start": 3.12,
+          "end": 3.23
+        },
+        {
+          "id": "w12",
+          "text": "person",
+          "start": 3.27,
+          "end": 3.59
+        },
+        {
+          "id": "w13",
+          "text": "who",
+          "start": 3.61,
+          "end": 3.73
+        },
+        {
+          "id": "w14",
+          "text": "executes",
+          "start": 3.79,
+          "end": 4.27
+        },
+        {
+          "id": "w15",
+          "text": "every",
+          "start": 4.35,
+          "end": 4.52
+        },
+        {
+          "id": "w16",
+          "text": "task.",
+          "start": 4.63,
+          "end": 5.07
+        }
+      ]
+    },
+    {
+      "id": "beat-14-fractional",
+      "path": "assets/voice/beat-14-fractional.wav",
+      "duration_s": 3.236,
+      "words": [
+        {
+          "id": "w0",
+          "text": "The",
+          "start": 0.0,
+          "end": 0.106
+        },
+        {
+          "id": "w1",
+          "text": "third",
+          "start": 0.165,
+          "end": 0.406
+        },
+        {
+          "id": "w2",
+          "text": "is",
+          "start": 0.506,
+          "end": 0.665
+        },
+        {
+          "id": "w3",
+          "text": "fractional",
+          "start": 0.726,
+          "end": 1.186
+        },
+        {
+          "id": "w4",
+          "text": "work,",
+          "start": 1.286,
+          "end": 1.556
+        },
+        {
+          "id": "w5",
+          "text": "and",
+          "start": 1.806,
+          "end": 1.866
+        },
+        {
+          "id": "w6",
+          "text": "it",
+          "start": 1.906,
+          "end": 2.026
+        },
+        {
+          "id": "w7",
+          "text": "goes",
+          "start": 2.066,
+          "end": 2.266
+        },
+        {
+          "id": "w8",
+          "text": "a",
+          "start": 2.326,
+          "end": 2.336
+        },
+        {
+          "id": "w9",
+          "text": "step",
+          "start": 2.446,
+          "end": 2.626
+        },
+        {
+          "id": "w10",
+          "text": "further.",
+          "start": 2.746,
+          "end": 3.086
+        }
+      ]
+    },
+    {
+      "id": "beat-15-part-time-leader",
+      "path": "assets/voice/beat-15-part-time-leader.wav",
+      "duration_s": 4.99,
+      "words": [
+        {
+          "id": "w0",
+          "text": "In",
+          "start": 0.0,
+          "end": 0.05
+        },
+        {
+          "id": "w1",
+          "text": "a",
+          "start": 0.089,
+          "end": 0.15
+        },
+        {
+          "id": "w2",
+          "text": "fractional",
+          "start": 0.19,
+          "end": 0.62
+        },
+        {
+          "id": "w3",
+          "text": "role,",
+          "start": 0.73,
+          "end": 1.01
+        },
+        {
+          "id": "w4",
+          "text": "you",
+          "start": 1.41,
+          "end": 1.47
+        },
+        {
+          "id": "w5",
+          "text": "become",
+          "start": 1.51,
+          "end": 1.73
+        },
+        {
+          "id": "w6",
+          "text": "a",
+          "start": 1.769,
+          "end": 1.85
+        },
+        {
+          "id": "w7",
+          "text": "part-time",
+          "start": 1.91,
+          "end": 2.37
+        },
+        {
+          "id": "w8",
+          "text": "leader",
+          "start": 2.41,
+          "end": 2.75
+        },
+        {
+          "id": "w9",
+          "text": "or",
+          "start": 3.07,
           "end": 3.13
         },
         {
           "id": "w10",
+          "text": "part-time",
+          "start": 3.21,
+          "end": 3.67
+        },
+        {
+          "id": "w11",
+          "text": "owner",
+          "start": 3.83,
+          "end": 4.07
+        },
+        {
+          "id": "w12",
+          "text": "of",
+          "start": 4.17,
+          "end": 4.23
+        },
+        {
+          "id": "w13",
+          "text": "a",
+          "start": 4.269,
+          "end": 4.29
+        },
+        {
+          "id": "w14",
+          "text": "function.",
+          "start": 4.39,
+          "end": 4.83
+        }
+      ]
+    },
+    {
+      "id": "beat-16-fractional-roles",
+      "path": "assets/voice/beat-16-fractional-roles.wav",
+      "duration_s": 5.81,
+      "words": [
+        {
+          "id": "w0",
+          "text": "You",
+          "start": 0.02,
+          "end": 0.08
+        },
+        {
+          "id": "w1",
+          "text": "might",
+          "start": 0.119,
+          "end": 0.24
+        },
+        {
+          "id": "w2",
+          "text": "be",
+          "start": 0.339,
+          "end": 0.399
+        },
+        {
+          "id": "w3",
+          "text": "a",
+          "start": 0.46,
+          "end": 0.52
+        },
+        {
+          "id": "w4",
+          "text": "fractional",
+          "start": 0.56,
+          "end": 0.979
+        },
+        {
+          "id": "w5",
+          "text": "operations",
+          "start": 1.08,
+          "end": 1.66
+        },
+        {
+          "id": "w6",
+          "text": "lead,",
+          "start": 1.74,
+          "end": 1.979
+        },
+        {
+          "id": "w7",
+          "text": "a",
+          "start": 2.339,
+          "end": 2.42
+        },
+        {
+          "id": "w8",
+          "text": "fractional",
+          "start": 2.46,
+          "end": 2.88
+        },
+        {
+          "id": "w9",
+          "text": "marketing",
+          "start": 3.0,
+          "end": 3.36
+        },
+        {
+          "id": "w10",
+          "text": "lead,",
+          "start": 3.42,
+          "end": 3.66
+        },
+        {
+          "id": "w11",
+          "text": "or",
+          "start": 4.02,
+          "end": 4.1
+        },
+        {
+          "id": "w12",
+          "text": "a",
+          "start": 4.16,
+          "end": 4.24
+        },
+        {
+          "id": "w13",
+          "text": "fractional",
+          "start": 4.28,
+          "end": 4.68
+        },
+        {
+          "id": "w14",
+          "text": "program",
+          "start": 4.8,
+          "end": 5.14
+        },
+        {
+          "id": "w15",
+          "text": "director.",
+          "start": 5.199,
+          "end": 5.64
+        }
+      ]
+    },
+    {
+      "id": "beat-17-embedded",
+      "path": "assets/voice/beat-17-embedded.wav",
+      "duration_s": 4.41,
+      "words": [
+        {
+          "id": "w0",
+          "text": "You're",
+          "start": 0.07,
+          "end": 0.23
+        },
+        {
+          "id": "w1",
+          "text": "more",
+          "start": 0.309,
+          "end": 0.63
+        },
+        {
+          "id": "w2",
+          "text": "embedded",
+          "start": 0.71,
+          "end": 1.169
+        },
+        {
+          "id": "w3",
+          "text": "in",
+          "start": 1.23,
+          "end": 1.29
+        },
+        {
+          "id": "w4",
+          "text": "the",
+          "start": 1.33,
+          "end": 1.43
+        },
+        {
+          "id": "w5",
+          "text": "team,",
+          "start": 1.49,
+          "end": 1.87
+        },
+        {
+          "id": "w6",
+          "text": "and",
+          "start": 2.37,
+          "end": 2.51
+        },
+        {
+          "id": "w7",
+          "text": "more",
+          "start": 2.59,
+          "end": 2.81
+        },
+        {
+          "id": "w8",
+          "text": "accountable",
+          "start": 2.849,
+          "end": 3.549
+        },
+        {
+          "id": "w9",
+          "text": "over",
+          "start": 3.61,
+          "end": 3.83
+        },
+        {
+          "id": "w10",
+          "text": "time.",
+          "start": 3.89,
+          "end": 4.25
+        }
+      ]
+    },
+    {
+      "id": "beat-18-shorthand",
+      "path": "assets/voice/beat-18-shorthand.wav",
+      "duration_s": 8.39,
+      "words": [
+        {
+          "id": "w0",
+          "text": "So",
+          "start": 0.22,
+          "end": 0.4
+        },
+        {
+          "id": "w1",
+          "text": "keep",
+          "start": 0.46,
+          "end": 0.68
+        },
+        {
+          "id": "w2",
+          "text": "the",
+          "start": 0.72,
+          "end": 0.84
+        },
+        {
+          "id": "w3",
+          "text": "shorthand",
+          "start": 0.9,
+          "end": 1.52
+        },
+        {
+          "id": "w4",
+          "text": "close:",
+          "start": 1.58,
+          "end": 1.98
+        },
+        {
+          "id": "w5",
+          "text": "Freelance",
+          "start": 2.48,
+          "end": 2.94
+        },
+        {
+          "id": "w6",
+          "text": "is",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "id": "w7",
+          "text": "projects;",
+          "start": 3.24,
+          "end": 3.74
+        },
+        {
+          "id": "w8",
+          "text": "Consulting",
+          "start": 4.08,
+          "end": 4.7
+        },
+        {
+          "id": "w9",
+          "text": "is",
+          "start": 4.76,
+          "end": 4.92
+        },
+        {
+          "id": "w10",
+          "text": "insight;",
+          "start": 5.0,
+          "end": 5.4
+        },
+        {
+          "id": "w11",
+          "text": "Fractional",
+          "start": 5.88,
+          "end": 6.44
+        },
+        {
+          "id": "w12",
+          "text": "is",
+          "start": 6.84,
+          "end": 6.96
+        },
+        {
+          "id": "w13",
+          "text": "embedded",
+          "start": 7.04,
+          "end": 7.5
+        },
+        {
+          "id": "w14",
+          "text": "outcomes.",
+          "start": 7.62,
+          "end": 8.18
+        }
+      ]
+    },
+    {
+      "id": "beat-22-test",
+      "path": "assets/voice/beat-22-test.wav",
+      "duration_s": 7.44,
+      "words": [
+        {
+          "id": "w0",
+          "text": "When",
+          "start": 0.0,
+          "end": 0.07
+        },
+        {
+          "id": "w1",
+          "text": "you're",
+          "start": 0.09,
+          "end": 0.19
+        },
+        {
+          "id": "w2",
+          "text": "starting",
+          "start": 0.25,
+          "end": 0.51
+        },
+        {
+          "id": "w3",
+          "text": "out,",
+          "start": 0.59,
+          "end": 0.77
+        },
+        {
+          "id": "w4",
+          "text": "freelancing",
+          "start": 1.11,
+          "end": 1.75
+        },
+        {
+          "id": "w5",
+          "text": "is",
+          "start": 1.79,
+          "end": 1.87
+        },
+        {
+          "id": "w6",
+          "text": "often",
+          "start": 1.93,
+          "end": 2.15
+        },
+        {
+          "id": "w7",
+          "text": "the",
+          "start": 2.19,
+          "end": 2.329
+        },
+        {
+          "id": "w8",
+          "text": "easiest",
+          "start": 2.39,
+          "end": 2.75
+        },
+        {
+          "id": "w9",
+          "text": "model",
+          "start": 2.83,
+          "end": 3.09
+        },
+        {
+          "id": "w10",
+          "text": "to",
+          "start": 3.13,
+          "end": 3.19
+        },
+        {
+          "id": "w11",
+          "text": "test,",
+          "start": 3.27,
+          "end": 3.61
+        },
+        {
+          "id": "w12",
+          "text": "because",
+          "start": 3.95,
+          "end": 4.15
+        },
+        {
+          "id": "w13",
+          "text": "the",
+          "start": 4.19,
+          "end": 4.27
+        },
+        {
+          "id": "w14",
+          "text": "ask",
+          "start": 4.39,
+          "end": 4.61
+        },
+        {
+          "id": "w15",
+          "text": "is",
+          "start": 4.65,
+          "end": 4.75
+        },
+        {
+          "id": "w16",
+          "text": "smaller",
+          "start": 4.79,
+          "end": 5.19
+        },
+        {
+          "id": "w17",
+          "text": "and",
+          "start": 5.41,
+          "end": 5.48
+        },
+        {
+          "id": "w18",
+          "text": "the",
+          "start": 5.51,
+          "end": 5.61
+        },
+        {
+          "id": "w19",
+          "text": "path",
+          "start": 5.67,
+          "end": 5.99
+        },
+        {
+          "id": "w20",
+          "text": "to",
+          "start": 6.03,
+          "end": 6.09
+        },
+        {
+          "id": "w21",
+          "text": "a",
+          "start": 6.15,
+          "end": 6.17
+        },
+        {
+          "id": "w22",
+          "text": "yes",
+          "start": 6.25,
+          "end": 6.55
+        },
+        {
+          "id": "w23",
+          "text": "is",
+          "start": 6.73,
+          "end": 6.83
+        },
+        {
+          "id": "w24",
+          "text": "simpler.",
+          "start": 6.89,
+          "end": 7.29
+        }
+      ]
+    },
+    {
+      "id": "beat-23-grow",
+      "path": "assets/voice/beat-23-grow.wav",
+      "duration_s": 6.96,
+      "words": [
+        {
+          "id": "w0",
+          "text": "As",
+          "start": 0.0,
+          "end": 0.12
+        },
+        {
+          "id": "w1",
+          "text": "you",
+          "start": 0.19,
+          "end": 0.29
+        },
+        {
+          "id": "w2",
+          "text": "build",
+          "start": 0.31,
+          "end": 0.51
+        },
+        {
+          "id": "w3",
+          "text": "experience",
+          "start": 0.53,
+          "end": 1.07
+        },
+        {
+          "id": "w4",
+          "text": "and",
+          "start": 1.09,
+          "end": 1.17
+        },
+        {
+          "id": "w5",
+          "text": "sharpen",
+          "start": 1.25,
+          "end": 1.58
+        },
+        {
+          "id": "w6",
+          "text": "how",
+          "start": 1.65,
+          "end": 1.75
+        },
+        {
+          "id": "w7",
+          "text": "you",
+          "start": 1.79,
+          "end": 1.87
+        },
+        {
+          "id": "w8",
+          "text": "position",
+          "start": 1.91,
+          "end": 2.31
+        },
+        {
+          "id": "w9",
+          "text": "yourself,",
+          "start": 2.35,
+          "end": 2.79
+        },
+        {
+          "id": "w10",
+          "text": "you",
+          "start": 3.17,
+          "end": 3.23
+        },
+        {
+          "id": "w11",
+          "text": "can",
+          "start": 3.27,
+          "end": 3.41
+        },
+        {
+          "id": "w12",
+          "text": "add",
+          "start": 3.47,
+          "end": 3.59
+        },
+        {
+          "id": "w13",
+          "text": "consulting",
+          "start": 3.63,
+          "end": 4.1
+        },
+        {
+          "id": "w14",
+          "text": "projects,",
+          "start": 4.19,
+          "end": 4.68
+        },
+        {
+          "id": "w15",
+          "text": "or",
+          "start": 5.13,
+          "end": 5.2
+        },
+        {
+          "id": "w16",
+          "text": "grow",
+          "start": 5.29,
+          "end": 5.61
+        },
+        {
+          "id": "w17",
+          "text": "into",
+          "start": 5.65,
+          "end": 5.87
+        },
+        {
+          "id": "w18",
+          "text": "fractional",
+          "start": 5.91,
+          "end": 6.34
+        },
+        {
+          "id": "w19",
+          "text": "roles.",
+          "start": 6.43,
+          "end": 6.79
+        }
+      ]
+    },
+    {
+      "id": "beat-24-choose",
+      "path": "assets/voice/beat-24-choose.wav",
+      "duration_s": 8.76,
+      "words": [
+        {
+          "id": "w0",
+          "text": "In",
+          "start": 0.01,
+          "end": 0.07
+        },
+        {
+          "id": "w1",
+          "text": "this",
+          "start": 0.13,
+          "end": 0.27
+        },
+        {
+          "id": "w2",
+          "text": "module,",
+          "start": 0.33,
+          "end": 0.71
+        },
+        {
+          "id": "w3",
+          "text": "you'll",
+          "start": 1.07,
+          "end": 1.19
+        },
+        {
+          "id": "w4",
+          "text": "hold",
+          "start": 1.25,
+          "end": 1.47
+        },
+        {
+          "id": "w5",
+          "text": "these",
+          "start": 1.51,
+          "end": 1.75
+        },
+        {
+          "id": "w6",
+          "text": "three",
+          "start": 1.77,
+          "end": 1.99
+        },
+        {
+          "id": "w7",
+          "text": "models",
+          "start": 2.05,
+          "end": 2.43
+        },
+        {
+          "id": "w8",
+          "text": "up",
+          "start": 2.49,
+          "end": 2.6
+        },
+        {
+          "id": "w9",
+          "text": "against",
+          "start": 2.65,
+          "end": 2.91
+        },
+        {
+          "id": "w10",
           "text": "your",
-          "start": 3.19,
-          "end": 3.29
+          "start": 2.97,
+          "end": 3.07
         },
         {
           "id": "w11",
           "text": "own",
-          "start": 3.33,
-          "end": 3.49
+          "start": 3.11,
+          "end": 3.27
         },
         {
           "id": "w12",
           "text": "preferences",
-          "start": 3.53,
-          "end": 4.09
+          "start": 3.31,
+          "end": 3.87
         },
         {
           "id": "w13",
           "text": "and",
-          "start": 4.41,
-          "end": 4.55
+          "start": 4.19,
+          "end": 4.33
         },
         {
           "id": "w14",
           "text": "choose",
-          "start": 4.61,
-          "end": 4.89
+          "start": 4.39,
+          "end": 4.67
         },
         {
           "id": "w15",
           "text": "one",
-          "start": 5.05,
-          "end": 5.19
+          "start": 4.83,
+          "end": 4.97
         },
         {
           "id": "w16",
           "text": "as",
-          "start": 5.25,
-          "end": 5.34
+          "start": 5.03,
+          "end": 5.12
         },
         {
           "id": "w17",
           "text": "your",
-          "start": 5.37,
-          "end": 5.47
+          "start": 5.15,
+          "end": 5.25
         },
         {
           "id": "w18",
           "text": "starting",
-          "start": 5.55,
-          "end": 5.87
+          "start": 5.33,
+          "end": 5.65
         },
         {
           "id": "w19",
           "text": "point,",
-          "start": 5.91,
-          "end": 6.17
+          "start": 5.69,
+          "end": 5.95
         },
         {
           "id": "w20",
           "text": "and",
-          "start": 6.59,
-          "end": 6.72
+          "start": 6.37,
+          "end": 6.5
         },
         {
           "id": "w21",
           "text": "maybe",
-          "start": 6.75,
-          "end": 6.99
+          "start": 6.53,
+          "end": 6.77
         },
         {
           "id": "w22",
           "text": "a",
-          "start": 7.05,
-          "end": 7.15
+          "start": 6.83,
+          "end": 6.93
         },
         {
           "id": "w23",
           "text": "second",
-          "start": 7.21,
-          "end": 7.62
+          "start": 6.99,
+          "end": 7.4
         },
         {
           "id": "w24",
           "text": "as",
-          "start": 7.67,
-          "end": 7.8
+          "start": 7.45,
+          "end": 7.58
         },
         {
           "id": "w25",
           "text": "where",
-          "start": 7.83,
-          "end": 7.97
+          "start": 7.61,
+          "end": 7.75
         },
         {
           "id": "w26",
           "text": "you're",
-          "start": 8.01,
-          "end": 8.16
+          "start": 7.79,
+          "end": 7.94
         },
         {
           "id": "w27",
           "text": "headed",
-          "start": 8.19,
-          "end": 8.45
+          "start": 7.97,
+          "end": 8.23
         },
         {
           "id": "w28",
           "text": "next.",
-          "start": 8.49,
-          "end": 8.83
-        },
+          "start": 8.27,
+          "end": 8.61
+        }
+      ]
+    },
+    {
+      "id": "beat-25-fit",
+      "path": "assets/voice/beat-25-fit.wav",
+      "duration_s": 3.91,
+      "words": [
         {
-          "id": "w29",
+          "id": "w0",
           "text": "So",
-          "start": 9.89,
-          "end": 10.47
+          "start": 0.09,
+          "end": 0.67
         },
         {
-          "id": "w30",
+          "id": "w1",
           "text": "which",
-          "start": 10.51,
-          "end": 10.67
+          "start": 0.71,
+          "end": 0.87
         },
         {
-          "id": "w31",
+          "id": "w2",
           "text": "one",
-          "start": 10.75,
-          "end": 10.91
+          "start": 0.95,
+          "end": 1.11
         },
         {
-          "id": "w32",
+          "id": "w3",
           "text": "fits",
-          "start": 10.95,
-          "end": 11.13
+          "start": 1.15,
+          "end": 1.33
         },
         {
-          "id": "w33",
+          "id": "w4",
           "text": "how",
-          "start": 11.19,
-          "end": 11.3
+          "start": 1.39,
+          "end": 1.5
         },
         {
-          "id": "w34",
+          "id": "w5",
           "text": "you",
-          "start": 11.33,
-          "end": 11.41
+          "start": 1.53,
+          "end": 1.61
         },
         {
-          "id": "w35",
+          "id": "w6",
           "text": "want",
-          "start": 11.43,
-          "end": 11.56
+          "start": 1.63,
+          "end": 1.76
         },
         {
-          "id": "w36",
+          "id": "w7",
           "text": "to",
-          "start": 11.59,
-          "end": 11.69
+          "start": 1.79,
+          "end": 1.89
         },
         {
-          "id": "w37",
+          "id": "w8",
           "text": "work?",
-          "start": 11.75,
-          "end": 11.91
+          "start": 1.95,
+          "end": 2.11
         }
       ]
     }
   ],
   "sfx": [],
-  "total_duration_s": 111.048,
+  "total_duration_s": 103.201,
   "scla_synthesis": {
     "version": 1,
     "mode": "continuous-chunks",
@@ -1849,17 +1947,35 @@
       {
         "id": "narration",
         "beat_ids": [
-          "beat-01-work",
-          "beat-02-models",
-          "beat-03-freelance",
-          "beat-04-consulting",
-          "beat-05-fractional",
-          "beat-06-shorthand",
-          "beat-07-start",
-          "beat-08-choose"
+          "beat-01-idea",
+          "beat-02-work",
+          "beat-03-models",
+          "beat-04-freelance",
+          "beat-05-project-based",
+          "beat-06-deliverable",
+          "beat-07-client-needs",
+          "beat-08-doing-work",
+          "beat-09-consulting",
+          "beat-10-different-job",
+          "beat-11-diagnosis",
+          "beat-12-recommend",
+          "beat-13-clarity",
+          "beat-14-fractional",
+          "beat-15-part-time-leader",
+          "beat-16-fractional-roles",
+          "beat-17-embedded",
+          "beat-18-shorthand",
+          "beat-22-test",
+          "beat-23-grow",
+          "beat-24-choose",
+          "beat-25-fit"
         ]
       }
     ]
   },
-  "speed": 1.0
+  "speed": 1,
+  "scla_timing": {
+    "hygiene_version": 1,
+    "final_hold": 1.8
+  }
 }

@@ -65,6 +65,27 @@ def frame(name, combs):
     return d
 
 
+def zoned_frames(name, active_zones, count=4):
+    """A short sampled video with dense text-like ink in selected 3x3 zones."""
+    d = TMP / name
+    shutil.rmtree(d, ignore_errors=True)
+    d.mkdir(parents=True)
+    pad = int(tokens.frame_padding(None))
+    bottom = int(tokens.content_bottom(None))
+    fw, fh = W - 2 * pad, bottom - pad
+    for frame_index in range(count):
+        img = Image.new("RGB", (W, H), NAVY)
+        draw = ImageDraw.Draw(img)
+        for zone in active_zones:
+            row, col = divmod(zone, 3)
+            x0 = pad + col * fw // 3 + 120
+            y0 = pad + row * fh // 3 + 80
+            for xi in range(x0, x0 + 220, 4):
+                draw.line((xi, y0, xi, y0 + 110), fill=(255, 255, 255))
+        img.save(d / f"frame-{frame_index:02d}.png")
+    return d
+
+
 def rules_of(problems):
     return {getattr(p, "rule_id", "?") for p in (problems or [])}
 
@@ -101,6 +122,18 @@ d = frame("chrome", [(120, 60)])
 _, problems, _ = check_ink.check(d, extra_allow=[(100, 50, 700, 110)])
 check("ink inside a declared chrome region is not graded",
       not problems, str(problems))
+
+# Frame use is video-wide: four occupied zones throughout a sampled video is
+# the owner-reported "small elements beside a huge blank scene" defect. Five
+# zones is the minimum balanced field and remains clean.
+_, problems, _ = check_ink.check(zoned_frames("underfilled", [0, 1, 3, 4]))
+fires("check_ink", "frame-underfilled",
+      "four of nine active content zones across the sampled video FAILS",
+      "frame-underfilled" in rules_of(problems), str(problems))
+_, problems, _ = check_ink.check(zoned_frames("balanced", [0, 1, 3, 4, 7]))
+check("five active content zones across the sampled video passes utilization",
+      "frame-underfilled" not in rules_of(problems), str(problems))
+
 empty = TMP / "empty"
 shutil.rmtree(empty, ignore_errors=True)
 empty.mkdir(parents=True)

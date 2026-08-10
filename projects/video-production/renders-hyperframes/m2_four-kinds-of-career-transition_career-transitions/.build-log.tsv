@@ -54,3 +54,12 @@
 2026-08-08T04:21:25Z	resume	program=career-transitions
 2026-08-08T04:24:13Z	preflight	exit 1
 2026-08-08T04:24:28Z	release	build session ended
+2026-08-08T15:46:37Z	resume	program=career-transitions
+2026-08-08T15:48:20Z	preflight	exit 1
+2026-08-08T15:49:47Z	gate-revision	reduced tactics-card repaint churn and removed full-width scale padding breach
+2026-08-08T15:51:17Z	preflight	exit 1
+2026-08-08T15:56:53Z	preflight	exit 1
+2026-08-08T15:59:53Z	preflight	exit 0 — gate-clean
+2026-08-08T16:00:24Z	visual-review	PASS / ALIVE / PROCEED — compass persists, progression is legible, no clipping or unsafe transition found
+2026-08-08T16:00:24Z	release	build session ended
+2026-08-09T23:00:20Z	preflight	exit 0 — gate-clean

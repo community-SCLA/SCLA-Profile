@@ -1,29 +1,25 @@
-# The Two-Sided Work
+# The Two-Sided Work — Selected Concept
 
-## Core idea
+## Lens selection
 
-A career transition is a deliberate exchange: release an identity that no longer
-fits, then carry forward the specific experience that creates an advantage.
+| Lens | Fidelity | Evolution | Attention | Feasibility | Total |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Transition Case | 5 | 5 | 5 | 4 | 19/20 |
+| Identity Hinge | 5 | 4 | 5 | 3 | 17/20 |
 
-## Visual metaphor
+**Selected: Transition Case.** The script asks what deserves to “travel” into what comes next, and the case makes the dependency between the two exercises visible.
 
-Two parallel lanes—**LET GO** and **CARRY FORWARD**—move through the lesson and
-meet in a single inventory at the close. Cards leave the first lane while
-valuable skills move into the second. The treatment uses restrained editorial
-diagrams rather than literal workplace footage.
+## Visual thesis
+A career transition is an open travel case with two interacting compartments. The **release well** lets the old identity leave; the **carry well** holds only the specific experience that creates future advantage. If the release work is skipped, the old identity spills across the hinge and blocks the new role. If everything is carried, the case overfills and becomes a defense. Letting go first creates the space needed to choose what travels.
 
-## Story arc
+## Milestone frames
+1. The empty case reveals that real reinvention has two required sides.
+2. Old-title and unfinished-ending pieces cross the hinge when letting go is skipped.
+3. Cognitive and emotional identity work releases the ending without rushing it.
+4. Past-career experience stops being hidden and becomes selected material.
+5. Finance fluency becomes product judgment; classroom feedback becomes instructional-design advantage.
+6. Skills, values, relationships, and capabilities pack into the Carry-Forward Inventory.
+7. The correct order resolves visibly: release first, then pack what deserves to travel.
 
-1. Frame reinvention as two-sided work.
-2. Make the ending visible and show the cost of skipping it.
-3. Name the emotional identity work.
-4. Turn toward the experience that should travel forward.
-5. Contrast two concrete career pivots.
-6. Resolve into the Carry-Forward Inventory and the required order of work.
-
-## Motion approach
-
-One paused, seekable GSAP timeline controls all entrances and exits. Elements
-move horizontally when letting go and vertically into place when carrying
-forward. The final two lanes lock together into a balanced whole.
-
+## Motion
+Motion changes the state of the case: old-identity pieces leave, transferable assets settle into fitted compartments, translated examples change labels, and an overfilled case clears before the inventory can pack. There is no module or scene numbering, progress rail, moving dot, trace, decorative loop, false interface, or motion whose only meaning is elapsed time.

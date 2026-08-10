@@ -32,3 +32,12 @@
 2026-08-08T03:30:00Z	resume	program=career-transitions
 2026-08-08T03:36:20Z	preflight	exit 0 — gate-clean
 2026-08-08T03:37:19Z	release	build session ended
+2026-08-08T04:55:15Z	resume	program=career-transitions
+2026-08-08T05:03:06Z	preflight	exit 0 — gate-clean
+2026-08-08T05:05:18Z	preflight	exit 1
+2026-08-08T15:20:27Z	preflight	exit 0 — gate-clean
+2026-08-08T15:21:44Z	owner-feedback-revision	removed six-state row and five-node orbit; expanded three tests; replaced dozens of nudges and scale bumps with purposeful test highlighting; upgraded HyperFrames 0.7.79 to 0.7.101; fresh full midpoint set inspected
+2026-08-08T15:21:44Z	release	build session ended
+2026-08-08T15:48:09Z	preflight	exit 1
+2026-08-08T15:49:46Z	preflight	exit 0 — gate-clean
+2026-08-09T22:50:12Z	preflight	exit 0 — gate-clean

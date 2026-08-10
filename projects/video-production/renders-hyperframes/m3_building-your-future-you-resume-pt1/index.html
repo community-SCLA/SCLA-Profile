@@ -5,1171 +5,382 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Building Your Future-You Resume</title>
   <style>
-
     @font-face{font-family:proxima-nova;src:url('./assets/fonts/proxima-nova-400.woff2') format('woff2');font-weight:400;font-display:block}
     @font-face{font-family:proxima-nova;src:url('./assets/fonts/proxima-nova-700.woff2') format('woff2');font-weight:700;font-display:block}
     @font-face{font-family:proxima-nova;src:url('./assets/fonts/proxima-nova-900.woff2') format('woff2');font-weight:900;font-display:block}
-    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d2437;font-family:proxima-nova,system-ui,sans-serif}
-    #m3_building-your-future-you-resume-pt1{position:relative;width:1920px;height:1080px;overflow:hidden;color:#fff;background:radial-gradient(circle at 76% 42%,rgba(51,147,214,.16),transparent 34%),#0d2437}
-    #m3_building-your-future-you-resume-pt1:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(152,164,204,.045) 0 1px,transparent 1px 120px);pointer-events:none}
-    .brand{position:absolute;z-index:30;left:120px;top:54px;width:700px;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}.brand span:last-child{position:absolute;left:0;top:72px;color:#3393d6;letter-spacing:.08em}
-    .track{position:absolute;z-index:30;left:120px;right:120px;bottom:140px;height:5px;background:#5f6f96}.track i{display:block;width:100%;height:100%;background:#eaab2d;transform-origin:left;transform:scaleX(0)}
-    .clip{position:absolute;inset:0;opacity:0;visibility:hidden}.story{position:absolute;left:120px;top:245px;width:610px;min-height:610px}.story-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:2px solid rgba(152,164,204,.45);font-size:20px;font-weight:900;letter-spacing:.13em;color:#98a4cc}.story-top b{color:#eaab2d;font-variant-numeric:tabular-nums}.kicker{margin-top:46px;font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#eaab2d}h2{margin:22px 0 0;max-width:610px;font-size:54px;line-height:.98;font-weight:900;letter-spacing:-.025em}.cue{display:none;margin-top:34px;padding-top:8px;padding-left:24px;border-left:5px solid #3393d6;max-width:570px;color:#f6f6f9;font-size:40px;line-height:1.08;font-weight:700}.cue span{display:block;margin-bottom:12px;color:#98a4cc;font-size:19px;letter-spacing:.14em}
-    .resume-shell{position:absolute;left:830px;top:174px;width:870px;height:720px}.paper-back{position:absolute;inset:20px 14px 0 14px;border-radius:10px;background:#98a4cc;opacity:.18}.back-a{transform:translate(-18px,16px) rotate(-1.1deg)}.back-b{transform:translate(18px,8px) rotate(.8deg)}.future-resume{position:absolute;inset:0;padding:42px 48px 34px;border-radius:10px;background:#f6f6f9;color:#0d2437;box-shadow:0 30px 70px rgba(13,36,55,.4);overflow:hidden}.future-resume:before{content:"";position:absolute;left:0;top:0;bottom:0;width:12px;background:#3393d6}.resume-head{display:flex;align-items:center;gap:22px}.monogram{display:grid;place-items:center;width:62px;height:62px;border-radius:50%;background:#0d2437;color:#fff;font-size:24px;font-weight:900}.identity{display:flex;flex-direction:column;gap:3px}.identity strong{font-size:27px;letter-spacing:.08em}.identity span{font-size:20px;color:#5f6f96}.direction-chip{margin-left:auto;padding:10px 15px;border-radius:99px;background:#e5eff6;color:#0d2437;font-size:18px;font-weight:900;letter-spacing:.08em}.doc-rule{height:4px;margin:25px 0 22px;background:linear-gradient(90deg,#3393d6 0 68%,#eaab2d 68%)}.section-label{font-size:18px;font-weight:900;letter-spacing:.16em;color:#5f6f96}.role-line{margin-top:8px;font-size:27px;font-weight:900}.doc-lines{display:grid;gap:8px;margin-top:12px}.doc-lines i{display:block;height:8px;border-radius:99px;background:#cccedf}.doc-lines i:last-child{width:72%}.evidence-label{margin-top:22px}.proof-row{display:flex;align-items:center;gap:12px;height:36px;margin-top:7px;padding:0 10px;border-radius:7px;background:#fff}.proof-row span{font-size:16px;font-weight:900;color:#0d2437}.proof-row i{display:block;width:62%;height:7px;border-radius:99px;background:#cccedf}.proof-row em{display:block;margin-left:auto;width:42px;height:10px;border-radius:99px;background:#e5eff6}.focus-1 .r1,.focus-2 .r2,.focus-3 .r3,.focus-4 .r4{background:#e5eff6;box-shadow:inset 5px 0 #eaab2d}.focus-1 .r1 em,.focus-2 .r2 em,.focus-3 .r3 em,.focus-4 .r4 em{background:#eaab2d}.active-proof{position:relative;margin-top:18px;padding:15px 18px 14px;border:2px solid #3393d6;border-radius:9px;background:#fff}.active-proof small{display:block;color:#0d2437font-size:16px;font-weight:900;letter-spacing:.13em}.active-proof p{margin:7px 0 0;max-width:680px;font-size:30px;line-height:1.06;font-weight:900;color:#0d2437}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:17px}.metrics b{padding:9px 8px;border-radius:7px;background:#0d2437;color:#fff;text-align:center;font-size:18px;letter-spacing:.04em}.resume-foot{position:absolute;left:48px;right:48px;bottom:24px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;color:#5f6f96;font-size:15px;font-weight:900;letter-spacing:.1em}.build-meter{height:7px;border-radius:99px;background:#cccedf;overflow:hidden}.build-meter i{display:block;width:var(--build);height:100%;background:#3393d6}.resume-foot>b{color:#916a1cfont-size:18px}
-    .act-1 .paper-back{opacity:.34}.act-1 .future-resume{transform:rotate(-.35deg)}.act-2 .future-resume:before{background:#eaab2d}.act-2 .proof-row:not(.x){opacity:.72}.act-3 .direction-chip,.act-4 .direction-chip,.act-5 .direction-chip{background:#3393d6;color:#0d2437}.act-4 .proof-row span:after{content:"✓";margin-left:5px;color:#eaab2d}.act-5 .future-resume:after{content:"✦";position:absolute;right:30px;top:116px;color:#eaab2d;font-size:34px}.act-6 .metrics b{background:#eaab2d;color:#0d2437;font-size:22px}.act-6 .active-proof{border-width:4px}.act-7 .future-resume:before{background:linear-gradient(#3393d6,#eaab2d)}.act-7 .direction-chip{background:#eaab2d;color:#0d2437}.act-7 .build-meter i{background:#eaab2d}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d2437;font-family:proxima-nova,system-ui,sans-serif}
+    #m3_building-your-future-you-resume-pt1{position:relative;width:1920px;height:1080px;overflow:hidden;color:#f6f6f9}
+    .frame-bg{position:absolute;inset:0;background:radial-gradient(circle at 78% 45%,rgba(51,147,214,.18),transparent 42%),#0d2437}
+    .frame-bg:after{content:"";position:absolute;inset:96px 96px 104px;border:2px solid rgba(152,164,204,.18);border-radius:12px;pointer-events:none}
+    .brand{position:absolute;z-index:30;left:120px;right:120px;top:48px;display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
+    .brand strong{color:#3393d6;font-weight:700;letter-spacing:.09em}
+    .visual-scene{position:absolute;inset:0}
+    .clip.beat-marker{position:absolute;width:1px;height:1px;overflow:hidden}
+    .scene-body{position:absolute;left:120px;right:120px;top:122px;bottom:120px;display:flex;flex-direction:column;justify-content:center;opacity:0}
+    .label{font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#eaab2d}
+    h1,h2,h3,p{margin:0}
+    h1,h2{max-width:1600px;font-size:104px;line-height:.92;font-weight:900;letter-spacing:-.035em;text-transform:uppercase}
+    h3{font-size:58px;line-height:1;font-weight:900;letter-spacing:-.02em}
+    .sub{margin-top:28px;max-width:1320px;font-size:43px;line-height:1.12;color:#cccedf}
+    .accent{color:#eaab2d}.blue{color:#3393d6}.muted{color:#98a4cc}.paper{color:#f6f6f9}
+    .focus-stage{position:relative;margin-top:38px;min-height:480px;border:3px solid rgba(152,164,204,.34);border-radius:12px;overflow:hidden;background:rgba(10,30,47,.7)}
+    .focus-halo{position:absolute;z-index:0;width:760px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(51,147,214,.44),rgba(51,147,214,.12) 46%,transparent 72%);opacity:0;pointer-events:none}
+    .focus-halo.gold{background:radial-gradient(circle,rgba(234,171,45,.4),rgba(234,171,45,.1) 46%,transparent 72%)}
+    .stage-content{position:absolute;z-index:1;inset:0;padding:62px 72px}
+    .reveal{opacity:0}
+    .big-word{font-size:112px;line-height:.9;font-weight:900;letter-spacing:-.04em}
+    .giant{font-size:164px;line-height:.82;font-weight:900;letter-spacing:-.05em}
+    .quote{font-size:68px;line-height:1.02;font-weight:900;letter-spacing:-.02em}
+    .body{font-size:42px;line-height:1.16}
+    .rule{height:4px;background:#3393d6;transform-origin:left}
+    .gold-rule{background:#eaab2d}
+    .columns{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:42px}
+    .column{min-height:250px;padding:34px;border:3px solid #5f6f96;border-radius:12px;background:rgba(13,36,55,.86)}
+    .column strong{display:block;font-size:43px;line-height:1;font-weight:900}
+    .column p{margin-top:22px;font-size:34px;line-height:1.13;color:#cccedf}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:stretch;margin-top:42px}
+    .pane{position:relative;min-height:420px;padding:50px;border:3px solid #5f6f96;border-radius:12px;background:rgba(10,30,47,.82)}
+    .pane.focused{border-color:#3393d6;background:#e5eff6;color:#0d2437}
+    .pane .label{margin-bottom:28px}
+    .bullet-list{display:grid;gap:18px;margin:30px 0 0;padding:0;list-style:none}
+    .bullet-list li{font-size:43px;line-height:1.05;font-weight:700;color:#cccedf}
+    .bullet-list li:before{content:"—";margin-right:18px;color:#eaab2d}
+    .test-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center;margin-top:44px}
+    .test-question{font-size:68px;line-height:1.02;font-weight:900}
+    .missing{display:grid;gap:20px}
+    .missing span{padding:17px 22px;border:2px dashed #98a4cc;border-radius:10px;font-size:36px;color:#98a4cc}
+    .missing span:after{content:"— missing";float:right;color:#eaab2d;font-weight:900}
+    .field-lines{position:absolute;left:44px;right:52%;top:36px;bottom:36px;display:grid;grid-template-columns:1fr;gap:12px;align-content:center;opacity:.48}
+    .field-lines span{font-size:36px;line-height:1;font-weight:700;color:#98a4cc;white-space:nowrap}
+    .focus-window{position:absolute;z-index:2;left:49%;top:50%;width:760px;height:290px;padding:54px;display:flex;flex-direction:column;justify-content:center;border:5px solid #3393d6;border-radius:12px;background:#0a1e2f;box-shadow:0 0 0 999px rgba(10,30,47,.42)}
+    .focus-window strong{font-size:72px;line-height:.95;font-weight:900}
+    .change{display:grid;grid-template-columns:1fr 160px 1fr;gap:30px;align-items:center;margin-top:58px}
+    .change .state{padding:56px 42px;border:3px solid #5f6f96;border-radius:12px;font-size:58px;line-height:.98;font-weight:900}
+    .change .state:last-child{border-color:#3393d6;background:#e5eff6;color:#0d2437}
+    .arrow{font-size:100px;text-align:center;color:#eaab2d}
+    .bridge{position:relative;height:400px;margin-top:38px}
+    .bridge .endpoint{position:absolute;top:115px;width:430px;padding:40px;border:3px solid #5f6f96;border-radius:12px;font-size:57px;font-weight:900;text-align:center}
+    .bridge .endpoint:first-child{left:0}.bridge .endpoint:last-child{right:0;border-color:#3393d6}
+    .bridge svg{position:absolute;left:430px;top:72px;width:820px;height:220px;overflow:visible}
+    .draw-path{fill:none;stroke:#eaab2d;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+    .gap-note{position:absolute;left:680px;top:0;width:320px;padding:20px;border:3px solid #eaab2d;border-radius:12px;background:#0d2437;font-size:30px;font-weight:900;text-align:center;color:#eaab2d}
+    .verdict{display:flex;align-items:flex-end;gap:40px;margin-top:50px}
+    .verdict .small{font-size:70px;font-weight:900;color:#98a4cc}
+    .verdict .large{font-size:142px;line-height:.82;font-weight:900;color:#f6f6f9}
+    .filter{display:grid;grid-template-columns:1fr 1.2fr;gap:54px;align-items:center;margin-top:42px}
+    .filter-question{padding:44px;border:4px solid #3393d6;border-radius:12px;background:#e5eff6;color:#0d2437;font-size:57px;line-height:1.02;font-weight:900}
+    .evidence{display:grid;gap:22px}
+    .evidence p{padding:24px 30px;border-left:8px solid #eaab2d;background:rgba(229,239,246,.1);font-size:44px;font-weight:700}
+    .case-lines{display:grid;gap:22px;margin-top:46px}
+    .case-line{display:grid;grid-template-columns:360px 1fr;gap:34px;align-items:center;padding:24px 30px;border:3px solid #5f6f96;border-radius:12px}
+    .case-line strong{font-size:36px;color:#eaab2d}.case-line span{font-size:45px;font-weight:700}
+    .case-line.deemphasize{opacity:.45}.case-line.selected{border-color:#3393d6;background:rgba(51,147,214,.1)}
+    .north{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center;margin-top:34px}
+    .paths{display:grid;gap:22px}.paths span{padding:24px 30px;border:3px solid #5f6f96;border-radius:12px;font-size:42px;font-weight:700}
+    .star{position:relative;min-height:490px;display:grid;place-items:center}
+    .star svg{position:absolute;inset:0;width:100%;height:100%}.star polygon{fill:#eaab2d;stroke:#f6f6f9;stroke-width:3}
+    .star-text{position:relative;width:520px;text-align:center;color:#0d2437}.star-text .label{color:#0d2437}.star-text strong{display:block;margin-top:16px;font-size:58px;line-height:1;font-weight:900}
+    .rams{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:40px}
+    .rams div{min-height:220px;padding:30px;border:3px solid #5f6f96;border-radius:12px}
+    .rams strong{display:block;font-size:31px;color:#eaab2d}.rams span{display:block;margin-top:18px;font-size:42px;line-height:1;font-weight:900}
+    .rewrite{display:grid;grid-template-columns:.7fr 1.3fr;gap:42px;margin-top:46px}
+    .rewrite .before,.rewrite .after{padding:44px;border:3px solid #5f6f96;border-radius:12px}
+    .rewrite .before p{font-size:54px;line-height:1;font-weight:900;color:#98a4cc}
+    .rewrite .after{border-color:#3393d6;background:#e5eff6;color:#0d2437}
+    .rewrite .after p{font-size:41px;line-height:1.14;font-weight:700}
+    .metrics{display:flex;gap:20px;margin-top:26px}.metric{padding:18px 24px;border-radius:100px;background:#eaab2d;color:#0d2437;font-size:32px;font-weight:900}
+    .workflow{display:grid;grid-template-columns:1fr 100px 1fr 100px 1fr;gap:22px;align-items:center;margin-top:48px}
+    .step{min-height:260px;padding:38px;border:3px solid #5f6f96;border-radius:12px}
+    .step strong{display:block;font-size:47px;line-height:1;font-weight:900}.step p{margin-top:24px;font-size:34px;line-height:1.1;color:#cccedf}
+    .workflow .arrow{font-size:74px}
+    .cta{display:grid;grid-template-columns:1.3fr .7fr;gap:64px;align-items:center}
+    .next-box{padding:54px;border:4px solid #eaab2d;border-radius:12px;background:#e5eff6;color:#0d2437}
+    .next-box .label{color:#0d2437}.next-box strong{display:block;margin-top:22px;font-size:58px;line-height:1;font-weight:900}
+    #scene-language .big-word{font-size:76px}
+    #scene-language .quote{font-size:60px}
     .sr-narration{display:none}
   </style>
 </head>
 <body>
 <main id="m3_building-your-future-you-resume-pt1" data-start="0" data-composition-id="m3_building-your-future-you-resume-pt1" data-width="1920" data-height="1080" data-duration="241.948" data-fps="30">
-  <header class="brand"><span>Mid-Career Momentum</span><span>Building Your Future-You Resume</span></header>
-  <section class="clip act-1 focus-1" id="b01" data-beat-id="b01" data-track-index="0" data-start="0" data-end="4.71" data-duration="4.71" style="--build:2.7%" data-act="1">
-      <div class="story">
-        <div class="story-top"><span>01 · ARCHIVE → DIRECTION</span><b>01 / 37</b></div>
-        <div class="kicker">Future-you resume · 01</div>
-        <h2>YOUR FUTURE-YOU RESUME</h2>
-        <div class="cue"><span>NOW BUILDING</span>Future you starts here</div>
+  <div class="frame-bg"></div>
+  <header class="brand"><span>Mid-Career Momentum</span><strong>Building Your Future-You Resume</strong></header>
+
+  <section class="visual-scene" id="scene-welcome" data-scene-start="0" data-scene-end="4.71">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Your next move changes the lens</div>
+      <h1 class="reveal" data-at=".35">YOUR <span class="blue">FUTURE-YOU</span> RESUME</h1>
+      <p class="sub reveal" data-at=".8">Build around the role ahead.</p>
+    </div>
+    <p class="sr-narration">Hi, and welcome to this lesson on your future-you resume.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-archive" data-scene-start="4.71" data-scene-end="17.09">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">The archive problem</div>
+      <div class="focus-stage">
+        <div class="field-lines" aria-hidden="true"><span>Managed projects</span><span>Supported faculty</span><span>Coordinated meetings</span><span>Handled inquiries</span><span>Prepared reports</span><span>Maintained records</span><span>Assisted leadership</span><span>Updated systems</span></div>
+        <div class="focus-halo" data-bloom style="left:900px;top:40px"></div>
+        <div class="focus-window reveal" data-at="2.4">
+          <span class="label">What the archive signals</span>
+          <strong>THOROUGH <span class="accent">≠</span> CLEAR</strong>
+        </div>
       </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">HISTORY AUDIT</div>
+      <p class="sub reveal" data-at="8.7">A complete history can still work against you.</p>
+    </div>
+    <p class="sr-narration">By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-reframe" data-scene-start="17.09" data-scene-end="29.23">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">See the resume differently</div>
+      <div class="change">
+        <div class="state reveal" data-at=".4"><span class="muted">HISTORICAL</span> RECORD</div>
+        <div class="arrow reveal" data-at="1.2">→</div>
+        <div class="state reveal" data-at="2">STRATEGIC TOOL</div>
+      </div>
+      <p class="sub reveal" data-at="5.8">Tell the story of <span class="accent">where you’re going next</span>—and why you’re ready.</p>
+    </div>
+    <p class="sr-narration">So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-diagnosis" data-scene-start="29.23" data-scene-end="36.65">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Why mid-career resumes miss the mark</div>
+      <h2 class="reveal" data-at=".4">THREE USUAL CULPRITS</h2>
+      <div class="columns" role="list">
+        <article class="column reveal" data-at="1.15" role="listitem"><strong>TASKS</strong><p>Activity without impact</p></article>
+        <article class="column reveal" data-at="1.45" role="listitem"><strong>LANGUAGE</strong><p>Outdated or generic</p></article>
+        <article class="column reveal" data-at="1.75" role="listitem"><strong>LINK</strong><p>History without direction</p></article>
+      </div>
+    </div>
+    <p class="sr-narration">Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-tasks" data-scene-start="36.65" data-scene-end="56.26">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Culprit: tasks without impact</div>
+      <div class="test-grid">
+        <div>
+          <h2 class="reveal" data-at=".35">ACTIVITY IS NOT OUTCOME</h2>
+          <ul class="bullet-list" aria-label="Activity-only resume bullets">
+            <li class="reveal" data-at="4.9">Managed projects</li>
+            <li class="reveal" data-at="5.3">Supported faculty</li>
+            <li class="reveal" data-at="5.7">Handled student inquiries</li>
+          </ul>
+        </div>
+        <div class="missing" aria-label="Missing evidence">
+          <span class="reveal" data-at="10.8">RESULTS</span>
+          <span class="reveal" data-at="11.3">SCOPE</span>
+          <span class="reveal" data-at="11.8">VALUE ADDED</span>
+        </div>
+      </div>
+    </div>
+    <p class="sr-narration">First, they're overloaded with tasks but light on impact. You'll see bullets like “Managed projects,” “Supported faculty,” “Handled student inquiries.” Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-language" data-scene-start="56.26" data-scene-end="71.94">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Culprit: outdated or generic language</div>
+      <div class="focus-stage">
+        <div class="field-lines" aria-hidden="true"><span class="reveal" data-at="1.4">Objective statement</span><span class="reveal" data-at="2.3">References available</span><span class="reveal" data-at="3.2">Responsible for</span><span class="reveal" data-at="4.1">Duties included</span><span class="reveal" data-at="5">Worked on</span><span class="reveal" data-at="5.9">Assisted with</span><span class="reveal" data-at="6.8">Team player</span><span class="reveal" data-at="7.7">Hard worker</span></div>
+        <div class="focus-halo gold" data-bloom style="left:500px;top:0"></div>
+        <div class="stage-content" style="left:50%;display:flex;align-items:center;justify-content:center">
+          <div class="reveal" data-at="9.8" style="padding:48px 62px;border:5px solid #eaab2d;background:#0a1e2f;text-align:center">
+            <div class="label">The result</div>
+            <div class="big-word">BUSY. NOT SHARP.</div>
+            <div class="quote blue">NOT FOCUSED.</div>
           </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Future you starts here</p></div>
-          <div class="metrics"><b>HISTORY</b><b>EVERYTHING</b><b>NO DIRECTION</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>01</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Hi, and welcome to this lesson on your future-you resume.</p>
-    </section>
-  <section class="clip act-1 focus-2" id="b02" data-beat-id="b02" data-track-index="0" data-start="4.71" data-end="11.895" data-duration="7.185" style="--build:5.41%" data-act="1">
-      <div class="story">
-        <div class="story-top"><span>01 · ARCHIVE → DIRECTION</span><b>02 / 37</b></div>
-        <div class="kicker">The starting point · 02</div>
-        <h2>RESUMES BECOME ARCHIVES</h2>
-        <div class="cue"><span>NOW BUILDING</span>Everything you’ve ever done</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">HISTORY AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Everything you’ve ever done</p></div>
-          <div class="metrics"><b>HISTORY</b><b>EVERYTHING</b><b>NO DIRECTION</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>02</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done.</p>
-    </section>
-  <section class="clip act-1 focus-3" id="b03" data-beat-id="b03" data-track-index="0" data-start="11.895" data-end="14.24" data-duration="2.345" style="--build:8.11%" data-act="1">
-      <div class="story">
-        <div class="story-top"><span>01 · ARCHIVE → DIRECTION</span><b>03 / 37</b></div>
-        <div class="kicker">The archive · 03</div>
-        <h2>THOROUGH ON THE SURFACE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Complete does not mean clear</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">HISTORY AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Complete does not mean clear</p></div>
-          <div class="metrics"><b>HISTORY</b><b>EVERYTHING</b><b>NO DIRECTION</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>03</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">On the surface that looks thorough.</p>
-    </section>
-  <section class="clip act-1 focus-4" id="b04" data-beat-id="b04" data-track-index="0" data-start="14.24" data-end="17.09" data-duration="2.85" style="--build:10.81%" data-act="1">
-      <div class="story">
-        <div class="story-top"><span>01 · ARCHIVE → DIRECTION</span><b>04 / 37</b></div>
-        <div class="kicker">The archive · 04</div>
-        <h2>HISTORY WITHOUT DIRECTION</h2>
-        <div class="cue"><span>NOW BUILDING</span>The archive works against you</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">HISTORY AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>The archive works against you</p></div>
-          <div class="metrics"><b>HISTORY</b><b>EVERYTHING</b><b>NO DIRECTION</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>04</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">In practice, it often works against us.</p>
-    </section>
-  <section class="clip act-1 focus-1" id="b05" data-beat-id="b05" data-track-index="0" data-start="17.09" data-end="29.23" data-duration="12.14" style="--build:13.51%" data-act="1">
-      <div class="story">
-        <div class="story-top"><span>01 · ARCHIVE → DIRECTION</span><b>05 / 37</b></div>
-        <div class="kicker">Reframe · 05</div>
-        <h2>A STRATEGIC TOOL</h2>
-        <div class="cue"><span>NOW BUILDING</span>Where you’re going next</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">HISTORY AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Where you’re going next</p></div>
-          <div class="metrics"><b>HISTORY</b><b>EVERYTHING</b><b>NO DIRECTION</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>05</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.</p>
-    </section>
-  <section class="clip act-2 focus-2" id="b06" data-beat-id="b06" data-track-index="0" data-start="29.23" data-end="34.07" data-duration="4.84" style="--build:16.22%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>06 / 37</b></div>
-        <div class="kicker">The diagnosis · 06</div>
-        <h2>WHY RESUMES MISS THE MARK</h2>
-        <div class="cue"><span>NOW BUILDING</span>Mid-career deserves better</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Mid-career deserves better</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>06</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Let's start with why so many mid-career resumes don't do us justice.</p>
-    </section>
-  <section class="clip act-2 focus-3" id="b07" data-beat-id="b07" data-track-index="0" data-start="34.07" data-end="36.65" data-duration="2.58" style="--build:18.92%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>07 / 37</b></div>
-        <div class="kicker">The diagnosis · 07</div>
-        <h2>THREE USUAL CULPRITS</h2>
-        <div class="cue"><span>NOW BUILDING</span>Tasks · Language · Link</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Tasks · Language · Link</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>07</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">There are three usual culprits.</p>
-    </section>
-  <section class="clip act-2 focus-4" id="b08" data-beat-id="b08" data-track-index="0" data-start="36.65" data-end="41.24" data-duration="4.59" style="--build:21.62%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>08 / 37</b></div>
-        <div class="kicker">Culprit one · 08</div>
-        <h2>TASKS ≠ IMPACT</h2>
-        <div class="cue"><span>NOW BUILDING</span>Activity is not outcome</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Activity is not outcome</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>08</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">First, they're overloaded with tasks but light on impact.</p>
-    </section>
-  <section class="clip act-2 focus-1" id="b09" data-beat-id="b09" data-track-index="0" data-start="41.24" data-end="47.63" data-duration="6.39" style="--build:24.32%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>09 / 37</b></div>
-        <div class="kicker">Culprit one · 09</div>
-        <h2>BUSY BULLETS</h2>
-        <div class="cue"><span>NOW BUILDING</span>Managed · Supported · Handled</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Managed · Supported · Handled</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>09</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">You'll see bullets like "Managed projects," "Supported faculty," "Handled student inquiries."</p>
-    </section>
-  <section class="clip act-2 focus-2" id="b10" data-beat-id="b10" data-track-index="0" data-start="47.63" data-end="56.26" data-duration="8.63" style="--build:27.03%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>10 / 37</b></div>
-        <div class="kicker">Culprit one · 10</div>
-        <h2>SHOW WHAT CHANGED</h2>
-        <div class="cue"><span>NOW BUILDING</span>Results · Scope · Value</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Results · Scope · Value</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>10</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.</p>
-    </section>
-  <section class="clip act-2 focus-3" id="b11" data-beat-id="b11" data-track-index="0" data-start="56.26" data-end="60.29" data-duration="4.03" style="--build:29.73%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>11 / 37</b></div>
-        <div class="kicker">Culprit two · 11</div>
-        <h2>OUTDATED ≠ FOCUSED</h2>
-        <div class="cue"><span>NOW BUILDING</span>Generic language blurs the signal</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Generic language blurs the signal</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>11</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Second, the format and language feel outdated or generic.</p>
-    </section>
-  <section class="clip act-2 focus-4" id="b12" data-beat-id="b12" data-track-index="0" data-start="60.29" data-end="68.54" data-duration="8.25" style="--build:32.43%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>12 / 37</b></div>
-        <div class="kicker">Culprit two · 12</div>
-        <h2>OLD SECTIONS, OLD PHRASES</h2>
-        <div class="cue"><span>NOW BUILDING</span>Does this match today’s expectations?</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Does this match today’s expectations?</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>12</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations.</p>
-    </section>
-  <section class="clip act-2 focus-1" id="b13" data-beat-id="b13" data-track-index="0" data-start="68.54" data-end="71.94" data-duration="3.4" style="--build:35.14%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>13 / 37</b></div>
-        <div class="kicker">Culprit two · 13</div>
-        <h2>BUSY IS NOT SHARP</h2>
-        <div class="cue"><span>NOW BUILDING</span>Focus the evidence</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Focus the evidence</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>13</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">The result looks busy but not sharp or focused.</p>
-    </section>
-  <section class="clip act-2 focus-2" id="b14" data-beat-id="b14" data-track-index="0" data-start="71.94" data-end="78.95" data-duration="7.01" style="--build:37.84%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>14 / 37</b></div>
-        <div class="kicker">Culprit three · 14</div>
-        <h2>NO CLEAR LINK</h2>
-        <div class="cue"><span>NOW BUILDING</span>Experience → Next role</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Experience → Next role</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>14</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Third — and this is the big one for us — there's often no clear link between your experience and the role you want next.</p>
-    </section>
-  <section class="clip act-2 focus-3" id="b15" data-beat-id="b15" data-track-index="0" data-start="78.95" data-end="83.87" data-duration="4.92" style="--build:40.54%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>15 / 37</b></div>
-        <div class="kicker">Culprit three · 15</div>
-        <h2>CONNECT THE STEP AHEAD</h2>
-        <div class="cue"><span>NOW BUILDING</span>What you’ve done → What you want</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>What you’ve done → What you want</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>15</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Someone can read what you've done, but not see how it connects to the step you want next.</p>
-    </section>
-  <section class="clip act-2 focus-4" id="b16" data-beat-id="b16" data-track-index="0" data-start="83.87" data-end="88.72" data-duration="4.85" style="--build:43.24%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>16 / 37</b></div>
-        <div class="kicker">Culprit three · 16</div>
-        <h2>BUILD THE THROUGH-LINE</h2>
-        <div class="cue"><span>NOW BUILDING</span>History → Readiness</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>History → Readiness</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>16</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">There's no through-line from "here's my history" to "here's why I'm ready for this."</p>
-    </section>
-  <section class="clip act-2 focus-1" id="b17" data-beat-id="b17" data-track-index="0" data-start="88.72" data-end="99.575" data-duration="10.855" style="--build:45.95%" data-act="2">
-      <div class="story">
-        <div class="story-top"><span>02 · SIGNAL AUDIT</span><b>17 / 37</b></div>
-        <div class="kicker">The test · 17</div>
-        <h2>THE DECISION-MAKER TEST</h2>
-        <div class="cue"><span>NOW BUILDING</span>Right fit. Right now.</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">SIGNAL AUDIT</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Right fit. Right now.</p></div>
-          <div class="metrics"><b>TASKS</b><b>GENERIC</b><b>DISCONNECTED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>17</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">All of that makes it harder for hiring managers, sponsors, and decision-makers to say: "Yes, this person is clearly the right fit, right now."</p>
-    </section>
-  <section class="clip act-3 focus-2" id="b18" data-beat-id="b18" data-track-index="0" data-start="99.575" data-end="101.75" data-duration="2.175" style="--build:48.65%" data-act="3">
-      <div class="story">
-        <div class="story-top"><span>03 · FUTURE-YOU</span><b>18 / 37</b></div>
-        <div class="kicker">Reframe · 18</div>
-        <h2>FLIP THE PERSPECTIVE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Archive → Direction</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">TARGET ROLE</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Archive → Direction</p></div>
-          <div class="metrics"><b>TARGET ROLE</b><b>READINESS</b><b>CURATED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>18</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">So let's flip the perspective.</p>
-    </section>
-  <section class="clip act-3 focus-3" id="b19" data-beat-id="b19" data-track-index="0" data-start="101.75" data-end="108.42" data-duration="6.67" style="--build:51.35%" data-act="3">
-      <div class="story">
-        <div class="story-top"><span>03 · FUTURE-YOU</span><b>19 / 37</b></div>
-        <div class="kicker">Future-you · 19</div>
-        <h2>READY FOR WHAT’S NEXT</h2>
-        <div class="cue"><span>NOW BUILDING</span>Prove readiness, not busyness</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">TARGET ROLE</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Prove readiness, not busyness</p></div>
-          <div class="metrics"><b>TARGET ROLE</b><b>READINESS</b><b>CURATED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>19</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next.</p>
-    </section>
-  <section class="clip act-3 focus-4" id="b20" data-beat-id="b20" data-track-index="0" data-start="108.42" data-end="113.74" data-duration="5.32" style="--build:54.05%" data-act="3">
-      <div class="story">
-        <div class="story-top"><span>03 · FUTURE-YOU</span><b>20 / 37</b></div>
-        <div class="kicker">Future-you · 20</div>
-        <h2>BUILD AROUND THE ROLE YOU WANT</h2>
-        <div class="cue"><span>NOW BUILDING</span>Future-you first</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">TARGET ROLE</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Future-you first</p></div>
-          <div class="metrics"><b>TARGET ROLE</b><b>READINESS</b><b>CURATED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>20</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">A future-you resume is built around the role you want, not the role you started in.</p>
-    </section>
-  <section class="clip act-3 focus-1" id="b21" data-beat-id="b21" data-track-index="0" data-start="113.74" data-end="124.37" data-duration="10.63" style="--build:56.76%" data-act="3">
-      <div class="story">
-        <div class="story-top"><span>03 · FUTURE-YOU</span><b>21 / 37</b></div>
-        <div class="kicker">The method · 21</div>
-        <h2>CURATE THE EVIDENCE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Projects · Results · Responsibilities</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">TARGET ROLE</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Projects · Results · Responsibilities</p></div>
-          <div class="metrics"><b>TARGET ROLE</b><b>READINESS</b><b>CURATED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>21</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course.</p>
-    </section>
-  <section class="clip act-3 focus-2" id="b22" data-beat-id="b22" data-track-index="0" data-start="124.37" data-end="129.772" data-duration="5.402" style="--build:59.46%" data-act="3">
-      <div class="story">
-        <div class="story-top"><span>03 · FUTURE-YOU</span><b>22 / 37</b></div>
-        <div class="kicker">The method · 22</div>
-        <h2>EVERY BULLET EARNS ITS PLACE</h2>
-        <div class="cue"><span>NOW BUILDING</span>How does this prove readiness?</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">TARGET ROLE</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>How does this prove readiness?</p></div>
-          <div class="metrics"><b>TARGET ROLE</b><b>READINESS</b><b>CURATED</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>22</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Every bullet answers one question: "How does this show I'm prepared for my next move?"</p>
-    </section>
-  <section class="clip act-4 focus-3" id="b23" data-beat-id="b23" data-track-index="0" data-start="129.772" data-end="135.333" data-duration="5.561" style="--build:62.16%" data-act="4">
-      <div class="story">
-        <div class="story-top"><span>04 · EVIDENCE</span><b>23 / 37</b></div>
-        <div class="kicker">The evidence · 23</div>
-        <h2>LEAD ABOVE THE TITLE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Show higher-level initiative</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">PROOF SELECTED</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Show higher-level initiative</p></div>
-          <div class="metrics"><b>3–5 PROOFS</b><b>OUTCOME</b><b>SCOPE</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>23</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">That might mean highlighting the initiatives where you led at a higher level than your title suggested.</p>
-    </section>
-  <section class="clip act-4 focus-4" id="b24" data-beat-id="b24" data-track-index="0" data-start="135.333" data-end="140.609" data-duration="5.276" style="--build:64.86%" data-act="4">
-      <div class="story">
-        <div class="story-top"><span>04 · EVIDENCE</span><b>24 / 37</b></div>
-        <div class="kicker">The evidence · 24</div>
-        <h2>OUTCOMES + SCOPE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Who changed? What improved?</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">PROOF SELECTED</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Who changed? What improved?</p></div>
-          <div class="metrics"><b>3–5 PROOFS</b><b>OUTCOME</b><b>SCOPE</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>24</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Emphasizing outcomes and scope — how many people you impacted, what improved.</p>
-    </section>
-  <section class="clip act-4 focus-1" id="b25" data-beat-id="b25" data-track-index="0" data-start="140.609" data-end="145.289" data-duration="4.68" style="--build:67.57%" data-act="4">
-      <div class="story">
-        <div class="story-top"><span>04 · EVIDENCE</span><b>25 / 37</b></div>
-        <div class="kicker">The evidence · 25</div>
-        <h2>DE-EMPHASIZE THE PAST</h2>
-        <div class="cue"><span>NOW BUILDING</span>Remove what no longer fits</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">PROOF SELECTED</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Remove what no longer fits</p></div>
-          <div class="metrics"><b>3–5 PROOFS</b><b>OUTCOME</b><b>SCOPE</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>25</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">And de-emphasizing tasks or roles that no longer match where you're heading.</p>
-    </section>
-  <section class="clip act-4 focus-2" id="b26" data-beat-id="b26" data-track-index="0" data-start="145.289" data-end="150.594" data-duration="5.305" style="--build:70.27%" data-act="4">
-      <div class="story">
-        <div class="story-top"><span>04 · EVIDENCE</span><b>26 / 37</b></div>
-        <div class="kicker">The evidence · 26</div>
-        <h2>BUILD THE CASE FILE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Less timeline. More proof.</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">PROOF SELECTED</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Less timeline. More proof.</p></div>
-          <div class="metrics"><b>3–5 PROOFS</b><b>OUTCOME</b><b>SCOPE</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>26</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Your resume becomes less of a timeline and more of a case file for your future you.</p>
-    </section>
-  <section class="clip act-5 focus-3" id="b27" data-beat-id="b27" data-track-index="0" data-start="150.594" data-end="155.029" data-duration="4.435" style="--build:72.97%" data-act="5">
-      <div class="story">
-        <div class="story-top"><span>05 · NORTH STAR</span><b>27 / 37</b></div>
-        <div class="kicker">Your direction · 27</div>
-        <h2>RETURN TO YOUR NORTH STAR</h2>
-        <div class="cue"><span>NOW BUILDING</span>Next Move Statement</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">LINE TEST</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Next Move Statement</p></div>
-          <div class="metrics"><b>NORTH STAR</b><b>LINE TEST</b><b>RAMS</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>27</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Earlier in this track, you created a Next Move Statement.</p>
-    </section>
-  <section class="clip act-5 focus-4" id="b28" data-beat-id="b28" data-track-index="0" data-start="155.029" data-end="163.759" data-duration="8.73" style="--build:75.68%" data-act="5">
-      <div class="story">
-        <div class="story-top"><span>05 · NORTH STAR</span><b>28 / 37</b></div>
-        <div class="kicker">Your direction · 28</div>
-        <h2>NAME THE PRIMARY PATH</h2>
-        <div class="cue"><span>NOW BUILDING</span>Promotion · Lateral move · Role redesign</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">LINE TEST</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Promotion · Lateral move · Role redesign</p></div>
-          <div class="metrics"><b>NORTH STAR</b><b>LINE TEST</b><b>RAMS</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>28</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months.</p>
-    </section>
-  <section class="clip act-5 focus-1" id="b29" data-beat-id="b29" data-track-index="0" data-start="163.759" data-end="167.179" data-duration="3.42" style="--build:78.38%" data-act="5">
-      <div class="story">
-        <div class="story-top"><span>05 · NORTH STAR</span><b>29 / 37</b></div>
-        <div class="kicker">Your direction · 29</div>
-        <h2>KEEP THE NORTH STAR VISIBLE</h2>
-        <div class="cue"><span>NOW BUILDING</span>The role you want next</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">LINE TEST</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>The role you want next</p></div>
-          <div class="metrics"><b>NORTH STAR</b><b>LINE TEST</b><b>RAMS</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>29</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">In this lesson, that statement is your north star.</p>
-    </section>
-  <section class="clip act-5 focus-2" id="b30" data-beat-id="b30" data-track-index="0" data-start="167.179" data-end="174.399" data-duration="7.22" style="--build:81.08%" data-act="5">
-      <div class="story">
-        <div class="story-top"><span>05 · NORTH STAR</span><b>30 / 37</b></div>
-        <div class="kicker">The line test · 30</div>
-        <h2>TEST EVERY LINE</h2>
-        <div class="cue"><span>NOW BUILDING</span>Does this make the case?</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">LINE TEST</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Does this make the case?</p></div>
-          <div class="metrics"><b>NORTH STAR</b><b>LINE TEST</b><b>RAMS</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>30</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">As you update your resume, you'll ask of every line: "Does this help make the case for the role in my Next Move Statement?"</p>
-    </section>
-  <section class="clip act-5 focus-3" id="b31" data-beat-id="b31" data-track-index="0" data-start="174.399" data-end="178.898" data-duration="4.499" style="--build:83.78%" data-act="5">
-      <div class="story">
-        <div class="story-top"><span>05 · NORTH STAR</span><b>31 / 37</b></div>
-        <div class="kicker">The line test · 31</div>
-        <h2>CHOOSE 3–5 EXPERIENCES</h2>
-        <div class="cue"><span>NOW BUILDING</span>Your strongest evidence</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">LINE TEST</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Your strongest evidence</p></div>
-          <div class="metrics"><b>NORTH STAR</b><b>LINE TEST</b><b>RAMS</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>31</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">You'll choose three to five experiences that serve as your strongest evidence.</p>
-    </section>
-  <section class="clip act-5 focus-4" id="b32" data-beat-id="b32" data-track-index="0" data-start="178.898" data-end="185.788" data-duration="6.89" style="--build:86.49%" data-act="5">
-      <div class="story">
-        <div class="story-top"><span>05 · NORTH STAR</span><b>32 / 37</b></div>
-        <div class="kicker">The line test · 32</div>
-        <h2>THE FOUR-PART PROOF</h2>
-        <div class="cue"><span>NOW BUILDING</span>Responsibility · Action · Outcome · Scope</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">LINE TEST</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Responsibility · Action · Outcome · Scope</p></div>
-          <div class="metrics"><b>NORTH STAR</b><b>LINE TEST</b><b>RAMS</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>32</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.</p>
-    </section>
-  <section class="clip act-6 focus-1" id="b33" data-beat-id="b33" data-track-index="0" data-start="185.788" data-end="200.988" data-duration="15.2" style="--build:89.19%" data-act="6">
-      <div class="story">
-        <div class="story-top"><span>06 · IMPACT REWRITE</span><b>33 / 37</b></div>
-        <div class="kicker">Rewrite · 33</div>
-        <h2>FROM TASK TO IMPACT</h2>
-        <div class="cue"><span>NOW BUILDING</span>6 people · −30% time · +20% satisfaction</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">IMPACT BULLET</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>6 people · −30% time · +20% satisfaction</p></div>
-          <div class="metrics"><b>6 PEOPLE</b><b>−30% TIME</b><b>+20% SAT.</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>33</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">For example, instead of "Managed team projects," you might write: "Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%."</p>
-    </section>
-  <section class="clip act-6 focus-2" id="b34" data-beat-id="b34" data-track-index="0" data-start="200.988" data-end="207.988" data-duration="7" style="--build:91.89%" data-act="6">
-      <div class="story">
-        <div class="story-top"><span>06 · IMPACT REWRITE</span><b>34 / 37</b></div>
-        <div class="kicker">Rewrite · 34</div>
-        <h2>SAME WORK, CLEARER SIGNAL</h2>
-        <div class="cue"><span>NOW BUILDING</span>Impact + readiness</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">IMPACT BULLET</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Impact + readiness</p></div>
-          <div class="metrics"><b>6 PEOPLE</b><b>−30% TIME</b><b>+20% SAT.</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>34</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.</p>
-    </section>
-  <section class="clip act-7 focus-3" id="b35" data-beat-id="b35" data-track-index="0" data-start="207.988" data-end="222.178" data-duration="14.19" style="--build:94.59%" data-act="7">
-      <div class="story">
-        <div class="story-top"><span>07 · BUILD</span><b>35 / 37</b></div>
-        <div class="kicker">The tool · 35</div>
-        <h2>USE THE RESUME BUILDER</h2>
-        <div class="cue"><span>NOW BUILDING</span>Draft · Refine · Align</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">FUTURE-YOU READY</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Draft · Refine · Align</p></div>
-          <div class="metrics"><b>DRAFT</b><b>REFINE</b><b>ALIGN</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>35</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement.</p>
-    </section>
-  <section class="clip act-7 focus-4" id="b36" data-beat-id="b36" data-track-index="0" data-start="222.178" data-end="228.778" data-duration="6.6" style="--build:97.3%" data-act="7">
-      <div class="story">
-        <div class="story-top"><span>07 · BUILD</span><b>36 / 37</b></div>
-        <div class="kicker">The tool · 36</div>
-        <h2>CHOOSE YOUR HEADLINE STORIES</h2>
-        <div class="cue"><span>NOW BUILDING</span>3–5 experiences</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">FUTURE-YOU READY</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>3–5 experiences</p></div>
-          <div class="metrics"><b>DRAFT</b><b>REFINE</b><b>ALIGN</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>36</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">You'll decide which three to five experiences become your headline stories on your resume and profile.</p>
-    </section>
-  <section class="clip act-7 focus-1" id="b37" data-beat-id="b37" data-track-index="0" data-start="228.778" data-end="241.948" data-duration="13.17" style="--build:100.0%" data-act="7">
-      <div class="story">
-        <div class="story-top"><span>07 · BUILD</span><b>37 / 37</b></div>
-        <div class="kicker">Next step · 37</div>
-        <h2>BUILD FOR WHERE YOU’RE GOING</h2>
-        <div class="cue"><span>NOW BUILDING</span>Next → Resume Builder Tool</div>
-      </div>
-      <div class="resume-shell" aria-hidden="true">
-        <div class="paper-back back-a"></div><div class="paper-back back-b"></div>
-        <article class="future-resume">
-          <div class="resume-head">
-            <div class="monogram">FY</div>
-            <div class="identity"><strong>FUTURE-YOU</strong><span>Positioned for the role ahead</span></div>
-            <div class="direction-chip">FUTURE-YOU READY</div>
-          </div>
-          <div class="doc-rule"></div>
-          <div class="section-label">POSITIONING</div>
-          <div class="role-line">EXPERIENCE → READINESS → NEXT MOVE</div>
-          <div class="doc-lines"><i></i><i></i></div>
-          <div class="section-label evidence-label">SELECTED EVIDENCE</div>
-          <div class="proof-row r1"><span>01</span><i></i><em></em></div>
-          <div class="proof-row r2"><span>02</span><i></i><em></em></div>
-          <div class="proof-row r3"><span>03</span><i></i><em></em></div>
-          <div class="proof-row r4"><span>04</span><i></i><em></em></div>
-          <div class="active-proof"><small>CURRENT SIGNAL</small><p>Next → Resume Builder Tool</p></div>
-          <div class="metrics"><b>DRAFT</b><b>REFINE</b><b>ALIGN</b></div>
-          <div class="resume-foot"><span>CASE FOR THE FUTURE</span><div class="build-meter"><i></i></div><b>37</b></div>
-        </article>
-      </div>
-      <p class="sr-narration">When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.</p>
-    </section>
+        </div>
+      </div>
+    </div>
+    <p class="sr-narration">Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-link" data-scene-start="71.94" data-scene-end="88.72">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Culprit: no clear link</div>
+      <h2 class="reveal" data-at=".4">Your Experience Needs a Through-Line</h2>
+      <div class="bridge">
+        <div class="endpoint reveal" data-at="2.1">YOUR HISTORY</div>
+        <div class="gap-note reveal" data-at="8.1">MISSING LINK</div>
+        <svg viewBox="0 0 820 220" aria-label="Broken path from history to next role"><path class="draw-path" data-at="3.5" d="M20 150 C210 40 280 40 355 110 M465 110 C560 40 640 60 800 150"/></svg>
+        <div class="endpoint reveal" data-at="8.6">YOUR NEXT ROLE</div>
+      </div>
+    </div>
+    <p class="sr-narration">Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from “here's my history” to “here's why I'm ready for this.”</p>
+  </section>
+
+  <section class="visual-scene" id="scene-fit" data-scene-start="88.72" data-scene-end="99.575">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">The decision-maker test</div>
+      <div class="focus-stage" style="display:grid;place-items:center">
+        <div class="focus-halo gold" data-bloom style="left:460px;top:-30px"></div>
+        <div class="stage-content" style="display:grid;place-items:center;text-align:center">
+          <p class="quote reveal" data-at=".6">“YES, THIS PERSON IS CLEARLY</p>
+          <p class="giant accent reveal" data-at="3.4">THE RIGHT FIT</p>
+          <p class="quote reveal" data-at="6.2">RIGHT NOW.”</p>
+        </div>
+      </div>
+    </div>
+    <p class="sr-narration">All of that makes it harder for hiring managers, sponsors, and decision-makers to say: “Yes, this person is clearly the right fit, right now.”</p>
+  </section>
+
+  <section class="visual-scene" id="scene-ready" data-scene-start="99.575" data-scene-end="113.74">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Flip the perspective</div>
+      <div class="verdict">
+        <div class="small reveal" data-at="1.2">PROVE YOU’VE BEEN <span class="muted">BUSY</span></div>
+        <div class="arrow reveal" data-at="2.1">→</div>
+        <div class="large reveal" data-at="3">SHOW YOU’RE <span class="blue">READY</span></div>
+      </div>
+      <div class="rule gold-rule reveal" data-at="7.6" style="margin-top:54px"></div>
+      <p class="sub reveal" data-at="8.1">Build around the role you want—not the role you started in.</p>
+    </div>
+    <p class="sr-narration">So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-curate" data-scene-start="113.74" data-scene-end="129.772">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Curate evidence for the direction ahead</div>
+      <div class="filter">
+        <div class="evidence" role="list">
+          <p class="reveal" data-at="1">PROJECTS</p>
+          <p class="reveal" data-at="2.1">RESULTS</p>
+          <p class="reveal" data-at="3.2">RESPONSIBILITIES</p>
+        </div>
+        <div class="filter-question reveal" data-at="8.9">HOW DOES THIS SHOW I’M PREPARED FOR MY NEXT MOVE?</div>
+      </div>
+    </div>
+    <p class="sr-narration">Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: “How does this show I'm prepared for my next move?”</p>
+  </section>
+
+  <section class="visual-scene" id="scene-case" data-scene-start="129.772" data-scene-end="150.594">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Build a case file for future you</div>
+      <div class="case-lines" role="list">
+        <div class="case-line selected reveal" data-at=".5" role="listitem"><strong>LEADERSHIP</strong><span>Led above the level of the title</span></div>
+        <div class="case-line selected reveal" data-at="5.7" role="listitem"><strong>OUTCOME + SCOPE</strong><span>What improved—and for how many people</span></div>
+        <div class="case-line deemphasize reveal" data-at="11.2" role="listitem"><strong>PAST TASKS</strong><span>Roles that no longer match the direction ahead</span></div>
+      </div>
+      <p class="sub reveal" data-at="16.2">Less timeline. More proof.</p>
+    </div>
+    <p class="sr-narration">That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-north-star" data-scene-start="150.594" data-scene-end="167.179">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Your direction</div>
+      <div class="north">
+        <div class="paths" role="list">
+          <span class="reveal" data-at="3.8" role="listitem">PROMOTION</span>
+          <span class="reveal" data-at="4.2" role="listitem">LATERAL MOVE</span>
+          <span class="reveal" data-at="4.6" role="listitem">ROLE REDESIGN</span>
+          <p class="sub reveal" data-at="8.2">The role you want in the next <strong class="paper">6–12 months</strong></p>
+        </div>
+        <div class="star reveal" data-at="11.6">
+          <svg viewBox="0 0 600 520" aria-hidden="true"><polygon points="300,20 365,185 545,198 405,312 448,490 300,392 152,490 195,312 55,198 235,185"/></svg>
+          <div class="star-text"><span class="label">Your north star</span><strong>NEXT MOVE STATEMENT</strong></div>
+        </div>
+      </div>
+    </div>
+    <p class="sr-narration">Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-line-test" data-scene-start="167.179" data-scene-end="185.788">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Test every line against the next move</div>
+      <h2 class="reveal" data-at=".5">DOES THIS HELP MAKE THE CASE?</h2>
+      <p class="sub reveal" data-at="7.5">Choose your <strong class="paper">three to five strongest experiences.</strong></p>
+      <div class="rams" aria-label="Four-part evidence structure">
+        <div class="reveal" data-at="11.8"><strong>RESPONSIBILITY</strong><span>What you owned</span></div>
+        <div class="reveal" data-at="12.2"><strong>ACTION</strong><span>What you did</span></div>
+        <div class="reveal" data-at="12.6"><strong>MEASURABLE OUTCOME</strong><span>What changed</span></div>
+        <div class="reveal" data-at="13"><strong>SCOPE</strong><span>How far it reached</span></div>
+      </div>
+    </div>
+    <p class="sr-narration">As you update your resume, you'll ask of every line: “Does this help make the case for the role in my Next Move Statement?” You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-rewrite" data-scene-start="185.788" data-scene-end="207.988">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">From task to impact</div>
+      <div class="rewrite">
+        <article class="before reveal" data-at=".5"><div class="label">Before</div><p>Managed team projects.</p></article>
+        <article class="after reveal" data-at="2.4"><div class="label">After</div><p>Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.</p><div class="metrics"><span class="metric reveal" data-at="6.2">6 PEOPLE</span><span class="metric reveal" data-at="9.2">−30% TIME</span><span class="metric reveal" data-at="12.2">+20% SATISFACTION</span></div></article>
+      </div>
+      <p class="sub reveal" data-at="15.8">Same person. Same work. <strong class="paper">Clearer impact and readiness.</strong></p>
+    </div>
+    <p class="sr-narration">For example, instead of “Managed team projects,” you might write: “Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.” Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-builder" data-scene-start="207.988" data-scene-end="228.778">
+    <div class="scene-body">
+      <div class="label reveal" data-at=".2">Resume Builder Tool</div>
+      <h2 class="reveal" data-at=".45">TURN YOUR EVIDENCE INTO HEADLINE STORIES</h2>
+      <div class="workflow" aria-label="Resume Builder Tool workflow">
+        <article class="step reveal" data-at="2"><strong>UPLOAD OR PASTE</strong><p>Parts of your current resume</p></article>
+        <div class="arrow reveal" data-at="4">→</div>
+        <article class="step reveal" data-at="5"><strong>AI DRAFT</strong><p>Stronger, impact-focused bullets</p></article>
+        <div class="arrow reveal" data-at="8">→</div>
+        <article class="step reveal" data-at="9"><strong>REFINE + ALIGN</strong><p>Support your Next Move Statement</p></article>
+      </div>
+      <p class="sub reveal" data-at="14.8">Choose the <strong class="paper">three to five experiences</strong> that lead your resume and profile.</p>
+    </div>
+    <p class="sr-narration">From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile.</p>
+  </section>
+
+  <section class="visual-scene" id="scene-next" data-scene-start="228.778" data-scene-end="241.948">
+    <div class="scene-body cta">
+      <div>
+        <div class="label reveal" data-at=".2">Build for where you’re going</div>
+        <h2 class="reveal" data-at=".5">RESHAPE YOUR RESUME AROUND THE ROLE YOU WANT</h2>
+        <p class="sub reveal" data-at="5.2">Not just the roles you’ve had.</p>
+      </div>
+      <div class="next-box reveal" data-at="7.2"><span class="label">When you’re ready</span><strong>NEXT → RESUME BUILDER TOOL</strong></div>
+    </div>
+    <p class="sr-narration">When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.</p>
+  </section>
+
+  <section class="clip beat-marker" id="b01" data-beat-id="b01" data-track-index="0" data-start="0" data-end="4.71" data-duration="4.71"></section>
+  <section class="clip beat-marker" id="b02" data-beat-id="b02" data-track-index="0" data-start="4.71" data-end="11.895" data-duration="7.185"></section>
+  <section class="clip beat-marker" id="b03" data-beat-id="b03" data-track-index="0" data-start="11.895" data-end="14.24" data-duration="2.345"></section>
+  <section class="clip beat-marker" id="b04" data-beat-id="b04" data-track-index="0" data-start="14.24" data-end="17.09" data-duration="2.85"></section>
+  <section class="clip beat-marker" id="b05" data-beat-id="b05" data-track-index="0" data-start="17.09" data-end="29.23" data-duration="12.14"></section>
+  <section class="clip beat-marker" id="b06" data-beat-id="b06" data-track-index="0" data-start="29.23" data-end="34.07" data-duration="4.84"></section>
+  <section class="clip beat-marker" id="b07" data-beat-id="b07" data-track-index="0" data-start="34.07" data-end="36.65" data-duration="2.58"></section>
+  <section class="clip beat-marker" id="b08" data-beat-id="b08" data-track-index="0" data-start="36.65" data-end="41.24" data-duration="4.59"></section>
+  <section class="clip beat-marker" id="b09" data-beat-id="b09" data-track-index="0" data-start="41.24" data-end="47.63" data-duration="6.39"></section>
+  <section class="clip beat-marker" id="b10" data-beat-id="b10" data-track-index="0" data-start="47.63" data-end="56.26" data-duration="8.63"></section>
+  <section class="clip beat-marker" id="b11" data-beat-id="b11" data-track-index="0" data-start="56.26" data-end="60.29" data-duration="4.03"></section>
+  <section class="clip beat-marker" id="b12" data-beat-id="b12" data-track-index="0" data-start="60.29" data-end="68.54" data-duration="8.25"></section>
+  <section class="clip beat-marker" id="b13" data-beat-id="b13" data-track-index="0" data-start="68.54" data-end="71.94" data-duration="3.4"></section>
+  <section class="clip beat-marker" id="b14" data-beat-id="b14" data-track-index="0" data-start="71.94" data-end="78.95" data-duration="7.01"></section>
+  <section class="clip beat-marker" id="b15" data-beat-id="b15" data-track-index="0" data-start="78.95" data-end="83.87" data-duration="4.92"></section>
+  <section class="clip beat-marker" id="b16" data-beat-id="b16" data-track-index="0" data-start="83.87" data-end="88.72" data-duration="4.85"></section>
+  <section class="clip beat-marker" id="b17" data-beat-id="b17" data-track-index="0" data-start="88.72" data-end="99.575" data-duration="10.855"></section>
+  <section class="clip beat-marker" id="b18" data-beat-id="b18" data-track-index="0" data-start="99.575" data-end="101.75" data-duration="2.175"></section>
+  <section class="clip beat-marker" id="b19" data-beat-id="b19" data-track-index="0" data-start="101.75" data-end="108.42" data-duration="6.67"></section>
+  <section class="clip beat-marker" id="b20" data-beat-id="b20" data-track-index="0" data-start="108.42" data-end="113.74" data-duration="5.32"></section>
+  <section class="clip beat-marker" id="b21" data-beat-id="b21" data-track-index="0" data-start="113.74" data-end="124.37" data-duration="10.63"></section>
+  <section class="clip beat-marker" id="b22" data-beat-id="b22" data-track-index="0" data-start="124.37" data-end="129.772" data-duration="5.402"></section>
+  <section class="clip beat-marker" id="b23" data-beat-id="b23" data-track-index="0" data-start="129.772" data-end="135.333" data-duration="5.561"></section>
+  <section class="clip beat-marker" id="b24" data-beat-id="b24" data-track-index="0" data-start="135.333" data-end="140.609" data-duration="5.276"></section>
+  <section class="clip beat-marker" id="b25" data-beat-id="b25" data-track-index="0" data-start="140.609" data-end="145.289" data-duration="4.68"></section>
+  <section class="clip beat-marker" id="b26" data-beat-id="b26" data-track-index="0" data-start="145.289" data-end="150.594" data-duration="5.305"></section>
+  <section class="clip beat-marker" id="b27" data-beat-id="b27" data-track-index="0" data-start="150.594" data-end="155.029" data-duration="4.435"></section>
+  <section class="clip beat-marker" id="b28" data-beat-id="b28" data-track-index="0" data-start="155.029" data-end="163.759" data-duration="8.73"></section>
+  <section class="clip beat-marker" id="b29" data-beat-id="b29" data-track-index="0" data-start="163.759" data-end="167.179" data-duration="3.42"></section>
+  <section class="clip beat-marker" id="b30" data-beat-id="b30" data-track-index="0" data-start="167.179" data-end="174.399" data-duration="7.22"></section>
+  <section class="clip beat-marker" id="b31" data-beat-id="b31" data-track-index="0" data-start="174.399" data-end="178.898" data-duration="4.499"></section>
+  <section class="clip beat-marker" id="b32" data-beat-id="b32" data-track-index="0" data-start="178.898" data-end="185.788" data-duration="6.89"></section>
+  <section class="clip beat-marker" id="b33" data-beat-id="b33" data-track-index="0" data-start="185.788" data-end="200.988" data-duration="15.2"></section>
+  <section class="clip beat-marker" id="b34" data-beat-id="b34" data-track-index="0" data-start="200.988" data-end="207.988" data-duration="7"></section>
+  <section class="clip beat-marker" id="b35" data-beat-id="b35" data-track-index="0" data-start="207.988" data-end="222.178" data-duration="14.19"></section>
+  <section class="clip beat-marker" id="b36" data-beat-id="b36" data-track-index="0" data-start="222.178" data-end="228.778" data-duration="6.6"></section>
+  <section class="clip beat-marker" id="b37" data-beat-id="b37" data-track-index="0" data-start="228.778" data-end="241.948" data-duration="13.17"></section>
+
   <audio id="voice-b01" src="./assets/voice/b01.wav" data-start="0.6" data-duration="3.71" data-track-index="10" preload="auto"></audio>
   <audio id="voice-b02" src="./assets/voice/b02.wav" data-start="4.96" data-duration="6.535" data-track-index="10" preload="auto"></audio>
   <audio id="voice-b03" src="./assets/voice/b03.wav" data-start="12.145" data-duration="1.695" data-track-index="10" preload="auto"></audio>
@@ -1207,31 +418,52 @@
   <audio id="voice-b35" src="./assets/voice/b35.wav" data-start="208.238" data-duration="13.54" data-track-index="10" preload="auto"></audio>
   <audio id="voice-b36" src="./assets/voice/b36.wav" data-start="222.428" data-duration="5.95" data-track-index="10" preload="auto"></audio>
   <audio id="voice-b37" src="./assets/voice/b37.wav" data-start="229.028" data-duration="11.12" data-track-index="10" preload="auto"></audio>
-  <div class="track"><i></i></div>
 </main>
 <script src="./assets/vendor/gsap.min.js"></script>
 <script>
 (() => {
-  const compositionId='m3_building-your-future-you-resume-pt1';
-  const duration=241.948;
-  const timeline=gsap.timeline({paused:true});
-  document.querySelectorAll('.clip').forEach((clip,index)=>{
-    const start=Number(clip.dataset.start),end=Number(clip.dataset.end);
-    const story=clip.querySelector('.story'),proof=clip.querySelector('.active-proof');
-    timeline.set(clip,{autoAlpha:1},start);
-    timeline.fromTo(story,{autoAlpha:0,x:-28},{autoAlpha:1,x:0,duration:.5,ease:'power2.out'},start+.04);
-    timeline.fromTo(proof,{scaleX:.96,autoAlpha:.55},{scaleX:1,autoAlpha:1,duration:.45,ease:'power2.out'},start+.12);
-    timeline.to(story,{autoAlpha:0,x:-14,duration:.25,ease:'power1.in'},Math.max(start+.8,end-.25));
-    timeline.set(clip,{autoAlpha:0},end);
+  const compositionId = 'm3_building-your-future-you-resume-pt1';
+  const duration = 241.948;
+  const timeline = gsap.timeline({paused:true});
+  const eases = ['power3.out','expo.out','sine.out'];
+  const durations = [.42,.58,.72];
+
+  document.querySelectorAll('.draw-path').forEach((path) => {
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = String(length);
+    path.style.strokeDashoffset = String(length);
   });
-  timeline.fromTo('.track i',{scaleX:0},{scaleX:1,duration,ease:'none'},0);
+
+  document.querySelectorAll('.visual-scene').forEach((scene) => {
+    const start = Number(scene.dataset.sceneStart);
+    const end = Number(scene.dataset.sceneEnd);
+    const body = scene.querySelector('.scene-body');
+    timeline.fromTo(body,{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.62,ease:'power3.out'},start+.12);
+
+    scene.querySelectorAll('.reveal').forEach((element,index) => {
+      const at = start + Number(element.dataset.at || .35);
+      const from = index % 3 === 0 ? {autoAlpha:0,x:-28} : index % 3 === 1 ? {autoAlpha:0,y:24} : {autoAlpha:0,scale:.96};
+      timeline.fromTo(element,from,{autoAlpha:1,x:0,y:0,scale:1,duration:durations[index%3],ease:eases[index%3],immediateRender:false},at);
+    });
+
+    scene.querySelectorAll('[data-bloom]').forEach((glow) => {
+      timeline.fromTo(glow,{opacity:0,scale:.88},{opacity:.26,scale:1,duration:1.05,ease:'power2.out',immediateRender:false},start+.55);
+    });
+
+    scene.querySelectorAll('.draw-path').forEach((path) => {
+      timeline.to(path,{strokeDashoffset:0,duration:.8,ease:'power2.out'},start+Number(path.dataset.at || .4));
+    });
+
+    timeline.to(body,{autoAlpha:0,y:-10,duration:.28,ease:'power2.in'},Math.max(start+.8,end-.28));
+  });
+
   timeline.pause(0);
-  window.__timelines=window.__timelines||{};
-  window.__timelines['m3_building-your-future-you-resume-pt1']=timeline;
-  window.__HYPERFRAMES__=window.__HYPERFRAMES__||{};
-  window.__HYPERFRAMES__[compositionId]={id:compositionId,duration,timeline,seek:(time)=>timeline.time(Math.max(0,Math.min(duration,time))).pause()};
-  window.__hyperframesTimeline=timeline;
-  window.hyperframes=window.hyperframes||{};
+  window.__timelines = window.__timelines || {};
+  window.__timelines['m3_building-your-future-you-resume-pt1'] = timeline;
+  window.__HYPERFRAMES__ = window.__HYPERFRAMES__ || {};
+  window.__HYPERFRAMES__[compositionId] = {id:compositionId,duration,timeline,seek:(time)=>timeline.time(Math.max(0,Math.min(duration,time))).pause()};
+  window.__hyperframesTimeline = timeline;
+  window.hyperframes = window.hyperframes || {};
   window.hyperframes.registerTimeline?.(compositionId,timeline);
 })();
 </script>

@@ -357,6 +357,34 @@ check("narration carrying the filing name is caught",
       any("filing suffix" in p for p in check_copy.part_reference_problems(
           [{"id": "scene-01", "variables": {},
             "narration": "In part two we pick the strongest bullets."}])))
+
+# Page/scene numbering is deck UI, not useful content in a rendered MP4.
+_counter_strings = [
+    ("index.html", "text", "01 / 37"),
+    ("index.html", "text", "02 / 37"),
+    ("index.html", "text", "03 / 37"),
+]
+fires("check_copy", "presentation-counter",
+      "a repeated current/total slide counter FAILS",
+      any(p.rule_id == "presentation-counter"
+          for p in check_copy.presentation_chrome_problems(
+              _counter_strings, "<main></main>")))
+check("a single content ratio does not look like a page counter",
+      not check_copy.presentation_chrome_problems(
+          [("index.html", "text", "3 / 4 people")], "<main></main>"))
+
+_persistent_module = """<main>
+<div class="furniture"><div>CAREER TRANSITIONS · MODULE 3</div></div>
+<section class="clip"><h1>The Two-Sided Work</h1></section>
+</main>"""
+fires("check_copy", "persistent-module-number",
+      "a persistent module number outside timed scenes FAILS",
+      any(p.rule_id == "persistent-module-number"
+          for p in check_copy.presentation_chrome_problems(
+              [], _persistent_module)))
+check("a module reference inside one timed scene is not persistent chrome",
+      not check_copy.presentation_chrome_problems(
+          [], '<section class="clip"><p>Module 7 · Arrival</p></section>'))
 # The three slots the rule names must all be graded, not just `heading`.
 for _slot in ("heading", "statement", "title"):
     check(f"the '{_slot}' slot is graded for Title Case",

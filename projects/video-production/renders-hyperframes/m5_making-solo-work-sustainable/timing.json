@@ -1,74 +1,151 @@
 {
-  "total": 83.829,
+  "total": 87.699,
   "rows": [
     {
-      "id": "no-system",
+      "id": "no-system-01",
       "audio_start": 0.6,
-      "audio_dur": 7.079,
+      "audio_dur": 4.789,
       "vis_start": 0.0,
-      "vis_dur": 8.079
+      "vis_dur": 5.789
     },
     {
-      "id": "simple-pieces",
-      "audio_start": 8.329,
-      "audio_dur": 4.85,
-      "vis_start": 8.079,
-      "vis_dur": 5.5
+      "id": "no-system-02",
+      "audio_start": 6.039,
+      "audio_dur": 1.93,
+      "vis_start": 5.789,
+      "vis_dur": 2.58
     },
     {
-      "id": "track-opportunities",
-      "audio_start": 13.829,
-      "audio_dur": 9.39,
-      "vis_start": 13.579,
-      "vis_dur": 10.04
+      "id": "simple-pieces-01",
+      "audio_start": 8.619,
+      "audio_dur": 3.12,
+      "vis_start": 8.369,
+      "vis_dur": 3.77
     },
     {
-      "id": "intake-process-a",
-      "audio_start": 23.869,
-      "audio_dur": 6.99,
-      "vis_start": 23.619,
-      "vis_dur": 7.64
+      "id": "simple-pieces-02",
+      "audio_start": 12.389,
+      "audio_dur": 1.55,
+      "vis_start": 12.139,
+      "vis_dur": 2.2
     },
     {
-      "id": "intake-process-b",
-      "audio_start": 31.509,
+      "id": "track-opportunities-01",
+      "audio_start": 14.589,
+      "audio_dur": 4.74,
+      "vis_start": 14.339,
+      "vis_dur": 5.39
+    },
+    {
+      "id": "track-opportunities-02",
+      "audio_start": 19.979,
+      "audio_dur": 4.29,
+      "vis_start": 19.729,
+      "vis_dur": 4.94
+    },
+    {
+      "id": "intake-process-01",
+      "audio_start": 24.919,
+      "audio_dur": 2.65,
+      "vis_start": 24.669,
+      "vis_dur": 3.3
+    },
+    {
+      "id": "intake-process-02",
+      "audio_start": 28.219,
+      "audio_dur": 4.08,
+      "vis_start": 27.969,
+      "vis_dur": 4.73
+    },
+    {
+      "id": "intake-process-03",
+      "audio_start": 32.949,
       "audio_dur": 2.281,
-      "vis_start": 31.259,
+      "vis_start": 32.699,
       "vis_dur": 2.931
     },
     {
-      "id": "templates-a",
-      "audio_start": 34.44,
-      "audio_dur": 4.259,
-      "vis_start": 34.19,
-      "vis_dur": 4.909
+      "id": "templates-01",
+      "audio_start": 35.88,
+      "audio_dur": 1.359,
+      "vis_start": 35.63,
+      "vis_dur": 2.009
     },
     {
-      "id": "templates-b",
-      "audio_start": 39.349,
-      "audio_dur": 5.7,
-      "vis_start": 39.099,
-      "vis_dur": 6.35
+      "id": "templates-02",
+      "audio_start": 37.889,
+      "audio_dur": 2.58,
+      "vis_start": 37.639,
+      "vis_dur": 3.23
     },
     {
-      "id": "weekly-review",
-      "audio_start": 45.699,
-      "audio_dur": 9.58,
-      "vis_start": 45.449,
-      "vis_dur": 10.23
+      "id": "templates-03",
+      "audio_start": 41.119,
+      "audio_dur": 2.5,
+      "vis_start": 40.869,
+      "vis_dur": 3.15
     },
     {
-      "id": "boundaries",
-      "audio_start": 55.929,
-      "audio_dur": 15.91,
-      "vis_start": 55.679,
-      "vis_dur": 16.56
+      "id": "templates-04",
+      "audio_start": 44.269,
+      "audio_dur": 2.78,
+      "vis_start": 44.019,
+      "vis_dur": 3.43
     },
     {
-      "id": "sustainable-plan",
-      "audio_start": 72.489,
+      "id": "weekly-review-01",
+      "audio_start": 47.699,
+      "audio_dur": 2.09,
+      "vis_start": 47.449,
+      "vis_dur": 2.74
+    },
+    {
+      "id": "weekly-review-02",
+      "audio_start": 50.439,
+      "audio_dur": 7.27,
+      "vis_start": 50.189,
+      "vis_dur": 7.92
+    },
+    {
+      "id": "boundaries-01",
+      "audio_start": 58.359,
+      "audio_dur": 3.63,
+      "vis_start": 58.109,
+      "vis_dur": 4.28
+    },
+    {
+      "id": "boundaries-02",
+      "audio_start": 62.639,
+      "audio_dur": 1.76,
+      "vis_start": 62.389,
+      "vis_dur": 2.41
+    },
+    {
+      "id": "boundaries-03",
+      "audio_start": 65.049,
+      "audio_dur": 2.611,
+      "vis_start": 64.799,
+      "vis_dur": 3.261
+    },
+    {
+      "id": "boundaries-04",
+      "audio_start": 68.31,
+      "audio_dur": 4.85,
+      "vis_start": 68.06,
+      "vis_dur": 5.5
+    },
+    {
+      "id": "boundaries-05",
+      "audio_start": 73.81,
+      "audio_dur": 1.899,
+      "vis_start": 73.56,
+      "vis_dur": 2.549
+    },
+    {
+      "id": "sustainable-plan-01",
+      "audio_start": 76.359,
       "audio_dur": 9.54,
-      "vis_start": 72.239,
+      "vis_start": 76.109,
       "vis_dur": 11.59
     }
   ]

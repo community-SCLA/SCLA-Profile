@@ -1,40 +1,38 @@
-# Design — Skills for the AI Era
+# Design: Human Direction Engine
 
-## Direction
+## Frame
 
-Editorial motion graphics with a calm, assured mid-career tone. A persistent
-work-value model shows the causal idea plainly: as routine execution gets faster
-and cheaper, judgment and other human capabilities become more valuable.
+- 1920 × 1080 paper canvas with navy type, blue relationships, and gold focus states from local tokens.
+- The program and lesson title stay inside the declared top chrome region.
+- One 1680 × 760 engine occupies the teaching field. There is no separate headline column competing with the visual.
 
-## System
+## Carrying object
 
-- Deep navy field with white type, SCLA blue for structure, and gold for decisions and forward movement.
-- Proxima Nova with system fallback; large display statements, short support copy, and restrained uppercase labels.
-- Generous 120px frame padding and a 120px footer reserve.
-- The carrying object is one persistent three-lane work map: TASKS → VALUE →
-  POSITION. It stays in the same geometry for the entire lesson. Each act only
-  updates or highlights the evidence inside those lanes; the frame is never
-  discarded and redrawn.
-- No production scene number, slide counter, or progress bar appears on frame.
-  Numbers appear only when they are lesson content, such as the three-part frame
-  and the five durable skills.
+The engine is one persistent causal system:
+
+`AI EXECUTION → HUMAN DIRECTION → HIGHER-VALUE WORK`
+
+AI execution contains one compressing task surface. Human direction contains one experience core connected to five durable skills. Higher-value work contains the professional result—quality, trust, ownership, and the call. The geometry stays fixed for all 36 narration clips.
+
+## Beat behavior
+
+- A 50px message band inside the engine states one complete point for the active narration clip.
+- One gold outline identifies the active task, relationship, skill, or result.
+- The first three questions move focus left → center → right without rebuilding the structure.
+- The document example changes only the task label and the focus path: first draft → human direction → owned call.
+- During the skills section all five nodes remain visible. Judgment, Communication, Relationships, Learning, and Working with AI are highlighted in narration order.
+- The closing keeps the full system visible and settles on Higher-Value Work.
+
+## Scale and spacing
+
+- Major state labels: 28–34px; beat message: 48px; skill labels: 24–28px.
+- The center system uses more than half the engine width; neither side becomes a small island.
+- Related nodes maintain 20–28px internal spacing. Unrelated zones are separated by 48–72px and connected only by named relationship paths.
 
 ## Motion
 
-- One paused GSAP timeline is the sole animation clock.
-- Beat content enters with 0.45–0.65 second fades and directional movement, holds for narration, and clears in 0.3 seconds.
-- The opening contrasts AI-accelerated routine execution with labeled human
-  advantage inside the same three lanes.
-- The practical frame adds its lesson numbers and highlights TASKS, VALUE, and
-  POSITION in narration order.
-- The example updates the lanes to AI draft, professional responsibility, and
-  ownership of the call.
-- The five durable skills rotate through the VALUE lane while the map holds.
-- The final beat resolves the three lanes as AI TOOL → YOUR EXPERIENCE →
-  HIGHER-VALUE WORK.
-
-## Accessibility
-
-- Body text never drops below 40px; labels remain at least 22px.
-- High-contrast white, blue, and gold against navy.
-- Meaning is carried by words and geometry, not color alone.
+- The engine establishes once in the opening second and remains stable.
+- Each beat message rises 18px and settles in 0.45s.
+- The gold focus outline scales from 0.97 to 1 while the relevant connector draws once.
+- Text-bearing elements never pulse or bounce. No generic scene exit, temporal movement, or progress motion appears.
+- One paused GSAP timeline owns all motion; all transforms are deterministic and seek-safe.

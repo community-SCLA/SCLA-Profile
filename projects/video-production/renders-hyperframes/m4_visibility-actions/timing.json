@@ -1,61 +1,124 @@
 {
-  "total": 112.151,
+  "total": 117.997,
   "rows": [
     {
-      "id": "beat-01-two-parts",
+      "id": "beat-01a-networking",
       "audio_start": 0.6,
-      "audio_dur": 9.39,
+      "audio_dur": 2.899,
       "vis_start": 0.0,
-      "vis_dur": 10.39
+      "vis_dur": 3.899
     },
     {
-      "id": "beat-02-reframe",
-      "audio_start": 10.64,
-      "audio_dur": 12.37,
-      "vis_start": 10.39,
-      "vis_dur": 13.02
+      "id": "beat-01b-visibility",
+      "audio_start": 4.149,
+      "audio_dur": 6.45,
+      "vis_start": 3.899,
+      "vis_dur": 7.1
     },
     {
-      "id": "beat-03-definition",
-      "audio_start": 23.66,
-      "audio_dur": 12.671,
-      "vis_start": 23.41,
-      "vis_dur": 13.321
+      "id": "beat-02a-not-promotion",
+      "audio_start": 11.249,
+      "audio_dur": 2.96,
+      "vis_start": 10.999,
+      "vis_dur": 3.61
     },
     {
-      "id": "beat-04-examples",
-      "audio_start": 36.981,
-      "audio_dur": 21.429,
-      "vis_start": 36.731,
-      "vis_dur": 22.079
+      "id": "beat-02b-shared-context",
+      "audio_start": 14.859,
+      "audio_dur": 9.42,
+      "vis_start": 14.609,
+      "vis_dur": 10.07
     },
     {
-      "id": "beat-05-not-volume",
-      "audio_start": 59.06,
-      "audio_dur": 12.58,
-      "vis_start": 58.81,
-      "vis_dur": 13.23
+      "id": "beat-03a-question",
+      "audio_start": 24.929,
+      "audio_dur": 2.01,
+      "vis_start": 24.679,
+      "vis_dur": 2.66
     },
     {
-      "id": "beat-06-three-actions",
-      "audio_start": 72.29,
-      "audio_dur": 21.09,
-      "vis_start": 72.04,
-      "vis_dur": 21.74
+      "id": "beat-03b-definition",
+      "audio_start": 27.589,
+      "audio_dur": 10.65,
+      "vis_start": 27.339,
+      "vis_dur": 11.3
+    },
+    {
+      "id": "beat-04a-present-share",
+      "audio_start": 38.889,
+      "audio_dur": 11.119,
+      "vis_start": 38.639,
+      "vis_dur": 11.769
+    },
+    {
+      "id": "beat-04b-ask-stretch-mentor",
+      "audio_start": 50.658,
+      "audio_dur": 10.38,
+      "vis_start": 50.408,
+      "vis_dur": 11.03
+    },
+    {
+      "id": "beat-05a-not-volume",
+      "audio_start": 61.688,
+      "audio_dur": 5.44,
+      "vis_start": 61.438,
+      "vis_dur": 6.09
+    },
+    {
+      "id": "beat-05b-purposeful",
+      "audio_start": 67.778,
+      "audio_dur": 7.06,
+      "vis_start": 67.528,
+      "vis_dur": 7.71
+    },
+    {
+      "id": "beat-06a-design-three",
+      "audio_start": 75.488,
+      "audio_dur": 6.319,
+      "vis_start": 75.238,
+      "vis_dur": 6.969
+    },
+    {
+      "id": "beat-06b-share",
+      "audio_start": 82.457,
+      "audio_dur": 5.02,
+      "vis_start": 82.207,
+      "vis_dur": 5.67
+    },
+    {
+      "id": "beat-06c-ask",
+      "audio_start": 88.127,
+      "audio_dur": 4.26,
+      "vis_start": 87.877,
+      "vis_dur": 4.91
+    },
+    {
+      "id": "beat-06d-offer",
+      "audio_start": 93.037,
+      "audio_dur": 5.54,
+      "vis_start": 92.787,
+      "vis_dur": 6.19
     },
     {
       "id": "beat-07-test",
-      "audio_start": 94.03,
-      "audio_dur": 4.78,
-      "vis_start": 93.78,
-      "vis_dur": 5.43
+      "audio_start": 99.227,
+      "audio_dur": 4.815,
+      "vis_start": 98.977,
+      "vis_dur": 5.465
     },
     {
-      "id": "beat-08-close",
-      "audio_start": 99.46,
-      "audio_dur": 10.891,
-      "vis_start": 99.21,
-      "vis_dur": 12.941
+      "id": "beat-08a-not-perfect",
+      "audio_start": 104.692,
+      "audio_dur": 2.145,
+      "vis_start": 104.442,
+      "vis_dur": 2.795
+    },
+    {
+      "id": "beat-08b-support",
+      "audio_start": 107.487,
+      "audio_dur": 8.71,
+      "vis_start": 107.237,
+      "vis_dur": 10.76
     }
   ]
 }

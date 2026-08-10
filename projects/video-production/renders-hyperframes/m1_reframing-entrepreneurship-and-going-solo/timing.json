@@ -1,0 +1,117 @@
+{
+  "total": 108.509,
+  "rows": [
+    {
+      "id": "beat-01-founder-myth",
+      "audio_start": 0.6,
+      "audio_dur": 8.039,
+      "vis_start": 0.0,
+      "vis_dur": 9.039
+    },
+    {
+      "id": "beat-02-start-smaller",
+      "audio_start": 9.289,
+      "audio_dur": 3.89,
+      "vis_start": 9.039,
+      "vis_dur": 4.54
+    },
+    {
+      "id": "beat-03-small-starts",
+      "audio_start": 13.829,
+      "audio_dur": 8.86,
+      "vis_start": 13.579,
+      "vis_dur": 9.51
+    },
+    {
+      "id": "beat-04-series-of-experiments",
+      "audio_start": 23.339,
+      "audio_dur": 4.2,
+      "vis_start": 23.089,
+      "vis_dur": 4.85
+    },
+    {
+      "id": "beat-05-ai-expands-access",
+      "audio_start": 28.189,
+      "audio_dur": 5.13,
+      "vis_start": 27.939,
+      "vis_dur": 5.78
+    },
+    {
+      "id": "beat-06-ai-ideation",
+      "audio_start": 33.969,
+      "audio_dur": 3.77,
+      "vis_start": 33.719,
+      "vis_dur": 4.42
+    },
+    {
+      "id": "beat-07-ai-workflow",
+      "audio_start": 38.389,
+      "audio_dur": 4.66,
+      "vis_start": 38.139,
+      "vis_dur": 5.31
+    },
+    {
+      "id": "beat-08-human-core",
+      "audio_start": 43.699,
+      "audio_dur": 10.09,
+      "vis_start": 43.449,
+      "vis_dur": 10.74
+    },
+    {
+      "id": "beat-09-track-purpose",
+      "audio_start": 54.439,
+      "audio_dur": 1.52,
+      "vis_start": 54.189,
+      "vis_dur": 2.17
+    },
+    {
+      "id": "beat-10-reduce-friction",
+      "audio_start": 56.609,
+      "audio_dur": 7.44,
+      "vis_start": 56.359,
+      "vis_dur": 8.09
+    },
+    {
+      "id": "beat-11-roadmap-models",
+      "audio_start": 64.699,
+      "audio_dur": 8.07,
+      "vis_start": 64.449,
+      "vis_dur": 8.72
+    },
+    {
+      "id": "beat-12-roadmap-launch",
+      "audio_start": 73.419,
+      "audio_dur": 6.43,
+      "vis_start": 73.169,
+      "vis_dur": 7.08
+    },
+    {
+      "id": "beat-13-no-full-time-answer",
+      "audio_start": 80.499,
+      "audio_dur": 3.22,
+      "vis_start": 80.249,
+      "vis_dur": 3.87
+    },
+    {
+      "id": "beat-14-no-forever-business",
+      "audio_start": 84.369,
+      "audio_dur": 2.0,
+      "vis_start": 84.119,
+      "vis_dur": 2.65
+    },
+    {
+      "id": "beat-15-one-smart-experiment",
+      "audio_start": 87.019,
+      "audio_dur": 4.11,
+      "vis_start": 86.769,
+      "vis_dur": 4.76
+    },
+    {
+      "id": "beat-16-focus-question",
+      "audio_start": 91.779,
+      "audio_dur": 14.93,
+      "vis_start": 91.529,
+      "vis_dur": 16.98
+    }
+  ]
+}

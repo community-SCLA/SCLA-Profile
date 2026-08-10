@@ -1,0 +1,166 @@
+{
+  "total": 128.3,
+  "rows": [
+    {
+      "id": "beat-01",
+      "audio_start": 0.6,
+      "audio_dur": 1.8,
+      "vis_start": 0.0,
+      "vis_dur": 2.8
+    },
+    {
+      "id": "beat-02a",
+      "audio_start": 3.05,
+      "audio_dur": 5.71,
+      "vis_start": 2.8,
+      "vis_dur": 6.36
+    },
+    {
+      "id": "beat-02b",
+      "audio_start": 9.41,
+      "audio_dur": 7.57,
+      "vis_start": 9.16,
+      "vis_dur": 8.22
+    },
+    {
+      "id": "beat-03a",
+      "audio_start": 17.63,
+      "audio_dur": 6.4,
+      "vis_start": 17.38,
+      "vis_dur": 7.05
+    },
+    {
+      "id": "beat-03b",
+      "audio_start": 24.68,
+      "audio_dur": 5.6,
+      "vis_start": 24.43,
+      "vis_dur": 6.25
+    },
+    {
+      "id": "beat-03c",
+      "audio_start": 30.93,
+      "audio_dur": 4.98,
+      "vis_start": 30.68,
+      "vis_dur": 5.63
+    },
+    {
+      "id": "beat-04",
+      "audio_start": 36.56,
+      "audio_dur": 3.24,
+      "vis_start": 36.31,
+      "vis_dur": 3.89
+    },
+    {
+      "id": "beat-05a",
+      "audio_start": 40.45,
+      "audio_dur": 3.75,
+      "vis_start": 40.2,
+      "vis_dur": 4.4
+    },
+    {
+      "id": "beat-05b",
+      "audio_start": 44.85,
+      "audio_dur": 8.205,
+      "vis_start": 44.6,
+      "vis_dur": 8.855
+    },
+    {
+      "id": "beat-05c",
+      "audio_start": 53.705,
+      "audio_dur": 5.41,
+      "vis_start": 53.455,
+      "vis_dur": 6.06
+    },
+    {
+      "id": "beat-06",
+      "audio_start": 59.765,
+      "audio_dur": 1.675,
+      "vis_start": 59.515,
+      "vis_dur": 2.325
+    },
+    {
+      "id": "beat-07",
+      "audio_start": 62.09,
+      "audio_dur": 5.38,
+      "vis_start": 61.84,
+      "vis_dur": 6.03
+    },
+    {
+      "id": "beat-08",
+      "audio_start": 68.12,
+      "audio_dur": 6.49,
+      "vis_start": 67.87,
+      "vis_dur": 7.14
+    },
+    {
+      "id": "beat-09",
+      "audio_start": 75.26,
+      "audio_dur": 5.26,
+      "vis_start": 75.01,
+      "vis_dur": 5.91
+    },
+    {
+      "id": "beat-10",
+      "audio_start": 81.17,
+      "audio_dur": 3.18,
+      "vis_start": 80.92,
+      "vis_dur": 3.83
+    },
+    {
+      "id": "beat-11a",
+      "audio_start": 85.0,
+      "audio_dur": 3.7,
+      "vis_start": 84.75,
+      "vis_dur": 4.35
+    },
+    {
+      "id": "beat-11b",
+      "audio_start": 89.35,
+      "audio_dur": 3.44,
+      "vis_start": 89.1,
+      "vis_dur": 4.09
+    },
+    {
+      "id": "beat-11c",
+      "audio_start": 93.44,
+      "audio_dur": 5.35,
+      "vis_start": 93.19,
+      "vis_dur": 6.0
+    },
+    {
+      "id": "beat-12a",
+      "audio_start": 99.44,
+      "audio_dur": 4.36,
+      "vis_start": 99.19,
+      "vis_dur": 5.01
+    },
+    {
+      "id": "beat-12b",
+      "audio_start": 104.45,
+      "audio_dur": 5.11,
+      "vis_start": 104.2,
+      "vis_dur": 5.76
+    },
+    {
+      "id": "beat-12c",
+      "audio_start": 110.21,
+      "audio_dur": 9.37,
+      "vis_start": 109.96,
+      "vis_dur": 10.02
+    },
+    {
+      "id": "beat-13",
+      "audio_start": 120.23,
+      "audio_dur": 2.64,
+      "vis_start": 119.98,
+      "vis_dur": 3.29
+    },
+    {
+      "id": "beat-14",
+      "audio_start": 123.52,
+      "audio_dur": 2.98,
+      "vis_start": 123.27,
+      "vis_dur": 5.03
+    }
+  ]
+}

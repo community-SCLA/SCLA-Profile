@@ -3,126 +3,32 @@
   "timeline": "gsap",
   "paused": true,
   "seekable": true,
-  "duration": 83.829,
+  "duration": 87.699,
   "fps": 30,
-  "beats": [
-    {
-      "id": "no-system",
-      "start": 0,
-      "duration": 8.079
-    },
-    {
-      "id": "simple-pieces",
-      "start": 8.079,
-      "duration": 5.5
-    },
-    {
-      "id": "track-opportunities",
-      "start": 13.579,
-      "duration": 10.04
-    },
-    {
-      "id": "intake-process-a",
-      "start": 23.619,
-      "duration": 7.64
-    },
-    {
-      "id": "intake-process-b",
-      "start": 31.259,
-      "duration": 2.931
-    },
-    {
-      "id": "templates-a",
-      "start": 34.19,
-      "duration": 4.909
-    },
-    {
-      "id": "templates-b",
-      "start": 39.099,
-      "duration": 6.35
-    },
-    {
-      "id": "weekly-review",
-      "start": 45.449,
-      "duration": 10.23
-    },
-    {
-      "id": "boundaries",
-      "start": 55.679,
-      "duration": 16.56
-    },
-    {
-      "id": "sustainable-plan",
-      "start": 72.239,
-      "duration": 11.59
-    }
-  ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "beatId": "no-system",
-      "selector": "#no-system",
-      "bySec": 1.2
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "simple-pieces",
-      "selector": "#simple-pieces",
-      "bySec": 9.279
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "track-opportunities",
-      "selector": "#track-opportunities",
-      "bySec": 14.779
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "intake-process-a",
-      "selector": "#intake-process-a",
-      "bySec": 24.819
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "intake-process-b",
-      "selector": "#intake-process-b",
-      "bySec": 32.459
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "templates-a",
-      "selector": "#templates-a",
-      "bySec": 35.39
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "templates-b",
-      "selector": "#templates-b",
-      "bySec": 40.299
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "weekly-review",
-      "selector": "#weekly-review",
-      "bySec": 46.649
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "boundaries",
-      "selector": "#boundaries",
-      "bySec": 56.879
-    },
-    {
-      "kind": "appearsBy",
-      "beatId": "sustainable-plan",
-      "selector": "#sustainable-plan",
-      "bySec": 73.439
-    },
-    {
-      "kind": "keepsMoving",
-      "from": 0,
-      "to": 83.829,
-      "selector": ".rail-fill"
-    }
+    {"kind":"keepsMoving","withinSelector":".composition","maxStaticSec":6},
+    {"kind":"appearsBy","beatId":"no-system-01","selector":"#stress","bySec":1.2},
+    {"kind":"appearsBy","beatId":"no-system-02","selector":"#stress","bySec":6.989},
+    {"kind":"appearsBy","beatId":"simple-pieces-01","selector":"#simple","bySec":9.569},
+    {"kind":"appearsBy","beatId":"simple-pieces-02","selector":"#simple","bySec":13.339},
+    {"kind":"appearsBy","beatId":"track-opportunities-01","selector":"#track","bySec":15.539},
+    {"kind":"appearsBy","beatId":"track-opportunities-02","selector":"#track","bySec":20.929},
+    {"kind":"appearsBy","beatId":"intake-process-01","selector":"#intake","bySec":25.869},
+    {"kind":"appearsBy","beatId":"intake-process-02","selector":"#intake","bySec":29.169},
+    {"kind":"appearsBy","beatId":"intake-process-03","selector":"#intake","bySec":33.899},
+    {"kind":"appearsBy","beatId":"templates-01","selector":"#templates","bySec":36.83},
+    {"kind":"appearsBy","beatId":"templates-02","selector":"#templates","bySec":38.839},
+    {"kind":"appearsBy","beatId":"templates-03","selector":"#templates","bySec":42.069},
+    {"kind":"appearsBy","beatId":"templates-04","selector":"#templates","bySec":45.219},
+    {"kind":"appearsBy","beatId":"weekly-review-01","selector":"#review","bySec":48.649},
+    {"kind":"appearsBy","beatId":"weekly-review-02","selector":"#review","bySec":51.389},
+    {"kind":"appearsBy","beatId":"boundaries-01","selector":"#boundaries","bySec":59.309},
+    {"kind":"appearsBy","beatId":"boundaries-02","selector":"#boundaries","bySec":63.589},
+    {"kind":"appearsBy","beatId":"boundaries-03","selector":"#boundaries","bySec":65.999},
+    {"kind":"appearsBy","beatId":"boundaries-04","selector":"#boundaries","bySec":69.26},
+    {"kind":"appearsBy","beatId":"boundaries-05","selector":"#boundaries","bySec":74.76},
+    {"kind":"appearsBy","beatId":"sustainable-plan-01","selector":"#plan","bySec":77.309},
+    {"kind":"before","a":"#boundaries .decision-side.ai","b":"#boundaries .decision-side.owner"},
+    {"kind":"staysInFrame","selector":"#plan .pieces"}
   ]
 }

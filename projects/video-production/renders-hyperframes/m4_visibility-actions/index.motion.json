@@ -4,112 +4,26 @@
     "engine": "gsap",
     "paused": true,
     "seekable": true,
-    "duration": 112.151
+    "duration": 117.997
   },
-  "beats": [
-    {
-      "id": "beat-01-two-parts",
-      "start": 0,
-      "end": 10.39,
-      "entrance": "cards-rise",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-02-reframe",
-      "start": 10.39,
-      "end": 23.41,
-      "entrance": "cards-rise",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-03-definition",
-      "start": 23.41,
-      "end": 36.731,
-      "entrance": "path-draw",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-04-examples",
-      "start": 36.731,
-      "end": 58.81,
-      "entrance": "card-stagger",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-05-not-volume",
-      "start": 58.81,
-      "end": 72.04,
-      "entrance": "dial-settle",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-06-three-actions",
-      "start": 72.04,
-      "end": 93.78,
-      "entrance": "card-stagger",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-07-test",
-      "start": 93.78,
-      "end": 99.21,
-      "entrance": "window-focus",
-      "exit": "fade"
-    },
-    {
-      "id": "beat-08-close",
-      "start": 99.21,
-      "end": 112.151,
-      "entrance": "path-draw",
-      "exit": "hold"
-    }
-  ],
   "assertions": [
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-01-two-parts",
-      "bySec": 1
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-02-reframe",
-      "bySec": 11.39
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-03-definition",
-      "bySec": 24.41
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-04-examples",
-      "bySec": 37.731
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-05-not-volume",
-      "bySec": 59.81
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-06-three-actions",
-      "bySec": 73.04
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-07-test",
-      "bySec": 94.78
-    },
-    {
-      "kind": "appearsBy",
-      "selector": "#beat-08-close",
-      "bySec": 100.21
-    },
-    {
-      "kind": "keepsMoving",
-      "selector": ".signal-dot",
-      "from": 0,
-      "to": 112.151
-    }
+    { "kind": "appearsBy", "selector": "#beat-01a-networking", "bySec": 0.8 },
+    { "kind": "appearsBy", "selector": "#beat-01b-visibility", "bySec": 4.699 },
+    { "kind": "appearsBy", "selector": "#beat-02a-not-promotion", "bySec": 11.799 },
+    { "kind": "appearsBy", "selector": "#beat-02b-shared-context", "bySec": 15.409 },
+    { "kind": "appearsBy", "selector": "#beat-03a-question", "bySec": 25.479 },
+    { "kind": "appearsBy", "selector": "#beat-03b-definition", "bySec": 28.139 },
+    { "kind": "appearsBy", "selector": "#beat-04a-present-share", "bySec": 39.439 },
+    { "kind": "appearsBy", "selector": "#beat-04b-ask-stretch-mentor", "bySec": 51.208 },
+    { "kind": "appearsBy", "selector": "#beat-05a-not-volume", "bySec": 62.238 },
+    { "kind": "appearsBy", "selector": "#beat-05b-purposeful", "bySec": 68.328 },
+    { "kind": "appearsBy", "selector": "#beat-06a-design-three", "bySec": 76.038 },
+    { "kind": "appearsBy", "selector": "#beat-06b-share", "bySec": 83.007 },
+    { "kind": "appearsBy", "selector": "#beat-06c-ask", "bySec": 88.677 },
+    { "kind": "appearsBy", "selector": "#beat-06d-offer", "bySec": 93.587 },
+    { "kind": "appearsBy", "selector": "#beat-07-test", "bySec": 99.777 },
+    { "kind": "appearsBy", "selector": "#beat-08a-not-perfect", "bySec": 105.242 },
+    { "kind": "appearsBy", "selector": "#beat-08b-support", "bySec": 108.037 },
+    { "kind": "keepsMoving", "withinSelector": "#m4_visibility-actions" }
   ]
 }

@@ -3,3 +3,41 @@
 2026-08-07T21:54:31Z	resume	program=entrepreneur-accelerator
 2026-08-07T21:58:07Z	timing-integration	Planned valid 10-clip timeline at 83.829s and bound source/motion timing; still needs semantic beat splitting, persistent carrier redesign, snapshots, and full gate.
 2026-08-07T21:58:12Z	release	build session ended
+2026-08-08T16:06:08Z	resume	program=entrepreneur-accelerator
+2026-08-08T16:07:26Z	preflight	exit 1
+2026-08-08T16:08:03Z	blocker	gate requires beat splitting and narration resynthesis; AUTO-BATCH resume preserves cached narration
+2026-08-08T16:08:03Z	release	build session ended
+2026-08-08T16:15:04Z	resume	program=entrepreneur-accelerator
+2026-08-08T16:28:57Z	continuous-audio-recovery	21 sentence-safe clips derived from the exact checkpoint narration blob; no TTS or resynthesis
+2026-08-08T16:29:31Z	preflight	exit 1
+2026-08-08T16:34:12Z	preflight	exit 1
+2026-08-08T16:37:13Z	preflight	exit 1
+2026-08-08T16:39:14Z	preflight	exit 1
+2026-08-08T16:41:48Z	preflight	exit 1
+2026-08-08T16:44:32Z	preflight	exit 0 — gate-clean
+2026-08-08T16:47:16Z	preflight	exit 0 — gate-clean
+2026-08-08T16:47:45Z	release	build session ended
+2026-08-08T17:03:30Z	resume	program=entrepreneur-accelerator
+2026-08-08T17:05:03Z	revision-audit	proved 9b5e revision equals current 89920 source plus seven obsolete snapshots-before-* evidence directories; current authoritative source preserved
+2026-08-08T17:06:25Z	preflight	exit 0 — gate-clean
+2026-08-08T17:06:49Z	release	build session ended
+2026-08-10T05:45:47Z	preflight	exit 1
+2026-08-10T05:47:46Z	preflight	exit 1
+2026-08-10T05:49:44Z	preflight	exit 0 — gate-clean
+2026-08-10T05:53:22Z	preflight	exit 1
+2026-08-10T05:55:10Z	preflight	exit 1
+2026-08-10T05:58:09Z	preflight	exit 1
+2026-08-10T06:10:38Z	preflight	exit 1
+2026-08-10T06:13:25Z	preflight	exit 0 — gate-clean
+2026-08-10T19:13:35Z	resume	program=entrepreneur-accelerator
+2026-08-10T19:20:11Z	owner-feedback-revision	Removed the injected cloned system-map and restored the lesson-specific scatter, track, intake, template, review, boundary, decision, and final-plan graphics. Restored each visual’s narration-timed motion and enlarged the split layout.
+2026-08-10T19:20:11Z	release	build session ended
+2026-08-10T19:23:45Z	resume	program=entrepreneur-accelerator
+2026-08-10T19:29:49Z	owner-feedback-revision	rebuilt 21 clip resets into 8 persistent idea scenes with audio-synced item reveals
+2026-08-10T19:31:30Z	preflight	exit 1
+2026-08-10T19:34:26Z	preflight	exit 1
+2026-08-10T19:41:37Z	preflight	exit 1
+2026-08-10T19:51:24Z	gate-fix	persistent five-part carrier, audio-synced subpoint highlights, refreshed current-source snapshots
+2026-08-10T19:52:54Z	preflight	exit 1
+2026-08-10T19:54:38Z	preflight	exit 0 — gate-clean
+2026-08-10T19:55:09Z	release	build session ended

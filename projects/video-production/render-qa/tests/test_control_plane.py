@@ -119,9 +119,26 @@ b.write_text("Lesson B.")
 c.write_text("Lesson C.")
 b_before = (digest(b), b.stat().st_mtime_ns)
 state_file = test_vp / "renders-hyperframes/_run/run.json"
+fake_ship_log = tmp / "fake-ship.log"
+fake_ship = tmp / "fake-batch-ship.sh"
+fake_ship.write_text(
+    "#!/usr/bin/env bash\n"
+    "set -euo pipefail\n"
+    "printf '%s\\n' \"$*\" >> \"$VIDEO_FAKE_SHIP_LOG\"\n"
+    "if [[ \"${3:-}\" == \"--publish\" ]]; then\n"
+    "  echo \"PUBLISHED $1\"\n"
+    "  exit 0\n"
+    "fi\n"
+    "case \"${VIDEO_FAKE_SHIP_RESULT:-AWAITING}\" in\n"
+    "  READY) echo \"READY_TO_PUBLISH $1\" ;;\n"
+    "  AWAITING) echo \"AWAITING_VISION $1\" ;;\n"
+    "  FAIL) echo \"render failed\" >&2; exit 3 ;;\n"
+    "esac\n")
+fake_ship.chmod(0o755)
 env = dict(os.environ, VIDEO_VP_ROOT=str(test_vp), VIDEO_REPO_ROOT=str(REPO),
            VIDEO_RUN_STATE=str(state_file), VIDEO_RUN_STATE_TOOL=str(STATE_TOOL),
-           VIDEO_PRIORITY="prog-a")
+           VIDEO_PRIORITY="prog-a", VIDEO_BATCH_SHIP_SCRIPT=str(fake_ship),
+           VIDEO_FAKE_SHIP_LOG=str(fake_ship_log))
 r = run(["bash", str(RUN), "produce", "--stem", "lesson-a_prog-a"], env=env)
 state = json.loads(state_file.read_text())
 check("named production selects exactly one stem", r.returncode == 0 and
@@ -341,13 +358,18 @@ check("clean cloud streak scales independently of unfinished siblings",
 state = json.loads(state_file.read_text())
 state["cloud_clean_streak"] = 0
 state_file.write_text(json.dumps(state))
-r = run(["bash", str(RUN), "approve", "lesson-a_prog-a"], env=env)
+r = run(["bash", str(RUN), "approve", "lesson-a_prog-a"],
+        env=dict(env, VIDEO_FAKE_SHIP_RESULT="READY"))
 approved_one = json.loads(state_file.read_text())["review"]
 r_a = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
 r_b = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-b_prog-a"], env=env)
-check("one clean batch lesson can be approved and shipped independently",
+fake_ship_calls = fake_ship_log.read_text().splitlines()
+check("one clean batch lesson is rendered and published immediately on approval",
       r.returncode == 0 and approved_one["stems"] == ["lesson-a_prog-a"] and
-      r_a.returncode == 0 and r_b.returncode != 0, r.stderr + r_b.stderr)
+      r_a.returncode == 0 and r_b.returncode != 0 and
+      fake_ship_calls[-2:] == ["lesson-a_prog-a prog-a",
+                               "lesson-a_prog-a prog-a --publish"],
+      r.stderr + r.stdout + r_b.stderr + repr(fake_ship_calls))
 r = run(["bash", str(RUN), "produce", "--stem", "lesson-b_prog-a"], env=env)
 r = run(["bash", str(RUN), "batch", "--program", "prog-a"], env=env)
 cross_scope_approval = json.loads(state_file.read_text())["approvals"]
@@ -365,8 +387,10 @@ check("batch approval refuses a partial review set",
       r.returncode != 0 and "lesson-b_prog-a" in r.stderr, r.stderr)
 make_reviewable("lesson-b_prog-a")
 make_reviewable("lesson-c_prog-a")
+batch_ship_start = len(fake_ship_log.read_text().splitlines())
 r = run(["bash", str(RUN), "approve", "BATCH"], env=env)
 approved = json.loads(state_file.read_text())["review"]
+batch_ship_calls = fake_ship_log.read_text().splitlines()[batch_ship_start:]
 r3 = run([sys.executable, str(STATE_TOOL), "can-ship", "lesson-a_prog-a"], env=env)
 r2 = run(["bash", str(RUN), "resume"], env=env)
 check("optional full-batch approval persists across sessions", r.returncode == 0 and
@@ -374,6 +398,11 @@ check("optional full-batch approval persists across sessions", r.returncode == 0
       {"lesson-a_prog-a", "lesson-b_prog-a", "lesson-c_prog-a"} and
       json.loads(state_file.read_text())["review"] == approved and
       approved["approved_at"] in r2.stdout and r3.returncode == 0)
+check("automatic approval shipping preserves a required encode-review stop",
+      batch_ship_calls == ["lesson-a_prog-a prog-a", "lesson-b_prog-a prog-a",
+                           "lesson-c_prog-a prog-a"]
+      and r.stdout.count("paused at the required post-render encode review") == 3,
+      r.stdout + r.stderr + repr(batch_ship_calls))
 legacy = json.loads(state_file.read_text())
 legacy.pop("approvals")
 state_file.write_text(json.dumps(legacy))
@@ -512,6 +541,19 @@ limits = run(["bash", str(RUN), "limits"], env=env)
 check("three clean cloud renders unlock capacity four",
       r.returncode == 0 and json.loads(limits.stdout)["cloud_render"] == 4,
       r.stderr + limits.stdout + limits.stderr)
+auto_encode_ws = make_verified_cut("auto-encode_prog-a")
+(test_vp / "lesson-scripts/prog-a/ready/auto-encode_prog-a.txt").write_text(
+    "Auto encode review fixture.")
+auto_encode = run([
+    "bash", str(RUN), "encode-review", "auto-encode_prog-a",
+    "--backend", "cloud", "--verdict", "PASS",
+], env=env)
+fake_ship_calls = fake_ship_log.read_text().splitlines()
+check("a passing required encode review publishes without another owner command",
+      auto_encode.returncode == 0
+      and (auto_encode_ws / "qa/ENCODE-REVIEW.json").exists()
+      and fake_ship_calls[-1] == "auto-encode_prog-a prog-a --publish",
+      auto_encode.stdout + auto_encode.stderr + repr(fake_ship_calls))
 parallel_stems = [f"parallel-{i}_prog-a" for i in range(6)]
 parallel = []
 for stem in parallel_stems:

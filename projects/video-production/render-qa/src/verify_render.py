@@ -23,6 +23,7 @@ Usage:  verify_render.py <workspace> [<video.mp4>] [--json]
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -34,6 +35,78 @@ from workspace_revision import workspace_revision
 
 CHECK_PRESENCE = Path(__file__).resolve().parent / "check_presence.py"
 DUR_TOL = 0.15
+
+
+def current_owner_approval(ws: Path, source_revision: str) -> dict | None:
+    """Return the durable owner receipt for this exact workspace revision.
+
+    Static-hold policy is intentionally decided above ``check_presence``: the
+    checker must continue to report the physical fact, while this verifier may
+    classify that one finding in light of an owner's cut-level approval.  The
+    receipt is read from the same run-state file that authorizes shipping.
+    """
+    state_path = Path(os.environ.get(
+        "VIDEO_RUN_STATE", ws.parent / "_run" / "run.json"))
+    try:
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        return None
+    approvals = state.get("approvals") if isinstance(state, dict) else None
+    receipt = approvals.get(ws.name) if isinstance(approvals, dict) else None
+    if not isinstance(receipt, dict):
+        return None
+    if (receipt.get("revision") != source_revision
+            or receipt.get("approved_by") != "owner"
+            or not receipt.get("approved_at")):
+        return None
+    return receipt
+
+
+def apply_owner_static_hold_policy(report: dict, approval: dict | None) -> dict:
+    """Downgrade only stagnant-frame violations on an owner-approved cut.
+
+    All other presence findings remain violations.  The reclassified findings
+    stay in the report as explicit warnings, including the approval evidence,
+    so the exception is reviewable rather than a silent gate bypass.
+    """
+    violations = list(report.get("violations") or [])
+    warnings = list(report.get("warnings") or [])
+    downgraded = []
+    remaining = []
+    for finding in violations:
+        if approval and finding.get("rule") == "stagnant-frame":
+            warning = dict(finding)
+            warning.update({
+                "rule": "owner-approved-static-hold",
+                "rule_id": "owner-approved-static-hold",
+                "severity": "warning",
+                "original_rule": "stagnant-frame",
+                "approval_revision": approval["revision"],
+                "approved_at": approval["approved_at"],
+                "approved_by": approval["approved_by"],
+                "detail": (
+                    f"{finding.get('detail', '').strip()} "
+                    "[owner approved this exact cut; deliberate static hold "
+                    "is non-blocking]"
+                ).strip(),
+            })
+            downgraded.append(warning)
+        else:
+            remaining.append(finding)
+    report = dict(report)
+    report["violations"] = remaining
+    report["warnings"] = warnings + downgraded
+    report["verdict"] = "FAIL" if remaining else "PASS"
+    report["verification_policy"] = {
+        "owner_approved_static_holds": {
+            "eligible": bool(approval),
+            "applied": bool(downgraded),
+            "downgraded_findings": len(downgraded),
+            "revision": approval.get("revision") if approval else None,
+            "approved_at": approval.get("approved_at") if approval else None,
+        }
+    }
+    return report
 
 
 def main():
@@ -169,14 +242,45 @@ def main():
                                        f"video={v_dur}s audio={a_dur}s root={root_dur}s {res}"}
     failed |= bool(probs)
 
-    # 2. presence v2
+    # 2. presence v2. The checker always reports the physical facts. This
+    # verifier alone applies the narrow, revision-bound owner policy that lets
+    # an explicitly approved static hold remain visible without blocking ship.
     qa_dir = ws / "qa" / "presence"
     p = subprocess.run([sys.executable, str(CHECK_PRESENCE), str(mp4),
-                        str(qa_dir), "--workspace", str(ws)],
+                        str(qa_dir), "--workspace", str(ws), "--json"],
                        capture_output=True, text=True)
-    sections["presence"] = {"pass": p.returncode == 0,
-                            "output": (p.stdout + p.stderr).strip()}
-    failed |= p.returncode != 0
+    try:
+        raw_presence = json.loads(p.stdout)
+    except (json.JSONDecodeError, TypeError):
+        presence_pass = False
+        presence_output = (
+            "presence checker returned unreadable evidence\n"
+            + (p.stdout + p.stderr).strip()
+        ).strip()
+    else:
+        raw_verdict = raw_presence.get("verdict")
+        exit_matches = ((p.returncode == 0 and raw_verdict == "PASS")
+                        or (p.returncode == 1 and raw_verdict == "FAIL"))
+        if not exit_matches:
+            presence_pass = False
+            raw_presence["verification_error"] = (
+                f"checker exit {p.returncode} disagrees with verdict "
+                f"{raw_verdict!r}"
+            )
+            presence_output = json.dumps(raw_presence, indent=2)
+        else:
+            approval = current_owner_approval(ws, source_revision)
+            presence_report = apply_owner_static_hold_policy(
+                raw_presence, approval)
+            presence_pass = presence_report["verdict"] == "PASS"
+            # The sampled PPMs remain in qa/presence; repeating hundreds of
+            # per-frame metric rows in the verifier log hides the policy and
+            # findings that the log exists to expose.
+            presence_report.pop("frames", None)
+            presence_output = json.dumps(presence_report, indent=2)
+    sections["presence"] = {"pass": presence_pass,
+                            "output": presence_output}
+    failed |= not presence_pass
 
     # 3. shared frame evidence — purge first: stale frames from an earlier cut
     # misled a QA lane on 2026-07-10; only this render's evidence may live here

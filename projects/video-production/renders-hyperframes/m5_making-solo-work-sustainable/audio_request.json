@@ -6,43 +6,87 @@
   "voice": "442360a3e0894fbd85024ff64cc2b928",
   "lines": [
     {
-      "id": "no-system",
-      "text": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad. It's that there's no system around it."
+      "id": "no-system-01",
+      "text": "One of the biggest reasons early solo work gets stressful isn't that the offer is bad."
     },
     {
-      "id": "simple-pieces",
-      "text": "You don't need a complicated business operating system to begin. You need a few simple pieces."
+      "id": "no-system-02",
+      "text": "It's that there's no system around it."
     },
     {
-      "id": "track-opportunities",
-      "text": "First, a place to track who you're talking to and what stage each opportunity is in. This can be as simple as a spreadsheet, a Notion board, or a document."
+      "id": "simple-pieces-01",
+      "text": "You don't need a complicated business operating system to begin."
     },
     {
-      "id": "intake-process-a",
-      "text": "Second, a basic intake process. If someone says yes, what happens next — what questions do you ask?"
+      "id": "simple-pieces-02",
+      "text": "You need a few simple pieces."
     },
     {
-      "id": "intake-process-b",
+      "id": "track-opportunities-01",
+      "text": "First, a place to track who you're talking to and what stage each opportunity is in."
+    },
+    {
+      "id": "track-opportunities-02",
+      "text": "This can be as simple as a spreadsheet, a Notion board, or a document."
+    },
+    {
+      "id": "intake-process-01",
+      "text": "Second, a basic intake process."
+    },
+    {
+      "id": "intake-process-02",
+      "text": "If someone says yes, what happens next — what questions do you ask?"
+    },
+    {
+      "id": "intake-process-03",
       "text": "What information do you need — what do you send?"
     },
     {
-      "id": "templates-a",
-      "text": "Third, a templates. Proposal language; follow-up emails."
+      "id": "templates-01",
+      "text": "Third, a templates."
     },
     {
-      "id": "templates-b",
-      "text": "Meeting agendas; and project checklists. Templates save you time and keep your work consistent."
+      "id": "templates-02",
+      "text": "Proposal language; follow-up emails."
     },
     {
-      "id": "weekly-review",
-      "text": "Fourth, a weekly review ritual. One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."
+      "id": "templates-03",
+      "text": "Meeting agendas; and project checklists."
     },
     {
-      "id": "boundaries",
-      "text": "And finally, boundaries. How many hours will you give this? What kinds of work are out of scope? What kinds of clients or timelines aren't a fit?\n\nAI can help you build templates and organize information, but the boundaries are still your call. Sustainability is part of strategy."
+      "id": "templates-04",
+      "text": "Templates save you time and keep your work consistent."
     },
     {
-      "id": "sustainable-plan",
+      "id": "weekly-review-01",
+      "text": "Fourth, a weekly review ritual."
+    },
+    {
+      "id": "weekly-review-02",
+      "text": "One hour a week to look at your outreach, your active work, your admin, and your next steps keeps solo work from turning reactive."
+    },
+    {
+      "id": "boundaries-01",
+      "text": "And finally, boundaries. How many hours will you give this?"
+    },
+    {
+      "id": "boundaries-02",
+      "text": "What kinds of work are out of scope?"
+    },
+    {
+      "id": "boundaries-03",
+      "text": "What kinds of clients or timelines aren't a fit?"
+    },
+    {
+      "id": "boundaries-04",
+      "text": "AI can help you build templates and organize information, but the boundaries are still your call."
+    },
+    {
+      "id": "boundaries-05",
+      "text": "Sustainability is part of strategy."
+    },
+    {
+      "id": "sustainable-plan-01",
       "text": "In this module, you'll define your time budget, choose a few systems to build now, and decide where you need guardrails before your path grows."
     }
   ]

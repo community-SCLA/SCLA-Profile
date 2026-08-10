@@ -28,3 +28,17 @@
 2026-08-07T21:49:30Z	release	build session ended
 2026-08-07T21:49:49Z	preflight	exit 0 — gate-clean
 2026-08-07T21:50:13Z	release	build session ended
+2026-08-10T19:27:56Z	resume	program=mid-career-momentum
+2026-08-10T19:34:37Z	concept	selected Human Direction Engine (19/20) over Scarcity Shift Field (18/20)
+2026-08-10T19:34:37Z	author	replaced scene resets with one persistent AI execution to human direction to higher-value-work engine across 36 timed clips
+2026-08-10T19:37:12Z	preflight	exit 1
+2026-08-10T19:38:10Z	revise	tightened task/core text boxes and removed redundant base label after layout inspection
+2026-08-10T19:40:19Z	preflight	exit 1
+2026-08-10T19:40:51Z	revise	removed container-scale entrance so text boxes retain exact layout geometry during the opening sample
+2026-08-10T19:42:49Z	preflight	exit 1
+2026-08-10T19:43:12Z	revise	removed zone translation so nested text retains fixed geometry during opening establishment
+2026-08-10T19:44:58Z	preflight	exit 1
+2026-08-10T19:46:41Z	revise	shortened intrinsic task/core labels and gave their text boxes explicit geometry
+2026-08-10T19:48:20Z	preflight	exit 0 — gate-clean
+2026-08-10T19:48:30Z	gate	PASS: durable gate green; carrier churn 2.67%; 36/36 midpoint frames; layout, fit, motion, and geometry clean
+2026-08-10T19:48:30Z	release	build session ended

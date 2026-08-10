@@ -14,3 +14,16 @@
 2026-08-08T02:51:17Z	preflight	exit 0 — gate-clean
 2026-08-08T02:54:31Z	visual-review	PASS ALIVE PROCEED; current-revision stills and paired motion samples reviewed
 2026-08-08T02:54:31Z	release	build session ended
+2026-08-08T05:01:02Z	resume	program=mid-career-momentum
+2026-08-10T18:59:02Z	resume	program=mid-career-momentum
+2026-08-10T19:00:27Z	concept	selected Future-Fit Signal Map (19/20) over Evidence Gallery (17/20)
+2026-08-10T19:06:58Z	author	rebuilt full-frame evidence maps, filters, leadership network, lateral bridge, RAMS board, and final resolve using existing narration/timing
+2026-08-10T19:09:07Z	preflight	exit 1
+2026-08-10T19:15:26Z	revise	made chapter carriers persistent, narrowed active state to gold borders, removed sort overlays, fixed title fit, generated 23 midpoint stills
+2026-08-10T19:17:15Z	preflight	exit 1
+2026-08-10T19:21:48Z	revise	confined chrome to safe region, removed footer, reduced large fills, added one narrow selection change per beat, converted RAMS to split-frame 2x2 carrier
+2026-08-10T19:23:09Z	preflight	exit 1
+2026-08-10T19:24:45Z	revise	made the thesis block persistent outside clip swaps and confined identity chrome to the declared region
+2026-08-10T19:26:00Z	preflight	exit 0 — gate-clean
+2026-08-10T19:26:10Z	gate	PASS: durable gate green; carrier churn 5.79%; 23/23 midpoint frames; layout and geometry clean
+2026-08-10T19:26:10Z	release	build session ended

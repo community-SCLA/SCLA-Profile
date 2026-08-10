@@ -32,6 +32,7 @@ Usage:  python3 check_copy.py <workspace> [--json]
 Exit:   0 clean · 1 violations · 2 bad args
 """
 import json
+import html as html_lib
 import re
 import sys
 from pathlib import Path
@@ -182,6 +183,54 @@ def part_reference_problems(scenes):
                     f"{sc['id']} '{field}': {m.group(0)!r} is the lesson's "
                     f"filing suffix, not lesson copy — drop it from the "
                     f"rendered words ({text.strip()!r})"))
+    return problems
+
+
+# Presentation/player chrome belongs to an interactive deck, not a rendered
+# lesson MP4. The owner rejected a cut that printed 01 / 37 through 37 / 37 and
+# another that kept MODULE 3 in persistent furniture. A single fraction can be
+# real content, so page counters fire only when one denominator is reused with
+# three or more distinct numerators.
+PAGE_COUNTER_RX = re.compile(r"(?<!\d)(\d{1,3})\s*/\s*(\d{1,3})(?!\d)")
+PERSISTENT_NUMBER_RX = re.compile(r"\b(?:module|scene)\s+\d+\b", re.I)
+CLIP_SECTION_RX = re.compile(
+    r"<section\b(?=[^>]*\bclass\s*=\s*['\"][^'\"]*\bclip\b)[^>]*>"
+    r".*?</section>", re.I | re.S)
+
+
+def presentation_chrome_problems(strings, raw_html: str):
+    """Reject slide counters and persistent module/scene-number furniture."""
+    problems = []
+    counters = {}
+    for fname, role, text in strings:
+        for match in PAGE_COUNTER_RX.finditer(text):
+            numerator, denominator = map(int, match.groups())
+            counters.setdefault(denominator, set()).add(numerator)
+    for denominator, numerators in counters.items():
+        if len(numerators) < 3:
+            continue
+        sample = ", ".join(
+            f"{n:02d} / {denominator}" for n in sorted(numerators)[:3])
+        problems.append(Finding(
+            "presentation-counter",
+            f"on-frame page/scene counter repeats across the rendered lesson "
+            f"({sample}, ...). An MP4 is not a slide deck; remove all "
+            "current/total numbering from the picture."))
+
+    # Remove actual timed scenes first. A script may legitimately say or show
+    # "Module 1" inside a scene; the banned shape is persistent UI furniture
+    # outside every clip, which remains on screen as irrelevant filing chrome.
+    outer = CLIP_SECTION_RX.sub(" ", raw_html)
+    outer = re.sub(r"<(?:script|style)\b[^>]*>.*?</(?:script|style)>",
+                   " ", outer, flags=re.I | re.S)
+    outer_text = html_lib.unescape(re.sub(r"<[^>]+>", " ", outer))
+    match = PERSISTENT_NUMBER_RX.search(outer_text)
+    if match:
+        problems.append(Finding(
+            "persistent-module-number",
+            f"persistent chrome displays {match.group(0)!r}. Module/scene "
+            "numbers are internal filing context, not useful MP4 content; "
+            "remove the label from shared furniture."))
     return problems
 
 
@@ -442,11 +491,14 @@ def spoken_placeholder_problems(beats):
 
 
 def check(ws: Path):
-    scenes = parse_scenes((ws / "index.html").read_text())
+    raw_html = (ws / "index.html").read_text()
+    scenes = parse_scenes(raw_html)
+    strings = onframe_strings(ws)
+    chrome_problems = presentation_chrome_problems(strings, raw_html)
     if scenes and any(s["narration"] is not None for s in scenes):
         return (heading_problems(scenes) + enumeration_problems(scenes)
                 + retired_name_problems(scenes) + part_reference_problems(scenes)
-                + spoken_symbol_problems(scenes))
+                + spoken_symbol_problems(scenes) + chrome_problems)
 
     # No data-narration anywhere: either a freeform (agent-native) build whose
     # narration contract is the beat manifest, or a build this gate cannot see.
@@ -474,7 +526,6 @@ def check(ws: Path):
             "audio_request.json exists but carries zero narration lines — "
             "nothing to grade is a failure, never a pass."))
 
-    strings = onframe_strings(ws)
     counters = {}
     pseudo = {}
     for fname, role, text in strings:
@@ -486,7 +537,7 @@ def check(ws: Path):
     problems += (heading_problems(pseudo_scenes)
                  + retired_name_problems(pseudo_scenes)
                  + part_reference_problems(pseudo_scenes)
-                 + placeholder_problems(strings))
+                 + placeholder_problems(strings) + chrome_problems)
     if not any(role == "heading" for _, role, _ in strings):
         problems.append(Finding(
             "no-headings-declared",

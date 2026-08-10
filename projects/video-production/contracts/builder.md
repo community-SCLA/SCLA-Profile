@@ -99,15 +99,61 @@ file, the selected concept, the one refined script, and the workspace's
   argument develops.
 - Make each beat materially different in composition or state while preserving
   continuity. Avoid repeated centered title-plus-card layouts.
+- Treat narration clips as audio units, not automatic scene boundaries. Keep one
+  visual scene on screen through a complete sentence or tightly connected idea,
+  even when that thought spans several clips. Never trigger a whole-scene exit,
+  entrance, or transition mid-sentence; evolve meaning-bearing elements inside
+  the persistent scene instead. A new scene requires both a completed sentence
+  and a material change in idea or visual carrier. Repeated copies of unchanged
+  graphics with generic exit/re-entry motion do not count as distinct scenes.
 - Stage motion around meaning: establish, transform, settle. Content must be
   readable at its settled state and seek-safe at arbitrary frames.
-- Never add a bottom-edge playback progress bar, rail, scrubber, or sliding
-  completion line. Full-runtime progress movement is forbidden and earns no
-  motion credit; every beat must develop the lesson's visual idea on its own.
+- Never add a playback progress bar, rail, scrubber, signal trace, or sliding
+  completion line anywhere in the frame. This includes a line that grows for
+  one scene's duration as well as one that grows for the whole lesson. Temporal
+  progress movement is forbidden and earns no motion credit; every beat must
+  develop the lesson's visual idea on its own.
+- Do not display module/scene numbers as persistent chrome or current/total
+  counters such as `03 / 24`. Those are authoring and deck conventions, not
+  useful information in a rendered MP4.
 - Keep text concise, large, and within token-defined safe regions. Use only the
   token palette and brand typefaces.
-- Prefer designed typography, diagrams, paths, and simple data forms. Decorative
-  detail must clarify hierarchy or progression.
+- Prefer designed typography, diagrams, paths, and simple data forms. Every
+  illustration beyond ordinary text structure must explain a mechanism,
+  relationship, sequence, comparison, or change. If it adds visual activity but
+  no understanding, simplify it or remove it.
+- Arrows and directional marks must connect named states or show an actual
+  relationship. Never use an arrow as a false button, navigation cue, or
+  decorative promise that a video viewer could click.
+- Use the available frame intentionally. Do not shrink the entire lesson into a
+  small panel with a large unused side field; scale and balance the main visual
+  mass for the full 16:9 canvas unless the negative space itself explains the
+  idea.
+- When several beats discuss one list, keep one list on screen and highlight or
+  transform the active item. Do not exit and repopulate the same blocks beside
+  headings that restate them; either focus on one point or make the persistent
+  list carry the progression.
+- Compose and inspect each beat at its most crowded settled frame. Maintain a
+  clearly readable breathing zone between unrelated text blocks, illustrations,
+  paths, and labels; use layout gaps and padding rather than narrowly avoiding a
+  collision. Related elements may group tightly only when the grouping remains
+  visually calm and unambiguous.
+- Size the message for the whole video frame, not for a web card. Across the
+  lesson, most sampled frames must carry meaningful foreground detail through at
+  least five of the nine equal content zones measured by `check_ink.py`. In a
+  split frame, neither the copy nor the teaching graphic may read as a small
+  island beside a much larger partner. Preserve the safe padding while enlarging
+  both sides as one balanced composition.
+- When narration lists or compares points, reveal or visibly emphasize the
+  specific item being spoken. Populating every item at once, applying one quick
+  style sweep to the whole group, or rebuilding the same carrier in every scene
+  is a blocking defect, even when those entrances satisfy a motion counter.
+- Keep text-bearing elements stable after they settle. Do not make text or text
+  boxes bounce, blink, flicker, ripple, or repeatedly pulse for attention.
+  Motion must establish, reveal, connect, transform, or resolve meaning.
+- When geometry communicates structure, construct it accurately: concentric
+  shapes share one center, circles stay circular, and relationship lines terminate
+  cleanly without crossing labels or unrelated illustrations.
 
 ## Infrastructure contract
 

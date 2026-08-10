@@ -971,8 +971,20 @@ check("exception states are in the table too",
       all(s in doc for s in ("*NEEDS SCRIPT*", "*STALLED*", "*REJECTED*",
                              "*STRANDED*", "*ORPHAN*")))
 check("a blocked script's own question reaches the doc", "real numbers" in doc)
-check("a stalled build is surfaced under a needs-a-human heading",
-      "Needs a human right now" in doc and "stalled_prog-a" in doc)
+queues = t.status()
+check("machine status separates owner decisions from agent work",
+      {x.get("stem") for x in queues["owner_queue"]} == {"blocked_prog-a"}
+      and "stalled_prog-a" in {x.get("stem") for x in queues["agent_queue"]},
+      queues)
+check("internal recovery is explicitly agent-owned, not sent to the owner",
+      "Agent-owned recovery queue" in doc and "stalled_prog-a" in doc
+      and "No owner action is required" in doc
+      and "Needs a human right now" not in doc)
+check("the owner gets one review queue",
+      "## Your review queue" in doc)
+check("next steps stay action-focused without shell commands",
+      all("bash " not in line
+          for line in doc.splitlines() if "next:" in line.lower()))
 check("the doc is idempotent — regenerating it byte-for-byte matches",
       t.write_doc() == doc)
 t.clean()

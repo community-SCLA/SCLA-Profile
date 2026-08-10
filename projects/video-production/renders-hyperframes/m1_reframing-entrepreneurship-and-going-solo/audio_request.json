@@ -7,31 +7,67 @@
   "voice": "442360a3e0894fbd85024ff64cc2b928",
   "lines": [
     {
-      "id": "beat-01-shrink-the-leap",
-      "text": "When people hear the word \"entrepreneur,\" they often imagine someone launching a startup, raising money, or making a huge leap into the unknown. But for most people, entrepreneurship begins much smaller than that."
+      "id": "beat-01-founder-myth",
+      "text": "When people hear the word \"entrepreneur,\" they often imagine someone launching a startup, raising money, or making a huge leap into the unknown."
     },
     {
-      "id": "beat-02-run-experiments",
-      "text": "It might begin as a side project, a freelance client, a workshop you offer, a digital product you test, or a service you share with people you already know. In other words, entrepreneurship often begins as a series of experiments."
+      "id": "beat-02-start-smaller",
+      "text": "But for most people, entrepreneurship begins much smaller than that."
     },
     {
-      "id": "beat-03-ai-and-human",
-      "text": "In an AI-accelerated world, this kind of experimentation is even more accessible. AI tools can help you brainstorm ideas, draft offers, organize research, refine marketing language, and streamline repetitive work. But AI doesn't replace the human elements that make solo work successful: judgment, trust, relationships, and the ability to solve real problems for real people."
+      "id": "beat-03-small-starts",
+      "text": "It might begin as a side project, a freelance client, a workshop you offer, a digital product you test, or a service you share with people you already know."
     },
     {
-      "id": "beat-04-reduce-friction",
-      "text": "That's what this track is about. Not using AI to avoid the work, but using it to help you move faster, think more clearly, and test ideas with less friction."
+      "id": "beat-04-series-of-experiments",
+      "text": "In other words, entrepreneurship often begins as a series of experiments."
     },
     {
-      "id": "beat-05-roadmap",
-      "text": "In the modules ahead, you'll design a side hustle or solo-work experiment, compare freelancing, consulting, and fractional work, package your first offer, draft simple outreach, and create a launch plan for the next 30 to 90 days."
+      "id": "beat-05-ai-expands-access",
+      "text": "In an AI-accelerated world, this kind of experimentation is even more accessible."
     },
     {
-      "id": "beat-06-one-smart-experiment",
-      "text": "You don't need to know whether you want to become a full-time entrepreneur. You don't need to know your forever business. You only need to be willing to run one smart experiment and see what you learn."
+      "id": "beat-06-ai-ideation",
+      "text": "AI tools can help you brainstorm ideas, draft offers."
     },
     {
-      "id": "beat-07-focus-question",
+      "id": "beat-07-ai-workflow",
+      "text": "Organize research, refine marketing language, and streamline repetitive work."
+    },
+    {
+      "id": "beat-08-human-core",
+      "text": "But AI doesn't replace the human elements that make solo work successful: judgment, trust, relationships, and the ability to solve real problems for real people."
+    },
+    {
+      "id": "beat-09-track-purpose",
+      "text": "That's what this track is about."
+    },
+    {
+      "id": "beat-10-reduce-friction",
+      "text": "Not using AI to avoid the work, but using it to help you move faster, think more clearly, and test ideas with less friction."
+    },
+    {
+      "id": "beat-11-roadmap-models",
+      "text": "In the modules ahead, you'll design a side hustle or solo-work experiment, compare freelancing, consulting, and fractional work."
+    },
+    {
+      "id": "beat-12-roadmap-launch",
+      "text": "Package your first offer, draft simple outreach, and create a launch plan for the next 30 to 90 days."
+    },
+    {
+      "id": "beat-13-no-full-time-answer",
+      "text": "You don't need to know whether you want to become a full-time entrepreneur."
+    },
+    {
+      "id": "beat-14-no-forever-business",
+      "text": "You don't need to know your forever business."
+    },
+    {
+      "id": "beat-15-one-smart-experiment",
+      "text": "You only need to be willing to run one smart experiment and see what you learn."
+    },
+    {
+      "id": "beat-16-focus-question",
       "text": "As you move through this track, keep asking yourself: what is one useful thing I can offer, to one real group of people, in one realistic way—and how can AI help me test that faster?"
     }
   ]

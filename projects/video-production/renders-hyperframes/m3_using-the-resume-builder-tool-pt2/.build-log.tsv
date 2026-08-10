@@ -33,3 +33,21 @@
 2026-08-08T03:30:10Z	progress-chrome-removal	removed persistent six-phase rail and white-panel completion line; retained phase-specific workbench logic
 2026-08-08T03:36:30Z	preflight	exit 0 — gate-clean
 2026-08-08T03:43:38Z	release	build session ended
+2026-08-08T04:42:12Z	resume	program=mid-career-momentum
+2026-08-08T04:47:24Z	preflight	exit 1
+2026-08-08T04:49:16Z	preflight	exit 1
+2026-08-08T04:51:26Z	preflight	exit 1
+2026-08-08T04:53:34Z	preflight	exit 0 — gate-clean
+2026-08-08T04:54:59Z	owner-feedback-revision	reflowed evidence to 2x2; removed micro-drift, repeated yoyo motion, rotation jumps, and full-runtime background zoom; fresh snapshots inspected
+2026-08-08T04:54:59Z	release	build session ended
+2026-08-08T15:51:55Z	preflight	exit 1
+2026-08-08T15:56:21Z	preflight	exit 0 — gate-clean
+2026-08-09T22:42:39Z	resume	program=mid-career-momentum
+2026-08-09T22:44:52Z	preflight	exit 0 — gate-clean
+2026-08-09T23:04:51Z	owner-feedback-revision	Implemented owner-directed visual revision; full gate and refreshed visual review PASS.
+2026-08-09T23:04:51Z	release	build session ended
+2026-08-10T19:48:35Z	resume	program=mid-career-momentum
+2026-08-10T19:48:55Z	authoring-fix	strengthened the workbench and insight-panel frame so the teaching interface occupies the full canvas
+2026-08-10T19:51:29Z	preflight	exit 0 — gate-clean
+2026-08-10T19:53:43Z	preflight	exit 0 — gate-clean
+2026-08-10T19:53:47Z	release	build session ended

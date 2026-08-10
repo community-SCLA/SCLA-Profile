@@ -5,60 +5,284 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>How to Reposition Your Career</title>
   <style>
-    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-400.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
-    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-700.woff2") format("woff2");font-style:normal;font-weight:700;font-display:swap}
-    @font-face{font-family:"Proxima Nova";src:url("./assets/fonts/proxima-nova-900.woff2") format("woff2");font-style:normal;font-weight:900;font-display:swap}
-    :root{--navy:#0d2437;--deep:#0a1e2f;--blue:#3393d6;--gold:#eaab2d;--paper:#ffffff;--cultured:#f6f6f9;--muted:#98a4cc;--line:rgba(51,147,214,.28)}
-    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);font-family:"Proxima Nova",system-ui,sans-serif}.composition{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--navy);color:var(--paper)}.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(51,147,214,.08) 2px,transparent 2px),linear-gradient(90deg,rgba(51,147,214,.08) 2px,transparent 2px);background-size:90px 90px;mask-image:linear-gradient(to bottom,rgba(10,30,47,.9),rgba(10,30,47,.28))}.field-glow{position:absolute;width:900px;height:900px;left:160px;top:80px;border-radius:50%;background:radial-gradient(circle,rgba(51,147,214,.22),rgba(51,147,214,0) 68%);transform-origin:center}.chrome{position:absolute;left:120px;top:58px;width:560px;display:flex;justify-content:space-between;align-items:center;z-index:30}.brand{font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}.program{font-size:22px;font-weight:700;letter-spacing:.08em;color:var(--muted)}.career-field{position:absolute;left:120px;top:180px;width:1030px;height:720px;border:3px solid var(--line);background:rgba(10,30,47,.8);overflow:hidden;z-index:4}.field-kicker{position:absolute;left:36px;top:28px;font-size:22px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}.field-meta{position:absolute;right:36px;top:28px;font-size:22px;font-weight:700;color:var(--muted)}.route{position:absolute;inset:0;width:100%;height:100%}.route path{fill:none;stroke:var(--line);stroke-width:8}.route .guide{stroke:rgba(51,147,214,.55);stroke-width:3;stroke-dasharray:10 18}.route-marker{fill:var(--gold);stroke:var(--paper);stroke-width:5;filter:drop-shadow(0 0 12px rgba(234,171,45,.7))}.phase-node{position:absolute;width:190px;min-height:96px;padding:18px 20px;border:3px solid var(--line);background:rgba(13,36,55,.95);transform-origin:center}.phase-node strong{display:block;font-size:25px;line-height:1;text-transform:uppercase;letter-spacing:.05em}.phase-node span{display:block;margin-top:9px;font-size:20px;line-height:1.08;color:var(--muted)}#phase-reframe{left:60px;top:125px}#phase-alex{left:250px;top:245px}#phase-jordan{left:450px;top:335px}#phase-priya{left:650px;top:415px}#phase-steps{left:390px;top:540px;width:230px}#phase-resolve{left:770px;top:555px;width:210px}.field-legend{position:absolute;right:38px;top:88px;font-size:20px;color:var(--muted)}.field-legend b{color:var(--gold)}
-    .insight-panel{position:absolute;left:1190px;top:180px;width:610px;height:720px;border-top:8px solid var(--gold);background:var(--paper);color:var(--navy);z-index:5}.panel-axis{position:absolute;left:42px;bottom:44px;width:360px;height:4px;background:rgba(51,147,214,.22)}.panel-axis:after{content:"";display:block;width:42%;height:100%;background:var(--blue)}.clip.insight{position:absolute;left:1190px;top:180px;width:610px;height:720px;padding:72px 48px 100px;opacity:0;visibility:visible;z-index:12}.copy{position:relative;width:100%}.eyebrow{font-size:22px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--blue)}.accent-rule{width:112px;height:8px;margin:28px 0 34px;background:var(--gold);transform:scaleX(0);transform-origin:left}.clip h1{margin:0;color:var(--navy);font-size:54px;line-height:1.03;font-weight:900;letter-spacing:-.025em}.clip h1.hero{font-size:62px}.support{margin:30px 0 0;font-size:40px;line-height:1.16;color:rgba(13,36,55,.78);opacity:0;transform:translateY(18px)}.beat-no{position:absolute;right:48px;bottom:34px;font-size:22px;font-weight:900;letter-spacing:.12em;color:rgba(13,36,55,.68)}.audio{display:none}
+    @font-face{font-family:proxima-nova;src:url("./assets/fonts/proxima-nova-400.woff2") format("woff2");font-weight:400;font-display:block}
+    @font-face{font-family:proxima-nova;src:url("./assets/fonts/proxima-nova-700.woff2") format("woff2");font-weight:700;font-display:block}
+    @font-face{font-family:proxima-nova;src:url("./assets/fonts/proxima-nova-900.woff2") format("woff2");font-weight:900;font-display:block}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0a1e2f;font-family:proxima-nova,system-ui,sans-serif}
+    #m3_how-to-reposition-your-career{position:relative;width:1920px;height:1080px;overflow:hidden;color:#f6f6f9}
+    .frame-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 44%,rgba(51,147,214,.15),transparent 48%),#0d2437}
+    .frame-bg:after{content:"";position:absolute;inset:102px 96px 108px;border:2px solid rgba(152,164,204,.18);border-radius:12px}
+    .brand{position:absolute;z-index:30;left:120px;right:120px;top:48px;display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
+    .brand strong{color:#3393d6;letter-spacing:.09em}
+    .visual-scene{position:absolute;inset:0}
+    .scene-body{position:absolute;left:120px;right:120px;top:156px;bottom:120px;opacity:0}
+    .clip.beat-marker{position:absolute;width:1px;height:1px;overflow:hidden}
+    h1,h2,h3,p{margin:0}
+    .scene-heading{height:92px;display:flex;align-items:flex-end;justify-content:space-between;gap:42px;padding-bottom:18px}
+    .scene-heading h2{max-width:1260px;font-size:64px;line-height:.94;font-weight:900;letter-spacing:-.03em;text-transform:uppercase}
+    .label{font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#eaab2d}
+    .board{position:relative;height:700px;display:grid;grid-template-columns:1fr 1fr 1fr;border:3px solid #5f6f96;border-radius:12px;overflow:hidden;background:#0a1e2f}
+    .cell{position:relative;padding:42px 44px;border-right:3px solid #5f6f96}
+    .cell:last-child{border-right:0}
+    .cell.proof{background:rgba(51,147,214,.10)}
+    .cell.future{background:#e5eff6;color:#0d2437}
+    .cell-head{padding-bottom:24px;border-bottom:3px solid #5f6f96;font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
+    .proof .cell-head{color:#3393d6;border-color:#3393d6}.future .cell-head{color:#0d2437;border-color:#eaab2d}
+    .claim{margin-top:34px;font-size:58px;line-height:.96;font-weight:900;letter-spacing:-.025em}
+    .claim.large{font-size:78px}.claim.giant{font-size:104px}
+    .detail{margin-top:28px;font-size:40px;line-height:1.12;color:#cccedf}
+    .future .detail{color:#292f35}
+    .stack{display:grid;gap:18px;margin-top:30px}
+    .item{padding:18px 20px;border:3px solid #5f6f96;border-radius:10px;font-size:38px;line-height:1.04;font-weight:700;color:#cccedf}
+    .proof .item{border-color:#3393d6;color:#f6f6f9}
+    .future .item{border-color:#cccedf;color:#0d2437;background:#ffffff}
+    .reveal{opacity:0}
+    .strike{position:relative}.strike:after{content:"";position:absolute;left:-8px;right:-8px;top:50%;height:8px;background:#eaab2d;transform:rotate(-3deg)}
+    .keep{display:inline-block;padding:10px 18px;background:#3393d6;color:#0d2437}
+    .metric-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:28px}
+    .metric{padding:14px 20px;border-radius:100px;background:#eaab2d;color:#0d2437;font-size:31px;font-weight:900}
+    .translation{position:absolute;left:33.333%;right:33.333%;bottom:28px;padding:16px 20px;text-align:center;font-size:24px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#eaab2d}
+    .people-board{grid-template-columns:1fr}
+    .person-row{display:grid;grid-template-columns:260px 1fr 1fr;gap:0;min-height:210px;border-bottom:3px solid #5f6f96}
+    .person-row:last-child{border-bottom:0}
+    .person-row>*{padding:34px;border-right:3px solid #5f6f96}.person-row>*:last-child{border-right:0}
+    .person-row strong{font-size:54px;font-weight:900}.person-row span{font-size:39px;line-height:1.08;font-weight:700}
+    .person-row .target{background:#e5eff6;color:#0d2437}
+    .method-board{grid-template-columns:280px 1fr 1fr}
+    .method-board .method-col{padding:0;border-right:3px solid #5f6f96}.method-board .method-col:last-child{border-right:0}
+    .method-head{height:86px;padding:28px 30px;border-bottom:3px solid #5f6f96;font-size:21px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#98a4cc}
+    .method-row{height:148px;padding:28px 30px;border-bottom:3px solid #5f6f96;font-size:38px;line-height:1.05;font-weight:700}
+    .method-row:last-child{border-bottom:0}
+    .method-col:first-child .method-row{padding-left:22px;padding-right:22px;font-size:40px;font-weight:900;color:#eaab2d}
+    .method-col:nth-child(2){background:rgba(51,147,214,.1)}
+    .method-col:last-child{background:#e5eff6;color:#0d2437}
+    .door-board{grid-template-columns:1.25fr .75fr}
+    .door-copy{padding:58px}
+    .door-copy .question{font-size:70px;line-height:.98;font-weight:900}
+    .door-copy p{margin-top:34px;font-size:42px;line-height:1.14;color:#cccedf}
+    .door-stage{position:relative;background:#e5eff6;overflow:hidden}
+    .door{position:absolute;left:155px;top:105px;width:360px;height:500px;border:18px solid #0d2437;background:#eaab2d}
+    .door:after{content:"";position:absolute;left:48px;top:58px;width:250px;height:406px;background:#0d2437}
+    .light{position:absolute;left:318px;top:214px;width:220px;height:280px;background:rgba(234,171,45,.42);clip-path:polygon(0 18%,100% 0,100% 100%,0 82%)}
+    .sr-narration{display:none}
   </style>
 </head>
 <body>
-<main id="m3_how-to-reposition-your-career" class="composition" data-composition-id="m3_how-to-reposition-your-career" data-width="1920" data-height="1080" data-fps="30" data-start="0" data-duration="242.06">
-  <div class="grid"></div><div class="field-glow"></div>
-  <header class="chrome"><div class="brand">SCLA · Lesson 3</div><div class="program">Mid-Career Momentum</div></header>
-  <section class="career-field" data-role="diagram" aria-label="Persistent career repositioning through-line">
-    <div class="field-kicker">The Through-Line</div><div class="field-meta">35 SIGNALS / 1 TRUE STORY</div><div class="field-legend"><b>GOLD</b> = current evidence</div>
-    <svg class="route" viewBox="0 0 1030 720" aria-hidden="true"><path id="career-route-path" d="M100 210 C205 210 190 330 315 330 S430 420 515 420 S640 500 730 500 S850 580 940 595"/><path class="guide" d="M100 210 C205 210 190 330 315 330 S430 420 515 420 S640 500 730 500 S850 580 940 595"/><circle id="route-marker" class="route-marker" cx="0" cy="0" r="13"/></svg>
-    <div id="phase-reframe" class="phase-node"><strong>Reframe</strong><span>keep the proof</span></div><div id="phase-alex" class="phase-node"><strong>Alex</strong><span>operations → strategy</span></div><div id="phase-jordan" class="phase-node"><strong>Jordan</strong><span>teaching → design</span></div><div id="phase-priya" class="phase-node"><strong>Priya</strong><span>contributor → leader</span></div><div id="phase-steps" class="phase-node"><strong>Four Moves</strong><span>clarify · curate · translate · signal</span></div><div id="phase-resolve" class="phase-node"><strong>Next Path</strong><span>open new doors</span></div>
-  </section>
-  <div class="insight-panel"><div class="panel-axis"></div></div>
+<main id="m3_how-to-reposition-your-career" data-composition-id="m3_how-to-reposition-your-career" data-width="1920" data-height="1080" data-fps="30" data-start="0" data-duration="242.06">
+  <div class="frame-bg"></div>
+  <header class="brand"><span>Mid-Career Momentum</span><strong>How to Reposition Your Career</strong></header>
 
-  <section id="reframe-start-over-s1" class="clip insight" data-track-index="0" data-beat-id="reframe-start-over-s1" data-start="0" data-duration="6.92"><div class="copy"><div class="eyebrow">Reframe</div><div class="accent-rule"></div><h1 class="hero">How to Reposition Your Career</h1><p class="support">Career pivot does not mean starting over.</p></div><div class="beat-no">01 / 35</div></section>
-  <section id="reframe-start-over-s2" class="clip insight" data-track-index="0" data-beat-id="reframe-start-over-s2" data-start="6.92" data-duration="3.855"><div class="copy"><div class="eyebrow">The Imagined Reset</div><div class="accent-rule"></div><h1>New Degree. New Industry. New Identity</h1></div><div class="beat-no">02 / 35</div></section>
-  <section id="reframe-existing-value-s1" class="clip insight" data-track-index="0" data-beat-id="reframe-existing-value-s1" data-start="10.775" data-duration="6.905"><div class="copy"><div class="eyebrow">The Better Frame</div><div class="accent-rule"></div><h1>Reposition Existing Value</h1><p class="support">Use the experience already earned.</p></div><div class="beat-no">03 / 35</div></section>
-  <section id="reframe-existing-value-s2" class="clip insight" data-track-index="0" data-beat-id="reframe-existing-value-s2" data-start="17.68" data-duration="5.83"><div class="copy"><div class="eyebrow">Point Forward</div><div class="accent-rule"></div><h1>Retell the Past Toward the Future</h1></div><div class="beat-no">04 / 35</div></section>
-  <section id="introduce-three" class="clip insight" data-track-index="0" data-beat-id="introduce-three" data-start="23.51" data-duration="3.6"><div class="copy"><div class="eyebrow">Three Cases</div><div class="accent-rule"></div><h1>Three Professionals. One Pattern</h1><p class="support">Alex · Jordan · Priya</p></div><div class="beat-no">05 / 35</div></section>
-  <section id="alex-proof-s1" class="clip insight" data-track-index="0" data-beat-id="alex-proof-s1" data-start="27.11" data-duration="7.96"><div class="copy"><div class="eyebrow">Alex · Evidence</div><div class="accent-rule"></div><h1>A Decade in Operations</h1><p class="support">Ten years of operational proof.</p></div><div class="beat-no">06 / 35</div></section>
-  <section id="alex-proof-s2" class="clip insight" data-track-index="0" data-beat-id="alex-proof-s2" data-start="35.07" data-duration="4.54"><div class="copy"><div class="eyebrow">Alex · Perception</div><div class="accent-rule"></div><h1>Operational on Paper</h1><p class="support">The title hid the strategy.</p></div><div class="beat-no">07 / 35</div></section>
-  <section id="alex-proof-s3" class="clip insight" data-track-index="0" data-beat-id="alex-proof-s3" data-start="39.61" data-duration="6.59"><div class="copy"><div class="eyebrow">Alex · Proof</div><div class="accent-rule"></div><h1>Strategy Was Already There</h1><p class="support">Projects · Systems · Decisions</p></div><div class="beat-no">08 / 35</div></section>
-  <section id="alex-reposition-s1" class="clip insight" data-track-index="0" data-beat-id="alex-reposition-s1" data-start="46.2" data-duration="4.45"><div class="copy"><div class="eyebrow">Alex · Reposition</div><div class="accent-rule"></div><h1>Three Moves to Reposition</h1><p class="support">Curate · Rewrite · Signal</p></div><div class="beat-no">09 / 35</div></section>
-  <section id="alex-reposition-s2" class="clip insight" data-track-index="0" data-beat-id="alex-reposition-s2" data-start="50.65" data-duration="6.38"><div class="copy"><div class="eyebrow">Move 01</div><div class="accent-rule"></div><h1>Curate Strategic Evidence</h1><p class="support">Show strategic thinking already delivered.</p></div><div class="beat-no">10 / 35</div></section>
-  <section id="alex-reposition-s3" class="clip insight" data-track-index="0" data-beat-id="alex-reposition-s3" data-start="57.03" data-duration="13.935"><div class="copy"><div class="eyebrow">Move 02</div><div class="accent-rule"></div><h1>Rewrite Decisions + Outcomes + Scope</h1><p class="support">25% faster processing becomes visible proof.</p></div><div class="beat-no">11 / 35</div></section>
-  <section id="alex-reposition-s4" class="clip insight" data-track-index="0" data-beat-id="alex-reposition-s4" data-start="70.965" data-duration="5.305"><div class="copy"><div class="eyebrow">Move 03</div><div class="accent-rule"></div><h1>Signal the Future Role</h1><p class="support">Operations &amp; Strategy Leader</p></div><div class="beat-no">12 / 35</div></section>
-  <section id="alex-reposition-s5" class="clip insight" data-track-index="0" data-beat-id="alex-reposition-s5" data-start="76.27" data-duration="9.7"><div class="copy"><div class="eyebrow">Stay Honest</div><div class="accent-rule"></div><h1>Surface What Is Already True</h1><p class="support">Evidence, not title inflation.</p></div><div class="beat-no">13 / 35</div></section>
-  <section id="jordan-context" class="clip insight" data-track-index="0" data-beat-id="jordan-context" data-start="85.97" data-duration="14.12"><div class="copy"><div class="eyebrow">Jordan · Direction</div><div class="accent-rule"></div><h1>Teaching → Learning Design</h1><p class="support">A new field uses different language.</p></div><div class="beat-no">14 / 35</div></section>
-  <section id="jordan-translate-s1" class="clip insight" data-track-index="0" data-beat-id="jordan-translate-s1" data-start="100.09" data-duration="9.25"><div class="copy"><div class="eyebrow">Jordan · Translate</div><div class="accent-rule"></div><h1>Translate Tasks into Design Language</h1></div><div class="beat-no">15 / 35</div></section>
-  <section id="jordan-translate-s2" class="clip insight" data-track-index="0" data-beat-id="jordan-translate-s2" data-start="109.34" data-duration="11.58"><div class="copy"><div class="eyebrow">Tools + Methods</div><div class="accent-rule"></div><h1>Name the Tools + Methods</h1><p class="support">Platforms · Data · Collaborative design</p></div><div class="beat-no">16 / 35</div></section>
-  <section id="jordan-translate-s3" class="clip insight" data-track-index="0" data-beat-id="jordan-translate-s3" data-start="120.92" data-duration="2.1"><div class="copy"><div class="eyebrow">Keep the Proof</div><div class="accent-rule"></div><h1>The Classroom Stays</h1></div><div class="beat-no">17 / 35</div></section>
-  <section id="jordan-translate-s4" class="clip insight" data-track-index="0" data-beat-id="jordan-translate-s4" data-start="123.02" data-duration="7.27"><div class="copy"><div class="eyebrow">Portable Value</div><div class="accent-rule"></div><h1>Design Proof Travels</h1><p class="support">Design · Facilitation · Learner focus</p></div><div class="beat-no">18 / 35</div></section>
-  <section id="priya-context" class="clip insight" data-track-index="0" data-beat-id="priya-context" data-start="130.29" data-duration="11.46"><div class="copy"><div class="eyebrow">Priya · Direction</div><div class="accent-rule"></div><h1>Contributor → Leader</h1><p class="support">Leadership was already happening.</p></div><div class="beat-no">19 / 35</div></section>
-  <section id="priya-leadership-s1" class="clip insight" data-track-index="0" data-beat-id="priya-leadership-s1" data-start="141.75" data-duration="7.77"><div class="copy"><div class="eyebrow">Priya · Evidence</div><div class="accent-rule"></div><h1>Find Informal Leadership</h1><p class="support">Coordinate · Mentor · Onboard</p></div><div class="beat-no">20 / 35</div></section>
-  <section id="priya-leadership-s2" class="clip insight" data-track-index="0" data-beat-id="priya-leadership-s2" data-start="149.52" data-duration="7.485"><div class="copy"><div class="eyebrow">Quantify Impact</div><div class="accent-rule"></div><h1>Quantify Growth: 30%</h1><p class="support">Make the people impact measurable.</p></div><div class="beat-no">21 / 35</div></section>
-  <section id="priya-leadership-s3" class="clip insight" data-track-index="0" data-beat-id="priya-leadership-s3" data-start="157.005" data-duration="9.235"><div class="copy"><div class="eyebrow">Tell the Story</div><div class="accent-rule"></div><h1>Tell the People-Leader Story</h1><p class="support">Make informal leadership legible.</p></div><div class="beat-no">22 / 35</div></section>
-  <section id="pattern" class="clip insight" data-track-index="0" data-beat-id="pattern" data-start="166.24" data-duration="3.14"><div class="copy"><div class="eyebrow">The Pattern</div><div class="accent-rule"></div><h1>One Shared Pattern</h1><p class="support">Clarify · Curate · Translate · Signal</p></div><div class="beat-no">23 / 35</div></section>
-  <section id="step-clarify-s1" class="clip insight" data-track-index="0" data-beat-id="step-clarify-s1" data-start="169.38" data-duration="2.35"><div class="copy"><div class="eyebrow">Move 01</div><div class="accent-rule"></div><h1>Clarify</h1></div><div class="beat-no">24 / 35</div></section>
-  <section id="step-clarify-s2" class="clip insight" data-track-index="0" data-beat-id="step-clarify-s2" data-start="171.73" data-duration="6.89"><div class="copy"><div class="eyebrow">Name the Future</div><div class="accent-rule"></div><h1>Name the Direction</h1><p class="support">Promotion · Lateral move · Role redesign</p></div><div class="beat-no">25 / 35</div></section>
-  <section id="step-curate-s1" class="clip insight" data-track-index="0" data-beat-id="step-curate-s1" data-start="178.62" data-duration="1.675"><div class="copy"><div class="eyebrow">Move 02</div><div class="accent-rule"></div><h1>Curate</h1></div><div class="beat-no">26 / 35</div></section>
-  <section id="step-curate-s2" class="clip insight" data-track-index="0" data-beat-id="step-curate-s2" data-start="180.295" data-duration="8.875"><div class="copy"><div class="eyebrow">Choose the Proof</div><div class="accent-rule"></div><h1>Select the Connecting Proof</h1><p class="support">Projects · Responsibilities · Results</p></div><div class="beat-no">27 / 35</div></section>
-  <section id="step-translate-s1" class="clip insight" data-track-index="0" data-beat-id="step-translate-s1" data-start="189.17" data-duration="2.08"><div class="copy"><div class="eyebrow">Move 03</div><div class="accent-rule"></div><h1>Translate</h1></div><div class="beat-no">28 / 35</div></section>
-  <section id="step-translate-s2" class="clip insight" data-track-index="0" data-beat-id="step-translate-s2" data-start="191.25" data-duration="8.8"><div class="copy"><div class="eyebrow">Use the Vocabulary</div><div class="accent-rule"></div><h1>Use Target-Role Language</h1><p class="support">Strategy · Design · Leadership · Analytics · Systems</p></div><div class="beat-no">29 / 35</div></section>
-  <section id="step-signals-s1" class="clip insight" data-track-index="0" data-beat-id="step-signals-s1" data-start="200.05" data-duration="2.08"><div class="copy"><div class="eyebrow">Move 04</div><div class="accent-rule"></div><h1>Update Signals</h1></div><div class="beat-no">30 / 35</div></section>
-  <section id="step-signals-s2" class="clip insight" data-track-index="0" data-beat-id="step-signals-s2" data-start="202.13" data-duration="8.93"><div class="copy"><div class="eyebrow">Point Forward</div><div class="accent-rule"></div><h1>Align Every Public Signal</h1><p class="support">Resume · Headline · Summary · Career story</p></div><div class="beat-no">31 / 35</div></section>
-  <section id="truth-s1" class="clip insight" data-track-index="0" data-beat-id="truth-s1" data-start="211.06" data-duration="4.32"><div class="copy"><div class="eyebrow">Stay True</div><div class="accent-rule"></div><h1>Do Not Invent a New You</h1><p class="support">Repositioning stays honest.</p></div><div class="beat-no">32 / 35</div></section>
-  <section id="truth-s2" class="clip insight" data-track-index="0" data-beat-id="truth-s2" data-start="215.38" data-duration="7.62"><div class="copy"><div class="eyebrow">Reveal the Pattern</div><div class="accent-rule"></div><h1>Reveal the Through-Line</h1><p class="support">Make the next move feel obvious.</p></div><div class="beat-no">33 / 35</div></section>
-  <section id="question" class="clip insight" data-track-index="0" data-beat-id="question" data-start="223" data-duration="9.155"><div class="copy"><div class="eyebrow">Keep Asking</div><div class="accent-rule"></div><h1>Where Does This Story Point?</h1><p class="support">Tell the true story toward the role you want next.</p></div><div class="beat-no">34 / 35</div></section>
-  <section id="open-doors" class="clip insight" data-track-index="0" data-beat-id="open-doors" data-start="232.155" data-duration="9.905"><div class="copy"><div class="eyebrow">Reposition With Purpose</div><div class="accent-rule"></div><h1>Open New Doors. Keep Your Foundation</h1></div><div class="beat-no">35 / 35</div></section>
+  <section class="visual-scene" id="scene-myth" data-scene-start="0" data-scene-end="10.775">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Career Pivot Does Not Mean Starting Over</h2><span class="label reveal" data-at=".45">The imagined reset</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past erased</div><div class="claim strike reveal" data-at="1.1">NEW DEGREE</div></div>
+        <div class="cell proof"><div class="cell-head">Identity replaced</div><div class="claim strike reveal" data-at="4.2">NEW INDUSTRY</div></div>
+        <div class="cell future"><div class="cell-head">Start from zero</div><div class="claim strike reveal" data-at="7.1">NEW IDENTITY</div><p class="detail reveal" data-at="8.3">That is the myth.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-reframe" data-scene-start="10.775" data-scene-end="23.51">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Keep the Experience — Change the Frame</h2><span class="label reveal" data-at=".45">Strategic repositioning</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".9">EXPERIENCE YOU ALREADY HAVE</div><p class="detail reveal" data-at="3.1">Your past remains true.</p></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="5.2">RETELL THE VALUE</div><p class="detail reveal" data-at="7.3">Surface the relevant skills and outcomes.</p></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="9.2">POINT TO THE ROLE YOU WANT</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-three" data-scene-start="23.51" data-scene-end="27.11">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".2">Three Professionals — One Translation Pattern</h2></div>
+      <div class="board people-board">
+        <div class="person-row reveal" data-at=".5"><strong>ALEX</strong><span>Operations evidence becomes strategy proof</span><span class="target">Strategy Leader</span></div>
+        <div class="person-row reveal" data-at=".9"><strong>JORDAN</strong><span>Teaching evidence becomes design proof</span><span class="target">Learning Experience Designer</span></div>
+        <div class="person-row reveal" data-at="1.3"><strong>PRIYA</strong><span>Contributor evidence becomes leadership proof</span><span class="target">People Leader</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-alex-proof" data-scene-start="27.11" data-scene-end="46.2">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Alex: Strategy Was Already Inside Operations</h2><span class="label reveal" data-at=".45">Evidence audit</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">OPERATIONS MANAGER</div><div class="stack"><div class="item reveal" data-at="2.8">Kept processes smooth</div><div class="item reveal" data-at="4.8">Kept teams on their numbers</div><div class="item reveal" data-at="6.8">Kept projects on track</div></div></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="stack"><div class="item reveal" data-at="8.8">Led cross-functional projects</div><div class="item reveal" data-at="11">Redesigned systems</div><div class="item reveal" data-at="13.2">Shaped decisions</div></div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim giant reveal" data-at="15.2">STRATEGY LEADER</div><p class="detail reveal" data-at="16.8">The title hid the strategy. The evidence reveals it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-alex-rewrite" data-scene-start="46.2" data-scene-end="76.27">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Alex Curates, Rewrites, and Signals</h2><span class="label reveal" data-at=".45">Reposition toward strategy</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">REDESIGNED A WORKFLOW</div><div class="stack"><div class="item reveal" data-at="4.4">“Managed operations”</div><div class="item reveal" data-at="8.2">Saved time and money</div></div></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="11.6">DECISIONS + OUTCOMES + SCOPE</div><p class="detail reveal" data-at="15">Led a multi-department initiative.</p><div class="metric-row"><span class="metric reveal" data-at="18">25% FASTER</span><span class="metric reveal" data-at="20.8">BETTER SATISFACTION</span></div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="23">OPERATIONS &amp; STRATEGY LEADER</div><p class="detail reveal" data-at="26">A forward-facing headline grounded in earned work.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-alex-honest" data-scene-start="76.27" data-scene-end="85.97">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Repositioning Surfaces What Is Already True</h2><span class="label reveal" data-at=".45">No title inflation</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Foundation kept</div><div class="claim reveal" data-at=".8">OPERATIONS EXPERIENCE</div></div>
+        <div class="cell proof"><div class="cell-head">Value surfaced</div><div class="claim reveal" data-at="3.1">STRATEGIC WORK</div><p class="detail reveal" data-at="5.2">Projects, systems, decisions</p></div>
+        <div class="cell future"><div class="cell-head">Credible focus</div><div class="claim reveal" data-at="6.8">APPLY WITH STRATEGY IN VIEW</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-jordan-context" data-scene-start="85.97" data-scene-end="100.09">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Jordan: Same Work, Different Professional Language</h2><span class="label reveal" data-at=".45">Teaching to learning design</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">TEACHING</div><div class="stack"><div class="item reveal" data-at="2.6">Lessons</div><div class="item reveal" data-at="4.2">Assessments</div><div class="item reveal" data-at="5.8">Learning experiences</div></div></div>
+        <div class="cell proof"><div class="cell-head">Translation need</div><div class="claim reveal" data-at="7.5">A NEW FIELD USES DIFFERENT WORDS</div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="10.2">INSTRUCTIONAL DESIGN + LEARNING TECHNOLOGY</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-jordan-translate" data-scene-start="100.09" data-scene-end="120.92">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Jordan Translates Teaching into Design Proof</h2><span class="label reveal" data-at=".45">Target-role language</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">DESIGNED LESSONS FOR DIVERSE LEARNERS</div></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="4.1">MULTI-MODAL LEARNING DESIGN</div><div class="stack"><div class="item reveal" data-at="7.2">Learning platforms</div><div class="item reveal" data-at="10.1">Data analysis</div><div class="item reveal" data-at="13">Collaborative project design</div></div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="15.8">LEARNING EXPERIENCE DESIGNER</div><p class="detail reveal" data-at="18">Design language makes the fit legible.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-jordan-proof" data-scene-start="120.92" data-scene-end="130.29">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">The Classroom Does Not Disappear</h2><span class="label reveal" data-at=".45">Portable value</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Foundation kept</div><div class="claim reveal" data-at=".8">THE CLASSROOM</div></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="stack"><div class="item reveal" data-at="2.6">Design</div><div class="item reveal" data-at="3.9">Facilitation</div><div class="item reveal" data-at="5.2">Learner-centered thinking</div></div></div>
+        <div class="cell future"><div class="cell-head">Relevance</div><div class="claim reveal" data-at="6.8">DIRECTLY RELEVANT TO THE NEW FIELD</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-priya-context" data-scene-start="130.29" data-scene-end="141.75">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Priya: Leadership Was Already Happening</h2><span class="label reveal" data-at=".45">Contributor to leader</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">STRONG INDIVIDUAL CONTRIBUTOR</div><div class="stack"><div class="item reveal" data-at="2.7">Owned complex work</div><div class="item reveal" data-at="4.4">Built relationships</div><div class="item reveal" data-at="6.1">Delivered results</div></div></div>
+        <div class="cell proof"><div class="cell-head">Hidden signal</div><div class="claim reveal" data-at="7.5">INFORMAL LEADERSHIP</div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="9.3">FIRST-LINE LEADER</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-priya-proof" data-scene-start="141.75" data-scene-end="157.005">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Priya Makes Informal Leadership Measurable</h2><span class="label reveal" data-at=".45">Evidence translation</span></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="stack"><div class="item reveal" data-at=".8">Coordinated project teams</div><div class="item reveal" data-at="2.8">Mentored colleagues</div><div class="item reveal" data-at="4.8">Onboarded new hires</div></div></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="6.7">GREW OTHER PEOPLE</div><p class="detail reveal" data-at="8.6">Mentored 3 new analysts.</p><div class="metric-row"><span class="metric reveal" data-at="10.2">30% FASTER RAMP-UP</span></div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="12.2">PEOPLE LEADERSHIP READINESS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-priya-summary" data-scene-start="157.005" data-scene-end="166.24">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">The Summary Now Tells the Leadership Story</h2></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">True foundation</div><div class="claim reveal" data-at=".8">DELIVERS COMPLEX WORK</div></div>
+        <div class="cell proof"><div class="cell-head">Leadership proof</div><div class="claim reveal" data-at="2.8">MENTORS + COORDINATES + GROWS OTHERS</div></div>
+        <div class="cell future"><div class="cell-head">Future-facing summary</div><div class="claim reveal" data-at="5.4">EMERGING PEOPLE LEADER</div><p class="detail reveal" data-at="7">Leadership made visible without inventing it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-pattern" data-scene-start="166.24" data-scene-end="169.38">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".2">Across All Three, the Pattern Is the Same</h2></div>
+      <div class="board people-board">
+        <div class="person-row reveal" data-at=".45"><strong>ALEX</strong><span>Operations evidence</span><span class="target">Strategy signal</span></div>
+        <div class="person-row reveal" data-at=".8"><strong>JORDAN</strong><span>Teaching evidence</span><span class="target">Design signal</span></div>
+        <div class="person-row reveal" data-at="1.15"><strong>PRIYA</strong><span>Contributor evidence</span><span class="target">Leadership signal</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-method" data-scene-start="169.38" data-scene-end="211.06">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">The Four Moves of Career Repositioning</h2><span class="label reveal" data-at=".45">A repeatable method</span></div>
+      <div class="board method-board">
+        <div class="method-col"><div class="method-head">Move</div><div class="method-row reveal" data-at=".8">CLARIFY</div><div class="method-row reveal" data-at="9.3">CURATE</div><div class="method-row reveal" data-at="19.8">TRANSLATE</div><div class="method-row reveal" data-at="30.7">UPDATE SIGNALS</div></div>
+        <div class="method-col"><div class="method-head">What changes</div><div class="method-row reveal" data-at="2.4">Name the future direction</div><div class="method-row reveal" data-at="11.1">Select connecting proof</div><div class="method-row reveal" data-at="21.5">Use target-role language</div><div class="method-row reveal" data-at="32.4">Align the public story</div></div>
+        <div class="method-col"><div class="method-head">Where it points</div><div class="method-row reveal" data-at="4.8">Promotion · lateral move · role redesign</div><div class="method-row reveal" data-at="14.1">Projects · responsibilities · results</div><div class="method-row reveal" data-at="24.7">Strategy · design · leadership · analytics · systems</div><div class="method-row reveal" data-at="35.8">Resume · headline · summary · career story</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-truth" data-scene-start="211.06" data-scene-end="223">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Do Not Invent a New You — Reveal the Through-Line</h2></div>
+      <div class="board">
+        <div class="cell"><div class="cell-head">Past remains true</div><div class="claim reveal" data-at=".8">WHAT YOU HAVE ALREADY DONE</div></div>
+        <div class="cell proof"><div class="cell-head">Through-line revealed</div><div class="claim reveal" data-at="4.2">THE VALUE THAT TRAVELS</div></div>
+        <div class="cell future"><div class="cell-head">Next move</div><div class="claim reveal" data-at="7.6">OBVIOUS TO OTHERS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visual-scene" id="scene-door" data-scene-start="223" data-scene-end="242.06">
+    <div class="scene-body">
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Tell the True Story Toward the Role You Want Next</h2><span class="label reveal" data-at=".45">The heart of repositioning</span></div>
+      <div class="board door-board">
+        <div class="door-copy"><div class="question reveal" data-at=".9">HOW CAN MY TRUE EXPERIENCE POINT TO MY NEXT ROLE?</div><p class="reveal" data-at="6.4">Reveal the through-line. Keep the foundation. Open new doors without starting from scratch.</p></div>
+        <div class="door-stage"><div class="light reveal" data-at="10.1"></div><div class="door reveal" data-at="11.2"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="clip beat-marker" id="reframe-start-over-s1" data-beat-id="reframe-start-over-s1" data-track-index="0" data-start="0" data-duration="6.92"></section>
+  <section class="clip beat-marker" id="reframe-start-over-s2" data-beat-id="reframe-start-over-s2" data-track-index="0" data-start="6.92" data-duration="3.855"></section>
+  <section class="clip beat-marker" id="reframe-existing-value-s1" data-beat-id="reframe-existing-value-s1" data-track-index="0" data-start="10.775" data-duration="6.905"></section>
+  <section class="clip beat-marker" id="reframe-existing-value-s2" data-beat-id="reframe-existing-value-s2" data-track-index="0" data-start="17.68" data-duration="5.83"></section>
+  <section class="clip beat-marker" id="introduce-three" data-beat-id="introduce-three" data-track-index="0" data-start="23.51" data-duration="3.6"></section>
+  <section class="clip beat-marker" id="alex-proof-s1" data-beat-id="alex-proof-s1" data-track-index="0" data-start="27.11" data-duration="7.96"></section>
+  <section class="clip beat-marker" id="alex-proof-s2" data-beat-id="alex-proof-s2" data-track-index="0" data-start="35.07" data-duration="4.54"></section>
+  <section class="clip beat-marker" id="alex-proof-s3" data-beat-id="alex-proof-s3" data-track-index="0" data-start="39.61" data-duration="6.59"></section>
+  <section class="clip beat-marker" id="alex-reposition-s1" data-beat-id="alex-reposition-s1" data-track-index="0" data-start="46.2" data-duration="4.45"></section>
+  <section class="clip beat-marker" id="alex-reposition-s2" data-beat-id="alex-reposition-s2" data-track-index="0" data-start="50.65" data-duration="6.38"></section>
+  <section class="clip beat-marker" id="alex-reposition-s3" data-beat-id="alex-reposition-s3" data-track-index="0" data-start="57.03" data-duration="13.935"></section>
+  <section class="clip beat-marker" id="alex-reposition-s4" data-beat-id="alex-reposition-s4" data-track-index="0" data-start="70.965" data-duration="5.305"></section>
+  <section class="clip beat-marker" id="alex-reposition-s5" data-beat-id="alex-reposition-s5" data-track-index="0" data-start="76.27" data-duration="9.7"></section>
+  <section class="clip beat-marker" id="jordan-context" data-beat-id="jordan-context" data-track-index="0" data-start="85.97" data-duration="14.12"></section>
+  <section class="clip beat-marker" id="jordan-translate-s1" data-beat-id="jordan-translate-s1" data-track-index="0" data-start="100.09" data-duration="9.25"></section>
+  <section class="clip beat-marker" id="jordan-translate-s2" data-beat-id="jordan-translate-s2" data-track-index="0" data-start="109.34" data-duration="11.58"></section>
+  <section class="clip beat-marker" id="jordan-translate-s3" data-beat-id="jordan-translate-s3" data-track-index="0" data-start="120.92" data-duration="2.1"></section>
+  <section class="clip beat-marker" id="jordan-translate-s4" data-beat-id="jordan-translate-s4" data-track-index="0" data-start="123.02" data-duration="7.27"></section>
+  <section class="clip beat-marker" id="priya-context" data-beat-id="priya-context" data-track-index="0" data-start="130.29" data-duration="11.46"></section>
+  <section class="clip beat-marker" id="priya-leadership-s1" data-beat-id="priya-leadership-s1" data-track-index="0" data-start="141.75" data-duration="7.77"></section>
+  <section class="clip beat-marker" id="priya-leadership-s2" data-beat-id="priya-leadership-s2" data-track-index="0" data-start="149.52" data-duration="7.485"></section>
+  <section class="clip beat-marker" id="priya-leadership-s3" data-beat-id="priya-leadership-s3" data-track-index="0" data-start="157.005" data-duration="9.235"></section>
+  <section class="clip beat-marker" id="pattern" data-beat-id="pattern" data-track-index="0" data-start="166.24" data-duration="3.14"></section>
+  <section class="clip beat-marker" id="step-clarify-s1" data-beat-id="step-clarify-s1" data-track-index="0" data-start="169.38" data-duration="2.35"></section>
+  <section class="clip beat-marker" id="step-clarify-s2" data-beat-id="step-clarify-s2" data-track-index="0" data-start="171.73" data-duration="6.89"></section>
+  <section class="clip beat-marker" id="step-curate-s1" data-beat-id="step-curate-s1" data-track-index="0" data-start="178.62" data-duration="1.675"></section>
+  <section class="clip beat-marker" id="step-curate-s2" data-beat-id="step-curate-s2" data-track-index="0" data-start="180.295" data-duration="8.875"></section>
+  <section class="clip beat-marker" id="step-translate-s1" data-beat-id="step-translate-s1" data-track-index="0" data-start="189.17" data-duration="2.08"></section>
+  <section class="clip beat-marker" id="step-translate-s2" data-beat-id="step-translate-s2" data-track-index="0" data-start="191.25" data-duration="8.8"></section>
+  <section class="clip beat-marker" id="step-signals-s1" data-beat-id="step-signals-s1" data-track-index="0" data-start="200.05" data-duration="2.08"></section>
+  <section class="clip beat-marker" id="step-signals-s2" data-beat-id="step-signals-s2" data-track-index="0" data-start="202.13" data-duration="8.93"></section>
+  <section class="clip beat-marker" id="truth-s1" data-beat-id="truth-s1" data-track-index="0" data-start="211.06" data-duration="4.32"></section>
+  <section class="clip beat-marker" id="truth-s2" data-beat-id="truth-s2" data-track-index="0" data-start="215.38" data-duration="7.62"></section>
+  <section class="clip beat-marker" id="question" data-beat-id="question" data-track-index="0" data-start="223" data-duration="9.155"></section>
+  <section class="clip beat-marker" id="open-doors" data-beat-id="open-doors" data-track-index="0" data-start="232.155" data-duration="9.905"></section>
 
   <audio id="audio-reframe-start-over-s1" class="audio" src="assets/voice/reframe-start-over-s1.wav" data-track-index="10" data-start="0.6" data-duration="5.92"></audio>
   <audio id="audio-reframe-start-over-s2" class="audio" src="assets/voice/reframe-start-over-s2.wav" data-track-index="10" data-start="7.17" data-duration="3.205"></audio>
@@ -98,54 +322,31 @@
 </main>
 <script src="./assets/gsap.min.js"></script>
 <script>
-  const beats=[
-    ['reframe-start-over-s1',0,6.92,'reframe'],['reframe-start-over-s2',6.92,3.855,'reframe'],['reframe-existing-value-s1',10.775,6.905,'reframe'],['reframe-existing-value-s2',17.68,5.83,'reframe'],['introduce-three',23.51,3.6,'reframe'],
-    ['alex-proof-s1',27.11,7.96,'alex'],['alex-proof-s2',35.07,4.54,'alex'],['alex-proof-s3',39.61,6.59,'alex'],['alex-reposition-s1',46.2,4.45,'alex'],['alex-reposition-s2',50.65,6.38,'alex'],['alex-reposition-s3',57.03,13.935,'alex'],['alex-reposition-s4',70.965,5.305,'alex'],['alex-reposition-s5',76.27,9.7,'alex'],
-    ['jordan-context',85.97,14.12,'jordan'],['jordan-translate-s1',100.09,9.25,'jordan'],['jordan-translate-s2',109.34,11.58,'jordan'],['jordan-translate-s3',120.92,2.1,'jordan'],['jordan-translate-s4',123.02,7.27,'jordan'],
-    ['priya-context',130.29,11.46,'priya'],['priya-leadership-s1',141.75,7.77,'priya'],['priya-leadership-s2',149.52,7.485,'priya'],['priya-leadership-s3',157.005,9.235,'priya'],
-    ['pattern',166.24,3.14,'steps'],['step-clarify-s1',169.38,2.35,'steps'],['step-clarify-s2',171.73,6.89,'steps'],['step-curate-s1',178.62,1.675,'steps'],['step-curate-s2',180.295,8.875,'steps'],['step-translate-s1',189.17,2.08,'steps'],['step-translate-s2',191.25,8.8,'steps'],['step-signals-s1',200.05,2.08,'steps'],['step-signals-s2',202.13,8.93,'steps'],
-    ['truth-s1',211.06,4.32,'resolve'],['truth-s2',215.38,7.62,'resolve'],['question',223,9.155,'resolve'],['open-doors',232.155,9.905,'resolve']
-  ];
+(() => {
+  const compositionId='m3_how-to-reposition-your-career';
+  const duration=242.06;
   const timeline=gsap.timeline({paused:true});
-  const careerRoute=document.querySelector('#career-route-path');
-  const careerRouteLength=careerRoute.getTotalLength();
-  let activePhase=null;
-  beats.forEach(([id,start,duration,phase],index)=>{
-    const enter=start+.1;
-    const exit=start+duration-.22;
-    timeline.fromTo(`#${id}`,{opacity:0},{opacity:1,duration:.18,ease:'power2.out'},start+.02);
-    timeline.fromTo(`#${id} .copy`,{opacity:0,x:34},{opacity:1,x:0,duration:.4,ease:'power3.out'},enter);
-    const accentAt=duration>=3?enter+.55:enter+.06;
-    const accentDuration=duration>=3?Math.max(.6,duration*.4):.34;
-    timeline.fromTo(`#${id} .accent-rule`,{scaleX:0},{scaleX:1,duration:accentDuration,ease:'power2.out'},accentAt);
-    if(document.querySelector(`#${id} .support`)){
-      const supportAt=duration>=5.8?start+duration*.56:enter+.24;
-      timeline.fromTo(`#${id} .support`,{opacity:0,y:18},{opacity:1,y:0,duration:.42,ease:'power2.out'},supportAt);
-    }
-    if(duration>=7){
-      timeline.to(`#phase-${phase} span`,{color:'#eaab2d',duration:.36,ease:'power2.out'},start+duration*.76);
-      timeline.to(`#phase-${phase} span`,{color:'#98a4cc',duration:.22,ease:'power2.in'},exit-.26);
-    }
-    timeline.to(`#${id} .copy`,{opacity:0,x:-18,duration:.2,ease:'power2.in'},exit);
-    timeline.to(`#${id}`,{opacity:0,duration:.14,ease:'power2.in'},start+duration-.14);
-    // The persistent career route advances through each narrated proof. This
-    // is scene content inside the main diagram, not playback chrome.
-    timeline.fromTo('.route .guide',{strokeDashoffset:-index*18},{strokeDashoffset:-(index+1)*18,duration:Math.max(.5,duration-.4),ease:'none'},start+.18);
-    const routeFrom=careerRoute.getPointAtLength(careerRouteLength*index/beats.length);
-    const routeTo=careerRoute.getPointAtLength(careerRouteLength*(index+1)/beats.length);
-    timeline.fromTo('#route-marker',{x:routeFrom.x,y:routeFrom.y},{x:routeTo.x,y:routeTo.y,duration:Math.max(.5,duration-.4),ease:'none'},start+.18);
-    if(phase!==activePhase){
-      if(activePhase){timeline.to(`#phase-${activePhase}`,{borderColor:'rgba(51,147,214,.28)',backgroundColor:'rgba(13,36,55,.95)',scale:1,duration:.22,ease:'power2.inOut'},enter);}
-      timeline.to(`#phase-${phase}`,{borderColor:'#eaab2d',backgroundColor:'rgba(234,171,45,.16)',scale:1.045,duration:.34,ease:'back.out(1.7)'},enter+.02);
-      activePhase=phase;
-    }
+  const eases=['power3.out','expo.out','sine.out'];
+  const durations=[.42,.58,.72];
+  document.querySelectorAll('.visual-scene').forEach((scene) => {
+    const start=Number(scene.dataset.sceneStart);
+    const end=Number(scene.dataset.sceneEnd);
+    const body=scene.querySelector('.scene-body');
+    timeline.fromTo(body,{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.62,ease:'power3.out'},start+.12);
+    scene.querySelectorAll('.reveal').forEach((element,index) => {
+      const at=start+Number(element.dataset.at||.35);
+      const from=index%3===0?{autoAlpha:0,x:-24}:index%3===1?{autoAlpha:0,y:20}:{autoAlpha:0,scale:.97};
+      timeline.fromTo(element,from,{autoAlpha:1,x:0,y:0,scale:1,duration:durations[index%3],ease:eases[index%3],immediateRender:false},at);
+    });
+    timeline.to(body,{autoAlpha:0,y:-8,duration:.28,ease:'power2.in'},Math.max(start+.8,end-.28));
   });
   timeline.pause(0);
   window.__timelines=window.__timelines||{};
   window.__timelines['m3_how-to-reposition-your-career']=timeline;
   window.__HYPERFRAMES__=window.__HYPERFRAMES__||{};
-  window.__HYPERFRAMES__['m3_how-to-reposition-your-career']={timeline,duration:242.06,fps:30,seek:(time)=>timeline.time(time).pause()};
-  window.dispatchEvent(new CustomEvent('hyperframes:ready',{detail:{compositionId:'m3_how-to-reposition-your-career',timeline}}));
+  window.__HYPERFRAMES__['m3_how-to-reposition-your-career']={timeline,duration:242.06,fps:30,seek:(time)=>timeline.time(Math.max(0,Math.min(duration,time))).pause()};
+  window.dispatchEvent(new CustomEvent('hyperframes:ready',{detail:{compositionId:compositionId,timeline:timeline}}));
+})();
 </script>
 </body>
 </html>

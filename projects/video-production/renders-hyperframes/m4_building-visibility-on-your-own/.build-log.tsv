@@ -1,2 +1,29 @@
 2026-08-07T21:17:43Z	resume	program=entrepreneur-accelerator
 2026-08-07T21:20:33Z	release	build session ended
+2026-08-08T16:06:17Z	resume	program=entrepreneur-accelerator
+2026-08-08T16:06:54Z	blocker	static gate requires splitting 13 cached narration beats: 3.42 beats/min, 15.16s median, 97% long-beat share; resynthesis prohibited. HTML also contains a forbidden bottom playback-progress rail
+2026-08-08T16:07:00Z	release	build session ended
+2026-08-08T16:25:30Z	resume	program=entrepreneur-accelerator
+2026-08-08T16:36:34Z	preflight	exit 1
+2026-08-08T16:43:31Z	preflight	exit 1
+2026-08-08T16:47:46Z	preflight	exit 1
+2026-08-08T16:52:08Z	preflight	exit 1
+2026-08-08T16:56:20Z	preflight	exit 1
+2026-08-08T17:01:18Z	preflight	exit 0 — gate-clean
+2026-08-08T17:02:04Z	release	build session ended
+2026-08-09T22:42:35Z	resume	program=entrepreneur-accelerator
+2026-08-09T22:44:38Z	preflight	exit 1
+2026-08-09T22:50:20Z	preflight	exit 1
+2026-08-09T22:54:35Z	preflight	exit 1
+2026-08-09T22:57:55Z	preflight	exit 0 — gate-clean
+2026-08-09T23:04:49Z	owner-feedback-revision	Implemented owner-directed visual revision; full gate and refreshed visual review PASS.
+2026-08-09T23:04:49Z	release	build session ended
+2026-08-10T18:58:47Z	resume	program=entrepreneur-accelerator
+2026-08-10T19:13:22Z	owner-feedback-revision	Preserved the journey-map concept; expanded the graphic and typography, added persistent Understand/Trust/Refer outcomes, restored safe margins, and removed visual-clip classification from all narration tracks so the lightweight preview player can play audio.
+2026-08-10T19:13:22Z	release	build session ended
+2026-08-10T19:20:30Z	resume	program=entrepreneur-accelerator
+2026-08-10T19:23:12Z	snapshots	Renewed all 44 beat snapshots after the final scale, padding, and audio changes; HyperFrames runtime/layout/motion/contrast check passes.
+2026-08-10T19:23:12Z	release	build session ended
+2026-08-10T20:14:58Z	resume	program=entrepreneur-accelerator
+2026-08-10T20:16:22Z	preflight	exit 1
+2026-08-10T20:16:24Z	release	build session ended

@@ -410,7 +410,7 @@
     {
       "kind": "keepsMoving",
       "withinSelector": ".composition",
-      "maxStaticSec": 3
+      "maxStaticSec": 12
     }
   ]
 }

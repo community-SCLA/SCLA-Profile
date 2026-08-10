@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# Preview a built HyperFrames lesson workspace in HeyGen Studio on an
-# auto-forwarded port, and print a click-through URL. Removes the "cd into the
+# Preview a built HyperFrames lesson workspace in HeyGen Studio, or play it in
+# the lightweight viewer, on an auto-forwarded port. Removes the "cd into the
 # workspace and run it by hand every time" friction — run it from anywhere with
 # just the stem.
 #
 # Usage:  scripts/preview.sh <stem>
+#         scripts/preview.sh --player <stem>
 # A full or partial path to the workspace also works — anything up to and
 # including renders-hyperframes/ is stripped, as is a trailing slash.
 # With no argument, lists the available stems.
@@ -28,6 +29,16 @@ list_stems() {
   done
 }
 
+MODE="studio"
+if [ "${1:-}" = "--player" ]; then
+  MODE="player"
+  shift
+fi
+COMMAND="preview"
+if [ "$MODE" = "player" ]; then
+  COMMAND="play"
+fi
+
 STEM="${1:-}"
 # Accept a pasted path as well as a bare stem.
 STEM="${STEM#./}"
@@ -35,7 +46,7 @@ STEM="${STEM##*renders-hyperframes/}"
 STEM="${STEM%/}"
 
 if [ -z "$STEM" ]; then
-  echo "usage: scripts/preview.sh <stem>" >&2
+  echo "usage: scripts/preview.sh [--player] <stem>" >&2
   list_stems
   exit 2
 fi
@@ -70,7 +81,7 @@ fi
 # pkill "hyperframes preview"), which is what actually keeps a stale Studio out
 # of a render.
 # Bracketed pattern so we never kill this shell (see render-qa/logs/snag-log.md).
-pkill -f "[h]yperframes.* preview --port $PORT" 2>/dev/null || true
+pkill -f "[h]yperframes.* $COMMAND --port $PORT" 2>/dev/null || true
 
 if [ -n "${CODESPACE_NAME:-}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}" ]; then
   URL="https://${CODESPACE_NAME}-${PORT}.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
@@ -82,7 +93,17 @@ fi
 # the URL — the URL is only ever shown for a live server, and a dead one fails
 # loudly instead of leaving you to "hope it opens a tab" (R5/A2).
 cd "$WS"
-npm run dev -- --port "$PORT" &
+if [ "$MODE" = "studio" ]; then
+  npm run dev -- --port "$PORT" &
+else
+  HF_VERSION="$(node -e '
+    const pkg = JSON.parse(require("fs").readFileSync("package.json", "utf8"));
+    const match = pkg.scripts?.dev?.match(/hyperframes@([^\\s]+)/);
+    if (!match) process.exit(1);
+    process.stdout.write(match[1]);
+  ')"
+  npx --yes "hyperframes@$HF_VERSION" play --port "$PORT" &
+fi
 SERVER_PID=$!
 trap 'kill "$SERVER_PID" 2>/dev/null || true' INT TERM
 
@@ -109,7 +130,11 @@ fi
 
 echo ""
 echo "  $STEM"
-echo "  HyperFrames Studio → $URL/#project/$STEM"
+if [ "$MODE" = "studio" ]; then
+  echo "  HyperFrames Studio → $URL/#project/$STEM"
+else
+  echo "  Player → $URL"
+fi
 echo "  (server is up and answering on port $PORT; ctrl/cmd-click the link, Ctrl-C here to stop)"
 echo ""
 wait "$SERVER_PID"

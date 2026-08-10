@@ -3,13 +3,33 @@
   "timeline": "roadmapTimeline",
   "paused": true,
   "seekable": true,
-  "duration": 112,
-  "beatCount": 14,
+  "duration": 128.3,
+  "beatCount": 23,
   "runtime": "gsap",
   "assertions": [
-    {
-      "kind": "keepsMoving",
-      "selector": ".progress span"
-    }
+    { "kind": "appearsBy", "selector": "#beat-01-arrival", "bySec": 0.8 },
+    { "kind": "appearsBy", "selector": "#beat-02a-before", "bySec": 3.6 },
+    { "kind": "appearsBy", "selector": "#beat-02b-change", "bySec": 9.96 },
+    { "kind": "appearsBy", "selector": "#beat-03a-doing", "bySec": 18.18 },
+    { "kind": "appearsBy", "selector": "#beat-03b-experiment", "bySec": 25.23 },
+    { "kind": "appearsBy", "selector": "#beat-03c-surprise", "bySec": 31.48 },
+    { "kind": "appearsBy", "selector": "#beat-04-plan-working", "bySec": 37.11 },
+    { "kind": "appearsBy", "selector": "#beat-05a-compass", "bySec": 41.0 },
+    { "kind": "appearsBy", "selector": "#beat-05b-orientation", "bySec": 45.4 },
+    { "kind": "appearsBy", "selector": "#beat-05c-shift", "bySec": 54.255 },
+    { "kind": "appearsBy", "selector": "#beat-06-four-elements", "bySec": 60.315 },
+    { "kind": "appearsBy", "selector": "#beat-07-direction", "bySec": 62.64 },
+    { "kind": "appearsBy", "selector": "#beat-08-plan", "bySec": 68.67 },
+    { "kind": "appearsBy", "selector": "#beat-09-runway", "bySec": 75.81 },
+    { "kind": "appearsBy", "selector": "#beat-10-next-step", "bySec": 81.72 },
+    { "kind": "appearsBy", "selector": "#beat-11a-horizon", "bySec": 85.55 },
+    { "kind": "appearsBy", "selector": "#beat-11b-balance", "bySec": 89.9 },
+    { "kind": "appearsBy", "selector": "#beat-11c-redraft", "bySec": 93.99 },
+    { "kind": "appearsBy", "selector": "#beat-12a-hard-work", "bySec": 99.99 },
+    { "kind": "appearsBy", "selector": "#beat-12b-ambiguity", "bySec": 105.0 },
+    { "kind": "appearsBy", "selector": "#beat-12c-willingness", "bySec": 110.76 },
+    { "kind": "appearsBy", "selector": "#beat-13-whole-game", "bySec": 120.78 },
+    { "kind": "appearsBy", "selector": "#beat-14-build", "bySec": 124.07 },
+    { "kind": "keepsMoving", "withinSelector": "#m7_your-reinvention-roadmap" }
   ]
 }
