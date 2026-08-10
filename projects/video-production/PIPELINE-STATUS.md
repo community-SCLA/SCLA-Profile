@@ -4,7 +4,7 @@
 
 ## Where everything stands
 
-- **21** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **22** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
@@ -17,7 +17,7 @@
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
 - **0** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
-- **1** — **REJECTED.** A blocking review or gate failed; the completed production phase remains visible beside the condition.
+- **0** — **REJECTED.** A blocking review or gate failed; the completed production phase remains visible beside the condition.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
 
@@ -54,6 +54,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m5_the-story-that-makes-the-change-legible | career-transitions | 2026-08-10 | [9739fjclol](https://sclc.wistia.com/medias/9739fjclol) | `renders-mp4/career-transitions/m5_the-story-that-makes-the-change-legible_2026-08-10.mp4` |
 | m5_testing-your-next-chapter | career-transitions | 2026-08-10 | [1csb5yue4s](https://sclc.wistia.com/medias/1csb5yue4s) | `renders-mp4/career-transitions/m5_testing-your-next-chapter_2026-08-10.mp4` |
 | m4_finding-new-peers-sponsors-and-opportunity-holders | mid-career-momentum | 2026-08-10 | [tklv0cr5xx](https://sclc.wistia.com/medias/tklv0cr5xx) | `renders-mp4/mid-career-momentum/m4_finding-new-peers-sponsors-and-opportunity-holders_2026-08-10.mp4` |
+| m4_who-will-walk-this-next-chapter-with-you | mid-career-momentum | 2026-08-10 | [lph5w2gcn8](https://sclc.wistia.com/medias/lph5w2gcn8) | `renders-mp4/mid-career-momentum/m4_who-will-walk-this-next-chapter-with-you_2026-08-10.mp4` |
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
@@ -71,13 +72,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | build-direction-before-you-build-a-plan_early-career-boost | early-career-boost | 2026-08-04 | [v2gnkvdcbc](https://sclc.wistia.com/medias/v2gnkvdcbc) | `renders-mp4/early-career-boost/build-direction-before-you-build-a-plan_early-career-boost_2026-08-04.mp4` |
 | better-decisions-come-from-better-criteria_early-career-boost | early-career-boost | 2026-07-29 | [t6cathsymi](https://sclc.wistia.com/medias/t6cathsymi) | `renders-mp4/early-career-boost/better-decisions-come-from-better-criteria_early-career-boost_2026-07-29.mp4` |
 | what-makes-for-a-dream-job_early-career-boost | early-career-boost | 2026-07-17 | [gryylc7qns](https://sclc.wistia.com/medias/gryylc7qns) | `renders-mp4/early-career-boost/what-makes-for-a-dream-job_early-career-boost_2026-07-17.mp4` |
-
-## Needs a human right now
-
-- **m4_who-will-walk-this-next-chapter-with-you** (mid-career-momentum) — REJECTED: a build or release gate rejected this cut — the rendered MP4 failed post-render verification (verify_render.py)
-  - full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m4_who-will-walk-this-next-chapter-with-you/qa/logs/20260810T160009Z-verify-render.log
-  - last completed **owner-feedback-revision** at 2026-08-09 23:04 UTC
-  - **To clear it:** inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m4_who-will-walk-this-next-chapter-with-you/qa/logs/20260810T160009Z-verify-render.log, fix the named defect, then re-render
 
 ## mid-career-momentum
 
@@ -125,16 +119,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
   - last completed **preflight** at 2026-08-07 21:49 UTC
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m5_skills-for-the-ai-era`
-
-**REJECTED — a gate refused this cut:**
-
-*A review or gate blocked this lesson. Its production phase is retained; follow the listed correction and retry action.*
-
-- m4_who-will-walk-this-next-chapter-with-you
-  - state: a build or release gate rejected this cut — the rendered MP4 failed post-render verification (verify_render.py)
-  - last completed **owner-feedback-revision** at 2026-08-09 23:04 UTC
-  - gate said: full command output: /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m4_who-will-walk-this-next-chapter-with-you/qa/logs/20260810T160009Z-verify-render.log
-  - next: inspect /workspaces/SCLA-Profile/projects/video-production/renders-hyperframes/m4_who-will-walk-this-next-chapter-with-you/qa/logs/20260810T160009Z-verify-render.log, fix the named defect, then re-render
 
 **NEEDS SCRIPT — only you can finish these:**
 
