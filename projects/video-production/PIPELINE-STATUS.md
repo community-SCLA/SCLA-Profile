@@ -4,14 +4,14 @@
 
 ## Where everything stands
 
-- **26** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **27** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
-- **3** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **6** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
+- **1** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **7** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
-- **1** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
-- **2** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
+- **2** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
+- **1** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
 - **0** — **rendered, not yet published.** The MP4 exists and its bytes match the current-source completion receipt; its per-render encode policy is satisfied. Only the Wistia upload is left.
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
@@ -59,6 +59,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m2_mid-career-mindsets-and-limiting-beliefs | mid-career-momentum | 2026-08-10 | [bw01arzcic](https://sclc.wistia.com/medias/bw01arzcic) | `renders-mp4/mid-career-momentum/m2_mid-career-mindsets-and-limiting-beliefs_2026-08-10.mp4` |
 | m2_four-kinds-of-career-transition_mid-career-momentum | mid-career-momentum | 2026-08-10 | [02cu6ojupk](https://sclc.wistia.com/medias/02cu6ojupk) | `renders-mp4/mid-career-momentum/m2_four-kinds-of-career-transition_mid-career-momentum_2026-08-10.mp4` |
 | m3_using-the-resume-builder-tool-pt2 | mid-career-momentum | 2026-08-10 | [uw60kvq8dx](https://sclc.wistia.com/medias/uw60kvq8dx) | `renders-mp4/mid-career-momentum/m3_using-the-resume-builder-tool-pt2_2026-08-10.mp4` |
+| m4_building-your-carry-forward-inventory | career-transitions | 2026-08-10 | [dw676qxzpy](https://sclc.wistia.com/medias/dw676qxzpy) | `renders-mp4/career-transitions/m4_building-your-carry-forward-inventory_2026-08-10.mp4` |
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
@@ -79,6 +80,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Your review queue
 
+- **m2_the-value-of-building-mid-career-momentum** (mid-career-momentum) — ready for your preview and decision
 - **m5_making-solo-work-sustainable** (entrepreneur-accelerator) — ready for your preview and decision
 - **m4_visibility-actions-what-they-are-and-how-to-practice-them** (mid-career-momentum) — source material is missing
   - **What's needed:** do not refine or build. Re-confirmed 2026-07-24 (auto drain): body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you; never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row. Owner-actionable: supply real visibility-actions narration.
@@ -122,14 +124,14 @@ No owner action is required for these items. The production agent fixes the caus
   - last completed **gate** at 2026-08-10 19:48 UTC
   - next: repeat the combined visual review for the current source
 
-**BUILDING — in flight, no MP4 yet:**
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*The gate and visual receipt match this exact source. Review and approve this lesson now; unfinished siblings do not block it.*
 
 - m2_the-value-of-building-mid-career-momentum
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-10 20:00 UTC
-  - next: resume this existing workspace in place through the control plane; continue only m2_the-value-of-building-mid-career-momentum. Do not delete or rebuild completed work
+  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
+  - last completed **owner-feedback-revision** at 2026-08-10 20:08 UTC
+  - next: watch this cut, then approve it independently
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -141,27 +143,23 @@ No owner action is required for these items. The production agent fixes the caus
 
 ## career-transitions
 
+**AWAITING VISUAL REVIEW:**
+
+*The mechanical gate matches this exact source; it still needs the combined correctness and taste review.*
+
+- m3_the-two-sided-work
+  - state: the visual review belongs to different source
+  - last completed **gate-clean** at 2026-08-10 20:04 UTC
+  - next: repeat the combined visual review for the current source
+
 **APPROVED — gate-clean, ready to render:**
 
 *This lesson has its own persisted approval.*
 
-- m4_building-your-carry-forward-inventory
-  - state: this exact cut passed visual review and has owner approval
-  - last completed **preflight** at 2026-08-08 04:45 UTC
-  - next: render it
 - m7_your-reinvention-roadmap
   - state: this exact cut passed visual review and has owner approval
   - last completed **preflight** at 2026-08-10 17:49 UTC
   - next: render it
-
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
-
-- m3_the-two-sided-work
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **fix** at 2026-08-10 20:00 UTC
-  - next: resume this existing workspace in place through the control plane; continue only m3_the-two-sided-work. Do not delete or rebuild completed work
 
 ## entrepreneur-accelerator
 
