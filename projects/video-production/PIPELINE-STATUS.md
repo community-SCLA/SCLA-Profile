@@ -4,9 +4,9 @@
 
 ## Where everything stands
 
-- **29** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **30** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
-- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **7** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
@@ -16,7 +16,7 @@
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **0** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
+- **1** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
 - **0** — **REJECTED.** A blocking review or gate failed; the completed production phase remains visible beside the condition.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -62,6 +62,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m4_building-your-carry-forward-inventory | career-transitions | 2026-08-10 | [dw676qxzpy](https://sclc.wistia.com/medias/dw676qxzpy) | `renders-mp4/career-transitions/m4_building-your-carry-forward-inventory_2026-08-10.mp4` |
 | m7_your-reinvention-roadmap | career-transitions | 2026-08-10 | [ir9qak9ay5](https://sclc.wistia.com/medias/ir9qak9ay5) | `renders-mp4/career-transitions/m7_your-reinvention-roadmap_2026-08-10.mp4` |
 | m1_reframing-entrepreneurship-and-going-solo | entrepreneur-accelerator | 2026-08-10 | [vpu39a7qe9](https://sclc.wistia.com/medias/vpu39a7qe9) | `renders-mp4/entrepreneur-accelerator/m1_reframing-entrepreneurship-and-going-solo_2026-08-10.mp4` |
+| m4_building-visibility-on-your-own | entrepreneur-accelerator | 2026-08-10 | [pvv6ceudsg](https://sclc.wistia.com/medias/pvv6ceudsg) | `renders-mp4/entrepreneur-accelerator/m4_building-visibility-on-your-own_2026-08-10.mp4` |
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
@@ -85,6 +86,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 - **m5_making-solo-work-sustainable** (entrepreneur-accelerator) — ready for your preview and decision
 - **m4_visibility-actions-what-they-are-and-how-to-practice-them** (mid-career-momentum) — source material is missing
   - **What's needed:** do not refine or build. Re-confirmed 2026-07-24 (auto drain): body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you; never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row. Owner-actionable: supply real visibility-actions narration.
+
+## Agent-owned recovery queue
+
+No owner action is required for these items. The production agent fixes the cause, reruns the gates, and returns only a review-ready cut.
+
+- **m2_the-value-of-building-mid-career-momentum** (mid-career-momentum) — STALLED: freeform composition timed and ready — the gate has not run yet
+  - last completed **gate-fail** at 2026-08-10 20:50 UTC
+  - **To clear it:** put this existing lesson in scope, then resume its current workspace in place; do not delete or rebuild completed work
 
 ## mid-career-momentum
 
@@ -117,9 +126,9 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - last completed **gate** at 2026-08-10 19:48 UTC
   - next: repeat the combined visual review for the current source
 
-**BUILDING — in flight, no MP4 yet:**
+**STALLED — the build folder stopped moving:**
 
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+*Report-only: nothing here is killed automatically. Resume the named phase in the same workspace; its files and journal preserve completed work.*
 
 - m2_the-value-of-building-mid-career-momentum
   - state: freeform composition timed and ready — the gate has not run yet
@@ -155,15 +164,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
   - last completed **preflight** at 2026-08-10 19:54 UTC
   - next: watch this cut, then approve it independently
-
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
-
-- m4_building-visibility-on-your-own
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **owner-approved-restore** at 2026-08-10 20:37 UTC
-  - next: put this existing lesson in scope, then resume its current workspace in place; do not delete or rebuild completed work
 
 **RAW — waiting on refinement:**
 
