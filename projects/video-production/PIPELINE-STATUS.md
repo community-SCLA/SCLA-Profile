@@ -4,10 +4,10 @@
 
 ## Where everything stands
 
-- **28** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **29** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **8** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
+- **7** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
 - **1** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
@@ -61,6 +61,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m3_using-the-resume-builder-tool-pt2 | mid-career-momentum | 2026-08-10 | [uw60kvq8dx](https://sclc.wistia.com/medias/uw60kvq8dx) | `renders-mp4/mid-career-momentum/m3_using-the-resume-builder-tool-pt2_2026-08-10.mp4` |
 | m4_building-your-carry-forward-inventory | career-transitions | 2026-08-10 | [dw676qxzpy](https://sclc.wistia.com/medias/dw676qxzpy) | `renders-mp4/career-transitions/m4_building-your-carry-forward-inventory_2026-08-10.mp4` |
 | m7_your-reinvention-roadmap | career-transitions | 2026-08-10 | [ir9qak9ay5](https://sclc.wistia.com/medias/ir9qak9ay5) | `renders-mp4/career-transitions/m7_your-reinvention-roadmap_2026-08-10.mp4` |
+| m1_reframing-entrepreneurship-and-going-solo | entrepreneur-accelerator | 2026-08-10 | [vpu39a7qe9](https://sclc.wistia.com/medias/vpu39a7qe9) | `renders-mp4/entrepreneur-accelerator/m1_reframing-entrepreneurship-and-going-solo_2026-08-10.mp4` |
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
@@ -91,10 +92,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 *The mechanical gate matches this exact source; it still needs the combined correctness and taste review.*
 
-- m2_the-value-of-building-mid-career-momentum
-  - state: the visual review belongs to different source
-  - last completed **preflight** at 2026-08-10 20:42 UTC
-  - next: repeat the combined visual review for the current source
 - m3_building-your-future-you-resume-pt1
   - state: the visual review belongs to different source
   - last completed **gate-clean** at 2026-08-10 19:19 UTC
@@ -119,6 +116,15 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: the visual review belongs to different source
   - last completed **gate** at 2026-08-10 19:48 UTC
   - next: repeat the combined visual review for the current source
+
+**BUILDING — in flight, no MP4 yet:**
+
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
+
+- m2_the-value-of-building-mid-career-momentum
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **gate-fail** at 2026-08-10 20:50 UTC
+  - next: put this existing lesson in scope, then resume its current workspace in place; do not delete or rebuild completed work
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -154,10 +160,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 *A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
-- m1_reframing-entrepreneurship-and-going-solo
-  - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **preflight** at 2026-08-10 20:14 UTC
-  - next: put this existing lesson in scope, then resume its current workspace in place; do not delete or rebuild completed work
 - m4_building-visibility-on-your-own
   - state: freeform composition timed and ready — the gate has not run yet
   - last completed **owner-approved-restore** at 2026-08-10 20:37 UTC
