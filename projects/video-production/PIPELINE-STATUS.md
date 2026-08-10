@@ -4,9 +4,9 @@
 
 ## Where everything stands
 
-- **18** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **19** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
-- **3** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
@@ -51,6 +51,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | Lesson | Program | Rendered | Watch | Local MP4 |
 |---|---|---|---|---|
 | m3_choosing-your-solo-model | entrepreneur-accelerator | 2026-08-10 | [6lvtga2yzt](https://sclc.wistia.com/medias/6lvtga2yzt) | `renders-mp4/entrepreneur-accelerator/m3_choosing-your-solo-model_2026-08-10.mp4` |
+| m5_the-story-that-makes-the-change-legible | career-transitions | 2026-08-10 | [9739fjclol](https://sclc.wistia.com/medias/9739fjclol) | `renders-mp4/career-transitions/m5_the-story-that-makes-the-change-legible_2026-08-10.mp4` |
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
@@ -178,15 +179,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - state: this exact cut passed visual review and has owner approval
   - last completed **preflight** at 2026-08-09 23:00 UTC
   - next: render it: `bash projects/video-production/run.sh ship m2_four-kinds-of-career-transition_career-transitions`
-
-**BUILDING — in flight, no MP4 yet:**
-
-*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
-
-- m5_the-story-that-makes-the-change-legible
-  - state: the gate receipt is legacy or belongs to different source
-  - last completed **preview-restored** at 2026-08-09 23:14 UTC
-  - next: rerun `bash scripts/build-gate.sh m5_the-story-that-makes-the-change-legible` on the current composition
 
 ## entrepreneur-accelerator
 
