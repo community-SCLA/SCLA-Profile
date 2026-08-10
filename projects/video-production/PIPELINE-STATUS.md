@@ -4,14 +4,14 @@
 
 ## Where everything stands
 
-- **19** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **20** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **2** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
 - **16** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
-- **2** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
+- **1** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
 - **0** — **rendered, not yet published.** The MP4 exists and its bytes match the current-source completion receipt; its per-render encode policy is satisfied. Only the Wistia upload is left.
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
@@ -52,6 +52,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 |---|---|---|---|---|
 | m3_choosing-your-solo-model | entrepreneur-accelerator | 2026-08-10 | [6lvtga2yzt](https://sclc.wistia.com/medias/6lvtga2yzt) | `renders-mp4/entrepreneur-accelerator/m3_choosing-your-solo-model_2026-08-10.mp4` |
 | m5_the-story-that-makes-the-change-legible | career-transitions | 2026-08-10 | [9739fjclol](https://sclc.wistia.com/medias/9739fjclol) | `renders-mp4/career-transitions/m5_the-story-that-makes-the-change-legible_2026-08-10.mp4` |
+| m5_testing-your-next-chapter | career-transitions | 2026-08-10 | [1csb5yue4s](https://sclc.wistia.com/medias/1csb5yue4s) | `renders-mp4/career-transitions/m5_testing-your-next-chapter_2026-08-10.mp4` |
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
@@ -126,14 +127,14 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - last completed **preflight** at 2026-08-07 21:49 UTC
   - next: watch this cut, then approve it independently with `bash projects/video-production/run.sh approve m5_skills-for-the-ai-era`
 
-**APPROVED — gate-clean, ready to render:**
+**BUILDING — in flight, no MP4 yet:**
 
-*This lesson has its own persisted approval.*
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
 - m4_who-will-walk-this-next-chapter-with-you
-  - state: this exact cut passed visual review and has owner approval
+  - state: the render-start receipt is unreadable or belongs to different source
   - last completed **owner-feedback-revision** at 2026-08-09 23:04 UTC
-  - next: render it: `bash projects/video-production/run.sh ship m4_who-will-walk-this-next-chapter-with-you`
+  - next: rerun the content-bound gates before starting a new render
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -144,15 +145,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
   - **what's needed:** do not refine or build. Re-confirmed 2026-07-24 (auto drain): body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you; never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row. Owner-actionable: supply real visibility-actions narration.
 
 ## career-transitions
-
-**AWAITING VERIFICATION — MP4 preserved:**
-
-*The renderer atomically completed this current-source MP4. Resume the tail to verify it in place; no re-render is needed.*
-
-- m5_testing-your-next-chapter
-  - state: the renderer completed a current-source MP4; verification was interrupted
-  - last completed **preflight** at 2026-08-09 22:50 UTC
-  - next: resume `bash projects/video-production/run.sh ship m5_testing-your-next-chapter`; it will verify this MP4 in place without rendering it again
 
 **NEEDS REVIEW — gate-clean, waiting on your eyes:**
 
