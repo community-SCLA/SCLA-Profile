@@ -20,7 +20,9 @@ lesson workspace.
    ```
 
 2. Read only the assigned narration and the new workspace's `tokens.yml`.
-3. Create `CONCEPT.md`, `concept.json`, `design.md`, `audio_request.json`,
+3. Create `concepts/CONCEPT-BOARD.json` and its three visible board images,
+   recording different author and selector identities and the scored selection.
+   Then create `CONCEPT.md`, `concept.json`, `design.md`, `audio_request.json`,
    `index.html`, and `index.motion.json`. Every narration line must copy the
    refined script exactly.
 4. Give every beat a unique ID. Author the composition directly in HTML using

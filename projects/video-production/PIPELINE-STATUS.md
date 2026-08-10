@@ -93,7 +93,7 @@ No owner action is required for these items. The production agent fixes the caus
 
 - **m2_the-value-of-building-mid-career-momentum** (mid-career-momentum) — STALLED: freeform composition timed and ready — the gate has not run yet
   - last completed **gate-fail** at 2026-08-10 20:50 UTC
-  - **To clear it:** put this existing lesson in scope, then resume its current workspace in place; do not delete or rebuild completed work
+  - **To clear it:** resume this existing workspace in place through the control plane; continue only m2_the-value-of-building-mid-career-momentum. Do not delete or rebuild completed work
 
 ## mid-career-momentum
 
@@ -133,7 +133,7 @@ No owner action is required for these items. The production agent fixes the caus
 - m2_the-value-of-building-mid-career-momentum
   - state: freeform composition timed and ready — the gate has not run yet
   - last completed **gate-fail** at 2026-08-10 20:50 UTC
-  - next: put this existing lesson in scope, then resume its current workspace in place; do not delete or rebuild completed work
+  - next: resume this existing workspace in place through the control plane; continue only m2_the-value-of-building-mid-career-momentum. Do not delete or rebuild completed work
 
 **NEEDS SCRIPT — only you can finish these:**
 

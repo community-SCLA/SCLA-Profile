@@ -17,7 +17,8 @@ dispatch-merged --stem STEM [--task-ref REF]
 drain
 limits
 cloud-limit 2 | 4
-visual-review STEM --blocking-defect PASS|FAIL --taste ALIVE|FLAT --recommendation PROCEED|REVISE [--finding TEXT]
+visual-review STEM --blocking-defect PASS|FAIL --taste ALIVE|FLAT --recommendation PROCEED|REVISE [evidence flags]
+reject STEM --regression-id ID --reason TEXT
 encode-review STEM --backend cloud|local --verdict PASS|FAIL [--finding TEXT]
 approve STEM|BATCH
 ship STEM [--publish]
@@ -38,7 +39,7 @@ a persisted stage label.
 | Work | Agent source |
 | --- | --- |
 | Lifecycle and safety | `.claude/rules/video-production.md` |
-| Build one composition | `contracts/builder.md` plus its one script and local `tokens.yml` |
+| Build composition | `contracts/builder.md` plus its one script and local `tokens.yml` |
 | Isolated cloud source authoring | `contracts/cloud-author.md` plus its one script and local `tokens.yml` |
 | Combined visual review | `contracts/visual-review.md` |
 | Script folder semantics | `contracts/script-state.md` |

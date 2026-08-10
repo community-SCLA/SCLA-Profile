@@ -14,3 +14,10 @@
 2026-08-10T20:18:57Z	preflight	exit 1
 2026-08-10T20:20:56Z	preflight	exit 1
 2026-08-10T20:25:35Z	preflight	exit 1
+2026-08-10T20:29:16Z	preflight	exit 1
+2026-08-10T20:31:18Z	preflight	exit 1
+2026-08-10T20:34:44Z	preflight	exit 1
+2026-08-10T20:36:41Z	preflight	exit 1
+2026-08-10T20:38:25Z	preflight	exit 0 — gate-clean
+2026-08-10T20:39:46Z	preflight	exit 0 — gate-clean
+2026-08-10T20:39:47Z	release	build session ended

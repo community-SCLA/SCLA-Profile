@@ -347,7 +347,13 @@ def cmd_approve(args) -> int:
         failures = []
         for stem in targets:
             try:
-                _workspace, revisions[stem] = current_review_revision(stem)
+                if args.owner_override:
+                    workspace = VP / "renders-hyperframes" / stem
+                    if not workspace.is_dir():
+                        raise SystemExit(f"FATAL: no workspace found for {stem}")
+                    revisions[stem] = workspace_revision(workspace)
+                else:
+                    _workspace, revisions[stem] = current_review_revision(stem)
             except SystemExit as exc:
                 failures.append(str(exc).removeprefix("FATAL: "))
         if failures:
@@ -361,6 +367,7 @@ def cmd_approve(args) -> int:
                 "revision": revision,
                 "approved_at": approved_at,
                 "approved_by": args.approved_by,
+                "owner_override": bool(args.owner_override),
             }
         state["approvals"] = approvals
         sync_review_projection(state)
@@ -423,12 +430,58 @@ def cmd_record_visual_review(args) -> int:
             raise SystemExit(
                 "FATAL: PROCEED requires BLOCKING_DEFECT=PASS and TASTE=ALIVE; "
                 "every other verdict must recommend REVISE")
+        evidence = []
+        weakest = []
+        if (workspace / ".scla-control-v3").exists():
+            concept = read_json(workspace / "concepts" / "CONCEPT-BOARD.json", {})
+            concept_author = str(concept.get("authored_by") or "").strip().lower()
+            reviewer = str(args.reviewer or "").strip()
+            if not reviewer or reviewer.lower() == concept_author:
+                raise SystemExit(
+                    "FATAL: control-v3 visual review requires --reviewer naming "
+                    "an agent different from the concept author")
+            if len(args.evidence_frame or []) < 3 or len(args.weakest_frame or []) < 1:
+                raise SystemExit(
+                    "FATAL: control-v3 visual review requires at least three "
+                    "--evidence-frame values and one --weakest-frame")
+            if len(args.change_note or []) < 5:
+                raise SystemExit(
+                    "FATAL: control-v3 visual review requires at least five "
+                    "--change-note entries describing material visual events")
+            if args.layout_families is None or args.layout_families < 3:
+                raise SystemExit(
+                    "FATAL: control-v3 review requires --layout-families >= 3; "
+                    "repeated variants of one layout must recommend REVISE")
+
+            def frame_receipts(values, label):
+                rows = []
+                snapshots = (workspace / "snapshots").resolve()
+                for raw in values or []:
+                    path = (workspace / raw).resolve()
+                    try:
+                        path.relative_to(snapshots)
+                    except ValueError:
+                        raise SystemExit(
+                            f"FATAL: {label} must name a file under snapshots/: {raw}")
+                    if not path.is_file():
+                        raise SystemExit(f"FATAL: missing {label}: {raw}")
+                    rows.append({"path": str(path.relative_to(workspace.resolve())),
+                                 "sha256": sha256_file(path)})
+                return rows
+
+            evidence = frame_receipts(args.evidence_frame, "evidence frame")
+            weakest = frame_receipts(args.weakest_frame, "weakest frame")
         receipt = {
             "revision": revision,
             "blocking_defect": args.blocking_defect,
             "taste": args.taste,
             "recommendation": args.recommendation,
             "findings": list(args.finding or []),
+            "reviewer": args.reviewer,
+            "evidence_frames": evidence,
+            "weakest_frames": weakest,
+            "layout_families": args.layout_families,
+            "material_changes": list(args.change_note or []),
             "reviewed_at": now(),
         }
         atomic_write(workspace / "qa" / "VISUAL-REVIEW.json", receipt)
@@ -442,6 +495,36 @@ def cmd_show(_args) -> int:
         print("{}")
         return 1
     print(json.dumps(state, indent=2))
+    return 0
+
+
+def cmd_record_owner_rejection(args) -> int:
+    """Record owner feedback only after its regression fixture is armed."""
+    with run_write_lock():
+        state = load_run()
+        if not state:
+            raise SystemExit("FATAL: no active run; select a stem or batch first")
+        selected_item(state, args.stem)
+        workspace = VP / "renders-hyperframes" / args.stem
+        registry_path = (VP / "render-qa" / "tests" / "fixtures" /
+                         "owner-rejections" / "registry.json")
+        rows = read_json(registry_path, {}).get("rejections") or []
+        row = next((x for x in rows if x.get("id") == args.regression_id), None)
+        if not row or row.get("stem") != args.stem:
+            raise SystemExit(
+                "FATAL: owner rejection is not armed: add its named firing fixture first")
+        fixture = registry_path.parent / str(row.get("fixture") or "")
+        if not fixture.is_file() or not row.get("checker") or not row.get("rule_id"):
+            raise SystemExit("FATAL: owner-rejection registry row is incomplete")
+        receipt = {
+            "revision": workspace_revision(workspace),
+            "rejected_at": now(), "rejected_by": "owner",
+            "regression_id": args.regression_id, "reason": args.reason,
+            "checker": row["checker"], "rule_id": row["rule_id"],
+            "fixture": str(fixture.relative_to(REPO)),
+        }
+        atomic_write(workspace / "qa" / "OWNER-REJECTION.json", receipt)
+    print(json.dumps(receipt, indent=2))
     return 0
 
 
@@ -738,8 +821,14 @@ def cmd_can_ship(args) -> int:
     if not state:
         raise SystemExit("FATAL: no active run; select a stem or batch first")
     selected_item(state, args.stem)
-    _workspace, current = current_review_revision(args.stem)
     approval = approval_map(state).get(args.stem) or {}
+    if approval.get("owner_override"):
+        workspace = VP / "renders-hyperframes" / args.stem
+        if not workspace.is_dir():
+            raise SystemExit(f"FATAL: no workspace found for {args.stem}")
+        current = workspace_revision(workspace)
+    else:
+        _workspace, current = current_review_revision(args.stem)
     if approval.get("revision") != current:
         raise SystemExit(
             f"FATAL: {args.stem} has not received review approval for its "
@@ -1060,6 +1149,7 @@ def parser() -> argparse.ArgumentParser:
     s = sub.add_parser("approve")
     s.add_argument("target")
     s.add_argument("--approved-by", default="owner")
+    s.add_argument("--owner-override", action="store_true")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_approve)
     s = sub.add_parser("migrate-approval", help=argparse.SUPPRESS)
@@ -1073,7 +1163,17 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("--taste", choices=("ALIVE", "FLAT"), required=True)
     s.add_argument("--recommendation", choices=("PROCEED", "REVISE"), required=True)
     s.add_argument("--finding", action="append", default=[])
+    s.add_argument("--reviewer")
+    s.add_argument("--evidence-frame", action="append", default=[])
+    s.add_argument("--weakest-frame", action="append", default=[])
+    s.add_argument("--layout-families", type=int)
+    s.add_argument("--change-note", action="append", default=[])
     s.set_defaults(func=cmd_record_visual_review)
+    s = sub.add_parser("record-owner-rejection")
+    s.add_argument("stem")
+    s.add_argument("--regression-id", required=True)
+    s.add_argument("--reason", required=True)
+    s.set_defaults(func=cmd_record_owner_rejection)
     sub.add_parser("show").set_defaults(func=cmd_show)
     sub.add_parser("capacity").set_defaults(func=cmd_capacity)
     sub.add_parser("tts-concurrency").set_defaults(func=cmd_tts_concurrency)

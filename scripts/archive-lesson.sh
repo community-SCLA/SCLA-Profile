@@ -3,7 +3,7 @@
 #
 # Moves projects/video-production/renders-hyperframes/<stem>/ to
 # renders-hyperframes/_archive/<stem>/ and prunes regenerable bulk
-# (node_modules, caches, snapshots, renders, logs), leaving a
+# (node_modules, caches, snapshots, renders, logs, source checkpoints), leaving a
 # re-renderable source tree (HTML + design-contract.md + assets + configs).
 #
 # Usage:  bash scripts/archive-lesson.sh <script-stem> [--in-place]
@@ -24,6 +24,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LESSONS="$REPO_ROOT/projects/video-production/renders-hyperframes"
 VIDEOS="$REPO_ROOT/projects/video-production/renders-mp4"
+PUBLISHED="$REPO_ROOT/projects/video-production/lesson-scripts/published.tsv"
 
 STEM=""; IN_PLACE=0
 for arg in "$@"; do
@@ -49,26 +50,63 @@ if [[ "$IN_PLACE" -eq 0 && -e "$DEST" ]]; then
   echo "$DEST already exists — refusing to overwrite an archived build" >&2; exit 1
 fi
 
-# Safety: the deliverable must be filed before its workspace is retired.
-# The filed MP4 reuses the script stem but swaps in the render date, so match by
-# the stem-minus-date prefix rather than the exact script stem (which carries the
-# script's own date). Delivered MP4s sit one level down, at
-# renders-mp4/<program-slug>/<stem>_<render-date>.mp4 — the per-lane
-# hyperframes/ and avatar/ subfolders were flattened away on 2026-08-04 when
-# the avatar lane was deleted.
-BASE="${STEM%_*}"
-if ! find "$VIDEOS" -mindepth 2 -name "${BASE}_*.mp4" | grep -q .; then
-  echo "No ${BASE}_*.mp4 found under renders-mp4/<program-slug>/ — file the final render first." >&2
+# Safety: cleanup is allowed only after delivery is proved by either a filed
+# local MP4 or an exact published.tsv row carrying a Wistia URL. The ledger path
+# matters because local MP4s are disposable after a verified upload.
+HAS_LOCAL=0
+HAS_WISTIA=0
+if find "$VIDEOS" -mindepth 2 -type f -name "${STEM}_*.mp4" -print -quit | grep -q .; then
+  HAS_LOCAL=1
+fi
+if [[ -f "$PUBLISHED" ]] && awk -F '\t' -v stem="$STEM" '
+  $1 == stem && $4 ~ /^https:\/\/[^[:space:]]+$/ { found=1 }
+  END { exit(found ? 0 : 1) }
+' "$PUBLISHED"; then
+  HAS_WISTIA=1
+fi
+if [[ "$HAS_LOCAL" -eq 0 && "$HAS_WISTIA" -eq 0 ]]; then
+  echo "No filed ${STEM}_*.mp4 or exact Wistia publication row — refusing cleanup." >&2
   exit 1
 fi
+# A ledger row may describe an older published cut while the same canonical
+# workspace is being revised. With no newly filed MP4 as proof, consult live
+# pipeline state and refuse every agent- or owner-queue stem.
+if [[ "$HAS_LOCAL" -eq 0 && "$HAS_WISTIA" -eq 1 ]]; then
+  STATUS_JSON="$(bash "$REPO_ROOT/projects/video-production/run.sh" status --json)" || {
+    echo "Could not verify live pipeline state — refusing ledger-only cleanup." >&2
+    exit 1
+  }
+  if printf '%s' "$STATUS_JSON" | python3 -c '
+import json, sys
+stem = sys.argv[1]
+status = json.load(sys.stdin)
+live = {
+    item.get("stem")
+    for queue in ("agent_queue", "owner_queue")
+    for item in status.get(queue, [])
+    if isinstance(item, dict)
+}
+raise SystemExit(0 if stem in live else 1)
+' "$STEM"; then
+    echo "$STEM is active in live pipeline state — refusing ledger-only cleanup." >&2
+    exit 1
+  fi
+fi
 
-# Prune regenerable bulk (all rebuildable via npm install / hyperframes).
+# Retention policy: active and review-stage workspaces keep every immutable
+# source checkpoint and review still. Delivery is the lifecycle boundary. Once
+# the guard above proves delivery, the canonical authored source + current
+# assets remain re-renderable, while historical checkpoints and review/render
+# byproducts become regenerable bulk and are removed.
 # qa/ + verify/ are the render-verification frame dumps — the biggest byproduct
 # by far (qa/ alone ran ~70M in the 2026-07-24 cleanup) and fully regenerable by
 # re-running verify_render.py; the MP4's QA packet already ships to renders-mp4/.
-for junk in node_modules .thumbnails .waveform-cache .hyperframes snapshots renders output qa verify; do
+for junk in node_modules .thumbnails .waveform-cache .hyperframes renders output qa verify source-revisions; do
   rm -rf "$SRC/$junk"
 done
+# Review passes may preserve named generations such as snapshots-stale-* or
+# snapshots-before-*. They share the same delivered-only retention boundary.
+find "$SRC" -mindepth 1 -maxdepth 1 -type d -name 'snapshots*' -exec rm -rf -- {} +
 find "$SRC" -name '*.log' -delete   # includes assets/voice/tts.log, transcribe.log
 
 if [[ "$IN_PLACE" -eq 1 ]]; then

@@ -166,10 +166,14 @@ if [[ "$MODE" == "render" ]]; then
   # Previews contaminate renders (they hold the same ports and GPU/shm state).
   pkill -f "hyperframes[ ]preview" 2>/dev/null || true
 
-  echo "== preflight: $STEM"
-  guarded "preflight" python3 "$VP/render-qa/src/preflight.py" "$WS" \
-    || quarantine "preflight rejected the plan (preflight.py)" "preflight" \
-      "inspect $LAST_GUARD_LOG, fix the authoring, then run the build gate"
+  if [[ "${SCLA_OWNER_OVERRIDE:-0}" == "1" ]]; then
+    echo "== preflight advisory bypass: explicit owner/viewer approval"
+  else
+    echo "== preflight: $STEM"
+    guarded "preflight" python3 "$VP/render-qa/src/preflight.py" "$WS" \
+      || quarantine "preflight rejected the plan (preflight.py)" "preflight" \
+        "inspect $LAST_GUARD_LOG, fix the authoring, then run the build gate"
+  fi
 
   RENDER_REVISION="$(python3 "$REVISION_TOOL" "$WS")" \
     || quarantine "could not compute source revision at render start"
@@ -258,7 +262,7 @@ PY
     # is actually needed. An interrupted verify reuses its existing MP4.
     if [[ ! -d "$WS/node_modules" ]]; then
       echo "== npm install (workspace was pruned)"
-      guarded "npm-install" bash -c 'cd "$1" && npm install --no-audit --no-fund' _ "$WS" \
+      guarded "npm-install" bash -c 'cd "$1" && npm install --no-audit --no-fund --package-lock=false' _ "$WS" \
         || quarantine "npm install failed" "dependency-install" \
           "inspect $LAST_GUARD_LOG and restore package access before retrying"
     fi
@@ -341,7 +345,11 @@ PY
     else
       local_render_timeout="${SCLA_LOCAL_RENDER_TIMEOUT:-1500}"
       echo "== render: $STEM  (~7 min; hard cap $((local_render_timeout / 60)) min)"
-      guarded "local-render" timeout -k 30 "$local_render_timeout" bash "$REPO/scripts/render-local-safe.sh" "$WS" \
+      if [[ "${SCLA_OWNER_OVERRIDE:-0}" == "1" ]]; then
+        guarded "local-render" env SCLA_RENDER_DIRECT=1 timeout -k 30 "$local_render_timeout" bash "$REPO/scripts/render-local-safe.sh" "$WS"
+      else
+        guarded "local-render" timeout -k 30 "$local_render_timeout" bash "$REPO/scripts/render-local-safe.sh" "$WS"
+      fi \
         || quarantine "safe local render failed or timed out" "local-render" \
           "inspect $LAST_GUARD_LOG before retrying"
     fi
@@ -540,6 +548,9 @@ GOT_SHA="$(sha256sum "$MP4_SRC" | cut -d' ' -f1)"
 # VERIFIED -> ENCODE-REVIEW -> bytes uploaded below.
 case "$ENCODE_REVIEW_REQUIRED" in
   true)
+    if [[ "${SCLA_OWNER_OVERRIDE:-0}" == "1" ]]; then
+      echo "== post-render encode review advisory bypass: explicit owner/viewer approval"
+    else
     ENCODE_MARKER="$WS/qa/ENCODE-REVIEW.json"
     [[ -f "$ENCODE_MARKER" ]] \
       || quarantine "post-render encode review is still required — no qa/ENCODE-REVIEW.json"
@@ -576,6 +587,7 @@ PY
     [[ "$ENCODE_RC" -eq 0 ]] \
       || quarantine "post-render encode review is not publishable — ${ENCODE_PROBLEM:-invalid receipt}" \
         "encode-review" "correct the named encode defect, re-render, and review the new MP4"
+    fi
     ;;
   false) ;;
   *) quarantine "render receipt has no valid encode-review policy" ;;

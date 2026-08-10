@@ -25,7 +25,7 @@ publish_verified() {
 }
 
 auto_ship_approved() {
-  local stem="$1" located program render_log render_rc
+  local stem="$1" owner_override="${2:-0}" located program render_log render_rc
   located="$(python3 "$STATE" locate "$stem")"
   program="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("program") or "")' <<<"$located")"
   [[ -n "$program" ]] || {
@@ -36,7 +36,7 @@ auto_ship_approved() {
   echo
   echo "Approval recorded for $stem; rendering and verifying now."
   render_log="$(mktemp "${TMPDIR:-/tmp}/scla-auto-ship.XXXXXX")"
-  if bash "$SHIP_DRIVER" "$stem" "$program" 2>&1 | tee "$render_log"; then
+  if SCLA_OWNER_OVERRIDE="$owner_override" bash "$SHIP_DRIVER" "$stem" "$program" 2>&1 | tee "$render_log"; then
     render_rc=0
   else
     render_rc="${PIPESTATUS[0]}"
@@ -65,7 +65,7 @@ auto_ship_approved() {
 }
 
 usage() {
-  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|delegate --stem STEM|dispatch --stem STEM|dispatch-merged --stem STEM [--task-ref REF]|drain|limits|cloud-limit (2|4)|visual-review STEM VERDICTS|encode-review STEM VERDICT|approve (STEM|BATCH)|ship STEM [--publish]|resume [--json]|retry STEM --reason TEXT|migrate-state}" >&2
+  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|delegate --stem STEM|dispatch --stem STEM|dispatch-merged --stem STEM [--task-ref REF]|drain|limits|cloud-limit (2|4)|visual-review STEM VERDICTS|reject STEM --regression-id ID --reason TEXT|encode-review STEM VERDICT|approve (STEM|BATCH) [--owner-override]|ship STEM [--publish]|resume [--json]|retry STEM --reason TEXT|migrate-state}" >&2
   exit 2
 }
 
@@ -222,7 +222,16 @@ EOF
     ;;
   approve)
     [[ -n "${1:-}" ]] || usage
-    approval_json="$(python3 "$STATE" approve "$1" --approved-by owner --json)"
+    approve_target="$1"; shift
+    owner_override=0
+    approve_args=(approve "$approve_target" --approved-by owner --json)
+    if [[ "${1:-}" == "--owner-override" && -z "${2:-}" ]]; then
+      owner_override=1
+      approve_args+=(--owner-override)
+    elif [[ -n "${1:-}" ]]; then
+      usage
+    fi
+    approval_json="$(python3 "$STATE" "${approve_args[@]}")"
     python3 -c 'import json,sys; print(json.load(sys.stdin)["message"])' <<<"$approval_json"
     refresh_human_status
     mapfile -t approved_stems < <(
@@ -231,7 +240,7 @@ EOF
     )
     approve_rc=0
     for stem in "${approved_stems[@]}"; do
-      auto_ship_approved "$stem" || approve_rc=1
+      auto_ship_approved "$stem" "$owner_override" || approve_rc=1
     done
     refresh_human_status
     exit "$approve_rc"
@@ -239,6 +248,11 @@ EOF
   visual-review)
     [[ -n "${1:-}" ]] || usage
     python3 "$STATE" record-visual-review "$@"
+    refresh_human_status
+    ;;
+  reject)
+    [[ -n "${1:-}" ]] || usage
+    python3 "$STATE" record-owner-rejection "$@"
     refresh_human_status
     ;;
   encode-review)

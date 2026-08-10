@@ -12,6 +12,19 @@ render_fps="${SCLA_RENDER_FPS:-30}"
 render_workers="${SCLA_RENDER_WORKERS:-4}"
 
 mkdir -p "$workspace/renders"
+if [[ "${SCLA_RENDER_DIRECT:-0}" == "1" ]]; then
+  output_mp4="$workspace/renders/${project_name}_$(date +%F_%H-%M-%S).mp4"
+  cd "$workspace"
+  npm run render -- . \
+    --fps "$render_fps" \
+    --workers "$render_workers" \
+    --no-browser-gpu \
+    --output "$output_mp4"
+  [[ -s "$output_mp4" ]] || { echo "direct local render produced no MP4" >&2; exit 1; }
+  printf 'Direct local render complete: %s\n' "$output_mp4"
+  exit 0
+fi
+
 safe_work_dir="$(mktemp -d "$workspace/renders/.safe-frames.XXXXXX")"
 sequence_dir="$safe_work_dir/sequence"
 

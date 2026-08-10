@@ -12,6 +12,9 @@ gates — was retired to render-qa/_archive/ on 2026-08-05 (decisions/log.md).
 
 Sections:
 
+  concepts         — visible concept boards, materially different options,
+                    and an independently scored selection (control-v3 builds)
+
   hyperframes_source — review-ready source contract: a positive-duration root,
                     timed clips for every narration beat, one paused registered
                     timeline with real motion, and an explicit motion sidecar
@@ -856,6 +859,11 @@ def main():
     #    isolated Cloud author cannot return a zero-duration/static shell.
     sections["hyperframes_source"] = check_hyperframes_source(ws, html)
     failed |= not sections["hyperframes_source"]["pass"]
+
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_concepts.py"), str(ws)])
+    sections["concepts"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
 
     # 1. the timing contract — every beat timed, the timeline covers the root
     #    duration, MIN_FINAL_HOLD kept. (This section used to invoke the

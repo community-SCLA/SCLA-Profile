@@ -9,7 +9,9 @@ file, the selected concept, the one refined script, and the workspace's
 - `STEM`: undated canonical `<title>_<program>` name
 - `PROGRAM`: lesson-script program folder
 - refined script: the verbatim narration source
-- `CONCEPT.md`: selected visual thesis and milestone frames
+- `concepts/CONCEPT-BOARD.json`: three visible, materially different concept
+  boards plus the independent selector's scored decision
+- `CONCEPT.md`: the selected visual thesis and milestone frames
 - `_run/scaffold/`: pinned HyperFrames runtime, brand assets, fonts, and tokens
 
 ## Build sequence
@@ -40,25 +42,33 @@ file, the selected concept, the one refined script, and the workspace's
    completed work. Repeating resume without a source change reuses the same
    checkpoint.
 
-2. Write `design.md` with the chosen concept, visual carrier, beat-to-frame map,
+2. Before authoring the composition, create `concepts/CONCEPT-BOARD.json` and
+   the three board images it names. Each option needs a different visual carrier
+   and layout family plus at least five milestone frames. Variants of one card,
+   dashboard, timeline, or split-screen template count as one idea. Record the
+   author and a different selecting agent; score every option for clarity,
+   progression, variation, and teaching value; explain why each loser lost.
+   The selected option must be a highest-scoring option.
+
+3. Write `design.md` with the chosen concept, visual carrier, beat-to-frame map,
    and motion logic. Make the lesson feel like one developing idea, not a stack
    of interchangeable cards.
 
-3. Write `audio_request.json`. Every `lines[].text` must trace exactly to the
+4. Write `audio_request.json`. Every `lines[].text` must trace exactly to the
    refined script. Beat IDs are arbitrary but unique; never depend on an `s`
    prefix.
 
-4. Author `index.html` directly. On-frame words live in markup. Use the local
+5. Author `index.html` directly. On-frame words live in markup. Use the local
    token values and assets; do not create a compiler or `make_*.py` helper.
 
-5. Run static QA before paid synthesis:
+6. Run static QA before paid synthesis:
 
    ```bash
    python3 projects/video-production/render-qa/src/preflight.py \
      projects/video-production/renders-hyperframes/STEM --static
    ```
 
-6. Synthesize and compute timing through shared production tools:
+7. Synthesize and compute timing through shared production tools:
 
    ```bash
    bash scripts/video-audio.sh \
@@ -69,7 +79,7 @@ file, the selected concept, the one refined script, and the workspace's
 
    Apply `timing.json` values to the composition without altering them.
 
-7. Run the durable gate:
+8. Run the durable gate:
 
    ```bash
    bash scripts/build-gate.sh STEM

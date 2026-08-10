@@ -707,6 +707,18 @@ def ws_state(ws_dir, stem=None):
                 visual_revision=visual_revision,
             )
 
+        owner_rejection = read_json_object(ws_dir / "qa" / "OWNER-REJECTION.json")
+        if owner_rejection and owner_rejection.get("revision") == revision:
+            return state_record(
+                "needs-revision",
+                "the owner rejected this exact cut and its regression fixture is armed",
+                "rebuild from the concept level, then rerun the gate and visual review",
+                revision,
+                gate_revision=gate_revision,
+                visual_revision=visual_revision,
+                findings=[owner_rejection.get("reason") or "owner rejection"],
+            )
+
         blocking = verdict(visual, "blocking_defect", "BLOCKING_DEFECT")
         taste = verdict(visual, "taste", "TASTE")
         recommendation = verdict(visual, "recommendation", "RECOMMENDATION")

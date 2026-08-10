@@ -1,0 +1,12 @@
+{
+  "rejections": [
+    {
+      "id": "2026-08-10-m5-repeated-operating-system-panel",
+      "stem": "m5_making-solo-work-sustainable",
+      "fixture": "m5-repeated-operating-system-panel.json",
+      "checker": "check_concepts",
+      "rule_id": "concept-options-not-distinct",
+      "owner_finding": "Most of the lesson repeats one headline-and-five-card panel with only the active card changing."
+    }
+  ]
+}

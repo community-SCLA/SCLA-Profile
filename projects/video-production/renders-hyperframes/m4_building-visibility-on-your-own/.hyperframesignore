@@ -1,0 +1,6 @@
+source-revisions/
+snapshots/
+snapshots-*/
+qa/
+renders/
+node_modules/

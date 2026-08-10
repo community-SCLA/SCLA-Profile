@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "authored_by": "concept-author",
+  "options": [
+    {
+      "id": "operating-panel-a",
+      "carrier": "five-card operating system panel",
+      "layout_family": "headline left and five-card panel right",
+      "board": "concepts/a.svg",
+      "milestones": [
+        {"beat": "track", "visual_event": "highlight the track card"},
+        {"beat": "intake", "visual_event": "highlight the intake card"},
+        {"beat": "templates", "visual_event": "highlight the templates card"},
+        {"beat": "review", "visual_event": "highlight the review card"},
+        {"beat": "boundaries", "visual_event": "highlight the boundaries card"}
+      ]
+    },
+    {
+      "id": "operating-panel-b",
+      "carrier": "five-card operating system panel",
+      "layout_family": "headline left and five-card panel right",
+      "board": "concepts/b.svg",
+      "milestones": [
+        {"beat": "track", "visual_event": "emphasize the track card"},
+        {"beat": "intake", "visual_event": "emphasize the intake card"},
+        {"beat": "templates", "visual_event": "emphasize the templates card"},
+        {"beat": "review", "visual_event": "emphasize the review card"},
+        {"beat": "boundaries", "visual_event": "emphasize the boundaries card"}
+      ]
+    },
+    {
+      "id": "operating-panel-c",
+      "carrier": "five-card operating system panel",
+      "layout_family": "headline left and five-card panel right",
+      "board": "concepts/c.svg",
+      "milestones": [
+        {"beat": "track", "visual_event": "activate the track card"},
+        {"beat": "intake", "visual_event": "activate the intake card"},
+        {"beat": "templates", "visual_event": "activate the templates card"},
+        {"beat": "review", "visual_event": "activate the review card"},
+        {"beat": "boundaries", "visual_event": "activate the boundaries card"}
+      ]
+    }
+  ],
+  "selection": {
+    "selected_by": "concept-selector",
+    "selected_id": "operating-panel-a",
+    "rationale": "This version received the highest score in the recorded comparison.",
+    "scores": [
+      {"id": "operating-panel-a", "clarity": 4, "progression": 4, "variation": 4, "teaching_value": 4},
+      {"id": "operating-panel-b", "clarity": 3, "progression": 3, "variation": 3, "teaching_value": 3},
+      {"id": "operating-panel-c", "clarity": 2, "progression": 2, "variation": 2, "teaching_value": 2}
+    ],
+    "rejected": [
+      {"id": "operating-panel-b", "reason": "Lower progression score."},
+      {"id": "operating-panel-c", "reason": "Lower teaching-value score."}
+    ]
+  }
+}

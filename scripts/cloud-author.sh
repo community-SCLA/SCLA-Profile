@@ -39,6 +39,6 @@ cp -a "$SCAFFOLD/." "$WS/"
 
 echo "cloud authoring workspace: $WS"
 echo "refined narration: $SCRIPT"
-echo "next: create CONCEPT.md, concept.json, design.md, audio_request.json, index.html and index.motion.json"
+echo "next: create concepts/CONCEPT-BOARD.json plus three boards, then CONCEPT.md, concept.json, design.md, audio_request.json, index.html and index.motion.json"
 echo "finish with: bash scripts/cloud-review-ready.sh $STEM"
 echo "stop only after REVIEW_READY: PASS; do not call TTS, render, publish or shared run-state scripts"

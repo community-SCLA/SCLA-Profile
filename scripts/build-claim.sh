@@ -109,9 +109,9 @@ else
     bash "$REPO/scripts/build-session.sh" release "$STEM" >/dev/null 2>&1 || true
     exit 1
   fi
-  # New control-plane workspaces opt into the compact v2 build contract.
+  # New control-plane workspaces opt into the evidence-backed v3 build contract.
   # Legacy workspaces remain resumable without forcing destructive migration.
-  : > "$WS/.scla-control-v2"
+  : > "$WS/.scla-control-v3"
   echo "== claimed workspace renders-hyperframes/$STEM"
 fi
 

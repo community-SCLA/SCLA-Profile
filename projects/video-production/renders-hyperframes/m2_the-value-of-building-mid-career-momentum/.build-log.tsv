@@ -51,3 +51,11 @@
 2026-08-10T20:25:58Z	preflight	exit 0 — gate-clean
 2026-08-10T20:26:10Z	gate-clean	visual rebuild from scratch passed full deterministic gate
 2026-08-10T20:26:10Z	release	build session ended
+2026-08-10T20:37:14Z	resume	program=mid-career-momentum
+2026-08-10T20:42:29Z	preflight	exit 0 — gate-clean
+2026-08-10T20:45:20Z	visual-review	PASS ALIVE PROCEED after owner-directed scene-owned rebuild
+2026-08-10T20:45:20Z	release	build session ended
+2026-08-10T20:48:40Z	resume	program=mid-career-momentum
+2026-08-10T20:49:55Z	preflight	exit 1
+2026-08-10T20:50:32Z	gate-fail	Owner-directed rebuild removed persistent irrelevant carrier; Motion v2 still rejects pace/coverage because 15 of 21 frames use fewer than 5 of 9 zones. Do not return to owner until scene-owned visuals are enlarged and the coherent carrier evolves without unrelated persistence.
+2026-08-10T20:50:32Z	release	build session ended

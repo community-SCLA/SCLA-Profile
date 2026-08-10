@@ -4,6 +4,13 @@ Review one gate-clean composition before render. Inspect representative stills
 and the composition in motion. Do not rewrite the lesson, change machine gates,
 or add a new human checkpoint.
 
+The reviewer must be different from the concept author. For control-v3 builds,
+record at least three inspected frame paths, one weakest frame, the number of
+materially different layout families, and at least five beat-level descriptions
+of what changed visually. The control plane hashes those snapshot files into the
+receipt. Fewer than three layout families cannot proceed. Contract paraphrases
+are not findings; cite visible evidence.
+
 Return both verdicts independently:
 
 ```text
@@ -17,6 +24,15 @@ TASTE_NOTES:
 
 RECOMMENDATION: PROCEED|REVISE
 ```
+
+Record the verdict through `run.sh visual-review` with `--reviewer`, repeated
+`--evidence-frame`, `--weakest-frame`, and `--change-note` arguments plus
+`--layout-families`. Never hand-write `qa/VISUAL-REVIEW.json`.
+
+When the owner rejects a cut, first add a named fixture under
+`render-qa/tests/fixtures/owner-rejections/` and its registry row. The shared
+test iterates every row and proves its named rule fires. Only then record the
+rejection with `run.sh reject`; the command refuses unarmed feedback.
 
 `BLOCKING_DEFECT` covers visible correctness failures that make the cut unsafe
 to render. A playback progress bar, rail, scrubber, signal trace, or sliding

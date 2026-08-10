@@ -71,3 +71,14 @@
 2026-08-10T19:48:09Z	m3_using-the-resume-builder-tool-pt2	mid-career-momentum	preflight rejected the plan (preflight.py)
 2026-08-10T20:03:31Z	m4_building-your-carry-forward-inventory	career-transitions	npm install failed
 2026-08-10T20:12:27Z	m7_your-reinvention-roadmap	career-transitions	preflight rejected the plan (preflight.py)
+2026-08-10T20:48:58Z	m1_reframing-entrepreneurship-and-going-solo	entrepreneur-accelerator	the rendered MP4 failed post-render verification (verify_render.py)
+2026-08-10T20:50:17Z	m1_reframing-entrepreneurship-and-going-solo	entrepreneur-accelerator	cloud render exited 0 but no MP4 landed in renders/
+2026-08-10T20:53:25Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	cloud render failed or timed out (hyperframes cloud render)
+2026-08-10T20:57:49Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	cloud render failed or timed out (hyperframes cloud render)
+2026-08-10T20:59:23Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	safe local render failed or timed out
+2026-08-10T21:00:37Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	safe local render failed or timed out
+2026-08-10T21:01:49Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	safe local render failed or timed out
+2026-08-10T21:02:22Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	safe local render failed or timed out
+2026-08-10T21:14:05Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	safe local render failed or timed out
+2026-08-10T21:26:05Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	post-render encode review is still required — no qa/ENCODE-REVIEW.json
+2026-08-10T21:28:29Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	preflight rejected the plan (preflight.py)

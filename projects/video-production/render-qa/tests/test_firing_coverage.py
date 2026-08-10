@@ -44,6 +44,7 @@ RQ = HERE.parent
 # Adding a rule to a checker without adding a row is allowed; deleting the
 # fixture that backs a row is not.
 REQUIRED = {
+    "check_concepts":    ["concept-options-not-distinct"],
     "check_boundaries": ["mid-sentence-cut", "mid-word-cut", "insufficient-air",
                          "final-hold", "tail-after-last-scene",
                          # the freeform lane: 24 clip wavs instead of one
