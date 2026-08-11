@@ -4,13 +4,13 @@
 
 ## Where everything stands
 
-- **34** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **35** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
-- **5** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
+- **4** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
 - **0** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
 - **0** — **rendered, not yet published.** The MP4 exists and its bytes match the current-source completion receipt; its per-render encode policy is satisfied. Only the Wistia upload is left.
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
@@ -54,6 +54,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m2_the-value-of-building-mid-career-momentum | mid-career-momentum | 2026-08-11 | [xg6mxd0vcr](https://sclc.wistia.com/medias/xg6mxd0vcr) | `renders-mp4/mid-career-momentum/m2_the-value-of-building-mid-career-momentum_2026-08-11.mp4` |
 | m3_building-your-future-you-resume-pt1 | mid-career-momentum | 2026-08-11 | [vgcigi2ilp](https://sclc.wistia.com/medias/vgcigi2ilp) | `renders-mp4/mid-career-momentum/m3_building-your-future-you-resume-pt1_2026-08-11.mp4` |
 | m3_discover-experiences-that-support-your-next-move | mid-career-momentum | 2026-08-11 | [w5lzzvgdl1](https://sclc.wistia.com/medias/w5lzzvgdl1) | `renders-mp4/mid-career-momentum/m3_discover-experiences-that-support-your-next-move_2026-08-11.mp4` |
+| m3_from-history-to-signal | mid-career-momentum | 2026-08-11 | [itg5iy0xay](https://sclc.wistia.com/medias/itg5iy0xay) | `renders-mp4/mid-career-momentum/m3_from-history-to-signal_2026-08-11.mp4` |
 | m3_choosing-your-solo-model | entrepreneur-accelerator | 2026-08-10 | [6lvtga2yzt](https://sclc.wistia.com/medias/6lvtga2yzt) | `renders-mp4/entrepreneur-accelerator/m3_choosing-your-solo-model_2026-08-10.mp4` |
 | m5_the-story-that-makes-the-change-legible | career-transitions | 2026-08-10 | [9739fjclol](https://sclc.wistia.com/medias/9739fjclol) | `renders-mp4/career-transitions/m5_the-story-that-makes-the-change-legible_2026-08-10.mp4` |
 | m5_testing-your-next-chapter | career-transitions | 2026-08-10 | [1csb5yue4s](https://sclc.wistia.com/medias/1csb5yue4s) | `renders-mp4/career-transitions/m5_testing-your-next-chapter_2026-08-10.mp4` |
@@ -87,7 +88,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Your review queue
 
-- **m3_from-history-to-signal** (mid-career-momentum) — ready for your preview and decision
 - **m3_how-to-reposition-your-career** (mid-career-momentum) — ready for your preview and decision
 - **m4_visibility-actions** (mid-career-momentum) — ready for your preview and decision
 - **m5_skills-for-the-ai-era** (mid-career-momentum) — ready for your preview and decision
@@ -101,10 +101,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 *The gate and visual receipt match this exact source. Review and approve this lesson now; unfinished siblings do not block it.*
 
-- m3_from-history-to-signal
-  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **preflight** at 2026-08-11 07:08 UTC
-  - next: watch this cut, then approve it independently
 - m3_how-to-reposition-your-career
   - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
   - last completed **preflight** at 2026-08-11 07:11 UTC
