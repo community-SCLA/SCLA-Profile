@@ -4,13 +4,13 @@
 
 ## Where everything stands
 
-- **37** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **38** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
-- **2** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
+- **1** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
 - **0** — **approved to render.** The exact current source has matching gate, visual-review, and owner-approval receipts.
 - **0** — **rendered, not yet published.** The MP4 exists and its bytes match the current-source completion receipt; its per-render encode policy is satisfied. Only the Wistia upload is left.
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
@@ -57,6 +57,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m3_from-history-to-signal | mid-career-momentum | 2026-08-11 | [itg5iy0xay](https://sclc.wistia.com/medias/itg5iy0xay) | `renders-mp4/mid-career-momentum/m3_from-history-to-signal_2026-08-11.mp4` |
 | m3_how-to-reposition-your-career | mid-career-momentum | 2026-08-11 | [9cmgpehr0o](https://sclc.wistia.com/medias/9cmgpehr0o) | `renders-mp4/mid-career-momentum/m3_how-to-reposition-your-career_2026-08-11.mp4` |
 | m4_visibility-actions | mid-career-momentum | 2026-08-11 | [blkukx9a7p](https://sclc.wistia.com/medias/blkukx9a7p) | `renders-mp4/mid-career-momentum/m4_visibility-actions_2026-08-11.mp4` |
+| m5_skills-for-the-ai-era | mid-career-momentum | 2026-08-11 | [7pdoss94gj](https://sclc.wistia.com/medias/7pdoss94gj) | `renders-mp4/mid-career-momentum/m5_skills-for-the-ai-era_2026-08-11.mp4` |
 | m3_choosing-your-solo-model | entrepreneur-accelerator | 2026-08-10 | [6lvtga2yzt](https://sclc.wistia.com/medias/6lvtga2yzt) | `renders-mp4/entrepreneur-accelerator/m3_choosing-your-solo-model_2026-08-10.mp4` |
 | m5_the-story-that-makes-the-change-legible | career-transitions | 2026-08-10 | [9739fjclol](https://sclc.wistia.com/medias/9739fjclol) | `renders-mp4/career-transitions/m5_the-story-that-makes-the-change-legible_2026-08-10.mp4` |
 | m5_testing-your-next-chapter | career-transitions | 2026-08-10 | [1csb5yue4s](https://sclc.wistia.com/medias/1csb5yue4s) | `renders-mp4/career-transitions/m5_testing-your-next-chapter_2026-08-10.mp4` |
@@ -90,21 +91,11 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Your review queue
 
-- **m5_skills-for-the-ai-era** (mid-career-momentum) — ready for your preview and decision
 - **m3_the-two-sided-work** (career-transitions) — ready for your preview and decision
 - **m4_visibility-actions-what-they-are-and-how-to-practice-them** (mid-career-momentum) — source material is missing
   - **What's needed:** do not refine or build. Re-confirmed 2026-07-24 (auto drain): body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you; never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row. Owner-actionable: supply real visibility-actions narration.
 
 ## mid-career-momentum
-
-**NEEDS REVIEW — gate-clean, waiting on your eyes:**
-
-*The gate and visual receipt match this exact source. Review and approve this lesson now; unfinished siblings do not block it.*
-
-- m5_skills-for-the-ai-era
-  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **preflight** at 2026-08-11 02:18 UTC
-  - next: watch this cut, then approve it independently
 
 **NEEDS SCRIPT — only you can finish these:**
 
