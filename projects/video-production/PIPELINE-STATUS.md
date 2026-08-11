@@ -4,10 +4,10 @@
 
 ## Where everything stands
 
-- **30** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **31** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
-- **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
-- **7** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
+- **3** — **building now.** A workspace exists and is moving; each names the step it last completed.
+- **4** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
 - **0** — **awaiting encode review.** A content-bound MP4 exists, but required playback review has not passed for those exact bytes.
 - **0** — **needs revision.** The combined visual review found a blocking defect or a flat cut.
 - **1** — **waiting on your eyes.** The mechanical and visual receipts match this source; no MP4 yet, and each lesson can be reviewed independently.
@@ -16,7 +16,7 @@
 - **0** — **interrupted render.** A render started but never wrote an atomic completion receipt for its current bytes; partial output will not be reused.
 - **1** — **raw, not yet refined.** Sitting in `inbox/`, waiting on `/refine-scripts`.
 - **1** — **NEEDS SCRIPT.** The script itself is incomplete and only you can finish it; the exact question is under each program.
-- **1** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
+- **0** — **STALLED.** An incomplete phase stopped moving; resume it in the same workspace without deleting completed work.
 - **0** — **REJECTED.** A blocking review or gate failed; the completed production phase remains visible beside the condition.
 - **0** — **STRANDED.** Filed as published but never recorded as published; an interrupted run left it here.
 - **0** — **ORPHAN.** A build folder matching no script in any program.
@@ -50,6 +50,7 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 | Lesson | Program | Rendered | Watch | Local MP4 |
 |---|---|---|---|---|
+| m5_making-solo-work-sustainable | entrepreneur-accelerator | 2026-08-11 | [uphndr7qnn](https://sclc.wistia.com/medias/uphndr7qnn) | `renders-mp4/entrepreneur-accelerator/m5_making-solo-work-sustainable_2026-08-11.mp4` |
 | m3_choosing-your-solo-model | entrepreneur-accelerator | 2026-08-10 | [6lvtga2yzt](https://sclc.wistia.com/medias/6lvtga2yzt) | `renders-mp4/entrepreneur-accelerator/m3_choosing-your-solo-model_2026-08-10.mp4` |
 | m5_the-story-that-makes-the-change-legible | career-transitions | 2026-08-10 | [9739fjclol](https://sclc.wistia.com/medias/9739fjclol) | `renders-mp4/career-transitions/m5_the-story-that-makes-the-change-legible_2026-08-10.mp4` |
 | m5_testing-your-next-chapter | career-transitions | 2026-08-10 | [1csb5yue4s](https://sclc.wistia.com/medias/1csb5yue4s) | `renders-mp4/career-transitions/m5_testing-your-next-chapter_2026-08-10.mp4` |
@@ -83,17 +84,9 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 
 ## Your review queue
 
-- **m5_making-solo-work-sustainable** (entrepreneur-accelerator) — ready for your preview and decision
+- **m5_skills-for-the-ai-era** (mid-career-momentum) — ready for your preview and decision
 - **m4_visibility-actions-what-they-are-and-how-to-practice-them** (mid-career-momentum) — source material is missing
   - **What's needed:** do not refine or build. Re-confirmed 2026-07-24 (auto drain): body is byte-identical (post-normalization) to m4_who-will-walk-this-next-life-chapter-experience-with-you; never defines or demonstrates a "visibility action" despite the title. See refinement-log.md 2026-07-22 row. Owner-actionable: supply real visibility-actions narration.
-
-## Agent-owned recovery queue
-
-No owner action is required for these items. The production agent fixes the cause, reruns the gates, and returns only a review-ready cut.
-
-- **m2_the-value-of-building-mid-career-momentum** (mid-career-momentum) — STALLED: freeform composition timed and ready — the gate has not run yet
-  - last completed **gate-fail** at 2026-08-10 20:50 UTC
-  - **To clear it:** resume this existing workspace in place through the control plane; continue only m2_the-value-of-building-mid-career-momentum. Do not delete or rebuild completed work
 
 ## mid-career-momentum
 
@@ -101,39 +94,44 @@ No owner action is required for these items. The production agent fixes the caus
 
 *The mechanical gate matches this exact source; it still needs the combined correctness and taste review.*
 
-- m3_building-your-future-you-resume-pt1
+- m2_the-value-of-building-mid-career-momentum
   - state: the visual review belongs to different source
-  - last completed **gate-clean** at 2026-08-10 19:19 UTC
-  - next: repeat the combined visual review for the current source
-- m3_discover-experiences-that-support-your-next-move
-  - state: the visual review belongs to different source
-  - last completed **gate** at 2026-08-10 19:26 UTC
+  - last completed **preflight** at 2026-08-11 03:20 UTC
   - next: repeat the combined visual review for the current source
 - m3_from-history-to-signal
   - state: the visual review belongs to different source
-  - last completed **gate-pass** at 2026-08-10 19:24 UTC
+  - last completed **preflight** at 2026-08-11 07:08 UTC
   - next: repeat the combined visual review for the current source
 - m3_how-to-reposition-your-career
   - state: the visual review belongs to different source
-  - last completed **gate-clean** at 2026-08-10 19:32 UTC
+  - last completed **preflight** at 2026-08-11 07:11 UTC
   - next: repeat the combined visual review for the current source
-- m4_visibility-actions
-  - state: the visual review belongs to different source
-  - last completed **gate-pass** at 2026-08-10 19:57 UTC
-  - next: repeat the combined visual review for the current source
+
+**NEEDS REVIEW — gate-clean, waiting on your eyes:**
+
+*The gate and visual receipt match this exact source. Review and approve this lesson now; unfinished siblings do not block it.*
+
 - m5_skills-for-the-ai-era
-  - state: the visual review belongs to different source
-  - last completed **gate** at 2026-08-10 19:48 UTC
-  - next: repeat the combined visual review for the current source
+  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
+  - last completed **preflight** at 2026-08-11 02:18 UTC
+  - next: watch this cut, then approve it independently
 
-**STALLED — the build folder stopped moving:**
+**BUILDING — in flight, no MP4 yet:**
 
-*Report-only: nothing here is killed automatically. Resume the named phase in the same workspace; its files and journal preserve completed work.*
+*A workspace exists and is part-way through. Each names the last step it actually completed, so a resuming session picks up rather than restarts.*
 
-- m2_the-value-of-building-mid-career-momentum
+- m3_building-your-future-you-resume-pt1
   - state: freeform composition timed and ready — the gate has not run yet
-  - last completed **gate-fail** at 2026-08-10 20:50 UTC
-  - next: resume this existing workspace in place through the control plane; continue only m2_the-value-of-building-mid-career-momentum. Do not delete or rebuild completed work
+  - last completed **preflight** at 2026-08-11 07:24 UTC
+  - next: resume this existing workspace in place through the control plane; continue only m3_building-your-future-you-resume-pt1. Do not delete or rebuild completed work
+- m3_discover-experiences-that-support-your-next-move
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-11 07:18 UTC
+  - next: resume this existing workspace in place through the control plane; continue only m3_discover-experiences-that-support-your-next-move. Do not delete or rebuild completed work
+- m4_visibility-actions
+  - state: freeform composition timed and ready — the gate has not run yet
+  - last completed **preflight** at 2026-08-11 07:25 UTC
+  - next: resume this existing workspace in place through the control plane; continue only m4_visibility-actions. Do not delete or rebuild completed work
 
 **NEEDS SCRIPT — only you can finish these:**
 
@@ -151,19 +149,10 @@ No owner action is required for these items. The production agent fixes the caus
 
 - m3_the-two-sided-work
   - state: the visual review belongs to different source
-  - last completed **gate-clean** at 2026-08-10 20:04 UTC
+  - last completed **preflight** at 2026-08-11 07:15 UTC
   - next: repeat the combined visual review for the current source
 
 ## entrepreneur-accelerator
-
-**NEEDS REVIEW — gate-clean, waiting on your eyes:**
-
-*The gate and visual receipt match this exact source. Review and approve this lesson now; unfinished siblings do not block it.*
-
-- m5_making-solo-work-sustainable
-  - state: mechanical and visual reviews passed; ready for your review — no MP4 yet
-  - last completed **preflight** at 2026-08-10 19:54 UTC
-  - next: watch this cut, then approve it independently
 
 **RAW — waiting on refinement:**
 
