@@ -1,0 +1,623 @@
+<title>Scene Harvest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style id="app-css">
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --ground: #e9ecf0;
+  --surface: #ffffff;
+  --surface-2: #f4f6f8;
+  --ink: #141a20;
+  --ink-soft: #57646f;
+  --ink-faint: #8794a0;
+  --line: #d5dbe2;
+  --line-soft: #e5e9ee;
+  --mark: #b8820c;
+  --mark-bright: #eaab2d;
+  --mark-wash: #fdf3dd;
+  --link: #1c6aab;
+  --cut: #a8402a;
+  --cut-wash: #fbeae5;
+  --plate: #0d2437;
+  --shadow: 0 1px 2px rgba(16, 26, 36, .07), 0 8px 20px -12px rgba(16, 26, 36, .22);
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0d1116;
+    --surface: #151b21;
+    --surface-2: #1c242b;
+    --ink: #e3e8ed;
+    --ink-soft: #97a3af;
+    --ink-faint: #6d7a86;
+    --line: #29323b;
+    --line-soft: #202830;
+    --mark: #f1b32e;
+    --mark-bright: #f1b32e;
+    --mark-wash: #2c2415;
+    --link: #6fb2e6;
+    --cut: #e8836a;
+    --cut-wash: #2e1d17;
+    --plate: #08131e;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 10px 24px -14px rgba(0, 0, 0, .8);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0d1116;
+  --surface: #151b21;
+  --surface-2: #1c242b;
+  --ink: #e3e8ed;
+  --ink-soft: #97a3af;
+  --ink-faint: #6d7a86;
+  --line: #29323b;
+  --line-soft: #202830;
+  --mark: #f1b32e;
+  --mark-bright: #f1b32e;
+  --mark-wash: #2c2415;
+  --link: #6fb2e6;
+  --cut: #e8836a;
+  --cut-wash: #2e1d17;
+  --plate: #08131e;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 10px 24px -14px rgba(0, 0, 0, .8);
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+.wrap { max-width: 1560px; margin: 0 auto; padding: 0 22px 96px; }
+
+/* ---- masthead ---------------------------------------------------------- */
+.mast { padding: 40px 0 22px; display: flex; flex-wrap: wrap; gap: 26px; align-items: flex-end; justify-content: space-between; }
+.mast h1 {
+  font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -.022em;
+  margin: 0; text-wrap: balance; line-height: 1.04;
+}
+.mast .lede { margin: 10px 0 0; max-width: 64ch; color: var(--ink-soft); font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.55; }
+.tally { display: flex; gap: 26px; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.tally div { text-align: right; }
+.tally b { display: block; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tally span { font-size: 10px; text-transform: uppercase; letter-spacing: .13em; color: var(--ink-faint); font-family: Archivo, sans-serif; font-weight: 600; }
+
+/* ---- toolbar ----------------------------------------------------------- */
+.bar {
+  position: sticky; top: 0; z-index: 40; margin: 0 -22px; padding: 10px 22px;
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.bar input[type="search"], .bar select {
+  font: inherit; font-size: 13px; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 7px 10px;
+}
+.bar input[type="search"] { min-width: 220px; flex: 1 1 220px; max-width: 340px; }
+.chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.chip {
+  font: 600 11px/1 Archivo, sans-serif; letter-spacing: .08em; text-transform: uppercase;
+  padding: 8px 11px; border-radius: 100px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink-soft); cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+.spacer { flex: 1 1 auto; }
+.btn {
+  font: 600 13px/1 Archivo, sans-serif; padding: 9px 14px; border-radius: var(--radius);
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
+}
+.btn:hover { border-color: var(--ink-faint); }
+.btn.primary { background: var(--mark-bright); border-color: var(--mark); color: #241a02; }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.saystate { font: 500 12px/1.4 Archivo, sans-serif; color: var(--ink-soft); min-height: 1.4em; flex-basis: 100%; }
+.saystate.bad { color: var(--cut); }
+
+/* ---- lesson sections --------------------------------------------------- */
+.lesson { padding-top: 34px; }
+.lesson-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 16px; }
+.lesson-code { font: 700 12px/1 "JetBrains Mono", monospace; color: var(--mark); letter-spacing: .04em; }
+.lesson-head h2 { font-size: 19px; font-weight: 700; margin: 0; letter-spacing: -.012em; }
+.meta { font: 500 12px/1 "JetBrains Mono", monospace; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.tag { font: 600 10px/1 Archivo, sans-serif; text-transform: uppercase; letter-spacing: .1em; padding: 4px 7px; border-radius: 3px; background: var(--surface-2); color: var(--ink-soft); border: 1px solid var(--line-soft); }
+.tag.retired { background: var(--mark-wash); color: var(--mark); border-color: var(--mark); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 14px; }
+
+/* ---- frame card -------------------------------------------------------- */
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
+}
+.card.keep { border-color: var(--mark-bright); box-shadow: 0 0 0 2px var(--mark-bright), var(--shadow); }
+.card.cut { border-color: var(--cut); box-shadow: 0 0 0 2px var(--cut), var(--shadow); }
+.card.cut .shot img { opacity: .5; filter: saturate(.55); }
+.shot { position: relative; display: block; width: 100%; border: 0; padding: 0; background: var(--plate); cursor: zoom-in; }
+.shot img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.shot .spans {
+  position: absolute; left: 6px; top: 6px; font: 600 10px/1 "JetBrains Mono", monospace;
+  background: rgba(8, 19, 30, .82); color: #dfe6ec; padding: 3px 5px; border-radius: 3px;
+}
+.row { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-top: 1px solid var(--line-soft); }
+.code { font: 500 11px/1 "JetBrains Mono", monospace; color: var(--ink-soft); letter-spacing: -.01em; }
+.card.keep .code { color: var(--mark); font-weight: 700; }
+.card.cut .code { color: var(--cut); font-weight: 700; }
+.time { font: 400 10px/1 "JetBrains Mono", monospace; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.judge {
+  width: 25px; height: 25px; flex: none; border-radius: 5px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-faint);
+  font: 700 13px/1 Archivo, sans-serif; display: grid; place-items: center;
+}
+.judge.no { margin-left: auto; }
+.judge.no:hover { border-color: var(--cut); color: var(--cut); }
+.judge.yes:hover { border-color: var(--mark); color: var(--mark); }
+.card.keep .judge.yes { background: var(--mark-bright); border-color: var(--mark); color: #241a02; }
+.card.cut .judge.no { background: var(--cut); border-color: var(--cut); color: #fff; }
+.notebtn { width: 25px; height: 25px; flex: none; border-radius: 5px; cursor: pointer; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-faint); font: 600 12px/1 Archivo, sans-serif; }
+.notebtn:hover { border-color: var(--ink-faint); color: var(--ink); }
+.notebtn.has { color: var(--mark); border-color: var(--mark); }
+.note { display: none; padding: 0 8px 8px; }
+.card.noting .note, .card.hasnote .note { display: block; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font: 600 11px/1 Archivo, sans-serif; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-faint); }
+.legend b { font-weight: 700; }
+.legend .k { color: var(--mark); }
+.legend .c { color: var(--cut); }
+.note input {
+  width: 100%; font: 400 13px/1.4 Newsreader, Georgia, serif; color: var(--ink);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px;
+}
+.cap { padding: 0 8px 8px; font: 400 12px/1.35 Newsreader, Georgia, serif; color: var(--ink-soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.hidden { display: none !important; }
+.empty { padding: 60px 0; text-align: center; color: var(--ink-faint); font-family: Newsreader, Georgia, serif; font-size: 17px; }
+
+/* ---- lightbox ---------------------------------------------------------- */
+.lb { position: fixed; inset: 0; z-index: 90; background: rgba(6, 12, 18, .88); display: grid; place-items: center; padding: 24px; }
+.lb[hidden] { display: none; }
+.lb-inner { width: min(1180px, 100%); max-height: 100%; overflow: auto; background: var(--surface); border-radius: 8px; }
+.lb-inner img { display: block; width: 100%; background: var(--plate); }
+.lb-meta { padding: 16px 20px 20px; display: grid; gap: 12px; }
+.lb-line { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.lb-code { font: 700 15px/1 "JetBrains Mono", monospace; color: var(--mark); }
+.lb-narr { font: 400 16px/1.55 Newsreader, Georgia, serif; color: var(--ink); max-width: 74ch; margin: 0; }
+.lb-copy { font: 500 12px/1.5 Archivo, sans-serif; color: var(--ink-faint); max-width: 82ch; margin: 0; }
+.lb-note { width: 100%; font: 400 15px/1.4 Newsreader, Georgia, serif; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 9px 11px; }
+.kbd { font: 500 11px/1 "JetBrains Mono", monospace; color: var(--ink-faint); }
+
+.foot { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-faint); font-size: 12.5px; max-width: 76ch; }
+.out { width: 100%; min-height: 180px; font: 400 12px/1.5 "JetBrains Mono", monospace; background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-top: 10px; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div id="app"></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script id="picks" type="application/json">__PICKS__</script>
+<script id="app-js">
+(function () {
+  "use strict";
+  var FONTS = "https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap";
+  var DATA = JSON.parse(document.getElementById("data").textContent);
+  var PICKS = JSON.parse(document.getElementById("picks").textContent || "{}");
+  var STORE = "scla-scene-harvest";
+
+  // A local mirror so a browser refresh never loses marks made since the last Save.
+  try {
+    var local = JSON.parse(localStorage.getItem(STORE) || "null");
+    if (local && Object.keys(local).length > Object.keys(PICKS).length) PICKS = local;
+  } catch (e) {}
+
+  var SCENES = {};   // code -> {scene, lesson}
+  DATA.lessons.forEach(function (l) {
+    l.scenes.forEach(function (s) { SCENES[s.code] = { s: s, l: l }; });
+  });
+
+  function esc(t) {
+    return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function clock(sec) {
+    var s = Math.round(sec || 0);
+    return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+  }
+  // one verdict per scene: "keep", "cut", or "" (unjudged). A note stands alone.
+  function verdict(code) {
+    var e = PICKS[code];
+    if (!e) return "";
+    if (e.v) return e.v;
+    return e.picked ? "keep" : "";   // marks saved before cut existed
+  }
+  function noteOf(code) { return (PICKS[code] && PICKS[code].note) || ""; }
+
+  var SHELL =
+    '<div class="wrap">' +
+      '<header class="mast">' +
+        '<div>' +
+          '<h1>Every scene we have ever shipped</h1>' +
+          '<p class="lede">One still per scene from all ' + DATA.stats.lessons + ' published lessons, re-photographed from each build. Keep the shapes worth building on, cut the ones that never work, and say why in a note &mdash; both verdicts feed the kit.</p>' +
+        '</div>' +
+        '<div class="tally">' +
+          '<div><b id="t-keep">0</b><span>kept</span></div>' +
+          '<div><b id="t-cut">0</b><span>cut</span></div>' +
+          '<div><b id="t-notes">0</b><span>noted</span></div>' +
+          '<div><b>' + DATA.stats.cards + '</b><span>scenes</span></div>' +
+        '</div>' +
+      '</header>' +
+      '<div class="bar">' +
+        '<input type="search" id="q" placeholder="Search narration, copy, code" aria-label="Search scenes">' +
+        '<div class="chips" id="chips"></div>' +
+        '<select id="show" aria-label="Show which scenes">' +
+          '<option value="">Show everything</option>' +
+          '<option value="keep">Kept only</option>' +
+          '<option value="cut">Cut only</option>' +
+          '<option value="any">Judged only</option>' +
+          '<option value="note">Noted only</option>' +
+          '<option value="none">Unjudged only</option>' +
+        "</select>" +
+        '<select id="jump" aria-label="Jump to lesson"></select>' +
+        '<span class="spacer"></span>' +
+        '<button class="btn" id="copy">Copy for Claude</button>' +
+        '<button class="btn primary" id="save">Save verdicts</button>' +
+        '<div class="saystate" id="say"></div>' +
+      '</div>' +
+      '<main id="sheet"></main>' +
+      '<footer class="foot">' +
+        '<p class="legend"><span class="k">&#10003; keep &mdash; build on this shape</span><span class="c">&#10007; cut &mdash; never build this again</span><span>&#9998; note &mdash; read either way, and on its own</span></p>' +
+        '<p>Codes read <b>program &middot; lesson &middot; scene</b>. A frame marked <span class="kbd">&times;N</span> stood still across N narration beats and is shown once. Stills are re-captures of the original composition, not the delivered MP4.</p>' +
+        '<p id="handoff-wrap" hidden><textarea class="out" id="handoff" readonly></textarea></p>' +
+      '</footer>' +
+    '</div>' +
+    '<div class="lb" id="lb" hidden>' +
+      '<div class="lb-inner">' +
+        '<img id="lb-img" alt="">' +
+        '<div class="lb-meta">' +
+          '<div class="lb-line">' +
+            '<span class="lb-code" id="lb-code"></span>' +
+            '<span class="meta" id="lb-where"></span>' +
+            '<span class="spacer"></span>' +
+            '<button class="btn" id="lb-cut"></button>' +
+            '<button class="btn" id="lb-keep"></button>' +
+            '<button class="btn" id="lb-close">Close</button>' +
+          '</div>' +
+          '<p class="lb-narr" id="lb-narr"></p>' +
+          '<p class="lb-copy" id="lb-copy"></p>' +
+          '<input class="lb-note" id="lb-note" placeholder="Note on this scene (saved with the mark)">' +
+          '<div class="kbd">&larr; &rarr; move &middot; K keep &middot; X cut &middot; esc close</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  var app = document.getElementById("app");
+  app.innerHTML = SHELL;
+
+  /* ---- build the sheet ------------------------------------------------- */
+  var sheet = document.getElementById("sheet");
+  var html = DATA.lessons.map(function (l) {
+    var cards = l.scenes.map(function (s) {
+      var v = verdict(s.code), note = noteOf(s.code);
+      var cls = "card" + (v ? " " + v : "") + (note ? " hasnote" : "");
+      return '<article class="' + cls + '" data-code="' + s.code + '">' +
+        '<button class="shot" data-open="' + s.code + '" aria-label="Enlarge ' + s.code + '">' +
+          '<img loading="lazy" decoding="async" src="' + s.img + '" alt="Scene ' + s.code + '">' +
+          (s.spans > 1 ? '<span class="spans">&times;' + s.spans + "</span>" : "") +
+        "</button>" +
+        '<div class="row">' +
+          '<span class="code">' + s.code + "</span>" +
+          '<span class="time">' + clock(s.t) + "</span>" +
+          '<button class="notebtn' + (note ? " has" : "") + '" data-note="' + s.code + '" title="Note" aria-label="Note on ' + s.code + '">&#9998;</button>' +
+          '<button class="judge no" data-judge="cut" title="Cut" role="switch" aria-checked="' + (v === "cut") + '" aria-label="Cut ' + s.code + '">&#10007;</button>' +
+          '<button class="judge yes" data-judge="keep" title="Keep" role="switch" aria-checked="' + (v === "keep") + '" aria-label="Keep ' + s.code + '">&#10003;</button>' +
+        "</div>" +
+        '<div class="note"><input data-input="' + s.code + '" value="' + esc(note) + '" placeholder="Why this one?"></div>' +
+        (s.copy ? '<div class="cap">' + esc(s.copy) + "</div>" : "") +
+        "</article>";
+    }).join("");
+    return '<section class="lesson" id="L-' + l.code + '" data-program="' + l.program + '">' +
+      '<div class="lesson-head">' +
+        '<span class="lesson-code">' + l.code + "</span>" +
+        "<h2>" + esc(l.title) + "</h2>" +
+        '<span class="meta">' + l.scenes.length + " scenes &middot; " + l.beats + " beats &middot; " + clock(l.runtime) + "</span>" +
+        (l.lane.indexOf("retired") > -1 ? '<span class="tag retired">retired template lane</span>' : "") +
+        (l.wistia ? '<a class="meta" href="' + l.wistia + '" target="_blank" rel="noopener">watch &nearr;</a>' : "") +
+      "</div>" +
+      '<div class="grid">' + cards + "</div>" +
+    "</section>";
+  }).join("");
+  sheet.innerHTML = html + '<p class="empty hidden" id="none">Nothing matches those filters.</p>';
+
+  /* ---- filters --------------------------------------------------------- */
+  var chips = document.getElementById("chips");
+  chips.innerHTML = '<button class="chip" data-prog="" aria-pressed="true">All</button>' +
+    DATA.programs.map(function (p) {
+      return '<button class="chip" data-prog="' + p.key + '" aria-pressed="false">' + p.short + "</button>";
+    }).join("");
+  var jump = document.getElementById("jump");
+  jump.innerHTML = '<option value="">Jump to lesson</option>' + DATA.lessons.map(function (l) {
+    return '<option value="L-' + l.code + '">' + l.code + " " + esc(l.title) + "</option>";
+  }).join("");
+
+  var state = { prog: "", q: "", show: "" };
+
+  function matches(scene, lesson) {
+    if (state.prog && lesson.program !== state.prog) return false;
+    if (state.show) {
+      var v = verdict(scene.code), n = noteOf(scene.code);
+      if (state.show === "keep" && v !== "keep") return false;
+      if (state.show === "cut" && v !== "cut") return false;
+      if (state.show === "any" && !v) return false;
+      if (state.show === "note" && !n) return false;
+      if (state.show === "none" && (v || n)) return false;
+    }
+    if (state.q) {
+      var hay = (scene.code + " " + scene.narr + " " + scene.copy + " " + lesson.title).toLowerCase();
+      if (hay.indexOf(state.q) === -1) return false;
+    }
+    return true;
+  }
+  function applyFilters() {
+    var shown = 0;
+    DATA.lessons.forEach(function (l) {
+      var sec = document.getElementById("L-" + l.code), any = 0;
+      l.scenes.forEach(function (s) {
+        var el = sec.querySelector('[data-code="' + s.code + '"]');
+        var ok = matches(s, l);
+        el.classList.toggle("hidden", !ok);
+        if (ok) { any++; shown++; }
+      });
+      sec.classList.toggle("hidden", any === 0);
+    });
+    document.getElementById("none").classList.toggle("hidden", shown > 0);
+  }
+
+  chips.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-prog]"); if (!b) return;
+    state.prog = b.dataset.prog;
+    [].forEach.call(chips.children, function (c) { c.setAttribute("aria-pressed", c === b); });
+    applyFilters();
+  });
+  document.getElementById("show").addEventListener("change", function () {
+    state.show = this.value;
+    applyFilters();
+  });
+  var qt;
+  document.getElementById("q").addEventListener("input", function () {
+    var v = this.value.trim().toLowerCase();
+    clearTimeout(qt);
+    qt = setTimeout(function () { state.q = v; applyFilters(); }, 140);
+  });
+  jump.addEventListener("change", function () {
+    if (!this.value) return;
+    var el = document.getElementById(this.value);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    this.value = "";
+  });
+
+  /* ---- marking --------------------------------------------------------- */
+  function tally() {
+    var keep = 0, cut = 0, notes = 0;
+    Object.keys(PICKS).forEach(function (c) {
+      var v = verdict(c);
+      if (v === "keep") keep++;
+      else if (v === "cut") cut++;
+      if (PICKS[c].note) notes++;
+    });
+    document.getElementById("t-keep").textContent = keep;
+    document.getElementById("t-cut").textContent = cut;
+    document.getElementById("t-notes").textContent = notes;
+    try { localStorage.setItem(STORE, JSON.stringify(PICKS)); } catch (e) {}
+    dirty = true;
+  }
+  function entry(code) {
+    if (!PICKS[code]) PICKS[code] = { v: "", note: "" };
+    if (PICKS[code].v === undefined) PICKS[code].v = PICKS[code].picked ? "keep" : "";
+    return PICKS[code];
+  }
+  function drop(code) {
+    var e = PICKS[code];
+    if (e && !e.v && !e.note) delete PICKS[code];
+  }
+  function paint(code) {
+    var card = sheet.querySelector('[data-code="' + code + '"]');
+    if (!card) return;
+    var v = verdict(code), note = noteOf(code);
+    card.classList.toggle("keep", v === "keep");
+    card.classList.toggle("cut", v === "cut");
+    card.classList.toggle("hasnote", !!note);
+    card.querySelector(".judge.yes").setAttribute("aria-checked", v === "keep");
+    card.querySelector(".judge.no").setAttribute("aria-checked", v === "cut");
+    card.querySelector(".notebtn").classList.toggle("has", !!note);
+    var input = card.querySelector("[data-input]");
+    if (input.value !== note) input.value = note;
+  }
+  function judge(code, want) {
+    var e = entry(code);
+    e.v = (e.v === want) ? "" : want;   // clicking the same verdict clears it
+    delete e.picked;
+    drop(code);
+    paint(code); tally();
+    if (lbCode === code) paintLb();
+  }
+  function setNote(code, val) {
+    var e = entry(code);
+    e.note = val;
+    drop(code);
+    paint(code); tally();
+  }
+
+  sheet.addEventListener("click", function (e) {
+    var j = e.target.closest("[data-judge]");
+    if (j) { judge(j.closest(".card").dataset.code, j.dataset.judge); return; }
+    var n = e.target.closest("[data-note]");
+    if (n) {
+      var card = n.closest(".card");
+      card.classList.toggle("noting");
+      var i = card.querySelector("[data-input]");
+      if (card.classList.contains("noting") || card.classList.contains("hasnote")) i.focus();
+      return;
+    }
+    var o = e.target.closest("[data-open]");
+    if (o) openLb(o.dataset.open);
+  });
+  sheet.addEventListener("input", function (e) {
+    var i = e.target.closest("[data-input]");
+    if (i) setNote(i.dataset.input, i.value);
+  });
+
+  /* ---- lightbox -------------------------------------------------------- */
+  var lb = document.getElementById("lb"), lbCode = null, lbList = [];
+  function paintLb() {
+    var rec = SCENES[lbCode]; if (!rec) return;
+    document.getElementById("lb-img").src = rec.s.img;
+    document.getElementById("lb-img").alt = "Scene " + lbCode;
+    document.getElementById("lb-code").textContent = lbCode;
+    document.getElementById("lb-where").textContent =
+      rec.l.title + "  \u00b7  beat " + rec.s.beat + " of " + rec.l.beats + "  \u00b7  " + clock(rec.s.t);
+    document.getElementById("lb-narr").textContent = rec.s.narr || "";
+    document.getElementById("lb-copy").textContent = rec.s.copy || "";
+    document.getElementById("lb-note").value = noteOf(lbCode);
+    var v = verdict(lbCode);
+    var k = document.getElementById("lb-keep"), c = document.getElementById("lb-cut");
+    k.textContent = v === "keep" ? "\u2713 Kept" : "Keep";
+    c.textContent = v === "cut" ? "\u2717 Cut" : "Cut";
+    k.classList.toggle("primary", v === "keep");
+    c.style.borderColor = v === "cut" ? "var(--cut)" : "";
+    c.style.color = v === "cut" ? "var(--cut)" : "";
+  }
+  function openLb(code) {
+    lbList = [];
+    DATA.lessons.forEach(function (l) {
+      l.scenes.forEach(function (s) {
+        var el = sheet.querySelector('[data-code="' + s.code + '"]');
+        if (el && !el.classList.contains("hidden")) lbList.push(s.code);
+      });
+    });
+    lbCode = code; lb.hidden = false; paintLb();
+    document.getElementById("lb-close").focus();
+  }
+  function closeLb() { lb.hidden = true; lbCode = null; }
+  function step(d) {
+    var i = lbList.indexOf(lbCode);
+    if (i < 0) return;
+    var j = i + d;
+    if (j < 0 || j >= lbList.length) return;
+    lbCode = lbList[j]; paintLb();
+  }
+  document.getElementById("lb-close").addEventListener("click", closeLb);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+  document.getElementById("lb-keep").addEventListener("click", function () { judge(lbCode, "keep"); });
+  document.getElementById("lb-cut").addEventListener("click", function () { judge(lbCode, "cut"); });
+  document.getElementById("lb-note").addEventListener("input", function () { setNote(lbCode, this.value); });
+  document.addEventListener("keydown", function (e) {
+    if (lb.hidden) return;
+    if (e.key === "Escape") { closeLb(); return; }
+    if (e.target.tagName === "INPUT") return;
+    if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+    else if (e.key === "k" || e.key === "K" || e.key === " ") { e.preventDefault(); judge(lbCode, "keep"); }
+    else if (e.key === "x" || e.key === "X") { e.preventDefault(); judge(lbCode, "cut"); }
+  });
+
+  /* ---- handoff + save -------------------------------------------------- */
+  function report() {
+    var keep = [], cut = [], noted = [];
+    Object.keys(PICKS).sort().forEach(function (c) {
+      if (!SCENES[c]) return;
+      var v = verdict(c);
+      (v === "keep" ? keep : v === "cut" ? cut : noteOf(c) ? noted : []).push(c);
+    });
+    if (!keep.length && !cut.length && !noted.length) return "Nothing judged yet.";
+    function block(title, codes) {
+      if (!codes.length) return [];
+      var out = ["", title + " (" + codes.length + ")"];
+      codes.forEach(function (c) {
+        var rec = SCENES[c];
+        out.push("  " + c + "  " + rec.l.stem + " beat " + rec.s.beat +
+                 (noteOf(c) ? "  -- " + noteOf(c) : ""));
+      });
+      return out;
+    }
+    return ["SCENE HARVEST - " + keep.length + " kept, " + cut.length + " cut, " +
+            noted.length + " noted only, of " + DATA.stats.cards + " scenes"]
+      .concat(block("KEEP - build on these", keep))
+      .concat(block("CUT - never build these again", cut))
+      .concat(block("NOTED, no verdict", noted))
+      .join("\n");
+  }
+  var say = document.getElementById("say");
+  document.getElementById("copy").addEventListener("click", function () {
+    var text = report();
+    var wrap = document.getElementById("handoff-wrap");
+    var box = document.getElementById("handoff");
+    box.value = text; wrap.hidden = false;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function () {
+        say.className = "saystate"; say.textContent = "Copied \u2014 paste it back into the conversation.";
+      }, function () {
+        box.select(); say.className = "saystate"; say.textContent = "Select the text at the bottom of the page and copy it.";
+      });
+    } else {
+      box.select(); say.className = "saystate"; say.textContent = "Select the text at the bottom of the page and copy it.";
+    }
+  });
+
+  var dirty = false;
+  function source() {
+    var css = document.getElementById("app-css").textContent;
+    var js = document.getElementById("app-js").textContent;
+    var raw = document.getElementById("data").textContent;
+    var close = "<" + "/script>";
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+      '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+      "<title>Scene Harvest</title>" +
+      '<link rel="stylesheet" href="' + FONTS + '">' +
+      '<style id="app-css">' + css + "</style></head><body>" +
+      '<div id="app"></div>' +
+      '<script id="data" type="application/json">' + raw + close +
+      '<script id="picks" type="application/json">' + JSON.stringify(PICKS) + close +
+      '<script id="app-js">' + js + close +
+      "</body></html>";
+  }
+  var saveBtn = document.getElementById("save");
+  saveBtn.addEventListener("click", function () {
+    saveBtn.disabled = true;
+    say.className = "saystate"; say.textContent = "Saving\u2026";
+    Promise.resolve(window.claude && window.claude.use ? window.claude.use("artifact") : null)
+      .then(function (api) {
+        if (!api) throw { code: "not_granted" };
+        return api.publish(source());
+      })
+      .then(function () {
+        say.className = "saystate"; say.textContent = "Saved to this page.";
+        dirty = false; saveBtn.disabled = false;
+      })
+      .catch(function (err) {
+        var code = (err && err.code) || "upstream_error";
+        say.className = "saystate bad";
+        say.textContent = code === "not_writer" || code === "not_granted"
+          ? "This view is read-only, so verdicts stay in this browser. Use Copy for Claude to hand them over."
+          : code === "conflict"
+            ? "Another version was saved first; this page is reloading to it."
+            : code === "too_large"
+              ? "The page is too large to save. Use Copy for Claude instead."
+              : "Could not save (" + code + "). Your verdicts are still here \u2014 use Copy for Claude.";
+        saveBtn.disabled = false;
+      });
+  });
+  window.addEventListener("beforeunload", function (e) {
+    if (!dirty) return;
+    e.preventDefault(); e.returnValue = "";
+  });
+
+  Object.keys(PICKS).forEach(paint);
+  tally(); dirty = false; applyFilters();
+})();
+</script>
