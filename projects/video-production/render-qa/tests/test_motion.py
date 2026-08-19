@@ -109,6 +109,40 @@ scenes.forEach((scene) => {
 });
 </script>"""
 
+REPEATED_SCENE_CARRIER = """
+<section class="clip" id="beat-a" data-start="0" data-duration="4">
+  <div class="visual"><div class="map"><span>Same evidence map</span></div></div>
+</section>
+<section class="clip" id="beat-b" data-start="4" data-duration="4">
+  <div class="visual"><div class="map"><span>Same evidence map</span></div></div>
+</section>
+<section class="clip" id="beat-c" data-start="8" data-duration="4">
+  <div class="visual"><div class="map"><span>Same evidence map</span></div></div>
+</section>
+"""
+
+DEVELOPING_SCENES = REPEATED_SCENE_CARRIER.replace(
+    "<span>Same evidence map</span></div></div>\n</section>\n<section class=\"clip\" id=\"beat-b\"",
+    "<span>Evidence inventory</span></div></div>\n</section>\n<section class=\"clip\" id=\"beat-b\"",
+    1,
+).replace(
+    "<span>Same evidence map</span></div></div>\n</section>\n<section class=\"clip\" id=\"beat-c\"",
+    "<span>Selection funnel</span></div></div>\n</section>\n<section class=\"clip\" id=\"beat-c\"",
+    1,
+)
+
+PERSISTENT_STATES = """
+<section class="clip" id="beat-a" data-continuity="evidence-map">
+  <div class="visual"><div class="map"><span class="state selected">A</span><span class="state">B</span></div></div>
+</section>
+<section class="clip" id="beat-b" data-continuity="evidence-map">
+  <div class="visual"><div class="map"><span class="state">A</span><span class="state selected">B</span></div></div>
+</section>
+<script>scenes.forEach(scene => { const continuity = scene.dataset.continuity; });</script>
+"""
+REENTERED_STATES = PERSISTENT_STATES.replace(
+    ' data-continuity="evidence-map"', '')
+
 BATCH_EMPHASIS = """<script>
 const timeline = gsap.timeline({paused:true});
 timeline.to('#examples .card', {
@@ -154,6 +188,19 @@ fires(check, "check_motion", "repopulated-carrier",
       "creating and appending the same carrier inside every scene FAILS",
       "repopulated-carrier" in rules(REPOPULATED_CARRIER),
       str(check_motion.grade(REPOPULATED_CARRIER)))
+fires(check, "check_motion", "repeated-scene-carrier",
+      "copying one illustration into adjacent short scenes FAILS",
+      "repeated-scene-carrier" in rules(REPEATED_SCENE_CARRIER),
+      str(check_motion.grade(REPEATED_SCENE_CARRIER)))
+check("materially different adjacent illustrations remain allowed",
+      "repeated-scene-carrier" not in rules(DEVELOPING_SCENES),
+      str(check_motion.grade(DEVELOPING_SCENES)))
+check("one declared carrier with explicit developing states remains allowed",
+      "repeated-scene-carrier" not in rules(PERSISTENT_STATES),
+      str(check_motion.grade(PERSISTENT_STATES)))
+check("the same state changes re-entered as separate scenes still FAIL",
+      "repeated-scene-carrier" in rules(REENTERED_STATES),
+      str(check_motion.grade(REENTERED_STATES)))
 fires(check, "check_motion", "batch-list-emphasis",
       "one paint tween sprayed across every card FAILS",
       "batch-list-emphasis" in rules(BATCH_EMPHASIS),

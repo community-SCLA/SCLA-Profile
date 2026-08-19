@@ -39,3 +39,45 @@
 2026-08-10T20:04:31Z	preflight	exit 0 — gate-clean
 2026-08-10T20:04:41Z	gate-clean	Transition Case redesign durable gate PASS; carrier churn 5.63%; geometry and layout PASS
 2026-08-10T20:04:42Z	release	build session ended
+2026-08-10T22:43:29Z	resume	program=career-transitions
+2026-08-10T23:02:12Z	preflight	exit 1
+2026-08-10T23:06:48Z	preflight	exit 1
+2026-08-10T23:16:43Z	preflight	exit 1
+2026-08-10T23:52:19Z	preflight	exit 1
+2026-08-10T23:52:52Z	resume	program=career-transitions
+2026-08-10T23:53:53Z	preflight	exit 1
+2026-08-10T23:54:22Z	preflight	exit 1
+2026-08-10T23:56:15Z	preflight	exit 1
+2026-08-10T23:57:49Z	preflight	exit 1
+2026-08-10T23:59:29Z	preflight	exit 1
+2026-08-10T23:59:52Z	preflight	exit 1
+2026-08-11T00:02:20Z	preflight	exit 1
+2026-08-11T00:02:48Z	preflight	exit 1
+2026-08-11T00:15:53Z	preflight	exit 1
+2026-08-11T00:18:02Z	preflight	exit 1
+2026-08-11T00:19:25Z	preflight	exit 1
+2026-08-11T00:22:12Z	preflight	exit 1
+2026-08-11T00:24:39Z	preflight	exit 1
+2026-08-11T00:26:23Z	preflight	exit 1
+2026-08-11T00:27:54Z	preflight	exit 1
+2026-08-11T00:31:52Z	preflight	exit 0 — gate-clean
+2026-08-11T00:32:36Z	release	build session ended
+2026-08-11T00:42:43Z	rebuild	graphics rebuilt from scratch: transition-axis carrier, gate PASS
+2026-08-11T00:44:17Z	preflight	exit 0 — gate-clean
+2026-08-11T00:44:29Z	release	build session ended
+2026-08-11T01:47:26Z	preflight	exit 0 — gate-clean
+2026-08-11T01:55:47Z	resume	program=career-transitions
+2026-08-11T01:58:41Z	owner-feedback-revision	Inset scene heading row 40px from both case borders and added concept authored_by identity.
+2026-08-11T02:00:10Z	preflight	exit 0 — gate-clean
+2026-08-11T02:00:29Z	release	build session ended
+2026-08-11T02:09:10Z	resume	program=career-transitions
+2026-08-11T02:13:29Z	preflight	exit 1
+2026-08-11T02:17:30Z	preflight	exit 1
+2026-08-11T02:19:39Z	preflight	exit 1
+2026-08-11T02:23:18Z	preflight	exit 1
+2026-08-11T02:25:44Z	preflight	exit 0 — gate-clean
+2026-08-11T02:26:27Z	release	build session ended
+2026-08-11T07:13:16Z	resume	program=career-transitions
+2026-08-11T07:13:51Z	owner-feedback-revision	Raised bottom content away from the case border and centered both half-width and narrow scene carriers in their illustrated areas.
+2026-08-11T07:15:19Z	preflight	exit 0 — gate-clean
+2026-08-11T07:15:59Z	release	build session ended

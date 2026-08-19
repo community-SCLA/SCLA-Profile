@@ -49,22 +49,23 @@
     .person-row>*{padding:34px;border-right:3px solid #5f6f96}.person-row>*:last-child{border-right:0}
     .person-row strong{font-size:54px;font-weight:900}.person-row span{font-size:39px;line-height:1.08;font-weight:700}
     .person-row .target{background:#e5eff6;color:#0d2437}
-    .method-board{grid-template-columns:280px 1fr 1fr}
+    .method-board{grid-template-columns:1fr 1fr 1fr}
     .method-board .method-col{padding:0;border-right:3px solid #5f6f96}.method-board .method-col:last-child{border-right:0}
     .method-head{height:86px;padding:28px 30px;border-bottom:3px solid #5f6f96;font-size:21px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#98a4cc}
-    .method-row{height:148px;padding:28px 30px;border-bottom:3px solid #5f6f96;font-size:38px;line-height:1.05;font-weight:700}
-    .method-row:last-child{border-bottom:0}
+    .method-row{height:148px;padding:28px 30px;font-size:38px;line-height:1.05;font-weight:700}
     .method-col:first-child .method-row{padding-left:22px;padding-right:22px;font-size:40px;font-weight:900;color:#eaab2d}
     .method-col:nth-child(2){background:rgba(51,147,214,.1)}
     .method-col:last-child{background:#e5eff6;color:#0d2437}
-    .door-board{grid-template-columns:1.25fr .75fr}
-    .door-copy{padding:58px}
-    .door-copy .question{font-size:70px;line-height:.98;font-weight:900}
+    .method-col:last-child .method-head{color:#0d2437}
+    .door-board{grid-template-columns:1fr 1fr 1fr}
+    .door-copy{padding:42px 44px}
+    .door-copy .question{font-size:58px;line-height:.98;font-weight:900}
     .door-copy p{margin-top:34px;font-size:42px;line-height:1.14;color:#cccedf}
-    .door-stage{position:relative;background:#e5eff6;overflow:hidden}
-    .door{position:absolute;left:155px;top:105px;width:360px;height:500px;border:18px solid #0d2437;background:#eaab2d}
-    .door:after{content:"";position:absolute;left:48px;top:58px;width:250px;height:406px;background:#0d2437}
-    .light{position:absolute;left:318px;top:214px;width:220px;height:280px;background:rgba(234,171,45,.42);clip-path:polygon(0 18%,100% 0,100% 100%,0 82%)}
+    .door-stage{position:relative;background:#ffffff;overflow:hidden}
+    .door{position:absolute;left:50%;top:148px;width:210px;height:360px;border:11px solid #eaab2d;background:#ffffff;transform:translateX(-50%)}
+    .door:after{content:"";position:absolute;left:24px;top:22px;width:144px;height:294px;border:8px solid #eaab2d;background:#ffffff;transform:perspective(700px) rotateY(-34deg);transform-origin:left center}
+    .door:before{content:"";position:absolute;z-index:2;left:132px;top:168px;width:16px;height:16px;border-radius:50%;background:#eaab2d}
+    .light{display:none}
     .sr-narration{display:none}
   </style>
 </head>
@@ -75,7 +76,7 @@
 
   <section class="visual-scene" id="scene-myth" data-scene-start="0" data-scene-end="10.775">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Career Pivot Does Not Mean Starting Over</h2><span class="label reveal" data-at=".45">The imagined reset</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
         <div class="cell"><div class="cell-head">Past erased</div><div class="claim strike reveal" data-at="1.1">NEW DEGREE</div></div>
         <div class="cell proof"><div class="cell-head">Identity replaced</div><div class="claim strike reveal" data-at="4.2">NEW INDUSTRY</div></div>
@@ -86,7 +87,7 @@
 
   <section class="visual-scene" id="scene-reframe" data-scene-start="10.775" data-scene-end="23.51">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Keep the Experience — Change the Frame</h2><span class="label reveal" data-at=".45">Strategic repositioning</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
         <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".9">EXPERIENCE YOU ALREADY HAVE</div><p class="detail reveal" data-at="3.1">Your past remains true.</p></div>
         <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="5.2">RETELL THE VALUE</div><p class="detail reveal" data-at="7.3">Surface the relevant skills and outcomes.</p></div>
@@ -97,21 +98,21 @@
 
   <section class="visual-scene" id="scene-three" data-scene-start="23.51" data-scene-end="27.11">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".2">Three Professionals — One Translation Pattern</h2></div>
-      <div class="board people-board">
-        <div class="person-row reveal" data-at=".5"><strong>ALEX</strong><span>Operations evidence becomes strategy proof</span><span class="target">Strategy Leader</span></div>
-        <div class="person-row reveal" data-at=".9"><strong>JORDAN</strong><span>Teaching evidence becomes design proof</span><span class="target">Learning Experience Designer</span></div>
-        <div class="person-row reveal" data-at="1.3"><strong>PRIYA</strong><span>Contributor evidence becomes leadership proof</span><span class="target">People Leader</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".2">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".35">Translation table</span></div>
+      <div class="board">
+        <div class="cell reveal" data-at=".5"><div class="cell-head">Past evidence</div><div class="claim">OPERATIONS MANAGER</div><p class="detail">Alex begins with the experience already earned.</p></div>
+        <div class="cell proof reveal" data-at=".9"><div class="cell-head">What it proves</div><div class="claim">JORDAN: DESIGN</div><p class="detail">Teaching becomes design proof.</p></div>
+        <div class="cell future reveal" data-at="1.3"><div class="cell-head">Future signal</div><div class="claim">PRIYA: LEADER</div><p class="detail">Contributor experience becomes leadership proof.</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-alex-proof" data-scene-start="27.11" data-scene-end="46.2">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Alex: Strategy Was Already Inside Operations</h2><span class="label reveal" data-at=".45">Evidence audit</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
         <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">OPERATIONS MANAGER</div><div class="stack"><div class="item reveal" data-at="2.8">Kept processes smooth</div><div class="item reveal" data-at="4.8">Kept teams on their numbers</div><div class="item reveal" data-at="6.8">Kept projects on track</div></div></div>
-        <div class="cell proof"><div class="cell-head">What it proves</div><div class="stack"><div class="item reveal" data-at="8.8">Led cross-functional projects</div><div class="item reveal" data-at="11">Redesigned systems</div><div class="item reveal" data-at="13.2">Shaped decisions</div></div></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="stack"><div class="item reveal" data-at="13.44">Led cross-functional projects</div><div class="item reveal" data-at="15.65">Redesigned systems</div><div class="item reveal" data-at="17.28">Shaped decisions</div></div></div>
         <div class="cell future"><div class="cell-head">Future signal</div><div class="claim giant reveal" data-at="15.2">STRATEGY LEADER</div><p class="detail reveal" data-at="16.8">The title hid the strategy. The evidence reveals it.</p></div>
       </div>
     </div>
@@ -119,62 +120,62 @@
 
   <section class="visual-scene" id="scene-alex-rewrite" data-scene-start="46.2" data-scene-end="76.27">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Alex Curates, Rewrites, and Signals</h2><span class="label reveal" data-at=".45">Reposition toward strategy</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">REDESIGNED A WORKFLOW</div><div class="stack"><div class="item reveal" data-at="4.4">“Managed operations”</div><div class="item reveal" data-at="8.2">Saved time and money</div></div></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">OPERATIONS MANAGER</div><div class="stack"><div class="item reveal" data-at="4.4">Redesigned a workflow</div><div class="item reveal" data-at="8.2">Saved time and money</div></div></div>
         <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="11.6">DECISIONS + OUTCOMES + SCOPE</div><p class="detail reveal" data-at="15">Led a multi-department initiative.</p><div class="metric-row"><span class="metric reveal" data-at="18">25% FASTER</span><span class="metric reveal" data-at="20.8">BETTER SATISFACTION</span></div></div>
-        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="23">OPERATIONS &amp; STRATEGY LEADER</div><p class="detail reveal" data-at="26">A forward-facing headline grounded in earned work.</p></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim giant reveal" data-at="23">STRATEGY LEADER</div><p class="detail reveal" data-at="26">Operations &amp; Strategy Leader: a headline grounded in earned work.</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-alex-honest" data-scene-start="76.27" data-scene-end="85.97">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Repositioning Surfaces What Is Already True</h2><span class="label reveal" data-at=".45">No title inflation</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">Foundation kept</div><div class="claim reveal" data-at=".8">OPERATIONS EXPERIENCE</div></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">OPERATIONS MANAGER</div></div>
         <div class="cell proof"><div class="cell-head">Value surfaced</div><div class="claim reveal" data-at="3.1">STRATEGIC WORK</div><p class="detail reveal" data-at="5.2">Projects, systems, decisions</p></div>
-        <div class="cell future"><div class="cell-head">Credible focus</div><div class="claim reveal" data-at="6.8">APPLY WITH STRATEGY IN VIEW</div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim giant reveal" data-at="6.8">STRATEGY LEADER</div><p class="detail">Apply with strategy in view.</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-jordan-context" data-scene-start="85.97" data-scene-end="100.09">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Jordan: Same Work, Different Professional Language</h2><span class="label reveal" data-at=".45">Teaching to learning design</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">TEACHING</div><div class="stack"><div class="item reveal" data-at="2.6">Lessons</div><div class="item reveal" data-at="4.2">Assessments</div><div class="item reveal" data-at="5.8">Learning experiences</div></div></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">TEACHING EXPERIENCE</div><div class="stack"><div class="item reveal" data-at="2.6">Lessons</div><div class="item reveal" data-at="4.2">Assessments</div><div class="item reveal" data-at="5.8">Learning experiences</div></div></div>
         <div class="cell proof"><div class="cell-head">Translation need</div><div class="claim reveal" data-at="7.5">A NEW FIELD USES DIFFERENT WORDS</div></div>
-        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="10.2">INSTRUCTIONAL DESIGN + LEARNING TECHNOLOGY</div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="10.2">LEARNING EXPERIENCE DESIGNER</div><p class="detail">Instructional design + learning technology</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-jordan-translate" data-scene-start="100.09" data-scene-end="120.92">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Jordan Translates Teaching into Design Proof</h2><span class="label reveal" data-at=".45">Target-role language</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">DESIGNED LESSONS FOR DIVERSE LEARNERS</div></div>
-        <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="4.1">MULTI-MODAL LEARNING DESIGN</div><div class="stack"><div class="item reveal" data-at="7.2">Learning platforms</div><div class="item reveal" data-at="10.1">Data analysis</div><div class="item reveal" data-at="13">Collaborative project design</div></div></div>
-        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="15.8">LEARNING EXPERIENCE DESIGNER</div><p class="detail reveal" data-at="18">Design language makes the fit legible.</p></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">TEACHING EXPERIENCE</div><p class="detail">Designed lessons for diverse learners.</p></div>
+        <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="4.1">MULTI-MODAL LEARNING DESIGN</div><div class="stack"><div class="item reveal" data-at="12.22">Learning platforms</div><div class="item reveal" data-at="13.52">Data analysis</div><div class="item reveal" data-at="14.85">Collaborative project design</div></div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="18.48">LEARNING EXPERIENCE DESIGNER</div><p class="detail reveal" data-at="19.25">Design language makes the fit legible.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="visual-scene" id="scene-jordan-proof" data-scene-start="120.92" data-scene-end="130.29">
+  <section class="visual-scene" id="scene-jordan-proof" data-scene-start="120.92" data-scene-end="130.29" data-transition="cut">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">The Classroom Does Not Disappear</h2><span class="label reveal" data-at=".45">Portable value</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">Foundation kept</div><div class="claim reveal" data-at=".8">THE CLASSROOM</div></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">TEACHING EXPERIENCE</div><p class="detail">The classroom remains.</p></div>
         <div class="cell proof"><div class="cell-head">What it proves</div><div class="stack"><div class="item reveal" data-at="2.6">Design</div><div class="item reveal" data-at="3.9">Facilitation</div><div class="item reveal" data-at="5.2">Learner-centered thinking</div></div></div>
-        <div class="cell future"><div class="cell-head">Relevance</div><div class="claim reveal" data-at="6.8">DIRECTLY RELEVANT TO THE NEW FIELD</div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="6.8">LEARNING EXPERIENCE DESIGNER</div><p class="detail">Directly relevant to the new field.</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-priya-context" data-scene-start="130.29" data-scene-end="141.75">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Priya: Leadership Was Already Happening</h2><span class="label reveal" data-at=".45">Contributor to leader</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
         <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">STRONG INDIVIDUAL CONTRIBUTOR</div><div class="stack"><div class="item reveal" data-at="2.7">Owned complex work</div><div class="item reveal" data-at="4.4">Built relationships</div><div class="item reveal" data-at="6.1">Delivered results</div></div></div>
         <div class="cell proof"><div class="cell-head">Hidden signal</div><div class="claim reveal" data-at="7.5">INFORMAL LEADERSHIP</div></div>
@@ -185,40 +186,40 @@
 
   <section class="visual-scene" id="scene-priya-proof" data-scene-start="141.75" data-scene-end="157.005">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Priya Makes Informal Leadership Measurable</h2><span class="label reveal" data-at=".45">Evidence translation</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">Past evidence</div><div class="stack"><div class="item reveal" data-at=".8">Coordinated project teams</div><div class="item reveal" data-at="2.8">Mentored colleagues</div><div class="item reveal" data-at="4.8">Onboarded new hires</div></div></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">STRONG INDIVIDUAL CONTRIBUTOR</div><div class="stack"><div class="item reveal" data-at="2.8">Mentored colleagues</div><div class="item reveal" data-at="4.8">Onboarded new hires</div></div></div>
         <div class="cell proof"><div class="cell-head">What it proves</div><div class="claim reveal" data-at="6.7">GREW OTHER PEOPLE</div><p class="detail reveal" data-at="8.6">Mentored 3 new analysts.</p><div class="metric-row"><span class="metric reveal" data-at="10.2">30% FASTER RAMP-UP</span></div></div>
-        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="12.2">PEOPLE LEADERSHIP READINESS</div></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="12.2">FIRST-LINE LEADER</div><p class="detail">People leadership readiness</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-priya-summary" data-scene-start="157.005" data-scene-end="166.24">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">The Summary Now Tells the Leadership Story</h2></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
-        <div class="cell"><div class="cell-head">True foundation</div><div class="claim reveal" data-at=".8">DELIVERS COMPLEX WORK</div></div>
+        <div class="cell"><div class="cell-head">Past evidence</div><div class="claim reveal" data-at=".8">STRONG INDIVIDUAL CONTRIBUTOR</div><p class="detail">Delivers complex work</p></div>
         <div class="cell proof"><div class="cell-head">Leadership proof</div><div class="claim reveal" data-at="2.8">MENTORS + COORDINATES + GROWS OTHERS</div></div>
-        <div class="cell future"><div class="cell-head">Future-facing summary</div><div class="claim reveal" data-at="5.4">EMERGING PEOPLE LEADER</div><p class="detail reveal" data-at="7">Leadership made visible without inventing it.</p></div>
+        <div class="cell future"><div class="cell-head">Future signal</div><div class="claim reveal" data-at="5.4">FIRST-LINE LEADER</div><p class="detail reveal" data-at="7">Emerging people leader, grounded in earned work.</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-pattern" data-scene-start="166.24" data-scene-end="169.38">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".2">Across All Three, the Pattern Is the Same</h2></div>
-      <div class="board people-board">
-        <div class="person-row reveal" data-at=".45"><strong>ALEX</strong><span>Operations evidence</span><span class="target">Strategy signal</span></div>
-        <div class="person-row reveal" data-at=".8"><strong>JORDAN</strong><span>Teaching evidence</span><span class="target">Design signal</span></div>
-        <div class="person-row reveal" data-at="1.15"><strong>PRIYA</strong><span>Contributor evidence</span><span class="target">Leadership signal</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".2">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".35">Translation table</span></div>
+      <div class="board">
+        <div class="cell reveal" data-at=".45"><div class="cell-head">Past evidence</div><div class="claim">ALEX</div><p class="detail">Operations experience</p></div>
+        <div class="cell proof reveal" data-at=".8"><div class="cell-head">What it proves</div><div class="claim">JORDAN</div><p class="detail">Teaching becomes design proof</p></div>
+        <div class="cell future reveal" data-at="1.15"><div class="cell-head">Future signal</div><div class="claim">PRIYA</div><p class="detail">Contributor experience becomes leadership proof</p></div>
       </div>
     </div>
   </section>
 
   <section class="visual-scene" id="scene-method" data-scene-start="169.38" data-scene-end="211.06">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">The Four Moves of Career Repositioning</h2><span class="label reveal" data-at=".45">A repeatable method</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board method-board">
         <div class="method-col"><div class="method-head">Move</div><div class="method-row reveal" data-at=".8">CLARIFY</div><div class="method-row reveal" data-at="9.3">CURATE</div><div class="method-row reveal" data-at="19.8">TRANSLATE</div><div class="method-row reveal" data-at="30.7">UPDATE SIGNALS</div></div>
         <div class="method-col"><div class="method-head">What changes</div><div class="method-row reveal" data-at="2.4">Name the future direction</div><div class="method-row reveal" data-at="11.1">Select connecting proof</div><div class="method-row reveal" data-at="21.5">Use target-role language</div><div class="method-row reveal" data-at="32.4">Align the public story</div></div>
@@ -229,7 +230,7 @@
 
   <section class="visual-scene" id="scene-truth" data-scene-start="211.06" data-scene-end="223">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Do Not Invent a New You — Reveal the Through-Line</h2></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board">
         <div class="cell"><div class="cell-head">Past remains true</div><div class="claim reveal" data-at=".8">WHAT YOU HAVE ALREADY DONE</div></div>
         <div class="cell proof"><div class="cell-head">Through-line revealed</div><div class="claim reveal" data-at="4.2">THE VALUE THAT TRAVELS</div></div>
@@ -240,10 +241,11 @@
 
   <section class="visual-scene" id="scene-door" data-scene-start="223" data-scene-end="242.06">
     <div class="scene-body">
-      <div class="scene-heading"><h2 class="reveal" data-at=".25">Tell the True Story Toward the Role You Want Next</h2><span class="label reveal" data-at=".45">The heart of repositioning</span></div>
+      <div class="scene-heading"><h2 class="reveal" data-at=".25">Past Evidence → Proof → Future Signal</h2><span class="label reveal" data-at=".45">Translation table</span></div>
       <div class="board door-board">
-        <div class="door-copy"><div class="question reveal" data-at=".9">HOW CAN MY TRUE EXPERIENCE POINT TO MY NEXT ROLE?</div><p class="reveal" data-at="6.4">Reveal the through-line. Keep the foundation. Open new doors without starting from scratch.</p></div>
-        <div class="door-stage"><div class="light reveal" data-at="10.1"></div><div class="door reveal" data-at="11.2"></div></div>
+        <div class="cell door-copy"><div class="cell-head">Past evidence</div><div class="question reveal" data-at=".9">MY TRUE EXPERIENCE</div><p class="reveal" data-at="6.4">Keep the foundation.</p></div>
+        <div class="cell proof door-copy"><div class="cell-head">Through-line</div><div class="question reveal" data-at=".9">POINTS TO MY NEXT ROLE</div><p class="reveal" data-at="6.4">Tell the true story.</p></div>
+        <div class="cell future door-stage"><div class="cell-head">Open new doors</div><div class="light reveal" data-at="10.1"></div><div class="door reveal" data-at="11.2"></div></div>
       </div>
     </div>
   </section>
@@ -332,7 +334,10 @@
     const start=Number(scene.dataset.sceneStart);
     const end=Number(scene.dataset.sceneEnd);
     const body=scene.querySelector('.scene-body');
-    timeline.fromTo(body,{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.62,ease:'power3.out'},start+.12);
+    const isCut=scene.dataset.transition==='cut';
+    const enterAt=isCut?Math.max(0,start-.01):start+.12;
+    const enterDuration=isCut?.01:.62;
+    timeline.fromTo(body,{autoAlpha:0,y:isCut?0:16},{autoAlpha:1,y:0,duration:enterDuration,ease:isCut?'none':'power3.out'},enterAt);
     scene.querySelectorAll('.reveal').forEach((element,index) => {
       const at=start+Number(element.dataset.at||.35);
       const from=index%3===0?{autoAlpha:0,x:-24}:index%3===1?{autoAlpha:0,y:20}:{autoAlpha:0,scale:.97};

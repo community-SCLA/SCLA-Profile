@@ -82,3 +82,7 @@
 2026-08-10T21:14:05Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	safe local render failed or timed out
 2026-08-10T21:26:05Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	post-render encode review is still required — no qa/ENCODE-REVIEW.json
 2026-08-10T21:28:29Z	m4_building-visibility-on-your-own	entrepreneur-accelerator	preflight rejected the plan (preflight.py)
+2026-08-11T07:16:33Z	m5_making-solo-work-sustainable	entrepreneur-accelerator	low disk: 3265 MB free (<4096)
+2026-08-11T07:18:05Z	m5_making-solo-work-sustainable	entrepreneur-accelerator	no qa/VERIFIED marker — render+verify have not passed on the current MP4
+2026-08-11T07:24:42Z	m5_making-solo-work-sustainable	entrepreneur-accelerator	post-render encode review is still required — no qa/ENCODE-REVIEW.json
+2026-08-11T17:23:55Z	m2_the-value-of-building-mid-career-momentum	mid-career-momentum	low disk: 3554 MB free (<4096)

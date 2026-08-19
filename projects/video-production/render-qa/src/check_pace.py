@@ -15,7 +15,11 @@ Measured on the two cuts (both 1 lesson, ~155s, same script, same voice):
     beats per minute               10.26          6.47      YES
     median beat duration            5.15s         9.12s     YES
     share of runtime in >8s beats  45%           79%        YES
-    mean inter-beat churn           3.34%        10.07%     YES (inverted)
+    mean inter-beat churn           3.34%        10.07%     INVERTED — the
+                                                            rejected cut looks
+                                                            "better" only if
+                                                            scene replacement
+                                                            is treated as bad
     twin-beat pairs                 2 (8%)        0         INVERTED — the
                                                             approved cut looks
                                                             worse on this one
@@ -26,7 +30,7 @@ rejected cut changes something every ~2.5s and draws a brand-new picture every
 beat; it is MORE animated by every metric the pipeline owns.  It is boring
 because each idea takes 9.3s to arrive and nothing on screen accumulates.
 
-So the first three rules here grade the two things that DO discriminate:
+So the first two rules here grade the thing that does discriminate:
 
   1. `beat-pace`        — ideas per minute.  Graded on `timing.json` at PLAN
                           stage, before a pixel is authored, because the fix is
@@ -35,17 +39,16 @@ So the first three rules here grade the two things that DO discriminate:
   2. `long-beat-share`  — how much of the runtime is spent inside a single
                           long beat.  A build can hit the median and still park
                           in three 15s beats.
-  3. `carrier-drift`    — the carrying-object rule made measurable.  A
-                          persistent visual system that RE-SORTS produces low
-                          beat-to-beat churn; a slideshow of unrelated pictures
-                          produces high churn.  This is a BAND, not a floor:
-                          the bottom of the band is owned by `check_presence`'s
-                          stagnation rules, which stay authoritative.
+The former third rule, `carrier-drift`, has no release authority. It compared
+grayscale stills and treated more changed pixels as a defect. That cannot tell
+an unrelated slideshow from an intentional new scene, and it encoded a
+persistent-carrier creative mandate the owner explicitly rejected on
+2026-08-11. Mean churn remains report-only diagnostic data.
 
-A fourth rule is NOT a fourth discriminator — it is a backstop `beat-pace`
+A third rule is NOT a third discriminator — it is a backstop `beat-pace`
 itself creates:
 
-  4. `twin-share`       — BUILD-PLAN B2 (2026-08-04). `beat-pace` reads
+  3. `twin-share`       — BUILD-PLAN B2 (2026-08-04). `beat-pace` reads
                           `timing.json`, not pixels: split one long beat into
                           two with the SAME picture on screen and `beat-pace`
                           goes green while nothing changed for the viewer.
@@ -75,7 +78,7 @@ posture as the ink gate's declared keep-out region (`check_ink.py`).
 
 Wired into `preflight.py`'s freeform branch: the two timing rules
 (`beat-pace`, `long-beat-share`) run in `--static` (the fix is re-splitting
-`audio_request.json`, free before synthesis); `carrier-drift` runs in the full
+`audio_request.json`, free before synthesis); `twin-share` runs in the full
 gate over the `snapshots/` grid `check_freeform_ink` already produces.
 Blocking, not advisory — STD-38's teach-first posture is for unpinned taste
 numbers, and an advisory pace gate would reproduce the exact failure this file
@@ -83,7 +86,7 @@ exists to close: the boring cut passed everything advisory and shipped to the
 gate clean.
 
     python3 check_pace.py <workspace>            # timing rules (plan stage)
-    python3 check_pace.py <workspace> --stills   # + carrier-drift, needs snapshots
+    python3 check_pace.py <workspace> --stills   # + twin-share, needs snapshots
 """
 import json
 import statistics
@@ -112,16 +115,6 @@ LONG_BEAT_SEC = 8.0
 
 # 45% | 60% | 79% — margin 15pts either side.
 MAX_LONG_BEAT_SHARE = 0.60
-
-# 3.34% | 6.0% | 10.07% — margin 2.7pts below, 4.1pts above.  A CEILING, which
-# is the counter-intuitive half: high beat-to-beat churn means every beat threw
-# the frame away and started again.  The floor is check_presence's job.
-MAX_MEAN_CHURN = 0.060
-
-# Below this a cut is not "carrying" anything, it is frozen, and the finding
-# belongs to check_presence/check_diversity rather than here.  Stated so this
-# file cannot be read as licensing a still image.
-FROZEN_MEAN_CHURN = 0.004
 
 # twin-share — the anti-gaming backstop for beat-pace, not a quality rule.
 # `beat-pace` reads timing.json, not pixels: split one 12s beat into two 6s
@@ -204,9 +197,12 @@ def check_timing(ws: Path):
 
 
 def check_stills(ws: Path):
-    """carrier-drift + twin-share over one still per beat (the snapshots/ grid
-    the freeform sequence already produces at step 7 — no extra render is
-    spent)."""
+    """Report mean churn and enforce twin-share over one still per beat.
+
+    Mean churn is deliberately diagnostic only: its magnitude cannot tell a
+    purposeful scene change from an unrelated redraw. The snapshots/ grid is
+    already produced by the freeform sequence, so no extra render is spent.
+    """
     # "Twin" uses check_diversity's own churn floor — one definition of "these
     # two frames are the same picture", not a second number that could drift.
     from check_diversity import TWIN_CHURN, cells, churn, load_frames  # noqa: E402
@@ -217,7 +213,7 @@ def check_stills(ws: Path):
         return None, [Finding(
             "nothing-graded",
             f"{snaps}: {len(frames)} timestamped still(s) — need at least 3 to "
-            f"measure carrier drift. Snapshot every beat midpoint first.")]
+            f"measure repeated beat frames. Snapshot every beat midpoint first.")]
 
     prev, churns = None, []
     for _t, _b, p in frames:
@@ -230,24 +226,6 @@ def check_stills(ws: Path):
     report = {"stills": len(frames), "pairs": len(churns),
               "mean_churn": round(mean * 100, 2)}
     problems = []
-
-    if mean > MAX_MEAN_CHURN:
-        problems.append(Finding(
-            "carrier-drift",
-            f"consecutive beats change {mean*100:.2f}% of the frame on "
-            f"average, against a {MAX_MEAN_CHURN*100:.0f}% ceiling — the build "
-            f"is throwing the frame away and redrawing it each beat rather "
-            f"than re-sorting one carrying object. The approved reference cut "
-            f"reads 3.34%: one field of marks, built once in act 2 and only "
-            f"ever re-grouped. Name the carrying object in design.md and let "
-            f"it PERSIST; do not answer this by adding motion."))
-    elif mean < FROZEN_MEAN_CHURN:
-        problems.append(Finding(
-            "carrier-drift",
-            f"consecutive beats change only {mean*100:.2f}% of the frame — "
-            f"that is not a carrying object, it is a still image. The floor "
-            f"here is deliberately low because stagnation is check_presence's "
-            f"call, so reaching it at all means the beats are not doing work."))
 
     twins = sum(1 for c in churns if c < TWIN_CHURN)
     twin_share = twins / len(churns)
@@ -295,8 +273,9 @@ def main(argv):
           f"longest {report['longest']}s, "
           f"{report['long_share']*100:.0f}% of runtime in >{LONG_BEAT_SEC}s beats")
     if s_report:
-        print(f"[pace] carrier: {s_report['pairs']} beat pairs, "
-              f"mean churn {s_report['mean_churn']}%")
+        print(f"[pace] stills: {s_report['pairs']} beat pairs, "
+              f"mean churn {s_report['mean_churn']}% (diagnostic only), "
+              f"twin share {s_report['twin_share']*100:.0f}%")
     elif "--stills" in argv:
         for p in s_problems:
             print(f"  !! {p}")

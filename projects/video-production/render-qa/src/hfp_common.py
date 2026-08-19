@@ -11,14 +11,21 @@ import html
 import json
 import re
 import subprocess
+import unicodedata
 from pathlib import Path
 
 WORD_RE = re.compile(r"[^0-9a-z]+")
 
 
 def norm_token(text: str) -> str:
-    """Lowercase, strip punctuation — 'somewhere.' -> 'somewhere'."""
-    return WORD_RE.sub("", text.lower())
+    """Lowercase, fold pronunciation accents, and strip punctuation.
+
+    Accent folding lets a TTS manifest spell ``resume`` as ``résumé`` for the
+    intended pronunciation without changing the approved-script token.
+    """
+    folded = unicodedata.normalize("NFKD", text.lower()).encode(
+        "ascii", "ignore").decode("ascii")
+    return WORD_RE.sub("", folded)
 
 
 def norm_phrase(phrase: str):

@@ -40,7 +40,9 @@ STATUS = REPO / "scripts" / "batch-status.sh"
 SHIP = REPO / "scripts" / "batch-ship.sh"
 VERIFY_RENDER = RQ / "src" / "verify_render.py"
 sys.path.insert(0, str(RQ / "src"))
+from gate_contract import gate_contract_revision  # noqa: E402
 from workspace_revision import (  # noqa: E402
+    read_gate_contract_marker,
     read_revision_marker,
     revision_files,
     workspace_revision,
@@ -105,6 +107,11 @@ class Tree:
             (ws / "index.html").write_text(
                 '<div class="clip" data-start="1.5"></div>' if timed
                 else '<div class="clip" data-start="0"></div>')
+        if visual_review:
+            (ws / "concepts").mkdir(exist_ok=True)
+            (ws / "concepts" / "CONCEPT-BOARD.json").write_text(json.dumps({
+                "authored_by": "concept-agent",
+            }))
         revision = workspace_revision(ws)
         if (preflight_ok or visual_review or verified or render_pending
                 or encode_review or failure):
@@ -114,8 +121,9 @@ class Tree:
                 (ws / "qa" / "PREFLIGHT-OK").write_text("preflight exit 0")
             else:
                 (ws / "qa" / "PREFLIGHT-OK").write_text(json.dumps({
-                    "version": 1, "preflight_exit": 0,
+                    "version": 2, "preflight_exit": 0,
                     "source_revision": revision,
+                    "gate_revision": gate_contract_revision(),
                 }))
         if visual_review:
             if isinstance(visual_review, dict):
@@ -127,6 +135,27 @@ class Tree:
                 receipt = {"BLOCKING_DEFECT": "PASS", "TASTE": "ALIVE",
                            "RECOMMENDATION": "PROCEED"}
             receipt.setdefault("source_revision", revision)
+            (ws / "snapshots").mkdir(exist_ok=True)
+            frame_rows = []
+            for frame_name in ("one.png", "two.png", "three.png"):
+                frame_path = ws / "snapshots" / frame_name
+                frame_path.write_bytes(frame_name.encode())
+                frame_rows.append({
+                    "path": f"snapshots/{frame_name}",
+                    "sha256": hashlib.sha256(frame_path.read_bytes()).hexdigest(),
+                })
+            weak_path = ws / "snapshots" / "weak.png"
+            weak_path.write_bytes(b"weak")
+            receipt.setdefault("reviewer", "review-agent")
+            receipt.setdefault("evidence_frames", frame_rows)
+            receipt.setdefault("weakest_frames", [{
+                "path": "snapshots/weak.png",
+                "sha256": hashlib.sha256(weak_path.read_bytes()).hexdigest(),
+            }])
+            receipt.setdefault("layout_families", 3)
+            receipt.setdefault("material_changes",
+                               [f"beat {i} changes the teaching state"
+                                for i in range(5)])
             (ws / "qa" / "VISUAL-REVIEW.json").write_text(json.dumps(receipt))
         verified_sha = None
         fixture_render_attempt = 1
@@ -406,9 +435,11 @@ check("the revision CLI prints the same digest as the Python API",
       cli == current_revision and len(cli) == 64, cli)
 (ws / "qa" / "PREFLIGHT-OK").write_text(json.dumps({
     "source_revision": current_revision,
+    "gate_revision": gate_contract_revision(),
 }))
 check("a JSON gate marker exposes its bound revision",
-      read_revision_marker(ws) == current_revision)
+      read_revision_marker(ws) == current_revision and
+      read_gate_contract_marker(ws) == gate_contract_revision())
 (ws / "qa" / "PREFLIGHT-OK").write_text("preflight exit 0")
 check("a legacy unbound gate marker is rejected", read_revision_marker(ws) is None)
 t.clean()
@@ -709,7 +740,8 @@ t.clean()
 # ---------------------------------------------------------------------------
 print("== gate, review, approval, and render receipts are revision-bound ==")
 t = Tree()
-for stem in ("legacy-gate_prog-a", "stale-gate_prog-a", "flat_prog-a",
+for stem in ("legacy-gate_prog-a", "stale-gate_prog-a", "old-gate-code_prog-a",
+             "owner-rejected_prog-a", "flat_prog-a",
              "approved_prog-a", "stale-render_prog-a",
              "wrong-render-source_prog-a"):
     t.script("prog-a", "ready", stem)
@@ -719,6 +751,20 @@ stale_gate = t.workspace("stale-gate_prog-a", lane="template", voiced=True,
                          timed=True, preflight_ok=True)
 (stale_gate / "index.html").write_text(
     '<div class="clip" data-start="2.0">new cut</div>')
+old_gate_code = t.workspace("old-gate-code_prog-a", lane="template", voiced=True,
+                            timed=True, preflight_ok=True)
+old_gate_marker = json.loads(
+    (old_gate_code / "qa" / "PREFLIGHT-OK").read_text())
+old_gate_marker["gate_revision"] = "older-gate-contract"
+(old_gate_code / "qa" / "PREFLIGHT-OK").write_text(
+    json.dumps(old_gate_marker))
+owner_rejected = t.workspace("owner-rejected_prog-a", lane="template",
+                             voiced=True, timed=True)
+(owner_rejected / "qa").mkdir(exist_ok=True)
+(owner_rejected / "qa" / "OWNER-REJECTION.json").write_text(json.dumps({
+    "revision": workspace_revision(owner_rejected),
+    "reason": "visible owner-rejected layout defect",
+}))
 t.workspace("flat_prog-a", lane="template", voiced=True, timed=True,
             preflight_ok=True, visual_review="flat")
 approved = t.workspace("approved_prog-a", lane="template", voiced=True, timed=True,
@@ -747,6 +793,15 @@ check("editing source after a pass invalidates that gate",
       and f["stale-gate_prog-a"]["condition"] == "stale-gate"
       and f["stale-gate_prog-a"]["gate_revision"]
           != f["stale-gate_prog-a"]["revision"], f["stale-gate_prog-a"])
+check("changing gate code invalidates an older green receipt",
+      f["old-gate-code_prog-a"]["phase"] == "composed"
+      and f["old-gate-code_prog-a"]["condition"] == "stale-gate"
+      and "gate changed" in f["old-gate-code_prog-a"]["state"],
+      f["old-gate-code_prog-a"])
+check("an exact owner rejection outranks a missing gate receipt",
+      f["owner-rejected_prog-a"]["stage"] == "needs-revision"
+      and "owner rejected" in f["owner-rejected_prog-a"]["state"],
+      f["owner-rejected_prog-a"])
 check("FLAT/REVISE is durable NEEDS REVISION, never ready for owner approval",
       f["flat_prog-a"]["stage"] == "needs-revision", f["flat_prog-a"])
 check("an owner approval counts only for the exact current revision",
@@ -761,7 +816,7 @@ check("VERIFIED cannot relabel an MP4 whose render task used older source",
       and f["wrong-render-source_prog-a"]["render_revision"] == "older-source",
       f["wrong-render-source_prog-a"])
 check("stale receipts retain compatible totals without pretending work is done",
-      d["totals"]["stale_gate"] == 2
+      d["totals"]["stale_gate"] == 3
       and d["totals"]["stale_render"] == 2
       and d["totals"]["rendered"] == 0, d["totals"])
 

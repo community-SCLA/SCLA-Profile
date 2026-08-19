@@ -16,7 +16,7 @@ Human Direction Engine is selected because the script repeatedly contrasts fast 
 - **AI execution:** one task surface compresses routine work into faster and cheaper output.
 - **Human direction:** experience sits at the center of five connected capabilities—judgment, communication, relationships, learning, and working with AI.
 - **Higher-value work:** the directed output resolves into work worth more because someone owns quality, trust, and the call.
-- **Beat focus:** one gold outline moves to the active mechanism or skill. The engine never exits, repopulates, or repeats the list beside a headline.
+- **Beat focus:** the active mechanism or skill receives its own anchored gold ring. The engine never exits, repopulates, or repeats the list beside a headline.
 
 ## Learning arc
 
@@ -31,7 +31,7 @@ Human Direction Engine is selected because the script repeatedly contrasts fast 
 - AI compresses a routine task while the experience core remains steady.
 - The focus moves from execution to human direction to higher-value work.
 - A first draft passes through judgment, trust, and ownership before it becomes a professional call.
-- Five skill nodes stay fixed; only Judgment, Communication, Relationships, Learning, or Working with AI receives the gold focus.
+- Five skill nodes stay fixed; only Judgment, Communication, Relationships, Learning, or Working with AI receives an element-bound gold focus state.
 - The close holds the complete system: AI executes, experience directs, higher-value work results.
 
 ## Guardrails
@@ -40,3 +40,4 @@ Human Direction Engine is selected because the script repeatedly contrasts fast 
 - Directional marks only connect the named states AI Execution, Human Direction, and Higher-Value Work.
 - No redundant prose beside the engine; each beat adds one short, complete claim in the engine’s message band.
 - Large, readable geometry fills the 16:9 stage and preserves token-defined safe regions.
+- Focus styling belongs to the target element itself; no detached border uses canvas coordinates.

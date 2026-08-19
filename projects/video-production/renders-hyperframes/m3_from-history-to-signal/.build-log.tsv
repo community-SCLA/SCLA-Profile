@@ -24,3 +24,16 @@
 2026-08-10T19:23:44Z	preflight	exit 0 — gate-clean
 2026-08-10T19:24:00Z	gate-pass	durable gate PASS; 26 beats; 66 layout samples clean
 2026-08-10T19:24:00Z	release	build session ended
+2026-08-10T23:58:05Z	resume	program=mid-career-momentum
+2026-08-11T00:00:33Z	preflight	exit 0 — gate-clean
+2026-08-11T00:03:20Z	release	build session ended
+2026-08-11T01:53:16Z	preflight	exit 0 — gate-clean
+2026-08-11T02:23:08Z	preflight	exit 0 — gate-clean
+2026-08-11T02:39:08Z	resume	program=mid-career-momentum
+2026-08-11T02:40:06Z	revise	restored opaque paper proof surface for b13-b14 while preserving gold proof border, beam motion, and synchronized highlights
+2026-08-11T02:42:10Z	preflight	exit 0 — gate-clean
+2026-08-11T02:42:31Z	release	build session ended
+2026-08-11T07:05:55Z	resume	program=mid-career-momentum
+2026-08-11T07:06:27Z	owner-feedback-revision	Removed the scan underline, restored card padding, and reduced aggressive display sizes.
+2026-08-11T07:08:50Z	preflight	exit 0 — gate-clean
+2026-08-11T07:09:01Z	release	build session ended

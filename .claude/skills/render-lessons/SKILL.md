@@ -12,23 +12,12 @@ agent input.
 
 ## AUTO-BATCH is the default hands-off path
 
-`/render-lessons AUTO-BATCH` delegates scheduling and parallel execution while
-the coordinator is active. Selection and external-task reservations survive an
-interruption, but there is no background daemon: a stopped agent session does
-not continue TTS, reviews, merges, renders, or publishing by itself. Never ask
-the user to choose, copy, or paste stems.
-
-It authorizes the coordinator to:
-
-- preserve unfinished work in its workspace and failure receipt while
-  selecting the requested batch; stalled or rejected lessons do not block
-  fresh READY authoring;
-- select the remaining queue with `run.sh batch --all` and drain programs in
-  status priority order;
-- launch parallel in-session subagents for different stems, up to the available
-  agent slots and the recorded stage capacity;
-- run normal build, queued TTS, gate, cloud-render, verification, and serial
-  publish commands inside the selected scope.
+`/render-lessons AUTO-BATCH` owns in-session scheduling and parallel execution.
+State survives interruption, but work does not continue after the session
+stops. Never ask the user to select or paste stems. Preserve workspaces and
+failure receipts; drain the selected scope in priority order; use available
+workers and stage capacity; and run its build, TTS, gate, render, verification,
+and serial-publish steps.
 
 `AUTO-BATCH [PROGRAM] --cloud` records cloud source authoring through the
 matching `run.sh batch ... --cloud` command, then runs `run.sh drain` once.
@@ -45,6 +34,19 @@ Return each passing lesson immediately and launch its Studio preview with
 commands back to the user.
 
 Retry only after its cause changes. Only `PUBLISHED` is complete.
+
+### Mandatory AUTO-BATCH close check
+
+Before returning a normal final response for AUTO-BATCH, run:
+
+```bash
+bash projects/video-production/run.sh batch-complete
+```
+
+Exit 1 forbids a final handoff: refill slots and continue revision, gates, and
+review. Gate failure and `needs-revision` are never terminal. Exit 0 permits
+normal close because every selection reached owner review or publication. Exit
+2 is reported as blocked. External ownership requires wait/resume, not close.
 
 ### Automatic dispatch loop
 
@@ -80,8 +82,9 @@ Give the planner only the selected refined script, local tokens, and this task:
 
 ```text
 Propose and score two distinct visual lenses for fidelity, evolution, attention,
-and feasibility. Select one. Write its carrier, beat progression, milestone
-frames, motion logic, and risk to CONCEPT.md; retain scores in concept.json.
+and feasibility. Select one. Write its visual language, beats, milestone frames,
+motion, and risk to CONCEPT.md; retain scores and author in concept.json. Never
+require one object across unrelated topics.
 ```
 
 ### 2. Builder

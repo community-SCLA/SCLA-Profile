@@ -23,6 +23,7 @@ RUN = VP / "run.sh"
 STATE_TOOL = SRC / "run_state.py"
 sys.path.insert(0, str(SRC))
 from preflight import check_audio_contract, check_workspace_sources  # noqa: E402
+from gate_contract import gate_contract_revision  # noqa: E402
 from tokens import load as load_tokens  # noqa: E402
 from continuous_audio import prepare as prepare_continuous  # noqa: E402
 from continuous_audio import split as split_continuous  # noqa: E402
@@ -81,14 +82,18 @@ check("generated kit source has no extraction-marker residue",
 check("build kit is copied from one tracked contract",
       'cp "$CONTRACT" "$RUN/BUILD-KIT.md"' in prepare)
 check("AUTO-BATCH owns stem selection and parallel scheduling",
-      "Never ask" in render_skill and "user to choose, copy, or paste stems" in render_skill and
-      "parallel in-session subagents" in render_skill and
+      "Never ask the user to select or paste stems" in render_skill and
+      "stage capacity" in render_skill and
       "`--cloud` uses Cloud tasks" in render_skill and
       "Return each passing lesson immediately" in render_skill and
       "must not be redelegated" in render_skill and
       "approve STEM" in render_skill and
       "run.sh drain" in render_skill and
       "run.sh dispatch-merged --stem STEM" in render_skill)
+check("AUTO-BATCH cannot close with ordinary agent-owned gate work",
+      "run.sh batch-complete" in render_skill and
+      "Exit 1 forbids a final handoff" in render_skill and
+      "Gate failure and `needs-revision` are never terminal" in render_skill)
 check("Cloud dispatch submits instead of merely printing",
       "CODEX_CLOUD_BIN:-codex" in cloud_dispatch and
       "cloud exec --env" in cloud_dispatch and
@@ -144,6 +149,43 @@ state = json.loads(state_file.read_text())
 check("named production selects exactly one stem", r.returncode == 0 and
       state["items"] == [{"stem": "lesson-a_prog-a", "program": "prog-a"}],
       state["items"])
+
+fake_status = tmp / "fake-batch-status.sh"
+fake_status.write_text(
+    "#!/usr/bin/env bash\n"
+    "printf '%s\\n' \"${VIDEO_FAKE_STATUS_JSON}\"\n")
+fake_status.chmod(0o755)
+close_env = dict(env, VIDEO_BATCH_STATUS_SCRIPT=str(fake_status))
+run(["bash", str(RUN), "batch", "--all"], env=close_env)
+incomplete_status = {
+    "programs": [{"program": "prog-a", "queued": [], "needs_script": [],
+                  "raw": [], "stranded": [],
+                  "in_flight": [
+                      {"stem": "lesson-a_prog-a", "stage": "needs-review"},
+                      {"stem": "lesson-b_prog-a", "stage": "needs-revision"},
+                      {"stem": "lesson-c_prog-a", "stage": "stalled"},
+                  ]}],
+    "published": [],
+}
+close_env["VIDEO_FAKE_STATUS_JSON"] = json.dumps(incomplete_status)
+r = run(["bash", str(RUN), "batch-complete"], env=close_env)
+check("batch close refuses actionable gate and revision work",
+      r.returncode == 1 and "lesson-b_prog-a: needs-revision" in r.stderr
+      and "lesson-c_prog-a: stalled" in r.stderr, (r.stdout, r.stderr))
+complete_status = {
+    "programs": [{"program": "prog-a", "queued": [], "needs_script": [],
+                  "raw": [], "stranded": [],
+                  "in_flight": [
+                      {"stem": "lesson-a_prog-a", "stage": "needs-review"},
+                      {"stem": "lesson-b_prog-a", "stage": "needs-review"},
+                  ]}],
+    "published": [{"base": "lesson-c_prog-a"}],
+}
+close_env["VIDEO_FAKE_STATUS_JSON"] = json.dumps(complete_status)
+r = run(["bash", str(RUN), "batch-complete"], env=close_env)
+check("batch close passes only at owner handoff or publication",
+      r.returncode == 0 and "BATCH COMPLETE" in r.stdout, (r.stdout, r.stderr))
+run(["bash", str(RUN), "produce", "--stem", "lesson-a_prog-a"], env=env)
 legacy_shape = json.loads(state_file.read_text())
 legacy_shape["version"] = 3
 legacy_shape["items"][0]["stage"] = "ready"
@@ -313,14 +355,31 @@ check("new runs separate authoring, TTS, render, and publish capacity",
 def make_reviewable(stem):
     workspace = test_vp / "renders-hyperframes" / stem
     (workspace / "qa").mkdir(parents=True, exist_ok=True)
+    (workspace / "snapshots").mkdir(exist_ok=True)
+    (workspace / "concepts").mkdir(exist_ok=True)
+    (workspace / "concepts" / "CONCEPT-BOARD.json").write_text(
+        json.dumps({"authored_by": "concept-agent"}))
     (workspace / "index.html").write_text(
         '<main data-duration="1"><div class="clip" data-start="0"></div></main>')
+    for name in ("one.png", "two.png", "three.png", "weak.png"):
+        (workspace / "snapshots" / name).write_bytes(name.encode())
     revision = workspace_revision(workspace)
     (workspace / "qa/PREFLIGHT-OK").write_text(
-        json.dumps({"source_revision": revision}))
+        json.dumps({"source_revision": revision,
+                    "gate_revision": gate_contract_revision()}))
     verdict = run([sys.executable, str(STATE_TOOL), "record-visual-review", stem,
                    "--blocking-defect", "PASS", "--taste", "ALIVE",
-                   "--recommendation", "PROCEED"], env=env)
+                   "--recommendation", "PROCEED", "--reviewer", "review-agent",
+                   "--layout-families", "3",
+                   "--evidence-frame", "snapshots/one.png",
+                   "--evidence-frame", "snapshots/two.png",
+                   "--evidence-frame", "snapshots/three.png",
+                   "--weakest-frame", "snapshots/weak.png",
+                   "--change-note", "beat one changes the teaching state",
+                   "--change-note", "beat two changes the teaching state",
+                   "--change-note", "beat three changes the teaching state",
+                   "--change-note", "beat four changes the teaching state",
+                   "--change-note", "beat five resolves the teaching state"], env=env)
     return workspace, revision, verdict
 
 

@@ -1,5 +1,10 @@
 # The Two-Sided Work — Selected Concept
 
+> **Superseded 2026-08-11.** The "transition case" carrier below was rebuilt
+> from scratch after owner rejection (busy hatch, nothing centred, text over
+> illustration). The live carrier is the transition axis described in
+> `design.md`; the thesis of two required sides is unchanged.
+
 ## Lens selection
 
 | Lens | Fidelity | Evolution | Attention | Feasibility | Total |

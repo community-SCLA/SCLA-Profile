@@ -109,7 +109,15 @@ ledger_text = ledger.read_text(encoding="utf-8", errors="replace") if ledger.exi
 # survive. stem.py owns the rule; base() strips any trailing date/clock.
 sys.path.insert(0, os.environ["SRC"])
 from stem import base as stem_base, StemError
-from workspace_revision import read_revision_marker, workspace_revision
+from gate_contract import gate_contract_revision
+from visual_review_receipt import validate_visual_review
+from workspace_revision import (
+    read_gate_contract_marker,
+    read_revision_marker,
+    workspace_revision,
+)
+
+CURRENT_GATE_REVISION = gate_contract_revision()
 
 
 approval_records = active_run.get("approvals") or {}
@@ -662,13 +670,31 @@ def ws_state(ws_dir, stem=None):
             encode_required=encode_required,
         )
 
+    owner_rejection = read_json_object(ws_dir / "qa" / "OWNER-REJECTION.json")
+    if owner_rejection and owner_rejection.get("revision") == revision:
+        return state_record(
+            "needs-revision",
+            "the owner rejected this exact cut and its regression fixture is armed",
+            "rebuild from the concept level, then rerun the gate and visual review",
+            revision,
+            findings=[owner_rejection.get("reason") or "owner rejection"],
+        )
+
     marker_path = ws_dir / "qa" / "PREFLIGHT-OK"
     if marker_path.is_file():
         gate_revision = read_revision_marker(ws_dir)
-        if not revision or gate_revision != revision:
+        gate_contract_marker = read_gate_contract_marker(ws_dir)
+        if (not revision or gate_revision != revision
+                or gate_contract_marker != CURRENT_GATE_REVISION):
+            reason = (
+                "the deterministic gate changed after this source passed"
+                if gate_revision == revision and
+                gate_contract_marker != CURRENT_GATE_REVISION
+                else "the gate receipt is legacy or belongs to different source"
+            )
             return state_record(
                 "composed",
-                "the gate receipt is legacy or belongs to different source",
+                reason,
                 "rerun `bash scripts/build-gate.sh {stem}` on the current composition",
                 revision,
                 condition="stale-gate",
@@ -707,16 +733,17 @@ def ws_state(ws_dir, stem=None):
                 visual_revision=visual_revision,
             )
 
-        owner_rejection = read_json_object(ws_dir / "qa" / "OWNER-REJECTION.json")
-        if owner_rejection and owner_rejection.get("revision") == revision:
+        evidence_failures = validate_visual_review(ws_dir, visual)
+        if evidence_failures:
             return state_record(
-                "needs-revision",
-                "the owner rejected this exact cut and its regression fixture is armed",
-                "rebuild from the concept level, then rerun the gate and visual review",
+                "awaiting-visual-review",
+                "the visual review is not backed by the required frame evidence",
+                "repeat the SCLA adversarial visual review against every sampled beat",
                 revision,
+                condition="invalid-visual-review-evidence",
                 gate_revision=gate_revision,
                 visual_revision=visual_revision,
-                findings=[owner_rejection.get("reason") or "owner rejection"],
+                findings=evidence_failures,
             )
 
         blocking = verdict(visual, "blocking_defect", "BLOCKING_DEFECT")

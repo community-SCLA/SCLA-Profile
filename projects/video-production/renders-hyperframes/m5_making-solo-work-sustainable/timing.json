@@ -1,152 +1,131 @@
 {
-  "total": 87.699,
+  "total": 83.7,
   "rows": [
     {
       "id": "no-system-01",
       "audio_start": 0.6,
-      "audio_dur": 4.789,
+      "audio_dur": 4.669,
       "vis_start": 0.0,
-      "vis_dur": 5.789
+      "vis_dur": 5.519
     },
     {
       "id": "no-system-02",
-      "audio_start": 6.039,
-      "audio_dur": 1.93,
-      "vis_start": 5.789,
-      "vis_dur": 2.58
+      "audio_start": 5.569,
+      "audio_dur": 1.87,
+      "vis_start": 5.519,
+      "vis_dur": 2.17
     },
     {
       "id": "simple-pieces-01",
-      "audio_start": 8.619,
-      "audio_dur": 3.12,
-      "vis_start": 8.369,
-      "vis_dur": 3.77
+      "audio_start": 7.739,
+      "audio_dur": 3.29,
+      "vis_start": 7.689,
+      "vis_dur": 3.59
     },
     {
       "id": "simple-pieces-02",
-      "audio_start": 12.389,
-      "audio_dur": 1.55,
-      "vis_start": 12.139,
-      "vis_dur": 2.2
+      "audio_start": 11.329,
+      "audio_dur": 1.95,
+      "vis_start": 11.279,
+      "vis_dur": 2.25
     },
     {
       "id": "track-opportunities-01",
-      "audio_start": 14.589,
-      "audio_dur": 4.74,
-      "vis_start": 14.339,
-      "vis_dur": 5.39
+      "audio_start": 13.579,
+      "audio_dur": 5.54,
+      "vis_start": 13.529,
+      "vis_dur": 5.84
     },
     {
       "id": "track-opportunities-02",
-      "audio_start": 19.979,
-      "audio_dur": 4.29,
-      "vis_start": 19.729,
-      "vis_dur": 4.94
+      "audio_start": 19.419,
+      "audio_dur": 4.5,
+      "vis_start": 19.369,
+      "vis_dur": 4.8
     },
     {
       "id": "intake-process-01",
-      "audio_start": 24.919,
-      "audio_dur": 2.65,
-      "vis_start": 24.669,
-      "vis_dur": 3.3
+      "audio_start": 24.219,
+      "audio_dur": 2.69,
+      "vis_start": 24.169,
+      "vis_dur": 2.99
     },
     {
       "id": "intake-process-02",
-      "audio_start": 28.219,
-      "audio_dur": 4.08,
-      "vis_start": 27.969,
-      "vis_dur": 4.73
-    },
-    {
-      "id": "intake-process-03",
-      "audio_start": 32.949,
-      "audio_dur": 2.281,
-      "vis_start": 32.699,
-      "vis_dur": 2.931
+      "audio_start": 27.209,
+      "audio_dur": 7.35,
+      "vis_start": 27.159,
+      "vis_dur": 7.65
     },
     {
       "id": "templates-01",
-      "audio_start": 35.88,
-      "audio_dur": 1.359,
-      "vis_start": 35.63,
-      "vis_dur": 2.009
+      "audio_start": 34.859,
+      "audio_dur": 1.991,
+      "vis_start": 34.809,
+      "vis_dur": 2.291
     },
     {
       "id": "templates-02",
-      "audio_start": 37.889,
-      "audio_dur": 2.58,
-      "vis_start": 37.639,
-      "vis_dur": 3.23
-    },
-    {
-      "id": "templates-03",
-      "audio_start": 41.119,
-      "audio_dur": 2.5,
-      "vis_start": 40.869,
-      "vis_dur": 3.15
-    },
-    {
-      "id": "templates-04",
-      "audio_start": 44.269,
-      "audio_dur": 2.78,
-      "vis_start": 44.019,
-      "vis_dur": 3.43
+      "audio_start": 37.15,
+      "audio_dur": 7.94,
+      "vis_start": 37.1,
+      "vis_dur": 8.24
     },
     {
       "id": "weekly-review-01",
-      "audio_start": 47.699,
-      "audio_dur": 2.09,
-      "vis_start": 47.449,
-      "vis_dur": 2.74
+      "audio_start": 45.39,
+      "audio_dur": 2.13,
+      "vis_start": 45.34,
+      "vis_dur": 2.43
     },
     {
       "id": "weekly-review-02",
-      "audio_start": 50.439,
-      "audio_dur": 7.27,
-      "vis_start": 50.189,
-      "vis_dur": 7.92
+      "audio_start": 47.82,
+      "audio_dur": 6.74,
+      "vis_start": 47.77,
+      "vis_dur": 7.04
     },
     {
       "id": "boundaries-01",
-      "audio_start": 58.359,
-      "audio_dur": 3.63,
-      "vis_start": 58.109,
-      "vis_dur": 4.28
+      "audio_start": 54.86,
+      "audio_dur": 3.54,
+      "vis_start": 54.81,
+      "vis_dur": 3.84
     },
     {
       "id": "boundaries-02",
-      "audio_start": 62.639,
-      "audio_dur": 1.76,
-      "vis_start": 62.389,
-      "vis_dur": 2.41
+      "audio_start": 58.7,
+      "audio_dur": 1.75,
+      "vis_start": 58.65,
+      "vis_dur": 2.05
     },
     {
       "id": "boundaries-03",
-      "audio_start": 65.049,
-      "audio_dur": 2.611,
-      "vis_start": 64.799,
-      "vis_dur": 3.261
+      "audio_start": 60.75,
+      "audio_dur": 2.6,
+      "vis_start": 60.7,
+      "vis_dur": 2.9
     },
     {
-      "id": "boundaries-04",
-      "audio_start": 68.31,
-      "audio_dur": 4.85,
-      "vis_start": 68.06,
-      "vis_dur": 5.5
+      "id": "sustainability-01",
+      "audio_start": 63.65,
+      "audio_dur": 5.74,
+      "vis_start": 63.6,
+      "vis_dur": 6.04
     },
     {
-      "id": "boundaries-05",
-      "audio_start": 73.81,
-      "audio_dur": 1.899,
-      "vis_start": 73.56,
-      "vis_dur": 2.549
+      "id": "sustainability-02",
+      "audio_start": 69.69,
+      "audio_dur": 1.871,
+      "vis_start": 69.64,
+      "vis_dur": 2.171
     },
     {
       "id": "sustainable-plan-01",
-      "audio_start": 76.359,
-      "audio_dur": 9.54,
-      "vis_start": 76.109,
-      "vis_dur": 11.59
+      "audio_start": 71.861,
+      "audio_dur": 10.039,
+      "vis_start": 71.811,
+      "vis_dur": 11.889
     }
   ]
 }

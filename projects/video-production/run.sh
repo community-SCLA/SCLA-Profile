@@ -8,6 +8,7 @@ VP="${VIDEO_VP_ROOT:-$SCRIPT_VP}"
 REPO="${VIDEO_REPO_ROOT:-$(cd "$SCRIPT_VP/../.." && pwd)}"
 STATE="${VIDEO_RUN_STATE_TOOL:-$SCRIPT_VP/render-qa/src/run_state.py}"
 SHIP_DRIVER="${VIDEO_BATCH_SHIP_SCRIPT:-$REPO/scripts/batch-ship.sh}"
+STATUS_DRIVER="${VIDEO_BATCH_STATUS_SCRIPT:-$REPO/scripts/batch-status.sh}"
 
 refresh_human_status() {
   bash "$REPO/scripts/batch-status.sh" --write >/dev/null 2>&1 || true
@@ -65,7 +66,7 @@ auto_ship_approved() {
 }
 
 usage() {
-  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|delegate --stem STEM|dispatch --stem STEM|dispatch-merged --stem STEM [--task-ref REF]|drain|limits|cloud-limit (2|4)|visual-review STEM VERDICTS|reject STEM --regression-id ID --reason TEXT|encode-review STEM VERDICT|approve (STEM|BATCH) [--owner-override]|ship STEM [--publish]|resume [--json]|retry STEM --reason TEXT|migrate-state}" >&2
+  echo "usage: run.sh {status [--json]|produce --stem STEM|refine --stem STEM|batch (--program SLUG|--all) [--cloud]|batch-complete|delegate --stem STEM|dispatch --stem STEM|dispatch-merged --stem STEM [--task-ref REF]|drain|limits|cloud-limit (2|4)|visual-review STEM VERDICTS|reject STEM --regression-id ID --reason TEXT|encode-review STEM VERDICT|approve (STEM|BATCH) [--owner-override]|ship STEM [--publish]|resume [--json]|retry STEM --reason TEXT|migrate-state}" >&2
   exit 2
 }
 
@@ -121,6 +122,63 @@ case "$command" in
         ;;
       *) usage ;;
     esac
+    ;;
+  batch-complete)
+    [[ -z "${1:-}" ]] || usage
+    active_json="$(python3 "$STATE" show 2>/dev/null || true)"
+    [[ -n "$active_json" ]] || {
+      echo "BATCH BLOCKED: no active run is selected." >&2
+      exit 2
+    }
+    live_json="$(bash "$STATUS_DRIVER" --json)"
+    ACTIVE_RUN_JSON="$active_json" LIVE_STATUS_JSON="$live_json" python3 - <<'PY'
+import json
+import os
+import sys
+
+run = json.loads(os.environ["ACTIVE_RUN_JSON"])
+live = json.loads(os.environ["LIVE_STATUS_JSON"])
+if run.get("mode") != "batch":
+    print("BATCH BLOCKED: the active run is not an AUTO-BATCH selection.", file=sys.stderr)
+    raise SystemExit(2)
+
+selected = {item.get("stem") for item in run.get("items", []) if item.get("stem")}
+published = {row.get("base") for row in live.get("published", [])}
+observed = {}
+for program in live.get("programs", []):
+    for stem in program.get("queued", []):
+        observed[stem] = "ready"
+    for row in program.get("needs_script", []):
+        observed[row.get("stem")] = "needs-script"
+    for stem in program.get("raw", []):
+        observed[stem] = "raw"
+    for row in program.get("in_flight", []):
+        observed[row.get("stem")] = row.get("stage") or "unknown"
+    for row in program.get("stranded", []):
+        observed[row.get("stem")] = "stranded"
+
+owner_handoffs = []
+actionable = []
+for stem in sorted(selected):
+    if stem in published:
+        continue
+    stage = observed.get(stem, "unknown")
+    if stage in {"needs-review", "needs-script"}:
+        owner_handoffs.append((stem, stage))
+    else:
+        actionable.append((stem, stage))
+
+if actionable:
+    print("BATCH INCOMPLETE: selected lessons still require agent work.", file=sys.stderr)
+    for stem, stage in actionable:
+        print(f"- {stem}: {stage}", file=sys.stderr)
+    print("Continue the revise/gate/review/render/publish loop; do not return these as a finished AUTO-BATCH.", file=sys.stderr)
+    raise SystemExit(1)
+
+print(f"BATCH COMPLETE: {len(selected)} selected lesson(s) reached owner handoff or publication.")
+for stem, stage in owner_handoffs:
+    print(f"- {stem}: {stage}")
+PY
     ;;
   delegate)
     stem="$(stem_arg "${1:-}" "${2:-}")"

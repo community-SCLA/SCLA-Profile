@@ -17,9 +17,10 @@ AI execution contains one compressing task surface. Human direction contains one
 ## Beat behavior
 
 - A 50px message band inside the engine states one complete point for the active narration clip.
-- One gold outline identifies the active task, relationship, skill, or result.
+- The active task, relationship, skill, or result receives a gold ring anchored to that element's own box.
 - The first three questions move focus left → center → right without rebuilding the structure.
-- The document example changes only the task label and the focus path: first draft → human direction → owned call.
+- The Repositioning Path holds all three stages while an element-bound gold ring advances Faster Tasks → Judgment + Context → Ownership with the spoken First / Second / Third sequence.
+- The document example holds all three cards while the same element-bound focus advances Draft → Judge Quality → Own It; longer comparison beats hand off between the two cards as the narration changes state.
 - During the skills section all five nodes remain visible. Judgment, Communication, Relationships, Learning, and Working with AI are highlighted in narration order.
 - The closing keeps the full system visible and settles on Higher-Value Work.
 
@@ -33,6 +34,6 @@ AI execution contains one compressing task surface. Human direction contains one
 
 - The engine establishes once in the opening second and remains stable.
 - Each beat message rises 18px and settles in 0.45s.
-- The gold focus outline scales from 0.97 to 1 while the relevant connector draws once.
+- Each element-bound gold focus state scales from 0.985 to 1; no detached border or canvas-coordinate overlay is used.
 - Text-bearing elements never pulse or bounce. No generic scene exit, temporal movement, or progress motion appears.
 - One paused GSAP timeline owns all motion; all transforms are deterministic and seek-safe.

@@ -1,38 +1,36 @@
-# Concept: Future-Fit Signal Map
+# Concept: Future Gallery
 
-The lesson behaves like a full-frame evidence-mapping surface. Work experiences begin as an undifferentiated field, pass through visible Strength / Scope / Impact filters, branch into leadership or lateral proof, and become a structured RAMS bullet. The carrier explains why an experience belongs instead of merely framing it.
+The lesson takes place inside an imagined exhibition where work experiences are not records in a database but physical works that can be selected, relit, and reinterpreted for a future audience. The camera always meets a large, centered teaching artifact. Nothing useful is relegated to a static sidebar, footer panel, or false interface.
 
-## Lens scorecard
+## Selected lens
 
-| Lens | Fidelity | Evolution | Attention | Feasibility | Total |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Evidence Gallery | 5 | 4 | 3 | 5 | 17/20 |
-| Future-Fit Signal Map | 5 | 5 | 5 | 4 | **19/20** |
-
-Future-Fit Signal Map is selected because it turns each narrated claim into a visible relationship or transformation. The gallery remains a useful line in the narration, but it no longer dictates a decorative frame system.
+The independent selector chose **Future Gallery** from three visible boards. It scored highest because “curated gallery, not a storage room” is stated in the approved narration, and the metaphor supports clear transformations without repeating the rejected signal-map structure.
 
 ## Learning arc
 
-1. Separate evidence of past roles from evidence of future readiness.
-2. Reduce a crowded inventory to the few experiences that tell the right story.
-3. Test each experience for desired strengths, future scope, and target-role impact.
-4. Read leadership and lateral moves as two distinct evidence patterns.
-5. Convert three to five selected experiences into RAMS bullets.
-6. Align truthful evidence with a clear future direction.
+1. A future-facing compass reframes the question from past roles to readiness.
+2. A crowded gallery wall recedes while the few works that tell the right story move forward.
+3. Strength, scope, and impact become three physical spotlights that reveal different evidence in the same selected experience.
+4. Leadership proof becomes a radial exhibit connecting one project to teams, initiatives, decisions, and results.
+5. Lateral proof passes through a translation prism, showing learning, transfer, and collaboration across contexts.
+6. RAMS becomes a working print table: four named plates stamp one experience into one stronger bullet.
+7. The truthful final bullet becomes the central work on a bright future wall.
 
 ## Milestone frames
 
-- **Question:** a large evidence field is visibly divided between “roles already had” and “future I want.”
-- **Curate:** an overloaded inventory compresses into three dominant, selected experience bands.
-- **Filter:** one experience moves through three large labeled filters; the relevant impact outcomes resolve beside it.
-- **Leadership:** a central project connects to teams, decisions, and visible results.
-- **Lateral:** transferable skills visibly bridge an existing context and a new domain.
-- **RAMS:** one experience becomes a full-width four-part bullet structure, revealing each term when spoken.
-- **Resolve:** selected evidence aligns with “future direction,” ending on a truthful, harder-working bullet.
+- **Question:** experience frames orbit a large compass with Past Roles and Future I Want as named bearings.
+- **Curate:** six differently sized works fill a perspective wall; only three move into full light.
+- **Three lights:** one central experience is relit by Strength, Scope, then Impact while the four named impact outcomes appear around it.
+- **Leadership room:** Lead Teams, Cross-Functional Initiatives, Influence Decisions, and Visible Impact assemble around one central project.
+- **Lateral room:** Existing Context passes through a central prism and resolves into New Domain proof through Learn Quickly, Translate Skills, and Collaborate.
+- **RAMS workshop:** three-to-five works condense to one experience; Responsibility, Action, Measurable Outcome, and Scope stamp into a single bullet in narration order.
+- **Resolve:** true work, clear impact, and relevant direction settle into one full-width future-facing bullet.
 
 ## Visual rules
 
-- Every explanatory graphic occupies a major share of the 16:9 frame.
-- Directional marks only connect named states or show a real transformation.
-- There is no NEXT MOVE button, arrow, navigation cue, progress rail, or scene counter.
-- White paper, navy structure, blue relationships, and gold selection states come directly from local tokens.
+- The active teaching artifact owns the center and fills at least five frame zones.
+- No persistent text boxes sit along the sides or bottom; only a restrained top brand line persists.
+- Spoken lists reveal or emphasize the named item as it is heard.
+- Labels are 22–26px uppercase; body text is 40–48px; headings are 64–88px.
+- Gold marks selection, blue marks relationships, paper marks evidence, and navy is the exhibition space.
+- Motion is finite and seek-safe: frames glide, spotlights open, paths draw, plates stamp, and the final work settles once.

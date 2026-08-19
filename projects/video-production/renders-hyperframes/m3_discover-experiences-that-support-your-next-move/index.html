@@ -10,120 +10,121 @@
     @font-face{font-family:"proxima-nova";src:url("./assets/fonts/proxima-nova-700.woff2") format("woff2");font-weight:700}
     @font-face{font-family:"proxima-nova";src:url("./assets/fonts/proxima-nova-900.woff2") format("woff2");font-weight:900}
     *{box-sizing:border-box}
-    html,body{width:1920px;height:1080px;margin:0;overflow:hidden;background:#ffffff;font-family:"proxima-nova",system-ui,sans-serif;color:#0d2437}
-    #m3_discover-experiences-that-support-your-next-move{position:relative;width:1920px;height:1080px;overflow:hidden;background:#ffffff}
-    .canvas-bg{position:absolute;inset:0;background:#ffffff;overflow:hidden}
-    .canvas-bg::before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,#e5eff6 2px,transparent 2px),linear-gradient(#e5eff6 2px,transparent 2px);background-size:120px 120px;opacity:.42}
-    .canvas-bg::after{content:"";position:absolute;width:640px;height:640px;border:96px solid #f6f6f9;border-radius:50%;right:-260px;bottom:-330px}
-    .topbar{position:absolute;z-index:80;left:120px;top:50px;width:580px;height:60px;display:flex;align-items:center;gap:16px;border-bottom:4px solid #0d2437}
-    .topbar img{width:46px;height:46px;object-fit:contain}
-    .top-copy{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;flex:1}
-    .program{font-size:20px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#3393d6;white-space:nowrap}
-    .lesson{font-size:20px;line-height:1;font-weight:700;color:#0d2437;white-space:nowrap}
-    .top-key{display:none}
-    .key-mark{width:22px;height:22px;border-radius:50%;background:#eaab2d;border:3px solid #0d2437}
-    .clip{position:absolute;inset:0;padding:202px 120px 134px;display:grid;grid-template-columns:minmax(0, .88fr) minmax(0, 1.12fr);gap:72px;align-items:center;opacity:0}
-    .clip.wide{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:34px;align-items:start}
-    .copy{display:none}
-    .persistent-copy{position:absolute;z-index:70;left:120px;top:340px;width:700px;display:flex;flex-direction:column;justify-content:center}
-    .clip>.visual{grid-column:2}
-    .eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:26px;font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#3393d6}
-    .eyebrow::before{content:"";width:72px;height:8px;background:#eaab2d}
-    h1{margin:0;max-width:760px;font-size:76px;line-height:.96;letter-spacing:-.035em;font-weight:900;color:#0d2437}
-    .wide h1{max-width:1500px;font-size:68px}
-    .support{margin:30px 0 0;max-width:700px;font-size:36px;line-height:1.16;font-weight:400;color:#292f35}
-    .support strong{font-weight:900;color:#0d2437}
-    .visual{position:relative;z-index:2;width:100%;height:662px;min-width:0}
-    .wide .visual{height:580px}
-    .surface{position:absolute;inset:0;border:4px solid #0d2437;border-radius:12px;background:#ffffff;overflow:hidden}
-    .surface::before{content:"EVIDENCE / FUTURE FIT";position:absolute;left:30px;top:24px;font-size:20px;font-weight:900;letter-spacing:.14em;color:#5f6f96}
-    .surface::after{content:"";position:absolute;left:30px;right:30px;top:64px;height:3px;background:#cccedf}
-    .meta{position:absolute;z-index:3;right:26px;top:22px;font-size:20px;font-weight:900;letter-spacing:.1em;color:#3393d6}
-    .state{position:absolute;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:30px}
-    .state.selected{border-color:#eaab2d;border-width:8px}
-    .state-label{font-size:22px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#0d2437}
-    .state-title{margin-top:16px;font-size:42px;line-height:1;font-weight:900;color:#0d2437}
-    .evidence-stack{display:grid;gap:14px;margin-top:28px}
-    .evidence-band{min-height:62px;padding:15px 18px;border:3px solid #0d2437;border-radius:8px;background:#ffffff;font-size:24px;line-height:1.12;font-weight:700;color:#0d2437;display:flex;align-items:center;justify-content:space-between}
-    .evidence-band small{font-size:18px;line-height:1;font-weight:900;letter-spacing:.08em;color:#5f6f96;text-transform:uppercase}
-    .evidence-band.selected{border-color:#eaab2d;border-width:7px}
-    .path-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-    .signal-line{fill:none;stroke:#3393d6;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
-    .signal-dot{fill:#eaab2d;stroke:#0d2437;stroke-width:4}
-    .future-map .past{left:40px;top:102px;width:390px;height:500px}
-    .future-map .future{right:40px;top:162px;width:390px;height:380px}
-    .future-map .question-orb{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:142px;height:142px;border:5px solid #0d2437;border-radius:50%;background:#3393d6;color:#ffffff;display:grid;place-items:center;font-size:84px;font-weight:900}
-    .inventory{position:absolute;left:36px;top:92px;width:42%;bottom:34px;padding:28px;border-right:4px solid #0d2437}
-    .inventory .evidence-band{min-height:48px;padding:10px 14px;margin-bottom:10px;font-size:21px;color:#5f6f96;border-color:#cccedf}
-    .curated{position:absolute;right:36px;top:92px;width:48%;bottom:34px;display:flex;flex-direction:column;gap:20px;justify-content:center}
-    .curated .evidence-band{min-height:118px;padding:24px;font-size:30px;border-width:4px}
-    .filter-grid{position:absolute;left:28px;right:28px;top:92px;bottom:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .filter{position:relative;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:28px 22px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
-    .filter.selected{border-color:#eaab2d;border-width:8px}
-    .filter-num{font-size:22px;font-weight:900;letter-spacing:.12em;color:#5f6f96}
-    .filter-name{font-size:43px;line-height:.94;font-weight:900;color:#0d2437;word-break:normal}
-    .filter-note{font-size:24px;line-height:1.08;font-weight:700;color:#292f35}
-    .impact-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-    .impact-chip{padding:12px 10px;border:3px solid #0d2437;border-radius:8px;background:#ffffff;font-size:18px;line-height:1;font-weight:900;text-align:center;color:#0d2437}
-    .network .hub{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);width:240px;height:240px;border:6px solid #0d2437;border-radius:50%;background:#eaab2d;display:grid;place-items:center;padding:28px;text-align:center;font-size:42px;line-height:.96;font-weight:900}
-    .network .hub.selected{border-color:#3393d6;border-width:12px}
-    .network .satellite{position:absolute;z-index:4;width:270px;min-height:138px;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:24px;display:grid;place-items:center;text-align:center;font-size:30px;line-height:1.02;font-weight:900}
-    .network .satellite.selected{border-color:#eaab2d;border-width:8px}
-    .network .s1{left:32px;top:112px}.network .s2{right:32px;top:112px}.network .s3{right:52px;bottom:34px}
-    .network .proof-label{position:absolute;left:38px;bottom:64px;width:250px;font-size:22px;line-height:1.15;font-weight:900;color:#5f6f96;text-transform:uppercase;letter-spacing:.1em}
-    .bridge-grid{position:absolute;left:28px;right:28px;top:94px;bottom:30px;display:grid;grid-template-columns:1fr 1.24fr 1fr;gap:22px;align-items:stretch}
-    .context{border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:28px;display:flex;flex-direction:column;justify-content:center;text-align:center}
-    .context.selected{border-color:#eaab2d;border-width:8px}
-    .context small{font-size:20px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#5f6f96}
-    .context strong{margin-top:18px;font-size:42px;line-height:.95;font-weight:900;color:#0d2437}
-    .bridge-core{border-top:5px solid #3393d6;border-bottom:5px solid #3393d6;padding:28px 0;display:flex;flex-direction:column;justify-content:center;gap:18px}
-    .bridge-skill{min-height:86px;border:4px solid #0d2437;border-radius:100px;background:#ffffff;display:grid;place-items:center;padding:14px 20px;text-align:center;font-size:27px;line-height:1;font-weight:900}
-    .bridge-skill.selected{border-color:#eaab2d;border-width:8px}
-    .wide-copy{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
-    .wide-copy .support{margin:0 0 6px;max-width:500px;font-size:30px;text-align:right}
-    .rams-board{position:absolute;inset:0;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:84px 28px 28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:18px}
-    .rams-board::before{content:"ONE BULLET / FOUR PARTS";position:absolute;left:30px;top:24px;font-size:20px;font-weight:900;letter-spacing:.14em;color:#5f6f96}
-    .rams-part{position:relative;min-width:0;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:20px;display:grid;grid-template-columns:84px 1fr;grid-template-rows:auto 1fr;column-gap:18px;align-items:center}
-    .rams-part.selected{border-color:#eaab2d;border-width:8px}
-    .rams-letter{grid-row:1 / 3;font-size:84px;line-height:.8;font-weight:900;color:#3393d6}
-    .rams-name{font-size:30px;line-height:.94;font-weight:900;color:#0d2437;text-transform:uppercase}
-    .rams-def{font-size:23px;line-height:1.08;font-weight:700;color:#292f35}
-    .count-badge{position:absolute;z-index:5;right:30px;top:18px;min-width:150px;padding:14px 24px;border:4px solid #0d2437;border-radius:100px;background:#3393d6;color:#ffffff;text-align:center;font-size:24px;font-weight:900}
-    .count-badge.selected{border-color:#eaab2d;border-width:8px}
-    .resolve-board{position:absolute;inset:0;border:4px solid #0d2437;border-radius:12px;background:#ffffff;overflow:hidden;padding:94px 34px 34px;display:grid;grid-template-columns:.84fr 1.16fr;gap:34px}
-    .resolve-board::before{content:"TRUE EVIDENCE / CLEAR DIRECTION";position:absolute;left:32px;top:24px;font-size:20px;font-weight:900;letter-spacing:.14em;color:#5f6f96}
-    .evidence-pool{display:flex;flex-direction:column;gap:16px;justify-content:center}
-    .direction{position:relative;border-left:5px solid #3393d6;padding-left:34px;display:flex;flex-direction:column;justify-content:center;gap:22px}
-    .direction-title{font-size:50px;line-height:.95;font-weight:900;color:#0d2437}
-    .final-bullet{position:relative;z-index:3;border:5px solid #0d2437;border-radius:12px;background:#eaab2d;padding:30px;font-size:36px;line-height:1.05;font-weight:900;color:#0d2437}
-    .glow{position:absolute;z-index:1;inset:120px 20px 34px;background:#e5eff6;opacity:0;border-radius:50%}
-    .truth-stamp{align-self:flex-start;padding:14px 22px;border:4px solid #0d2437;border-radius:100px;background:#3393d6;color:#ffffff;font-size:22px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-    #future-proof-01 .future .selected,#future-proof-02 .future .selected{border-color:#0d2437;border-width:3px}
-    #future-proof-01 .past .evidence-band:nth-child(1),#future-proof-02 .past .evidence-band:nth-child(2){border-color:#eaab2d;border-width:7px}
-    #curated-gallery-02 .curated .evidence-band:nth-child(1){border-color:#0d2437;border-width:4px}
-    #curated-gallery-02 .curated .evidence-band:nth-child(2){border-color:#eaab2d;border-width:7px}
-    #leadership-proof-01 .satellite.selected{border-color:#0d2437;border-width:4px}
-    #rams-framework-01 .rams-part.selected{border-color:#0d2437;border-width:4px}
-    #rams-framework-01 .count-badge{border-color:#eaab2d;border-width:8px}
-    #true-story-01 .evidence-band.selected,#true-story-02 .evidence-band.selected,#true-story-03 .evidence-band.selected,#true-story-04 .evidence-band.selected{border-color:#0d2437;border-width:3px}
-    #true-story-01 .evidence-band:nth-child(2),#true-story-02 .evidence-band:nth-child(3),#true-story-03 .evidence-band:nth-child(4),#true-story-04 .evidence-band:nth-child(5){border-color:#eaab2d;border-width:7px}
-    .footer{display:none}
-    .footer strong{color:#0d2437}
+    html,body{width:1920px;height:1080px;margin:0;overflow:hidden;background:#0d2437;font-family:"proxima-nova",system-ui,sans-serif;color:#ffffff}
+    #m3_discover-experiences-that-support-your-next-move{position:relative;width:1920px;height:1080px;overflow:hidden}
+    .room{position:absolute;inset:0;background:#0d2437;overflow:hidden}
+    .room::before{content:"";position:absolute;width:1160px;height:1160px;left:380px;top:86px;border:3px solid rgba(51,147,214,.2);border-radius:50%;box-shadow:0 0 0 110px rgba(51,147,214,.035),0 0 0 260px rgba(234,171,45,.025)}
+    .room::after{content:"";position:absolute;left:120px;right:120px;bottom:74px;height:260px;border:3px solid rgba(152,164,204,.15);border-radius:50%;background:radial-gradient(ellipse at center,rgba(51,147,214,.16) 0%,rgba(13,36,55,0) 67%)}
+    .brandline{position:absolute;z-index:90;left:120px;top:42px;width:580px;height:72px;display:flex;align-items:center;border-bottom:3px solid rgba(85,164,221,.45)}
+    .brandline img{width:48px;height:48px;object-fit:contain}
+    .brand-left{display:flex;align-items:center;gap:18px}
+    .brand-program{font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;color:#eaab2d}
+    .clip{position:absolute;z-index:10;inset:0;padding:142px 120px 120px;opacity:0;pointer-events:none;overflow:hidden}
+    .scene-head{position:absolute;z-index:20;left:120px;right:120px;top:146px;height:128px;display:flex;align-items:flex-start;justify-content:space-between;gap:64px}
+    .scene-label{padding-top:8px;font-size:22px;line-height:1;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#55a4dd;white-space:nowrap}
+    h1{max-width:1320px;margin:0;font-size:72px;line-height:.94;letter-spacing:-.025em;font-weight:900;color:#f6f6f9;text-align:right}
+    .world{position:absolute;z-index:12;left:120px;right:120px;top:286px;height:654px;overflow:hidden}
+    .frame{position:absolute;background:#f6f6f9;border:8px solid #ffffff;box-shadow:0 22px 0 rgba(10,30,47,.5),0 30px 70px rgba(10,30,47,.45);color:#0d2437;overflow:hidden}
+    .frame::after{content:"";position:absolute;inset:14px;border:3px solid #3393d6;pointer-events:none}
+    .frame.active{border-color:#eaab2d;box-shadow:0 0 0 8px rgba(234,171,45,.16),0 28px 74px rgba(10,30,47,.5)}
+    .frame-label{position:absolute;left:26px;right:26px;bottom:24px;font-size:22px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#0d2437;text-align:center}
+    .micro-label{font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
+    .display{font-size:76px;line-height:.92;font-weight:900;letter-spacing:-.03em}
+    .body-copy{font-size:42px;line-height:1.08;font-weight:700}
+    .accent{color:#eaab2d}.blue{color:#55a4dd}.paper{color:#f6f6f9}
+
+    /* Family 1: compass field */
+    .compass-world{overflow:visible}
+    .compass{position:absolute;left:50%;top:49%;width:450px;height:450px;transform:translate(-50%,-50%);border:7px solid #55a4dd;border-radius:50%;box-shadow:0 0 0 34px rgba(51,147,214,.08),0 0 0 68px rgba(51,147,214,.04)}
+    .compass::before,.compass::after{content:"";position:absolute;background:#55a4dd;opacity:.6}
+    .compass::before{left:50%;top:-40px;bottom:-40px;width:3px}.compass::after{top:50%;left:-40px;right:-40px;height:3px}
+    .needle{position:absolute;left:50%;top:50%;width:28px;height:182px;margin:-91px 0 0 -14px;background:#eaab2d;clip-path:polygon(50% 0,100% 86%,50% 100%,0 86%);transform-origin:50% 50%}
+    .compass-center{position:absolute;left:50%;top:50%;width:196px;height:196px;transform:translate(-50%,-50%);border-radius:50%;background:#f6f6f9;border:9px solid #0d2437;display:grid;place-items:center;text-align:center;padding:26px;color:#0d2437;font-size:42px;line-height:.94;font-weight:900}
+    .bearing{position:absolute;padding:14px 20px;background:#0d2437;border:4px solid #3393d6;border-radius:100px;color:#f6f6f9;font-size:22px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .bearing.past{left:-300px;top:46%;transform:translateY(-50%)}.bearing.future{right:-300px;top:46%;transform:translateY(-50%);border-color:#eaab2d;color:#eaab2d}
+    .orbit-frame{width:230px;height:154px;padding:30px;display:grid;place-items:center;text-align:center;font-size:36px;line-height:.94;font-weight:900}
+    .of1{left:80px;top:48px;transform:rotate(-5deg)}.of2{left:124px;bottom:48px;transform:rotate(4deg)}.of3{right:92px;top:52px;transform:rotate(5deg)}.of4{right:140px;bottom:54px;transform:rotate(-4deg)}
+    .question-line{position:absolute;left:50%;top:50%;width:820px;transform:translate(-50%,-50%);text-align:center;font-size:64px;line-height:.95;font-weight:900;letter-spacing:-.02em;color:#f6f6f9;text-shadow:0 10px 40px #0a1e2f}
+    .question-line strong{color:#eaab2d}
+
+    /* Family 2: perspective gallery */
+    .gallery-world{perspective:1200px}
+    .gallery-wall{position:absolute;left:30px;right:30px;top:18px;bottom:24px;border:4px solid rgba(85,164,221,.4);border-radius:180px 180px 20px 20px;background:radial-gradient(circle at 50% 30%,rgba(85,164,221,.18),rgba(10,30,47,.25) 58%,rgba(10,30,47,.8));overflow:hidden}
+    .gallery-wall::before{content:"";position:absolute;left:70px;right:70px;bottom:52px;height:120px;border:4px solid rgba(234,171,45,.24);border-radius:50%}
+    .art{position:absolute;background:#f6f6f9;border:9px solid #ffffff;box-shadow:0 24px 46px rgba(10,30,47,.36);display:grid;place-items:center;color:#0d2437;text-align:center;font-size:40px;line-height:.96;font-weight:900;padding:20px}
+    .art span{font-size:22px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#5f6f96}
+    .art.selected{border-color:#eaab2d;box-shadow:0 0 0 9px rgba(234,171,45,.14),0 26px 50px rgba(10,30,47,.4)}
+    .a1{left:38px;top:84px;width:260px;height:210px;transform:rotate(-3deg)}.a2{left:328px;top:52px;width:260px;height:270px;transform:rotate(2deg)}.a3{left:618px;top:108px;width:260px;height:210px;transform:rotate(-2deg)}.a4{left:908px;top:50px;width:260px;height:270px;transform:rotate(2deg)}.a5{left:1198px;top:88px;width:260px;height:210px;transform:rotate(-3deg)}.a6{left:684px;bottom:58px;width:310px;height:205px;transform:rotate(1deg)}
+    .wall-caption{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);padding:16px 28px;border-radius:100px;background:#eaab2d;color:#0d2437;font-size:24px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+    .gallery-state.curated .art:not(.selected){opacity:0;visibility:hidden;transform:scale(.84)}
+    .gallery-state.curated .a2{left:350px;top:116px;transform:rotate(-3deg) scale(1.06)}.gallery-state.curated .a4{left:1070px;top:116px;transform:rotate(3deg) scale(1.06)}.gallery-state.curated .a6{left:685px;bottom:52px;transform:scale(1.08)}
+
+    /* Family 3: light theatre */
+    .light-world{overflow:visible}
+    .light-cone{position:absolute;top:-80px;width:520px;height:590px;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);transform-origin:50% 0;opacity:.15}
+    .light-cone.strength{left:58px;background:#eaab2d}.light-cone.scope{left:580px;background:#3393d6}.light-cone.impact{right:58px;background:#f6f6f9}
+    .light-label{position:absolute;top:36px;width:390px;text-align:center;font-size:26px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#f6f6f9}
+    .ll1{left:124px}.ll2{left:644px}.ll3{right:124px}
+    .experience-sculpture{position:absolute;left:50%;top:170px;width:590px;height:310px;transform:translateX(-50%);border:10px solid #f6f6f9;background:#0a1e2f;box-shadow:0 34px 0 rgba(10,30,47,.8),0 42px 70px rgba(10,30,47,.4);display:grid;place-items:center;text-align:center;padding:54px;color:#f6f6f9}
+    .experience-sculpture::after{content:"";position:absolute;left:100px;right:100px;bottom:-62px;height:24px;background:#eaab2d;border-radius:50%}
+    .sculpture-title{font-size:64px;line-height:.92;font-weight:900}.sculpture-note{margin-top:20px;font-size:40px;line-height:1.06;font-weight:700;color:#98a4cc}
+    .outcomes{position:absolute;left:44px;right:44px;bottom:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    .outcome{min-height:104px;border:4px solid #3393d6;border-radius:12px;background:#0d2437;display:grid;place-items:center;padding:20px;text-align:center;font-size:24px;line-height:1;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#f6f6f9}
+    .light-state.strength-active .strength,.light-state.scope-active .scope,.light-state.impact-active .impact{opacity:.72}
+    .light-state.strength-active .ll1,.light-state.scope-active .ll2,.light-state.impact-active .ll3{color:#eaab2d}
+
+    /* Family 4: radial leadership exhibit */
+    .network-world{overflow:visible}
+    .network-ring{position:absolute;left:50%;top:49%;width:520px;height:520px;transform:translate(-50%,-50%);border:5px solid rgba(85,164,221,.35);border-radius:50%;box-shadow:0 0 0 72px rgba(51,147,214,.04)}
+    .project-disc{position:absolute;z-index:5;left:50%;top:49%;width:320px;height:320px;transform:translate(-50%,-50%);border-radius:50%;border:12px solid #f6f6f9;background:#eaab2d;color:#0d2437;display:grid;place-items:center;text-align:center;padding:20px;font-size:48px;line-height:.9;font-weight:900}
+    .proof-node{position:absolute;z-index:5;width:330px;min-height:132px;border:5px solid #3393d6;border-radius:16px;background:#0a1e2f;color:#f6f6f9;display:grid;place-items:center;text-align:center;padding:26px;font-size:38px;line-height:.95;font-weight:900}
+    .proof-node.active{border-color:#eaab2d;box-shadow:0 0 0 10px rgba(234,171,45,.12)}
+    .pn1{left:54px;top:44px}.pn2{right:54px;top:44px}.pn3{left:54px;bottom:34px}.pn4{right:54px;bottom:34px}
+    .network-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.network-path{fill:none;stroke:#55a4dd;stroke-width:8;stroke-linecap:round}
+
+    /* Family 5: translation prism */
+    .prism-world{overflow:visible}
+    .context-piece{position:absolute;top:190px;width:390px;height:290px;border:9px solid #f6f6f9;background:#0a1e2f;display:grid;place-items:center;text-align:center;padding:42px;font-size:52px;line-height:.92;font-weight:900;color:#f6f6f9}
+    .context-piece small{display:block;margin-top:20px;font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
+    .context-piece.source{left:40px}.context-piece.destination{right:40px;border-color:#eaab2d}
+    .prism{position:absolute;z-index:6;left:50%;top:116px;width:430px;height:430px;transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);background:#3393d6;filter:drop-shadow(0 30px 28px rgba(10,30,47,.35))}
+    .prism::before{content:"";position:absolute;inset:34px;clip-path:inherit;background:#0d2437}
+    .prism-copy{position:absolute;z-index:8;left:50%;top:275px;width:300px;transform:translateX(-50%);text-align:center;font-size:44px;line-height:.95;font-weight:900;color:#f6f6f9}
+    .beam{position:absolute;z-index:4;left:350px;right:350px;top:320px;height:28px;background:#eaab2d;box-shadow:0 0 38px rgba(234,171,45,.45)}
+    .translation-skills{position:absolute;z-index:9;left:470px;right:470px;bottom:22px;display:flex;justify-content:center;gap:24px}
+    .skill-token{min-width:260px;padding:22px 26px;border:4px solid #3393d6;border-radius:100px;background:#0a1e2f;color:#f6f6f9;text-align:center;font-size:24px;line-height:1;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .skill-token.active{border-color:#eaab2d;color:#eaab2d}
+
+    /* Family 6: print workshop */
+    .press-world{overflow:visible}
+    .experience-pile{position:absolute;left:50%;top:16px;width:980px;height:190px;transform:translateX(-50%)}
+    .pile-card{position:absolute;width:180px;height:130px;border:7px solid #f6f6f9;background:#0a1e2f;display:grid;place-items:center;font-size:22px;line-height:1;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#98a4cc}
+    .pc1{left:0;top:36px;transform:rotate(-4deg)}.pc2{left:200px;top:18px;transform:rotate(-2deg)}.pc3{left:400px;top:8px}.pc4{left:600px;top:18px;transform:rotate(2deg)}.pc5{left:800px;top:36px;transform:rotate(4deg)}
+    .selected-work{position:absolute;z-index:7;left:50%;top:48px;width:360px;height:150px;transform:translateX(-50%);border:9px solid #eaab2d;background:#f6f6f9;color:#0d2437;display:grid;place-items:center;text-align:center;padding:26px;font-size:42px;line-height:.94;font-weight:900}
+    .press-bed{position:absolute;left:34px;right:34px;top:230px;height:388px;border:8px solid #f6f6f9;background:#0a1e2f;padding:30px;box-shadow:0 30px 0 rgba(10,30,47,.7)}
+    .press-bed::before{content:"ONE BULLET / FOUR PARTS";position:absolute;left:34px;top:25px;font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
+    .plates{position:absolute;left:30px;right:30px;top:82px;bottom:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+    .plate{position:relative;border:5px solid #3393d6;background:#f6f6f9;color:#0d2437;padding:26px;display:flex;flex-direction:column;justify-content:center;gap:18px;overflow:hidden}
+    .plate.active{border:10px solid #eaab2d;box-shadow:0 0 0 8px rgba(234,171,45,.1)}
+    .plate-letter{font-size:74px;line-height:.8;font-weight:900;color:#3393d6}.plate-name{font-size:32px;line-height:.92;font-weight:900;text-transform:uppercase}.plate-def{font-size:40px;line-height:1.04;font-weight:700}
+    .stamp{position:absolute;right:18px;top:18px;width:46px;height:46px;border-radius:50%;background:#eaab2d;border:4px solid #0d2437}
+
+    /* Family 7: hero wall */
+    .resolve-world{overflow:visible}
+    .future-arch{position:absolute;left:50%;top:-80px;width:1360px;height:760px;transform:translateX(-50%);border:5px solid rgba(85,164,221,.36);border-radius:680px 680px 0 0;box-shadow:0 0 0 70px rgba(51,147,214,.035)}
+    .hero-work{position:absolute;left:50%;top:72px;width:1240px;height:470px;transform:translateX(-50%);border:12px solid #f6f6f9;background:#0a1e2f;box-shadow:0 34px 0 rgba(10,30,47,.7),0 50px 90px rgba(10,30,47,.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:58px 90px}
+    .hero-work::before{content:"";position:absolute;inset:24px;border:4px solid #3393d6}
+    .hero-kicker{position:relative;z-index:2;font-size:24px;line-height:1;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#eaab2d}
+    .hero-line{position:relative;z-index:2;margin-top:28px;font-size:76px;line-height:.94;font-weight:900;letter-spacing:-.03em;color:#f6f6f9}
+    .truth-row{position:absolute;left:50%;bottom:30px;width:1080px;transform:translateX(-50%);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .truth-token{padding:20px;border-top:6px solid #3393d6;text-align:center;font-size:24px;line-height:1;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#98a4cc}
+    .truth-token.active{border-color:#eaab2d;color:#eaab2d}
   </style>
 </head>
 <body>
 <main id="m3_discover-experiences-that-support-your-next-move" data-composition-id="m3_discover-experiences-that-support-your-next-move" data-width="1920" data-height="1080" data-start="0" data-duration="119.936" data-fps="30">
-  <div class="canvas-bg"></div>
-  <header class="topbar">
-    <img src="./assets/brand/SCLA-logo-icon.svg" alt="SCLA">
-    <div class="top-copy"><span class="program">Mid-Career Momentum</span><span class="lesson">Discover Experiences That Support Your Next Move</span></div>
-    <div class="top-key"><span class="key-mark"></span>selected evidence</div>
-  </header>
-  <aside class="persistent-copy">
-    <div class="eyebrow">Future-Fit Signal Map</div>
-    <h1 data-role="heading">Turn Experience into Future-Ready Evidence</h1>
-    <p class="support">Select · Test · Structure · Align</p>
-  </aside>
+  <div class="room"></div>
+  <header class="brandline"><div class="brand-left"><img src="./assets/brand/SCLA-logo-icon.svg" alt="SCLA"><span class="brand-program">Mid-Career Momentum</span></div></header>
 
   <audio id="audio-future-proof-01" src="./assets/voice/future-proof-01.wav" data-start="0.6" data-duration="3.379" preload="auto"></audio>
   <audio id="audio-future-proof-02" src="./assets/voice/future-proof-02.wav" data-start="4.629" data-duration="3.57" preload="auto"></audio>
@@ -149,140 +150,139 @@
   <audio id="audio-true-story-03" src="./assets/voice/true-story-03.wav" data-start="110.186" data-duration="3.59" preload="auto"></audio>
   <audio id="audio-true-story-04" src="./assets/voice/true-story-04.wav" data-start="114.426" data-duration="3.71" preload="auto"></audio>
 
-  <section class="clip" id="future-proof-01" data-beat-id="future-proof-01" data-track-index="0" data-start="0" data-duration="4.379" data-narration="When you're repositioning your experience, one of the most powerful.">
-    <div class="copy"><div class="eyebrow">Future-facing evidence</div><h1 data-role="heading">Which Experiences Show Future Readiness?</h1><p class="support">Compare past role history with evidence for the future you want.</p></div>
-    <div class="visual"><div class="surface future-map" data-role="compare"><div class="meta">QUESTION / FUTURE FIT</div><div class="state past"><div class="state-label">Roles already had</div><div class="state-title">Past evidence</div><div class="evidence-stack"><div class="evidence-band">Experience A <small>role</small></div><div class="evidence-band">Experience B <small>role</small></div><div class="evidence-band">Experience C <small>role</small></div></div></div><div class="question-orb">?</div><div class="state future"><div class="state-label">Future I want</div><div class="state-title">Readiness</div><div class="evidence-stack"><div class="evidence-band selected">Relevant proof <small>future</small></div></div></div><svg class="path-svg" viewBox="0 0 900 662"><path class="signal-line" d="M420 326 C490 245 520 245 590 326"/><circle class="signal-dot" cx="420" cy="326" r="12"/><circle class="signal-dot" cx="590" cy="326" r="12"/></svg></div></div>
+  <section class="clip compass-state" id="future-proof-01" data-beat-id="future-proof-01" data-continuity="future-proof" data-track-index="0" data-start="0" data-duration="4.379" data-narration="When you're repositioning your experience, one of the most powerful.">
+    <div class="scene-head"><span class="scene-label">A Future-Facing Question</span><h1 data-role="heading">Discover Experiences That Support Your Next Move</h1></div>
+    <div class="world compass-world"><div class="compass ambient"><span class="bearing past">Past Roles</span><span class="bearing future">Future I Want</span><div class="needle"></div><div class="compass-center">NEXT<br>MOVE</div></div><div class="frame orbit-frame of1 enter"><span>Experience</span></div><div class="frame orbit-frame of2 enter"><span>Experience</span></div><div class="frame orbit-frame of3 enter"><span>Experience</span></div><div class="frame orbit-frame of4 enter"><span>Experience</span></div></div>
   </section>
-  <section class="clip" id="future-proof-02" data-beat-id="future-proof-02" data-track-index="0" data-start="4.379" data-duration="4.22" data-narration="Questions you can ask is this: which experiences show that I'm.">
-    <div class="copy"><div class="eyebrow">Future-facing evidence</div><h1 data-role="heading">Which Experiences Show Future Readiness?</h1><p class="support">Compare past role history with evidence for the future you want.</p></div>
-    <div class="visual"><div class="surface future-map" data-role="compare"><div class="meta">QUESTION / FUTURE FIT</div><div class="state past"><div class="state-label">Roles already had</div><div class="state-title">Past evidence</div><div class="evidence-stack"><div class="evidence-band">Experience A <small>role</small></div><div class="evidence-band">Experience B <small>role</small></div><div class="evidence-band">Experience C <small>role</small></div></div></div><div class="question-orb">?</div><div class="state future"><div class="state-label">Future I want</div><div class="state-title">Readiness</div><div class="evidence-stack"><div class="evidence-band selected">Relevant proof <small>future</small></div></div></div><svg class="path-svg" viewBox="0 0 900 662"><path class="signal-line" d="M420 326 C490 245 520 245 590 326"/><circle class="signal-dot" cx="420" cy="326" r="12"/><circle class="signal-dot" cx="590" cy="326" r="12"/></svg></div></div>
+  <section class="clip compass-state" id="future-proof-02" data-beat-id="future-proof-02" data-continuity="future-proof" data-track-index="0" data-start="4.379" data-duration="4.22" data-narration="Questions you can ask is this: which experiences show that I'm.">
+    <div class="scene-head"><span class="scene-label">Ask What the Evidence Shows</span><h1 data-role="heading">Which Experiences Show Readiness?</h1></div>
+    <div class="world compass-world"><div class="compass ambient"><span class="bearing past">Past Roles</span><span class="bearing future">Future I Want</span><div class="needle"></div><div class="compass-center">?</div></div><div class="frame orbit-frame of1"><span>Experience</span></div><div class="frame orbit-frame of2 active beat-reveal"><span>Experience</span></div><div class="frame orbit-frame of3"><span>Experience</span></div><div class="frame orbit-frame of4"><span>Experience</span></div></div>
   </section>
-  <section class="clip" id="future-proof-03" data-beat-id="future-proof-03" data-track-index="0" data-start="8.599" data-duration="4.05" data-narration="Ready for the future I want, not just the roles I've already had?">
-    <div class="copy"><div class="eyebrow">Future-facing evidence</div><h1 data-role="heading">Which Experiences Show Future Readiness?</h1><p class="support">Compare past role history with evidence for the future you want.</p></div>
-    <div class="visual"><div class="surface future-map" data-role="compare"><div class="meta">QUESTION / FUTURE FIT</div><div class="state past"><div class="state-label">Roles already had</div><div class="state-title">Past evidence</div><div class="evidence-stack"><div class="evidence-band">Experience A <small>role</small></div><div class="evidence-band">Experience B <small>role</small></div><div class="evidence-band">Experience C <small>role</small></div></div></div><div class="question-orb">?</div><div class="state future"><div class="state-label">Future I want</div><div class="state-title">Readiness</div><div class="evidence-stack"><div class="evidence-band selected">Relevant proof <small>future</small></div></div></div><svg class="path-svg" viewBox="0 0 900 662"><path class="signal-line" d="M420 326 C490 245 520 245 590 326"/><circle class="signal-dot" cx="420" cy="326" r="12"/><circle class="signal-dot" cx="590" cy="326" r="12"/></svg></div></div>
-  </section>
-
-  <section class="clip" id="curated-gallery-01" data-beat-id="curated-gallery-01" data-track-index="0" data-start="12.649" data-duration="5.74" data-narration="Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You.">
-    <div class="copy"><div class="eyebrow">Curate the story</div><h1 data-role="heading">Choose the Pieces That Tell the Right Story</h1><p class="support">Reduce a crowded inventory to selected, future-relevant evidence.</p></div>
-    <div class="visual"><div class="surface"><div class="meta">CURATE / REDUCE</div><div class="inventory" data-role="list"><div class="state-label">Every piece</div><div class="evidence-band">Role detail</div><div class="evidence-band">Older task</div><div class="evidence-band">Routine duty</div><div class="evidence-band">Project note</div><div class="evidence-band">Team effort</div><div class="evidence-band">Result</div><div class="evidence-band">Scope</div></div><div class="curated" data-role="list"><div class="state-label">The right story</div><div class="evidence-band selected">Experience 01 <small>selected</small></div><div class="evidence-band">Experience 02 <small>selected</small></div><div class="evidence-band">Experience 03 <small>selected</small></div></div></div></div>
-  </section>
-  <section class="clip" id="curated-gallery-02" data-beat-id="curated-gallery-02" data-track-index="0" data-start="18.389" data-duration="5.309" data-narration="Don't need to display every piece. You need to choose the pieces that tell the right story.">
-    <div class="copy"><div class="eyebrow">Curate the story</div><h1 data-role="heading">Choose the Pieces That Tell the Right Story</h1><p class="support">Reduce a crowded inventory to selected, future-relevant evidence.</p></div>
-    <div class="visual"><div class="surface"><div class="meta">CURATE / REDUCE</div><div class="inventory" data-role="list"><div class="state-label">Every piece</div><div class="evidence-band">Role detail</div><div class="evidence-band">Older task</div><div class="evidence-band">Routine duty</div><div class="evidence-band">Project note</div><div class="evidence-band">Team effort</div><div class="evidence-band">Result</div><div class="evidence-band">Scope</div></div><div class="curated" data-role="list"><div class="state-label">The right story</div><div class="evidence-band selected">Experience 01 <small>selected</small></div><div class="evidence-band">Experience 02 <small>selected</small></div><div class="evidence-band">Experience 03 <small>selected</small></div></div></div></div>
+  <section class="clip compass-state" id="future-proof-03" data-beat-id="future-proof-03" data-continuity="future-proof" data-track-index="0" data-start="8.599" data-duration="4.05" data-narration="Ready for the future I want, not just the roles I've already had?">
+    <div class="scene-head"><span class="scene-label">Change the Bearing</span><h1 data-role="heading">Evidence for the Future, Not Just the Past</h1></div>
+    <div class="world compass-world"><div class="compass ambient"><span class="bearing past">Roles Already Had</span><span class="bearing future beat-reveal">Future I Want</span><div class="needle"></div><div class="compass-center">READY</div></div><div class="frame orbit-frame of1"><span>Past</span></div><div class="frame orbit-frame of2"><span>Past</span></div><div class="frame orbit-frame of3 active beat-reveal"><span>Relevant<br>Experience</span></div><div class="frame orbit-frame of4"><span>Past</span></div></div>
   </section>
 
-  <section class="clip" id="selection-lens-01" data-beat-id="selection-lens-01" data-track-index="0" data-start="23.698" data-duration="5.99" data-narration="To do that, look for experiences that use the strengths you want to be known for, that match the.">
-    <div class="copy"><div class="eyebrow">Selection lens</div><h1 data-role="heading">Use Three Filters to Select Experience</h1><p class="support">Strengths · Scope · Impact</p></div>
-    <div class="visual"><div class="surface"><div class="meta">FILTER / EXPERIENCE</div><div class="filter-grid" data-role="list"><div class="filter selected"><span class="filter-num">01</span><strong class="filter-name">Strengths</strong><span class="filter-note">What you want to be known for</span></div><div class="filter"><span class="filter-num">02</span><strong class="filter-name">Scope</strong><span class="filter-note">What you want to handle next</span></div><div class="filter"><span class="filter-num">03</span><strong class="filter-name">Impact</strong><div class="impact-row"><span class="impact-chip">Outcomes</span><span class="impact-chip">Processes</span><span class="impact-chip">Relationships</span><span class="impact-chip">Growth</span></div></div></div></div></div>
+  <section class="clip gallery-state" id="curated-gallery-01" data-beat-id="curated-gallery-01" data-continuity="curated-gallery" data-track-index="0" data-start="12.649" data-duration="5.74" data-narration="Think of your resume and LinkedIn profile as a curated gallery, not a storage room. You.">
+    <div class="scene-head"><span class="scene-label">Curated Gallery, Not Storage</span><h1 data-role="heading">Your Experience Is an Exhibition</h1></div>
+    <div class="world gallery-world"><div class="gallery-wall"><div class="art a1 enter"><span>Work</span>Experience</div><div class="art a2 enter"><span>Work</span>Experience</div><div class="art a3 enter"><span>Work</span>Experience</div><div class="art a4 enter"><span>Work</span>Experience</div><div class="art a5 enter"><span>Work</span>Experience</div><div class="art a6 enter"><span>Work</span>Experience</div><div class="wall-caption">Resume + LinkedIn</div></div></div>
   </section>
-  <section class="clip" id="selection-lens-02" data-beat-id="selection-lens-02" data-track-index="0" data-start="29.688" data-duration="5.99" data-narration="Kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target.">
-    <div class="copy"><div class="eyebrow">Selection lens</div><h1 data-role="heading">Use Three Filters to Select Experience</h1><p class="support">Strengths · Scope · Impact</p></div>
-    <div class="visual"><div class="surface"><div class="meta">FILTER / EXPERIENCE</div><div class="filter-grid" data-role="list"><div class="filter"><span class="filter-num">01</span><strong class="filter-name">Strengths</strong><span class="filter-note">What you want to be known for</span></div><div class="filter selected"><span class="filter-num">02</span><strong class="filter-name">Scope</strong><span class="filter-note">What you want to handle next</span></div><div class="filter"><span class="filter-num">03</span><strong class="filter-name">Impact</strong><div class="impact-row"><span class="impact-chip">Outcomes</span><span class="impact-chip">Processes</span><span class="impact-chip">Relationships</span><span class="impact-chip">Growth</span></div></div></div></div></div>
-  </section>
-  <section class="clip" id="selection-lens-03" data-beat-id="selection-lens-03" data-track-index="0" data-start="35.678" data-duration="6.14" data-narration="Roles: improved outcomes, better processes, stronger relationships, or growth.">
-    <div class="copy"><div class="eyebrow">Selection lens</div><h1 data-role="heading">Use Three Filters to Select Experience</h1><p class="support">Strengths · Scope · Impact</p></div>
-    <div class="visual"><div class="surface"><div class="meta">FILTER / EXPERIENCE</div><div class="filter-grid" data-role="list"><div class="filter"><span class="filter-num">01</span><strong class="filter-name">Strengths</strong><span class="filter-note">What you want to be known for</span></div><div class="filter"><span class="filter-num">02</span><strong class="filter-name">Scope</strong><span class="filter-note">What you want to handle next</span></div><div class="filter selected"><span class="filter-num">03</span><strong class="filter-name">Impact</strong><div class="impact-row"><span class="impact-chip">Outcomes</span><span class="impact-chip">Processes</span><span class="impact-chip">Relationships</span><span class="impact-chip">Growth</span></div></div></div></div></div>
+  <section class="clip gallery-state curated" id="curated-gallery-02" data-beat-id="curated-gallery-02" data-continuity="curated-gallery" data-track-index="0" data-start="18.389" data-duration="5.309" data-narration="Don't need to display every piece. You need to choose the pieces that tell the right story.">
+    <div class="scene-head"><span class="scene-label">Choose, Do Not Store</span><h1 data-role="heading">Bring the Right Story Forward</h1></div>
+    <div class="world gallery-world"><div class="gallery-wall"><div class="art a1">Experience</div><div class="art a2 selected beat-reveal"><span>Chosen</span>Experience</div><div class="art a3">Experience</div><div class="art a4 selected beat-reveal"><span>Chosen</span>Experience</div><div class="art a5">Experience</div><div class="art a6 selected beat-reveal"><span>Right Story</span>Experience</div><div class="wall-caption">Only the Pieces That Matter</div></div></div>
   </section>
 
-  <section class="clip" id="leadership-proof-01" data-beat-id="leadership-proof-01" data-track-index="0" data-start="41.818" data-duration="5.029" data-narration="Here's how that plays out. If your Next Move Statement points toward a leadership or strategic.">
-    <div class="copy"><div class="eyebrow">Leadership proof</div><h1 data-role="heading">Map the Proof of Leadership</h1><p class="support">Lead teams · Influence decisions · Own visible results</p></div>
-    <div class="visual"><div class="surface network" data-role="list"><div class="meta">PROOF MAP / LEADERSHIP</div><div class="hub">PROJECT</div><div class="satellite s1 selected">Lead Teams</div><div class="satellite s2">Influence Decisions</div><div class="satellite s3">Own Visible Results</div><div class="proof-label">One experience. Three kinds of leadership proof.</div><svg class="path-svg" viewBox="0 0 900 662"><path class="signal-line" d="M330 180 C385 220 405 250 435 292 M570 180 C515 220 495 250 465 292 M570 520 C515 470 495 430 465 370"/></svg></div></div>
+  <section class="clip light-state strength-active" id="selection-lens-01" data-beat-id="selection-lens-01" data-continuity="selection-lens" data-track-index="0" data-start="23.698" data-duration="5.99" data-narration="To do that, look for experiences that use the strengths you want to be known for, that match the.">
+    <div class="scene-head"><span class="scene-label">Relight the Evidence</span><h1 data-role="heading">Start with the Strengths You Want Known</h1></div>
+    <div class="world light-world"><div class="light-cone strength beat-reveal"></div><div class="light-cone scope"></div><div class="light-cone impact"></div><div class="light-label ll1">Strengths</div><div class="light-label ll2">Scope</div><div class="light-label ll3">Impact</div><div class="experience-sculpture enter"><div><div class="sculpture-title">SELECTED EXPERIENCE</div><div class="sculpture-note">What do you want to be known for?</div></div></div></div>
   </section>
-  <section class="clip" id="leadership-proof-02" data-beat-id="leadership-proof-02" data-track-index="0" data-start="46.847" data-duration="5.29" data-narration="Role, you might highlight projects where you led teams or cross-functional initiatives.">
-    <div class="copy"><div class="eyebrow">Leadership proof</div><h1 data-role="heading">Map the Proof of Leadership</h1><p class="support">Lead teams · Influence decisions · Own visible results</p></div>
-    <div class="visual"><div class="surface network" data-role="list"><div class="meta">PROOF MAP / LEADERSHIP</div><div class="hub">PROJECT</div><div class="satellite s1 selected">Lead Teams</div><div class="satellite s2">Influence Decisions</div><div class="satellite s3">Own Visible Results</div><div class="proof-label">One experience. Three kinds of leadership proof.</div><svg class="path-svg" viewBox="0 0 900 662"><path class="signal-line" d="M330 180 C385 220 405 250 435 292 M570 180 C515 220 495 250 465 292 M570 520 C515 470 495 430 465 370"/></svg></div></div>
+  <section class="clip light-state scope-active" id="selection-lens-02" data-beat-id="selection-lens-02" data-continuity="selection-lens" data-track-index="0" data-start="29.688" data-duration="5.99" data-narration="Kind of scope you'd like to handle going forward, and that reflect the impact that matters in your target.">
+    <div class="scene-head"><span class="scene-label">Relight the Evidence</span><h1 data-role="heading">Match the Scope You Want to Handle</h1></div>
+    <div class="world light-world"><div class="light-cone strength"></div><div class="light-cone scope beat-reveal"></div><div class="light-cone impact"></div><div class="light-label ll1">Strengths</div><div class="light-label ll2 beat-reveal">Scope</div><div class="light-label ll3">Impact</div><div class="experience-sculpture active"><div><div class="sculpture-title">SELECTED EXPERIENCE</div><div class="sculpture-note">What scope belongs in your future?</div></div></div></div>
   </section>
-  <section class="clip" id="leadership-proof-03" data-beat-id="leadership-proof-03" data-track-index="0" data-start="52.137" data-duration="4.79" data-narration="Influenced decisions, and owned results that had visible impact.">
-    <div class="copy"><div class="eyebrow">Leadership proof</div><h1 data-role="heading">Map the Proof of Leadership</h1><p class="support">Lead teams · Influence decisions · Own visible results</p></div>
-    <div class="visual"><div class="surface network" data-role="list"><div class="meta">PROOF MAP / LEADERSHIP</div><div class="hub">PROJECT</div><div class="satellite s1">Lead Teams</div><div class="satellite s2 selected">Influence Decisions</div><div class="satellite s3 selected">Own Visible Results</div><div class="proof-label">One experience. Three kinds of leadership proof.</div><svg class="path-svg" viewBox="0 0 900 662"><path class="signal-line" d="M330 180 C385 220 405 250 435 292 M570 180 C515 220 495 250 465 292 M570 520 C515 470 495 430 465 370"/></svg></div></div>
-  </section>
-
-  <section class="clip" id="lateral-proof-01" data-beat-id="lateral-proof-01" data-track-index="0" data-start="56.927" data-duration="5.32" data-narration="If you're aiming for a lateral move into a new domain, you might spotlight experiences.">
-    <div class="copy"><div class="eyebrow">Lateral move</div><h1 data-role="heading">Bridge Experience into a New Domain</h1><p class="support">Learn quickly · Translate skills · Collaborate</p></div>
-    <div class="visual"><div class="surface"><div class="meta">TRANSFER / CONTEXT</div><div class="bridge-grid" data-role="compare"><div class="context"><small>Existing context</small><strong>Experience</strong></div><div class="bridge-core"><div class="bridge-skill">Learn Quickly</div><div class="bridge-skill">Translate Skills</div><div class="bridge-skill">Collaborate</div></div><div class="context selected"><small>Target context</small><strong>New Domain</strong></div></div></div></div>
-  </section>
-  <section class="clip" id="lateral-proof-02" data-beat-id="lateral-proof-02" data-track-index="0" data-start="62.247" data-duration="4.98" data-narration="That show how you learned quickly in new environments, translated skills across.">
-    <div class="copy"><div class="eyebrow">Lateral move</div><h1 data-role="heading">Bridge Experience into a New Domain</h1><p class="support">Learn quickly · Translate skills · Collaborate</p></div>
-    <div class="visual"><div class="surface"><div class="meta">TRANSFER / CONTEXT</div><div class="bridge-grid" data-role="compare"><div class="context"><small>Existing context</small><strong>Experience</strong></div><div class="bridge-core"><div class="bridge-skill selected">Learn Quickly</div><div class="bridge-skill selected">Translate Skills</div><div class="bridge-skill">Collaborate</div></div><div class="context"><small>Target context</small><strong>New Domain</strong></div></div></div></div>
-  </section>
-  <section class="clip" id="lateral-proof-03" data-beat-id="lateral-proof-03" data-track-index="0" data-start="67.227" data-duration="5.05" data-narration="Contexts, and collaborated with that domain even if your title was different.">
-    <div class="copy"><div class="eyebrow">Lateral move</div><h1 data-role="heading">Bridge Experience into a New Domain</h1><p class="support">Learn quickly · Translate skills · Collaborate</p></div>
-    <div class="visual"><div class="surface"><div class="meta">TRANSFER / CONTEXT</div><div class="bridge-grid" data-role="compare"><div class="context"><small>Existing context</small><strong>Experience</strong></div><div class="bridge-core"><div class="bridge-skill">Learn Quickly</div><div class="bridge-skill">Translate Skills</div><div class="bridge-skill selected">Collaborate</div></div><div class="context selected"><small>Target context</small><strong>New Domain</strong></div></div></div></div>
+  <section class="clip light-state impact-active" id="selection-lens-03" data-beat-id="selection-lens-03" data-continuity="selection-lens" data-track-index="0" data-start="35.678" data-duration="6.14" data-narration="Roles: improved outcomes, better processes, stronger relationships, or growth.">
+    <div class="scene-head"><span class="scene-label">Relight the Evidence</span><h1 data-role="heading">Show the Impact That Matters</h1></div>
+    <div class="world light-world"><div class="light-cone strength"></div><div class="light-cone scope"></div><div class="light-cone impact beat-reveal"></div><div class="light-label ll1">Strengths</div><div class="light-label ll2">Scope</div><div class="light-label ll3 beat-reveal">Impact</div><div class="experience-sculpture"><div><div class="sculpture-title">TARGET-ROLE IMPACT</div></div></div><div class="outcomes" data-role="list"><div class="outcome beat-reveal">Improved Outcomes</div><div class="outcome beat-reveal">Better Processes</div><div class="outcome beat-reveal">Stronger Relationships</div><div class="outcome beat-reveal">Growth</div></div></div>
   </section>
 
-  <section class="clip" id="rams-framework-01" data-beat-id="rams-framework-01" data-track-index="0" data-start="72.277" data-duration="5.839" data-narration="In this module's activities, you'll pick three to five experiences that best support your Next.">
-    <div class="copy"><div class="eyebrow">RAMS formula</div><h1 data-role="heading">Build Each Bullet with RAMS</h1><p class="support">Choose 3–5 experiences · Responsibility · Action · Outcome · Scope</p></div>
-    <div class="visual"><div class="count-badge">Choose 3–5 / RAMS</div><div class="rams-board" data-role="list"><div class="rams-part selected"><span class="rams-letter">R</span><strong class="rams-name">Responsibility</strong><span class="rams-def">What you were expected to do</span></div><div class="rams-part"><span class="rams-letter">A</span><strong class="rams-name">Action</strong><span class="rams-def">What you actually did</span></div><div class="rams-part"><span class="rams-letter">M</span><strong class="rams-name">Measurable Outcome</strong><span class="rams-def">What changed as a result</span></div><div class="rams-part"><span class="rams-letter">S</span><strong class="rams-name">Scope</strong><span class="rams-def">How big · who was involved</span></div></div></div>
+  <section class="clip network-state" id="leadership-proof-01" data-beat-id="leadership-proof-01" data-continuity="leadership-proof" data-track-index="0" data-start="41.818" data-duration="5.029" data-narration="Here's how that plays out. If your Next Move Statement points toward a leadership or strategic.">
+    <div class="scene-head"><span class="scene-label">Leadership or Strategic Direction</span><h1 data-role="heading">Let One Project Reveal Leadership Proof</h1></div>
+    <div class="world network-world"><div class="network-ring ambient"></div><svg class="network-svg" viewBox="0 0 1680 654"><path class="network-path" d="M690 270 C570 190 480 140 384 110"/><path class="network-path" d="M990 270 C1110 190 1200 140 1296 110"/><path class="network-path" d="M690 390 C570 470 480 520 384 570"/><path class="network-path" d="M990 390 C1110 470 1200 520 1296 570"/></svg><div class="project-disc enter">PROJECT</div><div class="proof-node pn1">Lead Teams</div><div class="proof-node pn2">Cross-Functional Initiatives</div><div class="proof-node pn3">Influence Decisions</div><div class="proof-node pn4">Visible Impact</div></div>
   </section>
-  <section class="clip" id="rams-framework-02" data-beat-id="rams-framework-02" data-track-index="0" data-start="78.116" data-duration="5.85" data-narration="Move Statement, and rewrite their bullets using a simple formula: Responsibility.">
-    <div class="copy"><div class="eyebrow">RAMS formula</div><h1 data-role="heading">Build Each Bullet with RAMS</h1><p class="support">Choose 3–5 experiences · Responsibility · Action · Outcome · Scope</p></div>
-    <div class="visual"><div class="count-badge">Choose 3–5 / RAMS</div><div class="rams-board" data-role="list"><div class="rams-part selected"><span class="rams-letter">R</span><strong class="rams-name">Responsibility</strong><span class="rams-def">What you were expected to do</span></div><div class="rams-part"><span class="rams-letter">A</span><strong class="rams-name">Action</strong><span class="rams-def">What you actually did</span></div><div class="rams-part"><span class="rams-letter">M</span><strong class="rams-name">Measurable Outcome</strong><span class="rams-def">What changed as a result</span></div><div class="rams-part"><span class="rams-letter">S</span><strong class="rams-name">Scope</strong><span class="rams-def">How big · who was involved</span></div></div></div>
+  <section class="clip network-state" id="leadership-proof-02" data-beat-id="leadership-proof-02" data-continuity="leadership-proof" data-track-index="0" data-start="46.847" data-duration="5.29" data-narration="Role, you might highlight projects where you led teams or cross-functional initiatives.">
+    <div class="scene-head"><span class="scene-label">Highlight the Work</span><h1 data-role="heading">Teams and Initiatives Become Evidence</h1></div>
+    <div class="world network-world"><div class="network-ring ambient"></div><svg class="network-svg" viewBox="0 0 1680 654"><path class="network-path beat-path" d="M690 270 C570 190 480 140 384 110"/><path class="network-path beat-path" d="M990 270 C1110 190 1200 140 1296 110"/></svg><div class="project-disc">PROJECT</div><div class="proof-node pn1 active beat-reveal">Lead Teams</div><div class="proof-node pn2 active beat-reveal">Cross-Functional Initiatives</div><div class="proof-node pn3">Influence Decisions</div><div class="proof-node pn4">Visible Impact</div></div>
   </section>
-  <section class="clip" id="rams-framework-03" data-beat-id="rams-framework-03" data-track-index="0" data-start="83.966" data-duration="5.61" data-narration="Then Action; then Measurable outcome; then Scope. Responsibility is.">
-    <div class="copy"><div class="eyebrow">RAMS formula</div><h1 data-role="heading">Build Each Bullet with RAMS</h1><p class="support">Choose 3–5 experiences · Responsibility · Action · Outcome · Scope</p></div>
-    <div class="visual"><div class="count-badge">Choose 3–5 / RAMS</div><div class="rams-board" data-role="list"><div class="rams-part selected"><span class="rams-letter">R</span><strong class="rams-name">Responsibility</strong><span class="rams-def">What you were expected to do</span></div><div class="rams-part selected"><span class="rams-letter">A</span><strong class="rams-name">Action</strong><span class="rams-def">What you actually did</span></div><div class="rams-part selected"><span class="rams-letter">M</span><strong class="rams-name">Measurable Outcome</strong><span class="rams-def">What changed as a result</span></div><div class="rams-part selected"><span class="rams-letter">S</span><strong class="rams-name">Scope</strong><span class="rams-def">How big · who was involved</span></div></div></div>
-  </section>
-  <section class="clip" id="rams-framework-04" data-beat-id="rams-framework-04" data-track-index="0" data-start="89.576" data-duration="5.92" data-narration="What you were expected to do. Action is what you actually did. Measurable outcome.">
-    <div class="copy"><div class="eyebrow">RAMS formula</div><h1 data-role="heading">Build Each Bullet with RAMS</h1><p class="support">Choose 3–5 experiences · Responsibility · Action · Outcome · Scope</p></div>
-    <div class="visual"><div class="count-badge">Choose 3–5 / RAMS</div><div class="rams-board" data-role="list"><div class="rams-part selected"><span class="rams-letter">R</span><strong class="rams-name">Responsibility</strong><span class="rams-def">What you were expected to do</span></div><div class="rams-part selected"><span class="rams-letter">A</span><strong class="rams-name">Action</strong><span class="rams-def">What you actually did</span></div><div class="rams-part"><span class="rams-letter">M</span><strong class="rams-name">Measurable Outcome</strong><span class="rams-def">What changed as a result</span></div><div class="rams-part"><span class="rams-letter">S</span><strong class="rams-name">Scope</strong><span class="rams-def">How big · who was involved</span></div></div></div>
-  </section>
-  <section class="clip" id="rams-framework-05" data-beat-id="rams-framework-05" data-track-index="0" data-start="95.496" data-duration="5.68" data-narration="Is what changed as a result. And scope is how big the impact was, and who was involved.">
-    <div class="copy"><div class="eyebrow">RAMS formula</div><h1 data-role="heading">Build Each Bullet with RAMS</h1><p class="support">Choose 3–5 experiences · Responsibility · Action · Outcome · Scope</p></div>
-    <div class="visual"><div class="count-badge">Choose 3–5 / RAMS</div><div class="rams-board" data-role="list"><div class="rams-part"><span class="rams-letter">R</span><strong class="rams-name">Responsibility</strong><span class="rams-def">What you were expected to do</span></div><div class="rams-part"><span class="rams-letter">A</span><strong class="rams-name">Action</strong><span class="rams-def">What you actually did</span></div><div class="rams-part selected"><span class="rams-letter">M</span><strong class="rams-name">Measurable Outcome</strong><span class="rams-def">What changed as a result</span></div><div class="rams-part selected"><span class="rams-letter">S</span><strong class="rams-name">Scope</strong><span class="rams-def">How big · who was involved</span></div></div></div>
+  <section class="clip network-state" id="leadership-proof-03" data-beat-id="leadership-proof-03" data-continuity="leadership-proof" data-track-index="0" data-start="52.137" data-duration="4.79" data-narration="Influenced decisions, and owned results that had visible impact.">
+    <div class="scene-head"><span class="scene-label">Complete the Proof</span><h1 data-role="heading">Decisions and Results Make Impact Visible</h1></div>
+    <div class="world network-world"><div class="network-ring ambient"></div><svg class="network-svg" viewBox="0 0 1680 654"><path class="network-path" d="M690 270 C570 190 480 140 384 110"/><path class="network-path" d="M990 270 C1110 190 1200 140 1296 110"/><path class="network-path beat-path" d="M690 390 C570 470 480 520 384 570"/><path class="network-path beat-path" d="M990 390 C1110 470 1200 520 1296 570"/></svg><div class="project-disc">PROJECT</div><div class="proof-node pn1">Lead Teams</div><div class="proof-node pn2">Cross-Functional Initiatives</div><div class="proof-node pn3 active beat-reveal">Influence Decisions</div><div class="proof-node pn4 active beat-reveal">Visible Impact</div></div>
   </section>
 
-  <section class="clip" id="true-story-01" data-beat-id="true-story-01" data-track-index="0" data-start="101.176" data-duration="4.33" data-narration="This isn't about inventing a new story. It's about telling the true.">
-    <div class="copy"><div class="eyebrow">Truth, clearly told</div><h1 data-role="heading">Align the True Story with Future Direction</h1><p class="support">Selected evidence makes every bullet work harder.</p></div>
-    <div class="visual"><div class="resolve-board" data-role="compare"><div class="evidence-pool"><div class="state-label">Selected experience</div><div class="evidence-band selected">Responsibility</div><div class="evidence-band selected">Action</div><div class="evidence-band selected">Measurable Outcome</div><div class="evidence-band selected">Scope</div></div><div class="direction"><div class="glow"></div><span class="truth-stamp">Future-ready evidence</span><div class="direction-title">One harder-working bullet</div><div class="final-bullet">True work. Clear impact. Relevant direction.</div></div></div></div>
+  <section class="clip prism-state" id="lateral-proof-01" data-beat-id="lateral-proof-01" data-continuity="lateral-proof" data-track-index="0" data-start="56.927" data-duration="5.32" data-narration="If you're aiming for a lateral move into a new domain, you might spotlight experiences.">
+    <div class="scene-head"><span class="scene-label">Lateral Move</span><h1 data-role="heading">Translate Experience into a New Domain</h1></div>
+    <div class="world prism-world"><div class="beam"></div><div class="context-piece source enter">EXPERIENCE<small>Existing Context</small></div><div class="prism ambient"></div><div class="prism-copy">TRANSFERABLE<br>PROOF</div><div class="context-piece destination beat-reveal">NEW DOMAIN<small>Target Direction</small></div></div>
   </section>
-  <section class="clip" id="true-story-02" data-beat-id="true-story-02" data-track-index="0" data-start="105.506" data-duration="4.43" data-narration="Story of your work in a way that makes your future direction clear. When.">
-    <div class="copy"><div class="eyebrow">Truth, clearly told</div><h1 data-role="heading">Align the True Story with Future Direction</h1><p class="support">Selected evidence makes every bullet work harder.</p></div>
-    <div class="visual"><div class="resolve-board" data-role="compare"><div class="evidence-pool"><div class="state-label">Selected experience</div><div class="evidence-band selected">Responsibility</div><div class="evidence-band selected">Action</div><div class="evidence-band selected">Measurable Outcome</div><div class="evidence-band selected">Scope</div></div><div class="direction"><div class="glow"></div><span class="truth-stamp">Future-ready evidence</span><div class="direction-title">One harder-working bullet</div><div class="final-bullet">True work. Clear impact. Relevant direction.</div></div></div></div>
+  <section class="clip prism-state" id="lateral-proof-02" data-beat-id="lateral-proof-02" data-continuity="lateral-proof" data-track-index="0" data-start="62.247" data-duration="4.98" data-narration="That show how you learned quickly in new environments, translated skills across.">
+    <div class="scene-head"><span class="scene-label">Transfer the Capability</span><h1 data-role="heading">Learning and Translation Carry Across</h1></div>
+    <div class="world prism-world"><div class="beam"></div><div class="context-piece source">EXPERIENCE<small>Existing Context</small></div><div class="prism ambient"></div><div class="prism-copy">TRANSFERABLE<br>PROOF</div><div class="context-piece destination">NEW DOMAIN<small>Target Direction</small></div><div class="translation-skills" data-role="list"><div class="skill-token active beat-reveal">Learn Quickly</div><div class="skill-token active beat-reveal">Translate Skills</div></div></div>
   </section>
-  <section class="clip" id="true-story-03" data-beat-id="true-story-03" data-track-index="0" data-start="109.936" data-duration="4.24" data-narration="You choose experiences that match the future you're aiming for, you.">
-    <div class="copy"><div class="eyebrow">Truth, clearly told</div><h1 data-role="heading">Align the True Story with Future Direction</h1><p class="support">Selected evidence makes every bullet work harder.</p></div>
-    <div class="visual"><div class="resolve-board" data-role="compare"><div class="evidence-pool"><div class="state-label">Selected experience</div><div class="evidence-band selected">Responsibility</div><div class="evidence-band selected">Action</div><div class="evidence-band selected">Measurable Outcome</div><div class="evidence-band selected">Scope</div></div><div class="direction"><div class="glow"></div><span class="truth-stamp">Future-ready evidence</span><div class="direction-title">One harder-working bullet</div><div class="final-bullet">True work. Clear impact. Relevant direction.</div></div></div></div>
-  </section>
-  <section class="clip" id="true-story-04" data-beat-id="true-story-04" data-track-index="0" data-start="114.176" data-duration="5.76" data-narration="Make every bullet work harder for you.">
-    <div class="copy"><div class="eyebrow">Truth, clearly told</div><h1 data-role="heading">Align the True Story with Future Direction</h1><p class="support">Selected evidence makes every bullet work harder.</p></div>
-    <div class="visual"><div class="resolve-board" data-role="compare"><div class="evidence-pool"><div class="state-label">Selected experience</div><div class="evidence-band selected">Responsibility</div><div class="evidence-band selected">Action</div><div class="evidence-band selected">Measurable Outcome</div><div class="evidence-band selected">Scope</div></div><div class="direction"><div class="glow"></div><span class="truth-stamp">Future-ready evidence</span><div class="direction-title">One harder-working bullet</div><div class="final-bullet">True work. Clear impact. Relevant direction.</div></div></div></div>
+  <section class="clip prism-state" id="lateral-proof-03" data-beat-id="lateral-proof-03" data-continuity="lateral-proof" data-track-index="0" data-start="67.227" data-duration="5.05" data-narration="Contexts, and collaborated with that domain even if your title was different.">
+    <div class="scene-head"><span class="scene-label">Capability Beyond Title</span><h1 data-role="heading">Collaboration Proves the Connection</h1></div>
+    <div class="world prism-world"><div class="beam"></div><div class="context-piece source">TITLE<small>Can Be Different</small></div><div class="prism ambient"></div><div class="prism-copy">COLLABORATE<br>WITH DOMAIN</div><div class="context-piece destination active beat-reveal">CAPABILITY<small>Still Transfers</small></div><div class="translation-skills"><div class="skill-token active beat-reveal">Collaborate</div></div></div>
   </section>
 
-  <footer class="footer"><span><strong>SCLA</strong> / Career Learning</span><span>Evidence / Relevance</span></footer>
+  <section class="clip press-state" id="rams-framework-01" data-beat-id="rams-framework-01" data-continuity="rams-framework" data-track-index="0" data-start="72.277" data-duration="5.839" data-narration="In this module's activities, you'll pick three to five experiences that best support your Next.">
+    <div class="scene-head"><span class="scene-label">Choose Three to Five</span><h1 data-role="heading">Select Experiences That Support the Next Move</h1></div>
+    <div class="world press-world"><div class="experience-pile"><div class="pile-card pc1 enter">Experience</div><div class="pile-card pc2 enter">Experience</div><div class="pile-card pc3 enter">Experience</div><div class="pile-card pc4 enter">Experience</div><div class="pile-card pc5 enter">Experience</div></div><div class="press-bed"><div class="plates"><div class="plate"><div class="plate-letter">R</div><div class="plate-name">Responsibility</div></div><div class="plate"><div class="plate-letter">A</div><div class="plate-name">Action</div></div><div class="plate"><div class="plate-letter">M</div><div class="plate-name">Measurable Outcome</div></div><div class="plate"><div class="plate-letter">S</div><div class="plate-name">Scope</div></div></div></div></div>
+  </section>
+  <section class="clip press-state" id="rams-framework-02" data-beat-id="rams-framework-02" data-continuity="rams-framework" data-track-index="0" data-start="78.116" data-duration="5.85" data-narration="Move Statement, and rewrite their bullets using a simple formula: Responsibility.">
+    <div class="scene-head"><span class="scene-label">One Selected Experience</span><h1 data-role="heading">Rewrite the Evidence with a Simple Formula</h1></div>
+    <div class="world press-world"><div class="experience-pile"><div class="selected-work beat-reveal">ONE EXPERIENCE</div></div><div class="press-bed"><div class="plates"><div class="plate active beat-reveal"><span class="stamp"></span><div class="plate-letter">R</div><div class="plate-name">Responsibility</div></div><div class="plate"><div class="plate-letter">A</div><div class="plate-name">Action</div></div><div class="plate"><div class="plate-letter">M</div><div class="plate-name">Measurable Outcome</div></div><div class="plate"><div class="plate-letter">S</div><div class="plate-name">Scope</div></div></div></div></div>
+  </section>
+  <section class="clip press-state" id="rams-framework-03" data-beat-id="rams-framework-03" data-continuity="rams-framework" data-track-index="0" data-start="83.966" data-duration="5.61" data-narration="Then Action; then Measurable outcome; then Scope. Responsibility is.">
+    <div class="scene-head"><span class="scene-label">The RAMS Formula</span><h1 data-role="heading">Responsibility · Action · Outcome · Scope</h1></div>
+    <div class="world press-world"><div class="experience-pile"><div class="selected-work">ONE EXPERIENCE</div></div><div class="press-bed"><div class="plates"><div class="plate formula-part"><span class="stamp"></span><div class="plate-letter">R</div><div class="plate-name">Responsibility</div></div><div class="plate formula-part"><span class="stamp"></span><div class="plate-letter">A</div><div class="plate-name">Action</div></div><div class="plate formula-part"><span class="stamp"></span><div class="plate-letter">M</div><div class="plate-name">Measurable Outcome</div></div><div class="plate formula-part"><span class="stamp"></span><div class="plate-letter">S</div><div class="plate-name">Scope</div></div></div></div></div>
+  </section>
+  <section class="clip press-state" id="rams-framework-04" data-beat-id="rams-framework-04" data-continuity="rams-framework" data-track-index="0" data-start="89.576" data-duration="5.92" data-narration="What you were expected to do. Action is what you actually did. Measurable outcome.">
+    <div class="scene-head"><span class="scene-label">Define the First Two Parts</span><h1 data-role="heading">Expected Work, Then Actual Action</h1></div>
+    <div class="world press-world"><div class="experience-pile"><div class="selected-work">ONE EXPERIENCE</div></div><div class="press-bed"><div class="plates"><div class="plate active beat-reveal"><div class="plate-letter">R</div><div class="plate-name">Responsibility</div><div class="plate-def">What you were expected to do</div></div><div class="plate active beat-reveal"><div class="plate-letter">A</div><div class="plate-name">Action</div><div class="plate-def">What you actually did</div></div><div class="plate"><div class="plate-letter">M</div><div class="plate-name">Measurable Outcome</div></div><div class="plate"><div class="plate-letter">S</div><div class="plate-name">Scope</div></div></div></div></div>
+  </section>
+  <section class="clip press-state" id="rams-framework-05" data-beat-id="rams-framework-05" data-continuity="rams-framework" data-track-index="0" data-start="95.496" data-duration="5.68" data-narration="Is what changed as a result. And scope is how big the impact was, and who was involved.">
+    <div class="scene-head"><span class="scene-label">Complete the Evidence</span><h1 data-role="heading">Show What Changed and How Far It Reached</h1></div>
+    <div class="world press-world"><div class="experience-pile"><div class="selected-work">ONE EXPERIENCE</div></div><div class="press-bed"><div class="plates"><div class="plate"><div class="plate-letter">R</div><div class="plate-name">Responsibility</div></div><div class="plate"><div class="plate-letter">A</div><div class="plate-name">Action</div></div><div class="plate active beat-reveal"><div class="plate-letter">M</div><div class="plate-name">Measurable Outcome</div><div class="plate-def">What changed as a result</div></div><div class="plate active beat-reveal"><div class="plate-letter">S</div><div class="plate-name">Scope</div><div class="plate-def">How big · who was involved</div></div></div></div></div>
+  </section>
+
+  <section class="clip resolve-state" id="true-story-01" data-beat-id="true-story-01" data-continuity="true-story" data-track-index="0" data-start="101.176" data-duration="4.33" data-narration="This isn't about inventing a new story. It's about telling the true.">
+    <div class="scene-head"><span class="scene-label">Do Not Invent</span><h1 data-role="heading">Keep the Story True</h1></div>
+    <div class="world resolve-world"><div class="future-arch ambient"></div><div class="hero-work enter"><div class="hero-kicker">Selected Experience</div><div class="hero-line">TRUE WORK</div></div><div class="truth-row"><div class="truth-token active beat-reveal">True Work</div><div class="truth-token">Clear Impact</div><div class="truth-token">Relevant Direction</div></div></div>
+  </section>
+  <section class="clip resolve-state" id="true-story-02" data-beat-id="true-story-02" data-continuity="true-story" data-track-index="0" data-start="105.506" data-duration="4.43" data-narration="Story of your work in a way that makes your future direction clear. When.">
+    <div class="scene-head"><span class="scene-label">Tell It Clearly</span><h1 data-role="heading">Let the Future Direction Come into Focus</h1></div>
+    <div class="world resolve-world"><div class="future-arch ambient"></div><div class="hero-work"><div class="hero-kicker">Future-Ready Evidence</div><div class="hero-line">TRUE STORY.<br><span class="blue">CLEAR DIRECTION.</span></div></div><div class="truth-row"><div class="truth-token active">True Work</div><div class="truth-token active beat-reveal">Clear Impact</div><div class="truth-token">Relevant Direction</div></div></div>
+  </section>
+  <section class="clip resolve-state" id="true-story-03" data-beat-id="true-story-03" data-continuity="true-story" data-track-index="0" data-start="109.936" data-duration="4.24" data-narration="You choose experiences that match the future you're aiming for, you.">
+    <div class="scene-head"><span class="scene-label">Match Evidence to Direction</span><h1 data-role="heading">Choose the Work That Fits the Future</h1></div>
+    <div class="world resolve-world"><div class="future-arch ambient"></div><div class="hero-work active beat-reveal"><div class="hero-kicker">Future-Ready Evidence</div><div class="hero-line">TRUE WORK.<br>CLEAR IMPACT.<br><span class="accent">RELEVANT DIRECTION.</span></div></div><div class="truth-row"><div class="truth-token active">True Work</div><div class="truth-token active">Clear Impact</div><div class="truth-token active beat-reveal">Relevant Direction</div></div></div>
+  </section>
+  <section class="clip resolve-state" id="true-story-04" data-beat-id="true-story-04" data-continuity="true-story" data-track-index="0" data-start="114.176" data-duration="5.76" data-narration="Make every bullet work harder for you.">
+    <div class="scene-head"><span class="scene-label">The Final Work</span><h1 data-role="heading">Make Every Bullet Work Harder</h1></div>
+    <div class="world resolve-world"><div class="future-arch ambient"></div><div class="hero-work active beat-reveal"><div class="hero-kicker">One Future-Facing Bullet</div><div class="hero-line">TRUE WORK.<br><span class="blue">CLEAR IMPACT.</span><br><span class="accent">RELEVANT DIRECTION.</span></div></div><div class="truth-row"><div class="truth-token active">True Work</div><div class="truth-token active">Clear Impact</div><div class="truth-token active">Relevant Direction</div></div></div>
+  </section>
 </main>
 <script>
   const compositionId="m3_discover-experiences-that-support-your-next-move";
-  const master=gsap.timeline({paused:true,defaults:{ease:"power2.out"}});
-  document.querySelectorAll(".clip").forEach((scene,index)=>{
+  const master=gsap.timeline({paused:true});
+  const scenes=[...document.querySelectorAll(".clip")];
+  scenes.forEach((scene,index)=>{
     const start=Number(scene.dataset.start);
     const duration=Number(scene.dataset.duration);
-    const end=start+duration;
-    const heading=scene.querySelector("h1");
-    const eyebrow=scene.querySelector(".eyebrow");
-    const support=scene.querySelector(".support");
-    const visual=scene.querySelector(".visual");
-    const nodes=scene.querySelectorAll(".evidence-band,.filter,.satellite,.bridge-skill,.rams-part,.truth-stamp,.final-bullet");
-    master.fromTo(scene,{opacity:0},{opacity:1,duration:.16,immediateRender:false},start)
-      .fromTo(eyebrow,{x:-52,opacity:0},{x:0,opacity:1,duration:.46,immediateRender:false},start+.05)
-      .fromTo(heading,{y:42,opacity:0},{y:0,opacity:1,duration:.66,ease:"power3.out",immediateRender:false},start+.12)
-      .fromTo(support,{y:24,opacity:0},{y:0,opacity:1,duration:.52,ease:"power2.out",immediateRender:false},start+.28)
-      .fromTo(visual,{x:52,scale:.96,opacity:0},{x:0,scale:1,opacity:1,duration:.78,ease:"power3.out",immediateRender:false},start+.16)
-      .fromTo(nodes,{y:22,opacity:0},{y:0,opacity:1,duration:.5,stagger:.055,ease:"power2.out",immediateRender:false},start+.38);
-    scene.querySelectorAll(".signal-line").forEach((path,pathIndex)=>{
+    const continuity=scene.dataset.continuity||"";
+    const continuation=index>0&&scenes[index-1].dataset.continuity===continuity;
+    if(continuation){
+      master.set(scenes[index-1],{opacity:0},start)
+        .set(scene,{opacity:1},start);
+      const local=scene.querySelectorAll(".beat-reveal");
+      if(local.length){master.fromTo(local,{opacity:0,scale:.9},{opacity:1,scale:1,duration:.48,stagger:.08,ease:"back.out(1.35)",immediateRender:false},start+.1);}
+    }else{
+      if(index>0){master.set(scenes[index-1],{opacity:0},start);}
+      master.fromTo(scene,{opacity:0},{opacity:1,duration:.28,ease:"power1.out",immediateRender:false},start)
+        .fromTo(scene.querySelector(".scene-label"),{x:-62,opacity:0},{x:0,opacity:1,duration:.42,ease:"expo.out",immediateRender:false},start+.08)
+        .fromTo(scene.querySelector("h1"),{x:70,opacity:0},{x:0,opacity:1,duration:.66,ease:"power3.out",immediateRender:false},start+.12)
+        .fromTo(scene.querySelector(".world"),{scale:.94,opacity:0},{scale:1,opacity:1,duration:.78,ease:"back.out(1.18)",immediateRender:false},start+.18);
+      const enters=scene.querySelectorAll(".enter");
+      if(enters.length){master.fromTo(enters,{y:44,opacity:0},{y:0,opacity:1,duration:.62,stagger:.09,ease:"power2.out",immediateRender:false},start+.34);}
+    }
+    scene.querySelectorAll(".beat-path").forEach((path,pathIndex)=>{
       const length=path.getTotalLength();
       path.style.strokeDasharray=String(length);
       path.style.strokeDashoffset=String(length);
-      master.to(path,{strokeDashoffset:0,duration:.78,ease:"power2.out"},start+.32+pathIndex*.08);
+      master.fromTo(path,{strokeDashoffset:length},{strokeDashoffset:0,duration:.82,ease:"power2.out",immediateRender:false},start+.18+pathIndex*.1);
     });
-    scene.querySelectorAll(".selected").forEach((selected,selectedIndex)=>{
-      master.fromTo(selected,{scale:.94},{scale:1,duration:.54,ease:"back.out(1.45)",immediateRender:false},start+.7+selectedIndex*.05);
+    scene.querySelectorAll(".formula-part").forEach((part,partIndex)=>{
+      master.fromTo(part,{opacity:.28,y:-22},{opacity:1,y:0,duration:.42,ease:"back.out(1.25)",immediateRender:false},start+.55+partIndex*.72);
     });
-    const glow=scene.querySelector(".glow");
-    if(glow){
-      master.fromTo(glow,{opacity:0,scale:.86},{opacity:.24,scale:1,duration:.9,ease:"power2.out",immediateRender:false},start+.54)
-        .to(glow,{opacity:.18,scale:.98,duration:.5,ease:"power2.inOut"},start+1.44);
-    }
-    if(index<22){master.to(scene,{opacity:0,duration:.16,ease:"power1.in"},end-.16);}
+    const ambient=scene.querySelector(".ambient");
+    if(ambient){master.fromTo(ambient,{rotation:0,scale:1},{rotation:continuity==="future-proof"?3:1.2,scale:1.018,duration:Math.max(1.6,duration-.9),ease:"sine.inOut",immediateRender:false},start+.7);}
   });
   window.__timelines=window.__timelines||{};
   window.__timelines['m3_discover-experiences-that-support-your-next-move']=master;

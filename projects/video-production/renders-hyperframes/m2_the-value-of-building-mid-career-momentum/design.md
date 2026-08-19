@@ -3,13 +3,18 @@
 ## Chosen concept
 
 The revised video uses one calm navy-and-gold atmosphere while giving every
-spoken idea its own explanatory visual. No diagram, axis, dot, chart, or token
-persists into an unrelated scene. The diffused gold light over navy is the only
-persistent visual element besides the program label.
+spoken idea its own explanatory visual. No explanatory diagram, chart, or token
+persists into an unrelated scene. A diffused gold light and blue energy lattice
+form the persistent atmosphere behind the program label.
 
 ## Visual carrier
 
 - **Scene-owned diagrams:** one relevant mechanism per narration beat.
+- **Persistent atmosphere:** one blue energy lattice holds the frame together
+  without explaining or ranking any of the lesson's choices.
+- **Carrying object:** one stable three-state field — experience, choice, and
+  direction — holds throughout the lesson. Scene-specific words re-sort the
+  learner's attention inside that field instead of replacing the whole frame.
 - **Blue structures:** experience, available options, and supporting states.
 - **Gold emphasis:** the learner's deliberate choice or resolved destination.
 - **Paper panels:** only when thinking becomes explicit and usable.
@@ -37,7 +42,8 @@ persistent visual element besides the program label.
 ## Frame system
 
 - 1920 × 1080 with 120 px frame padding and content above 960 px.
-- The program label is the only persistent chrome.
+- The program label is the only persistent chrome; the energy lattice is
+  background atmosphere, not lesson chrome or an explanatory diagram.
 - Deep navy is the continuous environment. Full paper or cultured panels appear
   as objects inside it rather than as alternating slide backgrounds.
 - Each scene's visual fills its own half of the safe frame. Copy stays above 38 px, with

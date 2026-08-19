@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Bring the Work Into View concept board</title>
+  <desc id="desc">Six milestone frames use optical focus and framing to turn existing career value into a clear 30-day visibility test.</desc>
+  <rect width="1920" height="1080" fill="#292f35"/>
+  <text x="96" y="92" fill="#eaab2d" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">CONCEPT 03 · OPTICAL FIELD OF VIEW</text>
+  <text x="96" y="154" fill="#ffffff" font-family="Arial, sans-serif" font-size="58" font-weight="900">Bring the Work Into View</text>
+  <text x="96" y="198" fill="#98a4cc" font-family="Arial, sans-serif" font-size="26">Visibility does not manufacture value. It brings existing value into shared focus.</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(96 254)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#5f6f96" stroke-width="3"/><text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">01 · VALUABLE, BUT OUT OF FRAME</text>
+      <rect x="116" y="84" width="312" height="210" fill="none" stroke="#3393d6" stroke-width="7"/><path d="M116 126 h32 M116 84 v32 M396 84 v32 M428 84 h-32 M116 262 h32 M116 294 v-32 M396 294 v-32 M428 294 h-32" stroke="#ffffff" stroke-width="8"/>
+      <circle cx="474" cy="180" r="58" fill="#eaab2d"/><text x="474" y="174" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="900">REAL</text><text x="474" y="195" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="900">VALUE</text>
+      <text x="272" y="202" text-anchor="middle" fill="#98a4cc" font-size="24">audience view</text>
+    </g>
+    <g transform="translate(688 254)">
+      <rect width="544" height="334" rx="18" fill="#f6f6f9" stroke="#cccedf" stroke-width="3"/><text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">02 · REFRAME WHAT MATTERS</text>
+      <rect x="74" y="78" width="396" height="224" fill="#ffffff" stroke="#0d2437" stroke-width="7"/>
+      <g fill="#eaab2d"><circle cx="168" cy="188" r="55"/><circle cx="272" cy="146" r="55"/><circle cx="376" cy="188" r="55"/></g>
+      <g fill="#0d2437" font-size="15" font-weight="900" text-anchor="middle"><text x="168" y="194">WORK</text><text x="272" y="152">GROWTH</text><text x="376" y="194">VALUE</text></g>
+      <path d="M98 107 h48 M98 107 v48 M446 107 h-48 M446 107 v48 M98 273 h48 M98 273 v-48 M446 273 h-48 M446 273 v-48" stroke="#3393d6" stroke-width="8"/>
+    </g>
+    <g transform="translate(1280 254)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#5f6f96" stroke-width="3"/><text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">03 · FOCUS EACH BEHAVIOR</text>
+      <g fill="#5f6f96"><circle cx="108" cy="120" r="34"/><circle cx="182" cy="242" r="34"/><circle cx="357" cy="246" r="34"/><circle cx="436" cy="112" r="34"/></g>
+      <circle cx="272" cy="168" r="82" fill="#eaab2d"/><text x="272" y="162" text-anchor="middle" fill="#0d2437" font-size="19" font-weight="900">THOUGHTFUL</text><text x="272" y="188" text-anchor="middle" fill="#0d2437" font-size="19" font-weight="900">QUESTION</text>
+      <g fill="#98a4cc" font-size="14" text-anchor="middle"><text x="108" y="170">present</text><text x="182" y="292">share</text><text x="357" y="296">stretch</text><text x="436" y="162">mentor</text></g>
+      <circle cx="272" cy="168" r="111" fill="none" stroke="#3393d6" stroke-width="5"/>
+    </g>
+    <g transform="translate(96 626)">
+      <rect width="544" height="334" rx="18" fill="#f6f6f9" stroke="#cccedf" stroke-width="3"/><text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">04 · CLARITY, NOT PERFORMANCE</text>
+      <circle cx="272" cy="178" r="124" fill="#0d2437"/><circle cx="272" cy="178" r="85" fill="#3393d6" opacity=".35"/><circle cx="272" cy="178" r="48" fill="#eaab2d"/>
+      <path d="M190 86 L272 178 L354 86 M190 270 L272 178 L354 270" fill="none" stroke="#ffffff" stroke-width="4" opacity=".5"/>
+      <text x="272" y="172" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="900">QUIET</text><text x="272" y="193" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="900">PURPOSE</text>
+      <text x="272" y="320" text-anchor="middle" fill="#0d2437" font-size="22" font-weight="700">a narrow, useful moment</text>
+    </g>
+    <g transform="translate(688 626)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#5f6f96" stroke-width="3"/><text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">05 · FRAME THREE TESTS</text>
+      <g stroke="#3393d6" stroke-width="5"><rect x="38" y="94" width="142" height="148" fill="#292f35"/><rect x="201" y="94" width="142" height="148" fill="#292f35"/><rect x="364" y="94" width="142" height="148" fill="#292f35"/></g>
+      <g fill="#ffffff" text-anchor="middle" font-size="16"><text x="109" y="145">share</text><text x="109" y="169">outcomes</text><text x="272" y="145">ask one</text><text x="272" y="169">question</text><text x="435" y="145">teach one</text><text x="435" y="169">skill</text></g>
+      <path d="M56 272 H488" stroke="#eaab2d" stroke-width="6"/><circle cx="272" cy="272" r="14" fill="#eaab2d"/><text x="272" y="316" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="700">Next Move stays in view</text>
+    </g>
+    <g transform="translate(1280 626)">
+      <rect width="544" height="334" rx="18" fill="#f6f6f9" stroke="#eaab2d" stroke-width="5"/><text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">06 · TEST ONE, THEN REFOCUS</text>
+      <rect x="58" y="82" width="428" height="208" fill="#ffffff" stroke="#0d2437" stroke-width="7"/>
+      <circle cx="252" cy="184" r="82" fill="#eaab2d"/><text x="252" y="177" text-anchor="middle" fill="#0d2437" font-size="18" font-weight="900">ONE TEST</text><text x="252" y="203" text-anchor="middle" fill="#0d2437" font-size="17">30 days</text>
+      <path d="M334 184 C382 184 393 150 438 137" fill="none" stroke="#3393d6" stroke-width="7"/><circle cx="438" cy="137" r="17" fill="#3393d6"/>
+      <text x="405" y="226" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="700">LEARN</text><text x="405" y="248" text-anchor="middle" fill="#5f6f96" font-size="16">adjust focus</text>
+      <text x="272" y="320" text-anchor="middle" fill="#0d2437" font-size="22" font-weight="700">future direction becomes easier to support</text>
+    </g>
+  </g>
+</svg>

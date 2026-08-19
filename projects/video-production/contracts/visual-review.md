@@ -4,11 +4,12 @@ Review one gate-clean composition before render. Inspect representative stills
 and the composition in motion. Do not rewrite the lesson, change machine gates,
 or add a new human checkpoint.
 
-The reviewer must be different from the concept author. For control-v3 builds,
-record at least three inspected frame paths, one weakest frame, the number of
-materially different layout families, and at least five beat-level descriptions
-of what changed visually. The control plane hashes those snapshot files into the
-receipt. Fewer than three layout families cannot proceed. Contract paraphrases
+The reviewer must be different from the concept author. For every SCLA build,
+record an inspected midpoint frame for every sampled beat, at least one weakest
+frame, the number of materially different layout families, and at least five
+beat-level descriptions of what changed visually. The control plane hashes those
+snapshot files into the receipt and rejects missing, changed, or cherry-picked
+evidence. Fewer than three layout families cannot proceed. Contract paraphrases
 are not findings; cite visible evidence.
 
 Return both verdicts independently:

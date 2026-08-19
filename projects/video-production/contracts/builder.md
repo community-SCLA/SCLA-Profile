@@ -50,9 +50,9 @@ file, the selected concept, the one refined script, and the workspace's
    progression, variation, and teaching value; explain why each loser lost.
    The selected option must be a highest-scoring option.
 
-3. Write `design.md` with the chosen concept, visual carrier, beat-to-frame map,
-   and motion logic. Make the lesson feel like one developing idea, not a stack
-   of interchangeable cards.
+3. Write `design.md` with the chosen concept, visual language, beat-to-frame
+   map, and motion logic. Give related beats continuity, while allowing a new
+   scene or illustration when the topic changes.
 
 4. Write `audio_request.json`. Every `lines[].text` must trace exactly to the
    refined script. Beat IDs are arbitrary but unique; never depend on an `s`
@@ -105,10 +105,10 @@ file, the selected concept, the one refined script, and the workspace's
 
 ## Visual contract
 
-- Use one recognizable visual carrier across the lesson and evolve it as the
-  argument develops.
-- Make each beat materially different in composition or state while preserving
-  continuity. Avoid repeated centered title-plus-card layouts.
+- Use a coherent visual language across the lesson; do not force one object or
+  illustration to remain on screen across unrelated topics. Make each beat
+  materially different in composition or state, and use a fresh scene when the
+  teaching idea changes. Avoid repeated centered title-plus-card layouts.
 - Treat narration clips as audio units, not automatic scene boundaries. Keep one
   visual scene on screen through a complete sentence or tightly connected idea,
   even when that thought spans several clips. Never trigger a whole-scene exit,
@@ -164,6 +164,15 @@ file, the selected concept, the one refined script, and the workspace's
 - When geometry communicates structure, construct it accurately: concentric
   shapes share one center, circles stay circular, and relationship lines terminate
   cleanly without crossing labels or unrelated illustrations.
+- Never draw focus with an empty absolutely positioned border, spotlight, or
+  highlight box. It belongs to one coordinate system and can cross unrelated
+  layouts when the carrier changes. Emphasize the actual target element with
+  its own border, outline, color, or box-shadow; the visual-structure gate bans
+  detached focus overlays.
+- A growing flex child inside a fixed-height column must declare both
+  `min-height:0` and bounded overflow (`hidden`, `clip`, or `auto`). This turns
+  dense-content escape into a browser-visible clipping failure instead of
+  allowing a nested panel to paint through its parent's border.
 
 ## Infrastructure contract
 

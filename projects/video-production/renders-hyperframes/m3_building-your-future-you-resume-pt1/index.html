@@ -12,31 +12,35 @@
     html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d2437;font-family:proxima-nova,system-ui,sans-serif}
     #m3_building-your-future-you-resume-pt1{position:relative;width:1920px;height:1080px;overflow:hidden;color:#f6f6f9}
     .frame-bg{position:absolute;inset:0;background:radial-gradient(circle at 78% 45%,rgba(51,147,214,.18),transparent 42%),#0d2437}
-    .frame-bg:after{content:"";position:absolute;inset:96px 96px 104px;border:2px solid rgba(152,164,204,.18);border-radius:12px;pointer-events:none}
     .brand{position:absolute;z-index:30;left:120px;right:120px;top:48px;display:flex;align-items:center;justify-content:space-between;font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#98a4cc}
     .brand strong{color:#3393d6;font-weight:700;letter-spacing:.09em}
-    .visual-scene{position:absolute;inset:0}
+    .visual-scene{position:absolute;z-index:10;inset:0}
     .clip.beat-marker{position:absolute;width:1px;height:1px;overflow:hidden}
     .scene-body{position:absolute;left:120px;right:120px;top:122px;bottom:120px;display:flex;flex-direction:column;justify-content:center;opacity:0}
+    .scene-body:before,.scene-body:after{content:"";position:absolute;pointer-events:none;border-radius:50%}
+    .scene-body:before{z-index:-2;left:34px;right:34px;top:38px;bottom:38px;border:4px solid rgba(51,147,214,.4);transform:rotate(-7deg)}
+    .scene-body:after{z-index:-1;left:250px;right:250px;top:118px;bottom:118px;border:3px solid rgba(234,171,45,.22);transform:rotate(8deg)}
     .label{font-size:22px;line-height:1;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#eaab2d}
     h1,h2,h3,p{margin:0}
-    h1,h2{max-width:1600px;font-size:104px;line-height:.92;font-weight:900;letter-spacing:-.035em;text-transform:uppercase}
-    h3{font-size:58px;line-height:1;font-weight:900;letter-spacing:-.02em}
-    .sub{margin-top:28px;max-width:1320px;font-size:43px;line-height:1.12;color:#cccedf}
+    h1,h2{max-width:1680px;font-size:92px;line-height:.94;font-weight:900;letter-spacing:-.03em;text-transform:uppercase}
+    h3{font-size:54px;line-height:1;font-weight:900;letter-spacing:-.02em}
+    .sub{margin-top:28px;max-width:1500px;font-size:42px;line-height:1.15;color:#cccedf}
     .accent{color:#eaab2d}.blue{color:#3393d6}.muted{color:#98a4cc}.paper{color:#f6f6f9}
     .focus-stage{position:relative;margin-top:38px;min-height:480px;border:3px solid rgba(152,164,204,.34);border-radius:12px;overflow:hidden;background:rgba(10,30,47,.7)}
     .focus-halo{position:absolute;z-index:0;width:760px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(51,147,214,.44),rgba(51,147,214,.12) 46%,transparent 72%);opacity:0;pointer-events:none}
     .focus-halo.gold{background:radial-gradient(circle,rgba(234,171,45,.4),rgba(234,171,45,.1) 46%,transparent 72%)}
     .stage-content{position:absolute;z-index:1;inset:0;padding:62px 72px}
     .reveal{opacity:0}
-    .big-word{font-size:112px;line-height:.9;font-weight:900;letter-spacing:-.04em}
-    .giant{font-size:164px;line-height:.82;font-weight:900;letter-spacing:-.05em}
-    .quote{font-size:68px;line-height:1.02;font-weight:900;letter-spacing:-.02em}
+    .emphasis{opacity:.5}
+    .result-emphasis{opacity:.72}
+    .big-word{font-size:104px;line-height:.92;font-weight:900;letter-spacing:-.035em}
+    .giant{font-size:132px;line-height:.86;font-weight:900;letter-spacing:-.04em}
+    .quote{font-size:62px;line-height:1.04;font-weight:900;letter-spacing:-.02em}
     .body{font-size:42px;line-height:1.16}
     .rule{height:4px;background:#3393d6;transform-origin:left}
     .gold-rule{background:#eaab2d}
     .columns{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:42px}
-    .column{min-height:250px;padding:34px;border:3px solid #5f6f96;border-radius:12px;background:rgba(13,36,55,.86)}
+    .column{min-height:360px;padding:42px 34px;display:flex;flex-direction:column;justify-content:center;border:3px solid #5f6f96;border-radius:12px;background:rgba(13,36,55,.86)}
     .column strong{display:block;font-size:43px;line-height:1;font-weight:900}
     .column p{margin-top:22px;font-size:34px;line-height:1.13;color:#cccedf}
     .split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:stretch;margin-top:42px}
@@ -46,17 +50,20 @@
     .bullet-list{display:grid;gap:18px;margin:30px 0 0;padding:0;list-style:none}
     .bullet-list li{font-size:43px;line-height:1.05;font-weight:700;color:#cccedf}
     .bullet-list li:before{content:"—";margin-right:18px;color:#eaab2d}
-    .test-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center;margin-top:44px}
+    .test-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:stretch;min-height:500px;margin-top:34px}
+    .test-grid>div:first-child,.test-grid>.missing{padding:42px;border:3px solid rgba(95,111,150,.72);border-radius:12px;background:rgba(10,30,47,.55)}
+    .test-grid>div:first-child{display:flex;flex-direction:column;justify-content:center}
+    .test-grid>.missing{align-content:center}
     .test-question{font-size:68px;line-height:1.02;font-weight:900}
     .missing{display:grid;gap:20px}
-    .missing span{padding:17px 22px;border:2px dashed #98a4cc;border-radius:10px;font-size:36px;color:#98a4cc}
+    .missing span{padding:22px 26px;border:2px dashed #98a4cc;border-radius:10px;font-size:44px;color:#98a4cc}
     .missing span:after{content:"— missing";float:right;color:#eaab2d;font-weight:900}
-    .field-lines{position:absolute;left:44px;right:52%;top:36px;bottom:36px;display:grid;grid-template-columns:1fr;gap:12px;align-content:center;opacity:.48}
-    .field-lines span{font-size:36px;line-height:1;font-weight:700;color:#98a4cc;white-space:nowrap}
-    .focus-window{position:absolute;z-index:2;left:49%;top:50%;width:760px;height:290px;padding:54px;display:flex;flex-direction:column;justify-content:center;border:5px solid #3393d6;border-radius:12px;background:#0a1e2f;box-shadow:0 0 0 999px rgba(10,30,47,.42)}
-    .focus-window strong{font-size:72px;line-height:.95;font-weight:900}
-    .change{display:grid;grid-template-columns:1fr 160px 1fr;gap:30px;align-items:center;margin-top:58px}
-    .change .state{padding:56px 42px;border:3px solid #5f6f96;border-radius:12px;font-size:58px;line-height:.98;font-weight:900}
+    .field-lines{position:absolute;left:44px;right:56%;top:28px;bottom:28px;display:grid;grid-template-columns:1fr;gap:10px;align-content:center;opacity:.72}
+    .field-lines span{font-size:48px;line-height:1;font-weight:700;color:#cccedf;white-space:nowrap}
+    .focus-window{position:absolute;z-index:2;left:48%;top:43%;width:850px;height:340px;padding:58px;display:flex;flex-direction:column;justify-content:center;border:5px solid #3393d6;border-radius:12px;background:#0a1e2f;box-shadow:0 0 0 999px rgba(10,30,47,.42)}
+    .focus-window strong{font-size:88px;line-height:.92;font-weight:900}
+    .change{display:grid;grid-template-columns:1fr 160px 1fr;gap:30px;align-items:stretch;min-height:430px;margin-top:42px}
+    .change .state{padding:56px 42px;display:flex;gap:14px;align-items:center;justify-content:center;border:3px solid #5f6f96;border-radius:12px;font-size:68px;line-height:.98;font-weight:900;text-align:center}
     .change .state:last-child{border-color:#3393d6;background:#e5eff6;color:#0d2437}
     .arrow{font-size:100px;text-align:center;color:#eaab2d}
     .bridge{position:relative;height:400px;margin-top:38px}
@@ -68,24 +75,27 @@
     .verdict{display:flex;align-items:flex-end;gap:40px;margin-top:50px}
     .verdict .small{font-size:70px;font-weight:900;color:#98a4cc}
     .verdict .large{font-size:142px;line-height:.82;font-weight:900;color:#f6f6f9}
-    .filter{display:grid;grid-template-columns:1fr 1.2fr;gap:54px;align-items:center;margin-top:42px}
+    .ready-axis{display:grid;grid-template-columns:1fr 1fr;gap:220px;margin-top:54px;font-size:54px;line-height:1;font-weight:900;letter-spacing:.06em;color:#98a4cc}
+    .ready-axis span:last-child{text-align:right;color:#3393d6}
+    .filter{display:grid;grid-template-columns:1fr;gap:34px;align-items:center;margin-top:42px}
     .filter-question{padding:44px;border:4px solid #3393d6;border-radius:12px;background:#e5eff6;color:#0d2437;font-size:57px;line-height:1.02;font-weight:900}
-    .evidence{display:grid;gap:22px}
-    .evidence p{padding:24px 30px;border-left:8px solid #eaab2d;background:rgba(229,239,246,.1);font-size:44px;font-weight:700}
+    .evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .evidence p{min-height:190px;padding:30px;display:flex;align-items:center;border-left:8px solid #eaab2d;background:rgba(229,239,246,.1);font-size:44px;font-weight:700}
     .case-lines{display:grid;gap:22px;margin-top:46px}
     .case-line{display:grid;grid-template-columns:360px 1fr;gap:34px;align-items:center;padding:24px 30px;border:3px solid #5f6f96;border-radius:12px}
     .case-line strong{font-size:36px;color:#eaab2d}.case-line span{font-size:45px;font-weight:700}
-    .case-line.deemphasize{opacity:.45}.case-line.selected{border-color:#3393d6;background:rgba(51,147,214,.1)}
+    .case-line.deemphasize{opacity:0}.case-line.selected{border-color:#3393d6;background:rgba(51,147,214,.1)}
     .north{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center;margin-top:34px}
     .paths{display:grid;gap:22px}.paths span{padding:24px 30px;border:3px solid #5f6f96;border-radius:12px;font-size:42px;font-weight:700}
-    .star{position:relative;min-height:490px;display:grid;place-items:center}
+    .paths-title{font-size:64px;line-height:.95;font-weight:900;color:#f6f6f9}
+    .star{position:relative;min-height:660px;display:grid;place-items:center}
     .star svg{position:absolute;inset:0;width:100%;height:100%}.star polygon{fill:#eaab2d;stroke:#f6f6f9;stroke-width:3}
-    .star-text{position:relative;width:520px;text-align:center;color:#0d2437}.star-text .label{color:#0d2437}.star-text strong{display:block;margin-top:16px;font-size:58px;line-height:1;font-weight:900}
+    .star-text{position:relative;width:430px;text-align:center;color:#0d2437}.star-text .label{color:#0d2437}.star-text strong{display:block;margin-top:16px;font-size:54px;line-height:1;font-weight:900}
     .rams{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:40px}
     .rams div{min-height:220px;padding:30px;border:3px solid #5f6f96;border-radius:12px}
     .rams strong{display:block;font-size:31px;color:#eaab2d}.rams span{display:block;margin-top:18px;font-size:42px;line-height:1;font-weight:900}
-    .rewrite{display:grid;grid-template-columns:.7fr 1.3fr;gap:42px;margin-top:46px}
-    .rewrite .before,.rewrite .after{padding:44px;border:3px solid #5f6f96;border-radius:12px}
+    .rewrite{display:grid;grid-template-columns:.7fr 1.3fr;gap:42px;min-height:430px;margin-top:40px}
+    .rewrite .before,.rewrite .after{padding:44px;display:flex;flex-direction:column;justify-content:center;border:3px solid #5f6f96;border-radius:12px}
     .rewrite .before p{font-size:54px;line-height:1;font-weight:900;color:#98a4cc}
     .rewrite .after{border-color:#3393d6;background:#e5eff6;color:#0d2437}
     .rewrite .after p{font-size:41px;line-height:1.14;font-weight:700}
@@ -95,19 +105,21 @@
     .step strong{display:block;font-size:47px;line-height:1;font-weight:900}.step p{margin-top:24px;font-size:34px;line-height:1.1;color:#cccedf}
     .workflow .arrow{font-size:74px}
     .cta{display:grid;grid-template-columns:1.3fr .7fr;gap:64px;align-items:center}
-    .next-box{padding:54px;border:4px solid #eaab2d;border-radius:12px;background:#e5eff6;color:#0d2437}
-    .next-box .label{color:#0d2437}.next-box strong{display:block;margin-top:22px;font-size:58px;line-height:1;font-weight:900}
+    .handoff{padding:18px 0 18px 46px;border-left:10px solid #eaab2d;color:#f6f6f9}
+    .handoff .label{color:#eaab2d}.handoff strong{display:block;margin-top:22px;font-size:58px;line-height:1;font-weight:900}
+    .handoff p{margin-top:22px;font-size:34px;line-height:1.12;color:#cccedf}
     #scene-language .big-word{font-size:76px}
     #scene-language .quote{font-size:60px}
+    #scene-language .result-card{width:100%;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;opacity:1}
+    #scene-archive .focus-stage{min-height:600px}
     .sr-narration{display:none}
   </style>
 </head>
 <body>
-<main id="m3_building-your-future-you-resume-pt1" data-start="0" data-composition-id="m3_building-your-future-you-resume-pt1" data-width="1920" data-height="1080" data-duration="241.948" data-fps="30">
+<main id="m3_building-your-future-you-resume-pt1" data-start="0" data-composition-id="m3_building-your-future-you-resume-pt1" data-width="1920" data-height="1080" data-duration="241.981" data-fps="30">
   <div class="frame-bg"></div>
   <header class="brand"><span>Mid-Career Momentum</span><strong>Building Your Future-You Resume</strong></header>
-
-  <section class="visual-scene" id="scene-welcome" data-scene-start="0" data-scene-end="4.71">
+  <section class="visual-scene" id="scene-welcome" data-scene-start="0" data-scene-end="4.66">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Your next move changes the lens</div>
       <h1 class="reveal" data-at=".35">YOUR <span class="blue">FUTURE-YOU</span> RESUME</h1>
@@ -116,7 +128,7 @@
     <p class="sr-narration">Hi, and welcome to this lesson on your future-you resume.</p>
   </section>
 
-  <section class="visual-scene" id="scene-archive" data-scene-start="4.71" data-scene-end="17.09">
+  <section class="visual-scene" id="scene-archive" data-scene-start="4.66" data-scene-end="17.31">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">The archive problem</div>
       <div class="focus-stage">
@@ -132,7 +144,7 @@
     <p class="sr-narration">By mid-career, most of us have resumes that have quietly turned into archives — long lists of everything we've ever done. On the surface that looks thorough. In practice, it often works against us.</p>
   </section>
 
-  <section class="visual-scene" id="scene-reframe" data-scene-start="17.09" data-scene-end="29.23">
+  <section class="visual-scene" id="scene-reframe" data-scene-start="17.31" data-scene-end="27.38">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">See the resume differently</div>
       <div class="change">
@@ -140,12 +152,12 @@
         <div class="arrow reveal" data-at="1.2">→</div>
         <div class="state reveal" data-at="2">STRATEGIC TOOL</div>
       </div>
-      <p class="sub reveal" data-at="5.8">Tell the story of <span class="accent">where you’re going next</span>—and why you’re ready.</p>
+      <p class="sub reveal" data-at="4.6">Tell the story of <span class="accent">where you’re going next</span>—and why you’re ready.</p>
     </div>
     <p class="sr-narration">So today, let's see your resume differently: not as a historical record, but as a strategic tool that tells the story of where you're going next, and why you're ready for it.</p>
   </section>
 
-  <section class="visual-scene" id="scene-diagnosis" data-scene-start="29.23" data-scene-end="36.65">
+  <section class="visual-scene" id="scene-diagnosis" data-scene-start="27.38" data-scene-end="34.62">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Why mid-career resumes miss the mark</div>
       <h2 class="reveal" data-at=".4">THREE USUAL CULPRITS</h2>
@@ -158,7 +170,7 @@
     <p class="sr-narration">Let's start with why so many mid-career resumes don't do us justice. There are three usual culprits.</p>
   </section>
 
-  <section class="visual-scene" id="scene-tasks" data-scene-start="36.65" data-scene-end="56.26">
+  <section class="visual-scene" id="scene-tasks" data-scene-start="34.62" data-scene-end="53.88">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Culprit: tasks without impact</div>
       <div class="test-grid">
@@ -171,26 +183,26 @@
           </ul>
         </div>
         <div class="missing" aria-label="Missing evidence">
-          <span class="reveal" data-at="10.8">RESULTS</span>
-          <span class="reveal" data-at="11.3">SCOPE</span>
-          <span class="reveal" data-at="11.8">VALUE ADDED</span>
+          <span class="emphasis" data-at="10.8">RESULTS</span>
+          <span class="emphasis" data-at="11.3">SCOPE</span>
+          <span class="emphasis" data-at="11.8">VALUE ADDED</span>
         </div>
       </div>
     </div>
     <p class="sr-narration">First, they're overloaded with tasks but light on impact. You'll see bullets like “Managed projects,” “Supported faculty,” “Handled student inquiries.” Those describe activity, but they don't tell anyone what changed because you were in the role — no results, no scope, no value added.</p>
   </section>
 
-  <section class="visual-scene" id="scene-language" data-scene-start="56.26" data-scene-end="71.94">
+  <section class="visual-scene" id="scene-language" data-scene-start="53.88" data-scene-end="70.469">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Culprit: outdated or generic language</div>
       <div class="focus-stage">
-        <div class="field-lines" aria-hidden="true"><span class="reveal" data-at="1.4">Objective statement</span><span class="reveal" data-at="2.3">References available</span><span class="reveal" data-at="3.2">Responsible for</span><span class="reveal" data-at="4.1">Duties included</span><span class="reveal" data-at="5">Worked on</span><span class="reveal" data-at="5.9">Assisted with</span><span class="reveal" data-at="6.8">Team player</span><span class="reveal" data-at="7.7">Hard worker</span></div>
+        <div class="field-lines" aria-hidden="true"><span class="emphasis" data-at="1.4">Objective statement</span><span class="emphasis" data-at="2.3">References available</span><span class="emphasis" data-at="3.2">Responsible for</span><span class="emphasis" data-at="4.1">Duties included</span><span class="emphasis" data-at="5">Worked on</span><span class="emphasis" data-at="5.9">Assisted with</span><span class="emphasis" data-at="6.8">Team player</span><span class="emphasis" data-at="7.7">Hard worker</span></div>
         <div class="focus-halo gold" data-bloom style="left:500px;top:0"></div>
         <div class="stage-content" style="left:50%;display:flex;align-items:center;justify-content:center">
-          <div class="reveal" data-at="9.8" style="padding:48px 62px;border:5px solid #eaab2d;background:#0a1e2f;text-align:center">
-            <div class="label">The result</div>
-            <div class="big-word">BUSY. NOT SHARP.</div>
-            <div class="quote blue">NOT FOCUSED.</div>
+          <div class="result-card" style="padding:48px 62px;border:5px solid #eaab2d;background:#0a1e2f;text-align:center">
+            <div class="label result-emphasis" data-at="10">The result</div>
+            <div class="big-word result-emphasis" data-at="12.2">BUSY. NOT SHARP.</div>
+            <div class="quote blue result-emphasis" data-at="14.3">NOT FOCUSED.</div>
           </div>
         </div>
       </div>
@@ -198,21 +210,21 @@
     <p class="sr-narration">Second, the format and language feel outdated or generic. We carry old sections forward and keep phrases we wrote a decade ago, never checking whether the document matches today's expectations. The result looks busy but not sharp or focused.</p>
   </section>
 
-  <section class="visual-scene" id="scene-link" data-scene-start="71.94" data-scene-end="88.72">
+  <section class="visual-scene" id="scene-link" data-scene-start="70.469" data-scene-end="86.704">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Culprit: no clear link</div>
       <h2 class="reveal" data-at=".4">Your Experience Needs a Through-Line</h2>
       <div class="bridge">
-        <div class="endpoint reveal" data-at="2.1">YOUR HISTORY</div>
+        <div class="endpoint reveal" data-at=".5">YOUR HISTORY</div>
         <div class="gap-note reveal" data-at="8.1">MISSING LINK</div>
         <svg viewBox="0 0 820 220" aria-label="Broken path from history to next role"><path class="draw-path" data-at="3.5" d="M20 150 C210 40 280 40 355 110 M465 110 C560 40 640 60 800 150"/></svg>
-        <div class="endpoint reveal" data-at="8.6">YOUR NEXT ROLE</div>
+        <div class="endpoint reveal" data-at="1.2">YOUR NEXT ROLE</div>
       </div>
     </div>
     <p class="sr-narration">Third — and this is the big one for us — there's often no clear link between your experience and the role you want next. Someone can read what you've done, but not see how it connects to the step you want next. There's no through-line from “here's my history” to “here's why I'm ready for this.”</p>
   </section>
 
-  <section class="visual-scene" id="scene-fit" data-scene-start="88.72" data-scene-end="99.575">
+  <section class="visual-scene" id="scene-fit" data-scene-start="86.704" data-scene-end="96.719">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">The decision-maker test</div>
       <div class="focus-stage" style="display:grid;place-items:center">
@@ -227,21 +239,22 @@
     <p class="sr-narration">All of that makes it harder for hiring managers, sponsors, and decision-makers to say: “Yes, this person is clearly the right fit, right now.”</p>
   </section>
 
-  <section class="visual-scene" id="scene-ready" data-scene-start="99.575" data-scene-end="113.74">
+  <section class="visual-scene" id="scene-ready" data-scene-start="96.719" data-scene-end="111.939">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Flip the perspective</div>
       <div class="verdict">
-        <div class="small reveal" data-at="1.2">PROVE YOU’VE BEEN <span class="muted">BUSY</span></div>
-        <div class="arrow reveal" data-at="2.1">→</div>
-        <div class="large reveal" data-at="3">SHOW YOU’RE <span class="blue">READY</span></div>
+        <div class="small reveal" data-at=".3">PROVE YOU’VE BEEN <span class="muted">BUSY</span></div>
+        <div class="arrow reveal" data-at=".65">→</div>
+        <div class="large reveal" data-at=".9">SHOW YOU’RE <span class="blue">READY</span></div>
       </div>
+      <div class="ready-axis reveal" data-at=".55"><span>PAST ACTIVITY</span><span>FUTURE READINESS</span></div>
       <div class="rule gold-rule reveal" data-at="7.6" style="margin-top:54px"></div>
       <p class="sub reveal" data-at="8.1">Build around the role you want—not the role you started in.</p>
     </div>
     <p class="sr-narration">So let's flip the perspective. At this stage, your resume is less about proving you've been busy and more about showing you're ready for what's next. A future-you resume is built around the role you want, not the role you started in.</p>
   </section>
 
-  <section class="visual-scene" id="scene-curate" data-scene-start="113.74" data-scene-end="129.772">
+  <section class="visual-scene" id="scene-curate" data-scene-start="111.939" data-scene-end="127.099">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Curate evidence for the direction ahead</div>
       <div class="filter">
@@ -256,7 +269,7 @@
     <p class="sr-narration">Instead of documenting everything, you're curating evidence — choosing the projects, results, and responsibilities that best support the direction you've already defined in this course. Every bullet answers one question: “How does this show I'm prepared for my next move?”</p>
   </section>
 
-  <section class="visual-scene" id="scene-case" data-scene-start="129.772" data-scene-end="150.594">
+  <section class="visual-scene" id="scene-case" data-scene-start="127.099" data-scene-end="148.059">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Build a case file for future you</div>
       <div class="case-lines" role="list">
@@ -269,18 +282,19 @@
     <p class="sr-narration">That might mean highlighting the initiatives where you led at a higher level than your title suggested. Emphasizing outcomes and scope — how many people you impacted, what improved. And de-emphasizing tasks or roles that no longer match where you're heading. Your resume becomes less of a timeline and more of a case file for your future you.</p>
   </section>
 
-  <section class="visual-scene" id="scene-north-star" data-scene-start="150.594" data-scene-end="167.179">
+  <section class="visual-scene" id="scene-north-star" data-scene-start="148.059" data-scene-end="165.72">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Your direction</div>
       <div class="north">
         <div class="paths" role="list">
+          <strong class="paths-title reveal" data-at=".4">NEXT MOVE STATEMENT</strong>
           <span class="reveal" data-at="3.8" role="listitem">PROMOTION</span>
           <span class="reveal" data-at="4.2" role="listitem">LATERAL MOVE</span>
           <span class="reveal" data-at="4.6" role="listitem">ROLE REDESIGN</span>
           <p class="sub reveal" data-at="8.2">The role you want in the next <strong class="paper">6–12 months</strong></p>
         </div>
-        <div class="star reveal" data-at="11.6">
-          <svg viewBox="0 0 600 520" aria-hidden="true"><polygon points="300,20 365,185 545,198 405,312 448,490 300,392 152,490 195,312 55,198 235,185"/></svg>
+        <div class="star emphasis" data-at="11.6">
+          <svg viewBox="0 0 650 520" aria-hidden="true"><polygon points="325,20 395,185 590,198 439,312 485,490 325,392 165,490 211,312 60,198 255,185"/></svg>
           <div class="star-text"><span class="label">Your north star</span><strong>NEXT MOVE STATEMENT</strong></div>
         </div>
       </div>
@@ -288,7 +302,7 @@
     <p class="sr-narration">Earlier in this track, you created a Next Move Statement. You named your primary path — promotion, lateral move, or role redesign — and described the role you want in the next 6 to 12 months. In this lesson, that statement is your north star.</p>
   </section>
 
-  <section class="visual-scene" id="scene-line-test" data-scene-start="167.179" data-scene-end="185.788">
+  <section class="visual-scene" id="scene-line-test" data-scene-start="165.72" data-scene-end="186.03">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Test every line against the next move</div>
       <h2 class="reveal" data-at=".5">DOES THIS HELP MAKE THE CASE?</h2>
@@ -303,7 +317,7 @@
     <p class="sr-narration">As you update your resume, you'll ask of every line: “Does this help make the case for the role in my Next Move Statement?” You'll choose three to five experiences that serve as your strongest evidence. And you'll rewrite them to clearly show responsibility, action, measurable outcome, and scope.</p>
   </section>
 
-  <section class="visual-scene" id="scene-rewrite" data-scene-start="185.788" data-scene-end="207.988">
+  <section class="visual-scene" id="scene-rewrite" data-scene-start="186.03" data-scene-end="209.281">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">From task to impact</div>
       <div class="rewrite">
@@ -315,7 +329,7 @@
     <p class="sr-narration">For example, instead of “Managed team projects,” you might write: “Led a cross-functional team of 6 to streamline onboarding, reducing time-to-productivity by 30% and improving new-hire satisfaction scores by 20%.” Same person, same work — but the second version paints a much clearer picture of your impact and your readiness for more.</p>
   </section>
 
-  <section class="visual-scene" id="scene-builder" data-scene-start="207.988" data-scene-end="228.778">
+  <section class="visual-scene" id="scene-builder" data-scene-start="209.281" data-scene-end="228.891">
     <div class="scene-body">
       <div class="label reveal" data-at=".2">Resume Builder Tool</div>
       <h2 class="reveal" data-at=".45">TURN YOUR EVIDENCE INTO HEADLINE STORIES</h2>
@@ -331,99 +345,99 @@
     <p class="sr-narration">From here, you'll use our Resume Builder Tool to upload or paste parts of your current resume, let AI help you draft stronger, impact-focused bullets, and refine the versions that best support your Next Move Statement. You'll decide which three to five experiences become your headline stories on your resume and profile.</p>
   </section>
 
-  <section class="visual-scene" id="scene-next" data-scene-start="228.778" data-scene-end="241.948">
+  <section class="visual-scene" id="scene-next" data-scene-start="228.891" data-scene-end="241.981">
     <div class="scene-body cta">
       <div>
         <div class="label reveal" data-at=".2">Build for where you’re going</div>
         <h2 class="reveal" data-at=".5">RESHAPE YOUR RESUME AROUND THE ROLE YOU WANT</h2>
         <p class="sub reveal" data-at="5.2">Not just the roles you’ve had.</p>
       </div>
-      <div class="next-box reveal" data-at="7.2"><span class="label">When you’re ready</span><strong>NEXT → RESUME BUILDER TOOL</strong></div>
+      <div class="handoff reveal" data-at="3.8"><span class="label">Continue the work</span><strong>RESUME BUILDER TOOL</strong><p>Turn your evidence into headline stories.</p></div>
     </div>
     <p class="sr-narration">When you're ready, click Next to begin working with the Resume Builder Tool, and start reshaping your resume around the role you want, not just the roles you've had.</p>
   </section>
 
-  <section class="clip beat-marker" id="b01" data-beat-id="b01" data-track-index="0" data-start="0" data-end="4.71" data-duration="4.71"></section>
-  <section class="clip beat-marker" id="b02" data-beat-id="b02" data-track-index="0" data-start="4.71" data-end="11.895" data-duration="7.185"></section>
-  <section class="clip beat-marker" id="b03" data-beat-id="b03" data-track-index="0" data-start="11.895" data-end="14.24" data-duration="2.345"></section>
-  <section class="clip beat-marker" id="b04" data-beat-id="b04" data-track-index="0" data-start="14.24" data-end="17.09" data-duration="2.85"></section>
-  <section class="clip beat-marker" id="b05" data-beat-id="b05" data-track-index="0" data-start="17.09" data-end="29.23" data-duration="12.14"></section>
-  <section class="clip beat-marker" id="b06" data-beat-id="b06" data-track-index="0" data-start="29.23" data-end="34.07" data-duration="4.84"></section>
-  <section class="clip beat-marker" id="b07" data-beat-id="b07" data-track-index="0" data-start="34.07" data-end="36.65" data-duration="2.58"></section>
-  <section class="clip beat-marker" id="b08" data-beat-id="b08" data-track-index="0" data-start="36.65" data-end="41.24" data-duration="4.59"></section>
-  <section class="clip beat-marker" id="b09" data-beat-id="b09" data-track-index="0" data-start="41.24" data-end="47.63" data-duration="6.39"></section>
-  <section class="clip beat-marker" id="b10" data-beat-id="b10" data-track-index="0" data-start="47.63" data-end="56.26" data-duration="8.63"></section>
-  <section class="clip beat-marker" id="b11" data-beat-id="b11" data-track-index="0" data-start="56.26" data-end="60.29" data-duration="4.03"></section>
-  <section class="clip beat-marker" id="b12" data-beat-id="b12" data-track-index="0" data-start="60.29" data-end="68.54" data-duration="8.25"></section>
-  <section class="clip beat-marker" id="b13" data-beat-id="b13" data-track-index="0" data-start="68.54" data-end="71.94" data-duration="3.4"></section>
-  <section class="clip beat-marker" id="b14" data-beat-id="b14" data-track-index="0" data-start="71.94" data-end="78.95" data-duration="7.01"></section>
-  <section class="clip beat-marker" id="b15" data-beat-id="b15" data-track-index="0" data-start="78.95" data-end="83.87" data-duration="4.92"></section>
-  <section class="clip beat-marker" id="b16" data-beat-id="b16" data-track-index="0" data-start="83.87" data-end="88.72" data-duration="4.85"></section>
-  <section class="clip beat-marker" id="b17" data-beat-id="b17" data-track-index="0" data-start="88.72" data-end="99.575" data-duration="10.855"></section>
-  <section class="clip beat-marker" id="b18" data-beat-id="b18" data-track-index="0" data-start="99.575" data-end="101.75" data-duration="2.175"></section>
-  <section class="clip beat-marker" id="b19" data-beat-id="b19" data-track-index="0" data-start="101.75" data-end="108.42" data-duration="6.67"></section>
-  <section class="clip beat-marker" id="b20" data-beat-id="b20" data-track-index="0" data-start="108.42" data-end="113.74" data-duration="5.32"></section>
-  <section class="clip beat-marker" id="b21" data-beat-id="b21" data-track-index="0" data-start="113.74" data-end="124.37" data-duration="10.63"></section>
-  <section class="clip beat-marker" id="b22" data-beat-id="b22" data-track-index="0" data-start="124.37" data-end="129.772" data-duration="5.402"></section>
-  <section class="clip beat-marker" id="b23" data-beat-id="b23" data-track-index="0" data-start="129.772" data-end="135.333" data-duration="5.561"></section>
-  <section class="clip beat-marker" id="b24" data-beat-id="b24" data-track-index="0" data-start="135.333" data-end="140.609" data-duration="5.276"></section>
-  <section class="clip beat-marker" id="b25" data-beat-id="b25" data-track-index="0" data-start="140.609" data-end="145.289" data-duration="4.68"></section>
-  <section class="clip beat-marker" id="b26" data-beat-id="b26" data-track-index="0" data-start="145.289" data-end="150.594" data-duration="5.305"></section>
-  <section class="clip beat-marker" id="b27" data-beat-id="b27" data-track-index="0" data-start="150.594" data-end="155.029" data-duration="4.435"></section>
-  <section class="clip beat-marker" id="b28" data-beat-id="b28" data-track-index="0" data-start="155.029" data-end="163.759" data-duration="8.73"></section>
-  <section class="clip beat-marker" id="b29" data-beat-id="b29" data-track-index="0" data-start="163.759" data-end="167.179" data-duration="3.42"></section>
-  <section class="clip beat-marker" id="b30" data-beat-id="b30" data-track-index="0" data-start="167.179" data-end="174.399" data-duration="7.22"></section>
-  <section class="clip beat-marker" id="b31" data-beat-id="b31" data-track-index="0" data-start="174.399" data-end="178.898" data-duration="4.499"></section>
-  <section class="clip beat-marker" id="b32" data-beat-id="b32" data-track-index="0" data-start="178.898" data-end="185.788" data-duration="6.89"></section>
-  <section class="clip beat-marker" id="b33" data-beat-id="b33" data-track-index="0" data-start="185.788" data-end="200.988" data-duration="15.2"></section>
-  <section class="clip beat-marker" id="b34" data-beat-id="b34" data-track-index="0" data-start="200.988" data-end="207.988" data-duration="7"></section>
-  <section class="clip beat-marker" id="b35" data-beat-id="b35" data-track-index="0" data-start="207.988" data-end="222.178" data-duration="14.19"></section>
-  <section class="clip beat-marker" id="b36" data-beat-id="b36" data-track-index="0" data-start="222.178" data-end="228.778" data-duration="6.6"></section>
-  <section class="clip beat-marker" id="b37" data-beat-id="b37" data-track-index="0" data-start="228.778" data-end="241.948" data-duration="13.17"></section>
+  <section class="clip beat-marker" id="b01" data-beat-id="b01" data-track-index="0" data-start="0" data-end="4.66" data-duration="4.66"></section>
+  <section class="clip beat-marker" id="b02" data-beat-id="b02" data-track-index="0" data-start="4.66" data-end="11.865" data-duration="7.205"></section>
+  <section class="clip beat-marker" id="b03" data-beat-id="b03" data-track-index="0" data-start="11.865" data-end="14.15" data-duration="2.285"></section>
+  <section class="clip beat-marker" id="b04" data-beat-id="b04" data-track-index="0" data-start="14.15" data-end="17.31" data-duration="3.16"></section>
+  <section class="clip beat-marker" id="b05" data-beat-id="b05" data-track-index="0" data-start="17.31" data-end="27.38" data-duration="10.07"></section>
+  <section class="clip beat-marker" id="b06" data-beat-id="b06" data-track-index="0" data-start="27.38" data-end="32.12" data-duration="4.74"></section>
+  <section class="clip beat-marker" id="b07" data-beat-id="b07" data-track-index="0" data-start="32.12" data-end="34.62" data-duration="2.5"></section>
+  <section class="clip beat-marker" id="b08" data-beat-id="b08" data-track-index="0" data-start="34.62" data-end="38.89" data-duration="4.27"></section>
+  <section class="clip beat-marker" id="b09" data-beat-id="b09" data-track-index="0" data-start="38.89" data-end="45.005" data-duration="6.115"></section>
+  <section class="clip beat-marker" id="b10" data-beat-id="b10" data-track-index="0" data-start="45.005" data-end="53.88" data-duration="8.875"></section>
+  <section class="clip beat-marker" id="b11" data-beat-id="b11" data-track-index="0" data-start="53.88" data-end="58.16" data-duration="4.28"></section>
+  <section class="clip beat-marker" id="b12" data-beat-id="b12" data-track-index="0" data-start="58.16" data-end="66.385" data-duration="8.225"></section>
+  <section class="clip beat-marker" id="b13" data-beat-id="b13" data-track-index="0" data-start="66.385" data-end="70.469" data-duration="4.084"></section>
+  <section class="clip beat-marker" id="b14" data-beat-id="b14" data-track-index="0" data-start="70.469" data-end="77.009" data-duration="6.54"></section>
+  <section class="clip beat-marker" id="b15" data-beat-id="b15" data-track-index="0" data-start="77.009" data-end="81.819" data-duration="4.81"></section>
+  <section class="clip beat-marker" id="b16" data-beat-id="b16" data-track-index="0" data-start="81.819" data-end="86.704" data-duration="4.885"></section>
+  <section class="clip beat-marker" id="b17" data-beat-id="b17" data-track-index="0" data-start="86.704" data-end="96.719" data-duration="10.015"></section>
+  <section class="clip beat-marker" id="b18" data-beat-id="b18" data-track-index="0" data-start="96.719" data-end="98.879" data-duration="2.16"></section>
+  <section class="clip beat-marker" id="b19" data-beat-id="b19" data-track-index="0" data-start="98.879" data-end="106.259" data-duration="7.38"></section>
+  <section class="clip beat-marker" id="b20" data-beat-id="b20" data-track-index="0" data-start="106.259" data-end="111.939" data-duration="5.68"></section>
+  <section class="clip beat-marker" id="b21" data-beat-id="b21" data-track-index="0" data-start="111.939" data-end="122.409" data-duration="10.47"></section>
+  <section class="clip beat-marker" id="b22" data-beat-id="b22" data-track-index="0" data-start="122.409" data-end="127.099" data-duration="4.69"></section>
+  <section class="clip beat-marker" id="b23" data-beat-id="b23" data-track-index="0" data-start="127.099" data-end="132.134" data-duration="5.035"></section>
+  <section class="clip beat-marker" id="b24" data-beat-id="b24" data-track-index="0" data-start="132.134" data-end="137.15" data-duration="5.016"></section>
+  <section class="clip beat-marker" id="b25" data-beat-id="b25" data-track-index="0" data-start="137.15" data-end="142.599" data-duration="5.449"></section>
+  <section class="clip beat-marker" id="b26" data-beat-id="b26" data-track-index="0" data-start="142.599" data-end="148.059" data-duration="5.46"></section>
+  <section class="clip beat-marker" id="b27" data-beat-id="b27" data-track-index="0" data-start="148.059" data-end="152.719" data-duration="4.66"></section>
+  <section class="clip beat-marker" id="b28" data-beat-id="b28" data-track-index="0" data-start="152.719" data-end="161.91" data-duration="9.191"></section>
+  <section class="clip beat-marker" id="b29" data-beat-id="b29" data-track-index="0" data-start="161.91" data-end="165.72" data-duration="3.81"></section>
+  <section class="clip beat-marker" id="b30" data-beat-id="b30" data-track-index="0" data-start="165.72" data-end="174.01" data-duration="8.29"></section>
+  <section class="clip beat-marker" id="b31" data-beat-id="b31" data-track-index="0" data-start="174.01" data-end="179.14" data-duration="5.13"></section>
+  <section class="clip beat-marker" id="b32" data-beat-id="b32" data-track-index="0" data-start="179.14" data-end="186.03" data-duration="6.89"></section>
+  <section class="clip beat-marker" id="b33" data-beat-id="b33" data-track-index="0" data-start="186.03" data-end="201.98" data-duration="15.95"></section>
+  <section class="clip beat-marker" id="b34" data-beat-id="b34" data-track-index="0" data-start="201.98" data-end="209.281" data-duration="7.301"></section>
+  <section class="clip beat-marker" id="b35" data-beat-id="b35" data-track-index="0" data-start="209.281" data-end="222.971" data-duration="13.69"></section>
+  <section class="clip beat-marker" id="b36" data-beat-id="b36" data-track-index="0" data-start="222.971" data-end="228.891" data-duration="5.92"></section>
+  <section class="clip beat-marker" id="b37" data-beat-id="b37" data-track-index="0" data-start="228.891" data-end="241.981" data-duration="13.09"></section>
 
-  <audio id="voice-b01" src="./assets/voice/b01.wav" data-start="0.6" data-duration="3.71" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b02" src="./assets/voice/b02.wav" data-start="4.96" data-duration="6.535" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b03" src="./assets/voice/b03.wav" data-start="12.145" data-duration="1.695" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b04" src="./assets/voice/b04.wav" data-start="14.49" data-duration="2.2" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b05" src="./assets/voice/b05.wav" data-start="17.34" data-duration="11.49" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b06" src="./assets/voice/b06.wav" data-start="29.48" data-duration="4.19" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b07" src="./assets/voice/b07.wav" data-start="34.32" data-duration="1.93" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b08" src="./assets/voice/b08.wav" data-start="36.9" data-duration="3.94" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b09" src="./assets/voice/b09.wav" data-start="41.49" data-duration="5.74" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b10" src="./assets/voice/b10.wav" data-start="47.88" data-duration="7.98" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b11" src="./assets/voice/b11.wav" data-start="56.51" data-duration="3.38" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b12" src="./assets/voice/b12.wav" data-start="60.54" data-duration="7.6" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b13" src="./assets/voice/b13.wav" data-start="68.79" data-duration="2.75" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b14" src="./assets/voice/b14.wav" data-start="72.19" data-duration="6.36" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b15" src="./assets/voice/b15.wav" data-start="79.2" data-duration="4.27" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b16" src="./assets/voice/b16.wav" data-start="84.12" data-duration="4.2" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b17" src="./assets/voice/b17.wav" data-start="88.97" data-duration="10.205" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b18" src="./assets/voice/b18.wav" data-start="99.825" data-duration="1.525" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b19" src="./assets/voice/b19.wav" data-start="102" data-duration="6.02" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b20" src="./assets/voice/b20.wav" data-start="108.67" data-duration="4.67" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b21" src="./assets/voice/b21.wav" data-start="113.99" data-duration="9.98" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b22" src="./assets/voice/b22.wav" data-start="124.62" data-duration="4.752" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b23" src="./assets/voice/b23.wav" data-start="130.022" data-duration="4.911" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b24" src="./assets/voice/b24.wav" data-start="135.583" data-duration="4.626" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b25" src="./assets/voice/b25.wav" data-start="140.859" data-duration="4.03" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b26" src="./assets/voice/b26.wav" data-start="145.539" data-duration="4.655" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b27" src="./assets/voice/b27.wav" data-start="150.844" data-duration="3.785" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b28" src="./assets/voice/b28.wav" data-start="155.279" data-duration="8.08" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b29" src="./assets/voice/b29.wav" data-start="164.009" data-duration="2.77" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b30" src="./assets/voice/b30.wav" data-start="167.429" data-duration="6.57" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b31" src="./assets/voice/b31.wav" data-start="174.649" data-duration="3.849" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b32" src="./assets/voice/b32.wav" data-start="179.148" data-duration="6.24" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b33" src="./assets/voice/b33.wav" data-start="186.038" data-duration="14.55" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b34" src="./assets/voice/b34.wav" data-start="201.238" data-duration="6.35" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b35" src="./assets/voice/b35.wav" data-start="208.238" data-duration="13.54" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b36" src="./assets/voice/b36.wav" data-start="222.428" data-duration="5.95" data-track-index="10" preload="auto"></audio>
-  <audio id="voice-b37" src="./assets/voice/b37.wav" data-start="229.028" data-duration="11.12" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b01" src="./assets/voice/b01.wav" data-start="0.6" data-duration="3.66" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b02" src="./assets/voice/b02.wav" data-start="4.91" data-duration="6.555" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b03" src="./assets/voice/b03.wav" data-start="12.115" data-duration="1.635" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b04" src="./assets/voice/b04.wav" data-start="14.4" data-duration="2.51" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b05" src="./assets/voice/b05.wav" data-start="17.56" data-duration="9.42" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b06" src="./assets/voice/b06.wav" data-start="27.63" data-duration="4.09" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b07" src="./assets/voice/b07.wav" data-start="32.37" data-duration="1.85" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b08" src="./assets/voice/b08.wav" data-start="34.87" data-duration="3.62" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b09" src="./assets/voice/b09.wav" data-start="39.14" data-duration="5.465" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b10" src="./assets/voice/b10.wav" data-start="45.255" data-duration="8.225" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b11" src="./assets/voice/b11.wav" data-start="54.13" data-duration="3.63" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b12" src="./assets/voice/b12.wav" data-start="58.41" data-duration="7.575" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b13" src="./assets/voice/b13.wav" data-start="66.635" data-duration="3.434" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b14" src="./assets/voice/b14.wav" data-start="70.719" data-duration="5.89" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b15" src="./assets/voice/b15.wav" data-start="77.259" data-duration="4.16" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b16" src="./assets/voice/b16.wav" data-start="82.069" data-duration="4.235" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b17" src="./assets/voice/b17.wav" data-start="86.954" data-duration="9.365" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b18" src="./assets/voice/b18.wav" data-start="96.969" data-duration="1.51" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b19" src="./assets/voice/b19.wav" data-start="99.129" data-duration="6.73" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b20" src="./assets/voice/b20.wav" data-start="106.509" data-duration="5.03" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b21" src="./assets/voice/b21.wav" data-start="112.189" data-duration="9.82" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b22" src="./assets/voice/b22.wav" data-start="122.659" data-duration="4.04" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b23" src="./assets/voice/b23.wav" data-start="127.349" data-duration="4.385" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b24" src="./assets/voice/b24.wav" data-start="132.384" data-duration="4.366" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b25" src="./assets/voice/b25.wav" data-start="137.4" data-duration="4.799" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b26" src="./assets/voice/b26.wav" data-start="142.849" data-duration="4.81" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b27" src="./assets/voice/b27.wav" data-start="148.309" data-duration="4.01" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b28" src="./assets/voice/b28.wav" data-start="152.969" data-duration="8.541" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b29" src="./assets/voice/b29.wav" data-start="162.16" data-duration="3.16" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b30" src="./assets/voice/b30.wav" data-start="165.97" data-duration="7.64" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b31" src="./assets/voice/b31.wav" data-start="174.26" data-duration="4.48" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b32" src="./assets/voice/b32.wav" data-start="179.39" data-duration="6.24" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b33" src="./assets/voice/b33.wav" data-start="186.28" data-duration="15.3" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b34" src="./assets/voice/b34.wav" data-start="202.23" data-duration="6.651" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b35" src="./assets/voice/b35.wav" data-start="209.531" data-duration="13.04" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b36" src="./assets/voice/b36.wav" data-start="223.221" data-duration="5.27" data-track-index="10" preload="auto"></audio>
+  <audio id="voice-b37" src="./assets/voice/b37.wav" data-start="229.141" data-duration="11.04" data-track-index="10" preload="auto"></audio>
 </main>
 <script src="./assets/vendor/gsap.min.js"></script>
 <script>
 (() => {
   const compositionId = 'm3_building-your-future-you-resume-pt1';
-  const duration = 241.948;
+  const duration = 241.981;
   const timeline = gsap.timeline({paused:true});
   const eases = ['power3.out','expo.out','sine.out'];
   const durations = [.42,.58,.72];
@@ -438,12 +452,23 @@
     const start = Number(scene.dataset.sceneStart);
     const end = Number(scene.dataset.sceneEnd);
     const body = scene.querySelector('.scene-body');
-    timeline.fromTo(body,{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.62,ease:'power3.out'},start+.12);
+    timeline.fromTo(body,{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.28,ease:'power3.out'},Math.max(0,start-.08));
 
     scene.querySelectorAll('.reveal').forEach((element,index) => {
       const at = start + Number(element.dataset.at || .35);
       const from = index % 3 === 0 ? {autoAlpha:0,x:-28} : index % 3 === 1 ? {autoAlpha:0,y:24} : {autoAlpha:0,scale:.96};
-      timeline.fromTo(element,from,{autoAlpha:1,x:0,y:0,scale:1,duration:durations[index%3],ease:eases[index%3],immediateRender:false},at);
+      const targetAlpha = element.classList.contains('deemphasize') ? .45 : 1;
+      timeline.fromTo(element,from,{autoAlpha:targetAlpha,x:0,y:0,scale:1,duration:durations[index%3],ease:eases[index%3],immediateRender:false},at);
+    });
+
+    scene.querySelectorAll('.emphasis').forEach((element,index) => {
+      const at = start + Number(element.dataset.at || .35);
+      timeline.to(element,{opacity:1,color:'#f6f6f9',duration:durations[index%3],ease:eases[index%3]},at);
+    });
+
+    scene.querySelectorAll('.result-emphasis').forEach((element,index) => {
+      const at = start + Number(element.dataset.at || .35);
+      timeline.to(element,{opacity:1,duration:durations[index%3],ease:eases[index%3]},at);
     });
 
     scene.querySelectorAll('[data-bloom]').forEach((glow) => {

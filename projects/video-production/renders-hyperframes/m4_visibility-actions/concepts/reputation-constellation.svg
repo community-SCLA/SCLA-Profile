@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">The Reputation Constellation concept board</title>
+  <desc id="desc">Six milestone frames show a radial reputation network evolving from unseen work into one supported 30-day visibility action.</desc>
+  <rect width="1920" height="1080" fill="#0a1e2f"/>
+  <text x="96" y="92" fill="#eaab2d" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">CONCEPT 01 · RADIAL NETWORK</text>
+  <text x="96" y="154" fill="#ffffff" font-family="Arial, sans-serif" font-size="58" font-weight="900">The Reputation Constellation</text>
+  <text x="96" y="198" fill="#98a4cc" font-family="Arial, sans-serif" font-size="26">Useful work becomes easier to recognize, connect, and support.</text>
+
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(96 254)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#3393d6" stroke-width="3"/>
+      <text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">01 · WORK CAN STAY UNSEEN</text>
+      <circle cx="196" cy="178" r="52" fill="#eaab2d"/><text x="196" y="185" text-anchor="middle" fill="#0d2437" font-size="20" font-weight="900">WORK</text>
+      <circle cx="394" cy="178" r="94" fill="none" stroke="#5f6f96" stroke-width="3" stroke-dasharray="10 12"/>
+      <circle cx="394" cy="178" r="12" fill="#5f6f96"/>
+      <text x="394" y="302" text-anchor="middle" fill="#98a4cc" font-size="22">audience cannot see it</text>
+    </g>
+    <g transform="translate(688 254)">
+      <rect width="544" height="334" rx="18" fill="#f6f6f9" stroke="#cccedf" stroke-width="3"/>
+      <text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">02 · NAME THE SIGNALS</text>
+      <circle cx="272" cy="182" r="55" fill="#0d2437"/><text x="272" y="189" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="900">YOU</text>
+      <line x1="272" y1="128" x2="154" y2="92" stroke="#3393d6" stroke-width="5"/><line x1="318" y1="151" x2="411" y2="94" stroke="#3393d6" stroke-width="5"/><line x1="272" y1="237" x2="272" y2="286" stroke="#3393d6" stroke-width="5"/>
+      <circle cx="138" cy="86" r="45" fill="#eaab2d"/><circle cx="426" cy="86" r="45" fill="#eaab2d"/><circle cx="272" cy="290" r="45" fill="#eaab2d"/>
+      <text x="138" y="92" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="700">WORK</text><text x="426" y="92" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="700">GROWTH</text><text x="272" y="296" text-anchor="middle" fill="#0d2437" font-size="16" font-weight="700">VALUE</text>
+    </g>
+    <g transform="translate(1280 254)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#3393d6" stroke-width="3"/>
+      <text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">03 · CONNECT TO PEOPLE</text>
+      <circle cx="270" cy="178" r="50" fill="#eaab2d"/><text x="270" y="185" text-anchor="middle" fill="#0d2437" font-size="18" font-weight="900">SIGNAL</text>
+      <g fill="#3393d6"><circle cx="108" cy="104" r="34"/><circle cx="436" cy="104" r="34"/><circle cx="270" cy="290" r="34"/></g>
+      <g stroke="#3393d6" stroke-width="5"><line x1="226" y1="158" x2="137" y2="118"/><line x1="314" y1="158" x2="407" y2="118"/><line x1="270" y1="228" x2="270" y2="254"/></g>
+      <text x="108" y="62" text-anchor="middle" fill="#ffffff" font-size="17">decision-makers</text><text x="436" y="62" text-anchor="middle" fill="#ffffff" font-size="17">sponsors</text><text x="270" y="330" text-anchor="middle" fill="#ffffff" font-size="17">peers</text>
+    </g>
+    <g transform="translate(96 626)">
+      <rect width="544" height="334" rx="18" fill="#f6f6f9" stroke="#cccedf" stroke-width="3"/>
+      <text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">04 · MANY ACTIONS, ONE NAME</text>
+      <circle cx="272" cy="178" r="58" fill="#0d2437"/><text x="272" y="185" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="900">YOU</text>
+      <g fill="#eaab2d"><circle cx="105" cy="102" r="42"/><circle cx="271" cy="76" r="42"/><circle cx="438" cy="102" r="42"/><circle cx="151" cy="278" r="42"/><circle cx="394" cy="278" r="42"/></g>
+      <g fill="#0d2437" font-size="14" font-weight="700" text-anchor="middle"><text x="105" y="107">PRESENT</text><text x="271" y="81">SHARE</text><text x="438" y="107">ASK</text><text x="151" y="283">STRETCH</text><text x="394" y="283">MENTOR</text></g>
+    </g>
+    <g transform="translate(688 626)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#3393d6" stroke-width="3"/>
+      <text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">05 · FOCUSED, NOT LOUD</text>
+      <path d="M72 272 L238 166 L238 242 Z" fill="#3393d6" opacity=".2"/>
+      <circle cx="88" cy="272" r="32" fill="#5f6f96"/><text x="88" y="318" text-anchor="middle" fill="#98a4cc" font-size="16">quiet moment</text>
+      <circle cx="292" cy="164" r="62" fill="#eaab2d"/><text x="292" y="171" text-anchor="middle" fill="#0d2437" font-size="17" font-weight="900">USEFUL</text>
+      <circle cx="447" cy="126" r="34" fill="#3393d6"/><line x1="347" y1="153" x2="414" y2="135" stroke="#3393d6" stroke-width="5"/>
+      <text x="447" y="86" text-anchor="middle" fill="#ffffff" font-size="18">right person</text>
+      <text x="292" y="286" text-anchor="middle" fill="#ffffff" font-size="26" font-weight="700">purpose over volume</text>
+    </g>
+    <g transform="translate(1280 626)">
+      <rect width="544" height="334" rx="18" fill="#f6f6f9" stroke="#eaab2d" stroke-width="5"/>
+      <text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">06 · ONE 30-DAY TEST</text>
+      <circle cx="272" cy="175" r="118" fill="none" stroke="#3393d6" stroke-width="16"/>
+      <circle cx="272" cy="175" r="76" fill="#eaab2d"/><text x="272" y="165" text-anchor="middle" fill="#0d2437" font-size="19" font-weight="900">ONE ACTION</text><text x="272" y="192" text-anchor="middle" fill="#0d2437" font-size="18">next 30 days</text>
+      <g fill="#3393d6"><circle cx="105" cy="98" r="19"/><circle cx="439" cy="98" r="19"/><circle cx="105" cy="251" r="19"/><circle cx="439" cy="251" r="19"/></g>
+      <text x="272" y="318" text-anchor="middle" fill="#0d2437" font-size="24" font-weight="700">easier to support</text>
+    </g>
+  </g>
+</svg>

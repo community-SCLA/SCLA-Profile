@@ -20,17 +20,14 @@
     .clip{position:absolute;z-index:5;left:120px;right:120px;top:154px;height:790px;opacity:0;pointer-events:none}
     .copy{height:174px;display:grid;grid-template-columns:290px 1fr;column-gap:42px;align-items:start}
     .kicker{margin:14px 0 0;font-size:22px;line-height:1;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--blue)}
-    h1{margin:0;max-width:1320px;font-size:82px;line-height:.96;letter-spacing:-.025em;font-weight:900;text-transform:uppercase}
-    h1.compact{font-size:68px;line-height:1}
+    h1{margin:0;max-width:1320px;font-size:74px;line-height:.98;letter-spacing:-.02em;font-weight:900;text-transform:uppercase}
+    h1.compact{font-size:62px;line-height:1.02}
     .stage{position:absolute;left:0;right:0;top:190px;height:570px;border:3px solid rgba(51,147,214,.66);background:rgba(13,36,55,.92);overflow:hidden}
     .stage:before{content:"";position:absolute;left:0;right:0;top:0;height:18px;background:var(--blue)}
     .stage>*:not(.proof-sweep){z-index:1}
     .proof-sweep{position:absolute;z-index:4;top:18px;bottom:0;width:260px;background:radial-gradient(ellipse at center,rgba(51,147,214,.16),rgba(51,147,214,0) 72%);border-left:3px solid rgba(51,147,214,.28);border-right:3px solid rgba(51,147,214,.28);pointer-events:none}
     .stage-label{position:absolute;left:48px;top:45px;font-size:21px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
     .stage-note{position:absolute;right:48px;top:43px;font-size:22px;font-weight:700;color:var(--paper)}
-    .footerline{position:absolute;z-index:20;left:120px;right:120px;bottom:46px;height:54px;border-top:2px solid rgba(152,164,204,.35);display:flex;align-items:flex-end;justify-content:space-between}
-    .footerline span{font-size:20px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-    .footerline strong{font-size:22px;color:var(--gold);letter-spacing:.06em}
     .document{position:absolute;left:48px;right:48px;top:102px;bottom:44px;background:var(--paper);color:var(--navy);border:4px solid var(--blue);padding:36px 42px}
     .doc-head{height:56px;border-bottom:5px solid var(--navy);display:flex;align-items:flex-start;justify-content:space-between;font-size:24px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
     .doc-head em{font-style:normal;color:var(--blue)}
@@ -45,8 +42,8 @@
     .veil{position:absolute;right:54px;top:110px;width:400px;height:410px;background:repeating-linear-gradient(135deg,rgba(95,111,150,.15) 0 18px,rgba(10,30,47,.9) 18px 36px);border:3px solid var(--muted-video);display:flex;align-items:center;justify-content:center}
     .veil strong{font-size:160px;color:var(--blue)}
     .reframe{position:absolute;inset:90px 48px 44px;display:grid;grid-template-columns:1fr 250px 1fr;align-items:center;gap:44px}
-    .reframe-word{font-size:120px;font-weight:900;line-height:.84;text-transform:uppercase}.reframe-word:last-child{color:var(--gold)}
-    .reframe-arrow{font-size:180px;text-align:center;color:var(--blue)}
+    .reframe-word{font-size:104px;font-weight:900;line-height:.88;text-transform:uppercase}.reframe-word:last-child{color:var(--gold)}
+    .reframe-arrow{font-size:150px;text-align:center;color:var(--blue)}
     .scan-board{position:absolute;inset:105px 48px 44px;background:var(--paper);color:var(--navy);border:4px solid var(--blue);display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;padding:34px}
     .scan-cell{position:relative;border:4px solid var(--border);padding:34px;display:flex;flex-direction:column;justify-content:space-between;opacity:.4}
     .scan-cell strong{font-size:52px;line-height:.92;text-transform:uppercase}.scan-cell span{font-size:28px;font-weight:700;color:var(--muted-video)}
@@ -56,14 +53,14 @@
     .focus-statement .tag{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-video)}
     .focus-statement .statement{font-size:58px;line-height:1;font-weight:900}
     .focus-statement.duty .statement{color:var(--muted-video)}
-    .focus-statement.proof{border-color:var(--gold);background:rgba(234,171,45,.12)}
+    .focus-statement.proof{border-color:var(--gold);background:var(--paper)}
     .focus-statement.proof .statement{color:var(--navy)}
     .no-signal{position:absolute;left:48px;right:48px;bottom:44px;height:68px;display:flex;align-items:center;gap:28px;font-size:24px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
     .no-signal i{display:block;flex:1;height:5px;background:var(--muted-video)}
     .signal-beam{position:absolute;left:48px;right:408px;bottom:66px;height:8px;background:var(--gold);transform-origin:left;box-shadow:0 0 24px rgba(234,171,45,.5)}
     .beam-target{position:absolute;right:48px;bottom:25px;width:310px;height:95px;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;text-transform:uppercase;color:var(--paper)}
     .metric{position:absolute;right:74px;top:98px;width:380px;height:300px;background:var(--gold);color:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .metric strong{font-size:150px;line-height:.8;font-weight:900}.metric span{margin-top:26px;font-size:25px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .metric strong{font-size:124px;line-height:.84;font-weight:900}.metric span{margin-top:26px;font-size:25px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
     .proof-wide{right:500px}
     .moves-board{position:absolute;inset:105px 48px 44px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
     .move{border:4px solid var(--muted-video);padding:42px;display:flex;flex-direction:column;justify-content:space-between;color:var(--muted);background:rgba(10,30,47,.65)}
@@ -78,7 +75,7 @@
     .curate-result strong{margin-top:25px;font-size:54px;line-height:.95;text-transform:uppercase}
     .connect-board{position:absolute;inset:105px 48px 44px;display:grid;grid-template-columns:420px 1fr 420px;gap:36px;align-items:center}
     .state-block{height:280px;border:5px solid var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--navy)}
-    .state-block strong{font-size:68px;line-height:.86;text-transform:uppercase}.state-block span{margin-top:24px;font-size:24px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+    .state-block strong{font-size:60px;line-height:.9;text-transform:uppercase}.state-block span{margin-top:24px;font-size:24px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
     .state-block.next{border-color:var(--gold)}
     .connection{height:8px;background:var(--gold);position:relative}.connection:after{content:"";position:absolute;right:-2px;top:-20px;border-top:24px solid transparent;border-bottom:24px solid transparent;border-left:40px solid var(--gold)}
     .question-board{position:absolute;inset:105px 48px 44px;display:grid;grid-template-columns:1fr 520px;gap:50px;align-items:center}
@@ -88,9 +85,9 @@
     .profile{border:5px solid var(--blue);background:var(--paper);color:var(--navy);padding:40px;display:flex;flex-direction:column;justify-content:space-between}
     .profile span{font-size:24px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--blue)}.profile strong{font-size:58px;line-height:.92;text-transform:uppercase}.profile i{height:10px;background:var(--gold)}
     .final-target{position:absolute;right:48px;top:105px;width:500px;bottom:44px;border:8px solid var(--gold);background:rgba(234,171,45,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-    .final-target strong{font-size:86px;line-height:.86;text-transform:uppercase}.final-target span{margin-top:28px;font-size:26px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+    .final-target strong{font-size:74px;line-height:.9;text-transform:uppercase}.final-target span{margin-top:28px;font-size:26px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
     .yes-board{position:absolute;inset:105px 48px 44px;display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
-    .yes-copy{font-size:76px;line-height:.96;font-weight:900;text-transform:uppercase}.yes-copy span{display:block;margin-top:34px;font-size:32px;line-height:1.1;text-transform:none;font-weight:400;color:var(--muted)}
+    .yes-copy{font-size:68px;line-height:1;font-weight:900;text-transform:uppercase}.yes-copy span{display:block;margin-top:34px;font-size:32px;line-height:1.1;text-transform:none;font-weight:400;color:var(--muted)}
     .yes-ring{width:390px;height:390px;border:10px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:130px;font-weight:900;color:var(--paper);box-shadow:0 0 0 28px rgba(234,171,45,.12);justify-self:center}
     .narration{display:none}
   </style>
@@ -107,7 +104,7 @@
   <section id="b04" class="clip" data-beat-id="b04" data-track-index="0" data-start="17.12" data-end="24.81" data-duration="7.69"><div class="copy motion"><p class="kicker">The scan</p><h1>Decision-Makers Scan for Proof</h1></div><div class="stage motion"><span class="stage-label">What matters most</span><div class="scan-board"><div class="scan-cell"><strong>Results</strong><span>What changed?</span></div><div class="scan-cell"><strong>Scope</strong><span>What did you hold?</span></div><div class="scan-cell"><strong>Alignment</strong><span>Where does it point?</span></div></div></div><p class="narration">When a manager, a sponsor, or a hiring committee looks at your materials, they're really scanning for just a few things.</p></section>
   <section id="b05" class="clip" data-beat-id="b05" data-track-index="0" data-start="24.81" data-end="27.415" data-duration="2.605"><div class="copy motion"><p class="kicker">Scan criterion</p><h1>What Results Did You Deliver?</h1></div><div class="stage motion"><span class="stage-label">One clear criterion</span><div class="scan-board"><div class="scan-cell active"><strong>Results</strong><span>What changed because of your work?</span><i class="scan-window"></i></div><div class="scan-cell"><strong>Scope</strong><span>What did you hold?</span></div><div class="scan-cell"><strong>Alignment</strong><span>Where does it point?</span></div></div></div><p class="narration">What kinds of results you've delivered.</p></section>
   <section id="b06" class="clip" data-beat-id="b06" data-track-index="0" data-start="27.415" data-end="29.82" data-duration="2.405"><div class="copy motion"><p class="kicker">Scan criterion</p><h1>What Scope Did You Handle?</h1></div><div class="stage motion"><span class="stage-label">One clear criterion</span><div class="scan-board"><div class="scan-cell"><strong>Results</strong><span>What changed?</span></div><div class="scan-cell active"><strong>Scope</strong><span>How broad was your responsibility?</span><i class="scan-window"></i></div><div class="scan-cell"><strong>Alignment</strong><span>Where does it point?</span></div></div></div><p class="narration">The level of scope you've handled.</p></section>
-  <section id="b07" class="clip" data-beat-id="b07" data-track-index="0" data-start="29.82" data-end="34.78" data-duration="4.96"><div class="copy motion"><p class="kicker">Scan criterion</p><h1 class="compact">Does Your Experience Point to What’s Next?</h1></div><div class="stage motion"><span class="stage-label">One clear criterion</span><div class="scan-board"><div class="scan-cell"><strong>Results</strong><span>What changed?</span></div><div class="scan-cell"><strong>Scope</strong><span>What did you hold?</span></div><div class="scan-cell active"><strong>Alignment</strong><span>Does the evidence fit the next role?</span><i class="scan-window"></i></div></div></div><p class="narration">And how well your experience lines up with the role you want next.</p></section>
+  <section id="b07" class="clip" data-beat-id="b07" data-track-index="0" data-start="29.82" data-end="34.78" data-duration="4.96"><div class="copy motion"><p class="kicker">Scan criterion</p><h1 class="compact">Does Your Experience Point to What’s Next?</h1></div><div class="stage motion"><span class="stage-label">One clear criterion</span><div class="scan-board"><div class="scan-cell"><strong>Results</strong><span>What changed?</span></div><div class="scan-cell"><strong>Scope</strong><span>What did you hold?</span></div><div class="scan-cell active"><strong>Alignment</strong><span>Does the evidence fit the next role?</span></div></div></div><p class="narration">And how well your experience lines up with the role you want next.</p></section>
 
   <section id="b08" class="clip" data-beat-id="b08" data-track-index="0" data-start="34.78" data-end="36.32" data-duration="1.54"><div class="copy motion"><p class="kicker">The problem</p><h1>A Task List Hides the Signal</h1></div><div class="stage motion"><span class="stage-label">Resume line · no proof</span><div class="focus-statement duty"><span class="tag">Duty statement</span><strong class="statement">Responsible for X. Duties included Y.</strong></div><div class="no-signal"><span>No clear impact</span><i></i><span>No forward signal</span></div></div><p class="narration">Here's the problem.</p></section>
   <section id="b09" class="clip" data-beat-id="b09" data-track-index="0" data-start="36.32" data-end="43.845" data-duration="7.525"><div class="copy motion"><p class="kicker">Task language</p><h1>Readers Must Hunt for Your Impact</h1></div><div class="stage motion"><span class="stage-label">Resume line · assignment only</span><div class="focus-statement duty"><span class="tag">What you were asked to do</span><strong class="statement">“Responsible for X” · “Duties included Y”</strong></div><div class="no-signal"><span>Assignment</span><i></i><span>Impact still hidden</span></div></div><p class="narration">If your resume reads like a task list — "responsible for X," "duties included Y" — they have to work much harder to see your impact.</p></section>
@@ -133,7 +130,6 @@
   <section id="b25" class="clip" data-beat-id="b25" data-track-index="0" data-start="123.8" data-end="129.75" data-duration="5.95"><div class="copy motion"><p class="kicker">The test</p><h1 class="compact">Do Your Materials Show the Future You Want?</h1></div><div class="stage motion"><span class="stage-label">Two sources · one direction</span><div class="profile-pair"><div class="profile"><span>Resume</span><strong>Selected proof</strong><i></i></div><div class="profile"><span>LinkedIn</span><strong>Future-facing story</strong><i></i></div></div><div class="final-target"><strong>Future you</strong><span>Clear direction</span></div></div><p class="narration">If someone only saw my resume and my LinkedIn profile, would they understand the future I'm aiming for?</p></section>
   <section id="b26" class="clip" data-beat-id="b26" data-track-index="0" data-start="129.75" data-end="136.82" data-duration="7.07"><div class="copy motion"><p class="kicker">Resolve</p><h1>Move Closer to Yes</h1></div><div class="stage motion"><div class="yes-board"><div class="yes-copy">Curated history becomes clear signal.<span>Your next move is easier to see—and easier to believe.</span></div><div class="yes-ring">YES</div></div></div><p class="narration">By the end of this module, you'll be much closer to a yes.</p></section>
 
-  <footer class="footerline"><span>Mid-Career Momentum</span><strong>Make the next move visible</strong></footer>
   <audio id="voice-b01" src="./assets/voice/b01.wav" data-start="0.6" data-duration="6.895" data-track-index="10" preload="metadata"></audio>
   <audio id="voice-b02" src="./assets/voice/b02.wav" data-start="8.145" data-duration="6.875" data-track-index="10" preload="metadata"></audio>
   <audio id="voice-b03" src="./assets/voice/b03.wav" data-start="15.67" data-duration="1.05" data-track-index="10" preload="metadata"></audio>

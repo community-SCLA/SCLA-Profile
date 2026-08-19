@@ -1,64 +1,369 @@
 {
   "compositionId": "m3_the-two-sided-work",
   "duration": 170.91,
-  "timeline": {"paused": true, "seekable": true, "engine": "gsap"},
+  "timeline": {
+    "paused": true,
+    "seekable": true,
+    "engine": "gsap"
+  },
   "beats": [
-    {"id":"beat-01","start":0,"end":3.905,"entrance":0.62,"exit":0.28},
-    {"id":"beat-02","start":3.905,"end":12.42,"entrance":0.62,"exit":0.28},
-    {"id":"beat-03","start":12.42,"end":15.74,"entrance":0.62,"exit":0.28},
-    {"id":"beat-04","start":15.74,"end":18.92,"entrance":0.62,"exit":0.28},
-    {"id":"beat-05","start":18.92,"end":24.61,"entrance":0.62,"exit":0.28},
-    {"id":"beat-06","start":24.61,"end":31.74,"entrance":0.62,"exit":0.28},
-    {"id":"beat-07","start":31.74,"end":36.69,"entrance":0.62,"exit":0.28},
-    {"id":"beat-08","start":36.69,"end":43.1,"entrance":0.62,"exit":0.28},
-    {"id":"beat-09","start":43.1,"end":47.05,"entrance":0.62,"exit":0.28},
-    {"id":"beat-10","start":47.05,"end":56.16,"entrance":0.62,"exit":0.28},
-    {"id":"beat-11","start":56.16,"end":62.74,"entrance":0.62,"exit":0.28},
-    {"id":"beat-12","start":62.74,"end":68.955,"entrance":0.62,"exit":0.28},
-    {"id":"beat-13","start":68.955,"end":75.77,"entrance":0.62,"exit":0.28},
-    {"id":"beat-14","start":75.77,"end":78.89,"entrance":0.62,"exit":0.28},
-    {"id":"beat-15","start":78.89,"end":85.035,"entrance":0.62,"exit":0.28},
-    {"id":"beat-16","start":85.035,"end":91.315,"entrance":0.62,"exit":0.28},
-    {"id":"beat-17","start":91.315,"end":98.02,"entrance":0.62,"exit":0.28},
-    {"id":"beat-18","start":98.02,"end":105.94,"entrance":0.62,"exit":0.28},
-    {"id":"beat-19","start":105.94,"end":110.3,"entrance":0.62,"exit":0.28},
-    {"id":"beat-20","start":110.3,"end":115.39,"entrance":0.62,"exit":0.28},
-    {"id":"beat-21","start":115.39,"end":120.505,"entrance":0.62,"exit":0.28},
-    {"id":"beat-22","start":120.505,"end":131.73,"entrance":0.62,"exit":0.28},
-    {"id":"beat-23","start":131.73,"end":136.21,"entrance":0.62,"exit":0.28},
-    {"id":"beat-24","start":136.21,"end":150.15,"entrance":0.62,"exit":0.28},
-    {"id":"beat-25","start":150.15,"end":154.24,"entrance":0.62,"exit":0.28},
-    {"id":"beat-26","start":154.24,"end":162.86,"entrance":0.62,"exit":0.28},
-    {"id":"beat-27","start":162.86,"end":170.91,"entrance":0.62,"exit":0.28}
+    {
+      "id": "beat-01",
+      "start": 0,
+      "end": 3.905,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-02",
+      "start": 3.905,
+      "end": 12.42,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-03",
+      "start": 12.42,
+      "end": 15.74,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-04",
+      "start": 15.74,
+      "end": 18.92,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-05",
+      "start": 18.92,
+      "end": 24.61,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-06",
+      "start": 24.61,
+      "end": 31.74,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-07",
+      "start": 31.74,
+      "end": 36.69,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-08",
+      "start": 36.69,
+      "end": 43.1,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-09",
+      "start": 43.1,
+      "end": 47.05,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-10",
+      "start": 47.05,
+      "end": 56.16,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-11",
+      "start": 56.16,
+      "end": 62.74,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-12",
+      "start": 62.74,
+      "end": 68.955,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-13",
+      "start": 68.955,
+      "end": 75.77,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-14",
+      "start": 75.77,
+      "end": 78.89,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-15",
+      "start": 78.89,
+      "end": 85.035,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-16",
+      "start": 85.035,
+      "end": 91.315,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-17",
+      "start": 91.315,
+      "end": 98.02,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-18",
+      "start": 98.02,
+      "end": 105.94,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-19",
+      "start": 105.94,
+      "end": 110.3,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-20",
+      "start": 110.3,
+      "end": 115.39,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-21",
+      "start": 115.39,
+      "end": 120.505,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-22",
+      "start": 120.505,
+      "end": 131.73,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-23",
+      "start": 131.73,
+      "end": 136.21,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-24",
+      "start": 136.21,
+      "end": 150.15,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-25",
+      "start": 150.15,
+      "end": 154.24,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-26",
+      "start": 154.24,
+      "end": 162.86,
+      "entrance": 0.62,
+      "exit": 0.28
+    },
+    {
+      "id": "beat-27",
+      "start": 162.86,
+      "end": 170.91,
+      "entrance": 0.62,
+      "exit": 0.28
+    }
   ],
   "assertions": [
-    {"kind":"keepsMoving","withinSelector":"[data-composition-id]","maxStaticSec":8},
-    {"kind":"appearsBy","beatId":"beat-01","selector":"#scene-intro .scene-body","bySec":1.2},
-    {"kind":"appearsBy","beatId":"beat-02","selector":"#scene-intro .scene-body","bySec":5.105},
-    {"kind":"appearsBy","beatId":"beat-03","selector":"#scene-two-sides .scene-body","bySec":13.62},
-    {"kind":"appearsBy","beatId":"beat-04","selector":"#scene-two-sides .scene-body","bySec":16.94},
-    {"kind":"appearsBy","beatId":"beat-05","selector":"#scene-two-sides .scene-body","bySec":20.12},
-    {"kind":"appearsBy","beatId":"beat-06","selector":"#scene-ending .scene-body","bySec":25.81},
-    {"kind":"appearsBy","beatId":"beat-07","selector":"#scene-ending .scene-body","bySec":32.94},
-    {"kind":"appearsBy","beatId":"beat-08","selector":"#scene-skipped .scene-body","bySec":37.89},
-    {"kind":"appearsBy","beatId":"beat-09","selector":"#scene-skipped .scene-body","bySec":44.3},
-    {"kind":"appearsBy","beatId":"beat-10","selector":"#scene-skipped .scene-body","bySec":48.25},
-    {"kind":"appearsBy","beatId":"beat-11","selector":"#scene-identity-work .scene-body","bySec":57.36},
-    {"kind":"appearsBy","beatId":"beat-12","selector":"#scene-identity-work .scene-body","bySec":63.94},
-    {"kind":"appearsBy","beatId":"beat-13","selector":"#scene-identity-work .scene-body","bySec":70.155},
-    {"kind":"appearsBy","beatId":"beat-14","selector":"#scene-carry .scene-body","bySec":76.97},
-    {"kind":"appearsBy","beatId":"beat-15","selector":"#scene-minimize .scene-body","bySec":80.09},
-    {"kind":"appearsBy","beatId":"beat-16","selector":"#scene-minimize .scene-body","bySec":86.235},
-    {"kind":"appearsBy","beatId":"beat-17","selector":"#scene-minimize .scene-body","bySec":92.515},
-    {"kind":"appearsBy","beatId":"beat-18","selector":"#scene-translate .scene-body","bySec":99.22},
-    {"kind":"appearsBy","beatId":"beat-19","selector":"#scene-translate .scene-body","bySec":107.14},
-    {"kind":"appearsBy","beatId":"beat-20","selector":"#scene-finance .scene-body","bySec":111.5},
-    {"kind":"appearsBy","beatId":"beat-21","selector":"#scene-finance .scene-body","bySec":116.59},
-    {"kind":"appearsBy","beatId":"beat-22","selector":"#scene-teacher .scene-body","bySec":121.705},
-    {"kind":"appearsBy","beatId":"beat-23","selector":"#scene-inventory .scene-body","bySec":132.93},
-    {"kind":"appearsBy","beatId":"beat-24","selector":"#scene-inventory .scene-body","bySec":137.41},
-    {"kind":"appearsBy","beatId":"beat-25","selector":"#scene-order .scene-body","bySec":151.35},
-    {"kind":"appearsBy","beatId":"beat-26","selector":"#scene-order .scene-body","bySec":155.44},
-    {"kind":"appearsBy","beatId":"beat-27","selector":"#scene-resolve .scene-body","bySec":164.06}
+    {
+      "kind": "keepsMoving",
+      "withinSelector": "[data-composition-id]",
+      "maxStaticSec": 8
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-01",
+      "selector": "#sc1 .stage",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-02",
+      "selector": "#sc1 .stage",
+      "bySec": 5.105
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-03",
+      "selector": "#sc2 .stage",
+      "bySec": 13.62
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-04",
+      "selector": "#sc2 .stage",
+      "bySec": 16.94
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-05",
+      "selector": "#sc2 .stage",
+      "bySec": 20.12
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-06",
+      "selector": "#sc3 .stage",
+      "bySec": 25.81
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-07",
+      "selector": "#sc3 .stage",
+      "bySec": 32.94
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-08",
+      "selector": "#sc4 .stage",
+      "bySec": 37.89
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-09",
+      "selector": "#sc4 .stage",
+      "bySec": 44.3
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-10",
+      "selector": "#sc4 .stage",
+      "bySec": 48.25
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-11",
+      "selector": "#sc5 .stage",
+      "bySec": 57.36
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-12",
+      "selector": "#sc5 .stage",
+      "bySec": 63.94
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-13",
+      "selector": "#sc5 .stage",
+      "bySec": 70.155
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-14",
+      "selector": "#sc6 .stage",
+      "bySec": 76.97
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-15",
+      "selector": "#sc6 .stage",
+      "bySec": 80.09
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-16",
+      "selector": "#sc6 .stage",
+      "bySec": 86.235
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-17",
+      "selector": "#sc6 .stage",
+      "bySec": 92.515
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-18",
+      "selector": "#sc7 .stage",
+      "bySec": 99.22
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-19",
+      "selector": "#sc7 .stage",
+      "bySec": 107.14
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-20",
+      "selector": "#sc8 .stage",
+      "bySec": 111.5
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-21",
+      "selector": "#sc8 .stage",
+      "bySec": 116.59
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-22",
+      "selector": "#sc9 .stage",
+      "bySec": 121.705
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-23",
+      "selector": "#sc10 .stage",
+      "bySec": 132.93
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-24",
+      "selector": "#sc10 .stage",
+      "bySec": 137.41
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-25",
+      "selector": "#sc11 .stage",
+      "bySec": 151.35
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-26",
+      "selector": "#sc11 .stage",
+      "bySec": 155.44
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "beat-27",
+      "selector": "#sc12 .stage",
+      "bySec": 164.06
+    }
   ]
 }

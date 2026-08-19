@@ -7,6 +7,38 @@
       "checker": "check_concepts",
       "rule_id": "concept-options-not-distinct",
       "owner_finding": "Most of the lesson repeats one headline-and-five-card panel with only the active card changing."
+    },
+    {
+      "id": "2026-08-11-m3-repeated-short-scene-carrier",
+      "stem": "m3_discover-experiences-that-support-your-next-move",
+      "fixture": "m3-repeated-short-scene-carrier.html",
+      "checker": "check_motion",
+      "rule_id": "repeated-scene-carrier",
+      "owner_finding": "The same illustration is copied across short scenes so scene churn masquerades as visual development."
+    },
+    {
+      "id": "2026-08-11-m5-detached-focus-overlay",
+      "stem": "m5_skills-for-the-ai-era",
+      "fixture": "m5-detached-focus-and-flex-overflow.html",
+      "checker": "check_visual_structure",
+      "rule_id": "detached-focus-overlay",
+      "owner_finding": "Large highlight borders cross unrelated cards and text on alternate layouts."
+    },
+    {
+      "id": "2026-08-11-m5-flex-child-overflow",
+      "stem": "m5_skills-for-the-ai-era",
+      "fixture": "m5-detached-focus-and-flex-overflow.html",
+      "checker": "check_visual_structure",
+      "rule_id": "flex-child-auto-min-overflow",
+      "owner_finding": "The nested Worth More panel escapes its parent and crosses the footer rule."
+    },
+    {
+      "id": "2026-08-11-m5-script-manifest-drift",
+      "stem": "m5_making-solo-work-sustainable",
+      "fixture": "m5-script-manifest-drift.json",
+      "checker": "check_script_match",
+      "rule_id": "script-manifest-drift",
+      "owner_finding": "The narration manifest drops 'few' and inserts 'and', so the synthesized voice does not read the approved lesson wording."
     }
   ]
 }

@@ -1,0 +1,64 @@
+{
+  "authored_by": "rebuild-discover-agent-20260811",
+  "options": [
+    {
+      "id": "future-gallery",
+      "carrier": "a spatial gallery whose experience pieces are selected, relit, and rebuilt into future-facing evidence",
+      "layout_family": "cinematic exhibition space with centered artifacts and changing room-scale compositions",
+      "board": "concepts/future-gallery.svg",
+      "milestones": [
+        {"visual_event": "experience frames orbit a future-facing compass question"},
+        {"visual_event": "an overfilled gallery wall dims while three story-bearing works move forward"},
+        {"visual_event": "strength scope and impact spotlights relight one selected experience"},
+        {"visual_event": "leadership proof assembles as a radial exhibit around one project"},
+        {"visual_event": "a translation prism carries transferable evidence into a new domain"},
+        {"visual_event": "four printing plates stamp responsibility action outcome and scope into one bullet"},
+        {"visual_event": "the truthful final bullet occupies the future wall as the closing work"}
+      ]
+    },
+    {
+      "id": "evidence-press",
+      "carrier": "an editorial print shop where work history is cropped, inked, proofed, and set into a final resume line",
+      "layout_family": "overhead printmaking table with paper fields rollers crop marks and typographic impressions",
+      "board": "concepts/evidence-press.svg",
+      "milestones": [
+        {"visual_event": "a broad archive sheet enters beneath a decisive crop window"},
+        {"visual_event": "selected experience fragments become three bold editorial cuts"},
+        {"visual_event": "strength scope and impact inks overprint the chosen evidence"},
+        {"visual_event": "leadership proof prints as connected circular seals"},
+        {"visual_event": "lateral proof is translated through a two-color registration pass"},
+        {"visual_event": "RAMS plates lock into one composed bullet line"},
+        {"visual_event": "a true-story proof sheet lifts cleanly from the press"}
+      ]
+    },
+    {
+      "id": "constellation-table",
+      "carrier": "an overhead field of experience artifacts that clusters into patterns pointing toward a future destination",
+      "layout_family": "top-down constellation table with circular clusters radial groupings and object-scale transformations",
+      "board": "concepts/constellation-table.svg",
+      "milestones": [
+        {"visual_event": "experience tokens scatter around a central future destination"},
+        {"visual_event": "irrelevant tokens drift away while a clear cluster remains"},
+        {"visual_event": "three criterion rings sort the surviving experiences"},
+        {"visual_event": "a leadership cluster forms around teams decisions and results"},
+        {"visual_event": "a lateral cluster crosses contexts through transferable capability nodes"},
+        {"visual_event": "RAMS turns four orbiting nodes into one structured evidence object"},
+        {"visual_event": "the resolved cluster locks onto a clear future bearing"}
+      ]
+    }
+  ],
+  "selection": {
+    "selected_by": "root-orchestrator-20260811",
+    "selected_id": "future-gallery",
+    "scores": [
+      {"id": "future-gallery", "clarity": 5, "progression": 5, "variation": 5, "teaching_value": 4},
+      {"id": "evidence-press", "clarity": 4, "progression": 4, "variation": 4, "teaching_value": 4},
+      {"id": "constellation-table", "clarity": 4, "progression": 4, "variation": 5, "teaching_value": 4}
+    ],
+    "rejected": [
+      {"id": "evidence-press", "reason": "The print-shop metaphor supports RAMS well but is less immediate for the opening question and the two role examples."},
+      {"id": "constellation-table", "reason": "The constellation has strong motion potential but risks recalling the rejected signal-map logic and making evidence relationships feel abstract."}
+    ],
+    "rationale": "Future Gallery is the clearest teaching lens because the narration names curation directly, while changing rooms let each idea own a different full-frame composition without persistent side furniture."
+  }
+}

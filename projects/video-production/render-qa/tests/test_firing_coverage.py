@@ -93,11 +93,14 @@ REQUIRED = {
     "check_motion":     ["keep-alive-motion", "undeclared-target",
                          "playback-progress-indicator",
                          "temporal-progress-motion", "freeform-keep-alive",
-                         "repopulated-carrier", "batch-list-emphasis"],
-    # the pace gate (freeform lane, BUILD-PLAN B1 2026-08-04) — idea rate and
-    # the carrying-object rule made measurable. Calibrated on n=2 (one lesson,
-    # two owner-verdicted cuts); see check_pace.py's module docstring.
-    "check_pace":       ["beat-pace", "long-beat-share", "carrier-drift",
+                         "repopulated-carrier", "repeated-scene-carrier",
+                         "batch-list-emphasis"],
+    "check_visual_structure": ["detached-focus-overlay",
+                                "flex-child-auto-min-overflow"],
+    # the pace gate (freeform lane, BUILD-PLAN B1 2026-08-04) — idea rate plus
+    # the objective anti-gaming repeated-frame backstop. The former high-churn
+    # carrier mandate was retired by the owner on 2026-08-11.
+    "check_pace":       ["beat-pace", "long-beat-share",
                          "twin-share", "nothing-graded"],
     "check_text":       ["min-size", "restatement"],
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Differential proof that owner-rejected concept sameness fires forever."""
+"""Differential proof that every registered owner rejection fires forever."""
 
 import json
 import shutil
@@ -9,7 +9,10 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "src"))
+import check_motion  # noqa: E402
+import check_visual_structure  # noqa: E402
 from check_concepts import validate  # noqa: E402
+from preflight import check_script_match  # noqa: E402
 from firing import fires  # noqa: E402
 
 PASS = FAIL = 0
@@ -33,13 +36,37 @@ try:
     registry = json.loads((fixtures / "registry.json").read_text())
     check("owner rejection registry is not empty", bool(registry["rejections"]))
     for row in registry["rejections"]:
-        payload = json.loads((fixtures / row["fixture"]).read_text())
-        (root / "concepts" / "CONCEPT-BOARD.json").write_text(json.dumps(payload))
-        for option in payload["options"]:
-            board = root / option["board"]
-            board.write_text(f'<svg xmlns="http://www.w3.org/2000/svg"><text>{option["id"]}</text></svg>')
-        findings = validate(root)
-        matched = any(x.rule_id == row["rule_id"] for x in findings)
+        fixture = fixtures / row["fixture"]
+        if row["checker"] == "check_concepts":
+            payload = json.loads(fixture.read_text())
+            (root / "concepts" / "CONCEPT-BOARD.json").write_text(json.dumps(payload))
+            for option in payload["options"]:
+                board = root / option["board"]
+                board.write_text(f'<svg xmlns="http://www.w3.org/2000/svg"><text>{option["id"]}</text></svg>')
+            findings = validate(root)
+            matched = any(x.rule_id == row["rule_id"] for x in findings)
+        elif row["checker"] == "check_motion":
+            findings = check_motion.grade(fixture.read_text())
+            matched = any(x.get("rule") == row["rule_id"] for x in findings)
+        elif row["checker"] == "check_visual_structure":
+            findings = check_visual_structure.grade(fixture.read_text())
+            matched = any(x.get("rule") == row["rule_id"] for x in findings)
+        elif row["checker"] == "check_script_match":
+            payload = json.loads(fixture.read_text())
+            script_ws = root / "script-regression"
+            shutil.rmtree(script_ws, ignore_errors=True)
+            script_ws.mkdir()
+            (script_ws / "audio_request.json").write_text(json.dumps({
+                "lines": payload["lines"],
+            }))
+            approved = root / "approved-script.txt"
+            approved.write_text(payload["script"])
+            section = check_script_match(script_ws, script_override=approved)
+            findings = [section["output"]]
+            matched = not section["pass"] and "must carry" in section["output"]
+        else:
+            findings = [f"unsupported checker {row['checker']}"]
+            matched = False
         fires(check, row["checker"], row["rule_id"], row["id"], matched,
               repr(findings))
 

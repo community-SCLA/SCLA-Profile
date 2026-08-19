@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "lesson": {
+    "stem": "m4_visibility-actions",
+    "program": "Mid-Career Momentum",
+    "working_title": "Visibility Actions: What They Are and How to Practice Them"
+  },
+  "authored_by": "m4_shared_evidence_concept_author",
+  "options": [
+    {
+      "id": "shared_evidence",
+      "title": "Shared Evidence",
+      "board": "concepts/shared-evidence.svg",
+      "carrier": "scene-owned paper-cut illustrations linking work, intentional action, audience, practice, and support",
+      "layout_family": "people fields, evidence bridges, verb paths, action illustrations, quiet ripples, and practice sketches",
+      "thesis": "Visibility makes existing work easier for the right people to encounter and understand.",
+      "motion_logic": "Evidence hands off, named relationships draw, and the narrated action enters at its word cue.",
+      "milestones": [
+        {"frame": 1, "label": "Connection without visibility", "visual_event": "two people connect while useful work stays separate"},
+        {"frame": 2, "label": "Evidence enters shared view", "visual_event": "contribution and potential move toward named audiences"},
+        {"frame": 3, "label": "Place, Link, Build", "visual_event": "three verbs rise as distinct steps toward reputation"},
+        {"frame": 4, "label": "Concrete actions", "visual_event": "present, share, ask, stretch, mentor, and teach use different illustrations"},
+        {"frame": 5, "label": "Quiet and purposeful", "visual_event": "one useful moment holds the center while performance language recedes"},
+        {"frame": 6, "label": "Test and support", "visual_event": "one action moves through 30 days and reflection into visible direction"}
+      ]
+    },
+    {
+      "id": "reputation_garden",
+      "title": "Reputation Garden",
+      "board": "concepts/reputation-garden.svg",
+      "carrier": "small visibility actions become planted evidence, roots, shoots, and a support canopy",
+      "layout_family": "organic full-frame growth illustrations with different plant structures",
+      "thesis": "Consistent useful actions create conditions for a reputation to grow.",
+      "motion_logic": "Seeds land, roots connect contribution to identity, and three practice shoots develop into one tested branch.",
+      "milestones": [
+        {"frame": 1, "label": "Work below the surface", "visual_event": "existing value sits as a visible root system"},
+        {"frame": 2, "label": "Intentional placement", "visual_event": "one action seed lands near a named audience"},
+        {"frame": 3, "label": "Visible contribution", "visual_event": "work, growth, and value become three shoots"},
+        {"frame": 4, "label": "Quiet consistency", "visual_event": "one plant develops without a stage or spotlight"},
+        {"frame": 5, "label": "Three tailored drafts", "visual_event": "three different shoots represent share, ask, and offer"},
+        {"frame": 6, "label": "Support canopy", "visual_event": "one tested action connects to people who can support it"}
+      ]
+    },
+    {
+      "id": "open_windows",
+      "title": "Open Windows",
+      "board": "concepts/open-windows.svg",
+      "carrier": "work exists inside a building while purposeful windows reveal specific evidence to specific people",
+      "layout_family": "architectural cutaways, thresholds, rooms, and exterior audiences",
+      "thesis": "Visibility opens deliberate windows onto real work without turning a career into a stage.",
+      "motion_logic": "Windows open only for named evidence and audiences; one window remains open for the 30-day test.",
+      "milestones": [
+        {"frame": 1, "label": "Work behind a wall", "visual_event": "valuable work occupies a private room"},
+        {"frame": 2, "label": "Useful windows", "visual_event": "work, growth, and value become separate openings"},
+        {"frame": 3, "label": "Different actions", "visual_event": "present, ask, stretch, and mentor inhabit different rooms"},
+        {"frame": 4, "label": "No spotlight", "visual_event": "one modest window communicates a useful moment"},
+        {"frame": 5, "label": "Three possible openings", "visual_event": "share, ask, and offer take different window proportions"},
+        {"frame": 6, "label": "A supportable view", "visual_event": "one tested window aligns future direction with supporters"}
+      ]
+    }
+  ],
+  "selection": {
+    "selected_by": "root-auto-batch-orchestrator",
+    "selected_id": "shared_evidence",
+    "scores": [
+      {"id": "shared_evidence", "clarity": 5, "progression": 5, "variation": 5, "teaching_value": 5},
+      {"id": "reputation_garden", "clarity": 4, "progression": 5, "variation": 4, "teaching_value": 4},
+      {"id": "open_windows", "clarity": 5, "progression": 4, "variation": 3, "teaching_value": 4}
+    ],
+    "rejected": [
+      {"id": "reputation_garden", "reason": "The growth metaphor has continuity but risks making every action feel like another decorative plant state."},
+      {"id": "open_windows", "reason": "The visibility metaphor is clear, but repeated rooms and openings would reintroduce container repetition."}
+    ],
+    "rationale": "Shared Evidence best answers the owner rejection: it removes persistent chrome and repeated boxes while giving each teaching idea a purpose-built, narration-synced illustration in one coherent material language."
+  }
+}

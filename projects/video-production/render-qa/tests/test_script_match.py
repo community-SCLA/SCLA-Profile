@@ -108,16 +108,16 @@ print("== gate: clean match passes ==")
 sec = check_script_match(ws, scripts_root=root)
 check("clean match: PASS", sec["pass"], sec["output"])
 check("clean match: rate 0.00% reported", "0.00%" in sec["output"])
-check("clean match: no mismatch warnings", "WARN @" not in sec["output"])
+check("clean match: no diffs", "DIFF @" not in sec["output"])
 
-print("== gate: an isolated normalization flub passes with warning ==")
+print("== gate: an isolated authored-word substitution fails ==")
 heard = list(SCRIPT_WORDS)
-heard[100] = "normalized"  # one engine-side rewrite in ~360 words
+heard[100] = "substituted"
 ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
-check("noise-floor flub: PASS", sec["pass"], sec["output"])
-check("noise-floor flub: diff printed as warning",
-      "WARN @" in sec["output"] and "normalized" in sec["output"])
+check("one manifest substitution: FAIL", not sec["pass"], sec["output"])
+check("one manifest substitution: diff names the word",
+      "DIFF @" in sec["output"] and "substituted" in sec["output"])
 
 print("== gate: dropped sentence fails ==")
 heard = SCRIPT_WORDS[:60] + SCRIPT_WORDS[90:]  # sentence 3 never sent
@@ -125,7 +125,7 @@ ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
 check("dropped sentence: FAIL", not sec["pass"], sec["output"])
 check("dropped sentence: run rule named",
-      "consecutive mismatched words" in sec["output"])
+      "every approved-script word" in sec["output"])
 
 print("== gate: rewritten sentence fails ==")
 heard = list(SCRIPT_WORDS)
@@ -142,23 +142,30 @@ ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
 check("scattered >2% mismatch: FAIL", not sec["pass"], sec["output"])
 check("scattered >2%: rate rule named", "mismatch rate" in sec["output"]
-      and "does not carry" in sec["output"])
+      and "must carry" in sec["output"])
 
-print("== gate: middle zone passes with elevated warning ==")
+print("== gate: there is no mismatch tolerance zone ==")
 heard = list(SCRIPT_WORDS)
 for i in (30, 120, 210, 300):  # 4/360 ≈ 1.1%: between warn and fail
     heard[i] = f"flub{i}"
 ws, root = make_fixture(STEM, SCRIPT, heard)
 sec = check_script_match(ws, scripts_root=root)
-check("middle zone: PASS", sec["pass"], sec["output"])
-check("middle zone: noise-floor warning printed",
-      "noise floor" in sec["output"])
+check("middle zone: FAIL", not sec["pass"], sec["output"])
+check("middle zone: exact-manifest policy printed",
+      "every approved-script word" in sec["output"])
 
 print("== gate: dash compounds don't count as misses ==")
 ws, root = make_fixture(STEM, "No buzzwords — just plain talk.",
                         ["No", "buzzwords—just", "plain", "talk."])
 sec = check_script_match(ws, scripts_root=root)
 check("dash compound normalized on both sides: PASS", sec["pass"], sec["output"])
+
+print("== gate: pronunciation accents do not rewrite the script ==")
+ws, root = make_fixture(STEM, "Use your resume to show readiness.",
+                        ["Use", "your", "résumé", "to", "show", "readiness."])
+sec = check_script_match(ws, scripts_root=root)
+check("résumé pronunciation spelling normalizes to resume: PASS",
+      sec["pass"], sec["output"])
 
 print("== gate: a missing script FAILS (it does not warn and skip) ==")
 # Inverted 2026-07-29. This case used to assert `pass` was True on a loud WARN,

@@ -25,7 +25,7 @@
     .engine-thesis{font-size:22px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#3393d6}
     .engine-body{position:absolute;left:44px;right:44px;top:92px;height:532px}
     .zone-label{font-size:22px;line-height:1;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#5f6f96}
-    .task-zone,.target-zone{position:absolute;top:28px;width:326px;height:456px;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:28px}
+    .task-zone,.target-zone{position:absolute;top:0;width:326px;height:520px;border:4px solid #0d2437;border-radius:12px;background:#ffffff;padding:28px}
     .task-zone{left:0}.target-zone{right:0}
     .task-card{position:absolute;left:28px;right:28px;top:82px;bottom:28px;border:4px solid #3393d6;border-radius:12px;padding:26px 22px;display:flex;flex-direction:column;justify-content:space-between;background:#f6f6f9}
     .task-card strong{font-size:48px;line-height:.94;font-weight:900;color:#0d2437}
@@ -47,7 +47,7 @@
     .experience-core strong{display:block;width:160px;min-height:40px;font-size:30px;line-height:36px;font-weight:900;white-space:nowrap}
     .experience-core span{margin-top:14px;font-size:20px;line-height:1;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#eaab2d}
     .target-zone{display:flex;flex-direction:column}
-    .target-result{flex:1;margin-top:34px;border:4px solid #3393d6;border-radius:12px;padding:28px 22px;display:flex;flex-direction:column;justify-content:center;background:#ffffff}
+    .target-result{flex:1;min-height:0;overflow:hidden;margin-top:34px;border:4px solid #3393d6;border-radius:12px;padding:28px 22px;display:flex;flex-direction:column;justify-content:center;background:#ffffff}
     .target-result strong{font-size:53px;line-height:.9;font-weight:900;color:#0d2437}
     .target-result b{margin-top:26px;font-size:26px;line-height:1.04;font-weight:900;color:#3393d6;text-transform:uppercase}
     .result-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
@@ -58,16 +58,22 @@
     .message-base{position:absolute;left:44px;right:44px;bottom:28px;height:94px;border-top:5px solid #0d2437;display:flex;align-items:center;padding:18px 24px 0;color:#5f6f96;font-size:22px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
     .clip{position:absolute;z-index:40;inset:0;opacity:0;pointer-events:none}
     .beat-message{position:absolute;left:188px;top:844px;width:1518px;height:58px;margin:0;display:flex;align-items:center;background:#ffffff;font-size:46px;line-height:1;font-weight:900;color:#0d2437;letter-spacing:-.02em}
-    .spotlight{position:absolute;border:8px solid #eaab2d;border-radius:14px;background:transparent}
-    .focus-task{left:164px;top:286px;width:326px;height:456px}
-    .focus-human{left:546px;top:262px;width:828px;height:520px;border-radius:260px}
-    .focus-target{left:1430px;top:290px;width:326px;height:456px}
-    .focus-core{left:855px;top:436px;width:206px;height:206px;border-radius:50%}
-    .focus-judgment{left:833px;top:328px;width:250px;height:94px;border-radius:100px}
-    .focus-ai{left:580px;top:458px;width:250px;height:94px;border-radius:100px}
-    .focus-communication{left:1090px;top:458px;width:250px;height:94px;border-radius:100px}
-    .focus-learning{left:638px;top:648px;width:250px;height:94px;border-radius:100px}
-    .focus-relationships{left:1032px;top:648px;width:250px;height:94px;border-radius:100px}
+    .task-zone,.human-zone,.target-zone,.experience-core,.skill-node,.path-stage,.example-card{box-shadow:0 0 0 0 rgba(234,171,45,0);transform-origin:center center}
+    .alt-shell{position:absolute;z-index:12;left:120px;top:170px;width:1680px;height:660px;border:5px solid #0d2437;border-radius:12px;background:#ffffff;overflow:hidden;opacity:0}
+    .alt-kicker{position:absolute;left:44px;top:28px;font-size:22px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#3393d6}
+    .path-shell{display:grid;grid-template-columns:1fr 170px 1.08fr 170px 1fr;gap:20px;align-items:center;padding:104px 44px 44px}
+    .path-stage{height:430px;border:4px solid #0d2437;border-radius:12px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;background:#f6f6f9}
+    .path-stage.human{border-color:#3393d6;background:#e5eff6}.path-stage.value{border-color:#eaab2d;background:#ffffff}
+    .path-stage small{font-size:20px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#5f6f96}.path-stage strong{font-size:54px;line-height:.92;font-weight:900}.path-stage span{font-size:27px;line-height:1.08;font-weight:700;color:#292f35}
+    .path-arrow{height:9px;background:#3393d6;position:relative}.path-arrow::after{content:"";position:absolute;right:-1px;top:-18px;border-top:23px solid transparent;border-bottom:23px solid transparent;border-left:38px solid #3393d6}
+    .example-shell{padding:104px 44px 44px;display:grid;grid-template-columns:.9fr 1.25fr .85fr;gap:30px;align-items:stretch}
+    .example-card{border:4px solid #0d2437;border-radius:12px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;background:#f6f6f9}
+    .example-card.judgment{border-color:#3393d6;background:#e5eff6}.example-card.owned{border-color:#eaab2d;background:#ffffff}
+    .example-card small{font-size:20px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#5f6f96}.example-card strong{font-size:48px;line-height:.94;font-weight:900}.example-card p{margin:0;font-size:27px;line-height:1.1;font-weight:700;color:#292f35}
+    .resolve-shell{padding:106px 44px 44px;display:grid;grid-template-columns:1fr 240px 1fr;gap:44px;align-items:center}
+    .resolve-side{height:420px;border:5px solid #0d2437;border-radius:12px;padding:42px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:#f6f6f9}.resolve-side.human{border-color:#eaab2d;background:#ffffff}
+    .resolve-side small{font-size:22px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#5f6f96}.resolve-side strong{margin-top:24px;font-size:74px;line-height:.88;font-weight:900}.resolve-side.human strong{color:#3393d6}
+    .resolve-shift{font-size:94px;font-weight:900;text-align:center;color:#eaab2d}
   </style>
 </head>
 <body>
@@ -123,55 +129,107 @@
     <div class="message-base" aria-hidden="true"></div>
   </div>
 
-  <section class="clip" id="beat-01" data-beat-id="beat-01" data-track-index="0" data-start="0" data-duration="6.15" data-narration="Mid-career, the AI conversation lands differently than it does for someone just starting out."><h2 class="beat-message" data-role="heading">AI Lands Differently Mid-Career</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-02" data-beat-id="beat-02" data-track-index="0" data-start="6.15" data-duration="7.93" data-narration="You've got a decade of judgment, relationships, and hard-won context — exactly the things AI is worst at replicating."><h2 class="beat-message" data-role="heading">Experience AI Cannot Replicate</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-03" data-beat-id="beat-03" data-track-index="0" data-start="14.08" data-duration="5.34" data-narration="So the most useful question about AI and your career isn't &quot;will it replace my job?&quot;"><h2 class="beat-message" data-role="heading">Ask What AI Changes</h2><div class="spotlight focus-task"></div></section>
-  <section class="clip" id="beat-04" data-beat-id="beat-04" data-track-index="0" data-start="19.42" data-duration="6.32" data-narration="It's &quot;how will it change my job. And how do I aim myself at the more valuable part?&quot;"><h2 class="beat-message" data-role="heading">Aim at the More Valuable Part</h2><div class="spotlight focus-target"></div></section>
-  <section class="clip" id="beat-05" data-beat-id="beat-05" data-track-index="0" data-start="25.74" data-duration="9.7" data-narration="Mid-career, you have the leverage to do exactly that, because you already understand your role deeply enough to see which parts are shifting."><h2 class="beat-message" data-role="heading">Experience Reveals What Is Shifting</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-06" data-beat-id="beat-06" data-track-index="0" data-start="35.44" data-duration="4" data-narration="Here's a practical way to think about your current role and your next move."><h2 class="beat-message" data-role="heading">Use One Practical Frame</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-07" data-beat-id="beat-07" data-track-index="0" data-start="39.44" data-duration="4" data-narration="First: what tasks might AI do faster or cheaper?"><h2 class="beat-message" data-role="heading">Find Tasks AI Makes Faster</h2><div class="spotlight focus-task"></div></section>
-  <section class="clip" id="beat-08" data-beat-id="beat-08" data-track-index="0" data-start="43.44" data-duration="4.26" data-narration="Assume those get automated or accelerated, and don't defend them."><h2 class="beat-message" data-role="heading">Let Routine Tasks Accelerate</h2><div class="spotlight focus-task"></div></section>
-  <section class="clip" id="beat-09" data-beat-id="beat-09" data-track-index="0" data-start="47.7" data-duration="3.59" data-narration="Second: what becomes more valuable as a result?"><h2 class="beat-message" data-role="heading">Find What Becomes More Valuable</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-10" data-beat-id="beat-10" data-track-index="0" data-start="51.29" data-duration="8.93" data-narration="Usually it's the judgment, the relationships, the creativity, and the oversight around those tasks — the very things your experience makes you good at."><h2 class="beat-message" data-role="heading">Experience Raises Human Value</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-12" data-beat-id="beat-12" data-track-index="0" data-start="60.22" data-duration="3.974" data-narration="Third: how do you reposition toward that more valuable part?"><h2 class="beat-message" data-role="heading">Reposition Toward Human Judgment</h2><div class="spotlight focus-target"></div></section>
-  <section class="clip" id="beat-13" data-beat-id="beat-13" data-track-index="0" data-start="64.194" data-duration="4.695" data-narration="This is where AI-era thinking meets everything else in this course."><h2 class="beat-message" data-role="heading">Connect AI Thinking to Your Career</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-14" data-beat-id="beat-14" data-track-index="0" data-start="68.889" data-duration="10.87" data-narration="Your Next Move Statement, your repositioned resume, and your visibility can all be aimed at the human, high-judgment work that grows more valuable as AI spreads."><h2 class="beat-message" data-role="heading">Aim Your Story at High-Judgment Work</h2><div class="spotlight focus-target"></div></section>
-  <section class="clip" id="beat-15" data-beat-id="beat-15" data-track-index="0" data-start="79.759" data-duration="6.78" data-narration="Take an example. AI can draft a first pass of almost any document, analysis, or plan."><h2 class="beat-message" data-role="heading">AI Can Draft the First Pass</h2><div class="spotlight focus-task"></div></section>
-  <section class="clip" id="beat-16" data-beat-id="beat-16" data-track-index="0" data-start="86.539" data-duration="2.7" data-narration="That makes the drafting less scarce."><h2 class="beat-message" data-role="heading">Drafting Becomes Less Scarce</h2><div class="spotlight focus-task"></div></section>
-  <section class="clip" id="beat-17" data-beat-id="beat-17" data-track-index="0" data-start="89.239" data-duration="9.52" data-narration="And it makes the person who knows what's worth saying, who can judge quality, who owns the client relationship, and who can stake their reputation on the call more valuable."><h2 class="beat-message" data-role="heading">Human Responsibility Becomes More Valuable</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-19" data-beat-id="beat-19" data-track-index="0" data-start="98.759" data-duration="5.47" data-narration="Mid-career, that person is you. So aim your next move at that part."><h2 class="beat-message" data-role="heading">Aim Your Next Move at Ownership</h2><div class="spotlight focus-target"></div></section>
-  <section class="clip" id="beat-20" data-beat-id="beat-20" data-track-index="0" data-start="104.229" data-duration="7.37" data-narration="The frame that matters is this: AI is very good at tasks, and your value has always been more than tasks."><h2 class="beat-message" data-role="heading">Your Value Is More Than Tasks</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-21" data-beat-id="beat-21" data-track-index="0" data-start="111.599" data-duration="8.17" data-narration="The skills that stay valuable are the ones that are hardest to automate — the ones that make you the person who can direct AI well, rather than compete with it."><h2 class="beat-message" data-role="heading">Direct AI Rather Than Compete</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-23" data-beat-id="beat-23" data-track-index="0" data-start="119.769" data-duration="4.13" data-narration="So here are the durable, human-centered skills worth investing in."><h2 class="beat-message" data-role="heading">Invest in Durable Human Skills</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-24" data-beat-id="beat-24" data-track-index="0" data-start="123.899" data-duration="2.1" data-narration="Judgment and decision-making."><h2 class="beat-message" data-role="heading">Judgment and Decision-Making</h2><div class="spotlight focus-judgment"></div></section>
-  <section class="clip" id="beat-25" data-beat-id="beat-25" data-track-index="0" data-start="125.999" data-duration="6.16" data-narration="Deciding what's worth doing — and what &quot;good&quot; looks like — is far harder to automate than doing the task itself."><h2 class="beat-message" data-role="heading">Decide What Is Worth Doing</h2><div class="spotlight focus-judgment"></div></section>
-  <section class="clip" id="beat-26" data-beat-id="beat-26" data-track-index="0" data-start="132.159" data-duration="3.34" data-narration="Your experience is the raw material here."><h2 class="beat-message" data-role="heading">Experience Is the Raw Material</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-27" data-beat-id="beat-27" data-track-index="0" data-start="135.499" data-duration="2.46" data-narration="Communication and persuasion."><h2 class="beat-message" data-role="heading">Communication and Persuasion</h2><div class="spotlight focus-communication"></div></section>
-  <section class="clip" id="beat-28" data-beat-id="beat-28" data-track-index="0" data-start="137.959" data-duration="4.75" data-narration="Explaining ideas clearly, building trust, and moving people to act."><h2 class="beat-message" data-role="heading">Build Trust and Move People</h2><div class="spotlight focus-communication"></div></section>
-  <section class="clip" id="beat-29" data-beat-id="beat-29" data-track-index="0" data-start="142.709" data-duration="3.79" data-narration="Mid-career, this often becomes your primary value."><h2 class="beat-message" data-role="heading">Communication Becomes Primary Value</h2><div class="spotlight focus-communication"></div></section>
-  <section class="clip" id="beat-30" data-beat-id="beat-30" data-track-index="0" data-start="146.499" data-duration="2.39" data-narration="Relationships and collaboration."><h2 class="beat-message" data-role="heading">Relationships and Collaboration</h2><div class="spotlight focus-relationships"></div></section>
-  <section class="clip" id="beat-31" data-beat-id="beat-31" data-track-index="0" data-start="148.889" data-duration="9.1" data-narration="Leadership, empathy, working across teams — deeply human, deeply valued, and exactly what sponsorship and advancement run on."><h2 class="beat-message" data-role="heading">Leadership and Empathy Drive Advancement</h2><div class="spotlight focus-relationships"></div></section>
-  <section class="clip" id="beat-33" data-beat-id="beat-33" data-track-index="0" data-start="157.989" data-duration="2.4" data-narration="Learning how to learn."><h2 class="beat-message" data-role="heading">Learning How to Learn</h2><div class="spotlight focus-learning"></div></section>
-  <section class="clip" id="beat-34" data-beat-id="beat-34" data-track-index="0" data-start="160.389" data-duration="6.69" data-narration="In a fast-changing field, the ability to pick up new tools quickly beats mastery of any single tool."><h2 class="beat-message" data-role="heading">Learn New Tools Faster</h2><div class="spotlight focus-learning"></div></section>
-  <section class="clip" id="beat-35" data-beat-id="beat-35" data-track-index="0" data-start="167.079" data-duration="4.144" data-narration="Staying curious is a competitive advantage at every level."><h2 class="beat-message" data-role="heading">Curiosity Compounds</h2><div class="spotlight focus-learning"></div></section>
-  <section class="clip" id="beat-36" data-beat-id="beat-36" data-track-index="0" data-start="171.223" data-duration="11.82" data-narration="And working with AI. Knowing how to prompt it, check it, and combine its outputs with your own judgment is quickly becoming a baseline professional skill — and a visible one you can demonstrate."><h2 class="beat-message" data-role="heading">Prompt · Check · Combine</h2><div class="spotlight focus-ai"></div></section>
-  <section class="clip" id="beat-38" data-beat-id="beat-38" data-track-index="0" data-start="183.043" data-duration="3.195" data-narration="None of these asks you to out-compute a machine."><h2 class="beat-message" data-role="heading">Do Not Out-Compute the Machine</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-39" data-beat-id="beat-39" data-track-index="0" data-start="186.238" data-duration="5.84" data-narration="They ask you to be a thoughtful, capable professional who uses powerful tools well."><h2 class="beat-message" data-role="heading">Use Powerful Tools Well</h2><div class="spotlight focus-human"></div></section>
-  <section class="clip" id="beat-40" data-beat-id="beat-40" data-track-index="0" data-start="192.078" data-duration="5.04" data-narration="And mid-career, you're better positioned to do that than almost anyone."><h2 class="beat-message" data-role="heading">Mid-Career Experience Is Leverage</h2><div class="spotlight focus-core"></div></section>
-  <section class="clip" id="beat-41" data-beat-id="beat-41" data-track-index="0" data-start="197.118" data-duration="10.22" data-narration="So don't just ask what AI replaces. Ask what it changes — and aim yourself at the part that's worth more."><h2 class="beat-message" data-role="heading">Aim at What Becomes Worth More</h2><div class="spotlight focus-target"></div></section>
+  <div class="alt-shell path-shell" aria-hidden="true">
+    <div class="alt-kicker">Repositioning path</div>
+    <div class="path-stage path-task"><small>AI execution</small><strong>Faster Tasks</strong><span>Let routine work accelerate.</span></div>
+    <i class="path-arrow"></i>
+    <div class="path-stage human path-human"><small>Human direction</small><strong>Judgment + Context</strong><span>Decide what matters and what good looks like.</span></div>
+    <i class="path-arrow"></i>
+    <div class="path-stage value path-value"><small>Higher-value work</small><strong>Ownership</strong><span>Aim your next move here.</span></div>
+  </div>
+
+  <div class="alt-shell example-shell" aria-hidden="true">
+    <div class="alt-kicker">Worked example · from output to owned decision</div>
+    <div class="example-card example-draft"><small>AI first pass</small><strong>Draft</strong><p>Fast output makes drafting less scarce.</p></div>
+    <div class="example-card judgment example-review"><small>Human review</small><strong>Judge Quality</strong><p>Choose what is worth saying, add context, and protect trust.</p></div>
+    <div class="example-card owned example-owned"><small>Professional call</small><strong>Own It</strong><p>Stake your reputation on the final decision.</p></div>
+  </div>
+
+  <div class="alt-shell resolve-shell" aria-hidden="true">
+    <div class="alt-kicker">The durable advantage</div>
+    <div class="resolve-side"><small>Machine strength</small><strong>Execute</strong></div>
+    <div class="resolve-shift">→</div>
+    <div class="resolve-side human"><small>Mid-career leverage</small><strong>Direct What Matters</strong></div>
+  </div>
+
+  <section class="clip" id="beat-01" data-beat-id="beat-01" data-track-index="0" data-start="0" data-duration="6.15" data-focus-target=".experience-core" data-narration="Mid-career, the AI conversation lands differently than it does for someone just starting out."><h2 class="beat-message" data-role="heading">AI Lands Differently Mid-Career</h2></section>
+  <section class="clip" id="beat-02" data-beat-id="beat-02" data-track-index="0" data-start="6.15" data-duration="7.93" data-focus-target=".experience-core" data-narration="You've got a decade of judgment, relationships, and hard-won context — exactly the things AI is worst at replicating."><h2 class="beat-message" data-role="heading">Experience AI Cannot Replicate</h2></section>
+  <section class="clip" id="beat-03" data-beat-id="beat-03" data-track-index="0" data-start="14.08" data-duration="5.34" data-focus-target=".task-zone" data-narration="So the most useful question about AI and your career isn't &quot;will it replace my job?&quot;"><h2 class="beat-message" data-role="heading">Ask What AI Changes</h2></section>
+  <section class="clip" id="beat-04" data-beat-id="beat-04" data-track-index="0" data-start="19.42" data-duration="6.32" data-focus-target=".target-zone" data-narration="It's &quot;how will it change my job. And how do I aim myself at the more valuable part?&quot;"><h2 class="beat-message" data-role="heading">Aim at the More Valuable Part</h2></section>
+  <section class="clip" id="beat-05" data-beat-id="beat-05" data-track-index="0" data-start="25.74" data-duration="9.7" data-focus-target=".human-zone" data-narration="Mid-career, you have the leverage to do exactly that, because you already understand your role deeply enough to see which parts are shifting."><h2 class="beat-message" data-role="heading">Experience Reveals What Is Shifting</h2></section>
+  <section class="clip" id="beat-06" data-beat-id="beat-06" data-track-index="0" data-start="35.44" data-duration="4" data-narration="Here's a practical way to think about your current role and your next move."><h2 class="beat-message" data-role="heading">Use One Practical Frame</h2></section>
+  <section class="clip" id="beat-07" data-beat-id="beat-07" data-track-index="0" data-start="39.44" data-duration="4" data-focus-target=".path-task" data-narration="First: what tasks might AI do faster or cheaper?"><h2 class="beat-message" data-role="heading">Find Tasks AI Makes Faster</h2></section>
+  <section class="clip" id="beat-08" data-beat-id="beat-08" data-track-index="0" data-start="43.44" data-duration="4.26" data-focus-target=".path-task" data-narration="Assume those get automated or accelerated, and don't defend them."><h2 class="beat-message" data-role="heading">Let Routine Tasks Accelerate</h2></section>
+  <section class="clip" id="beat-09" data-beat-id="beat-09" data-track-index="0" data-start="47.7" data-duration="3.59" data-focus-target=".path-human" data-narration="Second: what becomes more valuable as a result?"><h2 class="beat-message" data-role="heading">Find What Becomes More Valuable</h2></section>
+  <section class="clip" id="beat-10" data-beat-id="beat-10" data-track-index="0" data-start="51.29" data-duration="8.93" data-focus-target=".path-human" data-narration="Usually it's the judgment, the relationships, the creativity, and the oversight around those tasks — the very things your experience makes you good at."><h2 class="beat-message" data-role="heading">Experience Raises Human Value</h2></section>
+  <section class="clip" id="beat-12" data-beat-id="beat-12" data-track-index="0" data-start="60.22" data-duration="3.974" data-focus-target=".path-value" data-narration="Third: how do you reposition toward that more valuable part?"><h2 class="beat-message" data-role="heading">Reposition Toward Human Judgment</h2></section>
+  <section class="clip" id="beat-13" data-beat-id="beat-13" data-track-index="0" data-start="64.194" data-duration="4.695" data-focus-target=".path-value" data-narration="This is where AI-era thinking meets everything else in this course."><h2 class="beat-message" data-role="heading">Connect AI Thinking to Your Career</h2></section>
+  <section class="clip" id="beat-14" data-beat-id="beat-14" data-track-index="0" data-start="68.889" data-duration="10.87" data-focus-target=".path-value" data-narration="Your Next Move Statement, your repositioned resume, and your visibility can all be aimed at the human, high-judgment work that grows more valuable as AI spreads."><h2 class="beat-message" data-role="heading">Aim Your Story at High-Judgment Work</h2></section>
+  <section class="clip" id="beat-15" data-beat-id="beat-15" data-track-index="0" data-start="79.759" data-duration="6.78" data-focus-target=".example-draft" data-narration="Take an example. AI can draft a first pass of almost any document, analysis, or plan."><h2 class="beat-message" data-role="heading">AI Can Draft the First Pass</h2></section>
+  <section class="clip" id="beat-16" data-beat-id="beat-16" data-track-index="0" data-start="86.539" data-duration="2.7" data-focus-target=".example-draft" data-narration="That makes the drafting less scarce."><h2 class="beat-message" data-role="heading">Drafting Becomes Less Scarce</h2></section>
+  <section class="clip" id="beat-17" data-beat-id="beat-17" data-track-index="0" data-start="89.239" data-duration="9.52" data-focus-target=".example-review" data-focus-late-target=".example-owned" data-focus-late-at="0.52" data-narration="And it makes the person who knows what's worth saying, who can judge quality, who owns the client relationship, and who can stake their reputation on the call more valuable."><h2 class="beat-message" data-role="heading">Human Responsibility Becomes More Valuable</h2></section>
+  <section class="clip" id="beat-19" data-beat-id="beat-19" data-track-index="0" data-start="98.759" data-duration="5.47" data-focus-target=".example-owned" data-narration="Mid-career, that person is you. So aim your next move at that part."><h2 class="beat-message" data-role="heading">Aim Your Next Move at Ownership</h2></section>
+  <section class="clip" id="beat-20" data-beat-id="beat-20" data-track-index="0" data-start="104.229" data-duration="7.37" data-focus-target=".example-draft" data-focus-late-target=".example-review" data-focus-late-at="0.48" data-narration="The frame that matters is this: AI is very good at tasks, and your value has always been more than tasks."><h2 class="beat-message" data-role="heading">Your Value Is More Than Tasks</h2></section>
+  <section class="clip" id="beat-21" data-beat-id="beat-21" data-track-index="0" data-start="111.599" data-duration="8.17" data-focus-target=".example-review" data-focus-late-target=".example-owned" data-focus-late-at="0.62" data-narration="The skills that stay valuable are the ones that are hardest to automate — the ones that make you the person who can direct AI well, rather than compete with it."><h2 class="beat-message" data-role="heading">Direct AI Rather Than Compete</h2></section>
+  <section class="clip" id="beat-23" data-beat-id="beat-23" data-track-index="0" data-start="119.769" data-duration="4.13" data-focus-target=".human-zone" data-narration="So here are the durable, human-centered skills worth investing in."><h2 class="beat-message" data-role="heading">Invest in Durable Human Skills</h2></section>
+  <section class="clip" id="beat-24" data-beat-id="beat-24" data-track-index="0" data-start="123.899" data-duration="2.1" data-focus-target=".skill-judgment" data-narration="Judgment and decision-making."><h2 class="beat-message" data-role="heading">Judgment and Decision-Making</h2></section>
+  <section class="clip" id="beat-25" data-beat-id="beat-25" data-track-index="0" data-start="125.999" data-duration="6.16" data-focus-target=".skill-judgment" data-narration="Deciding what's worth doing — and what &quot;good&quot; looks like — is far harder to automate than doing the task itself."><h2 class="beat-message" data-role="heading">Decide What Is Worth Doing</h2></section>
+  <section class="clip" id="beat-26" data-beat-id="beat-26" data-track-index="0" data-start="132.159" data-duration="3.34" data-focus-target=".experience-core" data-narration="Your experience is the raw material here."><h2 class="beat-message" data-role="heading">Experience Is the Raw Material</h2></section>
+  <section class="clip" id="beat-27" data-beat-id="beat-27" data-track-index="0" data-start="135.499" data-duration="2.46" data-focus-target=".skill-communication" data-narration="Communication and persuasion."><h2 class="beat-message" data-role="heading">Communication and Persuasion</h2></section>
+  <section class="clip" id="beat-28" data-beat-id="beat-28" data-track-index="0" data-start="137.959" data-duration="4.75" data-focus-target=".skill-communication" data-narration="Explaining ideas clearly, building trust, and moving people to act."><h2 class="beat-message" data-role="heading">Build Trust and Move People</h2></section>
+  <section class="clip" id="beat-29" data-beat-id="beat-29" data-track-index="0" data-start="142.709" data-duration="3.79" data-focus-target=".skill-communication" data-narration="Mid-career, this often becomes your primary value."><h2 class="beat-message" data-role="heading">Communication Becomes Primary Value</h2></section>
+  <section class="clip" id="beat-30" data-beat-id="beat-30" data-track-index="0" data-start="146.499" data-duration="2.39" data-focus-target=".skill-relationships" data-narration="Relationships and collaboration."><h2 class="beat-message" data-role="heading">Relationships and Collaboration</h2></section>
+  <section class="clip" id="beat-31" data-beat-id="beat-31" data-track-index="0" data-start="148.889" data-duration="9.1" data-focus-target=".skill-relationships" data-narration="Leadership, empathy, working across teams — deeply human, deeply valued, and exactly what sponsorship and advancement run on."><h2 class="beat-message" data-role="heading">Leadership and Empathy Drive Advancement</h2></section>
+  <section class="clip" id="beat-33" data-beat-id="beat-33" data-track-index="0" data-start="157.989" data-duration="2.4" data-focus-target=".skill-learning" data-narration="Learning how to learn."><h2 class="beat-message" data-role="heading">Learning How to Learn</h2></section>
+  <section class="clip" id="beat-34" data-beat-id="beat-34" data-track-index="0" data-start="160.389" data-duration="6.69" data-focus-target=".skill-learning" data-narration="In a fast-changing field, the ability to pick up new tools quickly beats mastery of any single tool."><h2 class="beat-message" data-role="heading">Learn New Tools Faster</h2></section>
+  <section class="clip" id="beat-35" data-beat-id="beat-35" data-track-index="0" data-start="167.079" data-duration="4.144" data-focus-target=".skill-learning" data-narration="Staying curious is a competitive advantage at every level."><h2 class="beat-message" data-role="heading">Curiosity Compounds</h2></section>
+  <section class="clip" id="beat-36" data-beat-id="beat-36" data-track-index="0" data-start="171.223" data-duration="11.82" data-focus-target=".skill-ai" data-narration="And working with AI. Knowing how to prompt it, check it, and combine its outputs with your own judgment is quickly becoming a baseline professional skill — and a visible one you can demonstrate."><h2 class="beat-message" data-role="heading">Prompt · Check · Combine</h2></section>
+  <section class="clip" id="beat-38" data-beat-id="beat-38" data-track-index="0" data-start="183.043" data-duration="3.195" data-focus-target=".experience-core" data-narration="None of these asks you to out-compute a machine."><h2 class="beat-message" data-role="heading">Do Not Out-Compute the Machine</h2></section>
+  <section class="clip" id="beat-39" data-beat-id="beat-39" data-track-index="0" data-start="186.238" data-duration="5.84" data-focus-target=".human-zone" data-narration="They ask you to be a thoughtful, capable professional who uses powerful tools well."><h2 class="beat-message" data-role="heading">Use Powerful Tools Well</h2></section>
+  <section class="clip" id="beat-40" data-beat-id="beat-40" data-track-index="0" data-start="192.078" data-duration="5.04" data-focus-target=".experience-core" data-narration="And mid-career, you're better positioned to do that than almost anyone."><h2 class="beat-message" data-role="heading">Mid-Career Experience Is Leverage</h2></section>
+  <section class="clip" id="beat-41" data-beat-id="beat-41" data-track-index="0" data-start="197.118" data-duration="10.22" data-focus-target=".target-zone" data-narration="So don't just ask what AI replaces. Ask what it changes — and aim yourself at the part that's worth more."><h2 class="beat-message" data-role="heading">Aim at What Becomes Worth More</h2></section>
 </main>
 <script>
   const master=gsap.timeline({paused:true,defaults:{ease:"power2.out"}});
   master.fromTo(".engine-shell",{opacity:0},{opacity:1,duration:.72,ease:"power3.out",immediateRender:false},0)
     .fromTo(".task-zone,.human-zone,.target-zone",{opacity:0},{opacity:1,duration:.62,stagger:.1,ease:"power2.out",immediateRender:false},.18)
-    .fromTo(".skill-node",{scale:.94,opacity:0},{scale:1,opacity:1,duration:.5,stagger:.07,ease:"back.out(1.35)",immediateRender:false},.42);
+    .fromTo(".skill-node",{scale:.94,opacity:0},{scale:1,opacity:1,duration:.5,stagger:.07,ease:"back.out(1.35)",immediateRender:false},.42)
+    .to(".engine-shell",{opacity:0,duration:.28},35.2)
+    .set(".engine-shell",{opacity:0},35.44)
+    .fromTo(".path-shell",{opacity:0},{opacity:1,duration:.42,immediateRender:false},35.44)
+    .to(".path-shell",{opacity:0,duration:.28},79.48)
+    .set(".path-shell",{opacity:0},79.759)
+    .fromTo(".example-shell",{opacity:0},{opacity:1,duration:.42,immediateRender:false},79.759)
+    .to(".example-shell",{opacity:0,duration:.28},119.48)
+    .set(".example-shell",{opacity:0},119.769)
+    .to(".engine-shell",{opacity:1,duration:.42},119.769);
   const clips=[...document.querySelectorAll(".clip")];
   clips.forEach((clip,index)=>{
     const start=Number(clip.dataset.start),duration=Number(clip.dataset.duration),end=start+duration;
-    const message=clip.querySelector(".beat-message"),spotlight=clip.querySelector(".spotlight");
+    const message=clip.querySelector(".beat-message");
+    const focusSelector=clip.dataset.focusTarget;
+    const lateFocusSelector=clip.dataset.focusLateTarget;
+    const focusTarget=focusSelector?document.querySelector(focusSelector):null;
+    const lateFocusTarget=lateFocusSelector?document.querySelector(lateFocusSelector):null;
+    const previousClip=index>0?clips[index-1]:null;
+    const nextClip=index<clips.length-1?clips[index+1]:null;
+    const previousSelector=previousClip?(previousClip.dataset.focusLateTarget||previousClip.dataset.focusTarget):null;
+    const nextSelector=nextClip?nextClip.dataset.focusTarget:null;
     master.fromTo(clip,{opacity:0},{opacity:1,duration:.14,immediateRender:false},start)
-      .fromTo(message,{y:18,opacity:0},{y:0,opacity:1,duration:.46,ease:"power2.out",immediateRender:false},start+.06)
-      .fromTo(spotlight,{scale:.97,opacity:0},{scale:1,opacity:1,duration:.5,ease:"power2.out",immediateRender:false},start+.12);
+      .fromTo(message,{y:18,opacity:0},{y:0,opacity:1,duration:.46,ease:"power2.out",immediateRender:false},start+.06);
+    if(focusTarget&&focusSelector!==previousSelector){
+      master.fromTo(focusTarget,{scale:.985,boxShadow:"0 0 0 0 rgba(234,171,45,0)"},{scale:1,boxShadow:"0 0 0 10px rgba(234,171,45,.95)",duration:.5,ease:"power2.out",immediateRender:false},start+.12);
+    }
+    if(focusTarget&&lateFocusTarget){
+      const handoff=start+(duration*Number(clip.dataset.focusLateAt||.55));
+      master.to(focusTarget,{scale:1,boxShadow:"0 0 0 0 rgba(234,171,45,0)",duration:.18,ease:"power1.in"},handoff-.18)
+        .fromTo(lateFocusTarget,{scale:.985,boxShadow:"0 0 0 0 rgba(234,171,45,0)"},{scale:1,boxShadow:"0 0 0 10px rgba(234,171,45,.95)",duration:.5,ease:"power2.out",immediateRender:false},handoff);
+      if(lateFocusSelector!==nextSelector){
+        master.to(lateFocusTarget,{scale:1,boxShadow:"0 0 0 0 rgba(234,171,45,0)",duration:.18,ease:"power1.in"},end-.18);
+      }
+    }else if(focusTarget&&focusSelector!==nextSelector){
+      master.to(focusTarget,{scale:1,boxShadow:"0 0 0 0 rgba(234,171,45,0)",duration:.18,ease:"power1.in"},end-.18);
+    }
     if(index<clips.length-1){master.to(clip,{opacity:0,duration:.14,ease:"power1.in"},end-.14);}
   });
   window.__timelines=window.__timelines||{};

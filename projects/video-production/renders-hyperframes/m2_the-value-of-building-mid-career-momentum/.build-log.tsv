@@ -59,3 +59,33 @@
 2026-08-10T20:49:55Z	preflight	exit 1
 2026-08-10T20:50:32Z	gate-fail	Owner-directed rebuild removed persistent irrelevant carrier; Motion v2 still rejects pace/coverage because 15 of 21 frames use fewer than 5 of 9 zones. Do not return to owner until scene-owned visuals are enlarged and the coherent carrier evolves without unrelated persistence.
 2026-08-10T20:50:32Z	release	build session ended
+2026-08-10T21:44:11Z	resume	program=mid-career-momentum
+2026-08-10T21:45:29Z	preflight	exit 1
+2026-08-10T21:45:50Z	release	build session ended
+2026-08-10T23:52:14Z	resume	program=mid-career-momentum
+2026-08-10T23:53:47Z	preflight	exit 1
+2026-08-10T23:58:22Z	preflight	exit 1
+2026-08-11T00:14:25Z	preflight	exit 0 — gate-clean
+2026-08-11T00:16:09Z	release	build session ended
+2026-08-11T01:49:17Z	preflight	exit 0 — gate-clean
+2026-08-11T02:10:40Z	preflight	exit 0 — gate-clean
+2026-08-11T02:54:48Z	resume	program=mid-career-momentum
+2026-08-11T02:57:40Z	owner-feedback-revision	Restored scene-owned diagrams, removed persistent empty carrier, and aligned named-item reveals to word timings.
+2026-08-11T02:59:12Z	preflight	exit 0 — gate-clean
+2026-08-11T02:59:34Z	release	build session ended
+2026-08-11T03:08:19Z	resume	program=mid-career-momentum
+2026-08-11T03:16:27Z	owner-feedback-revision	replaced repeated card carrier with 17 scene-owned diagram structures; fixed data-at pre-show/disappear/re-enter seek defect
+2026-08-11T03:18:08Z	preflight	exit 1
+2026-08-11T03:20:22Z	preflight	exit 0 — gate-clean
+2026-08-11T03:20:36Z	release	build session ended
+2026-08-11T08:26:13Z	resume	program=mid-career-momentum
+2026-08-11T08:30:34Z	author	entry-safe delayed states; horizon illustration replaces false UI
+2026-08-11T08:32:06Z	preflight	exit 0 — gate-clean
+2026-08-11T08:33:33Z	preflight	exit 0 — gate-clean
+2026-08-11T08:39:49Z	preflight	exit 0 — gate-clean
+2026-08-11T08:41:02Z	release	build session ended
+2026-08-11T08:50:07Z	resume	program=mid-career-momentum
+2026-08-11T08:51:15Z	source-repair	moved REAL-LIFE CONSTRAINTS label into lower third of gold fit circle; preserved RIGHT FIT cue, audio, timing, horizon, and final seam
+2026-08-11T08:54:46Z	motion-proof	39-frame dense sweep including 0.10s samples from 116.00 through 119.00s shows RIGHT FIT and REAL-LIFE CONSTRAINTS fully separated; horizon and final seam unchanged; hyperframes check runtime/layout/motion/contrast all clean
+2026-08-11T08:56:17Z	preflight	exit 0 — gate-clean
+2026-08-11T08:58:15Z	release	build session ended

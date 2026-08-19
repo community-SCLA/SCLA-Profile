@@ -4,7 +4,7 @@
 
 ## Where everything stands
 
-- **39** — **live on Wistia.** Done; links in the *Delivered* table below.
+- **38** — **live on Wistia.** Done; links in the *Delivered* table below.
 - **0** — **ready to build.** Script approved; nothing made yet.
 - **0** — **building now.** A workspace exists and is moving; each names the step it last completed.
 - **0** — **awaiting visual review.** The mechanical gate matches this source; the combined visual verdict is still missing.
@@ -75,7 +75,6 @@ Every lesson that is live, and where to watch it. Generated from `lesson-scripts
 | m3_rewrite-your-linkedin-for-future-you | mid-career-momentum | 2026-08-08 | [n3tl8aczyl](https://sclc.wistia.com/medias/n3tl8aczyl) | `renders-mp4/mid-career-momentum/m3_rewrite-your-linkedin-for-future-you_2026-08-08.mp4` |
 | m1_mini-syllabus | mid-career-momentum | 2026-08-07 | [ix0uy4jjmg](https://sclc.wistia.com/medias/ix0uy4jjmg) | `renders-mp4/mid-career-momentum/m1_mini-syllabus_2026-08-07.mp4` |
 | m3_the-identity-audit | career-transitions | 2026-08-07 | [7kcc5t69fk](https://sclc.wistia.com/medias/7kcc5t69fk) | `renders-mp4/career-transitions/m3_the-identity-audit_2026-08-07.mp4` |
-| m0_welcome-to-mid-career-momentum | mid-career-momentum | 2026-08-07 | [vpvjkr68dy](https://sclc.wistia.com/medias/vpvjkr68dy) | `renders-mp4/mid-career-momentum/m0_welcome-to-mid-career-momentum_2026-08-07.mp4` |
 | m2_welcome-and-using-career-transitions-as-leaps-ahead | career-transitions | 2026-08-07 | [izkgx5kdba](https://sclc.wistia.com/medias/izkgx5kdba) | `renders-mp4/career-transitions/m2_welcome-and-using-career-transitions-as-leaps-ahead_2026-08-07.mp4` |
 | m6_youve-built-momentum | mid-career-momentum | 2026-08-07 | [6fsnr8zwt2](https://sclc.wistia.com/medias/6fsnr8zwt2) | `renders-mp4/mid-career-momentum/m6_youve-built-momentum_2026-08-07.mp4` |
 | mini-syllabus_early-career-boost | early-career-boost | 2026-08-06 | [ays7di6sti](https://sclc.wistia.com/medias/ays7di6sti) | `renders-mp4/early-career-boost/mini-syllabus_early-career-boost_2026-08-06.mp4` |

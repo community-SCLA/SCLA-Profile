@@ -13,7 +13,7 @@ The resume becomes a signal field: what is merely busy falls outside the focus, 
 **Selected: Signal Lens.** It maps every narrated point to a direct visual change while staying calmer than a multi-object case board.
 
 ## Visual story
-One full-frame editorial field holds the resume language. A large focus window—not a small resume card—moves the learner’s attention from archive noise to the role ahead. It isolates the three problems, reframes activity as evidence, tests each line against the Next Move Statement, and resolves with a clear impact bullet.
+One full-frame editorial field holds the resume language. The teaching visual owns the center and expands across the canvas; there are no persistent sidebars, footer cards, dashboards, or decorative boxes competing with it. A large focus window—not a small resume card—moves the learner’s attention from archive noise to the role ahead. It isolates the three problems, reframes activity as evidence, tests each line against the Next Move Statement, and resolves with a clear impact bullet.
 
 ## Milestone frames
 1. Archive noise fills the field; “thorough” is visibly different from “clear.”
@@ -24,4 +24,4 @@ One full-frame editorial field holds the resume language. A large focus window�
 6. The Resume Builder Tool handoff preserves the same focused signal.
 
 ## Motion
-Finite focus blooms establish emphasis, named SVG paths draw only real relationships, and evidence phrases reveal or resolve in place. Scenes stay visible across complete sentences. There are no counters, module numbers, progress rails, scrubbers, traces, or completion motion.
+Finite focus blooms establish emphasis, named SVG paths draw only real relationships, and evidence phrases reveal or resolve in place. Scenes stay visible across complete sentences. The only persistent elements are the restrained program and lesson-title eyebrow. There are no counters, module numbers, progress rails, scrubbers, traces, completion motion, side panels, or footer furniture.

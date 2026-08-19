@@ -35,27 +35,15 @@
     },
     {
       "id": "intake-process-02",
-      "text": "If someone says yes, what happens next — what questions do you ask?"
-    },
-    {
-      "id": "intake-process-03",
-      "text": "What information do you need — what do you send?"
+      "text": "If someone says yes, what happens next? What questions do you ask; what information do you need; what do you send?"
     },
     {
       "id": "templates-01",
-      "text": "Third, a templates."
+      "text": "Third, a few templates."
     },
     {
       "id": "templates-02",
-      "text": "Proposal language; follow-up emails."
-    },
-    {
-      "id": "templates-03",
-      "text": "Meeting agendas; and project checklists."
-    },
-    {
-      "id": "templates-04",
-      "text": "Templates save you time and keep your work consistent."
+      "text": "Proposal language, follow-up emails, meeting agendas, project checklists; templates save you time and keep your work consistent."
     },
     {
       "id": "weekly-review-01",
@@ -67,7 +55,7 @@
     },
     {
       "id": "boundaries-01",
-      "text": "And finally, boundaries. How many hours will you give this?"
+      "text": "And finally, boundaries: how many hours will you give this?"
     },
     {
       "id": "boundaries-02",
@@ -78,11 +66,11 @@
       "text": "What kinds of clients or timelines aren't a fit?"
     },
     {
-      "id": "boundaries-04",
+      "id": "sustainability-01",
       "text": "AI can help you build templates and organize information, but the boundaries are still your call."
     },
     {
-      "id": "boundaries-05",
+      "id": "sustainability-02",
       "text": "Sustainability is part of strategy."
     },
     {

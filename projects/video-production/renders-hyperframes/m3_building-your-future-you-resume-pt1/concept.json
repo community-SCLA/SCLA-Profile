@@ -1,35 +1,131 @@
 {
+  "authored_by": "rebuild-future-resume",
   "title": "Building Your Future-You Resume, Part 1",
   "compositionId": "m3_building-your-future-you-resume-pt1",
   "program": "mid-career-momentum",
   "selectedLens": "Signal Lens",
-  "visualCarrier": "full-frame resume signal field with one moving focus window",
+  "visualCarrier": "native-scale full-frame resume signal field with one moving focus window and no persistent side or footer panels",
   "scores": {
-    "Signal Lens": {"fidelity": 5, "evolution": 5, "attention": 4, "feasibility": 5, "total": 19},
-    "Case-Building Table": {"fidelity": 5, "evolution": 4, "attention": 5, "feasibility": 3, "total": 17}
+    "Signal Lens": {
+      "fidelity": 5,
+      "evolution": 5,
+      "attention": 4,
+      "feasibility": 5,
+      "total": 19
+    },
+    "Case-Building Table": {
+      "fidelity": 5,
+      "evolution": 4,
+      "attention": 5,
+      "feasibility": 3,
+      "total": 17
+    }
   },
   "constraints": [
     "no scene or current-total numbering",
     "no progress, track, rail, scrubber, trace, or completion motion",
+    "no persistent sidebars, footer boxes, or decorative dashboard furniture",
+    "native 1920x1080 composition with label 20-24px, body 40-48px, subhead 54-72px, and headline 84-104px",
     "one complete visual scene per sentence or tightly connected idea",
     "each illustration explains the narrated point"
   ],
   "scenes": [
-    {"id":"scene-welcome","start":0,"end":4.71,"purpose":"Introduce the future-you resume."},
-    {"id":"scene-archive","start":4.71,"end":17.09,"purpose":"Show why an archive can look thorough yet work against the learner."},
-    {"id":"scene-reframe","start":17.09,"end":29.23,"purpose":"Change the resume from historical record to strategic tool."},
-    {"id":"scene-diagnosis","start":29.23,"end":36.65,"purpose":"Name the three usual culprits."},
-    {"id":"scene-tasks","start":36.65,"end":56.26,"purpose":"Contrast activity-only bullets with impact evidence."},
-    {"id":"scene-language","start":56.26,"end":71.94,"purpose":"Show outdated language creating busyness without focus."},
-    {"id":"scene-link","start":71.94,"end":88.72,"purpose":"Show the missing link between history and the next role."},
-    {"id":"scene-fit","start":88.72,"end":99.575,"purpose":"Resolve the decision-maker test: right fit, right now."},
-    {"id":"scene-ready","start":99.575,"end":113.74,"purpose":"Flip the frame from proving busyness to showing readiness."},
-    {"id":"scene-curate","start":113.74,"end":129.772,"purpose":"Use the next move as the filter for projects, results, and responsibilities."},
-    {"id":"scene-case","start":129.772,"end":150.594,"purpose":"Emphasize leadership, outcomes, and scope while de-emphasizing irrelevant tasks."},
-    {"id":"scene-north-star","start":150.594,"end":167.179,"purpose":"Use the Next Move Statement as the north star."},
-    {"id":"scene-line-test","start":167.179,"end":185.788,"purpose":"Select three to five experiences and apply responsibility, action, measurable outcome, and scope."},
-    {"id":"scene-rewrite","start":185.788,"end":207.988,"purpose":"Rewrite one task bullet into a measurable impact bullet."},
-    {"id":"scene-builder","start":207.988,"end":228.778,"purpose":"Show the Resume Builder Tool workflow and headline-story choice."},
-    {"id":"scene-next","start":228.778,"end":241.948,"purpose":"Hand off to the Resume Builder Tool."}
-  ]
+    {
+      "id": "scene-welcome",
+      "start": 0.0,
+      "end": 4.66,
+      "purpose": "Introduce the future-you resume."
+    },
+    {
+      "id": "scene-archive",
+      "start": 4.66,
+      "end": 17.31,
+      "purpose": "Show why an archive can look thorough yet work against the learner."
+    },
+    {
+      "id": "scene-reframe",
+      "start": 17.31,
+      "end": 27.38,
+      "purpose": "Change the resume from historical record to strategic tool."
+    },
+    {
+      "id": "scene-diagnosis",
+      "start": 27.38,
+      "end": 34.62,
+      "purpose": "Name the three usual culprits."
+    },
+    {
+      "id": "scene-tasks",
+      "start": 34.62,
+      "end": 53.88,
+      "purpose": "Contrast activity-only bullets with impact evidence."
+    },
+    {
+      "id": "scene-language",
+      "start": 53.88,
+      "end": 70.469,
+      "purpose": "Show outdated language creating busyness without focus."
+    },
+    {
+      "id": "scene-link",
+      "start": 70.469,
+      "end": 86.704,
+      "purpose": "Show the missing link between history and the next role."
+    },
+    {
+      "id": "scene-fit",
+      "start": 86.704,
+      "end": 96.719,
+      "purpose": "Resolve the decision-maker test: right fit, right now."
+    },
+    {
+      "id": "scene-ready",
+      "start": 96.719,
+      "end": 111.939,
+      "purpose": "Flip the frame from proving busyness to showing readiness."
+    },
+    {
+      "id": "scene-curate",
+      "start": 111.939,
+      "end": 127.099,
+      "purpose": "Use the next move as the filter for projects, results, and responsibilities."
+    },
+    {
+      "id": "scene-case",
+      "start": 127.099,
+      "end": 148.059,
+      "purpose": "Emphasize leadership, outcomes, and scope while de-emphasizing irrelevant tasks."
+    },
+    {
+      "id": "scene-north-star",
+      "start": 148.059,
+      "end": 165.72,
+      "purpose": "Use the Next Move Statement as the north star."
+    },
+    {
+      "id": "scene-line-test",
+      "start": 165.72,
+      "end": 186.03,
+      "purpose": "Select three to five experiences and apply responsibility, action, measurable outcome, and scope."
+    },
+    {
+      "id": "scene-rewrite",
+      "start": 186.03,
+      "end": 209.281,
+      "purpose": "Rewrite one task bullet into a measurable impact bullet."
+    },
+    {
+      "id": "scene-builder",
+      "start": 209.281,
+      "end": 228.891,
+      "purpose": "Show the Resume Builder Tool workflow and headline-story choice."
+    },
+    {
+      "id": "scene-next",
+      "start": 228.891,
+      "end": 241.981,
+      "purpose": "Hand off to the Resume Builder Tool."
+    }
+  ],
+  "duration": 241.981
 }

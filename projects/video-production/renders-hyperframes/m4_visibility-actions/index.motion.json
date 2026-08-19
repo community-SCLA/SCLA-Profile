@@ -6,6 +6,19 @@
     "seekable": true,
     "duration": 117.997
   },
+  "motionVocabulary": [
+    "depth-of-field focus",
+    "SVG relationship path draw",
+    "scale-swap handoff",
+    "finite lens breathe",
+    "semantic crop reframe"
+  ],
+  "layoutFamilies": [
+    "shared viewfinder comparison",
+    "explicit action depth field",
+    "three-crop action workshop",
+    "test and support refocus"
+  ],
   "assertions": [
     { "kind": "appearsBy", "selector": "#beat-01a-networking", "bySec": 0.8 },
     { "kind": "appearsBy", "selector": "#beat-01b-visibility", "bySec": 4.699 },

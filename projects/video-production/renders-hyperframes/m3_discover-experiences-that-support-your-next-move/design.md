@@ -1,37 +1,44 @@
-# Design: Future-Fit Signal Map
+# Design: Future Gallery
 
-## Frame and carrier
+## Visual language
 
-- 1920 × 1080 paper-white canvas, 120px frame padding, and the token-defined 120px footer reserve.
-- Persistent program eyebrow and lesson title sit in the safe top band; no module counter or navigation chrome appears.
-- The recurring carrier is a large evidence signal: broad work-experience bands, named filters, and relationship paths that occupy the full teaching field.
-- Proxima Nova, navy text, blue structure, and gold selection states use only local token values.
+- **Canvas:** deep navy exhibition space with low-contrast architectural rings and a 120px safe margin.
+- **Foreground:** paper-white framed works, vivid blue relationship paths, and gold selection light.
+- **Typography:** Proxima Nova only. Display 76–88px/900, headings 60–72px/900, body 40–48px/400 or 700, labels 20–26px/900 uppercase with tracking.
+- **Texture:** room-scale arches, floor ellipses, large light cones, and registration marks create depth without persistent explanatory chrome.
+- **No false UI:** no buttons, tabs, progress rails, counters, static sidebars, or decorative arrows.
+
+## Layout families
+
+1. **Compass field:** one large circular bearing with orbiting evidence frames.
+2. **Perspective gallery:** a full-width exhibition wall with varied work sizes and depth.
+3. **Light theatre:** one central experience under three independently active light cones.
+4. **Radial exhibit:** one project surrounded by named proof nodes and accurate connecting paths.
+5. **Translation prism:** a single horizontal transformation across a central geometric lens.
+6. **Print workshop:** four heavy plates compose one full-width bullet.
+7. **Hero wall:** one oversized closing work under a resolved future arch.
 
 ## Beat-to-frame map
 
-1. **Future evidence:** the frame contrasts “roles already had” with “future I want”; a named relationship path makes the question concrete.
-2. **Curate the story:** seven thin inventory records compact into three large selected evidence bands; scale shows selection, not decoration.
-3. **Selection lens:** Strengths, Scope, and Impact form three full-height filters. The active filter enlarges as the narration advances; impact resolves into outcomes, processes, relationships, and growth.
-4. **Leadership proof:** one project becomes a network whose three destinations are Lead Teams, Influence Decisions, and Own Visible Results.
-5. **Lateral proof:** Existing Context and New Domain are bridged by Learn Quickly, Translate Skills, and Collaborate. Title difference is visibly separated from transferable evidence.
-6. **RAMS:** 3–5 selected experiences feed one four-part bullet. Responsibility, Action, Measurable Outcome, and Scope reveal in order and retain their definitions.
-7. **True direction:** a truthful evidence set aligns under Future Direction; the final state makes one selected bullet visibly stronger without inventing content.
-
-## Spacing and proportion
-
-- Headlines occupy 42–56% of usable width and range from 62–96px.
-- Teaching diagrams occupy 44–58% of the frame, with nodes sized for video rather than web UI.
-- Related items group at 18–28px; unrelated blocks maintain 56–96px breathing zones.
-- Main compositions fill at least five of nine frame zones while preserving the safe area and footer reserve.
+- **0.000–12.649:** Past-role frames orbit a future-facing compass; the final state aligns selected experience with Future I Want.
+- **12.649–23.698:** the wall establishes abundance, then dims nonessential pieces and advances only the works that tell the right story.
+- **23.698–41.818:** Strength, Scope, and Impact activate in narration order. Improved Outcomes, Better Processes, Stronger Relationships, and Growth arrive only on the Impact state.
+- **41.818–56.927:** a central project first establishes the target, then connects to Teams and Cross-Functional Initiatives, then Decisions and Visible Impact.
+- **56.927–72.277:** experience enters from Existing Context, is translated through Learn Quickly and Translate Skills, then resolves into New Domain with Collaborate and Title Can Differ.
+- **72.277–101.176:** 3–5 experience works condense to one; the RAMS plates reveal and stamp in the spoken sequence; definitions take focus in two narration-linked pairs.
+- **101.176–119.936:** the original work stays truthful while direction sharpens; the final oversized bullet settles and holds.
 
 ## Motion logic
 
-- **Establish:** headlines rise 42px while the main teaching surface scales from 0.96 and settles within 1.0s.
-- **Transform:** SVG paths draw only between named states; evidence bands translate, sort, or lock into the active filter.
-- **Emphasize:** the spoken item receives one stable gold selection state; non-active items remain readable but subordinate.
-- **Resolve:** the final evidence bullet receives a restrained blue halo bloom and settles once.
-- Motion is deterministic, finite, seek-safe, and built on one paused GSAP timeline. No text-bearing element pulses, no progress movement appears, and scene exits never imitate navigation.
+- Each idea begins only after the prior sentence completes.
+- Within a sentence, the same carrier persists and only meaning-bearing selection, light, or connection states change.
+- Group entrances use a confident scale settle, directional frame glides, and path draws. Continuation beats use small, local transformations rather than full-scene re-entry.
+- Ambient motion applies only to non-text architecture and uses finite yoyo counts.
+- No text-bearing element pulses, bounces, flickers, or repeatedly re-enters.
 
-## Rhythm
+## Crowded-frame checks
 
-Question hold → decisive sort → measured three-filter build → connected leadership network → lateral bridge → deliberate RAMS assembly → calm final resolve. RAMS is the information peak; the closing holds long enough to read.
+- Impact scene: four outcomes form a balanced lower arc without touching the central experience or light cones.
+- Leadership scene: all four nodes clear the radial paths and the 120px safe region.
+- RAMS scene: all four plates fit across the 1680px working field with 28px gaps and 42px minimum explanatory copy.
+- Closing scene: the final bullet remains above the 960px content-bottom floor and inside 120px horizontal padding.

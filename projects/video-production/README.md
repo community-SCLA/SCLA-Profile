@@ -34,3 +34,9 @@ hand-edited `data-start` is a defect, not a shortcut.
 Standard project shape — `src/` code, `config/` settings, `docs/` read-once notes,
 `logs/` run history. `design-system/` is the exception: HyperFrames dictates its
 layout, and that divergence is written down in `design-system/docs/README.md`.
+
+## Note to self
+Eventually redo: 
+m3_discover-experiences-that-support-your-next-move
+m2_the-value-of-building-mid-career-momentum (just needs some line realignment)
+m4_visibility-actions (same problem-the organic style lines are awkward)

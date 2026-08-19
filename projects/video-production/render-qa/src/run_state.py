@@ -18,7 +18,13 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from workspace_revision import read_revision_marker, workspace_revision
+from visual_review_receipt import validate_visual_review
+from gate_contract import gate_contract_revision
+from workspace_revision import (
+    read_gate_contract_marker,
+    read_revision_marker,
+    workspace_revision,
+)
 
 
 SRC = Path(__file__).resolve().parent
@@ -171,9 +177,12 @@ def current_gate_revision(stem: str) -> tuple[Path, str]:
         raise SystemExit(f"FATAL: no workspace found for {stem}")
     current = workspace_revision(workspace)
     preflight = read_revision_marker(workspace)
-    if not preflight or preflight != current:
+    gate_revision = read_gate_contract_marker(workspace)
+    if (not preflight or preflight != current
+            or gate_revision != gate_contract_revision()):
         raise SystemExit(
-            f"FATAL: {stem} is not gate-clean at its current revision; "
+            f"FATAL: {stem} is not gate-clean at its current revision under "
+            "the current gate contract; "
             "run the build gate again")
     return workspace, current
 
@@ -184,10 +193,11 @@ def current_review_revision(stem: str) -> tuple[Path, str]:
     if (visual.get("revision") != current or
             visual.get("blocking_defect") != "PASS" or
             visual.get("taste") != "ALIVE" or
-            visual.get("recommendation") != "PROCEED"):
+            visual.get("recommendation") != "PROCEED" or
+            validate_visual_review(workspace, visual)):
         raise SystemExit(
-            f"FATAL: {stem} has no PASS + ALIVE + PROCEED visual review "
-            "for its current revision")
+            f"FATAL: {stem} has no evidence-backed PASS + ALIVE + PROCEED "
+            "adversarial visual review for its current revision")
     return workspace, current
 
 
@@ -430,47 +440,24 @@ def cmd_record_visual_review(args) -> int:
             raise SystemExit(
                 "FATAL: PROCEED requires BLOCKING_DEFECT=PASS and TASTE=ALIVE; "
                 "every other verdict must recommend REVISE")
-        evidence = []
-        weakest = []
-        if (workspace / ".scla-control-v3").exists():
-            concept = read_json(workspace / "concepts" / "CONCEPT-BOARD.json", {})
-            concept_author = str(concept.get("authored_by") or "").strip().lower()
-            reviewer = str(args.reviewer or "").strip()
-            if not reviewer or reviewer.lower() == concept_author:
-                raise SystemExit(
-                    "FATAL: control-v3 visual review requires --reviewer naming "
-                    "an agent different from the concept author")
-            if len(args.evidence_frame or []) < 3 or len(args.weakest_frame or []) < 1:
-                raise SystemExit(
-                    "FATAL: control-v3 visual review requires at least three "
-                    "--evidence-frame values and one --weakest-frame")
-            if len(args.change_note or []) < 5:
-                raise SystemExit(
-                    "FATAL: control-v3 visual review requires at least five "
-                    "--change-note entries describing material visual events")
-            if args.layout_families is None or args.layout_families < 3:
-                raise SystemExit(
-                    "FATAL: control-v3 review requires --layout-families >= 3; "
-                    "repeated variants of one layout must recommend REVISE")
+        def frame_receipts(values, label):
+            rows = []
+            snapshots = (workspace / "snapshots").resolve()
+            for raw in values or []:
+                path = (workspace / raw).resolve()
+                try:
+                    path.relative_to(snapshots)
+                except ValueError:
+                    raise SystemExit(
+                        f"FATAL: {label} must name a file under snapshots/: {raw}")
+                if not path.is_file():
+                    raise SystemExit(f"FATAL: missing {label}: {raw}")
+                rows.append({"path": str(path.relative_to(workspace.resolve())),
+                             "sha256": sha256_file(path)})
+            return rows
 
-            def frame_receipts(values, label):
-                rows = []
-                snapshots = (workspace / "snapshots").resolve()
-                for raw in values or []:
-                    path = (workspace / raw).resolve()
-                    try:
-                        path.relative_to(snapshots)
-                    except ValueError:
-                        raise SystemExit(
-                            f"FATAL: {label} must name a file under snapshots/: {raw}")
-                    if not path.is_file():
-                        raise SystemExit(f"FATAL: missing {label}: {raw}")
-                    rows.append({"path": str(path.relative_to(workspace.resolve())),
-                                 "sha256": sha256_file(path)})
-                return rows
-
-            evidence = frame_receipts(args.evidence_frame, "evidence frame")
-            weakest = frame_receipts(args.weakest_frame, "weakest frame")
+        evidence = frame_receipts(args.evidence_frame, "evidence frame")
+        weakest = frame_receipts(args.weakest_frame, "weakest frame")
         receipt = {
             "revision": revision,
             "blocking_defect": args.blocking_defect,
@@ -484,6 +471,11 @@ def cmd_record_visual_review(args) -> int:
             "material_changes": list(args.change_note or []),
             "reviewed_at": now(),
         }
+        failures = validate_visual_review(workspace, receipt)
+        if failures:
+            raise SystemExit(
+                "FATAL: SCLA adversarial visual review is incomplete: "
+                + "; ".join(failures))
         atomic_write(workspace / "qa" / "VISUAL-REVIEW.json", receipt)
     print(json.dumps(receipt, indent=2))
     return 0
@@ -516,8 +508,19 @@ def cmd_record_owner_rejection(args) -> int:
         fixture = registry_path.parent / str(row.get("fixture") or "")
         if not fixture.is_file() or not row.get("checker") or not row.get("rule_id"):
             raise SystemExit("FATAL: owner-rejection registry row is incomplete")
+        current = workspace_revision(workspace)
+        rejected_revision = args.revision or current
+        known_revisions = {
+            current,
+            read_revision_marker(workspace),
+            read_json(workspace / "qa" / "VISUAL-REVIEW.json", {}).get("revision"),
+        }
+        if rejected_revision not in known_revisions:
+            raise SystemExit(
+                "FATAL: rejected revision is not the current source or a "
+                "recorded gate/visual-review revision")
         receipt = {
-            "revision": workspace_revision(workspace),
+            "revision": rejected_revision,
             "rejected_at": now(), "rejected_by": "owner",
             "regression_id": args.regression_id, "reason": args.reason,
             "checker": row["checker"], "rule_id": row["rule_id"],
@@ -1173,6 +1176,7 @@ def parser() -> argparse.ArgumentParser:
     s.add_argument("stem")
     s.add_argument("--regression-id", required=True)
     s.add_argument("--reason", required=True)
+    s.add_argument("--revision")
     s.set_defaults(func=cmd_record_owner_rejection)
     sub.add_parser("show").set_defaults(func=cmd_show)
     sub.add_parser("capacity").set_defaults(func=cmd_capacity)

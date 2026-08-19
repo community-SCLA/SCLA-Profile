@@ -34,7 +34,7 @@ Sections:
                     script, word-level; static and free, so it runs at plan
                     stage too
   pace            — check_pace.py: beat-pace / long-beat-share (timing.json,
-                    runs in --static) + carrier-drift (snapshots/, full gate)
+                    runs in --static) + repeated-frame share (full gate)
   text            — check_text.py: minimum on-frame text size (floors LOADED
                     from tokens.yml typography.min-size via tokens.py) and no
                     on-frame line restating its own scene's label or heading
@@ -65,7 +65,7 @@ lets the QA gauntlet's agent lanes shrink to judgment-only work.
 --static (2026-07-28): run ONLY the sections that are meaningful on a
 workspace with NO voice assets — the plan stage, before any TTS has run.
 Sections that need audio/timing/snapshots (boundaries, coverage, geometry,
-layout, inscene_gaps, carrier-drift) are SKIPPED with a "(static mode)" note,
+layout, inscene_gaps, repeated-frame share) are SKIPPED with a "(static mode)" note,
 never failed. Same exit semantics: 0 = the plan is clean, 1 = fix the plan.
 
 Usage:  preflight.py <workspace> [--script <approved.txt>] [--json] [--static]
@@ -102,27 +102,18 @@ TOL = 0.002
 # hand-edited words file), never on the compressor's own output.
 INSCENE_GAP_FAIL = 0.8  # s of in-scene inter-word silence -> FAIL
 
-# HeyGen swap (landed 2026-07-22, see decisions/log.md, same detection idiom
-#   as compile_timeline.words_path_for()): the illustrated pipeline's default
-#   TTS is HeyGen starfish, so this check reads assets/voice/narration.words.json
-#   (native word timestamps, synth_narration.py) when present, else falls back
-#   to Whisper's transcript.json (--provider kokoro workspaces). Detected
-#   per-workspace by which file is on disk, not a global flag — a hardcoded
-#   switch would silently skip the fidelity gate on every kokoro workspace
-#   (narration.words.json never exists there, and the "file missing" branch
-#   below is a WARN+skip, not a failure). Note: HeyGen words are the exact
-#   synthesized text (no Whisper mishears), so script_match is a near-exact
-#   check on HeyGen workspaces — the RATE_WARN/RATE_FAIL/RUN_FAIL thresholds
-#   below still pass as-is (strictly better) and were left untightened;
-#   revisit if HeyGen-path noise ever shows up in practice.
+# HeyGen swap (landed 2026-07-22, see decisions/log.md): native word timestamps
+# remain the timing authority after synthesis. Script fidelity is stricter and
+# earlier: it compares the authored TTS manifest directly with the approved
+# script, so transcription noise is irrelevant.
 HEYGEN_WORDS_FILE = "narration.words.json"  # synth_narration.py / heygen-tts.mjs output
 
-# script_match thresholds — whisper small.en's known noise floor is ~1 mishear
-# per ~360 words (~0.3%), so the gate is threshold-based, never exact-match.
-RATE_WARN = 0.005   # ≤ this: PASS, diffs printed as warnings (noise floor)
-RATE_FAIL = 0.02    # > this: FAIL — the TTS read the wrong text
-RUN_FAIL = 4        # ≥ this many consecutive missed words: FAIL — a sentence
-                    # was misread/dropped, not a transcription hiccup
+# The manifest is authored input, not a noisy transcript. One missing or
+# substituted normalized word is a failure. The exported constants remain for
+# callers/tests that report the policy numerically.
+RATE_WARN = 0.0
+RATE_FAIL = 0.0
+RUN_FAIL = 1
 LESSON_SCRIPTS = Path(__file__).resolve().parents[2] / "lesson-scripts"
 
 DASH_RE = re.compile(r"[‒–—―/-]+")
@@ -662,20 +653,13 @@ def check_script_match(ws: Path, script_override=None,
     lines = [f"script: {script_path}",
              f"{len(script_toks)} script words vs {len(heard_toks)} beat words "
              f"— mismatch rate {rate:.2%}, longest miss run {max_run}"]
-    lines += [f"WARN {s}" for s in segments]
-    if max_run >= RUN_FAIL:
-        lines.append(f"FAIL: {max_run} consecutive mismatched words — a "
-                     f"sentence was rewritten or dropped, not a TTS "
-                     f"normalization")
+    lines += [f"DIFF {s}" for s in segments]
+    if rate > RATE_FAIL or max_run >= RUN_FAIL:
+        lines.append(
+            "FAIL: the TTS manifest must carry every approved-script word. "
+            "Only normalized punctuation, number formatting, and pronunciation "
+            "accents may differ")
         return {"pass": False, "output": "\n".join(lines)}
-    if rate > RATE_FAIL:
-        lines.append(f"FAIL: mismatch rate {rate:.2%} > {RATE_FAIL:.1%} — the "
-                     f"beat manifest does not carry the approved script")
-        return {"pass": False, "output": "\n".join(lines)}
-    if rate > RATE_WARN:
-        lines.append(f"WARN: mismatch rate {rate:.2%} is above the "
-                     f"TTS-normalization noise floor (~{RATE_WARN:.1%}) — "
-                     f"eyeball the diffs above before rendering")
     return {"pass": True, "output": "\n".join(lines)}
 
 
@@ -1018,6 +1002,16 @@ def main():
                         str(Path(__file__).parent / "check_forms.py"),
                         str(ws)])
     sections["forms"] = {"pass": rc == 0, "output": out.strip()}
+    failed |= rc != 0
+
+    # 10b. visual structure — two defects ordinary browser geometry cannot
+    #      infer: detached focus borders drawn in the wrong coordinate system,
+    #      and flex children whose default min-height forces them through a
+    #      bounded parent. Both are static and must fail before synthesis too.
+    rc, out = run_tool([sys.executable,
+                        str(Path(__file__).parent / "check_visual_structure.py"),
+                        str(ws)])
+    sections["visual_structure"] = {"pass": rc == 0, "output": out.strip()}
     failed |= rc != 0
 
     # 11. copy — standing owner preferences about the words themselves, given

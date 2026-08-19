@@ -7,8 +7,8 @@ lesson, approved one and called the other "SO boring", and every gate in
 `render-qa/src/` passed the boring one while QUARANTINING the approved one —
 the gate set measured animacy, the owner was responding to structure. Fixtures
 here are synthetic (a timing.json with planted beat durations, and generated
-stills for carrier-drift), same discipline as test_diversity.py: no font or
-render dependency, so this suite runs anywhere.
+stills for twin-share), same discipline as test_diversity.py: no font or render
+dependency, so this suite runs anywhere.
 
 Run:  python3 tests/test_pace.py   (exit 0 = all pass)
 """
@@ -125,23 +125,23 @@ check("a build shaped like the approved reference cut passes with no findings",
       report is not None and not problems, str(problems))
 
 # ---------------------------------------------------------------------------
-# 5. carrier-drift — over the ceiling: every beat draws an unrelated picture.
+# 5. Mean churn is diagnostic only. Purposeful scene replacement must not be
+#    blocked by a pixel-difference proxy that cannot understand scene intent.
 drifting = workspace("drifting", [(f"s{i:02d}", 5.0) for i in range(6)])
 snapshots(drifting, [0, 240, 40, 280, 10, 260])
 report, problems = check_pace.check_stills(drifting)
-fires("check_pace", "carrier-drift",
-      "consecutive beats redrawing an unrelated picture each time fires "
-      "over the churn ceiling",
-      "carrier-drift" in rules_of(problems), str(problems))
+check("high inter-beat churn is reported but does not impose a carrier mandate",
+      report and report["mean_churn"] > 6.0 and
+      "carrier-drift" not in rules_of(problems), str((report, problems)))
 
-# ...and the frozen floor: the same rule id, the opposite direction — a
-# carrier-drift ceiling with no floor would license a still image, which the
-# module docstring explicitly disclaims.
+# Frozen frames are still rejected, but by the objective twin-share backstop;
+# check_presence remains authoritative for spoken-word stagnation.
 frozen = workspace("frozen-carrier", [(f"s{i:02d}", 5.0) for i in range(6)])
 snapshots(frozen, [0, 0, 0, 0, 0, 0])
 report, problems = check_pace.check_stills(frozen)
-check("...and a frozen carrier (0% churn) ALSO fires carrier-drift, the low end",
-      "carrier-drift" in rules_of(problems), str(problems))
+check("a frozen sequence fails twin-share without inventing a carrier rule",
+      "twin-share" in rules_of(problems) and
+      "carrier-drift" not in rules_of(problems), str(problems))
 
 # A build shaped like the approved reference cut's own churn (3.34%) passes.
 band_offsets = [0, 8, 3, 11, 5, 9]  # small nudges: some churn, nowhere near either edge
@@ -157,7 +157,7 @@ check("a build with real but modest churn (a re-sorting carrier) passes",
 #    discriminate between the two reference cuts), so it is proven ONLY here,
 #    by a planted fixture: half the consecutive pairs are pixel-identical
 #    ("gamed" beats — split with no visual change) and the rest carry real,
-#    modest churn so this does not also trip carrier-drift's ceiling.
+#    modest churn between the duplicated pairs.
 gamed = workspace("gamed", [(f"s{i:02d}", 5.0) for i in range(6)])
 snapshots(gamed, [0, 0, 15, 15, 30, 45])
 report, problems = check_pace.check_stills(gamed)
@@ -165,13 +165,13 @@ fires("check_pace", "twin-share",
       "2 of 5 consecutive pairs pixel-identical (40%, over the 25% ceiling) "
       "fires twin-share",
       "twin-share" in rules_of(problems), str(problems))
-check("...and it does not also trip carrier-drift on this fixture",
+check("...and carrier-drift no longer exists as a release finding",
       "carrier-drift" not in rules_of(problems), str(problems))
 check("...report carries the raw fraction, not just the verdict",
       report and report.get("twin_share") == 0.4, str(report))
 
 # ---------------------------------------------------------------------------
-# 6. carrier-drift nothing-graded — fewer than 3 stills cannot measure drift.
+# 6. still-grid nothing-graded — fewer than 3 stills cannot measure repeats.
 sparse = workspace("sparse-stills", [(f"s{i:02d}", 5.0) for i in range(2)])
 snapshots(sparse, [0, 50])
 report, problems = check_pace.check_stills(sparse)

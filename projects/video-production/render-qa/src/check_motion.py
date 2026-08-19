@@ -70,6 +70,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -397,6 +398,145 @@ def repopulation_findings(raw_html: str):
     return []
 
 
+class _SceneVisuals(HTMLParser):
+    """Collect the authored `.visual` subtree for each top-level clip."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.current = None
+        self.scene_level = None
+        self.visual_level = None
+        self.scenes = []
+
+    @staticmethod
+    def _classes(attrs):
+        return set(dict(attrs).get("class", "").split())
+
+    @staticmethod
+    def _token(tag, attrs, skeleton=False):
+        kept = []
+        for name, value in attrs:
+            if name in {"id", "data-start", "data-duration", "data-beat-id"}:
+                continue
+            if skeleton and name == "data-state":
+                continue
+            if skeleton and name == "class":
+                states = {"selected", "active", "current", "focused", "focus"}
+                value = " ".join(x for x in (value or "").split()
+                                 if x not in states)
+            kept.append((name, value or ""))
+        return ("<", tag, tuple(sorted(kept)))
+
+    def handle_starttag(self, tag, attrs):
+        classes = self._classes(attrs)
+        if self.current is None and tag == "section" and "clip" in classes:
+            values = dict(attrs)
+            self.current = {
+                "id": values.get("id") or values.get("data-beat-id") or "?",
+                "duration": values.get("data-duration") or "?",
+                "continuity": values.get("data-continuity") or "",
+                "exact_tokens": [],
+                "skeleton_tokens": [],
+            }
+            self.scene_level = len(self.stack)
+        if (self.current is not None and self.visual_level is None
+                and "visual" in classes):
+            self.visual_level = len(self.stack)
+        if self.current is not None and self.visual_level is not None:
+            self.current["exact_tokens"].append(self._token(tag, attrs))
+            self.current["skeleton_tokens"].append(
+                self._token(tag, attrs, skeleton=True))
+        self.stack.append(tag)
+
+    def handle_startendtag(self, tag, attrs):
+        if self.current is not None and self.visual_level is not None:
+            self.current["exact_tokens"].append(self._token(tag, attrs))
+            self.current["exact_tokens"].append(("/", tag))
+            self.current["skeleton_tokens"].append(
+                self._token(tag, attrs, skeleton=True))
+            self.current["skeleton_tokens"].append(("/", tag))
+
+    def handle_data(self, data):
+        if self.current is None or self.visual_level is None:
+            return
+        value = re.sub(r"\s+", " ", data).strip()
+        if value:
+            self.current["exact_tokens"].append(("text", value))
+            self.current["skeleton_tokens"].append(("text", value))
+
+    def handle_endtag(self, tag):
+        if self.current is not None and self.visual_level is not None:
+            self.current["exact_tokens"].append(("/", tag))
+            self.current["skeleton_tokens"].append(("/", tag))
+        if self.stack:
+            self.stack.pop()
+        if (self.current is not None and self.visual_level is not None
+                and len(self.stack) == self.visual_level):
+            self.visual_level = None
+        if (self.current is not None and self.scene_level is not None
+                and len(self.stack) == self.scene_level):
+            self.current["exact_signature"] = tuple(
+                self.current.pop("exact_tokens"))
+            self.current["skeleton_signature"] = tuple(
+                self.current.pop("skeleton_tokens"))
+            self.scenes.append(self.current)
+            self.current = None
+            self.scene_level = None
+            self.visual_level = None
+
+
+def repeated_scene_carrier_findings(raw_html: str):
+    """Reject adjacent beat clips that clone the same authored illustration.
+
+    A persistent carrier belongs in one shared scene while its meaning-bearing
+    state develops. Copying the same subtree into several short clips makes
+    entrances and scene count look like development even when the viewer sees
+    the same picture again.
+    """
+    parser = _SceneVisuals()
+    try:
+        parser.feed(raw_html)
+    except (TypeError, ValueError):
+        return []
+    scenes = [scene for scene in parser.scenes
+              if scene.get("skeleton_signature")]
+    continuity_wired = bool(re.search(
+        r"(?:dataset\.continuity|getAttribute\(\s*['\"]data-continuity['\"])",
+        raw_html))
+    findings = []
+    i = 0
+    while i < len(scenes):
+        j = i + 1
+        while (j < len(scenes)
+               and scenes[j]["skeleton_signature"]
+               == scenes[i]["skeleton_signature"]):
+            j += 1
+        if j - i >= 2:
+            group = scenes[i:j]
+            exact = {scene["exact_signature"] for scene in group}
+            continuity = {scene["continuity"] for scene in group}
+            persistent_development = (
+                len(exact) >= 2 and len(continuity) == 1
+                and "" not in continuity and continuity_wired)
+            if not persistent_development:
+                ids = ", ".join(scene["id"] for scene in group)
+                findings.append({
+                    "rule": "repeated-scene-carrier",
+                    "detail": (
+                        f"adjacent beats {ids} reuse the same .visual carrier "
+                        "without one declared continuity group and explicit "
+                        "meaning-bearing states. Separate short clips, selected "
+                        "classes, and repeated entrances do not create "
+                        "development by themselves. Keep one carrier persistent "
+                        "with data-continuity and change its authored state, or "
+                        "use materially different illustrations"
+                    ),
+                })
+        i = j
+    return findings
+
+
 def batch_emphasis_findings(raw_html: str):
     """Reject paint-only emphasis sprayed across an entire list at once."""
     findings = []
@@ -434,6 +574,7 @@ def grade(raw_html: str):
     findings = (playback_progress_findings(raw_html)
                 + temporal_progress_findings(raw_html)
                 + repopulation_findings(raw_html)
+                + repeated_scene_carrier_findings(raw_html)
                 + batch_emphasis_findings(raw_html))
     # Only `//` comments are stripped, so a declared `/* motion-allow: … */`
     # exception survives into the graded text and is still honoured below.

@@ -27,3 +27,32 @@
 2026-08-10T19:26:00Z	preflight	exit 0 — gate-clean
 2026-08-10T19:26:10Z	gate	PASS: durable gate green; carrier churn 5.79%; 23/23 midpoint frames; layout and geometry clean
 2026-08-10T19:26:10Z	release	build session ended
+2026-08-10T23:52:54Z	resume	program=mid-career-momentum
+2026-08-10T23:54:19Z	preflight	exit 0 — gate-clean
+2026-08-10T23:54:20Z	release	build session ended
+2026-08-10T23:55:02Z	preflight	exit 0 — gate-clean
+2026-08-10T23:55:46Z	preflight	exit 0 — gate-clean
+2026-08-10T23:55:59Z	release	build session ended
+2026-08-11T00:24:42Z	resume	program=mid-career-momentum
+2026-08-11T00:26:24Z	preflight	exit 0 — gate-clean
+2026-08-11T00:30:42Z	preflight	exit 0 — gate-clean
+2026-08-11T00:35:11Z	preflight	exit 0 — gate-clean
+2026-08-11T00:42:10Z	preflight	exit 0 — gate-clean
+2026-08-11T00:54:58Z	resume	program=mid-career-momentum
+2026-08-11T00:55:21Z	visual-review-revision	Restyled the Choose 3–5 / RAMS capsule and selected state as a flat, non-interactive instructional label; preserved position, hierarchy, and scene motion.
+2026-08-11T00:58:12Z	preflight	exit 0 — gate-clean
+2026-08-11T00:58:23Z	release	build session ended
+2026-08-11T00:58:25Z	release	build session ended
+2026-08-11T01:50:48Z	preflight	exit 0 — gate-clean
+2026-08-11T02:18:59Z	preflight	exit 0 — gate-clean
+2026-08-11T07:05:48Z	resume	program=mid-career-momentum
+2026-08-11T07:17:28Z	preflight	exit 1
+2026-08-11T07:18:25Z	preflight	exit 1
+2026-08-11T07:26:04Z	preflight	exit 0 — gate-clean
+2026-08-11T07:26:35Z	gate	Future Gallery rebuild; deterministic PASS at source dba? receipt source daba03df387747b6a7f29a89ab9ce4fec612070eb88229cab8ad2e29d93b23cc; 23 fresh frames; 7 layout families
+2026-08-11T07:26:35Z	release	build session ended
+2026-08-11T07:51:59Z	resume	program=mid-career-momentum
+2026-08-11T07:52:25Z	revise	hide non-selected gallery cards in curated beat; preserve audio, timing, and all other scenes
+2026-08-11T07:54:26Z	preflight	exit 0 — gate-clean
+2026-08-11T07:54:56Z	gate	PASS revision=79e0b5a7c6baad50b32e8dcca3796a252f7339ef8690f6505b48e3ce1c2a3e9d; 23 refreshed frames + 3 contact sheets
+2026-08-11T07:54:56Z	release	build session ended

@@ -43,3 +43,75 @@
 2026-08-10T19:56:59Z	preflight	exit 0 — gate-clean
 2026-08-10T19:57:12Z	gate-pass	durable gate PASS; persistent carrier churn 4.98%; 17 beats and 57 layout samples clean
 2026-08-10T19:57:12Z	release	build session ended
+2026-08-11T00:01:53Z	resume	program=mid-career-momentum
+2026-08-11T00:09:49Z	static-preflight	PASS before fresh visual rebuild; 17 beats and exact script/audio contract intact
+2026-08-11T00:15:26Z	visual-authoring	Field of View rebuild complete: 17 beats, six layout families, depth focus, SVG path draw, scale swaps, finite lens motion
+2026-08-11T00:15:26Z	static-preflight	PASS after fresh index.html, design.md, and index.motion.json
+2026-08-11T00:16:34Z	preflight	exit 1
+2026-08-11T00:19:41Z	gate-revision	Fixed stage top-offset collisions, replaced high-churn opaque panels with persistent optical field, extended semantic path motion, regenerated 17 beat-midpoint snapshots
+2026-08-11T00:21:22Z	preflight	exit 1
+2026-08-11T00:31:55Z	carrier-consolidation	Rebuilt 17 beats around one persistent optical carrier and four re-sorted foreground families; moved chrome into declared safe region; regenerated midpoint evidence
+2026-08-11T00:33:17Z	preflight	exit 1
+2026-08-11T00:37:48Z	act-persistence	Kept one actual on-frame carrier alive across each act; beat layers now contribute only the focal heading and semantic path draw; reduced changed still-cells to family boundaries
+2026-08-11T00:39:24Z	preflight	exit 1
+2026-08-11T00:43:56Z	focal-marker	Added one persistent semantic focus ring with 17 finite beat-specific targets; designed to clear 0.4% twin threshold without exceeding 6% mean churn and to sustain beat-01a motion
+2026-08-11T00:45:26Z	preflight	exit 0 — gate-clean
+2026-08-11T00:45:36Z	durable-gate	PASS: 17 beats, carrier mean churn 4.56%, ink 9/9 zones across all midpoints, layout PASS, timing/audio/script/brand/motion PASS
+2026-08-11T00:46:21Z	resume	program=mid-career-momentum
+2026-08-11T00:47:10Z	release	build session ended
+2026-08-11T00:48:08Z	preflight	exit 0 — gate-clean
+2026-08-11T00:53:21Z	resume	program=mid-career-momentum
+2026-08-11T00:55:55Z	review-fix	restored 17 authored beat-specific stages, removed generic act overlays and roaming focus ring, and tightened long depth labels
+2026-08-11T00:58:14Z	preflight	exit 1
+2026-08-11T01:56:51Z	preflight	exit 1
+2026-08-11T02:02:39Z	preflight	exit 1
+2026-08-11T02:04:46Z	preflight	exit 1
+2026-08-11T02:06:24Z	preflight	exit 1
+2026-08-11T02:08:13Z	preflight	exit 0 — gate-clean
+2026-08-11T02:35:42Z	resume	program=mid-career-momentum
+2026-08-11T02:38:27Z	revise	Narration-aligned element-bound focus added for beats 02b, 03b, 04a, and 04b; preserved clean layouts and finite center-carrier motion.
+2026-08-11T02:39:48Z	preflight	exit 0 — gate-clean
+2026-08-11T02:40:01Z	release	build session ended
+2026-08-11T07:05:58Z	resume	program=mid-career-momentum
+2026-08-11T07:15:08Z	concept	Rebuilt from fresh Shared Evidence concept after owner rejected prior optical layout; narration/audio preserved
+2026-08-11T07:15:08Z	source	Replaced all visuals with scene-owned paper-cut illustrations and narration-synced action cues
+2026-08-11T07:16:37Z	preflight	exit 1
+2026-08-11T07:25:15Z	preflight	exit 1
+2026-08-11T07:31:08Z	preflight	exit 1
+2026-08-11T07:33:22Z	preflight	exit 1
+2026-08-11T07:35:19Z	preflight	exit 1
+2026-08-11T07:38:40Z	preflight	exit 0 — gate-clean
+2026-08-11T07:41:55Z	gate	Fresh Shared Evidence rebuild passed deterministic gate with 17 current-source screenshots
+2026-08-11T07:41:55Z	release	build session ended
+2026-08-11T07:42:41Z	resume	program=mid-career-momentum
+2026-08-11T07:44:11Z	preflight	exit 0 — gate-clean
+2026-08-11T07:44:17Z	release	build session ended
+2026-08-11T07:52:59Z	resume	program=mid-career-momentum
+2026-08-11T07:56:15Z	preflight	exit 1
+2026-08-11T07:58:38Z	preflight	exit 0 — gate-clean
+2026-08-11T07:59:24Z	review-fix	Moved networking caption into a dedicated clear zone; stacked project-outcomes label above its headline; removed stray purpose dot and replaced its motion with narration-linked Focused/Purposeful/copy reveals; regenerated all 17 frames and passed full gate
+2026-08-11T07:59:29Z	release	build session ended
+2026-08-11T08:08:49Z	resume	program=mid-career-momentum
+2026-08-11T08:09:51Z	authored	rerouted Place-to-Link and Present connector paths through negative space; preserved timing/audio/scenes
+2026-08-11T08:12:25Z	preflight	exit 0 — gate-clean
+2026-08-11T08:13:01Z	gate-pass	full deterministic gate PASS; refreshed 17 full-resolution frames and 2 contact sheets; inspected repaired frame05/frame06 and preserved frame00/frame09/frame11
+2026-08-11T08:13:07Z	release	build session ended
+2026-08-11T08:22:18Z	resume	program=mid-career-momentum
+2026-08-11T08:24:21Z	source-repair	rerouted frame07 Stretch-to-Mentor SVG connector through lower negative space; timing/audio unchanged
+2026-08-11T08:26:05Z	motion-proof	nine intra-beat samples from 55.50s through 58.90s show Stretch-to-Mentor connector entirely in negative space with no text intersections
+2026-08-11T08:27:33Z	preflight	exit 0 — gate-clean
+2026-08-11T08:29:16Z	release	build session ended
+2026-08-11T08:45:48Z	resume	program=mid-career-momentum
+2026-08-11T08:47:05Z	authored	rerouted beat02b Sponsor-to-growth gold connector below central copy and above Peer path; preserved audio/timing and all other scenes
+2026-08-11T08:49:20Z	preflight	exit 0 — gate-clean
+2026-08-11T08:50:11Z	gate-pass	full deterministic gate PASS at source a383a39f; regenerated 17 frames and 2 sheets; post-gate 8-state 21.7–24.3s sweep confirms Sponsor-to-growth path remains clear of all text
+2026-08-11T08:50:19Z	release	build session ended
+2026-08-11T09:03:03Z	resume	program=mid-career-momentum
+2026-08-11T09:10:15Z	source-repair	fixed frame06 Share clearance, frame09 path origin/routing, and frame14 noninteractive choice label; preserved audio and timing
+2026-08-11T09:12:09Z	preflight	exit 0 — gate-clean
+2026-08-11T09:14:16Z	release	build session ended
+2026-08-11T09:25:24Z	resume	program=mid-career-momentum
+2026-08-11T09:26:44Z	authoring	resolved Stretch accent-to-label collision and reserved a non-overlapping kicker lane for the quiet-performance beat
+2026-08-11T09:28:11Z	preflight	exit 0 — gate-clean
+2026-08-11T09:31:10Z	gate	PASS; regenerated 17 canonical frames and 2 contact sheets; affected-beat 16-state check passed layout/runtime/motion/contrast
+2026-08-11T09:31:10Z	release	build session ended

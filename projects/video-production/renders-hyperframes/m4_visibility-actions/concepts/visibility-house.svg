@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">The Visibility House concept board</title>
+  <desc id="desc">Six milestone frames use an architectural cutaway and lit windows to explain quiet, intentional visibility actions.</desc>
+  <rect width="1920" height="1080" fill="#f6f6f9"/>
+  <text x="96" y="92" fill="#3393d6" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">CONCEPT 02 · ARCHITECTURAL CUTAWAY</text>
+  <text x="96" y="154" fill="#0d2437" font-family="Arial, sans-serif" font-size="58" font-weight="900">The Visibility House</text>
+  <text x="96" y="198" fill="#5f6f96" font-family="Arial, sans-serif" font-size="26">Your work already exists inside. Open intentional windows.</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(96 254)">
+      <rect width="544" height="334" rx="18" fill="#ffffff" stroke="#cccedf" stroke-width="3"/><text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">01 · GOOD WORK BEHIND A WALL</text>
+      <path d="M103 143 L272 70 L442 143" fill="none" stroke="#0d2437" stroke-width="12"/><rect x="126" y="143" width="292" height="146" fill="#0d2437"/>
+      <rect x="216" y="178" width="112" height="82" fill="#eaab2d"/><text x="272" y="225" text-anchor="middle" fill="#0d2437" font-size="18" font-weight="900">GOOD WORK</text>
+      <rect x="357" y="170" width="28" height="86" fill="#292f35"/><text x="272" y="318" text-anchor="middle" fill="#5f6f96" font-size="21">useful inside · invisible outside</text>
+    </g>
+    <g transform="translate(688 254)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#3393d6" stroke-width="3"/><text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">02 · OPEN INTENTIONAL WINDOWS</text>
+      <path d="M100 132 L272 62 L444 132" fill="none" stroke="#ffffff" stroke-width="10"/><rect x="125" y="132" width="294" height="160" fill="#292f35"/>
+      <g fill="#eaab2d"><rect x="154" y="164" width="70" height="72"/><rect x="237" y="164" width="70" height="72"/><rect x="320" y="164" width="70" height="72"/></g>
+      <g fill="#0d2437" text-anchor="middle" font-size="14" font-weight="700"><text x="189" y="205">WORK</text><text x="272" y="205">GROWTH</text><text x="355" y="205">VALUE</text></g>
+      <g fill="#3393d6"><circle cx="95" cy="280" r="18"/><circle cx="449" cy="280" r="18"/></g><text x="272" y="320" text-anchor="middle" fill="#ffffff" font-size="20">others can understand what is inside</text>
+    </g>
+    <g transform="translate(1280 254)">
+      <rect width="544" height="334" rx="18" fill="#ffffff" stroke="#cccedf" stroke-width="3"/><text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">03 · FIVE DIFFERENT WINDOWS</text>
+      <path d="M62 286 V94 H482 V286" fill="none" stroke="#0d2437" stroke-width="8"/><line x1="62" y1="190" x2="482" y2="190" stroke="#0d2437" stroke-width="6"/>
+      <g fill="#e5eff6" stroke="#3393d6" stroke-width="3"><rect x="86" y="116" width="110" height="52"/><rect x="217" y="116" width="110" height="52"/><rect x="348" y="116" width="110" height="52"/><rect x="151" y="213" width="110" height="52"/><rect x="282" y="213" width="110" height="52"/></g>
+      <g fill="#0d2437" font-size="15" font-weight="700" text-anchor="middle"><text x="141" y="148">PRESENT</text><text x="272" y="148">SHARE</text><text x="403" y="148">ASK</text><text x="206" y="245">STRETCH</text><text x="337" y="245">MENTOR</text></g>
+    </g>
+    <g transform="translate(96 626)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#3393d6" stroke-width="3"/><text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">04 · NO SPOTLIGHT REQUIRED</text>
+      <path d="M95 285 V105 H449 V285" fill="none" stroke="#5f6f96" stroke-width="8"/><rect x="204" y="143" width="136" height="110" fill="#eaab2d"/><path d="M204 143 L340 253 M340 143 L204 253" stroke="#0d2437" stroke-width="3" opacity=".25"/>
+      <circle cx="475" cy="271" r="20" fill="#3393d6"/><line x1="455" y1="251" x2="408" y2="215" stroke="#3393d6" stroke-width="4"/>
+      <text x="272" y="306" text-anchor="middle" fill="#ffffff" font-size="23" font-weight="700">one clear, purposeful moment</text>
+    </g>
+    <g transform="translate(688 626)">
+      <rect width="544" height="334" rx="18" fill="#ffffff" stroke="#cccedf" stroke-width="3"/><text x="26" y="42" fill="#0d2437" font-size="19" font-weight="700">05 · DESIGN THREE WINDOWS</text>
+      <g stroke="#3393d6" stroke-width="4"><rect x="42" y="100" width="138" height="144" fill="#e5eff6"/><rect x="203" y="100" width="138" height="144" fill="#e5eff6"/><rect x="364" y="100" width="138" height="144" fill="#e5eff6"/></g>
+      <g fill="#0d2437" text-anchor="middle"><text x="111" y="142" font-size="17" font-weight="700">PROJECT</text><text x="111" y="166" font-size="17">overview</text><text x="272" y="142" font-size="17" font-weight="700">STRATEGIC</text><text x="272" y="166" font-size="17">question</text><text x="433" y="142" font-size="17" font-weight="700">MINI</text><text x="433" y="166" font-size="17">session</text></g>
+      <path d="M111 260 L272 300 L433 260" fill="none" stroke="#eaab2d" stroke-width="6"/><text x="272" y="320" text-anchor="middle" fill="#0d2437" font-size="19" font-weight="700">aligned to your Next Move</text>
+    </g>
+    <g transform="translate(1280 626)">
+      <rect width="544" height="334" rx="18" fill="#0d2437" stroke="#eaab2d" stroke-width="5"/><text x="26" y="42" fill="#eaab2d" font-size="19" font-weight="700">06 · KEEP ONE WINDOW OPEN</text>
+      <path d="M94 278 V92 H450 V278" fill="none" stroke="#5f6f96" stroke-width="8"/>
+      <rect x="111" y="130" width="90" height="98" fill="#292f35"/><rect x="227" y="130" width="90" height="98" fill="#eaab2d"/><rect x="343" y="130" width="90" height="98" fill="#292f35"/>
+      <text x="272" y="173" text-anchor="middle" fill="#0d2437" font-size="17" font-weight="900">30 DAYS</text><text x="272" y="199" text-anchor="middle" fill="#0d2437" font-size="16">test + learn</text>
+      <path d="M272 229 C340 246 391 271 468 289" fill="none" stroke="#3393d6" stroke-width="6"/><circle cx="468" cy="289" r="18" fill="#3393d6"/><text x="272" y="317" text-anchor="middle" fill="#ffffff" font-size="21" font-weight="700">a path others can support</text>
+    </g>
+  </g>
+</svg>

@@ -1,28 +1,64 @@
-# Design — Transition Case
+# Design — The Transition Axis
 
-## Concept and carrier
-One open transition case fills the 1920×1080 frame. Its left release well and right carry well are connected by a visible hinge, not presented as independent prose columns. Items can leave, cross, block, translate, or lock into fitted compartments. The case state explains why both exercises matter and why their order matters.
+Rebuild of 2026-08-11. The previous design (a single "travel case" holding every
+beat) was discarded at the owner's direction: diagonal hatch behind all type,
+nothing vertically centred, labels sitting on top of illustration, and content
+landing in the wrong compartment. Nothing from that version survives here.
+
+## Carrying object
+
+**One vertical transition axis with a fixed two-column skeleton.** It is built
+once and only ever re-sorted; it is never torn down and redrawn.
+
+Every scene composes into exactly the same regions:
+
+```
+head    x 160–1760   y 150–260    heading + optional attribution
+stage   x 120–1800   y 300–960    left column | axis (x 960) | right column
+foot                              full-width band, only where it earns its place
+```
+
+Each column carries the same three tiers — a small tracked label, one large
+term, one supporting line — so a scene change re-sorts the frame instead of
+repainting it. Measured inter-beat churn 5.96% against the 6% ceiling.
+
+The column labels are the persistent identity: **Let go** (gold, left) and
+**Carry forward** (blue, right), constant wherever that meaning holds, and a
+constant pair — **What you earned / What it becomes** — across the translation
+run. Those words occupy the same cells for the whole lesson.
+
+No element is placed by a hand-tuned margin. Columns distribute with
+`align-content:space-between`, so content reaches the top, middle and bottom of
+the stage rather than floating as one centred island. No hatch, pattern or
+texture sits behind type anywhere.
 
 ## Beat-to-frame map
 
-| Time | Visual explanation |
-| --- | --- |
-| 0.000–12.420 | The full-size case opens around the hardest work career advice skips. |
-| 12.420–24.610 | The release and carry wells appear as two required parts; using only one leaves the case unusable. |
-| 24.610–36.690 | The release well opens on the core principle: every transition begins with an ending. |
-| 36.690–56.160 | Skipping the ending lets OLD TITLE and UNFINISHED GRIEF spill across the hinge into the new-role space. |
-| 56.160–75.770 | Cognitive and emotional identity work loosen the old identity; permission to feel the loss completes the release. |
-| 75.770–78.890 | Attention turns to the now-cleared carry well. |
-| 78.890–98.020 | Hiding or minimizing fifteen years visibly shrinks the material that should create advantage. |
-| 98.020–110.300 | Broader experience is selected and translated instead of hidden. |
-| 110.300–120.505 | Finance fluency locks into the product role as P&L judgment. |
-| 120.505–131.730 | Classroom feedback locks into instructional design as live learner insight. |
-| 131.730–150.150 | Skills, values, relationships, and capabilities fill the Carry-Forward Inventory compartments. |
-| 150.150–162.860 | An overfilled case marked EVERYTHING becomes a defense; releasing first restores selection. |
-| 162.860–170.910 | Both exercises resolve in order: let go, then carry forward. |
+| Time | Scene | What the frame does |
+| --- | --- | --- |
+| 0.000–12.420 | Title | The lesson title, with the two supporting claims set against it. |
+| 12.420–24.610 | Two sides | The axis draws open; both sides are named at once. |
+| 24.610–36.690 | The ending | "A Beginning" is struck through; "An Ending" replaces it. |
+| 36.690–56.160 | Skipped | The Old Identity block crosses the axis and lands in the new role; three consequences follow. |
+| 56.160–75.770 | Identity work | Cognitive and Emotional discs; permission to feel the loss. |
+| 75.770–98.020 | Fifteen years | The stat is minimised as it is dismissed, then restored to full weight. |
+| 98.020–110.300 | Translation | The axis becomes a gate: Hide is struck, Translate lights. |
+| 110.300–120.505 | Finance | Earned term → connector → what it becomes. |
+| 120.505–131.730 | Teaching | Same carrier, new pair; both translations persist as traces. |
+| 131.730–150.150 | Inventory | Four dashed slots fill exactly as each is named. |
+| 150.150–162.860 | Wrong order | Holding everything; the list greys out and becomes a defence. |
+| 162.860–170.910 | Right order | 1 Let Go, 2 Carry Forward, both matter. |
 
-## Type, color, and spacing
-Use the local Proxima Nova and token palette only. The case fills x=120–1800 and y=190–930. Headings are 64–92px, meaning-bearing item labels are 34–48px, and small labels are 20–24px. Gold marks release decisions; blue marks selected transferable value. Large compartments and open space replace the former tiny text blocks.
+## Motion
 
-## Motion logic
-One paused GSAP timeline controls thirteen complete visual scenes over the existing 27 audio units. Old-identity pieces translate out of the release well, blocking pieces cross the hinge only when the ending is skipped, and selected assets settle into stable fitted compartments. Example labels transform in place from prior expertise to future advantage. No progress or tracking motion is used.
+One paused GSAP timeline. Entrances settle once and never move again. The only
+transformations that carry meaning: the axis drawing open, rules and strikes
+drawing along their length, the Old Identity block crossing the axis, and the
+fifteen-year stat shrinking once and being restored once. No loop, no yoyo, no
+repeat, no progress rail, no attention pulse, no scene counters.
+
+## Type and colour
+
+Workspace `tokens.yml` only. Gold marks what is released or left behind; blue
+marks what is selected and carried. Body copy never below the 40px floor;
+tracked uppercase labels never below 20px.

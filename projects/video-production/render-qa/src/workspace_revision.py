@@ -172,6 +172,18 @@ def read_revision_marker(workspace: Path) -> str | None:
     return revision.strip() if isinstance(revision, str) and revision.strip() else None
 
 
+def read_gate_contract_marker(workspace: Path) -> str | None:
+    """Read the deterministic-gate identity bound to a green receipt."""
+
+    marker = Path(workspace) / "qa" / "PREFLIGHT-OK"
+    try:
+        payload = json.loads(marker.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        return None
+    revision = payload.get("gate_revision") if isinstance(payload, dict) else None
+    return revision.strip() if isinstance(revision, str) and revision.strip() else None
+
+
 def main(argv: list[str]) -> int:
     if len(argv) != 2:
         print("usage: workspace_revision.py WORKSPACE", file=sys.stderr)

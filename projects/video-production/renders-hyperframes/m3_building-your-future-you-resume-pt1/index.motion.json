@@ -1,84 +1,499 @@
 {
   "compositionId": "m3_building-your-future-you-resume-pt1",
-  "duration": 241.948,
-  "timeline": {"paused": true, "seekable": true, "engine": "gsap"},
+  "duration": 241.981,
+  "timeline": {
+    "paused": true,
+    "seekable": true,
+    "engine": "gsap"
+  },
   "beats": [
-    {"id":"b01","start":0,"end":4.71,"entrance":0.62,"exit":0.28},
-    {"id":"b02","start":4.71,"end":11.895,"entrance":0.62,"exit":0.28},
-    {"id":"b03","start":11.895,"end":14.24,"entrance":0.62,"exit":0.28},
-    {"id":"b04","start":14.24,"end":17.09,"entrance":0.62,"exit":0.28},
-    {"id":"b05","start":17.09,"end":29.23,"entrance":0.62,"exit":0.28},
-    {"id":"b06","start":29.23,"end":34.07,"entrance":0.62,"exit":0.28},
-    {"id":"b07","start":34.07,"end":36.65,"entrance":0.62,"exit":0.28},
-    {"id":"b08","start":36.65,"end":41.24,"entrance":0.62,"exit":0.28},
-    {"id":"b09","start":41.24,"end":47.63,"entrance":0.62,"exit":0.28},
-    {"id":"b10","start":47.63,"end":56.26,"entrance":0.62,"exit":0.28},
-    {"id":"b11","start":56.26,"end":60.29,"entrance":0.62,"exit":0.28},
-    {"id":"b12","start":60.29,"end":68.54,"entrance":0.62,"exit":0.28},
-    {"id":"b13","start":68.54,"end":71.94,"entrance":0.62,"exit":0.28},
-    {"id":"b14","start":71.94,"end":78.95,"entrance":0.62,"exit":0.28},
-    {"id":"b15","start":78.95,"end":83.87,"entrance":0.62,"exit":0.28},
-    {"id":"b16","start":83.87,"end":88.72,"entrance":0.62,"exit":0.28},
-    {"id":"b17","start":88.72,"end":99.575,"entrance":0.62,"exit":0.28},
-    {"id":"b18","start":99.575,"end":101.75,"entrance":0.62,"exit":0.28},
-    {"id":"b19","start":101.75,"end":108.42,"entrance":0.62,"exit":0.28},
-    {"id":"b20","start":108.42,"end":113.74,"entrance":0.62,"exit":0.28},
-    {"id":"b21","start":113.74,"end":124.37,"entrance":0.62,"exit":0.28},
-    {"id":"b22","start":124.37,"end":129.772,"entrance":0.62,"exit":0.28},
-    {"id":"b23","start":129.772,"end":135.333,"entrance":0.62,"exit":0.28},
-    {"id":"b24","start":135.333,"end":140.609,"entrance":0.62,"exit":0.28},
-    {"id":"b25","start":140.609,"end":145.289,"entrance":0.62,"exit":0.28},
-    {"id":"b26","start":145.289,"end":150.594,"entrance":0.62,"exit":0.28},
-    {"id":"b27","start":150.594,"end":155.029,"entrance":0.62,"exit":0.28},
-    {"id":"b28","start":155.029,"end":163.759,"entrance":0.62,"exit":0.28},
-    {"id":"b29","start":163.759,"end":167.179,"entrance":0.62,"exit":0.28},
-    {"id":"b30","start":167.179,"end":174.399,"entrance":0.62,"exit":0.28},
-    {"id":"b31","start":174.399,"end":178.898,"entrance":0.62,"exit":0.28},
-    {"id":"b32","start":178.898,"end":185.788,"entrance":0.62,"exit":0.28},
-    {"id":"b33","start":185.788,"end":200.988,"entrance":0.62,"exit":0.28},
-    {"id":"b34","start":200.988,"end":207.988,"entrance":0.62,"exit":0.28},
-    {"id":"b35","start":207.988,"end":222.178,"entrance":0.62,"exit":0.28},
-    {"id":"b36","start":222.178,"end":228.778,"entrance":0.62,"exit":0.28},
-    {"id":"b37","start":228.778,"end":241.948,"entrance":0.62,"exit":0.28}
+    {
+      "id": "b01",
+      "start": 0.0,
+      "end": 4.66,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b02",
+      "start": 4.66,
+      "end": 11.865,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b03",
+      "start": 11.865,
+      "end": 14.15,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b04",
+      "start": 14.15,
+      "end": 17.31,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b05",
+      "start": 17.31,
+      "end": 27.38,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b06",
+      "start": 27.38,
+      "end": 32.12,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b07",
+      "start": 32.12,
+      "end": 34.62,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b08",
+      "start": 34.62,
+      "end": 38.89,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b09",
+      "start": 38.89,
+      "end": 45.005,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b10",
+      "start": 45.005,
+      "end": 53.88,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b11",
+      "start": 53.88,
+      "end": 58.16,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b12",
+      "start": 58.16,
+      "end": 66.385,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b13",
+      "start": 66.385,
+      "end": 70.469,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b14",
+      "start": 70.469,
+      "end": 77.009,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b15",
+      "start": 77.009,
+      "end": 81.819,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b16",
+      "start": 81.819,
+      "end": 86.704,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b17",
+      "start": 86.704,
+      "end": 96.719,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b18",
+      "start": 96.719,
+      "end": 98.879,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b19",
+      "start": 98.879,
+      "end": 106.259,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b20",
+      "start": 106.259,
+      "end": 111.939,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b21",
+      "start": 111.939,
+      "end": 122.409,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b22",
+      "start": 122.409,
+      "end": 127.099,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b23",
+      "start": 127.099,
+      "end": 132.134,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b24",
+      "start": 132.134,
+      "end": 137.15,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b25",
+      "start": 137.15,
+      "end": 142.599,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b26",
+      "start": 142.599,
+      "end": 148.059,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b27",
+      "start": 148.059,
+      "end": 152.719,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b28",
+      "start": 152.719,
+      "end": 161.91,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b29",
+      "start": 161.91,
+      "end": 165.72,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b30",
+      "start": 165.72,
+      "end": 174.01,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b31",
+      "start": 174.01,
+      "end": 179.14,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b32",
+      "start": 179.14,
+      "end": 186.03,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b33",
+      "start": 186.03,
+      "end": 201.98,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b34",
+      "start": 201.98,
+      "end": 209.281,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b35",
+      "start": 209.281,
+      "end": 222.971,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b36",
+      "start": 222.971,
+      "end": 228.891,
+      "entrance": 0.28,
+      "exit": 0.28
+    },
+    {
+      "id": "b37",
+      "start": 228.891,
+      "end": 241.981,
+      "entrance": 0.28,
+      "exit": 0.28
+    }
   ],
   "assertions": [
-    {"kind":"keepsMoving","withinSelector":"[data-composition-id]","maxStaticSec":8},
-    {"kind":"appearsBy","beatId":"b01","selector":"#scene-welcome .scene-body","bySec":1.2},
-    {"kind":"appearsBy","beatId":"b02","selector":"#scene-archive .scene-body","bySec":5.91},
-    {"kind":"appearsBy","beatId":"b03","selector":"#scene-archive .scene-body","bySec":13.095},
-    {"kind":"appearsBy","beatId":"b04","selector":"#scene-archive .scene-body","bySec":15.44},
-    {"kind":"appearsBy","beatId":"b05","selector":"#scene-reframe .scene-body","bySec":18.29},
-    {"kind":"appearsBy","beatId":"b06","selector":"#scene-diagnosis .scene-body","bySec":30.43},
-    {"kind":"appearsBy","beatId":"b07","selector":"#scene-diagnosis .scene-body","bySec":35.27},
-    {"kind":"appearsBy","beatId":"b08","selector":"#scene-tasks .scene-body","bySec":37.85},
-    {"kind":"appearsBy","beatId":"b09","selector":"#scene-tasks .scene-body","bySec":42.44},
-    {"kind":"appearsBy","beatId":"b10","selector":"#scene-tasks .scene-body","bySec":48.83},
-    {"kind":"appearsBy","beatId":"b11","selector":"#scene-language .scene-body","bySec":57.46},
-    {"kind":"appearsBy","beatId":"b12","selector":"#scene-language .scene-body","bySec":61.49},
-    {"kind":"appearsBy","beatId":"b13","selector":"#scene-language .scene-body","bySec":69.74},
-    {"kind":"appearsBy","beatId":"b14","selector":"#scene-link .scene-body","bySec":73.14},
-    {"kind":"appearsBy","beatId":"b15","selector":"#scene-link .scene-body","bySec":80.15},
-    {"kind":"appearsBy","beatId":"b16","selector":"#scene-link .scene-body","bySec":85.07},
-    {"kind":"appearsBy","beatId":"b17","selector":"#scene-fit .scene-body","bySec":89.92},
-    {"kind":"appearsBy","beatId":"b18","selector":"#scene-ready .scene-body","bySec":100.775},
-    {"kind":"appearsBy","beatId":"b19","selector":"#scene-ready .scene-body","bySec":102.95},
-    {"kind":"appearsBy","beatId":"b20","selector":"#scene-ready .scene-body","bySec":109.62},
-    {"kind":"appearsBy","beatId":"b21","selector":"#scene-curate .scene-body","bySec":114.94},
-    {"kind":"appearsBy","beatId":"b22","selector":"#scene-curate .scene-body","bySec":125.57},
-    {"kind":"appearsBy","beatId":"b23","selector":"#scene-case .scene-body","bySec":130.972},
-    {"kind":"appearsBy","beatId":"b24","selector":"#scene-case .scene-body","bySec":136.533},
-    {"kind":"appearsBy","beatId":"b25","selector":"#scene-case .scene-body","bySec":141.809},
-    {"kind":"appearsBy","beatId":"b26","selector":"#scene-case .scene-body","bySec":146.489},
-    {"kind":"appearsBy","beatId":"b27","selector":"#scene-north-star .scene-body","bySec":151.794},
-    {"kind":"appearsBy","beatId":"b28","selector":"#scene-north-star .scene-body","bySec":156.229},
-    {"kind":"appearsBy","beatId":"b29","selector":"#scene-north-star .scene-body","bySec":164.959},
-    {"kind":"appearsBy","beatId":"b30","selector":"#scene-line-test .scene-body","bySec":168.379},
-    {"kind":"appearsBy","beatId":"b31","selector":"#scene-line-test .scene-body","bySec":175.599},
-    {"kind":"appearsBy","beatId":"b32","selector":"#scene-line-test .scene-body","bySec":180.098},
-    {"kind":"appearsBy","beatId":"b33","selector":"#scene-rewrite .scene-body","bySec":186.988},
-    {"kind":"appearsBy","beatId":"b34","selector":"#scene-rewrite .scene-body","bySec":202.188},
-    {"kind":"appearsBy","beatId":"b35","selector":"#scene-builder .scene-body","bySec":209.188},
-    {"kind":"appearsBy","beatId":"b36","selector":"#scene-builder .scene-body","bySec":223.378},
-    {"kind":"appearsBy","beatId":"b37","selector":"#scene-next .scene-body","bySec":229.978}
+    {
+      "kind": "keepsMoving",
+      "withinSelector": "[data-composition-id]",
+      "maxStaticSec": 8
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b01",
+      "selector": "#scene-welcome .scene-body",
+      "bySec": 1.2
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b02",
+      "selector": "#scene-archive .scene-body",
+      "bySec": 5.86
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b03",
+      "selector": "#scene-archive .scene-body",
+      "bySec": 13.065
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b04",
+      "selector": "#scene-archive .scene-body",
+      "bySec": 15.35
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b05",
+      "selector": "#scene-reframe .scene-body",
+      "bySec": 18.51
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b06",
+      "selector": "#scene-diagnosis .scene-body",
+      "bySec": 28.58
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b07",
+      "selector": "#scene-diagnosis .scene-body",
+      "bySec": 33.32
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b08",
+      "selector": "#scene-tasks .scene-body",
+      "bySec": 35.82
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b09",
+      "selector": "#scene-tasks .scene-body",
+      "bySec": 40.09
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b10",
+      "selector": "#scene-tasks .scene-body",
+      "bySec": 46.205
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b11",
+      "selector": "#scene-language .scene-body",
+      "bySec": 55.08
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b12",
+      "selector": "#scene-language .scene-body",
+      "bySec": 59.36
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b13",
+      "selector": "#scene-language .scene-body",
+      "bySec": 67.585
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b14",
+      "selector": "#scene-link .scene-body",
+      "bySec": 71.669
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b15",
+      "selector": "#scene-link .scene-body",
+      "bySec": 78.209
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b16",
+      "selector": "#scene-link .scene-body",
+      "bySec": 83.019
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b17",
+      "selector": "#scene-fit .scene-body",
+      "bySec": 87.904
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b18",
+      "selector": "#scene-ready .scene-body",
+      "bySec": 97.919
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b19",
+      "selector": "#scene-ready .scene-body",
+      "bySec": 100.079
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b20",
+      "selector": "#scene-ready .scene-body",
+      "bySec": 107.459
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b21",
+      "selector": "#scene-curate .scene-body",
+      "bySec": 113.139
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b22",
+      "selector": "#scene-curate .scene-body",
+      "bySec": 123.609
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b23",
+      "selector": "#scene-case .scene-body",
+      "bySec": 128.299
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b24",
+      "selector": "#scene-case .scene-body",
+      "bySec": 133.334
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b25",
+      "selector": "#scene-case .scene-body",
+      "bySec": 138.35
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b26",
+      "selector": "#scene-case .scene-body",
+      "bySec": 143.799
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b27",
+      "selector": "#scene-north-star .scene-body",
+      "bySec": 149.259
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b28",
+      "selector": "#scene-north-star .scene-body",
+      "bySec": 153.919
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b29",
+      "selector": "#scene-north-star .scene-body",
+      "bySec": 163.11
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b30",
+      "selector": "#scene-line-test .scene-body",
+      "bySec": 166.92
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b31",
+      "selector": "#scene-line-test .scene-body",
+      "bySec": 175.21
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b32",
+      "selector": "#scene-line-test .scene-body",
+      "bySec": 180.34
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b33",
+      "selector": "#scene-rewrite .scene-body",
+      "bySec": 187.23
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b34",
+      "selector": "#scene-rewrite .scene-body",
+      "bySec": 203.18
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b35",
+      "selector": "#scene-builder .scene-body",
+      "bySec": 210.481
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b36",
+      "selector": "#scene-builder .scene-body",
+      "bySec": 224.171
+    },
+    {
+      "kind": "appearsBy",
+      "beatId": "b37",
+      "selector": "#scene-next .scene-body",
+      "bySec": 230.091
+    }
   ]
 }

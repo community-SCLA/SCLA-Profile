@@ -41,3 +41,31 @@
 2026-08-10T19:52:54Z	preflight	exit 1
 2026-08-10T19:54:38Z	preflight	exit 0 — gate-clean
 2026-08-10T19:55:09Z	release	build session ended
+2026-08-10T22:41:43Z	resume	program=entrepreneur-accelerator
+2026-08-10T22:45:58Z	preflight	exit 0 — gate-clean
+2026-08-10T22:46:31Z	preflight	exit 0 — gate-clean
+2026-08-10T22:46:48Z	owner-feedback-revision	removed graph grid, increased system-card spacing, separated boundary decisions, and rebuilt the Good Offer stress diagram without overlaps
+2026-08-10T22:46:48Z	release	build session ended
+2026-08-11T00:31:07Z	resume	program=entrepreneur-accelerator
+2026-08-11T00:32:54Z	preflight	exit 1
+2026-08-11T00:35:44Z	preflight	exit 1
+2026-08-11T00:37:53Z	preflight	exit 1
+2026-08-11T00:41:02Z	preflight	exit 1
+2026-08-11T00:43:46Z	preflight	exit 1
+2026-08-11T00:45:32Z	preflight	exit 1
+2026-08-11T00:47:32Z	preflight	exit 0 — gate-clean
+2026-08-11T00:47:36Z	release	build session ended
+2026-08-11T00:47:54Z	resume	program=entrepreneur-accelerator
+2026-08-11T00:49:49Z	preflight	exit 0 — gate-clean
+2026-08-11T00:52:59Z	preflight	exit 0 — gate-clean
+2026-08-11T00:53:19Z	release	build session ended
+2026-08-11T01:46:28Z	resume	program=entrepreneur-accelerator
+2026-08-11T02:11:36Z	preflight	exit 1
+2026-08-11T02:16:42Z	preflight	exit 0 — gate-clean
+2026-08-11T02:16:58Z	owner-feedback-revision	regenerated continuous HeyGen narration from the 219-word refined source; manifest retains all 3 occurrences of few and exactly 6 source conjunctions; reduced planned inter-beat gap to 0.30s; deterministic gate PASS with 18 current-source screenshots
+2026-08-11T02:17:23Z	release	build session ended
+2026-08-11T03:14:33Z	resume	program=entrepreneur-accelerator
+2026-08-11T03:15:13Z	provenance	Added legacy concept-author identity so independent visual-review provenance can be verified; no composition/audio changes.
+2026-08-11T03:16:40Z	preflight	exit 0 — gate-clean
+2026-08-11T03:16:55Z	gate	PASS; revision de711dac1ae53735c2fabaed51b0bdde164902d79cc7746689fba57ddb721678; regenerated 18 current-source midpoint frames and 2 contact sheets.
+2026-08-11T03:16:59Z	release	build session ended
