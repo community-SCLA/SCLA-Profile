@@ -1,0 +1,11 @@
+<mjml>
+<mj-head>
+<mj-preview>Community news, insights, and ways to get involved.</mj-preview>
+<mj-attributes><mj-text font-family="sans-serif, Helvetica, Arial" font-size="15px" line-height="24px" color="#292F35" /><mj-section background-color="#ffffff" /><mj-body background-color="#f4f6f8" /></mj-attributes>
+</mj-head>
+<mj-body>
+<mj-section background-color="#3393D6" background-url="https://scla-public.s3.us-east-1.amazonaws.com/emails/sub-header.png" background-size="cover" background-repeat="no-repeat"><mj-column width="100%" vertical-align="middle"><mj-image width="180px" src="https://scla-public.s3.us-east-1.amazonaws.com/emails/logo.png" alt="SCLA Logo" align="left" /></mj-column></mj-section>
+<mj-section padding-bottom="0"><mj-column><mj-text>Warm regards,</mj-text><mj-text>The SCLA Community Team<br />The Society for Collegiate Leadership &amp; Achievement</mj-text></mj-column></mj-section>
+<mj-section background-color="#0A1E2F"><mj-column><mj-text color="#ffffff" font-size="12px"><a href="mailto:membership@thescla.org" style="color: #ffffff">membership@thescla.org</a><span style="color: #a2b0bc; padding: 0 4px">|</span> 202.769.5000 <span style="color: #a2b0bc; padding: 0 4px">|</span><a href="{{system.linkToUnsubscribe}}" style="color: #ffffff">Unsubscribe</a><br />1775 Tysons Blvd. 5th Floor Tysons, Virginia 22102</mj-text><mj-divider border-width="1px" border-color="#1F3344" /><mj-text color="#A2B0BC" font-size="12px">© 2026 The Society for Collegiate Leadership &amp; Achievement, LLC</mj-text></mj-column></mj-section>
+</mj-body>
+</mjml>
