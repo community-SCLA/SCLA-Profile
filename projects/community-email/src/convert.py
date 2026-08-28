@@ -125,3 +125,54 @@ def render(blocks):
     return {'subject':subject, 'mjml':ET.tostring(base, encoding='unicode') + '\n'}
 
 
+
+def notion_rich_text(items):
+    output, plain = [], []
+    for item in items:
+        if item.get("type") != "text":
+            raise ValueError("Use plain text instead of mentions or equations.")
+        value = item["text"]["content"]
+        if item.get("plain_text", value) != value:
+            raise ValueError("Notion text is inconsistent. Read the page again.")
+        plain.append(value)
+        fragment = html.escape(value)
+        flags = item.get("annotations", {})
+        if flags.get("code"):
+            raise ValueError("Remove inline code formatting.")
+        for flag, tag in (("bold","strong"),("italic","em"),("underline","u"),("strikethrough","s")):
+            if flags.get(flag):
+                fragment = "<" + tag + ">" + fragment + "</" + tag + ">"
+        link = item["text"].get("link")
+        if link:
+            fragment = '<a href="' + html.escape(safe_url(link["url"]), quote=True) + '">' + fragment + "</a>"
+        output.append(fragment)
+    return "".join(plain), "".join(output)
+
+
+def from_notion(blocks):
+    """Adapt API blocks to the established renderer; never silently drop blocks."""
+    if len(blocks) > 500:
+        raise ValueError("Keep the email under 500 blocks.")
+    adapted = []
+    for block in blocks:
+        kind = block.get("type")
+        if block.get("has_children"):
+            raise ValueError("Move nested content into ordinary paragraphs.")
+        if kind in ("paragraph", "heading_2"):
+            value, rich = notion_rich_text(block[kind].get("rich_text", []))
+            adapted.append({"type":"notion-text-block" if kind == "paragraph" else "notion-sub_header-block",
+                            "text":value, "html":rich})
+        elif kind == "image":
+            item = block["image"]
+            if item.get("type") != "external":
+                raise ValueError("Images need lasting public URLs; Notion uploads expire.")
+            caption, _ = notion_rich_text(item.get("caption", []))
+            adapted.append({"type":"notion-image-block", "text":caption, "src":safe_url(item["external"]["url"], image=True)})
+        else:
+            raise ValueError("Use only paragraphs, Heading 2, and images in the email content.")
+    if len(adapted) >= 2:
+        for index, limit in ((0, 209), (1, 509)):
+            value = adapted[index]["text"]
+            if adapted[index]["type"] != "notion-text-block" or len(value) > limit or "\n" in value or "\r" in value:
+                raise ValueError("Subject and preview must be short, single-line paragraphs.")
+    return adapted
