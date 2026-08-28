@@ -2,6 +2,7 @@
 import copy
 import datetime
 import html
+import ipaddress
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -11,15 +12,29 @@ import xml.etree.ElementTree as ET
 
 
 def safe_url(value, image=False):
-    if image and value.startswith('/image/'):
-        value = unquote(value.split('?', 1)[0][len('/image/'):])
+    if not isinstance(value, str):
+        raise ValueError("Use a public HTTPS link.")
+    if image and value.startswith("/image/"):
+        value = unquote(value.split("?", 1)[0][len("/image/"):])
+    if len(value)>2000 or any(ord(c)<=32 or ord(c)==127 for c in value):
+        raise ValueError("Use a valid HTTPS link without whitespace.")
     parts = urlsplit(value)
-    if (parts.scheme != 'https' or not parts.hostname or parts.username
-            or parts.password or parts.hostname in ('localhost', '127.0.0.1', '::1')):
-        raise ValueError('Use a public HTTPS link.')
-    if image and (parts.hostname.endswith(('notion.so', 'notion.com', 'notion.site'))
-                  or any(key in parts.query.lower() for key in ('signature=', 'expires=', 'token='))):
-        raise ValueError('Image needs a lasting public URL, not a temporary Notion upload.')
+    host = (parts.hostname or "").rstrip(".").lower()
+    if (parts.scheme != "https" or not host or parts.username or parts.password
+            or host == "localhost" or host.endswith((".localhost", ".local", ".internal"))):
+        raise ValueError("Use a public HTTPS link.")
+    # Accessing port validates malformed and out-of-range ports.
+    _ = parts.port
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        address = None
+    if address is not None and not address.is_global:
+        raise ValueError("Use a public HTTPS link.")
+    query = unquote(parts.query).lower()
+    if image and (host.endswith(("notion.so", "notion.com", "notion.site"))
+                  or any(key in query for key in ("signature=", "expires=", "token="))):
+        raise ValueError("Image needs a lasting public URL, not a temporary Notion upload.")
     return value
 
 

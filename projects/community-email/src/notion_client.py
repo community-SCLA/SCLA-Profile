@@ -105,5 +105,5 @@ class Notion:
     def create_failure(self,parent):
         stamp=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
         return self.create_page(parent,"Generation failed — "+stamp,[
-            block("paragraph","No new email was published. Check Subject and Preview, empty headings, unsupported blocks, image captions and lasting image URLs. Stop editing while generating, then try again. If it still fails, ask the connection owner to check access. Earlier exports are unchanged.")
+            block("paragraph","Generation could not be confirmed. Check for a recent export before retrying. Review Subject and Preview, empty headings, unsupported blocks, image captions and lasting image URLs. Stop editing while generating. If it still fails, ask the connection owner to check access. Earlier exports are unchanged.")
         ])
