@@ -1,0 +1,69 @@
+name: Community email
+run-name: Community email checks or generation
+on:
+  push:
+    paths:
+      - 'projects/community-email/**'
+      - '.github/workflows/community-email.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Unit tests
+        run: bash projects/community-email/run.sh test
+      - name: Install compiler without lifecycle scripts
+        run: npm install --prefix projects/community-email/config --ignore-scripts --no-audit --no-fund
+      - name: Compile synthetic email
+        run: bash projects/community-email/run.sh compile
+      - name: Capture public dependency lock for the initial setup
+        run: |
+          echo 'PUBLIC_DEPENDENCY_LOCK_BEGIN'
+          cat projects/community-email/config/package-lock.json
+          echo 'PUBLIC_DEPENDENCY_LOCK_END'
+
+  generate:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && vars.COMMUNITY_EMAIL_ENABLED == 'true'
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: community-email
+    concurrency:
+      group: community-email-generation
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - name: Install locked compiler before fetching secrets
+        run: npm ci --prefix projects/community-email/config --ignore-scripts --no-audit --no-fund
+      - name: Fetch only email connection settings from Infisical
+        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995
+        with:
+          method: oidc
+          identity-id: ${{ vars.COMMUNITY_EMAIL_INFISICAL_IDENTITY_ID }}
+          project-slug: ${{ vars.COMMUNITY_EMAIL_INFISICAL_PROJECT_SLUG }}
+          env-slug: ${{ vars.COMMUNITY_EMAIL_INFISICAL_ENV_SLUG }}
+          secret-path: /community-email
+          recursive: false
+          include-imports: false
+          export-type: env
+      - name: Generate into private Notion results
+        run: bash projects/community-email/run.sh generate

@@ -1,0 +1,8 @@
+{
+  "name": "scla-community-email-validation",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "mjml": "5.4.0"
+  }
+}
