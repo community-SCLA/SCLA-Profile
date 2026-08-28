@@ -1,11 +1,10 @@
-"""GitHub-hosted conversion; private content stays in memory and Notion."""
-import json
+"""GitHub-hosted queue worker. Draft content never leaves memory and Notion."""
 import os
 from pathlib import Path
 import subprocess
 import sys
-from convert import from_notion,render
-from notion_client import Notion,identifier
+from convert import from_notion, render
+from notion_client import Notion, identifier, plain
 
 def validate_mjml(markup):
     env={k:v for k,v in os.environ.items() if k in ("PATH","HOME","LANG","NODE_PATH","SYSTEMROOT")}
@@ -15,38 +14,75 @@ def validate_mjml(markup):
         raise ValueError("MJML validation failed.")
     return True
 
-def run_job(client,source,parent,validate,build):
-    if identifier(source)==identifier(parent):
-        raise ValueError("Keep the writing page and output page separate.")
-    snapshot=client.children(source)
+def email_blocks(blocks):
+    ends=[i for i,b in enumerate(blocks)
+          if b.get("type")=="heading_2" and plain(b.get("heading_2",{}).get("rich_text",[]))=="End of email"]
+    starts=[i for i,b in enumerate(blocks)
+            if b.get("type")=="paragraph" and plain(b.get("paragraph",{}).get("rich_text",[])).startswith("Subject:")]
+    if len(ends)!=1 or len(starts)!=1 or starts[0]>=ends[0]:
+        raise ValueError("Keep one Subject line and one End of email heading.")
+    return blocks[starts[0]:ends[0]]
+
+def run_job(client,source,request,validate,build):
+    snapshot=email_blocks(client.children(source))
     result=render(from_notion(snapshot))
     if len(result["mjml"].encode("utf-8"))>100000:
         raise ValueError("Shorten the email before exporting.")
     validate(result["mjml"])
-    if snapshot!=client.children(source):
-        raise ValueError("The draft changed while generating. Try again when editing is finished.")
-    return client.create_export(parent,result,build)
+    if snapshot!=email_blocks(client.children(source)):
+        raise ValueError("The draft changed while generating.")
+    return client.save_output(source,result,request,build)
+
+def process_queue(client,source,queue,validate,build):
+    source,queue=identifier(source),identifier(queue)
+    if source==queue:
+        raise ValueError("The draft and request database must be different.")
+    counts={"ready":0,"failed":0}
+    for row in client.requests(queue):
+        request=identifier(row["id"])
+        # Resolve an uncertain Ready write before doing any more conversion.
+        try:
+            existing=client.completed_output(source,request)
+            if not existing:
+                client.set_request(request,"Processing","Generating from the current saved draft. Please stop editing.")
+                run_job(client,source,request,validate,build)
+        except Exception:
+            counts["failed"]+=1
+            try:
+                client.set_request(request,"Error",
+                    "Generation could not be confirmed. Check the writing above End of email, image links and captions. "
+                    "Previous code may be out of date. Fix the draft and click Generate MJML again. Ask the connection owner if it still fails.")
+            except Exception:
+                break
+            continue
+        try:
+            client.set_request(request,"Ready","MJML is ready in the Generated MJML section on the draft page. Copy code and preview in SCLA.")
+            counts["ready"]+=1
+        except Exception:
+            # Keep Processing. The next scheduled run will reuse the confirmed code.
+            counts["failed"]+=1
+            break
+    return counts
 
 def main():
-    client=None
-    parent=None
     try:
-        if os.environ.get("GITHUB_ACTIONS")!="true" or os.environ.get("GITHUB_REF")!="refs/heads/main":
-            raise RuntimeError("This command only runs in the approved GitHub main workflow.")
+        if (os.environ.get("GITHUB_ACTIONS")!="true"
+                or os.environ.get("GITHUB_REF")!="refs/heads/main"
+                or os.environ.get("GITHUB_EVENT_NAME") not in ("schedule","workflow_dispatch")
+                or os.environ.get("COMMUNITY_EMAIL_ENABLED")!="true"):
+            raise RuntimeError("Only the enabled GitHub main workflow may generate.")
         client=Notion(os.environ["SCLA_EMAIL_NOTION_TOKEN"])
-        source=identifier(os.environ["SCLA_EMAIL_SOURCE_BLOCK_ID"])
-        parent=identifier(os.environ["SCLA_EMAIL_OUTPUT_PAGE_ID"])
-        run_job(client,source,parent,validate_mjml,os.environ.get("GITHUB_SHA","unknown")[:12])
+        counts=process_queue(client,os.environ["SCLA_EMAIL_SOURCE_PAGE_ID"],
+                             os.environ["SCLA_EMAIL_QUEUE_DATA_SOURCE_ID"],
+                             validate_mjml,os.environ.get("GITHUB_SHA","unknown")[:12])
+        if counts["failed"]:
+            print("One or more requests could not be confirmed. Check the private Notion request list.",file=sys.stderr)
+            return 1
     except Exception:
-        # Never print exception details: API responses and draft text can be private.
-        if client is not None and parent is not None:
-            try:
-                client.create_failure(parent)
-            except Exception:
-                pass
-        print("Generation failed. Check the private Notion results page and connection settings.",file=sys.stderr)
+        # Never print exception details, identifiers, API responses, or draft text.
+        print("Email worker could not finish. Check its connection and private Notion request list.",file=sys.stderr)
         return 1
-    print("Generated MJML saved to the configured private Notion results page.")
+    print("Email queue check completed. Results remain in Notion.")
     return 0
 
 if __name__=="__main__":

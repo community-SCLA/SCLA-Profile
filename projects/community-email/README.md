@@ -1,11 +1,7 @@
-# Community email generator
+# Community email
 
-Write in Notion; GitHub Actions runs the conversion using the saved SCLA design.
+Write the weekly email in Notion, request generation, then copy the branded MJML back into SCLA.
 
-- [Setup and writing guide](docs/setup.md)
-- [Cloud workflow](../../.github/workflows/community-email.yml)
-- [Reusable MJML template](config/weekly-community.mjml)
+[Setup and team instructions](docs/setup.md)
 
-The live connection is not activated. Code tests do not prove Notion access or a working button.
-
-Run repository checks with `bash scripts/lint-refs.sh` from the repository root. Only synthetic examples belong in tests; this public repository is not an email archive.
+This project does not send email or modify dashboard templates.

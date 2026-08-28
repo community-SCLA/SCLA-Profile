@@ -1,17 +1,20 @@
 name: Community email
-run-name: Community email checks or generation
+run-name: Community email checks or queue processing
 on:
   push:
     paths:
       - 'projects/community-email/**'
       - '.github/workflows/community-email.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '7,17,27,37,47,57 * * * *'
 
 permissions:
   contents: read
 
 jobs:
   checks:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -29,11 +32,17 @@ jobs:
         run: bash projects/community-email/run.sh compile
 
   generate:
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && vars.COMMUNITY_EMAIL_ENABLED == 'true'
+    if: >-
+      always() && !cancelled() && github.ref == 'refs/heads/main' &&
+      vars.COMMUNITY_EMAIL_ENABLED == 'true' &&
+      (github.event_name == 'schedule' ||
+       (github.event_name == 'workflow_dispatch' && needs.checks.result == 'success'))
     needs: checks
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: community-email
+    env:
+      COMMUNITY_EMAIL_ENABLED: ${{ vars.COMMUNITY_EMAIL_ENABLED }}
     concurrency:
       group: community-email-generation
       cancel-in-progress: false
@@ -49,6 +58,10 @@ jobs:
           node-version: '24'
       - name: Install locked compiler before fetching secrets
         run: npm ci --prefix projects/community-email/config --ignore-scripts --no-audit --no-fund
+      - name: Verify worker before reading private content
+        run: |
+          bash projects/community-email/run.sh test
+          bash projects/community-email/run.sh compile
       - name: Fetch only email connection settings from Infisical
         uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995
         with:
@@ -60,5 +73,5 @@ jobs:
           recursive: false
           include-imports: false
           export-type: env
-      - name: Generate into private Notion results
+      - name: Check private Notion requests and refresh same-page code
         run: bash projects/community-email/run.sh generate

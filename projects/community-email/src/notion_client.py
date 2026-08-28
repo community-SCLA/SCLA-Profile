@@ -84,26 +84,83 @@ class Notion:
             seen.add(cursor)
         raise RemoteError("Notion pagination exceeded the safe limit.")
 
-    def create_page(self,parent,title,children):
-        return self.transport("POST","/pages",{
-            "parent":{"type":"page_id","page_id":identifier(parent)},
-            "properties":{"title":{"type":"title","title":rich(title)}},
-            "children":children,
-        })
 
-    def create_export(self,parent,result,build):
+    def requests(self,data_source):
+        data_source=identifier(data_source)
+        result,cursor,seen=[],None,set()
+        for _ in range(6):
+            body={"page_size":5,"sorts":[{"timestamp":"created_time","direction":"ascending"}],
+                  "filter":{"or":[{"property":"Status","select":{"equals":"Queued"}},
+                                  {"property":"Status","select":{"equals":"Processing"}}]}}
+            if cursor: body["start_cursor"]=cursor
+            response=self.transport("POST","/data_sources/"+data_source+"/query",body)
+            result.extend(response["results"])
+            if len(result)>=5 or not response.get("has_more"):
+                return result[:5]
+            cursor=response.get("next_cursor")
+            if not cursor or cursor in seen:
+                raise RemoteError("Request pagination did not complete.")
+            seen.add(cursor)
+        raise RemoteError("Request pagination exceeded its safe limit.")
+
+    def set_request(self,request,status,note):
+        if status not in ("Queued","Processing","Ready","Error"):
+            raise ValueError("Unknown request status.")
+        return self.transport("PATCH","/pages/"+identifier(request),{"properties":{
+            "Status":{"select":{"name":status}},
+            "Note":{"rich_text":rich(note)},
+        }})
+
+    def output_container(self,page,create=False):
+        blocks=self.children(page)
+        matches=[b for b in blocks if b.get("type")=="toggle"
+                 and plain(b.get("toggle",{}).get("rich_text",[]))==OUTPUT_TITLE]
+        if len(matches)>1:
+            raise ValueError("Keep only one Generated MJML section.")
+        if matches:
+            return identifier(matches[0]["id"])
+        if not create:
+            return None
+        container=block("toggle",OUTPUT_TITLE)
+        response=self.transport("PATCH","/blocks/"+identifier(page)+"/children",{"children":[container]})
+        return identifier(response["results"][0]["id"])
+
+    def completed_output(self,page,request):
+        container=self.output_container(page)
+        if not container:
+            return None
+        prefix="SCLA generated | request "+identifier(request)+" |"
+        for b in self.children(container):
+            if b.get("type")=="code" and plain(b.get("code",{}).get("caption",[])).startswith(prefix):
+                value=plain(b["code"].get("rich_text",[]))
+                if value.startswith("<mjml>") and value.rstrip().endswith("</mjml>"):
+                    return identifier(b["id"])
+        return None
+
+    def save_output(self,page,result,request,build):
+        container=self.output_container(page,create=True)
+        old=self.children(container)
         stamp=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
         code=block("code",result["mjml"])
         code["code"]["language"]="plain text"
-        code["code"]["caption"]=rich("Complete MJML — use Copy code, then paste into SCLA.")
-        return self.create_page(parent,"MJML export — "+stamp,[
-            block("paragraph","Subject: "+result["subject"]),
-            block("paragraph","Generated "+stamp+". Build: "+build+". Review and send a test in SCLA before sending to members."),
-            code,
-        ])
+        code["code"]["caption"]=rich("SCLA generated | request "+identifier(request)+" | "+stamp+
+                                    " | build "+build+" | Copy complete code, then preview in SCLA.")
+        response=self.transport("PATCH","/blocks/"+container+"/children",{"children":[code]})
+        new_id=identifier(response["results"][0]["id"])
+        saved=[b for b in self.children(container) if b.get("id")==new_id]
+        if (len(saved)!=1 or saved[0].get("type")!="code"
+                or plain(saved[0]["code"].get("rich_text",[]))!=result["mjml"]
+                or plain(saved[0]["code"].get("caption",[]))!=plain(code["code"]["caption"])):
+            raise RemoteError("Saved output could not be verified; earlier code is unchanged.")
+        # Append and verify before retiring only this generator's earlier code.
+        # Never delete a teammate's notes or another kind of block.
+        for b in old:
+            if (b.get("type")=="code"
+                    and plain(b.get("code",{}).get("caption",[])).startswith("SCLA generated | request ")):
+                self.transport("DELETE","/blocks/"+identifier(b["id"]))
+        return new_id
 
-    def create_failure(self,parent):
-        stamp=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-        return self.create_page(parent,"Generation failed — "+stamp,[
-            block("paragraph","Generation could not be confirmed. Check for a recent export before retrying. Review Subject and Preview, empty headings, unsupported blocks, image captions and lasting image URLs. Stop editing while generating. If it still fails, ask the connection owner to check access. Earlier exports are unchanged.")
-        ])
+OUTPUT_TITLE="Generated MJML — copy into SCLA"
+
+def plain(items):
+    return "".join(t.get("text",{}).get("content",t.get("plain_text","")) for t in items)

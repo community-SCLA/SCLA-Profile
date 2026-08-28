@@ -1,49 +1,36 @@
-# Notion → GitHub → MJML
+# Notion → GitHub → same-page MJML
 
-## What is implemented
+## Writing and generation
 
-The converter reads native Notion blocks, applies the saved SCLA design, validates with MJML, and creates a new export under a configured private Notion results page. Earlier exports are left alone. It does not send email or access the SCLA dashboard.
+Use one shared working draft. Write email content in the page body, beginning with Subject and Preview paragraphs. A Heading 2 named **End of email** marks where writing ends. Keep instructions, the Generate MJML button, request list and generated output below that marker.
 
-The hosted trigger starts the workflow on main. Its request cannot choose another repository, branch, source or output. Drafts stay out of this public repository, artifacts and logs.
+Click **Generate MJML** once after editing. The button adds a Queued request to the private Email generation requests database. GitHub checks every ten minutes, reads the current saved draft, validates MJML and writes a code block inside **Generated MJML — copy into SCLA** on the same page. The code caption shows its generation time. Copy the subject separately.
 
-**Not activated:** Notion access, Infisical trust and trigger hosting still need configuration. The existing Notion database experiment and dashboard templates are unchanged.
+Request states: Queued → Processing → Ready, or Error. Read Note for the result. While Queued or Processing, earlier code is not the current output. After Error, do not assume earlier code includes your changes. Fix the draft and request another generation. Stop editing while Processing; changes detected during conversion stop publication.
 
-## Writing
+Heading 2 begins an email section. Delete or reorder sections freely. A paragraph with just one linked label becomes a gold button; links inside sentences remain links. Bold, italic, underline and strikethrough are preserved. Images need lasting public HTTPS links and descriptive captions. Notion uploads expire and are rejected. Nested content, lists, tables, mentions and inline code are not supported. Subject maximum: 200 characters; preview: 500.
 
-For the first activation, use one working draft; successful generations create dated exports. The source is configured privately rather than passed in button payloads.
+Successful runs append and read back the complete new code before removing earlier generator-owned code blocks. Teammate notes are left alone. Uncertain completion acknowledgements are recovered without converting the same request twice. Requests contain no target page or branch controls: this installation always uses its privately configured draft.
 
-1. Begin with plain paragraphs: `Subject: Your subject` and `Preview: Your preview`.
-2. Write normally below. Heading 2 starts a section. Delete an entire section to omit it; move blocks to reorder it.
-3. A paragraph containing only one linked label becomes a gold button. Sentence links remain normal links.
-4. Use lasting public HTTPS image URLs with descriptive captions. Notion uploads expire and are rejected.
-
-Bold, italic, underline and strikethrough are preserved. Mentions, nested blocks, lists, tables, inline code and other unsupported content stop generation. Limit subject to 200 characters and preview to 500.
-
-Put the writing in a content container, such as a toggle, with Subject and Preview as its first children. Configure that container's block ID as the source. Keep buttons and instructions outside the container. No database is needed.
-
-Stop editing briefly while generating; a second read detects changes before publication. Copy the complete MJML code block from the newest successful export, and paste the subject separately into SCLA. Preview and test there before sending. The dashboard's own compiler version and email-client rendering have not been verified.
+Duplicate-page support is not part of this first installation. Reuse the configured working draft each week; duplicating its button does not change the destination. Preserve a draft separately if you want an editorial archive.
 
 ## One-time activation
 
-Leave `COMMUNITY_EMAIL_ENABLED` unset until configuration is complete.
+1. A Notion workspace owner creates or approves an internal connection with Read, Insert and Update content, then shares only the isolated test draft and request database with it. The database needs title **Name**, select **Status** (Queued, Processing, Ready, Error), and text **Note**.
+2. Add a button below End of email. Action: Add page to **Email generation requests**; Name: Generate MJML; Status: Queued. Add a confirmation asking people to finish editing before requesting generation.
+3. Store these values in the existing Infisical project's dedicated **/community-email** folder: **SCLA_EMAIL_NOTION_TOKEN**, **SCLA_EMAIL_SOURCE_PAGE_ID**, **SCLA_EMAIL_QUEUE_DATA_SOURCE_ID**. The last is the data-source ID, not the database ID. No draft identifiers or content go in the public repository.
+4. Create an Infisical machine identity restricted to reading this folder. Configure GitHub OIDC trust for this exact repository, main ref, community-email environment and workflow; restrict claims and audience. Do not reuse the video identity or copy credentials into GitHub. Follow [Infisical's current OIDC instructions](https://infisical.com/docs/integrations/cicd/githubactions); match the actual GitHub subject format.
+5. In GitHub, restrict the **community-email** environment to main. Set Actions variables **COMMUNITY_EMAIL_INFISICAL_IDENTITY_ID**, **COMMUNITY_EMAIL_INFISICAL_PROJECT_SLUG**, **COMMUNITY_EMAIL_INFISICAL_ENV_SLUG**. The environment must allow the authorized scheduled worker to run unattended.
+6. Set repository variable **COMMUNITY_EMAIL_ENABLED** to **true** only after the connection is configured. Click the test button and manually run **Community email** once; verify Ready and copy the complete same-page code. Also test an invalid draft, corrected retry and duplicate click. Then verify an actual scheduled run.
 
-1. Approve a Notion connection with Read content and Insert content. Share only the isolated writing area and a separate private results page.
-2. In Infisical, create a dedicated `/community-email` folder with `SCLA_EMAIL_NOTION_TOKEN`, `SCLA_EMAIL_SOURCE_BLOCK_ID` and `SCLA_EMAIL_OUTPUT_PAGE_ID`. Do not publish these values.
-3. Configure a dedicated Infisical identity with GitHub OIDC trust restricted to the exact repository, main ref and this workflow. Allow only the email folder. Do not reuse the broader video identity or copy Infisical credentials into GitHub.
-4. Configure Actions variables `COMMUNITY_EMAIL_INFISICAL_IDENTITY_ID`, `COMMUNITY_EMAIL_INFISICAL_PROJECT_SLUG` and `COMMUNITY_EMAIL_INFISICAL_ENV_SLUG`. Restrict the `community-email` GitHub environment to main and the owner's chosen approval protection.
-5. Deploy `src/relay.py` on an approved HTTPS host using a production WSGI server, entry point `relay:application`. Include the repository's existing endpoint registry and add the project's `src` directory to the Python import path. Configure request timeouts, a 64 KB body limit, rate limiting and no body logging. Hosting is not provisioned here.
-6. Inject `SCLA_EMAIL_DISPATCH_TOKEN` and `SCLA_EMAIL_TRIGGER_SECRET` into that host from Infisical. Use a fine-grained GitHub token restricted to this repository's Actions write permission, without contents-write access. Use a random trigger secret of at least 32 characters.
-7. A Notion **Send webhook** button posts to the host's `/generate` path with the `X-SCLA-Trigger` header. That header needs a copy of the trigger secret; the GitHub token never goes into Notion. Restrict button-configuration access and rotate exposed trigger secrets. Notion requires a paid plan; workspace settings may restrict webhooks.
-8. Set `COMMUNITY_EMAIL_ENABLED` to `true`. Run manually with the practice draft and verify the complete Notion export. Then connect and test the button, including rejected content and a successful retry. Do not call it live before these checks.
+To pause, set COMMUNITY_EMAIL_ENABLED to false. No relay, webhook host, Zapier, Make, Codex subscription change or local computer is required. Infisical remains the existing secret store.
 
-A 202 response means generation was requested, not completed. Open the Notion results page after the run. Failures create a dated notice when Notion remains reachable; an API outage can prevent that notice. Inspect results before retrying uncertain requests. Repeated clicks can create multiple exports, but cannot send email.
+GitHub schedules can be delayed or dropped, and public-repository schedules automatically disable after 60 days without repository activity. Keep a manual Run workflow link in the team guide and assign an owner to re-enable an inactive schedule; no automatic keepalive commits. Manual runs still process only queued requests.
 
-To pause, unset `COMMUNITY_EMAIL_ENABLED` and disable the hosted trigger.
+## Verification and safety
 
-## Checks
+Run **bash scripts/lint-refs.sh** for repository checks, **bash projects/community-email/run.sh test** for email tests, and **bash projects/community-email/run.sh compile** after installing locked compiler dependencies. CI runs tests and compilation before fetching private settings. Scheduled runs serialize and process at most five requests; unfinished requests remain in Notion for a later run.
 
-`bash scripts/lint-refs.sh` includes the email unit tests. The email workflow also installs the locked compiler and compiles synthetic content. Dependencies install before secrets are fetched, with lifecycle scripts disabled. The live job is manual-dispatch only, main-only and disabled unless explicitly enabled.
+Private content stays in memory and Notion, never public logs, commits or Actions artifacts. Error messages are generic. The original Notion database experiment and all SCLA templates remain untouched. The worker cannot send email.
 
-Host configuration, Infisical trust and Notion sharing require separate live verification.
-
-Sources: [Notion webhooks](https://www.notion.com/help/webhook-actions), [Notion reads](https://developers.notion.com/reference/get-block-children), [Notion limits](https://developers.notion.com/reference/request-limits), [Infisical OIDC](https://infisical.com/docs/integrations/cicd/githubactions), [MJML validation](https://documentation.mjml.io/).
+The SCLA dashboard compiler, email-client rendering and test delivery require a human preview/test before member delivery. Passing automated tests alone does not establish a live Notion connection.
