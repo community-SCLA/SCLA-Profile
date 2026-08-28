@@ -24,14 +24,9 @@ jobs:
       - name: Unit tests
         run: bash projects/community-email/run.sh test
       - name: Install compiler without lifecycle scripts
-        run: npm install --prefix projects/community-email/config --ignore-scripts --no-audit --no-fund
+        run: npm ci --prefix projects/community-email/config --ignore-scripts --no-audit --no-fund
       - name: Compile synthetic email
         run: bash projects/community-email/run.sh compile
-      - name: Capture public dependency lock for the initial setup
-        run: |
-          echo 'PUBLIC_DEPENDENCY_LOCK_BEGIN'
-          cat projects/community-email/config/package-lock.json
-          echo 'PUBLIC_DEPENDENCY_LOCK_END'
 
   generate:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && vars.COMMUNITY_EMAIL_ENABLED == 'true'

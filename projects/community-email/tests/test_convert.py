@@ -78,6 +78,25 @@ class RenderTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     convert.render(blocks)
 
+    def test_links_reject_local_addresses_controls_and_invalid_ports(self):
+        for url in ("https://10.0.0.1/pic", "https://169.254.169.254/x",
+                    "https://[::ffff:127.0.0.1]/x", "https://localhost./x",
+                    "https://example.org/\nsecret", "https://example.org:bad/x"):
+            with self.subTest(url=url):
+                with self.assertRaises(ValueError):
+                    convert.safe_url(url)
+
+    def test_api_adapter_rejects_nested_blocks_mentions_and_uploaded_images(self):
+        bad=[
+            {"type":"paragraph","has_children":True,"paragraph":{"rich_text":[]}},
+            {"type":"image","image":{"type":"file","file":{"url":"https://example.org/temporary"},"caption":[]}},
+            {"type":"paragraph","paragraph":{"rich_text":[{"type":"mention","plain_text":"Someone"}]}},
+        ]
+        for block in bad:
+            with self.subTest(kind=block["type"]):
+                with self.assertRaises(ValueError):
+                    convert.from_notion(api_sample()+[block])
+
     def test_notion_api_blocks_render_without_a_browser_snapshot(self):
         adapter=getattr(convert,"from_notion",None)
         self.assertTrue(callable(adapter),"Notion API adapter is not implemented yet")
