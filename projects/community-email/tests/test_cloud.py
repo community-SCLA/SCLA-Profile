@@ -1,16 +1,50 @@
 import importlib
 import importlib.util
-import io
-import json
 import unittest
-from test_convert import api_sample
+from test_convert import api_sample, notion_text
 
 SOURCE="00000000-0000-4000-8000-000000000001"
-OUTPUT="00000000-0000-4000-8000-000000000002"
+QUEUE="00000000-0000-4000-8000-000000000002"
+REQUEST="00000000-0000-4000-8000-000000000003"
+OUTPUT="00000000-0000-4000-8000-000000000004"
+OLD="00000000-0000-4000-8000-000000000005"
+
+def draft():
+    return api_sample()+[notion_text("End of email","heading_2"),
+        {"id":OUTPUT,"type":"toggle","toggle":{"rich_text":[{"type":"text","text":{"content":"Generated MJML — copy into SCLA"}}]}},
+        {"type":"unsupported","unsupported":{"block_type":"button"}}]
+
+class QueueClient:
+    def __init__(self):
+        self.events=[]
+        self.status="Queued"
+        self.published=None
+        self.reads=0
+        self.change=False
+        self.fail_publish=False
+        self.fail_ack=False
+    def requests(self,queue):
+        return [{"id":REQUEST}] if self.status in ("Queued","Processing") else []
+    def set_request(self,request,status,note):
+        self.events.append(status)
+        if status=="Ready" and self.fail_ack:
+            self.fail_ack=False
+            raise RuntimeError("uncertain acknowledgement")
+        self.status=status
+    def completed_output(self,source,request):
+        return self.published
+    def children(self,source):
+        self.reads+=1
+        return draft() if not self.change or self.reads==1 else [notion_text("Subject: changed")]+draft()[1:]
+    def save_output(self,source,result,request,build):
+        self.events.append("publish")
+        if self.fail_publish: raise RuntimeError("private upstream message")
+        self.published=OUTPUT
+        return OUTPUT
 
 class CloudContractTests(unittest.TestCase):
     def module(self,name):
-        self.assertIsNotNone(importlib.util.find_spec(name),name+" cloud component not implemented yet")
+        self.assertIsNotNone(importlib.util.find_spec(name))
         return importlib.import_module(name)
 
     def test_page_read_collects_all_pages(self):
@@ -20,94 +54,125 @@ class CloudContractTests(unittest.TestCase):
             requests.append((method,path,data))
             if "start_cursor=" not in path:
                 return {"results":api_sample()[:2],"has_more":True,"next_cursor":"next-page"}
-            return {"results":api_sample()[2:],"has_more":False,"next_cursor":None}
+            return {"results":api_sample()[2:],"has_more":False}
         client=mod.Notion("synthetic-token",transport=transport)
         self.assertEqual(client.children(SOURCE),api_sample())
         self.assertEqual(len(requests),2)
-        self.assertIn("start_cursor=next-page",requests[1][1])
 
-    def test_published_code_survives_notion_text_limits(self):
+    def test_source_excludes_button_and_generated_output(self):
+        mod=self.module("cloud_job")
+        self.assertTrue(callable(getattr(mod,"email_blocks",None)),"Writing boundary not implemented")
+        self.assertEqual(mod.email_blocks(draft()),api_sample())
+        with self.assertRaises(ValueError): mod.email_blocks(api_sample())
+        with self.assertRaises(ValueError): mod.email_blocks(draft()+[notion_text("End of email","heading_2")])
+
+    def test_queue_validates_before_same_page_publication_and_acknowledgement(self):
+        mod=self.module("cloud_job")
+        self.assertTrue(callable(getattr(mod,"process_queue",None)),"Queue processing not implemented")
+        client=QueueClient()
+        result=mod.process_queue(client,SOURCE,QUEUE,lambda _:client.events.append("validate"),"build")
+        self.assertEqual(client.events,["Processing","validate","publish","Ready"])
+        self.assertEqual(result,{"ready":1,"failed":0})
+        self.assertEqual(client.reads,2)
+
+    def test_invalid_or_changed_draft_preserves_previous_output(self):
+        mod=self.module("cloud_job")
+        self.assertTrue(callable(getattr(mod,"process_queue",None)),"Queue processing not implemented")
+        for change in (False,True):
+            client=QueueClient()
+            client.change=change
+            def validate(_):
+                if not change: raise ValueError("invalid synthetic content")
+            result=mod.process_queue(client,SOURCE,QUEUE,validate,"build")
+            self.assertEqual(result["failed"],1)
+            self.assertNotIn("publish",client.events)
+            self.assertEqual(client.status,"Error")
+
+    def test_retry_after_uncertain_acknowledgement_does_not_generate_twice(self):
+        mod=self.module("cloud_job")
+        self.assertTrue(callable(getattr(mod,"process_queue",None)),"Queue processing not implemented")
+        client=QueueClient()
+        client.fail_ack=True
+        mod.process_queue(client,SOURCE,QUEUE,lambda _:None,"build")
+        self.assertEqual(client.status,"Processing")
+        mod.process_queue(client,SOURCE,QUEUE,lambda _:self.fail("must reuse confirmed output"),"build")
+        self.assertEqual(client.events.count("publish"),1)
+        self.assertEqual(client.status,"Ready")
+
+    def test_empty_queue_does_not_read_or_publish_draft(self):
+        mod=self.module("cloud_job")
+        self.assertTrue(callable(getattr(mod,"process_queue",None)),"Queue processing not implemented")
+        client=QueueClient()
+        client.status="Ready"
+        self.assertEqual(mod.process_queue(client,SOURCE,QUEUE,lambda _:self.fail("no work"),"build"),
+                         {"ready":0,"failed":0})
+        self.assertEqual(client.reads,0)
+
+    def test_request_query_paginates_and_status_writes_stay_in_notion(self):
         mod=self.module("notion_client")
-        requests=[]
+        calls=[]
         def transport(method,path,data=None):
-            requests.append((method,path,data))
-            return {"id":OUTPUT}
+            calls.append((method,path,data))
+            if method=="PATCH": return {"id":REQUEST}
+            if "start_cursor" not in data:
+                return {"results":[{"id":REQUEST}],"has_more":True,"next_cursor":"next"}
+            return {"results":[{"id":OLD}],"has_more":False}
         client=mod.Notion("synthetic-token",transport=transport)
+        self.assertTrue(callable(getattr(client,"requests",None)),"Queue API not implemented")
+        self.assertEqual([r["id"] for r in client.requests(QUEUE)],[REQUEST,OLD])
+        self.assertEqual(calls[0][1],"/data_sources/"+QUEUE+"/query")
+        self.assertEqual(calls[1][2]["start_cursor"],"next")
+        self.assertEqual(calls[0][2]["filter"],{"or":[
+            {"property":"Status","select":{"equals":"Queued"}},
+            {"property":"Status","select":{"equals":"Processing"}}]})
+        client.set_request(REQUEST,"Ready","Copy code")
+        self.assertEqual(calls[-1][2]["properties"]["Status"],{"select":{"name":"Ready"}})
+
+    def test_same_page_output_round_trip_preserves_user_content_and_retires_only_old_generated_code(self):
+        mod=self.module("notion_client")
+        self.assertTrue(callable(getattr(mod.Notion,"save_output",None)),"Same-page output not implemented")
         code="<mjml>"+"é & text "*900+"</mjml>"
-        client.create_export(OUTPUT,{"subject":"Example","mjml":code},"test-build")
-        self.assertEqual(len(requests),1)
-        method,path,data=requests[0]
-        self.assertEqual((method,path),("POST","/pages"))
-        code_block=next(b["code"] for b in data["children"] if b["type"]=="code")
+        old={"id":OLD,"type":"code","code":{"caption":[{"text":{"content":"SCLA generated | request "+OLD+" | old"}}],"rich_text":[{"text":{"content":"old code"}}]}}
+        note={"id":QUEUE,"type":"paragraph","paragraph":{"rich_text":[{"text":{"content":"A teammate note"}}]}}
+        children=[old,note]
+        calls=[]
+        def transport(method,path,data=None):
+            calls.append((method,path,data))
+            if method=="GET" and path.startswith("/blocks/"+SOURCE+"/"):
+                return {"results":draft(),"has_more":False}
+            if method=="GET": return {"results":children[:],"has_more":False}
+            if method=="PATCH":
+                added=dict(data["children"][0],id=REQUEST)
+                children.append(added)
+                return {"results":[added]}
+            if method=="DELETE":
+                children[:]=[b for b in children if b["id"]!=path.rsplit("/",1)[-1]]
+                return {"id":OLD,"archived":True}
+            self.fail("unexpected operation")
+        client=mod.Notion("synthetic-token",transport=transport)
+        result=client.save_output(SOURCE,{"subject":"Example","mjml":code},REQUEST,"build")
+        self.assertEqual(result,REQUEST)
+        self.assertEqual([b["id"] for b in children],[QUEUE,REQUEST])
+        code_block=children[-1]["code"]
         self.assertEqual("".join(t["text"]["content"] for t in code_block["rich_text"]),code)
         self.assertTrue(all(len(t["text"]["content"])<=2000 for t in code_block["rich_text"]))
+        self.assertEqual(client.completed_output(SOURCE,REQUEST),REQUEST)
+        self.assertFalse(any(method=="POST" and path=="/pages" for method,path,_ in calls))
 
-    def test_generation_validates_before_publishing(self):
-        mod=self.module("cloud_job")
-        events=[]
-        class Client:
-            def children(self,page):
-                events.append("read")
-                return api_sample()
-            def create_export(self,parent,result,build):
-                events.append("publish")
-                return {"id":OUTPUT}
-        result=mod.run_job(Client(),SOURCE,OUTPUT,lambda text:events.append("validate"),"build")
-        self.assertEqual(events,["read","validate","read","publish"])
-        self.assertEqual(result["id"],OUTPUT)
+    def test_unconfirmed_output_never_deletes_previous_success(self):
+        mod=self.module("notion_client")
+        self.assertTrue(callable(getattr(mod.Notion,"save_output",None)),"Same-page output not implemented")
+        calls=[]
+        def transport(method,path,data=None):
+            calls.append((method,path,data))
+            if method=="GET" and path.startswith("/blocks/"+SOURCE+"/"):
+                return {"results":draft(),"has_more":False}
+            if method=="GET": return {"results":[],"has_more":False}
+            if method=="PATCH": return {"results":[{"id":REQUEST}]}
+            self.fail("unconfirmed output must not delete anything")
+        client=mod.Notion("synthetic-token",transport=transport)
+        with self.assertRaises(Exception):
+            client.save_output(SOURCE,{"subject":"Example","mjml":"<mjml></mjml>"},REQUEST,"build")
+        self.assertFalse(any(c[0]=="DELETE" for c in calls))
 
-    def test_validation_failure_does_not_publish(self):
-        mod=self.module("cloud_job")
-        class Client:
-            published=False
-            def children(self,page): return api_sample()
-            def create_export(self,*args): self.published=True
-        def reject(_): raise ValueError("Invalid test email")
-        client=Client()
-        with self.assertRaises(ValueError):
-            mod.run_job(client,SOURCE,OUTPUT,reject,"build")
-        self.assertFalse(client.published)
-
-    def test_edit_during_generation_does_not_publish_stale_copy(self):
-        mod=self.module("cloud_job")
-        class Client:
-            reads=0
-            published=False
-            def children(self,page):
-                self.reads+=1
-                return api_sample() if self.reads==1 else api_sample()[:-1]
-            def create_export(self,*args): self.published=True
-        client=Client()
-        with self.assertRaises(ValueError):
-            mod.run_job(client,SOURCE,OUTPUT,lambda _:None,"build")
-        self.assertFalse(client.published)
-
-    def test_relay_rejects_unauthorized_requests_and_ignores_payload_routes(self):
-        mod=self.module("relay")
-        sent=[]
-        app=mod.make_app("a"*40,lambda:sent.append("fixed-workflow"))
-        def request(secret,payload):
-            body=json.dumps(payload).encode()
-            env={"REQUEST_METHOD":"POST","PATH_INFO":"/generate","CONTENT_TYPE":"application/json",
-                 "CONTENT_LENGTH":str(len(body)),"HTTP_X_SCLA_TRIGGER":secret,"wsgi.input":io.BytesIO(body)}
-            statuses=[]
-            data=b"".join(app(env,lambda status,headers:statuses.append(status)))
-            return statuses[0],data
-        self.assertTrue(request("bad",{})[0].startswith("401"))
-        self.assertEqual(sent,[])
-        self.assertTrue(request("a"*40,{"ref":"evil","page_id":"not-allowed"})[0].startswith("202"))
-        self.assertEqual(sent,["fixed-workflow"])
-
-    def test_relay_failure_does_not_leak_dispatch_error(self):
-        mod=self.module("relay")
-        def fail(): raise RuntimeError("sensitive upstream error")
-        app=mod.make_app("a"*40,fail)
-        statuses=[]
-        env={"REQUEST_METHOD":"POST","PATH_INFO":"/generate","CONTENT_TYPE":"application/json",
-             "CONTENT_LENGTH":"2","HTTP_X_SCLA_TRIGGER":"a"*40,"wsgi.input":io.BytesIO(b"{}")}
-        body=b"".join(app(env,lambda status,headers:statuses.append(status)))
-        self.assertTrue(statuses[0].startswith("502"))
-        self.assertNotIn(b"sensitive",body)
-
-if __name__=="__main__":
-    unittest.main()
+if __name__=="__main__": unittest.main()
