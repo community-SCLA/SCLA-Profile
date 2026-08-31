@@ -65,16 +65,21 @@ def process_queue(client,source,queue,validate,build):
     return counts
 
 def main():
+    stage="workflow safety check"
     try:
         if (os.environ.get("GITHUB_ACTIONS")!="true"
                 or os.environ.get("GITHUB_REF")!="refs/heads/main"
                 or os.environ.get("GITHUB_EVENT_NAME") not in ("schedule","workflow_dispatch")
                 or os.environ.get("COMMUNITY_EMAIL_ENABLED")!="true"):
             raise RuntimeError("Only the enabled GitHub main workflow may generate.")
+        stage="Notion connection"
         token=os.environ.get("SCLA_EMAIL_NOTION_TOKEN") or os.environ["NOTION_API_KEY"]
         client=Notion(token)
+        stage="draft page lookup"
         source=os.environ.get("SCLA_EMAIL_SOURCE_PAGE_ID") or client.named("Practice draft — do not send","page")
+        stage="request queue lookup"
         queue=os.environ.get("SCLA_EMAIL_QUEUE_DATA_SOURCE_ID") or client.named("Email generation requests","data_source")
+        stage="request processing"
         counts=process_queue(client,source,queue,
                              validate_mjml,os.environ.get("GITHUB_SHA","unknown")[:12])
         if counts["failed"]:
@@ -82,7 +87,7 @@ def main():
             return 1
     except Exception:
         # Never print exception details, identifiers, API responses, or draft text.
-        print("Email worker could not finish. Check its connection and private Notion request list.",file=sys.stderr)
+        print("Email worker stopped during "+stage+". Check the Notion connection and shared pages.",file=sys.stderr)
         return 1
     print("Email queue check completed. Results remain in Notion.")
     return 0
