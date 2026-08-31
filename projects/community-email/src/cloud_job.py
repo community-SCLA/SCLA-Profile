@@ -71,9 +71,11 @@ def main():
                 or os.environ.get("GITHUB_EVENT_NAME") not in ("schedule","workflow_dispatch")
                 or os.environ.get("COMMUNITY_EMAIL_ENABLED")!="true"):
             raise RuntimeError("Only the enabled GitHub main workflow may generate.")
-        client=Notion(os.environ["SCLA_EMAIL_NOTION_TOKEN"])
-        counts=process_queue(client,os.environ["SCLA_EMAIL_SOURCE_PAGE_ID"],
-                             os.environ["SCLA_EMAIL_QUEUE_DATA_SOURCE_ID"],
+        token=os.environ.get("SCLA_EMAIL_NOTION_TOKEN") or os.environ["NOTION_API_KEY"]
+        client=Notion(token)
+        source=os.environ.get("SCLA_EMAIL_SOURCE_PAGE_ID") or client.named("Practice draft — do not send","page")
+        queue=os.environ.get("SCLA_EMAIL_QUEUE_DATA_SOURCE_ID") or client.named("Email generation requests","data_source")
+        counts=process_queue(client,source,queue,
                              validate_mjml,os.environ.get("GITHUB_SHA","unknown")[:12])
         if counts["failed"]:
             print("One or more requests could not be confirmed. Check the private Notion request list.",file=sys.stderr)

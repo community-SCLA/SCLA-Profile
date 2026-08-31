@@ -85,6 +85,33 @@ class Notion:
         raise RemoteError("Notion pagination exceeded the safe limit.")
 
 
+    def named(self,title,kind):
+        if kind not in ("page","data_source"):
+            raise ValueError("Unknown Notion resource type.")
+        matches,cursor,seen=[],None,set()
+        for _ in range(6):
+            body={"query":title,"page_size":100,
+                  "filter":{"property":"object","value":kind}}
+            if cursor: body["start_cursor"]=cursor
+            response=self.transport("POST","/search",body)
+            for item in response.get("results",[]):
+                if item.get("object")!=kind or item.get("in_trash"): continue
+                if kind=="page":
+                    values=[v.get("title",[]) for v in item.get("properties",{}).values()
+                            if v.get("type")=="title"]
+                    label=plain(values[0]) if len(values)==1 else ""
+                else:
+                    label=plain(item.get("title",[]))
+                if label==title: matches.append(identifier(item.get("id")))
+            if not response.get("has_more"): break
+            cursor=response.get("next_cursor")
+            if not cursor or cursor in seen:
+                raise RemoteError("Notion search pagination did not complete.")
+            seen.add(cursor)
+        if len(matches)!=1:
+            raise ValueError("Keep exactly one shared Notion resource named "+title+".")
+        return matches[0]
+
     def requests(self,data_source):
         data_source=identifier(data_source)
         result,cursor,seen=[],None,set()

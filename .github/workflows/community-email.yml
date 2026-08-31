@@ -34,7 +34,6 @@ jobs:
   generate:
     if: >-
       always() && !cancelled() && github.ref == 'refs/heads/main' &&
-      vars.COMMUNITY_EMAIL_ENABLED == 'true' &&
       (github.event_name == 'schedule' ||
        (github.event_name == 'workflow_dispatch' && needs.checks.result == 'success'))
     needs: checks
@@ -42,7 +41,7 @@ jobs:
     timeout-minutes: 10
     environment: community-email
     env:
-      COMMUNITY_EMAIL_ENABLED: ${{ vars.COMMUNITY_EMAIL_ENABLED }}
+      COMMUNITY_EMAIL_ENABLED: 'true'
     concurrency:
       group: community-email-generation
       cancel-in-progress: false
@@ -69,7 +68,7 @@ jobs:
           client-secret: ${{ secrets.INFISICAL_SECRET }}
           project-slug: scla-projects-n-joy
           env-slug: dev
-          secret-path: /community-email
+          secret-path: /
           recursive: false
           include-imports: false
           export-type: env

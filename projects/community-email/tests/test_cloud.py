@@ -55,9 +55,30 @@ class CloudContractTests(unittest.TestCase):
         self.assertIn("${{ secrets.INFISICAL_SECRET }}",workflow)
         self.assertIn("project-slug: scla-projects-n-joy",workflow)
         self.assertIn("env-slug: dev",workflow)
+        self.assertIn("secret-path: /",workflow)
+        self.assertIn("COMMUNITY_EMAIL_ENABLED",workflow)
+        self.assertNotIn("vars.COMMUNITY_EMAIL_ENABLED",workflow)
         self.assertNotIn("method: oidc",workflow)
         self.assertNotIn("COMMUNITY_EMAIL_INFISICAL_IDENTITY_ID",workflow)
         self.assertNotIn("id-token: write",workflow)
+
+    def test_named_resources_are_exact_unique_and_paginated(self):
+        mod=self.module("notion_client")
+        calls=[]
+        page={"object":"page","id":SOURCE,"properties":{"title":{"type":"title","title":[{"text":{"content":"Practice draft — do not send"}}]}}}
+        source={"object":"data_source","id":QUEUE,"title":[{"text":{"content":"Email generation requests"}}]}
+        def transport(method,path,data=None):
+            calls.append((method,path,data))
+            return {"results":[page if data["filter"]["value"]=="page" else source],"has_more":False}
+        client=mod.Notion("synthetic-token",transport=transport)
+        self.assertEqual(client.named("Practice draft — do not send","page"),SOURCE)
+        self.assertEqual(client.named("Email generation requests","data_source"),QUEUE)
+        self.assertEqual([c[1] for c in calls],["/search","/search"])
+        self.assertEqual(calls[1][2]["filter"],{"property":"object","value":"data_source"})
+        def duplicate(method,path,data=None):
+            return {"results":[page,page],"has_more":False}
+        with self.assertRaises(ValueError):
+            mod.Notion("synthetic-token",transport=duplicate).named("Practice draft — do not send","page")
 
     def test_page_read_collects_all_pages(self):
         mod=self.module("notion_client")
