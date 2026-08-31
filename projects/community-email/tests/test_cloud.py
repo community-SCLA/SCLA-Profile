@@ -1,6 +1,7 @@
 import importlib
 import importlib.util
 import unittest
+from pathlib import Path
 from test_convert import api_sample, notion_text
 
 SOURCE="00000000-0000-4000-8000-000000000001"
@@ -46,6 +47,15 @@ class CloudContractTests(unittest.TestCase):
     def module(self,name):
         self.assertIsNotNone(importlib.util.find_spec(name))
         return importlib.import_module(name)
+
+    def test_workflow_uses_only_the_approved_universal_auth_secrets(self):
+        workflow=(Path(__file__).parents[3]/".github/workflows/community-email.yml").read_text()
+        self.assertIn("method: universal",workflow)
+        self.assertIn("${{ secrets.INFISICAL_CLIENT_ID }}",workflow)
+        self.assertIn("${{ secrets.INFISICAL_SECRET }}",workflow)
+        self.assertNotIn("method: oidc",workflow)
+        self.assertNotIn("COMMUNITY_EMAIL_INFISICAL_IDENTITY_ID",workflow)
+        self.assertNotIn("id-token: write",workflow)
 
     def test_page_read_collects_all_pages(self):
         mod=self.module("notion_client")
