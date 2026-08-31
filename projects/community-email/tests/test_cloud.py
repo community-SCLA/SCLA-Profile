@@ -53,6 +53,8 @@ class CloudContractTests(unittest.TestCase):
         self.assertIn("method: universal",workflow)
         self.assertIn("${{ secrets.INFISICAL_CLIENT_ID }}",workflow)
         self.assertIn("${{ secrets.INFISICAL_SECRET }}",workflow)
+        self.assertIn("project-slug: scla-projects-n-joy",workflow)
+        self.assertIn("env-slug: dev",workflow)
         self.assertNotIn("method: oidc",workflow)
         self.assertNotIn("COMMUNITY_EMAIL_INFISICAL_IDENTITY_ID",workflow)
         self.assertNotIn("id-token: write",workflow)

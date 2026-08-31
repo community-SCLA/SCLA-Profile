@@ -67,8 +67,8 @@ jobs:
           method: universal
           client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
           client-secret: ${{ secrets.INFISICAL_SECRET }}
-          project-slug: ${{ vars.COMMUNITY_EMAIL_INFISICAL_PROJECT_SLUG }}
-          env-slug: ${{ vars.COMMUNITY_EMAIL_INFISICAL_ENV_SLUG }}
+          project-slug: scla-projects-n-joy
+          env-slug: dev
           secret-path: /community-email
           recursive: false
           include-imports: false
