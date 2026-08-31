@@ -1,0 +1,52 @@
+name: Community email root metadata check
+on:
+  push:
+    paths:
+      - '.github/workflows/community-email-root-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      INFISICAL_CLIENT_ID: ${{ secrets.INFISICAL_CLIENT_ID }}
+      INFISICAL_CLIENT_SECRET: ${{ secrets.INFISICAL_SECRET }}
+    steps:
+      - name: List matching secret names without retrieving values
+        shell: python
+        run: |
+          import json, os, urllib.parse, urllib.request
+          login = urllib.request.Request(
+              "https://app.infisical.com/api/v1/auth/universal-auth/login",
+              data=json.dumps({
+                  "clientId": os.environ["INFISICAL_CLIENT_ID"],
+                  "clientSecret": os.environ["INFISICAL_CLIENT_SECRET"],
+              }).encode(),
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          with urllib.request.urlopen(login, timeout=30) as response:
+              access = json.load(response)["accessToken"]
+          query = urllib.parse.urlencode({
+              "projectId": "8fcd8cbb-e2c3-4972-b072-6b92bbf4748d",
+              "environment": "dev",
+              "secretPath": "/",
+              "viewSecretValue": "false",
+              "recursive": "false",
+              "expandSecretReferences": "false",
+          })
+          request = urllib.request.Request(
+              "https://app.infisical.com/api/v4/secrets?" + query,
+              headers={"Authorization": "Bearer " + access},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = json.load(response)
+          names = sorted(
+              item.get("secretKey", item.get("name", ""))
+              for item in payload.get("secrets", [])
+              if "NOTION" in item.get("secretKey", item.get("name", "")).upper()
+          )
+          print("Matching secret names: " + (", ".join(names) if names else "none"))
