@@ -1,0 +1,232 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"cta","type":"string","label":"CTA / next-step label text","default":"[[cta]]"},
+    {"id":"next","type":"string","label":"Next-step line","default":"[[next]]"},
+    {"id":"url","type":"string","label":"URL line","default":"thescla.org"},
+    {"id":"sceneIndex","type":"string","label":"Scene index label","default":"06 / NEXT STEP"},
+    {"id":"theme","type":"string","label":"Style package (summit | horizon | cadence)","default":"summit"},
+    {"id":"sceneDuration","type":"string","label":"Scene duration in seconds (compiler-maintained; times the late-phase resolve)","default":"8"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-400.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "proxima-nova"; src: url("assets/fonts/proxima-nova-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      </style>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "proxima-nova", system-ui, sans-serif;
+        }
+        .o-bg {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(120% 140% at 50% 42%, #0d2437 0%, #0a1e2f 80%);
+        }
+        .o-ring {
+          position: absolute;
+          border-radius: 50%;
+        }
+        #o-ring-l1 { left: -300px; top: 240px; width: 640px; height: 740px; border: 3px solid rgba(51, 147, 214, 0.3); }
+        #o-ring-l2 { left: -220px; top: 330px; width: 460px; height: 540px; border: 2px solid rgba(234, 171, 45, 0.26); }
+        #o-ring-r1 { right: -300px; top: -280px; width: 640px; height: 740px; border: 3px solid rgba(234, 171, 45, 0.24); }
+        #o-ring-r2 { right: -210px; top: -190px; width: 460px; height: 540px; border: 2px solid rgba(51, 147, 214, 0.3); }
+        #o-stack {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 250px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        #o-logo {
+          display: flex;
+          align-items: center;
+          gap: 34px;
+        }
+        #o-logo img {
+          height: 132px;
+        }
+        #o-logo-name {
+          width: 560px;
+          font-size: 40px;
+          font-weight: 700;
+          line-height: 1.3;
+          color: #ffffff;
+          text-align: left;
+        }
+        #o-next {
+          margin-top: 66px;
+          width: 1100px;
+          text-align: center;
+          font-size: 40px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: #ffffff;
+          text-wrap: balance;
+        }
+        #o-cta {
+          margin-top: 58px;
+          position: relative;
+          padding-left: 58px;
+          color: #eaab2d;
+          font-size: 42px;
+          font-weight: 900;
+          letter-spacing: 0.005em;
+        }
+        #o-cta::before {
+          content: "→";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #eaab2d;
+          font-weight: 900;
+        }
+        #o-url {
+          margin-top: 54px;
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #3393d6;
+        }
+        /* Closing-beat rule (Motion v2, 2026-07-27): draws under the URL at
+           sceneDuration - 1.0. Gold on the navy canvas reads in all three
+           style packages (the CTA arrow stays gold in every theme too). */
+        #o-url-rule {
+          margin-top: 20px;
+          width: 300px;
+          height: 4px;
+          background: #eaab2d;
+          transform-origin: center;
+          transform: scaleX(0);
+        }
+        #o-baseline {
+          position: absolute;
+          left: 120px;
+          right: 120px;
+          bottom: 96px;
+          height: 2px;
+          background: rgba(188, 211, 228, 0.3);
+          transform-origin: center left;
+        }
+        #o-index {
+          position: absolute;
+          right: 120px;
+          bottom: 52px;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(188, 211, 228, 0.7);
+        }
+        /* Style packages (design-contract.md "Style packages") — visual layer only; timeline identical */
+        #root[data-theme="horizon"] .o-bg { background: radial-gradient(140% 120% at 50% 94%, #0d2437 0%, #0a1e2f 78%); }
+        #root[data-theme="horizon"] #o-ring-l2 { border-color: rgba(255, 255, 255, 0.16); }
+        #root[data-theme="horizon"] #o-ring-r1 { border-color: rgba(51, 147, 214, 0.32); }
+        #root[data-theme="horizon"] #o-url { color: #bcd3e4; }
+        #root[data-theme="cadence"] .o-bg { background: radial-gradient(130% 130% at 50% 12%, #0d2437 0%, #0a1e2f 76%); }
+        #root[data-theme="cadence"] .o-bg::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: #eaab2d; }
+        #root[data-theme="cadence"] #o-ring-l1 { border-color: rgba(234, 171, 45, 0.3); }
+        #root[data-theme="cadence"] #o-ring-r2 { border-color: rgba(234, 171, 45, 0.26); }
+        #root[data-theme="cadence"] #o-baseline { background: rgba(234, 171, 45, 0.45); }
+      </style>
+
+      <div id="root" data-composition-id="scla-outro" data-width="1920" data-height="1080" data-duration="8">
+        <div class="o-bg"></div>
+        <div class="o-ring" id="o-ring-l1" data-layout-allow-overflow></div>
+        <div class="o-ring" id="o-ring-l2" data-layout-allow-overflow></div>
+        <div class="o-ring" id="o-ring-r1" data-layout-allow-overflow></div>
+        <div class="o-ring" id="o-ring-r2" data-layout-allow-overflow></div>
+        <div id="o-stack">
+          <div id="o-logo">
+            <img src="assets/brand/SCLA-logo-icon.svg" alt="SCLA" />
+            <div id="o-logo-name">The Society for Collegiate Leadership &amp; Achievement</div>
+          </div>
+          <div id="o-next">Use your criteria to compare real paths — not just the loudest option.</div>
+          <div id="o-cta">Open your career map</div>
+          <div id="o-url">thescla.org</div>
+          <div id="o-url-rule"></div>
+        </div>
+        <div id="o-baseline"></div>
+        <div id="o-index">06 / NEXT STEP</div>
+      </div>
+
+      <script>
+        (function () {
+          const defaults = {
+            cta: "Open your career map",
+            next: "Use your criteria to compare real paths — not just the loudest option.",
+            url: "thescla.org",
+            sceneIndex: "06 / NEXT STEP",
+            theme: "summit",
+            sceneDuration: "8",
+          };
+          const vars = Object.assign(
+            {},
+            defaults,
+            window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {},
+          );
+          document.getElementById("root").setAttribute("data-theme", vars.theme || "summit");
+          document.getElementById("o-cta").textContent = vars.cta;
+          document.getElementById("o-next").textContent = vars.next;
+          document.getElementById("o-url").textContent = vars.url;
+          document.getElementById("o-index").textContent = vars.sceneIndex;
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          // Entrance settles ≤1.2s (Motion v2, 2026-07-27): hero tweens ≤0.6s.
+          tl.fromTo("#o-logo", { opacity: 0, y: 44, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power4.out" }, 0.05);
+          tl.fromTo("#o-next", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+          tl.fromTo("#o-cta", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.55);
+          tl.fromTo("#o-url", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.75);
+          tl.fromTo("#o-baseline", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.inOut" }, 0.5);
+          // Furniture paints at t=0 (design-contract.md — no bare first frame at a cut;
+          // Motion v2: opacity 0.55 → 1 in ~0.3s so cuts land as a hit).
+          tl.fromTo("#o-index", { opacity: 0.55 }, { opacity: 1, duration: 0.3 }, 0);
+          tl.fromTo("#o-ring-l1", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#o-ring-l2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.08);
+          tl.fromTo("#o-ring-r1", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.04);
+          tl.fromTo("#o-ring-r2", { opacity: 0.55, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.12);
+          tl.fromTo("#o-ring-l1", { scale: 1 }, { scale: 1.05, duration: 3.1, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.4);
+          tl.fromTo("#o-ring-r1", { scale: 1 }, { scale: 1.04, duration: 2.7, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.7);
+          // Depth-drift parallax (promoted 2026-07-14; re-tuned 2026-07-15): the left and
+          // right ring pairs drift in opposite directions — translate-only decorative
+          // parallax in finite sine yoyo cycles sized to register at QA frame sampling.
+          // (The promoted single whole-scene glide moved ~1px/s — pixel-identical between
+          // 0.5s samples — and a 21s outro stagnated 15s: render regression 2026-07-15.)
+          const sdur = Math.max(4, Number(vars.sceneDuration) || 8);
+          const drift = function (sel, ax, ay, per) {
+            tl.fromTo(sel, { x: 0, y: 0 }, { x: ax, y: ay, duration: per, ease: "sine.inOut",
+              yoyo: true, repeat: Math.max(1, Math.ceil(sdur / per) - 1) }, 0);
+          };
+          // Amplitude raised 2026-07-15 to the QA-registering band (owner-approved,
+          // matches the scla-chips fix): 16–30px moved <1 gray level per 48×27 QA
+          // thumbnail px → read static at frame sampling. ~110/70px clears it.
+          drift(["#o-ring-l1", "#o-ring-l2"], 115, 66, 3.4);
+          drift(["#o-ring-r1", "#o-ring-r2"], -108, -58, 2.9);
+          // Idle re-animation of settled content remains banned (owner decisions
+          // 2026-07-14/15 — no CTA re-marks, the settled CTA stays put), but the
+          // cued closing beat below is REQUIRED (Motion contract v2, 2026-07-27) —
+          // an additive NEW element, never re-animation of settled text.
+          // Closing beat (Motion v2): a gold rule draws under the URL in the final second.
+          tl.fromTo("#o-url-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, sdur - 1.0);
+          // NO exit on scla-outro (Motion v2 exemption): the video must end on a
+          // full frame — everything holds to the last frame.
+          window.__timelines["scla-outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

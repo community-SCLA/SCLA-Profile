@@ -135,5 +135,5 @@ drains it; nothing blocks on them.
 Any **skipped-with-question item is owner-actionable** — **ask the human
 directly** what to do with it (AskUserQuestion when the session is interactive),
 don't just list it and move on. If a snag rolled forward to
-`render-qa/snag-log.md`'s Open list, surface it the same way per its header
+`render-qa/logs/snag-log.md`'s Open list, surface it the same way per its header
 rules — the human should never have to open the log.

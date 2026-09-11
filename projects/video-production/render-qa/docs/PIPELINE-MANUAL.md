@@ -141,7 +141,7 @@ renders-mp4/<program>/hyperframes/    local MP4 staging (gitignored, pre-Wistia)
 lesson-scripts/published.tsv          THE machine truth: a stem is done iff it has a row
 lesson-scripts/refinement-log.md      your human-facing ledger (Wistia URLs)
 render-qa/quarantine.log              videos a guard pulled out of a batch
-render-qa/snag-log.md                 latest entry only: session trail + your open items
+render-qa/logs/snag-log.md                 latest entry only: session trail + your open items
 ```
 
 **"What's outstanding?" = `bash scripts/batch-status.sh`.** It rebuilds the

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # wistia-upload.sh — headless upload of a filed lesson MP4 to Wistia.
 #
-# Proven end to end via ad-hoc curl (render-qa/snag-log.md 2026-07-15,
+# Proven end to end via ad-hoc curl (render-qa/logs/snag-log.md 2026-07-15,
 # 2026-07-22): the WISTIA_API token in Infisical is read+write (not delete)
 # and the upload API returns 200 + hashed_id with no web-UI step. This script
 # is the reusable form of that call, wired into /render-lessons SHIP.

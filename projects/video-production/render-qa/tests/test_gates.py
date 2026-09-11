@@ -709,6 +709,70 @@ clean = boundary_ws(
 check("a clean set of boundaries passes",
       not rules_of(clean), str(rules_of(clean)))
 
+# --------------------------------------------------------------------------
+print("== pacing: the plan-stage estimate (2026-07-30) ==")
+
+# On 2026-07-29, 12 of 13 independently authored lessons failed `pacing` the same
+# way — and every one learned it only after 258 TTS clips, because pacing was the
+# one gate that skipped in --static mode. These pin the estimator that closed it.
+import preflight
+
+def pacing_static(scenes_html):
+    return preflight.check_pacing_static(
+        parse_scenes("<div id='root'>" + "".join(scenes_html) + "</div>"))
+
+# 51 words cannot be spoken in 12.5s at ANY rate this voice has produced
+# (p95 is 3.72 w/s). The real m5_skills-for-the-ai-era scene-13 ran 14.9s.
+too_long = " ".join(f"word{i}" for i in range(51))
+r = pacing_static([scene_div(1, "scla-morph", too_long)])
+check("copy that cannot fit the cap at even the fastest observed rate FAILS",
+      not r["pass"] and "cannot be spoken" in r["output"], r["output"])
+
+# The WARN band: over cap at the typical rate, under it at the fast bound.
+# 40 words -> ~14.8s typical, ~10.5s fast. Likely, not certain: must not block.
+warn_only = " ".join(f"word{i}" for i in range(40))
+r = pacing_static([scene_div(1, "scla-morph", warn_only)])
+check("copy that is over cap only at the typical rate WARNS, never blocks",
+      r["pass"] and "WARN" in r["output"], r["output"])
+
+# A title card holds only the opening line — it gets TITLE_CAP, not SCENE_CAP.
+title_long = " ".join(f"word{i}" for i in range(30))
+r = pacing_static([scene_div(1, "scla-title", title_long)])
+check("a title card is graded against the tighter title cap",
+      not r["pass"] and f"{preflight.TITLE_CAP}s cap" in r["output"], r["output"])
+
+# Cue anchors are the static clock: a scene whose only events are the entrance
+# and the closing beat has a gap the length of the scene.
+uncued = " ".join(f"word{i}" for i in range(30))
+r = pacing_static([scene_div(1, "scla-points", uncued)])
+check("a long uncued scene is flagged for its event gap",
+      "no visual event" in r["output"], r["output"])
+
+# ...and resolving an anchor mid-narration closes that gap. The phrase must be
+# real words from the narration, since the estimator locates it by word offset.
+cued_words = ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf",
+              "hotel", "india", "juliet", "kilo", "lima", "mike", "november"]
+cued = " ".join(cued_words)
+scene = scene_div(2, "scla-points", cued,
+                  variables={"pointCues": "0,0"})
+scene = scene.replace('class="clip"',
+                      'data-cue-anchors=\'{"pointCues":["echo","juliet"]}\' class="clip"')
+r = pacing_static([scene])
+check("anchors resolved from the narration count as visual events",
+      "no visual event" not in r["output"], r["output"])
+
+# The calibration rule this repo runs on: a gate that rejects the owner's
+# reference video is a broken gate. Graded live when the workspace is present.
+REF = (RQ.parent / "renders-hyperframes"
+       / "better-decisions-come-from-better-criteria_early-career-boost"
+       / "index.html")
+if REF.is_file():
+    r = preflight.check_pacing_static(parse_scenes(REF.read_text()))
+    check("the owner's reference video passes the static pacing estimate",
+          r["pass"], r["output"])
+else:
+    print("  --  reference workspace absent; skipping reference calibration")
+
 shutil.rmtree(TMP, ignore_errors=True)
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)
