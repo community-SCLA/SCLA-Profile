@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Early Career Boost — Mini-Syllabus</title>
+<!--
+  HyperFrame · SCLA "Early Career Boost" mini-syllabus
+  ----------------------------------------------------
+  Self-contained animated HTML video composition. No external dependencies
+  (no CDN fonts/scripts) so it previews offline and can be screen-recorded.
+
+  Source script : scripts/mini-syllabus_early-career-boost_2026-07-06.txt
+  Brand styling : brand/visual-identity.md (SCLA visual identity)
+
+  Stage is a fixed 1920x1080 (16:9) canvas, auto-scaled to the viewport.
+  A vanilla-JS timeline drives six narration scenes plus a title and
+  closing card, with a persistent brand progress bar and milestone markers.
+  Controls: Space = play/pause · R = restart · click stage = play/pause.
+-->
+<style>
+  :root {
+    /* SCLA design tokens — brand/visual-identity.md */
+    --darkBlue:  #0d2437; /* Primary — headings, dark backgrounds, nav */
+    --darkBlue2: #0a1e2f; /* Primary dark — deepest backgrounds, footer */
+    --blue:      #3393d6; /* Secondary — subheads, links, accents, progress fill */
+    --yellow:    #eaab2d; /* Accent / CTA — highlights, milestones */
+    --yellow-lt: #ffd355; /* Button active (lighter yellow) */
+    --text:      #292f35; /* Body copy on light */
+    --white:     #ffffff;
+    --cultured:  #f6f6f9; /* Light section fill */
+    --bright-gray: #e5eff6; /* Subtle card fill */
+    --periwinkle: #cccedf; /* Borders / dividers */
+    --ceil:      #98a4cc; /* Muted UI text */
+
+    --radius: 12px;
+    --radius-pill: 100px;
+    --animate: 300ms ease-in-out;
+
+    /* Proxima Nova is the brand font; fall back to a clean geometric sans
+       stack since the licensed font isn't bundled with this standalone file. */
+    --font: "Proxima Nova", proxima-nova, "Century Gothic", "Avenir Next",
+            "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #05121d;
+    font-family: var(--font);
+    overflow: hidden;
+  }
+
+  /* ---- Stage: fixed 16:9 canvas, centered & scaled ---- */
+  #viewport {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+  #stage {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    transform-origin: center center;
+    background: var(--white);
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,.55);
+  }
+
+  /* ---- Scenes ---- */
+  .scene {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    padding: 120px 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: opacity 600ms ease-in-out, visibility 600ms ease-in-out;
+  }
+  .scene.active { opacity: 1; visibility: visible; }
+
+  .scene.dark  { background: var(--darkBlue); color: var(--white); }
+  .scene.darker{ background: var(--darkBlue2); color: var(--white); }
+  .scene.light { background: var(--white); color: var(--text); }
+  .scene.tint  { background: var(--cultured); color: var(--text); }
+
+  /* Decorative navy corner band on light scenes */
+  .scene.light::before, .scene.tint::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 14px; height: 100%;
+    background: linear-gradient(var(--darkBlue), var(--blue));
+  }
+
+  /* ---- Kicker / eyebrow label ---- */
+  .kicker {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 34px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .scene.light .kicker, .scene.tint .kicker { color: var(--blue); }
+  .kicker .dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--yellow);
+  }
+  .scene.light .kicker .dot, .scene.tint .kicker .dot { background: var(--yellow); }
+
+  /* ---- Headings & body ---- */
+  h1.title {
+    font-size: 150px;
+    font-weight: 900;
+    line-height: .96;
+    letter-spacing: -.02em;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  h2.headline {
+    font-size: 78px;
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -.015em;
+    max-width: 1400px;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .scene.light h2.headline, .scene.tint h2.headline { color: var(--darkBlue); }
+
+  p.body {
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.42;
+    max-width: 1360px;
+    margin-top: 40px;
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .scene.dark p.body, .scene.darker p.body { color: #dfe8f2; }
+  p.body b { font-weight: 700; color: var(--blue); }
+  .scene.dark p.body b, .scene.darker p.body b { color: var(--yellow); }
+
+  /* ---- Reveal animation applied when scene is active ---- */
+  .scene.active .kicker   { animation: rise 620ms 120ms both cubic-bezier(.2,.7,.2,1); }
+  .scene.active h1.title  { animation: rise 760ms 220ms both cubic-bezier(.2,.7,.2,1); }
+  .scene.active h2.headline { animation: rise 700ms 200ms both cubic-bezier(.2,.7,.2,1); }
+  .scene.active p.body    { animation: rise 720ms 380ms both cubic-bezier(.2,.7,.2,1); }
+  .scene.active .stagger > * { animation: rise 620ms both cubic-bezier(.2,.7,.2,1); }
+  .scene.active .stagger > *:nth-child(1){ animation-delay: 480ms; }
+  .scene.active .stagger > *:nth-child(2){ animation-delay: 620ms; }
+  .scene.active .stagger > *:nth-child(3){ animation-delay: 760ms; }
+  .scene.active .stagger > *:nth-child(4){ animation-delay: 900ms; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Pills / chips ---- */
+  .chips { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 56px; }
+  .chip {
+    font-size: 30px; font-weight: 600;
+    padding: 20px 40px;
+    border-radius: var(--radius-pill);
+    background: var(--bright-gray);
+    color: var(--darkBlue);
+    border: 2px solid var(--periwinkle);
+    display: inline-flex; align-items: center; gap: 16px;
+  }
+  .scene.dark .chip, .scene.darker .chip {
+    background: rgba(255,255,255,.06);
+    color: #eaf2fb;
+    border-color: rgba(255,255,255,.18);
+  }
+  .chip .tick {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--yellow); color: var(--darkBlue);
+    display: inline-grid; place-items: center;
+    font-size: 20px; font-weight: 900;
+  }
+
+  /* ---- Question cards (scene 4) ---- */
+  .qgrid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 26px;
+    margin-top: 52px; max-width: 1500px;
+  }
+  .qcard {
+    background: rgba(255,255,255,.06);
+    border: 2px solid rgba(255,255,255,.16);
+    border-left: 8px solid var(--yellow);
+    border-radius: var(--radius);
+    padding: 34px 40px;
+    font-size: 34px; font-weight: 600; line-height: 1.28;
+    color: #eaf2fb;
+  }
+
+  /* ---- CTA button (closing) ---- */
+  .cta {
+    display: inline-flex; align-items: center; gap: 22px;
+    margin-top: 64px;
+    font-size: 40px; font-weight: 700;
+    padding: 30px 62px;
+    border-radius: var(--radius-pill);
+    background: var(--yellow);
+    color: var(--darkBlue);
+    box-shadow: 0 16px 40px rgba(234,171,45,.35);
+    opacity: 0;
+  }
+  .scene.active .cta { animation: rise 700ms 620ms both cubic-bezier(.2,.7,.2,1); }
+  .cta .step {
+    background: var(--darkBlue); color: var(--white);
+    font-size: 26px; font-weight: 700;
+    padding: 10px 24px; border-radius: var(--radius-pill);
+  }
+
+  /* ---- Title-frame flourish ---- */
+  .title-mark {
+    display: inline-block; height: 20px; width: 200px;
+    background: var(--yellow); border-radius: var(--radius-pill);
+    margin-top: 54px; transform: scaleX(0); transform-origin: left;
+  }
+  .scene.active .title-mark { animation: grow 900ms 640ms both cubic-bezier(.2,.7,.2,1); }
+  @keyframes grow { to { transform: scaleX(1); } }
+
+  .brandline {
+    position: absolute; bottom: 96px; left: 160px;
+    font-size: 30px; font-weight: 600; letter-spacing: .04em;
+    color: #9fb6cc; opacity: 0;
+  }
+  .scene.active .brandline { animation: rise 700ms 900ms both ease-out; }
+  .brandline b { color: var(--white); font-weight: 800; }
+
+  /* ---- Persistent progress bar (brand milestone motif) ---- */
+  #progress-wrap {
+    position: absolute; left: 160px; right: 160px; bottom: 64px;
+    height: 54px; display: flex; align-items: center; gap: 22px;
+    z-index: 5;
+  }
+  #track {
+    position: relative; flex: 1; height: 12px;
+    background: rgba(152,164,204,.28);
+    border-radius: var(--radius-pill);
+    overflow: visible;
+  }
+  /* On light scenes the track sits over white — deepen it a touch */
+  .stage-light #track { background: var(--bright-gray); }
+  #fill {
+    position: absolute; left: 0; top: 0; height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--blue), var(--yellow));
+    border-radius: var(--radius-pill);
+    transition: width 600ms ease-in-out;
+  }
+  .milestone {
+    position: absolute; top: 50%; width: 26px; height: 26px;
+    margin: -13px 0 0 -13px; border-radius: 50%;
+    background: var(--white); border: 3px solid var(--periwinkle);
+    display: grid; place-items: center;
+    font-size: 15px; font-weight: 900; color: transparent;
+    transition: all var(--animate);
+  }
+  .milestone.done {
+    background: var(--yellow); border-color: var(--yellow); color: var(--darkBlue);
+  }
+  #ptext {
+    font-size: 24px; font-weight: 700; color: var(--ceil);
+    white-space: nowrap; min-width: 210px; text-align: right;
+  }
+  .stage-dark #ptext { color: #9fb6cc; }
+
+  /* ---- Playback controls (not part of the render) ---- */
+  #controls {
+    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; align-items: center;
+    background: rgba(10,30,47,.82); backdrop-filter: blur(6px);
+    padding: 10px 16px; border-radius: var(--radius-pill);
+    z-index: 50; font-size: 14px; color: #cfe0f0;
+  }
+  #controls button {
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    color: var(--darkBlue); background: var(--yellow);
+    border: none; border-radius: var(--radius-pill);
+    padding: 8px 18px; cursor: pointer; transition: background var(--animate);
+  }
+  #controls button:hover { background: var(--yellow-lt); }
+  #controls .sub { opacity: .7; }
+</style>
+</head>
+<body>
+  <div id="viewport">
+    <div id="stage" class="stage-dark">
+
+      <!-- 0 · Title -->
+      <section class="scene dark active" data-dur="5200">
+        <div class="kicker"><span class="dot"></span>SCLA · Career Accelerator</div>
+        <h1 class="title">Early Career<br>Boost</h1>
+        <span class="title-mark"></span>
+        <div class="brandline">A <b>mini-syllabus</b> — what this program is, and where it takes you.</div>
+      </section>
+
+      <!-- 1 · Welcome -->
+      <section class="scene dark" data-dur="9000">
+        <div class="kicker"><span class="dot"></span>Welcome</div>
+        <h2 class="headline">We're really glad you're here.</h2>
+        <p class="body">Early Career Boost is designed for learners exploring their future, making
+        early-career decisions, or just figuring out what comes next — and it's part of your broader
+        <b>Career Accelerator</b> journey.</p>
+      </section>
+
+      <!-- 2 · Progress & milestones -->
+      <section class="scene light" data-dur="8500">
+        <div class="kicker"><span class="dot"></span>Your Progress</div>
+        <h2 class="headline">Every step is a milestone.</h2>
+        <p class="body">As you move through the track, each step builds your <b>career foundation</b>.
+        Your progress bar always shows exactly where you are — and what's ahead.</p>
+      </section>
+
+      <!-- 3 · Tools & support -->
+      <section class="scene tint" data-dur="10500">
+        <div class="kicker"><span class="dot"></span>Tools &amp; Support</div>
+        <h2 class="headline">Simple tools, real support.</h2>
+        <div class="chips stagger">
+          <span class="chip"><span class="tick">✓</span>Click-through activities</span>
+          <span class="chip"><span class="tick">✓</span>Short reflections</span>
+          <span class="chip"><span class="tick">✓</span>Uploads</span>
+          <span class="chip"><span class="tick">✓</span>Career Mapping Tool</span>
+        </div>
+        <p class="body">Stuck? Get help in the <b>#questionsupport</b> channel or reach our member
+        support team — plus resources built for your long-term career design.</p>
+      </section>
+
+      <!-- 4 · What you'll learn -->
+      <section class="scene dark" data-dur="11000">
+        <div class="kicker"><span class="dot"></span>What You'll Learn</div>
+        <h2 class="headline">A fulfilling career starts with mindset.</h2>
+        <p class="body">We'll help you name limiting beliefs and shift toward a <b>growth mindset</b> —
+        one that opens up possibilities. Then you'll explore:</p>
+        <div class="qgrid stagger">
+          <div class="qcard">What makes a dream job today — do they even still exist?</div>
+          <div class="qcard">What skills matter most in an AI-driven world?</div>
+          <div class="qcard">How do you network and build a resume that works?</div>
+          <div class="qcard">How do you search for real opportunities — and move?</div>
+        </div>
+      </section>
+
+      <!-- 5 · Career commitment -->
+      <section class="scene tint" data-dur="9000">
+        <div class="kicker"><span class="dot"></span>Your First Step</div>
+        <h2 class="headline">Make a career commitment statement.</h2>
+        <p class="body">Simple, but powerful. Write it in your <b>Workbook</b> or with the
+        <b>AI-Career Commitment tool</b> — we encourage using both to get the practice, but it's up to you.</p>
+      </section>
+
+      <!-- 6 · Closing / CTA -->
+      <section class="scene darker" data-dur="9000">
+        <div class="kicker"><span class="dot"></span>Because It's About Doing</div>
+        <h2 class="headline">Submit it as your first step.</h2>
+        <p class="body">Career development isn't just thinking — it's doing. From here you'll complete
+        short activities, check off milestones, and build practical skills that bring you closer to your goals.</p>
+        <span class="cta"><span class="step">Step 1</span>Make your commitment</span>
+      </section>
+
+      <!-- Persistent progress bar + milestones -->
+      <div id="progress-wrap">
+        <div id="track"><div id="fill"></div></div>
+        <div id="ptext">Getting started</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="controls">
+    <button id="btn-play">Pause</button>
+    <button id="btn-restart">Restart</button>
+    <span class="sub">Space · play/pause &nbsp;·&nbsp; R · restart</span>
+  </div>
+
+<script>
+(function () {
+  var stage   = document.getElementById('stage');
+  var scenes  = Array.prototype.slice.call(stage.querySelectorAll('.scene'));
+  var fill    = document.getElementById('fill');
+  var track   = document.getElementById('track');
+  var ptext   = document.getElementById('ptext');
+  var btnPlay = document.getElementById('btn-play');
+  var btnRst  = document.getElementById('btn-restart');
+
+  // Progress-bar labels shown per scene (title scene has no milestone).
+  var labels = [
+    'Getting started',      // 0 title
+    'Welcome',              // 1
+    'Milestone 1 of 5',     // 2
+    'Milestone 2 of 5',     // 3
+    'Milestone 3 of 5',     // 4
+    'Milestone 4 of 5',     // 5
+    'Milestone 5 of 5'      // 6
+  ];
+  // Scenes that represent a completed learner milestone (drives the dots + fill).
+  var milestoneScenes = [2, 3, 4, 5, 6];
+  var TOTAL_MS = 5;
+
+  // Build milestone dots along the track.
+  var dots = [];
+  for (var i = 0; i < TOTAL_MS; i++) {
+    var d = document.createElement('div');
+    d.className = 'milestone';
+    d.style.left = (((i + 1) / TOTAL_MS) * 100) + '%';
+    d.textContent = '✓';
+    track.appendChild(d);
+    dots.push(d);
+  }
+
+  var idx = 0, playing = true, timer = null;
+
+  function applyStageTheme(scene) {
+    var dark = scene.classList.contains('dark') || scene.classList.contains('darker');
+    stage.classList.toggle('stage-dark', dark);
+    stage.classList.toggle('stage-light', !dark);
+  }
+
+  function updateProgress() {
+    var done = 0;
+    for (var m = 0; m < milestoneScenes.length; m++) {
+      if (idx >= milestoneScenes[m]) { dots[m].classList.add('done'); done++; }
+      else { dots[m].classList.remove('done'); }
+    }
+    fill.style.width = ((done / TOTAL_MS) * 100) + '%';
+    ptext.textContent = labels[idx] || '';
+  }
+
+  function show(n) {
+    scenes[idx].classList.remove('active');
+    idx = n;
+    var scene = scenes[idx];
+    // Restart the scene's entrance animations by reflow.
+    scene.classList.remove('active');
+    void scene.offsetWidth;
+    scene.classList.add('active');
+    applyStageTheme(scene);
+    updateProgress();
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    if (!playing) return;
+    var dur = parseInt(scenes[idx].getAttribute('data-dur'), 10) || 8000;
+    timer = setTimeout(function () {
+      show((idx + 1) % scenes.length);
+      schedule();
+    }, dur);
+  }
+
+  function setPlaying(p) {
+    playing = p;
+    btnPlay.textContent = p ? 'Pause' : 'Play';
+    if (p) schedule(); else clearTimeout(timer);
+  }
+
+  btnPlay.addEventListener('click', function () { setPlaying(!playing); });
+  btnRst.addEventListener('click', function () { show(0); setPlaying(true); schedule(); });
+  stage.addEventListener('click', function () { setPlaying(!playing); });
+  document.addEventListener('keydown', function (e) {
+    if (e.code === 'Space') { e.preventDefault(); setPlaying(!playing); }
+    if (e.key === 'r' || e.key === 'R') { show(0); setPlaying(true); schedule(); }
+  });
+
+  // Scale the 1920x1080 stage to fit the viewport.
+  function fit() {
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var s = Math.min(vw / 1920, vh / 1080);
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit);
+
+  fit();
+  applyStageTheme(scenes[0]);
+  updateProgress();
+  schedule();
+})();
+</script>
+</body>
+</html>
